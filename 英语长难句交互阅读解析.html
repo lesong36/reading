@@ -51,16 +51,41 @@
     import { getFirestore, doc, setDoc, deleteDoc, collection, onSnapshot } from 'https://esm.sh/firebase@10.8.1/firestore';
 
     // Firebase Configuration
-    let auth, db, appId = 'default-app-id';
+    const FIREBASE_CONFIG_STORAGE_KEY = 'reader_firebase_config';
+    const getStoredFirebaseConfig = () => {
+      try {
+        const stored = localStorage.getItem(FIREBASE_CONFIG_STORAGE_KEY);
+        return stored ? JSON.parse(stored) : null;
+      } catch (error) {
+        console.warn('Stored Firebase config is invalid:', error);
+        return null;
+      }
+    };
+
+    let auth, db, appId = 'default-app-id', firebaseConfigSource = 'none';
     if (typeof __firebase_config !== 'undefined') {
       try {
         const firebaseConfig = JSON.parse(__firebase_config);
         const app = initializeApp(firebaseConfig);
         auth = getAuth(app);
         db = getFirestore(app);
+        firebaseConfigSource = 'runtime';
         if (typeof __app_id !== 'undefined') appId = __app_id;
       } catch (e) {
         console.error('Firebase Initialization Error:', e);
+      }
+    } else {
+      const storedFirebaseConfig = getStoredFirebaseConfig();
+      if (storedFirebaseConfig) {
+        try {
+          const app = initializeApp(storedFirebaseConfig);
+          auth = getAuth(app);
+          db = getFirestore(app);
+          appId = storedFirebaseConfig.projectId || appId;
+          firebaseConfigSource = 'local';
+        } catch (e) {
+          console.error('Stored Firebase Initialization Error:', e);
+        }
       }
     }
 
@@ -749,6 +774,42 @@
       vocabBook: vocab
     });
 
+    const normalizeSavedArticles = (articles = []) =>
+      Array.isArray(articles)
+        ? articles.map(article => ({
+            ...article,
+            data: normalizeArticleData(article.data)
+          }))
+        : [];
+
+    const normalizeVocabBook = (vocab = []) => Array.isArray(vocab) ? vocab : [];
+
+    const mergeSavedArticles = (current = [], incoming = []) => {
+      const byId = new Map();
+      [...normalizeSavedArticles(current), ...normalizeSavedArticles(incoming)].forEach(article => {
+        if (!article || !article.id) return;
+        const existing = byId.get(article.id);
+        if (!existing || (article.timestamp || 0) >= (existing.timestamp || 0)) {
+          byId.set(article.id, article);
+        }
+      });
+      return Array.from(byId.values()).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+    };
+
+    const mergeVocabBook = (current = [], incoming = []) => {
+      const byKey = new Map();
+      [...normalizeVocabBook(current), ...normalizeVocabBook(incoming)].forEach(word => {
+        if (!word) return;
+        const key = (word.word || word.id || '').toString().trim().toLowerCase();
+        if (!key) return;
+        const existing = byKey.get(key);
+        if (!existing || (word.timestamp || 0) >= (existing.timestamp || 0)) {
+          byKey.set(key, word);
+        }
+      });
+      return Array.from(byKey.values()).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+    };
+
     const readLocalDataFile = async () => {
       if (!navigator.storage?.getDirectory) {
         throw new Error('当前浏览器不支持本地文件持久化。');
@@ -1162,6 +1223,19 @@
       const [isLoginMode, setIsLoginMode] = useState(true);
       const [authError, setAuthError] = useState("");
       const [isAuthenticating, setIsAuthenticating] = useState(false);
+      const [showCloudSettings, setShowCloudSettings] = useState(false);
+      const [firebaseConfigInput, setFirebaseConfigInput] = useState(() => {
+        const stored = getStoredFirebaseConfig();
+        return stored ? JSON.stringify(stored, null, 2) : "";
+      });
+      const [cloudSyncStatus, setCloudSyncStatus] = useState(() => ({
+        enabled: Boolean(auth && db),
+        message: auth && db ? '云同步已准备好，请登录账号。' : '云同步未配置，当前仅保存到本机。'
+      }));
+      const cloudDataLoadedRef = useRef(false);
+      const cloudDataInitializedRef = useRef(false);
+      const cloudDataWriteTimerRef = useRef(null);
+      const lastCloudSnapshotRef = useRef("");
       const [localPersistenceStatus, setLocalPersistenceStatus] = useState(() => ({
         enabled: false,
         message: '正在准备本地数据文件...'
@@ -1175,12 +1249,7 @@
         if (!saved) return [];
         try {
           const parsed = JSON.parse(saved);
-          return Array.isArray(parsed)
-            ? parsed.map(article => ({
-                ...article,
-                data: normalizeArticleData(article.data)
-              }))
-            : [];
+          return normalizeSavedArticles(parsed);
         } catch (error) {
           return [];
         }
@@ -1191,7 +1260,11 @@
       // --- 本地生词本逻辑 (Local Storage + OPFS File) ---
       const [vocabBook, setVocabBook] = useState(() => {
         const saved = localStorage.getItem('my_local_vocab_book');
-        return saved ? JSON.parse(saved) : [];
+        try {
+          return saved ? normalizeVocabBook(JSON.parse(saved)) : [];
+        } catch (error) {
+          return [];
+        }
       });
 
       const [vocabPopup, setVocabPopup] = useState(null);
@@ -1247,6 +1320,90 @@
           }
         }, 500);
       }, [savedArticles, vocabBook, localPersistenceStatus.enabled]);
+
+      useEffect(() => {
+        if (!db || !user || user.isAnonymous) {
+          cloudDataLoadedRef.current = false;
+          cloudDataInitializedRef.current = false;
+          lastCloudSnapshotRef.current = "";
+          setCloudSyncStatus({
+            enabled: Boolean(db),
+            message: db ? '登录后会自动同步文章和生词本。' : '云同步未配置，当前仅保存到本机。'
+          });
+          return;
+        }
+
+        cloudDataInitializedRef.current = false;
+
+        const dataDoc = doc(db, 'artifacts', appId, 'users', user.uid, 'readerData', 'library');
+        setCloudSyncStatus({ enabled: true, message: '正在连接云端数据...' });
+
+        const unsubscribe = onSnapshot(dataDoc, (snapshot) => {
+          const data = snapshot.exists() ? snapshot.data() : {};
+          const cloudArticles = normalizeSavedArticles(data.savedArticles || []);
+          const cloudVocab = normalizeVocabBook(data.vocabBook || []);
+          lastCloudSnapshotRef.current = JSON.stringify({
+            savedArticles: cloudArticles,
+            vocabBook: cloudVocab
+          });
+          cloudDataLoadedRef.current = true;
+
+          if (!cloudDataInitializedRef.current) {
+            cloudDataInitializedRef.current = true;
+            setSavedArticles(prev => mergeSavedArticles(prev, cloudArticles));
+            setVocabBook(prev => mergeVocabBook(prev, cloudVocab));
+          } else {
+            setSavedArticles(cloudArticles);
+            setVocabBook(cloudVocab);
+          }
+          setCloudSyncStatus({
+            enabled: true,
+            message: snapshot.exists()
+              ? `云同步已连接：${cloudArticles.length} 篇文章，${cloudVocab.length} 个单词。`
+              : '云同步已连接：云端暂无数据，本机数据会自动上传。'
+          });
+        }, (error) => {
+          cloudDataLoadedRef.current = false;
+          setCloudSyncStatus({
+            enabled: false,
+            message: `云同步读取失败：${error.message}`
+          });
+        });
+
+        return () => {
+          unsubscribe();
+          if (cloudDataWriteTimerRef.current) clearTimeout(cloudDataWriteTimerRef.current);
+        };
+      }, [user]);
+
+      useEffect(() => {
+        if (!db || !user || user.isAnonymous || !cloudDataLoadedRef.current) return;
+
+        const payload = createLocalDataSnapshot(savedArticles, vocabBook);
+        const snapshotKey = JSON.stringify({
+          savedArticles: payload.savedArticles,
+          vocabBook: payload.vocabBook
+        });
+        if (snapshotKey === lastCloudSnapshotRef.current) return;
+
+        if (cloudDataWriteTimerRef.current) clearTimeout(cloudDataWriteTimerRef.current);
+        cloudDataWriteTimerRef.current = setTimeout(async () => {
+          try {
+            const dataDoc = doc(db, 'artifacts', appId, 'users', user.uid, 'readerData', 'library');
+            await setDoc(dataDoc, payload, { merge: true });
+            lastCloudSnapshotRef.current = snapshotKey;
+            setCloudSyncStatus({
+              enabled: true,
+              message: `云同步已保存：${savedArticles.length} 篇文章，${vocabBook.length} 个单词。`
+            });
+          } catch (error) {
+            setCloudSyncStatus({
+              enabled: false,
+              message: `云同步写入失败：${error.message}`
+            });
+          }
+        }, 800);
+      }, [savedArticles, vocabBook, user]);
 
       // --- 全局自定义 UI 弹窗状态 ---
       const [toastMessage, setToastMessage] = useState("");
@@ -1960,6 +2117,21 @@
         }
       };
 
+      const handleSaveFirebaseConfig = () => {
+        try {
+          const parsed = JSON.parse(firebaseConfigInput);
+          if (!parsed.apiKey || !parsed.authDomain || !parsed.projectId || !parsed.appId) {
+            setAuthError('Firebase 配置缺少 apiKey、authDomain、projectId 或 appId。');
+            return;
+          }
+          localStorage.setItem(FIREBASE_CONFIG_STORAGE_KEY, JSON.stringify(parsed));
+          setToastMessage('✅ Firebase 配置已保存，页面即将刷新以启用云同步。');
+          setTimeout(() => window.location.reload(), 800);
+        } catch (error) {
+          setAuthError(`Firebase 配置不是合法 JSON：${error.message}`);
+        }
+      };
+
       // --- Vocab / Dictionary Logic ---
       const handleAddWordToVocab = async (word, contextSentenceText) => {
         if (vocabBook.some(v => v.word === word)) return; 
@@ -2412,7 +2584,69 @@
                   <Bot className="w-4 h-4" />
                   AI 设置
                 </button>
+                <button
+                  onClick={() => auth ? setShowLoginModal(true) : setShowCloudSettings(prev => !prev)}
+                  className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-colors shadow-sm ${
+                    user && !user.isAnonymous
+                      ? 'bg-emerald-600 text-white'
+                      : showCloudSettings
+                        ? 'bg-sky-700 text-white'
+                        : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
+                  }`}
+                >
+                  <User className="w-4 h-4" />
+                  {user && !user.isAnonymous ? '云同步账号' : (auth ? '登录同步' : '配置云同步')}
+                </button>
               </div>
+
+              <div className={`mt-3 text-xs ${cloudSyncStatus.enabled ? 'text-emerald-700' : 'text-amber-700'}`}>
+                {cloudSyncStatus.message}
+              </div>
+
+              {showCloudSettings && (
+                <div className="mt-5 w-full max-w-5xl bg-white/95 backdrop-blur rounded-[28px] border border-slate-200 shadow-xl p-5 md:p-6 animate-in fade-in slide-in-from-top-2 text-left">
+                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-5">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.25em] text-sky-400 font-semibold mb-2">Cloud Sync</p>
+                      <h2 className="text-xl font-bold text-slate-900">跨电脑同步文章和生词本</h2>
+                      <p className="text-sm text-slate-500 mt-2 max-w-3xl">
+                        GitHub Pages 只能托管网页，不能保存每个用户的 JSON。这里用 Firebase Firestore 保存 `savedArticles` 和 `vocabBook`，同一账号在其他电脑登录后会自动合并同步。
+                      </p>
+                    </div>
+                    <span className={`text-xs px-3 py-1 rounded-full font-semibold self-start ${auth ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
+                      {auth ? 'Firebase 已启用' : '需要 Firebase 配置'}
+                    </span>
+                  </div>
+
+                  {!auth ? (
+                    <div className="mt-5 space-y-4">
+                      <label className="block text-sm font-medium text-slate-700">Firebase Web App 配置 JSON</label>
+                      <textarea
+                        value={firebaseConfigInput}
+                        onChange={(e) => setFirebaseConfigInput(e.target.value)}
+                        className="w-full min-h-[180px] rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 font-mono text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
+                        placeholder={`{\n  "apiKey": "...",\n  "authDomain": "...firebaseapp.com",\n  "projectId": "...",\n  "storageBucket": "...",\n  "messagingSenderId": "...",\n  "appId": "..."\n}`}
+                        spellCheck="false"
+                      />
+                      {authError && <p className="text-sm text-red-600">{authError}</p>}
+                      <div className="flex flex-wrap items-center gap-3">
+                        <button
+                          onClick={handleSaveFirebaseConfig}
+                          className="inline-flex items-center gap-2 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white px-4 py-2.5 text-sm font-semibold transition-colors"
+                        >
+                          <Save className="w-4 h-4" />
+                          保存并启用
+                        </button>
+                        <p className="text-xs text-slate-500">保存后配置只存在当前浏览器；网页源码不会公开你的 Firebase 配置。</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="mt-5 rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4 text-sm leading-7 text-emerald-900">
+                      云同步已配置。点击顶部“登录同步”，用邮箱密码注册或登录；同一账号的数据会在不同电脑之间自动合并同步。
+                    </div>
+                  )}
+                </div>
+              )}
 
               {showAiSettings && (
                 <div className="mt-5 w-full max-w-5xl bg-white/95 backdrop-blur rounded-[28px] border border-slate-200 shadow-xl p-5 md:p-6 animate-in fade-in slide-in-from-top-2 text-left">
@@ -3401,6 +3635,100 @@
                       保存
                     </button>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* Cloud Sync Login Modal */}
+            {showLoginModal && (
+              <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-[110] p-4">
+                <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 relative animate-in zoom-in-95">
+                  <button
+                    onClick={() => {
+                      setShowLoginModal(false);
+                      setAuthError("");
+                    }}
+                    className="absolute top-4 right-4 text-slate-400 hover:text-slate-600"
+                    title="关闭"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+
+                  <h3 className="text-lg font-bold text-slate-800 mb-2 flex items-center gap-2">
+                    <User className="w-5 h-5 text-emerald-600" />
+                    {user && !user.isAnonymous ? '云同步账号' : (isLoginMode ? '登录云同步' : '注册云同步账号')}
+                  </h3>
+                  <p className="text-sm text-slate-500 mb-5">
+                    文章书架和生词本会按这个账号保存到云端；其他电脑打开网页后登录同一账号即可同步。
+                  </p>
+
+                  {user && !user.isAnonymous ? (
+                    <div className="space-y-4">
+                      <div className="rounded-2xl border border-emerald-100 bg-emerald-50 p-4 text-sm text-emerald-900">
+                        当前已登录：{user.email || user.uid}
+                        <div className="mt-2 text-xs">{cloudSyncStatus.message}</div>
+                      </div>
+                      <button
+                        onClick={handleLogout}
+                        className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white px-4 py-2.5 font-semibold transition-colors"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        退出账号
+                      </button>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleAuthSubmit} className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">邮箱</label>
+                        <input
+                          type="email"
+                          value={loginEmail}
+                          onChange={(e) => setLoginEmail(e.target.value)}
+                          className="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+                          autoComplete="email"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">密码</label>
+                        <input
+                          type="password"
+                          value={loginPassword}
+                          onChange={(e) => setLoginPassword(e.target.value)}
+                          className="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+                          autoComplete={isLoginMode ? 'current-password' : 'new-password'}
+                          required
+                        />
+                      </div>
+                      {authError && <p className="text-sm text-red-600 whitespace-pre-line">{authError}</p>}
+                      <button
+                        type="submit"
+                        disabled={isAuthenticating}
+                        className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 font-semibold transition-colors disabled:opacity-70"
+                      >
+                        {isAuthenticating ? <Loader2 className="w-4 h-4 animate-spin" /> : <KeyRound className="w-4 h-4" />}
+                        {isLoginMode ? '登录并同步' : '注册并同步'}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleGoogleLogin}
+                        disabled={isAuthenticating}
+                        className="w-full rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 px-4 py-2.5 font-semibold transition-colors disabled:opacity-70"
+                      >
+                        使用 Google 登录
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsLoginMode(prev => !prev);
+                          setAuthError("");
+                        }}
+                        className="w-full text-sm font-semibold text-emerald-700 hover:text-emerald-800"
+                      >
+                        {isLoginMode ? '没有账号？切换到注册' : '已有账号？切换到登录'}
+                      </button>
+                    </form>
+                  )}
                 </div>
               </div>
             )}
