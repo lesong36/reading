@@ -1,0 +1,3417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>英语长难句交互阅读解析</title>
+  
+  <!-- 引入 Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- 引入 Babel 以在浏览器中编译 JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+  <style>
+    /* 模拟 tailwindcss-animate 插件的动画效果，保证 UI 优雅过渡 */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideInBottom { from { transform: translateY(1.5rem); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes slideInTop { from { transform: translateY(-1.5rem); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes zoomIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    .animate-in {
+      animation-duration: 0.4s;
+      animation-fill-mode: both;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .animate-in.fade-in { animation-name: fadeIn; }
+    .animate-in.slide-in-from-bottom-4, .animate-in.slide-in-from-bottom-5 { animation-name: slideInBottom; }
+    .animate-in.slide-in-from-top-2, .animate-in.slide-in-from-top-4 { animation-name: slideInTop; }
+    .animate-in.zoom-in-95 { animation-name: zoomIn; }
+
+    /* 优化滚动条样式 */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+  
+  <div id="root"></div>
+
+  <!-- 使用 data-type="module" 允许 Babel 编译 ES6 模块导入 -->
+  <script type="text/babel" data-type="module">
+    import React, { useState, useEffect, useRef, useMemo, Fragment } from 'https://esm.sh/react@18.2.0';
+    import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
+    import { BookOpen, Search, Info, MousePointerClick, Zap, AlignLeft, Underline, Link as LinkIcon, Tag, Sparkles, Send, Loader2, UploadCloud, FileText, ArrowLeft, BookMarked, Printer, Plus, Trash2, CheckCircle2, Download, Upload, MessageSquare, Library, Save, FolderOpen, User, LogOut, X, Bot, RefreshCw, KeyRound } from 'https://esm.sh/lucide-react@0.292.0';
+    
+    // Firebase Imports
+    import { initializeApp } from 'https://esm.sh/firebase@10.8.1/app';
+    import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from 'https://esm.sh/firebase@10.8.1/auth';
+    import { getFirestore, doc, setDoc, deleteDoc, collection, onSnapshot } from 'https://esm.sh/firebase@10.8.1/firestore';
+
+    // Firebase Configuration
+    let auth, db, appId = 'default-app-id';
+    if (typeof __firebase_config !== 'undefined') {
+      try {
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
+        if (typeof __app_id !== 'undefined') appId = __app_id;
+      } catch (e) {
+        console.error('Firebase Initialization Error:', e);
+      }
+    }
+
+    // Default built-in data
+    const defaultArticleData = [
+      {
+        id: 's1',
+        para: 1,
+        text: "In October 2017, astronomers in Hawaii saw something surprising.",
+        segments: [
+          { text: "In October 2017, ", type: "adverbial", label: "状语" },
+          { text: "astronomers ", type: "subject", label: "主语(复数)" },
+          { text: "in Hawaii ", type: "modifier", label: "定语" },
+          { text: "saw ", type: "verb", label: "谓语(过去时)" },
+          { text: "something ", type: "object", label: "宾语" },
+          { text: "surprising.", type: "modifier", label: "定语(分词)" }
+        ],
+        translation: "2017年10月，夏威夷的天文学家看到了一些令人惊讶的现象。",
+        grammarFocus: "时态与原形 / 主谓一致 / 非谓语",
+        analysis: "### 【主干结构】\n主句的主语是 **astronomers**，谓语是 **saw**，宾语是 **something**。\n\n### 【主谓一致】\n主语 astronomers（天文学家）为可数名词复数形式。\n\n### 【动词时态与原形】\n谓语动词 `saw` 是一般过去时，其动词原形为 `see`。由于是一般过去时，谓语动词的形态不受主语单复数影响。\n\n### 【非谓语动词】\n`surprising`（令人惊讶的）是现在分词（原形 `surprise`）在此处作后置定语，修饰不定代词 `something`（英语规则：修饰不定代词的形容词必须后置）。\n\n### 【代词指代】\n`something` 为不定代词，指代某种未知的现象或物体。"
+      },
+      {
+        id: 's2',
+        para: 1,
+        text: "A strange object was moving through the solar system.",
+        segments: [
+          { text: "A strange object ", type: "subject", label: "主语(单数)" },
+          { text: "was moving ", type: "verb", label: "谓语(过去进行时)" },
+          { text: "through the solar system.", type: "adverbial", label: "状语" }
+        ],
+        translation: "一个奇怪的物体正穿过太阳系。",
+        grammarFocus: "时态 / 主谓一致",
+        analysis: "### 【主干结构】\n主句主语是 **object**，谓语是 **was moving**，`through the solar system` 作地点状语。\n\n### 【主谓一致】\n主语 object 为单数第三人称名词，因此系动词严格对应使用单数形式的 `was`。\n\n### 【动词时态与原形】\n`was moving` 构成过去进行时，强调在过去某一特定时间段内正在持续发生的动作。动词原形为 `move`。\n\n### 【被动语态】\n本句为主动语态，物体自己正在移动。"
+      },
+      {
+        id: 's3',
+        para: 1,
+        text: "They had seen many asteroids before, but this was something different.",
+        segments: [
+          { text: "They ", type: "subject", label: "主语(复数)" },
+          { text: "had seen ", type: "verb", label: "谓语(过去完成时)" },
+          { text: "many asteroids ", type: "object", label: "宾语" },
+          { text: "before, ", type: "adverbial", label: "状语" },
+          { text: "but ", type: "conjunction", label: "连词" },
+          { text: "this ", type: "subject", label: "主语(单数)" },
+          { text: "was ", type: "verb", label: "系动词(过去时)" },
+          { text: "something different.", type: "predicative", label: "表语" }
+        ],
+        translation: "他们以前见过许多小行星，但这次完全不同。",
+        grammarFocus: "时态组合 / 主谓一致 / 代词指代",
+        pronounRef: "They 指代前文的 astronomers；this 指代刚观测到的 strange object；something 为不定代词。",
+        logicConnector: "but (但是) 表转折，连接两个独立的分句。",
+        analysis: "### 【主干结构】\n由 but 连接的并列句。前半句主干：**They had seen asteroids**；后半句主干：**this was something**。\n\n### 【主谓一致】\n前半句主语 They 是复数；后半句主语 this 是单数，对应系动词 was。\n\n### 【动词时态与原形】\n* 前半句 `had seen` 为过去完成时（原形 `see`），表示“看”的动作发生在过去某个时间点之前（即“过去的过去”）；\n* 后半句 `was` 为一般过去时（原形 `be`）。\n\n### 【代词指代】\n`They` 是人称代词主格，指代第一句中的 astronomers；`this` 是指示代词，代指刚出现的这个“奇怪物体”；`something` 是不定代词。"
+      },
+      {
+        id: 's4',
+        para: 1,
+        text: "It was long and thin—like a cucumber.",
+        segments: [
+          { text: "It ", type: "subject", label: "主语(单数)" },
+          { text: "was ", type: "verb", label: "系动词" },
+          { text: "long and thin", type: "predicative", label: "表语" },
+          { text: "—like a cucumber.", type: "modifier", label: "补充说明" }
+        ],
+        translation: "它又长又细——像一根黄瓜。",
+        grammarFocus: "主谓一致 / 代词指代",
+        pronounRef: "It 指代前文的 a strange object / this。",
+        logicConnector: "and 表并列，连接两个形容词 long 和 thin。",
+        analysis: "### 【主干结构】\n主谓表结构。主语 It，系动词 was，表语 long and thin。\n\n### 【主谓一致】\n主语 It（单数第三人称），对应单数系动词 was。\n\n### 【代词指代】\n`It` 是人称代词主格，指代前文提到的那个奇怪的物体 (object)。\n\n### 【特殊标点】\n破折号 (—) 在此用于进一步补充说明物体的形状，如同位语的作用。"
+      },
+      {
+        id: 's5',
+        para: 1,
+        text: "The object's speed and direction also showed something surprising.",
+        segments: [
+          { text: "The object's speed and direction ", type: "subject", label: "主语(并列)" },
+          { text: "also ", type: "adverbial", label: "状语" },
+          { text: "showed ", type: "verb", label: "谓语" },
+          { text: "something surprising.", type: "object", label: "宾语" }
+        ],
+        translation: "这个物体的速度和方向也显示出了一些令人惊讶的地方。",
+        grammarFocus: "并列主语 / 时态",
+        logicConnector: "and 表并列，连接主语 speed 和 direction；also 强调递进。",
+        analysis: "### 【主干结构】\n主语是 speed and direction，谓语是 showed，宾语是 something。\n\n### 【主谓一致】\n主语由 and 连接的两个名词构成（并列主语），逻辑上为复数概念，但因时态是一般过去时，谓语动词 showed 没有单复数变化。\n\n### 【动词时态与原形】\n`showed` 是一般过去时，动词原形为 `show`。\n\n### 【代词指代】\n`object's` 包含名词所有格，表示归属；`something` 为不定代词。\n\n### 【非谓语动词】\n`surprising`（原形 surprise）现在分词作后置定语修饰 something。"
+      },
+      {
+        id: 's6',
+        para: 1,
+        text: "This was an interstellar object—the first ever seen.",
+        segments: [
+          { text: "This ", type: "subject", label: "主语(单数)" },
+          { text: "was ", type: "verb", label: "系动词(单数)" },
+          { text: "an interstellar object", type: "predicative", label: "表语" },
+          { text: "—the first ever seen.", type: "modifier", label: "同位语/定语" }
+        ],
+        translation: "这是一个星际物体——有史以来第一个被观测到的。",
+        grammarFocus: "被动语态(省略) / 非谓语动词",
+        pronounRef: "This 指代前文观测到的长条形物体。",
+        analysis: "### 【主干结构】\n主语 This，系动词 was，表语 object。\n\n### 【动词时态与原形】\n主句 `was` 是一般过去时，原形 `be`。\n\n### 【被动语态与非谓语】\n`ever seen` (原形 see) 是过去分词短语作后置定语，修饰 the first。此处蕴含了被动语态的逻辑（被人类观测到），其完整形态可以看作是一个省略了引导词和系动词的定语从句：the first (that was) ever seen。\n\n### 【代词指代】\n`This` 作为指示代词作主语，指代整个前文描述的这个奇异物体。"
+      }
+    ];
+
+    // --- 优雅排版 Markdown 渲染器 ---
+    const formatMarkdown = (text, baseClassName = "") => {
+      if (!text) return null;
+      
+      const lines = text.split('\n');
+      const result = [];
+      let listItems = [];
+
+      const flushList = () => {
+        if (listItems.length > 0) {
+          result.push(
+            <ul className="list-disc pl-6 my-4 space-y-2 text-inherit marker:text-indigo-300" key={`ul-${result.length}`}>
+              {listItems}
+            </ul>
+          );
+          listItems = [];
+        }
+      };
+
+      const parseInline = (str) => {
+        const parts = str.split(/(\*\*.*?\*\*|\*.*?\*|`.*?`)/g);
+        return parts.map((part, i) => {
+          if (part.startsWith('**') && part.endsWith('**')) {
+            return <strong key={i} className="font-bold text-slate-900">{part.slice(2, -2)}</strong>;
+          }
+          if (part.startsWith('*') && part.endsWith('*') && part.length > 2) {
+            return <em key={i} className="italic text-slate-700">{part.slice(1, -1)}</em>;
+          }
+          if (part.startsWith('`') && part.endsWith('`')) {
+            return <code key={i} className="bg-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded-md text-[0.9em] font-mono border border-indigo-100/50">{part.slice(1, -1)}</code>;
+          }
+          return <React.Fragment key={i}>{part}</React.Fragment>;
+        });
+      };
+
+      lines.forEach((line, index) => {
+        const trimmed = line.trim();
+        const listMatch = trimmed.match(/^[-*]\s+(.*)/);
+        
+        if (listMatch) {
+          listItems.push(<li key={index}>{parseInline(listMatch[1])}</li>);
+        } else {
+          flushList();
+          if (trimmed.startsWith('### ')) {
+            // 使用优雅的左侧强调线替代下划线和卡片框
+            result.push(
+              <h3 key={index} className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2.5">
+                <div className="w-1.5 h-6 bg-indigo-500 rounded-full"></div>
+                {parseInline(trimmed.slice(4))}
+              </h3>
+            );
+          } else if (trimmed.startsWith('## ')) {
+            result.push(<h2 key={index} className="text-2xl font-bold text-slate-900 mt-10 mb-4">{parseInline(trimmed.slice(3))}</h2>);
+          } else if (trimmed.startsWith('# ')) {
+            result.push(<h1 key={index} className="text-3xl font-bold text-slate-900 mt-12 mb-5">{parseInline(trimmed.slice(2))}</h1>);
+          } else if (trimmed === '---') {
+            result.push(<hr key={index} className="my-8 border-slate-100" />);
+          } else if (trimmed === '') {
+            result.push(<div key={index} className="h-2"></div>); 
+          } else {
+            result.push(<p key={index} className="mb-4 text-slate-700">{parseInline(line)}</p>); 
+          }
+        }
+      });
+      flushList();
+
+      return <div className={baseClassName}>{result}</div>;
+    };
+
+    const DEFAULT_OLLAMA_BASE_URL = 'http://127.0.0.1:11434';
+    const DEFAULT_OLLAMA_MODEL = 'qwen3.6:35b-a3b-mxfp8';
+    const REMOTE_NV_OLLAMA_BASE_URL = 'http://100.121.25.47:11434';
+    const REMOTE_NV_OLLAMA_MODEL = 'qwen3.6:35b-a3b-q8_0';
+    const DEFAULT_OPENAI_COMPAT_BASE_URL = '';
+    const DEFAULT_OPENAI_COMPAT_MODEL = '';
+    const DEFAULT_OPENAI_COMPAT_API_KEY = '';
+    const OLLAMA_PRESETS = {
+      local: {
+        key: 'local',
+        label: '本地',
+        description: '当前机器上的 Ollama',
+        baseUrl: DEFAULT_OLLAMA_BASE_URL,
+        model: DEFAULT_OLLAMA_MODEL
+      },
+      remoteNv: {
+        key: 'remoteNv',
+        label: '远程 NV',
+        description: 'P920 / 100.121.25.47',
+        baseUrl: REMOTE_NV_OLLAMA_BASE_URL,
+        model: REMOTE_NV_OLLAMA_MODEL
+      }
+    };
+
+    const stripCodeFence = (text = "") => text.replace(/^```(?:json)?/mi, '').replace(/```$/m, '').trim();
+    const GUIDED_STEP_TITLES = ['先抓主干', '再看修饰语', '语法关键点', '整句说清楚'];
+    const GUIDED_FALLBACK_PROMPTS = [
+      '先把句子的骨架抓出来。',
+      '在主干保留的基础上，再看补充信息。',
+      '点开你需要关注的关键点，让句子里对应位置亮出来。',
+      '最后把整句说清楚。'
+    ];
+
+    const extractFirstAnalysisSection = (analysis = "") => {
+      if (!analysis) return "";
+      const sections = analysis
+        .split(/\n(?=###\s)/)
+        .map(section => section.trim())
+        .filter(Boolean);
+      return sections[0] || analysis.trim();
+    };
+
+    const buildGuidedFocusOptions = (sentence = {}) => {
+      const options = [];
+      const text = sentence.text || '';
+      const segments = Array.isArray(sentence.segments) ? sentence.segments : [];
+      const pushOption = (key, label, matcher, explanation) => {
+        const indexes = segments
+          .map((seg, index) => matcher(seg, text) ? index : -1)
+          .filter(index => index !== -1);
+        if (indexes.length > 0) {
+          options.push({ key, label, indexes, explanation });
+        }
+      };
+
+      pushOption(
+        'modal',
+        '情态动词',
+        (seg) => /\b(can|could|may|might|must|shall|should|will|would)\b/i.test(seg.text || ''),
+        '先看情态动词，它会改变句子的语气：可能、推测、义务、建议。'
+      );
+      pushOption(
+        'tense',
+        '谓语形式',
+        (seg) => ['verb', 'clause-verb'].includes(seg.type),
+        '先看谓语形式，再判断它在说过去、现在、推测还是持续状态。'
+      );
+      pushOption(
+        'connector',
+        '连接关系',
+        (seg) => seg.type === 'conjunction' || /\bthat|which|who|because|if|when|but\b/i.test(seg.text || ''),
+        '先看连接词，它们决定句子是并列、转折、原因还是从句展开。'
+      );
+      pushOption(
+        'pronoun',
+        '指代对象',
+        (seg) => /\b(it|they|this|that|these|those|he|she)\b/i.test(seg.text || ''),
+        '先看代词指向谁，不然句子里的关系会断掉。'
+      );
+
+      return options.slice(0, 4);
+    };
+
+    const buildClauseUnits = (sentence = {}) => {
+      const text = sentence.text || '';
+      const segments = Array.isArray(sentence.segments) ? sentence.segments : [];
+      const units = [];
+      if (segments.length > 0) {
+        units.push({
+          key: 'whole',
+          label: '整句',
+          indexes: segments.map((_, index) => index)
+        });
+      }
+
+      if (sentence.logicConnector && /\bbut\b/i.test(sentence.logicConnector) && text.includes(',')) {
+        const conjunctionIndex = segments.findIndex(seg => /\bbut\b/i.test(seg.text || ''));
+        if (conjunctionIndex > 0 && conjunctionIndex < segments.length - 1) {
+          units.push(
+            { key: 'part-1', label: '并列分句 1', indexes: segments.map((_, index) => index).filter(index => index < conjunctionIndex) },
+            { key: 'part-2', label: '并列分句 2', indexes: segments.map((_, index) => index).filter(index => index > conjunctionIndex) }
+          );
+        }
+      }
+
+      const quotedIndexes = segments
+        .map((seg, index) => /[“”"]/u.test(seg.text || '') || /^[“"]/.test(seg.text || '') || /[”"]$/.test(seg.text || '') ? index : -1)
+        .filter(index => index !== -1);
+      if (quotedIndexes.length > 0) {
+        const start = Math.min(...quotedIndexes);
+        const end = Math.max(...quotedIndexes);
+        units.push({
+          key: 'quoted-speech',
+          label: '直接引语',
+          indexes: segments.map((_, index) => index).filter(index => index >= start && index <= end)
+        });
+        const outsideIndexes = segments.map((_, index) => index).filter(index => index < start || index > end);
+        if (outsideIndexes.length > 0) {
+          units.push({
+            key: 'reporting-clause',
+            label: '引述部分',
+            indexes: outsideIndexes
+          });
+        }
+      }
+
+      if (/(that|which|who|because|if|when|although|while)\b/i.test(text)) {
+        const clauseIndex = segments.findIndex(seg => /\b(that|which|who|because|if|when|although|while)\b/i.test(seg.text || ''));
+        if (clauseIndex !== -1) {
+          const leftIndexes = segments.map((_, index) => index).filter(index => index < clauseIndex);
+          const rightIndexes = segments.map((_, index) => index).filter(index => index >= clauseIndex);
+          if (leftIndexes.length > 0) units.push({ key: 'main-clause', label: '主句部分', indexes: leftIndexes });
+          if (rightIndexes.length > 0) units.push({ key: 'sub-clause', label: '从句部分', indexes: rightIndexes });
+        }
+      }
+
+      return units.filter((unit, index, arr) => {
+        const signature = JSON.stringify(unit.indexes || []);
+        return (unit.indexes || []).length > 0 && arr.findIndex(item => item.label === unit.label && JSON.stringify(item.indexes || []) === signature) === index;
+      }).slice(0, 4);
+    };
+
+    const buildGuidedHints = (sentence = {}) => {
+      return [
+        '先把句子的骨架抓出来：谁、做什么、结果落到哪里。',
+        sentence.logicConnector || '把不是主干的部分补回来，先分清它是在修饰名词，还是在修饰动作和整句。',
+        sentence.sentenceCoach?.keyHint || sentence.grammarFocus || '点一个关键点，再看句子里对应位置。',
+        sentence.translation || '把主干和修饰语合起来，用自己的话说说这句话的意思。'
+      ];
+    };
+
+    const buildGuidedSupport = (sentence = {}) => {
+      const mainSegments = (sentence.segments || []).filter(seg => ['subject', 'verb', 'object', 'predicative'].includes(seg.type));
+      const extraSegments = (sentence.segments || []).filter(seg => !['subject', 'verb', 'object', 'predicative'].includes(seg.type));
+      return [
+        {
+          task: '给句子里的主语、谓语、宾语或表语贴标签。',
+          hint: `可以先从这些位置找起：${mainSegments.map(seg => seg.label || seg.text.trim()).join('、') || '主语、谓语、宾语/表语'}`,
+          answer: mainSegments.length > 0
+            ? `这一句的主干可以先看成：${mainSegments.map(seg => seg.text.trim()).join(' | ')}`
+            : '先抓最像“主语 + 动作”的部分就够了。'
+        },
+        {
+          task: '在保留主干结果的基础上，再把修饰语层补出来。',
+          hint: extraSegments.length > 0
+            ? `可以重点看这些部分：${extraSegments.map(seg => normalizeSegmentLabel(seg) || seg.type).join('、')}`
+            : '如果这句很短，可能补充信息本来就不多。'
+          ,
+          answer: '这些补充信息不属于主干。你先分清它是在修饰名词，还是在修饰动作、状态或整句。'
+        },
+        {
+          task: '现在只挑一个最重要的语法点。你先说说，这一句最值得注意的是时态、主谓一致、从句，还是别的？',
+          hint: sentence.sentenceCoach?.keyHint || sentence.grammarFocus || '先从谓语动词看起，很多关键语法都藏在那里。',
+          answer: sentence.grammarFocus || extractFirstAnalysisSection(sentence.analysis) || '先抓住谓语形式，再看它和主语、从句之间的关系。'
+        },
+        {
+          task: '现在轮到你了。试着用自己的话说说整句意思，哪怕先说一个大概也可以。',
+          hint: sentence.logicConnector || sentence.pronounRef || '可以先说“谁做了什么”，再把补充信息加回去。',
+          answer: sentence.translation || '把主干先说顺，再慢慢加上修饰和关系。'
+        }
+      ];
+    };
+
+    const GUIDED_MAIN_ROLE_OPTIONS = [
+      { key: 'subject', label: '主语', types: ['subject'] },
+      { key: 'verb', label: '谓语', types: ['verb'] },
+      { key: 'object', label: '宾语', types: ['object'] },
+      { key: 'predicative', label: '表语', types: ['predicative'] }
+    ];
+
+    const GUIDED_SKIP_LABELS = new Set([
+      '序号/标记',
+      '序号（作为文本一部分）',
+      '脚注序号',
+      '定冠词'
+    ]);
+
+    const GUIDED_ADVERBIAL_LABELS = new Set([
+      '状语',
+      '时间状语',
+      '地点状语',
+      '方式状语',
+      '程度状语',
+      '副词状语',
+      '副词',
+      '时间副词',
+      '频度副词',
+      '主句状语',
+      '从句状语',
+      '宾语从句状语',
+      '插入语/状语',
+      '时间状语从句',
+      '介词短语(状语)',
+      '原因状语',
+      '原因状语（介词短语）',
+      '目的状语',
+      '目的状语（不定式）',
+      '不定式作目的状语',
+      '转折状语',
+      '逻辑副词',
+      '逻辑连接副词',
+      '逻辑连接词/状语',
+      '习语状语（以此类推）',
+      '伴随状语/分词短语',
+      '对象状语',
+      '来源状语',
+      '语气词/状语',
+      '状语（省略句）',
+      '不定式作状语/补语',
+      '定语/状语'
+    ]);
+
+    const GUIDED_NOUN_MODIFIER_LABELS = new Set([
+      '定语',
+      '后置定语',
+      '不定式作后置定语',
+      '不定式定语',
+      '介词短语作后置定语',
+      '介词短语作后置定语修饰 one',
+      '介词短语修饰 hole',
+      '介词短语修饰 money 或 given',
+      '介词短语及不定式作后置定语',
+      '定语(介词短语)',
+      '分词短语(后置定语)',
+      '过去分词短语作后置定语',
+      '现在分词短语作后置定语',
+      '动名词短语作定语',
+      '形容词作定语',
+      '形容词最高级(作定语)',
+      '定语从句',
+      '后置定语/举例说明'
+    ]);
+
+    const GUIDED_NOUN_APPOSITIVE_LABELS = new Set([
+      '同位语',
+      '同位语(列举)',
+      '同位语(说明成分)',
+      '同位语/解释部分',
+      '插入语/同位语',
+      '宾语及同位语/解释部分'
+    ]);
+
+    const GUIDED_NOUN_COMPLEMENT_LABELS = new Set([
+      '宾语补足语',
+      '宾语补足语（省略to的不定式）',
+      '现在分词作宾补'
+    ]);
+
+    const GUIDED_SUPPLEMENT_LABELS = new Set([
+      '补充说明',
+      '插入语',
+      '插入语/并列补充成分',
+      '不定式及破折号后的补充说明',
+      '过去分词短语(插入语)',
+      '介词短语(举例说明)'
+    ]);
+
+    const normalizeSegmentLabel = (seg = {}) => {
+      const type = seg.type || '';
+      const label = (seg.label || '').trim();
+      const text = (seg.text || '').trim();
+
+      if (GUIDED_SKIP_LABELS.has(label)) return '跳过';
+
+      if (type === 'modifier') {
+        if (GUIDED_ADVERBIAL_LABELS.has(label)) return '动词修饰语';
+        if (
+          GUIDED_NOUN_MODIFIER_LABELS.has(label) ||
+          GUIDED_NOUN_APPOSITIVE_LABELS.has(label) ||
+          GUIDED_NOUN_COMPLEMENT_LABELS.has(label) ||
+          GUIDED_SUPPLEMENT_LABELS.has(label) ||
+          /同位语|补足语|后置定语|定语从句|定语/.test(label)
+        ) return '名词修饰语';
+        if (
+          /状语|时间|地点|方式|原因|条件|让步|目的|结果|程度|频率/.test(label) ||
+          /^(in|on|at|from|to|for|with|by|during|after|before|when|while|because|if|although|though|as|since|through|into|onto|over|under|across|between|among)\b/i.test(text) ||
+          /\bly\b/i.test(text)
+        ) return '动词修饰语';
+        return '名词修饰语';
+      }
+
+      if (type === 'conjunction') return '连接词';
+      if (type === 'adverbial') return '动词修饰语';
+      if (type === 'subject') return '主语';
+      if (type === 'verb') return /系动词/.test(label) ? '系动词' : '谓语';
+      if (type === 'object') return '宾语';
+      if (type === 'predicative') return '表语';
+      if (['clause-subject', 'clause-verb', 'clause-object', 'clause-predicative', 'clause'].includes(type)) return '从句核心';
+
+      return label || type;
+    };
+
+    const normalizeSentenceSegments = (sentence = {}) => ({
+      ...sentence,
+      segments: Array.isArray(sentence.segments)
+        ? sentence.segments.map(seg => ({
+            ...seg,
+            label: normalizeSegmentLabel(seg)
+          }))
+        : []
+    });
+
+    const normalizeArticleData = (articleData = []) =>
+      Array.isArray(articleData) ? articleData.map(normalizeSentenceSegments) : [];
+
+    const getGuidedStructureRoleKey = (seg = {}) => {
+      const type = seg.type || '';
+      const label = seg.label || '';
+      const normalizedLabel = normalizeSegmentLabel(seg);
+
+      if (type === 'conjunction') return 'conjunction';
+      if (['clause-subject', 'clause-verb', 'clause-object', 'clause-predicative', 'clause', 'subject-verb'].includes(type)) return 'clause';
+      if (normalizedLabel === '跳过') return 'skip';
+      if (type === 'adverbial' || normalizedLabel === '动词修饰语' || /状语|时间|地点|方式|原因|条件|让步/.test(label)) return 'verb-modifier';
+
+      if (type === 'modifier') {
+        if (normalizedLabel === '动词修饰语') return 'verb-modifier';
+        return 'noun-modifier';
+      }
+
+      return null;
+    };
+
+    const GUIDED_STRUCTURE_ROLE_OPTIONS = [
+      { key: 'conjunction', label: '连接词', types: ['conjunction'] },
+      {
+        key: 'noun-modifier',
+        label: '名词修饰语',
+        match: (seg) => getGuidedStructureRoleKey(seg) === 'noun-modifier'
+      },
+      {
+        key: 'verb-modifier',
+        label: '动词修饰语',
+        match: (seg) => getGuidedStructureRoleKey(seg) === 'verb-modifier'
+      },
+      {
+        key: 'clause',
+        label: '从句核心',
+        match: (seg) => getGuidedStructureRoleKey(seg) === 'clause'
+      }
+    ];
+
+    const buildExpectedRoleMap = (segments = [], options = []) => {
+      const expected = {};
+      options.forEach(option => {
+        const indexes = segments
+          .map((seg, index) => {
+            const typeMatch = option.types ? (option.types || []).includes(seg.type) : true;
+            const extraMatch = typeof option.match === 'function' ? option.match(seg) : true;
+            return typeMatch && extraMatch ? index : -1;
+          })
+          .filter(index => index !== -1);
+        if (indexes.length > 0) expected[option.key] = indexes;
+      });
+      return expected;
+    };
+
+    const getAvailableGuidedRoleOptions = (segments = [], options = []) => {
+      const expectedMap = buildExpectedRoleMap(segments, options);
+      return options.filter(option => option.key !== 'skip' && (expectedMap[option.key] || []).length > 0);
+    };
+
+    const filterSegmentsByText = (segments = [], targetText = "") => {
+      const trimmedTarget = (targetText || '').trim();
+      if (!trimmedTarget) return segments;
+      return segments.filter(seg => trimmedTarget.includes((seg.text || '').trim()));
+    };
+
+    const splitTextForGuidedParts = (text = "") => {
+      const cleaned = text.trim();
+      if (!cleaned) return [];
+      const chunks = cleaned
+        .replace(/[“”"]/g, '')
+        .split(/\s+/)
+        .filter(Boolean);
+
+      if (chunks.length <= 3) {
+        return [{ text: cleaned }];
+      }
+
+      const parts = [];
+      const subject = chunks[0];
+      const beLikeIndex = chunks.findIndex(token => /^(am|is|are|was|were|be|been|being|can|could|may|might|must|shall|should|will|would|has|have|had|do|does|did)$/i.test(token));
+      if (beLikeIndex > 0) {
+        parts.push({ text: subject, forcedRole: 'subject' });
+        const predicateTokens = [];
+        let objectTokens = [];
+        for (let i = beLikeIndex; i < chunks.length; i++) {
+          const token = chunks[i];
+          if (i === beLikeIndex || /^(be|being|been|am|is|are|was|were|can|could|may|might|must|shall|should|will|would|has|have|had|do|does|did)$/i.test(token)) {
+            predicateTokens.push(token);
+          } else {
+            objectTokens = chunks.slice(i);
+            break;
+          }
+        }
+        if (predicateTokens.length > 0) parts.push({ text: predicateTokens.join(' '), forcedRole: 'verb' });
+        if (objectTokens.length > 0) parts.push({ text: objectTokens.join(' '), forcedRole: 'object' });
+        return parts;
+      }
+
+      return chunks.map(token => ({ text: token }));
+    };
+
+    const mapsMatch = (left = {}, right = {}) => {
+      const keys = Array.from(new Set([...Object.keys(left), ...Object.keys(right)])).sort();
+      return keys.every(key => {
+        const leftList = [...(left[key] || [])].sort((a, b) => a - b);
+        const rightList = [...(right[key] || [])].sort((a, b) => a - b);
+        return leftList.length === rightList.length && leftList.every((value, index) => value === rightList[index]);
+      });
+    };
+
+    const extractFirstJsonBlock = (text = "") => {
+      const cleaned = stripCodeFence(text);
+      const startCandidates = ['{', '['];
+      let startIndex = -1;
+
+      for (const candidate of startCandidates) {
+        const idx = cleaned.indexOf(candidate);
+        if (idx !== -1 && (startIndex === -1 || idx < startIndex)) {
+          startIndex = idx;
+        }
+      }
+
+      if (startIndex === -1) return cleaned;
+
+      const stack = [];
+      let inString = false;
+      let escaped = false;
+
+      for (let i = startIndex; i < cleaned.length; i++) {
+        const char = cleaned[i];
+
+        if (escaped) {
+          escaped = false;
+          continue;
+        }
+
+        if (char === '\\') {
+          escaped = true;
+          continue;
+        }
+
+        if (char === '"') {
+          inString = !inString;
+          continue;
+        }
+
+        if (inString) continue;
+
+        if (char === '{' || char === '[') {
+          stack.push(char);
+        } else if (char === '}' || char === ']') {
+          const last = stack[stack.length - 1];
+          if ((last === '{' && char === '}') || (last === '[' && char === ']')) {
+            stack.pop();
+            if (stack.length === 0) {
+              return cleaned.slice(startIndex, i + 1).trim();
+            }
+          }
+        }
+      }
+
+      return cleaned.slice(startIndex).trim();
+    };
+
+    const parseJsonWithRecovery = (text = "") => {
+      const candidate = extractFirstJsonBlock(text);
+      return {
+        candidate,
+        parsed: JSON.parse(candidate)
+      };
+    };
+
+    const parseAiJsonOrThrow = (text = "", providerLabel = "AI") => {
+      try {
+        return parseJsonWithRecovery(text).parsed;
+      } catch (error) {
+        throw new Error(`${providerLabel} 返回内容不是合法 JSON：${error.message}`);
+      }
+    };
+
+    const sanitizeBaseUrl = (value) => (value || DEFAULT_OLLAMA_BASE_URL).trim().replace(/\/+$/, '');
+    const sanitizeApiCredential = (value = "") => value
+      .normalize('NFKC')
+      .replace(/[\u0000-\u001F\u007F-\u009F\u200B-\u200D\uFEFF\u00A0\u3000\s]+/g, '')
+      .trim();
+
+    const LOCAL_DATA_FILE_NAME = 'reading-local-data.json';
+    const createLocalDataSnapshot = (articles = [], vocab = []) => ({
+      version: 1,
+      savedAt: new Date().toISOString(),
+      savedArticles: articles,
+      vocabBook: vocab
+    });
+
+    const readLocalDataFile = async () => {
+      if (!navigator.storage?.getDirectory) {
+        throw new Error('当前浏览器不支持本地文件持久化。');
+      }
+      const root = await navigator.storage.getDirectory();
+      const handle = await root.getFileHandle(LOCAL_DATA_FILE_NAME, { create: true });
+      const file = await handle.getFile();
+      const text = await file.text();
+      if (!text.trim()) return createLocalDataSnapshot();
+      const parsed = JSON.parse(text);
+      return {
+        version: parsed.version || 1,
+        savedAt: parsed.savedAt || "",
+        savedArticles: Array.isArray(parsed.savedArticles) ? parsed.savedArticles : [],
+        vocabBook: Array.isArray(parsed.vocabBook) ? parsed.vocabBook : []
+      };
+    };
+
+    const writeLocalDataFile = async (articles, vocab) => {
+      if (!navigator.storage?.getDirectory) {
+        throw new Error('当前浏览器不支持本地文件持久化。');
+      }
+      const root = await navigator.storage.getDirectory();
+      const handle = await root.getFileHandle(LOCAL_DATA_FILE_NAME, { create: true });
+      const writable = await handle.createWritable();
+      await writable.write(JSON.stringify(createLocalDataSnapshot(articles, vocab), null, 2));
+      await writable.close();
+    };
+
+    const buildAiRequestError = (provider, err) => {
+      const message = err?.message || '未知错误';
+      if (provider === 'ollama') {
+        const fileOriginBlocked = window.location.protocol === 'file:' && (
+          message.includes('Failed to fetch') ||
+          message.includes('NetworkError')
+        );
+        if (fileOriginBlocked) {
+          return new Error('当前浏览器未能从 file:// 页面访问 Ollama。此机器通常可以直接双击 HTML 使用；如果你的浏览器拦截了本地请求，再考虑改用本地静态服务。');
+        }
+        return new Error(`Ollama 请求失败：${message}`);
+      }
+      return new Error(`云端模型请求失败：${message}`);
+    };
+
+    const formatElapsed = (ms = 0) => {
+      const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      return minutes > 0 ? `${minutes}分${seconds}秒` : `${seconds}秒`;
+    };
+
+    const decodeOpenAICompatStream = async (response, onProgress) => {
+      if (!response.body) {
+        const data = await response.json();
+        return data?.choices?.[0]?.message?.content || "";
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let content = "";
+      let chunkCount = 0;
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+
+        const parts = buffer.split("\n\n");
+        buffer = parts.pop() || "";
+
+        for (const part of parts) {
+          const lines = part.split("\n").map(line => line.trim()).filter(Boolean);
+          for (const line of lines) {
+            if (!line.startsWith("data:")) continue;
+            const payload = line.slice(5).trim();
+            if (!payload || payload === "[DONE]") continue;
+            try {
+              const parsed = JSON.parse(payload);
+              const delta = parsed?.choices?.[0]?.delta?.content || "";
+              if (delta) {
+                content += delta;
+                chunkCount += 1;
+                onProgress?.({
+                  phase: 'streaming',
+                  receivedChars: content.length,
+                  receivedChunks: chunkCount,
+                  lastProgressAt: Date.now()
+                });
+              }
+            } catch (_) {
+              // Ignore malformed interim SSE chunks and continue collecting.
+            }
+          }
+        }
+      }
+
+      if (!content.trim()) {
+        throw new Error('云端模型返回了空响应。');
+      }
+      return content;
+    };
+
+    const decodeOllamaStream = async (response, onProgress) => {
+      if (!response.body) {
+        const data = await response.json();
+        return data?.message?.content?.trim?.() || "";
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let content = "";
+      let chunkCount = 0;
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || "";
+
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed) continue;
+          try {
+            const parsed = JSON.parse(trimmed);
+            const piece = parsed?.message?.content || "";
+            if (piece) {
+              content += piece;
+              chunkCount += 1;
+              onProgress?.({
+                phase: 'streaming',
+                receivedChars: content.length,
+                receivedChunks: chunkCount,
+                lastProgressAt: Date.now()
+              });
+            }
+          } catch (_) {
+            // Ignore malformed interim NDJSON lines and continue collecting.
+          }
+        }
+      }
+
+      if (!content.trim()) {
+        throw new Error('Ollama 返回了空响应。');
+      }
+      return content.trim();
+    };
+
+    const fetchOpenAICompatResponse = async ({
+      userPrompt,
+      systemPrompt,
+      expectJson = false,
+      apiKey = DEFAULT_OPENAI_COMPAT_API_KEY,
+      model = DEFAULT_OPENAI_COMPAT_MODEL,
+      baseUrl = DEFAULT_OPENAI_COMPAT_BASE_URL,
+      onProgress
+    }) => {
+      const trimmedApiKey = sanitizeApiCredential(apiKey);
+      if (!trimmedApiKey) {
+        throw new Error('请先填写云端模型 API Key。');
+      }
+      if (/[^\x20-\x7E]/.test(trimmedApiKey)) {
+        throw new Error('云端模型 API Key 包含异常字符。请重新粘贴纯文本 Key，避免中文空格、换行或隐藏字符。');
+      }
+
+      const url = `${baseUrl.replace(/\/+$/, '')}/chat/completions`;
+      if (!baseUrl.trim()) {
+        throw new Error('请先填写云端模型 API Base。');
+      }
+      if (!model.trim()) {
+        throw new Error('请先填写云端模型名称。');
+      }
+      const payload = {
+        model,
+        stream: true,
+        temperature: 0.6,
+        response_format: expectJson ? { type: 'json_object' } : { type: 'text' },
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt }
+        ]
+      };
+
+      const delays = [1000, 2000, 4000, 8000, 16000];
+      let lastError;
+
+      for (let attempt = 0; attempt < 6; attempt++) {
+        try {
+          onProgress?.({ phase: 'requesting', lastProgressAt: Date.now() });
+          const response = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${trimmedApiKey}`
+            },
+            body: JSON.stringify(payload)
+          });
+          if (!response.ok) {
+            const text = await response.text();
+            throw new Error(`HTTP ${response.status}${text ? `: ${text}` : ''}`);
+          }
+          onProgress?.({ phase: 'connected', lastProgressAt: Date.now() });
+          const content = await decodeOpenAICompatStream(response, onProgress);
+          return content;
+        } catch (err) {
+          lastError = err;
+          if (attempt < 5) await new Promise(r => setTimeout(r, delays[attempt]));
+        }
+      }
+      throw buildAiRequestError('cloud', lastError);
+    };
+
+    const fetchOllamaResponse = async ({
+      userPrompt,
+      systemPrompt,
+      expectJson = false,
+      baseUrl = DEFAULT_OLLAMA_BASE_URL,
+      model = DEFAULT_OLLAMA_MODEL,
+      onProgress
+    }) => {
+      const cleanBaseUrl = sanitizeBaseUrl(baseUrl);
+      const cleanModel = model.trim();
+      if (!cleanModel) {
+        throw new Error('请先填写 Ollama 模型名。');
+      }
+
+      try {
+        onProgress?.({ phase: 'requesting', lastProgressAt: Date.now() });
+        const response = await fetch(`${cleanBaseUrl}/api/chat`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            model: cleanModel,
+            stream: true,
+            think: false,
+            options: {
+              temperature: expectJson ? 0.1 : 0.3
+            },
+            messages: [
+              { role: "system", content: systemPrompt },
+              { role: "user", content: userPrompt }
+            ]
+          })
+        });
+
+        if (!response.ok) {
+          const text = await response.text();
+          throw new Error(`HTTP ${response.status}${text ? `: ${text}` : ''}`);
+        }
+
+        onProgress?.({ phase: 'connected', lastProgressAt: Date.now() });
+        const content = await decodeOllamaStream(response, onProgress);
+        return content;
+      } catch (err) {
+        throw buildAiRequestError('ollama', err);
+      }
+    };
+
+    const fetchOllamaJsonResponse = async ({
+      userPrompt,
+      systemPrompt,
+      baseUrl = DEFAULT_OLLAMA_BASE_URL,
+      model = DEFAULT_OLLAMA_MODEL
+    }) => {
+      const primaryPrompt = `${systemPrompt}\n\n【输出要求】\n1. 你必须输出合法 JSON。\n2. 不要输出 Markdown 代码块。\n3. 不要输出解释、前言或结语。\n4. JSON 之外不能有任何文字。`;
+
+      const firstRaw = await fetchOllamaResponse({
+        userPrompt,
+        systemPrompt: primaryPrompt,
+        expectJson: false,
+        baseUrl,
+        model
+      });
+
+      try {
+        return parseJsonWithRecovery(firstRaw).candidate;
+      } catch (firstError) {
+        const repairPrompt = `你刚才的输出不是合法 JSON。请在不降低要求、不省略字段的前提下，把下面内容修复成唯一的合法 JSON 输出。\n\n【原始输出开始】\n${firstRaw}\n【原始输出结束】`;
+
+        const repairedRaw = await fetchOllamaResponse({
+          userPrompt: repairPrompt,
+          systemPrompt: `${systemPrompt}\n\n【修复要求】\n1. 保留原任务要求和字段结构。\n2. 只输出合法 JSON。\n3. 不要输出代码块。\n4. 不要输出任何解释。`,
+          expectJson: false,
+          baseUrl,
+          model
+        });
+
+        try {
+          return parseJsonWithRecovery(repairedRaw).candidate;
+        } catch (repairError) {
+          throw new Error(`Ollama 返回内容未通过 JSON 校验。首次错误：${firstError.message}；修复后仍失败：${repairError.message}`);
+        }
+      }
+    };
+
+    const fetchOpenAICompatJsonResponse = async ({
+      userPrompt,
+      systemPrompt,
+      apiKey = DEFAULT_OPENAI_COMPAT_API_KEY,
+      model = DEFAULT_OPENAI_COMPAT_MODEL,
+      baseUrl = DEFAULT_OPENAI_COMPAT_BASE_URL,
+      onProgress
+    }) => {
+      const primaryPrompt = `${systemPrompt}\n\n【输出要求】\n1. 你必须输出合法 JSON。\n2. 不要输出 Markdown 代码块。\n3. 不要输出解释、前言或结语。\n4. JSON 之外不能有任何文字。`;
+
+      const firstRaw = await fetchOpenAICompatResponse({
+        userPrompt,
+        systemPrompt: primaryPrompt,
+        expectJson: false,
+        apiKey,
+        model,
+        baseUrl,
+        onProgress
+      });
+
+      try {
+        onProgress?.({ phase: 'validating_json', lastProgressAt: Date.now() });
+        return parseJsonWithRecovery(firstRaw).candidate;
+      } catch (firstError) {
+        onProgress?.({ phase: 'repairing_json', lastProgressAt: Date.now() });
+        const repairPrompt = `你刚才的输出不是合法 JSON，很可能存在字符串未闭合、转义不完整、换行破坏 JSON、或末尾截断。请在不降低要求、不省略字段的前提下，把下面内容修复成唯一的合法 JSON 输出。\n\n【原始输出开始】\n${firstRaw}\n【原始输出结束】`;
+
+        const repairedRaw = await fetchOpenAICompatResponse({
+          userPrompt: repairPrompt,
+          systemPrompt: `${systemPrompt}\n\n【修复要求】\n1. 保留原任务要求和字段结构。\n2. 只输出合法 JSON。\n3. 不要输出代码块。\n4. 不要输出任何解释。`,
+          expectJson: false,
+          apiKey,
+          model,
+          baseUrl,
+          onProgress
+        });
+
+        try {
+          onProgress?.({ phase: 'validating_json', lastProgressAt: Date.now() });
+          return parseJsonWithRecovery(repairedRaw).candidate;
+        } catch (repairError) {
+          throw new Error(`云端模型返回内容未通过 JSON 校验。首次错误：${firstError.message}；修复后仍失败：${repairError.message}`);
+        }
+      }
+    };
+
+    const fetchAiResponse = async ({
+      provider,
+      userPrompt,
+      systemPrompt,
+      expectJson = false,
+      cloudApiKey = DEFAULT_OPENAI_COMPAT_API_KEY,
+      cloudModel = DEFAULT_OPENAI_COMPAT_MODEL,
+      cloudBaseUrl = DEFAULT_OPENAI_COMPAT_BASE_URL,
+      ollamaBaseUrl = DEFAULT_OLLAMA_BASE_URL,
+      ollamaModel = DEFAULT_OLLAMA_MODEL,
+      onProgress
+    }) => {
+      if (provider === 'ollama') {
+        if (expectJson) {
+          return fetchOllamaJsonResponse({
+            userPrompt,
+            systemPrompt,
+            baseUrl: ollamaBaseUrl,
+            model: ollamaModel,
+            onProgress
+          });
+        }
+
+        return fetchOllamaResponse({
+          userPrompt,
+          systemPrompt,
+          expectJson,
+          baseUrl: ollamaBaseUrl,
+          model: ollamaModel,
+          onProgress
+        });
+      }
+
+      if (expectJson) {
+        return fetchOpenAICompatJsonResponse({
+          userPrompt,
+          systemPrompt,
+          apiKey: cloudApiKey,
+          model: cloudModel,
+          baseUrl: cloudBaseUrl,
+          onProgress
+        });
+      }
+
+      return fetchOpenAICompatResponse({
+        userPrompt,
+        systemPrompt,
+        expectJson,
+        apiKey: cloudApiKey,
+        model: cloudModel,
+        baseUrl: cloudBaseUrl,
+        onProgress
+      });
+    };
+
+    function App() {
+      const isFileProtocol = window.location.protocol === 'file:';
+      // Global App States
+      const [viewMode, setViewMode] = useState('reading');
+      const [currentArticleData, setCurrentArticleData] = useState(() => normalizeArticleData(defaultArticleData));
+
+      // Firebase Auth State
+      const [user, setUser] = useState(null);
+      const [showLoginModal, setShowLoginModal] = useState(false);
+      const [loginEmail, setLoginEmail] = useState("lei.songpmp@gmail.com");
+      const [loginPassword, setLoginPassword] = useState("");
+      const [isLoginMode, setIsLoginMode] = useState(true);
+      const [authError, setAuthError] = useState("");
+      const [isAuthenticating, setIsAuthenticating] = useState(false);
+      const [localPersistenceStatus, setLocalPersistenceStatus] = useState(() => ({
+        enabled: false,
+        message: '正在准备本地数据文件...'
+      }));
+      const localDataLoadedRef = useRef(false);
+      const localDataWriteTimerRef = useRef(null);
+
+      // --- 本地文章书架逻辑 (Local Storage + OPFS File) ---
+      const [savedArticles, setSavedArticles] = useState(() => {
+        const saved = localStorage.getItem('my_local_articles');
+        if (!saved) return [];
+        try {
+          const parsed = JSON.parse(saved);
+          return Array.isArray(parsed)
+            ? parsed.map(article => ({
+                ...article,
+                data: normalizeArticleData(article.data)
+              }))
+            : [];
+        } catch (error) {
+          return [];
+        }
+      });
+
+      const articleFileInputRef = useRef(null);
+
+      // --- 本地生词本逻辑 (Local Storage + OPFS File) ---
+      const [vocabBook, setVocabBook] = useState(() => {
+        const saved = localStorage.getItem('my_local_vocab_book');
+        return saved ? JSON.parse(saved) : [];
+      });
+
+      const [vocabPopup, setVocabPopup] = useState(null);
+      const [addingWordId, setAddingWordId] = useState(null); 
+      const fileInputRef = useRef(null);
+
+      useEffect(() => {
+        let cancelled = false;
+        const loadLocalData = async () => {
+          try {
+            const data = await readLocalDataFile();
+            if (cancelled) return;
+            if (data.savedArticles.length > 0) setSavedArticles(data.savedArticles);
+            if (data.vocabBook.length > 0) setVocabBook(data.vocabBook);
+            localDataLoadedRef.current = true;
+            setLocalPersistenceStatus({
+              enabled: true,
+              message: `本地数据文件已启用：${LOCAL_DATA_FILE_NAME}`
+            });
+          } catch (error) {
+            localDataLoadedRef.current = true;
+            setLocalPersistenceStatus({
+              enabled: false,
+              message: '当前浏览器不支持自动写入本地数据文件，已使用浏览器本地存储兜底。'
+            });
+          }
+        };
+        loadLocalData();
+        return () => {
+          cancelled = true;
+          if (localDataWriteTimerRef.current) clearTimeout(localDataWriteTimerRef.current);
+        };
+      }, []);
+
+      useEffect(() => {
+        localStorage.setItem('my_local_articles', JSON.stringify(savedArticles));
+        localStorage.setItem('my_local_vocab_book', JSON.stringify(vocabBook));
+
+        if (!localDataLoadedRef.current || !localPersistenceStatus.enabled) return;
+        if (localDataWriteTimerRef.current) clearTimeout(localDataWriteTimerRef.current);
+        localDataWriteTimerRef.current = setTimeout(async () => {
+          try {
+            await writeLocalDataFile(savedArticles, vocabBook);
+            setLocalPersistenceStatus({
+              enabled: true,
+              message: `本地数据文件已自动保存：${LOCAL_DATA_FILE_NAME}`
+            });
+          } catch (error) {
+            setLocalPersistenceStatus({
+              enabled: false,
+              message: '本地数据文件写入失败，已使用浏览器本地存储兜底。'
+            });
+          }
+        }, 500);
+      }, [savedArticles, vocabBook, localPersistenceStatus.enabled]);
+
+      // --- 全局自定义 UI 弹窗状态 ---
+      const [toastMessage, setToastMessage] = useState("");
+      const [confirmDialog, setConfirmDialog] = useState(null);
+      const [saveModalOpen, setSaveModalOpen] = useState(false);
+      const [articleTitleInput, setArticleTitleInput] = useState("");
+      const [showAiSettings, setShowAiSettings] = useState(false);
+      const [aiProvider, setAiProvider] = useState(() => localStorage.getItem('reader_ai_provider') || 'ollama');
+      const [cloudApiKey, setCloudApiKey] = useState(() => localStorage.getItem('reader_openai_compat_api_key') || DEFAULT_OPENAI_COMPAT_API_KEY);
+      const [cloudBaseUrl, setCloudBaseUrl] = useState(() => localStorage.getItem('reader_openai_compat_base_url') || DEFAULT_OPENAI_COMPAT_BASE_URL);
+      const [cloudModel, setCloudModel] = useState(() => localStorage.getItem('reader_openai_compat_model') || DEFAULT_OPENAI_COMPAT_MODEL);
+      const [ollamaPreset, setOllamaPreset] = useState(() => localStorage.getItem('reader_ollama_preset') || 'local');
+      const [ollamaBaseUrl, setOllamaBaseUrl] = useState(() => localStorage.getItem('reader_ollama_base_url') || DEFAULT_OLLAMA_BASE_URL);
+      const [ollamaModel, setOllamaModel] = useState(() => localStorage.getItem('reader_ollama_model') || DEFAULT_OLLAMA_MODEL);
+      const [isCheckingOllama, setIsCheckingOllama] = useState(false);
+      const [ollamaStatus, setOllamaStatus] = useState(() => ({
+        ok: false,
+        message: '尚未检测本地 Ollama 连接'
+      }));
+
+      // 自动清除 Toast 通知
+      useEffect(() => {
+        if (toastMessage) {
+          const timer = setTimeout(() => setToastMessage(""), 3000);
+          return () => clearTimeout(timer);
+        }
+      }, [toastMessage]);
+
+      useEffect(() => {
+        localStorage.setItem('reader_ai_provider', aiProvider);
+      }, [aiProvider]);
+
+      useEffect(() => {
+        localStorage.setItem('reader_openai_compat_api_key', cloudApiKey);
+      }, [cloudApiKey]);
+
+      useEffect(() => {
+        localStorage.setItem('reader_openai_compat_base_url', cloudBaseUrl.trim());
+      }, [cloudBaseUrl]);
+
+      useEffect(() => {
+        localStorage.setItem('reader_openai_compat_model', cloudModel.trim());
+      }, [cloudModel]);
+
+      useEffect(() => {
+        localStorage.setItem('reader_ollama_preset', ollamaPreset);
+      }, [ollamaPreset]);
+
+      useEffect(() => {
+        localStorage.setItem('reader_ollama_base_url', sanitizeBaseUrl(ollamaBaseUrl));
+      }, [ollamaBaseUrl]);
+
+      useEffect(() => {
+        localStorage.setItem('reader_ollama_model', ollamaModel);
+      }, [ollamaModel]);
+
+      const applyOllamaPreset = (presetKey) => {
+        const preset = OLLAMA_PRESETS[presetKey];
+        if (!preset) return;
+        setOllamaPreset(presetKey);
+        setOllamaBaseUrl(preset.baseUrl);
+        setOllamaModel(preset.model);
+        setOllamaStatus({
+          ok: false,
+          message: `已切换到 ${preset.label} 预设，请按需检测连接或直接开始解析。`
+        });
+      };
+
+      // 点击外部关闭弹窗
+      useEffect(() => {
+        const handleClickOutside = (e) => {
+          if (vocabPopup && !e.target.closest('#vocab-popup')) {
+            setVocabPopup(null);
+          }
+        };
+        window.addEventListener('click', handleClickOutside);
+        return () => window.removeEventListener('click', handleClickOutside);
+      }, [vocabPopup]);
+
+      // Reading View States
+      const [selectedSentence, setSelectedSentence] = useState(() => normalizeArticleData(defaultArticleData)[0]);
+      const [highlightMode, setHighlightMode] = useState(false);
+      const [underlineMain, setUnderlineMain] = useState(false);
+      const [guidedStepIndex, setGuidedStepIndex] = useState(0);
+      const [guidedActiveRole, setGuidedActiveRole] = useState('subject');
+      const [guidedSelections, setGuidedSelections] = useState({});
+      const [guidedCheckState, setGuidedCheckState] = useState({});
+      const [guidedDragRole, setGuidedDragRole] = useState(null);
+      const [guidedFocusSelection, setGuidedFocusSelection] = useState({});
+      const [guidedClauseSelection, setGuidedClauseSelection] = useState({});
+      const [guidedWordInput, setGuidedWordInput] = useState({});
+      const [guidedWordGuess, setGuidedWordGuess] = useState({});
+      const [guidedTranslationDraft, setGuidedTranslationDraft] = useState({});
+      const [guidedShowTranslation, setGuidedShowTranslation] = useState({});
+      
+      // Right Panel Tab State ("analysis" | "ai")
+      const [rightPanelTab, setRightPanelTab] = useState('guided');
+
+      // AI Feature States
+      const [simplifiedSentence, setSimplifiedSentence] = useState("");
+      const [isSimplifying, setIsSimplifying] = useState(false);
+      const [aiQuestion, setAiQuestion] = useState("");
+      const [aiAnswer, setAiAnswer] = useState("");
+      const [isAiAnswering, setIsAiAnswering] = useState(false);
+
+      // Upload View States
+      const [inputText, setInputText] = useState("");
+      const [isParsingText, setIsParsingText] = useState(false);
+      const [parseError, setParseError] = useState("");
+      const [activeAiTask, setActiveAiTask] = useState(null);
+      const [aiTaskStartedAt, setAiTaskStartedAt] = useState(null);
+      const [aiTaskElapsed, setAiTaskElapsed] = useState(0);
+      const [aiTaskPhase, setAiTaskPhase] = useState(null);
+      const [aiReceivedChars, setAiReceivedChars] = useState(0);
+      const [aiReceivedChunks, setAiReceivedChunks] = useState(0);
+      const [aiLastProgressAt, setAiLastProgressAt] = useState(null);
+      const [aiIdleMs, setAiIdleMs] = useState(0);
+
+      // Firebase Init Auth
+      useEffect(() => {
+        if (!auth) return;
+        const initAuth = async () => {
+          try {
+            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+              await signInWithCustomToken(auth, __initial_auth_token);
+            } else {
+              await signInAnonymously(auth);
+            }
+          } catch (e) {
+            console.error("Auth error", e);
+          }
+        };
+        initAuth();
+        const unsubscribe = onAuthStateChanged(auth, setUser);
+        return () => unsubscribe();
+      }, []);
+
+      // 当切换选中句子时，自动重置 AI 状态，并将右侧面板切回“自主阅读”
+      useEffect(() => {
+        setSimplifiedSentence("");
+        setAiQuestion("");
+        setAiAnswer("");
+        setGuidedStepIndex(0);
+        setGuidedActiveRole('subject');
+        setGuidedSelections({});
+        setGuidedCheckState({});
+        setGuidedDragRole(null);
+        setGuidedFocusSelection({});
+        setGuidedClauseSelection({});
+        setGuidedWordInput({});
+        setGuidedWordGuess({});
+        setGuidedTranslationDraft({});
+        setGuidedShowTranslation({});
+        setRightPanelTab('guided'); 
+      }, [selectedSentence]);
+
+      useEffect(() => {
+        if (guidedStepIndex === 0 && guidedActiveRole !== 'subject') {
+          setGuidedActiveRole('subject');
+          return;
+        }
+        if (guidedStepIndex === 1 && guidedRoleOptions.length > 0 && !guidedRoleOptions.some(option => option.key === guidedActiveRole)) {
+          setGuidedActiveRole(guidedRoleOptions[0].key);
+        }
+      }, [guidedStepIndex, guidedRoleOptions, guidedActiveRole]);
+
+      useEffect(() => {
+        if (!activeAiTask || !aiTaskStartedAt) {
+          setAiTaskElapsed(0);
+          return;
+        }
+
+        const updateElapsed = () => setAiTaskElapsed(Date.now() - aiTaskStartedAt);
+        updateElapsed();
+        const timer = setInterval(updateElapsed, 1000);
+        return () => clearInterval(timer);
+      }, [activeAiTask, aiTaskStartedAt]);
+
+      useEffect(() => {
+        if (!activeAiTask || !aiLastProgressAt) {
+          setAiIdleMs(0);
+          return;
+        }
+
+        const updateIdle = () => setAiIdleMs(Date.now() - aiLastProgressAt);
+        updateIdle();
+        const timer = setInterval(updateIdle, 1000);
+        return () => clearInterval(timer);
+      }, [activeAiTask, aiLastProgressAt]);
+
+      const reportAiProgress = ({ phase, receivedChars, receivedChunks, lastProgressAt }) => {
+        if (phase) setAiTaskPhase(phase);
+        if (typeof receivedChars === 'number') setAiReceivedChars(receivedChars);
+        if (typeof receivedChunks === 'number') setAiReceivedChunks(receivedChunks);
+        if (lastProgressAt) setAiLastProgressAt(lastProgressAt);
+      };
+
+      const aiConfig = useMemo(() => ({
+        provider: aiProvider,
+        cloudApiKey,
+        cloudBaseUrl,
+        cloudModel,
+        ollamaBaseUrl,
+        ollamaModel
+      }), [aiProvider, cloudApiKey, cloudBaseUrl, cloudModel, ollamaBaseUrl, ollamaModel]);
+
+      const activeAiSummary = `当前模型：Ollama / ${ollamaModel || DEFAULT_OLLAMA_MODEL}`;
+
+      const activeAiTaskMessage = useMemo(() => {
+        if (!activeAiTask) return "";
+        const elapsed = formatElapsed(aiTaskElapsed);
+        const idle = aiProvider === 'ollama' ? '' : (aiIdleMs >= 15000 ? `，最近 ${formatElapsed(aiIdleMs)} 没有新内容` : '');
+        const progress = aiReceivedChars > 0 ? `，已接收 ${aiReceivedChars} 字` : '';
+        const chunks = aiReceivedChunks > 0 ? `（${aiReceivedChunks} 段）` : '';
+
+        if (activeAiTask === 'analyze') {
+          if (aiProvider === 'ollama' && (aiTaskPhase === 'requesting' || aiTaskPhase === 'connected')) {
+            return `Ollama 本地模型正在推理，长 JSON 任务可能会沉默一段时间后一次性返回。已运行 ${elapsed}。`;
+          }
+          if (aiTaskPhase === 'requesting') return `请求已发出，正在等待模型接入。已运行 ${elapsed}${idle}。`;
+          if (aiTaskPhase === 'connected') return `已连接模型，正在等待首段返回。已运行 ${elapsed}${idle}。`;
+          if (aiTaskPhase === 'streaming') return `模型正在持续输出解析内容${progress}${chunks}。已运行 ${elapsed}${idle}。`;
+          if (aiTaskPhase === 'validating_json') return `模型输出已返回，正在校验 JSON 结构。已运行 ${elapsed}。`;
+          if (aiTaskPhase === 'repairing_json') return `首轮 JSON 有问题，正在自动修复并重试。已运行 ${elapsed}。`;
+        }
+
+        if (activeAiTask === 'vocab') {
+          return aiProvider === 'ollama'
+            ? `Ollama 正在生成词义、词源和例句。已运行 ${elapsed}。`
+            : `AI 正在生成词义、词源和例句。已运行 ${elapsed}。`;
+        }
+        if (activeAiTask === 'simplify') {
+          return `AI 正在改写句子。已运行 ${elapsed}。`;
+        }
+        if (activeAiTask === 'qa') {
+          return `AI 正在回答问题。已运行 ${elapsed}。`;
+        }
+        return `AI 正在处理中。已运行 ${elapsed}。`;
+      }, [activeAiTask, aiTaskElapsed, aiProvider, aiTaskPhase, aiReceivedChars, aiReceivedChunks, aiIdleMs]);
+
+      const aiLooksStalled = aiProvider === 'cloud' && activeAiTask === 'analyze' && aiTaskPhase && !['validating_json', 'repairing_json'].includes(aiTaskPhase) && aiIdleMs >= 45000;
+
+      const ollamaStatusTone = useMemo(() => {
+        if (ollamaStatus.ok) return 'text-emerald-700';
+        if (isFileProtocol) return 'text-amber-700';
+        return 'text-slate-500';
+      }, [ollamaStatus.ok, isFileProtocol]);
+
+      const mainTypes = [
+        'subject', 'verb', 'object', 'predicative', 
+        'clause-subject', 'clause-verb', 'clause-object', 'clause-predicative'
+      ];
+
+      const paragraphs = useMemo(() => {
+        const paras = [];
+        currentArticleData.forEach(sentence => {
+          const pNum = sentence.para;
+          if (!paras[pNum]) paras[pNum] = [];
+          paras[pNum].push(sentence);
+        });
+        return paras.filter(Boolean);
+      }, [currentArticleData]);
+
+      const getSegmentStyles = (type) => {
+        if (!highlightMode) return "text-slate-800";
+        switch(type) {
+          case 'subject': return "bg-red-100 text-red-900 border-b-2 border-red-500 font-bold rounded-sm px-1";
+          case 'verb': return "bg-blue-100 text-blue-900 border-b-2 border-blue-500 font-bold rounded-sm px-1";
+          case 'object': 
+          case 'predicative': return "bg-green-100 text-green-900 border-b-2 border-green-500 font-bold rounded-sm px-1";
+          case 'clause-subject': return "bg-red-50 text-red-800 border-b-2 border-red-300 border-dashed font-bold rounded-sm px-1";
+          case 'clause-verb': return "bg-blue-50 text-blue-800 border-b-2 border-blue-300 border-dashed font-bold rounded-sm px-1";
+          case 'clause-object': 
+          case 'clause-predicative': return "bg-green-50 text-green-800 border-b-2 border-green-300 border-dashed font-bold rounded-sm px-1";
+          case 'conjunction': return "bg-purple-100 text-purple-900 border-b-2 border-purple-400 border-dotted rounded-sm px-1";
+          case 'modifier': return "bg-yellow-100 text-yellow-900 border-b-2 border-yellow-400 border-dotted rounded-sm px-1";
+          case 'adverbial': return "bg-gray-200 text-gray-700 border-b-2 border-gray-400 border-dotted rounded-sm px-1";
+          case 'clause': return "bg-purple-100 text-purple-900 border-b-2 border-purple-400 border-dashed rounded-sm px-1";
+          default: return "text-slate-800";
+        }
+      };
+
+      const guidedInteractiveStep = rightPanelTab === 'guided' && (guidedStepIndex === 0 || guidedStepIndex === 1);
+      const effectiveUnderlineMain = rightPanelTab === 'guided' ? false : underlineMain;
+      const effectiveHighlightMode = rightPanelTab === 'guided' ? false : highlightMode;
+      const guidedHints = useMemo(() => buildGuidedHints(selectedSentence), [selectedSentence]);
+      const guidedSupport = useMemo(() => buildGuidedSupport(selectedSentence), [selectedSentence]);
+      const guidedFocusOptions = useMemo(() => buildGuidedFocusOptions(selectedSentence), [selectedSentence]);
+      const guidedClauseUnits = useMemo(() => buildClauseUnits(selectedSentence), [selectedSentence]);
+      const guidedCurrentClause = guidedClauseSelection[selectedSentence.id] || guidedClauseUnits[0]?.key || 'whole';
+      const guidedVisibleText = useMemo(() => {
+        const activeUnit = guidedClauseUnits.find(unit => unit.key === guidedCurrentClause);
+        return activeUnit?.indexes || (selectedSentence.segments || []).map((_, index) => index);
+      }, [guidedClauseUnits, guidedCurrentClause, selectedSentence]);
+      const guidedVisibleSegments = useMemo(
+        () => (selectedSentence.segments || []).filter((_, index) => guidedVisibleText.includes(index)),
+        [selectedSentence, guidedVisibleText]
+      );
+      const guidedNeedsSubSegmentation = guidedInteractiveStep && guidedVisibleSegments.length === 1 && guidedCurrentClause !== 'whole';
+      const guidedSubSegments = useMemo(() => {
+        if (!guidedNeedsSubSegmentation) return [];
+        return splitTextForGuidedParts(guidedVisibleSegments[0]?.text || '');
+      }, [guidedNeedsSubSegmentation, guidedVisibleSegments]);
+      const guidedRoleSegments = guidedNeedsSubSegmentation
+        ? guidedSubSegments.map((seg, index) => ({
+            text: `${seg.text}${index === guidedSubSegments.length - 1 ? '' : ' '}`,
+            type: seg.forcedRole || 'modifier'
+          }))
+        : guidedVisibleSegments;
+      const guidedRoleOptions = useMemo(() => {
+        if (guidedStepIndex !== 1) return GUIDED_MAIN_ROLE_OPTIONS;
+        return getAvailableGuidedRoleOptions(guidedRoleSegments, GUIDED_STRUCTURE_ROLE_OPTIONS);
+      }, [guidedStepIndex, guidedRoleSegments]);
+      const guidedDefaultRole = guidedRoleOptions[0]?.key || (guidedStepIndex === 1 ? 'noun-modifier' : 'subject');
+      const sentenceGuidedSelections = guidedSelections[selectedSentence.id] || {};
+      const sentenceGuidedChecks = guidedCheckState[selectedSentence.id] || {};
+      const clauseGuidedSelections = sentenceGuidedSelections[guidedCurrentClause] || {};
+      const clauseGuidedChecks = sentenceGuidedChecks[guidedCurrentClause] || {};
+      const guidedMainSelections = clauseGuidedSelections[0] || {};
+      const guidedExpectedSelections = useMemo(
+        () => buildExpectedRoleMap(guidedRoleSegments, guidedRoleOptions),
+        [guidedRoleSegments, guidedRoleOptions]
+      );
+      const guidedCurrentSelections = clauseGuidedSelections[guidedStepIndex] || {};
+      const guidedCurrentCheck = clauseGuidedChecks[guidedStepIndex] || null;
+      const guidedCurrentFocus = guidedFocusSelection[selectedSentence.id] || null;
+      const guidedCurrentWordInput = guidedWordInput[selectedSentence.id] || '';
+      const guidedCurrentWordGuess = guidedWordGuess[selectedSentence.id] || '';
+      const guidedCurrentTranslationDraft = guidedTranslationDraft[selectedSentence.id] || '';
+      const guidedCurrentShowTranslation = guidedShowTranslation[selectedSentence.id] || false;
+      const grammarFocusFallback = useMemo(() => {
+        if (selectedSentence.grammarFocus) return selectedSentence.grammarFocus;
+        return extractFirstAnalysisSection(selectedSentence.analysis);
+      }, [selectedSentence]);
+
+      useEffect(() => {
+        if (!guidedInteractiveStep) return;
+        const validRoleKeys = guidedRoleOptions.map(option => option.key);
+        if (validRoleKeys.length === 0) return;
+        if (!validRoleKeys.includes(guidedActiveRole)) {
+          setGuidedActiveRole(guidedDefaultRole);
+        }
+      }, [guidedInteractiveStep, guidedRoleOptions, guidedActiveRole, guidedDefaultRole]);
+
+      const handleGuidedSegmentToggle = (sentence, segmentIndex) => {
+        if (!guidedInteractiveStep) return;
+        const sentenceId = sentence.id;
+        const clauseKey = guidedCurrentClause;
+        const stepKey = guidedStepIndex;
+        const roleKey = guidedActiveRole;
+        setGuidedSelections(prev => {
+          const sentenceSelections = prev[sentenceId] || {};
+          const clauseSelections = sentenceSelections[clauseKey] || {};
+          const stepSelections = clauseSelections[stepKey] || {};
+          const roleSelections = stepSelections[roleKey] || [];
+          const nextRoleSelections = roleSelections.includes(segmentIndex)
+            ? roleSelections.filter(index => index !== segmentIndex)
+            : [...roleSelections, segmentIndex].sort((a, b) => a - b);
+          return {
+            ...prev,
+            [sentenceId]: {
+              ...sentenceSelections,
+              [clauseKey]: {
+                ...clauseSelections,
+                [stepKey]: {
+                  ...stepSelections,
+                  [roleKey]: nextRoleSelections
+                }
+              }
+            }
+          };
+        });
+        setGuidedCheckState(prev => ({
+          ...prev,
+          [sentenceId]: {
+            ...(prev[sentenceId] || {}),
+            [clauseKey]: {
+              ...((prev[sentenceId] || {})[clauseKey] || {}),
+              [stepKey]: null
+            }
+          }
+        }));
+      };
+
+      const handleGuidedDrop = (sentence, segmentIndex, roleKey) => {
+        if (!guidedInteractiveStep || !roleKey) return;
+        setGuidedActiveRole(roleKey);
+        const sentenceId = sentence.id;
+        const clauseKey = guidedCurrentClause;
+        const stepKey = guidedStepIndex;
+        setGuidedSelections(prev => {
+          const sentenceSelections = prev[sentenceId] || {};
+          const clauseSelections = sentenceSelections[clauseKey] || {};
+          const stepSelections = clauseSelections[stepKey] || {};
+          const nextStepSelections = Object.fromEntries(
+            Object.entries(stepSelections).map(([key, indexes]) => [key, (indexes || []).filter(index => index !== segmentIndex)])
+          );
+          const roleSelections = nextStepSelections[roleKey] || [];
+          nextStepSelections[roleKey] = [...roleSelections, segmentIndex].sort((a, b) => a - b);
+          return {
+            ...prev,
+            [sentenceId]: {
+              ...sentenceSelections,
+              [clauseKey]: {
+                ...clauseSelections,
+                [stepKey]: nextStepSelections
+              }
+            }
+          };
+        });
+        setGuidedCheckState(prev => ({
+          ...prev,
+          [sentenceId]: {
+            ...(prev[sentenceId] || {}),
+            [clauseKey]: {
+              ...((prev[sentenceId] || {})[clauseKey] || {}),
+              [stepKey]: null
+            }
+          }
+        }));
+      };
+
+      const handleGuidedCheck = () => {
+        const isCorrect = mapsMatch(guidedCurrentSelections, guidedExpectedSelections);
+        setGuidedCheckState(prev => ({
+          ...prev,
+          [selectedSentence.id]: {
+            ...(prev[selectedSentence.id] || {}),
+            [guidedCurrentClause]: {
+              ...((prev[selectedSentence.id] || {})[guidedCurrentClause] || {}),
+              [guidedStepIndex]: isCorrect ? 'correct' : 'incorrect'
+            }
+          }
+        }));
+      };
+
+      const revealGuidedAnswer = () => {
+        setGuidedSelections(prev => ({
+          ...prev,
+          [selectedSentence.id]: {
+            ...(prev[selectedSentence.id] || {}),
+            [guidedCurrentClause]: {
+              ...((prev[selectedSentence.id] || {})[guidedCurrentClause] || {}),
+              [guidedStepIndex]: guidedExpectedSelections
+            }
+          }
+        }));
+        setGuidedCheckState(prev => ({
+          ...prev,
+          [selectedSentence.id]: {
+            ...(prev[selectedSentence.id] || {}),
+            [guidedCurrentClause]: {
+              ...((prev[selectedSentence.id] || {})[guidedCurrentClause] || {}),
+              [guidedStepIndex]: 'revealed'
+            }
+          }
+        }));
+      };
+
+      const resetGuidedCurrentStep = () => {
+        setGuidedSelections(prev => ({
+          ...prev,
+          [selectedSentence.id]: {
+            ...(prev[selectedSentence.id] || {}),
+            [guidedCurrentClause]: {
+              ...((prev[selectedSentence.id] || {})[guidedCurrentClause] || {}),
+              [guidedStepIndex]: {}
+            }
+          }
+        }));
+        setGuidedCheckState(prev => ({
+          ...prev,
+          [selectedSentence.id]: {
+            ...(prev[selectedSentence.id] || {}),
+            [guidedCurrentClause]: {
+              ...((prev[selectedSentence.id] || {})[guidedCurrentClause] || {}),
+              [guidedStepIndex]: null
+            }
+          }
+        }));
+      };
+
+      const getGuidedSegmentClassName = (sentence, segmentIndex) => {
+        if (sentence.id !== selectedSentence.id) return 'text-slate-800';
+        const basePalette = {
+          subject: 'bg-red-100 text-red-900 border border-red-200',
+          verb: 'bg-blue-100 text-blue-900 border border-blue-200',
+          object: 'bg-green-100 text-green-900 border border-green-200',
+          predicative: 'bg-emerald-100 text-emerald-900 border border-emerald-200',
+          conjunction: 'bg-purple-100 text-purple-900 border border-purple-200',
+          'noun-modifier': 'bg-amber-100 text-amber-900 border border-amber-200',
+          'verb-modifier': 'bg-slate-200 text-slate-800 border border-slate-300',
+          clause: 'bg-fuchsia-100 text-fuchsia-900 border border-fuchsia-200'
+        };
+
+        const mainRole = GUIDED_MAIN_ROLE_OPTIONS.find(option => (guidedMainSelections[option.key] || []).includes(segmentIndex));
+        const currentRole = guidedRoleOptions.find(option => (guidedCurrentSelections[option.key] || []).includes(segmentIndex));
+        const focusIndexes = guidedFocusOptions.find(option => option.key === guidedCurrentFocus)?.indexes || [];
+
+        if (guidedStepIndex === 2 && focusIndexes.includes(segmentIndex)) {
+          return 'bg-indigo-100 text-indigo-900 border border-indigo-300 ring-2 ring-indigo-300';
+        }
+        if (currentRole) {
+          return basePalette[currentRole.key] || 'bg-indigo-100 text-indigo-900 border border-indigo-200';
+        }
+        if (mainRole) {
+          return basePalette[mainRole.key] || 'bg-indigo-100 text-indigo-900 border border-indigo-200';
+        }
+        if (!guidedInteractiveStep) return 'text-slate-800 border border-transparent';
+        const palette = {
+          subject: 'bg-red-100 text-red-900 border border-red-200',
+          verb: 'bg-blue-100 text-blue-900 border border-blue-200',
+          object: 'bg-green-100 text-green-900 border border-green-200',
+          predicative: 'bg-emerald-100 text-emerald-900 border border-emerald-200',
+          conjunction: 'bg-purple-100 text-purple-900 border border-purple-200',
+          modifier: 'bg-amber-100 text-amber-900 border border-amber-200',
+          adverbial: 'bg-slate-200 text-slate-800 border border-slate-300',
+          clause: 'bg-fuchsia-100 text-fuchsia-900 border border-fuchsia-200'
+        };
+        return guidedInteractiveStep ? 'text-slate-800 hover:bg-indigo-50 border border-transparent' : 'text-slate-800 border border-transparent';
+      };
+
+      const handleGuidedWordDoubleClick = (e, sentenceText) => {
+        const selection = window.getSelection();
+        const selectedText = selection?.toString().trim();
+        if (!selectedText || /\s/.test(selectedText)) return;
+        const range = selection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+        setVocabPopup({
+          word: selectedText.replace(/[.,!?;:"“”()]/g, ''),
+          x: rect.left + rect.width / 2,
+          y: rect.top + window.scrollY,
+          context: sentenceText
+        });
+      };
+
+      const renderGuidedSentenceWorkbench = () => (
+        <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-4">
+            <div>
+              <p className="text-sm font-semibold text-slate-700">操作句子</p>
+              <p className="text-sm text-slate-500">
+                {guidedInteractiveStep
+                  ? '先选标签，再点句子里的对应片段。'
+                  : '这里展示当前正在处理的句子。'}
+              </p>
+            </div>
+            {guidedInteractiveStep && (
+              <div className="text-sm font-medium text-indigo-700 bg-indigo-50 border border-indigo-100 rounded-full px-3 py-1.5">
+                当前标签：{guidedRoleOptions.find(option => option.key === guidedActiveRole)?.label || '未选择'}
+              </div>
+            )}
+          </div>
+
+          {guidedClauseUnits.length > 1 && (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {guidedClauseUnits.map(unit => (
+                <button
+                  key={unit.key}
+                  type="button"
+                  onClick={() => setGuidedClauseSelection(prev => ({ ...prev, [selectedSentence.id]: unit.key }))}
+                  className={`px-3 py-1.5 rounded-full border text-sm font-semibold ${
+                    guidedCurrentClause === unit.key
+                      ? 'bg-slate-900 text-white border-slate-900'
+                      : 'bg-white text-slate-700 border-slate-200'
+                  }`}
+                >
+                  {unit.label}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {guidedInteractiveStep && (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {guidedRoleOptions.map(option => (
+                <button
+                  key={option.key}
+                  type="button"
+                  onClick={() => setGuidedActiveRole(option.key)}
+                  draggable
+                  onDragStart={() => setGuidedDragRole(option.key)}
+                  onDragEnd={() => setGuidedDragRole(null)}
+                  className={`px-3 py-1.5 rounded-full border text-sm font-semibold transition-colors ${
+                    guidedActiveRole === option.key
+                      ? 'bg-indigo-600 text-white border-indigo-600'
+                      : 'bg-white text-slate-700 border-slate-200 hover:border-indigo-300'
+                  }`}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          )}
+
+          <div
+            className="rounded-2xl bg-slate-50 border border-slate-200 p-5"
+            onDoubleClick={(e) => !guidedInteractiveStep && handleGuidedWordDoubleClick(e, selectedSentence.text)}
+            title={!guidedInteractiveStep ? '双击单词可查词并加入生词本' : ''}
+          >
+            <div className="text-xl md:text-2xl font-serif leading-relaxed text-slate-900">
+              {guidedNeedsSubSegmentation
+                ? guidedSubSegments.map((seg, index) => (
+                    <button
+                      key={`${seg.text}-${index}`}
+                      type="button"
+                      onClick={() => handleGuidedSegmentToggle(selectedSentence, index)}
+                      onDragOver={(e) => {
+                        e.preventDefault();
+                      }}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        handleGuidedDrop(selectedSentence, index, guidedDragRole || guidedActiveRole);
+                        setGuidedDragRole(null);
+                      }}
+                      className={`inline rounded-md px-1 py-0.5 mx-[1px] transition-all ${getGuidedSegmentClassName(selectedSentence, index)}`}
+                      title={seg.forcedRole || ''}
+                    >
+                      {seg.text}{index === guidedSubSegments.length - 1 ? '' : ' '}
+                    </button>
+                  ))
+                : (selectedSentence.segments || []).map((seg, index) => {
+                    if (!guidedVisibleText.includes(index) && guidedClauseUnits.length > 1) {
+                      return null;
+                    }
+                    return guidedInteractiveStep ? (
+                      <button
+                        key={`${seg.text}-${index}`}
+                        type="button"
+                        onClick={() => handleGuidedSegmentToggle(selectedSentence, index)}
+                        onDragOver={(e) => {
+                          e.preventDefault();
+                        }}
+                        onDrop={(e) => {
+                          e.preventDefault();
+                          handleGuidedDrop(selectedSentence, index, guidedDragRole || guidedActiveRole);
+                          setGuidedDragRole(null);
+                        }}
+                        className={`inline rounded-md px-1 py-0.5 mx-[1px] transition-all ${getGuidedSegmentClassName(selectedSentence, index)}`}
+                        title={seg.label}
+                      >
+                        {seg.text}
+                      </button>
+                    ) : (
+                      <span
+                        key={`${seg.text}-${index}`}
+                        className={`inline rounded-md px-1 py-0.5 mx-[1px] transition-all ${getGuidedSegmentClassName(selectedSentence, index)}`}
+                      >
+                        {seg.text}
+                      </span>
+                    );
+                  })}
+            </div>
+          </div>
+        </div>
+      );
+
+      // --- Auth Handlers ---
+      const handleAuthSubmit = async (e) => {
+        e.preventDefault();
+        if (!auth) {
+          setAuthError("Auth 服务未初始化");
+          return;
+        }
+        setIsAuthenticating(true);
+        setAuthError("");
+        try {
+          if (isLoginMode) {
+            await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+          } else {
+            await createUserWithEmailAndPassword(auth, loginEmail, loginPassword);
+          }
+          setShowLoginModal(false);
+        } catch (err) {
+          if (err.code === 'auth/invalid-credential') setAuthError("邮箱或密码错误，请检查。");
+          else if (err.code === 'auth/email-already-in-use') setAuthError("该邮箱已被注册，请直接登录。");
+          else setAuthError("认证失败：" + err.message);
+        } finally {
+          setIsAuthenticating(false);
+        }
+      };
+
+      const handleGoogleLogin = async () => {
+        if (!auth) return;
+        
+        if (window.location.hostname.includes('usercontent.goog')) {
+          setAuthError("⚠️ 平台沙盒域名 (*.usercontent.goog) 被 Google 拦截。您的配置已正确，导出至自有域名后即可生效。\n\n👉 现在测试同步，请直接使用下方【邮箱+密码】随意注册即可！");
+          return;
+        }
+
+        setIsAuthenticating(true);
+        setAuthError("");
+        try {
+          const provider = new GoogleAuthProvider();
+          await signInWithPopup(auth, provider);
+          setShowLoginModal(false);
+        } catch (err) {
+          setAuthError("Google 登录失败：" + err.message);
+        } finally {
+          setIsAuthenticating(false);
+        }
+      };
+
+      const handleLogout = async () => {
+        if (!auth) return;
+        try {
+          await signOut(auth);
+          await signInAnonymously(auth);
+        } catch (e) {
+          console.error("Logout error", e);
+        }
+      };
+
+      // --- Vocab / Dictionary Logic ---
+      const handleAddWordToVocab = async (word, contextSentenceText) => {
+        if (vocabBook.some(v => v.word === word)) return; 
+        setAddingWordId(word);
+        setActiveAiTask('vocab');
+        setAiTaskStartedAt(Date.now());
+        try {
+          const sysPrompt = `你是一个专业的英语词汇与词源拓展助手。用户正在阅读英文文章，并希望将生词加入专属卡片本。
+请提供以下细节，严格输出JSON格式：
+{
+  "meaning": "简明扼要的中文释义（请根据原文语境给出最合适的翻译）",
+  "pronunciation": "英式或美式音标，例如 /əˈstrɒnəmə(r)/",
+  "etymology": "词源简述，解释词根词缀。例如：由 astro-(星星) + -nomer(命名者) 组成，源自希腊语。",
+  "exampleSentence": "造一个符合A2/B1难度的简短英文例句，并在括号内附带中文翻译。"
+}`;
+          const userPrompt = `【目标单词】：${word}\n【原文语境】：${contextSentenceText}`;
+          const response = await fetchAiResponse({
+            ...aiConfig,
+            userPrompt,
+            systemPrompt: sysPrompt,
+            expectJson: true
+          });
+          const data = parseAiJsonOrThrow(response, 'Ollama');
+
+          // Web API crypto fallback
+          const generateId = () => window.crypto?.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15);
+
+          const newWordEntry = {
+            id: generateId(),
+            word: word,
+            meaning: data.meaning || "暂无释义",
+            pronunciation: data.pronunciation || "",
+            etymology: data.etymology || "暂无词源信息",
+            exampleSentence: data.exampleSentence || "",
+            sourceContext: contextSentenceText,
+            addedAt: new Date().toLocaleDateString(),
+            timestamp: Date.now()
+          };
+
+          setVocabBook(prev => [newWordEntry, ...prev]);
+          setToastMessage(`✅ 成功添加生词: ${word}`);
+        } catch (error) {
+          console.error(error);
+          setToastMessage(`❌ 词汇解析失败：${error.message || '请稍后重试'}`);
+        } finally {
+          setAddingWordId(null);
+          setActiveAiTask(null);
+          setAiTaskStartedAt(null);
+        }
+      };
+
+      const handleRemoveWord = (id) => {
+        setConfirmDialog({
+          message: "确定要从生词本彻底移除这个单词吗？",
+          onConfirm: () => {
+            setVocabBook(prev => prev.filter(w => w.id !== id));
+            setConfirmDialog(null);
+            setToastMessage("🗑️ 单词已移除");
+          }
+        });
+      };
+
+      const exportVocabData = () => {
+        if(vocabBook.length === 0) {
+          setToastMessage("⚠️ 生词本是空的，没什么可导出的！");
+          return;
+        }
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(vocabBook, null, 2));
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute("download", `vocab_backup_${new Date().toISOString().split('T')[0]}.json`);
+        document.body.appendChild(downloadAnchorNode); 
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+        setToastMessage("💾 生词本备份已成功导出");
+      };
+
+      const importVocabData = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const fileReader = new FileReader();
+        fileReader.readAsText(file, "UTF-8");
+        fileReader.onload = event => {
+          try {
+            const importedData = JSON.parse(event.target.result);
+            if (Array.isArray(importedData)) {
+              setVocabBook(prev => {
+                const newDict = [...prev];
+                importedData.forEach(newWord => {
+                  if(!newDict.some(w => w.word === newWord.word)) {
+                    newDict.push(newWord);
+                  }
+                });
+                newDict.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+                return newDict;
+              });
+              setToastMessage(`✅ 成功导入了 ${importedData.length} 个单词记录！`);
+            } else {
+              setToastMessage("❌ 文件格式不正确，应该是一个包含单词对象的数组。");
+            }
+          } catch (err) {
+            setToastMessage("❌ 导入失败，JSON 格式可能已损坏！");
+          }
+          e.target.value = null;
+        };
+      };
+
+      // --- Article Library Logic ---
+      const handleSaveCurrentArticle = () => {
+        setArticleTitleInput(`分析文章 ${new Date().toLocaleDateString()}`);
+        setSaveModalOpen(true);
+      };
+
+      const handleRemoveArticle = (id) => {
+        setConfirmDialog({
+          message: "确定要从书架彻底删除这篇文章吗？",
+          onConfirm: () => {
+            setSavedArticles(prev => prev.filter(a => a.id !== id));
+            setConfirmDialog(null);
+            setToastMessage("🗑️ 文章已删除");
+          }
+        });
+      };
+
+      const handleLoadArticle = (article) => {
+        const normalizedData = normalizeArticleData(article.data);
+        setCurrentArticleData(normalizedData);
+        setSelectedSentence(normalizedData[0]);
+        setViewMode('reading');
+        setToastMessage(`📖 正在阅读：${article.title}`);
+      };
+
+      const exportArticlesData = () => {
+        if(savedArticles.length === 0) {
+          setToastMessage("⚠️ 书架是空的，没什么可导出的！");
+          return;
+        }
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(savedArticles, null, 2));
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute("download", `articles_backup_${new Date().toISOString().split('T')[0]}.json`);
+        document.body.appendChild(downloadAnchorNode); 
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+        setToastMessage("💾 书架备份已成功导出");
+      };
+
+      const importArticlesData = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const fileReader = new FileReader();
+        fileReader.readAsText(file, "UTF-8");
+        fileReader.onload = event => {
+          try {
+            const importedData = JSON.parse(event.target.result);
+            if (Array.isArray(importedData)) {
+              setSavedArticles(prev => {
+                const newList = [...prev];
+                importedData.forEach(newArt => {
+                  if(!newList.some(a => a.id === newArt.id)) {
+                    newList.push({
+                      ...newArt,
+                      data: normalizeArticleData(newArt.data)
+                    });
+                  }
+                });
+                newList.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+                return newList;
+              });
+              setToastMessage(`✅ 成功导入了 ${importedData.length} 篇文章记录！`);
+            } else {
+              setToastMessage("❌ 文件格式不正确，应该是一个包含文章对象的数组。");
+            }
+          } catch (err) {
+            setToastMessage("❌ 导入失败，JSON 格式可能已损坏！");
+          }
+          e.target.value = null;
+        };
+      };
+
+      const handleSentenceDoubleClick = (e, sentenceText) => {
+        setTimeout(() => {
+          const selection = window.getSelection();
+          const selectedStr = selection.toString().trim();
+          const wordMatch = selectedStr.match(/[a-zA-Z]+(?:'[a-zA-Z]+)?/);
+          
+          if (wordMatch && wordMatch[0] && selectedStr.length < 30) {
+            setVocabPopup({
+              word: wordMatch[0].toLowerCase(),
+              context: sentenceText,
+              x: e.clientX,
+              y: e.clientY
+            });
+          }
+        }, 50);
+      };
+
+      const handleCheckOllamaConnection = async () => {
+        if (isFileProtocol) {
+          setOllamaStatus({
+            ok: true,
+            message: '当前是双击打开模式。部分浏览器会拦截 file:// 页面主动探测本地服务，所以这里不做强检测；请直接点击解析按钮验证 Ollama 是否可用。'
+          });
+          return;
+        }
+
+        setIsCheckingOllama(true);
+        setOllamaStatus({ ok: false, message: '正在检测 Ollama 服务...' });
+
+        try {
+          const cleanBaseUrl = sanitizeBaseUrl(ollamaBaseUrl);
+          const response = await fetch(`${cleanBaseUrl}/api/tags`);
+          if (!response.ok) {
+            const text = await response.text();
+            throw new Error(`HTTP ${response.status}${text ? `: ${text}` : ''}`);
+          }
+
+          const data = await response.json();
+          const models = data?.models || [];
+          const matched = models.find(item => item.name === ollamaModel.trim());
+          const modelList = models.map(item => item.name).filter(Boolean);
+
+          if (matched) {
+            setOllamaStatus({
+              ok: true,
+              message: `已连接到 ${cleanBaseUrl}，当前模型 ${ollamaModel.trim()} 可用。`
+            });
+          } else if (modelList.length > 0) {
+            setOllamaStatus({
+              ok: false,
+              message: `服务已连接，但未找到模型 ${ollamaModel.trim()}。当前可用模型：${modelList.join('、')}`
+            });
+          } else {
+            setOllamaStatus({
+              ok: false,
+              message: '服务已连接，但没有发现可用模型。请先在本机拉取模型。'
+            });
+          }
+        } catch (error) {
+          const hint = isFileProtocol
+            ? ' 当前浏览器拦截了 file:// 页面发起的本地探测，这不一定代表 Ollama 不可用。'
+            : '';
+          setOllamaStatus({
+            ok: false,
+            message: `检测失败：${error.message}${hint}`
+          });
+        } finally {
+          setIsCheckingOllama(false);
+        }
+      };
+
+      // --- AI Actions ---
+      const handleSimplifySentence = async () => {
+        setIsSimplifying(true);
+        setSimplifiedSentence("");
+        setActiveAiTask('simplify');
+        setAiTaskStartedAt(Date.now());
+        try {
+          const sysPrompt = "你是一位擅长用极简英文解释复杂句型的英语老师。请把用户提供的句子重写为CEFR A2/B1级别的基础英语，只返回重写后的英文句子，不要加任何其他解释或引号。";
+          const userPrompt = `重写这句话: ${selectedSentence.text}`;
+          const response = await fetchAiResponse({
+            ...aiConfig,
+            userPrompt,
+            systemPrompt: sysPrompt,
+            expectJson: false
+          });
+          setSimplifiedSentence(response);
+        } catch (error) {
+          setSimplifiedSentence(error.message || "生成简化版本时出错，请稍后再试。");
+        } finally {
+          setIsSimplifying(false);
+          setActiveAiTask(null);
+          setAiTaskStartedAt(null);
+        }
+      };
+
+      const handleAskGrammarQuestion = async (e) => {
+        e.preventDefault();
+        if (!aiQuestion.trim()) return;
+        setIsAiAnswering(true);
+        setAiAnswer("");
+        setActiveAiTask('qa');
+        setAiTaskStartedAt(Date.now());
+        const currentQ = aiQuestion;
+        setAiQuestion("");
+        try {
+          const sysPrompt = "你是一位专业的初高中英语语法辅导老师。针对用户给出的【英语原句】和他们提出的【语法问题】，请用清晰、易懂、友好的中文给出简明扼要的解答。如果问题与语法或阅读无关，礼貌地引导回句子本身。请多使用 Markdown 格式（如加粗、列表）让排版更清晰。";
+          const userPrompt = `【英语原句】：${selectedSentence.text}\n【学生问题】：${currentQ}`;
+          const response = await fetchAiResponse({
+            ...aiConfig,
+            userPrompt,
+            systemPrompt: sysPrompt,
+            expectJson: false
+          });
+          setAiAnswer(response);
+        } catch (error) {
+          setAiAnswer(error.message || "由于网络或服务器问题，AI助教未能作答。请重试。");
+        } finally {
+          setIsAiAnswering(false);
+          setActiveAiTask(null);
+          setAiTaskStartedAt(null);
+        }
+      };
+
+      const handleAnalyzeNewText = async () => {
+        if (!inputText.trim()) return;
+        setIsParsingText(true);
+        setParseError("");
+        setActiveAiTask('analyze');
+        setAiTaskStartedAt(Date.now());
+        setAiTaskPhase('requesting');
+        setAiReceivedChars(0);
+        setAiReceivedChunks(0);
+        setAiLastProgressAt(Date.now());
+
+      const sysPrompt = `你是一款专业的英文长难句解析工具。请将用户提供的英文文本**逐句、逐字**进行深度解析，并严格按照 JSON 格式返回。
+【绝对警告】：**绝不允许缩写、总结、省略或修改任何原句内容**。无论是带有序号的列表、短句还是长句，你必须按顺序解析用户输入的**每一个句子**，确保文章完整无缺！如果用户输入包含序号（如 1. 2.），请将其作为普通文本处理，确保正常解析。
+
+要求：
+1. 必须切分出正确的段落号(para)和句子ID(id)。
+2. 将整句拆分为片段(segments)，片段拼接后必须与原句 text 完全一致（包括空格和标点）。
+2.1 对于 segments 的 label，必须尽量使用统一、稳定的中文标签，避免同类结构反复换叫法：
+   - subject -> 主语
+   - verb -> 谓语；如果是 be / seem / become 等系动词，也可以写 系动词
+   - object -> 宾语
+   - predicative -> 表语
+   - conjunction -> 连接词
+   - adverbial -> 状语
+   - modifier -> 不要机械统称为修饰语。请根据它实际修饰的对象细分：
+     能修饰名词、名词短语的，标成 定语 / 同位语 / 补足语 / 补充说明 等名词性修饰标签；
+     如果它实际限定的是整个动作、谓语或整句的时间、地点、方式、原因、条件、让步、程度等，也应直接标成 状语
+   - clause-* -> 从句核心
+   不要输出像“同位语/定语”“修饰语”“附加成分”这类混合或过泛标签。
+3. **【极度重要：解析的深度】**：在 analysis 字段中，**绝对不能简略！**必须像专业的考研/托福精读老师一样，提供详尽的解析。必须强制使用 Markdown 格式（如 ### 标题、**加粗**、* 列表）。累积包含以下剖析内容：
+   ### 【主干结构】详细指出主句的主语、谓语、宾语/表语分别是什么词。
+   ### 【主谓一致】分析主谓单复数对应。
+   ### 【动词时态与原形】指出时态并给出原形。
+   ### 【从句剖析】说明从句类型（若有）。
+   ### 【代词指代】分析代词指代对象（若有）。
+   ### 【非谓语动词】说明分词、不定式等（若有）。
+
+输出必须符合以下 JSON 格式：
+{
+  "articleData": [
+    {
+      "id": "s1",
+      "para": 1,
+      "text": "完整英文原句",
+      "translation": "精准中文翻译",
+      "grammarFocus": "核心语法点",
+      "pronounRef": "代词指代简要解释",
+      "logicConnector": "逻辑连词解释",
+      "sentenceCoach": {
+        "summary": "可选：一句像老师带读的简短提示",
+        "keyHint": "可选：最值得孩子先注意的一个提醒"
+      },
+      "analysis": "中文深度结构剖析(使用Markdown排版)。",
+      "segments": [
+        {
+          "text": "切分后的片段(必须包含周围标点及空格)",
+          "type": "必须是: subject, verb, object, predicative, clause-subject, clause-verb, clause-object, clause-predicative, conjunction, modifier, adverbial",
+          "label": "中文语法标签（优先使用：主语 / 谓语 / 系动词 / 宾语 / 表语 / 连接词 / 定语 / 同位语 / 补足语 / 补充说明 / 状语 / 从句核心）"
+        }
+      ]
+    }
+  ]
+}`;
+        try {
+          let response = await fetchAiResponse({
+            ...aiConfig,
+            userPrompt: inputText,
+            systemPrompt: sysPrompt,
+            expectJson: true,
+            onProgress: reportAiProgress
+          });
+          const parsedData = parseAiJsonOrThrow(response, 'Ollama');
+          
+          if (parsedData.articleData && parsedData.articleData.length > 0) {
+            const normalizedData = normalizeArticleData(parsedData.articleData);
+            setCurrentArticleData(normalizedData);
+            setSelectedSentence(normalizedData[0]);
+            setViewMode('reading');
+            setInputText("");
+            setToastMessage("✅ 全新文章已成功解析！");
+          } else {
+            throw new Error("解析结果为空");
+          }
+        } catch (error) {
+          console.error(error);
+          setParseError(error.message || "AI 解析失败，请检查文本或稍后再试。");
+        } finally {
+          setIsParsingText(false);
+          setActiveAiTask(null);
+          setAiTaskStartedAt(null);
+          setAiTaskPhase(null);
+          setAiReceivedChars(0);
+          setAiReceivedChunks(0);
+          setAiLastProgressAt(null);
+        }
+      };
+
+      return (
+        <div className="min-h-screen bg-slate-50 p-4 md:p-6 font-sans print:bg-white print:p-0 relative">
+          <div className="w-full max-w-[94%] 2xl:max-w-[1720px] mx-auto">
+            <header className="mb-6 pt-4 text-center flex flex-col items-center relative print:hidden">
+              <div className="flex items-center justify-center gap-3 w-full mb-2">
+                <BookOpen className="text-indigo-600 w-8 h-8" />
+                <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
+                  英语长难句交互阅读解析
+                </h1>
+              </div>
+              {viewMode !== 'reading' && (
+                <p className="text-slate-600 max-w-2xl mx-auto mt-1">
+                  {viewMode === 'vocab' ? "长期累计你的专属词汇卡片，纯本地存储，随时导入导出防丢失。" :
+                   viewMode === 'upload' ? "上传或粘贴你的英文文章，AI 将为你自动生成交互式解析。" : ""}
+                </p>
+              )}
+
+              <div className="mt-6 flex flex-wrap justify-center items-center gap-3">
+                <button 
+                  onClick={() => setViewMode('reading')}
+                  className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-colors shadow-sm ${viewMode === 'reading' ? 'bg-indigo-600 text-white' : 'bg-white border border-indigo-200 text-indigo-600 hover:bg-indigo-50'}`}
+                >
+                  <BookOpen className="w-4 h-4" /> 语境阅读区
+                </button>
+                <button 
+                  onClick={() => setViewMode('library')}
+                  className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-colors shadow-sm ${viewMode === 'library' ? 'bg-indigo-600 text-white' : 'bg-white border border-indigo-200 text-indigo-600 hover:bg-indigo-50'}`}
+                >
+                  <Library className="w-4 h-4" /> 我的书架
+                  {savedArticles.length > 0 && <span className={`text-xs px-2 py-0.5 rounded-full ${viewMode === 'library' ? 'bg-white text-indigo-600' : 'bg-indigo-100 text-indigo-700'}`}>{savedArticles.length}</span>}
+                </button>
+                <button 
+                  onClick={() => setViewMode('vocab')}
+                  className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-colors shadow-sm ${viewMode === 'vocab' ? 'bg-indigo-600 text-white' : 'bg-white border border-indigo-200 text-indigo-600 hover:bg-indigo-50'}`}
+                >
+                  <BookMarked className="w-4 h-4" /> 我的生词本
+                  {vocabBook.length > 0 && <span className={`text-xs px-2 py-0.5 rounded-full ${viewMode === 'vocab' ? 'bg-white text-indigo-600' : 'bg-indigo-100 text-indigo-700'}`}>{vocabBook.length}</span>}
+                </button>
+                <button 
+                  onClick={() => setViewMode('upload')}
+                  className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-colors shadow-sm ${viewMode === 'upload' ? 'bg-indigo-600 text-white' : 'bg-white border border-indigo-200 text-indigo-600 hover:bg-indigo-50'}`}
+                >
+                  <UploadCloud className="w-4 h-4" /> 分析新文章
+                </button>
+                <button
+                  onClick={() => setShowAiSettings(prev => !prev)}
+                  className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-colors shadow-sm ${showAiSettings ? 'bg-slate-800 text-white' : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'}`}
+                >
+                  <Bot className="w-4 h-4" />
+                  AI 设置
+                </button>
+              </div>
+
+              {showAiSettings && (
+                <div className="mt-5 w-full max-w-5xl bg-white/95 backdrop-blur rounded-[28px] border border-slate-200 shadow-xl p-5 md:p-6 animate-in fade-in slide-in-from-top-2 text-left">
+                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-5">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.25em] text-slate-400 font-semibold mb-2">AI Provider</p>
+                      <h2 className="text-xl font-bold text-slate-900">AI 模型设置</h2>
+                      <p className="text-sm text-slate-500 mt-2 max-w-2xl">
+                        这里直接管理当前使用的模型入口。Ollama 提供本地与远程 NV 两套预设，OpenAI-compatible 允许直接填写 Key、Base URL 和 Model。
+                      </p>
+                    </div>
+                    <div className="inline-flex p-1 bg-slate-100 rounded-2xl self-start">
+                      <button
+                        onClick={() => setAiProvider('ollama')}
+                        className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${aiProvider === 'ollama' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                      >
+                        Ollama
+                      </button>
+                      <button
+                        onClick={() => setAiProvider('cloud')}
+                        className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${aiProvider === 'cloud' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                      >
+                        OpenAI-compatible
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 grid grid-cols-1 xl:grid-cols-2 gap-5">
+                    <div className={`rounded-3xl border p-5 transition-all ${aiProvider === 'ollama' ? 'border-emerald-200 bg-emerald-50/60' : 'border-slate-200 bg-slate-50/70'}`}>
+                      <div className="flex items-center justify-between gap-3 mb-4">
+                        <div>
+                          <h3 className="text-lg font-bold text-slate-900">Ollama</h3>
+                          <p className="text-sm text-slate-500 mt-1">支持本地与远程 NV 两套方案，选完后仍可手动修改 URL 和模型名。</p>
+                        </div>
+                        <span className={`text-xs px-3 py-1 rounded-full font-semibold ${aiProvider === 'ollama' ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-600'}`}>
+                          {aiProvider === 'ollama' ? '当前使用中' : '可切换'}
+                        </span>
+                      </div>
+
+                      <div className="space-y-4">
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">方案</label>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {Object.values(OLLAMA_PRESETS).map((preset) => (
+                              <button
+                                key={preset.key}
+                                type="button"
+                                onClick={() => applyOllamaPreset(preset.key)}
+                                className={`text-left rounded-2xl border px-4 py-3 transition-all ${
+                                  ollamaPreset === preset.key
+                                    ? 'border-emerald-500 bg-white shadow-sm'
+                                    : 'border-slate-200 bg-white/80 hover:border-slate-300'
+                                }`}
+                              >
+                                <div className="flex items-center justify-between gap-3">
+                                  <span className="text-sm font-semibold text-slate-900">{preset.label}</span>
+                                  {ollamaPreset === preset.key && <span className="text-[11px] font-semibold text-emerald-700">已选中</span>}
+                                </div>
+                                <p className="mt-1 text-xs text-slate-500">{preset.description}</p>
+                                <p className="mt-2 text-xs text-slate-400 break-all">{preset.baseUrl}</p>
+                                <p className="mt-1 text-xs text-slate-400 break-all">{preset.model}</p>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">Base URL</label>
+                          <input
+                            type="text"
+                            value={ollamaBaseUrl}
+                            onChange={(e) => setOllamaBaseUrl(e.target.value)}
+                            className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+                            placeholder="http://127.0.0.1:11434"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">模型名</label>
+                          <input
+                            type="text"
+                            value={ollamaModel}
+                            onChange={(e) => setOllamaModel(e.target.value)}
+                            className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+                            placeholder={DEFAULT_OLLAMA_MODEL}
+                          />
+                        </div>
+                        <div className="flex flex-wrap items-center gap-3">
+                          <button
+                            onClick={handleCheckOllamaConnection}
+                            disabled={isCheckingOllama}
+                            className="inline-flex items-center gap-2 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white px-4 py-2.5 text-sm font-semibold transition-colors disabled:opacity-70"
+                          >
+                            {isCheckingOllama ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
+                            检测本地连接
+                          </button>
+                          <span className={`text-sm font-medium ${ollamaStatus.ok ? 'text-emerald-700' : 'text-slate-500'}`}>
+                            {ollamaStatus.message}
+                          </span>
+                        </div>
+                        <div className="text-xs leading-6 text-slate-500 bg-white/80 border border-slate-200 rounded-2xl p-4">
+                          本地推荐：`{DEFAULT_OLLAMA_BASE_URL}` + `{DEFAULT_OLLAMA_MODEL}`。远程 NV 推荐：`{REMOTE_NV_OLLAMA_BASE_URL}` + `{REMOTE_NV_OLLAMA_MODEL}`。若在 `file://` 双击模式下检测受限，通常只是浏览器拦截主动探测，不代表实际解析不可用。
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={`rounded-3xl border p-5 transition-all ${aiProvider === 'cloud' ? 'border-sky-200 bg-sky-50/70' : 'border-slate-200 bg-slate-50/70'}`}>
+                      <div className="flex items-center justify-between gap-3 mb-4">
+                        <div>
+                          <h3 className="text-lg font-bold text-slate-900">OpenAI-compatible</h3>
+                          <p className="text-sm text-slate-500 mt-1">直接填写兼容接口的 API Key、Base URL 和模型名，方便用户自行替换。</p>
+                        </div>
+                        <span className={`text-xs px-3 py-1 rounded-full font-semibold ${aiProvider === 'cloud' ? 'bg-sky-600 text-white' : 'bg-slate-200 text-slate-600'}`}>
+                          {aiProvider === 'cloud' ? '当前使用中' : '可切换'}
+                        </span>
+                      </div>
+
+                      <div className="space-y-4">
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">API Key</label>
+                          <input
+                            type="password"
+                            value={cloudApiKey}
+                            onChange={(e) => setCloudApiKey(e.target.value)}
+                            className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
+                            placeholder="sk-..."
+                            autoComplete="off"
+                            spellCheck="false"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">Base URL</label>
+                          <input
+                            type="text"
+                            value={cloudBaseUrl}
+                            onChange={(e) => setCloudBaseUrl(e.target.value)}
+                            className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
+                            placeholder="https://api.example.com/v1"
+                            autoComplete="off"
+                            spellCheck="false"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">模型名</label>
+                          <input
+                            type="text"
+                            value={cloudModel}
+                            onChange={(e) => setCloudModel(e.target.value)}
+                            className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
+                            placeholder="gpt-4.1 / kimi-k2.5 / deepseek-chat"
+                            autoComplete="off"
+                            spellCheck="false"
+                          />
+                        </div>
+                        <div className="text-xs leading-6 text-slate-500 bg-white/80 border border-slate-200 rounded-2xl p-4">
+                          这里只提供通用兼容入口，不预填任何 Key、URL 或模型。切到此模式后，解析、问答、句子改写都会走这个兼容接口。
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </header>
+
+            {/* Global Loading Toast */}
+            {addingWordId && (
+              <div className="fixed bottom-6 right-6 bg-slate-800 text-white px-5 py-4 rounded-2xl shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-5 z-50">
+                <Loader2 className="w-5 h-5 animate-spin text-indigo-400" />
+                <span>正在利用 AI 为 <strong>{addingWordId}</strong> 梳理词源并生成例句...</span>
+              </div>
+            )}
+
+            {/* Floating Double-Click Popup */}
+            {vocabPopup && (
+              <div 
+                id="vocab-popup"
+                className="fixed z-[100] bg-white text-slate-800 border border-slate-200 px-3 py-2 rounded-xl shadow-2xl flex items-center gap-3 text-sm animate-in zoom-in-95 duration-100"
+                style={{ top: vocabPopup.y + 20, left: vocabPopup.x, transform: 'translateX(-50%)' }}
+              >
+                <span className="font-bold text-indigo-600 text-base">{vocabPopup.word}</span>
+                <div className="w-px h-5 bg-slate-200"></div>
+                {vocabBook.some(v => v.word === vocabPopup.word) ? (
+                  <span className="text-emerald-500 flex items-center gap-1.5 font-medium"><CheckCircle2 className="w-4 h-4" /> 已在生词本</span>
+                ) : (
+                  <button 
+                    onClick={() => {
+                      handleAddWordToVocab(vocabPopup.word, vocabPopup.context);
+                      setVocabPopup(null);
+                    }}
+                    className="flex items-center gap-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 px-3 py-1.5 rounded-lg font-medium transition-colors"
+                  >
+                    <Plus className="w-4 h-4" /> 加入卡片
+                  </button>
+                )}
+              </div>
+            )}
+
+            {/* =========================================
+                ARTICLE LIBRARY VIEW (Local Saved Articles)
+                ========================================= */}
+            {viewMode === 'library' && (
+              <div className="animate-in fade-in slide-in-from-bottom-4">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 print:hidden bg-indigo-50 p-4 rounded-2xl border border-indigo-100">
+                  <div>
+                    <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                      <Library className="w-6 h-6 text-indigo-500" />
+                      本地文章书架 ({savedArticles.length})
+                    </h2>
+                    <p className="text-sm text-slate-500 mt-1">保存您分析过的文章，包含完整的句式解析数据，并自动持久化到本机。</p>
+                    <p className={`text-xs mt-1 ${localPersistenceStatus.enabled ? 'text-emerald-600' : 'text-amber-600'}`}>{localPersistenceStatus.message}</p>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <input 
+                      type="file" 
+                      accept=".json" 
+                      ref={articleFileInputRef} 
+                      onChange={importArticlesData} 
+                      className="hidden" 
+                    />
+                    <button onClick={() => articleFileInputRef.current.click()} className="flex items-center gap-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm">
+                      <Upload className="w-4 h-4" /> 导入书架
+                    </button>
+                    {savedArticles.length > 0 && (
+                      <button onClick={exportArticlesData} className="flex items-center gap-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm">
+                        <Download className="w-4 h-4" /> 导出JSON
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {savedArticles.length === 0 ? (
+                  <div className="text-center py-20 bg-white rounded-2xl border border-slate-200 shadow-sm print:hidden">
+                    <FolderOpen className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold text-slate-600 mb-2">书架还是空的</h3>
+                    <p className="text-slate-500">在【语境阅读区】点击左侧面板右上角的“保存文章”即可将其收入书架。</p>
+                    <button onClick={() => setViewMode('upload')} className="mt-6 text-indigo-600 font-medium hover:underline">去解析新文章</button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {savedArticles.map((article) => (
+                      <div key={article.id} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow relative flex flex-col">
+                        <div className="flex justify-between items-start mb-4">
+                          <h3 className="text-xl font-bold text-slate-900 leading-snug pr-8 line-clamp-2">{article.title}</h3>
+                          <button 
+                            onClick={() => handleRemoveArticle(article.id)}
+                            className="text-slate-300 hover:text-red-500 transition-colors absolute top-6 right-6"
+                            title="删除文章"
+                          >
+                            <Trash2 className="w-5 h-5" />
+                          </button>
+                        </div>
+                        <div className="text-sm text-slate-500 mb-6 flex-grow">
+                          包含 {article.data.length} 个句子的深度解析
+                          <div className="mt-1 text-xs text-slate-400">保存时间: {new Date(article.timestamp).toLocaleString()}</div>
+                        </div>
+                        <button 
+                          onClick={() => handleLoadArticle(article)}
+                          className="w-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-medium py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2"
+                        >
+                          <BookOpen className="w-4 h-4" /> 继续阅读
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* =========================================
+                VOCABULARY BOOK VIEW (Local Flashcards)
+                ========================================= */}
+            {viewMode === 'vocab' && (
+              <div className="animate-in fade-in slide-in-from-bottom-4">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 print:hidden bg-indigo-50 p-4 rounded-2xl border border-indigo-100">
+                  <div>
+                    <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                      <BookMarked className="w-6 h-6 text-indigo-500" />
+                      本地词汇卡片库 ({vocabBook.length})
+                    </h2>
+                    <p className="text-sm text-slate-500 mt-1">生词卡会自动保存到本机本地数据文件；导出 JSON 仍可作为额外备份。</p>
+                    <p className={`text-xs mt-1 ${localPersistenceStatus.enabled ? 'text-emerald-600' : 'text-amber-600'}`}>{localPersistenceStatus.message}</p>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <input 
+                      type="file" 
+                      accept=".json" 
+                      ref={fileInputRef} 
+                      onChange={importVocabData} 
+                      className="hidden" 
+                    />
+                    <button onClick={() => fileInputRef.current.click()} className="flex items-center gap-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm">
+                      <Upload className="w-4 h-4" /> 导入备份
+                    </button>
+                    {vocabBook.length > 0 && (
+                      <React.Fragment>
+                        <button onClick={exportVocabData} className="flex items-center gap-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm">
+                          <Download className="w-4 h-4" /> 导出JSON
+                        </button>
+                        <button onClick={() => window.print()} className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-white px-3 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm">
+                          <Printer className="w-4 h-4" /> 打印卡片
+                        </button>
+                      </React.Fragment>
+                    )}
+                  </div>
+                </div>
+
+                {vocabBook.length === 0 ? (
+                  <div className="text-center py-20 bg-white rounded-2xl border border-slate-200 shadow-sm print:hidden">
+                    <BookMarked className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold text-slate-600 mb-2">生词本还是空的</h3>
+                    <p className="text-slate-500">在阅读区双击任意不认识的单词即可加入生词本。</p>
+                    <button onClick={() => setViewMode('reading')} className="mt-6 text-indigo-600 font-medium hover:underline">返回阅读区去添加</button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 print:grid-cols-2 print:gap-4 print:text-black">
+                    {vocabBook.map((wordObj) => (
+                      <div key={wordObj.id} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm relative group hover:shadow-md transition-shadow break-inside-avoid print:border-gray-400 print:shadow-none print:m-2">
+                        <button 
+                          onClick={() => handleRemoveWord(wordObj.id)}
+                          className="absolute top-4 right-4 text-slate-300 hover:text-red-500 transition-colors print:hidden"
+                          title="移除单词"
+                        >
+                          <Trash2 className="w-5 h-5" />
+                        </button>
+                        <div className="mb-4">
+                          <h3 className="text-2xl font-bold text-slate-900 mb-1">{wordObj.word}</h3>
+                          <div className="text-sm font-medium text-indigo-600 mb-2">{wordObj.pronunciation}</div>
+                          <div className="text-lg font-semibold text-slate-800">{wordObj.meaning}</div>
+                        </div>
+                        <div className="space-y-4">
+                          <div className="bg-slate-50 rounded-lg p-3 border border-slate-100 print:bg-transparent print:border-l-4 print:border-l-indigo-200 print:border-y-0 print:border-r-0 print:rounded-none">
+                            <span className="text-[10px] uppercase font-bold text-slate-400 mb-1 block tracking-wider">🔖 来自文章语境</span>
+                            <p className="text-sm text-slate-700 italic">"{wordObj.sourceContext}"</p>
+                          </div>
+                          <div>
+                            <span className="text-[10px] uppercase font-bold text-slate-400 mb-1 block tracking-wider">💡 拓展例句</span>
+                            <p className="text-sm text-slate-700 leading-snug">{wordObj.exampleSentence}</p>
+                          </div>
+                          <div>
+                            <span className="text-[10px] uppercase font-bold text-slate-400 mb-1 block tracking-wider">🌱 词源记忆</span>
+                            <p className="text-sm text-slate-600 leading-snug">{wordObj.etymology}</p>
+                          </div>
+                        </div>
+                        <div className="mt-6 pt-4 border-t border-slate-100 flex justify-between items-center text-xs text-slate-400">
+                          <span>Added: {wordObj.addedAt}</span>
+                          <span className="print:hidden border border-slate-200 px-2 py-0.5 rounded-full">CEFR A2/B1</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* =========================================
+                 UPLOAD & PARSE VIEW
+                 ========================================= */}
+            {viewMode === 'upload' && (
+              <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-4">
+                <div className="flex items-center gap-3 mb-6">
+                  <button onClick={() => setViewMode('reading')} className="text-slate-400 hover:text-slate-600 transition-colors" title="返回阅读">
+                    <ArrowLeft className="w-6 h-6" />
+                  </button>
+                  <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                    <FileText className="w-5 h-5 text-indigo-500" />
+                    输入文本进行深度 AI 解析
+                  </h2>
+                </div>
+
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    粘贴你要阅读的英文文章 (建议 1-3 个段落以内以保证最佳生成速度)
+                  </label>
+                  <textarea 
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                    placeholder="例如: Most people have heard the story of the lost city of Atlantis. But is any part of the story true? Over two thousand years ago, the Greek writer Plato wrote about Atlantis..."
+                    className="w-full h-48 bg-slate-50 border border-slate-300 rounded-xl p-4 text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all resize-none"
+                    disabled={isParsingText}
+                  />
+                </div>
+
+                {parseError && (
+                  <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
+                    {parseError}
+                  </div>
+                )}
+
+                {isParsingText && (
+                  <div className="mb-4 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-left animate-in fade-in">
+                    <div className="flex items-center gap-3 text-amber-800 font-semibold">
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      <span>{activeAiTaskMessage || 'AI 正在处理中...'}</span>
+                    </div>
+                    <p className="mt-2 text-sm text-amber-700 leading-6">
+                      长文章或高精度 JSON 任务在 Ollama 下通常会持续较久；本地模型可能会沉默推理一段时间，最后再一次性返回结果。
+                    </p>
+                  </div>
+                )}
+
+                <button 
+                  onClick={handleAnalyzeNewText}
+                  disabled={isParsingText || !inputText.trim()}
+                  className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {isParsingText ? (
+                    <React.Fragment><Loader2 className="w-5 h-5 animate-spin" /> {aiProvider === 'ollama' ? `Ollama 正在解析中，已运行 ${formatElapsed(aiTaskElapsed)}` : `AI 正在解析中，已运行 ${formatElapsed(aiTaskElapsed)}`}</React.Fragment>
+                  ) : (
+                    <React.Fragment><Sparkles className="w-5 h-5" /> ✨ 一键生成全景交互阅读器</React.Fragment>
+                  )}
+                </button>
+
+                <div className="mt-6 border-t border-slate-100 pt-6">
+                  <h3 className="text-sm font-semibold text-slate-600 mb-3">全新升级的 AI 分析功能将涵盖：</h3>
+                  <ul className="space-y-2 text-sm text-slate-500 grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 全方位主谓一致剖析 (含从句/修饰语)</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 动词时态变化与原型提取</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 各类代词 (人称/物主/指示/不定) 溯源</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 被动语态与非谓语深度解析</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 逐句词法/句法高亮拆解</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 双击任意单词加入自动生成的学习卡片</li>
+                  </ul>
+                </div>
+              </div>
+            )}
+
+            {/* =========================================
+                 INTERACTIVE READING VIEW
+                 ========================================= */}
+            {viewMode === 'reading' && (
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 xl:gap-6 animate-in fade-in">
+                
+                {/* Left Column: Article Text */}
+                <div className="lg:col-span-5 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col">
+                  <div className="bg-slate-800 px-6 py-4 flex flex-col xl:flex-row justify-between items-start xl:items-center text-white gap-4">
+                    <h2 className="font-semibold text-lg flex items-center gap-2 shrink-0">
+                      <AlignLeft className="w-5 h-5 text-indigo-400" />
+                      Reading Text
+                    </h2>
+                    <div className="flex flex-wrap items-center gap-2 md:gap-3">
+                      <button 
+                        onClick={handleSaveCurrentArticle}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors bg-indigo-500/20 text-indigo-200 hover:bg-indigo-500/40 border border-indigo-400/30"
+                        title="保存这篇文章和它的解析到本地书架"
+                      >
+                        <Save className="w-4 h-4" />
+                        保存文章
+                      </button>
+                      <button 
+                        onClick={() => setUnderlineMain(!underlineMain)}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                          effectiveUnderlineMain ? 'bg-indigo-500 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                        }`}
+                        disabled={rightPanelTab === 'guided'}
+                        title={rightPanelTab === 'guided' ? '自主阅读模式下，主干需要孩子自己画出来。' : ''}
+                      >
+                        <Underline className="w-4 h-4" />
+                        {rightPanelTab === 'guided' ? '自主模式不显示主干答案' : (effectiveUnderlineMain ? '关闭主干下划线' : '开启主干下划线')}
+                      </button>
+                      <button 
+                        onClick={() => setHighlightMode(!highlightMode)}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                          effectiveHighlightMode ? 'bg-indigo-500 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                        }`}
+                        disabled={rightPanelTab === 'guided'}
+                        title={rightPanelTab === 'guided' ? '自主阅读模式下，结构需要孩子自己标出来。' : ''}
+                      >
+                        <Zap className="w-4 h-4" />
+                        {rightPanelTab === 'guided' ? '自主模式不显示结构答案' : (effectiveHighlightMode ? '关闭结构高亮' : '开启结构高亮')}
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="p-6 md:p-8 flex-grow leading-relaxed text-lg text-slate-800">
+                    {paragraphs.map((para, idx) => (
+                      <p key={idx} className="mb-6">
+                        {para.map((sentence, sIdx) => {
+                          const isSelected = selectedSentence.id === sentence.id;
+                          return (
+                            <React.Fragment key={sentence.id || sIdx}>
+                              <span 
+                                onClick={(e) => {
+                                  if (window.getSelection().toString().length > 0) return;
+                                  setSelectedSentence(sentence);
+                                }}
+                                onDoubleClick={(e) => handleSentenceDoubleClick(e, sentence.text)}
+                                className={`cursor-pointer transition-colors duration-150 ${isSelected ? 'bg-indigo-100/60' : ''}`}
+                              >
+                                {(effectiveHighlightMode || effectiveUnderlineMain) ? (
+                                   sentence.segments.map((seg, i) => (
+                                     <span 
+                                       key={i} 
+                                       className={`transition-all ${getSegmentStyles(seg.type)} ${
+                                         effectiveUnderlineMain && mainTypes.includes(seg.type)
+                                           ? 'underline decoration-2 decoration-indigo-500 underline-offset-4'
+                                           : ''
+                                       }`} 
+                                       title={seg.label}
+                                     >
+                                       {seg.text}
+                                     </span>
+                                   ))
+                                ) : (
+                                  <React.Fragment>{sentence.text}</React.Fragment>
+                                )}
+                              </span>
+                              {sIdx < para.length - 1 && ' '}
+                            </React.Fragment>
+                          );
+                        })}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right Column: 新版优雅沉浸式阅读面板 */}
+                <div className="lg:col-span-7 flex flex-col gap-5 xl:gap-6">
+                  
+                  {/* Guide/Legend Panel */}
+                  {effectiveHighlightMode && (
+                    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 animate-in fade-in slide-in-from-top-4">
+                      <h3 className="font-semibold text-slate-700 mb-3 flex items-center gap-2 text-sm uppercase tracking-wider">
+                        结构颜色图例
+                      </h3>
+                      <div className="flex flex-wrap gap-2 text-xs">
+                        <span className="px-2 py-1 bg-red-100 text-red-900 border-b-2 border-red-500 font-bold rounded">主句主语</span>
+                        <span className="px-2 py-1 bg-blue-100 text-blue-900 border-b-2 border-blue-500 font-bold rounded">主句谓语</span>
+                        <span className="px-2 py-1 bg-green-100 text-green-900 border-b-2 border-green-500 font-bold rounded">主句宾/表语</span>
+                        <span className="px-2 py-1 bg-red-50 text-red-800 border-b-2 border-red-300 border-dashed font-bold rounded">从句主语</span>
+                        <span className="px-2 py-1 bg-blue-50 text-blue-800 border-b-2 border-blue-300 border-dashed font-bold rounded">从句谓语</span>
+                        <span className="px-2 py-1 bg-green-50 text-green-800 border-b-2 border-green-300 border-dashed font-bold rounded">从句宾/表语</span>
+                        <span className="px-2 py-1 bg-purple-100 text-purple-900 border-b-2 border-purple-400 border-dotted rounded">连词/引导词</span>
+                        <span className="px-2 py-1 bg-yellow-100 text-yellow-900 border-b-2 border-yellow-400 border-dotted rounded">名词修饰语</span>
+                        <span className="px-2 py-1 bg-gray-200 text-gray-700 border-b-2 border-gray-400 border-dotted rounded">动词修饰语</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Main Analysis Panel (去除底色框，采用纯白画板) */}
+                  <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex-grow sticky top-6 flex flex-col" style={{ maxHeight: 'calc(100vh - 48px)' }}>
+                    
+                    {/* Header & Tabs (iOS 分段选择器风格) */}
+                    <div className="bg-white px-6 py-4 flex flex-col md:flex-row items-center justify-between border-b border-slate-100 shrink-0 gap-4">
+                      <h2 className="font-bold text-slate-800 flex items-center gap-2">
+                        <Search className="w-5 h-5 text-indigo-500" />
+                        句型显微镜
+                      </h2>
+                      <div className="flex p-1 bg-slate-100 rounded-xl">
+                        <button 
+                          onClick={() => setRightPanelTab('guided')}
+                          className={`px-5 py-1.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-1.5 ${
+                            rightPanelTab === 'guided' 
+                              ? 'bg-white text-indigo-600 shadow-sm' 
+                              : 'text-slate-500 hover:text-slate-700'
+                          }`}
+                        >
+                          <MousePointerClick className="w-4 h-4"/> 自主阅读
+                        </button>
+                        <button 
+                          onClick={() => setRightPanelTab('analysis')}
+                          className={`px-5 py-1.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-1.5 ${
+                            rightPanelTab === 'analysis' 
+                              ? 'bg-white text-indigo-600 shadow-sm' 
+                              : 'text-slate-500 hover:text-slate-700'
+                          }`}
+                        >
+                          <FileText className="w-4 h-4"/> 深度解析
+                        </button>
+                        <button 
+                          onClick={() => setRightPanelTab('ai')}
+                          className={`px-5 py-1.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-1.5 ${
+                            rightPanelTab === 'ai' 
+                              ? 'bg-white text-indigo-600 shadow-sm' 
+                              : 'text-slate-500 hover:text-slate-700'
+                          }`}
+                        >
+                          <MessageSquare className="w-4 h-4"/> AI 助教
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <div className="p-6 md:p-8 xl:p-9 overflow-y-auto flex-grow bg-white">
+                      <div className="max-w-[880px] mx-auto">
+                      
+                      {/* 顶部轻量级沉浸式上下文 */}
+                      <div className="mb-10">
+                        {rightPanelTab !== 'guided' && (
+                          <blockquote className="border-l-[4px] border-indigo-500 pl-4 md:pl-6 py-1 mb-5">
+                            <p className="text-xl md:text-2xl font-serif text-slate-800 leading-relaxed mb-3">
+                              {selectedSentence.text}
+                            </p>
+                            <p className="text-base text-slate-500 font-medium">
+                              {selectedSentence.translation}
+                            </p>
+                          </blockquote>
+                        )}
+
+                        <div className={`flex flex-wrap gap-2.5 ${rightPanelTab !== 'guided' ? 'pl-4 md:pl-6' : ''}`}>
+                          {selectedSentence.grammarFocus && (
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-sm font-semibold border border-amber-200/50">
+                              <Info className="w-3.5 h-3.5" /> {selectedSentence.grammarFocus}
+                            </span>
+                          )}
+                          {selectedSentence.logicConnector && (
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-sm font-semibold border border-purple-200/50">
+                              <LinkIcon className="w-3.5 h-3.5" /> {selectedSentence.logicConnector}
+                            </span>
+                          )}
+                          {selectedSentence.pronounRef && (
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-sm font-semibold border border-emerald-200/50">
+                              <Tag className="w-3.5 h-3.5" /> 代词指代
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {rightPanelTab === 'guided' && (
+                        <div className="animate-in fade-in duration-500 max-w-3xl mx-auto">
+                          <div className="rounded-[28px] border border-indigo-100 bg-gradient-to-br from-indigo-50 via-white to-sky-50 p-6 md:p-7">
+                            <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                              <div>
+                                <p className="text-xs uppercase tracking-[0.25em] text-indigo-400 font-bold">自主阅读</p>
+                                <h3 className="mt-2 text-2xl font-bold text-slate-900">{GUIDED_STEP_TITLES[guidedStepIndex]}</h3>
+                                <p className="mt-3 text-base leading-7 text-slate-600">{guidedSupport[guidedStepIndex].task}</p>
+                              </div>
+                              <div className="shrink-0 rounded-2xl bg-white/80 border border-indigo-100 px-4 py-3 text-sm font-semibold text-indigo-700 shadow-sm">
+                                第 {guidedStepIndex + 1} 步 / 共 {GUIDED_STEP_TITLES.length} 步
+                              </div>
+                            </div>
+
+                            <div className="mt-6 flex gap-2">
+                              {GUIDED_STEP_TITLES.map((title, index) => (
+                                <div
+                                  key={title}
+                                  className={`h-2 flex-1 rounded-full transition-all ${
+                                    index <= guidedStepIndex ? 'bg-indigo-500' : 'bg-white border border-slate-200'
+                                  }`}
+                                  title={title}
+                                />
+                              ))}
+                            </div>
+
+                            <div className="mt-8 space-y-5">
+                              {renderGuidedSentenceWorkbench()}
+
+                              {guidedStepIndex === 0 && (
+                                <div className="rounded-2xl bg-white/80 border border-white p-5 shadow-sm">
+                                  <p className="text-sm font-semibold text-slate-500 mb-2">提示</p>
+                                  <p className="text-base leading-7 text-slate-700">{guidedSupport[guidedStepIndex].hint}</p>
+                                </div>
+                              )}
+
+                              {guidedStepIndex === 1 && (
+                                <div className="rounded-2xl bg-white/80 border border-white p-5 shadow-sm">
+                                  <p className="text-sm font-semibold text-slate-500 mb-3">提示</p>
+                                  <p className="text-base leading-7 text-slate-700">{guidedSupport[guidedStepIndex].hint}</p>
+                                  <p className="mt-4 text-sm leading-7 text-slate-500">
+                                    主干的涂色会直接留在句子里。这一步只显示这句当前真正存在的教学标签：名词修饰语、动词修饰语、连接词或从句核心。
+                                  </p>
+                                </div>
+                              )}
+
+                              {guidedStepIndex === 2 && (
+                                <div className="rounded-2xl bg-white/80 border border-white p-5 shadow-sm">
+                                  <p className="text-sm font-semibold text-slate-500 mb-3">关键点探索</p>
+                                  <p className="text-base leading-7 text-slate-700 mb-4">点一个你现在要关注的关键点，句子里对应位置会高亮，再看这一步为什么值得注意。</p>
+                                  <div className="flex flex-wrap gap-2 mb-4">
+                                    {guidedFocusOptions.map(option => (
+                                      <button
+                                        key={option.key}
+                                        type="button"
+                                        onClick={() => setGuidedFocusSelection(prev => ({
+                                          ...prev,
+                                          [selectedSentence.id]: option.key
+                                        }))}
+                                        className={`px-3 py-1.5 rounded-full border text-sm font-semibold ${
+                                          guidedCurrentFocus === option.key
+                                            ? 'bg-indigo-600 text-white border-indigo-600'
+                                            : 'bg-white text-slate-700 border-slate-200'
+                                        }`}
+                                      >
+                                        {option.label}
+                                      </button>
+                                    ))}
+                                  </div>
+                                  {guidedCurrentFocus ? (
+                                    <div className="rounded-2xl bg-amber-50 border border-amber-100 p-4 text-amber-900">
+                                      <p className="font-semibold text-lg">
+                                        {guidedFocusOptions.find(option => option.key === guidedCurrentFocus)?.label}
+                                      </p>
+                                      <p className="mt-2 text-base leading-7">
+                                        {guidedFocusOptions.find(option => option.key === guidedCurrentFocus)?.explanation}
+                                      </p>
+                                    </div>
+                                  ) : (
+                                    <div className="rounded-2xl bg-slate-50 border border-slate-200 p-4 text-slate-600">
+                                      先点一个关键点按钮，再看句子里被点亮的位置。
+                                    </div>
+                                  )}
+
+                                  <div className="mt-5 rounded-2xl border border-slate-200 bg-white p-4">
+                                    <p className="text-sm font-semibold text-slate-700 mb-2">查词 / 生词本</p>
+                                    <p className="text-sm leading-7 text-slate-600">
+                                      在这里如果遇到想确认的词，直接用 Mac 的查词方式或双击操作句子中的单词。
+                                      双击后会弹出查词与加入生词本入口，不再单独做一套输入框。
+                                    </p>
+                                  </div>
+                                </div>
+                              )}
+
+                              {guidedStepIndex === 3 && (
+                                <div className="space-y-4">
+                                  <div className="rounded-2xl bg-white/80 border border-white p-5 shadow-sm">
+                                    <p className="text-sm font-semibold text-slate-500 mb-2">先写你的翻译</p>
+                                    <textarea
+                                      value={guidedCurrentTranslationDraft}
+                                      onChange={(e) => setGuidedTranslationDraft(prev => ({ ...prev, [selectedSentence.id]: e.target.value }))}
+                                      placeholder="先自己试着翻译，再点下方按钮对照。"
+                                      className="w-full min-h-[120px] rounded-2xl border border-slate-300 px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 resize-none"
+                                    />
+                                    <div className="mt-3 flex flex-wrap gap-3">
+                                      <button
+                                        type="button"
+                                        onClick={() => setGuidedShowTranslation(prev => ({ ...prev, [selectedSentence.id]: true }))}
+                                        className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold"
+                                      >
+                                        对照答案
+                                      </button>
+                                      <button
+                                        type="button"
+                                        onClick={() => setGuidedShowTranslation(prev => ({ ...prev, [selectedSentence.id]: false }))}
+                                        className="px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold"
+                                      >
+                                        先不看答案
+                                      </button>
+                                    </div>
+                                  </div>
+
+                                  <div className="rounded-2xl bg-white/80 border border-white p-5 shadow-sm">
+                                    <p className="text-sm font-semibold text-slate-500 mb-2">对照</p>
+                                    {guidedCurrentShowTranslation ? (
+                                      <p className="text-xl leading-relaxed text-slate-900">{selectedSentence.translation}</p>
+                                    ) : (
+                                      <p className="text-base leading-7 text-slate-500">先写自己的翻译，学完以后再点“对照答案”。</p>
+                                    )}
+                                  </div>
+                                  {(selectedSentence.logicConnector || selectedSentence.pronounRef) && (
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                      {selectedSentence.logicConnector && (
+                                        <div className="rounded-2xl bg-purple-50 border border-purple-100 p-4">
+                                          <p className="text-sm font-semibold text-purple-700 mb-2">句子关系</p>
+                                          <p className="text-sm leading-7 text-purple-900">{selectedSentence.logicConnector}</p>
+                                        </div>
+                                      )}
+                                      {selectedSentence.pronounRef && (
+                                        <div className="rounded-2xl bg-emerald-50 border border-emerald-100 p-4">
+                                          <p className="text-sm font-semibold text-emerald-700 mb-2">指代回收</p>
+                                          <p className="text-sm leading-7 text-emerald-900">{selectedSentence.pronounRef}</p>
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+
+                              {guidedInteractiveStep && (
+                                <div className="rounded-2xl border border-slate-200 bg-white/90 p-5 shadow-sm">
+                                  <p className="text-sm font-semibold text-slate-700 mb-3">操作区</p>
+                                  <div className="flex flex-wrap gap-3">
+                                    <button
+                                      type="button"
+                                      onClick={handleGuidedCheck}
+                                      className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold"
+                                    >
+                                      检查我画的对不对
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={resetGuidedCurrentStep}
+                                      className="px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold"
+                                    >
+                                      清空这一题
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={revealGuidedAnswer}
+                                      className="px-4 py-2.5 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 font-semibold"
+                                    >
+                                      查看参考答案
+                                    </button>
+                                  </div>
+                                  <div className="mt-4">
+                                    {guidedCurrentCheck === 'correct' && (
+                                      <p className="text-sm leading-7 text-emerald-700">这一步你标对了，可以继续往下走。</p>
+                                    )}
+                                    {guidedCurrentCheck === 'incorrect' && (
+                                      <p className="text-sm leading-7 text-amber-700">还没完全对。先看看你是不是把核心动作和补充信息混在一起了，再试一次。</p>
+                                    )}
+                                    {guidedCurrentCheck === 'revealed' && (
+                                      <p className="text-sm leading-7 text-sky-700">现在显示的是参考答案。你可以对照一下自己刚才的思路差在哪。</p>
+                                    )}
+                                    {!guidedCurrentCheck && (
+                                      <p className="text-sm leading-7 text-slate-500">先在操作句子里完成标注，再来检查。</p>
+                                    )}
+                                  </div>
+                                </div>
+                              )}
+
+                              {!guidedInteractiveStep && guidedStepIndex !== 2 && guidedStepIndex !== 3 && (
+                                <div className="rounded-2xl border border-emerald-100 bg-emerald-50/80 p-5 shadow-sm">
+                                  <p className="text-sm font-semibold text-emerald-700 mb-2">参考</p>
+                                  <p className="text-base leading-7 text-emerald-900">{guidedSupport[guidedStepIndex].answer}</p>
+                                </div>
+                              )}
+                            </div>
+
+                            <div className="mt-8 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                              <div className="flex flex-wrap gap-3">
+                                <button
+                                  onClick={() => setGuidedStepIndex(prev => Math.max(prev - 1, 0))}
+                                  disabled={guidedStepIndex === 0}
+                                  className="px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                  上一步
+                                </button>
+                                <button
+                                  onClick={() => setGuidedStepIndex(prev => Math.min(prev + 1, GUIDED_STEP_TITLES.length - 1))}
+                                  disabled={guidedStepIndex === GUIDED_STEP_TITLES.length - 1}
+                                  className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                  下一步
+                                </button>
+                                <button
+                                  onClick={() => setGuidedStepIndex(0)}
+                                  className="px-4 py-2.5 rounded-xl border border-indigo-200 bg-indigo-50 text-indigo-700 font-semibold"
+                                >
+                                  本句重来
+                                </button>
+                              </div>
+                              <button
+                                onClick={() => setRightPanelTab('analysis')}
+                                className="text-sm font-semibold text-slate-500 hover:text-indigo-600 transition-colors"
+                              >
+                                查看完整解析
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* 选项卡 2：深度解析内容 (单列顺滑流排版) */}
+                      {rightPanelTab === 'analysis' && (
+                        <div className="animate-in fade-in duration-500">
+                          {formatMarkdown(selectedSentence.analysis, "text-slate-800 text-lg leading-[1.8]")}
+                        </div>
+                      )}
+
+                      {/* 选项卡 3：AI 互动助教内容 (拟物沉浸式卡片) */}
+                      {rightPanelTab === 'ai' && (
+                        <div className="animate-in fade-in duration-500 max-w-3xl mx-auto">
+                          
+                          <div className="mb-8">
+                            <button 
+                              onClick={handleSimplifySentence}
+                              disabled={isSimplifying}
+                              className="w-full text-left bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-lg py-4 px-6 rounded-2xl transition-all border border-slate-200 flex items-center justify-between disabled:opacity-70 disabled:cursor-not-allowed group"
+                            >
+                              <span className="flex items-center gap-3">
+                                <Sparkles className="w-6 h-6 text-indigo-500 group-hover:scale-110 transition-transform" /> 
+                                让 AI 用极简英文重写此句
+                              </span>
+                              {isSimplifying ? <Loader2 className="w-5 h-5 animate-spin text-slate-400" /> : <ArrowLeft className="w-5 h-5 text-slate-300 rotate-180 opacity-0 group-hover:opacity-100 transition-opacity" />}
+                            </button>
+                            {simplifiedSentence && (
+                              <div className="mt-4 bg-indigo-50/50 rounded-2xl p-6 text-indigo-900 animate-in fade-in slide-in-from-top-2 border border-indigo-100/50">
+                                <p className="text-xs font-bold mb-3 text-indigo-500 uppercase tracking-wider">降级重写结果 (A2/B1 Level)</p>
+                                <p className="text-xl font-serif leading-relaxed">{simplifiedSentence}</p>
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="">
+                            <p className="text-base text-slate-700 font-bold mb-4 flex items-center gap-2">
+                              <MessageSquare className="w-5 h-5 text-indigo-500" /> 自由提问：
+                            </p>
+                            
+                            <form onSubmit={handleAskGrammarQuestion} className="relative">
+                              <input 
+                                type="text" 
+                                value={aiQuestion}
+                                onChange={(e) => setAiQuestion(e.target.value)}
+                                placeholder="例如：这里可以把 that 省略吗？" 
+                                className="w-full bg-slate-50 border border-slate-200 rounded-2xl pl-6 pr-16 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm"
+                                disabled={isAiAnswering}
+                              />
+                              <button 
+                                type="submit" 
+                                disabled={isAiAnswering || !aiQuestion.trim()}
+                                className="absolute right-3 top-3 bottom-3 bg-indigo-600 hover:bg-indigo-700 text-white px-4 rounded-xl transition-colors disabled:opacity-50 flex items-center justify-center shadow-sm"
+                              >
+                                {isAiAnswering ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
+                              </button>
+                            </form>
+
+                            {aiAnswer && (
+                              <div className="mt-6 bg-slate-50 rounded-2xl p-6 md:p-8 animate-in fade-in slide-in-from-bottom-4 border border-slate-100">
+                                <div className="flex items-center gap-2 mb-5 text-indigo-600 font-bold text-sm border-b border-slate-200/60 pb-3">
+                                  <Sparkles className="w-5 h-5" />
+                                  AI 助教解答
+                                </div>
+                                {formatMarkdown(aiAnswer, "text-slate-800 text-lg leading-[1.8]")}
+                              </div>
+                            )}
+                          </div>
+
+                        </div>
+                      )}
+
+                      </div>
+
+                    </div>
+                    
+                    <div className="bg-slate-50 p-4 border-t border-slate-100 flex items-center gap-2 text-slate-500 text-sm justify-center shrink-0 rounded-b-2xl">
+                      <MousePointerClick className="w-4 h-4 shrink-0" />
+                      <span>点选左侧句子可切换分析，双击单词加生词本</span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            )}
+
+            {/* Global Toast Notification */}
+            {toastMessage && (
+              <div className="fixed top-6 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full shadow-2xl z-[120] animate-in slide-in-from-top-4 flex items-center gap-2 font-medium">
+                <Info className="w-4 h-4 text-indigo-400" />
+                {toastMessage}
+              </div>
+            )}
+
+            {/* Custom Confirm Dialog */}
+            {confirmDialog && (
+              <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-[110] p-4">
+                <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 relative animate-in zoom-in-95">
+                  <h3 className="text-lg font-bold text-slate-800 mb-2">请确认</h3>
+                  <p className="text-slate-600 mb-6">{confirmDialog.message}</p>
+                  <div className="flex justify-end gap-3">
+                    <button onClick={() => setConfirmDialog(null)} className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg font-medium transition-colors">取消</button>
+                    <button onClick={confirmDialog.onConfirm} className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">确定</button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Save Article Modal */}
+            {saveModalOpen && (
+              <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-[110] p-4">
+                <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 relative animate-in zoom-in-95">
+                  <h3 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <Save className="w-5 h-5 text-indigo-600" />
+                    保存到书架
+                  </h3>
+                  <input 
+                    type="text" 
+                    value={articleTitleInput}
+                    onChange={e => setArticleTitleInput(e.target.value)}
+                    className="w-full border border-slate-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 outline-none mb-6 text-slate-800"
+                    placeholder="给文章起个名字"
+                    autoFocus
+                  />
+                  <div className="flex justify-end gap-3">
+                    <button onClick={() => setSaveModalOpen(false)} className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg font-medium transition-colors">取消</button>
+                    <button 
+                      onClick={() => {
+                        if (!articleTitleInput.trim()) return;
+                        const newArticle = {
+                          id: window.crypto?.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15),
+                          title: articleTitleInput,
+                          timestamp: Date.now(),
+                          data: currentArticleData
+                        };
+                        setSavedArticles(prev => [newArticle, ...prev]);
+                        setSaveModalOpen(false);
+                        setToastMessage("✅ 文章已成功保存到本地书架！");
+                      }} 
+                      className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors"
+                    >
+                      保存
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+          </div>
+        </div>
+      );
+    }
+
+    const root = createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
