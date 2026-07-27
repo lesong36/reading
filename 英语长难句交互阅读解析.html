@@ -47,6 +47,22 @@
     @media (pointer: coarse) {
       button, .touch-target { min-height: 44px; }
       .reader-word-target { -webkit-touch-callout: none; }
+      .reader-article-body {
+        font-size: 1.375rem !important;
+        line-height: 1.95 !important;
+      }
+      .reader-article-panel {
+        padding: 1.5rem 1.25rem !important;
+      }
+      @media (min-width: 768px) {
+        .reader-article-body {
+          font-size: 1.5rem !important;
+          line-height: 2 !important;
+        }
+        .reader-article-panel {
+          padding: 1.75rem 1.5rem !important;
+        }
+      }
     }
   </style>
 </head>
@@ -5454,7 +5470,7 @@
                                 onTouchMove={handleWordPressMove}
                                 onTouchEnd={handleWordPressEnd}
                                 onTouchCancel={handleWordPressEnd}
-                                className={`cursor-pointer transition-colors duration-150 select-text ${isSelected ? 'bg-indigo-100/60' : ''}`}
+                                className={`cursor-pointer transition-colors duration-150 select-text reader-word-target ${isSelected ? 'bg-indigo-100/60' : ''}`}
                               >{(effectiveHighlightMode || effectiveUnderlineMain || (rightPanelTab === 'analysis' && isSelected)) ? (
                                    sentence.segments.map((seg, i) => {
                                      const isStepFocused = rightPanelTab === 'analysis' && isSelected && isSegmentFocusedInStep(seg.type, voiceLessonStepIndex);
