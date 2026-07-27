@@ -1,35 +1,33 @@
 # 英语长难句交互阅读解析
 
-一个可直接在浏览器运行的英语长难句阅读器。
+可在浏览器（含 **iPad Safari**）直接使用的英语长难句阅读器。
 
 ## 在线访问
 
-发布到 GitHub Pages 后，访问：
-
 https://lesong36.github.io/reading/
+
+在 iPad 上用 Safari 打开上述地址即可；也可「添加到主屏幕」当网页 App 用。
+
+## 本版说明（GitHub Pages）
+
+- **无需语音**：线上版已关闭 TTS / 听老师讲按钮。
+- **无需本地 Ollama**：默认使用 OpenAI-compatible 云端接口；阅读内置示例与已导入文章的解析时，不需要配置任何模型。
+- **分析新文章 / AI 助教**：在「AI 设置」中自行填写兼容接口的 API Key、Base URL、Model。
+- **跨设备同步**（可选）：配置 Firebase 后，书架与生词本可在 iPad / 电脑间同步。
 
 ## 本地打开
 
-直接打开 `index.html` 即可使用。
+直接用浏览器打开 `index.html`（需能访问 esm.sh / Tailwind / unpkg CDN）。
 
-## 说明
+## 跨设备同步文章和生词本
 
-- 页面依赖浏览器端 CDN 加载 React、Tailwind、Firebase、Lucide 图标等前端库。
-- 本地 Ollama 地址 `http://127.0.0.1:11434` 只会连接当前电脑本机的 Ollama。
-- 远程或 OpenAI-compatible 模型配置需要在页面内自行填写 Base URL、Model 和 API Key。
+GitHub Pages 只托管静态网页。跨设备保存书架与生词本需 Firebase Firestore。
 
-## 跨电脑同步文章和生词本
-
-GitHub Pages 只能发布网页，不能保存每台电脑的个人数据。文章书架和生词本的跨设备同步需要一个云端数据库；本页面支持 Firebase Firestore。
-
-配置步骤：
-
-1. 在 Firebase Console 新建项目。
-2. 添加一个 Web App，复制 Firebase config JSON。
-3. 开启 Authentication，至少启用 Email/Password 登录方式；如果要用 Google 登录，也启用 Google provider。
-4. 开启 Firestore Database。
-5. 在网页顶部点击“配置云同步”，粘贴 Firebase config JSON，保存后刷新。
-6. 点击“登录同步”，注册或登录同一邮箱账号。
+1. 在 Firebase Console 新建项目并添加 Web App，复制 config JSON。
+2. 开启 Authentication（Email/Password；可选 Google）。
+3. 开启 Firestore Database。
+4. 网页顶部点「配置云同步」，粘贴 config，保存后刷新。
+5. 点「登录同步」，用同一邮箱在各设备登录。
 
 Firestore Rules 示例：
 
@@ -44,10 +42,4 @@ service cloud.firestore {
 }
 ```
 
-同步内容会保存在：
-
-```txt
-artifacts/{projectId}/users/{uid}/readerData/library
-```
-
-包含两个 JSON 字段：`savedArticles` 和 `vocabBook`。导入/导出 JSON 仍可作为额外备份。
+同步路径：`artifacts/{projectId}/users/{uid}/readerData/library`（字段 `savedArticles`、`vocabBook`）。

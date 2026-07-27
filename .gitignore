@@ -1,10 +1,12 @@
 .DS_Store
 __pycache__/
 *.pyc
+node_modules/
 
 # Local OMX/session state
 .omx/
 .tmp_model_compare/
+.mypy_cache/
 
 # Local packaged app artifacts
 *.app/
@@ -12,7 +14,25 @@ __pycache__/
 *.icns
 *.command
 
-# Local backups and generated reports
+# Local backups, logs, generated data
 articles_backup_*.json
 benchmark_ollama_e2e.py
 SEGMENT_LABEL_NORMALIZATION.md
+*.log
+*.pid
+data/
+vendor/
+scripts/
+package.json
+package-lock.json
+index.html.clean
+index.html.checkout_clean
+simple-reader.html
+LEXILE_BENCHMARK_SOURCES.md
+PROJECT_ARCHITECTURE.md
+Project-Memory.md
+README_DELIVERY.md
+local-config.example.js
+
+# Local private config (never commit secrets)
+local-config.js

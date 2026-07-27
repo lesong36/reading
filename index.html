@@ -2,14 +2,17 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
   <title>英语长难句交互阅读解析</title>
   
-  <!-- 引入 Tailwind CSS -->
+  <!-- CDN：GitHub Pages / iPad Safari 可直接打开，无需本地服务 -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- 引入 Babel 以在浏览器中编译 JSX -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./local-config.js" onerror=""></script>
   
   <style>
     /* 模拟 tailwindcss-animate 插件的动画效果，保证 UI 优雅过渡 */
@@ -17,6 +20,7 @@
     @keyframes slideInBottom { from { transform: translateY(1.5rem); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     @keyframes slideInTop { from { transform: translateY(-1.5rem); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     @keyframes zoomIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes readerSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
     .animate-in {
       animation-duration: 0.4s;
@@ -27,31 +31,73 @@
     .animate-in.slide-in-from-bottom-4, .animate-in.slide-in-from-bottom-5 { animation-name: slideInBottom; }
     .animate-in.slide-in-from-top-2, .animate-in.slide-in-from-top-4 { animation-name: slideInTop; }
     .animate-in.zoom-in-95 { animation-name: zoomIn; }
+    .reader-boot-spinner { animation: readerSpin 0.9s linear infinite; }
 
     /* 优化滚动条样式 */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    .safe-area-pad { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max(0.75rem, env(safe-area-inset-right)); padding-bottom: max(0.75rem, env(safe-area-inset-bottom)); }
+    /* iPad / touch */
+    html { -webkit-text-size-adjust: 100%; }
+    body { overscroll-behavior-y: none; }
+    button, a, [role="button"] { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+    @media (pointer: coarse) {
+      button, .touch-target { min-height: 44px; }
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans antialiased">
   
-  <div id="root"></div>
+  <div id="root">
+    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#f8fafc;color:#0f172a;">
+      <div style="width:min(560px,100%);background:rgba(255,255,255,0.92);border:1px solid #e2e8f0;border-radius:28px;padding:32px;box-shadow:0 20px 50px rgba(15,23,42,0.08);text-align:center;">
+        <div style="font-size:28px;font-weight:800;letter-spacing:-0.02em;">英语长难句交互阅读解析</div>
+        <div style="margin-top:12px;font-size:16px;line-height:1.75;color:#475569;">
+          正在启动阅读器并加载页面资源。首次打开或更新后，可能需要等待几秒。
+        </div>
+        <div class="reader-boot-spinner" style="margin:20px auto 0;width:44px;height:44px;border-radius:9999px;border:4px solid #cbd5e1;border-top-color:#4f46e5;"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- 使用 data-type="module" 允许 Babel 编译 ES6 模块导入 -->
   <script type="text/babel" data-type="module">
-    import React, { useState, useEffect, useRef, useMemo, Fragment } from 'https://esm.sh/react@18.2.0';
-    import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
-    import { BookOpen, Search, Info, MousePointerClick, Zap, AlignLeft, Underline, Link as LinkIcon, Tag, Sparkles, Send, Loader2, UploadCloud, FileText, ArrowLeft, BookMarked, Printer, Plus, Trash2, CheckCircle2, Download, Upload, MessageSquare, Library, Save, FolderOpen, User, LogOut, X, Bot, RefreshCw, KeyRound } from 'https://esm.sh/lucide-react@0.292.0';
+    import React, { useState, useEffect, useRef, useMemo, Fragment } from 'https://esm.sh/react@18.2.0?target=es2022';
+    import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client?bundle';
+    import { BookOpen, Search, Info, MousePointerClick, Zap, AlignLeft, Underline, Link as LinkIcon, Tag, Sparkles, Send, Loader2, UploadCloud, FileText, ArrowLeft, BookMarked, Printer, Plus, Trash2, CheckCircle2, Download, Upload, MessageSquare, Library, Save, FolderOpen, User, LogOut, X, Bot, RefreshCw, KeyRound } from 'https://esm.sh/lucide-react@0.292.0?bundle&deps=react@18.2.0';
+    import readability from 'https://esm.sh/text-readability@1.1.1?bundle';
     
     // Firebase Imports
-    import { initializeApp } from 'https://esm.sh/firebase@10.8.1/app';
-    import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from 'https://esm.sh/firebase@10.8.1/auth';
-    import { getFirestore, doc, setDoc, deleteDoc, collection, onSnapshot } from 'https://esm.sh/firebase@10.8.1/firestore';
+    import { initializeApp } from 'https://esm.sh/firebase@10.8.1/app?bundle';
+    import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from 'https://esm.sh/firebase@10.8.1/auth?bundle';
+    import { getFirestore, doc, setDoc, deleteDoc, collection, onSnapshot } from 'https://esm.sh/firebase@10.8.1/firestore?bundle';
 
     // Firebase Configuration
     const FIREBASE_CONFIG_STORAGE_KEY = 'reader_firebase_config';
+    const LOCAL_PRIVATE_CONFIG = typeof window !== 'undefined' ? (window.__reader_local_config || {}) : {};
+    // GitHub Pages / iPad 静态部署：不依赖语音与本地 Ollama
+    const ENABLE_VOICE_FEATURES = false;
+    const ENABLE_LOCAL_OLLAMA = false;
+    const DEFAULT_AI_PROVIDER = 'cloud';
+    const DEFAULT_DOUBAO_VOICE_APP_ID = LOCAL_PRIVATE_CONFIG.volcengineAppId || '';
+    const DEFAULT_DOUBAO_VOICE_TOKEN = LOCAL_PRIVATE_CONFIG.volcengineAccessToken || '';
+    const DEFAULT_DOUBAO_VOICE_CLUSTER = 'volcano_tts';
+    const DEFAULT_DOUBAO_VOICE_TYPE = 'zh-female-warm';
+    // 临时关闭豆包云端 TTS（按量计费）；恢复时改为 true
+    const DOUBAO_VOICE_ENABLED = false;
+    const LEGACY_DOUBAO_VOICE_TYPE_MAP = {
+      BV701_streaming: 'zh-female-warm',
+      BV002_streaming: 'zh-female-reporter',
+      BV001_streaming: 'zh-male-warm'
+    };
+    const normalizeDoubaoVoiceType = (value) => {
+      const cleaned = String(value || '').trim();
+      if (!cleaned) return DEFAULT_DOUBAO_VOICE_TYPE;
+      return LEGACY_DOUBAO_VOICE_TYPE_MAP[cleaned] || cleaned;
+    };
     const getStoredFirebaseConfig = () => {
       try {
         const stored = localStorage.getItem(FIREBASE_CONFIG_STORAGE_KEY);
@@ -90,6 +136,23 @@
     }
 
     // Default built-in data
+    const defaultArticleGlossary = [
+      {
+        term: 'astronomers',
+        translation: '天文学家',
+        kind: 'term',
+        note: '研究天体与宇宙现象的科学家。',
+        aliases: []
+      },
+      {
+        term: 'solar system',
+        translation: '太阳系',
+        kind: 'term',
+        note: '以太阳为中心的行星系统。',
+        aliases: []
+      }
+    ];
+
     const defaultArticleData = [
       {
         id: 's1',
@@ -259,7 +322,7 @@
 
     const DEFAULT_OLLAMA_BASE_URL = 'http://127.0.0.1:11434';
     const DEFAULT_OLLAMA_MODEL = 'qwen3.6:35b-a3b-mxfp8';
-    const REMOTE_NV_OLLAMA_BASE_URL = 'http://100.121.25.47:11434';
+    const REMOTE_NV_OLLAMA_BASE_URL = '';
     const REMOTE_NV_OLLAMA_MODEL = 'qwen3.6:35b-a3b-q8_0';
     const DEFAULT_OPENAI_COMPAT_BASE_URL = '';
     const DEFAULT_OPENAI_COMPAT_MODEL = '';
@@ -275,13 +338,17 @@
       remoteNv: {
         key: 'remoteNv',
         label: '远程 NV',
-        description: 'P920 / 100.121.25.47',
+        description: '远程 Ollama（本机部署时再填写）',
         baseUrl: REMOTE_NV_OLLAMA_BASE_URL,
         model: REMOTE_NV_OLLAMA_MODEL
       }
     };
 
-    const stripCodeFence = (text = "") => text.replace(/^```(?:json)?/mi, '').replace(/```$/m, '').trim();
+    const stripCodeFence = (text = "") => {
+      let cleaned = text.trim();
+      cleaned = cleaned.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/m, '');
+      return cleaned.trim();
+    };
     const GUIDED_STEP_TITLES = ['先抓主干', '再看修饰语', '语法关键点', '整句说清楚'];
     const GUIDED_FALLBACK_PROMPTS = [
       '先把句子的骨架抓出来。',
@@ -565,12 +632,81 @@
       if (type === 'object') return '宾语';
       if (type === 'predicative') return '表语';
       if (['clause-subject', 'clause-verb', 'clause-object', 'clause-predicative', 'clause'].includes(type)) return '从句核心';
+      if (type === 'coord-subject') return '并列主语';
+      if (type === 'coord-verb') return '并列谓语';
+      if (type === 'coord-object') return '并列宾语';
+      if (type === 'coord-predicative') return '并列表语';
 
       return label || type;
     };
 
+    const normalizeGlossaryEntry = (entry = {}) => {
+      const term = String(entry.term || entry.word || '').trim();
+      if (!term) return null;
+      return {
+        term,
+        translation: String(entry.translation || entry.meaning || '').trim(),
+        kind: String(entry.kind || entry.type || 'term').trim() || 'term',
+        note: String(entry.note || entry.context || '').trim(),
+        aliases: Array.isArray(entry.aliases)
+          ? entry.aliases.map(alias => String(alias || '').trim()).filter(Boolean)
+          : []
+      };
+    };
+
+    const normalizeGlossary = (glossary = []) => {
+      if (!Array.isArray(glossary)) return [];
+      const byKey = new Map();
+      glossary.forEach(raw => {
+        const entry = normalizeGlossaryEntry(raw);
+        if (!entry) return;
+        const key = entry.term.toLowerCase();
+        const existing = byKey.get(key);
+        if (!existing || (entry.translation && !existing.translation)) {
+          byKey.set(key, entry);
+        }
+      });
+      return Array.from(byKey.values()).sort((a, b) => b.term.length - a.term.length || a.term.localeCompare(b.term));
+    };
+
+    const escapeRegExp = (value = '') => String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    const buildGlossaryMatchList = (glossary = []) => {
+      const matches = [];
+      normalizeGlossary(glossary).forEach(entry => {
+        matches.push({ ...entry, match: entry.term });
+        (entry.aliases || []).forEach(alias => {
+          if (alias) matches.push({ ...entry, match: alias });
+        });
+      });
+      return matches.sort((a, b) => b.match.length - a.match.length);
+    };
+
+    const findGlossaryEntry = (glossary = [], word = '') => {
+      const needle = String(word || '').trim().toLowerCase();
+      if (!needle) return null;
+      return normalizeGlossary(glossary).find(entry => {
+        if (entry.term.toLowerCase() === needle) return true;
+        return (entry.aliases || []).some(alias => alias.toLowerCase() === needle);
+      }) || null;
+    };
+
     const normalizeSentenceSegments = (sentence = {}) => ({
       ...sentence,
+      teachingFocus: sentence.teachingFocus && typeof sentence.teachingFocus === 'object'
+        ? {
+            mainQuestion: sentence.teachingFocus.mainQuestion || '',
+            grammarQuestion: sentence.teachingFocus.grammarQuestion || '',
+            modifierQuestion: sentence.teachingFocus.modifierQuestion || '',
+            relationshipQuestion: sentence.teachingFocus.relationshipQuestion || '',
+            commonMistake: sentence.teachingFocus.commonMistake || '',
+            thinkingPath: Array.isArray(sentence.teachingFocus.thinkingPath)
+              ? sentence.teachingFocus.thinkingPath.map(item => String(item || '').trim()).filter(Boolean)
+              : [],
+            encouragement: sentence.teachingFocus.encouragement || ''
+          }
+        : null,
+      keyTerms: normalizeGlossary(sentence.keyTerms || sentence.glossary || []),
       segments: Array.isArray(sentence.segments)
         ? sentence.segments.map(seg => ({
             ...seg,
@@ -582,6 +718,757 @@
     const normalizeArticleData = (articleData = []) =>
       Array.isArray(articleData) ? articleData.map(normalizeSentenceSegments) : [];
 
+    const collectArticleGlossary = (article = {}, articleData = []) => {
+      const fromArticle = normalizeGlossary(article.glossary || []);
+      const fromSentences = normalizeArticleData(articleData || article.data || [])
+        .flatMap(sentence => sentence.keyTerms || []);
+      return normalizeGlossary([...fromArticle, ...fromSentences]);
+    };
+
+    const joinArticleText = (articleData = []) =>
+      normalizeArticleData(articleData)
+        .map(sentence => (sentence?.text || '').trim())
+        .filter(Boolean)
+        .join(' ');
+
+    const getDifficultyBand = (grade = 0) => {
+      if (grade < 3) return 'Very Easy';
+      if (grade < 6) return 'Easy';
+      if (grade < 9) return 'Moderate';
+      if (grade < 12) return 'Challenging';
+      return 'Advanced';
+    };
+
+    const LEXILE_CALIBRATION_ANCHORS = [
+      { raw: -455.6, lexile: 100 },
+      { raw: -146.0196, lexile: 100 },
+      { raw: 25.86, lexile: 300 },
+      { raw: 61.4336, lexile: 300 },
+      { raw: 78.0987, lexile: 400 },
+      { raw: 117.8813, lexile: 400 },
+      { raw: 119.1587, lexile: 400 },
+      { raw: 121.1713, lexile: 500 },
+      { raw: 130.4541, lexile: 500 },
+      { raw: 135.752, lexile: 600 },
+      { raw: 143.3362, lexile: 600 },
+      { raw: 145.9475, lexile: 700 },
+      { raw: 175.8632, lexile: 700 },
+      { raw: 179.9582, lexile: 700 },
+      { raw: 214.0281, lexile: 700 },
+      { raw: 226.067, lexile: 800 },
+      { raw: 235.5329, lexile: 900 },
+      { raw: 429.1575, lexile: 900 }
+    ];
+
+    const estimateLexileRawScore = ({ fkGrade = 0, avgSentenceLength = 0, difficultWordRatio = 0, wordCount = 0 }) => {
+      let raw = -100 + (fkGrade * 20) + (avgSentenceLength * 14) + (difficultWordRatio * 50);
+
+      // Short early-reader texts behave very differently from normal passages,
+      // so we downshift them using the public RIF calibration set.
+      if (wordCount < 80) raw -= 180;
+      if (wordCount < 50) raw -= 220;
+
+      return raw;
+    };
+
+    const calibrateLexileEstimate = (rawScore = 0) => {
+      if (!Number.isFinite(rawScore)) return null;
+      const anchors = LEXILE_CALIBRATION_ANCHORS;
+
+      if (rawScore <= anchors[0].raw) return Math.round(anchors[0].lexile / 10) * 10;
+      if (rawScore >= anchors[anchors.length - 1].raw) return Math.round(anchors[anchors.length - 1].lexile / 10) * 10;
+
+      for (let index = 0; index < anchors.length - 1; index += 1) {
+        const current = anchors[index];
+        const next = anchors[index + 1];
+        if (rawScore < current.raw || rawScore > next.raw) continue;
+
+        if (Math.abs(next.raw - current.raw) < 1e-9) {
+          return Math.round(next.lexile / 10) * 10;
+        }
+
+        const progress = (rawScore - current.raw) / (next.raw - current.raw);
+        const calibrated = current.lexile + (next.lexile - current.lexile) * progress;
+        return Math.max(0, Math.round(calibrated / 10) * 10);
+      }
+
+      return Math.max(0, Math.round(rawScore / 10) * 10);
+    };
+
+    const estimateLexileFromReadability = ({ fkGrade = 0, avgSentenceLength = 0, difficultWordRatio = 0, wordCount = 0 }) => {
+      const rawScore = estimateLexileRawScore({ fkGrade, avgSentenceLength, difficultWordRatio, wordCount });
+      return calibrateLexileEstimate(rawScore);
+    };
+
+    const computeArticleReadability = (articleData = []) => {
+      const text = joinArticleText(articleData);
+      if (!text) {
+        return {
+          wordCount: 0,
+          sentenceCount: 0,
+          avgSentenceLength: 0,
+          difficultWordCount: 0,
+          difficultWordRatio: 0,
+          fkGrade: null,
+          readingEase: null,
+          estimatedLexile: null,
+          difficultyBand: 'Unknown'
+        };
+      }
+
+      const wordCount = Number(readability.lexiconCount(text) || 0);
+      const sentenceCount = Number(readability.sentenceCount(text) || 0);
+      const avgSentenceLength = Number(readability.averageSentenceLength(text) || 0);
+      const difficultWordCount = Number(readability.difficultWords(text) || 0);
+      const fkGrade = Number(readability.fleschKincaidGrade(text) || 0);
+      const readingEase = Number(readability.fleschReadingEase(text) || 0);
+      const difficultWordRatio = wordCount > 0 ? difficultWordCount / wordCount : 0;
+      const estimatedLexile = estimateLexileFromReadability({ fkGrade, avgSentenceLength, difficultWordRatio, wordCount });
+
+      return {
+        wordCount,
+        sentenceCount,
+        avgSentenceLength,
+        difficultWordCount,
+        difficultWordRatio,
+        fkGrade: Number.isFinite(fkGrade) ? fkGrade : null,
+        readingEase: Number.isFinite(readingEase) ? readingEase : null,
+        estimatedLexile,
+        difficultyBand: getDifficultyBand(fkGrade)
+      };
+    };
+
+    const formatLexile = (value) => {
+      if (value === null || value === undefined || Number.isNaN(value)) return 'N/A';
+      return `${Math.round(value)}L`;
+    };
+
+    const formatGrade = (value) => {
+      if (value === null || value === undefined || Number.isNaN(value)) return 'N/A';
+      return `Grade ${Number(value).toFixed(1)}`;
+    };
+
+    const getDifficultyBandShortLabel = (band = '') => {
+      if (band === 'Very Easy') return 'VE.';
+      if (band === 'Easy') return 'EZ.';
+      if (band === 'Moderate') return 'MOD.';
+      if (band === 'Challenging') return 'CH.';
+      if (band === 'Advanced') return 'ADV.';
+      return 'N/A';
+    };
+
+    const HoverTip = ({ text, align = 'left', children }) => (
+      <span className="group relative inline-flex">
+        {children}
+        <span
+          className={`pointer-events-none absolute top-full z-30 mt-2 w-max max-w-[16rem] rounded-xl bg-slate-950 px-3 py-2 text-[11px] leading-4 text-white shadow-xl ring-1 ring-white/10 opacity-0 translate-y-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-y-0 ${
+            align === 'right' ? 'right-0' : 'left-0'
+          }`}
+        >
+          {text}
+        </span>
+      </span>
+    );
+
+    const getGradeShortLabel = (value) => (
+      value === null || value === undefined || Number.isNaN(value)
+        ? 'G-N/A'
+        : `G${Number(value).toFixed(1)}`
+    );
+
+    const getWordCountShortLabel = (value) => (
+      value === null || value === undefined || Number.isNaN(value)
+        ? 'N/A'
+        : `${value}w`
+    );
+
+    const getReadabilityTooltip = (kind, readability = {}) => {
+      if (kind === 'lexile') {
+        return `Lexile 估算值：${formatLexile(readability.estimatedLexile)}。基于公开样本校准的自动难度估算，并非官方认证分值。`;
+      }
+      if (kind === 'grade') {
+        const grade = Number(readability.fkGrade ?? 0).toFixed(1);
+        return `Flesch-Kincaid 年级估算。G${grade} 表示大约适合 ${grade} 年级阅读。`;
+      }
+      if (kind === 'words') {
+        return `全文词数。${readability.wordCount ?? 0}w 表示约 ${readability.wordCount ?? 0} 个单词。`;
+      }
+      if (kind === 'band') {
+        return `难度分级。${getDifficultyBandShortLabel(readability.difficultyBand)} 表示 ${readability.difficultyBand || 'Unknown'}。`;
+      }
+      return '';
+    };
+
+    const ReadabilityBadge = ({ kind, readability = {}, theme = 'dark' }) => {
+      const tone = theme === 'light'
+        ? 'bg-white text-slate-700 border border-slate-200'
+        : 'bg-white/10 text-slate-100 border border-white/10';
+      const lexileTone = theme === 'light'
+        ? 'bg-indigo-50 text-indigo-700 border border-indigo-200'
+        : 'bg-white/10 text-indigo-100 border border-white/10';
+
+      const contentByKind = {
+        lexile: {
+          label: `LX ${formatLexile(readability.estimatedLexile)}`,
+          icon: <Info className="w-3.5 h-3.5" />,
+          className: lexileTone
+        },
+        grade: {
+          label: getGradeShortLabel(readability.fkGrade),
+          icon: null,
+          className: tone
+        },
+        words: {
+          label: getWordCountShortLabel(readability.wordCount),
+          icon: null,
+          className: tone
+        },
+        band: {
+          label: getDifficultyBandShortLabel(readability.difficultyBand),
+          icon: null,
+          className: tone
+        }
+      };
+
+      const content = contentByKind[kind];
+      if (!content) return null;
+
+      return (
+        <HoverTip text={getReadabilityTooltip(kind, readability)}>
+          <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full cursor-help ${content.className}`}>
+            {content.icon}
+            {content.label}
+          </span>
+        </HoverTip>
+      );
+    };
+
+    const ReadabilityBadgeRow = ({ readability = {}, theme = 'dark', compact = false }) => (
+      <div className={`flex flex-wrap gap-2 ${compact ? 'text-[11px]' : 'text-xs'}`}>
+        <ReadabilityBadge kind="lexile" readability={readability} theme={theme} />
+        <ReadabilityBadge kind="grade" readability={readability} theme={theme} />
+        <ReadabilityBadge kind="words" readability={readability} theme={theme} />
+        <ReadabilityBadge kind="band" readability={readability} theme={theme} />
+      </div>
+    );
+
+    const segmentTextList = (segments = []) => segments.map(seg => seg.text?.trim()).filter(Boolean);
+    const formatTeachingList = (items = []) => {
+      const cleaned = items.map(item => String(item || '').trim()).filter(Boolean);
+      if (cleaned.length === 0) return '';
+      if (cleaned.length === 1) return cleaned[0];
+      if (cleaned.length === 2) return `${cleaned[0]} 和 ${cleaned[1]}`;
+      return `${cleaned.slice(0, -1).join('、')}，以及 ${cleaned[cleaned.length - 1]}`;
+    };
+    const pickFirstMeaningful = (items = []) => items.find(item => String(item || '').trim()) || '';
+    const classifyGrammarFocus = (grammarPoints = []) => {
+      const text = grammarPoints.join(' / ');
+      return {
+        hasAgreement: /主谓一致/.test(text),
+        hasPronoun: /代词|指代/.test(text),
+        hasTenseVoice: /时态|语态|被动/.test(text),
+        hasVerbPattern: /动词|非谓语|原形|搭配/.test(text),
+        hasPrepPattern: /介词|介宾/.test(text)
+      };
+    };
+
+
+    const describeSegmentForChild = (seg = {}) => {
+      const text = (seg.text || '').trim();
+      const label = normalizeSegmentLabel(seg) || seg.label || '';
+      const type = seg.type || '';
+      const lower = text.toLowerCase();
+      const prefix = text ? `${text} ` : '这一块 ';
+
+      if (type === 'adverbial' || label === '动词修饰语') {
+        if (/^(in|on|at|during|before|after|when|while)\b/i.test(lower) || /时间/.test(seg.label || '')) return `${prefix}像一个“时间/地点小贴纸”，告诉我们事情在什么时候、什么地方发生`;
+        if (/^(because|for|to|so that)\b/i.test(lower) || /原因|目的/.test(seg.label || '')) return `${prefix}像一个“原因小贴纸”，告诉我们为什么做、为了什么做`;
+        return `${prefix}像贴在动作旁边的小贴纸，让动作说得更清楚`;
+      }
+
+      if (label === '名词修饰语' || type === 'modifier') {
+        if (/^[-—]/.test(text)) return `${prefix}像补充说明的小尾巴，给前面的词多加一点信息`;
+        return `${prefix}像贴在名词旁边的小标签，告诉我们这个人或东西是什么样的`;
+      }
+
+      if (type === 'conjunction' || label === '连接词') return `${prefix}像一座小桥，把前后两块意思接起来`;
+      if (String(type).startsWith('clause') || label === '从句核心') return `${prefix}像句子里的“小房间”，里面也有自己的小结构`;
+      return `${prefix}是补充信息，先放在旁边，等主干站稳了再加回来`;
+    };
+
+    const getSegmentTextByTypes = (segments = [], types = []) =>
+      formatTeachingList(segmentTextList(segments.filter(seg => types.includes(seg.type))));
+
+    const getExcludedMainPartsExplanation = (segments = []) => {
+      const extras = segments
+        .filter(seg => !['subject', 'verb', 'object', 'predicative', 'clause-subject', 'clause-verb', 'clause-object', 'clause-predicative', 'coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'].includes(seg.type))
+        .map(seg => {
+          const text = (seg.text || '').trim();
+          if (!text) return '';
+          return `${describeSegmentForChild(seg)}，先不放进骨架里`;
+        })
+        .filter(Boolean);
+      return extras.length ? `旁边的词先放一放：${extras.join('；')}。` : '这句话的补充信息不多，所以主干会比较清楚。';
+    };
+
+    const IRREGULAR_VERB_BASE_MAP = {
+      saw: 'see',
+      seen: 'see',
+      was: 'be',
+      were: 'be',
+      had: 'have',
+      showed: 'show',
+      went: 'go',
+      came: 'come',
+      took: 'take',
+      made: 'make',
+      found: 'find',
+      thought: 'think',
+      said: 'say',
+      told: 'tell',
+      knew: 'know',
+      gave: 'give',
+      became: 'become',
+      wrote: 'write',
+      read: 'read',
+      felt: 'feel',
+      kept: 'keep',
+      left: 'leave'
+    };
+
+    const inferVerbBaseForm = (verbText = '') => {
+      const cleaned = String(verbText || '').trim().toLowerCase();
+      if (!cleaned) return '';
+      const words = cleaned.split(/\s+/).filter(Boolean);
+      const mainWord = words[words.length - 1] || '';
+      if (IRREGULAR_VERB_BASE_MAP[mainWord]) return IRREGULAR_VERB_BASE_MAP[mainWord];
+      if (mainWord.endsWith('ing')) {
+        if (mainWord.endsWith('ying')) return `${mainWord.slice(0, -4)}ie`;
+        if (/([b-df-hj-np-tv-z])\1ing$/.test(mainWord)) return mainWord.slice(0, -4);
+        if (mainWord.endsWith('ing')) return mainWord.slice(0, -3);
+      }
+      if (mainWord.endsWith('ied')) return `${mainWord.slice(0, -3)}y`;
+      if (mainWord.endsWith('ed')) {
+        const stem = mainWord.slice(0, -2);
+        return stem.endsWith('e') ? stem : stem;
+      }
+      return mainWord;
+    };
+
+    const describeVerbFormForChild = (verbText = '') => {
+      const cleaned = String(verbText || '').trim();
+      if (!cleaned) return { label: '动作', explanation: '先看这个动作词，它会告诉我们句子正在说什么。' };
+
+      const lower = cleaned.toLowerCase();
+      const base = inferVerbBaseForm(cleaned);
+      const baseText = base ? `，它的原形是 ${base}` : '';
+
+      if (/\b(was|were)\s+\w+ing\b/.test(lower)) {
+        return {
+          label: '过去进行时',
+          explanation: `${cleaned} 是过去进行时，表示那时候“正在”发生这个动作${baseText}。`
+        };
+      }
+
+      if (/\bhad\s+\w+/.test(lower)) {
+        return {
+          label: '过去完成时',
+          explanation: `${cleaned} 是过去完成时，表示这个动作发生在过去某个时间点之前${baseText}。`
+        };
+      }
+
+      if (/\b(is|am|are|was|were)\s+\w+(ed|en)\b/.test(lower)) {
+        return {
+          label: '被动表达',
+          explanation: `${cleaned} 带有“被怎么样”的感觉，重点是主语受到这个动作影响${baseText}。`
+        };
+      }
+
+      if (/\b(was|were|did|saw|showed|found|came|went|made|thought|told|knew|gave|became|wrote|felt|kept|left)\b/.test(lower) || /\w+ed\b/.test(lower)) {
+        return {
+          label: '一般过去时',
+          explanation: `${cleaned} 是过去式，表示这件事已经发生过了${baseText}。`
+        };
+      }
+
+      return {
+        label: '核心动作',
+        explanation: `${cleaned} 是这句里最重要的动作词${baseText}。`
+      };
+    };
+
+    const joinRoleSummary = (subjectText = '', verbText = '', objectText = '') =>
+      [subjectText, verbText, objectText].filter(Boolean).join(' | ');
+
+    const buildStepSentenceExample = ({ subjectText = '', verbText = '', objectText = '', modifierText = '', clauseText = '', logicConnector = '', pronounRef = '' } = {}) => {
+      const parts = [];
+      if (subjectText) parts.push(`谁在做：${subjectText}`);
+      if (verbText) parts.push(`动作是：${verbText}`);
+      if (objectText) parts.push(`动作落点：${objectText}`);
+      if (modifierText) parts.push(`旁边的小贴纸：${modifierText}`);
+      if (clauseText) parts.push(`句子里的小房间：${clauseText}`);
+      if (logicConnector) parts.push(`连接线索：${logicConnector}`);
+      if (pronounRef) parts.push(`代词回收：${pronounRef}`);
+      return parts;
+    };
+
+    const buildMainStepTeaching = (sentence = {}, mainSegments = []) => {
+      const subjectText = formatTeachingList(segmentTextList(mainSegments.filter(seg => seg.type === 'subject')));
+      const verbText = formatTeachingList(segmentTextList(mainSegments.filter(seg => seg.type === 'verb')));
+      const objectText = formatTeachingList(segmentTextList(mainSegments.filter(seg => ['object', 'predicative'].includes(seg.type))));
+      const answerParts = [subjectText, verbText, objectText].filter(Boolean);
+      const answerText = answerParts.length ? answerParts.join(' | ') : (sentence.text || '先从核心动作开始。');
+      const teachingFocus = sentence.teachingFocus || {};
+      const thinkingPath = Array.isArray(teachingFocus.thinkingPath) ? teachingFocus.thinkingPath : [];
+      const guidingQuestion = teachingFocus.mainQuestion || '这句里真正的动作是什么？谁在做这个动作？';
+      const hintLine = thinkingPath.length
+        ? `你可以按这个顺序想：${formatTeachingList(thinkingPath)}。`
+        : '提示你一下，先找真正的动作，再找动作前后的核心名词或代词。';
+      const mistakeLine = teachingFocus.commonMistake || '常见错误是把介词短语、形容词或长修饰语直接误当成主干。';
+      const encouragement = teachingFocus.encouragement || '慢慢来，你已经抓到句子的骨架了。';
+      const excludedExplanation = getExcludedMainPartsExplanation(sentence.segments || []);
+      const verbForm = describeVerbFormForChild(verbText);
+      return {
+        prompt: `这一小步只做一件事：把句子的骨架找出来。先看动作 ${verbText || '核心动作'}，再看是谁在做，最后看动作落到谁或什么上面。`,
+        explanation: `这句的主干可以先收成：${answerText}。其中 ${subjectText || '主语'} 是“谁在做”，${verbText || '谓语'} 是“在做什么”，${objectText || '宾语/表语'} 是“动作落到哪里”或“最后变成什么”。${excludedExplanation}`,
+        coachLine: `${encouragement} 这一步只要先把骨架站稳，后面的补充信息就不会把你绕晕。`,
+        focusLabel: '先把主线找出来',
+        screenTitle: '先找谁在做什么',
+        screenPrompt: '我们先把最重要的三块找出来。',
+        sentenceCardTitle: '这句里的骨架',
+        sentenceCardLines: [
+          `谁在做：${subjectText || '还没找到时，先盯动作前面的核心名词'}`,
+          `动作是：${verbText || '先找最能表示动作或状态的词'}`,
+          `动作落点：${objectText || '再看动作后面最重要的对象或结果'}`
+        ],
+        voiceSegments: [
+          { kind: 'explain', text: `第一步，我们只做一件事：给句子找骨架。骨架通常有三块，谁在做、做了什么、动作落到谁或什么上面。` },
+          { kind: 'explain', text: `这句里，${subjectText || '前面的核心成员'} 是主语，表示谁在做；${verbText || '这个动作词'} 是谓语，表示在做什么；${objectText || '后面的结果部分'} 是宾语或表语，表示动作落点或最后的状态。` },
+          { kind: 'explain', text: `${verbForm.explanation}` },
+          { kind: 'explain', text: `${hintLine}${mistakeLine} ${excludedExplanation}` },
+          { kind: 'encourage', text: `${encouragement} 所以这句的主干可以收成：${answerText}。` }
+        ]
+      };
+    };
+    const buildGrammarStepTeaching = (sentence = {}, grammarPoints = [], segments = []) => {
+      const grammarFlags = classifyGrammarFocus(grammarPoints);
+      const verbText = pickFirstMeaningful(segmentTextList(segments.filter(seg => seg.type === 'verb')));
+      const subjectText = pickFirstMeaningful(segmentTextList(segments.filter(seg => seg.type === 'subject')));
+      const objectText = pickFirstMeaningful(segmentTextList(segments.filter(seg => ['object', 'predicative'].includes(seg.type))));
+      const pronounTip = sentence.pronounRef ? `这句还要回收代词指代：${sentence.pronounRef}` : '';
+      const teachingFocus = sentence.teachingFocus || {};
+      const verbForm = describeVerbFormForChild(verbText);
+      const checks = [
+        grammarFlags.hasAgreement ? `先看主语 ${subjectText || '的中心词'} 和谓语 ${verbText || '动词'} 是不是搭得上` : '',
+        grammarFlags.hasTenseVoice ? `再看谓语 ${verbText || '动词'} 的时态或语态，它会告诉我们动作发生在什么时候、是主动还是被动` : '',
+        grammarFlags.hasPronoun ? pronounTip || '再看代词到底指谁，不要让 it、they、this 飘在空中' : '',
+        grammarFlags.hasVerbPattern ? '如果看到非谓语或动词搭配，要先分清哪个是核心谓语，哪个只是补充动作' : '',
+        grammarFlags.hasPrepPattern ? '看到介词时别急着往主干里塞，先判断它是在补地点、时间，还是固定搭配' : ''
+      ].filter(Boolean);
+      const fallbackChecks = [
+        `先看主语 ${subjectText || '的中心词'} 和谓语 ${verbText || '动词'} 能不能对上`,
+        '再看时态语态，判断动作发生在什么时候',
+        sentence.pronounRef ? pronounTip : '如果句里有代词，再追问它到底指谁'
+      ].filter(Boolean);
+      const checklist = checks.length ? checks : fallbackChecks;
+      const guidingQuestion = teachingFocus.grammarQuestion || '这句最先该盯哪个语法信号，才能不走偏？';
+      const mistakeLine = teachingFocus.commonMistake || '常见错误是看见很多术语就慌，却没有先盯住谓语和主语的配合。';
+      const encouragement = teachingFocus.encouragement || '语法不是背标签，而是按顺序排查。';
+      return {
+        prompt: `现在只看语法信号。先盯住谓语 ${verbText || '动词'}，因为它最能告诉我们动作发生在什么时候，以及主语和它配得对不对。`,
+        explanation: `这句可以按顺序检查：${formatTeachingList(checklist)}。${grammarPoints.length ? `这句最值得注意的点是：${grammarPoints.join('、')}。` : ''}`,
+        coachLine: `${encouragement} 先看谓语，再看主语搭配，最后看代词和补充结构，语法就不会乱。`,
+        focusLabel: '看看动作的样子',
+        screenTitle: '先看动作长什么样',
+        screenPrompt: '这个动作一露面，就会告诉我们很多事。',
+        sentenceCardTitle: '这句里的语法信号',
+        sentenceCardLines: [
+          `主语：${subjectText || '先找动作前最核心的人或物'}`,
+          `谓语：${verbText || '先看动作词'}`,
+          `谓语说明：${verbForm.explanation}`,
+          objectText ? `动作落点：${objectText}` : ''
+        ].filter(Boolean),
+        voiceSegments: [
+          { kind: 'explain', text: `第二步，我们看语法信号。最先盯的不是一大串术语，而是谓语长什么样。` },
+          { kind: 'explain', text: `${verbForm.explanation}` },
+          { kind: 'explain', text: `再看主语 ${subjectText || '这个成员'} 和谓语 ${verbText || '这个动作'} 配不配。如果主语是单个成员，谓语形式也要跟它搭上。` },
+          { kind: 'explain', text: `${pronounTip || '如果句子里有 it、they、this 这样的词，还要回头找它到底指谁。'} ${mistakeLine}`.trim() },
+          { kind: 'encourage', text: `${encouragement}${grammarPoints.length ? ` 这句最需要记住的是：${grammarPoints.join('、')}。` : ''}` }
+        ]
+      };
+    };
+    const buildModifierStepTeaching = (sentence = {}, modifierSegments = [], clauseSegments = []) => {
+      const modifierText = formatTeachingList(segmentTextList(modifierSegments));
+      const clauseText = formatTeachingList(segmentTextList(clauseSegments));
+      const hasClauseCore = clauseSegments.length > 0;
+      const teachingFocus = sentence.teachingFocus || {};
+      const guidingQuestion = teachingFocus.modifierQuestion || '这些长长的部分，哪些是在修饰名词，哪些是在补充动作，哪些其实是从句？';
+      const mistakeLine = teachingFocus.commonMistake || '常见错误是把所有长结构都一股脑塞回主干，结果主干越找越乱。';
+      const encouragement = teachingFocus.encouragement || '你不是在拆碎句子，而是在给主干减负。';
+      return {
+        prompt: `主干抓住以后，再看旁边的小贴纸和小房间。它们不是骨架，但会告诉我们更多细节。`,
+        explanation: `${modifierText ? `${modifierText} 更像贴在名词或动作旁边的小标签，告诉我们时间、地点、样子或补充说明。` : '这句补充部分不多，所以更适合练习把骨架和补充分开。'}${hasClauseCore ? ` 如果看到 ${clauseText}，就把它当成句子里的小房间，里面也有自己的小结构。` : ''}`,
+        coachLine: `${encouragement} 先分清骨架和补充，长句就会立刻轻很多。`,
+        focusLabel: '把旁边的小信息理一理',
+        screenTitle: '看看哪些是小贴纸',
+        screenPrompt: '这些小贴纸会补充意思，但不用抢主位。',
+        sentenceCardTitle: '这句里的补充信息',
+        sentenceCardLines: [
+          modifierText ? `小贴纸：${modifierText}` : '这句补充信息不多，重点是别把小贴纸误当骨架。',
+          hasClauseCore ? `小房间：${clauseText}` : '这句没有特别大的从句小房间。',
+          '主干先站好，补充信息再慢慢挂回去。'
+        ],
+        voiceSegments: [
+          { kind: 'explain', text: `第三步，我们看补充信息。补充信息不是骨架，但它会让句子更完整。` },
+          { kind: 'explain', text: `${modifierText ? `这句里的小贴纸主要有：${modifierText}。它们告诉我们时间、地点、样子，或者多加一点说明。` : '这句补充信息不多，所以更适合练习“先骨架，后补充”。'}` },
+          { kind: 'explain', text: `${hasClauseCore ? `如果看到 ${clauseText}，就把它想成句子里的小房间。它自己也有小结构，但它是来补充主句的。` : '这句没有特别大的从句，所以我们重点练习把修饰语和主干分开。'}` },
+          { kind: 'explain', text: `${mistakeLine} 看到长尾巴时，不要全塞进主干里。` },
+          { kind: 'encourage', text: `${encouragement} 你现在是在帮句子减负。` }
+        ]
+      };
+    };
+    const buildRelationshipStepTeaching = (sentence = {}, clauseSegments = []) => {
+      const clauseText = formatTeachingList(segmentTextList(clauseSegments));
+      const pronounTip = sentence.pronounRef ? `代词还要回收到前文：${sentence.pronounRef}` : '';
+      const teachingFocus = sentence.teachingFocus || {};
+      const guidingQuestion = teachingFocus.relationshipQuestion || '这句到底是在并列推进、转折，还是主句带着补充信息往前走？';
+      const mistakeLine = teachingFocus.commonMistake || '常见错误是每一块都懂一点，但拼不回整句，不知道哪块最重要。';
+      const encouragement = teachingFocus.encouragement || '最后这一步，是把零件重新装回去。';
+      return {
+        prompt: '最后把零件重新装回去。先说主干，再把补充信息按顺序加回来，整句话就会顺起来。',
+        explanation: `这一句先用主干打底，再把时间、地点、修饰或从句挂回去。${sentence.logicConnector ? `关系线索是：${sentence.logicConnector}。` : ''}${pronounTip ? ` ${pronounTip}` : ''}${!sentence.logicConnector && clauseText ? ` 结构信号也可以从 ${clauseText} 这些位置读出来。` : ''}`,
+        coachLine: `${encouragement} 当你能说清骨架、补充和连接，这句就真的读懂了。`,
+        focusLabel: '把整句话顺一遍',
+        screenTitle: '把意思重新串起来',
+        screenPrompt: '骨架站好以后，意思就能顺顺地连起来。',
+        sentenceCardTitle: '这句怎么串起来',
+        sentenceCardLines: [
+          sentence.logicConnector ? `连接线索：${sentence.logicConnector}` : '没有明显连词时，就看哪块在推进主要意思。',
+          pronounTip || '如果有代词，就回头找它指谁。',
+          clauseText ? `结构提示：${clauseText}` : '把补充说明按顺序挂回主干里。'
+        ],
+        voiceSegments: [
+          { kind: 'explain', text: `第四步，我们把整句重新装回去。先说主干，再把补充信息一层层加回来。` },
+          { kind: 'explain', text: `${sentence.logicConnector ? `这句最直接的关系线索是：${sentence.logicConnector}。` : clauseText ? `这句可以从 ${clauseText} 这些结构信号来判断句子关系。` : '这句没有很明显的连词，所以要看哪块在推进主要意思，哪块只是补充。'}` },
+          { kind: 'explain', text: `${pronounTip || '如果句子里有代词，也要记得回头找它指谁。'}` },
+          { kind: 'explain', text: `${mistakeLine} 所以重装的时候，一定要先说主干，再加细节。` },
+          { kind: 'encourage', text: `${encouragement} 当你能把骨架、补充和连接讲顺，这句就真正变成你的了。` }
+        ]
+      };
+    };
+
+    const buildDeepDiveLessonPlan = (sentence = {}) => {
+      const segments = Array.isArray(sentence.segments) ? sentence.segments : [];
+      const mainSegments = segments.filter(seg => ['subject', 'verb', 'object', 'predicative', 'coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'].includes(seg.type));
+      const modifierSegments = segments.filter(seg => ['modifier', 'adverbial'].includes(seg.type));
+      const clauseSegments = segments.filter(seg => String(seg.type || '').startsWith('clause') || seg.type === 'conjunction' || String(seg.type || '').startsWith('coord'));
+      const subjectText = mainSegments
+        .filter(seg => seg.type === 'subject')
+        .map(seg => seg.text?.trim())
+        .filter(Boolean)
+        .join(' ');
+      const verbText = mainSegments
+        .filter(seg => seg.type === 'verb')
+        .map(seg => seg.text?.trim())
+        .filter(Boolean)
+        .join(' ');
+      const objectText = mainSegments
+        .filter(seg => ['object', 'predicative'].includes(seg.type))
+        .map(seg => seg.text?.trim())
+        .filter(Boolean)
+        .join(' ');
+      const answerText = [subjectText, verbText, objectText].filter(Boolean).join(' ');
+      const modifierText = modifierSegments
+        .map(seg => seg.text?.trim())
+        .filter(Boolean)
+        .join(' / ');
+      const clauseText = clauseSegments
+        .map(seg => seg.text?.trim())
+        .filter(Boolean)
+        .join(' / ');
+      const grammarPoints = (sentence.grammarFocus || '')
+        .split(/[\/、，,]/)
+        .map(item => item.trim())
+        .filter(Boolean);
+      const mainStep = buildMainStepTeaching(sentence, mainSegments);
+      const grammarStep = buildGrammarStepTeaching(sentence, grammarPoints, segments);
+      const modifierStep = buildModifierStepTeaching(sentence, modifierSegments, clauseSegments);
+      const relationshipStep = buildRelationshipStepTeaching(sentence, clauseSegments);
+
+      return [
+        {
+          key: 'main',
+          title: '先抓主干',
+          prompt: mainStep.prompt,
+          explanation: mainStep.explanation,
+          coachLine: mainStep.coachLine,
+          voiceSegments: mainStep.voiceSegments,
+          focusLabel: mainStep.focusLabel,
+          screenTitle: mainStep.screenTitle,
+          screenPrompt: mainStep.screenPrompt,
+          sentenceCardTitle: mainStep.sentenceCardTitle,
+          sentenceCardLines: mainStep.sentenceCardLines,
+          displayKeywords: makeKeywordList(`${answerText} ${verbText} ${subjectText} ${objectText}`, ['动作', '谁做', '落点']),
+          displaySummary: `主干：${answerText || joinRoleSummary(subjectText, verbText, objectText)}`
+        },
+        {
+          key: 'grammar',
+          title: '再看核心语法',
+          prompt: grammarStep.prompt,
+          explanation: grammarStep.explanation,
+          coachLine: grammarStep.coachLine,
+          voiceSegments: grammarStep.voiceSegments,
+          focusLabel: grammarStep.focusLabel,
+          screenTitle: grammarStep.screenTitle,
+          screenPrompt: grammarStep.screenPrompt,
+          sentenceCardTitle: grammarStep.sentenceCardTitle,
+          sentenceCardLines: grammarStep.sentenceCardLines,
+          displayKeywords: makeKeywordList(`${verbText} ${subjectText} ${grammarPoints.join(' ')}`, ['谓语', '时间', '搭配']),
+          displaySummary: `谓语：${verbText || '核心动作'}`
+        },
+        {
+          key: 'modifier',
+          title: '拆修饰语和从句',
+          prompt: modifierStep.prompt,
+          explanation: modifierStep.explanation,
+          coachLine: modifierStep.coachLine,
+          voiceSegments: modifierStep.voiceSegments,
+          focusLabel: modifierStep.focusLabel,
+          screenTitle: modifierStep.screenTitle,
+          screenPrompt: modifierStep.screenPrompt,
+          sentenceCardTitle: modifierStep.sentenceCardTitle,
+          sentenceCardLines: modifierStep.sentenceCardLines,
+          displayKeywords: makeKeywordList(`${modifierText} ${clauseText}`, ['小贴纸', '小标签', '小房间']),
+          displaySummary: modifierText ? `补充：${modifierText}` : '守住主干'
+        },
+        {
+          key: 'relationship',
+          title: '理顺句子关系',
+          prompt: relationshipStep.prompt,
+          explanation: relationshipStep.explanation,
+          coachLine: relationshipStep.coachLine,
+          voiceSegments: relationshipStep.voiceSegments,
+          focusLabel: relationshipStep.focusLabel,
+          screenTitle: relationshipStep.screenTitle,
+          screenPrompt: relationshipStep.screenPrompt,
+          sentenceCardTitle: relationshipStep.sentenceCardTitle,
+          sentenceCardLines: relationshipStep.sentenceCardLines,
+          displayKeywords: makeKeywordList(`${sentence.logicConnector || ''} ${sentence.pronounRef || ''} ${clauseText}`, ['主干', '补充', '连接']),
+          displaySummary: sentence.logicConnector ? `小桥：${sentence.logicConnector}` : '主干 + 补充 + 连接'
+        }
+      ];
+    };
+
+
+    const buildLessonSpeechSegments = (step = {}) => {
+      if (step.hasAiTeachingScript && step.aiVoiceText) return [{ kind: 'explain', text: step.aiVoiceText }];
+      if (Array.isArray(step.voiceSegments) && step.voiceSegments.length > 0) return step.voiceSegments;
+      if (step.aiVoiceText) return [{ kind: 'explain', text: step.aiVoiceText }];
+      const parts = [
+        step.prompt ? { kind: 'explain', text: step.prompt } : null,
+        step.explanation ? { kind: 'explain', text: step.explanation } : null,
+        step.coachLine ? { kind: 'encourage', text: step.coachLine } : null
+      ].filter(Boolean);
+      return parts.length ? parts : [{ kind: 'explain', text: step.coachLine || step.explanation || step.prompt || '' }];
+    };
+
+
+
+
+    const splitTeachingText = (text = '') => String(text || '')
+      .split(/[。！？!?；;\n]+/)
+      .map(item => item.trim())
+      .filter(Boolean);
+
+    const makeDisplaySummary = (text = '', fallback = '') => {
+      const pieces = splitTeachingText(text);
+      const picked = pieces.slice(0, 1).join('。');
+      return picked ? `${picked}。` : fallback;
+    };
+
+    const makeCoreDisplaySummary = (text = '', keywords = [], fallback = '') => {
+      const raw = String(text || '').trim();
+      const keywordText = Array.isArray(keywords) ? keywords.filter(Boolean).slice(0, 3).join(' · ') : '';
+      const source = raw || keywordText || String(fallback || '').trim();
+      if (!source) return '';
+      const first = splitTeachingText(source)[0] || source;
+      const cleaned = first
+        .replace(/^(这一句|这句话|老师|我们|小朋友|你可以|先来|现在)[:：，,\s]*/g, '')
+        .replace(/。$/g, '')
+        .trim();
+      if (cleaned.length <= 24) return cleaned;
+      if (keywordText) return keywordText;
+      const softCut = cleaned.slice(0, 24);
+      const cutAt = Math.max(softCut.lastIndexOf('，'), softCut.lastIndexOf('、'), softCut.lastIndexOf(' '));
+      return `${(cutAt >= 8 ? softCut.slice(0, cutAt) : softCut).trim()}…`;
+    };
+
+    const makeKeywordList = (text = '', fallback = []) => {
+      const words = [];
+      const push = (value) => {
+        const cleaned = String(value || '').trim();
+        if (cleaned && !words.includes(cleaned)) words.push(cleaned);
+      };
+      String(text || '').replace(/[A-Za-z][A-Za-z'’-]*/g, match => { push(match); return match; });
+      String(text || '').replace(/[“”「」『』：:，,。；;、\s]+/g, ' ').split(' ').forEach(part => {
+        if (/^[\u4e00-\u9fa5]{2,8}$/.test(part) && !/这句话|老师|孩子|可以|一个|我们|就是|已经|看看|先把|慢慢/.test(part)) push(part);
+      });
+      fallback.forEach(push);
+      return words.slice(0, 6);
+    };
+
+    const normalizeTeachingScript = (script = null) => {
+      if (!script || typeof script !== 'object') return null;
+      const normalizeStep = (step = {}) => {
+        const teacherTalk = String(step.teacherTalk || '').trim();
+        const voiceText = String(step.voiceText || step.teacherTalk || '').trim();
+        const rawKeywords = Array.isArray(step.keywords) ? step.keywords.map(item => String(item || '').trim()).filter(Boolean) : [];
+        const keywords = (rawKeywords.length ? rawKeywords : makeKeywordList(`${step.displaySummary || ''} ${step.rhyme || ''} ${teacherTalk || voiceText}`)).slice(0, 5);
+        const displaySummary = makeCoreDisplaySummary(step.displaySummary || '', keywords, teacherTalk || voiceText || step.rhyme || '');
+        return {
+          teacherTalk,
+          rhyme: String(step.rhyme || '').trim(),
+          methodTip: String(step.methodTip || '').trim(),
+          voiceText,
+          displaySummary,
+          keywords
+        };
+      };
+      return {
+        generatedAt: script.generatedAt || Date.now(),
+        model: script.model || '',
+        main: normalizeStep(script.main),
+        grammar: normalizeStep(script.grammar),
+        modifier: normalizeStep(script.modifier),
+        relationship: normalizeStep(script.relationship)
+      };
+    };
+
+    const applyTeachingScriptToLessonPlan = (lessonPlan = [], teachingScript = null) => {
+      const script = normalizeTeachingScript(teachingScript);
+      if (!script) return lessonPlan;
+      const scriptByKey = {
+        main: script.main,
+        grammar: script.grammar,
+        modifier: script.modifier,
+        relationship: script.relationship
+      };
+      return lessonPlan.map(step => {
+        const scriptStep = scriptByKey[step.key];
+        if (!scriptStep || !scriptStep.teacherTalk) return step;
+        return {
+          ...step,
+          prompt: '',
+          explanation: scriptStep.displaySummary || makeCoreDisplaySummary(scriptStep.teacherTalk, scriptStep.keywords, step.explanation),
+          coachLine: '',
+          methodRhyme: scriptStep.rhyme || step.methodRhyme,
+          displayKeywords: scriptStep.keywords,
+          aiVoiceText: scriptStep.voiceText || scriptStep.teacherTalk,
+          aiTeacherTalk: scriptStep.teacherTalk,
+          hasAiTeachingScript: true
+        };
+      });
+    };
     const getGuidedStructureRoleKey = (seg = {}) => {
       const type = seg.type || '';
       const label = seg.label || '';
@@ -589,6 +1476,7 @@
 
       if (type === 'conjunction') return 'conjunction';
       if (['clause-subject', 'clause-verb', 'clause-object', 'clause-predicative', 'clause', 'subject-verb'].includes(type)) return 'clause';
+      if (['coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'].includes(type)) return 'coord';
       if (normalizedLabel === '跳过') return 'skip';
       if (type === 'adverbial' || normalizedLabel === '动词修饰语' || /状语|时间|地点|方式|原因|条件|让步/.test(label)) return 'verb-modifier';
 
@@ -704,6 +1592,130 @@
 
       if (startIndex === -1) return cleaned;
 
+      let currentText = cleaned.slice(startIndex);
+
+      // 循环裁剪直到可以成功解析，或者无可裁剪
+      for (let attempt = 0; attempt < 15; attempt++) {
+        const stack = [];
+        let inString = false;
+        let escaped = false;
+        let lastStringStartIndex = -1;
+        let nonSpaceCharsBeforeLastString = "";
+        let nonSpaceHistory = [];
+
+        for (let i = 0; i < currentText.length; i++) {
+          const char = currentText[i];
+
+          if (escaped) {
+            escaped = false;
+            continue;
+          }
+
+          if (char === '\\') {
+            escaped = true;
+            continue;
+          }
+
+          if (char === '"') {
+            inString = !inString;
+            if (inString) {
+              lastStringStartIndex = i;
+              let prevNonSpace = "";
+              for (let k = nonSpaceHistory.length - 1; k >= 0; k--) {
+                if (nonSpaceHistory[k] !== ' ' && nonSpaceHistory[k] !== '\n' && nonSpaceHistory[k] !== '\r' && nonSpaceHistory[k] !== '\t') {
+                  prevNonSpace = nonSpaceHistory[k];
+                  break;
+                }
+              }
+              nonSpaceCharsBeforeLastString = prevNonSpace;
+            }
+            continue;
+          }
+
+          if (!inString) {
+            if (char !== ' ' && char !== '\n' && char !== '\r' && char !== '\t') {
+              nonSpaceHistory.push(char);
+            }
+            if (char === '{' || char === '[') {
+              stack.push(char);
+            } else if (char === '}' || char === ']') {
+              const last = stack[stack.length - 1];
+              if ((last === '{' && char === '}') || (last === '[' && char === ']')) {
+                stack.pop();
+              }
+            }
+          }
+        }
+
+        let textToRep = currentText.trim();
+        
+        if (stack.length === 0 && !inString) {
+          try {
+            JSON.parse(textToRep);
+            return textToRep;
+          } catch(e) {
+          }
+        }
+
+        if (!inString && textToRep.endsWith(',')) {
+          currentText = textToRep.slice(0, -1);
+          continue;
+        }
+
+        if (!inString && textToRep.endsWith(':')) {
+          currentText = textToRep.slice(0, -1);
+          continue;
+        }
+
+        if (inString) {
+          if (nonSpaceCharsBeforeLastString === ':') {
+            let suffix = '"';
+            let tempText = currentText;
+            if (escaped) {
+              tempText = tempText.slice(0, -1);
+            }
+            for (let i = stack.length - 1; i >= 0; i--) {
+              suffix += (stack[i] === '{' ? '}' : ']');
+            }
+            const candidate = tempText + suffix;
+            try {
+              JSON.parse(candidate);
+              return candidate;
+            } catch(e) {
+              currentText = currentText.slice(0, lastStringStartIndex);
+              continue;
+            }
+          } else {
+            let cutIndex = lastStringStartIndex;
+            let beforeStr = currentText.slice(0, cutIndex).trim();
+            if (beforeStr.endsWith(',')) {
+              beforeStr = beforeStr.slice(0, -1);
+            }
+            currentText = beforeStr;
+            continue;
+          }
+        }
+
+        let lastChar = textToRep[textToRep.length - 1];
+        if (lastChar === ',' || lastChar === ':') {
+          currentText = textToRep.slice(0, -1);
+          continue;
+        }
+
+        let suffix = "";
+        for (let i = stack.length - 1; i >= 0; i--) {
+          suffix += (stack[i] === '{' ? '}' : ']');
+        }
+        const candidate = textToRep + suffix;
+        try {
+          JSON.parse(candidate);
+          return candidate;
+        } catch(e) {
+          currentText = textToRep.slice(0, -1);
+        }
+      }
+
+      // 终极兜底：基础自愈机制
       const stack = [];
       let inString = false;
       let escaped = false;
@@ -741,7 +1753,23 @@
         }
       }
 
-      return cleaned.slice(startIndex).trim();
+      let repairedPart = cleaned.slice(startIndex);
+      let suffix = "";
+      
+      if (inString) {
+        if (escaped) {
+          repairedPart = repairedPart.slice(0, -1);
+        }
+        suffix += '"';
+      }
+
+      for (let i = stack.length - 1; i >= 0; i--) {
+        const left = stack[i];
+        if (left === '{') suffix += '}';
+        else if (left === '[') suffix += ']';
+      }
+
+      return (repairedPart + suffix).trim();
     };
 
     const parseJsonWithRecovery = (text = "") => {
@@ -776,13 +1804,49 @@
 
     const normalizeSavedArticles = (articles = []) =>
       Array.isArray(articles)
-        ? articles.map(article => ({
-            ...article,
-            data: normalizeArticleData(article.data)
-          }))
+        ? articles.map(article => {
+            const data = normalizeArticleData(article.data);
+            return {
+              ...article,
+              data,
+              glossary: collectArticleGlossary(article, data),
+              readability: article.readability || computeArticleReadability(data)
+            };
+          })
         : [];
 
     const normalizeVocabBook = (vocab = []) => Array.isArray(vocab) ? vocab : [];
+
+    const LIBRARY_FILTERS = [
+      { key: 'all', label: '全部' },
+      { key: 'rfd1', label: 'RFD1' },
+      { key: 'rfd2', label: 'RFD2' },
+      { key: 'rfd3', label: 'RFD3' },
+      { key: '四上', label: '四上' }
+    ];
+
+    const getArticleFilterKey = (article = {}) => {
+      const sourceText = [
+        article.id,
+        article.title,
+        article.source?.file,
+        article.source?.section
+      ].filter(Boolean).join(' ').toLowerCase();
+
+      if (sourceText.includes('rfd1')) return 'rfd1';
+      if (sourceText.includes('rfd2')) return 'rfd2';
+      if (sourceText.includes('rfd3')) return 'rfd3';
+      if (sourceText.includes('四上')) return '四上';
+      return 'other';
+    };
+
+    const sortArticlesByTitle = (articles = []) =>
+      [...articles].sort((left, right) =>
+        String(left.title || '').localeCompare(String(right.title || ''), 'en', {
+          numeric: true,
+          sensitivity: 'base'
+        })
+      );
 
     const mergeSavedArticles = (current = [], incoming = []) => {
       const byId = new Map();
@@ -837,6 +1901,19 @@
       const writable = await handle.createWritable();
       await writable.write(JSON.stringify(createLocalDataSnapshot(articles, vocab), null, 2));
       await writable.close();
+    };
+
+    const clearLocalLearningStorage = async () => {
+      localStorage.removeItem('my_local_articles');
+      localStorage.removeItem('my_local_vocab_book');
+
+      if (navigator.storage?.getDirectory) {
+        const root = await navigator.storage.getDirectory();
+        const handle = await root.getFileHandle(LOCAL_DATA_FILE_NAME, { create: true });
+        const writable = await handle.createWritable();
+        await writable.write(JSON.stringify(createLocalDataSnapshot([], []), null, 2));
+        await writable.close();
+      }
     };
 
     const buildAiRequestError = (provider, err) => {
@@ -897,7 +1974,8 @@
                   phase: 'streaming',
                   receivedChars: content.length,
                   receivedChunks: chunkCount,
-                  lastProgressAt: Date.now()
+                  lastProgressAt: Date.now(),
+                  text: content
                 });
               }
             } catch (_) {
@@ -946,7 +2024,8 @@
                 phase: 'streaming',
                 receivedChars: content.length,
                 receivedChunks: chunkCount,
-                lastProgressAt: Date.now()
+                lastProgressAt: Date.now(),
+                text: content
               });
             }
           } catch (_) {
@@ -989,6 +2068,7 @@
         model,
         stream: true,
         temperature: 0.6,
+        max_tokens: 32000,
         response_format: expectJson ? { type: 'json_object' } : { type: 'text' },
         messages: [
           { role: 'system', content: systemPrompt },
@@ -996,10 +2076,12 @@
         ]
       };
 
-      const delays = [1000, 2000, 4000, 8000, 16000];
+      const delays = [1000, 2000];
       let lastError;
 
-      for (let attempt = 0; attempt < 6; attempt++) {
+      for (let attempt = 0; attempt < 3; attempt++) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 60000); // 60秒超时限制
         try {
           onProgress?.({ phase: 'requesting', lastProgressAt: Date.now() });
           const response = await fetch(url, {
@@ -1008,22 +2090,46 @@
               "Content-Type": "application/json",
               "Authorization": `Bearer ${trimmedApiKey}`
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
+            signal: controller.signal
           });
+          clearTimeout(timeoutId);
+
           if (!response.ok) {
             const text = await response.text();
-            throw new Error(`HTTP ${response.status}${text ? `: ${text}` : ''}`);
+            const errMsg = `HTTP ${response.status}${text ? `: ${text}` : ''}`;
+            const err = new Error(errMsg);
+            // 400(Bad Request), 401(Unauthorized), 403(Forbidden), 404(Not Found) 等属于配置错误，不予重试直接抛出
+            if ([400, 401, 403, 404].includes(response.status)) {
+              throw err;
+            }
+            throw err;
           }
           onProgress?.({ phase: 'connected', lastProgressAt: Date.now() });
           const content = await decodeOpenAICompatStream(response, onProgress);
           return content;
         } catch (err) {
+          clearTimeout(timeoutId);
           lastError = err;
-          if (attempt < 5) await new Promise(r => setTimeout(r, delays[attempt]));
+          // 如果是 AbortError (超时) 或特定的网络配置错误，可以尝试重试；如果是 4xx 错误，直接向上抛出
+          const isAbort = err.name === 'AbortError';
+          const isConfigError = err.message.includes('HTTP 400') || err.message.includes('HTTP 401') || err.message.includes('HTTP 403') || err.message.includes('HTTP 404');
+          if (isConfigError) {
+            break;
+          }
+          if (attempt < 2) {
+            await new Promise(r => setTimeout(r, delays[attempt]));
+          }
         }
       }
       throw buildAiRequestError('cloud', lastError);
     };
+
+    // 长文解析可能持续远超 5 分钟；用「空闲超时」代替绝对超时：
+    // 有流式进度就重置计时，模型卡死无输出才会中断；另设绝对上限防挂死。
+    // 空闲窗口略放宽，覆盖长文首 token 前的预填充等待。
+    const OLLAMA_IDLE_TIMEOUT_MS = 10 * 60 * 1000;
+    const OLLAMA_MAX_TIMEOUT_MS = 45 * 60 * 1000;
 
     const fetchOllamaResponse = async ({
       userPrompt,
@@ -1039,17 +2145,47 @@
         throw new Error('请先填写 Ollama 模型名。');
       }
 
+      const abortController = new AbortController();
+      let abortReason = '';
+      let idleTimeoutId = null;
+      const absoluteTimeoutId = setTimeout(() => {
+        abortReason = 'absolute';
+        abortController.abort();
+      }, OLLAMA_MAX_TIMEOUT_MS);
+
+      const clearAllTimeouts = () => {
+        if (idleTimeoutId) clearTimeout(idleTimeoutId);
+        clearTimeout(absoluteTimeoutId);
+      };
+
+      const resetIdleTimeout = () => {
+        if (idleTimeoutId) clearTimeout(idleTimeoutId);
+        idleTimeoutId = setTimeout(() => {
+          abortReason = 'idle';
+          abortController.abort();
+        }, OLLAMA_IDLE_TIMEOUT_MS);
+      };
+
+      const wrappedOnProgress = (progress) => {
+        resetIdleTimeout();
+        onProgress?.(progress);
+      };
+
+      resetIdleTimeout();
       try {
-        onProgress?.({ phase: 'requesting', lastProgressAt: Date.now() });
+        wrappedOnProgress({ phase: 'requesting', lastProgressAt: Date.now() });
         const response = await fetch(`${cleanBaseUrl}/api/chat`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          signal: abortController.signal,
           body: JSON.stringify({
             model: cleanModel,
             stream: true,
             think: false,
             options: {
-              temperature: expectJson ? 0.1 : 0.3
+              temperature: expectJson ? 0.1 : 0.3,
+              num_predict: 32000,
+              num_ctx: 32768
             },
             messages: [
               { role: "system", content: systemPrompt },
@@ -1063,10 +2199,18 @@
           throw new Error(`HTTP ${response.status}${text ? `: ${text}` : ''}`);
         }
 
-        onProgress?.({ phase: 'connected', lastProgressAt: Date.now() });
-        const content = await decodeOllamaStream(response, onProgress);
+        wrappedOnProgress({ phase: 'connected', lastProgressAt: Date.now() });
+        const content = await decodeOllamaStream(response, wrappedOnProgress);
+        clearAllTimeouts();
         return content;
       } catch (err) {
+        clearAllTimeouts();
+        if (err.name === 'AbortError') {
+          if (abortReason === 'idle') {
+            throw new Error('Ollama 长时间无响应（10分钟无新内容），请检查模型是否正常运行。');
+          }
+          throw new Error('Ollama 请求超时（已超过 45 分钟），请尝试缩短文本或稍后重试。');
+        }
         throw buildAiRequestError('ollama', err);
       }
     };
@@ -1075,7 +2219,8 @@
       userPrompt,
       systemPrompt,
       baseUrl = DEFAULT_OLLAMA_BASE_URL,
-      model = DEFAULT_OLLAMA_MODEL
+      model = DEFAULT_OLLAMA_MODEL,
+      onProgress
     }) => {
       const primaryPrompt = `${systemPrompt}\n\n【输出要求】\n1. 你必须输出合法 JSON。\n2. 不要输出 Markdown 代码块。\n3. 不要输出解释、前言或结语。\n4. JSON 之外不能有任何文字。`;
 
@@ -1084,12 +2229,15 @@
         systemPrompt: primaryPrompt,
         expectJson: false,
         baseUrl,
-        model
+        model,
+        onProgress
       });
 
       try {
+        onProgress?.({ phase: 'validating_json', lastProgressAt: Date.now() });
         return parseJsonWithRecovery(firstRaw).candidate;
       } catch (firstError) {
+        onProgress?.({ phase: 'repairing_json', lastProgressAt: Date.now() });
         const repairPrompt = `你刚才的输出不是合法 JSON。请在不降低要求、不省略字段的前提下，把下面内容修复成唯一的合法 JSON 输出。\n\n【原始输出开始】\n${firstRaw}\n【原始输出结束】`;
 
         const repairedRaw = await fetchOllamaResponse({
@@ -1097,10 +2245,12 @@
           systemPrompt: `${systemPrompt}\n\n【修复要求】\n1. 保留原任务要求和字段结构。\n2. 只输出合法 JSON。\n3. 不要输出代码块。\n4. 不要输出任何解释。`,
           expectJson: false,
           baseUrl,
-          model
+          model,
+          onProgress
         });
 
         try {
+          onProgress?.({ phase: 'validating_json', lastProgressAt: Date.now() });
           return parseJsonWithRecovery(repairedRaw).candidate;
         } catch (repairError) {
           throw new Error(`Ollama 返回内容未通过 JSON 校验。首次错误：${firstError.message}；修复后仍失败：${repairError.message}`);
@@ -1209,11 +2359,32 @@
       });
     };
 
+    const saveAiLog = async (logData) => {
+      try {
+        await fetch('/api/log/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(logData)
+        });
+      } catch (e) {
+        console.error('Failed to save AI log:', e);
+      }
+    };
+
     function App() {
       const isFileProtocol = window.location.protocol === 'file:';
       // Global App States
       const [viewMode, setViewMode] = useState('reading');
+      const [aiStreamingText, setAiStreamingText] = useState("");
+      const terminalConsoleRef = useRef(null);
       const [currentArticleData, setCurrentArticleData] = useState(() => normalizeArticleData(defaultArticleData));
+      const [currentArticleId, setCurrentArticleId] = useState(null);
+      const [currentArticleGlossary, setCurrentArticleGlossary] = useState(() =>
+        collectArticleGlossary({ glossary: defaultArticleGlossary }, defaultArticleData)
+      );
+      const [isExtractingGlossary, setIsExtractingGlossary] = useState(false);
+      const [glossaryHover, setGlossaryHover] = useState(null);
+      const glossaryHoverHideTimerRef = useRef(null);
 
       // Firebase Auth State
       const [user, setUser] = useState(null);
@@ -1256,6 +2427,7 @@
       });
 
       const articleFileInputRef = useRef(null);
+      const [libraryFilter, setLibraryFilter] = useState('all');
 
       // --- 本地生词本逻辑 (Local Storage + OPFS File) ---
       const [vocabBook, setVocabBook] = useState(() => {
@@ -1270,6 +2442,12 @@
       const [vocabPopup, setVocabPopup] = useState(null);
       const [addingWordId, setAddingWordId] = useState(null); 
       const fileInputRef = useRef(null);
+      const filteredLibraryArticles = useMemo(() => {
+        const filtered = libraryFilter === 'all'
+          ? savedArticles
+          : savedArticles.filter(article => getArticleFilterKey(article) === libraryFilter);
+        return sortArticlesByTitle(filtered);
+      }, [savedArticles, libraryFilter]);
 
       useEffect(() => {
         let cancelled = false;
@@ -1411,13 +2589,35 @@
       const [saveModalOpen, setSaveModalOpen] = useState(false);
       const [articleTitleInput, setArticleTitleInput] = useState("");
       const [showAiSettings, setShowAiSettings] = useState(false);
-      const [aiProvider, setAiProvider] = useState(() => localStorage.getItem('reader_ai_provider') || 'ollama');
+      const [aiProvider, setAiProvider] = useState(() => {
+        const saved = localStorage.getItem('reader_ai_provider');
+        if (!ENABLE_LOCAL_OLLAMA && saved === 'ollama') return DEFAULT_AI_PROVIDER;
+        return saved || DEFAULT_AI_PROVIDER;
+      });
       const [cloudApiKey, setCloudApiKey] = useState(() => localStorage.getItem('reader_openai_compat_api_key') || DEFAULT_OPENAI_COMPAT_API_KEY);
       const [cloudBaseUrl, setCloudBaseUrl] = useState(() => localStorage.getItem('reader_openai_compat_base_url') || DEFAULT_OPENAI_COMPAT_BASE_URL);
       const [cloudModel, setCloudModel] = useState(() => localStorage.getItem('reader_openai_compat_model') || DEFAULT_OPENAI_COMPAT_MODEL);
       const [ollamaPreset, setOllamaPreset] = useState(() => localStorage.getItem('reader_ollama_preset') || 'local');
       const [ollamaBaseUrl, setOllamaBaseUrl] = useState(() => localStorage.getItem('reader_ollama_base_url') || DEFAULT_OLLAMA_BASE_URL);
       const [ollamaModel, setOllamaModel] = useState(() => localStorage.getItem('reader_ollama_model') || DEFAULT_OLLAMA_MODEL);
+      const [voiceProvider, setVoiceProvider] = useState(() => {
+        const saved = localStorage.getItem('reader_voice_provider');
+        if (!DOUBAO_VOICE_ENABLED) return 'cosyvoice';
+        return saved || 'cosyvoice';
+      });
+      const [doubaoVoiceAppId, setDoubaoVoiceAppId] = useState(() => localStorage.getItem('reader_doubao_voice_app_id') || DEFAULT_DOUBAO_VOICE_APP_ID);
+      const [doubaoVoiceToken, setDoubaoVoiceToken] = useState(() => localStorage.getItem('reader_doubao_voice_token') || DEFAULT_DOUBAO_VOICE_TOKEN);
+      const [doubaoVoiceCluster, setDoubaoVoiceCluster] = useState(() => localStorage.getItem('reader_doubao_voice_cluster') || DEFAULT_DOUBAO_VOICE_CLUSTER);
+      const [doubaoVoiceType, setDoubaoVoiceType] = useState(() => normalizeDoubaoVoiceType(localStorage.getItem('reader_doubao_voice_type') || DEFAULT_DOUBAO_VOICE_TYPE));
+      const [cosyvoiceServerRunning, setCosyvoiceServerRunning] = useState(false);
+      const [voiceSpeed, setVoiceSpeed] = useState(() => parseFloat(localStorage.getItem('reader_voice_speed') || '1.0'));
+      const [voiceLessonStepIndex, setVoiceLessonStepIndex] = useState(0);
+      const [isVoiceNarrating, setIsVoiceNarrating] = useState(false);
+      const [voiceNarrationStatus, setVoiceNarrationStatus] = useState('未开始');
+      const [voiceNarrationPartIndex, setVoiceNarrationPartIndex] = useState(0);
+      const lessonAudioRef = useRef(null);
+      const lessonAudioRejectRef = useRef(null);
+      const voiceNarrationRunIdRef = useRef(0);
       const [isCheckingOllama, setIsCheckingOllama] = useState(false);
       const [ollamaStatus, setOllamaStatus] = useState(() => ({
         ok: false,
@@ -1433,6 +2633,10 @@
       }, [toastMessage]);
 
       useEffect(() => {
+        if (!ENABLE_LOCAL_OLLAMA && aiProvider === 'ollama') {
+          setAiProvider(DEFAULT_AI_PROVIDER);
+          return;
+        }
         localStorage.setItem('reader_ai_provider', aiProvider);
       }, [aiProvider]);
 
@@ -1459,6 +2663,60 @@
       useEffect(() => {
         localStorage.setItem('reader_ollama_model', ollamaModel);
       }, [ollamaModel]);
+
+      useEffect(() => {
+        const next = DOUBAO_VOICE_ENABLED ? voiceProvider : 'cosyvoice';
+        if (next !== voiceProvider) setVoiceProvider('cosyvoice');
+        localStorage.setItem('reader_voice_provider', next);
+      }, [voiceProvider]);
+
+      useEffect(() => {
+        if (!DOUBAO_VOICE_ENABLED) {
+          localStorage.setItem('reader_voice_provider', 'cosyvoice');
+          setVoiceProvider('cosyvoice');
+        }
+      }, []);
+
+      useEffect(() => {
+        localStorage.setItem('reader_doubao_voice_app_id', doubaoVoiceAppId.trim());
+      }, [doubaoVoiceAppId]);
+
+      useEffect(() => {
+        localStorage.setItem('reader_doubao_voice_token', doubaoVoiceToken.trim());
+      }, [doubaoVoiceToken]);
+
+      useEffect(() => {
+        localStorage.setItem('reader_doubao_voice_cluster', doubaoVoiceCluster.trim());
+      }, [doubaoVoiceCluster]);
+
+      useEffect(() => {
+        localStorage.setItem('reader_doubao_voice_type', normalizeDoubaoVoiceType(doubaoVoiceType));
+      }, [doubaoVoiceType]);
+
+      useEffect(() => {
+        localStorage.setItem('reader_voice_speed', String(voiceSpeed));
+      }, [voiceSpeed]);
+
+      useEffect(() => {
+        const normalizedVoiceType = normalizeDoubaoVoiceType(doubaoVoiceType);
+        if (normalizedVoiceType !== doubaoVoiceType) {
+          setDoubaoVoiceType(normalizedVoiceType);
+        }
+      }, [doubaoVoiceType]);
+
+      // Poll CosyVoice sidecar status when settings panel is visible
+      useEffect(() => {
+        if (!showAiSettings) return;
+        let cancelled = false;
+        const check = () => {
+          fetch('/api/cosyvoice/status').then(r => r.json()).then(d => {
+            if (!cancelled) setCosyvoiceServerRunning(Boolean(d.running));
+          }).catch(() => { if (!cancelled) setCosyvoiceServerRunning(false); });
+        };
+        check();
+        const id = setInterval(check, 5000);
+        return () => { cancelled = true; clearInterval(id); };
+      }, [showAiSettings]);
 
       const applyOllamaPreset = (presetKey) => {
         const preset = OLLAMA_PRESETS[presetKey];
@@ -1508,6 +2766,8 @@
       const [aiQuestion, setAiQuestion] = useState("");
       const [aiAnswer, setAiAnswer] = useState("");
       const [isAiAnswering, setIsAiAnswering] = useState(false);
+      const [isGeneratingTeachingScript, setIsGeneratingTeachingScript] = useState(false);
+      const [teachingScriptError, setTeachingScriptError] = useState("");
 
       // Upload View States
       const [inputText, setInputText] = useState("");
@@ -1521,6 +2781,7 @@
       const [aiReceivedChunks, setAiReceivedChunks] = useState(0);
       const [aiLastProgressAt, setAiLastProgressAt] = useState(null);
       const [aiIdleMs, setAiIdleMs] = useState(0);
+      const [currentArticleReadability, setCurrentArticleReadability] = useState(() => computeArticleReadability(defaultArticleData));
 
       // Firebase Init Auth
       useEffect(() => {
@@ -1541,12 +2802,16 @@
         return () => unsubscribe();
       }, []);
 
-      // 当切换选中句子时，自动重置 AI 状态，并将右侧面板切回“自主阅读”
+      // 当切换选中句子时，自动重置 AI 状态，并将右侧面板切回“解析总览”
       useEffect(() => {
         setSimplifiedSentence("");
         setAiQuestion("");
         setAiAnswer("");
+        setTeachingScriptError("");
         setGuidedStepIndex(0);
+        setVoiceLessonStepIndex(0);
+        setVoiceNarrationStatus('未开始');
+        setVoiceNarrationPartIndex(0);
         setGuidedActiveRole('subject');
         setGuidedSelections({});
         setGuidedCheckState({});
@@ -1594,6 +2859,12 @@
         return () => clearInterval(timer);
       }, [activeAiTask, aiLastProgressAt]);
 
+      useEffect(() => {
+        if (terminalConsoleRef.current) {
+          terminalConsoleRef.current.scrollTop = terminalConsoleRef.current.scrollHeight;
+        }
+      }, [aiStreamingText]);
+
       const reportAiProgress = ({ phase, receivedChars, receivedChunks, lastProgressAt }) => {
         if (phase) setAiTaskPhase(phase);
         if (typeof receivedChars === 'number') setAiReceivedChars(receivedChars);
@@ -1610,7 +2881,197 @@
         ollamaModel
       }), [aiProvider, cloudApiKey, cloudBaseUrl, cloudModel, ollamaBaseUrl, ollamaModel]);
 
-      const activeAiSummary = `当前模型：Ollama / ${ollamaModel || DEFAULT_OLLAMA_MODEL}`;
+      const activeAiSummary = aiProvider === 'ollama'
+        ? `当前模型：Ollama / ${ollamaModel || DEFAULT_OLLAMA_MODEL}`
+        : `当前模型：OpenAI-compatible / ${cloudModel || '未配置'}`;
+      const voiceLessonPlan = useMemo(() => applyTeachingScriptToLessonPlan(buildDeepDiveLessonPlan(selectedSentence), selectedSentence?.teachingScript), [selectedSentence]);
+      const activeVoiceLessonStep = voiceLessonPlan[voiceLessonStepIndex] || voiceLessonPlan[0];
+      const activeVoiceSegments = useMemo(() => buildLessonSpeechSegments(activeVoiceLessonStep), [activeVoiceLessonStep]);
+      const doubaoVoiceReady = Boolean(doubaoVoiceAppId.trim() && doubaoVoiceToken.trim());
+      const voiceTtsReady = voiceProvider === 'cosyvoice' ? true : doubaoVoiceReady;
+
+      const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+      const handleStopLessonNarration = () => {
+        voiceNarrationRunIdRef.current = null;
+        if (lessonAudioRef.current) {
+          lessonAudioRef.current.pause();
+          if (lessonAudioRef.current.dataset.objectUrl) {
+            URL.revokeObjectURL(lessonAudioRef.current.dataset.objectUrl);
+          }
+        }
+        if (lessonAudioRejectRef.current) {
+          try {
+            lessonAudioRejectRef.current(new Error('ManualStop'));
+          } catch (e) {}
+          lessonAudioRejectRef.current = null;
+        }
+        setIsVoiceNarrating(false);
+        setVoiceNarrationStatus('播放已停止');
+      };
+
+      const handlePlayLessonNarration = async () => {
+        if (!activeVoiceLessonStep) return;
+
+        // 以 localStorage 为准，避免 UI 已选 CosyVoice 但播放仍走豆包
+        const activeProvider = DOUBAO_VOICE_ENABLED
+          ? (localStorage.getItem('reader_voice_provider') || voiceProvider || 'cosyvoice')
+          : 'cosyvoice';
+        if (activeProvider !== voiceProvider) {
+          setVoiceProvider(activeProvider);
+        }
+        const useCosyVoice = !DOUBAO_VOICE_ENABLED || activeProvider === 'cosyvoice';
+        const providerLabel = useCosyVoice ? 'CosyVoice 本地' : '豆包云端';
+
+        if (!useCosyVoice && !doubaoVoiceReady) {
+          setVoiceNarrationStatus('需要配置豆包语音凭证');
+          setShowAiSettings(true);
+          setToastMessage('需要先配置豆包语音 App ID 和 Token。');
+          return;
+        }
+
+        setIsVoiceNarrating(true);
+        setVoiceNarrationPartIndex(0);
+        setVoiceNarrationStatus(`正在用 ${providerLabel} 合成讲解语音…`);
+        const narrationRunId = Date.now();
+        voiceNarrationRunIdRef.current = narrationRunId;
+
+        // 用于追踪所有分配了 Object URL 的临时地址，方便在 finally 中统一销毁
+        const allocatedObjectUrls = [];
+
+        try {
+          const voiceSegments = activeVoiceSegments.length > 0
+            ? activeVoiceSegments
+            : [{ kind: 'explain', text: activeVoiceLessonStep.coachLine || activeVoiceLessonStep.explanation }];
+
+          if (lessonAudioRef.current) {
+            lessonAudioRef.current.pause();
+            if (lessonAudioRef.current.dataset.objectUrl) {
+              URL.revokeObjectURL(lessonAudioRef.current.dataset.objectUrl);
+            }
+          }
+
+          // 1. 过滤并并发向服务端请求 TTS 音频数据
+          const fetchTasks = voiceSegments.map(async (segment, idx) => {
+            if (segment.kind === 'pause' || !segment.text) {
+              return { index: idx, objectUrl: null, error: null };
+            }
+            try {
+              const endpoint = useCosyVoice ? '/api/tts/cosyvoice' : '/api/tts/hermes';
+              const body = useCosyVoice
+                ? { text: segment.text, speed: parseFloat(voiceSpeed || 1.0) }
+                : { text: segment.text, voice: normalizeDoubaoVoiceType(doubaoVoiceType), speed: parseFloat(voiceSpeed || 1.0) };
+              const res = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+              });
+              const json = await res.json().catch(() => ({}));
+              if (!res.ok || json.code || json.error) {
+                throw new Error(json.message || json.error || `HTTP ${res.status}`);
+              }
+              if (!json.audioBase64) {
+                throw new Error('未收到语音音频数据');
+              }
+              const expectedMime = useCosyVoice ? 'audio/wav' : 'audio/mpeg';
+              const mimeType = json.mimeType || expectedMime;
+              if (useCosyVoice && mimeType.includes('mpeg')) {
+                console.warn('[TTS] 预期 CosyVoice/WAV，但收到 MP3，可能实际走了豆包');
+              }
+              const binary = atob(json.audioBase64);
+              const bytes = Uint8Array.from(binary, char => char.charCodeAt(0));
+              const blob = new Blob([bytes], { type: mimeType });
+              const objectUrl = URL.createObjectURL(blob);
+              return { index: idx, objectUrl, error: null };
+            } catch (err) {
+              return { index: idx, objectUrl: null, error: err };
+            }
+          });
+
+          // 2. 并发处理所有 fetch 请求
+          const fetchResults = await Promise.all(fetchTasks);
+
+          // 检查中途是否已被打断
+          if (voiceNarrationRunIdRef.current !== narrationRunId) {
+            fetchResults.forEach(r => {
+              if (r.objectUrl) URL.revokeObjectURL(r.objectUrl);
+            });
+            return;
+          }
+
+          // 检查是否有合成失败的音频段
+          const failedTask = fetchResults.find(r => r.error);
+          if (failedTask) {
+            throw new Error(`第 ${failedTask.index + 1} 段讲解生成失败: ${failedTask.error.message}`);
+          }
+
+          // 存入缓存映射，并放入销毁队列
+          const segmentUrls = {};
+          fetchResults.forEach(r => {
+            if (r.objectUrl) {
+              segmentUrls[r.index] = r.objectUrl;
+              allocatedObjectUrls.push(r.objectUrl);
+            }
+          });
+
+          // 3. 顺序无缝衔接播放已下载的音频
+          for (let index = 0; index < voiceSegments.length; index += 1) {
+            const segment = voiceSegments[index];
+            if (voiceNarrationRunIdRef.current !== narrationRunId) return;
+            setVoiceNarrationPartIndex(index);
+
+            if (segment.kind === 'pause') {
+              setVoiceNarrationStatus(`留一点思考时间…（第 ${index + 1} 段）`);
+              await wait(segment.ms || 1800);
+              continue;
+            }
+
+            const objectUrl = segmentUrls[index];
+            if (!objectUrl) continue;
+
+            setVoiceNarrationStatus(`播放中（${providerLabel}）：${activeVoiceLessonStep.title}（第 ${index + 1} 段）`);
+            const audio = new Audio(objectUrl);
+            audio.playbackRate = parseFloat(voiceSpeed || 1.0);
+            audio.dataset.objectUrl = objectUrl;
+            lessonAudioRef.current = audio;
+
+            await new Promise((resolve, reject) => {
+              lessonAudioRejectRef.current = reject;
+              audio.onended = () => {
+                lessonAudioRejectRef.current = null;
+                resolve();
+              };
+              audio.onerror = () => {
+                lessonAudioRejectRef.current = null;
+                reject(new Error('音频播放失败'));
+              };
+              audio.play().catch((err) => {
+                lessonAudioRejectRef.current = null;
+                reject(err);
+              });
+            });
+          }
+
+          if (voiceNarrationRunIdRef.current === narrationRunId) {
+            setVoiceNarrationStatus(`播放完成：${activeVoiceLessonStep.title}`);
+            setVoiceNarrationPartIndex(Math.max((activeVoiceLessonStep.voiceSegments || []).length - 1, 0));
+          }
+        } catch (error) {
+          if (error.message !== 'ManualStop') {
+            setVoiceNarrationStatus(`语音讲解启动失败：${error.message}`);
+          }
+        } finally {
+          if (voiceNarrationRunIdRef.current === narrationRunId) {
+            setIsVoiceNarrating(false);
+          }
+          // 4. 彻底销毁此次播放产生的所有 Object URL，杜绝内存泄漏
+          allocatedObjectUrls.forEach(url => {
+            try {
+              URL.revokeObjectURL(url);
+            } catch (e) {}
+          });
+        }
+      };
 
       const activeAiTaskMessage = useMemo(() => {
         if (!activeAiTask) return "";
@@ -1635,11 +3096,19 @@
             ? `Ollama 正在生成词义、词源和例句。已运行 ${elapsed}。`
             : `AI 正在生成词义、词源和例句。已运行 ${elapsed}。`;
         }
+        if (activeAiTask === 'glossary') {
+          return aiProvider === 'ollama'
+            ? `Ollama 正在识别专业术语与专有名词并生成中文翻译。已运行 ${elapsed}。`
+            : `AI 正在识别专业术语与专有名词并生成中文翻译。已运行 ${elapsed}。`;
+        }
         if (activeAiTask === 'simplify') {
           return `AI 正在改写句子。已运行 ${elapsed}。`;
         }
         if (activeAiTask === 'qa') {
           return `AI 正在回答问题。已运行 ${elapsed}。`;
+        }
+        if (activeAiTask === 'teaching_script') {
+          return `AI 正在生成这一句的老师讲解。已运行 ${elapsed}。`;
         }
         return `AI 正在处理中。已运行 ${elapsed}。`;
       }, [activeAiTask, aiTaskElapsed, aiProvider, aiTaskPhase, aiReceivedChars, aiReceivedChunks, aiIdleMs]);
@@ -1654,7 +3123,8 @@
 
       const mainTypes = [
         'subject', 'verb', 'object', 'predicative', 
-        'clause-subject', 'clause-verb', 'clause-object', 'clause-predicative'
+        'clause-subject', 'clause-verb', 'clause-object', 'clause-predicative',
+        'coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'
       ];
 
       const paragraphs = useMemo(() => {
@@ -1667,8 +3137,25 @@
         return paras.filter(Boolean);
       }, [currentArticleData]);
 
-      const getSegmentStyles = (type) => {
-        if (!highlightMode) return "text-slate-800";
+      useEffect(() => {
+        setCurrentArticleReadability(computeArticleReadability(currentArticleData));
+      }, [currentArticleData]);
+
+      const isSegmentFocusedInStep = (type, stepIndex) => {
+        if (stepIndex === 0) {
+          return ['subject', 'verb', 'object', 'predicative', 'coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'].includes(type);
+        } else if (stepIndex === 1) {
+          return ['subject', 'verb', 'clause-subject', 'clause-verb', 'coord-subject', 'coord-verb'].includes(type);
+        } else if (stepIndex === 2) {
+          return ['modifier', 'adverbial', 'clause-subject', 'clause-verb', 'clause-object', 'clause-predicative', 'clause'].includes(type);
+        } else if (stepIndex === 3) {
+          return ['conjunction', 'clause', 'coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'].includes(type);
+        }
+        return false;
+      };
+
+      const getSegmentStyles = (type, forceHighlight = false) => {
+        if (!highlightMode && !forceHighlight) return "text-slate-800";
         switch(type) {
           case 'subject': return "bg-red-100 text-red-900 border-b-2 border-red-500 font-bold rounded-sm px-1";
           case 'verb': return "bg-blue-100 text-blue-900 border-b-2 border-blue-500 font-bold rounded-sm px-1";
@@ -1678,6 +3165,10 @@
           case 'clause-verb': return "bg-blue-50 text-blue-800 border-b-2 border-blue-300 border-dashed font-bold rounded-sm px-1";
           case 'clause-object': 
           case 'clause-predicative': return "bg-green-50 text-green-800 border-b-2 border-green-300 border-dashed font-bold rounded-sm px-1";
+          case 'coord-subject': return "bg-orange-100 text-orange-900 border-b-2 border-orange-400 font-bold rounded-sm px-1";
+          case 'coord-verb': return "bg-cyan-100 text-cyan-900 border-b-2 border-cyan-500 font-bold rounded-sm px-1";
+          case 'coord-object':
+          case 'coord-predicative': return "bg-teal-100 text-teal-900 border-b-2 border-teal-500 font-bold rounded-sm px-1";
           case 'conjunction': return "bg-purple-100 text-purple-900 border-b-2 border-purple-400 border-dotted rounded-sm px-1";
           case 'modifier': return "bg-yellow-100 text-yellow-900 border-b-2 border-yellow-400 border-dotted rounded-sm px-1";
           case 'adverbial': return "bg-gray-200 text-gray-700 border-b-2 border-gray-400 border-dotted rounded-sm px-1";
@@ -1686,9 +3177,9 @@
         }
       };
 
-      const guidedInteractiveStep = rightPanelTab === 'guided' && (guidedStepIndex === 0 || guidedStepIndex === 1);
-      const effectiveUnderlineMain = rightPanelTab === 'guided' ? false : underlineMain;
-      const effectiveHighlightMode = rightPanelTab === 'guided' ? false : highlightMode;
+      const guidedInteractiveStep = false;
+      const effectiveUnderlineMain = underlineMain;
+      const effectiveHighlightMode = highlightMode;
       const guidedHints = useMemo(() => buildGuidedHints(selectedSentence), [selectedSentence]);
       const guidedSupport = useMemo(() => buildGuidedSupport(selectedSentence), [selectedSentence]);
       const guidedFocusOptions = useMemo(() => buildGuidedFocusOptions(selectedSentence), [selectedSentence]);
@@ -2256,12 +3747,175 @@
         });
       };
 
+      const handleClearLocalLearningData = () => {
+        setConfirmDialog({
+          message: "确定要清空本机学习记录吗？这会删除书架文章和生词本，但不会删除 AI 设置或磁盘上的生成 JSON 文件。",
+          onConfirm: async () => {
+            try {
+              setSavedArticles([]);
+              setVocabBook([]);
+              await clearLocalLearningStorage();
+              setLocalPersistenceStatus(prev => ({
+                ...prev,
+                message: `本地学习记录已清空：${LOCAL_DATA_FILE_NAME}`
+              }));
+              setConfirmDialog(null);
+              setToastMessage("本机学习记录已清空");
+            } catch (error) {
+              setConfirmDialog(null);
+              setToastMessage(`清空失败：${error.message || '请稍后重试'}`);
+            }
+          }
+        });
+      };
+
       const handleLoadArticle = (article) => {
         const normalizedData = normalizeArticleData(article.data);
+        const glossary = collectArticleGlossary(article, normalizedData);
+        setCurrentArticleId(article.id || null);
         setCurrentArticleData(normalizedData);
+        setCurrentArticleGlossary(glossary);
+        setCurrentArticleReadability(article.readability || computeArticleReadability(normalizedData));
         setSelectedSentence(normalizedData[0]);
         setViewMode('reading');
         setToastMessage(`📖 正在阅读：${article.title}`);
+      };
+
+      const persistGlossaryToCurrentArticle = (glossary) => {
+        const normalized = normalizeGlossary(glossary);
+        setCurrentArticleGlossary(normalized);
+        if (currentArticleId) {
+          setSavedArticles(prev => prev.map(article =>
+            article.id === currentArticleId ? { ...article, glossary: normalized } : article
+          ));
+        }
+        return normalized;
+      };
+
+      const handleExtractGlossary = async () => {
+        if (!currentArticleData.length || isExtractingGlossary) return;
+        setIsExtractingGlossary(true);
+        setActiveAiTask('glossary');
+        setAiTaskStartedAt(Date.now());
+        setAiTaskPhase('requesting');
+        setAiReceivedChars(0);
+        setAiReceivedChunks(0);
+        setAiLastProgressAt(Date.now());
+        try {
+          const articleText = joinArticleText(currentArticleData);
+          const sysPrompt = `你是英语阅读术语与专有名词助手。请从用户提供的英文文章中识别需要中文释义的词条，并严格输出 JSON。
+要求：
+1. 重点识别：专业术语、学科概念、小说/故事中的专有名词（人名、地名、组织、魔法/设定名、称号）、缩写、以及依赖上下文才好理解的短语。
+2. 不要收录过于普通的高频词（如 the/and/have/make/people）。
+3. term 必须是文中实际出现的英文写法；若有常见别名可放 aliases。
+4. translation 给简洁准确的中文翻译；note 用一句话说明它在本文中的含义或背景。
+5. kind 只能是：term / proper_noun / acronym / context_phrase。
+6. 控制在最重要的 8-40 条，按重要性排序。
+7. 只输出 JSON，不要 Markdown 代码块，不要解释。
+
+输出格式：
+{
+  "glossary": [
+    {
+      "term": "英文词条",
+      "translation": "中文翻译",
+      "kind": "term",
+      "note": "本文语境说明",
+      "aliases": ["可选别名"]
+    }
+  ]
+}`;
+          const response = await fetchAiResponse({
+            ...aiConfig,
+            userPrompt: articleText,
+            systemPrompt: sysPrompt,
+            expectJson: true,
+            onProgress: reportAiProgress
+          });
+          const parsed = parseAiJsonOrThrow(response, 'Ollama');
+          const glossary = normalizeGlossary(parsed.glossary || []);
+          if (glossary.length === 0) {
+            throw new Error('未识别到可用术语，请换一篇含专业词或专有名词的文章再试。');
+          }
+          persistGlossaryToCurrentArticle(glossary);
+          setToastMessage(`✅ 已识别 ${glossary.length} 个术语/专有名词`);
+        } catch (error) {
+          console.error(error);
+          setToastMessage(`❌ 术语识别失败：${error.message || '请稍后重试'}`);
+        } finally {
+          setIsExtractingGlossary(false);
+          setActiveAiTask(null);
+          setAiTaskStartedAt(null);
+          setAiTaskPhase(null);
+          setAiReceivedChars(0);
+          setAiReceivedChunks(0);
+          setAiLastProgressAt(null);
+        }
+      };
+
+      const clearGlossaryHoverSoon = () => {
+        if (glossaryHoverHideTimerRef.current) clearTimeout(glossaryHoverHideTimerRef.current);
+        glossaryHoverHideTimerRef.current = setTimeout(() => setGlossaryHover(null), 120);
+      };
+
+      const showGlossaryHover = (entry, event) => {
+        if (!entry) return;
+        if (glossaryHoverHideTimerRef.current) {
+          clearTimeout(glossaryHoverHideTimerRef.current);
+          glossaryHoverHideTimerRef.current = null;
+        }
+        const rect = event.currentTarget.getBoundingClientRect();
+        const tipWidth = 256; // max-w-[16rem]
+        const tipHeight = 96;
+        const margin = 12;
+        let left = rect.left + rect.width / 2;
+        left = Math.max(margin + tipWidth / 2, Math.min(left, window.innerWidth - margin - tipWidth / 2));
+        let top = rect.bottom + 8;
+        if (top + tipHeight > window.innerHeight - margin) {
+          top = Math.max(margin, rect.top - tipHeight - 8);
+        }
+        setGlossaryHover({
+          entry,
+          x: left,
+          y: top
+        });
+      };
+
+      const renderTextWithGlossary = (text = '', glossary = currentArticleGlossary) => {
+        const source = String(text || '');
+        const matchList = buildGlossaryMatchList(glossary);
+        if (!source || matchList.length === 0) return source;
+
+        const pattern = new RegExp(
+          `\\b(${matchList.map(item => escapeRegExp(item.match)).join('|')})\\b`,
+          'gi'
+        );
+        const nodes = [];
+        let lastIndex = 0;
+        let match;
+        let key = 0;
+        while ((match = pattern.exec(source)) !== null) {
+          if (match.index > lastIndex) {
+            nodes.push(source.slice(lastIndex, match.index));
+          }
+          const matchedText = match[0];
+          const entry = findGlossaryEntry(glossary, matchedText);
+          nodes.push(
+            <span
+              key={`glossary-${key++}-${match.index}`}
+              className="inline cursor-help rounded-sm bg-amber-100/80 px-0.5 decoration-amber-400 underline decoration-dotted underline-offset-2"
+              onMouseEnter={(event) => showGlossaryHover(entry, event)}
+              onMouseLeave={clearGlossaryHoverSoon}
+              onFocus={(event) => showGlossaryHover(entry, event)}
+              onBlur={clearGlossaryHoverSoon}
+            >
+              {matchedText}
+            </span>
+          );
+          lastIndex = match.index + matchedText.length;
+        }
+        if (lastIndex < source.length) nodes.push(source.slice(lastIndex));
+        return nodes.length ? nodes : source;
       };
 
       const exportArticlesData = () => {
@@ -2384,6 +4038,186 @@
       };
 
       // --- AI Actions ---
+
+      const updateSelectedSentence = (updater) => {
+        const sid = selectedSentence.id;
+        setCurrentArticleData(prev => prev.map(sentence => {
+          if (sentence.id !== sid) return sentence;
+          return typeof updater === 'function' ? updater(sentence) : { ...sentence, ...updater };
+        }));
+        setSelectedSentence(prev => {
+          if (!prev || prev.id !== sid) return prev;
+          return typeof updater === 'function' ? updater(prev) : { ...prev, ...updater };
+        });
+      };
+
+      const handleGenerateTeachingScript = async ({ force = false } = {}) => {
+        if (!selectedSentence || (selectedSentence.teachingScript && !force)) return;
+        setIsGeneratingTeachingScript(true);
+        setTeachingScriptError("");
+        setAiStreamingText("");
+        setActiveAiTask('teaching_script');
+        setAiTaskStartedAt(Date.now());
+        try {
+          const sysPrompt = `你是一位温柔、会打比方的小学英语阅读老师。不要重新解析句子，我们已经为你准备好了这句英文的结构化分析数据。你的任务是针对这句英文的四个剖析维度，为小孩子生成“四步法深度解析”的讲解话术。
+
+【返回格式】
+你必须返回唯一的、符合以下结构的 JSON 对象，不要用 Markdown 围栏包裹（绝对禁止输出“\`\`\`json”）。字段结构如下：
+{
+  "teachingScript": {
+    "main": { "teacherTalk": "...", "displaySummary": "...", "keywords": [...], "rhyme": "...", "methodTip": "..." },
+    "grammar": { "teacherTalk": "...", "displaySummary": "...", "keywords": [...], "rhyme": "...", "methodTip": "..." },
+    "modifier": { "teacherTalk": "...", "displaySummary": "...", "keywords": [...], "rhyme": "...", "methodTip": "..." },
+    "relationship": { "teacherTalk": "...", "displaySummary": "...", "keywords": [...], "rhyme": "...", "methodTip": "..." }
+  }
+}
+
+【四步法的严苛分工约束（核心：绝对禁止内容交叉与重复赘述）】
+
+1. main (骨架小火车) 专属职责：
+   - 明确说出句子的三节车厢分别是什么：① 谁在做（主语）② 做了什么动作（谓语动词）③ 做给谁/看见什么（宾语/表语）。三节分开点名，让孩子听完能说出"谁做了什么"。
+   - 如果主干中有生词，或者动词出现了变形（不是原形），简短说明这个词的中文意思或原形是什么。
+   - 禁忌：严禁讲解任何修饰成分（形容词、副词、介词短语、时间/地点词、从句等）。
+   - 比喻：请使用"小火车"或"小树干"的比喻。
+
+2. grammar (语法放大镜) 专属职责：
+   - 针对本句主干中实际出现的语法现象，逐一讲清楚。凡出现以下任何一种都必须讲到（只讲本句有的，不编造没有的）：
+     · 时态（动词变形及其含义：过去式/完成时/进行时/将来时）
+     · 主谓一致（主语单复数与动词形式是否匹配）
+     · 语态（被动语态 be + 过去分词：是谁被谁做了什么）
+     · 情态动词（can/could/must/should/may 等表能力/必须/建议）
+     · 代词指代（it/they/this/that 等指的是前文哪个名词）
+     · there be 句式（特殊语序，意思是"有……"）
+     · 疑问句/否定句构成（助动词 do/does/did/is/are/was/were 的位置变化）
+     · 重点动词及搭配（该动词常见搭配或固定介词用法）
+   - 禁忌：严禁重新翻译主干大意，严禁讲修饰成分。
+   - 比喻：请使用"语法放大镜"或"词汇变身装"的比喻。
+
+3. modifier (细节修饰小贴纸) 专属职责：
+   - 逐一介绍句子中所有起修饰作用的成分。重点帮孩子搞清楚：每张小贴纸贴在哪里——是贴在某个名词上，还是贴在动词/整个动作上？
+   - 按本句实际有的类型处理：
+     · 介宾短语（in Hawaii / at noon 等）：先说贴在名词旁还是动作旁，再说补充了什么（何地/何时/方式）。
+     · 形容词/形容词短语：贴在哪个名词上，告诉我们那个词"什么样"。
+     · 副词/副词短语：贴在动词或形容词上，告诉我们"怎么做/程度如何"。
+     · 定语从句（who/which/that 引导）：贴在哪个名词后，进一步说明那个名词是什么/怎么样。
+     · 同位语从句（that 引导，紧跟抽象名词）：贴在哪个名词后，解释那个名词的具体内容。
+     · 状语从句（when/because/if/although 等引导）：贴在整个主句动作上，补充时间/原因/条件/让步。
+   - 禁忌：绝对不要重复主干意思和动词时态。
+   - 比喻：必须使用"小贴纸"/"小标签"/"小卡片"的比喻，并说清楚贴在哪里。
+
+4. relationship (句子关系连接桥) 专属职责：
+   - 本步骤专门讲句子内部从句与主句之间、或并列句之间的连接关系。
+   - 如果是单句（只有一个主谓结构），直接说"这是一个单句，整趟小火车独立跑，不需要连接桥"，然后简单回顾整句结构顺序（时间/地点在前，主干居中，修饰收尾）。
+   - 如果有多个从句或并列结构，必须讲清楚：
+     · 并列关系（FANBOYS：for/and/nor/but/or/yet/so）——两列火车并肩跑，地位平等，点出连词是哪个。
+     · 定语从句（who/which/that）——小附属车厢挂在某名词后给它打补丁，说清楚修饰的是哪个名词。
+     · 同位语从句（that 引导）——专门解释某个抽象名词"到底是什么"，说清楚是哪个名词的内容。
+     · 状语从句（when/because/if/although/so that 等）——时间牌/原因牌/条件牌交代背景，说清楚连词和它补充的是主句的什么。
+   - 禁忌：不要重复讲单个词，只讲结构连接关系。
+   - 比喻：请使用"句子连接桥"或"拼图块拼接"的比喻。
+
+【语言风格指引】
+- teacherTalk：这是孩子戴上耳机听到的老师声音，要像讲故事一样引人入胜。写法要求：① 用惊叹、疑问、悬念开场（如"哎，你发现了吗？"/"等等，这里藏着一个秘密！"），② 避免"第一……第二……第三……"的干巴枚举，改用"先看这里……再转过来……哦！还有这个！"的流动叙事，③ 每一步都要有一个"aha moment"让孩子觉得"原来是这样！"，④ 适当用拟声词或肢体语言提示（"咔哒"/"砰"/"猛地一看"），⑤ 结尾用鼓励或小谜语收尾。四步连起来应该是一个从开场到结局层层递进的完整故事，零重复、零说教。
+- displaySummary 极致精简（中文不超过 12 字，英文不超过 6 词）。
+- keywords 是界面核心关键词（2-4 个）。
+- 使用拟物比喻（小火车、放大镜、小贴纸、连接桥），避免成人学术术语（如主宾语、定状补）。`;
+          const userPrompt = JSON.stringify({
+            sentence: {
+              text: selectedSentence.text,
+              translation: selectedSentence.translation,
+              grammarFocus: selectedSentence.grammarFocus,
+              pronounRef: selectedSentence.pronounRef,
+              logicConnector: selectedSentence.logicConnector,
+              analysis: selectedSentence.analysis,
+              segments: selectedSentence.segments
+            },
+            outputShape: {
+              teachingScript: {
+                main: { teacherTalk: '', displaySummary: '', keywords: [], rhyme: '', methodTip: '' },
+                grammar: { teacherTalk: '', displaySummary: '', keywords: [], rhyme: '', methodTip: '' },
+                modifier: { teacherTalk: '', displaySummary: '', keywords: [], rhyme: '', methodTip: '' },
+                relationship: { teacherTalk: '', displaySummary: '', keywords: [], rhyme: '', methodTip: '' }
+              }
+            }
+          }, null, 2);
+          const response = await fetchAiResponse({
+            ...aiConfig,
+            userPrompt,
+            systemPrompt: sysPrompt,
+            expectJson: true,
+            onProgress: (prog) => {
+              reportAiProgress(prog);
+              if (prog.phase === 'streaming' && typeof prog.text === 'string') {
+                setAiStreamingText(prog.text);
+                try {
+                  const healed = extractFirstJsonBlock(prog.text);
+                  const parsed = JSON.parse(healed);
+                  const scriptData = parsed.teachingScript || parsed;
+                  if (scriptData && typeof scriptData === 'object') {
+                    const tempScript = normalizeTeachingScript(scriptData);
+                    if (tempScript) {
+                      tempScript.model = aiProvider === 'ollama' ? ollamaModel : cloudModel;
+                      updateSelectedSentence(sentence => {
+                        if (sentence && sentence.id === selectedSentence.id) {
+                          return {
+                            ...sentence,
+                            teachingScript: {
+                              ...tempScript,
+                              generatedAt: tempScript.generatedAt || Date.now()
+                            }
+                          };
+                        }
+                        return sentence;
+                      });
+                    }
+                  }
+                } catch (e) {
+                  // 流式解析早期可能有残缺，JSON.parse 抛错，静默忽略
+                }
+              } else if (prog.phase === 'validating_json') {
+                setAiStreamingText(prev => prev + "\n\n[System Log: 正在校验输出的 JSON 格式...]");
+              } else if (prog.phase === 'repairing_json') {
+                setAiStreamingText(prev => prev + "\n\n[System Log: JSON 校验未通过，正在尝试拉起 AI 自愈修复...]");
+              }
+            }
+          });
+          const parsed = parseAiJsonOrThrow(response, '教学话术 AI');
+          const teachingScript = normalizeTeachingScript(parsed.teachingScript || parsed);
+          if (!teachingScript) throw new Error('教学话术为空');
+          teachingScript.model = aiProvider === 'ollama' ? ollamaModel : cloudModel;
+          updateSelectedSentence(sentence => ({ ...sentence, teachingScript }));
+          setToastMessage(force ? '✅ 老师讲解已重新生成' : '✅ 老师讲解已生成');
+          saveAiLog({
+            sentenceId: selectedSentence.id,
+            sentenceText: selectedSentence.text,
+            provider: aiProvider,
+            model: aiProvider === 'ollama' ? ollamaModel : cloudModel,
+            status: 'success',
+            logContent: response
+          });
+        } catch (error) {
+          setTeachingScriptError(error.message || '生成老师讲解失败，请稍后重试。');
+          saveAiLog({
+            sentenceId: selectedSentence.id,
+            sentenceText: selectedSentence.text,
+            provider: aiProvider,
+            model: aiProvider === 'ollama' ? ollamaModel : cloudModel,
+            status: 'failed',
+            error: error.message || '未知错误',
+            logContent: aiStreamingText
+          });
+        } finally {
+          setIsGeneratingTeachingScript(false);
+          setActiveAiTask(null);
+          setAiTaskStartedAt(null);
+        }
+      };
+
+      // 老师讲解/语音已从当前简化学习流中移除，不再自动触发生成。
+      useEffect(() => {
+        return;
+      }, [selectedSentence?.id, selectedSentence?.text, rightPanelTab]);
+
       const handleSimplifySentence = async () => {
         setIsSimplifying(true);
         setSimplifiedSentence("");
@@ -2463,7 +4297,12 @@
    - modifier -> 不要机械统称为修饰语。请根据它实际修饰的对象细分：
      能修饰名词、名词短语的，标成 定语 / 同位语 / 补足语 / 补充说明 等名词性修饰标签；
      如果它实际限定的是整个动作、谓语或整句的时间、地点、方式、原因、条件、让步、程度等，也应直接标成 状语
-   - clause-* -> 从句核心
+   - clause-* -> 从句核心（专门用于从属子句，如 when/while/because/if/that/which 引导的从句）
+   - coord-* -> 并列主句（专门用于并列连词 for/and/nor/but/or/yet/so 引导的第二个独立主句）
+     使用规则：如果句子是"主句1 [when从句], so 主句2"这类复合并列结构，主句1用 subject/verb/object，
+     when从句用 clause-subject/clause-verb/clause-object，主句2用 coord-subject/coord-verb/coord-object；
+     对应的 so/and/but 等连词仍用 conjunction 类型。
+     如果只有一个主句加一个从句（无并列主句），则不使用 coord-*。
    不要输出像“同位语/定语”“修饰语”“附加成分”这类混合或过泛标签。
 3. **【极度重要：解析的深度】**：在 analysis 字段中，**绝对不能简略！**必须像专业的考研/托福精读老师一样，提供详尽的解析。必须强制使用 Markdown 格式（如 ### 标题、**加粗**、* 列表）。累积包含以下剖析内容：
    ### 【主干结构】详细指出主句的主语、谓语、宾语/表语分别是什么词。
@@ -2472,9 +4311,40 @@
    ### 【从句剖析】说明从句类型（若有）。
    ### 【代词指代】分析代词指代对象（若有）。
    ### 【非谓语动词】说明分词、不定式等（若有）。
+4. **【极度重要：教学字段】**：为了给孩子做引导式学习，每个句子都必须额外输出 teachingFocus 对象。它不是重复 analysis，而是专门服务“幼儿/低龄孩子，尤其注意力容易漂移或 ADHD 孩子”的脚本线索：
+   - mainQuestion: 先抓主干时，老师会先抛给孩子的一个问题
+   - grammarQuestion: 看核心语法时，先抛给孩子的一个问题
+   - modifierQuestion: 拆修饰语和从句时，先抛给孩子的一个问题
+   - relationshipQuestion: 理顺句子关系时，先抛给孩子的一个问题
+   - commonMistake: 这句最容易犯的一个错误，必须说得具体
+   - thinkingPath: 一个长度 2-4 的字符串数组，表示建议孩子按什么顺序想
+   - encouragement: 一句简短的鼓励式收束话术
+5. teachingFocus 必须服务“老师直接给孩子讲”的体验，而不是让孩子自己闯关解题：
+   - 讲解要细致、系统，但每段短一点，适合注意力容易飘的孩子跟上。
+   - 多用孩子能懂的类比和画面感，例如火车、积木、侦探、地图、衣服、骨架等。
+   - 四步都要教方法：如何抓主干、如何看核心语法、如何拆修饰语和从句、如何理顺句子关系。
+   - 语气要温暖、有情绪价值：告诉孩子“这一步你能学会”“慢一点没关系”“我们一起拆”。
+   - 避免考研、托福老师式长篇术语堆叠；不要写“详见”“综上”“本句考查”。
+   - 给孩子看的话里不要直接说“动词修饰语、名词修饰语、状语、定语”等术语；要说成“动作旁边的小贴纸”“名词旁边的小标签”“补时间/地点的小卡片”“句子里的小房间”等。
+6. **【术语与专有名词 glossary】**：在文章级额外输出 glossary 数组，识别文中需要中文释义的词条：
+   - 专业术语、学科概念、缩写
+   - 小说/故事中的专有名词（人名、地名、组织、设定名、称号）
+   - 依赖本文上下文才好理解的短语
+   - 不要收录过于普通的高频词
+   - term 必须是文中实际出现的英文写法；translation 给简洁中文；note 说明本文语境；kind 为 term / proper_noun / acronym / context_phrase
+   - 控制在最重要的 8-40 条
 
 输出必须符合以下 JSON 格式：
 {
+  "glossary": [
+    {
+      "term": "英文词条",
+      "translation": "中文翻译",
+      "kind": "term",
+      "note": "本文语境说明",
+      "aliases": ["可选别名"]
+    }
+  ],
   "articleData": [
     {
       "id": "s1",
@@ -2488,12 +4358,21 @@
         "summary": "可选：一句像老师带读的简短提示",
         "keyHint": "可选：最值得孩子先注意的一个提醒"
       },
+      "teachingFocus": {
+        "mainQuestion": "先抓主干时，老师讲给孩子听的一句话",
+        "grammarQuestion": "看核心语法时，老师讲给孩子听的一句话",
+        "modifierQuestion": "拆修饰语和从句时，老师讲给孩子听的一句话",
+        "relationshipQuestion": "理顺句子关系时，老师讲给孩子听的一句话",
+        "commonMistake": "这句最容易混淆的地方，用孩子听得懂的话解释",
+        "thinkingPath": ["第一个观察动作", "第二个观察动作", "第三个观察动作"],
+        "encouragement": "一句伙伴式鼓励"
+      },
       "analysis": "中文深度结构剖析(使用Markdown排版)。",
       "segments": [
         {
           "text": "切分后的片段(必须包含周围标点及空格)",
-          "type": "必须是: subject, verb, object, predicative, clause-subject, clause-verb, clause-object, clause-predicative, conjunction, modifier, adverbial",
-          "label": "中文语法标签（优先使用：主语 / 谓语 / 系动词 / 宾语 / 表语 / 连接词 / 定语 / 同位语 / 补足语 / 补充说明 / 状语 / 从句核心）"
+          "type": "必须是: subject, verb, object, predicative, clause-subject, clause-verb, clause-object, clause-predicative, coord-subject, coord-verb, coord-object, coord-predicative, conjunction, modifier, adverbial",
+          "label": "中文语法标签（优先使用：主语 / 谓语 / 系动词 / 宾语 / 表语 / 连接词 / 定语 / 同位语 / 补足语 / 补充说明 / 状语 / 从句核心 / 并列主语 / 并列谓语 / 并列宾语）"
         }
       ]
     }
@@ -2511,11 +4390,17 @@
           
           if (parsedData.articleData && parsedData.articleData.length > 0) {
             const normalizedData = normalizeArticleData(parsedData.articleData);
+            const glossary = collectArticleGlossary({ glossary: parsedData.glossary }, normalizedData);
+            setCurrentArticleId(null);
             setCurrentArticleData(normalizedData);
+            setCurrentArticleGlossary(glossary);
+            setCurrentArticleReadability(computeArticleReadability(normalizedData));
             setSelectedSentence(normalizedData[0]);
             setViewMode('reading');
             setInputText("");
-            setToastMessage("✅ 全新文章已成功解析！");
+            setToastMessage(glossary.length > 0
+              ? `✅ 全新文章已成功解析！并识别 ${glossary.length} 个术语/专有名词`
+              : "✅ 全新文章已成功解析！");
           } else {
             throw new Error("解析结果为空");
           }
@@ -2534,7 +4419,7 @@
       };
 
       return (
-        <div className="min-h-screen bg-slate-50 p-4 md:p-6 font-sans print:bg-white print:p-0 relative">
+        <div className="min-h-screen bg-slate-50 p-3 sm:p-4 md:p-6 font-sans print:bg-white print:p-0 relative safe-area-pad">
           <div className="w-full max-w-[94%] 2xl:max-w-[1720px] mx-auto">
             <header className="mb-6 pt-4 text-center flex flex-col items-center relative print:hidden">
               <div className="flex items-center justify-center gap-3 w-full mb-2">
@@ -2610,7 +4495,7 @@
                       <p className="text-xs uppercase tracking-[0.25em] text-sky-400 font-semibold mb-2">Cloud Sync</p>
                       <h2 className="text-xl font-bold text-slate-900">跨电脑同步文章和生词本</h2>
                       <p className="text-sm text-slate-500 mt-2 max-w-3xl">
-                        GitHub Pages 只能托管网页，不能保存每个用户的 JSON。这里用 Firebase Firestore 保存 `savedArticles` 和 `vocabBook`，同一账号在其他电脑登录后会自动合并同步。
+                        GitHub Pages 只能托管网页，不能保存每个用户的 JSON。这里用 Firebase Firestore 保存 `savedArticles` 和 `vocabBook`，同一账号在 iPad / 电脑登录后会自动合并同步。
                       </p>
                     </div>
                     <span className={`text-xs px-3 py-1 rounded-full font-semibold self-start ${auth ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
@@ -2655,9 +4540,12 @@
                       <p className="text-xs uppercase tracking-[0.25em] text-slate-400 font-semibold mb-2">AI Provider</p>
                       <h2 className="text-xl font-bold text-slate-900">AI 模型设置</h2>
                       <p className="text-sm text-slate-500 mt-2 max-w-2xl">
-                        这里直接管理当前使用的模型入口。Ollama 提供本地与远程 NV 两套预设，OpenAI-compatible 允许直接填写 Key、Base URL 和 Model。
+                        {ENABLE_LOCAL_OLLAMA
+                          ? '可切换本地 Ollama 或 OpenAI-compatible 云端接口。'
+                          : '在线版使用 OpenAI-compatible 接口（填写 Key、Base URL、Model）。阅读已有解析无需配置 AI。'}
                       </p>
                     </div>
+                    {ENABLE_LOCAL_OLLAMA ? (
                     <div className="inline-flex p-1 bg-slate-100 rounded-2xl self-start">
                       <button
                         onClick={() => setAiProvider('ollama')}
@@ -2672,10 +4560,13 @@
                         OpenAI-compatible
                       </button>
                     </div>
+                    ) : (
+                      <span className="text-xs px-3 py-1 rounded-full font-semibold self-start bg-sky-100 text-sky-700">OpenAI-compatible</span>
+                    )}
                   </div>
 
-                  <div className="mt-6 grid grid-cols-1 xl:grid-cols-2 gap-5">
-                    <div className={`rounded-3xl border p-5 transition-all ${aiProvider === 'ollama' ? 'border-emerald-200 bg-emerald-50/60' : 'border-slate-200 bg-slate-50/70'}`}>
+                  <div className={`mt-6 grid grid-cols-1 ${ENABLE_LOCAL_OLLAMA ? 'xl:grid-cols-2' : ''} gap-5`}>
+                    {ENABLE_LOCAL_OLLAMA && <div className={`rounded-3xl border p-5 transition-all ${aiProvider === 'ollama' ? 'border-emerald-200 bg-emerald-50/60' : 'border-slate-200 bg-slate-50/70'}`}>
                       <div className="flex items-center justify-between gap-3 mb-4">
                         <div>
                           <h3 className="text-lg font-bold text-slate-900">Ollama</h3>
@@ -2749,7 +4640,7 @@
                           本地推荐：`{DEFAULT_OLLAMA_BASE_URL}` + `{DEFAULT_OLLAMA_MODEL}`。远程 NV 推荐：`{REMOTE_NV_OLLAMA_BASE_URL}` + `{REMOTE_NV_OLLAMA_MODEL}`。若在 `file://` 双击模式下检测受限，通常只是浏览器拦截主动探测，不代表实际解析不可用。
                         </div>
                       </div>
-                    </div>
+                    </div>}
 
                     <div className={`rounded-3xl border p-5 transition-all ${aiProvider === 'cloud' ? 'border-sky-200 bg-sky-50/70' : 'border-slate-200 bg-slate-50/70'}`}>
                       <div className="flex items-center justify-between gap-3 mb-4">
@@ -2804,6 +4695,97 @@
                         </div>
                       </div>
                     </div>
+
+                    {/* Voice engine hidden: simplified flow no longer uses TTS. */}
+                    {false && <div className="rounded-3xl border border-teal-200 bg-teal-50/70 p-5">
+                      <h3 className="text-lg font-bold text-slate-900 mb-1">语音引擎</h3>
+                      <p className="text-sm text-slate-500 mb-2">
+                        当前仅启用 <strong>CosyVoice 本地</strong>（豆包云端已临时关闭，避免调试产生费用）。
+                      </p>
+                      {!DOUBAO_VOICE_ENABLED && (
+                        <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 mb-2 leading-6">
+                          中文音色可能和豆包「温暖女声」很像，这是正常现象：两者都是温柔女声老师风格。区别主要在英文单词发音更地道，以及完全本地、不计费。合成格式为 WAV（非 MP3）。
+                        </p>
+                      )}
+                    </div>}
+
+                    {/* CosyVoice local server */}
+                    {false && <div className={`rounded-3xl border p-5 transition-all ${voiceProvider === 'cosyvoice' ? 'border-teal-200 bg-teal-50/70' : 'border-slate-200 bg-slate-50/70'}`}>
+                      <div className="flex items-center justify-between gap-3 mb-4">
+                        <div>
+                          <h3 className="text-lg font-bold text-slate-900">CosyVoice 本地服务</h3>
+                          <p className="text-sm text-slate-500 mt-1">Fun-CosyVoice3 · instruct 双语模式 · 纯本地无需网络</p>
+                        </div>
+                        <span className={`text-xs px-3 py-1 rounded-full font-semibold ${cosyvoiceServerRunning ? 'bg-teal-600 text-white' : 'bg-slate-200 text-slate-600'}`}>
+                          {cosyvoiceServerRunning ? '运行中' : '未启动'}
+                        </span>
+                      </div>
+                      <div className="rounded-2xl border border-teal-100 bg-white/80 p-4 text-sm leading-7 text-slate-600">
+                        <p className="mb-2">首次使用前，在终端启动本地 TTS 服务（模型加载约 5 秒，之后常驻内存）：</p>
+                        <pre className="rounded-xl bg-slate-900 text-teal-300 text-xs px-4 py-3 overflow-x-auto whitespace-pre-wrap">/Users/coty/miniconda3/envs/cosyvoice/bin/python scripts/cosyvoice_server.py</pre>
+                        <p className="text-xs text-slate-500 mt-2">服务器监听 :8766，随 app 启动脚本自动拉起，也可在 app 内首次 TTS 时自动唤醒（等待约 60 s）。</p>
+                      </div>
+                    </div>}
+
+                    {/* Doubao cloud TTS — hidden while DOUBAO_VOICE_ENABLED is false */}
+                    {false && DOUBAO_VOICE_ENABLED && (
+                    <div className={`rounded-3xl border p-5 transition-all ${voiceProvider === 'doubao' ? 'border-violet-200 bg-violet-50/70' : 'border-slate-200 bg-slate-50/70'}`}>
+                      <div className="flex items-center justify-between gap-3 mb-4">
+                        <div>
+                          <h3 className="text-lg font-bold text-slate-900">豆包语音</h3>
+                          <p className="text-sm text-slate-500 mt-1">云端 TTS，语音自然流畅，需要配置 App ID 和 Token。</p>
+                        </div>
+                        <span className={`text-xs px-3 py-1 rounded-full font-semibold ${doubaoVoiceReady ? 'bg-violet-600 text-white' : 'bg-slate-200 text-slate-600'}`}>
+                          {doubaoVoiceReady ? '已配置' : '待配置'}
+                        </span>
+                      </div>
+
+                      <div className="space-y-4">
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">App ID</label>
+                          <input
+                            value={doubaoVoiceAppId}
+                            onChange={(e) => setDoubaoVoiceAppId(e.target.value)}
+                            className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-500/40"
+                            placeholder="填写豆包语音 App ID"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-slate-700 mb-2">Token / API 凭证</label>
+                          <input
+                            type="password"
+                            value={doubaoVoiceToken}
+                            onChange={(e) => setDoubaoVoiceToken(e.target.value)}
+                            className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-500/40"
+                            placeholder="填写豆包语音 Token"
+                          />
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-sm font-medium text-slate-700 mb-2">Cluster</label>
+                            <input
+                              value={doubaoVoiceCluster}
+                              onChange={(e) => setDoubaoVoiceCluster(e.target.value)}
+                              className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-500/40"
+                              placeholder={DEFAULT_DOUBAO_VOICE_CLUSTER}
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-slate-700 mb-2">Voice Type (播音员)</label>
+                            <select
+                              value={doubaoVoiceType}
+                              onChange={(e) => setDoubaoVoiceType(e.target.value)}
+                              className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-500/40 appearance-none"
+                            >
+                              <option value="zh-female-warm">👩 温暖女声 (zh-female-warm)</option>
+                              <option value="zh-female-reporter">🎤 播音女声 (zh-female-reporter)</option>
+                              <option value="zh-male-warm">👨 温暖男声 (zh-male-warm)</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -2816,29 +4798,65 @@
                 <span>正在利用 AI 为 <strong>{addingWordId}</strong> 梳理词源并生成例句...</span>
               </div>
             )}
+            {isExtractingGlossary && (
+              <div className="fixed bottom-6 right-6 bg-slate-800 text-white px-5 py-4 rounded-2xl shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-5 z-50">
+                <Loader2 className="w-5 h-5 animate-spin text-amber-300" />
+                <span>{activeAiTaskMessage || '正在识别术语与专有名词...'}</span>
+              </div>
+            )}
+
+            {glossaryHover && (
+              <div
+                className="fixed z-[110] pointer-events-none w-max max-w-[16rem] rounded-xl bg-slate-950 px-3 py-2 text-[11px] leading-4 text-white shadow-xl ring-1 ring-white/10"
+                style={{
+                  left: glossaryHover.x,
+                  top: glossaryHover.y,
+                  transform: 'translateX(-50%)'
+                }}
+              >
+                <span className="font-semibold text-amber-200">{glossaryHover.entry.term}</span>
+                <span className="mx-1 text-slate-400">·</span>
+                <span>{glossaryHover.entry.translation}</span>
+                {glossaryHover.entry.note ? (
+                  <span className="mt-1 block text-slate-300">{glossaryHover.entry.note}</span>
+                ) : null}
+              </div>
+            )}
 
             {/* Floating Double-Click Popup */}
             {vocabPopup && (
               <div 
                 id="vocab-popup"
-                className="fixed z-[100] bg-white text-slate-800 border border-slate-200 px-3 py-2 rounded-xl shadow-2xl flex items-center gap-3 text-sm animate-in zoom-in-95 duration-100"
+                className="fixed z-[100] bg-white text-slate-800 border border-slate-200 px-3 py-2 rounded-xl shadow-2xl flex flex-col gap-2 text-sm animate-in zoom-in-95 duration-100 min-w-[220px]"
                 style={{ top: vocabPopup.y + 20, left: vocabPopup.x, transform: 'translateX(-50%)' }}
               >
-                <span className="font-bold text-indigo-600 text-base">{vocabPopup.word}</span>
-                <div className="w-px h-5 bg-slate-200"></div>
-                {vocabBook.some(v => v.word === vocabPopup.word) ? (
-                  <span className="text-emerald-500 flex items-center gap-1.5 font-medium"><CheckCircle2 className="w-4 h-4" /> 已在生词本</span>
-                ) : (
-                  <button 
-                    onClick={() => {
-                      handleAddWordToVocab(vocabPopup.word, vocabPopup.context);
-                      setVocabPopup(null);
-                    }}
-                    className="flex items-center gap-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 px-3 py-1.5 rounded-lg font-medium transition-colors"
-                  >
-                    <Plus className="w-4 h-4" /> 加入卡片
-                  </button>
-                )}
+                <div className="flex items-center gap-3">
+                  <span className="font-bold text-indigo-600 text-base">{vocabPopup.word}</span>
+                  <div className="w-px h-5 bg-slate-200"></div>
+                  {vocabBook.some(v => v.word === vocabPopup.word) ? (
+                    <span className="text-emerald-500 flex items-center gap-1.5 font-medium"><CheckCircle2 className="w-4 h-4" /> 已在生词本</span>
+                  ) : (
+                    <button 
+                      onClick={() => {
+                        handleAddWordToVocab(vocabPopup.word, vocabPopup.context);
+                        setVocabPopup(null);
+                      }}
+                      className="flex items-center gap-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 px-3 py-1.5 rounded-lg font-medium transition-colors"
+                    >
+                      <Plus className="w-4 h-4" /> 加入卡片
+                    </button>
+                  )}
+                </div>
+                {(() => {
+                  const glossaryHit = findGlossaryEntry(currentArticleGlossary, vocabPopup.word);
+                  if (!glossaryHit) return null;
+                  return (
+                    <div className="rounded-lg bg-amber-50 border border-amber-100 px-3 py-2 text-amber-900">
+                      <p className="font-semibold">{glossaryHit.translation}</p>
+                      {glossaryHit.note ? <p className="mt-1 text-xs leading-5 text-amber-800/90">{glossaryHit.note}</p> : null}
+                    </div>
+                  );
+                })()}
               </div>
             )}
 
@@ -2851,7 +4869,7 @@
                   <div>
                     <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
                       <Library className="w-6 h-6 text-indigo-500" />
-                      本地文章书架 ({savedArticles.length})
+                      本地文章书架 ({libraryFilter === 'all' ? savedArticles.length : `${filteredLibraryArticles.length}/${savedArticles.length}`})
                     </h2>
                     <p className="text-sm text-slate-500 mt-1">保存您分析过的文章，包含完整的句式解析数据，并自动持久化到本机。</p>
                     <p className={`text-xs mt-1 ${localPersistenceStatus.enabled ? 'text-emerald-600' : 'text-amber-600'}`}>{localPersistenceStatus.message}</p>
@@ -2872,6 +4890,11 @@
                         <Download className="w-4 h-4" /> 导出JSON
                       </button>
                     )}
+                    {(savedArticles.length > 0 || vocabBook.length > 0) && (
+                      <button onClick={handleClearLocalLearningData} className="flex items-center gap-1.5 bg-white border border-red-200 hover:bg-red-50 text-red-600 px-3 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm">
+                        <Trash2 className="w-4 h-4" /> 清空本机记录
+                      </button>
+                    )}
                   </div>
                 </div>
 
@@ -2882,9 +4905,48 @@
                     <p className="text-slate-500">在【语境阅读区】点击左侧面板右上角的“保存文章”即可将其收入书架。</p>
                     <button onClick={() => setViewMode('upload')} className="mt-6 text-indigo-600 font-medium hover:underline">去解析新文章</button>
                   </div>
+                ) : filteredLibraryArticles.length === 0 ? (
+                  <React.Fragment>
+                    <div className="flex flex-wrap gap-2 mb-5 print:hidden">
+                      {LIBRARY_FILTERS.map(filter => (
+                        <button
+                          key={filter.key}
+                          onClick={() => setLibraryFilter(filter.key)}
+                          className={`px-3 py-1.5 rounded-full border text-sm font-medium transition-colors ${
+                            libraryFilter === filter.key
+                              ? 'bg-indigo-600 border-indigo-600 text-white shadow-sm'
+                              : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                          }`}
+                        >
+                          {filter.label}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="text-center py-16 bg-white rounded-2xl border border-slate-200 shadow-sm print:hidden">
+                      <FolderOpen className="w-14 h-14 text-slate-300 mx-auto mb-4" />
+                      <h3 className="text-lg font-semibold text-slate-600 mb-2">当前筛选下没有文章</h3>
+                      <p className="text-slate-500">可以切换到“全部”，或导入对应教材的 JSON。</p>
+                    </div>
+                  </React.Fragment>
                 ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {savedArticles.map((article) => (
+                  <React.Fragment>
+                    <div className="flex flex-wrap gap-2 mb-5 print:hidden">
+                      {LIBRARY_FILTERS.map(filter => (
+                        <button
+                          key={filter.key}
+                          onClick={() => setLibraryFilter(filter.key)}
+                          className={`px-3 py-1.5 rounded-full border text-sm font-medium transition-colors ${
+                            libraryFilter === filter.key
+                              ? 'bg-indigo-600 border-indigo-600 text-white shadow-sm'
+                              : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                          }`}
+                        >
+                          {filter.label}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {filteredLibraryArticles.map((article) => (
                       <div key={article.id} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow relative flex flex-col">
                         <div className="flex justify-between items-start mb-4">
                           <h3 className="text-xl font-bold text-slate-900 leading-snug pr-8 line-clamp-2">{article.title}</h3>
@@ -2897,7 +4959,10 @@
                           </button>
                         </div>
                         <div className="text-sm text-slate-500 mb-6 flex-grow">
-                          包含 {article.data.length} 个句子的深度解析
+                          包含 {article.data.length} 个句子的解析
+                          <div className="mt-3">
+                            <ReadabilityBadgeRow readability={article.readability || {}} theme="light" compact />
+                          </div>
                           <div className="mt-1 text-xs text-slate-400">保存时间: {new Date(article.timestamp).toLocaleString()}</div>
                         </div>
                         <button 
@@ -2908,7 +4973,8 @@
                         </button>
                       </div>
                     ))}
-                  </div>
+                    </div>
+                  </React.Fragment>
                 )}
               </div>
             )}
@@ -3027,6 +5093,19 @@
                   />
                 </div>
 
+                {inputText.trim() && (
+                  <div className="mb-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                    {(() => {
+                      const previewReadability = computeArticleReadability([{ id: 'preview', para: 1, text: inputText, segments: [] }]);
+                      return (
+                        <div>
+                          <ReadabilityBadgeRow readability={previewReadability} theme="light" />
+                        </div>
+                      );
+                    })()}
+                  </div>
+                )}
+
                 {parseError && (
                   <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
                     {parseError}
@@ -3063,8 +5142,9 @@
                     <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 全方位主谓一致剖析 (含从句/修饰语)</li>
                     <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 动词时态变化与原型提取</li>
                     <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 各类代词 (人称/物主/指示/不定) 溯源</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 被动语态与非谓语深度解析</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 被动语态与非谓语结构解析</li>
                     <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 逐句词法/句法高亮拆解</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 专业术语 / 小说专有名词识别与中文翻译</li>
                     <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 双击任意单词加入自动生成的学习卡片</li>
                   </ul>
                 </div>
@@ -3079,42 +5159,75 @@
                 
                 {/* Left Column: Article Text */}
                 <div className="lg:col-span-5 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col">
-                  <div className="bg-slate-800 px-6 py-4 flex flex-col xl:flex-row justify-between items-start xl:items-center text-white gap-4">
-                    <h2 className="font-semibold text-lg flex items-center gap-2 shrink-0">
-                      <AlignLeft className="w-5 h-5 text-indigo-400" />
-                      Reading Text
-                    </h2>
-                    <div className="flex flex-wrap items-center gap-2 md:gap-3">
-                      <button 
-                        onClick={handleSaveCurrentArticle}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors bg-indigo-500/20 text-indigo-200 hover:bg-indigo-500/40 border border-indigo-400/30"
-                        title="保存这篇文章和它的解析到本地书架"
-                      >
-                        <Save className="w-4 h-4" />
-                        保存文章
-                      </button>
-                      <button 
-                        onClick={() => setUnderlineMain(!underlineMain)}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                          effectiveUnderlineMain ? 'bg-indigo-500 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
-                        }`}
-                        disabled={rightPanelTab === 'guided'}
-                        title={rightPanelTab === 'guided' ? '自主阅读模式下，主干需要孩子自己画出来。' : ''}
-                      >
-                        <Underline className="w-4 h-4" />
-                        {rightPanelTab === 'guided' ? '自主模式不显示主干答案' : (effectiveUnderlineMain ? '关闭主干下划线' : '开启主干下划线')}
-                      </button>
-                      <button 
-                        onClick={() => setHighlightMode(!highlightMode)}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                          effectiveHighlightMode ? 'bg-indigo-500 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
-                        }`}
-                        disabled={rightPanelTab === 'guided'}
-                        title={rightPanelTab === 'guided' ? '自主阅读模式下，结构需要孩子自己标出来。' : ''}
-                      >
-                        <Zap className="w-4 h-4" />
-                        {rightPanelTab === 'guided' ? '自主模式不显示结构答案' : (effectiveHighlightMode ? '关闭结构高亮' : '开启结构高亮')}
-                      </button>
+                  <div className="bg-slate-800 px-6 py-5 text-white">
+                    <div className="flex flex-col gap-4">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="min-w-0">
+                          <h2 className="font-semibold text-lg flex items-center gap-2 shrink-0">
+                            <AlignLeft className="w-5 h-5 text-indigo-400" />
+                            Reading Text
+                          </h2>
+                          <div className="mt-3">
+                            <ReadabilityBadgeRow readability={currentArticleReadability} theme="dark" />
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={handleExtractGlossary}
+                            disabled={isExtractingGlossary || isParsingText || !currentArticleData.length}
+                            className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-medium transition-colors bg-amber-500/20 text-amber-100 hover:bg-amber-500/40 border border-amber-300/30 self-start disabled:opacity-60"
+                            title="识别文中专业术语、专有名词并生成中文翻译"
+                          >
+                            {isExtractingGlossary ? <Loader2 className="w-4 h-4 animate-spin" /> : <Tag className="w-4 h-4" />}
+                            <span className="hidden sm:inline">{currentArticleGlossary.length ? '更新术语' : '识别术语'}</span>
+                          </button>
+                          <button
+                            onClick={handleSaveCurrentArticle}
+                            className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-medium transition-colors bg-indigo-500/20 text-indigo-200 hover:bg-indigo-500/40 border border-indigo-400/30 self-start"
+                            title="保存这篇文章和它的解析到本地书架"
+                          >
+                            <Save className="w-4 h-4" />
+                            <span className="hidden sm:inline">保存</span>
+                          </button>
+                          <HoverTip
+                            text="这里显示的是自动估算难度，不是官方 Lexile 认证分值。"
+                            align="right"
+                          >
+                            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-slate-200 border border-white/10 cursor-help">
+                              <Info className="w-4 h-4" />
+                            </span>
+                          </HoverTip>
+                        </div>
+                      </div>
+                      {rightPanelTab !== 'guided' && (
+                        <div className="flex flex-wrap gap-2">
+                          <button 
+                            onClick={() => setUnderlineMain(!underlineMain)}
+                            className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-colors ${
+                              effectiveUnderlineMain ? 'bg-indigo-500 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                            }`}
+                            title={effectiveUnderlineMain ? '关闭主干下划线' : '开启主干下划线'}
+                          >
+                            <Underline className="w-4 h-4" />
+                            <span>主干</span>
+                          </button>
+                          <button 
+                            onClick={() => setHighlightMode(!highlightMode)}
+                            className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-colors ${
+                              effectiveHighlightMode ? 'bg-indigo-500 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                            }`}
+                            title={effectiveHighlightMode ? '关闭结构高亮' : '开启结构高亮'}
+                          >
+                            <Zap className="w-4 h-4" />
+                            <span>结构</span>
+                          </button>
+                        </div>
+                      )}
+                      {currentArticleGlossary.length > 0 && (
+                        <p className="text-xs text-amber-200/90">
+                          已识别 {currentArticleGlossary.length} 个术语/专有名词；正文中琥珀色虚线词可悬停查看翻译。
+                        </p>
+                      )}
                     </div>
                   </div>
                   
@@ -3132,23 +5245,29 @@
                                 }}
                                 onDoubleClick={(e) => handleSentenceDoubleClick(e, sentence.text)}
                                 className={`cursor-pointer transition-colors duration-150 ${isSelected ? 'bg-indigo-100/60' : ''}`}
-                              >
-                                {(effectiveHighlightMode || effectiveUnderlineMain) ? (
-                                   sentence.segments.map((seg, i) => (
-                                     <span 
-                                       key={i} 
-                                       className={`transition-all ${getSegmentStyles(seg.type)} ${
-                                         effectiveUnderlineMain && mainTypes.includes(seg.type)
-                                           ? 'underline decoration-2 decoration-indigo-500 underline-offset-4'
-                                           : ''
-                                       }`} 
-                                       title={seg.label}
-                                     >
-                                       {seg.text}
-                                     </span>
-                                   ))
+                              >{(effectiveHighlightMode || effectiveUnderlineMain || (rightPanelTab === 'analysis' && isSelected)) ? (
+                                   sentence.segments.map((seg, i) => {
+                                     const isStepFocused = rightPanelTab === 'analysis' && isSelected && isSegmentFocusedInStep(seg.type, voiceLessonStepIndex);
+                                     const segmentStyles = getSegmentStyles(seg.type, isStepFocused);
+                                     const focusClass = isStepFocused
+                                       ? 'ring-2 ring-indigo-500 ring-offset-1 rounded-sm font-black mx-[1px] relative z-10 shadow-sm'
+                                       : '';
+                                     return (
+                                       <span 
+                                         key={i} 
+                                         className={`transition-all duration-300 ${segmentStyles} ${focusClass} ${
+                                           effectiveUnderlineMain && mainTypes.includes(seg.type)
+                                             ? 'underline decoration-2 decoration-indigo-500 underline-offset-4'
+                                             : ''
+                                         }`} 
+                                         title={seg.label}
+                                       >
+                                         {renderTextWithGlossary(seg.text)}
+                                       </span>
+                                     );
+                                   })
                                 ) : (
-                                  <React.Fragment>{sentence.text}</React.Fragment>
+                                  <React.Fragment>{renderTextWithGlossary(sentence.text)}</React.Fragment>
                                 )}
                               </span>
                               {sIdx < para.length - 1 && ' '}
@@ -3190,7 +5309,7 @@
                     <div className="bg-white px-6 py-4 flex flex-col md:flex-row items-center justify-between border-b border-slate-100 shrink-0 gap-4">
                       <h2 className="font-bold text-slate-800 flex items-center gap-2">
                         <Search className="w-5 h-5 text-indigo-500" />
-                        句型显微镜
+                        句子解析
                       </h2>
                       <div className="flex p-1 bg-slate-100 rounded-xl">
                         <button 
@@ -3201,17 +5320,7 @@
                               : 'text-slate-500 hover:text-slate-700'
                           }`}
                         >
-                          <MousePointerClick className="w-4 h-4"/> 自主阅读
-                        </button>
-                        <button 
-                          onClick={() => setRightPanelTab('analysis')}
-                          className={`px-5 py-1.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-1.5 ${
-                            rightPanelTab === 'analysis' 
-                              ? 'bg-white text-indigo-600 shadow-sm' 
-                              : 'text-slate-500 hover:text-slate-700'
-                          }`}
-                        >
-                          <FileText className="w-4 h-4"/> 深度解析
+                          <FileText className="w-4 h-4"/> 解析总览
                         </button>
                         <button 
                           onClick={() => setRightPanelTab('ai')}
@@ -3231,7 +5340,7 @@
                       
                       {/* 顶部轻量级沉浸式上下文 */}
                       <div className="mb-10">
-                        {rightPanelTab !== 'guided' && (
+                        {rightPanelTab === 'ai' && (
                           <blockquote className="border-l-[4px] border-indigo-500 pl-4 md:pl-6 py-1 mb-5">
                             <p className="text-xl md:text-2xl font-serif text-slate-800 leading-relaxed mb-3">
                               {selectedSentence.text}
@@ -3242,12 +5351,8 @@
                           </blockquote>
                         )}
 
-                        <div className={`flex flex-wrap gap-2.5 ${rightPanelTab !== 'guided' ? 'pl-4 md:pl-6' : ''}`}>
-                          {selectedSentence.grammarFocus && (
-                            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-sm font-semibold border border-amber-200/50">
-                              <Info className="w-3.5 h-3.5" /> {selectedSentence.grammarFocus}
-                            </span>
-                          )}
+                        <div className={`flex flex-wrap gap-2.5 ${rightPanelTab === 'ai' ? 'pl-4 md:pl-6' : ''}`}>
+
                           {selectedSentence.logicConnector && (
                             <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-sm font-semibold border border-purple-200/50">
                               <LinkIcon className="w-3.5 h-3.5" /> {selectedSentence.logicConnector}
@@ -3262,6 +5367,176 @@
                       </div>
 
                       {rightPanelTab === 'guided' && (
+                        <div className="animate-in fade-in duration-500 max-w-3xl mx-auto space-y-5">
+                          <div className="rounded-[28px] border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-indigo-50/50 p-6 md:p-7 shadow-sm">
+                            <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                              <div>
+                                <p className="text-xs uppercase tracking-[0.25em] text-indigo-400 font-bold">解析总览</p>
+                                <h3 className="mt-2 text-2xl font-black text-slate-900">先看懂这一句</h3>
+                              </div>
+                              <div className="shrink-0 rounded-2xl bg-white/80 border border-indigo-100 px-4 py-3 text-sm font-semibold text-indigo-700 shadow-sm">
+                                第 {currentArticleData.findIndex(sentence => sentence.id === selectedSentence.id) + 1} 句 / 共 {currentArticleData.length} 句
+                              </div>
+                            </div>
+
+                            <div className="mt-6 rounded-3xl bg-white border border-slate-100 p-5 shadow-sm">
+                              <p className="text-sm font-black uppercase tracking-[0.18em] text-slate-400 mb-3">原句</p>
+                              <p className="text-2xl md:text-3xl font-serif leading-relaxed text-slate-950">{selectedSentence.text}</p>
+                            </div>
+
+                            <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div className="rounded-3xl border border-sky-100 bg-sky-50/70 p-5">
+                                <p className="text-sm font-black text-sky-700 mb-2">语法重点</p>
+                                <p className="text-base leading-7 text-slate-800 font-semibold">
+                                  {selectedSentence.grammarFocus || extractFirstAnalysisSection(selectedSentence.analysis) || '这句结构比较直接，先抓主干即可。'}
+                                </p>
+                              </div>
+                              <div className="rounded-3xl border border-emerald-100 bg-emerald-50/70 p-5">
+                                <p className="text-sm font-black text-emerald-700 mb-2">学习提示</p>
+                                <p className="text-base leading-7 text-slate-800 font-semibold">
+                                  {selectedSentence.sentenceCoach?.summary || selectedSentence.sentenceCoach?.keyHint || selectedSentence.teachingFocus?.mainQuestion || '先看谁在做，再看动作是什么。'}
+                                </p>
+                              </div>
+                            </div>
+
+                            {(selectedSentence.logicConnector || selectedSentence.pronounRef) && (
+                              <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {selectedSentence.logicConnector && (
+                                  <div className="rounded-3xl border border-purple-100 bg-purple-50/70 p-5">
+                                    <p className="text-sm font-black text-purple-700 mb-2">句子关系</p>
+                                    <p className="text-sm leading-7 text-purple-950">{selectedSentence.logicConnector}</p>
+                                  </div>
+                                )}
+                                {selectedSentence.pronounRef && (
+                                  <div className="rounded-3xl border border-amber-100 bg-amber-50/70 p-5">
+                                    <p className="text-sm font-black text-amber-700 mb-2">代词指代</p>
+                                    <p className="text-sm leading-7 text-amber-950">{selectedSentence.pronounRef}</p>
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="rounded-[28px] border border-amber-100 bg-amber-50/50 p-6 shadow-sm">
+                            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-4">
+                              <div>
+                                <p className="text-xs uppercase tracking-[0.22em] text-amber-500 font-bold">Glossary</p>
+                                <h3 className="mt-1 text-xl font-black text-slate-900">术语 / 专有名词</h3>
+                                <p className="mt-1 text-sm text-slate-500">
+                                  识别专业术语、小说设定名与依赖上下文的词，并给出中文翻译。
+                                </p>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={handleExtractGlossary}
+                                disabled={isExtractingGlossary || !currentArticleData.length}
+                                className="rounded-2xl bg-amber-600 px-4 py-2 text-sm font-bold text-white hover:bg-amber-700 disabled:opacity-60"
+                              >
+                                {isExtractingGlossary ? '识别中...' : (currentArticleGlossary.length ? '重新识别' : '识别术语')}
+                              </button>
+                            </div>
+                            {currentArticleGlossary.length > 0 ? (
+                              <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
+                                {currentArticleGlossary.map((entry) => (
+                                  <div key={entry.term} className="rounded-2xl bg-white border border-amber-100 px-4 py-3">
+                                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                                      <span className="font-bold text-slate-900">{entry.term}</span>
+                                      <span className="text-amber-700 font-semibold">{entry.translation}</span>
+                                      <span className="text-[11px] uppercase tracking-wide text-slate-400">{entry.kind}</span>
+                                    </div>
+                                    {entry.note ? <p className="mt-1 text-sm leading-6 text-slate-600">{entry.note}</p> : null}
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <div className="rounded-2xl border border-dashed border-amber-200 bg-white/70 px-4 py-5 text-sm text-slate-500">
+                                当前文章还没有术语表。点击「识别术语」，模型会基于全文搜索专业词与专有名词并翻译。
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
+                            <div className="flex items-center justify-between gap-3 mb-5">
+                              <div>
+                                <p className="text-xs uppercase tracking-[0.22em] text-slate-400 font-bold">Segments</p>
+                                <h3 className="mt-1 text-xl font-black text-slate-900">句子切片</h3>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => setHighlightMode(prev => !prev)}
+                                className={`rounded-2xl px-4 py-2 text-sm font-bold transition-colors ${highlightMode ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}
+                              >
+                                {highlightMode ? '关闭左侧高亮' : '左侧同步高亮'}
+                              </button>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              {(selectedSentence.segments || []).map((seg, index) => (
+                                <span
+                                  key={`${seg.text}-${index}`}
+                                  className={`inline-flex items-center gap-1 rounded-xl border px-3 py-2 text-sm font-bold ${getSegmentStyles(seg.type, true)}`}
+                                  title={seg.type}
+                                >
+                                  <span>{seg.text}</span>
+                                  <span className="text-[11px] opacity-70">{seg.label}</span>
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          {selectedSentence.teachingFocus && (
+                            <div className="rounded-[28px] border border-indigo-100 bg-indigo-50/60 p-6 shadow-sm">
+                              <p className="text-xs uppercase tracking-[0.22em] text-indigo-400 font-bold">Teaching Focus</p>
+                              <h3 className="mt-1 text-xl font-black text-slate-900">学习引导</h3>
+                              <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {[
+                                  ['抓主干', selectedSentence.teachingFocus.mainQuestion],
+                                  ['看语法', selectedSentence.teachingFocus.grammarQuestion],
+                                  ['拆修饰', selectedSentence.teachingFocus.modifierQuestion],
+                                  ['理关系', selectedSentence.teachingFocus.relationshipQuestion],
+                                  ['易错点', selectedSentence.teachingFocus.commonMistake],
+                                  ['鼓励', selectedSentence.teachingFocus.encouragement]
+                                ].filter(([, value]) => value).map(([label, value]) => (
+                                  <div key={label} className="rounded-2xl bg-white/80 border border-white p-4">
+                                    <p className="text-xs font-black text-indigo-500 mb-1">{label}</p>
+                                    <p className="text-sm leading-7 text-slate-700">{value}</p>
+                                  </div>
+                                ))}
+                              </div>
+                              {Array.isArray(selectedSentence.teachingFocus.thinkingPath) && selectedSentence.teachingFocus.thinkingPath.length > 0 && (
+                                <div className="mt-4 rounded-2xl bg-white/80 border border-white p-4">
+                                  <p className="text-xs font-black text-indigo-500 mb-2">思考路径</p>
+                                  <div className="flex flex-wrap gap-2">
+                                    {selectedSentence.teachingFocus.thinkingPath.map((step, index) => (
+                                      <span key={`${step}-${index}`} className="rounded-full bg-indigo-100 px-3 py-1.5 text-sm font-bold text-indigo-800">
+                                        {index + 1}. {step}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
+                            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-4">
+                              <div>
+                                <p className="text-xs uppercase tracking-[0.22em] text-slate-400 font-bold">Analysis</p>
+                                <h3 className="mt-1 text-xl font-black text-slate-900">结构分析</h3>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => setRightPanelTab('ai')}
+                                className="rounded-2xl bg-slate-900 px-4 py-2 text-sm font-bold text-white hover:bg-slate-800"
+                              >
+                                去问 AI 助教
+                              </button>
+                            </div>
+                            {formatMarkdown(selectedSentence.analysis || '暂无结构分析。', "text-slate-800 text-base leading-[1.85]")}
+                          </div>
+                        </div>
+                      )}
+
+                      {false && rightPanelTab === 'guided' && (
                         <div className="animate-in fade-in duration-500 max-w-3xl mx-auto">
                           <div className="rounded-[28px] border border-indigo-100 bg-gradient-to-br from-indigo-50 via-white to-sky-50 p-6 md:p-7">
                             <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
@@ -3488,7 +5763,7 @@
                                 onClick={() => setRightPanelTab('analysis')}
                                 className="text-sm font-semibold text-slate-500 hover:text-indigo-600 transition-colors"
                               >
-                                查看完整解析
+                                查看四步讲解
                               </button>
                             </div>
                           </div>
@@ -3498,8 +5773,445 @@
                       {/* 选项卡 2：深度解析内容 (单列顺滑流排版) */}
                       {rightPanelTab === 'analysis' && (
                         <div className="animate-in fade-in duration-500">
-                          {formatMarkdown(selectedSentence.analysis, "text-slate-800 text-lg leading-[1.8]")}
-                        </div>
+                          <div className="space-y-6">
+                            <div className="flex items-center justify-between mb-2 px-1">
+                              <h3 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                                {isGeneratingTeachingScript && <Loader2 className="w-4 h-4 animate-spin text-sky-500" />}
+                                四步看懂长句
+                              </h3>
+                              <div className="flex items-center gap-2">
+                                {isGeneratingTeachingScript && (
+                                  <span className="text-xs text-sky-500 font-semibold animate-pulse">AI 讲解生成中…</span>
+                                )}
+                                {ENABLE_VOICE_FEATURES && (
+                                <button
+                                  type="button"
+                                  disabled={!selectedSentence.teachingScript || isGeneratingTeachingScript}
+                                  onClick={isVoiceNarrating ? handleStopLessonNarration : handlePlayLessonNarration}
+                                  className={`inline-flex items-center gap-2 rounded-2xl px-5 py-2.5 text-sm font-bold text-white shadow-sm transition-all ${
+                                    isVoiceNarrating
+                                      ? 'bg-rose-600 hover:bg-rose-700 animate-pulse'
+                                      : !selectedSentence.teachingScript || isGeneratingTeachingScript
+                                      ? 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none'
+                                      : 'bg-slate-900 hover:bg-slate-800'
+                                  }`}
+                                >
+                                  {isVoiceNarrating ? (
+                                    <React.Fragment><span className="w-2 h-2 rounded-full bg-white animate-ping" />停止</React.Fragment>
+                                  ) : (
+                                    <React.Fragment>
+                                      <Bot className="w-4 h-4" />
+                                      {isGeneratingTeachingScript ? '生成中…' : !selectedSentence.teachingScript ? '等待生成' : '听老师讲'}
+                                      {selectedSentence.teachingScript && (
+                                        <span className={`ml-1 text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${voiceProvider === 'cosyvoice' ? 'bg-teal-500/30' : 'bg-violet-500/30'}`}>
+                                          {voiceProvider === 'cosyvoice' ? 'CosyVoice' : '豆包'}
+                                        </span>
+                                      )}
+                                    </React.Fragment>
+                                  )}
+                                </button>
+                                )}
+                              </div>
+                            </div>
+                            {teachingScriptError && (
+                              <div className="mb-3 rounded-2xl border border-rose-100 bg-rose-50 px-4 py-2 text-xs text-rose-700 flex items-center gap-2">
+                                ⚠️ {teachingScriptError}
+                                <button type="button" onClick={() => handleGenerateTeachingScript({ force: true })} className="underline font-bold ml-1">重试</button>
+                              </div>
+                            )}
+
+                              {/* 生成中：内联状态条，不封锁内容 */}
+                              {(isGeneratingTeachingScript || (!selectedSentence.teachingScript && !isGeneratingTeachingScript && teachingScriptError)) && (
+                                <div className="mb-4 rounded-2xl overflow-hidden">
+                                  {isGeneratingTeachingScript && aiStreamingText && (
+                                    <div className="w-full rounded-2xl border border-slate-700 bg-slate-900/90 text-slate-200 shadow-lg overflow-hidden font-mono text-left text-xs backdrop-blur-md animate-in slide-in-from-top-2 duration-300 mb-3">
+                                      <div className="flex items-center justify-between px-4 py-2 bg-slate-800/80 border-b border-slate-700/50 select-none">
+                                        <div className="flex items-center gap-1.5">
+                                          <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                                          <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+                                          <span className="text-[10px] text-slate-400 font-bold ml-2 tracking-wider uppercase">AI Teacher Draft Engine v0.4</span>
+                                        </div>
+                                        <div className="flex items-center gap-2 text-[10px] text-slate-400 font-bold">
+                                          <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                                          <span>STREAMING</span>
+                                        </div>
+                                      </div>
+                                      <div ref={terminalConsoleRef} className="p-4 max-h-40 overflow-y-auto whitespace-pre-wrap leading-relaxed select-all" style={{ fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace' }}>
+                                        <span className="text-emerald-400">assistant@reading-tutor:~$ </span>
+                                        <span className="text-slate-300">{aiStreamingText}</span>
+                                        <span className="inline-block w-1.5 h-3.5 bg-sky-400 ml-1 align-middle animate-pulse" />
+                                      </div>
+                                    </div>
+                                  )}
+                                  {teachingScriptError && !isGeneratingTeachingScript && (
+                                    <div className="rounded-2xl border border-rose-100 bg-rose-50 px-4 py-3 text-xs leading-5 text-rose-700">
+                                      ⚠️ 生成失败：{teachingScriptError}
+                                      <button type="button" onClick={() => handleGenerateTeachingScript({ force: true })} className="ml-3 underline font-bold">重试</button>
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+
+                              {/* 步骤导航选项卡 — 始终可见 */}
+                              <div className="flex gap-2 mb-6 overflow-x-auto">
+                                {voiceLessonPlan.map((step, idx) => (
+                                  <button
+                                    key={step.key}
+                                    type="button"
+                                    onClick={() => setVoiceLessonStepIndex(idx)}
+                                    className={`flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-bold transition-all shadow-sm ${
+                                      voiceLessonStepIndex === idx
+                                        ? 'bg-sky-600 text-white hover:bg-sky-700 ring-2 ring-sky-300 ring-offset-2'
+                                        : 'bg-white text-slate-700 border border-sky-100 hover:bg-sky-50'
+                                    }`}
+                                  >
+                                    <span className="text-xl">{idx === 0 ? '🚂' : idx === 1 ? '🔍' : idx === 2 ? '🏷️' : '🌉'}</span>
+                                    Step {idx + 1}: {voiceLessonPlan[idx]?.title}
+                                  </button>
+                                ))}
+                              </div>
+
+                              {/* Step 内容 — 始终可见 */}
+                              {(() => {
+                                const subjectSegs = (selectedSentence.segments || []).filter(s => s.type === 'subject');
+                                const verbSegs = (selectedSentence.segments || []).filter(s => s.type === 'verb');
+                                const objectSegs = (selectedSentence.segments || []).filter(s => ['object', 'predicative'].includes(s.type));
+                                const scriptStep = selectedSentence.teachingScript
+                                  ? [selectedSentence.teachingScript.main, selectedSentence.teachingScript.grammar, selectedSentence.teachingScript.modifier, selectedSentence.teachingScript.relationship][voiceLessonStepIndex]
+                                  : null;
+
+                                // AI 要点区：仅 keywords + rhyme + methodTip
+                                const AiPoints = () => scriptStep ? (
+                                  <div className="mt-5 rounded-2xl border border-indigo-100 bg-indigo-50/60 px-5 py-4 space-y-3">
+                                    {scriptStep.keywords?.length > 0 && (
+                                      <div className="flex flex-wrap gap-2">
+                                        {scriptStep.keywords.map((kw, i) => (
+                                          <span key={i} className="bg-white border border-indigo-200 text-indigo-800 text-sm font-bold px-4 py-1.5 rounded-full shadow-sm">{kw}</span>
+                                        ))}
+                                      </div>
+                                    )}
+                                    {scriptStep.rhyme && (
+                                      <div className="flex items-start gap-2 text-sm">
+                                        <span className="shrink-0 text-indigo-500 text-sm font-extrabold">口诀</span>
+                                        <span className="text-indigo-900 text-base font-bold leading-relaxed">{scriptStep.rhyme}</span>
+                                      </div>
+                                    )}
+                                    {scriptStep.methodTip && (
+                                      <div className="flex items-start gap-2 text-sm">
+                                        <span className="shrink-0 text-indigo-500 text-sm font-extrabold">方法</span>
+                                        <span className="text-slate-700 text-base leading-relaxed">{scriptStep.methodTip}</span>
+                                      </div>
+                                    )}
+                                  </div>
+                                ) : isGeneratingTeachingScript ? (
+                                  <div className="mt-5 rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-xs text-slate-400 font-medium flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-sky-400 animate-ping shrink-0" />
+                                    AI 讲解要点生成中，请稍候...
+                                  </div>
+                                ) : null;
+
+                                return (
+                                  <React.Fragment>
+                                    {/* ── Step 1: 主谓宾/主系表 ── */}
+                                    {voiceLessonStepIndex === 0 && (
+                                      <div className="animate-in fade-in duration-300 space-y-5">
+                                        {/* 模板框架：三步找骨架（谓→主→宾/表） */}
+                                        <div className="rounded-3xl border border-slate-100 bg-white/80 p-5">
+                                          <p className="text-sm font-extrabold uppercase tracking-wider text-slate-500 mb-4">怎么找句子骨架？三步走</p>
+                                          <div className="flex items-start gap-3">
+                                            {[
+                                              {step:'①',color:'bg-blue-600',light:'bg-blue-50',border:'border-blue-200',text:'text-blue-700',name:'先找动词（谓语）',desc:'动词是发动机——有了它，句子才转得起来。动词往往是"做了什么"的那个词，可以是动作词（run/see/build）或系动词（is/was/seems）。'},
+                                              {step:'②',color:'bg-rose-500',light:'bg-rose-50',border:'border-rose-200',text:'text-rose-700',name:'再找主语',desc:'谁在发动？通常在动词前面。名词或代词（人/物/抽象概念）。'},
+                                              {step:'③',color:'bg-emerald-600',light:'bg-emerald-50',border:'border-emerald-200',text:'text-emerald-700',name:'最后找宾语/表语',desc:'动作落在哪里（宾语）？或主语是什么状态/特征（表语）？'},
+                                            ].map(({step,color,light,border,text,name,desc}) => (
+                                              <div key={step} className={`flex-1 rounded-2xl ${light} border ${border} px-4 py-3`}>
+                                                <div className="flex items-center gap-2 mb-2">
+                                                  <span className={`${color} text-white text-xs font-black w-6 h-6 rounded-full flex items-center justify-center shrink-0`}>{step}</span>
+                                                  <span className={`text-sm font-extrabold ${text}`}>{name}</span>
+                                                </div>
+                                                <p className="text-sm text-slate-600 leading-relaxed font-medium">{desc}</p>
+                                              </div>
+                                            ))}
+                                          </div>
+                                        </div>
+
+                                        {/* 应用：这句的骨架（verb first，支持复合句） */}
+                                        {(() => {
+                                          const clauseSubjectSegs = (selectedSentence.segments || []).filter(s => s.type === 'clause-subject');
+                                          const clauseVerbSegs = (selectedSentence.segments || []).filter(s => s.type === 'clause-verb');
+                                          const clauseObjectSegs = (selectedSentence.segments || []).filter(s => ['clause-object','clause-predicative'].includes(s.type));
+                                          const coordSubjectSegs = (selectedSentence.segments || []).filter(s => s.type === 'coord-subject');
+                                          const coordVerbSegs = (selectedSentence.segments || []).filter(s => s.type === 'coord-verb');
+                                          const coordObjectSegs = (selectedSentence.segments || []).filter(s => ['coord-object','coord-predicative'].includes(s.type));
+                                          const hasSecondClause = clauseSubjectSegs.length > 0 || clauseVerbSegs.length > 0;
+                                          const hasCoordClause = coordSubjectSegs.length > 0 || coordVerbSegs.length > 0;
+                                          const conjunctionSegs = (selectedSentence.segments || []).filter(s => s.type === 'conjunction');
+                                          const conjunctionSeg = conjunctionSegs[0];
+                                          const conjunctionSeg2 = conjunctionSegs[1];
+
+                                          const SvoCard = ({subj, verb, obj, label, accent}) => {
+                                            const colors = {
+                                              blue: {bg:'from-blue-50 to-indigo-50',border:'border-blue-300',badge:'bg-blue-600 text-white',text:'text-blue-950',tag:'bg-white/70 text-indigo-700 border border-blue-100'},
+                                              violet: {bg:'from-violet-50 to-purple-50',border:'border-violet-300',badge:'bg-violet-600 text-white',text:'text-violet-950',tag:'bg-white/70 text-violet-700 border border-violet-100'},
+                                              orange: {bg:'from-orange-50 to-amber-50',border:'border-orange-300',badge:'bg-orange-500 text-white',text:'text-orange-950',tag:'bg-white/70 text-orange-700 border border-orange-100'},
+                                            };
+                                            const c = colors[accent] || colors.blue;
+                                            return (
+                                              <div className={`rounded-3xl bg-gradient-to-br ${c.bg} border-2 ${c.border} p-5 shadow-md space-y-4`}>
+                                                {label && <span className={`inline-block ${c.badge} text-[11px] font-extrabold px-3 py-1 rounded-full`}>{label}</span>}
+                                                <div className="grid grid-cols-3 gap-3">
+                                                  {/* verb first */}
+                                                  <div className="col-span-1 bg-blue-600 rounded-2xl p-3 text-white text-center shadow-sm">
+                                                    <p className="text-xs font-extrabold opacity-80 mb-1 uppercase tracking-wide">① 谓语</p>
+                                                    <p className="text-2xl font-black leading-tight">{verb || '—'}</p>
+                                                    {verb && <span className="mt-2 inline-block text-xs bg-white/20 rounded-full px-2.5 py-0.5 font-bold">{describeVerbFormForChild(verb).label}</span>}
+                                                  </div>
+                                                  <div className="bg-rose-500 rounded-2xl p-3 text-white text-center shadow-sm">
+                                                    <p className="text-xs font-extrabold opacity-80 mb-1 uppercase tracking-wide">② 主语</p>
+                                                    <p className="text-2xl font-black leading-tight">{subj || '—'}</p>
+                                                  </div>
+                                                  <div className="bg-emerald-600 rounded-2xl p-3 text-white text-center shadow-sm">
+                                                    <p className="text-xs font-extrabold opacity-80 mb-1 uppercase tracking-wide">③ 宾/表</p>
+                                                    <p className="text-2xl font-black leading-tight">{obj || '—'}</p>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            );
+                                          };
+
+                                          const ConjDivider = ({seg}) => seg ? (
+                                            <div className="flex items-center gap-3 px-4">
+                                              <div className="h-px flex-1 bg-slate-200" />
+                                              <span className="text-xs font-black text-slate-500 bg-slate-100 border border-slate-200 rounded-full px-3 py-1">{seg.text.trim()} ({seg.label || '连接词'})</span>
+                                              <div className="h-px flex-1 bg-slate-200" />
+                                            </div>
+                                          ) : null;
+
+                                          if (hasCoordClause) {
+                                            // 三套结构：主句1 + (when从句) + so并列主句2
+                                            return (
+                                              <div className="space-y-3">
+                                                <p className="text-sm font-bold text-slate-500 uppercase tracking-wider">这是一个复合并列句，有三套主谓结构：</p>
+                                                <SvoCard
+                                                  label="主句 1"
+                                                  subj={subjectSegs.map(s=>s.text).join(' ')}
+                                                  verb={verbSegs.map(s=>s.text).join(' ')}
+                                                  obj={objectSegs.map(s=>s.text).join(' ')}
+                                                  accent="blue"
+                                                />
+                                                {(hasSecondClause || conjunctionSeg) && (
+                                                  <>
+                                                    <ConjDivider seg={conjunctionSeg} />
+                                                    {hasSecondClause && (
+                                                      <SvoCard
+                                                        label="状语从句 (when/while…)"
+                                                        subj={clauseSubjectSegs.map(s=>s.text).join(' ')}
+                                                        verb={clauseVerbSegs.map(s=>s.text).join(' ')}
+                                                        obj={clauseObjectSegs.map(s=>s.text).join(' ')}
+                                                        accent="violet"
+                                                      />
+                                                    )}
+                                                  </>
+                                                )}
+                                                <ConjDivider seg={conjunctionSeg2 || conjunctionSegs.find(s => /\bso\b/i.test(s.text))} />
+                                                <SvoCard
+                                                  label="并列主句 2 (so/and/but…)"
+                                                  subj={coordSubjectSegs.map(s=>s.text).join(' ')}
+                                                  verb={coordVerbSegs.map(s=>s.text).join(' ')}
+                                                  obj={coordObjectSegs.map(s=>s.text).join(' ')}
+                                                  accent="orange"
+                                                />
+                                              </div>
+                                            );
+                                          }
+
+                                          if (hasSecondClause) {
+                                            return (
+                                              <div className="space-y-3">
+                                                <p className="text-sm font-bold text-slate-500 uppercase tracking-wider">这是一个复合句，有两套主谓结构：</p>
+                                                <SvoCard
+                                                  label="主句"
+                                                  subj={subjectSegs.map(s=>s.text).join(' ')}
+                                                  verb={verbSegs.map(s=>s.text).join(' ')}
+                                                  obj={objectSegs.map(s=>s.text).join(' ')}
+                                                  accent="blue"
+                                                />
+                                                <ConjDivider seg={conjunctionSeg} />
+                                                <SvoCard
+                                                  label="从句 / 并列句"
+                                                  subj={clauseSubjectSegs.map(s=>s.text).join(' ')}
+                                                  verb={clauseVerbSegs.map(s=>s.text).join(' ')}
+                                                  obj={clauseObjectSegs.map(s=>s.text).join(' ')}
+                                                  accent="violet"
+                                                />
+                                              </div>
+                                            );
+                                          }
+                                          return (
+                                            <SvoCard
+                                              subj={subjectSegs.map(s=>s.text).join(' ')}
+                                              verb={verbSegs.map(s=>s.text).join(' ')}
+                                              obj={objectSegs.map(s=>s.text).join(' ')}
+                                              accent="blue"
+                                            />
+                                          );
+                                        })()}
+                                        <AiPoints />
+                                      </div>
+                                    )}
+
+                                    {/* ── Step 2: 语法放大镜 ── */}
+                                    {voiceLessonStepIndex === 1 && (
+                                      <div className="animate-in fade-in duration-300 space-y-5">
+                                        {/* 模板框架：通用概念 */}
+                                        <div className="rounded-3xl border border-slate-100 bg-white/80 p-5">
+                                          <p className="text-sm font-extrabold uppercase tracking-wider text-slate-500 mb-3">语法放大镜看什么？</p>
+                                          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs font-semibold text-slate-600">
+                                            {[['⏱️','时态','动词变形→时间'],['👥','主谓一致','主语单复数↔动词'],['🔄','语态','主动/被动 be+V-ed'],['💬','情态动词','can/must/should'],['👆','代词指代','it/they→指前文哪个词'],['🧩','特殊句式','there be / 疑问 / 否定'],['🔗','动词搭配','固定介词/短语动词'],['📌','从句连词','that/which/when...']].map(([icon,name,tip]) => (
+                                              <div key={name} className="rounded-xl bg-slate-50 border border-slate-100 px-3 py-2.5">
+                                                <span className="mr-1">{icon}</span><b className="text-sm">{name}</b>
+                                                <div className="text-slate-500 font-medium text-xs mt-1">{tip}</div>
+                                              </div>
+                                            ))}
+                                          </div>
+                                        </div>
+                                        {/* 应用：这句的语法焦点 */}
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                          {verbSegs.length > 0 && (
+                                            <div className="bg-gradient-to-br from-indigo-50/50 to-slate-50 border border-indigo-100 rounded-3xl p-5 shadow-sm">
+                                              <p className="text-sm font-extrabold text-indigo-600 uppercase tracking-wider mb-3">谓语动作的秘密</p>
+                                              {verbSegs.map((verb, idx) => {
+                                                const desc = describeVerbFormForChild(verb.text);
+                                                return (
+                                                  <div key={idx} className="space-y-2">
+                                                    <div className="text-2xl font-black text-slate-900 bg-white px-4 py-2 rounded-xl border border-indigo-100 inline-block shadow-sm">{verb.text}</div>
+                                                    <p className="text-base text-slate-700 leading-relaxed font-bold">{desc.explanation}</p>
+                                                  </div>
+                                                );
+                                              })}
+                                            </div>
+                                          )}
+                                          <div className="bg-gradient-to-br from-sky-50/50 to-slate-50 border border-sky-100 rounded-3xl p-5 shadow-sm">
+                                            <p className="text-sm font-extrabold text-sky-600 uppercase tracking-wider mb-3">这句的语法焦点</p>
+                                            {selectedSentence.grammarFocus ? (
+                                              selectedSentence.grammarFocus.split(/[\/、，,]/).map((pt, i) => (
+                                                <div key={i} className="flex items-start gap-2 text-sm text-slate-700 mb-2">
+                                                  <span className="text-emerald-500 font-bold shrink-0">✓</span>
+                                                  <span className="text-base font-bold">{pt.trim()}</span>
+                                                </div>
+                                              ))
+                                            ) : (
+                                              <p className="text-xs text-slate-400">结构标准，跟着主干读即可。</p>
+                                            )}
+                                            {selectedSentence.pronounRef && (
+                                              <div className="mt-3 p-3 bg-amber-50 rounded-2xl border border-amber-100 text-xs text-amber-800 font-medium">
+                                                💡 代词指代：<b>{selectedSentence.pronounRef}</b>
+                                              </div>
+                                            )}
+                                          </div>
+                                        </div>
+                                        <AiPoints />
+                                      </div>
+                                    )}
+
+                                    {/* ── Step 3: 修饰小贴纸 ── */}
+                                    {voiceLessonStepIndex === 2 && (
+                                      <div className="animate-in fade-in duration-300 space-y-5">
+                                        {/* 模板框架：通用概念 */}
+                                        <div className="rounded-3xl border border-slate-100 bg-white/80 p-5">
+                                          <p className="text-sm font-extrabold uppercase tracking-wider text-slate-500 mb-3">修饰小贴纸有哪些类型？</p>
+                                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-xs font-semibold text-slate-600">
+                                            {[['🏠','介宾短语','贴在名词旁（修饰名词）或动词旁（修饰动作）'],['🎨','形容词/短语','贴在名词上，说明"什么样"'],['⚡','副词/短语','贴在动词/形容词上，说明"怎么做"'],['🔗','定语从句','who/which/that，贴在名词后打补丁'],['📦','同位语从句','that引导，解释抽象名词内容'],['🌐','状语从句','when/because/if，修饰整个动作']].map(([icon,name,tip]) => (
+                                              <div key={name} className="rounded-xl bg-amber-50/60 border border-amber-100 px-3 py-2.5">
+                                                <span className="mr-1">{icon}</span><b className="text-sm">{name}</b>
+                                                <div className="text-slate-500 font-medium text-xs mt-1">{tip}</div>
+                                              </div>
+                                            ))}
+                                          </div>
+                                        </div>
+                                        {/* 应用：这句的修饰语 */}
+                                        {(() => {
+                                          const modifiers = (selectedSentence.segments || []).filter(s => ['modifier', 'adverbial'].includes(s.type));
+                                          const clauses = (selectedSentence.segments || []).filter(s => s.type.startsWith('clause') && s.type !== 'conjunction');
+                                          if (modifiers.length === 0 && clauses.length === 0) {
+                                            return <div className="rounded-3xl border border-dashed border-amber-200 bg-amber-50/30 p-5 text-center text-amber-800 font-medium text-sm">✨ 这句没有复杂修饰成分，结构非常清爽。</div>;
+                                          }
+                                          return (
+                                            <div className="space-y-3">
+                                              {modifiers.map((mod, idx) => (
+                                                <div key={idx} className="bg-amber-50/70 border border-dashed border-amber-200 rounded-3xl p-4 shadow-sm flex items-start gap-3">
+                                                  <span className="mt-0.5 p-1.5 bg-amber-100 text-amber-700 rounded-xl font-bold text-xs shrink-0 flex items-center gap-1">
+                                                    <Tag className="w-3.5 h-3.5" /> 贴纸
+                                                  </span>
+                                                  <div>
+                                                    <span className="text-xl font-extrabold text-amber-950 bg-white/80 px-3 py-1 rounded-lg border border-amber-100 inline-block mb-1.5">{mod.text}</span>
+                                                    <p className="text-sm text-amber-800 font-semibold leading-relaxed">{mod.label || '修饰说明'}</p>
+                                                  </div>
+                                                </div>
+                                              ))}
+                                              {clauses.map((cls, idx) => (
+                                                <div key={idx} className="bg-purple-50/70 border border-dashed border-purple-200 rounded-3xl p-4 shadow-sm flex items-start gap-3">
+                                                  <span className="mt-0.5 p-1.5 bg-purple-100 text-purple-700 rounded-xl font-bold text-xs shrink-0 flex items-center gap-1">
+                                                    <BookOpen className="w-3.5 h-3.5" /> 从句
+                                                  </span>
+                                                  <div>
+                                                    <span className="text-xl font-extrabold text-purple-950 bg-white/80 px-3 py-1 rounded-lg border border-purple-100 inline-block mb-1.5">{cls.text}</span>
+                                                    <p className="text-xs text-purple-800 font-semibold leading-relaxed">{cls.label || '补充信息'}</p>
+                                                  </div>
+                                                </div>
+                                              ))}
+                                            </div>
+                                          );
+                                        })()}
+                                        <AiPoints />
+                                      </div>
+                                    )}
+
+                                    {/* ── Step 4: 句子关系连接桥 ── */}
+                                    {voiceLessonStepIndex === 3 && (
+                                      <div className="animate-in fade-in duration-300 space-y-5">
+                                        {/* 模板框架：通用概念 */}
+                                        <div className="rounded-3xl border border-slate-100 bg-white/80 p-5">
+                                          <p className="text-sm font-extrabold uppercase tracking-wider text-slate-500 mb-3">句子之间的连接关系</p>
+                                          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs font-semibold text-slate-600">
+                                            {[['⚖️','并列 FANBOYS','for/and/nor/but/or/yet/so — 两列火车并肩跑'],['🏷️','定语从句','who/which/that — 挂在名词后打补丁'],['📖','同位语从句','that — 解释抽象名词内容'],['🌐','状语从句','when/because/if/although — 交代时间/原因/条件/让步']].map(([icon,name,tip]) => (
+                                              <div key={name} className="rounded-xl bg-sky-50/60 border border-sky-100 px-3 py-2.5">
+                                                <span className="mr-1">{icon}</span><b className="text-sm">{name}</b>
+                                                <div className="text-slate-500 font-medium text-xs mt-1">{tip}</div>
+                                              </div>
+                                            ))}
+                                          </div>
+                                        </div>
+                                        {/* 应用：这句的连接结构 */}
+                                        <div className="bg-gradient-to-r from-sky-50 to-indigo-50 border border-indigo-100 rounded-3xl p-5 shadow-sm space-y-3">
+                                          {selectedSentence.logicConnector ? (
+                                            <div className="p-4 bg-white/90 rounded-2xl border border-indigo-100 shadow-sm">
+                                              <p className="text-sm font-extrabold text-indigo-700 uppercase tracking-wider mb-2">🔗 连接词</p>
+                                              <div className="text-2xl font-black text-slate-900 bg-indigo-50/50 px-4 py-1.5 rounded-xl inline-block mb-2">{selectedSentence.logicConnector}</div>
+                                              <p className="text-sm text-slate-600 font-medium">它决定了两个主要部分之间的逻辑方向。</p>
+                                            </div>
+                                          ) : (
+                                            <div className="p-4 bg-white/90 rounded-2xl border border-sky-100 shadow-sm text-sm text-slate-600 font-medium">
+                                              🚂 无并列连接词 — 检查是否为单句或从句结构
+                                            </div>
+                                          )}
+                                          {(selectedSentence.segments || []).filter(s => s.type === 'conjunction').map((conj, i) => (
+                                            <div key={i} className="p-3 bg-white/80 rounded-2xl border border-sky-100 shadow-sm flex items-center gap-3 text-sm">
+                                              <span className="font-black text-sky-800 bg-sky-100 px-2 py-0.5 rounded-lg">{conj.text}</span>
+                                              <span className="text-slate-600 font-medium">{conj.label || '连接词'}</span>
+                                            </div>
+                                          ))}
+                                        </div>
+                                        <AiPoints />
+                                      </div>
+                                    )}
+                                  </React.Fragment>
+                                );
+                              })()}
+
+                            </div>
+                          </div>
                       )}
 
                       {/* 选项卡 3：AI 互动助教内容 (拟物沉浸式卡片) */}
@@ -3624,8 +6336,11 @@
                           id: window.crypto?.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15),
                           title: articleTitleInput,
                           timestamp: Date.now(),
-                          data: currentArticleData
+                          data: currentArticleData,
+                          glossary: currentArticleGlossary,
+                          readability: currentArticleReadability
                         };
+                        setCurrentArticleId(newArticle.id);
                         setSavedArticles(prev => [newArticle, ...prev]);
                         setSaveModalOpen(false);
                         setToastMessage("✅ 文章已成功保存到本地书架！");
