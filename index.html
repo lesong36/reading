@@ -46,6 +46,7 @@
     button, a, [role="button"] { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
     @media (pointer: coarse) {
       button, .touch-target { min-height: 44px; }
+      .reader-word-target { -webkit-touch-callout: none; }
     }
   </style>
 </head>
@@ -1797,6 +1798,64 @@
     const LOCAL_DATA_FILE_NAME = 'reading-local-data.json';
     const BUNDLED_LIBRARY_URL = './data/generated-reader-json/reader-articles.import.json';
     const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v1';
+
+    const normalizeLookupWord = (value = '') =>
+      String(value)
+        .trim()
+        .replace(/^[“”"'(（\[]+|[”"'’).,!?;:）\]]+$/g, '')
+        .toLowerCase();
+
+    const getSelectedWordHit = () => {
+      const selection = window.getSelection?.();
+      if (!selection || selection.rangeCount === 0) return null;
+      const selectedText = selection.toString().trim();
+      const wordMatch = selectedText.match(/^[a-zA-Z]+(?:'[a-zA-Z]+)?$/);
+      if (!wordMatch) return null;
+      const range = selection.getRangeAt(0);
+      const rect = range.getBoundingClientRect();
+      if (!rect || (rect.width === 0 && rect.height === 0)) return null;
+      return {
+        word: normalizeLookupWord(wordMatch[0]),
+        x: Math.min(Math.max(rect.left + rect.width / 2, 24), window.innerWidth - 24),
+        y: Math.min(Math.max(rect.bottom + 8, 24), window.innerHeight - 80)
+      };
+    };
+
+    const getWordAtClientPoint = (clientX, clientY) => {
+      let range = null;
+      if (document.caretRangeFromPoint) {
+        range = document.caretRangeFromPoint(clientX, clientY);
+      } else if (document.caretPositionFromPoint) {
+        const pos = document.caretPositionFromPoint(clientX, clientY);
+        if (pos?.offsetNode) {
+          range = document.createRange();
+          range.setStart(pos.offsetNode, pos.offset);
+          range.collapse(true);
+        }
+      }
+      if (!range || range.startContainer.nodeType !== Node.TEXT_NODE) return null;
+
+      const textNode = range.startContainer;
+      const text = textNode.textContent || '';
+      let start = range.startOffset;
+      let end = range.startOffset;
+      while (start > 0 && /[A-Za-z']/.test(text[start - 1])) start -= 1;
+      while (end < text.length && /[A-Za-z']/.test(text[end])) end += 1;
+      const raw = text.slice(start, end);
+      const word = normalizeLookupWord(raw);
+      if (!word || word.length < 2 || !/[a-z]/i.test(word)) return null;
+
+      const wordRange = document.createRange();
+      wordRange.setStart(textNode, start);
+      wordRange.setEnd(textNode, end);
+      const rect = wordRange.getBoundingClientRect();
+      return {
+        word,
+        x: Math.min(Math.max(rect.left + rect.width / 2, 24), window.innerWidth - 24),
+        y: Math.min(Math.max(rect.bottom + 8, 24), window.innerHeight - 80)
+      };
+    };
+
     const createLocalDataSnapshot = (articles = [], vocab = []) => ({
       version: 1,
       savedAt: new Date().toISOString(),
@@ -3460,17 +3519,88 @@
       };
 
       const handleGuidedWordDoubleClick = (e, sentenceText) => {
-        const selection = window.getSelection();
-        const selectedText = selection?.toString().trim();
-        if (!selectedText || /\s/.test(selectedText)) return;
-        const range = selection.getRangeAt(0);
-        const rect = range.getBoundingClientRect();
-        setVocabPopup({
-          word: selectedText.replace(/[.,!?;:"“”()]/g, ''),
-          x: rect.left + rect.width / 2,
-          y: rect.top + window.scrollY,
-          context: sentenceText
-        });
+        openVocabPopupFromEvent(e, sentenceText);
+      };
+
+      const openVocabPopupFromEvent = (e, sentenceText) => {
+        setTimeout(() => {
+          const fromSelection = getSelectedWordHit();
+          if (fromSelection) {
+            setVocabPopup({
+              word: fromSelection.word,
+              x: fromSelection.x,
+              y: fromSelection.y,
+              context: sentenceText
+            });
+            return;
+          }
+          const point = e?.clientX != null
+            ? { x: e.clientX, y: e.clientY }
+            : (e?.changedTouches?.[0]
+              ? { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY }
+              : null);
+          if (!point) return;
+          const hit = getWordAtClientPoint(point.x, point.y);
+          if (!hit) return;
+          setVocabPopup({
+            word: hit.word,
+            x: hit.x,
+            y: hit.y,
+            context: sentenceText
+          });
+        }, 40);
+      };
+
+      const wordPressTimerRef = useRef(null);
+      const wordPressOriginRef = useRef(null);
+
+      const clearWordPressTimer = () => {
+        if (wordPressTimerRef.current) {
+          clearTimeout(wordPressTimerRef.current);
+          wordPressTimerRef.current = null;
+        }
+        wordPressOriginRef.current = null;
+      };
+
+      const handleWordPressStart = (e, sentenceText, { enabled = true } = {}) => {
+        if (!enabled) return;
+        const touch = e.touches?.[0];
+        if (!touch) return;
+        clearWordPressTimer();
+        wordPressOriginRef.current = {
+          x: touch.clientX,
+          y: touch.clientY,
+          sentenceText
+        };
+        wordPressTimerRef.current = setTimeout(() => {
+          const origin = wordPressOriginRef.current;
+          wordPressTimerRef.current = null;
+          if (!origin) return;
+          const hit = getWordAtClientPoint(origin.x, origin.y);
+          if (!hit) return;
+          if (navigator.vibrate) {
+            try { navigator.vibrate(12); } catch (_) {}
+          }
+          setVocabPopup({
+            word: hit.word,
+            x: hit.x,
+            y: hit.y,
+            context: origin.sentenceText
+          });
+        }, 480);
+      };
+
+      const handleWordPressMove = (e) => {
+        const origin = wordPressOriginRef.current;
+        const touch = e.touches?.[0];
+        if (!origin || !touch) return;
+        if (Math.abs(touch.clientX - origin.x) > 12 || Math.abs(touch.clientY - origin.y) > 12) {
+          clearWordPressTimer();
+        }
+      };
+
+      const handleWordPressEnd = () => {
+        clearWordPressTimer();
       };
 
       const renderGuidedSentenceWorkbench = () => (
@@ -3533,9 +3663,13 @@
           )}
 
           <div
-            className="rounded-2xl bg-slate-50 border border-slate-200 p-5"
-            onDoubleClick={(e) => !guidedInteractiveStep && handleGuidedWordDoubleClick(e, selectedSentence.text)}
-            title={!guidedInteractiveStep ? '双击单词可查词并加入生词本' : ''}
+            className="rounded-2xl bg-slate-50 border border-slate-200 p-5 select-text"
+            onDoubleClick={(e) => !guidedInteractiveStep && openVocabPopupFromEvent(e, selectedSentence.text)}
+            onTouchStart={(e) => handleWordPressStart(e, selectedSentence.text, { enabled: !guidedInteractiveStep })}
+            onTouchMove={handleWordPressMove}
+            onTouchEnd={handleWordPressEnd}
+            onTouchCancel={handleWordPressEnd}
+            title={!guidedInteractiveStep ? '电脑双击 / iPad 长按单词可查词并加入生词本' : ''}
           >
             <div className="text-xl md:text-2xl font-serif leading-relaxed text-slate-900">
               {guidedNeedsSubSegmentation
@@ -4032,20 +4166,7 @@
       };
 
       const handleSentenceDoubleClick = (e, sentenceText) => {
-        setTimeout(() => {
-          const selection = window.getSelection();
-          const selectedStr = selection.toString().trim();
-          const wordMatch = selectedStr.match(/[a-zA-Z]+(?:'[a-zA-Z]+)?/);
-          
-          if (wordMatch && wordMatch[0] && selectedStr.length < 30) {
-            setVocabPopup({
-              word: wordMatch[0].toLowerCase(),
-              context: sentenceText,
-              x: e.clientX,
-              y: e.clientY
-            });
-          }
-        }, 50);
+        openVocabPopupFromEvent(e, sentenceText);
       };
 
       const handleCheckOllamaConnection = async () => {
@@ -4893,7 +5014,7 @@
               <div 
                 id="vocab-popup"
                 className="fixed z-[100] bg-white text-slate-800 border border-slate-200 px-3 py-2 rounded-xl shadow-2xl flex flex-col gap-2 text-sm animate-in zoom-in-95 duration-100 min-w-[220px]"
-                style={{ top: vocabPopup.y + 20, left: vocabPopup.x, transform: 'translateX(-50%)' }}
+                style={{ top: vocabPopup.y, left: vocabPopup.x, transform: 'translateX(-50%)' }}
               >
                 <div className="flex items-center gap-3">
                   <span className="font-bold text-indigo-600 text-base">{vocabPopup.word}</span>
@@ -4906,7 +5027,7 @@
                         handleAddWordToVocab(vocabPopup.word, vocabPopup.context);
                         setVocabPopup(null);
                       }}
-                      className="flex items-center gap-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 px-3 py-1.5 rounded-lg font-medium transition-colors"
+                      className="flex items-center gap-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 px-3 py-1.5 rounded-lg font-medium transition-colors min-h-[44px]"
                     >
                       <Plus className="w-4 h-4" /> 加入卡片
                     </button>
@@ -5106,7 +5227,7 @@
                   <div className="text-center py-20 bg-white rounded-2xl border border-slate-200 shadow-sm print:hidden">
                     <BookMarked className="w-16 h-16 text-slate-300 mx-auto mb-4" />
                     <h3 className="text-lg font-semibold text-slate-600 mb-2">生词本还是空的</h3>
-                    <p className="text-slate-500">在阅读区双击任意不认识的单词即可加入生词本。</p>
+                    <p className="text-slate-500">在阅读区：电脑双击单词，iPad 长按单词，即可加入生词本。</p>
                     <button onClick={() => setViewMode('reading')} className="mt-6 text-indigo-600 font-medium hover:underline">返回阅读区去添加</button>
                   </div>
                 ) : (
@@ -5329,7 +5450,11 @@
                                   setSelectedSentence(sentence);
                                 }}
                                 onDoubleClick={(e) => handleSentenceDoubleClick(e, sentence.text)}
-                                className={`cursor-pointer transition-colors duration-150 ${isSelected ? 'bg-indigo-100/60' : ''}`}
+                                onTouchStart={(e) => handleWordPressStart(e, sentence.text)}
+                                onTouchMove={handleWordPressMove}
+                                onTouchEnd={handleWordPressEnd}
+                                onTouchCancel={handleWordPressEnd}
+                                className={`cursor-pointer transition-colors duration-150 select-text ${isSelected ? 'bg-indigo-100/60' : ''}`}
                               >{(effectiveHighlightMode || effectiveUnderlineMain || (rightPanelTab === 'analysis' && isSelected)) ? (
                                    sentence.segments.map((seg, i) => {
                                      const isStepFocused = rightPanelTab === 'analysis' && isSelected && isSegmentFocusedInStep(seg.type, voiceLessonStepIndex);
@@ -5709,7 +5834,7 @@
                                     <p className="text-sm font-semibold text-slate-700 mb-2">查词 / 生词本</p>
                                     <p className="text-sm leading-7 text-slate-600">
                                       在这里如果遇到想确认的词，直接用 Mac 的查词方式或双击操作句子中的单词。
-                                      双击后会弹出查词与加入生词本入口，不再单独做一套输入框。
+                                      电脑双击或 iPad 长按单词后，会弹出查词与加入生词本入口。
                                     </p>
                                   </div>
                                 </div>
@@ -6366,7 +6491,7 @@
                     
                     <div className="bg-slate-50 p-4 border-t border-slate-100 flex items-center gap-2 text-slate-500 text-sm justify-center shrink-0 rounded-b-2xl">
                       <MousePointerClick className="w-4 h-4 shrink-0" />
-                      <span>点选左侧句子可切换分析，双击单词加生词本</span>
+                      <span>点选左侧句子可切换分析；电脑双击 / iPad 长按单词可加生词本</span>
                     </div>
                   </div>
 
