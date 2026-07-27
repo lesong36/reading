@@ -1795,6 +1795,8 @@
       .trim();
 
     const LOCAL_DATA_FILE_NAME = 'reading-local-data.json';
+    const BUNDLED_LIBRARY_URL = './data/generated-reader-json/reader-articles.import.json';
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v1';
     const createLocalDataSnapshot = (articles = [], vocab = []) => ({
       version: 1,
       savedAt: new Date().toISOString(),
@@ -1814,6 +1816,18 @@
             };
           })
         : [];
+
+    const fetchBundledLibraryArticles = async () => {
+      const response = await fetch(`${BUNDLED_LIBRARY_URL}?v=1`);
+      if (!response.ok) {
+        throw new Error(`预置教材加载失败（HTTP ${response.status}）`);
+      }
+      const importedData = await response.json();
+      if (!Array.isArray(importedData)) {
+        throw new Error('预置教材文件格式不正确。');
+      }
+      return normalizeSavedArticles(importedData);
+    };
 
     const normalizeVocabBook = (vocab = []) => Array.isArray(vocab) ? vocab : [];
 
@@ -2413,6 +2427,8 @@
       }));
       const localDataLoadedRef = useRef(false);
       const localDataWriteTimerRef = useRef(null);
+      const [localDataReady, setLocalDataReady] = useState(false);
+      const [isLoadingBundledLibrary, setIsLoadingBundledLibrary] = useState(false);
 
       // --- 本地文章书架逻辑 (Local Storage + OPFS File) ---
       const [savedArticles, setSavedArticles] = useState(() => {
@@ -2458,12 +2474,14 @@
             if (data.savedArticles.length > 0) setSavedArticles(data.savedArticles);
             if (data.vocabBook.length > 0) setVocabBook(data.vocabBook);
             localDataLoadedRef.current = true;
+            setLocalDataReady(true);
             setLocalPersistenceStatus({
               enabled: true,
               message: `本地数据文件已启用：${LOCAL_DATA_FILE_NAME}`
             });
           } catch (error) {
             localDataLoadedRef.current = true;
+            setLocalDataReady(true);
             setLocalPersistenceStatus({
               enabled: false,
               message: '当前浏览器不支持自动写入本地数据文件，已使用浏览器本地存储兜底。'
@@ -2476,6 +2494,36 @@
           if (localDataWriteTimerRef.current) clearTimeout(localDataWriteTimerRef.current);
         };
       }, []);
+
+      useEffect(() => {
+        if (!localDataReady) return;
+        if (localStorage.getItem(BUNDLED_LIBRARY_SEED_KEY) === '1') return;
+
+        let cancelled = false;
+        const seedBundledLibrary = async () => {
+          try {
+            const bundled = await fetchBundledLibraryArticles();
+            if (cancelled) return;
+            setSavedArticles(prev => {
+              if (prev.length > 0) {
+                localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, '1');
+                return prev;
+              }
+              localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, '1');
+              setTimeout(() => {
+                setToastMessage(`📚 已加载预置教材 ${bundled.length} 篇到书架`);
+              }, 0);
+              return mergeSavedArticles(prev, bundled);
+            });
+          } catch (error) {
+            console.warn('Bundled library seed skipped:', error);
+          }
+        };
+        seedBundledLibrary();
+        return () => {
+          cancelled = true;
+        };
+      }, [localDataReady]);
 
       useEffect(() => {
         localStorage.setItem('my_local_articles', JSON.stringify(savedArticles));
@@ -3748,6 +3796,7 @@
             try {
               setSavedArticles([]);
               setVocabBook([]);
+              localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, '1');
               await clearLocalLearningStorage();
               setLocalPersistenceStatus(prev => ({
                 ...prev,
@@ -3949,6 +3998,7 @@
                 newList.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
                 return newList;
               });
+              localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, '1');
               setToastMessage(`✅ 成功导入了 ${importedData.length} 篇文章记录！`);
             } else {
               setToastMessage("❌ 文件格式不正确，应该是一个包含文章对象的数组。");
@@ -3958,6 +4008,27 @@
           }
           e.target.value = null;
         };
+      };
+
+      const handleLoadBundledLibrary = async ({ force = false } = {}) => {
+        if (isLoadingBundledLibrary) return;
+        setIsLoadingBundledLibrary(true);
+        try {
+          const bundled = await fetchBundledLibraryArticles();
+          setSavedArticles(prev => {
+            if (!force && prev.length > 0) {
+              return mergeSavedArticles(prev, bundled);
+            }
+            return force ? bundled : mergeSavedArticles(prev, bundled);
+          });
+          localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, '1');
+          setToastMessage(`📚 已载入预置教材 ${bundled.length} 篇`);
+          setViewMode('library');
+        } catch (error) {
+          setToastMessage(`❌ ${error.message || '预置教材加载失败'}`);
+        } finally {
+          setIsLoadingBundledLibrary(false);
+        }
       };
 
       const handleSentenceDoubleClick = (e, sentenceText) => {
@@ -4879,6 +4950,14 @@
                     <button onClick={() => articleFileInputRef.current.click()} className="flex items-center gap-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm">
                       <Upload className="w-4 h-4" /> 导入书架
                     </button>
+                    <button
+                      onClick={() => handleLoadBundledLibrary({ force: false })}
+                      disabled={isLoadingBundledLibrary}
+                      className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-70 text-white px-3 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm"
+                    >
+                      {isLoadingBundledLibrary ? <Loader2 className="w-4 h-4 animate-spin" /> : <Library className="w-4 h-4" />}
+                      加载预置教材
+                    </button>
                     {savedArticles.length > 0 && (
                       <button onClick={exportArticlesData} className="flex items-center gap-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm">
                         <Download className="w-4 h-4" /> 导出JSON
@@ -4896,8 +4975,20 @@
                   <div className="text-center py-20 bg-white rounded-2xl border border-slate-200 shadow-sm print:hidden">
                     <FolderOpen className="w-16 h-16 text-slate-300 mx-auto mb-4" />
                     <h3 className="text-lg font-semibold text-slate-600 mb-2">书架还是空的</h3>
-                    <p className="text-slate-500">在【语境阅读区】点击左侧面板右上角的“保存文章”即可将其收入书架。</p>
-                    <button onClick={() => setViewMode('upload')} className="mt-6 text-indigo-600 font-medium hover:underline">去解析新文章</button>
+                    <p className="text-slate-500 max-w-md mx-auto">在线版不会自动带上电脑本地浏览器里的书架。可一键加载预置教材（RFD1/2/3、四上），或手动导入 JSON。</p>
+                    <div className="mt-6 flex flex-wrap justify-center gap-3">
+                      <button
+                        onClick={() => handleLoadBundledLibrary({ force: true })}
+                        disabled={isLoadingBundledLibrary}
+                        className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-70 text-white px-4 py-2.5 rounded-xl font-semibold shadow-sm"
+                      >
+                        {isLoadingBundledLibrary ? <Loader2 className="w-4 h-4 animate-spin" /> : <Library className="w-4 h-4" />}
+                        加载预置教材
+                      </button>
+                      <button onClick={() => setViewMode('upload')} className="text-indigo-600 font-medium hover:underline px-2">
+                        去解析新文章
+                      </button>
+                    </div>
                   </div>
                 ) : filteredLibraryArticles.length === 0 ? (
                   <React.Fragment>

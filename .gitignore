@@ -20,7 +20,10 @@ benchmark_ollama_e2e.py
 SEGMENT_LABEL_NORMALIZATION.md
 *.log
 *.pid
-data/
+data/**
+!data/generated-reader-json/
+!data/generated-reader-json/reader-articles.import.json
+!data/generated-reader-json/reader-articles.report.json
 scripts/
 package.json
 package-lock.json
