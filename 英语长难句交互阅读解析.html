@@ -9,9 +9,9 @@
   <meta name="format-detection" content="telephone=no">
   <title>英语长难句交互阅读解析</title>
   
-  <!-- CDN：GitHub Pages / iPad Safari 可直接打开，无需本地服务 -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- 本地 vendor：避免 cdn.tailwindcss.com / 在线 Babel 的 production 警告依赖 -->
+  <script src="./vendor/tailwindcss.js"></script>
+  <script src="./vendor/babel.min.js"></script>
   <script src="./local-config.js" onerror=""></script>
   
   <style>
@@ -2826,16 +2826,6 @@
       }, [selectedSentence]);
 
       useEffect(() => {
-        if (guidedStepIndex === 0 && guidedActiveRole !== 'subject') {
-          setGuidedActiveRole('subject');
-          return;
-        }
-        if (guidedStepIndex === 1 && guidedRoleOptions.length > 0 && !guidedRoleOptions.some(option => option.key === guidedActiveRole)) {
-          setGuidedActiveRole(guidedRoleOptions[0].key);
-        }
-      }, [guidedStepIndex, guidedRoleOptions, guidedActiveRole]);
-
-      useEffect(() => {
         if (!activeAiTask || !aiTaskStartedAt) {
           setAiTaskElapsed(0);
           return;
@@ -3231,13 +3221,17 @@
       }, [selectedSentence]);
 
       useEffect(() => {
+        if (guidedStepIndex === 0 && guidedActiveRole !== 'subject') {
+          setGuidedActiveRole('subject');
+          return;
+        }
         if (!guidedInteractiveStep) return;
         const validRoleKeys = guidedRoleOptions.map(option => option.key);
         if (validRoleKeys.length === 0) return;
         if (!validRoleKeys.includes(guidedActiveRole)) {
           setGuidedActiveRole(guidedDefaultRole);
         }
-      }, [guidedInteractiveStep, guidedRoleOptions, guidedActiveRole, guidedDefaultRole]);
+      }, [guidedStepIndex, guidedInteractiveStep, guidedRoleOptions, guidedActiveRole, guidedDefaultRole]);
 
       const handleGuidedSegmentToggle = (sentence, segmentIndex) => {
         if (!guidedInteractiveStep) return;

@@ -21,7 +21,6 @@ SEGMENT_LABEL_NORMALIZATION.md
 *.log
 *.pid
 data/
-vendor/
 scripts/
 package.json
 package-lock.json
@@ -33,6 +32,10 @@ PROJECT_ARCHITECTURE.md
 Project-Memory.md
 README_DELIVERY.md
 local-config.example.js
+
+# Keep vendor/tailwindcss.js + babel.min.js for GitHub Pages
+# (ignore only optional esm mirror if present)
+vendor/esm/
 
 # Local private config (never commit secrets)
 local-config.js
