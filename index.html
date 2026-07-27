@@ -5454,7 +5454,7 @@
                                 onTouchMove={handleWordPressMove}
                                 onTouchEnd={handleWordPressEnd}
                                 onTouchCancel={handleWordPressEnd}
-                                className={`cursor-pointer transition-colors duration-150 select-text ${isSelected ? 'bg-indigo-100/60' : ''}`}
+                                className={`cursor-pointer transition-colors duration-150 select-text reader-word-target ${isSelected ? 'bg-indigo-100/60' : ''}`}
                               >{(effectiveHighlightMode || effectiveUnderlineMain || (rightPanelTab === 'analysis' && isSelected)) ? (
                                    sentence.segments.map((seg, i) => {
                                      const isStepFocused = rightPanelTab === 'analysis' && isSelected && isSegmentFocusedInStep(seg.type, voiceLessonStepIndex);
