@@ -4042,11 +4042,24 @@
 
       const handleUnlockSyncVault = async () => {
         if (!syncPassphrase) { setAuthError('请输入同步加密口令。'); return; }
+        if (!supabase || !user) { setAuthError('请先登录云同步账号。'); return; }
         try {
-          if (encryptedAiKeyRef.current) setCloudApiKey(await decryptFromSyncVault(encryptedAiKeyRef.current, syncPassphrase));
+          // Read at click time so a slow initial cloud fetch cannot leave the
+          // second device with an unlocked vault but an empty API key.
+          const { data, error } = await supabase
+            .from('reader_sync_state')
+            .select('encrypted_ai_key')
+            .eq('user_id', user.id)
+            .maybeSingle();
+          if (error) throw error;
+          const encryptedAiKey = data?.encrypted_ai_key || encryptedAiKeyRef.current;
+          if (encryptedAiKey) {
+            setCloudApiKey(await decryptFromSyncVault(encryptedAiKey, syncPassphrase));
+            encryptedAiKeyRef.current = encryptedAiKey;
+          }
           setSyncVaultUnlocked(true);
           setAuthError('');
-          setToastMessage(encryptedAiKeyRef.current ? 'AI 密钥已在当前设备解密。' : '已开启加密同步；下次保存 AI 密钥时会加密上传。');
+          setToastMessage(encryptedAiKey ? 'AI 密钥已在当前设备解密。' : '云端还没有 AI 密钥；请先在原设备加密并同步。');
           setCloudSyncRevision(value => value + 1);
         } catch (error) { setAuthError('同步口令不正确，无法解密 AI 密钥。'); }
       };
