@@ -6025,16 +6025,16 @@
                       )}
 
                       {rightPanelTab === 'guided' && (
-                        <div className="animate-in fade-in duration-500 max-w-3xl mx-auto space-y-4">
-                          <div className="rounded-[28px] border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-indigo-50/50 p-5 md:p-6 shadow-sm">
+                        <div className="animate-in fade-in duration-500 max-w-3xl mx-auto space-y-7">
+                          <section className="border-b border-slate-200 pb-7">
                             <div className="flex items-center justify-between gap-4">
                               <p className="text-xs uppercase tracking-[0.25em] text-indigo-400 font-bold">解析总览</p>
-                              <div className="shrink-0 rounded-2xl bg-white/80 border border-indigo-100 px-4 py-3 text-sm font-semibold text-indigo-700 shadow-sm">
+                              <p className="shrink-0 text-sm font-semibold text-indigo-700">
                                 第 {currentArticleData.findIndex(sentence => sentence.id === selectedSentence.id) + 1} 句 / 共 {currentArticleData.length} 句
-                              </div>
+                              </p>
                             </div>
 
-                            <div className="mt-4 rounded-3xl bg-white border border-slate-100 p-5 shadow-sm">
+                            <div className="mt-5">
                               <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                                 <p className="text-sm font-black uppercase tracking-[0.18em] text-slate-400">原句</p>
                                 <p className="text-xs text-slate-400">电脑双击 / iPad 长按单词可加生词本</p>
@@ -6069,26 +6069,26 @@
                                 </div>
                               </div>
                             </div>
+                          </section>
 
-                            <div className="mt-5 border-t border-slate-200 pt-5">
-                              <div className="flex items-center justify-between gap-3">
-                                <div>
-                                  <p className="text-xs uppercase tracking-[0.22em] text-slate-400 font-bold">Structure</p>
-                                  <h3 className="mt-1 text-xl font-black text-slate-900">结构解析</h3>
-                                </div>
-                                <button
-                                  type="button"
-                                  onClick={() => setRightPanelTab('ai')}
-                                  className="self-start rounded-2xl bg-slate-900 px-4 py-2 text-sm font-bold text-white hover:bg-slate-800"
-                                >
-                                  去问 AI 助教
-                                </button>
+                          <section>
+                            <div className="flex items-center justify-between gap-3">
+                              <div>
+                                <p className="text-xs uppercase tracking-[0.22em] text-slate-400 font-bold">Structure</p>
+                                <h3 className="mt-1 text-xl font-black text-slate-900">结构解析</h3>
                               </div>
-                              <div className="mt-4 rounded-2xl border border-slate-200 bg-white px-5 py-5 shadow-[0_10px_30px_rgba(15,23,42,0.035)] md:px-6">
-                                {formatStructuralAnalysis(selectedSentence.analysis || '暂无结构分析。')}
-                              </div>
+                              <button
+                                type="button"
+                                onClick={() => setRightPanelTab('ai')}
+                                className="self-start rounded-2xl bg-slate-900 px-4 py-2 text-sm font-bold text-white hover:bg-slate-800"
+                              >
+                                去问 AI 助教
+                              </button>
                             </div>
-                          </div>
+                            <div className="mt-4">
+                              {formatStructuralAnalysis(selectedSentence.analysis || '暂无结构分析。')}
+                            </div>
+                          </section>
 
                         </div>
                       )}
