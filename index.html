@@ -5788,7 +5788,7 @@
                             </HoverTip>
                           )}
                           <HoverTip
-                            text="这里显示的是自动估算难度，不是官方 Lexile 认证分值。"
+                            text={<span><strong className="block text-xs text-white">阅读难度（自动估算）</strong><span className="mt-1.5 grid grid-cols-2 gap-x-4 gap-y-1 text-slate-200"><span>LX {formatLexile(currentArticleReadability.estimatedLexile)}</span><span>{getGradeShortLabel(currentArticleReadability.fkGrade)}</span><span>{getWordCountShortLabel(currentArticleReadability.wordCount)}</span><span>{getDifficultyBandShortLabel(currentArticleReadability.difficultyBand)}</span></span><span className="mt-2 block text-[10px] text-slate-400">蓝思值为估算，并非官方认证。</span></span>}
                             align="right"
                           >
                             <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/10 text-slate-200 cursor-help">
@@ -6039,33 +6039,12 @@
                       <div className="max-w-[880px] mx-auto">
                       {articleStudyMode === 'read' ? (
                       <React.Fragment>
-                      {/* 顶部轻量级沉浸式上下文 */}
-                      <div className="mb-10">
-                        {rightPanelTab === 'ai' && (
-                          <blockquote className="border-l-[4px] border-indigo-500 pl-4 md:pl-6 py-1 mb-5">
-                            <p className="text-xl md:text-2xl font-serif text-slate-800 leading-relaxed mb-3">
-                              {selectedSentence.text}
-                            </p>
-                            <p className="text-base text-slate-500 font-medium">
-                              {selectedSentence.translation}
-                            </p>
-                          </blockquote>
-                        )}
-
-                        <div className={`flex flex-wrap gap-2.5 ${rightPanelTab === 'ai' ? 'pl-4 md:pl-6' : ''}`}>
-
-                          {selectedSentence.logicConnector && (
-                            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-sm font-semibold border border-purple-200/50">
-                              <LinkIcon className="w-3.5 h-3.5" /> {selectedSentence.logicConnector}
-                            </span>
-                          )}
-                          {selectedSentence.pronounRef && (
-                            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-sm font-semibold border border-emerald-200/50">
-                              <Tag className="w-3.5 h-3.5" /> 代词指代
-                            </span>
-                          )}
-                        </div>
-                      </div>
+                      {rightPanelTab === 'ai' && (
+                        <blockquote className="mb-7 border-l-[4px] border-indigo-500 py-1 pl-4 md:pl-6">
+                          <p className="mb-3 text-xl leading-relaxed text-slate-800 md:text-2xl font-serif">{selectedSentence.text}</p>
+                          <p className="text-base font-medium text-slate-500">{selectedSentence.translation}</p>
+                        </blockquote>
+                      )}
 
                       {rightPanelTab === 'guided' && (
                         <div className="animate-in fade-in duration-500 max-w-3xl mx-auto space-y-4">
@@ -6094,23 +6073,6 @@
                                 {selectedSentence.text}
                               </p>
                             </div>
-
-                            {(selectedSentence.logicConnector || selectedSentence.pronounRef) && (
-                              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
-                                {selectedSentence.logicConnector && (
-                                  <div className="rounded-3xl border border-purple-100 bg-purple-50/70 p-5">
-                                    <p className="text-sm font-black text-purple-700 mb-2">句子关系</p>
-                                    <p className="text-sm leading-7 text-purple-950">{selectedSentence.logicConnector}</p>
-                                  </div>
-                                )}
-                                {selectedSentence.pronounRef && (
-                                  <div className="rounded-3xl border border-amber-100 bg-amber-50/70 p-5">
-                                    <p className="text-sm font-black text-amber-700 mb-2">代词指代</p>
-                                    <p className="text-sm leading-7 text-amber-950">{selectedSentence.pronounRef}</p>
-                                  </div>
-                                )}
-                              </div>
-                            )}
 
                             <div className="mt-4 border-t border-slate-100 pt-4">
                               <div className="mb-3 flex items-center gap-2">
