@@ -196,9 +196,24 @@
         "analysis": "### 【主干结构】\n这是一个由连词连接的复合句。核心结构是：\n1. Most people consider the landscape to be unchanging (主谓宾补)\n2. Earth is a dynamic body (主系表)\n3. its surface is continually altering (主谓)\n\n### 【主谓一致】\n- 'Most people' 是复数，但这里作主语，动词 consider 用原形。\n- 'Earth' 是单数，系动词用 is。\n- 'its surface' 是单数，系动词用 is。\n\n### 【动词时态与原形】\n- 'consider' 是一般现在时，表示普遍观点。\n- 'is' 是系动词，表示状态。\n- 'is continually altering' 是现在进行时，强调动作的持续性和动态感。\n\n### 【从句/非谓语】\n- 'to be unchanging' 是不定式短语作宾语补足语，补充说明 landscape 的状态。\n- 'slowly on the human time scale, but relatively rapidly when compared to...' 是副词性短语，修饰 altering，通过破折号引入，作为补充说明。\n\n### 【代词指代】\n- 'its' 指代前文的 'Earth'。\n\n### 【逻辑关系】\n- 'but' 连接第一分句和第二分句，形成转折：人们认为不变 vs 地球实际在变。\n- 'and' 连接第二分句和第三分句，递进说明地球变化的具体表现。",
         "segments": [
           {
-            "text": "Most people consider the landscape to be unchanging, ",
-            "type": "clause",
-            "label": "主句1"
+            "text": "Most people ",
+            "type": "subject",
+            "label": "主句1主语"
+          },
+          {
+            "text": "consider ",
+            "type": "verb",
+            "label": "主句1谓语"
+          },
+          {
+            "text": "the landscape ",
+            "type": "object",
+            "label": "主句1宾语"
+          },
+          {
+            "text": "to be unchanging, ",
+            "type": "object-complement",
+            "label": "宾语补足语"
           },
           {
             "text": "but ",
@@ -206,9 +221,19 @@
             "label": "转折连词"
           },
           {
-            "text": "Earth is a dynamic body, ",
-            "type": "clause",
-            "label": "主句2"
+            "text": "Earth ",
+            "type": "coord-subject",
+            "label": "并列主句2主语"
+          },
+          {
+            "text": "is ",
+            "type": "coord-verb",
+            "label": "并列主句2系动词"
+          },
+          {
+            "text": "a dynamic body, ",
+            "type": "coord-predicative",
+            "label": "并列主句2表语"
           },
           {
             "text": "and ",
@@ -216,9 +241,14 @@
             "label": "并列连词"
           },
           {
-            "text": "its surface is continually altering",
-            "type": "clause",
-            "label": "主句3"
+            "text": "its surface ",
+            "type": "coord-subject",
+            "label": "并列主句3主语"
+          },
+          {
+            "text": "is continually altering",
+            "type": "coord-verb",
+            "label": "并列主句3谓语"
           },
           {
             "text": "-slowly on the human time scale, ",
@@ -226,9 +256,19 @@
             "label": "状语（补充说明变化速度）"
           },
           {
-            "text": "but relatively rapidly when compared to the great age of Earth ",
-            "type": "modifier",
-            "label": "状语（补充说明变化速度）"
+            "text": "but ",
+            "type": "conjunction",
+            "label": "转折连词（状语内部）"
+          },
+          {
+            "text": "relatively rapidly ",
+            "type": "adverbial",
+            "label": "方式状语"
+          },
+          {
+            "text": "when compared to the great age of Earth ",
+            "type": "adverbial",
+            "label": "比较状语（省略结构）"
           },
           {
             "text": "(about 4,500 million years).",
