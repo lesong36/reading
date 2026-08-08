@@ -761,6 +761,23 @@
       }) || null;
     };
 
+    // Older generated packs used the generic `clause` type for whole main
+    // clauses (and sometimes for a subject/predicate fragment).  The reader
+    // rendered that type as a subordinate-clause highlight, which taught the
+    // wrong grammar.  Prefer the explicit Chinese label when repairing these
+    // legacy records; a bare clause is deliberately neutral rather than
+    // pretending it is a 从句.
+    const normalizeSegmentType = (segment = {}) => {
+      const type = String(segment.type || '').trim().toLowerCase();
+      const label = String(segment.label || '').trim();
+      if ((type === 'clause' || type === 'modifier') && /从句/.test(label)) return 'clause';
+      if (type === 'clause') return 'main-clause';
+      if (type === 'modifier' && /状语|插入语|伴随|结果|时间|地点|原因|条件|让步|方式|程度/.test(label)) {
+        return 'adverbial';
+      }
+      return type;
+    };
+
     const normalizeSentenceSegments = (sentence = {}) => ({
       ...sentence,
       teachingFocus: sentence.teachingFocus && typeof sentence.teachingFocus === 'object'
@@ -780,6 +797,7 @@
       segments: Array.isArray(sentence.segments)
         ? sentence.segments.map(seg => ({
             ...seg,
+            type: normalizeSegmentType(seg),
             label: normalizeSegmentLabel(seg)
           }))
         : []
@@ -1872,10 +1890,10 @@
       './data/generated-reader-json/reader-articles-tpo.import.json',
       './data/generated-reader-json/reader-articles-re-foundations.import.json'
     ];
-    // v10 refreshes all library bundles after publishing the complete packs.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v10';
-    const BUNDLED_LIBRARY_SEED_VERSION = '10';
-    const EXPECTED_TPO_ARTICLE_COUNT = 87;
+    // v11 repairs legacy grammar-role data and refreshes every published bundle.
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v11';
+    const BUNDLED_LIBRARY_SEED_VERSION = '11';
+    const EXPECTED_TPO_ARTICLE_COUNT = 104;
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
     const normalizeLookupWord = (value = '') =>
@@ -2086,12 +2104,19 @@
         })
       );
 
-    const mergeSavedArticles = (current = [], incoming = []) => {
+    const mergeSavedArticles = (current = [], incoming = [], { preferIncoming = false } = {}) => {
       const byId = new Map();
-      [...normalizeSavedArticles(current), ...normalizeSavedArticles(incoming)].forEach(article => {
+      normalizeSavedArticles(current).forEach(article => {
         if (!article || !article.id) return;
         const existing = byId.get(article.id);
         if (!existing || (article.timestamp || 0) >= (existing.timestamp || 0)) {
+          byId.set(article.id, article);
+        }
+      });
+      normalizeSavedArticles(incoming).forEach(article => {
+        if (!article || !article.id) return;
+        const existing = byId.get(article.id);
+        if (preferIncoming || !existing || (article.timestamp || 0) >= (existing.timestamp || 0)) {
           byId.set(article.id, article);
         }
       });
@@ -2680,7 +2705,7 @@
       const [localDataReady, setLocalDataReady] = useState(false);
       const [isLoadingBundledLibrary, setIsLoadingBundledLibrary] = useState(false);
 
-      // --- 本地文章书架逻辑 (Local Storage + OPFS File) ---
+      // --- 教材缓存逻辑 (OPFS File) ---
       const [savedArticles, setSavedArticles] = useState(() => {
         const saved = localStorage.getItem('my_local_articles');
         if (!saved) return [];
@@ -2761,7 +2786,10 @@
             const bundled = await fetchBundledLibraryArticles();
             if (cancelled) return;
             setSavedArticles(prev => {
-              const merged = mergeSavedArticles(prev, bundled);
+              // Bundled articles are canonical curriculum records.  Replace
+              // only colliding curriculum IDs so an older OPFS cache cannot
+              // override a published correction; personal imports stay intact.
+              const merged = mergeSavedArticles(prev, bundled, { preferIncoming: true });
               // The following persistence effect writes the full bundle to OPFS.
               // Do not put it in localStorage: 104 analysed articles exceed its quota.
               trySetLocalStorage(BUNDLED_LIBRARY_SEED_KEY, BUNDLED_LIBRARY_SEED_VERSION);
@@ -2886,8 +2914,6 @@
       // --- 全局自定义 UI 弹窗状态 ---
       const [toastMessage, setToastMessage] = useState("");
       const [confirmDialog, setConfirmDialog] = useState(null);
-      const [saveModalOpen, setSaveModalOpen] = useState(false);
-      const [articleTitleInput, setArticleTitleInput] = useState("");
       const [showAiSettings, setShowAiSettings] = useState(false);
       const [aiProvider, setAiProvider] = useState(() => {
         const saved = localStorage.getItem('reader_ai_provider');
@@ -3428,6 +3454,24 @@
         () => savedArticles.find(article => article.id === currentArticleId) || null,
         [savedArticles, currentArticleId]
       );
+
+      // A bundle refresh can replace an article while it is open.  Keep the
+      // active reader on the corrected curriculum version instead of waiting
+      // for the learner to leave the page and open the card again.
+      useEffect(() => {
+        if (!currentArticle || viewMode !== 'reading') return;
+        const refreshedData = normalizeArticleData(currentArticle.data);
+        const currentText = currentArticleData.map(sentence => sentence.text).join('\n');
+        const refreshedText = refreshedData.map(sentence => sentence.text).join('\n');
+        if (!refreshedData.length || refreshedText === currentText) return;
+        setCurrentArticleTitle(currentArticle.title || '未命名文章');
+        setCurrentArticleData(refreshedData);
+        setCurrentArticleQuestions(normalizeArticleQuestions(currentArticle));
+        setCurrentArticleGlossary(collectArticleGlossary(currentArticle, refreshedData));
+        setCurrentArticleReadability(currentArticle.readability || computeArticleReadability(refreshedData));
+        setSelectedSentence(refreshedData[0]);
+        setToastMessage('📚 已更新为最新教材版本');
+      }, [currentArticle, currentArticleData, viewMode]);
 
       const hasQuizQuestions = currentArticleQuestions.length > 0;
       const currentQuizUsesPptSource = currentArticle?.id?.startsWith('re-foundations-');
@@ -4220,11 +4264,6 @@
       };
 
       // --- Article Library Logic ---
-      const handleSaveCurrentArticle = () => {
-        setArticleTitleInput(`分析文章 ${new Date().toLocaleDateString()}`);
-        setSaveModalOpen(true);
-      };
-
       const handleRemoveArticle = (id) => {
         setConfirmDialog({
           message: "确定要从书架彻底删除这篇文章吗？",
@@ -4238,7 +4277,7 @@
 
       const handleClearLocalLearningData = () => {
         setConfirmDialog({
-          message: "确定要清空本机学习记录吗？这会删除书架文章和生词本，但不会删除 AI 设置或磁盘上的生成 JSON 文件。",
+          message: "确定要清空本机学习记录吗？这会清除教材缓存和生词本，但不会删除 AI 设置或磁盘上的生成 JSON 文件。",
           onConfirm: async () => {
             try {
               setSavedArticles([]);
@@ -4508,9 +4547,9 @@
           const bundled = await fetchBundledLibraryArticles();
           setSavedArticles(prev => {
             if (!force && prev.length > 0) {
-              return mergeSavedArticles(prev, bundled);
+              return mergeSavedArticles(prev, bundled, { preferIncoming: true });
             }
-            return force ? bundled : mergeSavedArticles(prev, bundled);
+            return force ? bundled : mergeSavedArticles(prev, bundled, { preferIncoming: true });
           });
           localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, BUNDLED_LIBRARY_SEED_VERSION);
           setToastMessage(`📚 已载入预置教材 ${bundled.length} 篇`);
@@ -5407,7 +5446,7 @@
             )}
 
             {/* =========================================
-                ARTICLE LIBRARY VIEW (Local Saved Articles)
+                ARTICLE LIBRARY VIEW
                 ========================================= */}
             {viewMode === 'library' && (
               <div className="animate-in fade-in slide-in-from-bottom-4">
@@ -5415,9 +5454,9 @@
                   <div>
                     <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
                       <Library className="w-6 h-6 text-indigo-500" />
-                      本地文章书架 ({libraryFilter === 'all' ? savedArticles.length : `${filteredLibraryArticles.length}/${savedArticles.length}`})
+                      我的学习书架 ({libraryFilter === 'all' ? savedArticles.length : `${filteredLibraryArticles.length}/${savedArticles.length}`})
                     </h2>
-                    <p className="text-sm text-slate-500 mt-1">保存您分析过的文章，包含完整的句式解析数据，并自动持久化到本机。</p>
+                    <p className="text-sm text-slate-500 mt-1">预置教材会自动更新；阅读位置、做题进度、生词和收藏会自动保存在本机，并可同步到云端。</p>
                     <p className={`text-xs mt-1 ${localPersistenceStatus.enabled ? 'text-emerald-600' : 'text-amber-600'}`}>{localPersistenceStatus.message}</p>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
@@ -5766,15 +5805,6 @@
                               aria-label={favoriteArticleIds.includes(currentArticleId) ? '取消收藏' : '收藏文章'}
                             >
                               <BookMarked className="w-4 h-4" />
-                            </button>
-                          </HoverTip>
-                          <HoverTip text="保存到本地书架">
-                            <button
-                              onClick={handleSaveCurrentArticle}
-                              className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-indigo-400/30 bg-indigo-500/20 text-indigo-200 transition-colors hover:bg-indigo-500/40"
-                              aria-label="保存到本地书架"
-                            >
-                              <Save className="w-4 h-4" />
                             </button>
                           </HoverTip>
                           {articleStudyMode === 'read' && (
@@ -7086,51 +7116,6 @@
                   <div className="flex justify-end gap-3">
                     <button onClick={() => setConfirmDialog(null)} className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg font-medium transition-colors">取消</button>
                     <button onClick={confirmDialog.onConfirm} className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">确定</button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Save Article Modal */}
-            {saveModalOpen && (
-              <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-[110] p-4">
-                <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 relative animate-in zoom-in-95">
-                  <h3 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                    <Save className="w-5 h-5 text-indigo-600" />
-                    保存到书架
-                  </h3>
-                  <input 
-                    type="text" 
-                    value={articleTitleInput}
-                    onChange={e => setArticleTitleInput(e.target.value)}
-                    className="w-full border border-slate-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 outline-none mb-6 text-slate-800"
-                    placeholder="给文章起个名字"
-                    autoFocus
-                  />
-                  <div className="flex justify-end gap-3">
-                    <button onClick={() => setSaveModalOpen(false)} className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg font-medium transition-colors">取消</button>
-                    <button 
-                      onClick={() => {
-                        if (!articleTitleInput.trim()) return;
-                        const newArticle = {
-                          id: window.crypto?.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15),
-                          title: articleTitleInput,
-                          timestamp: Date.now(),
-                          data: currentArticleData,
-                          questions: currentArticleQuestions,
-                          glossary: currentArticleGlossary,
-                          readability: currentArticleReadability
-                        };
-                        setCurrentArticleId(newArticle.id);
-                        setCurrentArticleTitle(newArticle.title);
-                        setSavedArticles(prev => [newArticle, ...prev]);
-                        setSaveModalOpen(false);
-                        setToastMessage("✅ 文章已成功保存到本地书架！");
-                      }} 
-                      className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors"
-                    >
-                      保存
-                    </button>
                   </div>
                 </div>
               </div>
