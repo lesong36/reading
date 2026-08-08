@@ -70,7 +70,7 @@
         "obviously"
       ],
       "answerIndex": 0,
-      "paragraphHint": "3",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -85,20 +85,6 @@
       ],
       "answerIndex": 1,
       "paragraphHint": null,
-      "type": "single"
-    },
-    {
-      "id": "q7",
-      "index": 7,
-      "prompt": "Why does the author use the phrase “Quartz is quartz”?",
-      "options": [
-        "To describe how the differences between Pleistocene and Cambrian quartz reveal information about dating rocks",
-        "To point out that the chemical composition of quartz makes it more difficult to date than other rocks",
-        "To provide an example of how regional differences in rock sequences can make a particular rock difficult to date",
-        "To explain that rocks are difficult to use for dating because their chemical compositions always remain the same over time"
-      ],
-      "answerIndex": null,
-      "paragraphHint": "4",
       "type": "single"
     },
     {
@@ -126,7 +112,7 @@
         "survived"
       ],
       "answerIndex": 3,
-      "paragraphHint": "5",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -144,6 +130,38 @@
       "type": "single"
     },
     {
+      "id": "q12",
+      "index": 12,
+      "prompt": "In mentioning \"trilobite”, the author is making which of the following points?",
+      "options": [
+        "Fossils cannot be found in more than one rock stratum.",
+        "Faunal succession can help put rock layers in relative temporal sequence.",
+        "Faunal succession cannot be applied to different strata composed of the same kind of rock.",
+        "The presence of trilobite fossils makes it difficult to date a rock."
+      ],
+      "answerIndex": 1,
+      "paragraphHint": null,
+      "type": "single"
+    }
+  ],
+  "unsupported": [
+    {
+      "id": "q7",
+      "index": 7,
+      "prompt": "Why does the author use the phrase “Quartz is quartz”?",
+      "options": [
+        "To describe how the differences between Pleistocene and Cambrian quartz reveal information about dating rocks",
+        "To point out that the chemical composition of quartz makes it more difficult to date than other rocks",
+        "To provide an example of how regional differences in rock sequences can make a particular rock difficult to date",
+        "To explain that rocks are difficult to use for dating because their chemical compositions always remain the same over time"
+      ],
+      "answerIndex": null,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "Why does the author use the phrase “Quartz is quartz”?",
+      "rawAnswer": "○4."
+    },
+    {
       "id": "q11",
       "index": 11,
       "prompt": "Select the TWO answer choices that are true statements based upon the discussion of the principle of faunal succession in paragraph 5. To receive credit, you must select TWO answers.",
@@ -155,21 +173,19 @@
       ],
       "answerIndex": null,
       "paragraphHint": "5",
-      "type": "single"
+      "type": "unsupported",
+      "rawChunk": "11. Select the TWO answer choices that are true statements based upon the discussion of the principle of faunal succession in paragraph 5. To receive credit, you must select TWO answers.\n○It was a principle that applied to fauna but not to flora.\n○It was discovered independently by two different geologists.\n○It describes how fossils are distributed in rock strata.\n○It explains why plants and animals undergo transformations through time.",
+      "rawAnswer": "○2, 3"
     },
     {
-      "id": "q12",
-      "index": 12,
-      "prompt": "In mentioning \"trilobite”, the author is making which of the following points?",
-      "options": [
-        "Fossils cannot be found in more than one rock stratum.",
-        "Faunal succession can help put rock layers in relative temporal sequence.",
-        "Faunal succession cannot be applied to different strata composed of the same kind of rock.",
-        "The presence of trilobite fossils makes it difficult to date a rock."
-      ],
-      "answerIndex": 1,
-      "paragraphHint": "5",
-      "type": "single"
+      "id": "q13",
+      "index": 13,
+      "prompt": "Look at the four squares [█]that indicate where the following sentence could be added to the passage\n    The findings of these geologists inspired others to examine the rock and fossil records in different parts of the world．\nWhere would the sentence best fit?",
+      "options": [],
+      "answerIndex": 2,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "13.Look at the four squares [█]that indicate where the following sentence could be added to the passage\n    The findings of these geologists inspired others to examine the rock and fossil records in different parts of the world．\nWhere would the sentence best fit?"
     },
     {
       "id": "q14",
@@ -179,24 +195,15 @@
         "Smith found success easily in his profession because he came from a family of geologists and surveyors.",
         "Smith’s work on canals allowed him to collect fossils and study rock layers all over England.",
         "Smith found that fossils are much more reliable indicators of geological time than rock strata are.",
-        "Smith was named “the father of English geology” for his maps rather than for his other contributions to the field."
+        "Smith was named “the father of English geology” for his maps rather than for his other contributions to the field.",
+        "Smith and Cuvier discovered that fossil patterns are easier to observe in ancient rock strata than in younger rock strata.",
+        "The discovery of the principle of faunal succession allowed geologists to establish the relative age of Earth’s rock layers."
       ],
       "answerIndex": null,
       "paragraphHint": null,
-      "type": "single"
-    }
-  ],
-  "unsupported": [
-    {
-      "id": "q13",
-      "index": 13,
-      "prompt": "Look at the four squares [█]that indicate where the following sentence could be added to the passage\n    The findings of these geologists inspired others to examine the rock and fossil records in different parts of the world．\nWhere would the sentence best fit?",
-      "options": [],
-      "answerIndex": 2,
-      "paragraphHint": null,
       "type": "unsupported",
-      "rawChunk": "13.Look at the four squares [█]that indicate where the following sentence could be added to the passage\n    The findings of these geologists inspired others to examine the rock and fossil records in different parts of the world．\nWhere would the sentence best fit?",
-      "rawAnswer": "○3"
+      "rawChunk": "14. Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\n\nWilliam Smith’s contributions to geology have increased our knowledge of the Earth’s history.\n●\n●\n●\nAnswer Choices",
+      "rawAnswer": "Smith’s work on canals allowed…\nSmith found that fossils are…\nThe discovery of the principle…"
     }
   ]
 }

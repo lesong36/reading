@@ -11,26 +11,3 @@ The time had come to formulate a hypothesis. The investigators theorized that ab
 The salt and gypsum, the faunal changes, and the unusual gravel provided abundant evidence that the Mediterranean was once a desert.
 
 gypsum: a mineral made of calcium sulfate and water
-
-Paragraph 1: In 1970 geologists Kenneth J. Hsu and William B.F. Ryan were collecting research data while aboard the oceanographic research vessel Glomar Challenger. An objective of this particular cruise was to investigate the floor of the Mediterranean and to resolve questions about its geologic history. One question was related to evidence that the invertebrate fauna (animals without spines) of the Mediterranean had changed abruptly about 6 million years ago. Most of the older organisms were nearly wiped out, although a few hardy species survived. A few managed to migrate into the Atlantic. Somewhat later, the migrants returned, bringing new species with them. Why did the near extinction and migrations occur?
-
-The word “objective” in the passage is closest in meaning to 
-○achievement 
-○requirement
-○purpose
-○feature
-
-Which of the following is NOT mentioned in paragraph 1 as a change that occurred in the fauna of the Mediterranean?
-○Most invertebrate species disappeared during a wave of extinctions.
-○A few hardy species wiped out many of the Mediterranean’s invertebrates.
-○Some invertebrates migrated to Atlantic Ocean.
-○New species of fauna populated the Mediterranean when the old migrants returned.
-
-Paragraph 3: With question such as these clearly before them, the scientists aboard the Glomar Challenger processed to the Mediterranean to search for the answers. On August 23, 1970, they recovered a sample. The sample consisted of pebbles of hardened sediment that had once been soft, deep-sea mud, as well as granules of gypsum and fragments of volcanic rock. Not a single pebble was found that might have indicated that the pebbles came from the nearby continent. In the days following, samples of solid gypsum were repeatedly brought on deck as drilling operations penetrated the seafloor. Furthermore, the gypsum was found to possess peculiarities of composition and structure that suggested it had formed on desert flats. Sediment above and below the gypsum layer contained tiny marine fossils, indicating open-ocean conditions. As they drilled into the central and deepest part of the Mediterranean basin, the scientists took solid, shiny, crystalline salt from the core barrel. Interbedded with the salt were thin layers of what appeared to be windblown silt.
-
-What does the author imply by saying “Not a single pebble was found that might have indicated that the 
-pebbles came from the nearby continent”?
-○The most obvious explanation for the origin of the pebbles was not supported by the evidence.
-○The geologists did not find as many pebbles as they expected.
-○The geologists were looking for a particular kind of pebble.
-○The different pebbles could not have come from only one source.

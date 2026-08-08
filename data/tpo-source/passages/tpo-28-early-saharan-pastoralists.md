@@ -14,5 +14,3 @@ About 3,500 B.C., climatic conditions again deteriorated. The Sahara slowly beca
 
 [Glossary]
 adzes: cutting tools with blades set at right angles to the handle.
-
-Paragraph 1: The Sahara is a highly diverse, albeit dry, region that has undergone major climatic changes since 10,000 B.C. As recently as 6,000 B.C. the southern frontier of the desert was far to the north of where it is now, while semiarid grassland and shallow freshwater lakes covered much of what are now arid plains. This was a landscape where antelope of all kinds abounded----along with Bos primigenius, a kind of oxen that has become extinct. The areas that are now desert were, like all arid regions, very susceptible to cycles of higher and lower levels of rainfall, resulting in major, sudden changes in distributions of plants and animals. The people who hunted the sparse desert animals responded to drought by managing the wild resources they hunted and gathered, especially wild oxen, which had to have regular water supplies to survive.

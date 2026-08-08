@@ -15,5 +15,3 @@ Because the surface of the water table is not flat but instead rises and falls w
 [Glossary]
 Sediment: materials (such as sand or small rocks) that are deposited by water, wind, or glacial ice.
 Topography: the shape of a surface such as Earth’s, including the rise and fall of such features as mountains and valleys.
-
-Paragraph 1: Most of the world’s potable water----freshwater suitable for drinking----is accounted for by groundwater, which is stored in the pores and fractures in rocks. There is more than 50 times as much freshwater stored underground than in all the freshwater rivers and lakes at the surface. Nearly 50 percent of all groundwater is stored in the upper 1,000 meters of Earth. At greater depths within Earth, the pressure of the overlying rock causes pores and cracks to close, reducing the space that pore water can occupy, and almost complete closure occurs at a depth of about 10 kilometers. The greatest water storage, therefore, lies near the surface.

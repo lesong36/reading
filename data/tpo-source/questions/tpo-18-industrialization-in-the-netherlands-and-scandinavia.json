@@ -6,7 +6,7 @@
     {
       "id": "q1",
       "index": 1,
-      "prompt": "Paragraph 1 supports which of the following ideas about England and Germany? \n 2. Paragraph 2 suggests which of the following about the importance of population density in the industrialization of the Netherlands and Scandinavia?",
+      "prompt": "Paragraph 1 supports which of the following ideas about England and Germany?",
       "options": [
         "They were completely industrialized by the start of the nineteenth century.",
         "They possessed plentiful supplies of coal.",
@@ -18,9 +18,23 @@
       "type": "single"
     },
     {
+      "id": "q2",
+      "index": 2,
+      "prompt": "Paragraph 2 suggests which of the following about the importance of population density in the industrialization of the Netherlands and Scandinavia?",
+      "options": [
+        "It was a more important factor than population size.",
+        "It was more influential than the rate of population growth.",
+        "It was more important in the early stages than it was later.",
+        "It was not a significant factor."
+      ],
+      "answerIndex": 3,
+      "paragraphHint": "2",
+      "type": "single"
+    },
+    {
       "id": "q3",
       "index": 3,
-      "prompt": "According to paragraphs 2 and 3, which of the following contributed significantly to the successful economic development of the Netherlands and of Scandinavia?\n 4.According to paragraph 4, because of their location, the Netherlands and the Scandinavian countries had all of the following advantages when they began to industrialize EXCEPT\n 5.The word “exceptional” in the passage is closest in meaning to",
+      "prompt": "According to paragraphs 2 and 3, which of the following contributed significantly to the successful economic development of the Netherlands and of Scandinavia?",
       "options": [
         "The relatively small size of their populations",
         "The rapid rate at which their populations were growing",
@@ -28,21 +42,77 @@
         "The high proportion of their citizens who were educated"
       ],
       "answerIndex": 3,
+      "paragraphHint": null,
+      "type": "single"
+    },
+    {
+      "id": "q4",
+      "index": 4,
+      "prompt": "According to paragraph 4, because of their location, the Netherlands and the Scandinavian countries had all of the following advantages when they began to industrialize EXCEPT",
+      "options": [
+        "low-cost transportation of goods",
+        "access to fish",
+        "shipbuilding industries",
+        "military control of the sea"
+      ],
+      "answerIndex": 3,
       "paragraphHint": "4",
+      "type": "single"
+    },
+    {
+      "id": "q5",
+      "index": 5,
+      "prompt": "The word “exceptional” in the passage is closest in meaning to",
+      "options": [
+        "extraordinary",
+        "surprising",
+        "immediate",
+        "predictable"
+      ],
+      "answerIndex": 0,
+      "paragraphHint": null,
       "type": "single"
     },
     {
       "id": "q6",
       "index": 6,
-      "prompt": "The word “abolished” in the passage is closest in meaning to\n \t\n 7.  According to paragraph 5, each of the following contributed positively to the industrialization of the Netherlands and Scandinavia EXCEPT \n 8.The word “progressive” in the passage is closest in meaning to",
+      "prompt": "The word “abolished” in the passage is closest in meaning to",
       "options": [
         "ended",
         "raised",
         "returned",
         "lowered"
       ],
-      "answerIndex": 3,
+      "answerIndex": 0,
+      "paragraphHint": null,
+      "type": "single"
+    },
+    {
+      "id": "q7",
+      "index": 7,
+      "prompt": "According to paragraph 5, each of the following contributed positively to the industrialization of the Netherlands and Scandinavia EXCEPT",
+      "options": [
+        "generally liberal trade policies",
+        "huge projects undertaken by the state",
+        "relatively uncorrupt governments",
+        "relatively little social or political disruption"
+      ],
+      "answerIndex": 1,
       "paragraphHint": "5",
+      "type": "single"
+    },
+    {
+      "id": "q8",
+      "index": 8,
+      "prompt": "The word “progressive” in the passage is closest in meaning to",
+      "options": [
+        "rapid",
+        "partial",
+        "increasing",
+        "individual"
+      ],
+      "answerIndex": 2,
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -55,7 +125,7 @@
         "High literacy rates enabled these countries to take over international markets and adapt the international division of labor to suit their strengths.",
         "The international division of labor established by the early industrializers was suited to these countries, a key factor in their success."
       ],
-      "answerIndex": 0,
+      "answerIndex": 1,
       "paragraphHint": null,
       "type": "single"
     },
@@ -83,22 +153,8 @@
         "High returns when things went well",
         "A reduced need for imports"
       ],
-      "answerIndex": 1,
+      "answerIndex": 2,
       "paragraphHint": "6",
-      "type": "single"
-    },
-    {
-      "id": "q14",
-      "index": 14,
-      "prompt": "Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THERR answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nAlthough the Netherlands and Scandinavia began to industrialize relatively late, they did so very successfully\n●\n●\n  ●\n   ○These countries were helped by the fact that their governments were relatively stable and honest and generally  supported liberal trade policies.",
-      "options": [
-        "Although these countries all started with small, uneducated populations, industrialization led to significant population growth and higher literacy rates.",
-        "Thanks to their ready access to the sea, these countries enjoyed advantages in mercantile shipping, fishing, and shipbuilding.",
-        "Because they all started with good harbors for steamships, these countries started with an important advantage in the competition for transit trade.",
-        "These countries were successful primarily because their high literacy rates helped them fill specialized market niches."
-      ],
-      "answerIndex": 0,
-      "paragraphHint": null,
       "type": "single"
     }
   ],
@@ -111,8 +167,8 @@
         "support the claim that the political institutions of the four countries posed no significant barriers to industrialization or economic growth",
         "identify an exception to the general trend favoring liberal trade policy"
       ],
-      "answerIndex": 3,
-      "paragraphHint": "6",
+      "answerIndex": 0,
+      "paragraphHint": null,
       "type": "unsupported",
       "rawChunk": "9. The author includes the information that “a protectionist movement developed in Sweden” in order to\n○ support the claim that the political institutions of the four countries posed no significant barriers to industrialization or economic growth \n○ identify an exception to the general trend favoring liberal trade policy\n  ○ explain why Sweden industrialized less quickly than the other Scandinavian countries and Netherlands\n  ○ provide evidence that agricultural reforms take place more quickly i"
     },
@@ -125,6 +181,22 @@
       "paragraphHint": null,
       "type": "unsupported",
       "rawChunk": "13.Look at the four squares [■] that indicate where the following sentence be added to passage.\nDuring this period, Sweden had the highest rate of growth of output per capita of any country in Europe, and Denmark was second.\nWhere would the sentence best fit?"
+    },
+    {
+      "id": "q14",
+      "index": 14,
+      "prompt": "Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THERR answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nAlthough the Netherlands and Scandinavia began to industrialize relatively late, they did so very successfully\n●\n●\n  ●\n   ○These countries were helped by the fact that their governments were relatively stable and honest and generally  supported liberal trade policies.",
+      "options": [
+        "Although these countries all started with small, uneducated populations, industrialization led to significant population growth and higher literacy rates.",
+        "Thanks to their ready access to the sea, these countries enjoyed advantages in mercantile shipping, fishing, and shipbuilding.",
+        "Because they all started with good harbors for steamships, these countries started with an important advantage in the competition for transit trade.",
+        "These countries were successful primarily because their high literacy rates helped them fill specialized market niches.",
+        "Because they were never fully dependent on international commerce, these countries were able to survive notorious fluctuations in international markets."
+      ],
+      "answerIndex": null,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "14.Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THERR answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nAlthough the Netherlands and Scandinavia began to industrialize relatively late, they did so very successfully\n●\n●\n "
     }
   ]
 }

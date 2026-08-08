@@ -42,7 +42,7 @@
         "similar"
       ],
       "answerIndex": 0,
-      "paragraphHint": "2",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -56,6 +56,20 @@
         "Empty snail or clam shells that are strong enough not to dissolve may stay in their original state for a long time."
       ],
       "answerIndex": 3,
+      "paragraphHint": null,
+      "type": "single"
+    },
+    {
+      "id": "q5",
+      "index": 5,
+      "prompt": "Why does the author mention \"aragonite\" in the passage?",
+      "options": [
+        "To emphasize that some fossils remain unaltered for millions of years",
+        "To contrast fossil formation in organisms with soft tissue and in organisms with hard shells",
+        "To explain that some marine organisms must undergo chemical changes in order to fossilize",
+        "To explain why fossil shells are more likely to survive than are fossil skeletons"
+      ],
+      "answerIndex": 2,
       "paragraphHint": null,
       "type": "single"
     },
@@ -98,7 +112,7 @@
         "reliable"
       ],
       "answerIndex": 2,
-      "paragraphHint": "5",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -118,30 +132,33 @@
     {
       "id": "q10",
       "index": 10,
-      "prompt": "The word \"prospect\" in the passage is closest in meaning to\ncompletion\nvariety\npossibility\nspeed\n11.According to paragraph 7, how do environments containing oxygen affect fossil preservation?",
+      "prompt": "The word \"prospect\" in the passage is closest in meaning to",
+      "options": [
+        "completion",
+        "variety",
+        "possibility",
+        "speed"
+      ],
+      "answerIndex": 2,
+      "paragraphHint": null,
+      "type": "single"
+    },
+    {
+      "id": "q11",
+      "index": 11,
+      "prompt": "According to paragraph 7, how do environments containing oxygen affect fossil preservation?",
       "options": [
         "They increase the probability that soft-tissued organisms will become fossils.",
         "They lead to more bacteria production.",
         "They slow the rate at which clay and silt are deposited.",
         "They reduce the chance that animal remains will be preserved."
       ],
-      "answerIndex": 2,
+      "answerIndex": 3,
       "paragraphHint": "7",
       "type": "single"
     }
   ],
   "unsupported": [
-    {
-      "id": "q5",
-      "index": 5,
-      "prompt": "Why does the author mention \"aragonite\" in the passage?\n To emphasize that some fossils remain unaltered for millions of years\n To contrast fossil formation in organisms with soft tissue and in organisms with hard shells\n To explain that some marine organisms must undergo chemical changes in order to fossilize\n To explain why fossil shells are more likely to survive than are fossil skeletons\n    Paragraph 3: Many other processes may after the shell of a clam or snail and enhance its chances for preservation. Water containing dissolved silica, calcium carbonate, or iron may circulate through the enclosing sediment and be deposited in cavities such as marrow cavities and canals in bone once occupied by blood vessels and nerves. In such cases, the original composition of the bone or shell remains, but the fossil is made harder and more durable. This addition of a chemically precipitated substance into pore spaces is termed \"permineralization.\"",
-      "options": [],
-      "answerIndex": 2,
-      "paragraphHint": "3",
-      "type": "unsupported",
-      "rawChunk": "5.Why does the author mention \"aragonite\" in the passage?\n To emphasize that some fossils remain unaltered for millions of years\n To contrast fossil formation in organisms with soft tissue and in organisms with hard shells\n To explain that some marine organisms must undergo chemical changes in order to fossilize\n To explain why fossil shells are more likely to survive than are fossil skeletons\n\n    Paragraph 3: Many other processes may after the shell of a clam or snail and enhance its chances f",
-      "rawAnswer": "3"
-    },
     {
       "id": "q12",
       "index": 12,
@@ -150,8 +167,7 @@
       "answerIndex": 1,
       "paragraphHint": null,
       "type": "unsupported",
-      "rawChunk": "12.According to the passage, all of the following assist in fossil preservation EXCEPT \n the presence of calcite in an organism's skeleton\n the presence of large open areas along an ocean floor\n the deposition of a fossil in sticky substances such as sap or tar\n the rapid burial of an organism under layers of silt\n\n■Another type of fossilization, known as carbonization, occurs when soft tissues are preserved as thin films of carbon. ■Leaves and tissue of soft-bodied organisms such as jellyfish o",
-      "rawAnswer": "2"
+      "rawChunk": "12.According to the passage, all of the following assist in fossil preservation EXCEPT \n the presence of calcite in an organism's skeleton\n the presence of large open areas along an ocean floor\n the deposition of a fossil in sticky substances such as sap or tar\n the rapid burial of an organism under layers of silt\n\n■Another type of fossilization, known as carbonization, occurs when soft tissues are preserved as thin films of carbon. ■Leaves and tissue of soft-bodied organisms such as jellyfish o"
     },
     {
       "id": "q13",
@@ -161,8 +177,7 @@
       "answerIndex": 0,
       "paragraphHint": null,
       "type": "unsupported",
-      "rawChunk": "13.Look at the four squares [■] that indicate where the following sentence can be added to the passage.\nBut the evidence of past organic life is not limited to petrifaction.\nWhere would the sentence best fit?\nClick on a square [■] to insert the sentence in the passage.",
-      "rawAnswer": "1"
+      "rawChunk": "13.Look at the four squares [■] that indicate where the following sentence can be added to the passage.\nBut the evidence of past organic life is not limited to petrifaction.\nWhere would the sentence best fit?\nClick on a square [■] to insert the sentence in the passage."
     },
     {
       "id": "q14",
@@ -173,7 +188,7 @@
       "paragraphHint": null,
       "type": "unsupported",
       "rawChunk": "14.Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some answer choices do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nThe remains of ancient life are amazingly well preserved in the form of fossils.\n●\n●.\n●\nAnswer Choices\nEnvironm",
-      "rawAnswer": "Environmental characteristics ..."
+      "rawAnswer": "Environmental characteristics ...\n    The shells of organisms ...\n    Thin films of carbon ..."
     }
   ]
 }

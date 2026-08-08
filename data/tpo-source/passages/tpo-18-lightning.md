@@ -13,9 +13,3 @@ The formation of the channel is initiated when electrons surge from the cloud ba
 Once a channel has been formed, it is usually used by several lightning discharges, each of them consisting of a stream of electrons from the cloud meeting a stream of positive particles along the established path. Sometimes, however, a stream of electrons following an established channel is met by a positive stream making a new path up from the ground. The result is a forked lightning that strikes the ground in two places.
 
 Paragraph1 : Lightning is a brilliant flash of light produced by an electrical discharge from a storm cloud. The electrical discharge takes place when the attractive tension between a region of negatively charged particles and a region of positively charged particles becomes so great that the charged particles suddenly rush together. The coming together of the oppositely charged particles neutralizes the electrical tension and releases a tremendous amount of energy, which we see as lightning. The separation of positively and negatively charged particles takes place during the development of the storm cloud.
-
- 	1. According to paragraph 1, all of the following take place in the development of a flash of lightening  EXCEPT 
-○  great tension between two oppositely charged regions
-○  an increase in negatively charged particles over positively charged particles
-○  oppositely charged particles coming together
-○  the release of electrical energy in the form of visible light

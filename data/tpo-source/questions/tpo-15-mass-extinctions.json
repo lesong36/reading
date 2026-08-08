@@ -6,7 +6,7 @@
     {
       "id": "q1",
       "index": 1,
-      "prompt": "Paragraph 1 supports which of the following statements about mass extinctions?\n 2. According to paragraph 2, scientists base their belief that a mass extinction is going on at present on which of the following?\n   \n 3. The word extended in the passage is closest in meaning to",
+      "prompt": "Paragraph 1 supports which of the following statements about mass extinctions?",
       "options": [
         "They take place over a period of 70 million years.",
         "They began during the Cretaceous period.",
@@ -15,6 +15,34 @@
       ],
       "answerIndex": 2,
       "paragraphHint": "1",
+      "type": "single"
+    },
+    {
+      "id": "q2",
+      "index": 2,
+      "prompt": "According to paragraph 2, scientists base their belief that a mass extinction is going on at present on which of the following?",
+      "options": [
+        "The speed with which mass extinctions are happening today is similar to the speed of past extinctions.",
+        "The number of species that have died out since the last extinction event is extremely large.",
+        "Mass extinctions occur with regularity and it is time for another one.",
+        "Fossil records of many marine species have disappeared."
+      ],
+      "answerIndex": 0,
+      "paragraphHint": "2",
+      "type": "single"
+    },
+    {
+      "id": "q3",
+      "index": 3,
+      "prompt": "The word extended in the passage is closest in meaning to",
+      "options": [
+        "specific",
+        "unlimited",
+        "reasonable",
+        "long"
+      ],
+      "answerIndex": 3,
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -84,13 +112,13 @@
         "test"
       ],
       "answerIndex": 2,
-      "paragraphHint": "6",
+      "paragraphHint": null,
       "type": "single"
     },
     {
       "id": "q9",
       "index": 9,
-      "prompt": "According to paragraph 6, what made iridium a useful test of the Alvarez hypothesis? \n 10. In stating that no asteroid itself has ever been recovered, the author emphasizes which of the following?",
+      "prompt": "According to paragraph 6, what made iridium a useful test of the Alvarez hypothesis?",
       "options": [
         "Its occurrence in a few locations on Earth against several locations on other planets",
         "Its occurrence in limited quantities on Earth against its abundance in asteroids",
@@ -99,6 +127,20 @@
       ],
       "answerIndex": 1,
       "paragraphHint": "6",
+      "type": "single"
+    },
+    {
+      "id": "q10",
+      "index": 10,
+      "prompt": "In stating that no asteroid itself has ever been recovered, the author emphasizes which of the following?",
+      "options": [
+        "The importance of the indirect evidence for a large asteroid",
+        "The fact that no evidence supports the asteroid‑impact hypothesis",
+        "The reason many researchers reject the Alvarez hypothesis",
+        "The responsibility of scientists for not making the effort to discover the asteroid itself"
+      ],
+      "answerIndex": 0,
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -128,20 +170,6 @@
       "answerIndex": 1,
       "paragraphHint": "7",
       "type": "single"
-    },
-    {
-      "id": "q14",
-      "index": 14,
-      "prompt": "Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nThere have been many attempts to explain the causes of mass extinctions.\n●\n●\n●\nAnswer Choices",
-      "options": [
-        "Asteroid impacts, evolutionary developments, and changes in Earth's climate and in the positions of the continents have all been proposed as possible causes of mass extinctions.",
-        "Researchers have observed 26-million-year cycles in extinction rates of a number of fossil groups that could all be attributed to the same cause.",
-        "According to the Alvarez hypothesis, much of the iridium originally present on Earth was thrown into the atmosphere as a result of an asteroid impact that also caused a mass extinction.",
-        "The unusual distribution of iridium on Earth and the presence of craters and heat-shocked quartz are central to the theory that an asteroid impact caused the late Cretaceous event."
-      ],
-      "answerIndex": null,
-      "paragraphHint": null,
-      "type": "single"
     }
   ],
   "unsupported": [
@@ -153,8 +181,25 @@
       "answerIndex": 3,
       "paragraphHint": null,
       "type": "unsupported",
-      "rawChunk": "13. Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nIn general, it is believed that these two extinctions resulted from drastic environmental changes that followed meteorite impacts or massive volcanic eruptions.\nWhere would the sentence best fit?",
-      "rawAnswer": "○4"
+      "rawChunk": "13. Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nIn general, it is believed that these two extinctions resulted from drastic environmental changes that followed meteorite impacts or massive volcanic eruptions.\nWhere would the sentence best fit?"
+    },
+    {
+      "id": "q14",
+      "index": 14,
+      "prompt": "Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nThere have been many attempts to explain the causes of mass extinctions.\n●\n●\n●\nAnswer Choices",
+      "options": [
+        "Asteroid impacts, evolutionary developments, and changes in Earth's climate and in the positions of the continents have all been proposed as possible causes of mass extinctions.",
+        "Researchers have observed 26-million-year cycles in extinction rates of a number of fossil groups that could all be attributed to the same cause.",
+        "According to the Alvarez hypothesis, much of the iridium originally present on Earth was thrown into the atmosphere as a result of an asteroid impact that also caused a mass extinction.",
+        "The unusual distribution of iridium on Earth and the presence of craters and heat-shocked quartz are central to the theory that an asteroid impact caused the late Cretaceous event.",
+        "The collision between Earth and a large asteroid resulted in massive damage and generated enough heat to cause irreversible changes in Earth's atmosphere.",
+        "There was a particularly large mass extinction that occurred around 250 million years ago at the end of the Permian period, whose cause could not be determined."
+      ],
+      "answerIndex": null,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "14. Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nThere have been many attempts to explain the causes of mass extinctions.\n●\n●\n●\nAnswer Choices\n○Asteroid impacts, ev",
+      "rawAnswer": "Asteroid impacts, evolutionary…\nResearchers have observed…\nThe unusual distribution…"
     }
   ]
 }

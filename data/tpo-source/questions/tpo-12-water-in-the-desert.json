@@ -48,7 +48,7 @@
     {
       "id": "q4",
       "index": 4,
-      "prompt": "According to paragraph 2, which of the following is true of the Nile River?\n\t\tParagraph 5: Deserts contain large amounts of groundwater when compared to the amounts they hold in surface stores such as lakes and rivers. But only a small fraction of groundwater enters the hydrological cycle—feeding the flows of streams, maintaining lake levels, and being recharged (or refilled) through surface flows and rainwater. In recent years, groundwater has become an increasingly important source of freshwater for desert dwellers. The United Nations Environment Programme and the World Bank have funded attempts to survey the groundwater resources of arid lands and to develop appropriate extraction techniques. Such programs are much needed because in many arid lands there is only a vague idea of the extent of groundwater resources. It is known, however, that the distribution of groundwater is uneven, and that much of it lies at great depths.",
+      "prompt": "According to paragraph 2, which of the following is true of the Nile River?",
       "options": [
         "The Nile's flow in its desert sections is at its lowest during the dry season",
         "The Nile's sources are located in one of the most arid zones of the world",
@@ -104,7 +104,7 @@
     {
       "id": "q8",
       "index": 8,
-      "prompt": "According to paragraph 6, which of the following statements about aquifers in deserts is true?\n\t    9. According to paragraph 6, the aquifers called fossil waters",
+      "prompt": "According to paragraph 6, which of the following statements about aquifers in deserts is true?",
       "options": [
         "Water from limestone and sandstone aquifers is generally better to drink than water from sand and gravel aquifers",
         "Sand and gravel aquifers tend to contain less groundwater than limestone or sandstone aquifers",
@@ -112,6 +112,20 @@
         "Sedimentary rocks, because they are porous, are not capable of storing large amounts of groundwater"
       ],
       "answerIndex": 1,
+      "paragraphHint": "6",
+      "type": "single"
+    },
+    {
+      "id": "q9",
+      "index": 9,
+      "prompt": "According to paragraph 6, the aquifers called fossil waters",
+      "options": [
+        "contain fossils that are thousands of years old",
+        "took more than 10,000 years to become saturated with water",
+        "have not gained or lost any water for thousands of years",
+        "have been collecting water for the past 10,000 years"
+      ],
+      "answerIndex": 2,
       "paragraphHint": "6",
       "type": "single"
     },
@@ -140,20 +154,6 @@
         "Desert areas that lack endogenous or exogenous rivers and streams cannot support life."
       ],
       "answerIndex": 0,
-      "paragraphHint": "4",
-      "type": "single"
-    },
-    {
-      "id": "q13",
-      "index": 13,
-      "prompt": "Directions: Select from the seven sentences below, the two sentences that correctly characterize endogenous rivers and the three sentences that correctly characterize exogenous rivers. Drag each sentence you select into the appropriate column of the table. Two of the sentences will NOT be used. This question is worth 3 points.\nEndogenous Rivers\n●\n●\nExogenous Rivers\n●\n●\n●\nAnswer Choices",
-      "options": [
-        "Their water generally comes from groundwater springs.",
-        "Their water is saltier than the water of most other rivers.",
-        "They include some of the world's largest rivers.",
-        "They originate outside the desert."
-      ],
-      "answerIndex": null,
       "paragraphHint": null,
       "type": "single"
     }
@@ -167,8 +167,26 @@
       "answerIndex": 2,
       "paragraphHint": null,
       "type": "unsupported",
-      "rawChunk": "12. Look at the four squares [■] that indicate where the following sentence could be added to the passage \nThese sudden floods provide important water supplies but can also be highly destructive. \nWhere would the sentence best fit?",
-      "rawAnswer": "○3"
+      "rawChunk": "12. Look at the four squares [■] that indicate where the following sentence could be added to the passage \nThese sudden floods provide important water supplies but can also be highly destructive. \nWhere would the sentence best fit?"
+    },
+    {
+      "id": "q13",
+      "index": 13,
+      "prompt": "Directions: Select from the seven sentences below, the two sentences that correctly characterize endogenous rivers and the three sentences that correctly characterize exogenous rivers. Drag each sentence you select into the appropriate column of the table. Two of the sentences will NOT be used. This question is worth 3 points.\nEndogenous Rivers\n●\n●\nExogenous Rivers\n●\n●\n●\nAnswer Choices",
+      "options": [
+        "Their water generally comes from groundwater springs.",
+        "Their water is saltier than the water of most other rivers.",
+        "They include some of the world's largest rivers.",
+        "They originate outside the desert.",
+        "They often drain into inland basins and do not reach the sea.",
+        "They contain too much silt to be useful for irrigation.",
+        "Their water flow generally varies with the season of the year."
+      ],
+      "answerIndex": null,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "13. Directions: Select from the seven sentences below, the two sentences that correctly characterize endogenous rivers and the three sentences that correctly characterize exogenous rivers. Drag each sentence you select into the appropriate column of the table. Two of the sentences will NOT be used. This question is worth 3 points.\n\nEndogenous Rivers\n●\n●\nExogenous Rivers\n●\n●\n●\nAnswer Choices\n○Their water generally comes from groundwater springs.\n○Their water is saltier than the water of most othe",
+      "rawAnswer": "○Endogenous Rivers：Their water generally; They often drain \n○Exogenous Rivers： They include some; They originate outside; Their water flow"
     }
   ]
 }

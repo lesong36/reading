@@ -4,6 +4,20 @@
   "title": "Lightning",
   "questions": [
     {
+      "id": "q1",
+      "index": 1,
+      "prompt": "According to paragraph 1, all of the following take place in the development of a flash of lightening  EXCEPT",
+      "options": [
+        "great tension between two oppositely charged regions",
+        "an increase in negatively charged particles over positively charged particles",
+        "oppositely charged particles coming together",
+        "the release of electrical energy in the form of visible light"
+      ],
+      "answerIndex": 1,
+      "paragraphHint": "1",
+      "type": "single"
+    },
+    {
       "id": "q2",
       "index": 2,
       "prompt": "The word “tremendous” in the passage is closest in meaning to",
@@ -13,8 +27,8 @@
         "huge",
         "immediate"
       ],
-      "answerIndex": 1,
-      "paragraphHint": "2",
+      "answerIndex": 2,
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -27,21 +41,35 @@
         "Becoming concentrated in the central region of the cloud",
         "Forming at a temperature greater than -15℃"
       ],
-      "answerIndex": 2,
+      "answerIndex": 0,
       "paragraphHint": null,
       "type": "single"
     },
     {
-      "id": "q4",
-      "index": 4,
-      "prompt": "The word “acquire” in the passage is closest in meaning to \n  ○  obtain\n 5. According to paragraph2, why are positively charged ice pellets produced in the lower part of the cloud? \n ○ Collisions between ice crystals and ice pellets increase in number in the lower part of the cloud.\n ○ The lower part of the cloud is smaller than the region above it.\n \t○ More ice pellets than ice crystals reach the lower part of the cloud.\n ○ Temperature in the lower part of the cloud are warmer than -15℃.\n 6.According to paragraph2, the middle region of a cloud becomes negatively charged due to all of the following EXCEPT",
+      "id": "q5",
+      "index": 5,
+      "prompt": "According to paragraph2, why are positively charged ice pellets produced in the lower part of the cloud?",
       "options": [
-        "reject",
-        "need",
-        "produce",
-        "a shift of electrical charged between ice pellets and ice crystals"
+        "○ Collisions between ice crystals and ice pellets increase in number in the lower part of the cloud.",
+        "○ The lower part of the cloud is smaller than the region above it.",
+        "○ More ice pellets than ice crystals reach the lower part of the cloud.",
+        "○ Temperature in the lower part of the cloud are warmer than -15℃."
       ],
-      "answerIndex": 0,
+      "answerIndex": 3,
+      "paragraphHint": null,
+      "type": "single"
+    },
+    {
+      "id": "q6",
+      "index": 6,
+      "prompt": "According to paragraph2, the middle region of a cloud becomes negatively charged due to all of the following EXCEPT",
+      "options": [
+        "a shift of electrical charged between ice pellets and ice crystals",
+        "negatively charged ice pellets that remain in the middle",
+        "a temperature of -15℃ or less",
+        "the development of a positive charge at the base of the cloud"
+      ],
+      "answerIndex": 3,
       "paragraphHint": null,
       "type": "single"
     },
@@ -55,7 +83,7 @@
         "the negatively charged ice pellets are too heavy to be carried by the updrafts that move ice crystals",
         "collisions between ice pellets in the top of the cloud produce mainly positively charged particles"
       ],
-      "answerIndex": 1,
+      "answerIndex": 2,
       "paragraphHint": "2",
       "type": "single"
     },
@@ -69,8 +97,8 @@
         "scientific understanding of this form of lightning is important",
         "the buildup of positive charge on the ground beneath a storm cloud can have serious consequences"
       ],
-      "answerIndex": 3,
-      "paragraphHint": "4",
+      "answerIndex": 0,
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -83,7 +111,7 @@
         "It produces a stream of electrons from the cloud.",
         "It widens the path made by the initial stream of electrons from the cloud."
       ],
-      "answerIndex": 2,
+      "answerIndex": 1,
       "paragraphHint": null,
       "type": "single"
     },
@@ -97,7 +125,7 @@
         "A building is hit by a lightning strike because the building itself has first determined the path the lightening then takes to it.",
         "The light of a lightning strike first appears at the point where the streams of negative and positive particles meet."
       ],
-      "answerIndex": 0,
+      "answerIndex": 2,
       "paragraphHint": "5",
       "type": "single"
     },
@@ -111,9 +139,48 @@
         "finished",
         "expected"
       ],
-      "answerIndex": 2,
+      "answerIndex": 0,
       "paragraphHint": null,
       "type": "single"
+    }
+  ],
+  "unsupported": [
+    {
+      "id": "q4",
+      "index": 4,
+      "prompt": "The word “acquire” in the passage is closest in meaning to \n  ○  obtain",
+      "options": [
+        "reject",
+        "need",
+        "produce"
+      ],
+      "answerIndex": 1,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "4.The word “acquire” in the passage is closest in meaning to \n○  reject\n  ○  obtain\n○  need\n○  produce"
+    },
+    {
+      "id": "q9",
+      "index": 9,
+      "prompt": "The word “illuminates” in the passage is closet in meaning to \n ○ opens \n \t○ electrifies",
+      "options": [
+        "completes",
+        "lights"
+      ],
+      "answerIndex": 2,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "9.The word “illuminates” in the passage is closet in meaning to \n ○ opens \n○ completes\n○ lights\n \t○ electrifies\n\nParagraph 5: The formation of the channel is initiated when electrons surge from the cloud base toward the ground. When a stream of these negatively charged electrons comes within 100 meters of the ground it is met by a stream of positively charged particles that comes up from the ground. When the negatively and positively charged streams meet, a complete channel connecting the cloud "
+    },
+    {
+      "id": "q13",
+      "index": 13,
+      "prompt": "Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nThe descending stream of electrons divides at the point where the new positive-stream channel intersects the established path.\nWhere would the sentence best fit?",
+      "options": [],
+      "answerIndex": 2,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "13.Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nThe descending stream of electrons divides at the point where the new positive-stream channel intersects the established path.\nWhere would the sentence best fit?"
     },
     {
       "id": "q14",
@@ -123,36 +190,14 @@
         "A storm cloud first develops a positively charged layer at the top, then a negatively charged middle layer, and finally, a positively charged layer at the bottom.",
         "A separation of oppositely charged particles in clouds develops from collisions of falling ice pellets with ice crystals, from updrafts, and from temperature variations.",
         "Lightning from cloud to ground follows a channel that forms when a stream of electrons moving down meets a stream of positive particles coming up from the ground.",
-        "Field studies, laboratory simulations, and high-speed photography have all been used to investigate the way charge separations develop in clouds."
+        "Field studies, laboratory simulations, and high-speed photography have all been used to investigate the way charge separations develop in clouds.",
+        "Lightning from a cloud to the ground is more likely to be destructive than is lightning that takes place within a cloud.",
+        "Once a channel has been formed, it is usually used by several successive electrical discharges that illuminate   the channel as flashes of lightning."
       ],
-      "answerIndex": 2,
-      "paragraphHint": null,
-      "type": "single"
-    }
-  ],
-  "unsupported": [
-    {
-      "id": "q9",
-      "index": 9,
-      "prompt": "The word “illuminates” in the passage is closet in meaning to \n ○ opens \n \t○ electrifies",
-      "options": [
-        "completes",
-        "lights"
-      ],
-      "answerIndex": 3,
-      "paragraphHint": "5",
-      "type": "unsupported",
-      "rawChunk": "9.The word “illuminates” in the passage is closet in meaning to \n ○ opens \n○ completes\n○ lights\n \t○ electrifies\n\nParagraph 5: The formation of the channel is initiated when electrons surge from the cloud base toward the ground. When a stream of these negatively charged electrons comes within 100 meters of the ground it is met by a stream of positively charged particles that comes up from the ground. When the negatively and positively charged streams meet, a complete channel connecting the cloud "
-    },
-    {
-      "id": "q13",
-      "index": 13,
-      "prompt": "Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nThe descending stream of electrons divides at the point where the new positive-stream channel intersects the established path.\nWhere would the sentence best fit?",
-      "options": [],
-      "answerIndex": 1,
+      "answerIndex": null,
       "paragraphHint": null,
       "type": "unsupported",
-      "rawChunk": "13.Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nThe descending stream of electrons divides at the point where the new positive-stream channel intersects the established path.\nWhere would the sentence best fit?"
+      "rawChunk": "14.Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THERR answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nLightning takes place when a separation of a positive and negative electrical particles that develops in a storm cou"
     }
   ]
 }

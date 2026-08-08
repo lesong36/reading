@@ -42,7 +42,7 @@
         "match"
       ],
       "answerIndex": 1,
-      "paragraphHint": "3",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -70,7 +70,7 @@
         "suggested"
       ],
       "answerIndex": 1,
-      "paragraphHint": "4",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -170,20 +170,6 @@
       "answerIndex": 1,
       "paragraphHint": "6",
       "type": "single"
-    },
-    {
-      "id": "q14",
-      "index": 14,
-      "prompt": "Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nArchitecture uses forms and space to express cultural values.\n●\n●\n●\nAnswer choices\n   ○Throughout history buildings have been constructed like human bodies, needing distinct “organ” systems in order to function.",
-      "options": [
-        "Architects seek to create buildings that are both visually appealing and well suited for human use.",
-        "Over the course of the history of building, innovations in material and methods of construction have given architects ever greater freedom to express themselves.",
-        "Both clients and architects are responsible for the mediocre designs of some modern buildings.",
-        "Modern buildings tend to lack the beauty of ancient stone buildings such as those of Machu Picchu."
-      ],
-      "answerIndex": null,
-      "paragraphHint": null,
-      "type": "single"
     }
   ],
   "unsupported": [
@@ -195,8 +181,24 @@
       "answerIndex": 3,
       "paragraphHint": null,
       "type": "unsupported",
-      "rawChunk": "13．Look at the four squares [█] that indicate where the following sentence could be added to the passage.\nHowever, some modern architectural designs, such as those using folded plates of concreter or air-inflated structures, are again unifying skeleton and skin.\nWhere would the sentence best fit?",
-      "rawAnswer": "○ 4"
+      "rawChunk": "13．Look at the four squares [█] that indicate where the following sentence could be added to the passage.\nHowever, some modern architectural designs, such as those using folded plates of concreter or air-inflated structures, are again unifying skeleton and skin.\nWhere would the sentence best fit?"
+    },
+    {
+      "id": "q14",
+      "index": 14,
+      "prompt": "Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nArchitecture uses forms and space to express cultural values.\n●\n●\n●\nAnswer choices\n   ○Throughout history buildings have been constructed like human bodies, needing distinct “organ” systems in order to function.",
+      "options": [
+        "Architects seek to create buildings that are both visually appealing and well suited for human use.",
+        "Over the course of the history of building, innovations in material and methods of construction have given architects ever greater freedom to express themselves.",
+        "Both clients and architects are responsible for the mediocre designs of some modern buildings.",
+        "Modern buildings tend to lack the beauty of ancient stone buildings such as those of Machu Picchu.",
+        "The discovery and use of the arch typifies the way in which architecture advances by developing more efficient types of structures."
+      ],
+      "answerIndex": null,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "14．Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\n\nArchitecture uses forms and space to express cultural values.\n●\n●\n●\nAnswer choices\n○Architects seek to create build",
+      "rawAnswer": "Architects seek to create…\nOver the course of the…\nThe discovery and use of…"
     }
   ]
 }

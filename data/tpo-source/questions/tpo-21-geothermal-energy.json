@@ -20,14 +20,42 @@
     {
       "id": "q2",
       "index": 2,
-      "prompt": "The word \"practical\" in the passage is closest in meaning to\nusable\nplentiful\neconomical\nfamiliar\nParagraph 2: By far the most abundant form of geothermal energy occurs at the relatively low temperatures of 80° to 180° centigrade. Water circulated through heat reservoirs in this temperature range is able to extract enough heat to warm residential, commercial, and industrial spaces. More than 20,000 apartments in France are now heated by warm underground water drawn from a heat reservoir in a geologic structure near Paris called the Paris Basin. Iceland sits on a volcanic structure known as the Mid-Atlantic Ridge. Reykjavik, the capital of Iceland, is entirely heated by geothermal energy derived from volcanic heat.\n3.The word \"abundant\" in the passage is closest in meaning to\neconomical\nfamiliar\nplentiful\nuseful\n4.According to paragraph 2, which of the following is true about heat reservoirs with a temperature in the range of 80° to 180° centigrade?",
+      "prompt": "The word \"practical\" in the passage is closest in meaning to",
+      "options": [
+        "usable",
+        "plentiful",
+        "economical",
+        "familiar"
+      ],
+      "answerIndex": 0,
+      "paragraphHint": null,
+      "type": "single"
+    },
+    {
+      "id": "q3",
+      "index": 3,
+      "prompt": "The word \"abundant\" in the passage is closest in meaning to",
+      "options": [
+        "economical",
+        "familiar",
+        "plentiful",
+        "useful"
+      ],
+      "answerIndex": 2,
+      "paragraphHint": null,
+      "type": "single"
+    },
+    {
+      "id": "q4",
+      "index": 4,
+      "prompt": "According to paragraph 2, which of the following is true about heat reservoirs with a temperature in the range of 80° to 180° centigrade?",
       "options": [
         "They are under international control.",
         "They are more common than reservoirs that have a higher temperature.",
         "Few of them produce enough heat to warm large industrial spaces.",
         "They are used to generate electricity."
       ],
-      "answerIndex": 0,
+      "answerIndex": 1,
       "paragraphHint": "2",
       "type": "single"
     },
@@ -62,14 +90,28 @@
     {
       "id": "q7",
       "index": 7,
-      "prompt": "Which of the following can be inferred from paragraphs 2 and 3 about geothermal reservoirs?\nVolcanic heat is associated only with geothermal reservoirs that have a temperature over 180° centigrade.\nMore countries produce power from geothermal reservoirs than use them for heating buildings.\nMost geothermal reservoirs are suitable for producing electricity.\nA higher geothermal reservoir temperature is needed to generate electricity than is needed to heat homes.\n8.According to paragraph 4, extracting heat from very hot, dry rocks is difficult in part because",
+      "prompt": "Which of the following can be inferred from paragraphs 2 and 3 about geothermal reservoirs?",
+      "options": [
+        "Volcanic heat is associated only with geothermal reservoirs that have a temperature over 180° centigrade.",
+        "More countries produce power from geothermal reservoirs than use them for heating buildings.",
+        "Most geothermal reservoirs are suitable for producing electricity.",
+        "A higher geothermal reservoir temperature is needed to generate electricity than is needed to heat homes."
+      ],
+      "answerIndex": 3,
+      "paragraphHint": null,
+      "type": "single"
+    },
+    {
+      "id": "q8",
+      "index": 8,
+      "prompt": "According to paragraph 4, extracting heat from very hot, dry rocks is difficult in part because",
       "options": [
         "the underground rock must be fractured before heat can be removed from it",
         "the water above the rock is under very high pressure",
         "the rock breaks apart when water is pumped into it",
         "the water circulated through the rock must be much cooler than the rock itself"
       ],
-      "answerIndex": 3,
+      "answerIndex": 0,
       "paragraphHint": "4",
       "type": "single"
     },
@@ -84,7 +126,7 @@
         "estimating the size of"
       ],
       "answerIndex": 2,
-      "paragraphHint": "5",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -98,20 +140,34 @@
         "Both problems are caused by the fact that the hot groundwater in a heat reservoir dissolves the rock, which weakens the rock and makes the water toxic with salt."
       ],
       "answerIndex": 0,
-      "paragraphHint": "6",
+      "paragraphHint": null,
       "type": "single"
     },
     {
       "id": "q11",
       "index": 11,
-      "prompt": "Which of the sentences below best expresses the essential information in the highlighted sentence in the passage? Incorrect choices change the meaning in important ways or leave out essential information.\nHeat flows through solid rock very slowly, so it takes a very long time for geological processes to produce a reservoir of geothermal energy.\nGeothermal energy is not renewable because heat flows very slowly through solid rock into or out of a heat reservoir.\nThe heat quickly removed from a heat reservoir is replaced so slowly by geological processes that geothermal energy is not practically speaking, renewable.\nIn most cases, heat travels into a heat reservoir so slowfy that it is a much quicker process to remove the heat from a reservoir than to replace it.\n12.In paragraph 6, the author implies that in California, Hawaii, the Philippines, Japan, Mexico, and the rift valleys of Africa the potential size of the geothermal resource is so large that\nit might be economically worth developing these sites even though geothermal energy is not renewable\nthese sites will be the first geothermal energy sites to be developed with new technology",
+      "prompt": "Which of the sentences below best expresses the essential information in the highlighted sentence in the passage? Incorrect choices change the meaning in important ways or leave out essential information.",
+      "options": [
+        "Heat flows through solid rock very slowly, so it takes a very long time for geological processes to produce a reservoir of geothermal energy.",
+        "Geothermal energy is not renewable because heat flows very slowly through solid rock into or out of a heat reservoir.",
+        "The heat quickly removed from a heat reservoir is replaced so slowly by geological processes that geothermal energy is not practically speaking, renewable.",
+        "In most cases, heat travels into a heat reservoir so slowfy that it is a much quicker process to remove the heat from a reservoir than to replace it."
+      ],
+      "answerIndex": 2,
+      "paragraphHint": null,
+      "type": "single"
+    },
+    {
+      "id": "q12",
+      "index": 12,
+      "prompt": "In paragraph 6, the author implies that in California, Hawaii, the Philippines, Japan, Mexico, and the rift valleys of Africa the potential size of the geothermal resource is so large that\nit might be economically worth developing these sites even though geothermal energy is not renewable\nthese sites will be the first geothermal energy sites to be developed with new technology",
       "options": [
         "these sites are likely to make a large-scale contribution to the world energy budget in the twenty-first century",
         "it does not matter whether they have naturally occurring deposits of hot water or steam",
         "Earth's internal heat, fueled by radioactivity, provides the energy for plate tectonics and continental drift, mountain building, and earthquakes. It can also be harnessed to drive electric generators and heat homes. Geothermal energy becomes available in a practical form when underground heat is transferred by water that is heated as it passes through a subsurface region of hot rocks (a heat reservoir) that may be hundreds or thousands of feet deep. ■The water is usually naturally occurring groundwater that seeps down along fractures in the rock; less typically, the water is artificially introduced by being pumped down from the surface. ■The water is brought to the surface, as a liquid or steam, through holes drilled for the purpose.■",
         "By far the most abundant form of geothermal energy occurs at the relatively low temperatures of 80° to 180° centigrade. ■Water circulated through heat reservoirs in this temperature range is able to extract enough heat to warm residential, commercial, and industrial spaces. More than 20,000 apartments in France are now heated by warm underground water drawn from a heat reservoir in a geologic structure near Paris called the Paris Basin. Iceland sits on a volcanic structure known as the Mid-Atlantic Ridge. Reykjavik, the capital of Iceland, is entirely heated by geothermal energy derived from volcanic heat."
       ],
-      "answerIndex": 2,
+      "answerIndex": 0,
       "paragraphHint": "6",
       "type": "single"
     }
@@ -125,8 +181,7 @@
       "answerIndex": 1,
       "paragraphHint": null,
       "type": "unsupported",
-      "rawChunk": "13.Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nIn either case, the heated water will usually be under considerable pressure, and so may have a temperature that is well above its sea-level boiling point of 100° centigrade.\nWhere would the sentence best fit? Click on a square to add the sentence to the passage.",
-      "rawAnswer": "2"
+      "rawChunk": "13.Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nIn either case, the heated water will usually be under considerable pressure, and so may have a temperature that is well above its sea-level boiling point of 100° centigrade.\nWhere would the sentence best fit? Click on a square to add the sentence to the passage."
     },
     {
       "id": "q14",
@@ -137,7 +192,7 @@
       "paragraphHint": null,
       "type": "unsupported",
       "rawChunk": "14.Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.   \nHeat reservoirs in the form of hot rock far beneath Earth's surface are a potential source of usable geothermal e",
-      "rawAnswer": "Heat reservoirs with ..."
+      "rawAnswer": "Heat reservoirs with ...\n    A number of countries...\n    A number of issues ..."
     }
   ]
 }

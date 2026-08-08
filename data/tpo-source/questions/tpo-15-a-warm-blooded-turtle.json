@@ -70,7 +70,7 @@
         "mass"
       ],
       "answerIndex": 3,
-      "paragraphHint": "4",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -140,7 +140,7 @@
         "collects in"
       ],
       "answerIndex": 2,
-      "paragraphHint": "6",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -156,20 +156,6 @@
       "answerIndex": 2,
       "paragraphHint": "6",
       "type": "single"
-    },
-    {
-      "id": "q13",
-      "index": 13,
-      "prompt": "Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nContrary to what we would expect of reptiles, the leatherback turtle is actually warm-blooded.\n●\n●\n●\nAnswer Choices",
-      "options": [
-        "Even though they swim into cold ocean waters, leatherbacks maintain their body heat in much the same way as sea turtles in warm southern oceans do.",
-        "The leatherback turtle uses a countercurrent exchange system in order to keep the flippers from drawing heat away from the rest of the body.",
-        "The shape of the leatherback turtle's flippers is especially important in maintaining heat in extremely cold northern waters.",
-        "The leatherback turtle is able to maintain body heat through sheer size."
-      ],
-      "answerIndex": null,
-      "paragraphHint": null,
-      "type": "single"
     }
   ],
   "unsupported": [
@@ -181,8 +167,25 @@
       "answerIndex": 3,
       "paragraphHint": null,
       "type": "unsupported",
-      "rawChunk": "12. Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nHowever, these animals have additional means of staying warm.\nWhere would the sentence best fit?",
-      "rawAnswer": "○4"
+      "rawChunk": "12. Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nHowever, these animals have additional means of staying warm.\nWhere would the sentence best fit?"
+    },
+    {
+      "id": "q13",
+      "index": 13,
+      "prompt": "Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nContrary to what we would expect of reptiles, the leatherback turtle is actually warm-blooded.\n●\n●\n●\nAnswer Choices",
+      "options": [
+        "Even though they swim into cold ocean waters, leatherbacks maintain their body heat in much the same way as sea turtles in warm southern oceans do.",
+        "The leatherback turtle uses a countercurrent exchange system in order to keep the flippers from drawing heat away from the rest of the body.",
+        "The shape of the leatherback turtle's flippers is especially important in maintaining heat in extremely cold northern waters.",
+        "The leatherback turtle is able to maintain body heat through sheer size.",
+        "Leatherbacks have an insulating layer that can be considered the reptilian version of blubber.",
+        "Young leatherbacks often do not survive to adulthood because they are not able to switch from a cold-blooded way of life to a warm-blooded one quickly enough."
+      ],
+      "answerIndex": null,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "13. Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\n\nContrary to what we would expect of reptiles, the leatherback turtle is actually warm-blooded.\n●\n●\n●\nAnswer Choice",
+      "rawAnswer": "The leatherback turtle uses a…\nThe leatherback turtle is…\nLeatherbacks have an…"
     }
   ]
 }

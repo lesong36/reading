@@ -13,6 +13,3 @@ An even more exciting find was reported in 1994, also from Pakistan. The now ext
 
 1. Fluke: the two parts that constitute the large triangular tail of a whale
 2. Blowhole: a hole in the top of the head used for breathing
-
-
-Paragraph 1: It should be obvious that cetaceans—whales, porpoises, and dolphins—are mammals. They breathe through lungs, not through gills, and give birth to live young. Their streamlined bodies, the absence of hind legs, and the presence of a fluke1 and blowhole2 cannot disguise their affinities with land dwelling mammals. However, unlike the cases of sea otters and pinnipeds (seals, sea lions, and walruses, whose limbs are functional both on land and at sea), it is not easy to envision what the first whales looked like. Extinct but already fully marine cetaceans are known from the fossil record. How was the gap between a walking mammal and a swimming whale bridged? Missing until recently were fossils clearly intermediate, or transitional, between land mammals and cetaceans.

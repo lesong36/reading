@@ -112,7 +112,7 @@
         "earliest"
       ],
       "answerIndex": 2,
-      "paragraphHint": "4",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -144,20 +144,6 @@
       "type": "single"
     },
     {
-      "id": "q11",
-      "index": 11,
-      "prompt": "Select the TWO answer choices that are mentioned in paragraph 5 as being features of Teotihuacán that may have attracted immigrants to the city. To receive credit, you must select TWO answers.",
-      "options": [
-        "The prosperity of the elite",
-        "Plenty of available housing",
-        "Opportunities for well-paid agricultural employment",
-        "The presence of one or more religious shrines"
-      ],
-      "answerIndex": null,
-      "paragraphHint": "5",
-      "type": "single"
-    },
-    {
       "id": "q12",
       "index": 12,
       "prompt": "In paragraph 6, the author discusses “The thriving obsidian operation” in order to",
@@ -170,6 +156,34 @@
       "answerIndex": 2,
       "paragraphHint": "6",
       "type": "single"
+    }
+  ],
+  "unsupported": [
+    {
+      "id": "q11",
+      "index": 11,
+      "prompt": "Select the TWO answer choices that are mentioned in paragraph 5 as being features of Teotihuacán that may have attracted immigrants to the city. To receive credit, you must select TWO answers.",
+      "options": [
+        "The prosperity of the elite",
+        "Plenty of available housing",
+        "Opportunities for well-paid agricultural employment",
+        "The presence of one or more religious shrines"
+      ],
+      "answerIndex": null,
+      "paragraphHint": "5",
+      "type": "unsupported",
+      "rawChunk": "11. Select the TWO answer choices that are mentioned in paragraph 5 as being features of Teotihuacán that may have attracted immigrants to the city. To receive credit, you must select TWO answers.\n○The prosperity of the elite\n○Plenty of available housing\n○Opportunities for well-paid agricultural employment\n○The presence of one or more religious shrines\n\nParagraph 6: The picture of Teotihuacán that emerges is a classic picture of positive feedback among obsidian mining and working, trade, populat",
+      "rawAnswer": "○1, 4"
+    },
+    {
+      "id": "q13",
+      "index": 13,
+      "prompt": "Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nIn fact, artifacts and pottery from Teotihuacán have been discovered in sites as far away as the Mayan lowlands, the Guatemalan highlands, northern Mexico, and the Gulf Coast of Mexico.\nWhere would the sentence best fit?",
+      "options": [],
+      "answerIndex": 3,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "13. Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nIn fact, artifacts and pottery from Teotihuacán have been discovered in sites as far away as the Mayan lowlands, the Guatemalan highlands, northern Mexico, and the Gulf Coast of Mexico.\nWhere would the sentence best fit?"
     },
     {
       "id": "q14",
@@ -179,24 +193,15 @@
         "The number and sophistication of the architectural, administrative, commercial, and religious features of Teotihuacan indicate the existence of centralized planning and control.",
         "Teotihuacán may have developed its own specific local religion as a result of the cultural advances made possible by the city’s great prosperity.",
         "As a result of its large number of religious shrines, by the first century A.D., Teotihuacan become the most influential religious center in all of Mesoamerica.",
-        "Several factors may account for Teotihuacán’s extraordinary development, including its location, rich natural resources, irrigation potential, intelligent elite, and the misfortune of rival communities."
+        "Several factors may account for Teotihuacán’s extraordinary development, including its location, rich natural resources, irrigation potential, intelligent elite, and the misfortune of rival communities.",
+        "In many important areas, from the obsidian industry to religious tourism, Teotihuacán’s success and prosperity typified the classic positive feedback cycle.",
+        "Although many immigrants settled in Teotihuacán between A.D.150 and 700, the increasing threat of coerced labor discouraged further settlement and limited Teotihuacán’s population growth."
       ],
       "answerIndex": null,
       "paragraphHint": null,
-      "type": "single"
-    }
-  ],
-  "unsupported": [
-    {
-      "id": "q13",
-      "index": 13,
-      "prompt": "Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nIn fact, artifacts and pottery from Teotihuacán have been discovered in sites as far away as the Mayan lowlands, the Guatemalan highlands, northern Mexico, and the Gulf Coast of Mexico.\nWhere would the sentence best fit?",
-      "options": [],
-      "answerIndex": 3,
-      "paragraphHint": null,
       "type": "unsupported",
-      "rawChunk": "13. Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nIn fact, artifacts and pottery from Teotihuacán have been discovered in sites as far away as the Mayan lowlands, the Guatemalan highlands, northern Mexico, and the Gulf Coast of Mexico.\nWhere would the sentence best fit?",
-      "rawAnswer": "○4"
+      "rawChunk": "14. Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\n\nTeotihuacán was a highly developed city in Mesoamerica that reached its peak between about A.D. 150 and 700.\n●\n●\n●\nAnswe",
+      "rawAnswer": "The number and sophistication…\nSeveral factors may account…\nIn many important areas…"
     }
   ]
 }

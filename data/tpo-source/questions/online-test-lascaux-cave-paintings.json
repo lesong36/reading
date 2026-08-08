@@ -42,7 +42,7 @@
         "Artists developed special techniques for painting the walls."
       ],
       "answerIndex": 3,
-      "paragraphHint": "2",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -84,7 +84,7 @@
         "To give evidence that contradicts a major opinion expressed in the passage"
       ],
       "answerIndex": 2,
-      "paragraphHint": "4",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -142,20 +142,6 @@
       "answerIndex": 2,
       "paragraphHint": "6",
       "type": "single"
-    },
-    {
-      "id": "q13",
-      "index": 13,
-      "prompt": "Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nScholars have wondered about the meaning of the subjects, location, and overpainting of Lascaux cave images.\n●  \n  ●   \n  ● \nAnswer Choices",
-      "options": [
-        "The paintings may have recorded information about animal migrations, and may only have been useful for one migration at a time.",
-        "The human figures represented in the paintings appear to be less carefully shaped than those of animals.",
-        "It is possible that the animals in the paintings were of mythical significance to the tribe, and the paintings reflected an important spiritual practice.",
-        "Unlike painters of the recently discovered paintings, other Lascaux cave painters usually painted on rocks near cave entrances or in open spaces outside the caves."
-      ],
-      "answerIndex": null,
-      "paragraphHint": null,
-      "type": "single"
     }
   ],
   "unsupported": [
@@ -171,8 +157,7 @@
       "answerIndex": 2,
       "paragraphHint": "4",
       "type": "unsupported",
-      "rawChunk": "8. According to paragraph 4, why do some scholars believe that the paintings were related to hunting? ○Because some tools used for painting were also used for hunting \n○Because cave inhabitants were known to prefer animal food rather than plant food \n○Because some of the animals are shown wounded by weapons \n○Because many hunters were also typically painters \n\nParagraph 5: A third opinion takes psychological motivation much further into the realm of tribal ceremonies and mystery: the belief that",
-      "rawAnswer": "○ 3"
+      "rawChunk": "8. According to paragraph 4, why do some scholars believe that the paintings were related to hunting? ○Because some tools used for painting were also used for hunting \n○Because cave inhabitants were known to prefer animal food rather than plant food \n○Because some of the animals are shown wounded by weapons \n○Because many hunters were also typically painters \n\nParagraph 5: A third opinion takes psychological motivation much further into the realm of tribal ceremonies and mystery: the belief that"
     },
     {
       "id": "q12",
@@ -182,8 +167,25 @@
       "answerIndex": 0,
       "paragraphHint": null,
       "type": "unsupported",
-      "rawChunk": "12. Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nThis made it easy for the artists to paint and display them for the rest of the cave dwellers.\nWhere would the sentence best fit?",
-      "rawAnswer": "○1"
+      "rawChunk": "12. Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nThis made it easy for the artists to paint and display them for the rest of the cave dwellers.\nWhere would the sentence best fit?"
+    },
+    {
+      "id": "q13",
+      "index": 13,
+      "prompt": "Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nScholars have wondered about the meaning of the subjects, location, and overpainting of Lascaux cave images.\n●  \n  ●   \n  ● \nAnswer Choices",
+      "options": [
+        "The paintings may have recorded information about animal migrations, and may only have been useful for one migration at a time.",
+        "The human figures represented in the paintings appear to be less carefully shaped than those of animals.",
+        "It is possible that the animals in the paintings were of mythical significance to the tribe, and the paintings reflected an important spiritual practice.",
+        "Unlike painters of the recently discovered paintings, other Lascaux cave painters usually painted on rocks near cave entrances or in open spaces outside the caves.",
+        "Some scholars believe that the paintings motivated hunters by allowing them to picture a successful hunt.",
+        "Scientific analysis suggests that paintings were sprayed onto the rock walls with tubes made from animal bones."
+      ],
+      "answerIndex": null,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "13. Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nScholars have wondered about the meaning of the subjects, location, and overpainting of Lascaux cave images.\n●  \n  ",
+      "rawAnswer": "The paintings may have…\nIt is possible that the animals…\nSome scholars believe that…"
     }
   ]
 }

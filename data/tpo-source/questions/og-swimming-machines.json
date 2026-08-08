@@ -14,7 +14,7 @@
         "balance"
       ],
       "answerIndex": 1,
-      "paragraphHint": "3",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -42,7 +42,7 @@
         "To demonstrate a similarity in design between certain fishes and airplanes"
       ],
       "answerIndex": 3,
-      "paragraphHint": "4",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -70,7 +70,7 @@
         "They cannot open their mouths unless they are in motion."
       ],
       "answerIndex": 0,
-      "paragraphHint": "7",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -98,7 +98,7 @@
         "provide"
       ],
       "answerIndex": 2,
-      "paragraphHint": "8",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -112,7 +112,7 @@
         "gain speed by forcing water past their gills"
       ],
       "answerIndex": 1,
-      "paragraphHint": "9",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -127,20 +127,6 @@
       ],
       "answerIndex": 2,
       "paragraphHint": "9",
-      "type": "single"
-    },
-    {
-      "id": "q12",
-      "index": 12,
-      "prompt": "Directions: Complete the table below by indicating which features of fishes are associated in the passage with reducing water resistance and which are associated with increasing thrust. This question is worth 3 points. \nREDUCING WATER RESISTANCE\nINCREASING THRUST\n● \n● \n● \n● \n● \nFeatures of Fishes",
-      "options": [
-        "The absence of scales from most of the body",
-        "The ability to take advantage of eddies",
-        "The ability to feed and reproduce while swimming",
-        "Eyes that do not protrude"
-      ],
-      "answerIndex": null,
-      "paragraphHint": null,
       "type": "single"
     }
   ],
@@ -158,7 +144,7 @@
       "paragraphHint": "4",
       "type": "unsupported",
       "rawChunk": "5. According to paragraph 4, the long bills of marlins, sailfish, and swordfish probably help these fishes by ○increasing their ability to defend themselves\n○allowing them to change direction easily\n○increasing their ability to detect odors\n○reducing water resistance as they swim\n\nParagraph 6: Because they are always swimming, tunas simply have to open their mouths and water is forced in and over their gills. Accordingly, they have lost most of the muscles that other fishes use to suck in water ",
-      "rawAnswer": "Choices 2 and 7 belong in the \"Increasing thrust\" column. Choices 3 and 6 should not be used in either column."
+      "rawAnswer": "○ 4\nThis is a Factual Information question asking for specific information that can be found in paragraph 4. The correct answer is choice 4, \"reducing water resistance as they swim.\" The overall theme of the passage is how certain fish swim so efficiently. Paragraphs 1 and 2 make the general statement that \"practically every aspect of the body form and function of these swimming 'machines' is adapted to enhance their ability to swim. Many of the adaptations of these fishes serve to reduce water resistance (drag).\" Paragraph 4 explicitly states (emphasis added) that \"Tunas, mackerels, and billfishes have even more sophisticated adaptations than these to improve their hydrodynamics. The long bill of marlins, sailfishes, and swordfish probably helps them slip through the water.\" This is a specific example of one adaptation that these fish have made to increase their swimming efficiency. None of the other choices is mentioned in the paragraph."
     },
     {
       "id": "q11",
@@ -169,7 +155,26 @@
       "paragraphHint": null,
       "type": "unsupported",
       "rawChunk": "11. Look at the four squares [■l that indicate where the following sentence can be added to the passage. Consequently, tunas do not need to suck in water. \nWhere would the sentence best fit?",
-      "rawAnswer": "○2"
+      "rawAnswer": "○2\nThis is an Insert Text question. You can see the four black squares in paragraph 6 that represent the possible answer choices here. The last sentence of paragraph 5 is also reproduced below.\nAgain, supersonic jets have similar features. ■Because they are always swimming, tunas simply have to open their mouths and water is forced in and over their gills. ■ Accordingly, they have lost most of the muscles that other fishes use to suck in water and push it past the gills. In fact, tunas must swim to breathe.■They must also keep swimming to keep from sinking, since most have largely or completely lost the swim bladder, the gas-filled sac that helps most other fish remain buoyant.\nThe sentence provided, \"Consequently, tunas do not need to suck in water,\" is best inserted at square 2. The sentence provides an explanation for the muscle loss described in the sentence that follows square 2 and is a result of the fact described in the preceding sentence, which says that because the fish are always swimming, they only have to open their mouths to suck in water. Thus if the provided sentence is inserted at square 2, it provides a logical bridge between cause and effect. The sentence makes no logical sense anywhere else."
+    },
+    {
+      "id": "q12",
+      "index": 12,
+      "prompt": "Directions: Complete the table below by indicating which features of fishes are associated in the passage with reducing water resistance and which are associated with increasing thrust. This question is worth 3 points. \nREDUCING WATER RESISTANCE\nINCREASING THRUST\n● \n● \n● \n● \n● \nFeatures of Fishes",
+      "options": [
+        "The absence of scales from most of the body",
+        "The ability to take advantage of eddies",
+        "The ability to feed and reproduce while swimming",
+        "Eyes that do not protrude",
+        "Fins that are stiff, narrow, and smooth",
+        "The habit of swimming with the mouth open",
+        "A high, narrow tail with swept-back tips"
+      ],
+      "answerIndex": null,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "12. Directions: Complete the table below by indicating which features of fishes are associated in the passage with reducing water resistance and which are associated with increasing thrust. This question is worth 3 points. \n\nREDUCING WATER RESISTANCE\nINCREASING THRUST\n● \n● \n● \n● \n● \n\nFeatures of Fishes\n○The absence of scales from most of the body \n○The ability to take advantage of eddies \n○The ability to feed and reproduce while swimming \n○Eyes that do not protrude \n○Fins that are stiff, narrow,",
+      "rawAnswer": "○Reducing Water Resistance: 1, 4, 5 \n ○Increasing Thrust: 2, 7\nThis is a Fill in a Table question. It is completed correctly below. The correct choices for the \"Reducing water resistance\" column are 1, 4, and 5. Choices 2 and 7 belong in the \"Increasing thrust\" column. Choices 3 and 6 should not be used in either column."
     }
   ]
 }

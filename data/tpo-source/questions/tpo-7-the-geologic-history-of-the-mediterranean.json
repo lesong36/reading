@@ -18,20 +18,6 @@
       "type": "single"
     },
     {
-      "id": "q5",
-      "index": 5,
-      "prompt": "Select the TWO answer choice from paragraph 3 that identify materials discovered in the deepest part of the Mediterranean basin. To receive credit you must select TWO answers.",
-      "options": [
-        "Volcanic rock fragments.",
-        "Thin silt layers",
-        "Soft, deep-sea mud",
-        "Crystalline salt"
-      ],
-      "answerIndex": null,
-      "paragraphHint": "3",
-      "type": "single"
-    },
-    {
       "id": "q6",
       "index": 6,
       "prompt": "What is the main purpose of paragraph 3?",
@@ -57,20 +43,6 @@
       ],
       "answerIndex": 0,
       "paragraphHint": "4",
-      "type": "single"
-    },
-    {
-      "id": "q8",
-      "index": 8,
-      "prompt": "The word “scores” in the passage is closest in meaning to",
-      "options": [
-        "members",
-        "large numbers",
-        "populations",
-        "different types"
-      ],
-      "answerIndex": null,
-      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -114,23 +86,41 @@
       "answerIndex": 2,
       "paragraphHint": "2",
       "type": "single"
-    },
-    {
-      "id": "q13",
-      "index": 13,
-      "prompt": "Direction: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nAn expedition to the Mediterranean answered some long-standing questions about the ocean’s history.\n●\n●\n●\nAnswer choices",
-      "options": [
-        "The Glomar Challenger expedition investigated changes in invertebrate fauna and some unusual geologic features.",
-        "Researchers collected fossils to determine which new species migrated from the Atlantic with older species.",
-        "Scientists aboard the Glomar Challenger were the first to discover the existence of domelike masses underneath the seafloor.",
-        "Samples recovered from the expedition revealed important differences in chemical composition and fossil distribution among the sediment layers."
-      ],
-      "answerIndex": null,
-      "paragraphHint": null,
-      "type": "single"
     }
   ],
   "unsupported": [
+    {
+      "id": "q5",
+      "index": 5,
+      "prompt": "Select the TWO answer choice from paragraph 3 that identify materials discovered in the deepest part of the Mediterranean basin. To receive credit you must select TWO answers.",
+      "options": [
+        "Volcanic rock fragments.",
+        "Thin silt layers",
+        "Soft, deep-sea mud",
+        "Crystalline salt"
+      ],
+      "answerIndex": null,
+      "paragraphHint": "3",
+      "type": "unsupported",
+      "rawChunk": "5. Select the TWO answer choice from paragraph 3 that identify materials discovered in the deepest part of the Mediterranean basin. To receive credit you must select TWO answers.\n○Volcanic rock fragments.\n○Thin silt layers\n○Soft, deep-sea mud\n○Crystalline salt",
+      "rawAnswer": "○ 2, 4"
+    },
+    {
+      "id": "q8",
+      "index": 8,
+      "prompt": "The word “scores” in the passage is closest in meaning to",
+      "options": [
+        "members",
+        "large numbers",
+        "populations",
+        "different types"
+      ],
+      "answerIndex": null,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "The word “scores” in the passage is closest in meaning to",
+      "rawAnswer": ""
+    },
     {
       "id": "q12",
       "index": 12,
@@ -140,6 +130,24 @@
       "paragraphHint": null,
       "type": "unsupported",
       "rawChunk": "12. Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nThus, scientists had information about the shape of the domes but not about their chemical composition and origin.\nWhere would the sentence best fit?"
+    },
+    {
+      "id": "q13",
+      "index": 13,
+      "prompt": "Direction: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nAn expedition to the Mediterranean answered some long-standing questions about the ocean’s history.\n●\n●\n●\nAnswer choices",
+      "options": [
+        "The Glomar Challenger expedition investigated changes in invertebrate fauna and some unusual geologic features.",
+        "Researchers collected fossils to determine which new species migrated from the Atlantic with older species.",
+        "Scientists aboard the Glomar Challenger were the first to discover the existence of domelike masses underneath the seafloor.",
+        "Samples recovered from the expedition revealed important differences in chemical composition and fossil distribution among the sediment layers.",
+        "Evidence collected by the Glomar Challenger supports geologists' beliefs that the Mediterranean had evaporated and become a desert, before it refilled with water.",
+        "Mediterranean salt domes formed after crustal movements opened the straits between the Mediterranean and the Atlantic, and the Mediterranean refilled with water."
+      ],
+      "answerIndex": null,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "13．Direction: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\n\nAn expedition to the Mediterranean answered some long-standing questions about the ocean’s history.\n●\n●\n●\n\nAnswer ch",
+      "rawAnswer": "The Glomar Challenger…\nSamples recovered from…\nEvidence collected by…"
     }
   ]
 }

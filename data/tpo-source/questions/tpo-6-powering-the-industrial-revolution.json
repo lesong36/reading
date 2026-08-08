@@ -88,20 +88,6 @@
       "type": "single"
     },
     {
-      "id": "q7",
-      "index": 7,
-      "prompt": "In paragraph 3, the author mentions William Murdoch’s invention of a new form of nighttime illumination in order to",
-      "options": [
-        "indicate one of the important developments made possible by the introduction of Watt's steam engine",
-        "make the point that Watt's steam engine was not the only invention of importance to the Industrial Revolution",
-        "illustrate how important coal was as a raw material for the Industrial Revolution",
-        "provide an example of another eighteenth-century invention that used steam as a power source"
-      ],
-      "answerIndex": null,
-      "paragraphHint": "3",
-      "type": "single"
-    },
-    {
       "id": "q8",
       "index": 8,
       "prompt": "The phrase “grew accustomed to” in the passage is closest in meaning to",
@@ -112,7 +98,7 @@
         "insisted on"
       ],
       "answerIndex": 2,
-      "paragraphHint": "4",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -156,6 +142,34 @@
       "answerIndex": 1,
       "paragraphHint": "4",
       "type": "single"
+    }
+  ],
+  "unsupported": [
+    {
+      "id": "q7",
+      "index": 7,
+      "prompt": "In paragraph 3, the author mentions William Murdoch’s invention of a new form of nighttime illumination in order to",
+      "options": [
+        "indicate one of the important developments made possible by the introduction of Watt's steam engine",
+        "make the point that Watt's steam engine was not the only invention of importance to the Industrial Revolution",
+        "illustrate how important coal was as a raw material for the Industrial Revolution",
+        "provide an example of another eighteenth-century invention that used steam as a power source"
+      ],
+      "answerIndex": null,
+      "paragraphHint": "3",
+      "type": "unsupported",
+      "rawChunk": "In paragraph 3, the author mentions William Murdoch’s invention of a new form of nighttime illumination in order to",
+      "rawAnswer": "○1."
+    },
+    {
+      "id": "q12",
+      "index": 12,
+      "prompt": "Look at the four squares [█] that indicate where the following sentence could be   added to the passage．\nThe factories did not have to go to the streams when power could come to the factories．\nWhere would the sentence best fit?",
+      "options": [],
+      "answerIndex": 2,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "12.Look at the four squares [█] that indicate where the following sentence could be   added to the passage．\nThe factories did not have to go to the streams when power could come to the factories．\nWhere would the sentence best fit?"
     },
     {
       "id": "q13",
@@ -165,24 +179,15 @@
         "In the early eighteenth century, Savery and Newcomen discovered that expanding steam could be used to raise a piston in a cylinder.",
         "Watt’s steam engine played a leading role in greatly increasing industrial production of all kinds.",
         "Until the 1830s, Britain was the world’s major producer of steam engines.",
-        "In the mid-1700s James Watt transformed an inefficient steam pump into a fast, flexible, fuel-efficient engine."
+        "In the mid-1700s James Watt transformed an inefficient steam pump into a fast, flexible, fuel-efficient engine.",
+        "In the 1790s William Murdoch developed a new way of lighting houses and streets using coal gas.",
+        "The availability of steam engines was a major factor in the development of railroads, which solved a major transportation problem."
       ],
       "answerIndex": null,
       "paragraphHint": null,
-      "type": "single"
-    }
-  ],
-  "unsupported": [
-    {
-      "id": "q12",
-      "index": 12,
-      "prompt": "Look at the four squares [█] that indicate where the following sentence could be   added to the passage．\nThe factories did not have to go to the streams when power could come to the factories．\nWhere would the sentence best fit?",
-      "options": [],
-      "answerIndex": 2,
-      "paragraphHint": null,
       "type": "unsupported",
-      "rawChunk": "12.Look at the four squares [█] that indicate where the following sentence could be   added to the passage．\nThe factories did not have to go to the streams when power could come to the factories．\nWhere would the sentence best fit?",
-      "rawAnswer": "○3"
+      "rawChunk": "13. Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\n\nThe Industrial Revolution would not have been possible without a new source of power that was efficient, movable, ",
+      "rawAnswer": "Watt’s steam engine played …\nIn the mid-1700s James Watt…\nThe availability of steam…"
     }
   ]
 }

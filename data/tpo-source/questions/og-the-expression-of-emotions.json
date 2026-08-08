@@ -28,7 +28,7 @@
         "contrast a facial expression that is easily understood with other facial expressions"
       ],
       "answerIndex": 2,
-      "paragraphHint": "2",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -84,7 +84,7 @@
         "The Fore were familiar with the facial expressions and basic emotions of characters in stories."
       ],
       "answerIndex": 2,
-      "paragraphHint": "3",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -98,7 +98,7 @@
         "They would become more negative."
       ],
       "answerIndex": 0,
-      "paragraphHint": "4",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -126,7 +126,7 @@
         "want"
       ],
       "answerIndex": 0,
-      "paragraphHint": "6",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -154,23 +154,39 @@
         "It may either heighten or reduce emotional response."
       ],
       "answerIndex": 3,
-      "paragraphHint": "2",
-      "type": "single"
-    },
-    {
-      "id": "q12",
-      "index": 12,
-      "prompt": "Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nThis universality in the recognition of emotions was demonstrated by using rather simple methods\nWhere would the sentence best fit?\n  13. Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nPsychological research seems to confirm that people associate particular facial expressions with the same emotions across cultures.\n●\n●\n●\nAnswer Choices",
-      "options": [
-        "Artificially producing the Duchenne smile can cause a person to have pleasant feelings.",
-        "Facial expressions and emotional states interact with each other through a variety of feedback mechanisms.",
-        "People commonly believe that they can control their facial expressions so that their true emotions remain hidden.",
-        "A person's facial expression may reflect the person's emotional state."
-      ],
-      "answerIndex": 2,
       "paragraphHint": null,
       "type": "single"
     }
   ],
-  "unsupported": []
+  "unsupported": [
+    {
+      "id": "q12",
+      "index": 12,
+      "prompt": "Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nThis universality in the recognition of emotions was demonstrated by using rather simple methods\nWhere would the sentence best fit?",
+      "options": [],
+      "answerIndex": 2,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "12. Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nThis universality in the recognition of emotions was demonstrated by using rather simple methods\nWhere would the sentence best fit?",
+      "rawAnswer": "○3\nThis is an Insert Text question. You can see the four black squares in paragraph 2 that represent the possible answer choices here.\n█Most investigators concur that certain facial expressions suggest the same emotions in all people. █Moreover, people in diverse cultures recognize the emotions manifested by the facial expressions. █In classic research Paul Ekman took photographs of people exhibiting the emotions of anger, disgust, fear, happiness, and sadness. █He then asked people around the world to indicate what emotions were being depicted in them. Those queried ranged from European college students to members of the Fore, a tribe that dwells in the New Guinea highlands. All groups, including the Fore, who had almost no contact with Western culture, agreed on the portrayed emotions. The Fore also displayed familiar facial expressions when asked how they would respond if they were the characters in stories that called for basic emotional responses. Ekman and his colleagues more recently obtained similar results in a study of ten cultures in which participants were permitted to report that multiple emotions were shown by facial expressions. The participants generally agreed on which two emotions were being shown and which emotion was more intense. \nThe sentence provided, \"This universality in the recognition of emotions was demonstrated by using rather simple methods,\" is best inserted at square 3. Square 3 is correct because the inserted sentence begins with the phrase \"This universality.\" The universality being referred to is the fact, stated in the second sentence, that \"people in diverse cultures recognize the emotions manifested by the facial expressions.\"\nNone of the other answer choices follows a sentence that contains a universal statement. Sentence 1 mentions that \"Most investigators concur,\" which means that some do not. Therefore this is not a universal statement. Squares 2 and 4 are incorrect because there is nothing in either sentence to which \"This universality\" could refer."
+    },
+    {
+      "id": "q13",
+      "index": 13,
+      "prompt": "Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\nPsychological research seems to confirm that people associate particular facial expressions with the same emotions across cultures.\n●\n●\n●\nAnswer Choices",
+      "options": [
+        "Artificially producing the Duchenne smile can cause a person to have pleasant feelings.",
+        "Facial expressions and emotional states interact with each other through a variety of feedback mechanisms.",
+        "People commonly believe that they can control their facial expressions so that their true emotions remain hidden.",
+        "A person's facial expression may reflect the person's emotional state.",
+        "Ekman argued that the ability to accurately recognize the emotional content of facial expressions was valuable for human beings.",
+        "Facial expressions that occur as a result of an individual's emotional state may themselves feedback information that influences the person's emotions."
+      ],
+      "answerIndex": null,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "13. Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some sentences do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points.\n\nPsychological research seems to confirm that people associate particular facial expressions with the same emotions",
+      "rawAnswer": "○2, 4, 6\nThis is a Prose Summary question. It is completed correctly below. The correct choices are 2, 4, and 6. Choices 1, 3, and 5 are therefore incorrect."
+    }
+  ]
 }

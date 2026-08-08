@@ -98,7 +98,7 @@
         "accept"
       ],
       "answerIndex": 1,
-      "paragraphHint": "5",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -126,7 +126,7 @@
         "discussing causes and their effects"
       ],
       "answerIndex": 2,
-      "paragraphHint": "7",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -156,20 +156,6 @@
       "answerIndex": 0,
       "paragraphHint": "7",
       "type": "single"
-    },
-    {
-      "id": "q13",
-      "index": 13,
-      "prompt": "Directions: Complete the table below by selecting three answer choices that are characteristics of primary groups and two answer choices that are characteristics of secondary groups. This question is worth 3 points.\nPrimary Groups\n●\n●\n●\nSecondary Groups\n●\n●\nAnswer Choices",
-      "options": [
-        "Developing socially acceptable behavior",
-        "Working together against competitors",
-        "Experiencing pressure from outside forces",
-        "Viewing people as a means to an end"
-      ],
-      "answerIndex": null,
-      "paragraphHint": null,
-      "type": "single"
     }
   ],
   "unsupported": [
@@ -181,8 +167,26 @@
       "answerIndex": 1,
       "paragraphHint": null,
       "type": "unsupported",
-      "rawChunk": "12. Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nPeople who do not live alone, for example, tend to make healthier life choices and develop fewer pathologies than people who live by themselves.\nWhere would the sentence best fit?",
-      "rawAnswer": "○2"
+      "rawChunk": "12. Look at the four squares [■] that indicate where the following sentence could be added to the passage.\nPeople who do not live alone, for example, tend to make healthier life choices and develop fewer pathologies than people who live by themselves.\nWhere would the sentence best fit?"
+    },
+    {
+      "id": "q13",
+      "index": 13,
+      "prompt": "Directions: Complete the table below by selecting three answer choices that are characteristics of primary groups and two answer choices that are characteristics of secondary groups. This question is worth 3 points.\nPrimary Groups\n●\n●\n●\nSecondary Groups\n●\n●\nAnswer Choices",
+      "options": [
+        "Developing socially acceptable behavior",
+        "Working together against competitors",
+        "Experiencing pressure from outside forces",
+        "Viewing people as a means to an end",
+        "Existing for practical purposes",
+        "Providing meaning for life situations",
+        "Involving close relationships"
+      ],
+      "answerIndex": null,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "13. Directions: Complete the table below by selecting three answer choices that are characteristics of primary groups and two answer choices that are characteristics of secondary groups. This question is worth 3 points.\n\nPrimary Groups\n●\n●\n●\nSecondary Groups\n●\n●\nAnswer Choices\n○ Developing socially acceptable behavior\n○ Working together against competitors\n○ Experiencing pressure from outside forces\n○ Viewing people as a means to an end\n○ Existing for practical purposes\n○ Providing meaning for l",
+      "rawAnswer": "○Primary Groups: Developing socially acceptable behavior; Providing meaning for life situations; Involving close relationships\n○Secondary Groups: Viewing people as a means to an end; Existing for practical purposes"
     }
   ]
 }

@@ -28,7 +28,7 @@
         "individuals with certain genes are more likely to reach adulthood"
       ],
       "answerIndex": 2,
-      "paragraphHint": "5",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -98,7 +98,7 @@
         "typically lose their aggression if they do not express it"
       ],
       "answerIndex": 2,
-      "paragraphHint": "7",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -126,20 +126,6 @@
         "resent"
       ],
       "answerIndex": 1,
-      "paragraphHint": "5",
-      "type": "single"
-    },
-    {
-      "id": "q12",
-      "index": 12,
-      "prompt": "Directions: Complete the table below by matching five of the six answer choices with the approach to aggression that they exemplify. This question is worth 3 points.\nApproach to Understanding Aggression                Associated Claims\nBiological approach\n●  \nPsychodynamic approach\n●  \n●  \nCognitive approach \n●  \n●  \nAnswer choices",
-      "options": [
-        "Aggressive impulses toward people are sometimes expressed in indirect ways.",
-        "Aggressiveness is often useful for individuals in the struggle for survival.",
-        "Aggressive behavior may involve a misunderstanding of other people's intentions.",
-        "The need to express aggressive impulses declines with age."
-      ],
-      "answerIndex": 1,
       "paragraphHint": null,
       "type": "single"
     }
@@ -158,7 +144,7 @@
       "paragraphHint": null,
       "type": "unsupported",
       "rawChunk": "8. Which of the sentences below best expresses the essential information in the highlighted sentence in the passage? Incorrect answer choices change the meaning in important ways or leave out essential information. ○People who believe that they are fighting a just war act aggressively while those who believe that they are fighting an unjust war do not.\n○People who believe that aggression is necessary and justified are more likely to act aggressively than those who believe differently.\n○People wh",
-      "rawAnswer": "Choice 3 is the correct answer. Choice 1, \"moral values,\" is explicitly mentioned as one of the influences on aggressive behavior; so it is incorrect. Choices 2 (“previous experiences”) and 4 sentence in paragraph8 says, “People decide whether they will act aggressively of not on the basis of factors such as their experiences with aggression and their interpretation of other people’s motives.” Choice 3, the “instinct to avoid aggression,” is not mentioned, so it is the correct answer here."
+      "rawAnswer": "○2\nThis is a Sentence Simplification question. As with all of these items, a single sentence in the passage is highlighted:\nFor example, people who believe that aggression is necessary and justified-as during wartime-are likely to act aggressively, whereas people who believe that a particular war or act of aggression is unjust, or who think that aggression is never justified, are less likely to behave aggressively.\nThe correct answer is choice 2. It contains all of the essential information in the highlighted sentence. The highlighted sentence compares people who believe particular acts of aggression are necessary and those who don't, in terms of their relative likelihood to act aggressively under certain conditions. This is precisely what choice 2 says: \"People who believe that aggression is necessary and justified are more likely to act aggressively than those who believe differently.\" It compares the behavior of one type of person to that of another type of person. Nothing essential has been left out, and the meaning has not been changed. Choice 1 changes the meaning of the sentence; it says categorically that \"those (people) who believe that they are fighting an unjust war do not (act aggressively).\" The highlighted sentence merely says that such people are \"less likely\" to act aggressively, not that they never will; this changes the meaning. Choice 3 says, \"People who normally do not believe that aggression is necessary and justified may act aggressively during wartime.\" This is incorrect because it leaves out critical information: it does not mention people who do believe aggression is necessary. This choice does not make the same comparison as the highlighted sentence. Choice 4, \"People who believe that aggression is necessary and justified do not necessarily act aggressively during wartime,\" also changes the meaning of the sentence by leaving out essential information. In this choice, no mention is made of people who do not believe aggression is necessary. This choice does not make the same comparison as the highlighted sentence."
     },
     {
       "id": "q11",
@@ -169,7 +155,25 @@
       "paragraphHint": null,
       "type": "unsupported",
       "rawChunk": "11. Look at the four squares [■] that indicate where the following sentence can be added to the passage.\nAccording to Freud, however, impulses that have been repressed continue to exist and demand expression.\nWhere would the sentence best fit?",
-      "rawAnswer": "○2"
+      "rawAnswer": "○2\nThis is an Insert Text question. You can see the four black squares in paragraph 5 that represent the possible answer choices here.\nThe Psychodynamic Approach. Theorists adopting the psychodynamic approach hold that inner conflicts are crucial for understanding human behavior, including aggression. Sigmund Freud, for example, believed that aggressive impulses are inevitable reactions to the frustrations of daily life. Children normally desire to vent aggressive impulses on other people, including their parents, because even the most attentive parents cannot gratify all of their demands immediately. ■Yet children, also fearing their parents' punishment and the loss of parental love, come to repress most aggressive impulses. ■The Freudian perspective, in a sense, sees us as \"steam engines.\" ■ By holding in rather than venting \"steam,\" we set the stage for future explosions. ■ Pent-up aggressive impulses demand outlets. They may be expressed toward parents in indirect ways such as destroying furniture, or they may be expressed toward strangers later in life.\nThe sentence provided, \"According to Freud, however, impulses that have been repressed continue to exist and demand expression,\" is best inserted at square 2. Square 2 is correct because the sentence being inserted is a connective sentence, connecting the idea of childhood repression in the preceding sentence to the \"Freudian perspective\" in the sentence that follows. The use of the word however in this sentence indicates that an idea already introduced (the repression of children's aggressive impulses) is being modified. Here, the inserted sentence tells us that Freud thought that even though these impulses are repressed, they continue to exist. This serves as a connection to the next sentence and the \"Freudian perspective.\" Inserting the sentence at square 1 would place the modification (\"however, impulses . . . continue to exist\") before the idea that it modifies (repression of impulses). This makes no logical sense. Inserting the sentence at square 3 would move the modifying sentence away from its logical position immediately following the idea that it modifies (repression of impulses). Placing the insert sentence at square 4 moves the sentence farther from its logical antecedent and has no connection to the sentence that follows it."
+    },
+    {
+      "id": "q12",
+      "index": 12,
+      "prompt": "Directions: Complete the table below by matching five of the six answer choices with the approach to aggression that they exemplify. This question is worth 3 points.\nApproach to Understanding Aggression                Associated Claims\nBiological approach\n●  \nPsychodynamic approach\n●  \n●  \nCognitive approach \n●  \n●  \nAnswer choices",
+      "options": [
+        "Aggressive impulses toward people are sometimes expressed in indirect ways.",
+        "Aggressiveness is often useful for individuals in the struggle for survival.",
+        "Aggressive behavior may involve a misunderstanding of other people's intentions.",
+        "The need to express aggressive impulses declines with age.",
+        "Acting aggressively is the result of a choice influenced by a person's values and beliefs.",
+        "Repressing aggressive impulses can result in aggressive behavior."
+      ],
+      "answerIndex": 1,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "12. Directions: Complete the table below by matching five of the six answer choices with the approach to aggression that they exemplify. This question is worth 3 points.\n\nApproach to Understanding Aggression                Associated Claims\nBiological approach\n●  \nPsychodynamic approach\n●  \n●  \nCognitive approach \n●  \n●  \nAnswer choices\n○Aggressive impulses toward people are sometimes expressed in indirect ways.\n○Aggressiveness is often useful for individuals in the struggle for survival.\n○Aggre",
+      "rawAnswer": "○2\n ○1, 6\n ○3, 5"
     }
   ]
 }

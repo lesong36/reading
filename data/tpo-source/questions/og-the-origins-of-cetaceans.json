@@ -56,7 +56,7 @@
         "breeding locations"
       ],
       "answerIndex": 2,
-      "paragraphHint": "4",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -98,7 +98,7 @@
         "In a marine environment"
       ],
       "answerIndex": 3,
-      "paragraphHint": "5",
+      "paragraphHint": null,
       "type": "single"
     },
     {
@@ -142,20 +142,6 @@
       "answerIndex": 3,
       "paragraphHint": null,
       "type": "single"
-    },
-    {
-      "id": "q13",
-      "index": 13,
-      "prompt": "Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some answer choices do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points. \nThis passage discusses fossils that help to explain the likely origins of cetaceans—whales, porpoises, and dolphins.\n● \n● \n● \nAnswer Choices",
-      "options": [
-        "Recent discoveries of fossils have helped to show the link between land mammals and cetaceans.",
-        "The discovery of Ambulocetus natans provided evidence for a whale that lived both on land and at sea.",
-        "The skeleton of Basilosaurus was found in what had been the Tethys Sea, an area rich in fossil evidence.",
-        "Pakicetus is the oldest fossil whale yet to be found."
-      ],
-      "answerIndex": null,
-      "paragraphHint": null,
-      "type": "single"
     }
   ],
   "unsupported": [
@@ -168,7 +154,25 @@
       "paragraphHint": null,
       "type": "unsupported",
       "rawChunk": "12. Look at the four squares [■] that indicate where the following sentence can be added to the passage.\nThis is a question that has puzzled scientists for ages. \nWhere would the sentence best fit?",
-      "rawAnswer": "○2"
+      "rawAnswer": "○2\nThis is an Insert Text question. You can see the four black squares in paragraphs 1 and 2 that represent the possible answer choices here.\nExtinct but already fully marine cetaceans are known from the fossil record. ■How was the gap between a walking mammal and a swimming whale bridged? ■Missing until recently were fossils clearly intermediate, or transitional, between land mammals and cetaceans. ■ Very exciting discoveries have finally allowed scientists to reconstruct the most likely origins of cetaceans. ■In 1979. a team looking for fossils in northern Pakistan found what proved to be the oldest fossil whale.\nThe sentence provided is \"This is a question that has puzzled scientists for ages.\" The best place to insert it is at square 2. The sentence that precedes square 2 is in the form of a rhetorical question and the inserted sentence explicitly provides a response to it. None of the other sentences preceding squares is a question, so the inserted sentence cannot logically follow any one of them."
+    },
+    {
+      "id": "q13",
+      "index": 13,
+      "prompt": "Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some answer choices do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points. \nThis passage discusses fossils that help to explain the likely origins of cetaceans—whales, porpoises, and dolphins.\n● \n● \n● \nAnswer Choices",
+      "options": [
+        "Recent discoveries of fossils have helped to show the link between land mammals and cetaceans.",
+        "The discovery of Ambulocetus natans provided evidence for a whale that lived both on land and at sea.",
+        "The skeleton of Basilosaurus was found in what had been the Tethys Sea, an area rich in fossil evidence.",
+        "Pakicetus is the oldest fossil whale yet to be found.",
+        "Fossils thought to be transitional forms between walking mammals and swimming whales were found.",
+        "Ambulocetus' hind legs were used for propulsion in the water."
+      ],
+      "answerIndex": null,
+      "paragraphHint": null,
+      "type": "unsupported",
+      "rawChunk": "13. Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some answer choices do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This question is worth 2 points. \n\nThis passage discusses fossils that help to explain the likely origins of cetaceans—whales, porpoises, and d",
+      "rawAnswer": "○1, 2, 5\nThis is a Prose Summary question. It is completed correctly below.The correct choices are 1, 2, and 5. Choices 3, 4, and 6 are therefore incorrect.\nCorrect Choices\nChoice 1, “Recent discoveries of fossils have helped to show the link between land mammals and cetaceans,” is correct because it represents the major idea of the entire passage. The bulk of the passage consists of a discussion of the major discoveries (Pakicetus, Basilosaurus, and Ambulocetus) that show this link. \nChoice 2, “The discovery of Ambulocetus natans provided evidence for a whale that lived both on land and at sea,” is correct because it is one of the major discoveries cited in the passage in support of the passage’s main point, that land mammals and cetaceans are related.\nChoice 5, “Fossils thought to be transitional forms between walking mammals and swimming whales were found,” is correct because like choice 1, this is a statement of the passage’s major theme as stated in paragraph 1: these fossils were “clearly intermediate, or transitional between land mammals and cetaceans.” The remainder of the passage discusses these discoveries.\nIncorrect Choices\nChoice 3, “The skeleton of Basilosaurus was found in what had been the Tethys Sea, an area rich in fossil evidence,” is true, but it is a minor detail and therefore incorrect.\nChoice 4, “Pakicetus is the oldest fossil whale yet to be found,” is true, but it is a minor detail and therefore incorrect.\nChoice 6, “Ambulocetus’ hind legs were used for propulsion in the water,” is true, but it is a minor detail and therefore incorrect."
     }
   ]
 }
