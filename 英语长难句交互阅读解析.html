@@ -1817,9 +1817,9 @@
       './data/generated-reader-json/reader-articles-tpo.import.json',
       './data/generated-reader-json/reader-articles-re-foundations.import.json'
     ];
-    // v9 adds verified Reading Comprehension answer keys from the official book.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v9';
-    const BUNDLED_LIBRARY_SEED_VERSION = '9';
+    // v10 refreshes all library bundles after publishing the complete packs.
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v10';
+    const BUNDLED_LIBRARY_SEED_VERSION = '10';
     const EXPECTED_TPO_ARTICLE_COUNT = 87;
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
@@ -1973,7 +1973,7 @@
 
     const fetchBundledLibraryArticles = async () => {
       const bundles = await Promise.all(BUNDLED_LIBRARY_URLS.map(async (url) => {
-        const response = await fetch(`${url}?v=2`);
+        const response = await fetch(`${url}?v=${BUNDLED_LIBRARY_SEED_VERSION}`, { cache: 'no-store' });
         if (!response.ok) throw new Error(`预置教材加载失败（${url}，HTTP ${response.status}）`);
         const importedData = await response.json();
         if (!Array.isArray(importedData)) throw new Error(`预置教材文件格式不正确：${url}`);
