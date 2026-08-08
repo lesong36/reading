@@ -149,7 +149,10 @@ const imageSize = (image, workdir) => JSON.parse(run('python', ['-c', 'from PIL 
 
 const intersects = (a, b) => a.left <= b.right && a.right >= b.left && a.top <= b.bottom && a.bottom >= b.top;
 const contains = (a, b) => a.left <= b.left && a.right >= b.right && a.top <= b.top && a.bottom >= b.bottom;
-const optionText = (value) => normalize(value.replace(/^[a-ds]\s*[.)]?\s*/i, ''));
+const optionText = (value) => normalize(value.replace(/^[a-ds]\s*[.)]?\s*/i, ''))
+  .replace(/\bisa\b/gi, 'is a')
+  .replace(/\s+[—-]\s*$/g, '')
+  .trim();
 
 const parseChoiceOptions = (lines) => {
   const output = [];
@@ -177,7 +180,22 @@ const parseChoiceOptions = (lines) => {
   }
   const unique = new Map();
   for (const option of output) if (!unique.has(option.label)) unique.set(option.label, option);
-  return [...unique.values()].sort((left, right) => left.label.localeCompare(right.label));
+  const options = [...unique.values()].sort((left, right) => left.label.localeCompare(right.label));
+  // OCR commonly puts the last word of the left-most picture-card label on a
+  // second line (for example, “How the earth” / “moves”). Attach such a line
+  // to the horizontally nearest option instead of turning it into a fragment.
+  for (const line of lines) {
+    if (/[a-d0]\s*[.)]/i.test(line.text) || !line.text || options.length < 2) continue;
+    const eligible = options.filter((option) => line.top >= option.top && line.top <= option.bottom + 180);
+    if (!eligible.length) continue;
+    const closest = eligible.reduce((best, option) =>
+      Math.abs(option.left - line.left) < Math.abs(best.left - line.left) ? option : best);
+    if (Math.abs(closest.left - line.left) < 180 && line.text.length <= 40) {
+      closest.text = optionText(`${closest.text} ${line.text}`);
+      closest.bottom = Math.max(closest.bottom, line.bottom);
+    }
+  }
+  return options;
 };
 
 const answerFromRed = (options, reds) => {
@@ -190,7 +208,23 @@ const answerFromRed = (options, reds) => {
       if (score > 0 && (!winner || score > winner.score)) winner = { index, score };
     }
   }
-  return winner?.index ?? null;
+  if (winner) return winner.index;
+  // Main-idea cards use a large red tick over the picture, not a circle around
+  // the answer text. When options share one row, horizontal alignment remains
+  // an unambiguous way to associate that tick with its card.
+  if (options.length >= 2 && reds.length) {
+    const rowLike = Math.max(...options.map((option) => option.top)) - Math.min(...options.map((option) => option.top)) < 120;
+    if (rowLike) {
+      const red = reds.sort((left, right) => (right.right - right.left) * (right.bottom - right.top) - (left.right - left.left) * (left.bottom - left.top))[0];
+      const center = (red.left + red.right) / 2;
+      return options.reduce((best, option, index) =>
+        Math.abs((option.left + option.right) / 2 - center) < best.distance
+          ? { index, distance: Math.abs((option.left + option.right) / 2 - center) }
+          : best,
+      { index: null, distance: Infinity }).index;
+    }
+  }
+  return null;
 };
 
 const promptFromLines = (lines, options) => {
@@ -267,7 +301,7 @@ const choiceQuestion = (file, slideNumber, native, lines, reds, workdir, image) 
   const fromPicture = pictureOptions(file, slideNumber, workdir, pageRight, pageBottom, reds);
   const options = fromPicture?.options || parseChoiceOptions(lines);
   const answerIndex = fromPicture?.answerIndex ?? answerFromRed(options, reds);
-  const prompt = fromPicture?.prompt || promptFromLines(lines, options) || promptFromNative(native, options);
+  const prompt = promptFromNative(native, options) || fromPicture?.prompt || promptFromLines(lines, options);
   if (options.length < 2 || !Number.isInteger(answerIndex) || !prompt) return null;
   return { prompt, options: options.map((option) => option.text), answerIndex, kind: 'choice' };
 };
