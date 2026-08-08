@@ -927,11 +927,13 @@
       return 'N/A';
     };
 
-    const HoverTip = ({ text, align = 'left', children }) => (
+    const HoverTip = ({ text, align = 'left', wide = false, children }) => (
       <span className="group relative inline-flex">
         {children}
         <span
-          className={`pointer-events-none absolute top-full z-30 mt-2 w-max max-w-[16rem] rounded-xl bg-slate-950 px-3 py-2 text-[11px] leading-4 text-white shadow-xl ring-1 ring-white/10 opacity-0 translate-y-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-y-0 ${
+          className={`pointer-events-none absolute top-full z-30 mt-2 rounded-xl bg-slate-950 px-3 py-2 text-[11px] leading-4 text-white shadow-xl ring-1 ring-white/10 opacity-0 translate-y-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0 ${
+            wide ? 'w-72' : 'w-max max-w-[16rem]'
+          } ${
             align === 'right' ? 'right-0' : 'left-0'
           }`}
         >
@@ -5788,8 +5790,9 @@
                             </HoverTip>
                           )}
                           <HoverTip
-                            text={<span><strong className="block text-xs text-white">阅读难度（自动估算）</strong><span className="mt-1.5 grid grid-cols-2 gap-x-4 gap-y-1 text-slate-200"><span>LX {formatLexile(currentArticleReadability.estimatedLexile)}</span><span>{getGradeShortLabel(currentArticleReadability.fkGrade)}</span><span>{getWordCountShortLabel(currentArticleReadability.wordCount)}</span><span>{getDifficultyBandShortLabel(currentArticleReadability.difficultyBand)}</span></span><span className="mt-2 block text-[10px] text-slate-400">蓝思值为估算，并非官方认证。</span></span>}
+                            text={<span><strong className="block text-xs text-white">阅读难度（自动估算）</strong><span className="mt-2 grid grid-cols-2 gap-x-5 gap-y-2 text-slate-200"><span><small className="block text-slate-400">LX 蓝思值</small>{formatLexile(currentArticleReadability.estimatedLexile)}</span><span><small className="block text-slate-400">阅读年级</small>{getGradeShortLabel(currentArticleReadability.fkGrade)}</span><span><small className="block text-slate-400">全文词数</small>{getWordCountShortLabel(currentArticleReadability.wordCount)}</span><span><small className="block text-slate-400">难度分级</small>{getDifficultyBandShortLabel(currentArticleReadability.difficultyBand)}</span></span><span className="mt-3 block border-t border-white/10 pt-2 text-[10px] text-slate-400">蓝思值为自动估算，并非官方认证。</span></span>}
                             align="right"
+                            wide
                           >
                             <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/10 text-slate-200 cursor-help">
                               <Info className="w-4 h-4" />
@@ -5797,26 +5800,6 @@
                           </HoverTip>
                         </div>
                       </div>
-                      {hasQuizQuestions && (
-                        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-200">
-                          <span className={`rounded-full border px-3 py-1 font-semibold ${articleStudyMode === 'quiz' ? 'border-indigo-300/50 bg-indigo-400/20 text-indigo-100' : 'border-white/10 bg-white/5'}`}>
-                            {articleStudyMode === 'quiz' ? '做题模式' : '阅读解析'}
-                          </span>
-                          <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
-                            {supportedQuizQuestions.length} 道自动评分
-                          </span>
-                          {unsupportedQuizQuestions.length > 0 && (
-                            <span className="rounded-full border border-amber-300/30 bg-amber-500/10 px-3 py-1 text-amber-100">
-                              {unsupportedQuizQuestions.length} 道待答案键
-                            </span>
-                          )}
-                          {articleStudyMode === 'quiz' && currentQuizParagraphNumber && (
-                            <span className="rounded-full border border-sky-300/30 bg-sky-400/10 px-3 py-1 text-sky-100">
-                              当前定位第 {currentQuizParagraphNumber} 段
-                            </span>
-                          )}
-                        </div>
-                      )}
                       {articleStudyMode === 'read' && rightPanelTab !== 'guided' && (
                         <div className="flex flex-wrap gap-2">
                           <button
@@ -5830,11 +5813,6 @@
                             <span>主干</span>
                           </button>
                         </div>
-                      )}
-                      {currentArticleGlossary.length > 0 && (
-                        <p className="text-xs text-amber-200/90">
-                          已识别 {currentArticleGlossary.length} 个术语/专有名词；正文中琥珀色虚线词可悬停查看翻译。
-                        </p>
                       )}
                     </div>
                   </div>
