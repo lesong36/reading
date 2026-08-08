@@ -5701,63 +5701,55 @@
                 
                 {/* Left Column: Article Text */}
                 <div className="lg:col-span-5 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col">
-                  <div className="bg-slate-800 px-6 py-5 text-white">
-                    <div className="flex flex-col gap-4">
-                      <div className="flex items-start justify-between gap-4">
+                  <div className="bg-slate-800 px-5 py-4 text-white">
+                    <div className="flex flex-col gap-3">
+                      <div className="flex items-center justify-between gap-3">
                         <div className="min-w-0">
-                          <h2 className="font-semibold text-lg flex items-center gap-2 shrink-0">
-                            <AlignLeft className="w-5 h-5 text-indigo-400" />
-                            阅读原文
-                          </h2>
-                          <p className="mt-2 text-sm text-slate-300 line-clamp-2">
+                          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-indigo-300">
+                            <AlignLeft className="w-4 h-4" /> 阅读原文
+                          </div>
+                          <p className="mt-1.5 truncate text-base font-semibold text-white" title={currentArticleTitle || '当前文章'}>
                             {currentArticleTitle || '当前文章'}
                           </p>
-                          <div className="mt-3">
-                            <ReadabilityBadgeRow readability={currentArticleReadability} theme="dark" />
-                          </div>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex shrink-0 items-center gap-1.5">
                           <button
                             onClick={handleExtractGlossary}
                             disabled={isExtractingGlossary || isParsingText || !currentArticleData.length}
-                            className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-medium transition-colors bg-amber-500/20 text-amber-100 hover:bg-amber-500/40 border border-amber-300/30 self-start disabled:opacity-60"
+                            className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-amber-300/30 bg-amber-500/20 text-amber-100 transition-colors hover:bg-amber-500/40 disabled:opacity-60"
                             title="识别文中专业术语、专有名词并生成中文翻译"
                           >
                             {isExtractingGlossary ? <Loader2 className="w-4 h-4 animate-spin" /> : <Tag className="w-4 h-4" />}
-                            <span className="hidden sm:inline">{currentArticleGlossary.length ? '更新术语' : '识别术语'}</span>
                           </button>
                           <button
                             onClick={handleToggleCurrentFavorite}
-                            className={`inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-medium transition-colors border self-start ${favoriteArticleIds.includes(currentArticleId) ? 'bg-amber-400/25 text-amber-100 border-amber-300/50' : 'bg-white/10 text-slate-200 hover:bg-white/20 border-white/20'}`}
+                            className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border transition-colors ${favoriteArticleIds.includes(currentArticleId) ? 'bg-amber-400/25 text-amber-100 border-amber-300/50' : 'bg-white/10 text-slate-200 hover:bg-white/20 border-white/20'}`}
                             title="收藏或取消收藏当前文章"
                           >
                             <BookMarked className="w-4 h-4" />
-                            <span className="hidden sm:inline">{favoriteArticleIds.includes(currentArticleId) ? '已收藏' : '收藏'}</span>
                           </button>
                           <button
                             onClick={handleSaveCurrentArticle}
-                            className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-medium transition-colors bg-indigo-500/20 text-indigo-200 hover:bg-indigo-500/40 border border-indigo-400/30 self-start"
+                            className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-indigo-400/30 bg-indigo-500/20 text-indigo-200 transition-colors hover:bg-indigo-500/40"
                             title="保存这篇文章和它的解析到本地书架"
                           >
                             <Save className="w-4 h-4" />
-                            <span className="hidden sm:inline">保存</span>
                           </button>
                           {articleStudyMode === 'read' && (
                             <button
                               type="button"
                               onClick={() => setHighlightMode(prev => !prev)}
-                              className={`inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-medium transition-colors border self-start ${highlightMode ? 'bg-indigo-500 text-white border-indigo-300/40 hover:bg-indigo-400' : 'bg-white/10 text-slate-200 border-white/10 hover:bg-white/20'}`}
+                              className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border transition-colors ${highlightMode ? 'bg-indigo-500 text-white border-indigo-300/40 hover:bg-indigo-400' : 'bg-white/10 text-slate-200 border-white/10 hover:bg-white/20'}`}
                               title={highlightMode ? '关闭左侧句子结构高亮' : '让左侧原文同步显示句子结构高亮'}
                             >
                               <Zap className="w-4 h-4" />
-                              <span className="hidden sm:inline">{highlightMode ? '已同步高亮' : '同步高亮'}</span>
                             </button>
                           )}
                           <HoverTip
                             text="这里显示的是自动估算难度，不是官方 Lexile 认证分值。"
                             align="right"
                           >
-                            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-slate-200 border border-white/10 cursor-help">
+                            <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/10 text-slate-200 cursor-help">
                               <Info className="w-4 h-4" />
                             </span>
                           </HoverTip>
@@ -6034,19 +6026,16 @@
                       </div>
 
                       {rightPanelTab === 'guided' && (
-                        <div className="animate-in fade-in duration-500 max-w-3xl mx-auto space-y-5">
-                          <div className="rounded-[28px] border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-indigo-50/50 p-6 md:p-7 shadow-sm">
-                            <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                              <div>
-                                <p className="text-xs uppercase tracking-[0.25em] text-indigo-400 font-bold">解析总览</p>
-                                <h3 className="mt-2 text-2xl font-black text-slate-900">先看懂这一句</h3>
-                              </div>
+                        <div className="animate-in fade-in duration-500 max-w-3xl mx-auto space-y-4">
+                          <div className="rounded-[28px] border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-indigo-50/50 p-5 md:p-6 shadow-sm">
+                            <div className="flex items-center justify-between gap-4">
+                              <p className="text-xs uppercase tracking-[0.25em] text-indigo-400 font-bold">解析总览</p>
                               <div className="shrink-0 rounded-2xl bg-white/80 border border-indigo-100 px-4 py-3 text-sm font-semibold text-indigo-700 shadow-sm">
                                 第 {currentArticleData.findIndex(sentence => sentence.id === selectedSentence.id) + 1} 句 / 共 {currentArticleData.length} 句
                               </div>
                             </div>
 
-                            <div className="mt-6 rounded-3xl bg-white border border-slate-100 p-5 shadow-sm">
+                            <div className="mt-4 rounded-3xl bg-white border border-slate-100 p-5 shadow-sm">
                               <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                                 <p className="text-sm font-black uppercase tracking-[0.18em] text-slate-400">原句</p>
                                 <p className="text-xs text-slate-400">电脑双击 / iPad 长按单词可加生词本</p>
@@ -6064,23 +6053,8 @@
                               </p>
                             </div>
 
-                            <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div className="rounded-3xl border border-sky-100 bg-sky-50/70 p-5">
-                                <p className="text-sm font-black text-sky-700 mb-2">语法重点</p>
-                                <p className="text-base leading-7 text-slate-800 font-semibold">
-                                  {selectedSentence.grammarFocus || extractFirstAnalysisSection(selectedSentence.analysis) || '这句结构比较直接，先抓主干即可。'}
-                                </p>
-                              </div>
-                              <div className="rounded-3xl border border-emerald-100 bg-emerald-50/70 p-5">
-                                <p className="text-sm font-black text-emerald-700 mb-2">学习提示</p>
-                                <p className="text-base leading-7 text-slate-800 font-semibold">
-                                  {selectedSentence.sentenceCoach?.summary || selectedSentence.sentenceCoach?.keyHint || selectedSentence.teachingFocus?.mainQuestion || '先看谁在做，再看动作是什么。'}
-                                </p>
-                              </div>
-                            </div>
-
                             {(selectedSentence.logicConnector || selectedSentence.pronounRef) && (
-                              <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
                                 {selectedSentence.logicConnector && (
                                   <div className="rounded-3xl border border-purple-100 bg-purple-50/70 p-5">
                                     <p className="text-sm font-black text-purple-700 mb-2">句子关系</p>
@@ -6096,11 +6070,30 @@
                               </div>
                             )}
 
-                            <div className="mt-5 border-t border-slate-100 pt-5">
-                              <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                            <div className="mt-4 border-t border-slate-100 pt-4">
+                              <div className="mb-3 flex items-center gap-2">
+                                <p className="text-xs uppercase tracking-[0.22em] text-slate-400 font-bold">Segments</p>
+                                <h3 className="text-lg font-black text-slate-900">句子切片</h3>
+                              </div>
+                              <div className="flex flex-wrap gap-2">
+                                {(selectedSentence.segments || []).map((seg, index) => (
+                                  <span
+                                    key={`${seg.text}-${index}`}
+                                    className={`inline-flex items-center gap-1 rounded-xl border px-3 py-2 text-sm font-bold ${getSegmentStyles(seg.type, true)}`}
+                                    title={seg.type}
+                                  >
+                                    <span>{seg.text}</span>
+                                    <span className="text-[11px] opacity-70">{seg.label}</span>
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="mt-4 border-t border-slate-100 pt-4">
+                              <div className="flex items-center justify-between gap-3">
                                 <div>
                                   <p className="text-xs uppercase tracking-[0.22em] text-slate-400 font-bold">Structure</p>
-                                  <h3 className="mt-1 text-xl font-black text-slate-900">结构解读</h3>
+                                  <h3 className="mt-1 text-lg font-black text-slate-900">结构解析</h3>
                                 </div>
                                 <button
                                   type="button"
@@ -6110,30 +6103,9 @@
                                   去问 AI 助教
                                 </button>
                               </div>
-                              <div className="mt-4">
-                                {formatMarkdown(selectedSentence.analysis || '暂无结构分析。', "text-slate-800 text-base leading-[1.85]")}
+                              <div className="mt-3 rounded-2xl border border-slate-100 bg-white/60 px-4 py-3">
+                                {formatMarkdown(selectedSentence.analysis || '暂无结构分析。', "text-slate-800 text-[15px] leading-7")}
                               </div>
-                            </div>
-                          </div>
-
-                          <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
-                            <div className="flex items-center gap-3 mb-5">
-                              <div>
-                                <p className="text-xs uppercase tracking-[0.22em] text-slate-400 font-bold">Segments</p>
-                                <h3 className="mt-1 text-xl font-black text-slate-900">句子切片</h3>
-                              </div>
-                            </div>
-                            <div className="flex flex-wrap gap-2">
-                              {(selectedSentence.segments || []).map((seg, index) => (
-                                <span
-                                  key={`${seg.text}-${index}`}
-                                  className={`inline-flex items-center gap-1 rounded-xl border px-3 py-2 text-sm font-bold ${getSegmentStyles(seg.type, true)}`}
-                                  title={seg.type}
-                                >
-                                  <span>{seg.text}</span>
-                                  <span className="text-[11px] opacity-70">{seg.label}</span>
-                                </span>
-                              ))}
                             </div>
                           </div>
 
