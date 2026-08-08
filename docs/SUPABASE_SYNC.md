@@ -10,7 +10,7 @@ Article bundles and sentence analyses never sync through Supabase. They are publ
 
 ## Setup
 
-1. In Supabase Auth, enable **Email** authentication. For development, disable email confirmation only if appropriate for the project; production should use confirmation.
+1. In Supabase Auth, enable **Email** authentication. In **Authentication → URL Configuration**, set Site URL to `https://lesong36.github.io/reading/` and add the same address under Redirect URLs. For development, disable email confirmation only if appropriate for the project; production should use confirmation.
 2. Run [`supabase/schema.sql`](../supabase/schema.sql) in **SQL Editor**.
 3. The app includes the project URL and publishable key. Never add a `sb_secret_*` or service-role key to any browser configuration.
 4. Register with a unique username, email, and password.

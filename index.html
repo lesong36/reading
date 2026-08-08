@@ -3993,7 +3993,10 @@
             if (!/^[a-z0-9_]{3,32}$/.test(username)) throw new Error('用户名需为 3–32 位英文字母、数字或下划线。');
             const { data, error } = await supabase.auth.signUp({
               email: loginEmail.trim(), password: loginPassword,
-              options: { data: { username } }
+              options: {
+                data: { username },
+                emailRedirectTo: `${window.location.origin}${window.location.pathname}`
+              }
             });
             if (error) throw error;
             if (!data.session) {
