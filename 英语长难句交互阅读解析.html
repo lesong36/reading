@@ -4951,7 +4951,7 @@
                   AI 设置
                 </button>
                 <button
-                  onClick={() => user ? setShowLoginModal(true) : setShowCloudSettings(prev => !prev)}
+                  onClick={() => supabase ? setShowLoginModal(true) : setShowCloudSettings(prev => !prev)}
                   className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-colors shadow-sm ${
                     user
                       ? 'bg-emerald-600 text-white'
