@@ -6858,9 +6858,9 @@
                                 <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
                                   <div>
                                     <p className="text-xs uppercase tracking-[0.24em] text-indigo-400 font-bold">Quiz</p>
-                                    <h3 className="mt-2 text-2xl font-black text-slate-900">按官方答案做题</h3>
+                                    <h3 className="mt-2 text-2xl font-black text-slate-900">按课件答案做题</h3>
                                     <p className="mt-2 text-sm leading-6 text-slate-500">
-                                      单选题会自动评分；插入句、总结题等复杂题型展示在题号栏中，但不计入自动得分。
+                                      单选题会自动评分；个别课件未标答的题目会依据原文推断并明确标识。插入句、总结题等复杂题型不计入自动得分。
                                     </p>
                                   </div>
                                   <div className="grid grid-cols-2 gap-3 text-sm">
@@ -6927,6 +6927,11 @@
                                         {!currentQuizIsSupported && (
                                           <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-700">
                                             非自动评分
+                                          </span>
+                                        )}
+                                        {currentQuizQuestion.answerSource === 'inferred-from-passage' && (
+                                          <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800">
+                                            答案依据原文推断
                                           </span>
                                         )}
                                       </div>

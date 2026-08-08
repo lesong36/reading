@@ -29,6 +29,15 @@ const requiredTeachingFields = [
   'encouragement'
 ];
 
+// Keep this in lockstep with analyze-md-sections.mjs. Generic roles hide the
+// clause structure students are meant to learn, so they are release blockers.
+const allowedSegmentTypes = new Set([
+  'subject', 'verb', 'object', 'predicative', 'object-complement',
+  'clause-subject', 'clause-verb', 'clause-object', 'clause-predicative',
+  'coord-subject', 'coord-verb', 'coord-object', 'coord-predicative',
+  'conjunction', 'modifier', 'adverbial'
+]);
+
 const expectedCounts = {
   rfd1: 16,
   rfd2: 16,
@@ -155,6 +164,18 @@ const auditSentence = ({ sentence, file }) => {
   if (!Array.isArray(sentence?.segments) || sentence.segments.length === 0) {
     issues.push({ severity: 'error', issue: 'missing_segments', file, sentenceId: sentence?.id || '' });
   } else {
+    sentence.segments.forEach((segment, segmentIndex) => {
+      if (!allowedSegmentTypes.has(segment?.type)) {
+        issues.push({
+          severity: 'error',
+          issue: 'invalid_segment_type',
+          file,
+          sentenceId: sentence.id || '',
+          segmentIndex,
+          segmentType: segment?.type || '(empty)'
+        });
+      }
+    });
     const segmentText = sentence.segments.map(segment => segment.text || '').join('');
     if (segmentText !== sentence.text) {
       issues.push({

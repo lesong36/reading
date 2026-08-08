@@ -16,6 +16,76 @@ const DEFAULT_INPUT = path.join(cwd, 'docs/Reading Future Discover Classroom (PP
 const DEFAULT_SOURCE = path.join(cwd, 'data/rfd-quiz-source');
 const DEFAULT_IMPORT = path.join(cwd, 'data/generated-reader-json/reader-articles.import.json');
 
+// A small number of question pages use a very thin red circle or have their
+// question/answers split across decorative images.  Keep these recoveries
+// explicit and reviewable instead of silently losing the page.  `answerSource`
+// tells the reader that the answer was reconstructed from the reading when the
+// PowerPoint ink could not be machine-verified.
+const RECOVERED_QUESTIONS = {
+  '1-1:31': ['What is the reading mainly about?', ['Farmers', 'Weather and animals', 'Winter'], 1],
+  '1-1:33': ['What do cows and horses do before it rains?', ['They get fat.', 'They eat a lot.', 'They smell the air.'], 2],
+  '1-2:30': ['What is the reading mainly about?', ['Kinds of clouds', 'Kinds of storms', 'Kinds of weather'], 0],
+  '1-2:32': ['What is true about storm clouds?', ['They are dark and gray.', 'They are white and fluffy.', 'They are thin and long.'], 0],
+  '1-3:31': ['What is the reading mainly about?', ['Water', 'Snow', 'Weather'], 0],
+  '1-3:33': ['What happens when water moves up and down inside storm clouds?', ['It becomes rain.', 'It becomes snow.', 'It becomes hail.'], 2],
+  '1-4:32': ['What can a tornado do?', ['It can fall from the sky.', 'It can carry things far.', 'It can make snow.'], 1],
+  '1-5:31': ['What is the reading mainly about?', ['Africa', 'Building homes', 'Ice and snow'], 1],
+  '1-5:32': ['Why do some people in Gabon use wood to make their homes?', ['They have many trees.', 'It is very hot.', 'They live far in the north.'], 0],
+  '1-6:32': ['People keep fish in nets ______ their homes.', ['on', 'under', 'above'], 1],
+  '1-6:33': ["How do people get fish if they don't live near the water?", ['They buy them.', 'They keep them in nets.', "They can't get fish."], 0],
+  '1-8:31': ['What is the reading mainly about?', ['Drying food', 'Raising llamas', 'Living in the Andes'], 2],
+  '1-8:32': ['Llamas are special animals that have long ______.', ['hair', 'meat', 'potatoes'], 0],
+  '1-8:33': ['How do the people of the Andes make their food last a long time?', ['They cook it.', 'They dry it.', 'They grow it.'], 1],
+  '1-9:32': ['What does moving do for your body?', ['It slows your blood.', 'It makes it happy and healthy.', 'It can hurt it.'], 1],
+  '1-10:28': ['Doing things that make you feel good is a good idea.', ['True', 'False'], 0, 'true-false'],
+  '1-10:33': ['What matters most?', ['How you feel', 'How you look', 'How you compare yourself to others'], 0],
+  '1-11:32': ['How does oxygen move around your body?', ['It helps your brain.', 'It comes from food.', "It's carried by blood."], 2],
+  '1-12:29': ['What is the reading mainly about?', ['Martial arts', 'Weapons', 'Fighting'], 0],
+  '1-12:31': ['Why are martial arts still popular?', ["They're dangerous.", "They're great for exercise.", 'People use their hands and feet.'], 1],
+  '1-13:33': ['What happened when Archimedes sat in the bath?', ['Water poured out.', 'He found the tub’s volume.', 'He found the king’s crown.'], 0],
+  '1-15:32': ['How tall are most women?', ['They are about 160 cm.', 'They are about 174 cm.', 'They are about 251 cm.'], 0],
+  '1-16:31': ['How fast can a horse and rider go?', ['45 km an hour', '72 km an hour', '80 km an hour'], 0],
+  '2-2:25': ['Pythagoras thought the earth was flat.', ['True', 'False'], 1, 'true-false'],
+  '2-4:26': ['The atmosphere helps rocks to burn before they hit the earth.', ['True', 'False'], 0, 'true-false'],
+  '2-4:31': ['The word “huge” means ______.', ['big', 'hard', 'round'], 0],
+  '3-3:33': ['The word “culture” means ______.', ['a language', 'a shared way of being', 'a way of dressing'], 1],
+  '3-6:33': ['The word “over” in the reading means ______.', ['on top of', 'more than', 'done with'], 1],
+  '3-7:32': ['The word “ugly” means ______.', ['not pretty', 'not delicious', 'not expensive'], 0]
+};
+
+// OCR gives us the answer cards reliably, but these prompts are wrapped inside
+// raster artwork.  Preserve the complete wording rather than retaining only a
+// final line such as "the sky?".
+const PROMPT_REPAIRS = {
+  '1-4:29': 'What can fall from the sky?',
+  '1-5:33': 'In the north of North America, snow and ice ______ the ground.',
+  '1-7:29': 'What makes the Sami people different?',
+  '1-8:29': 'What is the weather like in the Andes Mountains?',
+  '1-10:29': 'Who do people compare themselves to?',
+  '1-11:28': 'What happens when you use your muscles?',
+  '1-12:27': 'What did people use martial arts to protect before they had guns?',
+  '1-15:29': 'Who is taller, Sultan Kosen or Junrey Balawing?',
+  '2-3:28': 'What do people wonder about the moon?',
+  '2-3:32': 'What can people say about the moon after reading the passage?',
+  '2-9:28': 'What should you do with money for something?',
+  '2-11:30': 'Why are holograms hard to copy?',
+  '2-12:29': 'Why should you save money one coin at a time?',
+  '2-13:30': 'What does less air make?',
+  '2-15:30': 'When did mouth music become popular?',
+  '3-5:33': 'Most people ______ their straws ______ when they are done with them.',
+  '3-6:29': 'What happens to people who do not have fresh water?',
+  '3-8:32': "If people do not ______ shoes, they may get cuts on their feet.",
+  '3-9:30': 'Who was the first person to be photographed?',
+  '3-10:31': 'What did people do with cameras in the 1990s?',
+  '3-12:30': 'How can you see an immersive picture?',
+  '3-13:29': 'What kind of jobs are common in the country?',
+  '3-15:29': 'What job does the child want to have?'
+};
+
+const repairPrompt = (key, question) => PROMPT_REPAIRS[key]
+  ? { ...question, prompt: PROMPT_REPAIRS[key] }
+  : question;
+
 const parseArgs = (argv) => {
   const args = { input: DEFAULT_INPUT, out: DEFAULT_SOURCE, importPath: DEFAULT_IMPORT, only: '', dryRun: false, noInstall: false, reports: '' };
   for (let index = 0; index < argv.length; index += 1) {
@@ -231,9 +301,12 @@ const promptFromLines = (lines, options) => {
   const optionTops = options.map((option) => option.top);
   const beforeOptions = lines.filter((line) => optionTops.every((top) => line.bottom < top - 5));
   const candidates = beforeOptions.map((line) => line.text)
-    .filter((text) => text.length >= 8)
-    .filter((text) => !/^(?:reading|choose the right answer|main idea|detail|inference|reading comprehension)/i.test(text));
-  return normalize(candidates.find((text) => /[?.]$/.test(text)) || candidates.at(-1) || '').replace(/^\d+\s*[.)]\s*/, '');
+    .filter((text) => text.length >= 2)
+    .filter((text) => !/^(?:reading|choose the right answer|main idea|detail|inference|vocabulary|reading comprehension)/i.test(text));
+  // Questions in the source artwork often wrap after the subject or verb. Join
+  // the consecutive lines instead of taking only the last one (which produced
+  // prompts such as "the sky?" and "fresh water?").
+  return normalize(candidates.join(' ')).replace(/^\d+\s*[.)]\s*/, '');
 };
 
 const promptFromNative = (native, options) => {
@@ -243,7 +316,9 @@ const promptFromNative = (native, options) => {
   for (const option of options) {
     if (prompt.toLowerCase().endsWith(` ${option.text.toLowerCase()}`)) prompt = prompt.slice(0, -option.text.length).trim();
   }
-  return prompt;
+  return /^(?:reading comprehension|choose the right answer|main idea|detail|inference|vocabulary)$/i.test(prompt)
+    ? ''
+    : prompt;
 };
 
 const pictureOptions = (file, slideNumber, workdir, pageRight, pageBottom, reds) => {
@@ -292,7 +367,7 @@ const trueFalseQuestion = (native, lines, reds) => {
     ? ((answerInk.left + answerInk.right) / 2 < pageRight / 2 ? 0 : 1)
     : answerFromRed(options, reds);
   return options.length === 2 && Number.isInteger(answerIndex)
-    ? { prompt: normalize(match[1]), options: options.map((option) => option.text), answerIndex, kind: 'true-false' }
+    ? { prompt: normalize(match[1]), options: options.map((option) => option.text), answerIndex, kind: 'true-false', answerSource: 'ppt-mark' }
     : null;
 };
 
@@ -303,7 +378,7 @@ const choiceQuestion = (file, slideNumber, native, lines, reds, workdir, image) 
   const answerIndex = fromPicture?.answerIndex ?? answerFromRed(options, reds);
   const prompt = promptFromNative(native, options) || fromPicture?.prompt || promptFromLines(lines, options);
   if (options.length < 2 || !Number.isInteger(answerIndex) || !prompt) return null;
-  return { prompt, options: options.map((option) => option.text), answerIndex, kind: 'choice' };
+  return { prompt, options: options.map((option) => option.text), answerIndex, kind: 'choice', answerSource: 'ppt-mark' };
 };
 
 const renderDeck = (file, workdir) => {
@@ -329,8 +404,15 @@ const extractDeck = (file, workdir) => {
     const lines = parseTsv(image, workdir);
     const reds = redComponents(image, workdir);
     const parsed = isTf ? trueFalseQuestion(slide.text, lines, reds) : choiceQuestion(file, slide.number, slide.text, lines, reds, workdir, image);
-    if (!parsed) { skipped.push({ slide: slide.number, reason: isTf ? 'true_false_not_resolved' : 'choice_not_resolved', native: slide.text, ocr: lines.map((line) => line.text) }); continue; }
-    questions.push({ id: `q${questions.length + 1}`, index: questions.length + 1, ...parsed, paragraphHint: null, type: 'single', sourceSlide: slide.number });
+    const recovered = RECOVERED_QUESTIONS[`${info.key}:${slide.number}`];
+    const finalQuestion = (recovered && {
+      prompt: recovered[0], options: recovered[1], answerIndex: recovered[2], kind: recovered[3] || 'choice',
+      answerSource: 'inferred-from-passage'
+    }) || parsed;
+    if (!finalQuestion) { skipped.push({ slide: slide.number, reason: isTf ? 'true_false_not_resolved' : 'choice_not_resolved', native: slide.text, ocr: lines.map((line) => line.text) }); continue; }
+    questions.push(repairPrompt(`${info.key}:${slide.number}`, {
+      id: `q${questions.length + 1}`, index: questions.length + 1, ...finalQuestion, paragraphHint: null, type: 'single', sourceSlide: slide.number
+    }));
   }
   return { ...info, file, slideCount: nativeSlides.length, questions, skipped };
 };
@@ -342,11 +424,21 @@ const install = (importPath, deckResults) => {
   for (const article of articles) {
     const match = String(article.id).match(/^rfd([123])-(\d{2})-/);
     if (!match) continue;
-    const questions = byKey.get(`${Number(match[1])}-${Number(match[2])}`);
+    const key = `${Number(match[1])}-${Number(match[2])}`;
+    const questions = byKey.get(key);
     if (!questions) continue;
-    article.questions = questions;
+    const recovered = Object.entries(RECOVERED_QUESTIONS)
+      .filter(([recoveryKey]) => recoveryKey.startsWith(`${key}:`))
+      .map(([recoveryKey, values]) => ({
+        sourceSlide: Number(recoveryKey.split(':')[1]), prompt: values[0], options: values[1], answerIndex: values[2],
+        kind: values[3] || 'choice', answerSource: 'inferred-from-passage', paragraphHint: null, type: 'single'
+      }));
+    const merged = [...questions, ...recovered.filter((item) => !questions.some((question) => question.sourceSlide === item.sourceSlide))]
+      .sort((left, right) => left.sourceSlide - right.sourceSlide)
+      .map((question, index) => repairPrompt(`${key}:${question.sourceSlide}`, { ...question, id: `q${index + 1}`, index: index + 1 }));
+    article.questions = merged;
     article.unsupportedQuestions = [];
-    installed += questions.length;
+    installed += merged.length;
   }
   fs.writeFileSync(importPath, `${JSON.stringify(articles, null, 2)}\n`);
   return { articleCount: byKey.size, questionCount: installed };
