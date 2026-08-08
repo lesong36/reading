@@ -212,10 +212,10 @@ const auditQuestion = ({ question, file, articleId, questionGroup }) => {
       });
     }
 
-    if (!Array.isArray(question?.options) || question.options.length !== 4) {
+    if (!Array.isArray(question?.options) || question.options.length < 2) {
       issues.push({
         severity: 'error',
-        issue: 'single_question_option_count_mismatch',
+        issue: 'single_question_option_count_too_small',
         file,
         articleId,
         questionId,
@@ -399,7 +399,7 @@ const auditImportPack = (filePath) => {
       if (
         question?.type === 'single' &&
         Array.isArray(question?.options) &&
-        question.options.length === 4 &&
+        question.options.length >= 2 &&
         Number.isInteger(question?.answerIndex) &&
         question.answerIndex >= 0 &&
         question.answerIndex < question.options.length &&

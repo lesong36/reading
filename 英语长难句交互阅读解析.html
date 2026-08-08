@@ -1890,9 +1890,9 @@
       './data/generated-reader-json/reader-articles-tpo.import.json',
       './data/generated-reader-json/reader-articles-re-foundations.import.json'
     ];
-    // v11 repairs legacy grammar-role data and refreshes every published bundle.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v11';
-    const BUNDLED_LIBRARY_SEED_VERSION = '11';
+    // v12 adds the RFD classroom-PPT quiz bank and refreshes every published bundle.
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v12';
+    const BUNDLED_LIBRARY_SEED_VERSION = '12';
     const EXPECTED_TPO_ARTICLE_COUNT = 104;
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
@@ -2702,6 +2702,7 @@
       }));
       const localDataLoadedRef = useRef(false);
       const localDataWriteTimerRef = useRef(null);
+      const bundledSeedInFlightRef = useRef(false);
       const [localDataReady, setLocalDataReady] = useState(false);
       const [isLoadingBundledLibrary, setIsLoadingBundledLibrary] = useState(false);
 
@@ -2775,6 +2776,7 @@
         const storedTpoCount = getTpoArticleCount(savedArticles);
         const storedReFoundationsCount = getReFoundationsArticleCount(savedArticles);
         if (
+          bundledSeedInFlightRef.current ||
           localStorage.getItem(BUNDLED_LIBRARY_SEED_KEY) === BUNDLED_LIBRARY_SEED_VERSION
           && storedTpoCount >= EXPECTED_TPO_ARTICLE_COUNT
           && storedReFoundationsCount >= EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT
@@ -2782,9 +2784,11 @@
 
         let cancelled = false;
         const seedBundledLibrary = async () => {
+          bundledSeedInFlightRef.current = true;
           try {
             const bundled = await fetchBundledLibraryArticles();
             if (cancelled) return;
+            trySetLocalStorage(BUNDLED_LIBRARY_SEED_KEY, BUNDLED_LIBRARY_SEED_VERSION);
             setSavedArticles(prev => {
               // Bundled articles are canonical curriculum records.  Replace
               // only colliding curriculum IDs so an older OPFS cache cannot
@@ -2792,13 +2796,13 @@
               const merged = mergeSavedArticles(prev, bundled, { preferIncoming: true });
               // The following persistence effect writes the full bundle to OPFS.
               // Do not put it in localStorage: 104 analysed articles exceed its quota.
-              trySetLocalStorage(BUNDLED_LIBRARY_SEED_KEY, BUNDLED_LIBRARY_SEED_VERSION);
               setTimeout(() => {
                 setToastMessage(`📚 已合并预置教材 ${bundled.length} 篇到书架`);
               }, 0);
               return merged;
             });
           } catch (error) {
+            bundledSeedInFlightRef.current = false;
             console.warn('Bundled library seed skipped:', error);
           }
         };
@@ -3461,12 +3465,15 @@
       useEffect(() => {
         if (!currentArticle || viewMode !== 'reading') return;
         const refreshedData = normalizeArticleData(currentArticle.data);
+        const refreshedQuestions = normalizeArticleQuestions(currentArticle);
         const currentText = currentArticleData.map(sentence => sentence.text).join('\n');
         const refreshedText = refreshedData.map(sentence => sentence.text).join('\n');
-        if (!refreshedData.length || refreshedText === currentText) return;
+        const currentQuestionSignature = JSON.stringify(currentArticleQuestions);
+        const refreshedQuestionSignature = JSON.stringify(refreshedQuestions);
+        if (!refreshedData.length || (refreshedText === currentText && refreshedQuestionSignature === currentQuestionSignature)) return;
         setCurrentArticleTitle(currentArticle.title || '未命名文章');
         setCurrentArticleData(refreshedData);
-        setCurrentArticleQuestions(normalizeArticleQuestions(currentArticle));
+        setCurrentArticleQuestions(refreshedQuestions);
         setCurrentArticleGlossary(collectArticleGlossary(currentArticle, refreshedData));
         setCurrentArticleReadability(currentArticle.readability || computeArticleReadability(refreshedData));
         setSelectedSentence(refreshedData[0]);

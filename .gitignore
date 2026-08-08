@@ -25,6 +25,9 @@ data/**
 !data/generated-reader-json/reader-articles.import.json
 !data/generated-reader-json/reader-articles.report.json
 scripts/
+!scripts/
+scripts/*
+!scripts/extract-rfd-quiz-from-pptx.mjs
 package.json
 package-lock.json
 index.html.clean
@@ -42,3 +45,6 @@ vendor/esm/
 
 # Local private config (never commit secrets)
 local-config.js
+
+# Local licensed classroom PPT source; derived quiz JSON is reproducible.
+docs/Reading Future Discover Classroom (PPT) 1-3/
