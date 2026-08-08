@@ -87,13 +87,15 @@
     import { BookOpen, Search, Info, MousePointerClick, Zap, AlignLeft, Underline, Link as LinkIcon, Tag, Sparkles, Send, Loader2, UploadCloud, FileText, ArrowLeft, BookMarked, Printer, Plus, Trash2, CheckCircle2, Download, Upload, MessageSquare, Library, Save, FolderOpen, User, LogOut, X, Bot, RefreshCw, KeyRound, ZoomIn, ZoomOut } from 'https://esm.sh/lucide-react@0.292.0?bundle&deps=react@18.2.0';
     import readability from 'https://esm.sh/text-readability@1.1.1?bundle';
     
-    // Firebase Imports
-    import { initializeApp } from 'https://esm.sh/firebase@10.8.1/app?bundle';
-    import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from 'https://esm.sh/firebase@10.8.1/auth?bundle';
-    import { getFirestore, doc, setDoc, deleteDoc, collection, onSnapshot } from 'https://esm.sh/firebase@10.8.1/firestore?bundle';
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2?bundle';
 
-    // Firebase Configuration
-    const FIREBASE_CONFIG_STORAGE_KEY = 'reader_firebase_config';
+    // Supabase uses a publishable key in the browser. The secret/service key
+    // must never be added here, to local-config.js, or to GitHub Pages.
+    const SUPABASE_CONFIG_STORAGE_KEY = 'reader_supabase_config';
+    const DEFAULT_SUPABASE_CONFIG = {
+      url: 'https://faeixgpjhnwpfzfkgjsu.supabase.co',
+      publishableKey: 'sb_publishable_vg-bfePJ4OSgoOOiMEJeCg_7YxdAdkx'
+    };
     const LOCAL_PRIVATE_CONFIG = typeof window !== 'undefined' ? (window.__reader_local_config || {}) : {};
     // GitHub Pages / iPad 静态部署：不依赖语音与本地 Ollama
     const ENABLE_VOICE_FEATURES = false;
@@ -115,40 +117,57 @@
       if (!cleaned) return DEFAULT_DOUBAO_VOICE_TYPE;
       return LEGACY_DOUBAO_VOICE_TYPE_MAP[cleaned] || cleaned;
     };
-    const getStoredFirebaseConfig = () => {
+    const getStoredSupabaseConfig = () => {
       try {
-        const stored = localStorage.getItem(FIREBASE_CONFIG_STORAGE_KEY);
+        const stored = localStorage.getItem(SUPABASE_CONFIG_STORAGE_KEY);
         return stored ? JSON.parse(stored) : null;
       } catch (error) {
-        console.warn('Stored Firebase config is invalid:', error);
+        console.warn('Stored Supabase config is invalid:', error);
         return null;
       }
     };
 
-    let auth, db, appId = 'default-app-id', firebaseConfigSource = 'none';
-    if (typeof __firebase_config !== 'undefined') {
+    const SYNC_VAULT_VERSION = 1;
+    const textEncoder = new TextEncoder();
+    const textDecoder = new TextDecoder();
+    const bytesToBase64 = (bytes) => btoa(String.fromCharCode(...bytes));
+    const base64ToBytes = (value) => Uint8Array.from(atob(value), char => char.charCodeAt(0));
+    const deriveSyncVaultKey = async (passphrase, salt) => {
+      const material = await crypto.subtle.importKey('raw', textEncoder.encode(passphrase), 'PBKDF2', false, ['deriveKey']);
+      return crypto.subtle.deriveKey(
+        { name: 'PBKDF2', salt, iterations: 310000, hash: 'SHA-256' },
+        material,
+        { name: 'AES-GCM', length: 256 },
+        false,
+        ['encrypt', 'decrypt']
+      );
+    };
+    const encryptForSyncVault = async (value, passphrase) => {
+      const salt = crypto.getRandomValues(new Uint8Array(16));
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const key = await deriveSyncVaultKey(passphrase, salt);
+      const ciphertext = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, textEncoder.encode(value));
+      return { v: SYNC_VAULT_VERSION, salt: bytesToBase64(salt), iv: bytesToBase64(iv), ciphertext: bytesToBase64(new Uint8Array(ciphertext)) };
+    };
+    const decryptFromSyncVault = async (payload, passphrase) => {
+      if (!payload || payload.v !== SYNC_VAULT_VERSION) throw new Error('不支持的加密数据版本');
+      const key = await deriveSyncVaultKey(passphrase, base64ToBytes(payload.salt));
+      const plaintext = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: base64ToBytes(payload.iv) }, key, base64ToBytes(payload.ciphertext));
+      return textDecoder.decode(plaintext);
+    };
+
+    let supabase = null, supabaseConfigSource = 'none';
+    const suppliedSupabaseConfig = LOCAL_PRIVATE_CONFIG.supabaseUrl && LOCAL_PRIVATE_CONFIG.supabasePublishableKey
+      ? { url: LOCAL_PRIVATE_CONFIG.supabaseUrl, publishableKey: LOCAL_PRIVATE_CONFIG.supabasePublishableKey }
+      : getStoredSupabaseConfig() || DEFAULT_SUPABASE_CONFIG;
+    if (suppliedSupabaseConfig?.url && suppliedSupabaseConfig?.publishableKey) {
       try {
-        const firebaseConfig = JSON.parse(__firebase_config);
-        const app = initializeApp(firebaseConfig);
-        auth = getAuth(app);
-        db = getFirestore(app);
-        firebaseConfigSource = 'runtime';
-        if (typeof __app_id !== 'undefined') appId = __app_id;
+        supabase = createClient(suppliedSupabaseConfig.url, suppliedSupabaseConfig.publishableKey, {
+          auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+        });
+        supabaseConfigSource = LOCAL_PRIVATE_CONFIG.supabaseUrl ? 'local' : 'bundled';
       } catch (e) {
-        console.error('Firebase Initialization Error:', e);
-      }
-    } else {
-      const storedFirebaseConfig = getStoredFirebaseConfig();
-      if (storedFirebaseConfig) {
-        try {
-          const app = initializeApp(storedFirebaseConfig);
-          auth = getAuth(app);
-          db = getFirestore(app);
-          appId = storedFirebaseConfig.projectId || appId;
-          firebaseConfigSource = 'local';
-        } catch (e) {
-          console.error('Stored Firebase Initialization Error:', e);
-        }
+        console.error('Supabase Initialization Error:', e);
       }
     }
 
@@ -2587,22 +2606,30 @@
       const glossaryHoverHideTimerRef = useRef(null);
       const [companionImagePreview, setCompanionImagePreview] = useState(null);
 
-      // Firebase Auth State
+      // Supabase Auth + cloud-sync state
       const [user, setUser] = useState(null);
       const [showLoginModal, setShowLoginModal] = useState(false);
-      const [loginEmail, setLoginEmail] = useState("lei.songpmp@gmail.com");
+      const [loginUsername, setLoginUsername] = useState("");
+      const [loginEmail, setLoginEmail] = useState("");
       const [loginPassword, setLoginPassword] = useState("");
       const [isLoginMode, setIsLoginMode] = useState(true);
       const [authError, setAuthError] = useState("");
       const [isAuthenticating, setIsAuthenticating] = useState(false);
       const [showCloudSettings, setShowCloudSettings] = useState(false);
-      const [firebaseConfigInput, setFirebaseConfigInput] = useState(() => {
-        const stored = getStoredFirebaseConfig();
-        return stored ? JSON.stringify(stored, null, 2) : "";
+      const [supabaseConfigInput, setSupabaseConfigInput] = useState(() => {
+        const stored = getStoredSupabaseConfig() || DEFAULT_SUPABASE_CONFIG;
+        return JSON.stringify(stored, null, 2);
       });
+      const [syncPassphrase, setSyncPassphrase] = useState("");
+      const [syncVaultUnlocked, setSyncVaultUnlocked] = useState(false);
+      const encryptedAiKeyRef = useRef(null);
+      const [favoriteArticleIds, setFavoriteArticleIds] = useState(() => {
+        try { return JSON.parse(localStorage.getItem('reader_favorite_article_ids') || '[]'); } catch { return []; }
+      });
+      const [cloudSyncRevision, setCloudSyncRevision] = useState(0);
       const [cloudSyncStatus, setCloudSyncStatus] = useState(() => ({
-        enabled: Boolean(auth && db),
-        message: auth && db ? '云同步已准备好，请登录账号。' : '云同步未配置，当前仅保存到本机。'
+        enabled: Boolean(supabase),
+        message: supabase ? 'Supabase 云同步已准备好，请登录账号。' : '云同步未配置，当前仅保存到本机。'
       }));
       const cloudDataLoadedRef = useRef(false);
       const cloudDataInitializedRef = useRef(false);
@@ -2720,6 +2747,7 @@
       useEffect(() => {
         trySetLocalStorage('my_local_articles', JSON.stringify(savedArticles));
         trySetLocalStorage('my_local_vocab_book', JSON.stringify(vocabBook));
+        trySetLocalStorage('reader_favorite_article_ids', JSON.stringify(favoriteArticleIds));
 
         if (!localDataLoadedRef.current || !localPersistenceStatus.enabled) return;
         if (localDataWriteTimerRef.current) clearTimeout(localDataWriteTimerRef.current);
@@ -2737,91 +2765,87 @@
             });
           }
         }, 500);
-      }, [savedArticles, vocabBook, localPersistenceStatus.enabled]);
+      }, [savedArticles, vocabBook, favoriteArticleIds, localPersistenceStatus.enabled]);
 
       useEffect(() => {
-        if (!db || !user || user.isAnonymous) {
+        if (!supabase || !user) {
           cloudDataLoadedRef.current = false;
           cloudDataInitializedRef.current = false;
           lastCloudSnapshotRef.current = "";
-          setCloudSyncStatus({
-            enabled: Boolean(db),
-            message: db ? '登录后会自动同步文章和生词本。' : '云同步未配置，当前仅保存到本机。'
-          });
+          setCloudSyncStatus({ enabled: Boolean(supabase), message: supabase ? '登录后同步学习记录与 AI 偏好。' : '云同步未配置，当前仅保存到本机。' });
           return;
         }
-
-        cloudDataInitializedRef.current = false;
-
-        const dataDoc = doc(db, 'artifacts', appId, 'users', user.uid, 'readerData', 'library');
-        setCloudSyncStatus({ enabled: true, message: '正在连接云端数据...' });
-
-        const unsubscribe = onSnapshot(dataDoc, (snapshot) => {
-          const data = snapshot.exists() ? snapshot.data() : {};
-          const cloudArticles = normalizeSavedArticles(data.savedArticles || []);
-          const cloudVocab = normalizeVocabBook(data.vocabBook || []);
-          lastCloudSnapshotRef.current = JSON.stringify({
-            savedArticles: cloudArticles,
-            vocabBook: cloudVocab
-          });
-          cloudDataLoadedRef.current = true;
-
-          if (!cloudDataInitializedRef.current) {
-            cloudDataInitializedRef.current = true;
-            setSavedArticles(prev => mergeSavedArticles(prev, cloudArticles));
-            setVocabBook(prev => mergeVocabBook(prev, cloudVocab));
-          } else {
-            setSavedArticles(cloudArticles);
-            setVocabBook(cloudVocab);
+        let cancelled = false;
+        setCloudSyncStatus({ enabled: true, message: '正在读取 Supabase 学习记录...' });
+        supabase.from('reader_sync_state').select('*').eq('user_id', user.id).maybeSingle().then(({ data, error }) => {
+          if (cancelled) return;
+          if (error) {
+            cloudDataLoadedRef.current = false;
+            setCloudSyncStatus({ enabled: false, message: `云同步读取失败：${error.message}` });
+            return;
           }
-          setCloudSyncStatus({
-            enabled: true,
-            message: snapshot.exists()
-              ? `云同步已连接：${cloudArticles.length} 篇文章，${cloudVocab.length} 个单词。`
-              : '云同步已连接：云端暂无数据，本机数据会自动上传。'
+          const cloudVocab = normalizeVocabBook(data?.vocabulary || []);
+          const cloudFavorites = Array.isArray(data?.favorites) ? data.favorites.filter(id => typeof id === 'string') : [];
+          const cloudQuizProgress = data?.quiz_progress && typeof data.quiz_progress === 'object' ? data.quiz_progress : {};
+          const cloudPreferences = data?.preferences && typeof data.preferences === 'object' ? data.preferences : {};
+          Object.entries(cloudQuizProgress).forEach(([articleId, progress]) => {
+            trySetLocalStorage(getQuizProgressStorageKey(articleId), JSON.stringify(normalizeQuizProgress(progress)));
           });
-        }, (error) => {
-          cloudDataLoadedRef.current = false;
-          setCloudSyncStatus({
-            enabled: false,
-            message: `云同步读取失败：${error.message}`
-          });
+          encryptedAiKeyRef.current = data?.encrypted_ai_key || null;
+          if (cloudPreferences.aiProvider) setAiProvider(cloudPreferences.aiProvider);
+          if (cloudPreferences.cloudBaseUrl) setCloudBaseUrl(cloudPreferences.cloudBaseUrl);
+          if (cloudPreferences.cloudModel) setCloudModel(cloudPreferences.cloudModel);
+          lastCloudSnapshotRef.current = JSON.stringify({ vocabulary: cloudVocab, favorites: cloudFavorites, quizProgress: cloudQuizProgress, preferences: cloudPreferences, encryptedAiKey: data?.encrypted_ai_key || null });
+          cloudDataLoadedRef.current = true;
+          cloudDataInitializedRef.current = true;
+          setVocabBook(prev => mergeVocabBook(prev, cloudVocab));
+          setFavoriteArticleIds(prev => Array.from(new Set([...prev, ...cloudFavorites])));
+          setCloudSyncStatus({ enabled: true, message: `Supabase 已连接：同步 ${cloudVocab.length} 个生词与学习记录。` });
         });
-
-        return () => {
-          unsubscribe();
-          if (cloudDataWriteTimerRef.current) clearTimeout(cloudDataWriteTimerRef.current);
-        };
+        return () => { cancelled = true; if (cloudDataWriteTimerRef.current) clearTimeout(cloudDataWriteTimerRef.current); };
       }, [user]);
 
       useEffect(() => {
-        if (!db || !user || user.isAnonymous || !cloudDataLoadedRef.current) return;
-
-        const payload = createLocalDataSnapshot(savedArticles, vocabBook);
-        const snapshotKey = JSON.stringify({
-          savedArticles: payload.savedArticles,
-          vocabBook: payload.vocabBook
+        if (!supabase || !user || !cloudDataLoadedRef.current) return;
+        const quizProgressByArticle = {};
+        Object.keys(localStorage).filter(key => key.startsWith('reader_quiz_progress_')).forEach(key => {
+          try { quizProgressByArticle[key.slice('reader_quiz_progress_'.length)] = normalizeQuizProgress(JSON.parse(localStorage.getItem(key))); } catch (error) {}
         });
+        const wrongAnswers = Object.entries(quizProgressByArticle).flatMap(([articleId, progress]) => {
+          const article = savedArticles.find(item => item.id === articleId);
+          return normalizeArticleQuestions(article || {}).flatMap(question => {
+            const selected = progress.answers?.[question.id];
+            return progress.submitted && isSupportedQuizQuestion(question) && Number.isInteger(selected) && selected !== question.answerIndex
+              ? [{ articleId, questionId: question.id, prompt: question.prompt, selectedIndex: selected, answerIndex: question.answerIndex, updatedAt: progress.submittedAt || new Date().toISOString() }]
+              : [];
+          });
+        });
+        const preferences = { aiProvider, cloudBaseUrl: cloudBaseUrl.trim(), cloudModel: cloudModel.trim(), ollamaBaseUrl: ollamaBaseUrl.trim(), ollamaModel: ollamaModel.trim(), voiceProvider };
+        const readingPositions = currentArticleId ? { [currentArticleId]: { sentenceId: selectedSentence?.id || null, updatedAt: new Date().toISOString() } } : {};
+        const writeCloudState = async () => {
+          let encryptedAiKey = encryptedAiKeyRef.current;
+          if (syncVaultUnlocked && syncPassphrase && cloudApiKey) {
+            encryptedAiKey = await encryptForSyncVault(cloudApiKey, syncPassphrase);
+          }
+          const payload = { user_id: user.id, vocabulary: vocabBook, favorites: favoriteArticleIds, reading_positions: readingPositions, quiz_progress: quizProgressByArticle, wrong_answers: wrongAnswers, preferences, encrypted_ai_key: encryptedAiKey, updated_at: new Date().toISOString() };
+          const snapshotKey = JSON.stringify({ vocabulary: vocabBook, favorites: favoriteArticleIds, quizProgress: quizProgressByArticle, wrongAnswers, preferences, encryptedAiKey });
+          if (snapshotKey === lastCloudSnapshotRef.current) return;
+          const { error } = await supabase.from('reader_sync_state').upsert(payload, { onConflict: 'user_id' });
+          if (error) {
+            setCloudSyncStatus({ enabled: false, message: `云同步写入失败：${error.message}` });
+            return;
+          }
+          encryptedAiKeyRef.current = encryptedAiKey;
+          lastCloudSnapshotRef.current = snapshotKey;
+          setCloudSyncStatus({ enabled: true, message: `Supabase 已保存：${vocabBook.length} 个生词、进度与偏好。` });
+        };
+        const snapshotKey = JSON.stringify({ vocabulary: vocabBook, favorites: favoriteArticleIds, quizProgress: quizProgressByArticle, wrongAnswers, preferences, encryptedAiKey: encryptedAiKeyRef.current });
         if (snapshotKey === lastCloudSnapshotRef.current) return;
-
         if (cloudDataWriteTimerRef.current) clearTimeout(cloudDataWriteTimerRef.current);
         cloudDataWriteTimerRef.current = setTimeout(async () => {
-          try {
-            const dataDoc = doc(db, 'artifacts', appId, 'users', user.uid, 'readerData', 'library');
-            await setDoc(dataDoc, payload, { merge: true });
-            lastCloudSnapshotRef.current = snapshotKey;
-            setCloudSyncStatus({
-              enabled: true,
-              message: `云同步已保存：${savedArticles.length} 篇文章，${vocabBook.length} 个单词。`
-            });
-          } catch (error) {
-            setCloudSyncStatus({
-              enabled: false,
-              message: `云同步写入失败：${error.message}`
-            });
-          }
+          try { await writeCloudState(); } catch (error) { setCloudSyncStatus({ enabled: false, message: `云同步加密失败：${error.message}` }); }
         }, 800);
-      }, [savedArticles, vocabBook, user]);
+      }, [vocabBook, favoriteArticleIds, cloudSyncRevision, user]);
 
       // --- 全局自定义 UI 弹窗状态 ---
       const [toastMessage, setToastMessage] = useState("");
@@ -3026,23 +3050,17 @@
       const [aiIdleMs, setAiIdleMs] = useState(0);
       const [currentArticleReadability, setCurrentArticleReadability] = useState(() => computeArticleReadability(defaultArticleData));
 
-      // Firebase Init Auth
+      // Supabase session restores across devices without anonymous accounts.
       useEffect(() => {
-        if (!auth) return;
-        const initAuth = async () => {
-          try {
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-              await signInWithCustomToken(auth, __initial_auth_token);
-            } else {
-              await signInAnonymously(auth);
-            }
-          } catch (e) {
-            console.error("Auth error", e);
-          }
-        };
-        initAuth();
-        const unsubscribe = onAuthStateChanged(auth, setUser);
-        return () => unsubscribe();
+        if (!supabase) return;
+        supabase.auth.getSession().then(({ data, error }) => {
+          if (error) console.warn('Supabase session restore failed:', error);
+          setUser(data.session?.user || null);
+        });
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+          setUser(session?.user || null);
+        });
+        return () => subscription.unsubscribe();
       }, []);
 
       // 当切换选中句子时，自动重置 AI 状态，并将右侧面板切回“解析总览”
@@ -3452,6 +3470,10 @@
         if (!key) return;
         localStorage.setItem(key, JSON.stringify(quizProgress));
       }, [currentArticleId, quizProgress]);
+
+      useEffect(() => {
+        if (user) setCloudSyncRevision(value => value + 1);
+      }, [currentArticleId, selectedSentence?.id, quizProgress, aiProvider, cloudApiKey, cloudBaseUrl, cloudModel, ollamaBaseUrl, ollamaModel, voiceProvider, syncVaultUnlocked]);
 
       useEffect(() => {
         if (articleStudyMode !== 'quiz' || !currentQuizParagraphNumber) return;
@@ -3956,72 +3978,74 @@
       // --- Auth Handlers ---
       const handleAuthSubmit = async (e) => {
         e.preventDefault();
-        if (!auth) {
-          setAuthError("Auth 服务未初始化");
+        if (!supabase) {
+          setAuthError("Supabase 服务未初始化");
           return;
         }
         setIsAuthenticating(true);
         setAuthError("");
         try {
           if (isLoginMode) {
-            await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+            const { error } = await supabase.auth.signInWithPassword({ email: loginEmail.trim(), password: loginPassword });
+            if (error) throw error;
           } else {
-            await createUserWithEmailAndPassword(auth, loginEmail, loginPassword);
+            const username = loginUsername.trim().toLowerCase();
+            if (!/^[a-z0-9_]{3,32}$/.test(username)) throw new Error('用户名需为 3–32 位英文字母、数字或下划线。');
+            const { data, error } = await supabase.auth.signUp({
+              email: loginEmail.trim(), password: loginPassword,
+              options: { data: { username } }
+            });
+            if (error) throw error;
+            if (!data.session) {
+              setAuthError('注册成功，请先到邮箱点击验证链接，再回来登录。');
+              return;
+            }
           }
           setShowLoginModal(false);
         } catch (err) {
-          if (err.code === 'auth/invalid-credential') setAuthError("邮箱或密码错误，请检查。");
-          else if (err.code === 'auth/email-already-in-use') setAuthError("该邮箱已被注册，请直接登录。");
+          if (/invalid login credentials/i.test(err.message || '')) setAuthError("邮箱或密码错误，请检查。");
+          else if (/already registered/i.test(err.message || '')) setAuthError("该邮箱已被注册，请直接登录。");
           else setAuthError("认证失败：" + err.message);
         } finally {
           setIsAuthenticating(false);
         }
       };
 
-      const handleGoogleLogin = async () => {
-        if (!auth) return;
-        
-        if (window.location.hostname.includes('usercontent.goog')) {
-          setAuthError("⚠️ 平台沙盒域名 (*.usercontent.goog) 被 Google 拦截。您的配置已正确，导出至自有域名后即可生效。\n\n👉 现在测试同步，请直接使用下方【邮箱+密码】随意注册即可！");
-          return;
-        }
-
-        setIsAuthenticating(true);
-        setAuthError("");
-        try {
-          const provider = new GoogleAuthProvider();
-          await signInWithPopup(auth, provider);
-          setShowLoginModal(false);
-        } catch (err) {
-          setAuthError("Google 登录失败：" + err.message);
-        } finally {
-          setIsAuthenticating(false);
-        }
-      };
-
       const handleLogout = async () => {
-        if (!auth) return;
+        if (!supabase) return;
         try {
-          await signOut(auth);
-          await signInAnonymously(auth);
+          await supabase.auth.signOut();
+          setSyncPassphrase('');
+          setSyncVaultUnlocked(false);
         } catch (e) {
           console.error("Logout error", e);
         }
       };
 
-      const handleSaveFirebaseConfig = () => {
+      const handleSaveSupabaseConfig = () => {
         try {
-          const parsed = JSON.parse(firebaseConfigInput);
-          if (!parsed.apiKey || !parsed.authDomain || !parsed.projectId || !parsed.appId) {
-            setAuthError('Firebase 配置缺少 apiKey、authDomain、projectId 或 appId。');
+          const parsed = JSON.parse(supabaseConfigInput);
+          if (!parsed.url || !parsed.publishableKey) {
+            setAuthError('Supabase 配置缺少 url 或 publishableKey。');
             return;
           }
-          localStorage.setItem(FIREBASE_CONFIG_STORAGE_KEY, JSON.stringify(parsed));
-          setToastMessage('✅ Firebase 配置已保存，页面即将刷新以启用云同步。');
+          localStorage.setItem(SUPABASE_CONFIG_STORAGE_KEY, JSON.stringify(parsed));
+          setToastMessage('✅ Supabase 配置已保存，页面即将刷新。');
           setTimeout(() => window.location.reload(), 800);
         } catch (error) {
-          setAuthError(`Firebase 配置不是合法 JSON：${error.message}`);
+          setAuthError(`Supabase 配置不是合法 JSON：${error.message}`);
         }
+      };
+
+      const handleUnlockSyncVault = async () => {
+        if (!syncPassphrase) { setAuthError('请输入同步加密口令。'); return; }
+        try {
+          if (encryptedAiKeyRef.current) setCloudApiKey(await decryptFromSyncVault(encryptedAiKeyRef.current, syncPassphrase));
+          setSyncVaultUnlocked(true);
+          setAuthError('');
+          setToastMessage(encryptedAiKeyRef.current ? 'AI 密钥已在当前设备解密。' : '已开启加密同步；下次保存 AI 密钥时会加密上传。');
+          setCloudSyncRevision(value => value + 1);
+        } catch (error) { setAuthError('同步口令不正确，无法解密 AI 密钥。'); }
       };
 
       // --- Vocab / Dictionary Logic ---
@@ -4184,6 +4208,13 @@
         setSelectedSentence(normalizedData[0]);
         setViewMode('reading');
         setToastMessage(`📖 正在阅读：${article.title}`);
+      };
+
+      const handleToggleCurrentFavorite = () => {
+        if (!currentArticleId) { setToastMessage('请先从书架打开一篇文章再收藏。'); return; }
+        setFavoriteArticleIds(prev => prev.includes(currentArticleId)
+          ? prev.filter(id => id !== currentArticleId)
+          : [...prev, currentArticleId]);
       };
 
       const handleSelectQuizQuestion = (question) => {
@@ -4920,9 +4951,9 @@
                   AI 设置
                 </button>
                 <button
-                  onClick={() => auth ? setShowLoginModal(true) : setShowCloudSettings(prev => !prev)}
+                  onClick={() => user ? setShowLoginModal(true) : setShowCloudSettings(prev => !prev)}
                   className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-colors shadow-sm ${
-                    user && !user.isAnonymous
+                    user
                       ? 'bg-emerald-600 text-white'
                       : showCloudSettings
                         ? 'bg-sky-700 text-white'
@@ -4930,7 +4961,7 @@
                   }`}
                 >
                   <User className="w-4 h-4" />
-                  {user && !user.isAnonymous ? '云同步账号' : (auth ? '登录同步' : '配置云同步')}
+                  {user ? '云同步账号' : (supabase ? '登录同步' : '配置云同步')}
                 </button>
               </div>
 
@@ -4943,41 +4974,42 @@
                   <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-5">
                     <div>
                       <p className="text-xs uppercase tracking-[0.25em] text-sky-400 font-semibold mb-2">Cloud Sync</p>
-                      <h2 className="text-xl font-bold text-slate-900">跨电脑同步文章和生词本</h2>
+                      <h2 className="text-xl font-bold text-slate-900">跨设备同步学习记录</h2>
                       <p className="text-sm text-slate-500 mt-2 max-w-3xl">
-                        GitHub Pages 只能托管网页，不能保存每个用户的 JSON。这里用 Firebase Firestore 保存 `savedArticles` 和 `vocabBook`，同一账号在 iPad / 电脑登录后会自动合并同步。
+                        同步生词本、收藏、阅读位置、做题进度和 AI 偏好；预置文章始终由网页自带，不占云端记录空间。AI API Key 只以浏览器端 AES-GCM 密文上传。
                       </p>
                     </div>
-                    <span className={`text-xs px-3 py-1 rounded-full font-semibold self-start ${auth ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
-                      {auth ? 'Firebase 已启用' : '需要 Firebase 配置'}
+                    <span className={`text-xs px-3 py-1 rounded-full font-semibold self-start ${supabase ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
+                      {supabase ? 'Supabase 已启用' : '需要 Supabase 配置'}
                     </span>
                   </div>
 
-                  {!auth ? (
+                  {!supabase ? (
                     <div className="mt-5 space-y-4">
-                      <label className="block text-sm font-medium text-slate-700">Firebase Web App 配置 JSON</label>
+                      <label className="block text-sm font-medium text-slate-700">Supabase 公开配置 JSON</label>
                       <textarea
-                        value={firebaseConfigInput}
-                        onChange={(e) => setFirebaseConfigInput(e.target.value)}
+                        value={supabaseConfigInput}
+                        onChange={(e) => setSupabaseConfigInput(e.target.value)}
                         className="w-full min-h-[180px] rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 font-mono text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-                        placeholder={`{\n  "apiKey": "...",\n  "authDomain": "...firebaseapp.com",\n  "projectId": "...",\n  "storageBucket": "...",\n  "messagingSenderId": "...",\n  "appId": "..."\n}`}
+                        placeholder={`{\n  "url": "https://xxx.supabase.co",\n  "publishableKey": "sb_publishable_..."\n}`}
                         spellCheck="false"
                       />
                       {authError && <p className="text-sm text-red-600">{authError}</p>}
                       <div className="flex flex-wrap items-center gap-3">
                         <button
-                          onClick={handleSaveFirebaseConfig}
+                          onClick={handleSaveSupabaseConfig}
                           className="inline-flex items-center gap-2 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white px-4 py-2.5 text-sm font-semibold transition-colors"
                         >
                           <Save className="w-4 h-4" />
                           保存并启用
                         </button>
-                        <p className="text-xs text-slate-500">保存后配置只存在当前浏览器；网页源码不会公开你的 Firebase 配置。</p>
+                        <p className="text-xs text-slate-500">只能填写 Project URL 和 Publishable Key；绝不能填写 Secret / service_role Key。</p>
                       </div>
                     </div>
                   ) : (
-                    <div className="mt-5 rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4 text-sm leading-7 text-emerald-900">
-                      云同步已配置。点击顶部“登录同步”，用邮箱密码注册或登录；同一账号的数据会在不同电脑之间自动合并同步。
+                    <div className="mt-5 space-y-3 rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4 text-sm leading-7 text-emerald-900">
+                      <p>云同步已配置。点击顶部“登录同步”，用邮箱密码注册或登录；用户名是账号展示身份，登录使用邮箱。</p>
+                      {user && <div className="flex flex-col sm:flex-row gap-2"><input type="password" value={syncPassphrase} onChange={(e) => setSyncPassphrase(e.target.value)} placeholder="同步加密口令（不上传、不保存）" className="flex-1 rounded-xl border border-emerald-200 bg-white px-3 py-2 text-slate-800" /><button onClick={handleUnlockSyncVault} className="rounded-xl bg-emerald-700 px-4 py-2 font-semibold text-white">{syncVaultUnlocked ? '已解锁' : '解锁 AI 密钥'}</button></div>}
                     </div>
                   )}
                 </div>
@@ -5665,6 +5697,14 @@
                           >
                             {isExtractingGlossary ? <Loader2 className="w-4 h-4 animate-spin" /> : <Tag className="w-4 h-4" />}
                             <span className="hidden sm:inline">{currentArticleGlossary.length ? '更新术语' : '识别术语'}</span>
+                          </button>
+                          <button
+                            onClick={handleToggleCurrentFavorite}
+                            className={`inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-medium transition-colors border self-start ${favoriteArticleIds.includes(currentArticleId) ? 'bg-amber-400/25 text-amber-100 border-amber-300/50' : 'bg-white/10 text-slate-200 hover:bg-white/20 border-white/20'}`}
+                            title="收藏或取消收藏当前文章"
+                          >
+                            <BookMarked className="w-4 h-4" />
+                            <span className="hidden sm:inline">{favoriteArticleIds.includes(currentArticleId) ? '已收藏' : '收藏'}</span>
                           </button>
                           <button
                             onClick={handleSaveCurrentArticle}
@@ -7151,16 +7191,16 @@
 
                   <h3 className="text-lg font-bold text-slate-800 mb-2 flex items-center gap-2">
                     <User className="w-5 h-5 text-emerald-600" />
-                    {user && !user.isAnonymous ? '云同步账号' : (isLoginMode ? '登录云同步' : '注册云同步账号')}
+                    {user ? '云同步账号' : (isLoginMode ? '登录云同步' : '注册云同步账号')}
                   </h3>
                   <p className="text-sm text-slate-500 mb-5">
-                    文章书架和生词本会按这个账号保存到云端；其他电脑打开网页后登录同一账号即可同步。
+                    生词、收藏、阅读位置、做题记录和 AI 偏好会按此账号保存；预置文章不上传。
                   </p>
 
-                  {user && !user.isAnonymous ? (
+                  {user ? (
                     <div className="space-y-4">
                       <div className="rounded-2xl border border-emerald-100 bg-emerald-50 p-4 text-sm text-emerald-900">
-                        当前已登录：{user.email || user.uid}
+                        当前已登录：{user.user_metadata?.username || user.email}
                         <div className="mt-2 text-xs">{cloudSyncStatus.message}</div>
                       </div>
                       <button
@@ -7173,6 +7213,10 @@
                     </div>
                   ) : (
                     <form onSubmit={handleAuthSubmit} className="space-y-4">
+                      {!isLoginMode && <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">用户名</label>
+                        <input type="text" value={loginUsername} onChange={(e) => setLoginUsername(e.target.value)} className="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/40" autoComplete="username" placeholder="3–32 位字母、数字或下划线" required />
+                      </div>}
                       <div>
                         <label className="block text-sm font-medium text-slate-700 mb-2">邮箱</label>
                         <input
@@ -7203,14 +7247,6 @@
                       >
                         {isAuthenticating ? <Loader2 className="w-4 h-4 animate-spin" /> : <KeyRound className="w-4 h-4" />}
                         {isLoginMode ? '登录并同步' : '注册并同步'}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={handleGoogleLogin}
-                        disabled={isAuthenticating}
-                        className="w-full rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 px-4 py-2.5 font-semibold transition-colors disabled:opacity-70"
-                      >
-                        使用 Google 登录
                       </button>
                       <button
                         type="button"
