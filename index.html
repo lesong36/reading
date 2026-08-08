@@ -5713,37 +5713,45 @@
                           </p>
                         </div>
                         <div className="flex shrink-0 items-center gap-1.5">
-                          <button
-                            onClick={handleExtractGlossary}
-                            disabled={isExtractingGlossary || isParsingText || !currentArticleData.length}
-                            className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-amber-300/30 bg-amber-500/20 text-amber-100 transition-colors hover:bg-amber-500/40 disabled:opacity-60"
-                            title="识别文中专业术语、专有名词并生成中文翻译"
-                          >
-                            {isExtractingGlossary ? <Loader2 className="w-4 h-4 animate-spin" /> : <Tag className="w-4 h-4" />}
-                          </button>
-                          <button
-                            onClick={handleToggleCurrentFavorite}
-                            className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border transition-colors ${favoriteArticleIds.includes(currentArticleId) ? 'bg-amber-400/25 text-amber-100 border-amber-300/50' : 'bg-white/10 text-slate-200 hover:bg-white/20 border-white/20'}`}
-                            title="收藏或取消收藏当前文章"
-                          >
-                            <BookMarked className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={handleSaveCurrentArticle}
-                            className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-indigo-400/30 bg-indigo-500/20 text-indigo-200 transition-colors hover:bg-indigo-500/40"
-                            title="保存这篇文章和它的解析到本地书架"
-                          >
-                            <Save className="w-4 h-4" />
-                          </button>
-                          {articleStudyMode === 'read' && (
+                          <HoverTip text={currentArticleGlossary.length ? '更新文中术语' : '识别文中术语'}>
                             <button
-                              type="button"
-                              onClick={() => setHighlightMode(prev => !prev)}
-                              className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border transition-colors ${highlightMode ? 'bg-indigo-500 text-white border-indigo-300/40 hover:bg-indigo-400' : 'bg-white/10 text-slate-200 border-white/10 hover:bg-white/20'}`}
-                              title={highlightMode ? '关闭左侧句子结构高亮' : '让左侧原文同步显示句子结构高亮'}
+                              onClick={handleExtractGlossary}
+                              disabled={isExtractingGlossary || isParsingText || !currentArticleData.length}
+                              className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-amber-300/30 bg-amber-500/20 text-amber-100 transition-colors hover:bg-amber-500/40 disabled:opacity-60"
+                              aria-label={currentArticleGlossary.length ? '更新文中术语' : '识别文中术语'}
                             >
-                              <Zap className="w-4 h-4" />
+                              {isExtractingGlossary ? <Loader2 className="w-4 h-4 animate-spin" /> : <Tag className="w-4 h-4" />}
                             </button>
+                          </HoverTip>
+                          <HoverTip text={favoriteArticleIds.includes(currentArticleId) ? '取消收藏' : '收藏文章'}>
+                            <button
+                              onClick={handleToggleCurrentFavorite}
+                              className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border transition-colors ${favoriteArticleIds.includes(currentArticleId) ? 'bg-amber-400/25 text-amber-100 border-amber-300/50' : 'bg-white/10 text-slate-200 hover:bg-white/20 border-white/20'}`}
+                              aria-label={favoriteArticleIds.includes(currentArticleId) ? '取消收藏' : '收藏文章'}
+                            >
+                              <BookMarked className="w-4 h-4" />
+                            </button>
+                          </HoverTip>
+                          <HoverTip text="保存到本地书架">
+                            <button
+                              onClick={handleSaveCurrentArticle}
+                              className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-indigo-400/30 bg-indigo-500/20 text-indigo-200 transition-colors hover:bg-indigo-500/40"
+                              aria-label="保存到本地书架"
+                            >
+                              <Save className="w-4 h-4" />
+                            </button>
+                          </HoverTip>
+                          {articleStudyMode === 'read' && (
+                            <HoverTip text={highlightMode ? '关闭结构高亮' : '开启结构高亮'}>
+                              <button
+                                type="button"
+                                onClick={() => setHighlightMode(prev => !prev)}
+                                className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border transition-colors ${highlightMode ? 'bg-indigo-500 text-white border-indigo-300/40 hover:bg-indigo-400' : 'bg-white/10 text-slate-200 border-white/10 hover:bg-white/20'}`}
+                                aria-label={highlightMode ? '关闭结构高亮' : '开启结构高亮'}
+                              >
+                                <Zap className="w-4 h-4" />
+                              </button>
+                            </HoverTip>
                           )}
                           <HoverTip
                             text="这里显示的是自动估算难度，不是官方 Lexile 认证分值。"
