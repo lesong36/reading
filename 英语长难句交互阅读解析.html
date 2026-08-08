@@ -84,7 +84,7 @@
   <script type="text/babel" data-type="module">
     import React, { useState, useEffect, useRef, useMemo, Fragment } from 'https://esm.sh/react@18.2.0?target=es2022';
     import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client?bundle';
-    import { BookOpen, Search, Info, MousePointerClick, Zap, AlignLeft, Underline, Link as LinkIcon, Tag, Sparkles, Send, Loader2, UploadCloud, FileText, ArrowLeft, BookMarked, Printer, Plus, Trash2, CheckCircle2, Download, Upload, MessageSquare, Library, Save, FolderOpen, User, LogOut, X, Bot, RefreshCw, KeyRound } from 'https://esm.sh/lucide-react@0.292.0?bundle&deps=react@18.2.0';
+    import { BookOpen, Search, Info, MousePointerClick, Zap, AlignLeft, Underline, Link as LinkIcon, Tag, Sparkles, Send, Loader2, UploadCloud, FileText, ArrowLeft, BookMarked, Printer, Plus, Trash2, CheckCircle2, Download, Upload, MessageSquare, Library, Save, FolderOpen, User, LogOut, X, Bot, RefreshCw, KeyRound, ZoomIn, ZoomOut } from 'https://esm.sh/lucide-react@0.292.0?bundle&deps=react@18.2.0';
     import readability from 'https://esm.sh/text-readability@1.1.1?bundle';
     
     // Firebase Imports
@@ -1812,8 +1812,16 @@
       .trim();
 
     const LOCAL_DATA_FILE_NAME = 'reading-local-data.json';
-    const BUNDLED_LIBRARY_URL = './data/generated-reader-json/reader-articles.import.json';
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v1';
+    const BUNDLED_LIBRARY_URLS = [
+      './data/generated-reader-json/reader-articles.import.json',
+      './data/generated-reader-json/reader-articles-tpo.import.json',
+      './data/generated-reader-json/reader-articles-re-foundations.import.json'
+    ];
+    // v9 adds verified Reading Comprehension answer keys from the official book.
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v9';
+    const BUNDLED_LIBRARY_SEED_VERSION = '9';
+    const EXPECTED_TPO_ARTICLE_COUNT = 87;
+    const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
     const normalizeLookupWord = (value = '') =>
       String(value)
@@ -1879,13 +1887,84 @@
       vocabBook: vocab
     });
 
+    const QUIZ_PROGRESS_STORAGE_KEY_PREFIX = 'reader_quiz_progress_';
+
+    const normalizeQuizQuestion = (question = {}, fallbackIndex = 0) => {
+      const options = Array.isArray(question.options)
+        ? question.options
+            .map(option => String(option ?? '').trim())
+            .filter(Boolean)
+        : [];
+      const parsedIndex = Number(question.index);
+      const answerIndex = Number.isInteger(question.answerIndex) ? question.answerIndex : null;
+      const explicitType = String(question.type || '').trim().toLowerCase();
+      const inferredType = explicitType || (
+        Number.isInteger(answerIndex) && options.length >= 2 ? 'single' : 'unsupported'
+      );
+      const normalizedType = inferredType === 'single' && Number.isInteger(answerIndex) && options.length >= 2
+        ? 'single'
+        : 'unsupported';
+      return {
+        ...question,
+        id: String(question.id || `q${parsedIndex || fallbackIndex + 1}`),
+        index: Number.isFinite(parsedIndex) ? parsedIndex : fallbackIndex + 1,
+        prompt: String(question.prompt || '').trim(),
+        options,
+        answerIndex,
+        paragraphHint: question.paragraphHint == null || question.paragraphHint === ''
+          ? null
+          : String(question.paragraphHint).trim(),
+        type: normalizedType,
+        rawAnswer: question.rawAnswer ? String(question.rawAnswer).trim() : ''
+      };
+    };
+
+    const normalizeArticleQuestions = (article = {}) => {
+      const combined = [
+        ...(Array.isArray(article.questions) ? article.questions : []),
+        ...(Array.isArray(article.unsupportedQuestions) ? article.unsupportedQuestions : [])
+      ];
+      return combined
+        .map((question, index) => normalizeQuizQuestion(question, index))
+        .sort((left, right) => left.index - right.index);
+    };
+
+    const isSupportedQuizQuestion = (question = {}) =>
+      question.type === 'single' &&
+      Number.isInteger(question.answerIndex) &&
+      Array.isArray(question.options) &&
+      question.options.length >= 2;
+
+    const createEmptyQuizProgress = () => ({
+      answers: {},
+      submitted: false,
+      submittedAt: null
+    });
+
+    const normalizeQuizProgress = (progress = {}) => {
+      const normalizedAnswers = Object.entries(progress?.answers || {}).reduce((acc, [questionId, value]) => {
+        if (Number.isInteger(value)) acc[questionId] = value;
+        return acc;
+      }, {});
+      return {
+        answers: normalizedAnswers,
+        submitted: Boolean(progress?.submitted),
+        submittedAt: progress?.submittedAt || null
+      };
+    };
+
+    const getQuizProgressStorageKey = (articleId) =>
+      articleId ? `${QUIZ_PROGRESS_STORAGE_KEY_PREFIX}${articleId}` : null;
+
     const normalizeSavedArticles = (articles = []) =>
       Array.isArray(articles)
         ? articles.map(article => {
+            const { unsupportedQuestions, ...restArticle } = article || {};
             const data = normalizeArticleData(article.data);
             return {
-              ...article,
+              ...restArticle,
               data,
+              questions: normalizeArticleQuestions(article),
               glossary: collectArticleGlossary(article, data),
               readability: article.readability || computeArticleReadability(data)
             };
@@ -1893,15 +1972,14 @@
         : [];
 
     const fetchBundledLibraryArticles = async () => {
-      const response = await fetch(`${BUNDLED_LIBRARY_URL}?v=1`);
-      if (!response.ok) {
-        throw new Error(`预置教材加载失败（HTTP ${response.status}）`);
-      }
-      const importedData = await response.json();
-      if (!Array.isArray(importedData)) {
-        throw new Error('预置教材文件格式不正确。');
-      }
-      return normalizeSavedArticles(importedData);
+      const bundles = await Promise.all(BUNDLED_LIBRARY_URLS.map(async (url) => {
+        const response = await fetch(`${url}?v=2`);
+        if (!response.ok) throw new Error(`预置教材加载失败（${url}，HTTP ${response.status}）`);
+        const importedData = await response.json();
+        if (!Array.isArray(importedData)) throw new Error(`预置教材文件格式不正确：${url}`);
+        return importedData;
+      }));
+      return mergeSavedArticles([], bundles.flat());
     };
 
     const normalizeVocabBook = (vocab = []) => Array.isArray(vocab) ? vocab : [];
@@ -1911,7 +1989,10 @@
       { key: 'rfd1', label: 'RFD1' },
       { key: 'rfd2', label: 'RFD2' },
       { key: 'rfd3', label: 'RFD3' },
-      { key: '四上', label: '四上' }
+      { key: '四上', label: '四上' },
+      { key: 'tpo', label: 'TPO' },
+      { key: 'og', label: 'OG' },
+      { key: 're', label: 'RE' }
     ];
 
     const getArticleFilterKey = (article = {}) => {
@@ -1926,8 +2007,21 @@
       if (sourceText.includes('rfd2')) return 'rfd2';
       if (sourceText.includes('rfd3')) return 'rfd3';
       if (sourceText.includes('四上')) return '四上';
+      if (sourceText.includes('tpo-')) return 'tpo';
+      if (sourceText.includes('og /') || sourceText.includes('og-test') || sourceText.includes('online-test') || sourceText.includes('official-model-exam')) return 'og';
+      if (sourceText.includes('re-foundations') || sourceText.includes('re foundations')) return 're';
       return 'other';
     };
+
+    const getTpoArticleCount = (articles = []) =>
+      normalizeSavedArticles(articles)
+        .filter(article => getArticleFilterKey(article) === 'tpo')
+        .length;
+
+    const getReFoundationsArticleCount = (articles = []) =>
+      normalizeSavedArticles(articles)
+        .filter(article => getArticleFilterKey(article) === 're')
+        .length;
 
     const sortArticlesByTitle = (articles = []) =>
       [...articles].sort((left, right) =>
@@ -1990,6 +2084,21 @@
       const writable = await handle.createWritable();
       await writable.write(JSON.stringify(createLocalDataSnapshot(articles, vocab), null, 2));
       await writable.close();
+    };
+
+    // Full reader bundles are larger than the browser's localStorage quota.
+    // OPFS is the primary store; localStorage is a best-effort fallback only.
+    const trySetLocalStorage = (key, value) => {
+      try {
+        localStorage.setItem(key, value);
+        return true;
+      } catch (error) {
+        if (error?.name === 'QuotaExceededError') {
+          console.warn(`localStorage quota reached; ${key} will remain in the local data file.`, error);
+          return false;
+        }
+        throw error;
+      }
     };
 
     const clearLocalLearningStorage = async () => {
@@ -2468,12 +2577,15 @@
       const terminalConsoleRef = useRef(null);
       const [currentArticleData, setCurrentArticleData] = useState(() => normalizeArticleData(defaultArticleData));
       const [currentArticleId, setCurrentArticleId] = useState(null);
+      const [currentArticleTitle, setCurrentArticleTitle] = useState('默认示例文章');
+      const [currentArticleQuestions, setCurrentArticleQuestions] = useState([]);
       const [currentArticleGlossary, setCurrentArticleGlossary] = useState(() =>
         collectArticleGlossary({ glossary: defaultArticleGlossary }, defaultArticleData)
       );
       const [isExtractingGlossary, setIsExtractingGlossary] = useState(false);
       const [glossaryHover, setGlossaryHover] = useState(null);
       const glossaryHoverHideTimerRef = useRef(null);
+      const [companionImagePreview, setCompanionImagePreview] = useState(null);
 
       // Firebase Auth State
       const [user, setUser] = useState(null);
@@ -2572,7 +2684,13 @@
 
       useEffect(() => {
         if (!localDataReady) return;
-        if (localStorage.getItem(BUNDLED_LIBRARY_SEED_KEY) === '1') return;
+        const storedTpoCount = getTpoArticleCount(savedArticles);
+        const storedReFoundationsCount = getReFoundationsArticleCount(savedArticles);
+        if (
+          localStorage.getItem(BUNDLED_LIBRARY_SEED_KEY) === BUNDLED_LIBRARY_SEED_VERSION
+          && storedTpoCount >= EXPECTED_TPO_ARTICLE_COUNT
+          && storedReFoundationsCount >= EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT
+        ) return;
 
         let cancelled = false;
         const seedBundledLibrary = async () => {
@@ -2580,15 +2698,14 @@
             const bundled = await fetchBundledLibraryArticles();
             if (cancelled) return;
             setSavedArticles(prev => {
-              if (prev.length > 0) {
-                localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, '1');
-                return prev;
-              }
-              localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, '1');
+              const merged = mergeSavedArticles(prev, bundled);
+              // The following persistence effect writes the full bundle to OPFS.
+              // Do not put it in localStorage: 104 analysed articles exceed its quota.
+              trySetLocalStorage(BUNDLED_LIBRARY_SEED_KEY, BUNDLED_LIBRARY_SEED_VERSION);
               setTimeout(() => {
-                setToastMessage(`📚 已加载预置教材 ${bundled.length} 篇到书架`);
+                setToastMessage(`📚 已合并预置教材 ${bundled.length} 篇到书架`);
               }, 0);
-              return mergeSavedArticles(prev, bundled);
+              return merged;
             });
           } catch (error) {
             console.warn('Bundled library seed skipped:', error);
@@ -2598,11 +2715,11 @@
         return () => {
           cancelled = true;
         };
-      }, [localDataReady]);
+      }, [localDataReady, savedArticles]);
 
       useEffect(() => {
-        localStorage.setItem('my_local_articles', JSON.stringify(savedArticles));
-        localStorage.setItem('my_local_vocab_book', JSON.stringify(vocabBook));
+        trySetLocalStorage('my_local_articles', JSON.stringify(savedArticles));
+        trySetLocalStorage('my_local_vocab_book', JSON.stringify(vocabBook));
 
         if (!localDataLoadedRef.current || !localPersistenceStatus.enabled) return;
         if (localDataWriteTimerRef.current) clearTimeout(localDataWriteTimerRef.current);
@@ -2866,6 +2983,9 @@
 
       // Reading View States
       const [selectedSentence, setSelectedSentence] = useState(() => normalizeArticleData(defaultArticleData)[0]);
+      const [articleStudyMode, setArticleStudyMode] = useState('read');
+      const [quizActiveQuestionId, setQuizActiveQuestionId] = useState(null);
+      const [quizProgress, setQuizProgress] = useState(createEmptyQuizProgress);
       const [highlightMode, setHighlightMode] = useState(false);
       const [underlineMain, setUnderlineMain] = useState(false);
       const [guidedStepIndex, setGuidedStepIndex] = useState(0);
@@ -3249,6 +3369,95 @@
         });
         return paras.filter(Boolean);
       }, [currentArticleData]);
+
+      const currentArticle = useMemo(
+        () => savedArticles.find(article => article.id === currentArticleId) || null,
+        [savedArticles, currentArticleId]
+      );
+
+      const hasQuizQuestions = currentArticleQuestions.length > 0;
+      const currentQuizUsesPptSource = currentArticle?.id?.startsWith('re-foundations-');
+      const supportedQuizQuestions = useMemo(
+        () => currentArticleQuestions.filter(isSupportedQuizQuestion),
+        [currentArticleQuestions]
+      );
+      const unsupportedQuizQuestions = useMemo(
+        () => currentArticleQuestions.filter(question => !isSupportedQuizQuestion(question)),
+        [currentArticleQuestions]
+      );
+      const currentQuizQuestion = useMemo(
+        () => currentArticleQuestions.find(question => question.id === quizActiveQuestionId) || currentArticleQuestions[0] || null,
+        [currentArticleQuestions, quizActiveQuestionId]
+      );
+      const currentQuizQuestionNumber = currentQuizQuestion?.index || 0;
+      const currentQuizParagraphHint = currentQuizQuestion?.paragraphHint ? String(currentQuizQuestion.paragraphHint).trim() : null;
+      const currentQuizParagraphNumber = currentQuizParagraphHint && /^\d+$/.test(currentQuizParagraphHint)
+        ? Number(currentQuizParagraphHint)
+        : null;
+      const quizAnsweredSupportedCount = supportedQuizQuestions.filter(question =>
+        Number.isInteger(quizProgress.answers?.[question.id])
+      ).length;
+      const quizCanSubmit = supportedQuizQuestions.length > 0 && supportedQuizQuestions.every(question =>
+        Number.isInteger(quizProgress.answers?.[question.id])
+      );
+      const quizCorrectCount = supportedQuizQuestions.filter(question =>
+        quizProgress.answers?.[question.id] === question.answerIndex
+      ).length;
+      const currentQuizAnswer = currentQuizQuestion ? quizProgress.answers?.[currentQuizQuestion.id] : null;
+      const currentQuizIsSupported = isSupportedQuizQuestion(currentQuizQuestion || {});
+      const quizScoreLabel = supportedQuizQuestions.length > 0
+        ? `${quizCorrectCount} / ${supportedQuizQuestions.length}`
+        : '无可自动评分题';
+
+      useEffect(() => {
+        const questionIds = new Set(currentArticleQuestions.map(question => question.id));
+        const key = getQuizProgressStorageKey(currentArticleId);
+        let nextProgress = createEmptyQuizProgress();
+
+        if (key) {
+          try {
+            const raw = localStorage.getItem(key);
+            if (raw) nextProgress = normalizeQuizProgress(JSON.parse(raw));
+          } catch (error) {
+            console.warn('Quiz progress restore failed:', error);
+          }
+        }
+
+        nextProgress = {
+          ...nextProgress,
+          answers: Object.entries(nextProgress.answers || {}).reduce((acc, [questionId, value]) => {
+            if (questionIds.has(questionId) && Number.isInteger(value)) acc[questionId] = value;
+            return acc;
+          }, {})
+        };
+
+        if (nextProgress.submitted && !supportedQuizQuestions.every(question => Number.isInteger(nextProgress.answers?.[question.id]))) {
+          nextProgress = {
+            ...nextProgress,
+            submitted: false,
+            submittedAt: null
+          };
+        }
+
+        setQuizProgress(nextProgress);
+
+        const firstUnansweredSupported = supportedQuizQuestions.find(question => !Number.isInteger(nextProgress.answers?.[question.id]));
+        const fallbackQuestion = firstUnansweredSupported || currentArticleQuestions[0] || null;
+        setQuizActiveQuestionId(fallbackQuestion?.id || null);
+        setArticleStudyMode('read');
+      }, [currentArticleId, currentArticleQuestions, supportedQuizQuestions]);
+
+      useEffect(() => {
+        const key = getQuizProgressStorageKey(currentArticleId);
+        if (!key) return;
+        localStorage.setItem(key, JSON.stringify(quizProgress));
+      }, [currentArticleId, quizProgress]);
+
+      useEffect(() => {
+        if (articleStudyMode !== 'quiz' || !currentQuizParagraphNumber) return;
+        const paragraphSentence = currentArticleData.find(sentence => Number(sentence.para) === currentQuizParagraphNumber);
+        if (paragraphSentence) setSelectedSentence(paragraphSentence);
+      }, [articleStudyMode, currentQuizParagraphNumber, currentArticleData]);
 
       useEffect(() => {
         setCurrentArticleReadability(computeArticleReadability(currentArticleData));
@@ -3946,7 +4155,7 @@
             try {
               setSavedArticles([]);
               setVocabBook([]);
-              localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, '1');
+              localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, BUNDLED_LIBRARY_SEED_VERSION);
               await clearLocalLearningStorage();
               setLocalPersistenceStatus(prev => ({
                 ...prev,
@@ -3964,14 +4173,51 @@
 
       const handleLoadArticle = (article) => {
         const normalizedData = normalizeArticleData(article.data);
+        const normalizedQuestions = normalizeArticleQuestions(article);
         const glossary = collectArticleGlossary(article, normalizedData);
         setCurrentArticleId(article.id || null);
+        setCurrentArticleTitle(article.title || '未命名文章');
+        setCurrentArticleQuestions(normalizedQuestions);
         setCurrentArticleData(normalizedData);
         setCurrentArticleGlossary(glossary);
         setCurrentArticleReadability(article.readability || computeArticleReadability(normalizedData));
         setSelectedSentence(normalizedData[0]);
         setViewMode('reading');
         setToastMessage(`📖 正在阅读：${article.title}`);
+      };
+
+      const handleSelectQuizQuestion = (question) => {
+        if (!question) return;
+        setArticleStudyMode('quiz');
+        setQuizActiveQuestionId(question.id);
+      };
+
+      const handleQuizAnswerSelect = (question, answerIndex) => {
+        if (!question || !isSupportedQuizQuestion(question) || quizProgress.submitted) return;
+        setQuizProgress(prev => ({
+          ...prev,
+          answers: {
+            ...prev.answers,
+            [question.id]: answerIndex
+          }
+        }));
+      };
+
+      const handleQuizSubmit = () => {
+        if (!quizCanSubmit || quizProgress.submitted) return;
+        setQuizProgress(prev => ({
+          ...prev,
+          submitted: true,
+          submittedAt: new Date().toISOString()
+        }));
+        setToastMessage(`📝 已交卷：得分 ${quizCorrectCount}/${supportedQuizQuestions.length}`);
+      };
+
+      const handleQuizReset = () => {
+        setQuizProgress(createEmptyQuizProgress());
+        const firstQuestion = currentArticleQuestions[0] || null;
+        setQuizActiveQuestionId(firstQuestion?.id || null);
+        setToastMessage('已清空当前文章的作答记录');
       };
 
       const persistGlossaryToCurrentArticle = (glossary) => {
@@ -4148,7 +4394,7 @@
                 newList.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
                 return newList;
               });
-              localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, '1');
+              localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, BUNDLED_LIBRARY_SEED_VERSION);
               setToastMessage(`✅ 成功导入了 ${importedData.length} 篇文章记录！`);
             } else {
               setToastMessage("❌ 文件格式不正确，应该是一个包含文章对象的数组。");
@@ -4171,7 +4417,7 @@
             }
             return force ? bundled : mergeSavedArticles(prev, bundled);
           });
-          localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, '1');
+          localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, BUNDLED_LIBRARY_SEED_VERSION);
           setToastMessage(`📚 已载入预置教材 ${bundled.length} 篇`);
           setViewMode('library');
         } catch (error) {
@@ -4594,6 +4840,8 @@
             const normalizedData = normalizeArticleData(parsedData.articleData);
             const glossary = collectArticleGlossary({ glossary: parsedData.glossary }, normalizedData);
             setCurrentArticleId(null);
+            setCurrentArticleTitle('未保存文章');
+            setCurrentArticleQuestions([]);
             setCurrentArticleData(normalizedData);
             setCurrentArticleGlossary(glossary);
             setCurrentArticleReadability(computeArticleReadability(normalizedData));
@@ -5172,7 +5420,7 @@
                       <div key={article.id} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow relative flex flex-col">
                         <div className="flex justify-between items-start mb-4">
                           <h3 className="text-xl font-bold text-slate-900 leading-snug pr-8 line-clamp-2">{article.title}</h3>
-                          <button 
+                          <button
                             onClick={() => handleRemoveArticle(article.id)}
                             className="text-slate-300 hover:text-red-500 transition-colors absolute top-6 right-6"
                             title="删除文章"
@@ -5182,6 +5430,18 @@
                         </div>
                         <div className="text-sm text-slate-500 mb-6 flex-grow">
                           包含 {article.data.length} 个句子的解析
+                          {Array.isArray(article.questions) && article.questions.length > 0 && (
+                            <div className="mt-2 flex flex-wrap gap-2 text-xs">
+                              <span className="rounded-full bg-indigo-50 px-2.5 py-1 font-semibold text-indigo-700">
+                                {article.questions.filter(isSupportedQuizQuestion).length} 道可自动评分
+                              </span>
+                              {article.questions.filter(question => !isSupportedQuizQuestion(question)).length > 0 && (
+                                <span className="rounded-full bg-amber-50 px-2.5 py-1 font-semibold text-amber-700">
+                                  {article.questions.filter(question => !isSupportedQuizQuestion(question)).length} 道展示官方答案
+                                </span>
+                              )}
+                            </div>
+                          )}
                           <div className="mt-3">
                             <ReadabilityBadgeRow readability={article.readability || {}} theme="light" compact />
                           </div>
@@ -5387,8 +5647,11 @@
                         <div className="min-w-0">
                           <h2 className="font-semibold text-lg flex items-center gap-2 shrink-0">
                             <AlignLeft className="w-5 h-5 text-indigo-400" />
-                            Reading Text
+                            阅读原文
                           </h2>
+                          <p className="mt-2 text-sm text-slate-300 line-clamp-2">
+                            {currentArticleTitle || '当前文章'}
+                          </p>
                           <div className="mt-3">
                             <ReadabilityBadgeRow readability={currentArticleReadability} theme="dark" />
                           </div>
@@ -5411,6 +5674,17 @@
                             <Save className="w-4 h-4" />
                             <span className="hidden sm:inline">保存</span>
                           </button>
+                          {articleStudyMode === 'read' && (
+                            <button
+                              type="button"
+                              onClick={() => setHighlightMode(prev => !prev)}
+                              className={`inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-medium transition-colors border self-start ${highlightMode ? 'bg-indigo-500 text-white border-indigo-300/40 hover:bg-indigo-400' : 'bg-white/10 text-slate-200 border-white/10 hover:bg-white/20'}`}
+                              title={highlightMode ? '关闭左侧句子结构高亮' : '让左侧原文同步显示句子结构高亮'}
+                            >
+                              <Zap className="w-4 h-4" />
+                              <span className="hidden sm:inline">{highlightMode ? '已同步高亮' : '同步高亮'}</span>
+                            </button>
+                          )}
                           <HoverTip
                             text="这里显示的是自动估算难度，不是官方 Lexile 认证分值。"
                             align="right"
@@ -5421,9 +5695,29 @@
                           </HoverTip>
                         </div>
                       </div>
-                      {rightPanelTab !== 'guided' && (
+                      {hasQuizQuestions && (
+                        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-200">
+                          <span className={`rounded-full border px-3 py-1 font-semibold ${articleStudyMode === 'quiz' ? 'border-indigo-300/50 bg-indigo-400/20 text-indigo-100' : 'border-white/10 bg-white/5'}`}>
+                            {articleStudyMode === 'quiz' ? '做题模式' : '阅读解析'}
+                          </span>
+                          <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+                            {supportedQuizQuestions.length} 道自动评分
+                          </span>
+                          {unsupportedQuizQuestions.length > 0 && (
+                            <span className="rounded-full border border-amber-300/30 bg-amber-500/10 px-3 py-1 text-amber-100">
+                              {unsupportedQuizQuestions.length} 道待答案键
+                            </span>
+                          )}
+                          {articleStudyMode === 'quiz' && currentQuizParagraphNumber && (
+                            <span className="rounded-full border border-sky-300/30 bg-sky-400/10 px-3 py-1 text-sky-100">
+                              当前定位第 {currentQuizParagraphNumber} 段
+                            </span>
+                          )}
+                        </div>
+                      )}
+                      {articleStudyMode === 'read' && rightPanelTab !== 'guided' && (
                         <div className="flex flex-wrap gap-2">
-                          <button 
+                          <button
                             onClick={() => setUnderlineMain(!underlineMain)}
                             className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-colors ${
                               effectiveUnderlineMain ? 'bg-indigo-500 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
@@ -5432,16 +5726,6 @@
                           >
                             <Underline className="w-4 h-4" />
                             <span>主干</span>
-                          </button>
-                          <button 
-                            onClick={() => setHighlightMode(!highlightMode)}
-                            className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-colors ${
-                              effectiveHighlightMode ? 'bg-indigo-500 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
-                            }`}
-                            title={effectiveHighlightMode ? '关闭结构高亮' : '开启结构高亮'}
-                          >
-                            <Zap className="w-4 h-4" />
-                            <span>结构</span>
                           </button>
                         </div>
                       )}
@@ -5454,8 +5738,29 @@
                   </div>
                   
                   <div className="p-6 md:p-8 flex-grow leading-relaxed text-lg md:text-xl text-slate-800 reader-article-body reader-article-panel">
+                    {Array.isArray(currentArticle?.companions) && currentArticle.companions.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => document.getElementById('reader-companions')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                        className="mb-6 inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-4 py-2 text-sm font-black text-sky-700 transition-colors hover:bg-sky-100"
+                      >
+                        <ZoomIn className="h-4 w-4" /> 查看伴读资料与配图（{currentArticle.companions.length}）
+                      </button>
+                    )}
                     {paragraphs.map((para, idx) => (
-                      <p key={idx} className="mb-6 md:mb-8">
+                      <p
+                        key={idx}
+                        className={`mb-6 md:mb-8 rounded-3xl px-3 py-2 transition-all ${
+                          articleStudyMode === 'quiz' && currentQuizParagraphNumber && Number(para[0]?.para) === currentQuizParagraphNumber
+                            ? 'bg-indigo-50 ring-1 ring-indigo-200 shadow-sm'
+                            : ''
+                        }`}
+                      >
+                        {currentArticle?.paragraphLabels?.[Number(para[0]?.para) - 1] && (
+                          <span className="mr-3 inline-flex h-8 min-w-8 items-center justify-center rounded-full bg-indigo-700 px-2 align-middle text-sm font-black tracking-wide text-white shadow-sm">
+                            {currentArticle.paragraphLabels[Number(para[0]?.para) - 1]}
+                          </span>
+                        )}
                         {para.map((sentence, sIdx) => {
                           const isSelected = selectedSentence.id === sentence.id;
                           return (
@@ -5470,10 +5775,16 @@
                                 onTouchMove={handleWordPressMove}
                                 onTouchEnd={handleWordPressEnd}
                                 onTouchCancel={handleWordPressEnd}
-                                className={`cursor-pointer transition-colors duration-150 select-text reader-word-target ${isSelected ? 'bg-indigo-100/60' : ''}`}
-                              >{(effectiveHighlightMode || effectiveUnderlineMain || (rightPanelTab === 'analysis' && isSelected)) ? (
+                                className={`cursor-pointer transition-colors duration-150 select-text reader-word-target ${
+                                  isSelected ? 'bg-indigo-100/60' : ''
+                                } ${
+                                  articleStudyMode === 'quiz' && currentQuizParagraphNumber && Number(sentence.para) === currentQuizParagraphNumber
+                                    ? 'text-slate-950'
+                                    : ''
+                                }`}
+                              >{(effectiveHighlightMode || effectiveUnderlineMain || (articleStudyMode === 'read' && rightPanelTab === 'analysis' && isSelected)) ? (
                                    sentence.segments.map((seg, i) => {
-                                     const isStepFocused = rightPanelTab === 'analysis' && isSelected && isSegmentFocusedInStep(seg.type, voiceLessonStepIndex);
+                                     const isStepFocused = articleStudyMode === 'read' && rightPanelTab === 'analysis' && isSelected && isSegmentFocusedInStep(seg.type, voiceLessonStepIndex);
                                      const segmentStyles = getSegmentStyles(seg.type, isStepFocused);
                                      const focusClass = isStepFocused
                                        ? 'ring-2 ring-indigo-500 ring-offset-1 rounded-sm font-black mx-[1px] relative z-10 shadow-sm'
@@ -5502,6 +5813,43 @@
                         })}
                       </p>
                     ))}
+                    {Array.isArray(currentArticle?.footnotes) && currentArticle.footnotes.length > 0 && (
+                      <aside className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-600">
+                        <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-slate-500">课文脚注</p>
+                        <ol className="space-y-2">
+                          {currentArticle.footnotes.map((footnote, index) => (
+                            <li key={`${footnote.marker}-${index}`} className="flex gap-2">
+                              <span className="font-black text-indigo-700">{footnote.marker}</span>
+                              <span>{footnote.text}</span>
+                            </li>
+                          ))}
+                        </ol>
+                      </aside>
+                    )}
+                    {Array.isArray(currentArticle?.companions) && currentArticle.companions.length > 0 && (
+                      <section id="reader-companions" className="mt-8 rounded-3xl border border-sky-200 bg-sky-50/60 p-5">
+                        <p className="text-xs font-black uppercase tracking-[0.16em] text-sky-700">伴读资料</p>
+                        {currentArticle.companions.map((companion, index) => (
+                          <article key={`${companion.title}-${index}`} className="mt-4 rounded-2xl bg-white p-4 shadow-sm">
+                            <h3 className="font-black text-slate-800">{companion.title}</h3>
+                            {companion.imageSrc && (
+                              <button
+                                type="button"
+                                onClick={() => setCompanionImagePreview({ src: companion.imageSrc, title: companion.title, zoom: 1 })}
+                                className="group mt-3 block w-full overflow-hidden rounded-xl border border-slate-100 bg-slate-50 text-left"
+                                title="点击放大查看伴读图片"
+                              >
+                                <img src={companion.imageSrc} alt={companion.title} className="w-full transition-transform duration-300 group-hover:scale-[1.02]" />
+                                <span className="flex items-center justify-center gap-2 border-t border-slate-100 bg-white px-3 py-2 text-xs font-bold text-sky-700">
+                                  <ZoomIn className="h-3.5 w-3.5" /> 点击放大查看
+                                </span>
+                              </button>
+                            )}
+                            <p className="mt-3 whitespace-pre-line text-sm leading-7 text-slate-600">{companion.text}</p>
+                          </article>
+                        ))}
+                      </section>
+                    )}
                   </div>
                 </div>
 
@@ -5509,7 +5857,7 @@
                 <div className="lg:col-span-7 flex flex-col gap-5 xl:gap-6">
                   
                   {/* Guide/Legend Panel */}
-                  {effectiveHighlightMode && (
+                  {articleStudyMode === 'read' && effectiveHighlightMode && (
                     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 animate-in fade-in slide-in-from-top-4">
                       <h3 className="font-semibold text-slate-700 mb-3 flex items-center gap-2 text-sm uppercase tracking-wider">
                         结构颜色图例
@@ -5532,38 +5880,78 @@
                   <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex-grow sticky top-6 flex flex-col" style={{ maxHeight: 'calc(100vh - 48px)' }}>
                     
                     {/* Header & Tabs (iOS 分段选择器风格) */}
-                    <div className="bg-white px-6 py-4 flex flex-col md:flex-row items-center justify-between border-b border-slate-100 shrink-0 gap-4">
-                      <h2 className="font-bold text-slate-800 flex items-center gap-2">
-                        <Search className="w-5 h-5 text-indigo-500" />
-                        句子解析
-                      </h2>
-                      <div className="flex p-1 bg-slate-100 rounded-xl">
-                        <button 
-                          onClick={() => setRightPanelTab('guided')}
-                          className={`px-5 py-1.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-1.5 ${
-                            rightPanelTab === 'guided' 
-                              ? 'bg-white text-indigo-600 shadow-sm' 
-                              : 'text-slate-500 hover:text-slate-700'
-                          }`}
-                        >
-                          <FileText className="w-4 h-4"/> 解析总览
-                        </button>
-                        <button 
-                          onClick={() => setRightPanelTab('ai')}
-                          className={`px-5 py-1.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-1.5 ${
-                            rightPanelTab === 'ai' 
-                              ? 'bg-white text-indigo-600 shadow-sm' 
-                              : 'text-slate-500 hover:text-slate-700'
-                          }`}
-                        >
-                          <MessageSquare className="w-4 h-4"/> AI 助教
-                        </button>
+                    <div className="bg-white px-6 py-4 flex flex-col border-b border-slate-100 shrink-0 gap-4">
+                      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <h2 className="font-bold text-slate-800 flex items-center gap-2">
+                          {articleStudyMode === 'quiz' ? <MousePointerClick className="w-5 h-5 text-indigo-500" /> : <Search className="w-5 h-5 text-indigo-500" />}
+                          {articleStudyMode === 'quiz' ? '做题模式' : '句子解析'}
+                        </h2>
+                        <div className="flex p-1 bg-slate-100 rounded-xl self-start">
+                          <button
+                            onClick={() => setArticleStudyMode('read')}
+                            className={`px-5 py-1.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-1.5 ${
+                              articleStudyMode === 'read'
+                                ? 'bg-white text-indigo-600 shadow-sm'
+                                : 'text-slate-500 hover:text-slate-700'
+                            }`}
+                          >
+                            <BookOpen className="w-4 h-4" /> 阅读解析
+                          </button>
+                          <button
+                            onClick={() => hasQuizQuestions && setArticleStudyMode('quiz')}
+                            disabled={!hasQuizQuestions}
+                            className={`px-5 py-1.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-1.5 ${
+                              articleStudyMode === 'quiz'
+                                ? 'bg-white text-indigo-600 shadow-sm'
+                                : 'text-slate-500 hover:text-slate-700 disabled:text-slate-300 disabled:hover:text-slate-300'
+                            }`}
+                          >
+                            <MousePointerClick className="w-4 h-4" /> 做题
+                          </button>
+                        </div>
                       </div>
+                      {articleStudyMode === 'read' ? (
+                        <div className="flex p-1 bg-slate-100 rounded-xl self-start">
+                          <button
+                            onClick={() => setRightPanelTab('guided')}
+                            className={`px-5 py-1.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-1.5 ${
+                              rightPanelTab === 'guided'
+                                ? 'bg-white text-indigo-600 shadow-sm'
+                                : 'text-slate-500 hover:text-slate-700'
+                            }`}
+                          >
+                            <FileText className="w-4 h-4"/> 解析总览
+                          </button>
+                          <button
+                            onClick={() => setRightPanelTab('ai')}
+                            className={`px-5 py-1.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-1.5 ${
+                              rightPanelTab === 'ai'
+                                ? 'bg-white text-indigo-600 shadow-sm'
+                                : 'text-slate-500 hover:text-slate-700'
+                            }`}
+                          >
+                            <MessageSquare className="w-4 h-4"/> AI 助教
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="flex flex-wrap items-center gap-2 text-sm text-slate-500">
+                          <span>共 {currentArticleQuestions.length} 题</span>
+                          <span>·</span>
+                          <span>{supportedQuizQuestions.length} 题自动评分</span>
+                          {unsupportedQuizQuestions.length > 0 && (
+                            <React.Fragment>
+                              <span>·</span>
+                              <span>{unsupportedQuizQuestions.length} 题待答案键</span>
+                            </React.Fragment>
+                          )}
+                        </div>
+                      )}
                     </div>
                     
                     <div className="p-6 md:p-8 xl:p-9 overflow-y-auto flex-grow bg-white">
                       <div className="max-w-[880px] mx-auto">
-                      
+                      {articleStudyMode === 'read' ? (
+                      <React.Fragment>
                       {/* 顶部轻量级沉浸式上下文 */}
                       <div className="mb-10">
                         {rightPanelTab === 'ai' && (
@@ -5654,59 +6042,33 @@
                                 )}
                               </div>
                             )}
-                          </div>
 
-                          <div className="rounded-[28px] border border-amber-100 bg-amber-50/50 p-6 shadow-sm">
-                            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-4">
-                              <div>
-                                <p className="text-xs uppercase tracking-[0.22em] text-amber-500 font-bold">Glossary</p>
-                                <h3 className="mt-1 text-xl font-black text-slate-900">术语 / 专有名词</h3>
-                                <p className="mt-1 text-sm text-slate-500">
-                                  识别专业术语、小说设定名与依赖上下文的词，并给出中文翻译。
-                                </p>
+                            <div className="mt-5 border-t border-slate-100 pt-5">
+                              <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                                <div>
+                                  <p className="text-xs uppercase tracking-[0.22em] text-slate-400 font-bold">Structure</p>
+                                  <h3 className="mt-1 text-xl font-black text-slate-900">结构解读</h3>
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={() => setRightPanelTab('ai')}
+                                  className="self-start rounded-2xl bg-slate-900 px-4 py-2 text-sm font-bold text-white hover:bg-slate-800"
+                                >
+                                  去问 AI 助教
+                                </button>
                               </div>
-                              <button
-                                type="button"
-                                onClick={handleExtractGlossary}
-                                disabled={isExtractingGlossary || !currentArticleData.length}
-                                className="rounded-2xl bg-amber-600 px-4 py-2 text-sm font-bold text-white hover:bg-amber-700 disabled:opacity-60"
-                              >
-                                {isExtractingGlossary ? '识别中...' : (currentArticleGlossary.length ? '重新识别' : '识别术语')}
-                              </button>
+                              <div className="mt-4">
+                                {formatMarkdown(selectedSentence.analysis || '暂无结构分析。', "text-slate-800 text-base leading-[1.85]")}
+                              </div>
                             </div>
-                            {currentArticleGlossary.length > 0 ? (
-                              <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
-                                {currentArticleGlossary.map((entry) => (
-                                  <div key={entry.term} className="rounded-2xl bg-white border border-amber-100 px-4 py-3">
-                                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                                      <span className="font-bold text-slate-900">{entry.term}</span>
-                                      <span className="text-amber-700 font-semibold">{entry.translation}</span>
-                                      <span className="text-[11px] uppercase tracking-wide text-slate-400">{entry.kind}</span>
-                                    </div>
-                                    {entry.note ? <p className="mt-1 text-sm leading-6 text-slate-600">{entry.note}</p> : null}
-                                  </div>
-                                ))}
-                              </div>
-                            ) : (
-                              <div className="rounded-2xl border border-dashed border-amber-200 bg-white/70 px-4 py-5 text-sm text-slate-500">
-                                当前文章还没有术语表。点击「识别术语」，模型会基于全文搜索专业词与专有名词并翻译。
-                              </div>
-                            )}
                           </div>
 
                           <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
-                            <div className="flex items-center justify-between gap-3 mb-5">
+                            <div className="flex items-center gap-3 mb-5">
                               <div>
                                 <p className="text-xs uppercase tracking-[0.22em] text-slate-400 font-bold">Segments</p>
                                 <h3 className="mt-1 text-xl font-black text-slate-900">句子切片</h3>
                               </div>
-                              <button
-                                type="button"
-                                onClick={() => setHighlightMode(prev => !prev)}
-                                className={`rounded-2xl px-4 py-2 text-sm font-bold transition-colors ${highlightMode ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}
-                              >
-                                {highlightMode ? '关闭左侧高亮' : '左侧同步高亮'}
-                              </button>
                             </div>
                             <div className="flex flex-wrap gap-2">
                               {(selectedSentence.segments || []).map((seg, index) => (
@@ -5722,56 +6084,6 @@
                             </div>
                           </div>
 
-                          {selectedSentence.teachingFocus && (
-                            <div className="rounded-[28px] border border-indigo-100 bg-indigo-50/60 p-6 shadow-sm">
-                              <p className="text-xs uppercase tracking-[0.22em] text-indigo-400 font-bold">Teaching Focus</p>
-                              <h3 className="mt-1 text-xl font-black text-slate-900">学习引导</h3>
-                              <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {[
-                                  ['抓主干', selectedSentence.teachingFocus.mainQuestion],
-                                  ['看语法', selectedSentence.teachingFocus.grammarQuestion],
-                                  ['拆修饰', selectedSentence.teachingFocus.modifierQuestion],
-                                  ['理关系', selectedSentence.teachingFocus.relationshipQuestion],
-                                  ['易错点', selectedSentence.teachingFocus.commonMistake],
-                                  ['鼓励', selectedSentence.teachingFocus.encouragement]
-                                ].filter(([, value]) => value).map(([label, value]) => (
-                                  <div key={label} className="rounded-2xl bg-white/80 border border-white p-4">
-                                    <p className="text-xs font-black text-indigo-500 mb-1">{label}</p>
-                                    <p className="text-sm leading-7 text-slate-700">{value}</p>
-                                  </div>
-                                ))}
-                              </div>
-                              {Array.isArray(selectedSentence.teachingFocus.thinkingPath) && selectedSentence.teachingFocus.thinkingPath.length > 0 && (
-                                <div className="mt-4 rounded-2xl bg-white/80 border border-white p-4">
-                                  <p className="text-xs font-black text-indigo-500 mb-2">思考路径</p>
-                                  <div className="flex flex-wrap gap-2">
-                                    {selectedSentence.teachingFocus.thinkingPath.map((step, index) => (
-                                      <span key={`${step}-${index}`} className="rounded-full bg-indigo-100 px-3 py-1.5 text-sm font-bold text-indigo-800">
-                                        {index + 1}. {step}
-                                      </span>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          )}
-
-                          <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
-                            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-4">
-                              <div>
-                                <p className="text-xs uppercase tracking-[0.22em] text-slate-400 font-bold">Analysis</p>
-                                <h3 className="mt-1 text-xl font-black text-slate-900">结构分析</h3>
-                              </div>
-                              <button
-                                type="button"
-                                onClick={() => setRightPanelTab('ai')}
-                                className="rounded-2xl bg-slate-900 px-4 py-2 text-sm font-bold text-white hover:bg-slate-800"
-                              >
-                                去问 AI 助教
-                              </button>
-                            </div>
-                            {formatMarkdown(selectedSentence.analysis || '暂无结构分析。', "text-slate-800 text-base leading-[1.85]")}
-                          </div>
                         </div>
                       )}
 
@@ -6513,6 +6825,202 @@
 
                         </div>
                       )}
+                      </React.Fragment>
+                      ) : (
+                        <div className="animate-in fade-in duration-500 max-w-4xl mx-auto space-y-5">
+                          {hasQuizQuestions ? (
+                            <React.Fragment>
+                              <div className="rounded-[28px] border border-indigo-100 bg-gradient-to-br from-white via-indigo-50/40 to-slate-50 p-6 shadow-sm">
+                                <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+                                  <div>
+                                    <p className="text-xs uppercase tracking-[0.24em] text-indigo-400 font-bold">Quiz</p>
+                                    <h3 className="mt-2 text-2xl font-black text-slate-900">按官方答案做题</h3>
+                                    <p className="mt-2 text-sm leading-6 text-slate-500">
+                                      单选题会自动评分；插入句、总结题等复杂题型展示在题号栏中，但不计入自动得分。
+                                    </p>
+                                  </div>
+                                  <div className="grid grid-cols-2 gap-3 text-sm">
+                                    <div className="rounded-2xl border border-indigo-100 bg-white px-4 py-3">
+                                      <p className="text-slate-400">已答</p>
+                                      <p className="mt-1 text-xl font-black text-indigo-700">{quizAnsweredSupportedCount}/{supportedQuizQuestions.length}</p>
+                                    </div>
+                                    <div className="rounded-2xl border border-emerald-100 bg-white px-4 py-3">
+                                      <p className="text-slate-400">得分</p>
+                                      <p className="mt-1 text-xl font-black text-emerald-700">{quizProgress.submitted ? quizScoreLabel : '未交卷'}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-sm">
+                                <div className="flex flex-wrap gap-2">
+                                  {currentArticleQuestions.map((question) => {
+                                    const isActive = question.id === currentQuizQuestion?.id;
+                                    const isSupported = isSupportedQuizQuestion(question);
+                                    const answered = Number.isInteger(quizProgress.answers?.[question.id]);
+                                    const isCorrect = quizProgress.submitted && isSupported && quizProgress.answers?.[question.id] === question.answerIndex;
+                                    const isWrong = quizProgress.submitted && isSupported && answered && !isCorrect;
+                                    return (
+                                      <button
+                                        key={question.id}
+                                        type="button"
+                                        onClick={() => handleSelectQuizQuestion(question)}
+                                        className={`min-w-[2.5rem] rounded-2xl border px-3 py-2 text-sm font-bold transition-all ${
+                                          isActive
+                                            ? 'border-indigo-500 bg-indigo-600 text-white shadow-sm'
+                                            : isCorrect
+                                              ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
+                                              : isWrong
+                                                ? 'border-rose-200 bg-rose-50 text-rose-700'
+                                                : answered
+                                                  ? 'border-indigo-200 bg-indigo-50 text-indigo-700'
+                                                  : !isSupported
+                                                    ? 'border-amber-200 bg-amber-50 text-amber-700'
+                                                    : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+                                        }`}
+                                        title={isSupported ? `第 ${question.index} 题` : `第 ${question.index} 题（非自动评分）`}
+                                      >
+                                        {question.index}
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+
+                              {currentQuizQuestion && (
+                                <div className="rounded-[28px] border border-slate-200 bg-white p-6 md:p-7 shadow-sm">
+                                  <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                                    <div>
+                                      <div className="flex flex-wrap items-center gap-2">
+                                        <span className="rounded-full bg-indigo-100 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-indigo-700">
+                                          Question {currentQuizQuestionNumber}
+                                        </span>
+                                        {currentQuizParagraphNumber && (
+                                          <span className="rounded-full bg-sky-100 px-3 py-1 text-xs font-bold text-sky-700">
+                                            对应第 {currentQuizParagraphNumber} 段
+                                          </span>
+                                        )}
+                                        {!currentQuizIsSupported && (
+                                          <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-700">
+                                            非自动评分
+                                          </span>
+                                        )}
+                                      </div>
+                                      <h3 className="mt-4 text-xl md:text-2xl font-black text-slate-900 leading-relaxed whitespace-pre-line">
+                                        {currentQuizQuestion.prompt}
+                                      </h3>
+                                    </div>
+                                    <button
+                                      type="button"
+                                      onClick={handleQuizReset}
+                                      className="rounded-2xl border border-slate-200 px-4 py-2 text-sm font-bold text-slate-600 hover:bg-slate-50"
+                                    >
+                                      重新作答
+                                    </button>
+                                  </div>
+
+                                  {currentQuizIsSupported ? (
+                                    <div className="mt-6 space-y-3">
+                                      {currentQuizQuestion.options.map((option, optionIndex) => {
+                                        const isSelected = currentQuizAnswer === optionIndex;
+                                        const isCorrectAnswer = currentQuizQuestion.answerIndex === optionIndex;
+                                        const showCorrect = quizProgress.submitted && isCorrectAnswer;
+                                        const showWrong = quizProgress.submitted && isSelected && !isCorrectAnswer;
+                                        return (
+                                          <button
+                                            key={`${currentQuizQuestion.id}-${optionIndex}`}
+                                            type="button"
+                                            disabled={quizProgress.submitted}
+                                            onClick={() => handleQuizAnswerSelect(currentQuizQuestion, optionIndex)}
+                                            className={`w-full rounded-3xl border px-5 py-4 text-left transition-all ${
+                                              showCorrect
+                                                ? 'border-emerald-300 bg-emerald-50 shadow-sm'
+                                                : showWrong
+                                                  ? 'border-rose-300 bg-rose-50 shadow-sm'
+                                                  : isSelected
+                                                    ? 'border-indigo-300 bg-indigo-50 shadow-sm'
+                                                    : 'border-slate-200 bg-white hover:bg-slate-50'
+                                            } ${quizProgress.submitted ? 'cursor-default' : 'cursor-pointer'}`}
+                                          >
+                                            <div className="flex items-start gap-4">
+                                              <div className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-black ${
+                                                showCorrect
+                                                  ? 'bg-emerald-600 text-white'
+                                                  : showWrong
+                                                    ? 'bg-rose-600 text-white'
+                                                    : isSelected
+                                                      ? 'bg-indigo-600 text-white'
+                                                      : 'bg-slate-100 text-slate-500'
+                                              }`}>
+                                                {String.fromCharCode(65 + optionIndex)}
+                                              </div>
+                                              <div className="flex-1">
+                                                <p className="text-base leading-7 text-slate-800">{option}</p>
+                                                {showCorrect && (
+                                                  <p className="mt-2 text-sm font-bold text-emerald-700">正确答案</p>
+                                                )}
+                                                {showWrong && (
+                                                  <p className="mt-2 text-sm font-bold text-rose-700">你的选择</p>
+                                                )}
+                                              </div>
+                                            </div>
+                                          </button>
+                                        );
+                                      })}
+                                    </div>
+                                  ) : (
+                                    <div className="mt-6 rounded-3xl border border-amber-200 bg-amber-50 p-5">
+                                      <p className="text-sm leading-7 text-amber-900">
+                                        {currentQuizUsesPptSource
+                                          ? '此题已从课件中提取，但课件未提供可核验的答案键，因此目前仅供练习，暂不自动评分。'
+                                          : '这题属于插入句、总结题或排版异常题型，暂不自动评分。'}
+                                        {!currentQuizUsesPptSource && (quizProgress.submitted
+                                          ? ' 已交卷后展示官方答案。'
+                                          : ' 你可以先阅读题干与选项，交卷后查看 Word 官方答案。')}
+                                      </p>
+                                      {currentQuizQuestion.options.length > 0 && (
+                                        <div className="mt-4 space-y-2">
+                                          {currentQuizQuestion.options.map((option, optionIndex) => (
+                                            <div key={`${currentQuizQuestion.id}-unsupported-${optionIndex}`} className="rounded-2xl bg-white/80 px-4 py-3 text-sm text-slate-700 border border-amber-100">
+                                              <span className="mr-2 font-black text-amber-700">{String.fromCharCode(65 + optionIndex)}.</span>
+                                              {option}
+                                            </div>
+                                          ))}
+                                        </div>
+                                      )}
+                                      {quizProgress.submitted && currentQuizQuestion.rawAnswer && (
+                                        <div className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-800">
+                                          官方答案：{currentQuizQuestion.rawAnswer}
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
+
+                                  <div className="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                                    <p className="text-sm text-slate-500">
+                                      {quizProgress.submitted
+                                        ? `已于 ${new Date(quizProgress.submittedAt).toLocaleString()} 交卷。`
+                                        : `交卷前不会显示正确答案。当前已完成 ${quizAnsweredSupportedCount}/${supportedQuizQuestions.length} 道自动评分题。`}
+                                    </p>
+                                    <button
+                                      type="button"
+                                      onClick={handleQuizSubmit}
+                                      disabled={!quizCanSubmit || quizProgress.submitted}
+                                      className="rounded-2xl bg-indigo-600 px-5 py-3 text-sm font-black text-white shadow-sm transition-colors hover:bg-indigo-700 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400"
+                                    >
+                                      {quizProgress.submitted ? `已交卷 · ${quizScoreLabel}` : '交卷'}
+                                    </button>
+                                  </div>
+                                </div>
+                              )}
+                            </React.Fragment>
+                          ) : (
+                            <div className="rounded-[28px] border border-slate-200 bg-slate-50 p-8 text-center text-slate-500">
+                              当前文章没有题目数据，可切回“阅读解析”模式继续精读。
+                            </div>
+                          )}
+                        </div>
+                      )}
 
                       </div>
 
@@ -6520,7 +7028,11 @@
                     
                     <div className="bg-slate-50 p-4 border-t border-slate-100 flex items-center gap-2 text-slate-500 text-sm justify-center shrink-0 rounded-b-2xl">
                       <MousePointerClick className="w-4 h-4 shrink-0" />
-                      <span>点选左侧句子可切换分析；电脑双击 / iPad 长按单词可加生词本</span>
+                      <span>
+                        {articleStudyMode === 'quiz'
+                          ? '做题时左侧原文仍可点选句子、双击或长按查词；交卷前不会显示正确答案。'
+                          : '点选左侧句子可切换分析；电脑双击 / iPad 长按单词可加生词本'}
+                      </span>
                     </div>
                   </div>
 
@@ -6533,6 +7045,48 @@
               <div className="fixed top-6 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full shadow-2xl z-[120] animate-in slide-in-from-top-4 flex items-center gap-2 font-medium">
                 <Info className="w-4 h-4 text-indigo-400" />
                 {toastMessage}
+              </div>
+            )}
+
+            {companionImagePreview && (
+              <div
+                className="fixed inset-0 z-[120] flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm"
+                role="dialog"
+                aria-modal="true"
+                aria-label={`${companionImagePreview.title} 图片预览`}
+                onClick={() => setCompanionImagePreview(null)}
+              >
+                <div className="flex h-full w-full max-w-6xl flex-col overflow-hidden rounded-3xl bg-slate-900 shadow-2xl" onClick={(event) => event.stopPropagation()}>
+                  <header className="flex shrink-0 items-center justify-between gap-3 border-b border-white/10 px-4 py-3 text-white">
+                    <p className="min-w-0 truncate text-sm font-bold">{companionImagePreview.title}</p>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setCompanionImagePreview(preview => ({ ...preview, zoom: Math.max(0.5, Number((preview.zoom - 0.25).toFixed(2)))}))}
+                        disabled={companionImagePreview.zoom <= 0.5}
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 disabled:opacity-40"
+                        title="缩小"
+                      ><ZoomOut className="h-5 w-5" /></button>
+                      <button
+                        type="button"
+                        onClick={() => setCompanionImagePreview(preview => ({ ...preview, zoom: Math.min(3, Number((preview.zoom + 0.25).toFixed(2)))}))}
+                        disabled={companionImagePreview.zoom >= 3}
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 disabled:opacity-40"
+                        title="放大"
+                      ><ZoomIn className="h-5 w-5" /></button>
+                      <span className="w-12 text-center text-xs tabular-nums text-slate-300">{Math.round(companionImagePreview.zoom * 100)}%</span>
+                      <button type="button" onClick={() => setCompanionImagePreview(null)} className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 hover:bg-white/20" title="关闭"><X className="h-5 w-5" /></button>
+                    </div>
+                  </header>
+                  <div className="flex-1 overflow-auto p-5">
+                    <img
+                      src={companionImagePreview.src}
+                      alt={companionImagePreview.title}
+                      style={{ width: `${companionImagePreview.zoom * 100}%`, maxWidth: 'none' }}
+                      className="mx-auto block rounded-2xl bg-white shadow-2xl"
+                    />
+                  </div>
+                </div>
               </div>
             )}
 
@@ -6576,10 +7130,12 @@
                           title: articleTitleInput,
                           timestamp: Date.now(),
                           data: currentArticleData,
+                          questions: currentArticleQuestions,
                           glossary: currentArticleGlossary,
                           readability: currentArticleReadability
                         };
                         setCurrentArticleId(newArticle.id);
+                        setCurrentArticleTitle(newArticle.title);
                         setSavedArticles(prev => [newArticle, ...prev]);
                         setSaveModalOpen(false);
                         setToastMessage("✅ 文章已成功保存到本地书架！");

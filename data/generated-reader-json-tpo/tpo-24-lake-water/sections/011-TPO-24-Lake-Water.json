@@ -1,0 +1,1520 @@
+{
+  "sourceFile": "tpo-24-lake-water.md",
+  "sectionTitle": "TPO-24 / Lake Water",
+  "generatedAt": "2026-08-05T12:52:33.968Z",
+  "warnings": [],
+  "article": {
+    "id": "tpo-24-lake-water-11-TPO-24-Lake-Water",
+    "title": "TPO-24 / Lake Water",
+    "timestamp": 1785934353978,
+    "glossary": [
+      {
+        "term": "surface-water-dominated lake",
+        "translation": "地表水主导型湖泊",
+        "kind": "term",
+        "note": "湖泊水量主要受地表河流进出影响的湖泊。",
+        "aliases": []
+      },
+      {
+        "term": "underwater seeps and springs",
+        "translation": "水下渗流和泉水",
+        "kind": "term",
+        "note": "地下水通过土壤缝隙渗出或泉眼涌出进入湖泊的方式。",
+        "aliases": []
+      },
+      {
+        "term": "seepage-dominated lake",
+        "translation": "地下水渗流主导型湖泊",
+        "kind": "term",
+        "note": "湖泊水量主要受地下水渗入和渗出影响的湖泊。",
+        "aliases": []
+      },
+      {
+        "term": "northwestern Ontario",
+        "translation": "安大略省西北部",
+        "kind": "proper_noun",
+        "note": "加拿大的一个地区，文中提到该地区湖泊受气候变化影响显著。",
+        "aliases": []
+      },
+      {
+        "term": "evapotranspiration",
+        "translation": "蒸散",
+        "kind": "term",
+        "note": "蒸发和植物蒸腾作用的总和，指水从地表和植物进入大气的过程。",
+        "aliases": []
+      },
+      {
+        "term": "inflowing rivers",
+        "translation": "流入的河流",
+        "kind": "term",
+        "note": "指流向湖泊的河流，与outflowing rivers相对。",
+        "aliases": []
+      },
+      {
+        "term": "net difference",
+        "translation": "净差额",
+        "kind": "term",
+        "note": "指地下水渗入湖泊的量与从湖泊渗入地下水的量之间的差值。",
+        "aliases": []
+      },
+      {
+        "term": "residence time",
+        "translation": "停留时间",
+        "kind": "term",
+        "note": "水分子在湖泊中平均停留的时间长度。",
+        "aliases": []
+      },
+      {
+        "term": "overland flow",
+        "translation": "地表径流",
+        "kind": "term",
+        "note": "雨水或融雪在地表流动并汇入湖泊的过程。",
+        "aliases": []
+      },
+      {
+        "term": "evaporation",
+        "translation": "蒸发",
+        "kind": "term",
+        "note": "水从液态变为气态散失到大气中的过程。",
+        "aliases": []
+      },
+      {
+        "term": "Great Lakes",
+        "translation": "北美五大湖",
+        "kind": "proper_noun",
+        "note": "指苏必利尔湖、密歇根湖、休伦湖、伊利湖和安大略湖。",
+        "aliases": []
+      },
+      {
+        "term": "rain gauges",
+        "translation": "雨量计",
+        "kind": "term",
+        "note": "用于测量降雨量的仪器。",
+        "aliases": []
+      },
+      {
+        "term": "discharges",
+        "translation": "流量/排水量",
+        "kind": "term",
+        "note": "单位时间内通过河流某一断面的水量。",
+        "aliases": []
+      },
+      {
+        "term": "Lake Tahoe",
+        "translation": "太浩湖",
+        "kind": "proper_noun",
+        "note": "位于美国加利福尼亚州的著名湖泊，以停留时间长著称。",
+        "aliases": []
+      },
+      {
+        "term": "backwater",
+        "translation": "回水区/死水区",
+        "kind": "term",
+        "note": "水流缓慢或停滞的区域，水分子在此处停留时间较长。",
+        "aliases": []
+      }
+    ],
+    "data": [
+      {
+        "id": "s1",
+        "para": 1,
+        "text": "Where does the water in a lake come from, and how does water leave it?",
+        "translation": "湖泊里的水从哪里来，又是如何离开湖泊的呢？",
+        "grammarFocus": "并列特殊疑问句",
+        "pronounRef": "it 指代 lake",
+        "logicConnector": "and 连接两个并列的疑问分句",
+        "sentenceCoach": {
+          "summary": "这是一个由 and 连接的两个疑问句组成的并列句。",
+          "keyHint": "注意两个问句的主语分别是 water 和 water，结构对称。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "我们要找两个动作：水从哪里来？水怎么离开？",
+          "grammarQuestion": "这是两个特殊疑问句，用 and 连在一起，像火车的两节车厢。",
+          "modifierQuestion": "in a lake 是修饰 water 的，告诉我们是什么地方的水。",
+          "relationshipQuestion": "前半句问来源，后半句问去向，它们共同构成了湖泊水循环的两个方面。",
+          "commonMistake": "不要把 and 后面的 how does water leave it 当成是回答前半句的，它是另一个独立的问题。",
+          "thinkingPath": [
+            "找到第一个疑问词 Where",
+            "找到连接词 and",
+            "找到第二个疑问词 how"
+          ],
+          "encouragement": "你抓住了湖泊水循环的两个关键问题，真棒！"
+        },
+        "analysis": "### 【主干结构】\n这是一个并列句，由连词 and 连接两个特殊疑问句。\n\n### 【主谓一致】\n两个分句的主语分别是 the water 和 water，谓语动词是 does come 和 does leave，均为第三人称单数。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\nit 指代前文的 lake。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "Where does the water in a lake come from, ",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": "and ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "how does water leave it?",
+            "type": "clause-verb",
+            "label": "谓语"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "para": 1,
+        "text": "Water enters a lake from inflowing rivers, from underwater seeps and springs, from overland flow off the surrounding land, and from rain falling directly on the lake surface.",
+        "translation": "水通过流入的河流、水下渗流和泉水、周围陆地的地表径流以及直接落在湖面上的雨水进入湖泊。",
+        "grammarFocus": "长状语并列",
+        "pronounRef": "无",
+        "logicConnector": "and 连接四个 from 引导的介词短语",
+        "sentenceCoach": {
+          "summary": "这句话列举了水进入湖泊的四种途径。",
+          "keyHint": "注意四个 from 短语的并列结构，它们都修饰 enters。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "水是怎么进湖的？这里有四个办法。",
+          "grammarQuestion": "你看，这里有四个 from 开头的短语，它们像四个小伙伴手拉手，一起告诉我们要从哪里来。",
+          "modifierQuestion": "falling directly on the lake surface 是修饰 rain 的，告诉我们是哪种雨。",
+          "relationshipQuestion": "这四个途径是并列关系，共同构成了水进入湖泊的方式。",
+          "commonMistake": "容易漏掉最后一个 from rain...，因为它前面有 and，有时候会被忽略。",
+          "thinkingPath": [
+            "找到主语 Water",
+            "找到谓语 enters",
+            "找到四个 from 引导的状语"
+          ],
+          "encouragement": "你成功找到了水进入湖泊的四个秘密通道！"
+        },
+        "analysis": "### 【主干结构】\n主语 Water，谓语 enters，宾语 a lake。\n\n### 【主谓一致】\n主语 Water 是不可数名词，谓语 enters 用单数形式。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nfalling 是现在分词作后置定语，修饰 rain。",
+        "segments": [
+          {
+            "text": "Water ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "enters a lake ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "from inflowing rivers, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "from underwater seeps and springs, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "from overland flow off the surrounding land, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "and from rain falling directly on the lake surface.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "para": 1,
+        "text": "Water leaves a lake via outflowing rivers, by soaking into the bed of the lake, and by evaporation.",
+        "translation": "水通过流出的河流、渗入湖床以及蒸发离开湖泊。",
+        "grammarFocus": "方式状语并列",
+        "pronounRef": "无",
+        "logicConnector": "and 连接三个 by/via 引导的介词短语",
+        "sentenceCoach": {
+          "summary": "这句话列举了水离开湖泊的三种方式。",
+          "keyHint": "注意 via 和 by 的区别，它们都表示方式。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "水是怎么出湖的？这里有三个办法。",
+          "grammarQuestion": "这里 again 有三个表示方式的短语，用 and 连起来，像三条不同的路。",
+          "modifierQuestion": "of the lake 修饰 bed，告诉我们是什么的湖床。",
+          "relationshipQuestion": "这三种方式是并列关系，共同构成了水离开湖泊的方式。",
+          "commonMistake": "容易混淆 via 和 by 的用法，但它们在这里功能相同，都表示方式。",
+          "thinkingPath": [
+            "找到主语 Water",
+            "找到谓语 leaves",
+            "找到三个方式状语"
+          ],
+          "encouragement": "你找到了水离开湖泊的三条路，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n主语 Water，谓语 leaves，宾语 a lake。\n\n### 【主谓一致】\n主语 Water 是不可数名词，谓语 leaves 用单数形式。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nsoaking 是动名词，作介词 by 的宾语。",
+        "segments": [
+          {
+            "text": "Water ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "leaves a lake ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "via outflowing rivers, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "by soaking into the bed of the lake, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "and by evaporation.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "para": 1,
+        "text": "So much is obvious.",
+        "translation": "这些情况都很明显。",
+        "grammarFocus": "主系表结构",
+        "pronounRef": "So much 指代前文提到的水进出湖泊的方式",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这是一个简短的总结句。",
+          "keyHint": "So much 指代前面提到的所有内容。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "前面说的这些，大家都看明白了吗？",
+          "grammarQuestion": "So much 是主语，意思是‘这么多内容’，is 是系动词，obvious 是表语。",
+          "modifierQuestion": "无。",
+          "relationshipQuestion": "这句话是对前两句的总结，表示前文提到的内容显而易见。",
+          "commonMistake": "不要把 So much 当成副词，这里它是主语。",
+          "thinkingPath": [
+            "找到主语 So much",
+            "找到系动词 is",
+            "找到表语 obvious"
+          ],
+          "encouragement": "你读懂了作者的总结，真细心！"
+        },
+        "analysis": "### 【主干结构】\n主语 So much，系动词 is，表语 obvious。\n\n### 【主谓一致】\n主语 So much 视为单数，系动词用 is。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\nSo much 指代前文提到的水进出湖泊的各种方式。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "So much ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "obvious.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "para": 2,
+        "text": "The questions become more complicated when actual volumes of water are considered: how much water enters and leaves by each route?",
+        "translation": "当考虑水的实际体积时，问题变得更加复杂：每条路线有多少水流入和流出？",
+        "grammarFocus": "时间状语从句 + 冒号后的特殊疑问句",
+        "pronounRef": "无",
+        "logicConnector": "when 引导时间状语从句",
+        "sentenceCoach": {
+          "summary": "这句话先说问题变复杂了，然后具体问是什么问题。",
+          "keyHint": "冒号后面的内容是具体解释前面的 questions。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "什么时候问题变复杂了？具体复杂在哪里？",
+          "grammarQuestion": "when 引导了一个时间状语从句，表示‘当...时候’。冒号后面是具体的问题内容。",
+          "modifierQuestion": "actual volumes of water 是 considered 的宾语，被提前到了从句主语位置。",
+          "relationshipQuestion": "前半句是主句，后半句是时间状语从句，冒号后是具体问题的解释。",
+          "commonMistake": "容易忽略冒号的作用，冒号后面是对前面 questions 的具体说明。",
+          "thinkingPath": [
+            "找到主句 The questions become more complicated",
+            "找到 when 引导的从句",
+            "找到冒号后的疑问句"
+          ],
+          "encouragement": "你理解了冒号的作用，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主句：The questions become more complicated。\n时间状语从句：when actual volumes of water are considered。\n冒号后：how much water enters and leaves by each route?\n\n### 【主谓一致】\n主句主语 The questions 是复数，谓语 become 用复数形式。\n从句主语 actual volumes 是复数，谓语 are 用复数形式。\n\n### 【从句剖析】\nwhen 引导时间状语从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nconsidered 是过去分词，在从句中作谓语的一部分（被动语态）。",
+        "segments": [
+          {
+            "text": "The questions become more complicated ",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": "when actual volumes of water are considered: ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "how much water enters and leaves by each route?",
+            "type": "clause-verb",
+            "label": "谓语"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "para": 2,
+        "text": "Discovering the inputs and outputs of rivers is a matter of measuring the discharges of every inflowing and outflowing stream and river.",
+        "translation": "发现河流的输入和输出是一个测量每条流入和流出溪流及河流流量的问题。",
+        "grammarFocus": "动名词短语作主语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话的主语很长，是一个动名词短语。",
+          "keyHint": "Discovering... 是主语，is 是谓语，a matter... 是表语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "谁是一个问题？是发现河流输入输出的过程。",
+          "grammarQuestion": "Discovering... 是动名词短语作主语，谓语动词用单数 is。",
+          "modifierQuestion": "of rivers 修饰 inputs and outputs；of measuring... 修饰 matter。",
+          "relationshipQuestion": "主语是动作，表语是名词，说明这个动作的本质。",
+          "commonMistake": "容易把 Discovering 当成动词原形，它在这里是动名词，作主语。",
+          "thinkingPath": [
+            "找到主语 Discovering the inputs and outputs of rivers",
+            "找到谓语 is",
+            "找到表语 a matter of measuring..."
+          ],
+          "encouragement": "你找到了长长的主语，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n主语：Discovering the inputs and outputs of rivers。\n谓语：is。\n表语：a matter of measuring the discharges of every inflowing and outflowing stream and river。\n\n### 【主谓一致】\n主语是动名词短语，视为单数，谓语 is 用单数形式。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nDiscovering 是动名词，作主语；measuring 是动名词，作介词 of 的宾语。",
+        "segments": [
+          {
+            "text": "Discovering the inputs and outputs of rivers ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "a matter of measuring the discharges of every inflowing and outflowing stream and river.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "para": 2,
+        "text": "Then exchanges with the atmosphere are calculated by finding the difference between the gains from rain, as measured (rather roughly) by rain gauges, and the losses by evaporation, measured with models that correct for the other sources of water loss.",
+        "translation": "然后，通过与雨量计（相当粗略地）测量的雨水增益和通过校正其他水源损失模型的蒸发损失之间的差值，计算出与大气交换的量。",
+        "grammarFocus": "被动语态 + 长介词短语作方式状语",
+        "pronounRef": "无",
+        "logicConnector": "and 连接 gains 和 losses",
+        "sentenceCoach": {
+          "summary": "这句话描述了如何计算与大气的水交换量。",
+          "keyHint": "注意 by finding... 是方式状语，里面包含了两个并列的部分：gains 和 losses。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "怎么计算与大气的水交换？用增益减去损失。",
+          "grammarQuestion": "are calculated 是被动语态。by finding... 是方式状语，里面有两个并列的名词 gains 和 losses。",
+          "modifierQuestion": "as measured... 是插入语，修饰 gains；measured with models... 是过去分词短语，修饰 losses；that correct for... 是定语从句，修饰 models。",
+          "relationshipQuestion": "gains 和 losses 是并列关系，共同作为 difference 的对象。",
+          "commonMistake": "容易混淆 as measured 和 measured 的修饰对象，前者修饰 gains，后者修饰 losses。",
+          "thinkingPath": [
+            "找到主语 exchanges",
+            "找到谓语 are calculated",
+            "找到方式状语 by finding..."
+          ],
+          "encouragement": "你理清了复杂的修饰关系，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：exchanges with the atmosphere。\n谓语：are calculated。\n方式状语：by finding the difference between the gains... and the losses...\n\n### 【主谓一致】\n主语 exchanges 是复数，谓语 are 用复数形式。\n\n### 【从句剖析】\nthat correct for the other sources of water loss 是定语从句，修饰 models。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nmeasured (rather roughly) 是过去分词短语，作插入语，修饰 gains；measured with models... 是过去分词短语，作后置定语，修饰 losses。",
+        "segments": [
+          {
+            "text": "Then exchanges with the atmosphere are calculated ",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": "by finding the difference between the gains from rain, as measured (rather roughly) by rain gauges, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "and the losses by evaporation, measured with models that correct for the other sources of water loss.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "para": 2,
+        "text": "For the majority of lakes, certainly those surrounded by forests, input from overland flow is too small to have a noticeable effect.",
+        "translation": "对于大多数湖泊，特别是那些被森林环绕的湖泊，来自地表径流的输入量太小，以至于没有明显的影响。",
+        "grammarFocus": "too...to... 结构",
+        "pronounRef": "those 指代 lakes",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话说明了地表径流对大多数湖泊影响很小。",
+          "keyHint": "too small to have... 表示‘太小而不能产生...’。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "地表径流对湖泊有影响吗？几乎没有。",
+          "grammarQuestion": "too small to have... 是‘太...而不能...’的结构。those 指代 lakes。",
+          "modifierQuestion": "surrounded by forests 是过去分词短语，修饰 those。",
+          "relationshipQuestion": "those surrounded by forests 是 those 的同位语，进一步说明是哪些湖泊。",
+          "commonMistake": "容易忽略 those 指代的是 lakes，而不是 forests。",
+          "thinkingPath": [
+            "找到主语 input",
+            "找到谓语 is",
+            "找到表语 too small to have a noticeable effect"
+          ],
+          "encouragement": "你理解了 too...to... 的结构，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n主语：input from overland flow。\n谓语：is。\n表语：too small to have a noticeable effect。\n\n### 【主谓一致】\n主语 input 是单数，谓语 is 用单数形式。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\nthose 指代 lakes。\n\n### 【非谓语动词】\nsurrounded by forests 是过去分词短语，作后置定语，修饰 those。",
+        "segments": [
+          {
+            "text": "For the majority of lakes, certainly those surrounded by forests, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "input from overland flow ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "too small to have a noticeable effect.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "para": 2,
+        "text": "Changes in lake level not explained by river flows plus exchanges with the atmosphere must be due to the net difference between what seeps into the lake from the groundwater and what leaks into the groundwater.",
+        "translation": "不能用河流流量加上与大气交换来解释的湖泊水位变化，必然是由于渗入湖泊的地下水和从湖泊渗入地下水的地下水之间的净差额造成的。",
+        "grammarFocus": "长主语 + 宾语从句",
+        "pronounRef": "无",
+        "logicConnector": "and 连接两个 what 引导的从句",
+        "sentenceCoach": {
+          "summary": "这句话解释了湖泊水位变化的原因。",
+          "keyHint": "主语很长，核心是 Changes，后面跟着很长的修饰语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "湖泊水位变化是什么原因？是地下水的净差额。",
+          "grammarQuestion": "not explained by... 是过去分词短语，修饰 Changes。what seeps... 和 what leaks... 是介词 between 的宾语从句。",
+          "modifierQuestion": "not explained by river flows plus exchanges with the atmosphere 修饰 Changes。",
+          "relationshipQuestion": "what seeps... 和 what leaks... 是并列关系，共同作为 between 的宾语。",
+          "commonMistake": "容易把 not explained by... 当成谓语，它其实是修饰语。",
+          "thinkingPath": [
+            "找到主语 Changes",
+            "找到谓语 must be",
+            "找到表语 due to..."
+          ],
+          "encouragement": "你找到了长长的主语，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：Changes in lake level not explained by river flows plus exchanges with the atmosphere。\n谓语：must be。\n表语：due to the net difference between what seeps into the lake from the groundwater and what leaks into the groundwater。\n\n### 【主谓一致】\n主语 Changes 是复数，谓语 must be 用复数形式（must 不变，be 用原形）。\n\n### 【从句剖析】\nwhat seeps into the lake from the groundwater 和 what leaks into the groundwater 是介词 between 的宾语从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nnot explained by... 是过去分词短语，作后置定语，修饰 Changes。",
+        "segments": [
+          {
+            "text": "Changes in lake level not explained by river flows plus exchanges with the atmosphere ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "must be ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "due to the net difference between what seeps into the lake from the groundwater and what leaks into the groundwater.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "para": 2,
+        "text": "Note the word \"net\": measuring the actual amounts of groundwater seepage into the lake and out of the lake is a much more complicated matter than merely inferring their difference.",
+        "translation": "注意“净”这个词：测量实际渗入湖泊和从湖泊渗出的地下水量，比仅仅推断它们的差额要复杂得多。",
+        "grammarFocus": "比较级结构",
+        "pronounRef": "their 指代 groundwater seepage into the lake and out of the lake",
+        "logicConnector": "than 引导比较状语",
+        "sentenceCoach": {
+          "summary": "这句话强调了测量实际水量比推断差额更复杂。",
+          "keyHint": "much more complicated than... 是比较级结构。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "为什么“净”这个词很重要？因为测量实际量更复杂。",
+          "grammarQuestion": "measuring... 是动名词短语作主语，is 是谓语，a much more complicated matter 是表语，than... 是比较状语。",
+          "modifierQuestion": "into the lake and out of the lake 修饰 groundwater seepage。",
+          "relationshipQuestion": "measuring... 和 inferring... 是比较的两个对象。",
+          "commonMistake": "容易忽略 than 后面的部分也是主语的一部分，它是比较的对象。",
+          "thinkingPath": [
+            "找到主语 measuring the actual amounts...",
+            "找到谓语 is",
+            "找到表语 a much more complicated matter"
+          ],
+          "encouragement": "你理解了比较级结构，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n主语：measuring the actual amounts of groundwater seepage into the lake and out of the lake。\n谓语：is。\n表语：a much more complicated matter。\n比较状语：than merely inferring their difference。\n\n### 【主谓一致】\n主语是动名词短语，视为单数，谓语 is 用单数形式。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\ntheir 指代 groundwater seepage into the lake and out of the lake。\n\n### 【非谓语动词】\nmeasuring 是动名词，作主语；inferring 是动名词，作 than 的宾语。",
+        "segments": [
+          {
+            "text": "Note the word \"net\": ",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": "measuring the actual amounts of groundwater seepage into the lake and out of the lake ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "a much more complicated matter than merely inferring their difference.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "para": 3,
+        "text": "Once all this information has been gathered, it becomes possible to judge whether a lake’s flow is mainly due to its surface inputs and outputs or to its underground inputs and outputs.",
+        "translation": "一旦收集了所有这些信息，就可以判断湖泊的水流主要是由地表输入和输出引起的，还是由地下输入和输出引起的。",
+        "grammarFocus": "时间状语从句 + 宾语从句",
+        "pronounRef": "it 指代 to judge... 这个动作",
+        "logicConnector": "or 连接两个 due to 短语",
+        "sentenceCoach": {
+          "summary": "这句话说明了收集信息后的目的。",
+          "keyHint": "it 是形式主语，真正的主语是 to judge...。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "收集信息后我们要做什么？判断水流来源。",
+          "grammarQuestion": "Once... 是时间状语从句。it 是形式主语，to judge... 是真正的主语。whether... 是 judge 的宾语从句。",
+          "modifierQuestion": "no modifier.",
+          "relationshipQuestion": "whether... 是宾语从句，包含两个并列的 due to 短语。",
+          "commonMistake": "容易把 it 当成指代某物，它其实是形式主语。",
+          "thinkingPath": [
+            "找到时间状语从句 Once...",
+            "找到主句 it becomes possible",
+            "找到真正的主语 to judge..."
+          ],
+          "encouragement": "你理解了形式主语 it，真棒！"
+        },
+        "analysis": "### 【主干结构】\n时间状语从句：Once all this information has been gathered。\n主句：it becomes possible to judge whether a lake’s flow is mainly due to its surface inputs and outputs or to its underground inputs and outputs。\n\n### 【主谓一致】\n从句主语 all this information 是单数，谓语 has been gathered 用单数形式。\n主句谓语 becomes 用单数形式。\n\n### 【从句剖析】\nwhether a lake’s flow is mainly due to its surface inputs and outputs or to its underground inputs and outputs 是宾语从句，作 judge 的宾语。\n\n### 【代词指代】\nit 指代 to judge... 这个动作。\n\n### 【非谓语动词】\ngathered 是过去分词，在从句中作谓语的一部分（被动语态）；to judge 是不定式，作真正的主语。",
+        "segments": [
+          {
+            "text": "Once all this information has been gathered, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "it ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "becomes possible ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "to judge whether a lake’s flow is mainly due to its surface inputs and outputs or to its underground inputs and outputs.",
+            "type": "modifier",
+            "label": "真正的主语"
+          }
+        ]
+      },
+      {
+        "id": "s12",
+        "para": 3,
+        "text": "If the former are greater, the lake is a surface-water-dominated lake; if the latter, it is a seepage-dominated lake.",
+        "translation": "如果前者更大，湖泊就是地表水主导型湖泊；如果后者更大，它就是地下水渗流主导型湖泊。",
+        "grammarFocus": "条件状语从句 + 省略",
+        "pronounRef": "the former 指代 surface inputs and outputs, the latter 指代 underground inputs and outputs",
+        "logicConnector": "if... if...",
+        "sentenceCoach": {
+          "summary": "这句话通过对比两种情况来定义两种湖泊。",
+          "keyHint": "注意 if the latter 后面省略了 are greater。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "怎么区分两种湖泊？看哪种输入输出更大。",
+          "grammarQuestion": "the former 和 the latter 分别指代前文提到的两种输入输出。if the latter 是省略句，省略了 are greater。",
+          "modifierQuestion": "no modifier.",
+          "relationshipQuestion": "两个 if 引导的条件状语从句是并列关系。",
+          "commonMistake": "容易忽略 if the latter 后面的省略部分。",
+          "thinkingPath": [
+            "找到第一个条件从句 If the former are greater",
+            "找到主句 the lake is a surface-water-dominated lake",
+            "找到第二个条件从句 if the latter"
+          ],
+          "encouragement": "你理解了省略句，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n条件状语从句1：If the former are greater。\n主句1：the lake is a surface-water-dominated lake。\n条件状语从句2：if the latter (are greater)。\n主句2：it is a seepage-dominated lake。\n\n### 【主谓一致】\n从句1主语 the former 是复数，谓语 are 用复数形式。\n主句1主语 the lake 是单数，谓语 is 用单数形式。\n从句2主语 the latter 是单数，谓语省略，隐含为 is。\n主句2主语 it 是单数，谓语 is 用单数形式。\n\n### 【从句剖析】\nIf the former are greater 和 if the latter 是条件状语从句。\n\n### 【代词指代】\nthe former 指代 surface inputs and outputs。\nthe latter 指代 underground inputs and outputs。\nit 指代 the lake。\n\n### 【非谓语动词】\nno non-finite verbs.",
+        "segments": [
+          {
+            "text": "If the former are greater, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "the lake ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "a surface-water-dominated lake; ",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": "if the latter, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "it ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "a seepage-dominated lake.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s13",
+        "para": 3,
+        "text": "Occasionally, common sense tells you which of these two possibilities applies.",
+        "translation": "偶尔，常识会告诉你这两种可能性中哪一种适用。",
+        "grammarFocus": "宾语从句",
+        "pronounRef": "which 指代 two possibilities",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话说明了常识的作用。",
+          "keyHint": "which of these two possibilities applies 是 tells 的宾语从句。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "常识告诉我们什么？告诉我们哪种情况适用。",
+          "grammarQuestion": "which of these two possibilities applies 是宾语从句，作 tells 的宾语。",
+          "modifierQuestion": "no modifier.",
+          "relationshipQuestion": "which 引导的从句是宾语从句。",
+          "commonMistake": "容易把 which 当成疑问词，它在这里是连接代词，引导宾语从句。",
+          "thinkingPath": [
+            "找到主语 common sense",
+            "找到谓语 tells",
+            "找到宾语从句 which of these two possibilities applies"
+          ],
+          "encouragement": "你找到了宾语从句，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：common sense。\n谓语：tells。\n间接宾语：you。\n直接宾语：which of these two possibilities applies。\n\n### 【主谓一致】\n主语 common sense 是单数，谓语 tells 用单数形式。\n\n### 【从句剖析】\nwhich of these two possibilities applies 是宾语从句，作 tells 的直接宾语。\n\n### 【代词指代】\nwhich 指代 two possibilities。\n\n### 【非谓语动词】\nno non-finite verbs.",
+        "segments": [
+          {
+            "text": "Occasionally, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "common sense ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "tells you ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "which of these two possibilities applies.",
+            "type": "object",
+            "label": "宾语"
+          }
+        ]
+      },
+      {
+        "id": "s14",
+        "para": 3,
+        "text": "For example, a pond in hilly country that maintains a steady water level all through a dry summer in spite of having no streams flowing into it must obviously be seepage dominated.",
+        "translation": "例如，一个位于丘陵地带、在整个干旱夏季保持稳定水位、尽管没有溪流流入其中的池塘，显然必须是地下水渗流主导型的。",
+        "grammarFocus": "长定语从句",
+        "pronounRef": "it 指代 pond",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话举了一个例子，描述了一个特定的池塘。",
+          "keyHint": "that maintains... 是定语从句，修饰 pond。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "什么样的池塘是地下水主导型的？这个例子中的池塘就是。",
+          "grammarQuestion": "that maintains... 是定语从句，修饰 pond。in spite of... 是介词短语，作让步状语。",
+          "modifierQuestion": "in hilly country 修饰 pond；that maintains... 修饰 pond；flowing into it 修饰 streams。",
+          "relationshipQuestion": "that 引导的定语从句修饰 pond。",
+          "commonMistake": "容易忽略 that 引导的定语从句，导致主语和谓语距离太远。",
+          "thinkingPath": [
+            "找到主语 a pond",
+            "找到定语从句 that maintains...",
+            "找到谓语 must be"
+          ],
+          "encouragement": "你找到了长长的定语从句，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n主语：a pond in hilly country that maintains a steady water level all through a dry summer in spite of having no streams flowing into it。\n谓语：must be。\n表语：seepage dominated。\n\n### 【主谓一致】\n主语 a pond 是单数，谓语 must be 用单数形式（must 不变，be 用原形）。\n\n### 【从句剖析】\nthat maintains a steady water level all through a dry summer in spite of having no streams flowing into it 是定语从句，修饰 pond。\n\n### 【代词指代】\nit 指代 pond。\n\n### 【非谓语动词】\nhaving 是动名词，作介词 in spite of 的宾语；flowing 是现在分词，作后置定语，修饰 streams。",
+        "segments": [
+          {
+            "text": "For example, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "a pond in hilly country that maintains a steady water level all through a dry summer in spite of having no streams flowing into it ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "must obviously ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "be seepage dominated.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s15",
+        "para": 3,
+        "text": "Conversely, a pond with a stream flowing in one end and out the other, which dries up when the stream dries up, is clearly surface water dominated.",
+        "translation": "相反，一个一端有溪流流入、另一端有溪流流出、当溪流干涸时池塘也干涸的池塘，显然是地表水主导型的。",
+        "grammarFocus": "非限制性定语从句",
+        "pronounRef": "无",
+        "logicConnector": "Conversely",
+        "sentenceCoach": {
+          "summary": "这句话举了另一个例子，描述了一个不同的池塘。",
+          "keyHint": "which dries up... 是非限制性定语从句，修饰 pond。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "什么样的池塘是地表水主导型的？这个例子中的池塘就是。",
+          "grammarQuestion": "with a stream... 是介词短语，作后置定语，修饰 pond。which dries up... 是非限制性定语从句，修饰 pond。",
+          "modifierQuestion": "flowing in one end and out the other 修饰 stream；when the stream dries up 是时间状语从句，修饰 dries up。",
+          "relationshipQuestion": "which 引导的非限制性定语从句修饰 pond。",
+          "commonMistake": "容易忽略 which 引导的非限制性定语从句，导致主语和谓语距离太远。",
+          "thinkingPath": [
+            "找到主语 a pond",
+            "找到非限制性定语从句 which dries up...",
+            "找到谓语 is"
+          ],
+          "encouragement": "你找到了非限制性定语从句，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：a pond with a stream flowing in one end and out the other, which dries up when the stream dries up。\n谓语：is。\n表语：surface water dominated。\n\n### 【主谓一致】\n主语 a pond 是单数，谓语 is 用单数形式。\n\n### 【从句剖析】\nwhich dries up when the stream dries up 是非限制性定语从句，修饰 pond。\nwhen the stream dries up 是时间状语从句，修饰 dries up。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nflowing 是现在分词，作后置定语，修饰 stream。",
+        "segments": [
+          {
+            "text": "Conversely, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "a pond with a stream flowing in one end and out the other, which dries up when the stream dries up, ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "clearly surface water dominated.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s16",
+        "para": 4,
+        "text": "By whatever means, a lake is constantly gaining water and losing water: its water does not just sit there, or, anyway, not for long.",
+        "translation": "无论通过什么方式，湖泊都在不断地获得水和失去水：它的水不会只是坐在那里，或者，无论如何，不会太久。",
+        "grammarFocus": "并列谓语 + 补充说明",
+        "pronounRef": "its 指代 a lake",
+        "logicConnector": "or",
+        "sentenceCoach": {
+          "summary": "这句话说明了湖泊水循环的持续性。",
+          "keyHint": "gaining water and losing water 是并列谓语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "湖泊的水是静止的吗？不是，它在不断流动。",
+          "grammarQuestion": "gaining water and losing water 是并列谓语。does not just sit there 是主句，or... 是补充说明。",
+          "modifierQuestion": "By whatever means 是方式状语。",
+          "relationshipQuestion": "gaining 和 losing 是并列关系。",
+          "commonMistake": "容易忽略 or 后面的补充说明部分。",
+          "thinkingPath": [
+            "找到主语 a lake",
+            "找到谓语 is gaining... and losing...",
+            "找到冒号后的补充说明"
+          ],
+          "encouragement": "你理解了并列谓语，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n方式状语：By whatever means。\n主语：a lake。\n谓语：is constantly gaining water and losing water。\n补充说明：its water does not just sit there, or, anyway, not for long。\n\n### 【主谓一致】\n主语 a lake 是单数，谓语 is gaining... and losing... 用单数形式。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\nits 指代 a lake。\n\n### 【非谓语动词】\ngaining 和 losing 是现在分词，与 is 构成现在进行时。",
+        "segments": [
+          {
+            "text": "By whatever means, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "a lake ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is constantly gaining water and losing water: ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "its water does not just sit there, or, anyway, not for long.",
+            "type": "modifier",
+            "label": "补充说明"
+          }
+        ]
+      },
+      {
+        "id": "s17",
+        "para": 4,
+        "text": "This raises the matter of a lake’s residence time.",
+        "translation": "这引出了湖泊停留时间的问题。",
+        "grammarFocus": "主谓宾结构",
+        "pronounRef": "This 指代前文提到的湖泊水循环",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话引出了一个新的概念：停留时间。",
+          "keyHint": "This 指代前文的内容。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "前文的内容引出了什么新概念？停留时间。",
+          "grammarQuestion": "This 是主语，raises 是谓语，the matter of a lake’s residence time 是宾语。",
+          "modifierQuestion": "of a lake’s residence time 修饰 matter。",
+          "relationshipQuestion": "This 指代前文的内容，引出新的话题。",
+          "commonMistake": "容易忽略 This 的指代对象。",
+          "thinkingPath": [
+            "找到主语 This",
+            "找到谓语 raises",
+            "找到宾语 the matter of a lake’s residence time"
+          ],
+          "encouragement": "你找到了新概念的引入，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：This。\n谓语：raises。\n宾语：the matter of a lake’s residence time。\n\n### 【主谓一致】\n主语 This 是单数，谓语 raises 用单数形式。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\nThis 指代前文提到的湖泊水循环。\n\n### 【非谓语动词】\nno non-finite verbs.",
+        "segments": [
+          {
+            "text": "This ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "raises ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "the matter of a lake’s residence time.",
+            "type": "object",
+            "label": "宾语"
+          }
+        ]
+      },
+      {
+        "id": "s18",
+        "para": 4,
+        "text": "The residence time is the average length of time that any particular molecule of water remains in the lake, and it is calculated by dividing the volume of water in the lake by the rate at which water leaves the lake.",
+        "translation": "停留时间是任何特定水分子在湖泊中停留的平均时间长度，它是通过用湖泊中的水量除以水离开湖泊的速率计算出来的。",
+        "grammarFocus": "定语从句 + 方式状语",
+        "pronounRef": "it 指代 The residence time",
+        "logicConnector": "and",
+        "sentenceCoach": {
+          "summary": "这句话定义了停留时间并说明了计算方法。",
+          "keyHint": "that any particular molecule... 是定语从句，修饰 time。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "停留时间是什么？怎么计算？",
+          "grammarQuestion": "that any particular molecule... 是定语从句，修饰 time。by dividing... 是方式状语。at which water leaves the lake 是定语从句，修饰 rate。",
+          "modifierQuestion": "of time 修饰 length；that any particular molecule... 修饰 time；at which water leaves the lake 修饰 rate。",
+          "relationshipQuestion": "that 引导的定语从句修饰 time；at which 引导的定语从句修饰 rate。",
+          "commonMistake": "容易忽略 at which 引导的定语从句。",
+          "thinkingPath": [
+            "找到主语 The residence time",
+            "找到谓语 is",
+            "找到表语 the average length of time that..."
+          ],
+          "encouragement": "你找到了两个定语从句，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n主语：The residence time。\n谓语：is。\n表语：the average length of time that any particular molecule of water remains in the lake。\n并列句：and it is calculated by dividing the volume of water in the lake by the rate at which water leaves the lake。\n\n### 【主谓一致】\n主语 The residence time 是单数，谓语 is 用单数形式。\n主语 it 是单数，谓语 is 用单数形式。\n\n### 【从句剖析】\nthat any particular molecule of water remains in the lake 是定语从句，修饰 time。\nat which water leaves the lake 是定语从句，修饰 rate。\n\n### 【代词指代】\nit 指代 The residence time。\n\n### 【非谓语动词】\ndividing 是动名词，作介词 by 的宾语。",
+        "segments": [
+          {
+            "text": "The residence time ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "the average length of time that any particular molecule of water remains in the lake, ",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": "and ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "it ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is calculated ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "by dividing the volume of water in the lake by the rate at which water leaves the lake.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s19",
+        "para": 4,
+        "text": "The residence time is an average; the time spent in the lake by a given molecule (if we could follow its fate) would depend on the route it took: it might flow through as part of the fastest, most direct current, or it might circle in a backwater for an indefinitely long time.",
+        "translation": "停留时间是一个平均值；给定分子在湖泊中停留的时间（如果我们能追踪它的命运）将取决于它走的路径：它可能作为最快、最直接水流的一部分流过，或者它可能在回水区绕圈，停留 indefinitely 长的时间。",
+        "grammarFocus": "分号连接的两个独立分句 + 冒号后的解释",
+        "pronounRef": "its 指代 a given molecule",
+        "logicConnector": "or",
+        "sentenceCoach": {
+          "summary": "这句话解释了停留时间的平均值性质。",
+          "keyHint": "spent in the lake 是过去分词短语，修饰 time。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "停留时间是固定的吗？不是，它是平均值。",
+          "grammarQuestion": "spent in the lake 是过去分词短语，修饰 time。if we could follow its fate 是插入语。it took 是定语从句，修饰 route。",
+          "modifierQuestion": "spent in the lake 修饰 time；if we could follow its fate 是插入语；it took 修饰 route。",
+          "relationshipQuestion": "it might flow... 和 it might circle... 是并列关系。",
+          "commonMistake": "容易忽略 it took 是定语从句。",
+          "thinkingPath": [
+            "找到第一个分句 The residence time is an average",
+            "找到第二个分句 the time spent in the lake... would depend on the route it took",
+            "找到冒号后的解释"
+          ],
+          "encouragement": "你理解了分号和冒号的作用，真棒！"
+        },
+        "analysis": "### 【主干结构】\n分句1：The residence time is an average。\n分句2：the time spent in the lake by a given molecule (if we could follow its fate) would depend on the route it took。\n解释：it might flow through as part of the fastest, most direct current, or it might circle in a backwater for an indefinitely long time。\n\n### 【主谓一致】\n分句1主语 The residence time 是单数，谓语 is 用单数形式。\n分句2主语 the time 是单数，谓语 would depend 用单数形式。\n\n### 【从句剖析】\nif we could follow its fate 是条件状语从句，作插入语。\nit took 是定语从句，修饰 route。\n\n### 【代词指代】\nits 指代 a given molecule。\n\n### 【非谓语动词】\nspent 是过去分词，作后置定语，修饰 time。",
+        "segments": [
+          {
+            "text": "The residence time is an average; ",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": "the time spent in the lake by a given molecule (if we could follow its fate) ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "would depend on the route it took: ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "it might flow through as part of the fastest, most direct current, or it might circle in a backwater for an indefinitely long time.",
+            "type": "modifier",
+            "label": "补充说明"
+          }
+        ]
+      },
+      {
+        "id": "s20",
+        "para": 5,
+        "text": "Residence times vary enormously.",
+        "translation": "停留时间差异巨大。",
+        "grammarFocus": "主谓结构",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话概括了停留时间的变化范围。",
+          "keyHint": "enormously 修饰 vary。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "停留时间变化大吗？非常大。",
+          "grammarQuestion": "Residence times 是主语，vary 是谓语，enormously 是状语。",
+          "modifierQuestion": "enormously 修饰 vary。",
+          "relationshipQuestion": "无。",
+          "commonMistake": "无。",
+          "thinkingPath": [
+            "找到主语 Residence times",
+            "找到谓语 vary",
+            "找到状语 enormously"
+          ],
+          "encouragement": "你找到了简单的句子结构，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：Residence times。\n谓语：vary。\n状语：enormously。\n\n### 【主谓一致】\n主语 Residence times 是复数，谓语 vary 用复数形式。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nno non-finite verbs.",
+        "segments": [
+          {
+            "text": "Residence times ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "vary enormously.",
+            "type": "verb",
+            "label": "谓语"
+          }
+        ]
+      },
+      {
+        "id": "s21",
+        "para": 5,
+        "text": "They range from a few days for small lakes up to several hundred years for large ones; Lake Tahoe, in California, has a residence time of 700 years.",
+        "translation": "它们从几个小湖泊的几天到几个大湖泊的几百年不等；加利福尼亚州的太浩湖的停留时间为700年。",
+        "grammarFocus": "分号连接的两个独立分句",
+        "pronounRef": "They 指代 Residence times, ones 指代 lakes",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话给出了停留时间的具体范围和一个例子。",
+          "keyHint": "They 指代 Residence times。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "停留时间的范围是多少？从几天到几百年。",
+          "grammarQuestion": "They 指代 Residence times。ones 指代 lakes。",
+          "modifierQuestion": "in California 是插入语，修饰 Lake Tahoe。",
+          "relationshipQuestion": "分号连接的两个独立分句。",
+          "commonMistake": "容易忽略 ones 指代 lakes。",
+          "thinkingPath": [
+            "找到主语 They",
+            "找到谓语 range",
+            "找到第二个分句的主语 Lake Tahoe"
+          ],
+          "encouragement": "你理解了代词 ones 的指代，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n分句1：They range from a few days for small lakes up to several hundred years for large ones。\n分句2：Lake Tahoe, in California, has a residence time of 700 years。\n\n### 【主谓一致】\n分句1主语 They 是复数，谓语 range 用复数形式。\n分句2主语 Lake Tahoe 是单数，谓语 has 用单数形式。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\nThey 指代 Residence times。\nones 指代 lakes。\n\n### 【非谓语动词】\nno non-finite verbs.",
+        "segments": [
+          {
+            "text": "They range from a few days for small lakes up to several hundred years for large ones; ",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": "Lake Tahoe, in California, ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "has a residence time of 700 years.",
+            "type": "verb",
+            "label": "谓语"
+          }
+        ]
+      },
+      {
+        "id": "s22",
+        "para": 5,
+        "text": "The residence times for the Great Lakes of North America, namely, Lakes Superior, Michigan, Huron, Erie, and Ontario, are, respectively, 190,100,22,2.5, and 6 years.",
+        "translation": "北美五大湖，即苏必利尔湖、密歇根湖、休伦湖、伊利湖和安大略湖的停留时间，分别为190、100、22、2.5和6年。",
+        "grammarFocus": "插入语 + 并列表语",
+        "pronounRef": "无",
+        "logicConnector": "no",
+        "sentenceCoach": {
+          "summary": "这句话列出了五大湖的停留时间。",
+          "keyHint": "namely... 是插入语，解释 Great Lakes。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "五大湖的停留时间分别是多少？",
+          "grammarQuestion": "namely... 是插入语，解释 Great Lakes。respectively 表示一一对应。",
+          "modifierQuestion": "of North America 修饰 Great Lakes。",
+          "relationshipQuestion": "no relationship.",
+          "commonMistake": "容易忽略 respectively 的作用，它表示一一对应。",
+          "thinkingPath": [
+            "找到主语 The residence times",
+            "找到谓语 are",
+            "找到表语 190,100,22,2.5, and 6 years"
+          ],
+          "encouragement": "你理解了 respectively 的作用，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：The residence times for the Great Lakes of North America, namely, Lakes Superior, Michigan, Huron, Erie, and Ontario。\n谓语：are。\n表语：respectively, 190,100,22,2.5, and 6 years。\n\n### 【主谓一致】\n主语 The residence times 是复数，谓语 are 用复数形式。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nno non-finite verbs.",
+        "segments": [
+          {
+            "text": "The residence times for the Great Lakes of North America, namely, Lakes Superior, Michigan, Huron, Erie, and Ontario, ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "are, respectively, ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "190,100,22,2.5, and 6 years.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s23",
+        "para": 5,
+        "text": "Lake Erie’s is the lowest: although its area is larger than Lake Ontario’ s, its volume is less than one-third as great because it is so shallow-less than 20 meters on average.",
+        "translation": "伊利湖的停留时间最短：虽然它的面积大于安大略湖，但它的体积小于安大略湖的三分之一，因为它非常浅——平均深度不到20米。",
+        "grammarFocus": "原因状语从句",
+        "pronounRef": "its 指代 Lake Erie, it 指代 Lake Erie",
+        "logicConnector": "although, because",
+        "sentenceCoach": {
+          "summary": "这句话解释了为什么伊利湖的停留时间最短。",
+          "keyHint": "although 引导让步状语从句，because 引导原因状语从句。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "为什么伊利湖的停留时间最短？因为它很浅。",
+          "grammarQuestion": "although 引导让步状语从句。because 引导原因状语从句。",
+          "modifierQuestion": "less than 20 meters on average 是插入语，解释 shallow。",
+          "relationshipQuestion": "although 和 because 引导的从句都是修饰主句的。",
+          "commonMistake": "容易忽略 because 引导的原因状语从句。",
+          "thinkingPath": [
+            "找到主句 Lake Erie’s is the lowest",
+            "找到让步状语从句 although its area is larger than Lake Ontario’ s",
+            "找到原因状语从句 because it is so shallow"
+          ],
+          "encouragement": "你理解了让步和原因状语从句，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n主句：Lake Erie’s is the lowest。\n让步状语从句：although its area is larger than Lake Ontario’ s。\n原因状语从句：because it is so shallow-less than 20 meters on average。\n\n### 【主谓一致】\n主句主语 Lake Erie’s 是单数，谓语 is 用单数形式。\n让步状语从句主语 its area 是单数，谓语 is 用单数形式。\n原因状语从句主语 it 是单数，谓语 is 用单数形式。\n\n### 【从句剖析】\nalthough its area is larger than Lake Ontario’ s 是让步状语从句。\nbecause it is so shallow-less than 20 meters on average 是原因状语从句。\n\n### 【代词指代】\nits 指代 Lake Erie。\nit 指代 Lake Erie。\n\n### 【非谓语动词】\nno non-finite verbs.",
+        "segments": [
+          {
+            "text": "Lake Erie’s is the lowest: ",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": "although its area is larger than Lake Ontario’ s, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "its volume is less than one-third as great ",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": "because it is so shallow-less than 20 meters on average.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s24",
+        "para": 6,
+        "text": "A given lake’s residence time is by no means a fixed quantity.",
+        "translation": "给定湖泊的停留时间绝不是固定不变的。",
+        "grammarFocus": "主系表结构",
+        "pronounRef": "无",
+        "logicConnector": "no",
+        "sentenceCoach": {
+          "summary": "这句话强调了停留时间的可变性。",
+          "keyHint": "by no means 表示‘绝不’。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "停留时间是固定的吗？不是。",
+          "grammarQuestion": "by no means 是状语，修饰 is。",
+          "modifierQuestion": "no modifier.",
+          "relationshipQuestion": "no relationship.",
+          "commonMistake": "容易忽略 by no means 的否定含义。",
+          "thinkingPath": [
+            "找到主语 A given lake’s residence time",
+            "找到谓语 is",
+            "找到表语 a fixed quantity"
+          ],
+          "encouragement": "你理解了 by no means 的含义，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：A given lake’s residence time。\n谓语：is。\n表语：a fixed quantity。\n状语：by no means。\n\n### 【主谓一致】\n主语 A given lake’s residence time 是单数，谓语 is 用单数形式。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nno non-finite verbs.",
+        "segments": [
+          {
+            "text": "A given lake’s residence time ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is by no means ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "a fixed quantity.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s25",
+        "para": 6,
+        "text": "It depends on the rate at which water enters the lake, and that depends on the rainfall and the evaporation rate.",
+        "translation": "它取决于水进入湖泊的速率，而该速率取决于降雨量和蒸发速率。",
+        "grammarFocus": "定语从句 + 并列句",
+        "pronounRef": "It 指代 A given lake’s residence time, that 指代 the rate",
+        "logicConnector": "and",
+        "sentenceCoach": {
+          "summary": "这句话解释了停留时间的影响因素。",
+          "keyHint": "at which water enters the lake 是定语从句，修饰 rate。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "停留时间取决于什么？取决于水进入湖泊的速率。",
+          "grammarQuestion": "at which water enters the lake 是定语从句，修饰 rate。that 指代 the rate。",
+          "modifierQuestion": "at which water enters the lake 修饰 rate。",
+          "relationshipQuestion": "and 连接两个并列分句。",
+          "commonMistake": "容易忽略 at which 引导的定语从句。",
+          "thinkingPath": [
+            "找到主语 It",
+            "找到谓语 depends on",
+            "找到宾语 the rate at which water enters the lake"
+          ],
+          "encouragement": "你理解了定语从句 at which，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n分句1：It depends on the rate at which water enters the lake。\n分句2：and that depends on the rainfall and the evaporation rate。\n\n### 【主谓一致】\n分句1主语 It 是单数，谓语 depends 用单数形式。\n分句2主语 that 是单数，谓语 depends 用单数形式。\n\n### 【从句剖析】\nat which water enters the lake 是定语从句，修饰 rate。\n\n### 【代词指代】\nIt 指代 A given lake’s residence time。\nthat 指代 the rate。\n\n### 【非谓语动词】\nno non-finite verbs.",
+        "segments": [
+          {
+            "text": "It depends on the rate at which water enters the lake, ",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": "and ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "that depends on the rainfall and the evaporation rate.",
+            "type": "clause-subject",
+            "label": "主语"
+          }
+        ]
+      },
+      {
+        "id": "s26",
+        "para": 6,
+        "text": "Climatic change (the result of global warming?) is dramatically affecting the residence times of some lakes in northwestern Ontario, Canada.",
+        "translation": "气候变化（全球变暖的结果？）正在显著影响加拿大安大略省西北部一些湖泊的停留时间。",
+        "grammarFocus": "插入语",
+        "pronounRef": "无",
+        "logicConnector": "no",
+        "sentenceCoach": {
+          "summary": "这句话说明了气候变化对湖泊停留时间的影响。",
+          "keyHint": "(the result of global warming?) 是插入语，解释 Climatic change。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "什么在影响湖泊的停留时间？气候变化。",
+          "grammarQuestion": "(the result of global warming?) 是插入语，解释 Climatic change。",
+          "modifierQuestion": "in northwestern Ontario, Canada 修饰 lakes。",
+          "relationshipQuestion": "no relationship.",
+          "commonMistake": "容易忽略插入语的作用。",
+          "thinkingPath": [
+            "找到主语 Climatic change",
+            "找到谓语 is affecting",
+            "找到宾语 the residence times of some lakes in northwestern Ontario, Canada"
+          ],
+          "encouragement": "你理解了插入语的作用，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：Climatic change (the result of global warming?)。\n谓语：is dramatically affecting。\n宾语：the residence times of some lakes in northwestern Ontario, Canada。\n\n### 【主谓一致】\n主语 Climatic change 是单数，谓语 is affecting 用单数形式。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nno non-finite verbs.",
+        "segments": [
+          {
+            "text": "Climatic change (the result of global warming?) ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is dramatically affecting ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "the residence times of some lakes in northwestern Ontario, Canada.",
+            "type": "object",
+            "label": "宾语"
+          }
+        ]
+      },
+      {
+        "id": "s27",
+        "para": 6,
+        "text": "In the period 1970 to 1986, rainfall in the area decreased from 1,000 millimeters to 650 millimeters per annum, while above-average temperatures speeded up the evapotranspiration rate (the rate at which water is lost to the atmosphere through evaporation and the processes of plant life).",
+        "translation": "在1970年至1986年期间，该地区的降雨量从每年1000毫米减少到650毫米，而高于平均水平的温度加快了蒸散速率（水通过蒸发和植物生命过程散失到大气中的速率）。",
+        "grammarFocus": "时间状语 + 定语从句",
+        "pronounRef": "no",
+        "logicConnector": "while",
+        "sentenceCoach": {
+          "summary": "这句话描述了降雨量和蒸散速率的变化。",
+          "keyHint": "while 表示对比。at which water is lost... 是定语从句，修饰 rate。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "降雨量和蒸散速率发生了什么变化？",
+          "grammarQuestion": "while 表示对比。at which water is lost... 是定语从句，修饰 rate。",
+          "modifierQuestion": "in the area 修饰 rainfall。through evaporation and the processes of plant life 修饰 lost。",
+          "relationshipQuestion": "while 连接两个对比的分句。",
+          "commonMistake": "容易忽略 at which 引导的定语从句。",
+          "thinkingPath": [
+            "找到时间状语 In the period 1970 to 1986",
+            "找到第一个分句的主语 rainfall",
+            "找到第二个分句的主语 above-average temperatures"
+          ],
+          "encouragement": "你理解了 while 的对比作用，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n时间状语：In the period 1970 to 1986。\n分句1：rainfall in the area decreased from 1,000 millimeters to 650 millimeters per annum。\n分句2：while above-average temperatures speeded up the evapotranspiration rate (the rate at which water is lost to the atmosphere through evaporation and the processes of plant life)。\n\n### 【主谓一致】\n分句1主语 rainfall 是单数，谓语 decreased 用单数形式。\n分句2主语 above-average temperatures 是复数，谓语 speeded up 用复数形式。\n\n### 【从句剖析】\nat which water is lost to the atmosphere through evaporation and the processes of plant life 是定语从句，修饰 rate。\n\n### 【代词指代】\nno pronouns.\n\n### 【非谓语动词】\nno non-finite verbs.",
+        "segments": [
+          {
+            "text": "In the period 1970 to 1986, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "rainfall in the area decreased from 1,000 millimeters to 650 millimeters per annum, ",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": "while above-average temperatures speeded up the evapotranspiration rate (the rate at which water is lost to the atmosphere through evaporation and the processes of plant life).",
+            "type": "clause-subject",
+            "label": "主语"
+          }
+        ]
+      },
+      {
+        "id": "s28",
+        "para": 7,
+        "text": "The result has been that the residence time of one of the lakes increased from 5 to 18 years during the study period.",
+        "translation": "结果是一个湖泊的停留时间在研究期间从5年增加到18年。",
+        "grammarFocus": "表语从句",
+        "pronounRef": "no",
+        "logicConnector": "no",
+        "sentenceCoach": {
+          "summary": "这句话说明了研究的结果。",
+          "keyHint": "that the residence time... 是表语从句。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "研究的结果是什么？停留时间增加了。",
+          "grammarQuestion": "that the residence time... 是表语从句，作 has been 的表语。",
+          "modifierQuestion": "of one of the lakes 修饰 residence time。during the study period 修饰 increased。",
+          "relationshipQuestion": "no relationship.",
+          "commonMistake": "容易忽略 that 引导的表语从句。",
+          "thinkingPath": [
+            "找到主语 The result",
+            "找到谓语 has been",
+            "找到表语从句 that the residence time of one of the lakes increased from 5 to 18 years during the study period"
+          ],
+          "encouragement": "你理解了表语从句，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：The result。\n谓语：has been。\n表语：that the residence time of one of the lakes increased from 5 to 18 years during the study period。\n\n### 【主谓一致】\n主语 The result 是单数，谓语 has been 用单数形式。\n\n### 【从句剖析】\nthat the residence time of one of the lakes increased from 5 to 18 years during the study period 是表语从句。\n\n### 【代词指代】\nno pronouns.\n\n### 【非谓语动词】\nno non-finite verbs.",
+        "segments": [
+          {
+            "text": "The result ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "has been ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "that the residence time of one of the lakes increased from 5 to 18 years during the study period.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s29",
+        "para": 7,
+        "text": "The slowing down of water renewal leads to a chain of further consequences; it causes dissolved chemicals to become increasingly concentrated, and this, in turn, has a marked effect on all living things in the lake.",
+        "translation": "水更新的减缓导致了一系列进一步的后果；它导致溶解的化学物质变得越来越集中，而这反过来又对湖泊中的所有生物产生了显著影响。",
+        "grammarFocus": "分号连接的两个独立分句 + 并列句",
+        "pronounRef": "it 指代 The slowing down of water renewal, this 指代 it causes dissolved chemicals to become increasingly concentrated",
+        "logicConnector": "and",
+        "sentenceCoach": {
+          "summary": "这句话描述了水更新减缓的后果。",
+          "keyHint": "it 指代 The slowing down of water renewal。this 指代前一个分句的内容。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "水更新减缓导致了什么后果？",
+          "grammarQuestion": "it 指代 The slowing down of water renewal。this 指代前一个分句的内容。",
+          "modifierQuestion": "of water renewal 修饰 slowing down。in the lake 修饰 living things。",
+          "relationshipQuestion": "and 连接两个并列分句。",
+          "commonMistake": "容易忽略 this 的指代对象。",
+          "thinkingPath": [
+            "找到主语 The slowing down of water renewal",
+            "找到谓语 leads to",
+            "找到第二个分句的主语 it"
+          ],
+          "encouragement": "你理解了 this 的指代对象，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n分句1：The slowing down of water renewal leads to a chain of further consequences。\n分句2：it causes dissolved chemicals to become increasingly concentrated, and this, in turn, has a marked effect on all living things in the lake。\n\n### 【主谓一致】\n分句1主语 The slowing down of water renewal 是单数，谓语 leads 用单数形式。\n分句2主语 it 是单数，谓语 causes 用单数形式。\n分句2主语 this 是单数，谓语 has 用单数形式。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\nit 指代 The slowing down of water renewal。\nthis 指代 it causes dissolved chemicals to become increasingly concentrated。\n\n### 【非谓语动词】\nslowing down 是动名词，作主语。",
+        "segments": [
+          {
+            "text": "The slowing down of water renewal ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "leads to a chain of further consequences; ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "it causes dissolved chemicals to become increasingly concentrated, ",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": "and this, in turn, ",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": "has a marked effect on all living things in the lake.",
+            "type": "verb",
+            "label": "谓语"
+          }
+        ]
+      }
+    ],
+    "source": {
+      "file": "tpo-24-lake-water.md",
+      "section": "TPO-24 / Lake Water"
+    }
+  }
+}

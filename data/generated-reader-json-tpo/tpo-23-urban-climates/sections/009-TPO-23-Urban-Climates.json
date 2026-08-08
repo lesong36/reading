@@ -1,0 +1,2289 @@
+{
+  "sourceFile": "tpo-23-urban-climates.md",
+  "sectionTitle": "TPO-23 / Urban Climates",
+  "generatedAt": "2026-08-05T12:42:32.649Z",
+  "warnings": [],
+  "article": {
+    "id": "tpo-23-urban-climates-09-TPO-23-Urban-Climates",
+    "title": "TPO-23 / Urban Climates",
+    "timestamp": 1785933752657,
+    "glossary": [
+      {
+        "term": "heat-island intensity",
+        "translation": "热岛强度",
+        "kind": "term",
+        "note": "城市与郊区之间的最大温差。",
+        "aliases": []
+      },
+      {
+        "term": "shortwave radiation",
+        "translation": "短波辐射",
+        "kind": "term",
+        "note": "主要来自太阳，能穿透大气层和污染层到达地面。",
+        "aliases": []
+      },
+      {
+        "term": "longwave radiation",
+        "translation": "长波辐射",
+        "kind": "term",
+        "note": "地面受热后向外辐射的热量，易被大气中的温室气体或污染物吸收。",
+        "aliases": []
+      },
+      {
+        "term": "relative humidity",
+        "translation": "相对湿度",
+        "kind": "term",
+        "note": "空气中实际水汽含量与饱和水汽含量的比值。",
+        "aliases": []
+      },
+      {
+        "term": "urban heat island",
+        "translation": "城市热岛",
+        "kind": "term",
+        "note": "指城市气温高于周围郊区的现象。",
+        "aliases": [
+          "heat island"
+        ]
+      },
+      {
+        "term": "configuration",
+        "translation": "形态，布局",
+        "kind": "term",
+        "note": "指热岛的具体形状和分布情况。",
+        "aliases": []
+      },
+      {
+        "term": "heat capacity",
+        "translation": "热容量",
+        "kind": "term",
+        "note": "物理学概念，指物体升高单位温度所需吸收的热量。",
+        "aliases": []
+      },
+      {
+        "term": "impenetrable",
+        "translation": "不可渗透的",
+        "kind": "term",
+        "note": "指水无法渗入的表面，如水泥地。",
+        "aliases": []
+      },
+      {
+        "term": "radiant heat",
+        "translation": "辐射热",
+        "kind": "term",
+        "note": "以电磁波形式传播的热量，如太阳辐射。",
+        "aliases": []
+      },
+      {
+        "term": "evaporation",
+        "translation": "蒸发",
+        "kind": "term",
+        "note": "水变成水蒸气的过程，具有冷却作用。",
+        "aliases": []
+      },
+      {
+        "term": "metabolism",
+        "translation": "新陈代谢",
+        "kind": "term",
+        "note": "本文中将城市比作生物，指城市对物质和能量的摄取与消耗过程。",
+        "aliases": []
+      },
+      {
+        "term": "metropolis",
+        "translation": "大都市",
+        "kind": "proper_noun",
+        "note": "指大型、人口密集的城市。",
+        "aliases": []
+      },
+      {
+        "term": "turbulence",
+        "translation": "湍流，乱流",
+        "kind": "term",
+        "note": "空气不规则、混乱的运动状态。",
+        "aliases": []
+      },
+      {
+        "term": "dust dome",
+        "translation": "尘埃穹顶",
+        "kind": "context_phrase",
+        "note": "指城市上空由污染物形成的类似穹顶的空气层，能 trapping 热量。",
+        "aliases": []
+      },
+      {
+        "term": "insulated",
+        "translation": "隔热的，保温的",
+        "kind": "term",
+        "note": "指建筑材料能阻止热量传递，保持室内温度。",
+        "aliases": []
+      },
+      {
+        "term": "asphalt",
+        "translation": "沥青",
+        "kind": "proper_noun",
+        "note": "常用于铺设城市道路的材料，吸热能力强。",
+        "aliases": []
+      }
+    ],
+    "data": [
+      {
+        "id": "s1",
+        "para": 1,
+        "text": "The city is an extraordinary processor of mass and energy and has its own metabolism.",
+        "translation": "城市是一个非凡的物质和能量处理器，并拥有自己的新陈代谢。",
+        "grammarFocus": "并列谓语结构；比喻修辞",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话把城市比作一个有生命的生物。",
+          "keyHint": "注意 'processor' 和 'metabolism' 这两个词，它们奠定了全文的比喻基调。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "城市就像一个巨大的工厂，它在不停地处理物质和能量。",
+          "grammarQuestion": "这里有两个动作：'is'（是）和 'has'（有），它们由 'and' 连接，共同描述城市。",
+          "modifierQuestion": "'extraordinary'（非凡的）修饰 'processor'，说明这个处理器很特别；'its own'（它自己的）修饰 'metabolism'。",
+          "relationshipQuestion": "前半句说它处理物质能量，后半句说它有新陈代谢，两者是并列关系，互相补充。",
+          "commonMistake": "不要漏掉 'and' 后面的 'has'，因为主语 'The city' 同时执行这两个动作。",
+          "thinkingPath": [
+            "找到主语 'The city'",
+            "找到第一个动词 'is'",
+            "找到连接词 'and'",
+            "找到第二个动词 'has'"
+          ],
+          "encouragement": "你发现了吗？城市就像我们一样，也在‘呼吸’和‘吃饭’呢！"
+        },
+        "analysis": "### 【主干结构】\n主语：The city\n谓语1：is\n表语1：an extraordinary processor of mass and energy\n连接词：and\n谓语2：has\n宾语2：its own metabolism\n\n### 【主谓一致】\n主语 'The city' 是单数，因此谓语动词使用单数形式 'is' 和 'has'。\n\n### 【动词时态与原形】\n使用一般现在时，陈述一个客观事实或定义。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n'its' 指代主语 'The city'。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n'extraordinary' 是形容词，作定语修饰 'processor'。\n'of mass and energy' 是介词短语，作后置定语修饰 'processor'。\n'its own' 是限定词短语，修饰 'metabolism'。",
+        "segments": [
+          {
+            "text": "The city",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " is",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " an extraordinary processor of mass and energy",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " has",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " its own metabolism.",
+            "type": "object",
+            "label": "宾语"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "para": 1,
+        "text": "A daily input of water, food, and energy of various kinds is matched by an output of sewage, solid waste, air pollutants, energy, and materials that have been transformed in some way.",
+        "translation": "每天输入的水、食物和各种能源，与排出的污水、固体废物、空气污染物、能量以及以某种方式转化过的材料相匹配。",
+        "grammarFocus": "被动语态；长定语从句；并列结构",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话描述了城市的‘进’与‘出’，像是一个天平。",
+          "keyHint": "注意 'is matched by' 是被动语态，真正的动作发出者是后面的 'output'。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "城市每天吃进去的东西，和排出来的东西是平衡的。",
+          "grammarQuestion": "这是一个被动句，'A daily input... is matched by an output...'，意思是‘输入被输出所匹配’。",
+          "modifierQuestion": "'of water, food, and energy of various kinds' 修饰 'input'；'that have been transformed in some way' 是定语从句，修饰 'materials'。",
+          "relationshipQuestion": "'input' 和 'output' 通过 'matched by' 建立对应关系。",
+          "commonMistake": "容易误以为主语是 'water, food...'，其实主语核心词是 'input'，所以动词用单数 'is'。",
+          "thinkingPath": [
+            "找到主语核心词 'input'",
+            "找到谓语 'is matched'",
+            "找到动作发出者 'output'",
+            "找到修饰 'materials' 的从句"
+          ],
+          "encouragement": "长句子就像一串珠子，找到主心骨 'input is matched'，其他部分就是挂在上面的装饰啦！"
+        },
+        "analysis": "### 【主干结构】\n主语：A daily input (of water, food, and energy of various kinds)\n谓语：is matched (被动语态)\n状语/施动者：by an output (of sewage, solid waste, air pollutants, energy, and materials that have been transformed in some way)\n\n### 【主谓一致】\n主语核心词 'input' 是单数，故谓语动词用 'is'。\n\n### 【动词时态与原形】\n'is matched' 为一般现在时的被动语态。\n\n### 【从句剖析】\n'that have been transformed in some way' 是定语从句，修饰先行词 'materials'。从句中 'that' 作主语，'have been transformed' 是谓语。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n'transformed' 在从句中是过去分词，与 'have been' 构成完成时被动语态。\n\n### 【修饰语分析】\n'of water, food, and energy of various kinds' 是介词短语作后置定语，修饰 'input'。\n'of sewage, solid waste, air pollutants, energy, and materials...' 是介词短语作后置定语，修饰 'output'。\n'of various kinds' 修饰 'energy'。\n'in some way' 是状语，修饰 'transformed'。",
+        "segments": [
+          {
+            "text": "A daily input",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " of water, food, and energy of various kinds",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " is matched",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " by an output",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " of sewage, solid waste, air pollutants, energy, and materials",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " that have been transformed in some way.",
+            "type": "clause-modifier",
+            "label": "定语从句"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "para": 1,
+        "text": "The quantities involved are enormous.",
+        "translation": "涉及的量是巨大的。",
+        "grammarFocus": "过去分词作后置定语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话很短，但强调了前面提到的所有物质的数量之大。",
+          "keyHint": "'involved' 是过去分词，放在名词后面修饰它。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "前面说的那些水和废物，数量都非常大。",
+          "grammarQuestion": "'involved' 是过去分词，相当于 'that are involved'，修饰 'quantities'。",
+          "modifierQuestion": "'involved' 修饰 'quantities'，表示‘涉及的’那些量。",
+          "relationshipQuestion": "主语 'quantities' 和表语 'enormous' 直接对应。",
+          "commonMistake": "不要试图把 'involved' 当作谓语动词，谓语是 'are'。",
+          "thinkingPath": [
+            "找到主语 'quantities'",
+            "找到修饰语 'involved'",
+            "找到谓语 'are'",
+            "找到表语 'enormous'"
+          ],
+          "encouragement": "虽然句子短，但力量很大，‘enormous’ 这个词让你感受到城市的庞大！"
+        },
+        "analysis": "### 【主干结构】\n主语：The quantities\n谓语：are\n表语：enormous\n\n### 【主谓一致】\n主语 'quantities' 是复数，故谓语动词用 'are'。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n'involved' 是过去分词，作后置定语修饰 'quantities'。\n\n### 【修饰语分析】\n'involved' 修饰 'quantities'。",
+        "segments": [
+          {
+            "text": "The quantities",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " involved",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " are",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " enormous.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "para": 1,
+        "text": "Many aspects of this energy use affect the atmosphere of a city, particularly in the production of heat.",
+        "translation": "这种能源使用的许多方面影响着城市的大气，特别是在热量的产生方面。",
+        "grammarFocus": "介词短语作定语；状语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话指出了能源使用如何影响城市空气。",
+          "keyHint": "'particularly in...' 是补充说明，强调具体的影响领域。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "城市用能源的方式，会让城市的空气发生变化。",
+          "grammarQuestion": "'of this energy use' 修饰 'aspects'；'of a city' 修饰 'atmosphere'。",
+          "modifierQuestion": "'particularly in the production of heat' 是状语，具体说明影响发生的领域。",
+          "relationshipQuestion": "'aspects' 是主语，'affect' 是谓语，'atmosphere' 是宾语。",
+          "commonMistake": "不要混淆 'affect'（动词，影响）和 'effect'（名词，效果）。",
+          "thinkingPath": [
+            "找到主语 'aspects'",
+            "找到谓语 'affect'",
+            "找到宾语 'atmosphere'",
+            "找到补充说明的状语"
+          ],
+          "encouragement": "你找到了动作 'affect' 吗？它连接了能源使用和大气变化，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：Many aspects (of this energy use)\n谓语：affect\n宾语：the atmosphere (of a city)\n状语：particularly in the production of heat\n\n### 【主谓一致】\n主语核心词 'aspects' 是复数，故谓语动词用复数 'affect'。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n'of this energy use' 是介词短语，作后置定语修饰 'aspects'。\n'of a city' 是介词短语，作后置定语修饰 'atmosphere'。\n'in the production of heat' 是介词短语，作状语，修饰 'affect'，说明影响的方面。",
+        "segments": [
+          {
+            "text": "Many aspects",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " of this energy use",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " affect",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " the atmosphere",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " of a city,",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " particularly in the production of heat.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "para": 2,
+        "text": "In winter the heat produced by a city can equal or surpass the amount of heat available from the Sun.",
+        "translation": "在冬季，城市产生的热量可以等于或超过太阳提供的热量。",
+        "grammarFocus": "过去分词作定语；形容词短语作定语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话比较了城市热量和太阳热量。",
+          "keyHint": "'produced by a city' 和 'available from the Sun' 都是修饰 'heat' 的。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "冬天，城市自己产的热，比太阳给的热还多。",
+          "grammarQuestion": "'produced by a city' 是过去分词短语，修饰 'heat'；'available from the Sun' 是形容词短语，修饰 'amount'。",
+          "modifierQuestion": "'produced by a city' 修饰第一个 'heat'；'available from the Sun' 修饰 'amount of heat'。",
+          "relationshipQuestion": "'equal or surpass' 是并列谓语，比较两个热量来源。",
+          "commonMistake": "'available' 是形容词，不是动词，不要误以为它是谓语。",
+          "thinkingPath": [
+            "找到主语 'the heat'",
+            "找到修饰语 'produced by a city'",
+            "找到谓语 'can equal or surpass'",
+            "找到宾语 'the amount of heat'"
+          ],
+          "encouragement": "你成功拆解了两个长长的修饰语，像侦探一样敏锐！"
+        },
+        "analysis": "### 【主干结构】\n状语：In winter\n主语：the heat (produced by a city)\n谓语：can equal or surpass\n宾语：the amount of heat (available from the Sun)\n\n### 【主谓一致】\n主语 'the heat' 是单数，情态动词 'can' 后接原形，无单复数变化。\n\n### 【动词时态与原形】\n'can equal or surpass' 使用情态动词 + 动词原形。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n'produced' 是过去分词，作后置定语修饰 'heat'。\n\n### 【修饰语分析】\n'produced by a city' 是过去分词短语，作后置定语修饰 'heat'。\n'available from the Sun' 是形容词短语，作后置定语修饰 'amount of heat'。",
+        "segments": [
+          {
+            "text": "In winter",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the heat",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " produced by a city",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " can equal or surpass",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " the amount of heat",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " available from the Sun.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "para": 2,
+        "text": "All the heat that warms a building eventually transfers to the surrounding air, a process that is quickest where houses are poorly insulated.",
+        "translation": "所有给建筑物供暖的热量最终都会传递到周围的空气中，这个过程在房屋隔热不良时最快。",
+        "grammarFocus": "定语从句；同位语；地点状语从句",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话解释了热量如何散失，以及散失的速度。",
+          "keyHint": "'a process...' 是前面整句话的同位语，用来总结前面的现象。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "房子变暖的热量会跑到空气里，房子保温差的话，跑得快。",
+          "grammarQuestion": "'that warms a building' 修饰 'heat'；'a process...' 是名词短语作同位语，解释前面的现象；'that is quickest...' 修饰 'process'。",
+          "modifierQuestion": "'that warms a building' 是定语从句；'a process...' 是同位语；'that is quickest...' 是定语从句修饰 'process'；'where houses are poorly insulated' 是地点状语从句修饰 'is quickest'。",
+          "relationshipQuestion": "主句讲热量转移，同位语讲这是一个过程，定语从句讲这个过程的特点。",
+          "commonMistake": "容易忽略 'a process' 是同位语，误以为是新句子的主语。",
+          "thinkingPath": [
+            "找到主句主语 'All the heat'",
+            "找到定语从句 'that warms...'",
+            "找到主句谓语 'transfers'",
+            "找到同位语 'a process'",
+            "找到修饰 process 的从句"
+          ],
+          "encouragement": "你看到了 'a process' 吗？它像一个小标签，贴在了前面那句话上，帮你理解它！"
+        },
+        "analysis": "### 【主干结构】\n主语：All the heat (that warms a building)\n谓语：eventually transfers\n状语：to the surrounding air\n同位语：a process (that is quickest where houses are poorly insulated)\n\n### 【主谓一致】\n主语 'All the heat' 是单数，谓语 'transfers' 用单数形式。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n1. 'that warms a building'：定语从句，修饰 'heat'。\n2. 'that is quickest where houses are poorly insulated'：定语从句，修饰 'process'。\n3. 'where houses are poorly insulated'：地点状语从句，修饰 'is quickest'。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n'that warms a building' 修饰 'heat'。\n'a process...' 是 'transfers to the surrounding air' 这一现象的同位语。\n'that is quickest...' 修饰 'process'。\n'where houses are poorly insulated' 修饰 'is quickest'。",
+        "segments": [
+          {
+            "text": "All the heat",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " that warms a building",
+            "type": "clause-modifier",
+            "label": "定语从句"
+          },
+          {
+            "text": " eventually transfers",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " to the surrounding air,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " a process",
+            "type": "modifier",
+            "label": "同位语"
+          },
+          {
+            "text": " that is quickest",
+            "type": "clause-modifier",
+            "label": "定语从句"
+          },
+          {
+            "text": " where houses are poorly insulated.",
+            "type": "clause-adverbial",
+            "label": "状语从句"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "para": 2,
+        "text": "But an automobile produces enough heat to warm an average house in winter, and if a house were perfectly insulated, one adult could also produce more than enough heat to warm it.",
+        "translation": "但是，一辆汽车产生的热量足以在冬天温暖一所普通房屋；如果一所房屋隔热完美，一个成年人产生的热量也足以温暖它。",
+        "grammarFocus": "并列句；虚拟语气；不定式作结果状语",
+        "pronounRef": "it 指代 house",
+        "logicConnector": "and",
+        "sentenceCoach": {
+          "summary": "这句话用两个例子说明热量来源：汽车和人。",
+          "keyHint": "注意 'if a house were...' 是虚拟语气，表示假设。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "汽车和人产的热都很多，甚至能暖房子。",
+          "grammarQuestion": "'enough... to...' 结构表示‘足够...去做...’；'if... were...' 是虚拟语气，表示与事实相反的假设。",
+          "modifierQuestion": "'to warm an average house in winter' 是不定式短语，作结果状语或程度状语；'to warm it' 同理。",
+          "relationshipQuestion": "'and' 连接两个并列的分句，分别讲汽车和人的产热能力。",
+          "commonMistake": "虚拟语气中 'if' 从句用 'were'，主句用 'could'，不要搞混。",
+          "thinkingPath": [
+            "找到第一个分句的主语 'an automobile'",
+            "找到 'enough... to...' 结构",
+            "找到连接词 'and'",
+            "找到第二个分句的假设 'if... were...'",
+            "找到代词 'it' 的指代"
+          ],
+          "encouragement": "你发现了 'if' 后面的 'were' 吗？这是虚拟语气的标志，说明这是在想象一种情况！"
+        },
+        "analysis": "### 【主干结构】\n分句1：But an automobile produces enough heat (to warm an average house in winter)\n连接词：and\n分句2：if a house were perfectly insulated, one adult could also produce more than enough heat (to warm it)\n\n### 【主谓一致】\n分句1主语 'an automobile' 单数，谓语 'produces' 单数。\n分句2主语 'one adult' 单数，谓语 'could produce'。\n\n### 【动词时态与原形】\n分句1：一般现在时。\n分句2：虚拟语气（if 从句用过去式 were，主句用 could + 动词原形）。\n\n### 【从句剖析】\n'if a house were perfectly insulated'：条件状语从句，虚拟语气。\n\n### 【代词指代】\n'it' 指代 'a house'。\n\n### 【非谓语动词】\n'to warm an average house in winter'：不定式短语，作结果状语或程度状语，修饰 'enough heat'。\n'to warm it'：不定式短语，同上。\n\n### 【修饰语分析】\n'in winter' 修饰 'warm'。\n'perfectly' 修饰 'insulated'。\n'more than' 修饰 'enough'。",
+        "segments": [
+          {
+            "text": "But",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " an automobile",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " produces",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " enough heat",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " to warm an average house in winter,",
+            "type": "modifier",
+            "label": "状语"
+          },
+          {
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " if a house were perfectly insulated,",
+            "type": "clause-adverbial",
+            "label": "状语从句"
+          },
+          {
+            "text": " one adult",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " could also produce",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " more than enough heat",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " to warm it.",
+            "type": "modifier",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "para": 2,
+        "text": "Therefore, even without any industrial production of heat, an urban area tends to be warmer than the countryside that surrounds it.",
+        "translation": "因此，即使没有任何工业产热，城市区域往往也比周围乡村更温暖。",
+        "grammarFocus": "介词短语作状语；比较级；定语从句",
+        "pronounRef": "it 指代 urban area",
+        "logicConnector": "Therefore",
+        "sentenceCoach": {
+          "summary": "这句话得出结论：城市比乡村热。",
+          "keyHint": "'even without...' 是让步状语，表示即使没有工业热，城市也热。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "所以，就算没有工厂，城市也比乡下暖和。",
+          "grammarQuestion": "'tends to be' 表示‘倾向于’；'warmer than' 是比较级；'that surrounds it' 是定语从句。",
+          "modifierQuestion": "'even without any industrial production of heat' 是介词短语作状语；'that surrounds it' 修饰 'countryside'。",
+          "relationshipQuestion": "'Therefore' 表示因果关系，前文是原因，这是结果。",
+          "commonMistake": "'surrounds' 是动词，不是形容词，注意主谓一致（countryside 单数）。",
+          "thinkingPath": [
+            "找到连接词 'Therefore'",
+            "找到让步状语 'even without...'",
+            "找到主语 'an urban area'",
+            "找到谓语 'tends to be'",
+            "找到比较对象 'the countryside'",
+            "找到定语从句 'that surrounds it'"
+          ],
+          "encouragement": "你找到了 'Therefore' 吗？它像一个小路标，告诉你前面是原因，后面是结果！"
+        },
+        "analysis": "### 【主干结构】\n连接词：Therefore\n状语：even without any industrial production of heat\n主语：an urban area\n谓语：tends to be\n表语：warmer than the countryside (that surrounds it)\n\n### 【主谓一致】\n主语 'an urban area' 单数，谓语 'tends' 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n'that surrounds it'：定语从句，修饰 'countryside'。\n\n### 【代词指代】\n'it' 指代 'an urban area'。\n\n### 【非谓语动词】\n'to be'：不定式，作 'tends' 的宾语。\n\n### 【修饰语分析】\n'even without any industrial production of heat'：介词短语，作让步状语。\n'that surrounds it'：定语从句，修饰 'countryside'。",
+        "segments": [
+          {
+            "text": "Therefore,",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " even without any industrial production of heat,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " an urban area",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " tends to be",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " warmer than the countryside",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " that surrounds it.",
+            "type": "clause-modifier",
+            "label": "定语从句"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "para": 3,
+        "text": "The burning of fuel, such as by cars, is not the only source of this increased heat.",
+        "translation": "燃料的燃烧，例如汽车燃烧，并不是这种热量增加的唯一来源。",
+        "grammarFocus": "插入语；动名词短语作主语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话指出，除了汽车，还有其他原因导致热量增加。",
+          "keyHint": "'such as by cars' 是插入语，举例说明 'burning of fuel'。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "汽车烧油产热，但这只是原因之一。",
+          "grammarQuestion": "'The burning of fuel' 是动名词短语作主语；'such as by cars' 是插入语，举例。",
+          "modifierQuestion": "'such as by cars' 修饰 'burning of fuel'，给出例子。",
+          "relationshipQuestion": "主语 'The burning of fuel' 和表语 'not the only source' 对应。",
+          "commonMistake": "不要漏掉 'is'，它是谓语动词。",
+          "thinkingPath": [
+            "找到主语 'The burning of fuel'",
+            "找到插入语 'such as by cars'",
+            "找到谓语 'is'",
+            "找到表语 'not the only source...'"
+          ],
+          "encouragement": "你成功跳过了插入语 'such as by cars'，直接找到了主干，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n主语：The burning of fuel (such as by cars)\n谓语：is\n表语：not the only source of this increased heat\n\n### 【主谓一致】\n主语核心词 'burning' 是动名词，视为单数，故谓语用 'is'。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n'burning'：动名词，作主语。\n\n### 【修饰语分析】\n'of fuel'：介词短语，修饰 'burning'。\n'such as by cars'：介词短语，作插入语，举例说明 'burning of fuel'。\n'of this increased heat'：介词短语，修饰 'source'。",
+        "segments": [
+          {
+            "text": "The burning of fuel,",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " such as by cars,",
+            "type": "modifier",
+            "label": "同位语"
+          },
+          {
+            "text": " is",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " not the only source of this increased heat.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "para": 3,
+        "text": "Two other factors contribute to the higher overall temperature in cities.",
+        "translation": "另外两个因素导致了城市整体温度的升高。",
+        "grammarFocus": "动词短语 contribute to",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话引出下文要讨论的两个因素。",
+          "keyHint": "'contribute to' 意思是‘导致’或‘有助于’。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "还有两个原因让城市变得更热。",
+          "grammarQuestion": "'contribute to' 是固定搭配，表示‘导致’或‘促成’。",
+          "modifierQuestion": "'in cities' 修饰 'temperature'。",
+          "relationshipQuestion": "主语 'Two other factors' 导致 'higher overall temperature'。",
+          "commonMistake": "'contribute to' 后面接名词或动名词，不接动词原形。",
+          "thinkingPath": [
+            "找到主语 'Two other factors'",
+            "找到谓语 'contribute to'",
+            "找到宾语 'the higher overall temperature'",
+            "找到修饰语 'in cities'"
+          ],
+          "encouragement": "你找到了 'contribute to' 吗？它像一座桥，连接了原因和结果！"
+        },
+        "analysis": "### 【主干结构】\n主语：Two other factors\n谓语：contribute to\n宾语：the higher overall temperature (in cities)\n\n### 【主谓一致】\n主语 'Two other factors' 复数，谓语 'contribute' 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n'in cities'：介词短语，作后置定语，修饰 'temperature'。",
+        "segments": [
+          {
+            "text": "Two other factors",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " contribute to",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " the higher overall temperature",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " in cities.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "para": 3,
+        "text": "The first is the heat capacity of the materials that constitute the city, which is typically dominated by concrete and asphalt.",
+        "translation": "第一个因素是构成城市的材料的热容量，这些材料通常以混凝土和沥青为主。",
+        "grammarFocus": "定语从句；非限制性定语从句",
+        "pronounRef": "which 指代 heat capacity 或 materials",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话解释了第一个因素：材料的热容量。",
+          "keyHint": "'which' 引导的非限制性定语从句，补充说明前面的内容。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "城市里的混凝土和沥青能储存热量。",
+          "grammarQuestion": "'that constitute the city' 是定语从句，修饰 'materials'；'which is typically dominated by...' 是非限制性定语从句，修饰 'heat capacity' 或整个前面的概念。",
+          "modifierQuestion": "'that constitute the city' 修饰 'materials'；'which is typically dominated by concrete and asphalt' 修饰 'heat capacity'。",
+          "relationshipQuestion": "主语 'The first' 指代 'factor'，表语是 'the heat capacity'。",
+          "commonMistake": "'which' 指代什么？通常指代前面的名词 'heat capacity'，因为 'capacity' 是单数，用 'is'。",
+          "thinkingPath": [
+            "找到主语 'The first'",
+            "找到表语 'the heat capacity'",
+            "找到定语从句 'that constitute the city'",
+            "找到非限制性定语从句 'which is...'"
+          ],
+          "encouragement": "你看到了 'which' 吗？它像一个小尾巴，补充说明了前面的重要信息！"
+        },
+        "analysis": "### 【主干结构】\n主语：The first (factor)\n谓语：is\n表语：the heat capacity (of the materials that constitute the city) (which is typically dominated by concrete and asphalt)\n\n### 【主谓一致】\n主语 'The first' 单数，谓语 'is' 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n1. 'that constitute the city'：定语从句，修饰 'materials'。\n2. 'which is typically dominated by concrete and asphalt'：非限制性定语从句，修饰 'heat capacity'。\n\n### 【代词指代】\n'which' 指代 'heat capacity'。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n'of the materials that constitute the city'：介词短语，修饰 'heat capacity'。\n'that constitute the city'：定语从句，修饰 'materials'。\n'which is typically dominated by concrete and asphalt'：非限制性定语从句，修饰 'heat capacity'。",
+        "segments": [
+          {
+            "text": "The first",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " is",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " the heat capacity",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " of the materials",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " that constitute the city,",
+            "type": "clause-modifier",
+            "label": "定语从句"
+          },
+          {
+            "text": " which is typically dominated by concrete and asphalt.",
+            "type": "clause-modifier",
+            "label": "非限制性定语从句"
+          }
+        ]
+      },
+      {
+        "id": "s12",
+        "para": 3,
+        "text": "During the day, heat from the Sun can be conducted into these materials and stored—to be released at night.",
+        "translation": "白天，太阳的热量可以被传导到这些材料中并储存起来——以便在夜间释放。",
+        "grammarFocus": "被动语态；不定式作目的状语",
+        "pronounRef": "these materials 指代 concrete and asphalt",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话描述了热量在材料中的储存和释放过程。",
+          "keyHint": "'to be released' 表示储存的目的。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "白天材料吸热，晚上放热。",
+          "grammarQuestion": "'can be conducted... and stored' 是被动语态；'to be released' 是不定式，表目的。",
+          "modifierQuestion": "'from the Sun' 修饰 'heat'；'at night' 修饰 'released'。",
+          "relationshipQuestion": "热量被传导并储存，目的是在夜间释放。",
+          "commonMistake": "'stored' 和 'conducted' 是并列的被动语态，共用 'can be'。",
+          "thinkingPath": [
+            "找到状语 'During the day'",
+            "找到主语 'heat'",
+            "找到谓语 'can be conducted... and stored'",
+            "找到目的状语 'to be released...'"
+          ],
+          "encouragement": "你看到了破折号吗？它像一个小舞台，展示了储存热量的最终目的！"
+        },
+        "analysis": "### 【主干结构】\n状语：During the day\n主语：heat (from the Sun)\n谓语：can be conducted into these materials and stored\n目的状语：to be released at night\n\n### 【主谓一致】\n主语 'heat' 单数，情态动词 'can' 后接原形。\n\n### 【动词时态与原形】\n一般现在时（被动语态）。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n'to be released'：不定式被动语态，作目的状语。\n\n### 【修饰语分析】\n'from the Sun'：介词短语，修饰 'heat'。\n'into these materials'：介词短语，修饰 'conducted'。\n'at night'：介词短语，修饰 'released'。",
+        "segments": [
+          {
+            "text": "During the day,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " heat",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " from the Sun",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " can be conducted into these materials",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " and stored",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "—to be released at night.",
+            "type": "modifier",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s13",
+        "para": 3,
+        "text": "But in the countryside materials have a significantly lower heat capacity because a vegetative blanket prevents heat from easily flowing into and out of the ground.",
+        "translation": "但在乡村，材料的热容量显著较低，因为植被层阻止热量轻易流入和流出地面。",
+        "grammarFocus": "原因状语从句；prevent sb/sth from doing",
+        "pronounRef": "无",
+        "logicConnector": "because",
+        "sentenceCoach": {
+          "summary": "这句话解释了为什么乡村热容量低。",
+          "keyHint": "'because' 引导原因状语从句。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "乡村有植物覆盖，所以热量不容易进出地面。",
+          "grammarQuestion": "'because' 引导原因状语从句；'prevents heat from flowing' 是固定搭配。",
+          "modifierQuestion": "'significantly lower' 修饰 'heat capacity'；'vegetative' 修饰 'blanket'。",
+          "relationshipQuestion": "主句讲现象，从句讲原因。",
+          "commonMistake": "'from flowing' 中 'flowing' 是动名词，不要漏掉 'from'。",
+          "thinkingPath": [
+            "找到主句主语 'materials'",
+            "找到谓语 'have'",
+            "找到宾语 'a significantly lower heat capacity'",
+            "找到连接词 'because'",
+            "找到从句主语 'a vegetative blanket'",
+            "找到从句谓语 'prevents'"
+          ],
+          "encouragement": "你找到了 'because' 吗？它像一把钥匙，打开了原因的大门！"
+        },
+        "analysis": "### 【主干结构】\n连接词：But\n状语：in the countryside\n主语：materials\n谓语：have\n宾语：a significantly lower heat capacity\n原因状语从句：because a vegetative blanket prevents heat from easily flowing into and out of the ground\n\n### 【主谓一致】\n主句主语 'materials' 复数，谓语 'have' 复数。\n从句主语 'a vegetative blanket' 单数，谓语 'prevents' 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n'because a vegetative blanket prevents heat from easily flowing into and out of the ground'：原因状语从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n'flowing'：动名词，作 'prevents' 的宾语的一部分。\n\n### 【修饰语分析】\n'in the countryside'：介词短语，作地点状语。\n'significantly lower'：副词+形容词，修饰 'heat capacity'。\n'vegetative'：形容词，修饰 'blanket'。\n'into and out of the ground'：介词短语，修饰 'flowing'。",
+        "segments": [
+          {
+            "text": "But",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " in the countryside",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " materials",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " have",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " a significantly lower heat capacity",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " because a vegetative blanket",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": " prevents",
+            "type": "clause-verb",
+            "label": "谓语"
+          },
+          {
+            "text": " heat",
+            "type": "clause-object",
+            "label": "宾语"
+          },
+          {
+            "text": " from easily flowing into and out of the ground.",
+            "type": "clause-modifier",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s14",
+        "para": 3,
+        "text": "The second factor is that radiant heat coming into the city from the Sun is trapped in two ways: (1) by a continuing series of reflection among the numerous vertical surfaces that buildings present and (2) by the dust dome, the cloudlike layer of polluted air that most cities produce.",
+        "translation": "第二个因素是，来自太阳的辐射热被两种方式捕获：（1）通过建筑物众多垂直表面之间的持续反射；（2）通过尘埃穹顶，即大多数城市产生的污染空气的云状层。",
+        "grammarFocus": "表语从句；分词短语作定语；同位语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话详细解释了第二个因素：辐射热如何被捕获。",
+          "keyHint": "'that radiant heat... is trapped...' 是表语从句，解释 'factor'。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "太阳的热量被城市以两种方式锁住。",
+          "grammarQuestion": "'that...' 引导表语从句；'coming into the city from the Sun' 修饰 'radiant heat'；'that buildings present' 修饰 'surfaces'。",
+          "modifierQuestion": "'coming into the city from the Sun' 修饰 'radiant heat'；'that buildings present' 修饰 'vertical surfaces'；'the cloudlike layer...' 是 'dust dome' 的同位语。",
+          "relationshipQuestion": "主语 'The second factor'，表语是 'that...' 从句。",
+          "commonMistake": "长句子中有很多修饰语，注意区分它们修饰的对象。",
+          "thinkingPath": [
+            "找到主语 'The second factor'",
+            "找到系动词 'is'",
+            "找到表语从句 'that radiant heat... is trapped...'",
+            "找到修饰 'radiant heat' 的分词短语",
+            "找到修饰 'surfaces' 的定语从句",
+            "找到 'dust dome' 的同位语"
+          ],
+          "encouragement": "你成功拆解了这么长的表语从句，像剥洋葱一样，一层一层找到了核心！"
+        },
+        "analysis": "### 【主干结构】\n主语：The second factor\n谓语：is\n表语：that radiant heat coming into the city from the Sun is trapped in two ways: (1)... and (2)...\n\n### 【主谓一致】\n主语 'The second factor' 单数，谓语 'is' 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n1. 'that radiant heat... is trapped...'：表语从句，解释 'factor'。\n2. 'that buildings present'：定语从句，修饰 'vertical surfaces'。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n'coming into the city from the Sun'：现在分词短语，作后置定语，修饰 'radiant heat'。\n\n### 【修饰语分析】\n'coming into the city from the Sun'：修饰 'radiant heat'。\n'by a continuing series of reflection among the numerous vertical surfaces that buildings present'：方式状语，修饰 'trapped'。\n'that buildings present'：定语从句，修饰 'vertical surfaces'。\n'the cloudlike layer of polluted air that most cities produce'：同位语，解释 'dust dome'。\n'that most cities produce'：定语从句，修饰 'layer'。",
+        "segments": [
+          {
+            "text": "The second factor",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " is",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " that radiant heat",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": " coming into the city from the Sun",
+            "type": "clause-modifier",
+            "label": "定语"
+          },
+          {
+            "text": " is trapped",
+            "type": "clause-verb",
+            "label": "谓语"
+          },
+          {
+            "text": " in two ways:",
+            "type": "clause-adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " (1) by a continuing series of reflection among the numerous vertical surfaces",
+            "type": "clause-adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " that buildings present",
+            "type": "clause-modifier",
+            "label": "定语从句"
+          },
+          {
+            "text": " and (2) by the dust dome,",
+            "type": "clause-adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the cloudlike layer of polluted air",
+            "type": "modifier",
+            "label": "同位语"
+          },
+          {
+            "text": " that most cities produce.",
+            "type": "clause-modifier",
+            "label": "定语从句"
+          }
+        ]
+      },
+      {
+        "id": "s15",
+        "para": 3,
+        "text": "Shortwave radiation from the Sun passes through the pollution dome more easily than outgoing longwave radiation does; the latter is absorbed by the gaseous pollutants of the dome and reradiated back to the urban surface.",
+        "translation": "来自太阳的短波辐射比向外辐射的长波辐射更容易穿过污染穹顶；后者被穹顶中的气态污染物吸收并重新辐射回城市表面。",
+        "grammarFocus": "比较级；分号连接并列句；被动语态",
+        "pronounRef": "the latter 指代 outgoing longwave radiation",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话比较了两种辐射，并解释了长波辐射的去向。",
+          "keyHint": "'the latter' 指代后者，即长波辐射。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "短波辐射容易进来，长波辐射被留住。",
+          "grammarQuestion": "'more easily than...' 是比较级；'the latter' 指代后者；'is absorbed... and reradiated' 是被动语态。",
+          "modifierQuestion": "'from the Sun' 修饰 'Shortwave radiation'；'outgoing' 修饰 'longwave radiation'。",
+          "relationshipQuestion": "分号连接两个并列分句，前句讲短波，后句讲长波。",
+          "commonMistake": "'does' 在比较句中代替 'passes through'，避免重复。",
+          "thinkingPath": [
+            "找到第一个分句主语 'Shortwave radiation'",
+            "找到谓语 'passes through'",
+            "找到比较对象 'outgoing longwave radiation'",
+            "找到第二个分句主语 'the latter'",
+            "找到谓语 'is absorbed... and reradiated'"
+          ],
+          "encouragement": "你看到了分号吗？它像一条河，把两个相关的句子连在一起！"
+        },
+        "analysis": "### 【主干结构】\n分句1：Shortwave radiation from the Sun passes through the pollution dome more easily than outgoing longwave radiation does\n分号：;\n分句2：the latter is absorbed by the gaseous pollutants of the dome and reradiated back to the urban surface\n\n### 【主谓一致】\n分句1主语 'Shortwave radiation' 单数，谓语 'passes' 单数。\n分句2主语 'the latter' 单数，谓语 'is absorbed' 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n'the latter' 指代 'outgoing longwave radiation'。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n'from the Sun'：介词短语，修饰 'Shortwave radiation'。\n'more easily'：副词，修饰 'passes through'。\n'than outgoing longwave radiation does'：比较状语从句，省略了 'passes through the pollution dome'。\n'by the gaseous pollutants of the dome'：介词短语，修饰 'absorbed'。\n'back to the urban surface'：介词短语，修饰 'reradiated'。",
+        "segments": [
+          {
+            "text": "Shortwave radiation",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " from the Sun",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " passes through the pollution dome",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " more easily",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " than outgoing longwave radiation does;",
+            "type": "clause-adverbial",
+            "label": "状语从句"
+          },
+          {
+            "text": " the latter",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " is absorbed",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " by the gaseous pollutants of the dome",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " and reradiated",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " back to the urban surface.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s16",
+        "para": 4,
+        "text": "Cities, then, are warmer than the surrounding rural areas, and together they produce a phenomenon known as the urban heat island.",
+        "translation": "因此，城市比周围的农村地区更温暖，它们共同产生了一种被称为城市热岛的现象。",
+        "grammarFocus": "并列句；过去分词作定语",
+        "pronounRef": "they 指代 Cities",
+        "logicConnector": "then, and",
+        "sentenceCoach": {
+          "summary": "这句话总结了前文，引出了‘城市热岛’的概念。",
+          "keyHint": "'known as' 是过去分词短语，修饰 'phenomenon'。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "城市比乡村热，这种现象叫城市热岛。",
+          "grammarQuestion": "'then' 表示总结；'and' 连接两个并列分句；'known as...' 修饰 'phenomenon'。",
+          "modifierQuestion": "'surrounding' 修饰 'rural areas'；'known as the urban heat island' 修饰 'phenomenon'。",
+          "relationshipQuestion": "前一分句讲现象，后一分句讲这种现象的名称。",
+          "commonMistake": "'known as' 不是谓语，谓语是 'are' 和 'produce'。",
+          "thinkingPath": [
+            "找到主语 'Cities'",
+            "找到谓语 'are'",
+            "找到连接词 'and'",
+            "找到第二个分句主语 'they'",
+            "找到谓语 'produce'",
+            "找到宾语 'a phenomenon'",
+            "找到修饰语 'known as...'"
+          ],
+          "encouragement": "你找到了 'known as' 吗？它像一个小标签，给这个现象起了个名字！"
+        },
+        "analysis": "### 【主干结构】\n主语：Cities\n连接词：then\n谓语：are\n表语：warmer than the surrounding rural areas\n连接词：and\n主语：together they\n谓语：produce\n宾语：a phenomenon (known as the urban heat island)\n\n### 【主谓一致】\n主语 'Cities' 复数，谓语 'are' 复数。\n主语 'they' 复数，谓语 'produce' 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n'they' 指代 'Cities'。\n\n### 【非谓语动词】\n'known as the urban heat island'：过去分词短语，作后置定语，修饰 'phenomenon'。\n\n### 【修饰语分析】\n'surrounding'：形容词，修饰 'rural areas'。\n'known as the urban heat island'：修饰 'phenomenon'。",
+        "segments": [
+          {
+            "text": "Cities,",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " then,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " are",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " warmer than the surrounding rural areas,",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " together they",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " produce",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " a phenomenon",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " known as the urban heat island.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s17",
+        "para": 4,
+        "text": "Heat islands develop best under particular conditions associated with light winds, but they can form almost any time.",
+        "translation": "热岛在伴有微风的特定条件下发展得最好，但它们几乎可以在任何时间形成。",
+        "grammarFocus": "过去分词作定语；转折连词",
+        "pronounRef": "they 指代 Heat islands",
+        "logicConnector": "but",
+        "sentenceCoach": {
+          "summary": "这句话说明了热岛形成的条件和时间。",
+          "keyHint": "'associated with light winds' 修饰 'conditions'。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "热岛在微风时最容易形成，但随时都可能形成。",
+          "grammarQuestion": "'associated with light winds' 是过去分词短语，修饰 'conditions'；'but' 表示转折。",
+          "modifierQuestion": "'associated with light winds' 修饰 'conditions'。",
+          "relationshipQuestion": "前一分句讲最佳条件，后一分句讲形成时间的广泛性。",
+          "commonMistake": "'associated with' 不是谓语，谓语是 'develop' 和 'can form'。",
+          "thinkingPath": [
+            "找到主语 'Heat islands'",
+            "找到谓语 'develop'",
+            "找到修饰语 'associated with light winds'",
+            "找到连接词 'but'",
+            "找到第二个分句主语 'they'",
+            "找到谓语 'can form'"
+          ],
+          "encouragement": "你看到了 'but' 吗？它像一个小路标，告诉你情况发生了变化！"
+        },
+        "analysis": "### 【主干结构】\n主语：Heat islands\n谓语：develop best\n状语：under particular conditions (associated with light winds)\n连接词：but\n主语：they\n谓语：can form\n状语：almost any time\n\n### 【主谓一致】\n主语 'Heat islands' 复数，谓语 'develop' 复数。\n主语 'they' 复数，谓语 'can form'。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n'they' 指代 'Heat islands'。\n\n### 【非谓语动词】\n'associated with light winds'：过去分词短语，作后置定语，修饰 'conditions'。\n\n### 【修饰语分析】\n'under particular conditions'：介词短语，作状语。\n'associated with light winds'：修饰 'conditions'。\n'almost any time'：时间状语。",
+        "segments": [
+          {
+            "text": "Heat islands",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " develop best",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " under particular conditions",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " associated with light winds,",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " but",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " they",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " can form",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " almost any time.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s18",
+        "para": 4,
+        "text": "The precise configuration of a heat island depends on several factors.",
+        "translation": "热岛的确切形态取决于几个因素。",
+        "grammarFocus": "动词短语 depend on",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话引出下文要讨论的影响热岛形态的因素。",
+          "keyHint": "'depends on' 意思是‘取决于’。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "热岛的样子由几个因素决定。",
+          "grammarQuestion": "'depends on' 是固定搭配，表示‘取决于’。",
+          "modifierQuestion": "'precise' 修饰 'configuration'；'of a heat island' 修饰 'configuration'。",
+          "relationshipQuestion": "主语 'The precise configuration' 取决于 'several factors'。",
+          "commonMistake": "'depends' 是单数形式，因为主语核心词 'configuration' 是单数。",
+          "thinkingPath": [
+            "找到主语 'The precise configuration'",
+            "找到谓语 'depends on'",
+            "找到宾语 'several factors'"
+          ],
+          "encouragement": "你找到了 'depends on' 吗？它像一根绳子，连接了结果和原因！"
+        },
+        "analysis": "### 【主干结构】\n主语：The precise configuration (of a heat island)\n谓语：depends on\n宾语：several factors\n\n### 【主谓一致】\n主语核心词 'configuration' 单数，谓语 'depends' 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n'precise'：形容词，修饰 'configuration'。\n'of a heat island'：介词短语，修饰 'configuration'。",
+        "segments": [
+          {
+            "text": "The precise configuration",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " of a heat island",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " depends on",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " several factors.",
+            "type": "object",
+            "label": "宾语"
+          }
+        ]
+      },
+      {
+        "id": "s19",
+        "para": 4,
+        "text": "For example, the wind can make a heat island stretch in the direction it blows.",
+        "translation": "例如，风可以使热岛沿着风吹的方向延伸。",
+        "grammarFocus": "make sb/sth do sth; 省略 that 的定语从句",
+        "pronounRef": "it 指代 wind",
+        "logicConnector": "For example",
+        "sentenceCoach": {
+          "summary": "这句话举例说明风如何影响热岛形状。",
+          "keyHint": "'it blows' 是定语从句，修饰 'direction'，省略了 'that'。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "风把热岛吹向一个方向。",
+          "grammarQuestion": "'make a heat island stretch' 是使役动词结构；'it blows' 是定语从句，修饰 'direction'。",
+          "modifierQuestion": "'in the direction it blows' 是介词短语，作状语，修饰 'stretch'。",
+          "relationshipQuestion": "风是动作发出者，热岛是动作承受者，stretch 是结果。",
+          "commonMistake": "'stretch' 是动词原形，因为 'make' 后接不带 to 的不定式。",
+          "thinkingPath": [
+            "找到连接词 'For example'",
+            "找到主语 'the wind'",
+            "找到谓语 'can make'",
+            "找到宾语 'a heat island'",
+            "找到宾语补足语 'stretch'",
+            "找到状语 'in the direction it blows'"
+          ],
+          "encouragement": "你找到了 'it blows' 吗？它像一个小箭头，指明了方向！"
+        },
+        "analysis": "### 【主干结构】\n连接词：For example\n主语：the wind\n谓语：can make\n宾语：a heat island\n宾语补足语：stretch\n状语：in the direction (it blows)\n\n### 【主谓一致】\n主语 'the wind' 单数，谓语 'can make'。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n'(that) it blows'：定语从句，修饰 'direction'，省略了关系代词 'that'。\n\n### 【代词指代】\n'it' 指代 'the wind'。\n\n### 【非谓语动词】\n'stretch'：动词原形，作宾语补足语。\n\n### 【修饰语分析】\n'in the direction it blows'：介词短语，作状语，修饰 'stretch'。",
+        "segments": [
+          {
+            "text": "For example,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the wind",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " can make",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " a heat island",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " stretch",
+            "type": "modifier",
+            "label": "补足语"
+          },
+          {
+            "text": " in the direction",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " it blows.",
+            "type": "clause-modifier",
+            "label": "定语从句"
+          }
+        ]
+      },
+      {
+        "id": "s20",
+        "para": 4,
+        "text": "When a heat island is well developed, variations can be extreme; in winter, busy streets in cities can be 1.7℃ warmer than the side streets.",
+        "translation": "当热岛发展良好时，温差可能极大；在冬季，城市繁忙街道的温度可比支路高1.7摄氏度。",
+        "grammarFocus": "时间状语从句；分号连接并列句",
+        "pronounRef": "无",
+        "logicConnector": "When, in winter",
+        "sentenceCoach": {
+          "summary": "这句话描述了热岛发展良好时的极端温差。",
+          "keyHint": "'When...' 是时间状语从句。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "热岛强时，温差很大，繁忙街道比支路热。",
+          "grammarQuestion": "'When...' 引导时间状语从句；'can be extreme' 是主句；分号后是另一个例子。",
+          "modifierQuestion": "'well developed' 修饰 'heat island'；'in winter' 是时间状语。",
+          "relationshipQuestion": "前句讲总体情况，后句讲具体例子。",
+          "commonMistake": "'variations' 是复数，谓语 'can be' 不变。",
+          "thinkingPath": [
+            "找到时间状语从句 'When a heat island is well developed'",
+            "找到主句主语 'variations'",
+            "找到谓语 'can be'",
+            "找到表语 'extreme'",
+            "找到第二个分句 'in winter...'"
+          ],
+          "encouragement": "你看到了分号吗？它像一座桥，连接了两个相关的例子！"
+        },
+        "analysis": "### 【主干结构】\n时间状语从句：When a heat island is well developed\n主句：variations can be extreme\n分号：;\n第二个分句：in winter, busy streets in cities can be 1.7℃ warmer than the side streets\n\n### 【主谓一致】\n从句主语 'a heat island' 单数，谓语 'is' 单数。\n主句主语 'variations' 复数，谓语 'can be'。\n第二个分句主语 'busy streets' 复数，谓语 'can be'。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n'When a heat island is well developed'：时间状语从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n'developed'：过去分词，作表语。\n\n### 【修饰语分析】\n'well'：副词，修饰 'developed'。\n'in winter'：时间状语。\n'in cities'：介词短语，修饰 'streets'。\n'than the side streets'：比较状语。",
+        "segments": [
+          {
+            "text": "When a heat island",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": " is",
+            "type": "clause-verb",
+            "label": "谓语"
+          },
+          {
+            "text": " well developed,",
+            "type": "clause-predicative",
+            "label": "表语"
+          },
+          {
+            "text": " variations",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " can be",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " extreme;",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " in winter,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " busy streets",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " in cities",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " can be",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " 1.7℃ warmer",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " than the side streets.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s21",
+        "para": 4,
+        "text": "Areas near traffic lights can be similarly warmer than the areas between them because of the effect of cars standing in traffic instead of moving.",
+        "translation": "交通信号灯附近的区域也可能比它们之间的区域更温暖，这是因为停在车流中的汽车而不是行驶中的汽车的影响。",
+        "grammarFocus": "because of 短语；分词短语作定语",
+        "pronounRef": "them 指代 traffic lights",
+        "logicConnector": "because of",
+        "sentenceCoach": {
+          "summary": "这句话解释了为什么信号灯附近更热。",
+          "keyHint": "'standing in traffic' 和 'moving' 是并列的分词短语，修饰 'cars'。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "等红灯时车不动，所以那里更热。",
+          "grammarQuestion": "'because of' 是介词短语，表示原因；'standing in traffic instead of moving' 修饰 'cars'。",
+          "modifierQuestion": "'near traffic lights' 修饰 'Areas'；'between them' 修饰 'areas'；'standing in traffic instead of moving' 修饰 'cars'。",
+          "relationshipQuestion": "主句讲现象，'because of' 讲原因。",
+          "commonMistake": "'because of' 后接名词短语，不接句子。",
+          "thinkingPath": [
+            "找到主语 'Areas'",
+            "找到谓语 'can be'",
+            "找到表语 'warmer'",
+            "找到原因状语 'because of...'",
+            "找到修饰 'cars' 的分词短语"
+          ],
+          "encouragement": "你找到了 'because of' 吗？它像一把钥匙，打开了原因的大门！"
+        },
+        "analysis": "### 【主干结构】\n主语：Areas (near traffic lights)\n谓语：can be\n表语：similarly warmer than the areas (between them)\n原因状语：because of the effect of cars (standing in traffic instead of moving)\n\n### 【主谓一致】\n主语 'Areas' 复数，谓语 'can be'。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n'them' 指代 'traffic lights'。\n\n### 【非谓语动词】\n'standing in traffic instead of moving'：现在分词短语，作后置定语，修饰 'cars'。\n\n### 【修饰语分析】\n'near traffic lights'：介词短语，修饰 'Areas'。\n'between them'：介词短语，修饰 'areas'。\n'because of the effect of cars...'：介词短语，作原因状语。\n'standing in traffic instead of moving'：修饰 'cars'。",
+        "segments": [
+          {
+            "text": "Areas",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " near traffic lights",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " can be",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " similarly warmer",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " than the areas",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " between them",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " because of the effect of cars",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " standing in traffic instead of moving.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s22",
+        "para": 4,
+        "text": "The maximum differences in temperature between neighboring urban and rural environments is called the heat-island intensity for that region.",
+        "translation": "相邻城市和乡村环境之间的最大温差被称为该地区的热岛强度。",
+        "grammarFocus": "被动语态；主谓一致",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话定义了‘热岛强度’。",
+          "keyHint": "注意主语是 'differences' 还是 'difference'？原文是 'differences'，但谓语是 'is'，可能是笔误或视为整体概念。根据原文 'is called'，主语视为单数概念或原文有误，此处按原文解析。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "热岛强度就是城市和乡村的最大温差。",
+          "grammarQuestion": "'is called' 是被动语态；'between...' 修饰 'differences'。",
+          "modifierQuestion": "'in temperature' 修饰 'differences'；'between neighboring urban and rural environments' 修饰 'differences'。",
+          "relationshipQuestion": "主语 'The maximum differences' 被称作 'heat-island intensity'。",
+          "commonMistake": "主语 'differences' 是复数，但谓语用 'is'，可能将其视为一个整体概念。",
+          "thinkingPath": [
+            "找到主语 'The maximum differences'",
+            "找到谓语 'is called'",
+            "找到宾语 'the heat-island intensity'",
+            "找到修饰语 'for that region'"
+          ],
+          "encouragement": "你找到了 'is called' 吗？它像一个小标签，给这个概念起了个名字！"
+        },
+        "analysis": "### 【主干结构】\n主语：The maximum differences (in temperature between neighboring urban and rural environments)\n谓语：is called\n宾语：the heat-island intensity (for that region)\n\n### 【主谓一致】\n主语 'differences' 复数，但谓语用 'is'，可能视为整体概念或原文笔误（应为 are）。此处按原文 'is' 解析。\n\n### 【动词时态与原形】\n一般现在时（被动语态）。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n'in temperature'：介词短语，修饰 'differences'。\n'between neighboring urban and rural environments'：介词短语，修饰 'differences'。\n'for that region'：介词短语，修饰 'heat-island intensity'。",
+        "segments": [
+          {
+            "text": "The maximum differences",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " in temperature",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " between neighboring urban and rural environments",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " is called",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " the heat-island intensity",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " for that region.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s23",
+        "para": 4,
+        "text": "In general, the larger the city, the greater its heat-island intensity.",
+        "translation": "一般来说，城市越大，其热岛强度越大。",
+        "grammarFocus": "The more..., the more... 结构",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话用比较级结构说明城市规模与热岛强度的关系。",
+          "keyHint": "'The larger..., the greater...' 是固定结构，表示‘越...越...’。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "城市越大，热岛效应越强。",
+          "grammarQuestion": "'The larger..., the greater...' 是固定结构，表示两个变化同时发生。",
+          "modifierQuestion": "'its' 指代 'the city'。",
+          "relationshipQuestion": "城市规模与热岛强度成正比。",
+          "commonMistake": "注意语序，'the larger' 在前，'the greater' 在后。",
+          "thinkingPath": [
+            "找到结构 'The larger...'",
+            "找到结构 'the greater...'",
+            "找到主语 'the city'",
+            "找到主语 'its heat-island intensity'"
+          ],
+          "encouragement": "你看到了 'The larger..., the greater...' 吗？它像一架天平，两边同时变化！"
+        },
+        "analysis": "### 【主干结构】\n状语：In general\n比较结构：the larger the city, the greater its heat-island intensity\n\n### 【主谓一致】\n隐含谓语，省略了 'is'。完整形式为 'the larger the city is, the greater its heat-island intensity is'。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n'its' 指代 'the city'。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n'in general'：副词短语，作状语。",
+        "segments": [
+          {
+            "text": "In general,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the larger",
+            "type": "clause-predicative",
+            "label": "表语"
+          },
+          {
+            "text": " the city,",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": " the greater",
+            "type": "clause-predicative",
+            "label": "表语"
+          },
+          {
+            "text": " its heat-island intensity.",
+            "type": "clause-subject",
+            "label": "主语"
+          }
+        ]
+      },
+      {
+        "id": "s24",
+        "para": 4,
+        "text": "The actual level of intensity depends on such factors as the physical layout, population density, and productive activities of a metropolis.",
+        "translation": "实际的强度水平取决于大都市的物理布局、人口密度和生产活动等因素。",
+        "grammarFocus": "such...as 结构",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话列出了影响热岛强度的具体因素。",
+          "keyHint": "'such factors as...' 是举例说明。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "热岛强度取决于布局、人口和活动。",
+          "grammarQuestion": "'such factors as...' 是固定搭配，表示‘诸如...这样的因素’。",
+          "modifierQuestion": "'of intensity' 修饰 'level'；'of a metropolis' 修饰 'factors'。",
+          "relationshipQuestion": "主语 'The actual level' 取决于 'factors'。",
+          "commonMistake": "'such...as' 中间插入名词，后面接例子。",
+          "thinkingPath": [
+            "找到主语 'The actual level'",
+            "找到谓语 'depends on'",
+            "找到宾语 'such factors'",
+            "找到例子 'as...'"
+          ],
+          "encouragement": "你找到了 'such...as' 吗？它像一个小清单，列出了具体的例子！"
+        },
+        "analysis": "### 【主干结构】\n主语：The actual level (of intensity)\n谓语：depends on\n宾语：such factors (as the physical layout, population density, and productive activities of a metropolis)\n\n### 【主谓一致】\n主语 'level' 单数，谓语 'depends' 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n'of intensity'：介词短语，修饰 'level'。\n'as the physical layout, population density, and productive activities of a metropolis'：介词短语，作 'factors' 的同位语或举例。",
+        "segments": [
+          {
+            "text": "The actual level",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " of intensity",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " depends on",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " such factors",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " as the physical layout, population density, and productive activities",
+            "type": "modifier",
+            "label": "同位语"
+          },
+          {
+            "text": " of a metropolis.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s25",
+        "para": 5,
+        "text": "The surface-atmosphere relationships inside metropolitan areas produce a number of climatic peculiarities.",
+        "translation": "大都市内部的地表-大气关系产生了一系列气候特征。",
+        "grammarFocus": "复合名词作定语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话引出下文要讨论的气候特征。",
+          "keyHint": "'surface-atmosphere relationships' 是一个复合概念。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "城市和大气之间的互动产生了特殊的气候。",
+          "grammarQuestion": "'surface-atmosphere relationships' 是主语核心词。",
+          "modifierQuestion": "'inside metropolitan areas' 修饰 'relationships'。",
+          "relationshipQuestion": "主语 'relationships' 产生 'peculiarities'。",
+          "commonMistake": "注意 'produce' 是复数形式，因为主语 'relationships' 是复数。",
+          "thinkingPath": [
+            "找到主语 'The surface-atmosphere relationships'",
+            "找到谓语 'produce'",
+            "找到宾语 'a number of climatic peculiarities'"
+          ],
+          "encouragement": "你找到了 'produce' 吗？它是连接原因和结果的桥梁！"
+        },
+        "analysis": "### 【主干结构】\n主语：The surface-atmosphere relationships (inside metropolitan areas)\n谓语：produce\n宾语：a number of climatic peculiarities\n\n### 【主谓一致】\n主语 'relationships' 复数，谓语 'produce' 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n'inside metropolitan areas'：介词短语，修饰 'relationships'。",
+        "segments": [
+          {
+            "text": "The surface-atmosphere relationships",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " inside metropolitan areas",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " produce",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " a number of climatic peculiarities.",
+            "type": "object",
+            "label": "宾语"
+          }
+        ]
+      },
+      {
+        "id": "s26",
+        "para": 5,
+        "text": "For one thing, the presence or absence of moisture is affected by the special qualities of the urban surface.",
+        "translation": "首先，水分的存在或缺失受到城市地表特殊性质的影响。",
+        "grammarFocus": "被动语态；For one thing",
+        "pronounRef": "无",
+        "logicConnector": "For one thing",
+        "sentenceCoach": {
+          "summary": "这句话解释了第一个气候特征：湿度。",
+          "keyHint": "'For one thing' 表示列举的第一点。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "城市地表的性质影响了湿度。",
+          "grammarQuestion": "'is affected by' 是被动语态；'For one thing' 是连接词。",
+          "modifierQuestion": "'of moisture' 修饰 'presence or absence'；'of the urban surface' 修饰 'qualities'。",
+          "relationshipQuestion": "主语 'presence or absence' 受到 'qualities' 的影响。",
+          "commonMistake": "'presence or absence' 是复数概念，但谓语用 'is'，视为整体。",
+          "thinkingPath": [
+            "找到连接词 'For one thing'",
+            "找到主语 'the presence or absence'",
+            "找到谓语 'is affected by'",
+            "找到动作发出者 'the special qualities'"
+          ],
+          "encouragement": "你找到了 'For one thing' 吗？它像一个小路标，告诉你这是第一点！"
+        },
+        "analysis": "### 【主干结构】\n连接词：For one thing\n主语：the presence or absence (of moisture)\n谓语：is affected by\n宾语/施动者：the special qualities (of the urban surface)\n\n### 【主谓一致】\n主语 'presence or absence' 视为单数概念，谓语 'is' 单数。\n\n### 【动词时态与原形】\n一般现在时（被动语态）。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n'of moisture'：介词短语，修饰 'presence or absence'。\n'of the urban surface'：介词短语，修饰 'qualities'。",
+        "segments": [
+          {
+            "text": "For one thing,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the presence or absence",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " of moisture",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " is affected by",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " the special qualities",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " of the urban surface.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s27",
+        "para": 5,
+        "text": "With much of the built-up landscape impenetrable by water, even gentle rain runs off almost immediately from rooftops, streets, and parking lots.",
+        "translation": "由于大部分建成区地表不透水，即使是小雨也会几乎立即从屋顶、街道和停车场流走。",
+        "grammarFocus": "With 复合结构；并列宾语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话解释了为什么城市地表干燥。",
+          "keyHint": "'With much of... impenetrable...' 是原因状语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "因为地面不透水，雨水很快就流走了。",
+          "grammarQuestion": "'With + 宾语 + 宾补' 结构；'runs off' 是动词短语。",
+          "modifierQuestion": "'impenetrable by water' 是宾补，修饰 'landscape'。",
+          "relationshipQuestion": "前部分是原因，后部分是结果。",
+          "commonMistake": "'With' 结构不是从句，没有谓语动词。",
+          "thinkingPath": [
+            "找到 With 结构 'With much of... impenetrable...'",
+            "找到主语 'even gentle rain'",
+            "找到谓语 'runs off'",
+            "找到状语 'from...'"
+          ],
+          "encouragement": "你看到了 'With' 结构吗？它像一个小背景板，说明了情况！"
+        },
+        "analysis": "### 【主干结构】\n状语：With much of the built-up landscape impenetrable by water\n主语：even gentle rain\n谓语：runs off\n状语：almost immediately\n状语：from rooftops, streets, and parking lots\n\n### 【主谓一致】\n主语 'rain' 单数，谓语 'runs' 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n'impenetrable'：形容词，作宾补。\n\n### 【修饰语分析】\n'With much of the built-up landscape impenetrable by water'：With 复合结构，作原因状语。\n'impenetrable by water'：修饰 'landscape'。\n'almost immediately'：时间状语。\n'from rooftops, streets, and parking lots'：来源状语。",
+        "segments": [
+          {
+            "text": "With much of the built-up landscape",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " impenetrable by water,",
+            "type": "modifier",
+            "label": "补足语"
+          },
+          {
+            "text": " even gentle rain",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " runs off",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " almost immediately",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " from rooftops, streets, and parking lots.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s28",
+        "para": 5,
+        "text": "Thus, city surfaces, as well as the air above them, tend to be drier between episodes of rain;",
+        "translation": "因此，城市地表以及其上方的空气在降雨间歇期往往更干燥；",
+        "grammarFocus": "as well as; 分号",
+        "pronounRef": "them 指代 city surfaces",
+        "logicConnector": "Thus",
+        "sentenceCoach": {
+          "summary": "这句话总结了雨水流走后的结果。",
+          "keyHint": "'as well as' 表示‘以及’，不影响主谓一致。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "雨停后，城市和空气都变干了。",
+          "grammarQuestion": "'as well as' 连接两个主语，谓语动词与前面的主语一致；'tend to be' 是谓语。",
+          "modifierQuestion": "'above them' 修饰 'air'；'between episodes of rain' 是时间状语。",
+          "relationshipQuestion": "前句讲雨水流走，这句讲结果。",
+          "commonMistake": "'as well as' 后面的部分不是主语核心，谓语动词由 'city surfaces' 决定，用复数。",
+          "thinkingPath": [
+            "找到连接词 'Thus'",
+            "找到主语 'city surfaces'",
+            "找到插入语 'as well as...'",
+            "找到谓语 'tend to be'",
+            "找到表语 'drier'",
+            "找到时间状语 'between...'"
+          ],
+          "encouragement": "你找到了 'as well as' 吗？它像一座桥，连接了两个相关的事物！"
+        },
+        "analysis": "### 【主干结构】\n连接词：Thus\n主语：city surfaces (as well as the air above them)\n谓语：tend to be\n表语：drier\n状语：between episodes of rain\n\n### 【主谓一致】\n主语核心词 'city surfaces' 复数，谓语 'tend' 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n'them' 指代 'city surfaces'。\n\n### 【非谓语动词】\n'to be'：不定式，作 'tend' 的宾语。\n\n### 【修饰语分析】\n'as well as the air above them'：介词短语，作插入语，补充主语。\n'above them'：修饰 'air'。\n'between episodes of rain'：介词短语，作时间状语。",
+        "segments": [
+          {
+            "text": "Thus,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " city surfaces,",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " as well as the air above them,",
+            "type": "modifier",
+            "label": "同位语"
+          },
+          {
+            "text": " tend to be",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " drier",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " between episodes of rain;",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s29",
+        "para": 5,
+        "text": "with little water available for the cooling process of evaporation, relative humidities are usually lower.",
+        "translation": "由于可用于蒸发冷却过程的水很少，相对湿度通常较低。",
+        "grammarFocus": "With 复合结构",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话解释了为什么湿度低。",
+          "keyHint": "'with little water available...' 是原因状语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "因为水少，蒸发少，所以湿度低。",
+          "grammarQuestion": "'with little water available...' 是 With 复合结构，作原因状语。",
+          "modifierQuestion": "'available for the cooling process of evaporation' 修饰 'water'。",
+          "relationshipQuestion": "前部分是原因，后部分是结果。",
+          "commonMistake": "'available' 是形容词，作宾补。",
+          "thinkingPath": [
+            "找到 With 结构 'with little water available...'",
+            "找到主语 'relative humidities'",
+            "找到谓语 'are'",
+            "找到表语 'lower'"
+          ],
+          "encouragement": "你看到了 'with' 结构吗？它像一个小背景板，说明了情况！"
+        },
+        "analysis": "### 【主干结构】\n状语：with little water available for the cooling process of evaporation\n主语：relative humidities\n谓语：are\n表语：usually lower\n\n### 【主谓一致】\n主语 'humidities' 复数，谓语 'are' 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n'available'：形容词，作宾补。\n\n### 【修饰语分析】\n'with little water available for the cooling process of evaporation'：With 复合结构，作原因状语。\n'available for the cooling process of evaporation'：修饰 'water'。",
+        "segments": [
+          {
+            "text": "with little water",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " available for the cooling process of evaporation,",
+            "type": "modifier",
+            "label": "补足语"
+          },
+          {
+            "text": " relative humidities",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " are",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " usually lower.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s30",
+        "para": 5,
+        "text": "Wind movements are also modified in cities because buildings increase the friction on air flowing around them.",
+        "translation": "城市中的风运动也受到影响，因为建筑物增加了周围空气流动的摩擦力。",
+        "grammarFocus": "被动语态；原因状语从句；现在分词作定语",
+        "pronounRef": "them 指代 buildings",
+        "logicConnector": "because",
+        "sentenceCoach": {
+          "summary": "这句话解释了风在城市中如何变化。",
+          "keyHint": "'flowing around them' 修饰 'air'。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "建筑物让风变慢，因为增加了摩擦力。",
+          "grammarQuestion": "'are modified' 是被动语态；'because' 引导原因状语从句；'flowing around them' 修饰 'air'。",
+          "modifierQuestion": "'on air flowing around them' 修饰 'friction'。",
+          "relationshipQuestion": "主句讲现象，从句讲原因。",
+          "commonMistake": "'flowing' 是现在分词，作后置定语。",
+          "thinkingPath": [
+            "找到主语 'Wind movements'",
+            "找到谓语 'are modified'",
+            "找到连接词 'because'",
+            "找到从句主语 'buildings'",
+            "找到从句谓语 'increase'",
+            "找到从句宾语 'the friction'",
+            "找到修饰语 'on air flowing around them'"
+          ],
+          "encouragement": "你找到了 'because' 吗？它像一把钥匙，打开了原因的大门！"
+        },
+        "analysis": "### 【主干结构】\n主语：Wind movements\n谓语：are modified\n状语：in cities\n原因状语从句：because buildings increase the friction on air flowing around them\n\n### 【主谓一致】\n主句主语 'movements' 复数，谓语 'are' 复数。\n从句主语 'buildings' 复数，谓语 'increase' 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n'because buildings increase the friction on air flowing around them'：原因状语从句。\n\n### 【代词指代】\n'them' 指代 'buildings'。\n\n### 【非谓语动词】\n'flowing around them'：现在分词短语，作后置定语，修饰 'air'。\n\n### 【修饰语分析】\n'in cities'：介词短语，作地点状语。\n'on air flowing around them'：介词短语，修饰 'friction'。",
+        "segments": [
+          {
+            "text": "Wind movements",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " are also modified",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " in cities",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " because buildings",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": " increase",
+            "type": "clause-verb",
+            "label": "谓语"
+          },
+          {
+            "text": " the friction",
+            "type": "clause-object",
+            "label": "宾语"
+          },
+          {
+            "text": " on air flowing around them.",
+            "type": "clause-modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s31",
+        "para": 5,
+        "text": "This friction tends to slow the speed of winds, making them far less efficient at dispersing pollutants.",
+        "translation": "这种摩擦力倾向于减慢风速，使它们在扩散污染物方面效率低得多。",
+        "grammarFocus": "现在分词作结果状语",
+        "pronounRef": "them 指代 winds",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话解释了摩擦力对风的影响。",
+          "keyHint": "'making them...' 是结果状语，表示摩擦力导致的结果。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "摩擦力让风变慢，扩散污染物的能力变弱。",
+          "grammarQuestion": "'tends to slow' 是谓语；'making them...' 是现在分词短语，作结果状语。",
+          "modifierQuestion": "'of winds' 修饰 'speed'；'at dispersing pollutants' 修饰 'efficient'。",
+          "relationshipQuestion": "主句讲摩擦力减慢风，分词短语讲结果。",
+          "commonMistake": "'making' 不是谓语，是伴随状语或结果状语。",
+          "thinkingPath": [
+            "找到主语 'This friction'",
+            "找到谓语 'tends to slow'",
+            "找到宾语 'the speed'",
+            "找到结果状语 'making them...'"
+          ],
+          "encouragement": "你看到了 'making' 吗？它像一个小尾巴，展示了结果！"
+        },
+        "analysis": "### 【主干结构】\n主语：This friction\n谓语：tends to slow\n宾语：the speed (of winds)\n结果状语：making them far less efficient at dispersing pollutants\n\n### 【主谓一致】\n主语 'friction' 单数，谓语 'tends' 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n'them' 指代 'winds'。\n\n### 【非谓语动词】\n'to slow'：不定式，作 'tends' 的宾语。\n'making them far less efficient at dispersing pollutants'：现在分词短语，作结果状语。\n\n### 【修饰语分析】\n'of winds'：介词短语，修饰 'speed'。\n'far less efficient'：形容词短语，作宾补。\n'at dispersing pollutants'：介词短语，修饰 'efficient'。",
+        "segments": [
+          {
+            "text": "This friction",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " tends to slow",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " the speed",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " of winds,",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " making them far less efficient",
+            "type": "modifier",
+            "label": "状语"
+          },
+          {
+            "text": " at dispersing pollutants.",
+            "type": "modifier",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s32",
+        "para": 5,
+        "text": "On the other hand, air turbulence increases because of the effect of skyscrapers on airflow.",
+        "translation": "另一方面，由于摩天大楼对气流的影响，空气湍流增加。",
+        "grammarFocus": "On the other hand; because of",
+        "pronounRef": "无",
+        "logicConnector": "On the other hand, because of",
+        "sentenceCoach": {
+          "summary": "这句话讲了风的另一个变化：湍流增加。",
+          "keyHint": "'On the other hand' 表示对比。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "摩天大楼让空气乱流增加。",
+          "grammarQuestion": "'On the other hand' 是连接词；'because of' 表示原因。",
+          "modifierQuestion": "'of skyscrapers' 修饰 'effect'；'on airflow' 修饰 'effect'。",
+          "relationshipQuestion": "主句讲现象，'because of' 讲原因。",
+          "commonMistake": "'because of' 后接名词短语。",
+          "thinkingPath": [
+            "找到连接词 'On the other hand'",
+            "找到主语 'air turbulence'",
+            "找到谓语 'increases'",
+            "找到原因状语 'because of...'"
+          ],
+          "encouragement": "你看到了 'On the other hand' 吗？它像一个小路标，告诉你情况相反了！"
+        },
+        "analysis": "### 【主干结构】\n连接词：On the other hand\n主语：air turbulence\n谓语：increases\n原因状语：because of the effect of skyscrapers on airflow\n\n### 【主谓一致】\n主语 'turbulence' 单数，谓语 'increases' 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n'of skyscrapers'：介词短语，修饰 'effect'。\n'on airflow'：介词短语，修饰 'effect'。",
+        "segments": [
+          {
+            "text": "On the other hand,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " air turbulence",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " increases",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " because of the effect",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " of skyscrapers",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " on airflow.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s33",
+        "para": 5,
+        "text": "Rainfall is also increased in cities.",
+        "translation": "城市中的降雨量也增加了。",
+        "grammarFocus": "被动语态",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话讲了风的另一个变化：降雨增加。",
+          "keyHint": "'is increased' 是被动语态。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "城市里雨下得更多。",
+          "grammarQuestion": "'is increased' 是被动语态。",
+          "modifierQuestion": "'in cities' 是地点状语。",
+          "relationshipQuestion": "主语 'Rainfall' 被增加。",
+          "commonMistake": "'increased' 是过去分词，不是谓语动词。",
+          "thinkingPath": [
+            "找到主语 'Rainfall'",
+            "找到谓语 'is increased'",
+            "找到状语 'in cities'"
+          ],
+          "encouragement": "你找到了 'is increased' 吗？它像一个小标签，说明了变化！"
+        },
+        "analysis": "### 【主干结构】\n主语：Rainfall\n谓语：is increased\n状语：also\n状语：in cities\n\n### 【主谓一致】\n主语 'Rainfall' 单数，谓语 'is' 单数。\n\n### 【动词时态与原形】\n一般现在时（被动语态）。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n'also'：副词，作状语。\n'in cities'：介词短语，作地点状语。",
+        "segments": [
+          {
+            "text": "Rainfall",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " is also increased",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " in cities.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s34",
+        "para": 5,
+        "text": "The cause appears to be in part greater turbulence in the urban atmosphere as hot air rises from the built-up surface.",
+        "translation": "原因部分在于城市大气中更大的湍流，因为热空气从建成区表面升起。",
+        "grammarFocus": "appear to be; as 引导原因状语从句",
+        "pronounRef": "无",
+        "logicConnector": "as",
+        "sentenceCoach": {
+          "summary": "这句话解释了降雨增加的原因。",
+          "keyHint": "'as' 在这里表示‘因为’。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "热空气上升导致湍流增加，从而降雨增加。",
+          "grammarQuestion": "'appears to be' 是谓语；'as hot air rises...' 是原因状语从句。",
+          "modifierQuestion": "'in part' 修饰 'greater turbulence'；'in the urban atmosphere' 修饰 'turbulence'。",
+          "relationshipQuestion": "主句讲原因，从句讲具体机制。",
+          "commonMistake": "'as' 可以表示‘当...时’或‘因为’，这里表示原因。",
+          "thinkingPath": [
+            "找到主语 'The cause'",
+            "找到谓语 'appears to be'",
+            "找到表语 'in part greater turbulence'",
+            "找到状语 'in the urban atmosphere'",
+            "找到原因状语从句 'as hot air rises...'"
+          ],
+          "encouragement": "你看到了 'as' 吗？它像一把钥匙，打开了原因的大门！"
+        },
+        "analysis": "### 【主干结构】\n主语：The cause\n谓语：appears to be\n表语：in part greater turbulence (in the urban atmosphere)\n原因状语从句：as hot air rises from the built-up surface\n\n### 【主谓一致】\n主语 'cause' 单数，谓语 'appears' 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n'as hot air rises from the built-up surface'：原因状语从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n'to be'：不定式，作 'appears' 的宾语。\n\n### 【修饰语分析】\n'in part'：副词短语，修饰 'greater turbulence'。\n'in the urban atmosphere'：介词短语，修饰 'turbulence'。\n'from the built-up surface'：介词短语，修饰 'rises'。",
+        "segments": [
+          {
+            "text": "The cause",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " appears to be",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " in part greater turbulence",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " in the urban atmosphere",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " as hot air",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": " rises",
+            "type": "clause-verb",
+            "label": "谓语"
+          },
+          {
+            "text": " from the built-up surface.",
+            "type": "clause-adverbial",
+            "label": "状语"
+          }
+        ]
+      }
+    ],
+    "source": {
+      "file": "tpo-23-urban-climates.md",
+      "section": "TPO-23 / Urban Climates"
+    }
+  }
+}

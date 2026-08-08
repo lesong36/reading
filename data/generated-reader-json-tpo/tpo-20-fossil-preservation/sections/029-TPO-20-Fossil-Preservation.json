@@ -1,0 +1,2035 @@
+{
+  "sourceFile": "tpo-20-fossil-preservation.md",
+  "sectionTitle": "TPO-20 / Fossil Preservation",
+  "generatedAt": "2026-08-05T10:05:11.668Z",
+  "warnings": [],
+  "article": {
+    "id": "tpo-20-fossil-preservation-29-TPO-20-Fossil-Preservation",
+    "title": "TPO-20 / Fossil Preservation",
+    "timestamp": 1785924311696,
+    "glossary": [
+      {
+        "term": "volatile constituents",
+        "translation": "挥发性成分",
+        "kind": "context_phrase",
+        "note": "容易变成气体跑掉的物质，如水分、气体等。",
+        "aliases": []
+      },
+      {
+        "term": "mineralized skeleton",
+        "translation": "矿化骨骼",
+        "kind": "term",
+        "note": "含有矿物质、质地坚硬的骨骼，更容易形成化石。",
+        "aliases": []
+      },
+      {
+        "term": "terrestrial deposits",
+        "translation": "陆地沉积物",
+        "kind": "context_phrase",
+        "note": "由河流、湖泊等陆地水体留下的沉积层。",
+        "aliases": []
+      },
+      {
+        "term": "fossil preservation",
+        "translation": "化石保存",
+        "kind": "term",
+        "note": "本文核心主题，指生物遗体或遗迹在地质作用下得以留存的过程。",
+        "aliases": []
+      },
+      {
+        "term": "oxygen deprivation",
+        "translation": "缺氧",
+        "kind": "context_phrase",
+        "note": "缺乏氧气的环境，能抑制细菌分解，利于保存软组织。",
+        "aliases": []
+      },
+      {
+        "term": "calcium carbonate",
+        "translation": "碳酸钙",
+        "kind": "term",
+        "note": "一种常见的矿物质，是贝壳和骨骼的主要成分之一。",
+        "aliases": []
+      },
+      {
+        "term": "geologic agencies",
+        "translation": "地质作用力",
+        "kind": "context_phrase",
+        "note": "指造成地质变化的自然力量，如侵蚀、沉积等。",
+        "aliases": []
+      },
+      {
+        "term": "permineralization",
+        "translation": "矿化充填作用",
+        "kind": "term",
+        "note": "矿物质沉淀在骨骼或贝壳的空隙中，使其变硬的过程。",
+        "aliases": []
+      },
+      {
+        "term": "carbonization",
+        "translation": "碳化作用",
+        "kind": "term",
+        "note": "软组织中的挥发性成分流失，留下碳薄膜的过程。",
+        "aliases": []
+      },
+      {
+        "term": "invertebrates",
+        "translation": "无脊椎动物",
+        "kind": "term",
+        "note": "没有脊柱的动物，文中特指有壳的无脊椎动物。",
+        "aliases": []
+      },
+      {
+        "term": "Middle Eocene",
+        "translation": "始新世中期",
+        "kind": "proper_noun",
+        "note": "地质年代的一个时期，距今约4800万年前。",
+        "aliases": []
+      },
+      {
+        "term": "Messel Shale",
+        "translation": "梅塞尔页岩",
+        "kind": "proper_noun",
+        "note": "德国著名的化石产地，以保存完好的软组织化石闻名。",
+        "aliases": []
+      },
+      {
+        "term": "petrifaction",
+        "translation": "石化作用",
+        "kind": "term",
+        "note": "将有机物转化为石头的过程，字面意为“变成石头”。",
+        "aliases": [
+          "petrification"
+        ]
+      },
+      {
+        "term": "exoskeleton",
+        "translation": "外骨骼",
+        "kind": "term",
+        "note": "动物体外的坚硬保护壳。",
+        "aliases": []
+      },
+      {
+        "term": "replacement",
+        "translation": "置换作用",
+        "kind": "term",
+        "note": "原始物质被溶解，同时被等体积的新矿物质取代的过程。",
+        "aliases": []
+      },
+      {
+        "term": "iridescent",
+        "translation": "彩虹色的",
+        "kind": "term",
+        "note": "指表面呈现变幻色彩的物理现象，文中形容昆虫外壳。",
+        "aliases": []
+      },
+      {
+        "term": "scavengers",
+        "translation": "食腐动物",
+        "kind": "term",
+        "note": "指以死亡生物为食的动物，是破坏生物遗体的主要力量之一。",
+        "aliases": []
+      },
+      {
+        "term": "aragonite",
+        "translation": "文石",
+        "kind": "proper_noun",
+        "note": "碳酸钙的一种不稳定晶体形式，易转化为方解石。",
+        "aliases": []
+      },
+      {
+        "term": "conifers",
+        "translation": "针叶树",
+        "kind": "proper_noun",
+        "note": "一类产生树脂的树木，如松树、杉树。",
+        "aliases": []
+      },
+      {
+        "term": "sediment",
+        "translation": "沉积物",
+        "kind": "term",
+        "note": "被水流、风等搬运并沉积下来的颗粒物质，如泥沙。",
+        "aliases": []
+      },
+      {
+        "term": "calcite",
+        "translation": "方解石",
+        "kind": "proper_noun",
+        "note": "碳酸钙的稳定晶体形式，文石最终会转化为它。",
+        "aliases": []
+      },
+      {
+        "term": "erosion",
+        "translation": "侵蚀",
+        "kind": "term",
+        "note": "风、水、冰等自然力量对岩石和地表的磨损作用。",
+        "aliases": []
+      },
+      {
+        "term": "viscera",
+        "translation": "内脏",
+        "kind": "term",
+        "note": "生物体内的器官，如心脏、肝脏等。",
+        "aliases": []
+      },
+      {
+        "term": "resins",
+        "translation": "树脂",
+        "kind": "term",
+        "note": "树木分泌的粘稠液体，常能包裹并保存昆虫等生物。",
+        "aliases": []
+      },
+      {
+        "term": "silica",
+        "translation": "二氧化硅",
+        "kind": "term",
+        "note": "一种矿物质，常溶解在水中参与化石的填充和硬化过程。",
+        "aliases": []
+      }
+    ],
+    "data": [
+      {
+        "id": "s1",
+        "para": 1,
+        "text": "When one considers the many ways by which organisms are completely destroyed after death, it is remarkable that fossils are as common as they are.",
+        "translation": "当人们考虑到生物死后被彻底毁灭的许多方式时，化石竟然如此常见，这真是令人remarkable（非凡/显著）。",
+        "grammarFocus": "形式主语 it 的用法；as...as... 同级比较结构。",
+        "pronounRef": "one 指代泛指的“人们”；they 指代 fossils。",
+        "logicConnector": "When 引导时间/条件状语从句，it is remarkable that... 为主句结构。",
+        "sentenceCoach": {
+          "summary": "先看主干：化石很常见，这很了不起。",
+          "keyHint": "注意 it 是形式主语，真正的主语是后面的 that 从句。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "这句话想告诉我们什么？——虽然生物死后容易被毁，但化石其实挺常见的。",
+          "grammarQuestion": "为什么前面有个 When，后面又有个 it？——When 是背景，it 是替身，真正要夸的是 fossils 很常见这件事。",
+          "modifierQuestion": "by which 后面那串词是修饰谁的？——修饰 ways，告诉我们是什么样的毁灭方式。",
+          "relationshipQuestion": "前后两部分是什么关系？——先说背景（毁灭方式多），再说结论（化石却很多），形成反差。",
+          "commonMistake": "不要把 it 当成“它”指代某个具体东西，这里 it 只是个占位符，真正的重点在 that 后面。",
+          "thinkingPath": [
+            "找到主句的核心评价：it is remarkable",
+            "找出真正被评价的内容：that fossils are as common as they are",
+            "理解前面的 When 从句是提供背景信息"
+          ],
+          "encouragement": "你抓住了句子的核心评价，真棒！就像侦探发现了关键线索。"
+        },
+        "analysis": "### 【主干结构】\n主句是 \"it is remarkable that...\"。其中 it 是形式主语，真正的主语是 that 引导的主语从句 \"fossils are as common as they are\"。\n\n### 【主谓一致】\n主句谓语 is 与形式主语 it 一致；从句中 fossils 是复数，are 也是复数，一致。\n\n### 【动词时态与原形】\nconsider, are destroyed, are, are 均为一般现在时，表示普遍真理或事实。\n\n### 【从句剖析】\n1. When one considers...：时间/条件状语从句。\n2. by which organisms are completely destroyed...：定语从句，修饰 ways。which 指代 ways，by which 表示“通过这些方式”。\n3. that fossils are as common as they are：主语从句，作真正的主语。\n\n### 【代词指代】\none：泛指“人们”；they：指代 fossils。\n\n### 【非谓语动词】\ndestroyed：过去分词，在定语从句中作谓语的一部分（被动语态）。",
+        "segments": [
+          {
+            "text": "When ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "one",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " considers ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "the many ways",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " by which organisms are completely destroyed after death",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": ", ",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": "it",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "remarkable",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " that fossils are as common as they are",
+            "type": "clause-subject",
+            "label": "主语从句"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "para": 1,
+        "text": "Attack by scavengers and bacteria, chemical decay, and destruction by erosion and other geologic agencies make the odds against preservation very high.",
+        "translation": "食腐动物和细菌的袭击、化学腐烂，以及侵蚀和其他地质作用力的破坏，使得保存下来的几率非常低（ odds against preservation very high）。",
+        "grammarFocus": "并列主语；make + object + adj. 结构。",
+        "pronounRef": "无复杂代词。",
+        "logicConnector": "and 连接三个并列的主语成分。",
+        "sentenceCoach": {
+          "summary": "三个破坏力量联手，让化石很难保存。",
+          "keyHint": "主语很长，有三个部分，谓语动词 make 是复数。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "谁让保存几率变低了？——是三种破坏力量。",
+          "grammarQuestion": "为什么 make 没有加 s？——因为主语是三个部分并列，是复数。",
+          "modifierQuestion": "against preservation 是修饰谁的？——修饰 odds，表示“反对保存的几率”，即“没保存下来的几率”。",
+          "relationshipQuestion": "前半部分是原因（三种破坏），后半部分是结果（几率高/保存难）。",
+          "commonMistake": "容易误以为主语是 Attack 单数，其实它是三个并列名词短语。",
+          "thinkingPath": [
+            "识别并列主语：Attack..., decay, and destruction...",
+            "确定谓语动词：make",
+            "理解宾语补足语：the odds ... very high"
+          ],
+          "encouragement": "你成功拆解了长主语，像积木一样把它们拼起来看，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n主语是三个并列的名词短语：1. Attack by scavengers and bacteria; 2. chemical decay; 3. destruction by erosion and other geologic agencies。谓语是 make。宾语是 the odds。宾语补足语是 very high。\n\n### 【主谓一致】\n主语由 and 连接三个部分，视为复数，故谓语用 make（原形/复数形式）。\n\n### 【动词时态与原形】\nmake 为一般现在时，表示客观事实。\n\n### 【从句剖析】\n无从句。by scavengers and bacteria 等是介词短语作后置定语。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "Attack by scavengers and bacteria",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": ", ",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": "chemical decay",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": ", and ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "destruction by erosion and other geologic agencies",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " make ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "the odds against preservation",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " very high",
+            "type": "modifier",
+            "label": "宾语补足语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "para": 1,
+        "text": "However, the chances of escaping complete destruction are vastly improved if the organism happens to have a mineralized skeleton and dies in a place where it can be quickly buried by sediment.",
+        "translation": "然而，如果生物碰巧有矿化骨骼，并且死在能被沉积物迅速掩埋的地方，那么它逃脱彻底毁灭的几率就会大大提高。",
+        "grammarFocus": "if 引导的条件状语从句；嵌套定语从句 where...。",
+        "pronounRef": "it 指代 the organism。",
+        "logicConnector": "However 表转折；if 表条件。",
+        "sentenceCoach": {
+          "summary": "两个条件满足，保存几率大增。",
+          "keyHint": "注意 if 后面的两个动作：have... and dies..."
+        },
+        "teachingFocus": {
+          "mainQuestion": "什么情况下保存几率会提高？——有硬骨骼且被快速掩埋。",
+          "grammarQuestion": "where 引导的从句是修饰谁的？——修饰 place，说明是什么样的地方。",
+          "modifierQuestion": "vastly 修饰 improved，表示提高的程度很大。",
+          "relationshipQuestion": "主句是结果（几率提高），if 从句是条件。",
+          "commonMistake": "容易忽略 where 从句内部的结构，it 是主语，can be buried 是被动谓语。",
+          "thinkingPath": [
+            "找到主句核心：chances are improved",
+            "找到条件：if the organism has... and dies...",
+            "分析 where 从句修饰 place"
+          ],
+          "encouragement": "你理清了条件和结果的关系，像侦探一样找到了关键线索！"
+        },
+        "analysis": "### 【主干结构】\n主句：the chances ... are vastly improved。条件状语从句：if the organism happens to have... and dies...。定语从句：where it can be quickly buried by sediment 修饰 place。\n\n### 【主谓一致】\n主句主语 chances 是复数，are 是复数，一致。从句主语 organism 是单数，happens/dies 是单数，一致。\n\n### 【动词时态与原形】\n一般现在时，表示普遍规律。\n\n### 【从句剖析】\n1. if...：条件状语从句。\n2. where...：定语从句，修饰 place。\n\n### 【代词指代】\nit 指代 the organism。\n\n### 【非谓语动词】\nescaping：动名词，作 of 的宾语。",
+        "segments": [
+          {
+            "text": "However",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": ", ",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": "the chances of escaping complete destruction",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " are ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "vastly improved",
+            "type": "modifier",
+            "label": "谓语部分（被动）"
+          },
+          {
+            "text": " if the organism happens to have a mineralized skeleton and dies in a place",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " where it can be quickly buried by sediment",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "para": 1,
+        "text": "Both of these conditions are often found on the ocean floors, where shelled invertebrates (organisms without spines) flourish and are covered by the continuous rain of sedimentary particles.",
+        "translation": "这两个条件经常在海底被发现，那里有壳的无脊椎动物（无脊柱的生物）繁盛，并被沉积颗粒的持续“降雨”所覆盖。",
+        "grammarFocus": "非限制性定语从句 where...；插入语解释。",
+        "pronounRef": "these conditions 指代上一句的 two conditions。",
+        "logicConnector": "where 引导定语从句，补充说明 ocean floors。",
+        "sentenceCoach": {
+          "summary": "海底满足那两个条件，生物多且被覆盖。",
+          "keyHint": "注意 where 从句里的两个动作：flourish 和 are covered。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "哪里能找到这两个条件？——海底。",
+          "grammarQuestion": "where 从句里发生了什么？——生物繁盛，并被沉积物覆盖。",
+          "modifierQuestion": "(organisms without spines) 是解释谁的？——解释 shelled invertebrates。",
+          "relationshipQuestion": "主句说条件在海底，从句描述海底的情况。",
+          "commonMistake": "容易把 where 当成地点副词，这里它是关系副词引导定语从句。",
+          "thinkingPath": [
+            "找到主句：conditions are found on ocean floors",
+            "分析 where 从句：描述 ocean floors 的特征",
+            "理解插入语的作用"
+          ],
+          "encouragement": "你读懂了插入语的解释作用，像老师一样清晰！"
+        },
+        "analysis": "### 【主干结构】\n主句：Both of these conditions are often found on the ocean floors。非限制性定语从句：where shelled invertebrates... flourish and are covered...。\n\n### 【主谓一致】\n主句主语 conditions 复数，are 复数。从句主语 invertebrates 复数，flourish/are covered 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\nwhere...：非限制性定语从句，修饰 ocean floors。\n\n### 【代词指代】\nthese conditions 指代上一句提到的两个条件。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "Both of these conditions",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " are ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "often found on the ocean floors",
+            "type": "modifier",
+            "label": "状语/表语部分"
+          },
+          {
+            "text": ", ",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": "where shelled invertebrates (organisms without spines) flourish and are covered by the continuous rain of sedimentary particles",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "para": 1,
+        "text": "Although most fossils are found in marine sedimentary rocks, they also are found in terrestrial deposits left by streams and lakes.",
+        "translation": "虽然大多数化石发现于海洋沉积岩中，但它们也发现于河流和湖泊留下的陆地沉积物中。",
+        "grammarFocus": "Although 引导的让步状语从句；过去分词 left... 作后置定语。",
+        "pronounRef": "they 指代 fossils。",
+        "logicConnector": "Although 表让步，also 表并列/补充。",
+        "sentenceCoach": {
+          "summary": "化石不仅在海洋，也在陆地。",
+          "keyHint": "注意 left by... 是修饰 deposits 的。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "化石都在海洋里吗？——不，陆地也有。",
+          "grammarQuestion": "left by streams and lakes 是修饰谁的？——修饰 deposits，说明是什么样的沉积物。",
+          "modifierQuestion": "Although 从句和主句是什么关系？——转折/让步关系。",
+          "relationshipQuestion": "主句补充说明化石的另一分布地。",
+          "commonMistake": "容易忽略 left 是过去分词作定语，而不是谓语。",
+          "thinkingPath": [
+            "识别 Although 从句：most fossils are found in marine...",
+            "识别主句：they also are found in terrestrial...",
+            "分析 left... 修饰 deposits"
+          ],
+          "encouragement": "你抓住了转折关系，逻辑很清晰！"
+        },
+        "analysis": "### 【主干结构】\n让步状语从句：Although most fossils are found in marine sedimentary rocks。主句：they also are found in terrestrial deposits left by streams and lakes。\n\n### 【主谓一致】\n从句主语 fossils 复数，are 复数。主句主语 they 复数，are 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\nAlthough...：让步状语从句。\n\n### 【代词指代】\nthey 指代 fossils。\n\n### 【非谓语动词】\nleft：过去分词，作后置定语，修饰 deposits。",
+        "segments": [
+          {
+            "text": "Although most fossils are found in marine sedimentary rocks",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ", ",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": "they",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " also are found in terrestrial deposits",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " left by streams and lakes",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "para": 1,
+        "text": "On occasion, animals and plants have been preserved after becoming immersed in tar or quicksand, trapped in ice or lava flows, or engulfed by rapid falls of volcanic ash.",
+        "translation": "有时，动植物在被沥青或流沙浸没、被冰或熔岩流困住、或被火山灰快速降落掩埋后，得以保存。",
+        "grammarFocus": "after becoming... 介词短语作时间状语；三个并列的过去分词短语。",
+        "pronounRef": "无复杂代词。",
+        "logicConnector": "or 连接三个并列的被动状态。",
+        "sentenceCoach": {
+          "summary": "三种特殊情况也能保存生物。",
+          "keyHint": "注意 becoming, trapped, engulfed 是并列的，都受 after 支配。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "哪些特殊情况能保存生物？——沥青、流沙、冰、熔岩、火山灰。",
+          "grammarQuestion": "becoming, trapped, engulfed 是什么关系？——并列关系，描述三种不同的被困状态。",
+          "modifierQuestion": "after becoming... 整个短语修饰 preserved，说明保存的时间背景。",
+          "relationshipQuestion": "主句是保存，after 从句是保存前的状态。",
+          "commonMistake": "容易把 trapped 和 engulfed 当成谓语，其实它们是分词作状语的一部分。",
+          "thinkingPath": [
+            "找到主句：animals and plants have been preserved",
+            "找到时间状语：after becoming...",
+            "识别三个并列的分词短语"
+          ],
+          "encouragement": "你识别出了并列结构，像拼图一样把它们找出来了！"
+        },
+        "analysis": "### 【主干结构】\n主句：animals and plants have been preserved。时间状语：after becoming immersed..., trapped..., or engulfed...。\n\n### 【主谓一致】\n主语 animals and plants 复数，have been preserved 复数。\n\n### 【动词时态与原形】\n现在完成时被动语态。\n\n### 【从句剖析】\n无从句。after 是介词，后接动名词 becoming 及其宾语/补足语。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nbecoming, immersed, trapped, engulfed 均为非谓语动词形式，构成复杂的状语结构。",
+        "segments": [
+          {
+            "text": "On occasion",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ", ",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": "animals and plants",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " have been preserved",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " after becoming immersed in tar or quicksand",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ", ",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": "trapped in ice or lava flows",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ", or ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "engulfed by rapid falls of volcanic ash",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "para": 2,
+        "text": "The term \"fossil\" often implies petrifaction, literally a transformation into stone.",
+        "translation": "术语“化石”通常暗示石化作用，字面意思是变成石头。",
+        "grammarFocus": "同位语 a transformation into stone 解释 petrifaction。",
+        "pronounRef": "无。",
+        "logicConnector": "literally 引出字面解释。",
+        "sentenceCoach": {
+          "summary": "化石就是变成石头。",
+          "keyHint": "注意 literally 后面的部分是解释 petrifaction 的。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "化石这个词意味着什么？——意味着变成石头。",
+          "grammarQuestion": "literally... 是修饰谁的？——解释 petrifaction。",
+          "modifierQuestion": "a transformation into stone 是 petrifaction 的同位语。",
+          "relationshipQuestion": "主句说 implies petrifaction，后面补充解释 petrifaction 的含义。",
+          "commonMistake": "容易把 literally 当成副词修饰 implies，其实它修饰后面的解释部分。",
+          "thinkingPath": [
+            "找到主句：term implies petrifaction",
+            "识别同位语：literally a transformation...",
+            "理解解释关系"
+          ],
+          "encouragement": "你读懂了同位语的解释作用，真细心！"
+        },
+        "analysis": "### 【主干结构】\n主语：The term \"fossil\"。谓语：implies。宾语：petrifaction。同位语：literally a transformation into stone。\n\n### 【主谓一致】\n主语 term 单数，implies 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "The term \"fossil\"",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " often implies ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "petrifaction",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": ", literally a transformation into stone",
+            "type": "modifier",
+            "label": "同位语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "para": 2,
+        "text": "After the death of an organism, the soft tissue is ordinarily consumed by scavengers and bacteria.",
+        "translation": "生物死后，软组织通常被食腐动物和细菌消耗掉。",
+        "grammarFocus": "被动语态 is consumed by...。",
+        "pronounRef": "无。",
+        "logicConnector": "After... 时间状语。",
+        "sentenceCoach": {
+          "summary": "死后，软组织被吃掉。",
+          "keyHint": "注意 is consumed by 是被动语态。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "软组织去哪了？——被食腐动物和细菌吃了。",
+          "grammarQuestion": "is consumed by 是什么结构？——被动语态，表示被...消耗。",
+          "modifierQuestion": "After the death... 是时间状语。",
+          "relationshipQuestion": "时间状语设定背景，主句描述结果。",
+          "commonMistake": "容易忽略 by 引出动作的执行者。",
+          "thinkingPath": [
+            "找到时间状语：After the death...",
+            "找到主句：soft tissue is consumed",
+            "识别执行者：by scavengers and bacteria"
+          ],
+          "encouragement": "你抓住了被动语态的核心，真棒！"
+        },
+        "analysis": "### 【主干结构】\n时间状语：After the death of an organism。主句：the soft tissue is ordinarily consumed by scavengers and bacteria。\n\n### 【主谓一致】\n主语 tissue 单数，is 单数。\n\n### 【动词时态与原形】\n一般现在时被动语态。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "After the death of an organism",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ", ",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": "the soft tissue",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " is ordinarily consumed by scavengers and bacteria",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "para": 2,
+        "text": "The empty shell of a snail or clam may be left behind, and if it is sufficiently durable and resistant to dissolution, it may remain basically unchanged for a long period of time.",
+        "translation": "蜗牛或蛤蜊的空壳可能会被留下，如果它足够耐用且耐溶解，它可能会在很长一段时间内基本保持不变。",
+        "grammarFocus": "并列句 and 连接；if 条件状语从句。",
+        "pronounRef": "it 指代 the empty shell。",
+        "logicConnector": "and 连接两个分句；if 引导条件。",
+        "sentenceCoach": {
+          "summary": "壳被留下，如果耐用，就能保存很久。",
+          "keyHint": "注意 if 从句里的两个形容词：durable 和 resistant。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "壳能保存多久？——如果耐用，就能很久。",
+          "grammarQuestion": "if 从句里的 it 指代谁？——指代 the empty shell。",
+          "modifierQuestion": "sufficiently 修饰 durable 和 resistant。",
+          "relationshipQuestion": "第一个分句是结果1，第二个分句是条件+结果2。",
+          "commonMistake": "容易忽略 if 从句内部的形容词并列结构。",
+          "thinkingPath": [
+            "识别并列句结构：and 连接前后",
+            "分析 if 从句：条件",
+            "分析主句：it may remain..."
+          ],
+          "encouragement": "你理清了并列句和条件句的关系，逻辑满分！"
+        },
+        "analysis": "### 【主干结构】\n分句1：The empty shell... may be left behind。分句2：if it is..., it may remain...。\n\n### 【主谓一致】\n分句1主语 shell 单数，may be 单数。分句2主语 it 单数，is/may remain 单数。\n\n### 【动词时态与原形】\n一般现在时/情态动词+动词原形。\n\n### 【从句剖析】\nif...：条件状语从句，修饰第二个分句的主句部分。\n\n### 【代词指代】\nit 指代 the empty shell。\n\n### 【非谓语动词】\nleft：过去分词，作谓语的一部分（被动）。",
+        "segments": [
+          {
+            "text": "The empty shell of a snail or clam",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " may be left behind",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ", and ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "if it is sufficiently durable and resistant to dissolution",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ", ",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": "it",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " may remain basically unchanged for a long period of time",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "para": 2,
+        "text": "Indeed, unaltered shells of marine invertebrates are known from deposits over 100 million years old.",
+        "translation": "事实上，来自超过1亿年前沉积物的未改变海洋无脊椎动物壳是已知的。",
+        "grammarFocus": "被动语态 are known from...；后置定语 over 100 million years old。",
+        "pronounRef": "无。",
+        "logicConnector": "Indeed 表示强调/递进。",
+        "sentenceCoach": {
+          "summary": "非常古老的壳也有发现。",
+          "keyHint": "注意 over 100 million years old 是修饰 deposits 的。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "多老的壳有发现？——超过1亿年。",
+          "grammarQuestion": "are known from 是什么意思？——从...中被发现/已知。",
+          "modifierQuestion": "over 100 million years old 修饰 deposits。",
+          "relationshipQuestion": "Indeed 加强语气，提供证据。",
+          "commonMistake": "容易把 over 100 million years old 当成修饰 shells，其实它修饰 deposits。",
+          "thinkingPath": [
+            "找到主句：shells are known",
+            "找到来源：from deposits",
+            "分析 deposits 的修饰语：over 100 million years old"
+          ],
+          "encouragement": "你准确找到了修饰语的位置，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n主语：unaltered shells of marine invertebrates。谓语：are known。状语：from deposits over 100 million years old。\n\n### 【主谓一致】\n主语 shells 复数，are 复数。\n\n### 【动词时态与原形】\n一般现在时被动语态。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "Indeed",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ", ",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": "unaltered shells of marine invertebrates",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " are known from deposits",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " over 100 million years old",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "para": 2,
+        "text": "In many marine creatures, however, the skeleton is composed of a mineral variety of calcium carbonate called aragonite.",
+        "translation": "然而，在许多海洋生物中，骨骼由一种叫做文石的碳酸钙矿物变体组成。",
+        "grammarFocus": "被动语态 is composed of...；过去分词 called... 作后置定语。",
+        "pronounRef": "无。",
+        "logicConnector": "however 表转折。",
+        "sentenceCoach": {
+          "summary": "海洋生物的骨骼成分是文石。",
+          "keyHint": "注意 called aragonite 是修饰 calcium carbonate 的。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "骨骼由什么组成？——文石。",
+          "grammarQuestion": "called aragonite 修饰谁？——修饰 calcium carbonate。",
+          "modifierQuestion": "In many marine creatures 是状语。",
+          "relationshipQuestion": "however 转折，引出另一种情况。",
+          "commonMistake": "容易把 called 当成谓语，其实它是分词作定语。",
+          "thinkingPath": [
+            "找到主句：skeleton is composed of...",
+            "识别 called... 修饰 calcium carbonate",
+            "理解 however 的转折作用"
+          ],
+          "encouragement": "你抓住了分词作定语的用法，真棒！"
+        },
+        "analysis": "### 【主干结构】\n状语：In many marine creatures, however。主句：the skeleton is composed of a mineral variety of calcium carbonate called aragonite。\n\n### 【主谓一致】\n主语 skeleton 单数，is 单数。\n\n### 【动词时态与原形】\n一般现在时被动语态。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\ncalled：过去分词，作后置定语，修饰 calcium carbonate。",
+        "segments": [
+          {
+            "text": "In many marine creatures",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ", however",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": ", ",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": "the skeleton",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " is composed of a mineral variety of calcium carbonate",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " called aragonite",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s12",
+        "para": 2,
+        "text": "Although aragonite has the same composition as the more familiar mineral known as calcite, it has a different crystal form, is relatively unstable, and in time changes to the more stable calcite.",
+        "translation": "虽然文石与更为人熟知的方解石成分相同，但它具有不同的晶体形式，相对不稳定，并且随着时间的推移会变成更稳定的方解石。",
+        "grammarFocus": "Although 让步状语从句；并列谓语 has, is, changes。",
+        "pronounRef": "it 指代 aragonite。",
+        "logicConnector": "Although 表让步；and 连接并列谓语。",
+        "sentenceCoach": {
+          "summary": "文石和方解石成分一样，但性质不同。",
+          "keyHint": "注意 it 后面有三个并列的谓语部分。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "文石和方解石有什么区别？——晶体形式、稳定性不同。",
+          "grammarQuestion": "it 后面有三个动作，是什么关系？——并列关系，描述文石的三个特点。",
+          "modifierQuestion": "known as calcite 修饰 mineral。",
+          "relationshipQuestion": "Although 从句承认成分相同，主句强调性质不同。",
+          "commonMistake": "容易忽略 and 连接的并列谓语，导致句子结构分析不全。",
+          "thinkingPath": [
+            "识别 Although 从句：aragonite has same composition...",
+            "识别主句主语：it",
+            "识别三个并列谓语：has..., is..., changes..."
+          ],
+          "encouragement": "你识别出了并列谓语，像侦探一样发现了所有线索！"
+        },
+        "analysis": "### 【主干结构】\n让步状语从句：Although aragonite has the same composition as the more familiar mineral known as calcite。主句：it has a different crystal form, is relatively unstable, and in time changes to the more stable calcite。\n\n### 【主谓一致】\n从句主语 aragonite 单数，has 单数。主句主语 it 单数，has/is/changes 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\nAlthough...：让步状语从句。\n\n### 【代词指代】\nit 指代 aragonite。\n\n### 【非谓语动词】\nknown：过去分词，作后置定语，修饰 mineral。",
+        "segments": [
+          {
+            "text": "Although aragonite has the same composition as the more familiar mineral",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " known as calcite",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": ", ",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": "it",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " has a different crystal form",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ", is relatively unstable",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ", and ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "in time changes to the more stable calcite",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s13",
+        "para": 3,
+        "text": "Many other processes may alter the shell of a clam or snail and enhance its chances for preservation.",
+        "translation": "许多其他过程可能会改变蛤蜊或蜗牛的壳，并提高其保存的几率。",
+        "grammarFocus": "并列谓语 alter 和 enhance。",
+        "pronounRef": "its 指代 the shell of a clam or snail。",
+        "logicConnector": "and 连接两个并列谓语。",
+        "sentenceCoach": {
+          "summary": "其他过程也能帮助保存。",
+          "keyHint": "注意 processes 是主语，alter 和 enhance 是并列谓语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "其他过程做了什么？——改变壳，提高保存几率。",
+          "grammarQuestion": "alter 和 enhance 是什么关系？——并列关系，共享主语 processes。",
+          "modifierQuestion": "its 指代 shell。",
+          "relationshipQuestion": "两个动作由同一个主语发出。",
+          "commonMistake": "容易把 enhance 当成另一个句子的谓语，其实它是并列谓语。",
+          "thinkingPath": [
+            "找到主语：Many other processes",
+            "找到并列谓语：alter... and enhance...",
+            "理解 its 指代 shell"
+          ],
+          "encouragement": "你抓住了并列谓语，逻辑很清晰！"
+        },
+        "analysis": "### 【主干结构】\n主语：Many other processes。谓语：may alter... and enhance...。宾语：the shell... / its chances...\n\n### 【主谓一致】\n主语 processes 复数，may alter/enhance 复数。\n\n### 【动词时态与原形】\n情态动词 may + 动词原形。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\nits 指代 the shell of a clam or snail。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "Many other processes",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " may alter the shell of a clam or snail",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " and enhance its chances for preservation",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s14",
+        "para": 3,
+        "text": "Water containing dissolved silica, calcium carbonate, or iron may circulate through the enclosing sediment and be deposited in cavities such as marrow cavities and canals in bone once occupied by blood vessels and nerves.",
+        "translation": "含有溶解的二氧化硅、碳酸钙或铁的水可能在包围的沉积物中循环，并沉积在空腔中，如骨髓腔和骨骼中曾被血管和神经占据的管道。",
+        "grammarFocus": "现在分词 containing... 作后置定语；过去分词 occupied... 作后置定语。",
+        "pronounRef": "无。",
+        "logicConnector": "and 连接 circulate 和 be deposited。",
+        "sentenceCoach": {
+          "summary": "水循环并沉积矿物质。",
+          "keyHint": "注意 containing... 修饰 Water，occupied... 修饰 cavities。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "水做了什么？——循环并沉积矿物质。",
+          "grammarQuestion": "containing... 修饰谁？——修饰 Water。",
+          "modifierQuestion": "once occupied by... 修饰 cavities。",
+          "relationshipQuestion": "两个动作由水发出。",
+          "commonMistake": "容易忽略 containing 和 occupied 都是分词作定语。",
+          "thinkingPath": [
+            "找到主语：Water containing...",
+            "找到并列谓语：may circulate... and be deposited...",
+            "分析 occupied... 修饰 cavities"
+          ],
+          "encouragement": "你识别出了复杂的分词定语，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n主语：Water containing dissolved silica, calcium carbonate, or iron。谓语：may circulate... and be deposited...。状语：through the enclosing sediment / in cavities...。\n\n### 【主谓一致】\n主语 Water 单数，may circulate/be deposited 单数。\n\n### 【动词时态与原形】\n情态动词 may + 动词原形/被动原形。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\ncontaining：现在分词，作后置定语，修饰 Water。occupied：过去分词，作后置定语，修饰 cavities。",
+        "segments": [
+          {
+            "text": "Water containing dissolved silica, calcium carbonate, or iron",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " may circulate through the enclosing sediment",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " and be deposited in cavities",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " such as marrow cavities and canals in bone",
+            "type": "modifier",
+            "label": "状语/补充说明"
+          },
+          {
+            "text": " once occupied by blood vessels and nerves",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s15",
+        "para": 3,
+        "text": "In such cases, the original composition of the bone or shell remains, but the fossil is made harder and more durable.",
+        "translation": "在这种情况下，骨骼或壳的原始成分保持不变，但化石变得更硬、更耐用。",
+        "grammarFocus": "并列句 but 连接；被动语态 is made harder...。",
+        "pronounRef": "无。",
+        "logicConnector": "but 表转折。",
+        "sentenceCoach": {
+          "summary": "成分不变，但性质变硬。",
+          "keyHint": "注意 but 连接两个分句。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "发生了什么变化？——成分不变，但变硬了。",
+          "grammarQuestion": "is made harder 是什么结构？——被动语态+形容词作主语补足语。",
+          "modifierQuestion": "In such cases 是状语。",
+          "relationshipQuestion": "but 连接两个对比的情况。",
+          "commonMistake": "容易忽略 is made harder 中的 harder 是形容词。",
+          "thinkingPath": [
+            "识别并列句结构：but 连接",
+            "分析第一个分句：composition remains",
+            "分析第二个分句：fossil is made harder"
+          ],
+          "encouragement": "你抓住了转折关系，逻辑很清晰！"
+        },
+        "analysis": "### 【主干结构】\n分句1：In such cases, the original composition of the bone or shell remains。分句2：but the fossil is made harder and more durable。\n\n### 【主谓一致】\n分句1主语 composition 单数，remains 单数。分句2主语 fossil 单数，is 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "In such cases",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ", ",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": "the original composition of the bone or shell",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " remains",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ", but ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "the fossil",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " is made harder and more durable",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s16",
+        "para": 3,
+        "text": "This addition of a chemically precipitated substance into pore spaces is termed \"permineralization.\"",
+        "translation": "这种化学物质沉淀到孔隙空间中的添加过程被称为“矿化充填作用”。",
+        "grammarFocus": "被动语态 is termed...。",
+        "pronounRef": "This 指代上一句描述的过程。",
+        "logicConnector": "无。",
+        "sentenceCoach": {
+          "summary": "这个过程叫矿化充填。",
+          "keyHint": "注意 This addition 是主语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "这个过程叫什么？——矿化充填作用。",
+          "grammarQuestion": "is termed 是什么意思？——被称为。",
+          "modifierQuestion": "of a chemically precipitated substance... 修饰 addition。",
+          "relationshipQuestion": "主句定义前面的过程。",
+          "commonMistake": "容易把 chemically precipitated 当成谓语，其实它是分词作定语。",
+          "thinkingPath": [
+            "找到主语：This addition...",
+            "找到谓语：is termed",
+            "找到宾语/补语：permineralization"
+          ],
+          "encouragement": "你抓住了定义的句式，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：This addition of a chemically precipitated substance into pore spaces。谓语：is termed。宾语/补语：\"permineralization\"。\n\n### 【主谓一致】\n主语 addition 单数，is 单数。\n\n### 【动词时态与原形】\n一般现在时被动语态。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\nThis 指代上一句描述的过程。\n\n### 【非谓语动词】\nprecipitated：过去分词，作后置定语，修饰 substance。",
+        "segments": [
+          {
+            "text": "This addition of a chemically precipitated substance into pore spaces",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " is termed ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "\"permineralization.\"",
+            "type": "object",
+            "label": "宾语"
+          }
+        ]
+      },
+      {
+        "id": "s17",
+        "para": 4,
+        "text": "Petrifaction may also involve a simultaneous exchange of the original substance of a dead plant or animal with mineral matter of a different composition.",
+        "translation": "石化作用还可能涉及死去的植物或动物的原始物质与不同成分的矿物质之间的同时交换。",
+        "grammarFocus": "动词 involve + object；exchange of A with B。",
+        "pronounRef": "无。",
+        "logicConnector": "also 表示补充。",
+        "sentenceCoach": {
+          "summary": "石化还涉及物质交换。",
+          "keyHint": "注意 exchange of... with... 结构。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "石化还涉及什么？——物质交换。",
+          "grammarQuestion": "exchange of A with B 是什么意思？——A和B之间的交换。",
+          "modifierQuestion": "of a dead plant or animal 修饰 substance。",
+          "relationshipQuestion": "also 补充说明石化的另一种形式。",
+          "commonMistake": "容易忽略 with mineral matter 是 exchange 的伴随对象。",
+          "thinkingPath": [
+            "找到主语：Petrifaction",
+            "找到谓语：may involve",
+            "找到宾语：a simultaneous exchange...",
+            "分析 exchange 的结构"
+          ],
+          "encouragement": "你抓住了 exchange 的结构，真细心！"
+        },
+        "analysis": "### 【主干结构】\n主语：Petrifaction。谓语：may also involve。宾语：a simultaneous exchange of the original substance of a dead plant or animal with mineral matter of a different composition。\n\n### 【主谓一致】\n主语 Petrifaction 单数，may involve 单数。\n\n### 【动词时态与原形】\n情态动词 may + 动词原形。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "Petrifaction",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " may also involve ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "a simultaneous exchange of the original substance of a dead plant or animal with mineral matter of a different composition",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s18",
+        "para": 4,
+        "text": "This process is termed \" replacement\" because solutions have dissolved the original material and replaced it with an equal volume of the new substance.",
+        "translation": "这个过程被称为“置换作用”，因为溶液溶解了原始物质，并用等体积的新物质替换了它。",
+        "grammarFocus": "because 引导原因状语从句；并列谓语 have dissolved 和 replaced。",
+        "pronounRef": "it 指代 the original material。",
+        "logicConnector": "because 表原因。",
+        "sentenceCoach": {
+          "summary": "为什么叫置换？因为物质被替换了。",
+          "keyHint": "注意 because 从句里的两个动作：dissolved 和 replaced。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "为什么叫置换？——因为物质被替换了。",
+          "grammarQuestion": "because 从句里的 it 指代谁？——指代 the original material。",
+          "modifierQuestion": "with an equal volume... 修饰 replaced。",
+          "relationshipQuestion": "主句定义，从句解释原因。",
+          "commonMistake": "容易忽略 replaced it with... 的结构。",
+          "thinkingPath": [
+            "找到主句：process is termed...",
+            "找到原因状语：because solutions have dissolved... and replaced...",
+            "分析 it 指代 original material"
+          ],
+          "encouragement": "你理清了因果关系，逻辑满分！"
+        },
+        "analysis": "### 【主干结构】\n主句：This process is termed \"replacement\"。原因状语从句：because solutions have dissolved the original material and replaced it with an equal volume of the new substance。\n\n### 【主谓一致】\n主句主语 process 单数，is 单数。从句主语 solutions 复数，have dissolved/replaced 复数。\n\n### 【动词时态与原形】\n主句一般现在时被动语态。从句现在完成时。\n\n### 【从句剖析】\nbecause...：原因状语从句。\n\n### 【代词指代】\nit 指代 the original material。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "This process",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " is termed ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "\" replacement\"",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " because solutions have dissolved the original material and replaced it with an equal volume of the new substance",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s19",
+        "para": 4,
+        "text": "Replacement can be a marvelously precise process, so that details of shell ornamentation, tree rings in wood, and delicate structures in bone are accurately preserved.",
+        "translation": "置换可以是一个极其精确的过程，以至于贝壳装饰、木材年轮和骨骼中的精细结构都能被准确保存。",
+        "grammarFocus": "so that 引导结果状语从句。",
+        "pronounRef": "无。",
+        "logicConnector": "so that 表结果。",
+        "sentenceCoach": {
+          "summary": "置换很精确，所以细节都能保存。",
+          "keyHint": "注意 so that 引导的是结果。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "置换的结果是什么？——细节被保存。",
+          "grammarQuestion": "so that 引导什么从句？——结果状语从句。",
+          "modifierQuestion": "details of... 是主语。",
+          "relationshipQuestion": "主句说过程精确，从句说结果。",
+          "commonMistake": "容易把 so that 当成目的状语，这里表结果。",
+          "thinkingPath": [
+            "找到主句：Replacement can be a process",
+            "找到结果状语：so that details... are preserved",
+            "分析 details 的并列结构"
+          ],
+          "encouragement": "你识别出了结果状语，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主句：Replacement can be a marvelously precise process。结果状语从句：so that details of shell ornamentation, tree rings in wood, and delicate structures in bone are accurately preserved。\n\n### 【主谓一致】\n主句主语 Replacement 单数，can be 单数。从句主语 details... and structures... 复数，are 复数。\n\n### 【动词时态与原形】\n主句情态动词 can + 动词原形。从句一般现在时被动语态。\n\n### 【从句剖析】\nso that...：结果状语从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "Replacement",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " can be a marvelously precise process",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ", so that details of shell ornamentation, tree rings in wood, and delicate structures in bone",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " are accurately preserved",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s20",
+        "para": 5,
+        "text": "Another type of fossilization, known as carbonization, occurs when soft tissues are preserved as thin films of carbon.",
+        "translation": "另一种化石类型，称为碳化作用，发生在软组织被保存为碳的薄膜时。",
+        "grammarFocus": "插入语 known as carbonization；when 引导时间状语从句。",
+        "pronounRef": "无。",
+        "logicConnector": "when 表时间。",
+        "sentenceCoach": {
+          "summary": "碳化作用是什么？——软组织变成碳膜。",
+          "keyHint": "注意 known as... 是插入语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "碳化作用是什么？——软组织变成碳膜。",
+          "grammarQuestion": "known as carbonization 修饰谁？——修饰 fossilization。",
+          "modifierQuestion": "when... 是时间状语。",
+          "relationshipQuestion": "主句定义，when 从句描述过程。",
+          "commonMistake": "容易把 known as 当成谓语，其实它是分词作定语。",
+          "thinkingPath": [
+            "找到主语：Another type of fossilization",
+            "识别插入语：known as carbonization",
+            "找到谓语：occurs",
+            "分析 when 从句"
+          ],
+          "encouragement": "你识别出了插入语，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n主语：Another type of fossilization, known as carbonization。谓语：occurs。时间状语从句：when soft tissues are preserved as thin films of carbon。\n\n### 【主谓一致】\n主语 type 单数，occurs 单数。从句主语 tissues 复数，are 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\nwhen...：时间状语从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nknown：过去分词，作后置定语，修饰 fossilization。",
+        "segments": [
+          {
+            "text": "Another type of fossilization",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": ", known as carbonization",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": ", occurs when soft tissues are preserved as thin films of carbon",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s21",
+        "para": 5,
+        "text": "Leaves and tissue of soft-bodied organisms such as jellyfish or worms may accumulate, become buried and compressed, and lose their volatile constituents.",
+        "translation": "如水母或蠕虫等软体生物的叶片和组织可能会积累、被掩埋和压缩，并失去其挥发性成分。",
+        "grammarFocus": "并列谓语 accumulate, become, lose。",
+        "pronounRef": "their 指代 Leaves and tissue。",
+        "logicConnector": "and 连接并列谓语。",
+        "sentenceCoach": {
+          "summary": "软组织经历积累、掩埋、压缩、失水。",
+          "keyHint": "注意四个并列的动作。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "软组织经历了什么？——积累、掩埋、压缩、失水。",
+          "grammarQuestion": "accumulate, become, lose 是什么关系？——并列谓语。",
+          "modifierQuestion": "such as... 举例说明 soft-bodied organisms。",
+          "relationshipQuestion": "四个动作按顺序发生。",
+          "commonMistake": "容易忽略 become buried and compressed 中的 buried 和 compressed 是形容词/分词作表语。",
+          "thinkingPath": [
+            "找到主语：Leaves and tissue...",
+            "找到并列谓语：may accumulate, become..., and lose...",
+            "分析 their 指代主语"
+          ],
+          "encouragement": "你识别出了多个并列谓语，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：Leaves and tissue of soft-bodied organisms such as jellyfish or worms。谓语：may accumulate, become buried and compressed, and lose。宾语：their volatile constituents。\n\n### 【主谓一致】\n主语 Leaves and tissue 复数，may accumulate/become/lose 复数。\n\n### 【动词时态与原形】\n情态动词 may + 动词原形。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\ntheir 指代 Leaves and tissue。\n\n### 【非谓语动词】\nburied, compressed：过去分词，作表语。",
+        "segments": [
+          {
+            "text": "Leaves and tissue of soft-bodied organisms such as jellyfish or worms",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " may accumulate",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ", become buried and compressed",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ", and lose their volatile constituents",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s22",
+        "para": 5,
+        "text": "The carbon often remains behind as a blackened silhouette.",
+        "translation": "碳通常作为黑色的轮廓留下来。",
+        "grammarFocus": "remain + adj./prep. phrase。",
+        "pronounRef": "无。",
+        "logicConnector": "无。",
+        "sentenceCoach": {
+          "summary": "碳留下了轮廓。",
+          "keyHint": "注意 remains behind 是谓语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "碳留下了什么？——黑色的轮廓。",
+          "grammarQuestion": "remains behind 是什么意思？——留下来。",
+          "modifierQuestion": "as a blackened silhouette 是状语。",
+          "relationshipQuestion": "主句描述结果。",
+          "commonMistake": "容易把 remains 当成及物动词，其实它是不及物动词。",
+          "thinkingPath": [
+            "找到主语：The carbon",
+            "找到谓语：remains behind",
+            "找到状语：as a blackened silhouette"
+          ],
+          "encouragement": "你抓住了简单的句子结构，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：The carbon。谓语：remains behind。状语：as a blackened silhouette。\n\n### 【主谓一致】\n主语 carbon 单数，remains 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "The carbon",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " often remains behind",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " as a blackened silhouette",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s23",
+        "para": 6,
+        "text": "Although it is certainly true that the possession of hard parts enhances the prospect of preservation, organisms having soft tissues and organs are also occasionally preserved.",
+        "translation": "虽然拥有硬部分确实提高了保存的几率，但具有软组织和器官的生物也偶尔被保存下来。",
+        "grammarFocus": "Although 让步状语从句；that 引导主语从句；having... 作后置定语。",
+        "pronounRef": "it 形式主语；that 从句真正主语。",
+        "logicConnector": "Although 表让步。",
+        "sentenceCoach": {
+          "summary": "硬部分有利，但软组织也能保存。",
+          "keyHint": "注意 it is true that... 结构。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "软组织能保存吗？——能，偶尔。",
+          "grammarQuestion": "it is certainly true that... 是什么结构？——it 形式主语，that 从句真正主语。",
+          "modifierQuestion": "having soft tissues... 修饰 organisms。",
+          "relationshipQuestion": "Although 从句承认硬部分有利，主句转折说软组织也能保存。",
+          "commonMistake": "容易把 it 当成指代某个东西，其实它是形式主语。",
+          "thinkingPath": [
+            "识别 Although 从句：it is true that...",
+            "识别主句：organisms... are preserved",
+            "分析 having... 修饰 organisms"
+          ],
+          "encouragement": "你识别出了形式主语，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n让步状语从句：Although it is certainly true that the possession of hard parts enhances the prospect of preservation。主句：organisms having soft tissues and organs are also occasionally preserved。\n\n### 【主谓一致】\n从句主语 possession 单数，enhances 单数。主句主语 organisms 复数，are 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\nAlthough...：让步状语从句。that...：主语从句，作 it 的真正主语。\n\n### 【代词指代】\nit 形式主语。\n\n### 【非谓语动词】\nhaving：现在分词，作后置定语，修饰 organisms。",
+        "segments": [
+          {
+            "text": "Although it is certainly true that the possession of hard parts enhances the prospect of preservation",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ", ",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": "organisms having soft tissues and organs",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " are also occasionally preserved",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s24",
+        "para": 6,
+        "text": "Insects and even small invertebrates have been found preserved in the hardened resins of conifers and certain other trees.",
+        "translation": "昆虫甚至小型无脊椎动物被发现保存在针叶树和某些其他树木的硬化树脂中。",
+        "grammarFocus": "被动语态 have been found preserved...。",
+        "pronounRef": "无。",
+        "logicConnector": "and 连接主语。",
+        "sentenceCoach": {
+          "summary": "昆虫保存在树脂里。",
+          "keyHint": "注意 have been found preserved 是被动+补语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "昆虫保存在哪里？——树脂里。",
+          "grammarQuestion": "have been found preserved 是什么结构？——被动语态+过去分词作主语补足语。",
+          "modifierQuestion": "of conifers... 修饰 resins。",
+          "relationshipQuestion": "主句描述发现。",
+          "commonMistake": "容易把 preserved 当成谓语，其实它是补语。",
+          "thinkingPath": [
+            "找到主语：Insects and even small invertebrates",
+            "找到谓语：have been found",
+            "找到补语：preserved...",
+            "分析地点状语：in the hardened resins..."
+          ],
+          "encouragement": "你识别出了被动语态的补语，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：Insects and even small invertebrates。谓语：have been found。主语补足语：preserved in the hardened resins of conifers and certain other trees。\n\n### 【主谓一致】\n主语 Insects and invertebrates 复数，have been found 复数。\n\n### 【动词时态与原形】\n现在完成时被动语态。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\npreserved：过去分词，作主语补足语。",
+        "segments": [
+          {
+            "text": "Insects and even small invertebrates",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " have been found preserved in the hardened resins of conifers and certain other trees",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s25",
+        "para": 6,
+        "text": "X-ray examination of thin slabs of rock sometimes reveals the ghostly outlines of tentacles, digestive tracts, and visual organs of a variety of marine creatures.",
+        "translation": "对岩石薄片的X射线检查有时揭示出各种海洋生物的触手、消化道和视觉器官的幽灵般轮廓。",
+        "grammarFocus": "主谓宾结构；并列宾语。",
+        "pronounRef": "无。",
+        "logicConnector": "无。",
+        "sentenceCoach": {
+          "summary": "X光能看到内部轮廓。",
+          "keyHint": "注意 reveals 的宾语是三个并列名词。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "X光看到了什么？——内部轮廓。",
+          "grammarQuestion": "reveals 的宾语是什么？——outlines of tentacles, digestive tracts, and visual organs。",
+          "modifierQuestion": "of thin slabs... 修饰 examination。",
+          "relationshipQuestion": "主句描述发现。",
+          "commonMistake": "容易忽略宾语部分的并列结构。",
+          "thinkingPath": [
+            "找到主语：X-ray examination...",
+            "找到谓语：reveals",
+            "找到宾语：the ghostly outlines...",
+            "分析 outines 的修饰语"
+          ],
+          "encouragement": "你识别出了并列宾语，真细心！"
+        },
+        "analysis": "### 【主干结构】\n主语：X-ray examination of thin slabs of rock。谓语：sometimes reveals。宾语：the ghostly outlines of tentacles, digestive tracts, and visual organs of a variety of marine creatures。\n\n### 【主谓一致】\n主语 examination 单数，reveals 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "X-ray examination of thin slabs of rock",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " sometimes reveals ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "the ghostly outlines of tentacles, digestive tracts, and visual organs of a variety of marine creatures",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s26",
+        "para": 6,
+        "text": "Soft parts, including skin, hair, and viscera of ice age mammoths, have been preserved in frozen soil or in the oozing tar of oil seeps.",
+        "translation": "包括冰河时期猛犸象的皮肤、毛发和内脏在内的软组织，保存在冻土或油渗出的渗油处涌出的沥青中。",
+        "grammarFocus": "插入语 including...；被动语态 have been preserved。",
+        "pronounRef": "无。",
+        "logicConnector": "or 连接两个地点。",
+        "sentenceCoach": {
+          "summary": "猛犸象的软组织保存在冻土或沥青里。",
+          "keyHint": "注意 including... 是插入语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "软组织保存在哪里？——冻土或沥青。",
+          "grammarQuestion": "including... 修饰谁？——修饰 Soft parts。",
+          "modifierQuestion": "of ice age mammoths 修饰 skin, hair, viscera。",
+          "relationshipQuestion": "主句描述保存地点。",
+          "commonMistake": "容易把 including 当成谓语，其实它是介词。",
+          "thinkingPath": [
+            "找到主语：Soft parts",
+            "识别插入语：including...",
+            "找到谓语：have been preserved",
+            "分析地点状语：in frozen soil or..."
+          ],
+          "encouragement": "你识别出了插入语，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：Soft parts, including skin, hair, and viscera of ice age mammoths。谓语：have been preserved。状语：in frozen soil or in the oozing tar of oil seeps。\n\n### 【主谓一致】\n主语 parts 复数，have been preserved 复数。\n\n### 【动词时态与原形】\n现在完成时被动语态。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nincluding：介词，引导插入语。oozing：现在分词，作后置定语，修饰 tar。",
+        "segments": [
+          {
+            "text": "Soft parts",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": ", including skin, hair, and viscera of ice age mammoths",
+            "type": "modifier",
+            "label": "同位语"
+          },
+          {
+            "text": ", have been preserved in frozen soil or in the oozing tar of oil seeps",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s27",
+        "para": 7,
+        "text": "The probability that actual remains of soft tissue will be preserved is improved if the organism dies in an environment of rapid deposition and oxygen deprivation.",
+        "translation": "如果生物死于快速沉积和缺氧的环境，那么软组织实际残骸得以保存的几率就会提高。",
+        "grammarFocus": "that 引导同位语从句；if 引导条件状语从句。",
+        "pronounRef": "the organism 指代生物。",
+        "logicConnector": "if 表条件。",
+        "sentenceCoach": {
+          "summary": "缺氧和快速沉积能提高保存几率。",
+          "keyHint": "注意 that 从句是 probability 的同位语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "什么能提高保存几率？——缺氧和快速沉积。",
+          "grammarQuestion": "that 从句修饰谁？——修饰 probability，解释概率的内容。",
+          "modifierQuestion": "if... 是条件状语。",
+          "relationshipQuestion": "主句说几率提高，if 从句说条件。",
+          "commonMistake": "容易把 that 从句当成定语从句，其实它是同位语从句。",
+          "thinkingPath": [
+            "找到主语：The probability",
+            "识别同位语从句：that actual remains... will be preserved",
+            "找到谓语：is improved",
+            "分析 if 条件状语"
+          ],
+          "encouragement": "你识别出了同位语从句，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n主语：The probability that actual remains of soft tissue will be preserved。谓语：is improved。条件状语从句：if the organism dies in an environment of rapid deposition and oxygen deprivation。\n\n### 【主谓一致】\n主语 probability 单数，is 单数。从句主语 organism 单数，dies 单数。\n\n### 【动词时态与原形】\n主句一般现在时被动语态。从句一般现在时。\n\n### 【从句剖析】\nthat...：同位语从句，修饰 probability。if...：条件状语从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "The probability",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " that actual remains of soft tissue will be preserved",
+            "type": "modifier",
+            "label": "同位语"
+          },
+          {
+            "text": " is improved",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " if the organism dies in an environment of rapid deposition and oxygen deprivation",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s28",
+        "para": 7,
+        "text": "Under such conditions, the destructive effects of bacteria are diminished.",
+        "translation": "在这样的条件下，细菌的破坏作用减弱。",
+        "grammarFocus": "被动语态 are diminished。",
+        "pronounRef": "such 指代上一句的条件。",
+        "logicConnector": "无。",
+        "sentenceCoach": {
+          "summary": "细菌破坏减弱。",
+          "keyHint": "注意 are diminished 是被动语态。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "细菌的作用怎么了？——减弱了。",
+          "grammarQuestion": "are diminished 是什么意思？——被减弱。",
+          "modifierQuestion": "Under such conditions 是状语。",
+          "relationshipQuestion": "主句描述结果。",
+          "commonMistake": "容易把 diminished 当成形容词，其实它是过去分词。",
+          "thinkingPath": [
+            "找到状语：Under such conditions",
+            "找到主语：the destructive effects of bacteria",
+            "找到谓语：are diminished"
+          ],
+          "encouragement": "你抓住了被动语态，真棒！"
+        },
+        "analysis": "### 【主干结构】\n状语：Under such conditions。主句：the destructive effects of bacteria are diminished。\n\n### 【主谓一致】\n主语 effects 复数，are 复数。\n\n### 【动词时态与原形】\n一般现在时被动语态。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\nsuch 指代上一句的条件。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "Under such conditions",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ", ",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": "the destructive effects of bacteria",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " are diminished",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s29",
+        "para": 7,
+        "text": "The Middle Eocene Messel Shale (from about 48 million years ago) of Germany accumulated in such an environment.",
+        "translation": "德国的中始新世梅塞尔页岩（距今约4800万年）积累在这样的环境中。",
+        "grammarFocus": "主谓结构；插入语解释时间。",
+        "pronounRef": "such 指代上一句的条件。",
+        "logicConnector": "无。",
+        "sentenceCoach": {
+          "summary": "梅塞尔页岩形成于这种环境。",
+          "keyHint": "注意 accumulated 是谓语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "梅塞尔页岩怎么形成的？——在这种环境中积累。",
+          "grammarQuestion": "(from about 48 million years ago) 修饰谁？——修饰 Messel Shale。",
+          "modifierQuestion": "of Germany 修饰 Messel Shale。",
+          "relationshipQuestion": "主句描述形成过程。",
+          "commonMistake": "容易把 accumulated 当成名词，其实它是动词。",
+          "thinkingPath": [
+            "找到主语：The Middle Eocene Messel Shale...",
+            "找到谓语：accumulated",
+            "找到状语：in such an environment"
+          ],
+          "encouragement": "你识别出了插入语，真细心！"
+        },
+        "analysis": "### 【主干结构】\n主语：The Middle Eocene Messel Shale (from about 48 million years ago) of Germany。谓语：accumulated。状语：in such an environment。\n\n### 【主谓一致】\n主语 Shale 单数，accumulated 单数。\n\n### 【动词时态与原形】\n一般过去时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\nsuch 指代上一句的条件。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "The Middle Eocene Messel Shale (from about 48 million years ago) of Germany",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " accumulated in such an environment",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s30",
+        "para": 7,
+        "text": "The shale was deposited in an oxygen-deficient lake where lethal gases sometimes bubbled up and killed animals.",
+        "translation": "页岩沉积在一个缺氧的湖泊中，那里致命的有时气泡上升并杀死动物。",
+        "grammarFocus": "where 引导定语从句。",
+        "pronounRef": "无。",
+        "logicConnector": "where 引导定语从句。",
+        "sentenceCoach": {
+          "summary": "湖泊里有致命气体。",
+          "keyHint": "注意 where 从句修饰 lake。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "湖泊里有什么？——致命气体。",
+          "grammarQuestion": "where 从句修饰谁？——修饰 lake。",
+          "modifierQuestion": "oxygen-deficient 修饰 lake。",
+          "relationshipQuestion": "主句说沉积，从句描述湖泊环境。",
+          "commonMistake": "容易把 where 当成副词，其实它是关系副词引导定语从句。",
+          "thinkingPath": [
+            "找到主句：shale was deposited in a lake",
+            "找到定语从句：where lethal gases... bubbled up and killed animals",
+            "分析 where 从句中的并列谓语"
+          ],
+          "encouragement": "你识别出了定语从句，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主句：The shale was deposited in an oxygen-deficient lake。定语从句：where lethal gases sometimes bubbled up and killed animals。\n\n### 【主谓一致】\n主句主语 shale 单数，was deposited 单数。从句主语 gases 复数，bubbled/killed 复数。\n\n### 【动词时态与原形】\n一般过去时。\n\n### 【从句剖析】\nwhere...：定语从句，修饰 lake。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "The shale",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " was deposited in an oxygen-deficient lake",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " where lethal gases sometimes bubbled up and killed animals",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s31",
+        "para": 7,
+        "text": "Their remains accumulated on the floor of the lake and were then covered by clay and silt.",
+        "translation": "它们的残骸在湖底积累，然后被粘土和淤泥覆盖。",
+        "grammarFocus": "并列谓语 accumulated 和 were covered。",
+        "pronounRef": "Their 指代 animals。",
+        "logicConnector": "and 连接并列谓语。",
+        "sentenceCoach": {
+          "summary": "残骸积累并被覆盖。",
+          "keyHint": "注意 Their 指代 animals。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "残骸怎么了？——积累并被覆盖。",
+          "grammarQuestion": "Their 指代谁？——指代 animals。",
+          "modifierQuestion": "on the floor of the lake 是状语。",
+          "relationshipQuestion": "两个动作由残骸发出。",
+          "commonMistake": "容易忽略 Their 指代 animals。",
+          "thinkingPath": [
+            "找到主语：Their remains",
+            "找到并列谓语：accumulated... and were covered...",
+            "分析 Their 指代 animals"
+          ],
+          "encouragement": "你识别出了代词指代，真细心！"
+        },
+        "analysis": "### 【主干结构】\n主语：Their remains。谓语：accumulated... and were covered...。状语：on the floor of the lake / by clay and silt。\n\n### 【主谓一致】\n主语 remains 复数，accumulated/were covered 复数。\n\n### 【动词时态与原形】\n一般过去时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\nTheir 指代 animals。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "Their remains",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " accumulated on the floor of the lake",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " and were then covered by clay and silt",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      },
+      {
+        "id": "s32",
+        "para": 7,
+        "text": "Among the superbly preserved Messel fossils are insects with iridescent exoskeletons (hard outer coverings), frogs with skin and blood vessels intact, and even entire small mammals with preserved fur and soft tissue.",
+        "translation": "在保存极好的梅塞尔化石中，有具有彩虹色外骨骼的昆虫（坚硬的外壳）、皮肤和血管完整的青蛙，甚至保存了皮毛和软组织的整个小型哺乳动物。",
+        "grammarFocus": "倒装句；with 复合结构。",
+        "pronounRef": "无。",
+        "logicConnector": "and 连接并列主语。",
+        "sentenceCoach": {
+          "summary": "化石里有昆虫、青蛙和哺乳动物。",
+          "keyHint": "注意这是倒装句，主语在后面。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "梅塞尔化石里有什么？——昆虫、青蛙、哺乳动物。",
+          "grammarQuestion": "这是倒装句吗？——是的，Among... are...。",
+          "modifierQuestion": "with... 修饰前面的名词。",
+          "relationshipQuestion": "主句列举化石内容。",
+          "commonMistake": "容易把 are 当成谓语，其实主语是 insects, frogs, mammals。",
+          "thinkingPath": [
+            "识别倒装结构：Among... are...",
+            "找到真正主语：insects..., frogs..., and mammals...",
+            "分析 with 复合结构"
+          ],
+          "encouragement": "你识别出了倒装句，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n状语：Among the superbly preserved Messel fossils。谓语：are。主语：insects with iridescent exoskeletons..., frogs with skin and blood vessels intact, and even entire small mammals with preserved fur and soft tissue。\n\n### 【主谓一致】\n主语 insects, frogs, mammals 复数，are 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "Among the superbly preserved Messel fossils",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " are ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "insects with iridescent exoskeletons (hard outer coverings)",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": ", frogs with skin and blood vessels intact",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": ", and even entire small mammals with preserved fur and soft tissue",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
+          }
+        ]
+      }
+    ],
+    "source": {
+      "file": "tpo-20-fossil-preservation.md",
+      "section": "TPO-20 / Fossil Preservation"
+    }
+  }
+}

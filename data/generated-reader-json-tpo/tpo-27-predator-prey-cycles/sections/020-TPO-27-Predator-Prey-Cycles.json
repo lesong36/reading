@@ -1,0 +1,2877 @@
+{
+  "sourceFile": "tpo-27-predator-prey-cycles.md",
+  "sectionTitle": "TPO-27 / Predator-Prey Cycles",
+  "generatedAt": "2026-08-05T13:28:01.075Z",
+  "warnings": [],
+  "article": {
+    "id": "tpo-27-predator-prey-cycles-20-TPO-27-Predator-Prey-Cycles",
+    "title": "TPO-27 / Predator-Prey Cycles",
+    "timestamp": 1785936481094,
+    "glossary": [
+      {
+        "term": "juvenile survivorship",
+        "translation": "幼体存活率",
+        "kind": "term",
+        "note": "指幼年个体存活下来的比例。",
+        "aliases": []
+      },
+      {
+        "term": "competitor exclusion",
+        "translation": "竞争排斥",
+        "kind": "term",
+        "note": "生态学原理，指两个物种竞争同一资源时，优势物种会排除劣势物种。",
+        "aliases": []
+      },
+      {
+        "term": "predator-prey cycles",
+        "translation": "捕食者-猎物循环",
+        "kind": "term",
+        "note": "指捕食者和猎物数量随时间呈现周期性波动的现象。",
+        "aliases": []
+      },
+      {
+        "term": "bivalve mollusks",
+        "translation": "双壳软体动物",
+        "kind": "term",
+        "note": "如蛤蜊、贻贝等，文中指海星捕食的对象。",
+        "aliases": []
+      },
+      {
+        "term": "cyclical pattern",
+        "translation": "循环模式",
+        "kind": "term",
+        "note": "指事物按照固定周期重复变化的规律。",
+        "aliases": []
+      },
+      {
+        "term": "Yukon territory",
+        "translation": "育空地区",
+        "kind": "proper_noun",
+        "note": "加拿大的一个地区，是Krebs进行实验的地点。",
+        "aliases": []
+      },
+      {
+        "term": "overharvesting",
+        "translation": "过度采食/过度捕捞",
+        "kind": "term",
+        "note": "指消耗资源的速度超过其再生速度。",
+        "aliases": []
+      },
+      {
+        "term": "snow shoe hare",
+        "translation": "雪鞋兔",
+        "kind": "proper_noun",
+        "note": "一种北美野兔，因脚掌大如雪鞋而得名，是文中研究的主要猎物。",
+        "aliases": [
+          "snowshoe hare"
+        ]
+      },
+      {
+        "term": "Lake Superior",
+        "translation": "苏必利尔湖",
+        "kind": "proper_noun",
+        "note": "北美五大湖中最大的一个。",
+        "aliases": []
+      },
+      {
+        "term": "monopolizing",
+        "translation": "垄断，独占",
+        "kind": "term",
+        "note": "指完全占据某资源，不让其他物种使用。",
+        "aliases": []
+      },
+      {
+        "term": "oscillations",
+        "translation": "振荡，波动",
+        "kind": "term",
+        "note": "指在两个值或状态之间反复变化。",
+        "aliases": []
+      },
+      {
+        "term": "Canada lynx",
+        "translation": "加拿大猞猁",
+        "kind": "proper_noun",
+        "note": "一种主要捕食雪鞋兔的猫科动物。",
+        "aliases": []
+      },
+      {
+        "term": "exterminate",
+        "translation": "消灭，根除",
+        "kind": "term",
+        "note": "指彻底杀死或清除某物，文中指捕食者吃光猎物。",
+        "aliases": []
+      },
+      {
+        "term": "Isle Royale",
+        "translation": "皇家岛",
+        "kind": "proper_noun",
+        "note": "位于苏必利尔湖中的一个岛屿，是文中研究狼和驼鹿关系的著名地点。",
+        "aliases": []
+      },
+      {
+        "term": "rebound",
+        "translation": "反弹，恢复",
+        "kind": "term",
+        "note": "指数量在下降后重新回升。",
+        "aliases": []
+      },
+      {
+        "term": "tenfold",
+        "translation": "十倍",
+        "kind": "term",
+        "note": "表示数量增加或减少到原来的十倍。",
+        "aliases": []
+      }
+    ],
+    "data": [
+      {
+        "id": "s1",
+        "para": 1,
+        "text": "How do predators affect populations of the prey animals?",
+        "translation": "捕食者如何影响猎物的种群数量？",
+        "grammarFocus": "特殊疑问句结构",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这是一个简单的特殊疑问句，直接询问因果关系。",
+          "keyHint": "注意主语是 predators，谓语是 affect。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "谁在影响谁？是捕食者影响猎物哦。",
+          "grammarQuestion": "疑问词 How 放在句首，后面跟着助动词 do 和主语 predators。",
+          "modifierQuestion": "of the prey animals 是修饰 populations 的，告诉我们是什么的种群。",
+          "relationshipQuestion": "这是一个直接的提问，为下文的答案做铺垫。",
+          "commonMistake": "不要把 affect 当成名词，它是动词“影响”。",
+          "thinkingPath": [
+            "找到疑问词 How",
+            "找到主语 predators",
+            "找到动词 affect"
+          ],
+          "encouragement": "你读得很准，这个句子就像一把钥匙，打开了整篇文章的大门！"
+        },
+        "analysis": "### 【主干结构】\n这是一个特殊疑问句。\n- **主语**: predators (捕食者)\n- **谓语**: affect (影响)\n- **宾语**: populations (种群数量)\n- **定语**: of the prey animals (修饰 populations，指猎物的)\n\n### 【主谓一致】\n主语 predators 是复数，谓语动词 affect 使用原形，符合一般现在时的复数主语规则。\n\n### 【动词时态】\n一般现在时，表示普遍的事实或科学规律。\n\n### 【句子关系】\n这是文章的开篇句，提出核心问题。",
+        "segments": [
+          {
+            "text": "How",
+            "type": "adverbial",
+            "label": "疑问副词"
+          },
+          {
+            "text": " do",
+            "type": "verb",
+            "label": "助动词"
+          },
+          {
+            "text": " predators",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " affect",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " populations",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " of the prey animals?",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "para": 1,
+        "text": "The answer is not as simple as might be thought.",
+        "translation": "答案并不像人们想象的那样简单。",
+        "grammarFocus": "as...as 比较结构",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这是一个包含比较结构的否定句。",
+          "keyHint": "注意 as...as 中间夹着 not，表示“不如...那样”。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "答案简不简单？不如你想的那么简单。",
+          "grammarQuestion": "as simple as 是固定搭配，表示“像...一样简单”。",
+          "modifierQuestion": "might be thought 是一个省略了主语的从句，隐含的主语是 people 或 one。",
+          "relationshipQuestion": "前半句说答案，后半句通过比较来限制答案的简单程度。",
+          "commonMistake": "不要漏掉第二个 as，也不要忘记 might be thought 是被动语态。",
+          "thinkingPath": [
+            "找到主语 The answer",
+            "找到系动词 is",
+            "找到表语 simple"
+          ],
+          "encouragement": "太棒了！你抓住了这个比较结构，这说明你的语感很好！"
+        },
+        "analysis": "### 【主干结构】\n- **主语**: The answer\n- **系动词**: is\n- **表语**: not as simple as might be thought\n\n### 【比较结构】\n- **as...as**: 同级比较。第一个 as 是副词，修饰形容词 simple；第二个 as 是连词，引导比较状语从句。\n- **might be thought**: 比较从句，省略了主语（people/one），使用被动语态，表示“被想到/被认为”。\n\n### 【否定含义】\nnot as simple as... 意为“不如...简单”，即“比...复杂”。\n\n### 【句子关系】\n这句话是对前一句问题的直接回应，起到转折和引入下文的作用。",
+        "segments": [
+          {
+            "text": "The answer",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " is",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " not",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " as",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " simple",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " as",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " might be thought.",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "para": 1,
+        "text": "Moose reached Isle Royale in Lake Superior by crossing over winter ice and multiplied freely there in isolation without predators.",
+        "translation": "驼鹿通过跨越冬季冰面到达苏必利尔湖中的皇家岛，并在没有捕食者的孤立环境中自由繁殖。",
+        "grammarFocus": "并列谓语",
+        "pronounRef": "无",
+        "logicConnector": "and",
+        "sentenceCoach": {
+          "summary": "这句话有两个主要动作，由 and 连接。",
+          "keyHint": "注意 reached 和 multiplied 是并列的谓语动词。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "驼鹿怎么来的？怎么生活的？",
+          "grammarQuestion": "and 连接了两个过去式的动词 reached 和 multiplied，构成并列谓语。",
+          "modifierQuestion": "by crossing... 是方式状语，说明到达的方式；freely, in isolation, without predators 都是状语，修饰 multiplied。",
+          "relationshipQuestion": "前半句讲到达，后半句讲到达后的生活状态，逻辑连贯。",
+          "commonMistake": "不要以为 crossing 是谓语，它是介词 by 的宾语，是动名词。",
+          "thinkingPath": [
+            "找到主语 Moose",
+            "找到第一个谓语 reached",
+            "找到连接词 and",
+            "找到第二个谓语 multiplied"
+          ],
+          "encouragement": "你成功拆解了长句子的骨架，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n- **主语**: Moose (驼鹿)\n- **谓语1**: reached (到达)\n- **宾语1**: Isle Royale (皇家岛)\n- **谓语2**: multiplied (繁殖/增加)\n- **连接词**: and\n\n### 【状语分析】\n- **by crossing over winter ice**: 介词短语作方式状语，修饰 reached。crossing 是动名词。\n- **in Lake Superior**: 地点状语，修饰 Isle Royale 或 reached。\n- **freely**: 副词，修饰 multiplied。\n- **there**: 副词，修饰 multiplied，指在皇家岛。\n- **in isolation**: 介词短语作方式/状态状语，修饰 multiplied。\n- **without predators**: 介词短语作条件/伴随状语，修饰 multiplied。\n\n### 【时态】\n一般过去时，描述过去发生的事实。",
+        "segments": [
+          {
+            "text": "Moose",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " reached",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " Isle Royale",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " in Lake Superior",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " by crossing over winter ice",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " multiplied",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " freely",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " there",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " in isolation",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " without predators.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "para": 1,
+        "text": "When wolves later reached the island, naturalists widely assumed that the wolves would play a key role in controlling the moose population.",
+        "translation": "当狼后来到达该岛时，自然学家们广泛认为狼将在控制驼鹿种群中发挥关键作用。",
+        "grammarFocus": "时间状语从句 + 宾语从句",
+        "pronounRef": "无",
+        "logicConnector": "When",
+        "sentenceCoach": {
+          "summary": "这是一个复合句，包含时间状语从句和宾语从句。",
+          "keyHint": "先找主句的主谓宾，再看从句。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "什么时候？谁认为？认为什么？",
+          "grammarQuestion": "When 引导时间状语从句；that 引导宾语从句，作 assumed 的宾语。",
+          "modifierQuestion": "later 修饰 reached；widely 修饰 assumed；in controlling... 是介词短语修饰 role。",
+          "relationshipQuestion": "时间背景是狼到达后，主要动作是自然学家的假设。",
+          "commonMistake": "不要漏掉 that，它是宾语从句的引导词，虽然在口语中可省略，但在书面语中很重要。",
+          "thinkingPath": [
+            "找到时间状语从句 When wolves later reached the island",
+            "找到主句主语 naturalists",
+            "找到主句谓语 assumed",
+            "找到宾语从句 that..."
+          ],
+          "encouragement": "你像侦探一样找到了句子的隐藏部分，太棒了！"
+        },
+        "analysis": "### 【主干结构】\n- **时间状语从句**: When wolves later reached the island\n  - **主语**: wolves\n  - **谓语**: reached\n  - **宾语**: the island\n  - **状语**: later\n- **主句**: naturalists widely assumed that...\n  - **主语**: naturalists\n  - **谓语**: assumed\n  - **状语**: widely\n  - **宾语**: that the wolves would play a key role in controlling the moose population (宾语从句)\n\n### 【宾语从句分析】\n- **主语**: the wolves\n- **谓语**: would play\n- **宾语**: a key role\n- **状语**: in controlling the moose population (介词短语作后置定语或状语，修饰 role)\n\n### 【时态】\n- 时间状语从句：一般过去时 (reached)\n- 主句：一般过去时 (assumed)\n- 宾语从句：过去将来时 (would play)，表示从过去看将来。",
+        "segments": [
+          {
+            "text": "When",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " wolves",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " later",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " reached",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " the island,",
+            "type": "clause-object",
+            "label": "从句宾语"
+          },
+          {
+            "text": " naturalists",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " widely",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " assumed",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " that",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " the wolves",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " would play",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " a key role",
+            "type": "clause-object",
+            "label": "从句宾语"
+          },
+          {
+            "text": " in controlling the moose population.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "para": 1,
+        "text": "Careful studies have demonstrated, however, that this is not the case.",
+        "translation": "然而，仔细的研究表明，事实并非如此。",
+        "grammarFocus": "插入语 + 宾语从句",
+        "pronounRef": "this",
+        "logicConnector": "however",
+        "sentenceCoach": {
+          "summary": "注意 however 是插入语，不影响句子主干。",
+          "keyHint": "主语是 studies，谓语是 have demonstrated。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "谁证明了？证明了什么？",
+          "grammarQuestion": "however 是插入语，放在谓语动词之后，宾语从句之前。",
+          "modifierQuestion": "that this is not the case 是宾语从句。",
+          "relationshipQuestion": "however 表示转折，反驳上一句自然学家的假设。",
+          "commonMistake": "不要把 however 当作连接副词放在句首而忘记逗号，这里它是插入语。",
+          "thinkingPath": [
+            "找到主语 Careful studies",
+            "找到谓语 have demonstrated",
+            "识别插入语 however",
+            "找到宾语从句 that..."
+          ],
+          "encouragement": "你识别出了插入语，这说明你的句子结构感很强！"
+        },
+        "analysis": "### 【主干结构】\n- **主语**: Careful studies\n- **谓语**: have demonstrated\n- **插入语**: however (然而)\n- **宾语**: that this is not the case (宾语从句)\n\n### 【宾语从句分析】\n- **主语**: this (指代上一句 naturalists 的假设)\n- **系动词**: is\n- **表语**: not the case (并非如此)\n\n### 【时态】\n- 主句：现在完成时 (have demonstrated)，强调研究结果对现在的影响。\n- 从句：一般现在时 (is)，陈述事实。\n\n### 【逻辑关系】\nhowever 表示转折，指出研究结果与之前的假设相反。",
+        "segments": [
+          {
+            "text": "Careful studies",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " have demonstrated",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": ", however,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " that",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " this",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " is",
+            "type": "clause-verb",
+            "label": "从句系动词"
+          },
+          {
+            "text": " not the case.",
+            "type": "clause-predicative",
+            "label": "从句表语"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "para": 1,
+        "text": "The wolves eat mostly old or diseased animals that would not survive long anyway.",
+        "translation": "狼主要吃年老或患病的动物，这些动物无论如何也活不了多久。",
+        "grammarFocus": "定语从句",
+        "pronounRef": "that",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "注意 that 引导的定语从句修饰 animals。",
+          "keyHint": "that 指代 animals，在从句中作主语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "狼吃什么？这些动物怎么样？",
+          "grammarQuestion": "that 引导定语从句，修饰先行词 animals。",
+          "modifierQuestion": "mostly 修饰 eat；old or diseased 修饰 animals；that... 是定语从句。",
+          "relationshipQuestion": "定语从句进一步说明狼吃的动物的特征。",
+          "commonMistake": "不要误以为 that 是宾语，它在从句中作主语。",
+          "thinkingPath": [
+            "找到主句主语 The wolves",
+            "找到主句谓语 eat",
+            "找到宾语 animals",
+            "找到定语从句 that..."
+          ],
+          "encouragement": "你成功抓住了定语从句，这是长难句解析的关键一步！"
+        },
+        "analysis": "### 【主干结构】\n- **主语**: The wolves\n- **谓语**: eat\n- **宾语**: mostly old or diseased animals\n- **状语**: mostly (修饰 eat)\n\n### 【定语从句】\n- **引导词**: that (指代 animals，在从句中作主语)\n- **从句谓语**: would not survive\n- **状语**: long (时间长度), anyway (无论如何)\n\n### 【时态】\n- 主句：一般现在时 (eat)，描述习惯性动作。\n- 从句：过去将来时 (would not survive)，从狼吃动物的角度看，这些动物“将”活不久。",
+        "segments": [
+          {
+            "text": "The wolves",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " eat",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " mostly",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " old or diseased animals",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " that",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " would not survive",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " long",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " anyway.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "para": 1,
+        "text": "In general, the moose population is controlled by food availability, disease and other factors rather than by wolves.",
+        "translation": "一般来说，驼鹿种群的数量是由食物供应、疾病和其他因素控制的，而不是由狼控制的。",
+        "grammarFocus": "被动语态 + 比较结构",
+        "pronounRef": "无",
+        "logicConnector": "rather than",
+        "sentenceCoach": {
+          "summary": "注意被动语态 is controlled by... rather than by...。",
+          "keyHint": "rather than 连接两个 by 短语，表示对比。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "谁控制驼鹿？",
+          "grammarQuestion": "is controlled by... rather than by... 是被动语态的比较结构。",
+          "modifierQuestion": "In general 是状语；food availability, disease and other factors 是并列宾语。",
+          "relationshipQuestion": "rather than 表示否定后者，肯定前者。",
+          "commonMistake": "不要漏掉第二个 by，保持结构平行。",
+          "thinkingPath": [
+            "找到主语 the moose population",
+            "找到谓语 is controlled",
+            "找到第一个 by 短语",
+            "找到 rather than by 短语"
+          ],
+          "encouragement": "你读懂了对比结构，这有助于你理解作者的逻辑！"
+        },
+        "analysis": "### 【主干结构】\n- **状语**: In general\n- **主语**: the moose population\n- **谓语**: is controlled (被动语态)\n- **施动者1**: by food availability, disease and other factors\n- **连接词**: rather than\n- **施动者2**: by wolves\n\n### 【比较结构】\n- **rather than**: 而不是，用于连接两个并列成分，表示选择或对比。这里连接两个 by 介词短语。\n\n### 【时态】\n一般现在时被动语态，描述普遍规律。",
+        "segments": [
+          {
+            "text": "In general,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the moose population",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " is controlled",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " by food availability, disease and other factors",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " rather than",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " by wolves.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "para": 2,
+        "text": "When experimental populations are set up under simple laboratory conditions, the predator often exterminates its pre and then becomes extinct itself, having nothing left to eat.",
+        "translation": "当在简单的实验室条件下建立实验种群时，捕食者通常会消灭其猎物，然后自己灭绝，因为没有东西可吃了。",
+        "grammarFocus": "时间状语从句 + 现在分词作状语",
+        "pronounRef": "its",
+        "logicConnector": "When",
+        "sentenceCoach": {
+          "summary": "注意 having nothing left to eat 是结果状语。",
+          "keyHint": "主句有两个动作：exterminates 和 becomes。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "实验室里发生了什么？",
+          "grammarQuestion": "When 引导时间状语从句；having... 是现在分词短语作结果状语。",
+          "modifierQuestion": "under simple laboratory conditions 修饰 set up；itself 强调主语。",
+          "relationshipQuestion": "先消灭猎物，导致自己灭绝，最后解释原因。",
+          "commonMistake": "不要误以为 having 是谓语，它是非谓语动词。",
+          "thinkingPath": [
+            "找到时间状语从句 When...",
+            "找到主句主语 the predator",
+            "找到主句谓语 exterminates",
+            "找到主句谓语 becomes",
+            "找到分词短语 having..."
+          ],
+          "encouragement": "你成功识别了非谓语动词，这让你的句子分析更上一层楼！"
+        },
+        "analysis": "### 【主干结构】\n- **时间状语从句**: When experimental populations are set up under simple laboratory conditions\n  - **主语**: experimental populations\n  - **谓语**: are set up (被动语态)\n  - **状语**: under simple laboratory conditions\n- **主句**: the predator often exterminates its pre and then becomes extinct itself\n  - **主语**: the predator\n  - **谓语1**: exterminates\n  - **宾语1**: its pre (原文可能有误，应为 prey)\n  - **连接词**: and\n  - **谓语2**: becomes\n  - **表语2**: extinct\n  - **状语2**: itself (强调主语)\n- **结果状语**: having nothing left to eat\n\n### 【非谓语动词】\n- **having**: 现在分词，作结果状语，表示主句动作导致的结果。\n\n### 【时态】\n一般现在时，描述实验中的普遍现象。",
+        "segments": [
+          {
+            "text": "When",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " experimental populations",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " are set up",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " under simple laboratory conditions,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the predator",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " often",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " exterminates",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " its pre",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " then",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " becomes",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " extinct",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " itself,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " having nothing left to eat.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "para": 2,
+        "text": "However, if safe areas like those prey animals have in the wild are provided, the prey population drops to low level but not extinction.",
+        "translation": "然而，如果提供了像野生猎物那样拥有的安全区域，猎物种群数量会下降到较低水平，但不会灭绝。",
+        "grammarFocus": "条件状语从句 + 定语从句",
+        "pronounRef": "those",
+        "logicConnector": "However, if",
+        "sentenceCoach": {
+          "summary": "注意 if 引导的条件状语从句，以及其中的定语从句。",
+          "keyHint": "are provided 是被动语态，主语是 safe areas。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "如果提供安全区，会发生什么？",
+          "grammarQuestion": "if 引导条件状语从句；like those prey animals have in the wild 是定语从句修饰 areas。",
+          "modifierQuestion": "but not extinction 是省略结构，完整为 but does not drop to extinction。",
+          "relationshipQuestion": "条件满足时，结果发生。",
+          "commonMistake": "不要漏掉定语从句中的 have，它是谓语。",
+          "thinkingPath": [
+            "找到连接词 However",
+            "找到条件状语从句 if...",
+            "找到主句主语 the prey population",
+            "找到主句谓语 drops"
+          ],
+          "encouragement": "你成功拆解了嵌套的从句，真棒！"
+        },
+        "analysis": "### 【主干结构】\n- **连接词**: However\n- **条件状语从句**: if safe areas like those prey animals have in the wild are provided\n  - **主语**: safe areas\n  - **定语**: like those prey animals have in the wild (修饰 areas)\n    - **主语**: those prey animals\n    - **谓语**: have\n    - **状语**: in the wild\n  - **谓语**: are provided (被动语态)\n- **主句**: the prey population drops to low level but not extinction\n  - **主语**: the prey population\n  - **谓语**: drops\n  - **状语**: to low level but not extinction\n\n### 【非谓语/省略】\n- **but not extinction**: 省略了动词，完整形式为 but (does not drop) to extinction。\n\n### 【时态】\n一般现在时，描述实验结果。",
+        "segments": [
+          {
+            "text": "However,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " if",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " safe areas",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " like those prey animals have in the wild",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " are provided,",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " the prey population",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " drops",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " to low level",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " but not extinction.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "para": 2,
+        "text": "Low prey population levels then provide inadequate food for the predators, causing the predator population to decrease.",
+        "translation": "较低的猎物种群水平随后为捕食者提供了不足的食物，导致捕食者种群数量下降。",
+        "grammarFocus": "现在分词作结果状语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "注意 causing... 是结果状语。",
+          "keyHint": "主句主语是 Low prey population levels。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "食物不足导致什么？",
+          "grammarQuestion": "causing 是现在分词，作结果状语，表示主句动作的结果。",
+          "modifierQuestion": "inadequate food for the predators 是宾语部分；to decrease 是不定式作宾语补足语。",
+          "relationshipQuestion": "食物不足导致捕食者减少，逻辑因果清晰。",
+          "commonMistake": "不要误以为 causing 是谓语，它是非谓语动词。",
+          "thinkingPath": [
+            "找到主语 Low prey population levels",
+            "找到谓语 provide",
+            "找到宾语 inadequate food",
+            "找到分词短语 causing..."
+          ],
+          "encouragement": "你识别出了因果关系，这有助于你理解生态系统的动态！"
+        },
+        "analysis": "### 【主干结构】\n- **主语**: Low prey population levels\n- **状语**: then\n- **谓语**: provide\n- **宾语**: inadequate food\n- **状语**: for the predators\n- **结果状语**: causing the predator population to decrease\n\n### 【非谓语动词】\n- **causing**: 现在分词，作结果状语。\n- **to decrease**: 不定式，作宾语补足语，补充说明 causing 的内容。\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "Low prey population levels",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " then",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " provide",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " inadequate food",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " for the predators,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " causing the predator population to decrease.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "para": 2,
+        "text": "When this occurs, the prey population can rebound.",
+        "translation": "当这种情况发生时，猎物种群数量可以反弹。",
+        "grammarFocus": "时间状语从句",
+        "pronounRef": "this",
+        "logicConnector": "When",
+        "sentenceCoach": {
+          "summary": "简单的复合句，注意 this 指代前文的捕食者减少。",
+          "keyHint": "rebound 是不及物动词。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "什么时候反弹？",
+          "grammarQuestion": "When 引导时间状语从句；this 指代前文提到的捕食者种群减少的情况。",
+          "modifierQuestion": "无复杂修饰。",
+          "relationshipQuestion": "时间顺序：捕食者减少 -> 猎物反弹。",
+          "commonMistake": "不要误以为 rebound 是及物动词，它后面没有宾语。",
+          "thinkingPath": [
+            "找到时间状语从句 When this occurs",
+            "找到主句主语 the prey population",
+            "找到主句谓语 can rebound"
+          ],
+          "encouragement": "你读懂了指代关系，这让你的理解更连贯！"
+        },
+        "analysis": "### 【主干结构】\n- **时间状语从句**: When this occurs\n  - **主语**: this (指代 predator population decrease)\n  - **谓语**: occurs\n- **主句**: the prey population can rebound\n  - **主语**: the prey population\n  - **谓语**: can rebound\n\n### 【代词指代】\n- **this**: 指代前一句提到的“捕食者种群数量下降”这一情况。\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "When",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " this",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " occurs,",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " the prey population",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " can rebound.",
+            "type": "verb",
+            "label": "谓语"
+          }
+        ]
+      },
+      {
+        "id": "s12",
+        "para": 2,
+        "text": "In this situation the predator and prey population may continue in this cyclical pattern for some time.",
+        "translation": "在这种情况下，捕食者和猎物种群可能会以这种循环模式持续一段时间。",
+        "grammarFocus": "介词短语作状语",
+        "pronounRef": "this",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "注意主语是并列的 predator and prey population。",
+          "keyHint": "continue in... pattern 是固定搭配。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "谁持续？以什么方式？",
+          "grammarQuestion": "predator and prey population 是并列主语；in this cyclical pattern 是方式状语。",
+          "modifierQuestion": "for some time 是时间状语。",
+          "relationshipQuestion": "描述循环状态的持续性。",
+          "commonMistake": "注意 population 是单数还是复数，这里指两个种群，但动词用 may continue，不受影响。",
+          "thinkingPath": [
+            "找到主语 the predator and prey population",
+            "找到谓语 may continue",
+            "找到状语 in this cyclical pattern",
+            "找到时间状语 for some time"
+          ],
+          "encouragement": "你成功识别了并列主语，这让你的句子分析更准确！"
+        },
+        "analysis": "### 【主干结构】\n- **状语**: In this situation\n- **主语**: the predator and prey population\n- **谓语**: may continue\n- **状语**: in this cyclical pattern\n- **状语**: for some time\n\n### 【时态】\n一般现在时（含情态动词 may），描述可能性。",
+        "segments": [
+          {
+            "text": "In this situation",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the predator and prey population",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " may continue",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " in this cyclical pattern",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " for some time.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s13",
+        "para": 3,
+        "text": "Population cycles are characteristic of small mammals, and they sometimes appear to be brought about by predators.",
+        "translation": "种群循环是小哺乳动物的特征，它们有时似乎是由捕食者引起的。",
+        "grammarFocus": "并列句 + 不定式被动",
+        "pronounRef": "they",
+        "logicConnector": "and",
+        "sentenceCoach": {
+          "summary": "注意 and 连接两个并列分句。",
+          "keyHint": "they 指代 Population cycles。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "谁有循环？谁引起的？",
+          "grammarQuestion": "and 连接两个独立分句；appear to be brought about 是不定式的被动形式。",
+          "modifierQuestion": "of small mammals 修饰 characteristic。",
+          "relationshipQuestion": "前半句讲特征，后半句讲原因。",
+          "commonMistake": "不要误以为 brought about 是谓语，它是非谓语动词。",
+          "thinkingPath": [
+            "找到第一个分句主语 Population cycles",
+            "找到第一个分句谓语 are",
+            "找到连接词 and",
+            "找到第二个分句主语 they",
+            "找到第二个分句谓语 appear"
+          ],
+          "encouragement": "你成功拆解了并列句，这让你的阅读速度更快！"
+        },
+        "analysis": "### 【主干结构】\n- **分句1**: Population cycles are characteristic of small mammals\n  - **主语**: Population cycles\n  - **系动词**: are\n  - **表语**: characteristic\n  - **定语**: of small mammals\n- **连接词**: and\n- **分句2**: they sometimes appear to be brought about by predators\n  - **主语**: they (指代 Population cycles)\n  - **谓语**: appear\n  - **状语**: sometimes\n  - **不定式**: to be brought about by predators (作表语或补语)\n\n### 【非谓语动词】\n- **to be brought about**: 不定式的被动形式，表示“被引起”。\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "Population cycles",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " are",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " characteristic",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " of small mammals,",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " they",
+            "type": "coord-subject",
+            "label": "并列主语"
+          },
+          {
+            "text": " sometimes",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " appear",
+            "type": "coord-verb",
+            "label": "并列谓语"
+          },
+          {
+            "text": " to be brought about",
+            "type": "modifier",
+            "label": "不定式"
+          },
+          {
+            "text": " by predators.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s14",
+        "para": 3,
+        "text": "Ecologists studying hare populations have found that the North American snow shoe hare follows a roughly ten-year cycle.",
+        "translation": "研究 hare 种群数量的生态学家发现，北美雪鞋兔遵循大约十年的循环周期。",
+        "grammarFocus": "现在分词作定语 + 宾语从句",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "注意 studying hare populations 是定语，修饰 Ecologists。",
+          "keyHint": "that 引导宾语从句。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "谁发现？发现了什么？",
+          "grammarQuestion": "studying hare populations 是现在分词短语作后置定语；that 引导宾语从句。",
+          "modifierQuestion": "roughly 修饰 ten-year；ten-year cycle 是宾语。",
+          "relationshipQuestion": "生态学家通过研究发现规律。",
+          "commonMistake": "不要误以为 studying 是谓语，它是非谓语动词。",
+          "thinkingPath": [
+            "找到主语 Ecologists",
+            "找到定语 studying hare populations",
+            "找到谓语 have found",
+            "找到宾语从句 that..."
+          ],
+          "encouragement": "你成功识别了分词定语，这让你的句子分析更细致！"
+        },
+        "analysis": "### 【主干结构】\n- **主语**: Ecologists\n- **定语**: studying hare populations (现在分词短语，修饰 Ecologists)\n- **谓语**: have found\n- **宾语**: that the North American snow shoe hare follows a roughly ten-year cycle (宾语从句)\n\n### 【宾语从句分析】\n- **主语**: the North American snow shoe hare\n- **谓语**: follows\n- **宾语**: a roughly ten-year cycle\n\n### 【时态】\n- 主句：现在完成时 (have found)，强调发现的结果。\n- 从句：一般现在时 (follows)，陈述事实。",
+        "segments": [
+          {
+            "text": "Ecologists",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " studying hare populations",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " have found",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " that",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " the North American snow shoe hare",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " follows",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " a roughly ten-year cycle.",
+            "type": "clause-object",
+            "label": "从句宾语"
+          }
+        ]
+      },
+      {
+        "id": "s15",
+        "para": 3,
+        "text": "Its numbers fall tenfold to thirty in a typical cycle, and a hundredfold change can occur.",
+        "translation": "在一个典型的循环中，其数量下降十倍至三十只，并且可能发生百倍的变化。",
+        "grammarFocus": "并列句",
+        "pronounRef": "Its",
+        "logicConnector": "and",
+        "sentenceCoach": {
+          "summary": "注意 and 连接两个并列分句。",
+          "keyHint": "Its 指代 snow shoe hare。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "数量怎么变？",
+          "grammarQuestion": "fall tenfold to thirty 是谓语部分；a hundredfold change can occur 是第二个分句。",
+          "modifierQuestion": "in a typical cycle 是时间状语。",
+          "relationshipQuestion": "描述数量变化的幅度和可能性。",
+          "commonMistake": "不要误以为 tenfold 是名词，它是副词，修饰 fall。",
+          "thinkingPath": [
+            "找到第一个分句主语 Its numbers",
+            "找到第一个分句谓语 fall",
+            "找到连接词 and",
+            "找到第二个分句主语 a hundredfold change",
+            "找到第二个分句谓语 can occur"
+          ],
+          "encouragement": "你成功识别了数量变化的描述，这有助于你理解数据！"
+        },
+        "analysis": "### 【主干结构】\n- **分句1**: Its numbers fall tenfold to thirty in a typical cycle\n  - **主语**: Its numbers (Its 指代 snow shoe hare)\n  - **谓语**: fall\n  - **状语**: tenfold (倍数), to thirty (结果), in a typical cycle (时间)\n- **连接词**: and\n- **分句2**: a hundredfold change can occur\n  - **主语**: a hundredfold change\n  - **谓语**: can occur\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "Its numbers",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " fall",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " tenfold",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " to thirty",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " in a typical cycle,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " a hundredfold change",
+            "type": "coord-subject",
+            "label": "并列主语"
+          },
+          {
+            "text": " can occur.",
+            "type": "coord-verb",
+            "label": "并列谓语"
+          }
+        ]
+      },
+      {
+        "id": "s16",
+        "para": 3,
+        "text": "Two factors appear to be generating the cycle: food plants and predators.",
+        "translation": "两个因素似乎正在产生这种循环：食物植物和捕食者。",
+        "grammarFocus": "冒号解释说明",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "注意冒号后面的内容是对 Two factors 的解释。",
+          "keyHint": "appear to be generating 是谓语部分。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "哪两个因素？",
+          "grammarQuestion": "冒号用于引出解释说明；appear to be generating 是谓语。",
+          "modifierQuestion": "food plants and predators 是同位语，解释 Two factors。",
+          "relationshipQuestion": "提出因素并立即解释。",
+          "commonMistake": "不要误以为冒号是标点错误，它是用于解释的。",
+          "thinkingPath": [
+            "找到主语 Two factors",
+            "找到谓语 appear to be generating",
+            "找到宾语 the cycle",
+            "找到冒号后的解释 food plants and predators"
+          ],
+          "encouragement": "你成功识别了冒号的用法，这让你的阅读更清晰！"
+        },
+        "analysis": "### 【主干结构】\n- **主语**: Two factors\n- **谓语**: appear to be generating\n- **宾语**: the cycle\n- **同位语**: food plants and predators (解释 Two factors)\n\n### 【时态】\n一般现在时（含进行时态 appear to be generating），描述当前状态。",
+        "segments": [
+          {
+            "text": "Two factors",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " appear",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " to be generating",
+            "type": "modifier",
+            "label": "不定式"
+          },
+          {
+            "text": " the cycle:",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " food plants and predators.",
+            "type": "modifier",
+            "label": "同位语"
+          }
+        ]
+      },
+      {
+        "id": "s17",
+        "para": 4,
+        "text": "The preferred foods of snowshoe hares are willow and birch twigs.",
+        "translation": "雪鞋兔偏爱的食物是柳枝和桦树枝。",
+        "grammarFocus": "主系表结构",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "简单的主系表结构。",
+          "keyHint": "主语是 The preferred foods。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "雪鞋兔吃什么？",
+          "grammarQuestion": "are 是系动词；willow and birch twigs 是表语。",
+          "modifierQuestion": "of snowshoe hares 修饰 foods；preferred 修饰 foods。",
+          "relationshipQuestion": "直接陈述事实。",
+          "commonMistake": "不要误以为 willow and birch twigs 是主语，它是表语。",
+          "thinkingPath": [
+            "找到主语 The preferred foods",
+            "找到系动词 are",
+            "找到表语 willow and birch twigs"
+          ],
+          "encouragement": "你成功识别了主系表结构，这让你的句子分析更基础！"
+        },
+        "analysis": "### 【主干结构】\n- **主语**: The preferred foods of snowshoe hares\n- **系动词**: are\n- **表语**: willow and birch twigs\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "The preferred foods",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " of snowshoe hares",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " are",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " willow and birch twigs.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s18",
+        "para": 4,
+        "text": "As hare density increases, the quantity of these twigs decreases, forcing the hares to feed on low-quality high-fiber food.",
+        "translation": "随着 hare 密度增加，这些树枝的数量减少，迫使 hare 以低质量高纤维的食物为食。",
+        "grammarFocus": "时间状语从句 + 现在分词作结果状语",
+        "pronounRef": "these",
+        "logicConnector": "As",
+        "sentenceCoach": {
+          "summary": "注意 As 引导时间状语从句，forcing 是结果状语。",
+          "keyHint": "forcing the hares to feed... 是现在分词短语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "密度增加导致什么？",
+          "grammarQuestion": "As 引导时间状语从句；forcing 是现在分词，作结果状语。",
+          "modifierQuestion": "to feed on low-quality high-fiber food 是不定式作宾语补足语。",
+          "relationshipQuestion": "密度增加 -> 树枝减少 -> 迫使 hare 吃差的食物。",
+          "commonMistake": "不要误以为 forcing 是谓语，它是非谓语动词。",
+          "thinkingPath": [
+            "找到时间状语从句 As hare density increases",
+            "找到主句主语 the quantity",
+            "找到主句谓语 decreases",
+            "找到分词短语 forcing..."
+          ],
+          "encouragement": "你成功识别了因果链条，这让你的理解更深刻！"
+        },
+        "analysis": "### 【主干结构】\n- **时间状语从句**: As hare density increases\n  - **主语**: hare density\n  - **谓语**: increases\n- **主句**: the quantity of these twigs decreases\n  - **主语**: the quantity\n  - **定语**: of these twigs\n  - **谓语**: decreases\n- **结果状语**: forcing the hares to feed on low-quality high-fiber food\n\n### 【非谓语动词】\n- **forcing**: 现在分词，作结果状语。\n- **to feed**: 不定式，作宾语补足语。\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "As",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " hare density",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " increases,",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " the quantity",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " of these twigs",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " decreases,",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " forcing the hares to feed on low-quality high-fiber food.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s19",
+        "para": 4,
+        "text": "Lower birth rates, low juvenile survivorship, and low growth rates follow, so there is a corresponding decline in hare abundance.",
+        "translation": "较低的出生率、较低的幼体存活率和较低的生长率随之而来，因此 hare 数量相应下降。",
+        "grammarFocus": "并列主语 + so 引导的结果状语从句",
+        "pronounRef": "无",
+        "logicConnector": "so",
+        "sentenceCoach": {
+          "summary": "注意 so 连接因果关系。",
+          "keyHint": "主语是三个并列的名词短语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "什么导致 hare 数量下降？",
+          "grammarQuestion": "so 引导结果状语从句；there is 是存在句。",
+          "modifierQuestion": "in hare abundance 修饰 decline。",
+          "relationshipQuestion": "前因后果。",
+          "commonMistake": "不要误以为 follow 是及物动词，它是不及物动词。",
+          "thinkingPath": [
+            "找到主语 Lower birth rates, low juvenile survivorship, and low growth rates",
+            "找到谓语 follow",
+            "找到连接词 so",
+            "找到结果从句 there is a corresponding decline"
+          ],
+          "encouragement": "你成功识别了因果关系，这让你的逻辑更清晰！"
+        },
+        "analysis": "### 【主干结构】\n- **分句1**: Lower birth rates, low juvenile survivorship, and low growth rates follow\n  - **主语**: Lower birth rates, low juvenile survivorship, and low growth rates (并列)\n  - **谓语**: follow\n- **连接词**: so\n- **分句2**: there is a corresponding decline in hare abundance\n  - **引导词**: there\n  - **谓语**: is\n  - **主语**: a corresponding decline\n  - **状语**: in hare abundance\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "Lower birth rates,",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " low juvenile survivorship,",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " and low growth rates",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " follow,",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " so",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " there",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " is",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " a corresponding decline",
+            "type": "clause-predicative",
+            "label": "从句表语"
+          },
+          {
+            "text": " in hare abundance.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s20",
+        "para": 4,
+        "text": "Once the hare population has declined, it takes two to three year for the quantity of twigs to recover.",
+        "translation": "一旦 hare 种群数量下降，树枝的数量需要两到三年的时间才能恢复。",
+        "grammarFocus": "时间状语从句 + it 作形式主语",
+        "pronounRef": "it",
+        "logicConnector": "Once",
+        "sentenceCoach": {
+          "summary": "注意 it 是形式主语，真正的主语是 for... to recover。",
+          "keyHint": "takes 是谓语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "恢复需要多久？",
+          "grammarQuestion": "Once 引导时间状语从句；it takes... for... to... 是固定句型。",
+          "modifierQuestion": "for the quantity of twigs to recover 是真正的主语。",
+          "relationshipQuestion": "条件满足后，时间流逝。",
+          "commonMistake": "不要误以为 it 指代 hare population，它是形式主语。",
+          "thinkingPath": [
+            "找到时间状语从句 Once the hare population has declined",
+            "找到主句主语 it (形式主语)",
+            "找到主句谓语 takes",
+            "找到真正的主语 for the quantity of twigs to recover"
+          ],
+          "encouragement": "你成功识别了形式主语，这让你的句子分析更专业！"
+        },
+        "analysis": "### 【主干结构】\n- **时间状语从句**: Once the hare population has declined\n  - **主语**: the hare population\n  - **谓语**: has declined\n- **主句**: it takes two to three year for the quantity of twigs to recover\n  - **形式主语**: it\n  - **谓语**: takes\n  - **宾语**: two to three year (时间)\n  - **真正主语**: for the quantity of twigs to recover\n\n### 【时态】\n- 从句：现在完成时 (has declined)\n- 主句：一般现在时 (takes)\n\n### 【句型】\nit takes + time + for sb/sth + to do sth",
+        "segments": [
+          {
+            "text": "Once",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " the hare population",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " has declined,",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " it",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " takes",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " two to three year",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " for the quantity of twigs to recover.",
+            "type": "modifier",
+            "label": "真正主语"
+          }
+        ]
+      },
+      {
+        "id": "s21",
+        "para": 5,
+        "text": "A key predator of the snowshoe hare is the Canada lynx.",
+        "translation": "雪鞋兔的一个主要捕食者是加拿大猞猁。",
+        "grammarFocus": "主系表结构",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "简单的主系表结构。",
+          "keyHint": "主语是 A key predator。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "谁捕食雪鞋兔？",
+          "grammarQuestion": "is 是系动词；the Canada lynx 是表语。",
+          "modifierQuestion": "of the snowshoe hare 修饰 predator。",
+          "relationshipQuestion": "直接陈述事实。",
+          "commonMistake": "不要误以为 the Canada lynx 是主语，它是表语。",
+          "thinkingPath": [
+            "找到主语 A key predator",
+            "找到系动词 is",
+            "找到表语 the Canada lynx"
+          ],
+          "encouragement": "你成功识别了主系表结构，这让你的句子分析更基础！"
+        },
+        "analysis": "### 【主干结构】\n- **主语**: A key predator of the snowshoe hare\n- **系动词**: is\n- **表语**: the Canada lynx\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "A key predator",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " of the snowshoe hare",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " is",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " the Canada lynx.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s22",
+        "para": 5,
+        "text": "The Canada lynx shows a ten-year cycle of abundance that parallels the abundance cycle of hares.",
+        "translation": "加拿大猞猁显示出十年的丰度循环，这与 hare 的丰度循环平行。",
+        "grammarFocus": "定语从句",
+        "pronounRef": "that",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "注意 that 引导的定语从句修饰 cycle。",
+          "keyHint": "that 指代 cycle，在从句中作主语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "猞猁的循环怎么样？",
+          "grammarQuestion": "that 引导定语从句，修饰先行词 cycle。",
+          "modifierQuestion": "of abundance 修饰 cycle；parallels 是谓语。",
+          "relationshipQuestion": "定语从句进一步说明循环的特征。",
+          "commonMistake": "不要误以为 that 是宾语，它在从句中作主语。",
+          "thinkingPath": [
+            "找到主语 The Canada lynx",
+            "找到谓语 shows",
+            "找到宾语 a ten-year cycle",
+            "找到定语从句 that parallels..."
+          ],
+          "encouragement": "你成功识别了定语从句，这让你的句子分析更细致！"
+        },
+        "analysis": "### 【主干结构】\n- **主语**: The Canada lynx\n- **谓语**: shows\n- **宾语**: a ten-year cycle of abundance\n- **定语从句**: that parallels the abundance cycle of hares\n  - **主语**: that (指代 cycle)\n  - **谓语**: parallels\n  - **宾语**: the abundance cycle of hares\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "The Canada lynx",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " shows",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " a ten-year cycle",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " of abundance",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " that",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " parallels",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " the abundance cycle",
+            "type": "clause-object",
+            "label": "从句宾语"
+          },
+          {
+            "text": " of hares.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s23",
+        "para": 5,
+        "text": "As hare numbers fall, so do lynx numbers, as their food supply depleted.",
+        "translation": "随着 hare 数量下降，猞猁数量也随之下降，因为它们的食物供应减少了。",
+        "grammarFocus": "倒装句 + 原因状语从句",
+        "pronounRef": "their",
+        "logicConnector": "As, so",
+        "sentenceCoach": {
+          "summary": "注意 so do lynx numbers 是倒装句。",
+          "keyHint": "so 表示“也”，do 是助动词。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "hare 下降，猞猁怎么样？",
+          "grammarQuestion": "so do lynx numbers 是倒装句，表示“猞猁数量也下降”；as 引导原因状语从句。",
+          "modifierQuestion": "their food supply depleted 是原因。",
+          "relationshipQuestion": "hare 下降 -> 猞猁下降 -> 原因。",
+          "commonMistake": "不要误以为 so do 是谓语，它是倒装结构。",
+          "thinkingPath": [
+            "找到时间状语从句 As hare numbers fall",
+            "找到主句 so do lynx numbers",
+            "找到原因状语从句 as their food supply depleted"
+          ],
+          "encouragement": "你成功识别了倒装句，这让你的句子分析更专业！"
+        },
+        "analysis": "### 【主干结构】\n- **时间状语从句**: As hare numbers fall\n  - **主语**: hare numbers\n  - **谓语**: fall\n- **主句**: so do lynx numbers\n  - **连接词**: so (表示“也”)\n  - **助动词**: do (代替 fall)\n  - **主语**: lynx numbers\n- **原因状语从句**: as their food supply depleted\n  - **主语**: their food supply\n  - **谓语**: depleted\n\n### 【时态】\n- 时间状语从句：一般现在时 (fall)\n- 主句：一般现在时 (do)\n- 原因状语从句：一般过去时 (depleted)，注意这里时态不一致，可能是原文笔误，应为 depletes 或 fall/depleted 对应。根据上下文，depleted 可能是过去时，表示之前的状态。",
+        "segments": [
+          {
+            "text": "As",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " hare numbers",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " fall,",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " so",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " do",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " lynx numbers,",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " as",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " their food supply",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " depleted.",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          }
+        ]
+      },
+      {
+        "id": "s24",
+        "para": 6,
+        "text": "What causes the predator-prey oscillations?",
+        "translation": "什么导致了捕食者-猎物的振荡？",
+        "grammarFocus": "特殊疑问句",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "简单的特殊疑问句。",
+          "keyHint": "主语是 What，谓语是 causes。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "什么导致振荡？",
+          "grammarQuestion": "What 是主语，causes 是谓语。",
+          "modifierQuestion": "the predator-prey oscillations 是宾语。",
+          "relationshipQuestion": "提出问题。",
+          "commonMistake": "不要误以为 oscillations 是主语，它是宾语。",
+          "thinkingPath": [
+            "找到主语 What",
+            "找到谓语 causes",
+            "找到宾语 the predator-prey oscillations"
+          ],
+          "encouragement": "你成功识别了特殊疑问句，这让你的阅读更清晰！"
+        },
+        "analysis": "### 【主干结构】\n- **主语**: What\n- **谓语**: causes\n- **宾语**: the predator-prey oscillations\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "What",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " causes",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " the predator-prey oscillations?",
+            "type": "object",
+            "label": "宾语"
+          }
+        ]
+      },
+      {
+        "id": "s25",
+        "para": 6,
+        "text": "Do increasing number of hares lead to overharvesting of plants, which in turn results in reduced hare populations, or do increasing numbers of lynx lead to overharvesting hares?",
+        "translation": "是 hare 数量的增加导致植物被过度采食，进而导致 hare 种群数量减少，还是猞猁数量的增加导致 hare 被过度捕食？",
+        "grammarFocus": "选择疑问句 + 非限制性定语从句",
+        "pronounRef": "无",
+        "logicConnector": "or",
+        "sentenceCoach": {
+          "summary": "注意 which 引导的非限制性定语从句。",
+          "keyHint": "which 指代 overharvesting of plants。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "是 A 导致 B，还是 C 导致 D？",
+          "grammarQuestion": "which 引导非限制性定语从句，修饰 overharvesting of plants；or 连接两个疑问分句。",
+          "modifierQuestion": "in turn 是插入语；reduced hare populations 是宾语。",
+          "relationshipQuestion": "提出两种可能的原因。",
+          "commonMistake": "不要误以为 which 指代 plants，它指代 overharvesting of plants。",
+          "thinkingPath": [
+            "找到第一个分句 Do increasing number of hares lead to overharvesting of plants",
+            "找到非限制性定语从句 which in turn results in reduced hare populations",
+            "找到连接词 or",
+            "找到第二个分句 do increasing numbers of lynx lead to overharvesting hares"
+          ],
+          "encouragement": "你成功识别了选择疑问句和定语从句，这让你的句子分析更细致！"
+        },
+        "analysis": "### 【主干结构】\n- **分句1**: Do increasing number of hares lead to overharvesting of plants\n  - **主语**: increasing number of hares\n  - **谓语**: lead to\n  - **宾语**: overharvesting of plants\n- **非限制性定语从句**: which in turn results in reduced hare populations\n  - **主语**: which (指代 overharvesting of plants)\n  - **状语**: in turn\n  - **谓语**: results in\n  - **宾语**: reduced hare populations\n- **连接词**: or\n- **分句2**: do increasing numbers of lynx lead to overharvesting hares\n  - **主语**: increasing numbers of lynx\n  - **谓语**: lead to\n  - **宾语**: overharvesting hares\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "Do",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " increasing number of hares",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " lead to",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " overharvesting of plants,",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " which",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " in turn",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " results in",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " reduced hare populations,",
+            "type": "clause-object",
+            "label": "从句宾语"
+          },
+          {
+            "text": " or",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " do",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " increasing numbers of lynx",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " lead to",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " overharvesting hares?",
+            "type": "object",
+            "label": "宾语"
+          }
+        ]
+      },
+      {
+        "id": "s26",
+        "para": 6,
+        "text": "Field experiments carried out by Charles Krebs and coworkers in 1992 provide an answer.",
+        "translation": "1992年由 Charles Krebs 和同事进行的野外实验提供了一个答案。",
+        "grammarFocus": "过去分词作定语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "注意 carried out... 是定语，修饰 experiments。",
+          "keyHint": "主语是 Field experiments。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "谁提供了答案？",
+          "grammarQuestion": "carried out by... 是过去分词短语作后置定语；provide 是谓语。",
+          "modifierQuestion": "in 1992 是时间状语。",
+          "relationshipQuestion": "实验提供答案。",
+          "commonMistake": "不要误以为 carried out 是谓语，它是非谓语动词。",
+          "thinkingPath": [
+            "找到主语 Field experiments",
+            "找到定语 carried out by Charles Krebs and coworkers in 1992",
+            "找到谓语 provide",
+            "找到宾语 an answer"
+          ],
+          "encouragement": "你成功识别了过去分词定语，这让你的句子分析更专业！"
+        },
+        "analysis": "### 【主干结构】\n- **主语**: Field experiments\n- **定语**: carried out by Charles Krebs and coworkers in 1992 (过去分词短语，修饰 experiments)\n- **谓语**: provide\n- **宾语**: an answer\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "Field experiments",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " carried out by Charles Krebs and coworkers in 1992",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " provide",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " an answer.",
+            "type": "object",
+            "label": "宾语"
+          }
+        ]
+      },
+      {
+        "id": "s27",
+        "para": 6,
+        "text": "Krebs investigated experimental plots in Canada’s Yukon territory that contained hare populations.",
+        "translation": "Krebs 调查了加拿大育空地区包含 hare 种群数量的实验地块。",
+        "grammarFocus": "定语从句",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "注意 that 引导的定语从句修饰 plots。",
+          "keyHint": "that 指代 plots，在从句中作主语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "Krebs 调查了什么？",
+          "grammarQuestion": "that 引导定语从句，修饰先行词 plots。",
+          "modifierQuestion": "in Canada’s Yukon territory 修饰 plots。",
+          "relationshipQuestion": "定语从句进一步说明地块的特征。",
+          "commonMistake": "不要误以为 that 是宾语，它在从句中作主语。",
+          "thinkingPath": [
+            "找到主语 Krebs",
+            "找到谓语 investigated",
+            "找到宾语 experimental plots",
+            "找到定语从句 that contained hare populations"
+          ],
+          "encouragement": "你成功识别了定语从句，这让你的句子分析更细致！"
+        },
+        "analysis": "### 【主干结构】\n- **主语**: Krebs\n- **谓语**: investigated\n- **宾语**: experimental plots\n- **定语**: in Canada’s Yukon territory (介词短语，修饰 plots)\n- **定语从句**: that contained hare populations\n  - **主语**: that (指代 plots)\n  - **谓语**: contained\n  - **宾语**: hare populations\n\n### 【时态】\n一般过去时。",
+        "segments": [
+          {
+            "text": "Krebs",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " investigated",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " experimental plots",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " in Canada’s Yukon territory",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " that",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " contained",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " hare populations.",
+            "type": "clause-object",
+            "label": "从句宾语"
+          }
+        ]
+      },
+      {
+        "id": "s28",
+        "para": 6,
+        "text": "When food was added to those plots (no food effect) and predators were excluded (no predator effect) from an experimental area, hare numbers increased tenfold and stayed there—the cycle was lost.",
+        "translation": "当向那些地块添加食物（无食物效应）并从实验区域排除捕食者（无捕食者效应）时，hare 数量增加了十倍并停留在那里——循环消失了。",
+        "grammarFocus": "时间状语从句 + 破折号解释",
+        "pronounRef": "those",
+        "logicConnector": "When",
+        "sentenceCoach": {
+          "summary": "注意破折号后面的内容是对前面结果的解释。",
+          "keyHint": "主语是 hare numbers。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "添加食物和排除捕食者导致什么？",
+          "grammarQuestion": "When 引导时间状语从句；破折号用于解释说明。",
+          "modifierQuestion": "(no food effect) 和 (no predator effect) 是插入语，解释前面的动作。",
+          "relationshipQuestion": "条件满足后，结果发生并解释。",
+          "commonMistake": "不要误以为破折号是标点错误，它是用于解释的。",
+          "thinkingPath": [
+            "找到时间状语从句 When food was added... and predators were excluded...",
+            "找到主句主语 hare numbers",
+            "找到主句谓语 increased and stayed",
+            "找到破折号后的解释 the cycle was lost"
+          ],
+          "encouragement": "你成功识别了破折号的用法，这让你的阅读更清晰！"
+        },
+        "analysis": "### 【主干结构】\n- **时间状语从句**: When food was added to those plots (no food effect) and predators were excluded (no predator effect) from an experimental area\n  - **分句1**: food was added to those plots (no food effect)\n  - **分句2**: predators were excluded (no predator effect) from an experimental area\n- **主句**: hare numbers increased tenfold and stayed there\n  - **主语**: hare numbers\n  - **谓语1**: increased\n  - **状语1**: tenfold\n  - **连接词**: and\n  - **谓语2**: stayed\n  - **状语2**: there\n- **解释**: —the cycle was lost\n  - **主语**: the cycle\n  - **谓语**: was lost\n\n### 【时态】\n一般过去时。",
+        "segments": [
+          {
+            "text": "When",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " food",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " was added",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " to those plots",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " (no food effect)",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " predators",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " were excluded",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " (no predator effect)",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " from an experimental area,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " hare numbers",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " increased",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " tenfold",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " stayed",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " there",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "—the cycle",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " was lost.",
+            "type": "verb",
+            "label": "谓语"
+          }
+        ]
+      },
+      {
+        "id": "s29",
+        "para": 6,
+        "text": "However, the cycle was retained if either of the factors was allowed to operate alone: if predators were excluded but food was not added (food effect alone), or if food was added in the presence of predators (predator effect alone).",
+        "translation": "然而，如果允许任一因素单独作用，循环就会保留：如果排除捕食者但不添加食物（仅食物效应），或者在捕食者存在的情况下添加食物（仅捕食者效应）。",
+        "grammarFocus": "条件状语从句 + 冒号解释",
+        "pronounRef": "either",
+        "logicConnector": "However, if",
+        "sentenceCoach": {
+          "summary": "注意 if 引导的条件状语从句，以及冒号后的解释。",
+          "keyHint": "主语是 the cycle。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "什么情况下循环保留？",
+          "grammarQuestion": "if 引导条件状语从句；冒号用于引出两种具体情况。",
+          "modifierQuestion": "either of the factors 是主语；operate alone 是宾语补足语。",
+          "relationshipQuestion": "条件满足时，结果发生并解释。",
+          "commonMistake": "不要误以为冒号是标点错误，它是用于解释的。",
+          "thinkingPath": [
+            "找到连接词 However",
+            "找到主句 the cycle was retained",
+            "找到条件状语从句 if either of the factors was allowed to operate alone",
+            "找到冒号后的解释 if predators were excluded... or if food was added..."
+          ],
+          "encouragement": "你成功识别了条件状语从句和冒号的用法，这让你的句子分析更专业！"
+        },
+        "analysis": "### 【主干结构】\n- **连接词**: However\n- **主句**: the cycle was retained\n  - **主语**: the cycle\n  - **谓语**: was retained\n- **条件状语从句**: if either of the factors was allowed to operate alone\n  - **主语**: either of the factors\n  - **谓语**: was allowed\n  - **宾语补足语**: to operate alone\n- **解释**: : if predators were excluded but food was not added (food effect alone), or if food was added in the presence of predators (predator effect alone)\n  - **分句1**: if predators were excluded but food was not added (food effect alone)\n  - **分句2**: or if food was added in the presence of predators (predator effect alone)\n\n### 【时态】\n一般过去时。",
+        "segments": [
+          {
+            "text": "However,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the cycle",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " was retained",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " if",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " either of the factors",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " was allowed",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " to operate alone:",
+            "type": "modifier",
+            "label": "宾语补足语"
+          },
+          {
+            "text": " if",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " predators",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " were excluded",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " but",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " food",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " was not added",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " (food effect alone),",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " or",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " if",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " food",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " was added",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " in the presence of predators",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " (predator effect alone).",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s30",
+        "para": 6,
+        "text": "Thus both factors can affect the cycle, which, in practice, seems to be generated by conjunction of the two factors.",
+        "translation": "因此，两个因素都可以影响循环，实际上，它似乎是由这两个因素的结合产生的。",
+        "grammarFocus": "非限制性定语从句 + 插入语",
+        "pronounRef": "which",
+        "logicConnector": "Thus",
+        "sentenceCoach": {
+          "summary": "注意 which 引导的非限制性定语从句，以及 in practice 是插入语。",
+          "keyHint": "which 指代 the cycle。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "循环由什么产生？",
+          "grammarQuestion": "which 引导非限制性定语从句，修饰 the cycle；in practice 是插入语。",
+          "modifierQuestion": "by conjunction of the two factors 是状语。",
+          "relationshipQuestion": "总结前文，得出结论。",
+          "commonMistake": "不要误以为 which 指代 factors，它指代 the cycle。",
+          "thinkingPath": [
+            "找到连接词 Thus",
+            "找到主句 both factors can affect the cycle",
+            "找到非限制性定语从句 which, in practice, seems to be generated by conjunction of the two factors"
+          ],
+          "encouragement": "你成功识别了非限制性定语从句和插入语，这让你的句子分析更细致！"
+        },
+        "analysis": "### 【主干结构】\n- **连接词**: Thus\n- **主句**: both factors can affect the cycle\n  - **主语**: both factors\n  - **谓语**: can affect\n  - **宾语**: the cycle\n- **非限制性定语从句**: which, in practice, seems to be generated by conjunction of the two factors\n  - **主语**: which (指代 the cycle)\n  - **插入语**: in practice\n  - **谓语**: seems to be generated\n  - **状语**: by conjunction of the two factors\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "Thus",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " both factors",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " can affect",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " the cycle,",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " which,",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " in practice,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " seems",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " to be generated",
+            "type": "modifier",
+            "label": "不定式"
+          },
+          {
+            "text": " by conjunction of the two factors.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s31",
+        "para": 7,
+        "text": "Predators are an essential factor in maintaining communities that are rich and diverse in species.",
+        "translation": "捕食者是维持物种丰富多样的群落的一个基本因素。",
+        "grammarFocus": "定语从句",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "注意 that 引导的定语从句修饰 communities。",
+          "keyHint": "that 指代 communities，在从句中作主语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "捕食者是什么因素？",
+          "grammarQuestion": "that 引导定语从句，修饰先行词 communities。",
+          "modifierQuestion": "in maintaining communities 是介词短语修饰 factor；rich and diverse in species 是表语。",
+          "relationshipQuestion": "定语从句进一步说明群落的特征。",
+          "commonMistake": "不要误以为 that 是宾语，它在从句中作主语。",
+          "thinkingPath": [
+            "找到主语 Predators",
+            "找到系动词 are",
+            "找到表语 an essential factor",
+            "找到定语从句 that are rich and diverse in species"
+          ],
+          "encouragement": "你成功识别了定语从句，这让你的句子分析更细致！"
+        },
+        "analysis": "### 【主干结构】\n- **主语**: Predators\n- **系动词**: are\n- **表语**: an essential factor\n- **定语**: in maintaining communities (介词短语，修饰 factor)\n- **定语从句**: that are rich and diverse in species\n  - **主语**: that (指代 communities)\n  - **系动词**: are\n  - **表语**: rich and diverse\n  - **状语**: in species\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "Predators",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " are",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " an essential factor",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " in maintaining communities",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " that",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " are",
+            "type": "clause-verb",
+            "label": "从句系动词"
+          },
+          {
+            "text": " rich and diverse",
+            "type": "clause-predicative",
+            "label": "从句表语"
+          },
+          {
+            "text": " in species.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s32",
+        "para": 7,
+        "text": "Without predators, the species that is the best competitor for food, shelter, nesting sites, and other environmental resources tends to dominate and exclude the species with which it competes.",
+        "translation": "没有捕食者，在食物、庇护所、筑巢地点和其他环境资源方面竞争能力最强的物种倾向于主导并排除与其竞争的物种。",
+        "grammarFocus": "定语从句 + 介词+which 引导的定语从句",
+        "pronounRef": "it",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "注意两个定语从句，一个是 that 引导，一个是 with which 引导。",
+          "keyHint": "that 指代 species；with which 指代 species。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "没有捕食者，谁主导？",
+          "grammarQuestion": "that 引导定语从句，修饰 species；with which 引导定语从句，修饰 species。",
+          "modifierQuestion": "for food... 是定语，修饰 competitor；with which it competes 是定语，修饰 species。",
+          "relationshipQuestion": "定语从句进一步说明物种的特征。",
+          "commonMistake": "不要误以为 with which 是宾语，它是介词+关系代词。",
+          "thinkingPath": [
+            "找到状语 Without predators",
+            "找到主语 the species",
+            "找到定语从句 that is the best competitor...",
+            "找到谓语 tends to dominate and exclude",
+            "找到宾语 the species",
+            "找到定语从句 with which it competes"
+          ],
+          "encouragement": "你成功识别了两个定语从句，这让你的句子分析更专业！"
+        },
+        "analysis": "### 【主干结构】\n- **状语**: Without predators\n- **主语**: the species\n- **定语从句1**: that is the best competitor for food, shelter, nesting sites, and other environmental resources\n  - **主语**: that (指代 species)\n  - **系动词**: is\n  - **表语**: the best competitor\n  - **定语**: for food, shelter, nesting sites, and other environmental resources\n- **谓语**: tends to dominate and exclude\n- **宾语**: the species\n- **定语从句2**: with which it competes\n  - **介词**: with\n  - **关系代词**: which (指代 species)\n  - **主语**: it (指代 the species in the main clause)\n  - **谓语**: competes\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "Without predators,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the species",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " that",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " is",
+            "type": "clause-verb",
+            "label": "从句系动词"
+          },
+          {
+            "text": " the best competitor",
+            "type": "clause-predicative",
+            "label": "从句表语"
+          },
+          {
+            "text": " for food, shelter, nesting sites, and other environmental resources",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " tends",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " to dominate",
+            "type": "modifier",
+            "label": "不定式"
+          },
+          {
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " exclude",
+            "type": "modifier",
+            "label": "不定式"
+          },
+          {
+            "text": " the species",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " with",
+            "type": "modifier",
+            "label": "介词"
+          },
+          {
+            "text": " which",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " it",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " competes.",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          }
+        ]
+      },
+      {
+        "id": "s33",
+        "para": 7,
+        "text": "This phenomenon is known as “competitor exclusion”.",
+        "translation": "这种现象被称为“竞争排斥”。",
+        "grammarFocus": "被动语态",
+        "pronounRef": "This",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "简单的被动语态句子。",
+          "keyHint": "This 指代前文描述的现象。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "这种现象叫什么？",
+          "grammarQuestion": "is known as 是被动语态，表示“被称为”。",
+          "modifierQuestion": "“competitor exclusion” 是表语。",
+          "relationshipQuestion": "定义前文提到的现象。",
+          "commonMistake": "不要误以为 known 是谓语，它是非谓语动词。",
+          "thinkingPath": [
+            "找到主语 This phenomenon",
+            "找到谓语 is known as",
+            "找到表语 “competitor exclusion”"
+          ],
+          "encouragement": "你成功识别了被动语态，这让你的句子分析更基础！"
+        },
+        "analysis": "### 【主干结构】\n- **主语**: This phenomenon\n- **谓语**: is known as\n- **表语**: “competitor exclusion”\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "This phenomenon",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " is known as",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " “competitor exclusion”.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s34",
+        "para": 7,
+        "text": "However, if the community contains a predator of the strongest competitor species, then the population of that competitor is controlled.",
+        "translation": "然而，如果群落包含最强竞争物种的捕食者，那么该竞争者的种群数量就会受到控制。",
+        "grammarFocus": "条件状语从句",
+        "pronounRef": "that",
+        "logicConnector": "However, if, then",
+        "sentenceCoach": {
+          "summary": "注意 if 引导的条件状语从句，then 是副词。",
+          "keyHint": "主语是 the population。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "如果有什么，种群会怎样？",
+          "grammarQuestion": "if 引导条件状语从句；then 是副词，表示结果。",
+          "modifierQuestion": "of the strongest competitor species 修饰 predator；of that competitor 修饰 population。",
+          "relationshipQuestion": "条件满足时，结果发生。",
+          "commonMistake": "不要误以为 then 是连接词，它是副词。",
+          "thinkingPath": [
+            "找到连接词 However",
+            "找到条件状语从句 if the community contains a predator of the strongest competitor species",
+            "找到主句 then the population of that competitor is controlled"
+          ],
+          "encouragement": "你成功识别了条件状语从句，这让你的句子分析更清晰！"
+        },
+        "analysis": "### 【主干结构】\n- **连接词**: However\n- **条件状语从句**: if the community contains a predator of the strongest competitor species\n  - **主语**: the community\n  - **谓语**: contains\n  - **宾语**: a predator\n  - **定语**: of the strongest competitor species\n- **主句**: then the population of that competitor is controlled\n  - **状语**: then\n  - **主语**: the population\n  - **定语**: of that competitor\n  - **谓语**: is controlled\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "However,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " if",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " the community",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " contains",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " a predator",
+            "type": "clause-object",
+            "label": "从句宾语"
+          },
+          {
+            "text": " of the strongest competitor species,",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " then",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the population",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " of that competitor",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " is controlled.",
+            "type": "verb",
+            "label": "谓语"
+          }
+        ]
+      },
+      {
+        "id": "s35",
+        "para": 7,
+        "text": "Thus even the less competitive species are able to survive.",
+        "translation": "因此，即使是竞争力较弱的物种也能够生存。",
+        "grammarFocus": "主系表结构",
+        "pronounRef": "无",
+        "logicConnector": "Thus",
+        "sentenceCoach": {
+          "summary": "简单的句子，注意 even 的强调作用。",
+          "keyHint": "主语是 even the less competitive species。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "谁能够生存？",
+          "grammarQuestion": "are able to survive 是谓语部分。",
+          "modifierQuestion": "even 强调 less competitive species。",
+          "relationshipQuestion": "总结前文，得出结论。",
+          "commonMistake": "不要误以为 able 是谓语，它是形容词。",
+          "thinkingPath": [
+            "找到连接词 Thus",
+            "找到主语 even the less competitive species",
+            "找到谓语 are able to survive"
+          ],
+          "encouragement": "你成功识别了强调词 even，这让你的句子分析更细致！"
+        },
+        "analysis": "### 【主干结构】\n- **连接词**: Thus\n- **主语**: even the less competitive species\n- **谓语**: are able to survive\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "Thus",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " even",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the less competitive species",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " are able to survive.",
+            "type": "verb",
+            "label": "谓语"
+          }
+        ]
+      },
+      {
+        "id": "s36",
+        "para": 7,
+        "text": "For example, sea stars prey on a variety of bivalve mollusks and prevent these bivalves from monopolizing habitats on the sea floor.",
+        "translation": "例如，海星捕食各种双壳软体动物，并防止这些双壳动物垄断海底的栖息地。",
+        "grammarFocus": "并列谓语",
+        "pronounRef": "these",
+        "logicConnector": "For example",
+        "sentenceCoach": {
+          "summary": "注意 and 连接两个并列谓语。",
+          "keyHint": "主语是 sea stars。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "海星做什么？",
+          "grammarQuestion": "prey on 和 prevent 是并列谓语；from monopolizing... 是宾语补足语。",
+          "modifierQuestion": "a variety of bivalve mollusks 是宾语；on the sea floor 是状语。",
+          "relationshipQuestion": "举例说明捕食者的作用。",
+          "commonMistake": "不要误以为 prevent 是及物动词，它后面接 from doing。",
+          "thinkingPath": [
+            "找到连接词 For example",
+            "找到主语 sea stars",
+            "找到谓语 prey on",
+            "找到宾语 a variety of bivalve mollusks",
+            "找到连接词 and",
+            "找到谓语 prevent",
+            "找到宾语 these bivalves",
+            "找到宾语补足语 from monopolizing habitats on the sea floor"
+          ],
+          "encouragement": "你成功识别了并列谓语，这让你的句子分析更清晰！"
+        },
+        "analysis": "### 【主干结构】\n- **连接词**: For example\n- **主语**: sea stars\n- **谓语1**: prey on\n- **宾语1**: a variety of bivalve mollusks\n- **连接词**: and\n- **谓语2**: prevent\n- **宾语2**: these bivalves\n- **宾语补足语**: from monopolizing habitats on the sea floor\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "For example,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " sea stars",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " prey on",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " a variety of bivalve mollusks",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " prevent",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " these bivalves",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " from monopolizing habitats",
+            "type": "modifier",
+            "label": "宾语补足语"
+          },
+          {
+            "text": " on the sea floor.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s37",
+        "para": 7,
+        "text": "This opens up space for many other organisms.",
+        "translation": "这为许多其他生物腾出了空间。",
+        "grammarFocus": "主谓宾结构",
+        "pronounRef": "This",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "简单的句子，注意 This 指代前文海星防止垄断的行为。",
+          "keyHint": "主语是 This。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "这打开了什么？",
+          "grammarQuestion": "opens up 是谓语；space 是宾语。",
+          "modifierQuestion": "for many other organisms 是状语。",
+          "relationshipQuestion": "解释前文行为的结果。",
+          "commonMistake": "不要误以为 opens up 是及物动词，它后面接宾语。",
+          "thinkingPath": [
+            "找到主语 This",
+            "找到谓语 opens up",
+            "找到宾语 space",
+            "找到状语 for many other organisms"
+          ],
+          "encouragement": "你成功识别了主谓宾结构，这让你的句子分析更基础！"
+        },
+        "analysis": "### 【主干结构】\n- **主语**: This\n- **谓语**: opens up\n- **宾语**: space\n- **状语**: for many other organisms\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "This",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " opens up",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " space",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " for many other organisms.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s38",
+        "para": 7,
+        "text": "When sea stars are removed, species diversity falls sharply.",
+        "translation": "当海星被移除时，物种多样性急剧下降。",
+        "grammarFocus": "时间状语从句",
+        "pronounRef": "无",
+        "logicConnector": "When",
+        "sentenceCoach": {
+          "summary": "注意 When 引导的时间状语从句。",
+          "keyHint": "主语是 species diversity。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "海星移除后，多样性怎样？",
+          "grammarQuestion": "When 引导时间状语从句；falls sharply 是谓语部分。",
+          "modifierQuestion": "are removed 是被动语态；sharply 是状语。",
+          "relationshipQuestion": "时间顺序：移除海星 -> 多样性下降。",
+          "commonMistake": "不要误以为 falls 是及物动词，它是不及物动词。",
+          "thinkingPath": [
+            "找到时间状语从句 When sea stars are removed",
+            "找到主句主语 species diversity",
+            "找到主句谓语 falls sharply"
+          ],
+          "encouragement": "你成功识别了时间状语从句，这让你的句子分析更清晰！"
+        },
+        "analysis": "### 【主干结构】\n- **时间状语从句**: When sea stars are removed\n  - **主语**: sea stars\n  - **谓语**: are removed (被动语态)\n- **主句**: species diversity falls sharply\n  - **主语**: species diversity\n  - **谓语**: falls\n  - **状语**: sharply\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "When",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " sea stars",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " are removed,",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " species diversity",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " falls",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " sharply.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s39",
+        "para": 7,
+        "text": "Therefore, from the stand point of diversity, it is usually a mistake to eliminate a major predator from a community.",
+        "translation": "因此，从多样性的角度来看，从群落中消除主要捕食者通常是一个错误。",
+        "grammarFocus": "it 作形式主语",
+        "pronounRef": "无",
+        "logicConnector": "Therefore",
+        "sentenceCoach": {
+          "summary": "注意 it 是形式主语，真正的主语是 to eliminate...。",
+          "keyHint": "is 是系动词。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "消除捕食者是什么？",
+          "grammarQuestion": "it 是形式主语；to eliminate a major predator from a community 是真正的主语。",
+          "modifierQuestion": "from the stand point of diversity 是状语；usually 是状语。",
+          "relationshipQuestion": "总结全文，得出结论。",
+          "commonMistake": "不要误以为 it 指代 diversity，它是形式主语。",
+          "thinkingPath": [
+            "找到连接词 Therefore",
+            "找到状语 from the stand point of diversity",
+            "找到主语 it (形式主语)",
+            "找到系动词 is",
+            "找到表语 a mistake",
+            "找到真正的主语 to eliminate a major predator from a community"
+          ],
+          "encouragement": "你成功识别了形式主语，这让你的句子分析更专业！"
+        },
+        "analysis": "### 【主干结构】\n- **连接词**: Therefore\n- **状语**: from the stand point of diversity\n- **形式主语**: it\n- **系动词**: is\n- **表语**: usually a mistake\n- **真正主语**: to eliminate a major predator from a community\n\n### 【时态】\n一般现在时。",
+        "segments": [
+          {
+            "text": "Therefore,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " from the stand point of diversity,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " it",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " is",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " usually",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " a mistake",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " to eliminate a major predator from a community.",
+            "type": "modifier",
+            "label": "真正主语"
+          }
+        ]
+      }
+    ],
+    "source": {
+      "file": "tpo-27-predator-prey-cycles.md",
+      "section": "TPO-27 / Predator-Prey Cycles"
+    }
+  }
+}

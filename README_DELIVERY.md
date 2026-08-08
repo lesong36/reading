@@ -8,7 +8,7 @@
 当前约定：
 
 - `~/Applications/英语长难句阅读器.app` 是唯一正式安装入口
-- 仓库内历史 `.app` 副本已改名为 `.app.disabled`，避免被 Launchpad 重复收录
+- 项目目录只保留 `启动英语长难句阅读器.command` 作为辅助启动入口
 
 核心文件：
 
@@ -16,21 +16,44 @@
   正式单文件页面源码。
 - `~/Applications/英语长难句阅读器.app/Contents/Resources/index.html`
   已安装到 Launchpad / Applications 的实际运行页面。
-- `英语长难句阅读器.app.disabled/Contents/Resources/index.html`
-  仓库内保留的历史 app 包资源，仅作备份，不再作为 Launchpad 入口。
 
 ## 更新规则
 
 只改源码文件不够。每次改完页面后，必须至少同步正式安装版 app，否则双击 Launchpad 图标仍可能打开旧界面。
 
+推荐做法：
+
+```bash
+npm run sync:app
+```
+
+这个命令会自动把当前仓库的 `index.html` 同步到：
+
+1. `英语长难句交互阅读解析.html`
+2. `~/Applications/英语长难句阅读器.app/Contents/Resources/index.html`
+
+如果本地使用了私有语音或其他敏感配置，还需要保证：
+
+3. `local-config.js`
+
+当前 `sync:app` 也会自动同步 `local-config.js` 到 app 的 `Contents/Resources/`，这样开始菜单启动的版本才能读取到本地私有凭证。
+现在它也会同步 `scripts/reader_app_server.py` 到 app 的 `Contents/Resources/reader_app_server.py`，这样豆包语音讲解会和页面一起更新。
+
 需要同步的目标：
 
 1. 仓库源码：`英语长难句交互阅读解析.html`
 2. 已安装 app 资源：`~/Applications/英语长难句阅读器.app/Contents/Resources/index.html`
+3. 已安装 app 本地服务：`~/Applications/英语长难句阅读器.app/Contents/Resources/reader_app_server.py`
 
-可选同步：
+## 豆包语音当前接法
 
-3. 仓库归档 app 资源：`英语长难句阅读器.app.disabled/Contents/Resources/index.html`
+当前不是浏览器直连火山接口，而是：
+
+1. 页面调用本地 `/api/tts/hermes`
+2. app 内置 `reader_app_server.py` 代理请求
+3. 代理调用 Hermes 已验证可用的 `doubao-speech` 命令行
+
+这样可以避开浏览器直连的跨域和资源授权问题，并复用你在 Hermes 项目里已经能工作的豆包语音链路。
 
 ## 为什么之前会出现“app 里还是旧界面”
 
@@ -60,17 +83,17 @@
 当前处理：
 
 - 保留正式安装入口：`~/Applications/英语长难句阅读器.app`
-- 仓库内副本改名为 `.app.disabled`
-- 后续如果还需要保留历史包，继续用 `.app.disabled` 或压缩包形式归档，不要保留可识别的 `.app`
+- 项目目录只保留 `启动英语长难句阅读器.command`
+- 后续如果还需要保留历史包，改成压缩包或移动到仓库外，不要保留可识别的 `.app` 或 `.app.disabled` 目录
 
 ## 如果以后更新后看不到新界面
 
 按这个顺序排查：
 
-1. 确认已经把源码同步到了两个 `.app` 的 `index.html`
+1. 确认已经把源码同步到了正式安装版 app 的 `index.html`
 2. 关闭旧的阅读器页面标签
 3. 重新双击 `~/Applications/英语长难句阅读器.app`
-4. 如果 Launchpad 仍出现多个图标，先确认项目目录中是否还有未改名的同名 `.app`
+4. 如果 Launchpad 仍出现多个图标，先确认项目目录或其他目录中是否还有同名 `.app`
 5. 如果仍异常，再检查 app 内实际页面是否包含目标文本，例如：
    `OpenAI-compatible`
 6. 再检查启动器 URL 是否带了 `?v=...`

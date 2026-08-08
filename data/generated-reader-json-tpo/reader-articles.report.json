@@ -1,0 +1,76 @@
+{
+  "generatedAt": "2026-08-05T14:04:08.980Z",
+  "input": "/Users/coty/Documents/Lei_MBP/repo/app_dev/reading_new/data/tpo-source/_batch_B4",
+  "provider": "openai",
+  "model": "Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive-Q5_K_P.gguf",
+  "baseUrl": "http://100.121.25.47:8090/v1",
+  "sectionCount": 30,
+  "successCount": 30,
+  "errorCount": 0,
+  "fallbackCount": 0,
+  "warningCount": 7,
+  "warnings": [
+    {
+      "sourceFile": "tpo-25-the-decline-of-venetian-shipping.md",
+      "sectionTitle": "TPO-25 / The Decline of Venetian Shipping",
+      "warnings": [
+        {
+          "sentenceId": "s19",
+          "issue": "segments_do_not_reconstruct_text",
+          "text": "Historian Frederic Lane observes that after the loss of ships in battle in the late sixteenth century, the shipbuilding industry no longer had the capacity to recover that it had displayed at the start of the century.",
+          "segmentText": "Historian Frederic Lane observes that after the loss of ships in battle in the late sixteenth century, the shipbuilding industry no longer had the capacity that it had displayed at the start of the century."
+        }
+      ]
+    },
+    {
+      "sourceFile": "tpo-26-sumer-and-the-first-cities-of-the-ancient-near-east.md",
+      "sectionTitle": "TPO-26 / Sumer and the First Cities of the Ancient Near East",
+      "warnings": [
+        {
+          "sentenceId": "s19",
+          "issue": "segments_do_not_reconstruct_text",
+          "text": "(Trading was important, as so many raw materials, the semiprecious stones for the decoration of the temples, timbers for roofs, and all metals, had to be imported.)",
+          "segmentText": "Trading was important, as so many raw materials, the semiprecious stones for the decoration of the temples, timbers for roofs, and all metals, had to be imported."
+        },
+        {
+          "sentenceId": "s23",
+          "issue": "segments_do_not_reconstruct_text",
+          "text": "(The Romans called the shape cuneus and this gives the script its name of cuneiform.)",
+          "segmentText": "The Romans called the shape cuneus and this gives the script its name of cuneiform."
+        }
+      ]
+    },
+    {
+      "sourceFile": "tpo-29-the-history-of-waterpower.md",
+      "sectionTitle": "TPO-29 / The History of Waterpower",
+      "warnings": [
+        {
+          "sentenceId": "s5",
+          "issue": "segments_do_not_reconstruct_text",
+          "text": "In the following centuries, increasingly sophisticated waterpower mills were built throughout the Roman Empire and beyond its boundaries in the Middle East and northern Europe.",
+          "segmentText": "In the following centuries increasingly sophisticated waterpower mills were built throughout the Roman Empire and beyond its boundaries in the Middle East and northern Europe."
+        },
+        {
+          "sentenceId": "s6",
+          "issue": "segments_do_not_reconstruct_text",
+          "text": "In England, the Saxons are thought to have used both horizontal0 and vertical-axis wheels.",
+          "segmentText": "In England the Saxons are thought to have used both horizontal0 and vertical-axis wheels."
+        },
+        {
+          "sentenceId": "s8",
+          "issue": "segments_do_not_reconstruct_text",
+          "text": "Raising water and grinding corn were by no means the only uses of the waterpower mill, and during the following centuries, the applications of waterpower kept pace with the developing technologies of mining, iron working, paper making, and the wool and cotton industries.",
+          "segmentText": "Raising water and grinding corn were by no means the only uses of the waterpower mill, and during the following centuries the applications of waterpower kept pace with the developing technologies of mining, iron working, paper making, and the wool and cotton industries."
+        },
+        {
+          "sentenceId": "s9",
+          "issue": "segments_do_not_reconstruct_text",
+          "text": "Water was the main source of mechanical power, and by the end of the seventeenth century, England alone is thought to have had some 20,000 working mill.",
+          "segmentText": "Water was the main source of mechanical power, and by the end of the seventeenth century England alone is thought to have had some 20,000 working mill."
+        }
+      ]
+    }
+  ],
+  "fallbacks": [],
+  "errors": []
+}

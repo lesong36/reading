@@ -20,6 +20,12 @@ https://lesong36.github.io/reading/
 
 直接用浏览器打开 `index.html`（需能访问 esm.sh / Tailwind / unpkg CDN）。
 
+## TPO 导入与做题
+
+TPO 1–30 的抽取、Qwen 逐句解析和做题数据约定见 [TPO 管线说明](docs/TPO_PIPELINE.md) 与 [做题功能说明](docs/QUIZ_FEATURE.md)。
+
+当前批次进度与可继续执行的命令见 [TPO 进度](data/tpo-source/PROGRESS.md)。TPO 解析固定使用 P920 的 llama.cpp OpenAI-compatible 服务 `http://100.121.25.47:8090/v1`，不使用本机 Ollama。
+
 ## 跨设备同步文章和生词本
 
 GitHub Pages 只托管静态网页。跨设备保存书架与生词本需 Firebase Firestore。

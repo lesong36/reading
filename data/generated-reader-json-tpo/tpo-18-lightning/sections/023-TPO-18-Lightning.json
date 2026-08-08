@@ -1,0 +1,2248 @@
+{
+  "sourceFile": "tpo-18-lightning.md",
+  "sectionTitle": "TPO-18 / Lightning",
+  "generatedAt": "2026-08-05T09:45:01.814Z",
+  "warnings": [],
+  "article": {
+    "id": "tpo-18-lightning-23-TPO-18-Lightning",
+    "title": "TPO-18 / Lightning",
+    "timestamp": 1785923101836,
+    "glossary": [
+      {
+        "term": "updraft wind currents",
+        "translation": "上升气流",
+        "kind": "term",
+        "note": "气象学术语，指云内部向上的气流，负责携带较轻的冰晶上升。",
+        "aliases": []
+      },
+      {
+        "term": "electrical discharge",
+        "translation": "放电",
+        "kind": "term",
+        "note": "物理学概念，指电荷通过介质（如空气）流动的现象。",
+        "aliases": []
+      },
+      {
+        "term": "attractive tension",
+        "translation": "吸引力/张力",
+        "kind": "term",
+        "note": "指正负电荷之间相互吸引产生的力量。",
+        "aliases": []
+      },
+      {
+        "term": "forked lightning",
+        "translation": "叉状闪电",
+        "kind": "proper_noun",
+        "note": "一种闪电形态，因电子流遇到新的正电荷路径而分叉。",
+        "aliases": []
+      },
+      {
+        "term": "ice crystals",
+        "translation": "冰晶",
+        "kind": "term",
+        "note": "文中指比冰粒小得多的冰颗粒，碰撞后带正电。",
+        "aliases": []
+      },
+      {
+        "term": "destructive",
+        "translation": "破坏性的",
+        "kind": "term",
+        "note": "形容闪电对地面物体造成损害的能力。",
+        "aliases": []
+      },
+      {
+        "term": "ice pellets",
+        "translation": "冰粒",
+        "kind": "term",
+        "note": "文中指毫米到厘米大小的冰球，比冰晶大且重。",
+        "aliases": []
+      },
+      {
+        "term": "neutralize",
+        "translation": "中和",
+        "kind": "term",
+        "note": "指正负电荷结合后，电性相互抵消变为中性的过程。",
+        "aliases": []
+      },
+      {
+        "term": "channel",
+        "translation": "通道/通道",
+        "kind": "term",
+        "note": "指连接云层和地面的电离空气路径。",
+        "aliases": []
+      },
+      {
+        "term": "surge",
+        "translation": "涌流/激增",
+        "kind": "term",
+        "note": "形容电子从云层向地面快速、大量地流动。",
+        "aliases": []
+      }
+    ],
+    "data": [
+      {
+        "id": "s1",
+        "para": 1,
+        "text": "Lightning is a brilliant flash of light produced by an electrical discharge from a storm cloud.",
+        "translation": "闪电是由风暴云中的放电现象产生的一道耀眼的光芒。",
+        "grammarFocus": "过去分词短语作后置定语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话是定义句，告诉我们闪电是什么。",
+          "keyHint": "注意 'produced by' 是修饰 'flash' 的，不是修饰 'lightning' 的。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "闪电到底是什么？它是一道光。",
+          "grammarQuestion": "这道光是从哪里来的？是由‘放电’产生的。",
+          "modifierQuestion": "‘produced by...’ 就像给‘flash’贴了一个标签，告诉我们要怎么理解这道光。",
+          "relationshipQuestion": "闪电是结果，放电是原因。",
+          "commonMistake": "不要把 produced by 当成谓语动词，它只是修饰语。",
+          "thinkingPath": [
+            "找到主语 Lightning",
+            "找到系动词 is",
+            "找到表语 flash",
+            "看 produced by 修饰谁"
+          ],
+          "encouragement": "你抓住了句子的骨架，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语是 Lightning，系动词是 is，表语是 a brilliant flash of light。\n\n### 【非谓语动词】\nproduced by an electrical discharge from a storm cloud 是过去分词短语，作后置定语，修饰前面的名词 flash。它相当于一个定语从句：which is produced by...\n\n### 【逻辑关系】\n这句话定义了闪电的本质：它是光（flash），其来源是放电（discharge）。",
+        "segments": [
+          {
+            "text": "Lightning ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "a brilliant flash of light ",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": "produced by an electrical discharge from a storm cloud.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "para": 1,
+        "text": "The electrical discharge takes place when the attractive tension between a region of negatively charged particles and a region of positively charged particles becomes so great that the charged particles suddenly rush together.",
+        "translation": "当带负电粒子区域和带正电粒子区域之间的吸引力变得如此之大，以至于带电粒子突然汇聚在一起时，就会发生放电现象。",
+        "grammarFocus": "so...that... 结果状语从句",
+        "pronounRef": "that 指代 great 的程度",
+        "logicConnector": "when, so...that",
+        "sentenceCoach": {
+          "summary": "这句话解释了放电发生的条件，句子很长，我们要找到‘变得如此之大，以至于...’这个结构。",
+          "keyHint": "看到 so great that 就要准备好迎接一个结果从句。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "放电什么时候发生？当吸引力变得超级大的时候。",
+          "grammarQuestion": "吸引力大到什么程度？大到粒子们“突然冲到一起”。",
+          "modifierQuestion": "when 引导的时间状语从句里套了一个 so...that... 的结果状语从句，像俄罗斯套娃。",
+          "relationshipQuestion": "吸引力增大是原因，粒子汇聚是结果。",
+          "commonMistake": "容易把 takes place 当成 that 从句里的动词，其实 takes place 是主句谓语。",
+          "thinkingPath": [
+            "找到主句谓语 takes place",
+            "找到 when 引导的时间状语",
+            "在 when 从句中找到 so...that...",
+            "理解 that 后面是结果"
+          ],
+          "encouragement": "你能拆解这么长的句子，像个厉害的侦探！"
+        },
+        "analysis": "### 【主干结构】\n主句：The electrical discharge takes place（放电发生）。\n\n### 【从句剖析】\n1. **时间状语从句**：when the attractive tension... becomes so great...（当吸引力变得如此之大时）。\n   - 主语：the attractive tension\n   - 定语：between a region of negatively charged particles and a region of positively charged particles（修饰 tension）\n   - 系动词：becomes\n   - 表语：so great\n2. **结果状语从句**：that the charged particles suddenly rush together（以至于带电粒子突然汇聚在一起）。\n   - 这是由 so great 引导的结果。\n\n### 【逻辑关系】\n整个句子描述了因果链条：吸引力增大 -> 达到临界点 -> 粒子汇聚 -> 放电发生。",
+        "segments": [
+          {
+            "text": "The electrical discharge ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "takes place ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "when the attractive tension between a region of negatively charged particles and a region of positively charged particles ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "becomes ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "so great ",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": "that the charged particles suddenly rush together.",
+            "type": "clause-predicative",
+            "label": "结果状语从句"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "para": 1,
+        "text": "The coming together of the oppositely charged particles neutralizes the electrical tension and releases a tremendous amount of energy, which we see as lightning.",
+        "translation": "带相反电荷的粒子汇聚在一起，中和了电张力并释放出巨大的能量，我们将这种能量视为闪电。",
+        "grammarFocus": "动名词短语作主语；非限制性定语从句",
+        "pronounRef": "which 指代 energy",
+        "logicConnector": "and",
+        "sentenceCoach": {
+          "summary": "这句话描述了粒子汇聚后的两个后果：中和张力、释放能量。",
+          "keyHint": "注意 which 引导的从句修饰的是前面的 energy，而不是整个句子。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "粒子汇聚后发生了什么？它们中和了张力，还释放了能量。",
+          "grammarQuestion": "谁释放了能量？是‘汇聚’这个动作（coming together）。",
+          "modifierQuestion": "which we see as lightning 是补充说明，告诉我们释放出来的能量长什么样。",
+          "relationshipQuestion": "汇聚是动作，中和和释放是结果。",
+          "commonMistake": "容易误以为 which 修饰的是 tension，其实它修饰的是 energy。",
+          "thinkingPath": [
+            "找到主语 The coming together",
+            "找到谓语 neutralizes 和 releases",
+            "找到宾语 energy",
+            "看 which 修饰谁"
+          ],
+          "encouragement": "你发现了 which 指代的秘密，太厉害了！"
+        },
+        "analysis": "### 【主干结构】\n主语：The coming together of the oppositely charged particles（带相反电荷粒子的汇聚）。\n谓语：neutralizes（中和）和 releases（释放），由 and 连接。\n宾语：the electrical tension（电张力）和 a tremendous amount of energy（巨大的能量）。\n\n### 【从句剖析】\nwhich we see as lightning 是非限制性定语从句，修饰前面的名词 energy。意思是“这种能量，我们称之为闪电”。\n\n### 【非谓语动词】\ncoming 是动名词，与 together 构成动名词短语，作为句子的主语。",
+        "segments": [
+          {
+            "text": "The coming together of the oppositely charged particles ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "neutralizes ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "the electrical tension ",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": "and ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "releases ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "a tremendous amount of energy, ",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": "which we see as lightning.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "para": 1,
+        "text": "The separation of positively and negatively charged particles takes place during the development of the storm cloud.",
+        "translation": "正负带电粒子的分离发生在风暴云的发展过程中。",
+        "grammarFocus": "简单句，介词短语作状语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话点明了粒子分离的时间背景。",
+          "keyHint": "注意 separation 是主语，takes place 是谓语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "粒子分离是什么时候发生的？在云发展的过程中。",
+          "grammarQuestion": "谁分离了？正负带电粒子。",
+          "modifierQuestion": "during... 告诉我们时间背景。",
+          "relationshipQuestion": "分离是过程，云的发展是时间背景。",
+          "commonMistake": "无特别常见错误，注意主谓一致即可。",
+          "thinkingPath": [
+            "找到主语 separation",
+            "找到谓语 takes place",
+            "找到时间状语 during..."
+          ],
+          "encouragement": "这句话很简单，你一眼就看穿了它！"
+        },
+        "analysis": "### 【主干结构】\n主语：The separation of positively and negatively charged particles（正负带电粒子的分离）。\n谓语：takes place（发生）。\n状语：during the development of the storm cloud（在风暴云的发展期间）。\n\n### 【逻辑关系】\n这句话为前文提到的粒子汇聚提供了时间前提：先有分离，后有汇聚。",
+        "segments": [
+          {
+            "text": "The separation of positively and negatively charged particles ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "takes place ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "during the development of the storm cloud.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "para": 2,
+        "text": "The separation of charged particles that forms in a storm cloud has a sandwich-like structure.",
+        "translation": "在风暴云中形成的带电粒子分离具有类似三明治的结构。",
+        "grammarFocus": "定语从句",
+        "pronounRef": "that 指代 separation",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话描述了粒子分离的结构形状。",
+          "keyHint": "注意 that forms in a storm cloud 是修饰 separation 的。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "粒子分离的结构像什么？像三明治。",
+          "grammarQuestion": "哪个分离？在云里形成的那个分离。",
+          "modifierQuestion": "that forms... 是定语从句，缩小了 separation 的范围。",
+          "relationshipQuestion": "分离是主体，三明治结构是它的特征。",
+          "commonMistake": "容易误以为 that 修饰 cloud，其实它修饰 separation。",
+          "thinkingPath": [
+            "找到主语 separation",
+            "找到定语从句 that forms...",
+            "找到谓语 has",
+            "找到宾语 structure"
+          ],
+          "encouragement": "你找到了修饰语，句子变短了！"
+        },
+        "analysis": "### 【主干结构】\n主语：The separation（分离）。\n定语从句：that forms in a storm cloud（在风暴云中形成的），修饰 separation。\n谓语：has（有）。\n宾语：a sandwich-like structure（类似三明治的结构）。\n\n### 【从句剖析】\nthat forms in a storm cloud 是限制性定语从句，限定是哪种 separation。",
+        "segments": [
+          {
+            "text": "The separation of charged particles ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "that forms in a storm cloud ",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": "has ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "a sandwich-like structure.",
+            "type": "object",
+            "label": "宾语"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "para": 2,
+        "text": "Concentrations of positively charged particles develop at the top and bottom of the cloud, but the middle region becomes negatively charged.",
+        "translation": "带正电的粒子团块在云的顶部和底部形成，但中间区域带负电。",
+        "grammarFocus": "并列句",
+        "pronounRef": "无",
+        "logicConnector": "but",
+        "sentenceCoach": {
+          "summary": "这句话用 but 连接了两个对比的情况，描述了三明治结构的具体分布。",
+          "keyHint": "注意 but 前后是两个完整的句子，表示转折。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "正电在哪里？在顶部和底部。负电在哪里？在中间。",
+          "grammarQuestion": "but 连接了两个独立的句子，表示对比。",
+          "modifierQuestion": "at the top and bottom... 是地点状语。",
+          "relationshipQuestion": "顶部/底部（正）与中间（负）形成对比。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到第一个句子：Concentrations... develop...",
+            "找到连接词 but",
+            "找到第二个句子：the middle region becomes..."
+          ],
+          "encouragement": "你看到了对比，逻辑很清晰！"
+        },
+        "analysis": "### 【主干结构】\n这是一个由 but 连接的并列句。\n前半句：Concentrations of positively charged particles（主语） develop（谓语） at the top and bottom of the cloud（状语）。\n后半句：the middle region（主语） becomes（系动词） negatively charged（表语）。\n\n### 【逻辑关系】\nbut 表示转折/对比，强调了云内部电荷分布的不均匀性：两头正，中间负。",
+        "segments": [
+          {
+            "text": "Concentrations of positively charged particles ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "develop ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "at the top and bottom of the cloud, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "but ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "the middle region ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "becomes ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "negatively charged.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "para": 2,
+        "text": "Recent measurements made in the field together with laboratory simulations offer a promising explanation of how this structure of charged particles forms.",
+        "translation": "最近的地面测量与实验室模拟相结合，为这种带电粒子结构的形成提供了一个有希望的解释。",
+        "grammarFocus": "过去分词作定语；宾语从句",
+        "pronounRef": "this 指代前文提到的三明治结构",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话介绍了科学家是如何研究这个结构的。",
+          "keyHint": "注意 made in the field 是修饰 measurements 的。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "谁提供了解释？地面测量和实验室模拟。",
+          "grammarQuestion": "怎么测量的？在地面进行的测量。",
+          "modifierQuestion": "of how... forms 是 explanation 的定语，解释了解释的内容。",
+          "relationshipQuestion": "测量和模拟是手段，解释是结果。",
+          "commonMistake": "容易忽略 made in the field，导致主语理解不完整。",
+          "thinkingPath": [
+            "找到主语 measurements",
+            "找到修饰语 made in the field",
+            "找到谓语 offer",
+            "找到宾语 explanation",
+            "看 how... forms 修饰谁"
+          ],
+          "encouragement": "你抓住了主语的核心，很棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：Recent measurements（最近的测量）。\n定语：made in the field（在地面进行的），修饰 measurements。\n状语：together with laboratory simulations（连同实验室模拟），修饰 offer 或 measurements。\n谓语：offer（提供）。\n宾语：a promising explanation（一个有希望的解释）。\n\n### 【从句剖析】\nhow this structure of charged particles forms 是介词 of 的宾语从句，解释 explanation 的具体内容。\n\n### 【非谓语动词】\nmade in the field 是过去分词短语，作后置定语，修饰 measurements。",
+        "segments": [
+          {
+            "text": "Recent measurements ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "made in the field ",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": "together with laboratory simulations ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "offer ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "a promising explanation ",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": "of how this structure of charged particles forms.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s8",
+        "para": 2,
+        "text": "What happens is that small (millimeter-to centimeter-size) pellets of ice form in the cold upper regions of the cloud.",
+        "translation": "发生的情况是，小的（毫米到厘米大小）冰粒在云寒冷的上部区域形成。",
+        "grammarFocus": "主语从句；表语从句",
+        "pronounRef": "What 指代发生的情况",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话用 What happens is that... 的结构引出具体过程。",
+          "keyHint": "注意 What happens 是主语从句。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "发生了什么？冰粒形成了。",
+          "grammarQuestion": "What happens 是主语，is 是谓语，that... 是表语。",
+          "modifierQuestion": "millimeter-to centimeter-size 修饰 pellets。",
+          "relationshipQuestion": "What happens 是总述，that 后面是分述。",
+          "commonMistake": "容易把 What happens 当成普通名词短语。",
+          "thinkingPath": [
+            "找到主语从句 What happens",
+            "找到系动词 is",
+            "找到表语从句 that...",
+            "看 pellets 在哪里形成"
+          ],
+          "encouragement": "你识别出了主语从句，真厉害！"
+        },
+        "analysis": "### 【主干结构】\n主语：What happens（发生的情况）。\n系动词：is。\n表语：that small... pellets of ice form in the cold upper regions of the cloud（小冰粒在云寒冷上部区域形成）。\n\n### 【从句剖析】\n1. What happens 是主语从句。\n2. that... forms 是表语从句，解释 happens 的具体内容。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "What happens ",
+            "type": "clause-subject",
+            "label": "主语从句"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "that small (millimeter-to centimeter-size) pellets of ice form in the cold upper regions of the cloud.",
+            "type": "clause-predicative",
+            "label": "表语从句"
+          }
+        ]
+      },
+      {
+        "id": "s9",
+        "para": 2,
+        "text": "When these ice pellets fall, some of them strike much smaller ice crystals in the center of the cloud.",
+        "translation": "当这些冰粒下落时，其中一些撞击了云中心处小得多的冰晶。",
+        "grammarFocus": "时间状语从句",
+        "pronounRef": "these 指代前文的 ice pellets",
+        "logicConnector": "When",
+        "sentenceCoach": {
+          "summary": "这句话描述了冰粒下落时的碰撞过程。",
+          "keyHint": "注意 When 引导的是时间状语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "什么时候撞击？当冰粒下落时。",
+          "grammarQuestion": "谁撞击谁？冰粒撞击冰晶。",
+          "modifierQuestion": "in the center of the cloud 修饰 ice crystals。",
+          "relationshipQuestion": "下落是时间背景，撞击是动作。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到时间状语 When these ice pellets fall",
+            "找到主句主语 some of them",
+            "找到谓语 strike",
+            "找到宾语 ice crystals"
+          ],
+          "encouragement": "你理清了时间顺序，很棒！"
+        },
+        "analysis": "### 【主干结构】\n时间状语从句：When these ice pellets fall（当这些冰粒下落时）。\n主句：some of them（主语） strike（谓语） much smaller ice crystals（宾语） in the center of the cloud（状语）。\n\n### 【逻辑关系】\nWhen 引导时间状语，说明撞击发生的时间点。",
+        "segments": [
+          {
+            "text": "When these ice pellets fall, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "some of them ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "strike ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "much smaller ice crystals ",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": "in the center of the cloud.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "para": 2,
+        "text": "The temperature at the center of the cloud is about -15℃ or lower.",
+        "translation": "云中心的温度约为零下15摄氏度或更低。",
+        "grammarFocus": "简单句",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话提供了具体的温度数据。",
+          "keyHint": "注意 at the center of the cloud 修饰 temperature。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "云中心有多冷？零下15度或更低。",
+          "grammarQuestion": "谁冷？云中心的温度。",
+          "modifierQuestion": "at the center of the cloud 是定语。",
+          "relationshipQuestion": "温度是主语，-15℃是表语。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到主语 temperature",
+            "找到系动词 is",
+            "找到表语 -15℃ or lower"
+          ],
+          "encouragement": "你抓住了关键数据，真细心！"
+        },
+        "analysis": "### 【主干结构】\n主语：The temperature（温度）。\n定语：at the center of the cloud（在云中心的），修饰 temperature。\n系动词：is。\n表语：about -15℃ or lower（约零下15度或更低）。\n\n### 【逻辑关系】\n这句话提供了环境背景，解释为什么碰撞会导致电荷转移（低温环境）。",
+        "segments": [
+          {
+            "text": "The temperature ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "at the center of the cloud ",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "about -15℃ or lower.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s11",
+        "para": 2,
+        "text": "At such temperatures, the collision between the ice pellets and the ice crystals causes electrical charges to shift so that the ice pellets acquire a negative charge and the ice crystals become positively charged.",
+        "translation": "在这样的温度下，冰粒和冰晶之间的碰撞导致电荷移动，以至于冰粒获得负电荷，而冰晶带正电。",
+        "grammarFocus": "so that 结果状语从句；并列结构",
+        "pronounRef": "such 指代前文的 -15℃",
+        "logicConnector": "so that",
+        "sentenceCoach": {
+          "summary": "这句话描述了碰撞的结果：电荷转移。",
+          "keyHint": "注意 so that 引导的是结果。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "碰撞导致了什么？电荷移动了。",
+          "grammarQuestion": "电荷移动的结果是什么？冰粒变负，冰晶变正。",
+          "modifierQuestion": "so that... 是结果状语从句。",
+          "relationshipQuestion": "碰撞是原因，电荷移动和带电是结果。",
+          "commonMistake": "容易忽略 so that 后面的两个并列结果。",
+          "thinkingPath": [
+            "找到状语 At such temperatures",
+            "找到主语 the collision",
+            "找到谓语 causes",
+            "找到宾语 electrical charges",
+            "看 so that 引导的结果"
+          ],
+          "encouragement": "你看到了因果链条，真棒！"
+        },
+        "analysis": "### 【主干结构】\n状语：At such temperatures（在这样的温度下）。\n主语：the collision between the ice pellets and the ice crystals（冰粒和冰晶之间的碰撞）。\n谓语：causes（导致）。\n宾语：electrical charges（电荷）。\n宾语补足语：to shift（移动）。\n\n### 【从句剖析】\nso that the ice pellets acquire a negative charge and the ice crystals become positively charged 是结果状语从句，解释 shift 的结果。\n- 从句主语1：the ice pellets\n- 从句谓语1：acquire\n- 从句宾语1：a negative charge\n- 连接词：and\n- 从句主语2：the ice crystals\n- 从句谓语2：become\n- 从句表语2：positively charged\n\n### 【逻辑关系】\n碰撞 -> 电荷移动 -> 冰粒带负电，冰晶带正电。",
+        "segments": [
+          {
+            "text": "At such temperatures, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "the collision between the ice pellets and the ice crystals ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "causes ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "electrical charges ",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": "to shift ",
+            "type": "modifier",
+            "label": "补足语"
+          },
+          {
+            "text": "so that the ice pellets acquire a negative charge and the ice crystals become positively charged.",
+            "type": "clause-predicative",
+            "label": "结果状语从句"
+          }
+        ]
+      },
+      {
+        "id": "s12",
+        "para": 2,
+        "text": "Then updraft wind currents carry the light, positively charged ice crystals up to the top of the cloud.",
+        "translation": "然后，上升气流将轻的、带正电的冰晶带到云的顶部。",
+        "grammarFocus": "简单句",
+        "pronounRef": "无",
+        "logicConnector": "Then",
+        "sentenceCoach": {
+          "summary": "这句话描述了带正电冰晶的去向。",
+          "keyHint": "注意 carry... up to... 的结构。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "谁带走了冰晶？上升气流。",
+          "grammarQuestion": "带去哪里？带到云的顶部。",
+          "modifierQuestion": "light, positively charged 修饰 ice crystals。",
+          "relationshipQuestion": "气流是动作发出者，冰晶是承受者。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到状语 Then",
+            "找到主语 updraft wind currents",
+            "找到谓语 carry",
+            "找到宾语 ice crystals",
+            "找到方向 up to the top"
+          ],
+          "encouragement": "你看到了动作的方向，真棒！"
+        },
+        "analysis": "### 【主干结构】\n状语：Then（然后）。\n主语：updraft wind currents（上升气流）。\n谓语：carry（携带）。\n宾语：the light, positively charged ice crystals（轻的、带正电的冰晶）。\n状语：up to the top of the cloud（到云的顶部）。\n\n### 【逻辑关系】\nThen 表示时间顺序，承接上文的电荷分离过程。",
+        "segments": [
+          {
+            "text": "Then ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "updraft wind currents ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "carry ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "the light, positively charged ice crystals ",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": "up to the top of the cloud.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s13",
+        "para": 2,
+        "text": "The heavier negatively charged ice pellets are left to concentrate in the center.",
+        "translation": "较重的带负电冰粒被留下，集中在中心。",
+        "grammarFocus": "被动语态",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话描述了带负电冰粒的去向。",
+          "keyHint": "注意 are left to... 的结构。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "谁被留下了？重的冰粒。",
+          "grammarQuestion": "留下做什么？集中在中心。",
+          "modifierQuestion": "heavier negatively charged 修饰 ice pellets。",
+          "relationshipQuestion": "气流带走轻的，留下重的。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到主语 ice pellets",
+            "找到谓语 are left",
+            "找到目的 to concentrate",
+            "找到地点 in the center"
+          ],
+          "encouragement": "你看到了对比，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：The heavier negatively charged ice pellets（较重的带负电冰粒）。\n谓语：are left（被留下）。\n状语：to concentrate in the center（集中在中心）。\n\n### 【逻辑关系】\n与上一句形成对比：轻的上去，重的留下。",
+        "segments": [
+          {
+            "text": "The heavier negatively charged ice pellets ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "are left ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "to concentrate in the center.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s14",
+        "para": 2,
+        "text": "This process explains why the top of the cloud becomes positively charged, while the center becomes negatively charged.",
+        "translation": "这个过程解释了为什么云的顶部带正电，而中心带负电。",
+        "grammarFocus": "宾语从句；while 表示对比",
+        "pronounRef": "This 指代前文的过程",
+        "logicConnector": "while",
+        "sentenceCoach": {
+          "summary": "这句话总结了前文的过程。",
+          "keyHint": "注意 why... while... 的结构。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "什么解释了电荷分布？这个过程。",
+          "grammarQuestion": "解释了为什么？顶部正，中心负。",
+          "modifierQuestion": "while 表示对比。",
+          "relationshipQuestion": "过程是原因，电荷分布是结果。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到主语 This process",
+            "找到谓语 explains",
+            "找到宾语从句 why...",
+            "看 while 表示对比"
+          ],
+          "encouragement": "你看到了总结，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：This process（这个过程）。\n谓语：explains（解释）。\n宾语：why the top of the cloud becomes positively charged, while the center becomes negatively charged（为什么云的顶部带正电，而中心带负电）。\n\n### 【从句剖析】\nwhy... 引导宾语从句。\nwhile 在从句中表示对比，相当于 whereas。\n\n### 【逻辑关系】\nThis process 指代前文描述的电荷分离和移动过程。",
+        "segments": [
+          {
+            "text": "This process ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "explains ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "why the top of the cloud becomes positively charged, while the center becomes negatively charged.",
+            "type": "object",
+            "label": "宾语"
+          }
+        ]
+      },
+      {
+        "id": "s15",
+        "para": 2,
+        "text": "The negatively charged region is large: several hundred meters thick and several kilometers in diameter.",
+        "translation": "带负电的区域很大：厚达数百米，直径数公里。",
+        "grammarFocus": "冒号解释说明",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话描述了负电区域的大小。",
+          "keyHint": "注意冒号后面的内容是对 large 的具体解释。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "负电区域有多大？很大。",
+          "grammarQuestion": "怎么大？厚数百米，直径数公里。",
+          "modifierQuestion": "冒号后面的短语解释 large。",
+          "relationshipQuestion": "large 是总述，具体尺寸是分述。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到主语 region",
+            "找到系动词 is",
+            "找到表语 large",
+            "看冒号后的解释"
+          ],
+          "encouragement": "你看到了具体数据，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：The negatively charged region（带负电的区域）。\n系动词：is。\n表语：large（大）。\n\n### 【逻辑关系】\n冒号后面的 several hundred meters thick and several kilometers in diameter 是对 large 的具体解释说明。",
+        "segments": [
+          {
+            "text": "The negatively charged region ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "large: ",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": "several hundred meters thick and several kilometers in diameter.",
+            "type": "modifier",
+            "label": "补充说明"
+          }
+        ]
+      },
+      {
+        "id": "s16",
+        "para": 2,
+        "text": "Below this large, cold, negatively charged region, the cloud is warmer than -15℃, and at these temperatures, collisions between ice crystals and falling ice pellets produce positively charged ice pellets that then populate a small region at the base of the cloud.",
+        "translation": "在这个巨大、寒冷、带负电的区域下方，云的温度高于零下15摄氏度，在这些温度下，冰晶和下落冰粒之间的碰撞产生带正电的冰粒，这些冰粒随后填充了云底部的一个小区域。",
+        "grammarFocus": "并列句；定语从句",
+        "pronounRef": "that 指代 ice pellets",
+        "logicConnector": "and",
+        "sentenceCoach": {
+          "summary": "这句话描述了云底部的情况。",
+          "keyHint": "注意 and 连接两个句子，第二个句子有定语从句。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "云底部发生了什么？产生了带正电的冰粒。",
+          "grammarQuestion": "谁产生了冰粒？碰撞。",
+          "modifierQuestion": "that then populate... 修饰 ice pellets。",
+          "relationshipQuestion": "温度高 -> 碰撞 -> 产生正电冰粒。",
+          "commonMistake": "容易忽略定语从句 that...。",
+          "thinkingPath": [
+            "找到状语 Below...",
+            "找到第一个句子：the cloud is warmer...",
+            "找到连接词 and",
+            "找到第二个句子：collisions... produce...",
+            "看 that 修饰谁"
+          ],
+          "encouragement": "你看到了长句的结构，真棒！"
+        },
+        "analysis": "### 【主干结构】\n这是一个由 and 连接的并列句。\n前半句：Below this large, cold, negatively charged region（状语）, the cloud（主语） is（系动词） warmer than -15℃（表语）。\n后半句：at these temperatures（状语）, collisions between ice crystals and falling ice pellets（主语） produce（谓语） positively charged ice pellets（宾语）。\n\n### 【从句剖析】\nthat then populate a small region at the base of the cloud 是定语从句，修饰 positively charged ice pellets。\n\n### 【逻辑关系】\nand 连接两个相关的情况：云底温度较高，以及由此产生的正电冰粒。",
+        "segments": [
+          {
+            "text": "Below this large, cold, negatively charged region, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "the cloud ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "warmer than -15℃, ",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": "and ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "at these temperatures, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "collisions between ice crystals and falling ice pellets ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "produce ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "positively charged ice pellets ",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": "that then populate a small region at the base of the cloud.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s17",
+        "para": 3,
+        "text": "Most lightning takes place within a cloud when the charge separation within the cloud collapses.",
+        "translation": "大多数闪电发生在云内部，当云内的电荷分离崩溃时。",
+        "grammarFocus": "时间状语从句",
+        "pronounRef": "无",
+        "logicConnector": "when",
+        "sentenceCoach": {
+          "summary": "这句话描述了闪电发生的常见位置。",
+          "keyHint": "注意 when 引导的是时间状语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "大多数闪电发生在哪里？在云内部。",
+          "grammarQuestion": "什么时候发生？当电荷分离崩溃时。",
+          "modifierQuestion": "when... 是时间状语。",
+          "relationshipQuestion": "电荷分离崩溃是原因，闪电发生是结果。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到主语 Most lightning",
+            "找到谓语 takes place",
+            "找到地点 within a cloud",
+            "看 when 引导的时间状语"
+          ],
+          "encouragement": "你看到了闪电的位置，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：Most lightning（大多数闪电）。\n谓语：takes place（发生）。\n状语：within a cloud（在云内部）。\n时间状语从句：when the charge separation within the cloud collapses（当云内的电荷分离崩溃时）。\n\n### 【逻辑关系】\nwhen 引导时间状语，说明闪电发生的具体条件。",
+        "segments": [
+          {
+            "text": "Most lightning ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "takes place ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "within a cloud ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "when the charge separation within the cloud collapses.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s18",
+        "para": 3,
+        "text": "However, as the storm cloud develops, the ground beneath the cloud becomes positively charged and lightning can take place in the form of an electrical discharge between the negative charge of the cloud and the positively charged ground.",
+        "translation": "然而，随着风暴云的发展，云下方的地面带正电，闪电可以以云负电荷和地面正电荷之间的放电形式发生。",
+        "grammarFocus": "as 引导时间状语；并列句",
+        "pronounRef": "无",
+        "logicConnector": "However, as, and",
+        "sentenceCoach": {
+          "summary": "这句话描述了云地闪电的发生条件。",
+          "keyHint": "注意 as 引导时间状语，and 连接两个结果。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "地面发生了什么？带正电了。",
+          "grammarQuestion": "闪电以什么形式发生？放电。",
+          "modifierQuestion": "as... 是时间状语。",
+          "relationshipQuestion": "云发展 -> 地面带电 -> 云地放电。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到连接词 However",
+            "找到时间状语 as the storm cloud develops",
+            "找到第一个结果：the ground... becomes...",
+            "找到连接词 and",
+            "找到第二个结果：lightning can take place..."
+          ],
+          "encouragement": "你看到了云地闪电的条件，真棒！"
+        },
+        "analysis": "### 【主干结构】\n连接词：However（然而）。\n时间状语：as the storm cloud develops（随着风暴云的发展）。\n主句1：the ground beneath the cloud（主语） becomes（系动词） positively charged（表语）。\n连接词：and。\n主句2：lightning（主语） can take place（谓语） in the form of an electrical discharge between the negative charge of the cloud and the positively charged ground（状语）。\n\n### 【逻辑关系】\nas 引导时间状语，and 连接两个并列的结果。",
+        "segments": [
+          {
+            "text": "However, ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "as the storm cloud develops, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "the ground beneath the cloud ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "becomes ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "positively charged ",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": "and ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "lightning ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "can take place ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "in the form of an electrical discharge between the negative charge of the cloud and the positively charged ground.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s19",
+        "para": 3,
+        "text": "Lightning that strikes the ground is the most likely to be destructive, so even though it represents only 20 percent of all lightning, it has received a lot of scientific attention.",
+        "translation": "击中地面的闪电最具有破坏性，所以即使它只占所有闪电的20%，它也受到了大量的科学关注。",
+        "grammarFocus": "定语从句；so 引导结果状语；even though 让步状语从句",
+        "pronounRef": "that 指代 lightning",
+        "logicConnector": "so, even though",
+        "sentenceCoach": {
+          "summary": "这句话解释了为什么云地闪电受关注。",
+          "keyHint": "注意 so 连接因果，even though 表示让步。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "哪种闪电最具破坏性？击中地面的。",
+          "grammarQuestion": "为什么受关注？因为破坏性大，尽管数量少。",
+          "modifierQuestion": "that strikes the ground 是定语。",
+          "relationshipQuestion": "破坏性大 -> 受关注；数量少 -> 让步。",
+          "commonMistake": "容易忽略 even though 的让步关系。",
+          "thinkingPath": [
+            "找到主语 Lightning",
+            "找到定语 that strikes the ground",
+            "找到谓语 is",
+            "找到表语 the most likely...",
+            "找到连接词 so",
+            "找到让步状语 even though...",
+            "找到主句 it has received..."
+          ],
+          "encouragement": "你看到了复杂的逻辑关系，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：Lightning（闪电）。\n定语：that strikes the ground（击中地面的），修饰 Lightning。\n谓语：is（是）。\n表语：the most likely to be destructive（最可能具有破坏性的）。\n连接词：so（所以）。\n让步状语从句：even though it represents only 20 percent of all lightning（即使它只占所有闪电的20%）。\n主句2：it（主语） has received（谓语） a lot of scientific attention（宾语）。\n\n### 【逻辑关系】\nso 表示因果，even though 表示让步。",
+        "segments": [
+          {
+            "text": "Lightning ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "that strikes the ground ",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "the most likely to be destructive, ",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": "so ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "even though it represents only 20 percent of all lightning, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "it ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "has received ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "a lot of scientific attention.",
+            "type": "object",
+            "label": "宾语"
+          }
+        ]
+      },
+      {
+        "id": "s20",
+        "para": 4,
+        "text": "Using high-speed photography, scientists have determined that there are two steps to the occurrence of lightning from a cloud to the ground.",
+        "translation": "通过使用高速摄影，科学家已经确定了从云到地面的闪电发生有两个步骤。",
+        "grammarFocus": "现在分词作状语；宾语从句",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话介绍了科学家如何研究闪电。",
+          "keyHint": "注意 Using... 是状语，that... 是宾语从句。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "科学家发现了什么？闪电发生有两个步骤。",
+          "grammarQuestion": "怎么发现的？用高速摄影。",
+          "modifierQuestion": "Using... 是方式状语。",
+          "relationshipQuestion": "摄影是手段，确定步骤是结果。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到状语 Using high-speed photography",
+            "找到主语 scientists",
+            "找到谓语 have determined",
+            "找到宾语从句 that..."
+          ],
+          "encouragement": "你看到了科学方法，真棒！"
+        },
+        "analysis": "### 【主干结构】\n状语：Using high-speed photography（使用高速摄影）。\n主语：scientists（科学家）。\n谓语：have determined（已经确定）。\n宾语：that there are two steps to the occurrence of lightning from a cloud to the ground（从云到地面的闪电发生有两个步骤）。\n\n### 【从句剖析】\nthat... 引导宾语从句，作 determined 的宾语。\n\n### 【非谓语动词】\nUsing 是现在分词，作方式状语。",
+        "segments": [
+          {
+            "text": "Using high-speed photography, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "scientists ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "have determined ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "that there are two steps to the occurrence of lightning from a cloud to the ground.",
+            "type": "object",
+            "label": "宾语"
+          }
+        ]
+      },
+      {
+        "id": "s21",
+        "para": 4,
+        "text": "First, a channel, or path, is formed that connects the cloud and the ground.",
+        "translation": "首先，形成一个连接云和地面的通道，或路径。",
+        "grammarFocus": "被动语态；定语从句",
+        "pronounRef": "无",
+        "logicConnector": "First",
+        "sentenceCoach": {
+          "summary": "这句话描述了闪电发生的第一步。",
+          "keyHint": "注意 that 引导的定语从句修饰 channel。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "第一步是什么？形成通道。",
+          "grammarQuestion": "通道连接什么？云和地面。",
+          "modifierQuestion": "that connects... 是定语。",
+          "relationshipQuestion": "形成通道是动作，连接云地是功能。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到状语 First",
+            "找到主语 a channel",
+            "找到插入语 or path",
+            "找到谓语 is formed",
+            "找到定语 that connects..."
+          ],
+          "encouragement": "你看到了第一步，真棒！"
+        },
+        "analysis": "### 【主干结构】\n状语：First（首先）。\n主语：a channel, or path（一个通道，或路径）。\n谓语：is formed（被形成）。\n定语：that connects the cloud and the ground（连接云和地面的），修饰 channel。\n\n### 【逻辑关系】\nFirst 表示顺序。",
+        "segments": [
+          {
+            "text": "First, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "a channel, or path, ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is formed ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "that connects the cloud and the ground.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s22",
+        "para": 4,
+        "text": "Then a strong current of electrons follows that path from the cloud to the ground, and it is that current that illuminates the channel as the lightning we see.",
+        "translation": "然后，一股强大的电子流沿着那条路径从云流向地面，正是这股电流照亮了通道，成为我们看到的闪电。",
+        "grammarFocus": "强调句；并列句",
+        "pronounRef": "it 指代 current",
+        "logicConnector": "Then, and",
+        "sentenceCoach": {
+          "summary": "这句话描述了闪电发生的第二步。",
+          "keyHint": "注意 it is... that... 是强调句。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "第二步是什么？电子流流过通道。",
+          "grammarQuestion": "谁照亮了通道？电流。",
+          "modifierQuestion": "it is... that... 是强调句。",
+          "relationshipQuestion": "电子流流过 -> 照亮通道 -> 形成闪电。",
+          "commonMistake": "容易忽略强调句的结构。",
+          "thinkingPath": [
+            "找到状语 Then",
+            "找到第一个句子：a strong current... follows...",
+            "找到连接词 and",
+            "找到第二个句子：it is that current that illuminates...",
+            "看 as 引导的状语"
+          ],
+          "encouragement": "你看到了强调句，真棒！"
+        },
+        "analysis": "### 【主干结构】\n这是一个由 and 连接的并列句。\n前半句：Then（状语）, a strong current of electrons（主语） follows（谓语） that path（宾语） from the cloud to the ground（状语）。\n后半句：it is that current that illuminates the channel as the lightning we see（正是这股电流照亮了通道，作为我们看到的闪电）。\n\n### 【从句剖析】\nit is that current that illuminates the channel 是强调句，强调 that current。\nas the lightning we see 是方式状语。\n\n### 【逻辑关系】\nThen 表示顺序，and 连接两个相关动作。",
+        "segments": [
+          {
+            "text": "Then ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "a strong current of electrons ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "follows ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "that path ",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": "from the cloud to the ground, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "and ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "it is that current ",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": "that illuminates the channel ",
+            "type": "clause-verb",
+            "label": "谓语"
+          },
+          {
+            "text": "as the lightning we see.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s23",
+        "para": 5,
+        "text": "The formation of the channel is initiated when electrons surge from the cloud base toward the ground.",
+        "translation": "当电子从云底向地面涌流时，通道的形成被启动。",
+        "grammarFocus": "时间状语从句",
+        "pronounRef": "无",
+        "logicConnector": "when",
+        "sentenceCoach": {
+          "summary": "这句话描述了通道形成的开始。",
+          "keyHint": "注意 when 引导的时间状语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "通道什么时候形成？当电子涌流时。",
+          "grammarQuestion": "谁启动了形成？电子涌流。",
+          "modifierQuestion": "when... 是时间状语。",
+          "relationshipQuestion": "电子涌流是时间背景，通道形成是结果。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到主语 The formation",
+            "找到谓语 is initiated",
+            "找到时间状语 when electrons surge..."
+          ],
+          "encouragement": "你看到了通道形成的开始，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：The formation of the channel（通道的形成）。\n谓语：is initiated（被启动）。\n时间状语：when electrons surge from the cloud base toward the ground（当电子从云底向地面涌流时）。\n\n### 【逻辑关系】\nwhen 引导时间状语，说明通道形成的时间点。",
+        "segments": [
+          {
+            "text": "The formation of the channel ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is initiated ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "when electrons surge from the cloud base toward the ground.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s24",
+        "para": 5,
+        "text": "When a stream of these negatively charged electrons comes within 100 meters of the ground it is met by a stream of positively charged particles that comes up from the ground.",
+        "translation": "当一股带负电的电子流接近地面100米以内时，它遇到了一股从地面升起的带正电粒子流。",
+        "grammarFocus": "时间状语从句；定语从句",
+        "pronounRef": "it 指代 stream",
+        "logicConnector": "When",
+        "sentenceCoach": {
+          "summary": "这句话描述了电子流和正电粒子流的相遇。",
+          "keyHint": "注意 that 引导的定语从句修饰 particles。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "电子流遇到了什么？正电粒子流。",
+          "grammarQuestion": "在哪里相遇？离地面100米以内。",
+          "modifierQuestion": "that comes up... 是定语。",
+          "relationshipQuestion": "电子流向下，正电粒子流向上，相遇。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到时间状语 When a stream... comes...",
+            "找到主句主语 it",
+            "找到谓语 is met",
+            "找到状语 by a stream...",
+            "看 that 修饰谁"
+          ],
+          "encouragement": "你看到了相遇的过程，真棒！"
+        },
+        "analysis": "### 【主干结构】\n时间状语从句：When a stream of these negatively charged electrons comes within 100 meters of the ground（当一股带负电的电子流接近地面100米以内时）。\n主句：it（主语） is met（谓语） by a stream of positively charged particles（由一股带正电粒子流） that comes up from the ground（定语，修饰 particles）。\n\n### 【逻辑关系】\nWhen 引导时间状语，说明相遇的时间点。",
+        "segments": [
+          {
+            "text": "When a stream of these negatively charged electrons comes within 100 meters of the ground ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "it ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is met ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "by a stream of positively charged particles ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "that comes up from the ground.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s25",
+        "para": 5,
+        "text": "When the negatively and positively charged streams meet, a complete channel connecting the cloud and the ground is formed.",
+        "translation": "当带负电和带正电的流相遇时，一个连接云和地面的完整通道被形成。",
+        "grammarFocus": "时间状语从句；过去分词作定语",
+        "pronounRef": "无",
+        "logicConnector": "When",
+        "sentenceCoach": {
+          "summary": "这句话描述了通道的最终形成。",
+          "keyHint": "注意 connecting... 是定语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "通道什么时候形成？当两股流相遇时。",
+          "grammarQuestion": "通道连接什么？云和地面。",
+          "modifierQuestion": "connecting... 是定语。",
+          "relationshipQuestion": "相遇是原因，通道形成是结果。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到时间状语 When the... streams meet",
+            "找到主语 a complete channel",
+            "找到定语 connecting...",
+            "找到谓语 is formed"
+          ],
+          "encouragement": "你看到了通道的形成，真棒！"
+        },
+        "analysis": "### 【主干结构】\n时间状语从句：When the negatively and positively charged streams meet（当带负电和带正电的流相遇时）。\n主句：a complete channel（主语） connecting the cloud and the ground（定语，修饰 channel） is formed（谓语）。\n\n### 【逻辑关系】\nWhen 引导时间状语，说明通道形成的时间点。",
+        "segments": [
+          {
+            "text": "When the negatively and positively charged streams meet, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "a complete channel ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "connecting the cloud and the ground ",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": "is formed.",
+            "type": "verb",
+            "label": "谓语"
+          }
+        ]
+      },
+      {
+        "id": "s26",
+        "para": 5,
+        "text": "The channel is only a few centimeters in diameter, but that is wide enough for electrons to follow the channel to the ground in the visible form of a flash of lightning.",
+        "translation": "通道的直径只有几厘米，但这就足够宽，让电子以闪电的形式沿着通道流向地面。",
+        "grammarFocus": "并列句；enough...to... 结构",
+        "pronounRef": "that 指代 channel width",
+        "logicConnector": "but",
+        "sentenceCoach": {
+          "summary": "这句话描述了通道的宽度和电子的流动。",
+          "keyHint": "注意 enough...to... 的结构。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "通道有多宽？几厘米。",
+          "grammarQuestion": "够宽吗？够电子流过。",
+          "modifierQuestion": "enough...to... 是结果。",
+          "relationshipQuestion": "通道窄但够宽 -> 电子流过 -> 形成闪电。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到第一个句子：The channel is...",
+            "找到连接词 but",
+            "找到第二个句子：that is wide enough...",
+            "看 to follow..."
+          ],
+          "encouragement": "你看到了通道的宽度，真棒！"
+        },
+        "analysis": "### 【主干结构】\n这是一个由 but 连接的并列句。\n前半句：The channel（主语） is（系动词） only a few centimeters in diameter（表语）。\n后半句：that（主语） is（系动词） wide enough（表语） for electrons to follow the channel to the ground in the visible form of a flash of lightning（状语）。\n\n### 【逻辑关系】\nbut 表示转折，强调虽然通道窄，但足够宽。",
+        "segments": [
+          {
+            "text": "The channel ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "only a few centimeters in diameter, ",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": "but ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "that ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "wide enough ",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": "for electrons to follow the channel to the ground in the visible form of a flash of lightning.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s27",
+        "para": 5,
+        "text": "The stream of positive particles that meets the surge of electrons from the cloud often arises from a tall pointed structure such as a metal flagpole or a tower.",
+        "translation": "与从云涌来的电子相遇的正电粒子流通常起源于一个高大的尖顶结构，如金属旗杆或塔。",
+        "grammarFocus": "定语从句",
+        "pronounRef": "that 指代 stream",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话描述了正电粒子流的来源。",
+          "keyHint": "注意 that 引导的定语从句修饰 stream。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "正电粒子流从哪里来？从高大的尖顶结构。",
+          "grammarQuestion": "哪个流？与电子相遇的流。",
+          "modifierQuestion": "that meets... 是定语。",
+          "relationshipQuestion": "结构是来源，流是结果。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到主语 The stream",
+            "找到定语 that meets...",
+            "找到谓语 arises",
+            "找到状语 from a tall pointed structure",
+            "看 such as..."
+          ],
+          "encouragement": "你看到了来源，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：The stream of positive particles（正电粒子流）。\n定语：that meets the surge of electrons from the cloud（与从云涌来的电子相遇的），修饰 stream。\n谓语：arises（起源于）。\n状语：from a tall pointed structure such as a metal flagpole or a tower（从一个高大的尖顶结构，如金属旗杆或塔）。\n\n### 【逻辑关系】\nsuch as 举例说明 tall pointed structure。",
+        "segments": [
+          {
+            "text": "The stream of positive particles ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "that meets the surge of electrons from the cloud ",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": "often ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "arises ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "from a tall pointed structure such as a metal flagpole or a tower.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s28",
+        "para": 5,
+        "text": "That is why the subsequent lightning that follows the completed channel often strikes a tall structure.",
+        "translation": "这就是为什么随后的闪电，即沿着已完成的通道流动的闪电，经常击中高大的结构。",
+        "grammarFocus": "表语从句；定语从句",
+        "pronounRef": "That 指代前文的原因",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话解释了为什么闪电常击中高处。",
+          "keyHint": "注意 That is why... 的结构。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "为什么闪电击中高处？因为通道从高处开始。",
+          "grammarQuestion": "哪个闪电？随后的闪电。",
+          "modifierQuestion": "that follows... 是定语。",
+          "relationshipQuestion": "通道从高处开始 -> 闪电击中高处。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到主语 That",
+            "找到系动词 is",
+            "找到表语从句 why...",
+            "看 that 修饰谁"
+          ],
+          "encouragement": "你看到了原因，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：That（那）。\n系动词：is。\n表语：why the subsequent lightning that follows the completed channel often strikes a tall structure（为什么随后的闪电经常击中高大的结构）。\n\n### 【从句剖析】\nwhy... 引导表语从句。\nthat follows the completed channel 是定语从句，修饰 subsequent lightning。\n\n### 【逻辑关系】\nThat 指代前文提到的正电粒子流起源于高大结构。",
+        "segments": [
+          {
+            "text": "That ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "why the subsequent lightning that follows the completed channel often strikes a tall structure.",
+            "type": "clause-predicative",
+            "label": "表语从句"
+          }
+        ]
+      },
+      {
+        "id": "s29",
+        "para": 6,
+        "text": "Once a channel has been formed, it is usually used by several lightning discharges, each of them consisting of a stream of electrons from the cloud meeting a stream of positive particles along the established path.",
+        "translation": "一旦通道形成，它通常被几次闪电放电使用，每次放电都由一股从云来的电子流和一股沿既定路径的正电粒子流相遇组成。",
+        "grammarFocus": "时间状语从句；独立主格结构",
+        "pronounRef": "it 指代 channel",
+        "logicConnector": "Once",
+        "sentenceCoach": {
+          "summary": "这句话描述了通道形成后的多次放电。",
+          "keyHint": "注意 each of them... 是独立主格。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "通道形成后发生了什么？多次放电。",
+          "grammarQuestion": "每次放电由什么组成？电子流和正电粒子流相遇。",
+          "modifierQuestion": "each of them... 是补充说明。",
+          "relationshipQuestion": "通道形成 -> 多次放电。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到时间状语 Once a channel has been formed",
+            "找到主句主语 it",
+            "找到谓语 is used",
+            "看 each of them..."
+          ],
+          "encouragement": "你看到了多次放电，真棒！"
+        },
+        "analysis": "### 【主干结构】\n时间状语从句：Once a channel has been formed（一旦通道形成）。\n主句：it（主语） is usually used（谓语） by several lightning discharges（由几次闪电放电）。\n独立主格结构：each of them consisting of a stream of electrons from the cloud meeting a stream of positive particles along the established path（每次放电由一股电子流和一股正电粒子流相遇组成）。\n\n### 【逻辑关系】\nOnce 引导时间状语，说明多次放电的时间背景。",
+        "segments": [
+          {
+            "text": "Once a channel has been formed, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "it ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is usually used ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "by several lightning discharges, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "each of them consisting of a stream of electrons from the cloud meeting a stream of positive particles along the established path.",
+            "type": "modifier",
+            "label": "补充说明"
+          }
+        ]
+      },
+      {
+        "id": "s30",
+        "para": 6,
+        "text": "Sometimes, however, a stream of electrons following an established channel is met by a positive stream making a new path up from the ground.",
+        "translation": "然而，有时一股沿着既定通道流动的电子流遇到了一股从地面开辟新路径的正电粒子流。",
+        "grammarFocus": "现在分词作定语",
+        "pronounRef": "无",
+        "logicConnector": "however",
+        "sentenceCoach": {
+          "summary": "这句话描述了叉状闪电的形成。",
+          "keyHint": "注意 following... 和 making... 都是定语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "有时发生了什么？电子流遇到了新的正电粒子流。",
+          "grammarQuestion": "电子流沿着什么走？既定通道。",
+          "modifierQuestion": "following... 和 making... 都是定语。",
+          "relationshipQuestion": "电子流向下，新正电粒子流向上，相遇。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到状语 Sometimes, however",
+            "找到主语 a stream of electrons",
+            "找到定语 following...",
+            "找到谓语 is met",
+            "看 by a positive stream making..."
+          ],
+          "encouragement": "你看到了叉状闪电的形成，真棒！"
+        },
+        "analysis": "### 【主干结构】\n状语：Sometimes, however（然而，有时）。\n主语：a stream of electrons（一股电子流）。\n定语：following an established channel（沿着既定通道流动的），修饰 electrons。\n谓语：is met（被遇到）。\n状语：by a positive stream making a new path up from the ground（由一股从地面开辟新路径的正电粒子流）。\n\n### 【逻辑关系】\nhowever 表示转折，说明与通常情况不同。",
+        "segments": [
+          {
+            "text": "Sometimes, however, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "a stream of electrons ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "following an established channel ",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": "is met ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "by a positive stream making a new path up from the ground.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s31",
+        "para": 6,
+        "text": "The result is a forked lightning that strikes the ground in two places.",
+        "translation": "结果是叉状闪电，它在两个地方击中地面。",
+        "grammarFocus": "定语从句",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话描述了叉状闪电的结果。",
+          "keyHint": "注意 that 引导的定语从句修饰 lightning。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "结果是什么？叉状闪电。",
+          "grammarQuestion": "叉状闪电在哪里击中地面？两个地方。",
+          "modifierQuestion": "that strikes... 是定语。",
+          "relationshipQuestion": "相遇导致叉状闪电。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到主语 The result",
+            "找到系动词 is",
+            "找到表语 a forked lightning",
+            "看 that 修饰谁"
+          ],
+          "encouragement": "你看到了结果，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：The result（结果）。\n系动词：is。\n表语：a forked lightning（叉状闪电）。\n定语：that strikes the ground in two places（在两个地方击中地面的），修饰 lightning。\n\n### 【逻辑关系】\nthat 引导定语从句，补充说明 forked lightning 的特征。",
+        "segments": [
+          {
+            "text": "The result ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "a forked lightning ",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": "that strikes the ground in two places.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s32",
+        "para": 7,
+        "text": "Paragraph1 : Lightning is a brilliant flash of light produced by an electrical discharge from a storm cloud.",
+        "translation": "第一段：闪电是由风暴云中的放电现象产生的一道耀眼的光芒。",
+        "grammarFocus": "过去分词短语作后置定语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这是第一段的总结句。",
+          "keyHint": "注意 produced by 是修饰 flash 的。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "闪电是什么？一道光。",
+          "grammarQuestion": "光从哪里来？放电。",
+          "modifierQuestion": "produced by... 是定语。",
+          "relationshipQuestion": "闪电是结果，放电是原因。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到主语 Lightning",
+            "找到系动词 is",
+            "找到表语 flash",
+            "看 produced by 修饰谁"
+          ],
+          "encouragement": "你抓住了句子的骨架，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：Lightning。\n系动词：is。\n表语：a brilliant flash of light。\n定语：produced by an electrical discharge from a storm cloud。\n\n### 【逻辑关系】\n定义了闪电的本质。",
+        "segments": [
+          {
+            "text": "Paragraph1 : ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "Lightning ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "is ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "a brilliant flash of light ",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": "produced by an electrical discharge from a storm cloud.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s33",
+        "para": 7,
+        "text": "The electrical discharge takes place when the attractive tension between a region of negatively charged particles and a region of positively charged particles becomes so great that the charged particles suddenly rush together.",
+        "translation": "当带负电粒子区域和带正电粒子区域之间的吸引力变得如此之大，以至于带电粒子突然汇聚在一起时，就会发生放电现象。",
+        "grammarFocus": "so...that... 结果状语从句",
+        "pronounRef": "无",
+        "logicConnector": "when, so...that",
+        "sentenceCoach": {
+          "summary": "这句话解释了放电发生的条件。",
+          "keyHint": "看到 so great that 就要准备好迎接一个结果从句。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "放电什么时候发生？当吸引力变得超级大的时候。",
+          "grammarQuestion": "吸引力大到什么程度？大到粒子们“突然冲到一起”。",
+          "modifierQuestion": "when 引导的时间状语从句里套了一个 so...that... 的结果状语从句。",
+          "relationshipQuestion": "吸引力增大是原因，粒子汇聚是结果。",
+          "commonMistake": "容易把 takes place 当成 that 从句里的动词。",
+          "thinkingPath": [
+            "找到主句谓语 takes place",
+            "找到 when 引导的时间状语",
+            "在 when 从句中找到 so...that...",
+            "理解 that 后面是结果"
+          ],
+          "encouragement": "你能拆解这么长的句子，像个厉害的侦探！"
+        },
+        "analysis": "### 【主干结构】\n主句：The electrical discharge takes place。\n时间状语从句：when the attractive tension... becomes so great...\n结果状语从句：that the charged particles suddenly rush together。\n\n### 【逻辑关系】\n描述了因果链条。",
+        "segments": [
+          {
+            "text": "The electrical discharge ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "takes place ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "when the attractive tension between a region of negatively charged particles and a region of positively charged particles ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "becomes ",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": "so great ",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": "that the charged particles suddenly rush together.",
+            "type": "clause-predicative",
+            "label": "结果状语从句"
+          }
+        ]
+      },
+      {
+        "id": "s34",
+        "para": 7,
+        "text": "The coming together of the oppositely charged particles neutralizes the electrical tension and releases a tremendous amount of energy, which we see as lightning.",
+        "translation": "带相反电荷的粒子汇聚在一起，中和了电张力并释放出巨大的能量，我们将这种能量视为闪电。",
+        "grammarFocus": "动名词短语作主语；非限制性定语从句",
+        "pronounRef": "which 指代 energy",
+        "logicConnector": "and",
+        "sentenceCoach": {
+          "summary": "这句话描述了粒子汇聚后的两个后果。",
+          "keyHint": "注意 which 引导的从句修饰的是前面的 energy。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "粒子汇聚后发生了什么？它们中和了张力，还释放了能量。",
+          "grammarQuestion": "谁释放了能量？是‘汇聚’这个动作。",
+          "modifierQuestion": "which we see as lightning 是补充说明。",
+          "relationshipQuestion": "汇聚是动作，中和和释放是结果。",
+          "commonMistake": "容易误以为 which 修饰的是 tension。",
+          "thinkingPath": [
+            "找到主语 The coming together",
+            "找到谓语 neutralizes 和 releases",
+            "找到宾语 energy",
+            "看 which 修饰谁"
+          ],
+          "encouragement": "你发现了 which 指代的秘密，太厉害了！"
+        },
+        "analysis": "### 【主干结构】\n主语：The coming together of the oppositely charged particles。\n谓语：neutralizes 和 releases。\n宾语：the electrical tension 和 a tremendous amount of energy。\n定语：which we see as lightning。\n\n### 【逻辑关系】\n描述了粒子汇聚的后果。",
+        "segments": [
+          {
+            "text": "The coming together of the oppositely charged particles ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "neutralizes ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "the electrical tension ",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": "and ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "releases ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "a tremendous amount of energy, ",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": "which we see as lightning.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s35",
+        "para": 7,
+        "text": "The separation of positively and negatively charged particles takes place during the development of the storm cloud.",
+        "translation": "正负带电粒子的分离发生在风暴云的发展过程中。",
+        "grammarFocus": "简单句，介词短语作状语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这句话点明了粒子分离的时间背景。",
+          "keyHint": "注意 separation 是主语，takes place 是谓语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "粒子分离是什么时候发生的？在云发展的过程中。",
+          "grammarQuestion": "谁分离了？正负带电粒子。",
+          "modifierQuestion": "during... 告诉我们时间背景。",
+          "relationshipQuestion": "分离是过程，云的发展是时间背景。",
+          "commonMistake": "无特别常见错误。",
+          "thinkingPath": [
+            "找到主语 separation",
+            "找到谓语 takes place",
+            "找到时间状语 during..."
+          ],
+          "encouragement": "这句话很简单，你一眼就看穿了它！"
+        },
+        "analysis": "### 【主干结构】\n主语：The separation of positively and negatively charged particles。\n谓语：takes place。\n状语：during the development of the storm cloud。\n\n### 【逻辑关系】\n为前文提到的粒子汇聚提供了时间前提。",
+        "segments": [
+          {
+            "text": "The separation of positively and negatively charged particles ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "takes place ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "during the development of the storm cloud.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "q1",
+        "para": 7,
+        "text": "1. According to paragraph 1, all of the following take place in the development of a flash of lightening EXCEPT",
+        "translation": "1. 根据第一段，以下哪项在闪电的发展过程中没有发生？",
+        "grammarFocus": "EXCEPT 题",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这是一道细节题，要求找出未提及的选项。",
+          "keyHint": "注意 EXCEPT，要选错误的。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "哪件事没发生？",
+          "grammarQuestion": "EXCEPT 表示排除。",
+          "modifierQuestion": "无。",
+          "relationshipQuestion": "对比选项和原文。",
+          "commonMistake": "容易选成发生的选项。",
+          "thinkingPath": [
+            "找到第一段",
+            "对比每个选项",
+            "找出未提及的"
+          ],
+          "encouragement": "你找到了未提及的选项，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主语：all of the following。\n谓语：take place。\n状语：in the development of a flash of lightening。\n\n### 【逻辑关系】\nEXCEPT 表示排除，要选错误的。",
+        "segments": [
+          {
+            "text": "1. ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "According to paragraph 1, ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "all of the following ",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "take place ",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": "in the development of a flash of lightening ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "EXCEPT",
+            "type": "conjunction",
+            "label": "连接词"
+          }
+        ]
+      },
+      {
+        "id": "o1",
+        "para": 7,
+        "text": "○  great tension between two oppositely charged regions",
+        "translation": "○ 两个带相反电荷区域之间的巨大张力",
+        "grammarFocus": "名词短语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "选项A。",
+          "keyHint": "注意 great tension。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "有巨大张力吗？有。",
+          "grammarQuestion": "无。",
+          "modifierQuestion": "无。",
+          "relationshipQuestion": "原文提到。",
+          "commonMistake": "无。",
+          "thinkingPath": [
+            "找到第一段",
+            "找到 tension"
+          ],
+          "encouragement": "你找到了张力，真棒！"
+        },
+        "analysis": "### 【主干结构】\n名词短语。\n\n### 【逻辑关系】\n原文提到 attractive tension becomes so great。",
+        "segments": [
+          {
+            "text": "○  great tension between two oppositely charged regions",
+            "type": "subject",
+            "label": "主语"
+          }
+        ]
+      },
+      {
+        "id": "o2",
+        "para": 7,
+        "text": "○  an increase in negatively charged particles over positively charged particles",
+        "translation": "○ 带负电粒子数量超过带正电粒子",
+        "grammarFocus": "名词短语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "选项B。",
+          "keyHint": "注意 increase in negatively charged particles over positively charged particles。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "负电粒子超过正电粒子吗？原文未提及。",
+          "grammarQuestion": "无。",
+          "modifierQuestion": "无。",
+          "relationshipQuestion": "原文只提到分离，没提到数量对比。",
+          "commonMistake": "容易误以为有数量对比。",
+          "thinkingPath": [
+            "找到第一段",
+            "找数量对比"
+          ],
+          "encouragement": "你找到了未提及的数量对比，真棒！"
+        },
+        "analysis": "### 【主干结构】\n名词短语。\n\n### 【逻辑关系】\n原文只提到分离，没提到数量对比。",
+        "segments": [
+          {
+            "text": "○  an increase in negatively charged particles over positively charged particles",
+            "type": "subject",
+            "label": "主语"
+          }
+        ]
+      },
+      {
+        "id": "o3",
+        "para": 7,
+        "text": "○  oppositely charged particles coming together",
+        "translation": "○ 带相反电荷的粒子汇聚在一起",
+        "grammarFocus": "动名词短语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "选项C。",
+          "keyHint": "注意 coming together。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "粒子汇聚了吗？汇聚了。",
+          "grammarQuestion": "无。",
+          "modifierQuestion": "无。",
+          "relationshipQuestion": "原文提到。",
+          "commonMistake": "无。",
+          "thinkingPath": [
+            "找到第一段",
+            "找到 coming together"
+          ],
+          "encouragement": "你找到了汇聚，真棒！"
+        },
+        "analysis": "### 【主干结构】\n动名词短语。\n\n### 【逻辑关系】\n原文提到 The coming together of the oppositely charged particles。",
+        "segments": [
+          {
+            "text": "○  oppositely charged particles coming together",
+            "type": "subject",
+            "label": "主语"
+          }
+        ]
+      },
+      {
+        "id": "o4",
+        "para": 7,
+        "text": "○  the release of electrical energy in the form of visible light",
+        "translation": "○ 以可见光形式释放电能",
+        "grammarFocus": "名词短语",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "选项D。",
+          "keyHint": "注意 release of electrical energy。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "释放能量了吗？释放了。",
+          "grammarQuestion": "无。",
+          "modifierQuestion": "无。",
+          "relationshipQuestion": "原文提到。",
+          "commonMistake": "无。",
+          "thinkingPath": [
+            "找到第一段",
+            "找到 release of energy"
+          ],
+          "encouragement": "你找到了能量释放，真棒！"
+        },
+        "analysis": "### 【主干结构】\n名词短语。\n\n### 【逻辑关系】\n原文提到 releases a tremendous amount of energy, which we see as lightning。",
+        "segments": [
+          {
+            "text": "○  the release of electrical energy in the form of visible light",
+            "type": "subject",
+            "label": "主语"
+          }
+        ]
+      }
+    ],
+    "source": {
+      "file": "tpo-18-lightning.md",
+      "section": "TPO-18 / Lightning"
+    }
+  }
+}
