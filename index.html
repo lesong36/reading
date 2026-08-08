@@ -4056,10 +4056,22 @@
           if (encryptedAiKey) {
             setCloudApiKey(await decryptFromSyncVault(encryptedAiKey, syncPassphrase));
             encryptedAiKeyRef.current = encryptedAiKey;
+            setToastMessage('AI 密钥已在当前设备解密。');
+          } else if (cloudApiKey) {
+            // This is the first (source) device: write the ciphertext now,
+            // rather than relying on the debounced background sync.
+            const encrypted = await encryptForSyncVault(cloudApiKey, syncPassphrase);
+            const { error: writeError } = await supabase
+              .from('reader_sync_state')
+              .upsert({ user_id: user.id, encrypted_ai_key: encrypted, updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
+            if (writeError) throw writeError;
+            encryptedAiKeyRef.current = encrypted;
+            setToastMessage('AI 密钥已加密并同步到云端。');
+          } else {
+            setToastMessage('当前设备没有填写 AI Key，因此没有可上传的密钥。');
           }
           setSyncVaultUnlocked(true);
           setAuthError('');
-          setToastMessage(encryptedAiKey ? 'AI 密钥已在当前设备解密。' : '云端还没有 AI 密钥；请先在原设备加密并同步。');
           setCloudSyncRevision(value => value + 1);
         } catch (error) { setAuthError('同步口令不正确，无法解密 AI 密钥。'); }
       };
