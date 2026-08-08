@@ -356,6 +356,40 @@
       return <div className={baseClassName}>{result}</div>;
     };
 
+    // Structure analyses are long-form teaching content. Treat each markdown
+    // heading as a readable section with a compact label rail instead of
+    // shrinking the entire explanation into one dense text block.
+    const formatStructuralAnalysis = (text = '') => {
+      const sections = [];
+      let current = { heading: '结构说明', body: [] };
+      String(text || '暂无结构分析。').split('\n').forEach(line => {
+        const match = line.trim().match(/^#{2,3}\s+(.+)$/);
+        if (match) {
+          if (current.body.length) sections.push(current);
+          current = { heading: match[1].replace(/^【|】$/g, ''), body: [] };
+        } else {
+          current.body.push(line);
+        }
+      });
+      if (current.body.length || sections.length === 0) sections.push(current);
+
+      return (
+        <div className="divide-y divide-slate-100">
+          {sections.map((section, index) => (
+            <section key={`${section.heading}-${index}`} className="grid gap-3 py-5 first:pt-0 last:pb-0 md:grid-cols-[9rem_minmax(0,1fr)] md:gap-6">
+              <div className="flex items-start gap-2.5">
+                <span className="mt-1 h-5 w-1 shrink-0 rounded-full bg-indigo-500" />
+                <h4 className="text-sm font-black leading-6 text-slate-900">{section.heading}</h4>
+              </div>
+              <div className="min-w-0">
+                {formatMarkdown(section.body.join('\n').trim() || '—', 'text-base leading-8 text-slate-700')}
+              </div>
+            </section>
+          ))}
+        </div>
+      );
+    };
+
     const DEFAULT_OLLAMA_BASE_URL = 'http://127.0.0.1:11434';
     const DEFAULT_OLLAMA_MODEL = 'qwen3.6:35b-a3b-mxfp8';
     const REMOTE_NV_OLLAMA_BASE_URL = '';
@@ -6097,11 +6131,11 @@
                               </div>
                             </div>
 
-                            <div className="mt-4 border-t border-slate-100 pt-4">
+                            <div className="mt-5 border-t border-slate-200 pt-5">
                               <div className="flex items-center justify-between gap-3">
                                 <div>
                                   <p className="text-xs uppercase tracking-[0.22em] text-slate-400 font-bold">Structure</p>
-                                  <h3 className="mt-1 text-lg font-black text-slate-900">结构解析</h3>
+                                  <h3 className="mt-1 text-xl font-black text-slate-900">结构解析</h3>
                                 </div>
                                 <button
                                   type="button"
@@ -6111,8 +6145,8 @@
                                   去问 AI 助教
                                 </button>
                               </div>
-                              <div className="mt-3 rounded-2xl border border-slate-100 bg-white/60 px-4 py-3">
-                                {formatMarkdown(selectedSentence.analysis || '暂无结构分析。', "text-slate-800 text-[15px] leading-7")}
+                              <div className="mt-4 rounded-2xl border border-slate-200 bg-white px-5 py-5 shadow-[0_10px_30px_rgba(15,23,42,0.035)] md:px-6">
+                                {formatStructuralAnalysis(selectedSentence.analysis || '暂无结构分析。')}
                               </div>
                             </div>
                           </div>
