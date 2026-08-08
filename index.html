@@ -6072,24 +6072,23 @@
                               >
                                 {selectedSentence.text}
                               </p>
-                            </div>
-
-                            <div className="mt-4 border-t border-slate-100 pt-4">
-                              <div className="mb-3 flex items-center gap-2">
-                                <p className="text-xs uppercase tracking-[0.22em] text-slate-400 font-bold">Segments</p>
-                                <h3 className="text-lg font-black text-slate-900">句子切片</h3>
-                              </div>
-                              <div className="flex flex-wrap gap-2">
-                                {(selectedSentence.segments || []).map((seg, index) => (
-                                  <span
-                                    key={`${seg.text}-${index}`}
-                                    className={`inline-flex items-center gap-1 rounded-xl border px-3 py-2 text-sm font-bold ${getSegmentStyles(seg.type, true)}`}
-                                    title={seg.type}
-                                  >
-                                    <span>{seg.text}</span>
-                                    <span className="text-[11px] opacity-70">{seg.label}</span>
-                                  </span>
-                                ))}
+                              <div className="mt-5 border-t border-slate-100 pt-4">
+                                <div className="mb-3 flex items-baseline gap-2">
+                                  <p className="text-xs uppercase tracking-[0.18em] text-indigo-400 font-bold">Segments</p>
+                                  <h3 className="text-sm font-black text-slate-700">句子切片</h3>
+                                </div>
+                                <div className="flex flex-wrap gap-2">
+                                  {(selectedSentence.segments || []).map((seg, index) => (
+                                    <span
+                                      key={`${seg.text}-${index}`}
+                                      className={`inline-flex items-center gap-1 rounded-xl border px-3 py-2 text-sm font-bold ${getSegmentStyles(seg.type, true)}`}
+                                      title={seg.type}
+                                    >
+                                      <span>{seg.text}</span>
+                                      <span className="text-[11px] opacity-70">{seg.label}</span>
+                                    </span>
+                                  ))}
+                                </div>
                               </div>
                             </div>
 
