@@ -57,10 +57,12 @@ const RECOVERED_QUESTIONS = {
 // raster artwork.  Preserve the complete wording rather than retaining only a
 // final line such as "the sky?".
 const PROMPT_REPAIRS = {
+  '1-1:30': 'What do rabbits do when a long, cold winter is coming?',
   '1-4:29': 'What can fall from the sky?',
   '1-5:33': 'In the north of North America, snow and ice ______ the ground.',
   '1-7:29': 'What makes the Sami people different?',
   '1-8:29': 'What is the weather like in the Andes Mountains?',
+  '1-9:29': 'What should you do if you sit for a long time?',
   '1-10:29': 'Who do people compare themselves to?',
   '1-11:28': 'What happens when you use your muscles?',
   '1-12:27': 'What did people use martial arts to protect before they had guns?',
@@ -71,15 +73,28 @@ const PROMPT_REPAIRS = {
   '2-11:30': 'Why are holograms hard to copy?',
   '2-12:29': 'Why should you save money one coin at a time?',
   '2-13:30': 'What does less air make?',
+  '2-15:29': 'Which two things can you do with your mouth?',
   '2-15:30': 'When did mouth music become popular?',
+  '2-2:28': 'How did Pythagoras know the earth is round?',
+  '2-2:29': 'Who thought the earth is round?',
+  '3-2:30': "What helps deaf people communicate with people who don't know sign language?",
   '3-5:33': 'Most people ______ their straws ______ when they are done with them.',
+  '3-5:32': 'What happens when people stop using plastic straws?',
   '3-6:29': 'What happens to people who do not have fresh water?',
   '3-8:32': "If people do not ______ shoes, they may get cuts on their feet.",
+  '3-8:33': 'Why are The Shoe That Grows better than regular shoes?',
+  '3-9:29': 'How long did it take to take a picture with the new camera?',
   '3-9:30': 'Who was the first person to be photographed?',
+  '3-9:32': 'What happened to people in the photograph if they moved too fast?',
+  '3-10:30': 'What kind of pictures did people use cameras to take in the 1990s?',
   '3-10:31': 'What did people do with cameras in the 1990s?',
   '3-12:30': 'How can you see an immersive picture?',
+  '3-12:29': 'How are 360-degree cameras different from other cameras?',
   '3-13:29': 'What kind of jobs are common in the country?',
-  '3-15:29': 'What job does the child want to have?'
+  '3-13:30': 'Why did governments stop children from working certain jobs?',
+  '3-15:29': 'What job does the child want to have?',
+  '3-15:30': 'What happens when child actors become successful actors?',
+  '3-16:32': 'The word “require” means ______.'
 };
 
 const repairPrompt = (key, question) => PROMPT_REPAIRS[key]
@@ -128,7 +143,8 @@ const slideEntries = (file) => execFileSync('unzip', ['-Z1', file], { encoding: 
 
 const readNativeSlides = (file) => slideEntries(file).map((entry, index) => {
   const xml = execFileSync('unzip', ['-p', file, entry], { encoding: 'utf8', maxBuffer: 16 * 1024 * 1024 });
-  return { number: index + 1, text: normalize([...xml.matchAll(/<a:t>([\s\S]*?)<\/a:t>/g)].map((match) => match[1]).join(' ')) };
+  const runs = [...xml.matchAll(/<a:t>([\s\S]*?)<\/a:t>/g)].map((match) => normalize(match[1])).filter(Boolean);
+  return { number: index + 1, text: normalize(runs.join(' ')), runs };
 });
 
 const slidePictures = (file, slideNumber) => {
@@ -371,6 +387,25 @@ const trueFalseQuestion = (native, lines, reds) => {
     : null;
 };
 
+const correctionQuestion = (slide) => {
+  const instruction = 'Correct the underlined word in the sentence. Write the correct word.';
+  if (!/Correct the underlined words? in the sentence\. Write the correct word\./i.test(slide.text)) return null;
+  const answer = slide.runs.at(-1);
+  const marker = 'READING COMPREHENSION';
+  const body = slide.text.slice(slide.text.indexOf(marker) + marker.length).trim();
+  const sentence = answer && body.endsWith(answer) ? body.slice(0, -answer.length).trim() : body;
+  if (!sentence || !answer || sentence === answer) return null;
+  return {
+    prompt: `${instruction}\n\n${sentence}`,
+    options: [],
+    answerIndex: null,
+    rawAnswer: answer,
+    kind: 'correction',
+    answerSource: 'ppt-mark',
+    type: 'unsupported'
+  };
+};
+
 const choiceQuestion = (file, slideNumber, native, lines, reds, workdir, image) => {
   const [pageRight, pageBottom] = imageSize(image, workdir);
   const fromPicture = pictureOptions(file, slideNumber, workdir, pageRight, pageBottom, reds);
@@ -398,7 +433,14 @@ const extractDeck = (file, workdir) => {
   for (const slide of nativeSlides) {
     const isTf = /Circle\s+T\s+for\s+true\s+or\s+F\s+for\s+false/i.test(slide.text);
     const isChoice = /Choose the right answer/i.test(slide.text);
-    if (!isTf && !isChoice) continue;
+    const isCorrection = /Correct the underlined words? in the sentence\. Write the correct word\./i.test(slide.text);
+    if (!isTf && !isChoice && !isCorrection) continue;
+    if (isCorrection) {
+      const parsed = correctionQuestion(slide);
+      if (!parsed) { skipped.push({ slide: slide.number, reason: 'correction_not_resolved', native: slide.text }); continue; }
+      questions.push({ id: `q${questions.length + 1}`, index: questions.length + 1, ...parsed, paragraphHint: null, sourceSlide: slide.number });
+      continue;
+    }
     const image = path.join(workdir, `page-${slide.number}.jpg`);
     if (!fs.existsSync(image)) { skipped.push({ slide: slide.number, reason: 'render_missing' }); continue; }
     const lines = parseTsv(image, workdir);
@@ -417,9 +459,24 @@ const extractDeck = (file, workdir) => {
   return { ...info, file, slideCount: nativeSlides.length, questions, skipped };
 };
 
+const collectCorrectionQuestions = (input) => {
+  const byKey = new Map();
+  for (const file of walk(input)) {
+    const info = sourceId(file);
+    if (!info) continue;
+    const questions = readNativeSlides(file)
+      .map((slide) => ({ slide, question: correctionQuestion(slide) }))
+      .filter(({ question }) => question)
+      .map(({ slide, question }) => ({ ...question, sourceSlide: slide.number, paragraphHint: null }));
+    if (questions.length) byKey.set(info.key, questions);
+  }
+  return byKey;
+};
+
 const install = (importPath, deckResults) => {
   const articles = JSON.parse(fs.readFileSync(importPath, 'utf8'));
   const byKey = new Map(deckResults.map((result) => [result.key, result.questions]));
+  const correctionByKey = collectCorrectionQuestions(DEFAULT_INPUT);
   let installed = 0;
   for (const article of articles) {
     const match = String(article.id).match(/^rfd([123])-(\d{2})-/);
@@ -433,7 +490,9 @@ const install = (importPath, deckResults) => {
         sourceSlide: Number(recoveryKey.split(':')[1]), prompt: values[0], options: values[1], answerIndex: values[2],
         kind: values[3] || 'choice', answerSource: 'inferred-from-passage', paragraphHint: null, type: 'single'
       }));
-    const merged = [...questions, ...recovered.filter((item) => !questions.some((question) => question.sourceSlide === item.sourceSlide))]
+    const corrections = correctionByKey.get(key) || [];
+    const merged = [...questions, ...recovered, ...corrections]
+      .filter((item, index, all) => all.findIndex((question) => question.sourceSlide === item.sourceSlide) === index)
       .sort((left, right) => left.sourceSlide - right.sourceSlide)
       .map((question, index) => repairPrompt(`${key}:${question.sourceSlide}`, { ...question, id: `q${index + 1}`, index: index + 1 }));
     article.questions = merged;
