@@ -7206,6 +7206,23 @@
                         当前已登录：{user.user_metadata?.username || user.email}
                         <div className="mt-2 text-xs">{cloudSyncStatus.message}</div>
                       </div>
+                      <div className="rounded-2xl border border-indigo-100 bg-indigo-50/70 p-4">
+                        <div className="text-sm font-semibold text-indigo-950">同步 AI 设置</div>
+                        <p className="mt-1 text-xs leading-5 text-indigo-800">模型、Base URL 等偏好会自动同步。输入一个只由你记住的同步加密口令，当前 AI Key 才会加密写入云端；另一台设备输入相同口令即可解密。</p>
+                        <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+                          <input
+                            type="password"
+                            value={syncPassphrase}
+                            onChange={(e) => setSyncPassphrase(e.target.value)}
+                            placeholder="同步加密口令（不上传、不保存）"
+                            className="min-w-0 flex-1 rounded-xl border border-indigo-200 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+                          />
+                          <button onClick={handleUnlockSyncVault} className="rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">
+                            {syncVaultUnlocked ? '已解锁并同步' : '加密并同步 Key'}
+                          </button>
+                        </div>
+                      </div>
+                      {authError && <p className="text-sm text-red-600">{authError}</p>}
                       <button
                         onClick={handleLogout}
                         className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white px-4 py-2.5 font-semibold transition-colors"
