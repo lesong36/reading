@@ -5879,72 +5879,57 @@
                   {/* Main Analysis Panel (去除底色框，采用纯白画板) */}
                   <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex-grow sticky top-6 flex flex-col" style={{ maxHeight: 'calc(100vh - 48px)' }}>
                     
-                    {/* Header & Tabs (iOS 分段选择器风格) */}
-                    <div className="bg-white px-6 py-4 flex flex-col border-b border-slate-100 shrink-0 gap-4">
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    {/* One calm toolbar: analysis is the default, while AI and quiz are deliberate actions. */}
+                    <div className="bg-white px-5 md:px-6 py-4 border-b border-slate-100 shrink-0">
+                      <div className="flex items-center justify-between gap-3">
                         <h2 className="font-bold text-slate-800 flex items-center gap-2">
-                          {articleStudyMode === 'quiz' ? <MousePointerClick className="w-5 h-5 text-indigo-500" /> : <Search className="w-5 h-5 text-indigo-500" />}
-                          {articleStudyMode === 'quiz' ? '做题模式' : '句子解析'}
+                          {articleStudyMode === 'quiz'
+                            ? <MousePointerClick className="w-5 h-5 text-indigo-500" />
+                            : rightPanelTab === 'ai'
+                              ? <MessageSquare className="w-5 h-5 text-indigo-500" />
+                              : <Search className="w-5 h-5 text-indigo-500" />}
+                          {articleStudyMode === 'quiz' ? '练习' : rightPanelTab === 'ai' ? 'AI 助教' : '句子解析'}
                         </h2>
-                        <div className="flex p-1 bg-slate-100 rounded-xl self-start">
-                          <button
-                            onClick={() => setArticleStudyMode('read')}
-                            className={`px-5 py-1.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-1.5 ${
-                              articleStudyMode === 'read'
-                                ? 'bg-white text-indigo-600 shadow-sm'
-                                : 'text-slate-500 hover:text-slate-700'
-                            }`}
-                          >
-                            <BookOpen className="w-4 h-4" /> 阅读解析
-                          </button>
-                          <button
-                            onClick={() => hasQuizQuestions && setArticleStudyMode('quiz')}
-                            disabled={!hasQuizQuestions}
-                            className={`px-5 py-1.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-1.5 ${
-                              articleStudyMode === 'quiz'
-                                ? 'bg-white text-indigo-600 shadow-sm'
-                                : 'text-slate-500 hover:text-slate-700 disabled:text-slate-300 disabled:hover:text-slate-300'
-                            }`}
-                          >
-                            <MousePointerClick className="w-4 h-4" /> 做题
-                          </button>
-                        </div>
-                      </div>
-                      {articleStudyMode === 'read' ? (
-                        <div className="flex p-1 bg-slate-100 rounded-xl self-start">
-                          <button
-                            onClick={() => setRightPanelTab('guided')}
-                            className={`px-5 py-1.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-1.5 ${
-                              rightPanelTab === 'guided'
-                                ? 'bg-white text-indigo-600 shadow-sm'
-                                : 'text-slate-500 hover:text-slate-700'
-                            }`}
-                          >
-                            <FileText className="w-4 h-4"/> 解析总览
-                          </button>
-                          <button
-                            onClick={() => setRightPanelTab('ai')}
-                            className={`px-5 py-1.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-1.5 ${
-                              rightPanelTab === 'ai'
-                                ? 'bg-white text-indigo-600 shadow-sm'
-                                : 'text-slate-500 hover:text-slate-700'
-                            }`}
-                          >
-                            <MessageSquare className="w-4 h-4"/> AI 助教
-                          </button>
-                        </div>
-                      ) : (
-                        <div className="flex flex-wrap items-center gap-2 text-sm text-slate-500">
-                          <span>共 {currentArticleQuestions.length} 题</span>
-                          <span>·</span>
-                          <span>{supportedQuizQuestions.length} 题自动评分</span>
-                          {unsupportedQuizQuestions.length > 0 && (
-                            <React.Fragment>
-                              <span>·</span>
-                              <span>{unsupportedQuizQuestions.length} 题待答案键</span>
-                            </React.Fragment>
+                        <div className="flex items-center gap-2">
+                          {articleStudyMode === 'read' && rightPanelTab === 'ai' && (
+                            <button
+                              onClick={() => setRightPanelTab('guided')}
+                              className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-50"
+                            >
+                              <FileText className="w-4 h-4" /> 返回解析
+                            </button>
+                          )}
+                          {articleStudyMode === 'read' && rightPanelTab !== 'ai' && (
+                            <button
+                              onClick={() => setRightPanelTab('ai')}
+                              className="inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-semibold text-slate-500 transition-colors hover:bg-slate-50 hover:text-indigo-600"
+                            >
+                              <MessageSquare className="w-4 h-4" /> <span className="hidden sm:inline">问 AI</span>
+                            </button>
+                          )}
+                          {articleStudyMode === 'read' && hasQuizQuestions && (
+                            <button
+                              onClick={() => setArticleStudyMode('quiz')}
+                              className="inline-flex items-center gap-1.5 rounded-xl bg-indigo-600 px-3.5 py-2 text-sm font-bold text-white shadow-sm transition-colors hover:bg-indigo-700"
+                            >
+                              <MousePointerClick className="w-4 h-4" /> 做题
+                            </button>
+                          )}
+                          {articleStudyMode === 'quiz' && (
+                            <button
+                              onClick={() => setArticleStudyMode('read')}
+                              className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-50"
+                            >
+                              <BookOpen className="w-4 h-4" /> 返回解析
+                            </button>
                           )}
                         </div>
+                      </div>
+                      {articleStudyMode === 'quiz' && (
+                        <p className="mt-2 text-sm text-slate-500">
+                          共 {currentArticleQuestions.length} 题 · {supportedQuizQuestions.length} 题自动评分
+                          {unsupportedQuizQuestions.length > 0 && ` · ${unsupportedQuizQuestions.length} 题待答案键`}
+                        </p>
                       )}
                     </div>
                     
