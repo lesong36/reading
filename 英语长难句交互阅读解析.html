@@ -6859,55 +6859,63 @@
                         <div className="animate-in fade-in duration-500 max-w-4xl mx-auto space-y-5">
                           {hasQuizQuestions ? (
                             <React.Fragment>
-                              <div className="rounded-[28px] border border-indigo-100 bg-gradient-to-br from-white via-indigo-50/40 to-slate-50 p-6 shadow-sm">
-                                <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
-                                  <div>
-                                    <p className="text-xs uppercase tracking-[0.24em] text-indigo-400 font-bold">Quiz</p>
-                                    <h3 className="mt-2 text-2xl font-black text-slate-900">按课件答案做题</h3>
-                                    <p className="mt-2 text-sm leading-6 text-slate-500">
-                                      单选题会自动评分；个别课件未标答的题目会依据原文推断并明确标识。插入句、总结题等复杂题型不计入自动得分。
-                                    </p>
+                              <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm md:px-5">
+                                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                                  <div className="flex items-center gap-3 text-sm">
+                                    <span className="font-black text-slate-800">题目导航</span>
+                                    <span className="text-slate-400">
+                                      {quizProgress.submitted
+                                        ? `得分 ${quizScoreLabel}`
+                                        : `已答 ${quizAnsweredSupportedCount}/${supportedQuizQuestions.length}`}
+                                    </span>
                                   </div>
-                                  <div className="grid grid-cols-2 gap-3 text-sm">
-                                    <div className="rounded-2xl border border-indigo-100 bg-white px-4 py-3">
-                                      <p className="text-slate-400">已答</p>
-                                      <p className="mt-1 text-xl font-black text-indigo-700">{quizAnsweredSupportedCount}/{supportedQuizQuestions.length}</p>
-                                    </div>
-                                    <div className="rounded-2xl border border-emerald-100 bg-white px-4 py-3">
-                                      <p className="text-slate-400">得分</p>
-                                      <p className="mt-1 text-xl font-black text-emerald-700">{quizProgress.submitted ? quizScoreLabel : '未交卷'}</p>
-                                    </div>
+                                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium text-slate-500">
+                                    {quizProgress.submitted ? (
+                                      <React.Fragment>
+                                        <span className="inline-flex items-center gap-1.5"><i className="h-2 w-2 rounded-full bg-emerald-500" />正确</span>
+                                        <span className="inline-flex items-center gap-1.5"><i className="h-2 w-2 rounded-full bg-rose-500" />错误</span>
+                                        <span className="inline-flex items-center gap-1.5"><i className="h-2 w-2 rounded-full bg-slate-300" />未作答</span>
+                                      </React.Fragment>
+                                    ) : (
+                                      <React.Fragment>
+                                        <span className="inline-flex items-center gap-1.5"><i className="h-2 w-2 rounded-full bg-indigo-500" />已作答</span>
+                                        <span className="inline-flex items-center gap-1.5"><i className="h-2 w-2 rounded-full bg-slate-300" />未作答</span>
+                                        <span className="inline-flex items-center gap-1.5"><i className="h-2 w-2 rounded-full bg-indigo-700 ring-2 ring-indigo-200" />当前</span>
+                                      </React.Fragment>
+                                    )}
                                   </div>
                                 </div>
-                              </div>
-
-                              <div className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-sm">
-                                <div className="flex flex-wrap gap-2">
+                                <div className="mt-3 flex flex-wrap gap-2">
                                   {currentArticleQuestions.map((question) => {
                                     const isActive = question.id === currentQuizQuestion?.id;
                                     const isSupported = isSupportedQuizQuestion(question);
-                                    const answered = Number.isInteger(quizProgress.answers?.[question.id]);
+                                    const answer = quizProgress.answers?.[question.id];
+                                    const answered = Number.isInteger(answer) || (typeof answer === 'string' && answer.trim().length > 0);
                                     const isCorrect = quizProgress.submitted && isSupported && quizProgress.answers?.[question.id] === question.answerIndex;
                                     const isWrong = quizProgress.submitted && isSupported && answered && !isCorrect;
+                                    const stateClass = quizProgress.submitted
+                                      ? isCorrect
+                                        ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
+                                        : isWrong
+                                          ? 'border-rose-200 bg-rose-50 text-rose-700'
+                                          : answered
+                                            ? 'border-indigo-200 bg-indigo-50 text-indigo-700'
+                                            : 'border-slate-200 bg-slate-50 text-slate-400'
+                                      : isActive
+                                        ? 'border-indigo-600 bg-indigo-600 text-white shadow-sm'
+                                        : answered
+                                          ? 'border-indigo-200 bg-indigo-50 text-indigo-700'
+                                          : !isSupported
+                                            ? 'border-amber-200 bg-amber-50 text-amber-700'
+                                            : 'border-slate-200 bg-white text-slate-500 hover:bg-slate-50';
                                     return (
                                       <button
                                         key={question.id}
                                         type="button"
                                         onClick={() => handleSelectQuizQuestion(question)}
-                                        className={`min-w-[2.5rem] rounded-2xl border px-3 py-2 text-sm font-bold transition-all ${
-                                          isActive
-                                            ? 'border-indigo-500 bg-indigo-600 text-white shadow-sm'
-                                            : isCorrect
-                                              ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
-                                              : isWrong
-                                                ? 'border-rose-200 bg-rose-50 text-rose-700'
-                                                : answered
-                                                  ? 'border-indigo-200 bg-indigo-50 text-indigo-700'
-                                                  : !isSupported
-                                                    ? 'border-amber-200 bg-amber-50 text-amber-700'
-                                                    : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
-                                        }`}
-                                        title={isSupported ? `第 ${question.index} 题` : `第 ${question.index} 题（非自动评分）`}
+                                        aria-current={isActive ? 'step' : undefined}
+                                        className={`min-w-10 rounded-xl border px-3 py-2 text-sm font-black transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 ${stateClass} ${isActive && quizProgress.submitted ? 'ring-2 ring-indigo-500 ring-offset-2' : ''}`}
+                                        title={`${isSupported ? `第 ${question.index} 题` : `第 ${question.index} 题（非自动评分）`} · ${quizProgress.submitted ? (isCorrect ? '正确' : isWrong ? '错误' : answered ? '已作答' : '未作答') : (isActive ? '当前题' : answered ? '已作答' : '未作答')}`}
                                       >
                                         {question.index}
                                       </button>
