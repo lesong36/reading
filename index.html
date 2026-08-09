@@ -1961,6 +1961,10 @@
     });
 
     const QUIZ_PROGRESS_STORAGE_KEY_PREFIX = 'reader_quiz_progress_';
+    // Shared by the two GitHub Pages apps under https://lesong36.github.io.
+    // It is intentionally an inbox rather than VocabMaster's whole app state,
+    // so the receiving app can let its active learner accept the new words.
+    const VOCAB_MASTER_READING_INBOX_KEY = 'vocabmaster_reader_inbox_v1';
 
     const normalizeQuizQuestion = (question = {}, fallbackIndex = 0) => {
       const options = Array.isArray(question.options)
@@ -4243,6 +4247,8 @@
             etymology: data.etymology || "暂无词源信息",
             exampleSentence: data.exampleSentence || "",
             sourceContext: contextSentenceText,
+            sourceArticleId: currentArticleId || null,
+            sourceArticleTitle: currentArticleTitle || '',
             addedAt: new Date().toLocaleDateString(),
             timestamp: Date.now()
           };
@@ -4283,6 +4289,59 @@
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
         setToastMessage("💾 生词本备份已成功导出");
+      };
+
+      const sendVocabToVocabMaster = async () => {
+        if (vocabBook.length === 0) {
+          setToastMessage("⚠️ 生词本是空的，暂无可传递的单词。");
+          return;
+        }
+        const entries = vocabBook
+          .filter(entry => typeof entry?.word === 'string' && entry.word.trim())
+          .map(entry => ({
+            word: entry.word.trim(),
+            meaning: entry.meaning || '',
+            pronunciation: entry.pronunciation || '',
+            sourceContext: entry.sourceContext || '',
+            sourceArticleId: entry.sourceArticleId || null,
+            sourceArticleTitle: entry.sourceArticleTitle || '',
+            addedAt: entry.addedAt || '',
+            timestamp: entry.timestamp || Date.now()
+          }));
+        let existingEntries = [];
+        try {
+          const existingInbox = JSON.parse(localStorage.getItem(VOCAB_MASTER_READING_INBOX_KEY) || '{}');
+          existingEntries = Array.isArray(existingInbox.entries) ? existingInbox.entries : [];
+        } catch (error) {}
+        const incomingByWord = new Map(existingEntries.map(entry => [String(entry.word || '').trim().toLowerCase(), entry]));
+        entries.forEach(entry => incomingByWord.set(entry.word.toLowerCase(), entry));
+        incomingByWord.delete('');
+        const inbox = { version: 1, updatedAt: new Date().toISOString(), entries: [...incomingByWord.values()] };
+
+        try {
+          localStorage.setItem(VOCAB_MASTER_READING_INBOX_KEY, JSON.stringify(inbox));
+          if (supabase && user) {
+            const { error } = await supabase
+              .from('reader_sync_state')
+              .upsert({ user_id: user.id, vocabulary: vocabBook, updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
+            if (error) throw error;
+          }
+          if (window.location.origin === 'https://lesong36.github.io') {
+            window.open('https://lesong36.github.io/vocab-master/', '_blank', 'noopener');
+            setToastMessage(`✅ 已将 ${entries.length} 个生词同步到 VocabMaster；登录同一阅读器账号即可跨设备导入。`);
+          } else {
+            const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(inbox, null, 2));
+            const link = document.createElement('a');
+            link.href = dataUri;
+            link.download = `reading-vocab-inbox_${new Date().toISOString().slice(0, 10)}.json`;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setToastMessage('💾 已导出阅读生词本收件箱；线上版可直接导入 VocabMaster。');
+          }
+        } catch (error) {
+          setToastMessage(`❌ 无法传递生词：${error.message || '浏览器本地存储不可用'}`);
+        }
       };
 
       const importVocabData = (e) => {
@@ -5707,6 +5766,9 @@
                       <React.Fragment>
                         <button onClick={exportVocabData} className="flex items-center gap-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm">
                           <Download className="w-4 h-4" /> 导出JSON
+                        </button>
+                        <button onClick={sendVocabToVocabMaster} className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm">
+                          <Send className="w-4 h-4" /> 传到 VocabMaster
                         </button>
                         <button onClick={() => window.print()} className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-white px-3 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm">
                           <Printer className="w-4 h-4" /> 打印卡片
