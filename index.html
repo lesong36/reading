@@ -1891,8 +1891,8 @@
       './data/generated-reader-json/reader-articles-re-foundations.import.json'
     ];
     // v12 adds the RFD classroom-PPT quiz bank and refreshes every published bundle.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v15';
-    const BUNDLED_LIBRARY_SEED_VERSION = '15';
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v16';
+    const BUNDLED_LIBRARY_SEED_VERSION = '16';
     const EXPECTED_TPO_ARTICLE_COUNT = 104;
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
@@ -2016,7 +2016,7 @@
 
     const normalizeQuizProgress = (progress = {}) => {
       const normalizedAnswers = Object.entries(progress?.answers || {}).reduce((acc, [questionId, value]) => {
-        if (Number.isInteger(value)) acc[questionId] = value;
+        if (Number.isInteger(value) || (typeof value === 'string' && value.trim())) acc[questionId] = value;
         return acc;
       }, {});
       return {
@@ -4342,6 +4342,11 @@
             [question.id]: answerIndex
           }
         }));
+      };
+
+      const handleQuizTextAnswerChange = (question, value) => {
+        if (!question || quizProgress.submitted) return;
+        setQuizProgress(prev => ({ ...prev, answers: { ...prev.answers, [question.id]: value } }));
       };
 
       const handleQuizSubmit = () => {
@@ -6999,6 +7004,27 @@
                                     </div>
                                   ) : (
                                     <div className="mt-6 rounded-3xl border border-amber-200 bg-amber-50 p-5">
+                                      {currentQuizQuestion.kind === 'correction' ? (
+                                        <div className="space-y-4">
+                                          <p className="text-sm font-bold text-amber-900">请改正下划线处的词，并输入正确答案。</p>
+                                          <p className="rounded-2xl bg-white/80 px-4 py-3 text-base leading-7 text-slate-800">
+                                            {currentQuizQuestion.correctionSentence.split(currentQuizQuestion.underlinedWord || '___').map((part, index, parts) => (
+                                              <React.Fragment key={`${part}-${index}`}>
+                                                {part}
+                                                {index < parts.length - 1 && <span className="font-black text-rose-700 underline decoration-2 underline-offset-4">{currentQuizQuestion.underlinedWord || '___'}</span>}
+                                              </React.Fragment>
+                                            ))}
+                                          </p>
+                                          <input
+                                            type="text"
+                                            value={typeof currentQuizAnswer === 'string' ? currentQuizAnswer : ''}
+                                            disabled={quizProgress.submitted}
+                                            onChange={(event) => handleQuizTextAnswerChange(currentQuizQuestion, event.target.value)}
+                                            placeholder="输入正确的词"
+                                            className="w-full rounded-2xl border border-amber-300 bg-white px-4 py-3 text-base text-slate-800 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 disabled:bg-slate-100"
+                                          />
+                                        </div>
+                                      ) : (
                                       <p className="text-sm leading-7 text-amber-900">
                                         {currentQuizUsesPptSource
                                           ? '此题已从课件中提取，但课件未提供可核验的答案键，因此目前仅供练习，暂不自动评分。'
@@ -7007,6 +7033,7 @@
                                           ? ' 已交卷后展示官方答案。'
                                           : ' 你可以先阅读题干与选项，交卷后查看 Word 官方答案。')}
                                       </p>
+                                      )}
                                       {currentQuizQuestion.options.length > 0 && (
                                         <div className="mt-4 space-y-2">
                                           {currentQuizQuestion.options.map((option, optionIndex) => (

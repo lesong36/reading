@@ -144,7 +144,11 @@ const slideEntries = (file) => execFileSync('unzip', ['-Z1', file], { encoding: 
 const readNativeSlides = (file) => slideEntries(file).map((entry, index) => {
   const xml = execFileSync('unzip', ['-p', file, entry], { encoding: 'utf8', maxBuffer: 16 * 1024 * 1024 });
   const runs = [...xml.matchAll(/<a:t>([\s\S]*?)<\/a:t>/g)].map((match) => normalize(match[1])).filter(Boolean);
-  return { number: index + 1, text: normalize(runs.join(' ')), runs };
+  const underlinedRuns = [...xml.matchAll(/<a:r>([\s\S]*?)<\/a:r>/g)]
+    .filter((match) => /<a:rPr[^>]*\bu="[^"]+"/i.test(match[1]))
+    .map((match) => normalize(match[1].match(/<a:t>([\s\S]*?)<\/a:t>/)?.[1] || ''))
+    .filter(Boolean);
+  return { number: index + 1, text: normalize(runs.join(' ')), runs, underlinedRuns };
 });
 
 const slidePictures = (file, slideNumber) => {
@@ -396,7 +400,9 @@ const correctionQuestion = (slide) => {
   const sentence = answer && body.endsWith(answer) ? body.slice(0, -answer.length).trim() : body;
   if (!sentence || !answer || sentence === answer) return null;
   return {
-    prompt: `${instruction}\n\n${sentence}`,
+    prompt: instruction,
+    correctionSentence: sentence,
+    underlinedWord: slide.underlinedRuns.find((word) => sentence.includes(word)) || '',
     options: [],
     answerIndex: null,
     rawAnswer: answer,
