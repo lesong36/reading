@@ -16,6 +16,7 @@ create table if not exists public.reader_sync_state (
   reading_positions jsonb not null default '{}'::jsonb,
   quiz_progress jsonb not null default '{}'::jsonb,
   wrong_answers jsonb not null default '[]'::jsonb,
+  vocab_master_progress jsonb not null default '{}'::jsonb,
   preferences jsonb not null default '{}'::jsonb,
   encrypted_ai_key jsonb,
   updated_at timestamptz not null default now()
@@ -23,6 +24,7 @@ create table if not exists public.reader_sync_state (
 
 -- Safe to rerun if the table was created by an earlier draft of this schema.
 alter table public.reader_sync_state add column if not exists wrong_answers jsonb not null default '[]'::jsonb;
+alter table public.reader_sync_state add column if not exists vocab_master_progress jsonb not null default '{}'::jsonb;
 
 alter table public.profiles enable row level security;
 alter table public.reader_sync_state enable row level security;

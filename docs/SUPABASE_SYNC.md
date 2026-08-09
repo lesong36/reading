@@ -4,6 +4,7 @@
 
 - Vocabulary, favorites, reading position, quiz progress, and incorrect-answer history.
 - Vocabulary can be imported by VocabMaster as a separate, recognition-only “阅读生词本” after signing in with the same account. The VocabMaster practice record remains local to that app.
+- VocabMaster recognition progress can also sync through `vocab_master_progress`; run the latest `supabase/schema.sql` once before using cross-device progress sync.
 - Non-sensitive AI preferences (provider, model, base URL, voice preferences).
 - The cloud AI key only as a client-side AES-GCM encrypted payload.
 
