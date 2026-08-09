@@ -1,0 +1,22 @@
+{
+  "name": "reading",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "analyze:md-sections": "node scripts/analyze-md-sections.mjs",
+    "audit:reader-json": "node scripts/audit-reader-json.mjs",
+    "benchmark:readability": "node scripts/benchmark-readability.mjs",
+    "extract:tpo": "node scripts/extract-tpo-from-doc.mjs",
+    "extract:rfd-quiz": "node scripts/extract-rfd-quiz-from-pptx.mjs",
+    "fetch:lexile-samples": "node scripts/fetch-lexile-samples.mjs",
+    "merge:reader-json": "node scripts/merge-reader-json.mjs",
+    "merge:tpo": "node scripts/merge-tpo-bundle.mjs",
+    "regenerate:reader-json:local": "node scripts/regenerate-reader-json-local.mjs",
+    "regenerate:tpo": "node scripts/regenerate-tpo-reader-json.mjs",
+    "sync:app": "node scripts/sync-app-entry.mjs"
+  },
+  "dependencies": {
+    "readability-scores": "^1.0.8",
+    "text-readability": "^1.1.1"
+  }
+}
