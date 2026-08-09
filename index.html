@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
-  <title>英语长难句交互阅读解析</title>
+  <title>ReadMastger 闹闹爱阅读</title>
   
   <!-- 本地 vendor：避免 cdn.tailwindcss.com / 在线 Babel 的 production 警告依赖 -->
   <script src="./vendor/tailwindcss.js"></script>
@@ -71,7 +71,7 @@
   <div id="root">
     <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#f8fafc;color:#0f172a;">
       <div style="width:min(560px,100%);background:rgba(255,255,255,0.92);border:1px solid #e2e8f0;border-radius:28px;padding:32px;box-shadow:0 20px 50px rgba(15,23,42,0.08);text-align:center;">
-        <div style="font-size:28px;font-weight:800;letter-spacing:-0.02em;">英语长难句交互阅读解析</div>
+        <div style="font-size:28px;font-weight:800;letter-spacing:-0.02em;">ReadMastger 闹闹爱阅读</div>
         <div style="margin-top:12px;font-size:16px;line-height:1.75;color:#475569;">
           正在启动阅读器并加载页面资源。首次打开或更新后，可能需要等待几秒。
         </div>
@@ -2010,6 +2010,7 @@
 
     const createEmptyQuizProgress = () => ({
       answers: {},
+      locatorSentenceIds: {},
       submitted: false,
       submittedAt: null
     });
@@ -2019,8 +2020,13 @@
         if (Number.isInteger(value) || (typeof value === 'string' && value.trim())) acc[questionId] = value;
         return acc;
       }, {});
+      const locatorSentenceIds = Object.entries(progress?.locatorSentenceIds || {}).reduce((acc, [questionId, sentenceId]) => {
+        if (typeof sentenceId === 'string' && sentenceId.trim()) acc[questionId] = sentenceId.trim();
+        return acc;
+      }, {});
       return {
         answers: normalizedAnswers,
+        locatorSentenceIds,
         submitted: Boolean(progress?.submitted),
         submittedAt: progress?.submittedAt || null
       };
@@ -3495,6 +3501,10 @@
         [currentArticleQuestions, quizActiveQuestionId]
       );
       const currentQuizQuestionNumber = currentQuizQuestion?.index || 0;
+      const currentQuizLocatorSentenceId = currentQuizQuestion ? quizProgress.locatorSentenceIds?.[currentQuizQuestion.id] || null : null;
+      const currentQuizLocatorSentence = currentQuizLocatorSentenceId
+        ? currentArticleData.find(sentence => sentence.id === currentQuizLocatorSentenceId) || null
+        : null;
       const currentQuizParagraphHint = currentQuizQuestion?.paragraphHint ? String(currentQuizQuestion.paragraphHint).trim() : null;
       const currentQuizParagraphNumber = currentQuizParagraphHint && /^\d+$/.test(currentQuizParagraphHint)
         ? Number(currentQuizParagraphHint)
@@ -3532,6 +3542,10 @@
           ...nextProgress,
           answers: Object.entries(nextProgress.answers || {}).reduce((acc, [questionId, value]) => {
             if (questionIds.has(questionId) && Number.isInteger(value)) acc[questionId] = value;
+            return acc;
+          }, {}),
+          locatorSentenceIds: Object.entries(nextProgress.locatorSentenceIds || {}).reduce((acc, [questionId, sentenceId]) => {
+            if (questionIds.has(questionId) && currentArticleData.some(sentence => sentence.id === sentenceId)) acc[questionId] = sentenceId;
             return acc;
           }, {})
         };
@@ -3937,6 +3951,37 @@
         clearWordPressTimer();
       };
 
+      const quizLocatorPressTimerRef = useRef(null);
+      const quizLocatorPressOriginRef = useRef(null);
+
+      const clearQuizLocatorPressTimer = () => {
+        if (quizLocatorPressTimerRef.current) {
+          clearTimeout(quizLocatorPressTimerRef.current);
+          quizLocatorPressTimerRef.current = null;
+        }
+        quizLocatorPressOriginRef.current = null;
+      };
+
+      const startQuizLocatorPress = (event, sentence) => {
+        if (articleStudyMode !== 'quiz' || !currentQuizQuestion) return;
+        const point = event.touches?.[0] || event;
+        if (point.clientX == null || point.clientY == null) return;
+        clearQuizLocatorPressTimer();
+        quizLocatorPressOriginRef.current = { x: point.clientX, y: point.clientY, sentence };
+        quizLocatorPressTimerRef.current = setTimeout(() => {
+          const origin = quizLocatorPressOriginRef.current;
+          quizLocatorPressTimerRef.current = null;
+          if (origin) handleSetQuizLocatorSentence(origin.sentence);
+        }, 550);
+      };
+
+      const moveQuizLocatorPress = (event) => {
+        const origin = quizLocatorPressOriginRef.current;
+        const point = event.touches?.[0] || event;
+        if (!origin || point.clientX == null || point.clientY == null) return;
+        if (Math.abs(point.clientX - origin.x) > 12 || Math.abs(point.clientY - origin.y) > 12) clearQuizLocatorPressTimer();
+      };
+
       const renderGuidedSentenceWorkbench = () => (
         <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-4">
@@ -4331,6 +4376,31 @@
         if (!question) return;
         setArticleStudyMode('quiz');
         setQuizActiveQuestionId(question.id);
+      };
+
+      const handleSetQuizLocatorSentence = (sentence) => {
+        if (!sentence || !currentQuizQuestion) return;
+        setQuizProgress(prev => ({
+          ...prev,
+          locatorSentenceIds: {
+            ...prev.locatorSentenceIds,
+            [currentQuizQuestion.id]: sentence.id
+          }
+        }));
+        setSelectedSentence(sentence);
+        if (navigator.vibrate) {
+          try { navigator.vibrate(12); } catch (_) {}
+        }
+        setToastMessage(`📍 已将第 ${currentQuizQuestion.index} 题定位到这句话`);
+      };
+
+      const handleClearQuizLocatorSentence = () => {
+        if (!currentQuizQuestion) return;
+        setQuizProgress(prev => {
+          const { [currentQuizQuestion.id]: _removed, ...locatorSentenceIds } = prev.locatorSentenceIds || {};
+          return { ...prev, locatorSentenceIds };
+        });
+        setToastMessage(`已清除第 ${currentQuizQuestion.index} 题的定位句`);
       };
 
       const handleQuizAnswerSelect = (question, answerIndex) => {
@@ -5021,7 +5091,7 @@
               <div className="flex items-center justify-center gap-3 w-full mb-2">
                 <BookOpen className="text-indigo-600 w-8 h-8" />
                 <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
-                  英语长难句交互阅读解析
+                  ReadMastger 闹闹爱阅读
                 </h1>
               </div>
               {viewMode !== 'reading' && (
@@ -5873,7 +5943,10 @@
                       <p
                         key={idx}
                         className={`mb-6 md:mb-8 rounded-3xl px-3 py-2 transition-all ${
-                          articleStudyMode === 'quiz' && currentQuizParagraphNumber && Number(para[0]?.para) === currentQuizParagraphNumber
+                          articleStudyMode === 'quiz' && (
+                            (currentQuizParagraphNumber && Number(para[0]?.para) === currentQuizParagraphNumber) ||
+                            para.some(sentence => sentence.id === currentQuizLocatorSentenceId)
+                          )
                             ? 'bg-indigo-50 ring-1 ring-indigo-200 shadow-sm'
                             : ''
                         }`}
@@ -5893,12 +5966,28 @@
                                   setSelectedSentence(sentence);
                                 }}
                                 onDoubleClick={(e) => handleSentenceDoubleClick(e, sentence.text)}
-                                onTouchStart={(e) => handleWordPressStart(e, sentence.text)}
-                                onTouchMove={handleWordPressMove}
-                                onTouchEnd={handleWordPressEnd}
-                                onTouchCancel={handleWordPressEnd}
+                                onMouseDown={(e) => startQuizLocatorPress(e, sentence)}
+                                onMouseMove={moveQuizLocatorPress}
+                                onMouseUp={clearQuizLocatorPressTimer}
+                                onMouseLeave={clearQuizLocatorPressTimer}
+                                onTouchStart={(e) => articleStudyMode === 'quiz'
+                                  ? startQuizLocatorPress(e, sentence)
+                                  : handleWordPressStart(e, sentence.text)}
+                                onTouchMove={(e) => articleStudyMode === 'quiz'
+                                  ? moveQuizLocatorPress(e)
+                                  : handleWordPressMove(e)}
+                                onTouchEnd={() => articleStudyMode === 'quiz'
+                                  ? clearQuizLocatorPressTimer()
+                                  : handleWordPressEnd()}
+                                onTouchCancel={() => articleStudyMode === 'quiz'
+                                  ? clearQuizLocatorPressTimer()
+                                  : handleWordPressEnd()}
                                 className={`cursor-pointer transition-colors duration-150 select-text reader-word-target ${
                                   isSelected ? 'bg-indigo-100/60' : ''
+                                } ${
+                                  articleStudyMode === 'quiz' && sentence.id === currentQuizLocatorSentenceId
+                                    ? 'rounded-md bg-amber-100 px-1 text-slate-950 ring-2 ring-amber-400 ring-offset-2'
+                                    : ''
                                 } ${
                                   articleStudyMode === 'quiz' && currentQuizParagraphNumber && Number(sentence.para) === currentQuizParagraphNumber
                                     ? 'text-slate-950'
@@ -6951,6 +7040,24 @@
                                       <h3 className="mt-4 text-xl md:text-2xl font-black text-slate-900 leading-relaxed whitespace-pre-line">
                                         {currentQuizQuestion.prompt}
                                       </h3>
+                                      <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
+                                        <div className="flex flex-wrap items-center justify-between gap-3">
+                                          <p className="font-bold">
+                                            {currentQuizLocatorSentence
+                                              ? <>📍 定位句：{currentQuizLocatorSentence.text}</>
+                                              : '📍 在左侧原文中选中一句，再用鼠标或 iPad 长按，即可设为本题定位句。'}
+                                          </p>
+                                          {currentQuizLocatorSentence && (
+                                            <button
+                                              type="button"
+                                              onClick={handleClearQuizLocatorSentence}
+                                              className="shrink-0 rounded-xl border border-amber-300 bg-white px-3 py-1.5 text-xs font-black text-amber-800 transition-colors hover:bg-amber-100"
+                                            >
+                                              清除定位
+                                            </button>
+                                          )}
+                                        </div>
+                                      </div>
                                     </div>
                                     <button
                                       type="button"

@@ -49,10 +49,13 @@
 ```json
 {
   "answers": { "q1": 2, "q3": 0 },
+  "locatorSentenceIds": { "q1": "sentence-4" },
   "submitted": false,
   "submittedAt": null
 }
 ```
+
+`locatorSentenceIds` is an optional, per-question mapping. In quiz mode, learners can long-press a passage sentence with a mouse or iPad to save it as the active question's locator sentence. It is retained in the same local and cloud-synced progress record.
 
 ## Answer source
 
