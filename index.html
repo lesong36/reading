@@ -5209,6 +5209,13 @@
                   <User className="w-4 h-4" />
                   {user ? '云同步账号' : (supabase ? '登录同步' : '配置云同步')}
                 </button>
+                <button
+                  onClick={() => window.open('https://lesong36.github.io/vocab-master/', '_blank', 'noopener')}
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-colors shadow-sm bg-emerald-600 text-white hover:bg-emerald-700"
+                  title="打开 VocabMaster 单词达人"
+                >
+                  <LinkIcon className="w-4 h-4" /> 打开 VocabMaster
+                </button>
               </div>
 
               <div className={`mt-3 text-xs ${cloudSyncStatus.enabled ? 'text-emerald-700' : 'text-amber-700'}`}>
