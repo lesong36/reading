@@ -1894,10 +1894,9 @@
       './data/generated-reader-json/reader-articles-re-foundations.import.json',
       './data/generated-reader-json/reader-articles-shiwen.import.json'
     ];
-    // v23 removes 时文 exercise leakage and restores answer options.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v23';
-    const BUNDLED_LIBRARY_SEED_VERSION = '23';
-    const EXPECTED_TPO_ARTICLE_COUNT = 104;
+    // v24 publishes only the analyses that pass the strict TPO quality gate.
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v24';
+    const BUNDLED_LIBRARY_SEED_VERSION = '24';
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
     const normalizeLookupWord = (value = '') =>
@@ -2106,6 +2105,14 @@
       normalizeSavedArticles(articles)
         .filter(article => getArticleFilterKey(article) === 'tpo')
         .length;
+
+    const isTpoCurriculumArticle = (article = {}) => {
+      const id = String(article.id || '').toLowerCase();
+      return /^tpo-\d+/.test(id)
+        || id.startsWith('og-')
+        || id.startsWith('online-test-')
+        || id.startsWith('official-model-exam-');
+    };
 
     const getReFoundationsArticleCount = (articles = []) =>
       normalizeSavedArticles(articles)
@@ -2824,13 +2831,9 @@
 
       useEffect(() => {
         if (!localDataReady) return;
-        const storedTpoCount = getTpoArticleCount(savedArticles);
-        const storedReFoundationsCount = getReFoundationsArticleCount(savedArticles);
         if (
           bundledSeedInFlightRef.current ||
           localStorage.getItem(BUNDLED_LIBRARY_SEED_KEY) === BUNDLED_LIBRARY_SEED_VERSION
-          && storedTpoCount >= EXPECTED_TPO_ARTICLE_COUNT
-          && storedReFoundationsCount >= EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT
         ) return;
 
         let cancelled = false;
@@ -2844,7 +2847,11 @@
               // Bundled articles are canonical curriculum records.  Replace
               // only colliding curriculum IDs so an older OPFS cache cannot
               // override a published correction; personal imports stay intact.
-              const merged = mergeSavedArticles(prev, bundled, { preferIncoming: true });
+              // The TPO pack is an allow-list. Remove superseded TPO/OG
+              // curriculum records first so failed or unreviewed analyses do
+              // not survive in OPFS from an older 104-article bundle.
+              const retained = prev.filter(article => !isTpoCurriculumArticle(article));
+              const merged = mergeSavedArticles(retained, bundled, { preferIncoming: true });
               // The following persistence effect writes the full bundle to OPFS.
               // Do not put it in localStorage: 104 analysed articles exceed its quota.
               setTimeout(() => {
