@@ -2747,6 +2747,7 @@
       const [vocabPopup, setVocabPopup] = useState(null);
       const [addingWordId, setAddingWordId] = useState(null); 
       const contextualDictionaryCacheRef = useRef(new Map());
+      const autoAddedVocabKeysRef = useRef(new Set());
       const fileInputRef = useRef(null);
       const filteredLibraryArticles = useMemo(() => {
         const filtered = libraryFilter === 'all'
@@ -3878,6 +3879,32 @@
         openVocabPopupFromEvent(e, sentenceText);
       };
 
+      const saveDictionaryLookupToVocab = (word, contextSentenceText, dictionary) => {
+        if (!dictionary?.meaning) return;
+        const key = String(word || '').trim().toLowerCase();
+        if (!key || autoAddedVocabKeysRef.current.has(key)) return;
+        if (vocabBook.some(entry => String(entry?.word || '').trim().toLowerCase() === key)) return;
+        autoAddedVocabKeysRef.current.add(key);
+        const generateId = () => window.crypto?.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15);
+        setVocabBook(previous => {
+          if (previous.some(entry => String(entry?.word || '').trim().toLowerCase() === key)) return previous;
+          return [{
+            id: generateId(),
+            word,
+            meaning: dictionary.meaning,
+            pronunciation: dictionary.pronunciation || '',
+            etymology: dictionary.note || '来自原文语境查词',
+            exampleSentence: '',
+            sourceContext: contextSentenceText,
+            sourceArticleId: currentArticleId || null,
+            sourceArticleTitle: currentArticleTitle || '',
+            addedAt: new Date().toLocaleDateString(),
+            timestamp: Date.now()
+          }, ...previous];
+        });
+        setToastMessage(`✅ 已查词并加入生词本: ${word}`);
+      };
+
       const openContextualDictionary = async (hit, contextSentenceText) => {
         if (!hit?.word) return;
         const glossaryHit = findGlossaryEntry(currentArticleGlossary, hit.word);
@@ -3895,7 +3922,10 @@
           dictionary,
           lookupState: dictionary ? 'ready' : 'loading'
         });
-        if (dictionary) return;
+        if (dictionary) {
+          saveDictionaryLookupToVocab(hit.word, contextSentenceText, dictionary);
+          return;
+        }
 
         try {
           const response = await fetchAiResponse({
@@ -3916,6 +3946,7 @@
               ? { ...current, dictionary: resolved, lookupState: 'ready' }
               : current
           ));
+          saveDictionaryLookupToVocab(hit.word, contextSentenceText, resolved);
         } catch (error) {
           setVocabPopup(current => (
             current?.word === hit.word && current.context === contextSentenceText
@@ -5639,18 +5670,7 @@
                 ) : (
                   <p className="rounded-lg bg-rose-50 px-3 py-2.5 text-xs leading-5 text-rose-700">查词失败：{vocabPopup.lookupError || '请检查 AI 设置后重试。'}</p>
                 )}
-                {!vocabBook.some(v => v.word === vocabPopup.word) && (
-                  <button
-                    disabled={!vocabPopup.dictionary}
-                    onClick={() => {
-                      handleAddWordToVocab(vocabPopup.word, vocabPopup.context, vocabPopup.dictionary);
-                      setVocabPopup(null);
-                    }}
-                    className="flex min-h-[44px] items-center justify-center gap-1.5 rounded-lg bg-indigo-600 px-3 py-2 font-medium text-white transition-colors hover:bg-indigo-700 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-500"
-                  >
-                    <Plus className="w-4 h-4" /> 加入生词本
-                  </button>
-                )}
+                <p className="text-center text-xs font-medium text-emerald-700">查词成功后已自动加入生词本</p>
               </div>
             )}
 
