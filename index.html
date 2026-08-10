@@ -397,6 +397,9 @@
     const DEFAULT_OPENAI_COMPAT_BASE_URL = '';
     const DEFAULT_OPENAI_COMPAT_MODEL = '';
     const DEFAULT_OPENAI_COMPAT_API_KEY = '';
+    const P920_DICTIONARY_BASE_URL = 'http://100.121.25.47:8090/v1';
+    const DEEPSEEK_DICTIONARY_BASE_URL = 'https://api.deepseek.com';
+    const DEEPSEEK_DICTIONARY_MODEL = 'deepseek-v4-flash';
     const OLLAMA_PRESETS = {
       local: {
         key: 'local',
@@ -2650,6 +2653,38 @@
       });
     };
 
+    const fetchDictionaryJson = async ({ baseUrl, apiKey = '', model, systemPrompt, userPrompt, disableThinking = false }) => {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (apiKey) headers.Authorization = `Bearer ${sanitizeApiCredential(apiKey)}`;
+        const response = await fetch(`${baseUrl.replace(/\/+$/, '')}/chat/completions`, {
+          method: 'POST',
+          headers,
+          signal: controller.signal,
+          body: JSON.stringify({
+            model,
+            stream: false,
+            temperature: 0.1,
+            max_tokens: 180,
+            ...(disableThinking ? { chat_template_kwargs: { enable_thinking: false } } : {}),
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: userPrompt }
+            ]
+          })
+        });
+        if (!response.ok) throw new Error(`HTTP ${response.status}: ${(await response.text()).slice(0, 240)}`);
+        const payload = await response.json();
+        const content = payload?.choices?.[0]?.message?.content;
+        if (!content) throw new Error('服务返回了空释义。');
+        return { content, usage: payload.usage || {} };
+      } finally {
+        clearTimeout(timeoutId);
+      }
+    };
+
     const saveAiLog = async (logData) => {
       try {
         await fetch('/api/log/save', {
@@ -2748,6 +2783,7 @@
       const [addingWordId, setAddingWordId] = useState(null); 
       const contextualDictionaryCacheRef = useRef(new Map());
       const autoAddedVocabKeysRef = useRef(new Set());
+      const p920DictionaryModelRef = useRef(null);
       const fileInputRef = useRef(null);
       const filteredLibraryArticles = useMemo(() => {
         const filtered = libraryFilter === 'all'
@@ -3905,14 +3941,76 @@
         setToastMessage(`✅ 已查词并加入生词本: ${word}`);
       };
 
+      const resolveP920DictionaryModel = async () => {
+        if (p920DictionaryModelRef.current) return p920DictionaryModelRef.current;
+        const response = await fetch(`${P920_DICTIONARY_BASE_URL}/models`);
+        if (!response.ok) throw new Error(`P920 模型列表请求失败（HTTP ${response.status}）`);
+        const payload = await response.json();
+        const model = (payload?.data || []).map(item => item?.id).find(id => /qwen3\.6.*35b/i.test(String(id || '')));
+        if (!model) throw new Error('P920 未找到 Qwen3.6 35B 模型。');
+        p920DictionaryModelRef.current = model;
+        return model;
+      };
+
+      const lookupContextualDictionary = async (word, contextSentenceText) => {
+        const systemPrompt = `你是英汉阅读词典。根据原句语境，只输出一个合法 JSON 对象，不要 Markdown：\n{\n  "meaning": "该词在此处最贴切的简明中文含义",\n  "pronunciation": "音标，可为空字符串",\n  "note": "必要时说明词形、搭配或语境；否则为空字符串"\n}`;
+        const userPrompt = `【单词】${word}\n【原文句子】${contextSentenceText}`;
+        const toDictionary = ({ content, usage, provider }) => {
+          const data = parseAiJsonOrThrow(content, provider);
+          return {
+            meaning: String(data.meaning || '').trim() || '暂无语境释义',
+            pronunciation: String(data.pronunciation || '').trim(),
+            note: String(data.note || '').trim(),
+            provider,
+            usage: {
+              promptTokens: Number(usage?.prompt_tokens || 0),
+              completionTokens: Number(usage?.completion_tokens || 0),
+              totalTokens: Number(usage?.total_tokens || 0)
+            }
+          };
+        };
+
+        try {
+          const model = await resolveP920DictionaryModel();
+          return toDictionary({
+            ...(await fetchDictionaryJson({
+              baseUrl: P920_DICTIONARY_BASE_URL,
+              model,
+              disableThinking: true,
+              systemPrompt,
+              userPrompt
+            })),
+            provider: 'Qwen 特供服务（P920）'
+          });
+        } catch (qwenError) {
+          const deepseekApiKey = LOCAL_PRIVATE_CONFIG.deepseekApiKey || (
+            /api\.deepseek\.com/i.test(cloudBaseUrl) ? cloudApiKey : ''
+          );
+          if (!deepseekApiKey) {
+            throw new Error(`Qwen 特供服务不可用：${qwenError.message}；DeepSeek 特供服务未配置 API Key。`);
+          }
+          try {
+            return toDictionary({
+              ...(await fetchDictionaryJson({
+                baseUrl: DEEPSEEK_DICTIONARY_BASE_URL,
+                apiKey: deepseekApiKey,
+                model: DEEPSEEK_DICTIONARY_MODEL,
+                systemPrompt,
+                userPrompt
+              })),
+              provider: 'DeepSeek Flash V4 特供服务'
+            });
+          } catch (deepseekError) {
+            throw new Error(`Qwen 特供服务失败：${qwenError.message}；DeepSeek Flash V4 特供服务失败：${deepseekError.message}`);
+          }
+        }
+      };
+
       const openContextualDictionary = async (hit, contextSentenceText) => {
         if (!hit?.word) return;
-        const glossaryHit = findGlossaryEntry(currentArticleGlossary, hit.word);
         const cacheKey = `${currentArticleId || 'unsaved'}::${hit.word}::${contextSentenceText || ''}`;
         const cached = contextualDictionaryCacheRef.current.get(cacheKey);
-        const dictionary = glossaryHit
-          ? { meaning: glossaryHit.translation, note: glossaryHit.note || '', pronunciation: '' }
-          : cached || null;
+        const dictionary = cached || null;
 
         setVocabPopup({
           word: hit.word,
@@ -3920,7 +4018,8 @@
           y: hit.y,
           context: contextSentenceText,
           dictionary,
-          lookupState: dictionary ? 'ready' : 'loading'
+          lookupState: dictionary ? 'ready' : 'loading',
+          lookupProvider: dictionary?.provider || 'Qwen 特供服务（P920）'
         });
         if (dictionary) {
           saveDictionaryLookupToVocab(hit.word, contextSentenceText, dictionary);
@@ -3928,22 +4027,11 @@
         }
 
         try {
-          const response = await fetchAiResponse({
-            ...aiConfig,
-            systemPrompt: `你是英语阅读词典。只根据用户给出的原文语境，返回严格 JSON：\n{\n  "meaning": "该词在此处最贴切的简明中文含义",\n  "pronunciation": "音标，可为空字符串",\n  "note": "必要时说明词形、搭配或语境；否则为空字符串"\n}`,
-            userPrompt: `【单词】${hit.word}\n【原文句子】${contextSentenceText}`,
-            expectJson: true
-          });
-          const data = parseAiJsonOrThrow(response, '词典');
-          const resolved = {
-            meaning: String(data.meaning || '').trim() || '暂无语境释义',
-            pronunciation: String(data.pronunciation || '').trim(),
-            note: String(data.note || '').trim()
-          };
+          const resolved = await lookupContextualDictionary(hit.word, contextSentenceText);
           contextualDictionaryCacheRef.current.set(cacheKey, resolved);
           setVocabPopup(current => (
             current?.word === hit.word && current.context === contextSentenceText
-              ? { ...current, dictionary: resolved, lookupState: 'ready' }
+              ? { ...current, dictionary: resolved, lookupState: 'ready', lookupProvider: resolved.provider }
               : current
           ));
           saveDictionaryLookupToVocab(hit.word, contextSentenceText, resolved);
@@ -5660,12 +5748,18 @@
                   )}
                 </div>
                 {vocabPopup.lookupState === 'loading' ? (
-                  <div className="flex items-center gap-2 rounded-lg bg-slate-50 px-3 py-2.5 text-slate-500"><Loader2 className="h-4 w-4 animate-spin text-indigo-500" /> 正在按原文语境查词…</div>
+                  <div className="flex items-center gap-2 rounded-lg bg-slate-50 px-3 py-2.5 text-slate-500"><Loader2 className="h-4 w-4 animate-spin text-indigo-500" /> 正在通过 {vocabPopup.lookupProvider} 查词…</div>
                 ) : vocabPopup.dictionary ? (
                   <div className="rounded-lg border border-amber-100 bg-amber-50 px-3 py-2.5 text-amber-950">
                     <p className="font-semibold leading-6">{vocabPopup.dictionary.meaning}</p>
                     {vocabPopup.dictionary.pronunciation ? <p className="mt-1 text-xs text-amber-800">{vocabPopup.dictionary.pronunciation}</p> : null}
                     {vocabPopup.dictionary.note ? <p className="mt-1 text-xs leading-5 text-amber-800/90">{vocabPopup.dictionary.note}</p> : null}
+                    <p className="mt-2 border-t border-amber-200/80 pt-2 text-[11px] font-medium text-amber-800">
+                      {vocabPopup.dictionary.provider || vocabPopup.lookupProvider}
+                      {vocabPopup.dictionary.usage?.totalTokens > 0
+                        ? ` · ${vocabPopup.dictionary.usage.totalTokens} tokens（输入 ${vocabPopup.dictionary.usage.promptTokens} / 输出 ${vocabPopup.dictionary.usage.completionTokens}）`
+                        : ' · 本次无模型 token 消耗'}
+                    </p>
                   </div>
                 ) : (
                   <p className="rounded-lg bg-rose-50 px-3 py-2.5 text-xs leading-5 text-rose-700">查词失败：{vocabPopup.lookupError || '请检查 AI 设置后重试。'}</p>
