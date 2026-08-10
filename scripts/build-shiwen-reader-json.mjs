@@ -51,6 +51,24 @@ const unsupported = (index, prompt, rawAnswer, reason) => ({
   id: `q${index}`, index, prompt, options: [], answerIndex: null, type: 'unsupported', rawAnswer, reason
 });
 
+const findQuestionStart = (text, type) => {
+  // Cloze passages contain numbered blanks in the reading itself, so their
+  // existing blank-pattern boundary is intentionally narrower.  All other
+  // article types put their exercise block on a new line, beginning either
+  // with directions or a numbered question.  The old importer only caught
+  // judgement questions with [], leaking ordinary multiple-choice questions
+  // such as “1 What ...” into the reading pane.
+  if (/选词填空|完形填空/.test(type)) return text.search(/^1\s+_+/m);
+  return text.search(/^(?:阅读短文|任务一|写单词|根据短文|完成下列|请根据|\d+\s+)/m);
+};
+
+const hasQuestionLeakage = (text, type) => {
+  if (/选词填空|完形填空/.test(type)) return false;
+  return /(?:^|\n)\d+\s+(?:What|Which|Why|How|Who|Where|When|[A-Z][\s\S]{0,120}\?)/m.test(text)
+    || /(?:^|\n)A\.\s+/m.test(text)
+    || /(?:^|\n)(?:写单词|根据短文|完成下列|请根据)/m.test(text);
+};
+
 const parseQuestions = ({ body, answer, type }) => {
   const official = answerLetters(answer);
   if (/判断型阅读/.test(type)) {
@@ -84,7 +102,11 @@ const parseQuestions = ({ body, answer, type }) => {
     return [unsupported(1, '任务型阅读（请按原文完成任务）', clean(answer), 'task_response_not_auto_gradable')];
   }
 
-  const questionBlocks = [...body.matchAll(/^(\d+)\s+(.+?)(?=^\d+\s+|\n【答案】|$)/gms)];
+  // Do not use `$` with multiline mode here: it also matches the end of every
+  // option line, which previously reduced every A–D question to its prompt.
+  // A block ends only when the next numbered question, the answer header, or
+  // the actual end of this body is reached.
+  const questionBlocks = [...body.matchAll(/^(\d+)\s+([\s\S]*?)(?=^\d+\s+|\n【答案】|(?![\s\S]))/gm)];
   return questionBlocks.map(([, number, block]) => {
     const index = Number(number); const options = parseOptions(block); const value = official.get(index);
     const prompt = clean(block.slice(0, block.search(/(?:^|\n)A\./m)) || block);
@@ -106,16 +128,14 @@ for (const entry of entries) {
   if (!header || !body || !answer) { skipped.push({ entry: header?.[1] || '', issue: 'missing_required_section' }); continue; }
   const [, sequence, bookPage, pdfPage, title, type] = header;
   const withoutDirections = body.replace(/^阅读短文[^\n]*\n(?:[A-H]\.\s*[^\n]*\n)*/m, '');
-  const questionStart = /选词填空|完形填空/.test(type)
-    ? withoutDirections.search(/^1\s+_+/m)
-    : withoutDirections.search(/^(阅读短文|任务一|\d+\s+.+?\s*\[\s*\])/m);
+  const questionStart = findQuestionStart(withoutDirections, type);
   const reading = clean(questionStart >= 0 ? withoutDirections.slice(0, questionStart) : withoutDirections);
   const questions = parseQuestions({ body, answer, type });
   const officialIndexes = [...answerLetters(answer).keys()].sort((left, right) => left - right);
   const questionIndexes = questions.map(question => question.index).sort((left, right) => left - right);
   const requiresExactQuestionMapping = /判断型阅读|阅读理解/.test(type);
-  if (!reading || (requiresExactQuestionMapping && JSON.stringify(questionIndexes) !== JSON.stringify(officialIndexes))) {
-    skipped.push({ entry: Number(sequence), title, issue: 'incomplete_source', questionCount: questions.length }); continue;
+  if (!reading || hasQuestionLeakage(reading, type) || (requiresExactQuestionMapping && JSON.stringify(questionIndexes) !== JSON.stringify(officialIndexes))) {
+    skipped.push({ entry: Number(sequence), title, issue: hasQuestionLeakage(reading, type) ? 'question_leakage' : 'incomplete_source', questionCount: questions.length }); continue;
   }
   const data = splitEnglishSentences(reading).map((sentence, index) => readerSentence(sentence, 1, index + 1));
   if (!data.length) { skipped.push({ entry: Number(sequence), title, issue: 'no_english_sentences' }); continue; }

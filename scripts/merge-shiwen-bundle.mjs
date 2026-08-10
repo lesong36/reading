@@ -16,6 +16,12 @@ const reportPath = path.resolve(cwd, 'data/generated-reader-json/reader-articles
 const sectionIdFromFile = (name) => name.match(/^\d+-(shiwen-no30-\d+)\.json$/)?.[1] || '';
 const hasFallback = (section) => section?.generatedBy === 'local-fallback'
   || section?.article?.data?.some(sentence => sentence?.generatedBy === 'local-fallback');
+const comparableText = (value) => String(value || '')
+  // The sentence splitter/model can format one ellipsis as ". . .".  Treat
+  // that typography-only form as equivalent without hiding word changes.
+  .replace(/\.\s+\.\s+\./g, '...')
+  .replace(/\s+/g, ' ')
+  .trim();
 
 const protectInvalidSegments = (article) => {
   let count = 0;
@@ -36,14 +42,18 @@ const protectInvalidSegments = (article) => {
   return { article: { ...article, data }, count };
 };
 
-const validateSection = (section, articleId, file) => {
+const validateSection = (section, source, file) => {
   const errors = [];
+  const articleId = source.id;
   if (section?.sectionTitle !== articleId) errors.push({ articleId, file, issue: 'section_title_mismatch' });
   if (!Array.isArray(section?.article?.data) || section.article.data.length === 0) {
     errors.push({ articleId, file, issue: 'missing_article_data' });
   }
   if (hasFallback(section)) errors.push({ articleId, file, issue: 'full_fallback_not_allowed' });
   if (section?.warnings?.length) errors.push({ articleId, file, issue: 'section_has_warnings' });
+  const sourceText = comparableText((source.data || []).map(sentence => sentence.text).join(' '));
+  const analysisText = comparableText((section?.article?.data || []).map(sentence => sentence.text).join(' '));
+  if (sourceText !== analysisText) errors.push({ articleId, file, issue: 'analysis_does_not_match_clean_source' });
   return errors;
 };
 
@@ -72,7 +82,7 @@ const main = () => {
       errors.push({ articleId: source.id, file, issue: 'invalid_analysis_json', error: error.message });
       continue;
     }
-    const sectionErrors = validateSection(section, source.id, file);
+    const sectionErrors = validateSection(section, source, file);
     if (sectionErrors.length) {
       errors.push(...sectionErrors);
       continue;
