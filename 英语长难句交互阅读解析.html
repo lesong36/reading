@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
-  <title>英语长难句交互阅读解析</title>
+  <title>Readmaster 闹闹爱阅读</title>
   
   <!-- 本地 vendor：避免 cdn.tailwindcss.com / 在线 Babel 的 production 警告依赖 -->
   <script src="./vendor/tailwindcss.js"></script>
@@ -71,7 +71,7 @@
   <div id="root">
     <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#f8fafc;color:#0f172a;">
       <div style="width:min(560px,100%);background:rgba(255,255,255,0.92);border:1px solid #e2e8f0;border-radius:28px;padding:32px;box-shadow:0 20px 50px rgba(15,23,42,0.08);text-align:center;">
-        <div style="font-size:28px;font-weight:800;letter-spacing:-0.02em;">英语长难句交互阅读解析</div>
+        <div style="font-size:28px;font-weight:800;letter-spacing:-0.02em;">Readmaster 闹闹爱阅读</div>
         <div style="margin-top:12px;font-size:16px;line-height:1.75;color:#475569;">
           正在启动阅读器并加载页面资源。首次打开或更新后，可能需要等待几秒。
         </div>
@@ -1888,11 +1888,12 @@
     const BUNDLED_LIBRARY_URLS = [
       './data/generated-reader-json/reader-articles.import.json',
       './data/generated-reader-json/reader-articles-tpo.import.json',
-      './data/generated-reader-json/reader-articles-re-foundations.import.json'
+      './data/generated-reader-json/reader-articles-re-foundations.import.json',
+      './data/generated-reader-json/reader-articles-shiwen.import.json'
     ];
-    // v12 adds the RFD classroom-PPT quiz bank and refreshes every published bundle.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v16';
-    const BUNDLED_LIBRARY_SEED_VERSION = '16';
+    // v21 adds the fully analyzed 75-article 时文阅读 pack.
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v21';
+    const BUNDLED_LIBRARY_SEED_VERSION = '21';
     const EXPECTED_TPO_ARTICLE_COUNT = 104;
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
@@ -1961,6 +1962,10 @@
     });
 
     const QUIZ_PROGRESS_STORAGE_KEY_PREFIX = 'reader_quiz_progress_';
+    // Shared by the two GitHub Pages apps under https://lesong36.github.io.
+    // It is intentionally an inbox rather than VocabMaster's whole app state,
+    // so the receiving app can let its active learner accept the new words.
+    const VOCAB_MASTER_READING_INBOX_KEY = 'vocabmaster_reader_inbox_v1';
 
     const normalizeQuizQuestion = (question = {}, fallbackIndex = 0) => {
       const options = Array.isArray(question.options)
@@ -2010,6 +2015,7 @@
 
     const createEmptyQuizProgress = () => ({
       answers: {},
+      locatorSentenceIds: {},
       submitted: false,
       submittedAt: null
     });
@@ -2019,8 +2025,13 @@
         if (Number.isInteger(value) || (typeof value === 'string' && value.trim())) acc[questionId] = value;
         return acc;
       }, {});
+      const locatorSentenceIds = Object.entries(progress?.locatorSentenceIds || {}).reduce((acc, [questionId, sentenceId]) => {
+        if (typeof sentenceId === 'string' && sentenceId.trim()) acc[questionId] = sentenceId.trim();
+        return acc;
+      }, {});
       return {
         answers: normalizedAnswers,
+        locatorSentenceIds,
         submitted: Boolean(progress?.submitted),
         submittedAt: progress?.submittedAt || null
       };
@@ -2059,13 +2070,14 @@
 
     const LIBRARY_FILTERS = [
       { key: 'all', label: '全部' },
+      { key: '四上', label: '四上' },
       { key: 'rfd1', label: 'RFD1' },
       { key: 'rfd2', label: 'RFD2' },
       { key: 'rfd3', label: 'RFD3' },
-      { key: '四上', label: '四上' },
-      { key: 'tpo', label: 'TPO' },
+      { key: 're', label: 'RE' },
       { key: 'og', label: 'OG' },
-      { key: 're', label: 'RE' }
+      { key: 'tpo', label: 'TPO' },
+      { key: 'shiwen', label: '时文阅读' }
     ];
 
     const getArticleFilterKey = (article = {}) => {
@@ -2083,6 +2095,7 @@
       if (sourceText.includes('tpo-')) return 'tpo';
       if (sourceText.includes('og /') || sourceText.includes('og-test') || sourceText.includes('online-test') || sourceText.includes('official-model-exam')) return 'og';
       if (sourceText.includes('re-foundations') || sourceText.includes('re foundations')) return 're';
+      if (sourceText.includes('shiwen-') || sourceText.includes('时文阅读')) return 'shiwen';
       return 'other';
     };
 
@@ -2652,12 +2665,12 @@
     function App() {
       const isFileProtocol = window.location.protocol === 'file:';
       // Global App States
-      const [viewMode, setViewMode] = useState('reading');
+      const [viewMode, setViewMode] = useState('library');
       const [aiStreamingText, setAiStreamingText] = useState("");
       const terminalConsoleRef = useRef(null);
       const [currentArticleData, setCurrentArticleData] = useState(() => normalizeArticleData(defaultArticleData));
       const [currentArticleId, setCurrentArticleId] = useState(null);
-      const [currentArticleTitle, setCurrentArticleTitle] = useState('默认示例文章');
+      const [currentArticleTitle, setCurrentArticleTitle] = useState('');
       const [currentArticleQuestions, setCurrentArticleQuestions] = useState([]);
       const [currentArticleGlossary, setCurrentArticleGlossary] = useState(() =>
         collectArticleGlossary({ glossary: defaultArticleGlossary }, defaultArticleData)
@@ -3495,6 +3508,10 @@
         [currentArticleQuestions, quizActiveQuestionId]
       );
       const currentQuizQuestionNumber = currentQuizQuestion?.index || 0;
+      const currentQuizLocatorSentenceId = currentQuizQuestion ? quizProgress.locatorSentenceIds?.[currentQuizQuestion.id] || null : null;
+      const currentQuizLocatorSentence = currentQuizLocatorSentenceId
+        ? currentArticleData.find(sentence => sentence.id === currentQuizLocatorSentenceId) || null
+        : null;
       const currentQuizParagraphHint = currentQuizQuestion?.paragraphHint ? String(currentQuizQuestion.paragraphHint).trim() : null;
       const currentQuizParagraphNumber = currentQuizParagraphHint && /^\d+$/.test(currentQuizParagraphHint)
         ? Number(currentQuizParagraphHint)
@@ -3532,6 +3549,10 @@
           ...nextProgress,
           answers: Object.entries(nextProgress.answers || {}).reduce((acc, [questionId, value]) => {
             if (questionIds.has(questionId) && Number.isInteger(value)) acc[questionId] = value;
+            return acc;
+          }, {}),
+          locatorSentenceIds: Object.entries(nextProgress.locatorSentenceIds || {}).reduce((acc, [questionId, sentenceId]) => {
+            if (questionIds.has(questionId) && currentArticleData.some(sentence => sentence.id === sentenceId)) acc[questionId] = sentenceId;
             return acc;
           }, {})
         };
@@ -3937,6 +3958,37 @@
         clearWordPressTimer();
       };
 
+      const quizLocatorPressTimerRef = useRef(null);
+      const quizLocatorPressOriginRef = useRef(null);
+
+      const clearQuizLocatorPressTimer = () => {
+        if (quizLocatorPressTimerRef.current) {
+          clearTimeout(quizLocatorPressTimerRef.current);
+          quizLocatorPressTimerRef.current = null;
+        }
+        quizLocatorPressOriginRef.current = null;
+      };
+
+      const startQuizLocatorPress = (event, sentence) => {
+        if (articleStudyMode !== 'quiz' || !currentQuizQuestion) return;
+        const point = event.touches?.[0] || event;
+        if (point.clientX == null || point.clientY == null) return;
+        clearQuizLocatorPressTimer();
+        quizLocatorPressOriginRef.current = { x: point.clientX, y: point.clientY, sentence };
+        quizLocatorPressTimerRef.current = setTimeout(() => {
+          const origin = quizLocatorPressOriginRef.current;
+          quizLocatorPressTimerRef.current = null;
+          if (origin) handleSetQuizLocatorSentence(origin.sentence);
+        }, 550);
+      };
+
+      const moveQuizLocatorPress = (event) => {
+        const origin = quizLocatorPressOriginRef.current;
+        const point = event.touches?.[0] || event;
+        if (!origin || point.clientX == null || point.clientY == null) return;
+        if (Math.abs(point.clientX - origin.x) > 12 || Math.abs(point.clientY - origin.y) > 12) clearQuizLocatorPressTimer();
+      };
+
       const renderGuidedSentenceWorkbench = () => (
         <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-4">
@@ -4198,6 +4250,8 @@
             etymology: data.etymology || "暂无词源信息",
             exampleSentence: data.exampleSentence || "",
             sourceContext: contextSentenceText,
+            sourceArticleId: currentArticleId || null,
+            sourceArticleTitle: currentArticleTitle || '',
             addedAt: new Date().toLocaleDateString(),
             timestamp: Date.now()
           };
@@ -4238,6 +4292,61 @@
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
         setToastMessage("💾 生词本备份已成功导出");
+      };
+
+      const sendVocabToVocabMaster = async () => {
+        if (vocabBook.length === 0) {
+          setToastMessage("⚠️ 生词本是空的，暂无可传递的单词。");
+          return;
+        }
+        const entries = vocabBook
+          .filter(entry => typeof entry?.word === 'string' && entry.word.trim())
+          .map(entry => ({
+            word: entry.word.trim(),
+            meaning: entry.meaning || '',
+            pronunciation: entry.pronunciation || '',
+            etymology: entry.etymology || '',
+            exampleSentence: entry.exampleSentence || '',
+            sourceContext: entry.sourceContext || '',
+            sourceArticleId: entry.sourceArticleId || null,
+            sourceArticleTitle: entry.sourceArticleTitle || '',
+            addedAt: entry.addedAt || '',
+            timestamp: entry.timestamp || Date.now()
+          }));
+        let existingEntries = [];
+        try {
+          const existingInbox = JSON.parse(localStorage.getItem(VOCAB_MASTER_READING_INBOX_KEY) || '{}');
+          existingEntries = Array.isArray(existingInbox.entries) ? existingInbox.entries : [];
+        } catch (error) {}
+        const incomingByWord = new Map(existingEntries.map(entry => [String(entry.word || '').trim().toLowerCase(), entry]));
+        entries.forEach(entry => incomingByWord.set(entry.word.toLowerCase(), entry));
+        incomingByWord.delete('');
+        const inbox = { version: 1, updatedAt: new Date().toISOString(), entries: [...incomingByWord.values()] };
+
+        try {
+          localStorage.setItem(VOCAB_MASTER_READING_INBOX_KEY, JSON.stringify(inbox));
+          if (supabase && user) {
+            const { error } = await supabase
+              .from('reader_sync_state')
+              .upsert({ user_id: user.id, vocabulary: vocabBook, updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
+            if (error) throw error;
+          }
+          if (window.location.origin === 'https://lesong36.github.io') {
+            window.open('https://lesong36.github.io/vocab-master/', '_blank', 'noopener');
+            setToastMessage(`✅ 已将 ${entries.length} 个生词同步到 VocabMaster；登录同一阅读器账号即可跨设备导入。`);
+          } else {
+            const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(inbox, null, 2));
+            const link = document.createElement('a');
+            link.href = dataUri;
+            link.download = `reading-vocab-inbox_${new Date().toISOString().slice(0, 10)}.json`;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setToastMessage('💾 已导出阅读生词本收件箱；线上版可直接导入 VocabMaster。');
+          }
+        } catch (error) {
+          setToastMessage(`❌ 无法传递生词：${error.message || '浏览器本地存储不可用'}`);
+        }
       };
 
       const importVocabData = (e) => {
@@ -4331,6 +4440,31 @@
         if (!question) return;
         setArticleStudyMode('quiz');
         setQuizActiveQuestionId(question.id);
+      };
+
+      const handleSetQuizLocatorSentence = (sentence) => {
+        if (!sentence || !currentQuizQuestion) return;
+        setQuizProgress(prev => ({
+          ...prev,
+          locatorSentenceIds: {
+            ...prev.locatorSentenceIds,
+            [currentQuizQuestion.id]: sentence.id
+          }
+        }));
+        setSelectedSentence(sentence);
+        if (navigator.vibrate) {
+          try { navigator.vibrate(12); } catch (_) {}
+        }
+        setToastMessage(`📍 已将第 ${currentQuizQuestion.index} 题定位到这句话`);
+      };
+
+      const handleClearQuizLocatorSentence = () => {
+        if (!currentQuizQuestion) return;
+        setQuizProgress(prev => {
+          const { [currentQuizQuestion.id]: _removed, ...locatorSentenceIds } = prev.locatorSentenceIds || {};
+          return { ...prev, locatorSentenceIds };
+        });
+        setToastMessage(`已清除第 ${currentQuizQuestion.index} 题的定位句`);
       };
 
       const handleQuizAnswerSelect = (question, answerIndex) => {
@@ -5021,7 +5155,7 @@
               <div className="flex items-center justify-center gap-3 w-full mb-2">
                 <BookOpen className="text-indigo-600 w-8 h-8" />
                 <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
-                  英语长难句交互阅读解析
+                  Readmaster 闹闹爱阅读
                 </h1>
               </div>
               {viewMode !== 'reading' && (
@@ -5033,7 +5167,7 @@
 
               <div className="mt-6 flex flex-wrap justify-center items-center gap-3">
                 <button 
-                  onClick={() => setViewMode('reading')}
+                  onClick={() => setViewMode(currentArticleTitle ? 'reading' : 'library')}
                   className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-colors shadow-sm ${viewMode === 'reading' ? 'bg-indigo-600 text-white' : 'bg-white border border-indigo-200 text-indigo-600 hover:bg-indigo-50'}`}
                 >
                   <BookOpen className="w-4 h-4" /> 语境阅读区
@@ -5077,6 +5211,13 @@
                 >
                   <User className="w-4 h-4" />
                   {user ? '云同步账号' : (supabase ? '登录同步' : '配置云同步')}
+                </button>
+                <button
+                  onClick={() => window.open('https://lesong36.github.io/vocab-master/', '_blank', 'noopener')}
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-colors shadow-sm bg-emerald-600 text-white hover:bg-emerald-700"
+                  title="打开 VocabMaster 单词达人"
+                >
+                  <LinkIcon className="w-4 h-4" /> 打开 VocabMaster
                 </button>
               </div>
 
@@ -5638,6 +5779,9 @@
                         <button onClick={exportVocabData} className="flex items-center gap-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm">
                           <Download className="w-4 h-4" /> 导出JSON
                         </button>
+                        <button onClick={sendVocabToVocabMaster} className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm">
+                          <Send className="w-4 h-4" /> 传到 VocabMaster
+                        </button>
                         <button onClick={() => window.print()} className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-white px-3 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm">
                           <Printer className="w-4 h-4" /> 打印卡片
                         </button>
@@ -5873,7 +6017,10 @@
                       <p
                         key={idx}
                         className={`mb-6 md:mb-8 rounded-3xl px-3 py-2 transition-all ${
-                          articleStudyMode === 'quiz' && currentQuizParagraphNumber && Number(para[0]?.para) === currentQuizParagraphNumber
+                          articleStudyMode === 'quiz' && (
+                            (currentQuizParagraphNumber && Number(para[0]?.para) === currentQuizParagraphNumber) ||
+                            para.some(sentence => sentence.id === currentQuizLocatorSentenceId)
+                          )
                             ? 'bg-indigo-50 ring-1 ring-indigo-200 shadow-sm'
                             : ''
                         }`}
@@ -5893,12 +6040,28 @@
                                   setSelectedSentence(sentence);
                                 }}
                                 onDoubleClick={(e) => handleSentenceDoubleClick(e, sentence.text)}
-                                onTouchStart={(e) => handleWordPressStart(e, sentence.text)}
-                                onTouchMove={handleWordPressMove}
-                                onTouchEnd={handleWordPressEnd}
-                                onTouchCancel={handleWordPressEnd}
+                                onMouseDown={(e) => startQuizLocatorPress(e, sentence)}
+                                onMouseMove={moveQuizLocatorPress}
+                                onMouseUp={clearQuizLocatorPressTimer}
+                                onMouseLeave={clearQuizLocatorPressTimer}
+                                onTouchStart={(e) => articleStudyMode === 'quiz'
+                                  ? startQuizLocatorPress(e, sentence)
+                                  : handleWordPressStart(e, sentence.text)}
+                                onTouchMove={(e) => articleStudyMode === 'quiz'
+                                  ? moveQuizLocatorPress(e)
+                                  : handleWordPressMove(e)}
+                                onTouchEnd={() => articleStudyMode === 'quiz'
+                                  ? clearQuizLocatorPressTimer()
+                                  : handleWordPressEnd()}
+                                onTouchCancel={() => articleStudyMode === 'quiz'
+                                  ? clearQuizLocatorPressTimer()
+                                  : handleWordPressEnd()}
                                 className={`cursor-pointer transition-colors duration-150 select-text reader-word-target ${
                                   isSelected ? 'bg-indigo-100/60' : ''
+                                } ${
+                                  articleStudyMode === 'quiz' && sentence.id === currentQuizLocatorSentenceId
+                                    ? 'rounded-md bg-amber-100 px-1 text-slate-950 ring-2 ring-amber-400 ring-offset-2'
+                                    : ''
                                 } ${
                                   articleStudyMode === 'quiz' && currentQuizParagraphNumber && Number(sentence.para) === currentQuizParagraphNumber
                                     ? 'text-slate-950'
@@ -6951,6 +7114,24 @@
                                       <h3 className="mt-4 text-xl md:text-2xl font-black text-slate-900 leading-relaxed whitespace-pre-line">
                                         {currentQuizQuestion.prompt}
                                       </h3>
+                                      <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
+                                        <div className="flex flex-wrap items-center justify-between gap-3">
+                                          <p className="font-bold">
+                                            {currentQuizLocatorSentence
+                                              ? <>📍 定位句：{currentQuizLocatorSentence.text}</>
+                                              : '📍 在左侧原文中选中一句，再用鼠标或 iPad 长按，即可设为本题定位句。'}
+                                          </p>
+                                          {currentQuizLocatorSentence && (
+                                            <button
+                                              type="button"
+                                              onClick={handleClearQuizLocatorSentence}
+                                              className="shrink-0 rounded-xl border border-amber-300 bg-white px-3 py-1.5 text-xs font-black text-amber-800 transition-colors hover:bg-amber-100"
+                                            >
+                                              清除定位
+                                            </button>
+                                          )}
+                                        </div>
+                                      </div>
                                     </div>
                                     <button
                                       type="button"
@@ -7094,7 +7275,7 @@
                       <MousePointerClick className="w-4 h-4 shrink-0" />
                       <span>
                         {articleStudyMode === 'quiz'
-                          ? '做题时左侧原文仍可点选句子、双击或长按查词；交卷前不会显示正确答案。'
+                          ? '做题时先点选原文句子，再用鼠标或 iPad 长按设为本题定位句；交卷前不会显示正确答案。'
                           : '点选左侧句子可切换分析；电脑双击 / iPad 长按单词可加生词本'}
                       </span>
                     </div>

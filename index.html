@@ -1888,11 +1888,12 @@
     const BUNDLED_LIBRARY_URLS = [
       './data/generated-reader-json/reader-articles.import.json',
       './data/generated-reader-json/reader-articles-tpo.import.json',
-      './data/generated-reader-json/reader-articles-re-foundations.import.json'
+      './data/generated-reader-json/reader-articles-re-foundations.import.json',
+      './data/generated-reader-json/reader-articles-shiwen.import.json'
     ];
-    // v12 adds the RFD classroom-PPT quiz bank and refreshes every published bundle.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v16';
-    const BUNDLED_LIBRARY_SEED_VERSION = '16';
+    // v21 adds the fully analyzed 75-article 时文阅读 pack.
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v21';
+    const BUNDLED_LIBRARY_SEED_VERSION = '21';
     const EXPECTED_TPO_ARTICLE_COUNT = 104;
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
@@ -2073,9 +2074,10 @@
       { key: 'rfd1', label: 'RFD1' },
       { key: 'rfd2', label: 'RFD2' },
       { key: 'rfd3', label: 'RFD3' },
-      { key: 'og', label: 'OG' },
       { key: 're', label: 'RE' },
-      { key: 'tpo', label: 'TPO' }
+      { key: 'og', label: 'OG' },
+      { key: 'tpo', label: 'TPO' },
+      { key: 'shiwen', label: '时文阅读' }
     ];
 
     const getArticleFilterKey = (article = {}) => {
@@ -2093,6 +2095,7 @@
       if (sourceText.includes('tpo-')) return 'tpo';
       if (sourceText.includes('og /') || sourceText.includes('og-test') || sourceText.includes('online-test') || sourceText.includes('official-model-exam')) return 'og';
       if (sourceText.includes('re-foundations') || sourceText.includes('re foundations')) return 're';
+      if (sourceText.includes('shiwen-') || sourceText.includes('时文阅读')) return 'shiwen';
       return 'other';
     };
 

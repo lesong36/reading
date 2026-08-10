@@ -26,6 +26,16 @@ TPO 1–30 的抽取、Qwen 逐句解析和做题数据约定见 [TPO 管线说�
 
 当前批次进度与可继续执行的命令见 [TPO 进度](data/tpo-source/PROGRESS.md)。TPO 解析固定使用 P920 的 llama.cpp OpenAI-compatible 服务 `http://100.121.25.47:8090/v1`，不使用本机 Ollama。
 
+## 时文阅读导入
+
+将结构化提取稿转换为预置书架数据：
+
+```bash
+npm run build:shiwen -- --input /Users/coty/Downloads/pdf30_final.md
+```
+
+转换会保留原稿中的官方答案；图片依赖题和暂不支持自动评分的任务题会显示官方答案，不会由模型补造答案。构建报告会列出被跳过的异常篇章。
+
 ## 跨设备同步
 
 GitHub Pages 只托管静态网页；学习记录使用 Supabase。首次启用请在 Supabase SQL Editor 运行 [`supabase/schema.sql`](supabase/schema.sql)，并在 Auth 中开启 Email 登录。完整操作和安全约束见 [Supabase 同步说明](docs/SUPABASE_SYNC.md)。
