@@ -2976,6 +2976,7 @@
       // --- 全局自定义 UI 弹窗状态 ---
       const [toastMessage, setToastMessage] = useState("");
       const [confirmDialog, setConfirmDialog] = useState(null);
+      const confirmDialogPrimaryButtonRef = useRef(null);
       const [showAiSettings, setShowAiSettings] = useState(false);
       const [aiProvider, setAiProvider] = useState(() => {
         const saved = localStorage.getItem('reader_ai_provider');
@@ -3128,6 +3129,23 @@
         window.addEventListener('click', handleClickOutside);
         return () => window.removeEventListener('click', handleClickOutside);
       }, [vocabPopup]);
+
+      useEffect(() => {
+        if (!confirmDialog) return;
+        confirmDialogPrimaryButtonRef.current?.focus();
+        const handleConfirmDialogKeyDown = (event) => {
+          if (event.key === 'Escape') {
+            event.preventDefault();
+            setConfirmDialog(null);
+          }
+          if (event.key === 'Enter' && !event.repeat) {
+            event.preventDefault();
+            confirmDialog.onConfirm();
+          }
+        };
+        window.addEventListener('keydown', handleConfirmDialogKeyDown);
+        return () => window.removeEventListener('keydown', handleConfirmDialogKeyDown);
+      }, [confirmDialog]);
 
       // Reading View States
       const [selectedSentence, setSelectedSentence] = useState(() => normalizeArticleData(defaultArticleData)[0]);
@@ -7520,7 +7538,7 @@
                   <p className="text-slate-600 mb-6">{confirmDialog.message}</p>
                   <div className="flex justify-end gap-3">
                     <button onClick={() => setConfirmDialog(null)} className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg font-medium transition-colors">取消</button>
-                    <button onClick={confirmDialog.onConfirm} className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">确定</button>
+                    <button ref={confirmDialogPrimaryButtonRef} onClick={confirmDialog.onConfirm} className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">确定（Enter）</button>
                   </div>
                 </div>
               </div>
