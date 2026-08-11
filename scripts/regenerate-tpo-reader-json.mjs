@@ -11,19 +11,19 @@ import process from 'node:process';
 const cwd = process.cwd();
 const DEFAULT_BASE = process.env.LLM_BASE_URL || 'http://100.121.25.47:8090/v1';
 const DEFAULT_PROVIDER = process.env.LLM_PROVIDER || 'openai';
-const rawPassagesRoot = path.resolve(cwd, 'data/tpo-source/passages');
 const cleanPassagesRoot = path.resolve(cwd, 'data/tpo-source-clean/passages');
 const outputRoot = path.resolve(cwd, 'data/generated-reader-json-tpo');
+const sourceManifestPath = path.resolve(cwd, 'data/tpo-source/manifest.json');
 
 const BATCHES = {
   // The analyzer's --only option is a title substring match, so "TPO-1"
   // would also select TPO-10 through TPO-19. Use filename filtering for an
   // exact smoke batch instead.
-  B0: { label: 'TPO-1 smoke', only: '', filter: /^tpo-1-/i },
-  B1: { label: 'OG + Online + Official', only: '', filter: /^(og|online-test|official-model-exam|og-test-2)-/i },
-  B2: { label: 'TPO 1,3-10', only: '', filter: /^tpo-([1-9]|10)-/i },
-  B3: { label: 'TPO 11-20', only: '', filter: /^tpo-(1[1-9]|20)-/i },
-  B4: { label: 'TPO 21-30', only: '', filter: /^tpo-(2[1-9]|30)-/i }
+  B0: { label: 'TPO-1 smoke', only: '', filter: /^tpo-1-/i, expectedCount: 3 },
+  B1: { label: 'OG + Online + Official', only: '', filter: /^(og|online-test|official-model-exam|og-test-2)-/i, expectedCount: 17 },
+  B2: { label: 'TPO 1,3-10', only: '', filter: /^tpo-([1-9]|10)-/i, expectedCount: 27 },
+  B3: { label: 'TPO 11-20', only: '', filter: /^tpo-(1[1-9]|20)-/i, expectedCount: 30 },
+  B4: { label: 'TPO 21-30', only: '', filter: /^tpo-(2[1-9]|30)-/i, expectedCount: 30 }
 };
 
 const parseArgs = (argv) => {
@@ -69,6 +69,18 @@ const assertRemoteHealthy = async (baseUrl) => {
   }
 };
 
+const loadCanonicalPassageIds = () => {
+  if (!fs.existsSync(sourceManifestPath)) {
+    throw new Error(`Missing source manifest: ${sourceManifestPath}`);
+  }
+  const manifest = JSON.parse(fs.readFileSync(sourceManifestPath, 'utf8'));
+  const ids = manifest.articles?.map((article) => article.id).filter(Boolean);
+  if (!Array.isArray(ids) || ids.length !== manifest.expectedArticles) {
+    throw new Error('Source manifest has no complete canonical article-id list');
+  }
+  return new Set(ids);
+};
+
 const main = async () => {
   const args = parseArgs(process.argv.slice(2));
   const batch = BATCHES[args.batch];
@@ -112,11 +124,21 @@ const main = async () => {
   // For filter-based batches, temporarily copy matching md into a batch folder
   let inputPath = args.input;
   if (batch.filter) {
-    const batchDir = path.join(cwd, 'data/tpo-source-clean', `_batch_${args.batch}`);
+    // Keep derived input outside the clean source tree. This prevents a restart
+    // from treating stale Finder/copied " 2" files as additional articles.
+    const batchDir = path.join(cwd, '.tmp_model_compare', 'p920-batches', args.batch);
     fs.rmSync(batchDir, { recursive: true, force: true });
     fs.mkdirSync(batchDir, { recursive: true });
-    const files = fs.readdirSync(args.input).filter((name) => name.endsWith('.md') && batch.filter.test(name));
+    const canonicalIds = loadCanonicalPassageIds();
+    const files = fs.readdirSync(args.input)
+      .filter((name) => name.endsWith('.md'))
+      .filter((name) => canonicalIds.has(path.basename(name, '.md')))
+      .filter((name) => batch.filter.test(name))
+      .sort((a, b) => a.localeCompare(b));
     if (files.length === 0) throw new Error(`No passage files matched batch ${args.batch}`);
+    if (files.length !== batch.expectedCount) {
+      throw new Error(`Batch ${args.batch} expected ${batch.expectedCount} canonical files, found ${files.length}`);
+    }
     for (const file of files) {
       fs.copyFileSync(path.join(args.input, file), path.join(batchDir, file));
     }
