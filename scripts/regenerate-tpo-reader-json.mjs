@@ -90,7 +90,7 @@ const main = async () => {
     'analyze:md-sections',
     '--',
     '--input',
-    passagesRoot,
+    args.input,
     '--output',
     outputRoot,
     '--provider',

@@ -112,7 +112,9 @@ const parseArgs = (argv) => {
     chunkSentences: 0,
     chunkRetrySizes: '4,2,1',
     timeoutMs: 5 * 60 * 1000,
-    segmentFallback: false
+    segmentFallback: false,
+    checkpoint: false,
+    qualityRetries: 1
   };
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -134,6 +136,8 @@ const parseArgs = (argv) => {
     else if (arg === '--force') args.force = true;
     else if (arg === '--no-fallback') args.fallback = false;
     else if (arg === '--segment-fallback') args.segmentFallback = true;
+    else if (arg === '--checkpoint') args.checkpoint = true;
+    else if (arg === '--quality-retries') args.qualityRetries = Number(next() || 0);
     else if (arg === '--help') {
       printHelp();
       process.exit(0);
@@ -168,6 +172,8 @@ Options:
   --force                Re-run existing section outputs.
   --no-fallback          Fail sections instead of writing local fallback JSON when model output is invalid.
   --segment-fallback     Preserve model translation/analysis when only sentence text or segment roles fail; replace just those sentence segments with a protected full-sentence segment.
+  --checkpoint           Persist completed sentence chunks and resume safely after an interrupted model process.
+  --quality-retries <n>  Re-request an invalid chunk from the same model before splitting it (default: 1).
 `);
 };
 
@@ -759,6 +765,29 @@ const comparableSentenceText = (value) => String(value || '')
   .replace(/[‘’]/g, "'")
   .replace(/\s+/g, '');
 
+// When the model's segments differ only by typography/whitespace that the
+// source binder already accepts for sentence.text, copy the exact immutable
+// source characters back into the same segment boundaries.  This never
+// creates a grammar decision: it is permitted only when every model segment
+// can be matched, in order, to a contiguous source substring by the strict
+// compatibility form above.
+const reanchorEquivalentSegments = (segments, sourceText) => {
+  if (!Array.isArray(segments) || !segments.length) return segments;
+  if (comparableSentenceText(segments.map(segment => segment?.text || '').join('')) !== comparableSentenceText(sourceText)) return segments;
+  let cursor = 0;
+  const anchored = [];
+  for (const segment of segments) {
+    const target = comparableSentenceText(segment?.text || '');
+    if (!target) return segments;
+    let end = cursor + 1;
+    while (end <= sourceText.length && comparableSentenceText(sourceText.slice(cursor, end)) !== target) end += 1;
+    if (end > sourceText.length) return segments;
+    anchored.push({ ...segment, text: sourceText.slice(cursor, end) });
+    cursor = end;
+  }
+  return cursor === sourceText.length ? anchored : segments;
+};
+
 const bindModelSentencesToSource = (articleData, expected, allowSourceOverride = false) => {
   if (articleData.length !== expected.length) {
     const actualPreview = articleData
@@ -774,7 +803,13 @@ const bindModelSentencesToSource = (articleData, expected, allowSourceOverride =
     }
     // ids and paragraph numbers come from the immutable source stream, never
     // from a model guess. The model still supplies all learning content.
-    return { ...sentence, id: source.id, para: source.para, text: source.text };
+    return {
+      ...sentence,
+      id: source.id,
+      para: source.para,
+      text: source.text,
+      segments: reanchorEquivalentSegments(sentence.segments, source.text)
+    };
   });
 };
 
@@ -947,6 +982,7 @@ const main = async () => {
       sectionDir,
       `${String(index + 1).padStart(3, '0')}-${slugify(section.headingTitle)}.json`
     );
+    const checkpointPath = `${sectionPath}.partial.json`;
 
     if (!args.force && fs.existsSync(sectionPath)) {
       const cached = JSON.parse(fs.readFileSync(sectionPath, 'utf8'));
@@ -996,13 +1032,32 @@ const main = async () => {
           chunkWarnings = validateArticleData(chunkData);
         }
         if (qualityErrors.length > 0 && !args.segmentFallback) {
-          throw new Error(`Model returned ${qualityErrors.length} invalid segment(s): ${qualityErrors.map(item => item.type || item.issue).join(', ')}`);
+          const error = new Error(`Model returned ${qualityErrors.length} invalid segment(s): ${qualityErrors.map(item => `${item.sentenceId || '?'}:${item.type || item.issue}`).join(', ')}`);
+          // Persist the P920 response when a deterministic quality gate rejects
+          // it.  This is diagnostic evidence only; it is never used to alter
+          // the source or synthesize a replacement analysis.
+          error.rawContent = JSON.stringify(parsed, null, 2);
+          throw error;
         }
         return { articleData: chunkData, glossary: parsed?.glossary || [], warnings: chunkWarnings };
       };
+      const runChunkWithRetries = async (chunk) => {
+        let lastError;
+        for (let attempt = 0; attempt <= args.qualityRetries; attempt += 1) {
+          try {
+            return await runChunk(chunk);
+          } catch (error) {
+            lastError = error;
+            if (attempt < args.qualityRetries) {
+              console.warn(`  Re-requesting ${chunk.expected[0].id}–${chunk.expected.at(-1).id} after quality rejection (${attempt + 1}/${args.qualityRetries}): ${error.message}`);
+            }
+          }
+        }
+        throw lastError;
+      };
       const runChunkAdaptively = async (chunk) => {
         try {
-          return await runChunk(chunk);
+          return await runChunkWithRetries(chunk);
         } catch (error) {
           if (chunk.expected.length === 1) throw error;
           const pivot = Math.ceil(chunk.expected.length / 2);
@@ -1017,14 +1072,35 @@ const main = async () => {
         }
       };
       const initialChunks = chunkSectionBySentences(section, args.chunkSentences);
-      const result = { articleData: [], glossary: [], warnings: [] };
-      for (let chunkIndex = 0; chunkIndex < initialChunks.length; chunkIndex += 1) {
+      let result = { articleData: [], glossary: [], warnings: [] };
+      let startChunkIndex = 0;
+      if (args.checkpoint && fs.existsSync(checkpointPath)) {
+        const checkpoint = JSON.parse(fs.readFileSync(checkpointPath, 'utf8'));
+        const expectedText = section.text;
+        const completed = Number(checkpoint.completedChunks || 0);
+        if (checkpoint.sourceText === expectedText && completed >= 0 && completed <= initialChunks.length) {
+          result = checkpoint.result || result;
+          startChunkIndex = completed;
+          console.log(`  Resume checkpoint: ${completed}/${initialChunks.length} chunk(s)`);
+        } else {
+          console.warn('  Ignoring stale checkpoint with a different source text.');
+          fs.rmSync(checkpointPath, { force: true });
+        }
+      }
+      for (let chunkIndex = startChunkIndex; chunkIndex < initialChunks.length; chunkIndex += 1) {
         const chunk = initialChunks[chunkIndex];
         if (initialChunks.length > 1) console.log(`  Chunk ${chunkIndex + 1}/${initialChunks.length} (${chunk.expected.length} sentences): ${chunk.expected[0].id}–${chunk.expected.at(-1).id}`);
         const chunkResult = await runChunkAdaptively(chunk);
         result.articleData.push(...chunkResult.articleData);
         result.glossary.push(...chunkResult.glossary);
         result.warnings.push(...chunkResult.warnings);
+        if (args.checkpoint) {
+          fs.writeFileSync(checkpointPath, JSON.stringify({
+            sourceText: section.text,
+            completedChunks: chunkIndex + 1,
+            result
+          }, null, 2));
+        }
       }
       const { articleData, glossary, warnings } = result;
       const article = makeArticle({
@@ -1041,6 +1117,7 @@ const main = async () => {
         article
       };
       fs.writeFileSync(sectionPath, JSON.stringify(output, null, 2));
+      if (args.checkpoint) fs.rmSync(checkpointPath, { force: true });
       articles.push(article);
       if (warnings.length > 0) {
         warningsBySection.push({

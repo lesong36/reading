@@ -48,7 +48,10 @@ const boundaryPatterns = [
   { id: 'paragraph_prompt', pattern: /(?:^|\n)\s*Paragraph\s*\d+\s*:/ig },
   { id: 'question_prompt', pattern: /(?:^|\n)\s*Questions?\s*\d+\s*[:.]/ig },
   { id: 'directions', pattern: /(?:^|\n)\s*Directions?\s*[:：]/ig },
-  { id: 'answer_choices', pattern: /(?:^|\n)\s*Answer\s+Choices?\s*[:：]/ig }
+  { id: 'answer_choices', pattern: /(?:^|\n)\s*Answer\s+Choices?\s*[:：]/ig },
+  // A terminal numbered "term: definition" block is a textbook footnote
+  // block, not a reading sentence. It is retained as structured metadata.
+  { id: 'footnote_block', pattern: /(?:^|\n)\s*1\.\s+[A-Za-z][^\n]*:\s+[^\n]+(?:\n\s*\d+\.\s+[A-Za-z][^\n]*:\s+[^\n]+)*\s*$/ig }
 ];
 
 const findBoundary = (source) => {
@@ -66,6 +69,8 @@ const findBoundary = (source) => {
 };
 
 const normalize = (value) => value.toLowerCase().replace(/\s+/g, ' ').trim();
+const parseFootnotes = (tail) => [...String(tail || '').matchAll(/^\s*(\d+)\.\s+(.+)$/gm)]
+  .map((match) => ({ marker: match[1], text: match[2].trim() }));
 
 const assess = (source, file, questionText) => {
   const boundary = findBoundary(source);
@@ -88,7 +93,9 @@ const assess = (source, file, questionText) => {
   const evidenceFromRepeatedBody = boundary
     ? normalizedBody.startsWith(normalizedTail.slice(0, 160)) || normalizedBody.startsWith(tailWithoutRepeatedTitle.slice(0, 160))
     : false;
-  const markerEvidence = evidenceFromQuestionData || evidenceFromRepeatedBody;
+  const footnotes = boundary?.id === 'footnote_block' ? parseFootnotes(removedTail) : [];
+  const evidenceFromFootnotes = boundary?.id === 'footnote_block' && footnotes.length > 0;
+  const markerEvidence = evidenceFromQuestionData || evidenceFromRepeatedBody || evidenceFromFootnotes;
   // Only a marker that is also present in this article's extracted question
   // data is a confirmed duplicate exercise block.  A natural "Paragraph 1:"
   // in article prose remains untouched and is quarantined for review.
@@ -108,13 +115,14 @@ const assess = (source, file, questionText) => {
     rawChars: source.length,
     cleanChars: clean.length,
     removedChars: source.length - clean.length,
+    footnotes,
     disposition: shouldStrip ? 'stripped_verified_quiz_duplicate' : boundary ? 'quarantined_unverified_marker' : 'accepted_unchanged',
     boundary: boundary && {
       kind: boundary.id,
       marker: boundary.marker,
       line: lineNumberAt(source, boundary.offset),
       verification: markerEvidence
-        ? { questionData: evidenceFromQuestionData, repeatedArticlePrefix: evidenceFromRepeatedBody }
+        ? { questionData: evidenceFromQuestionData, repeatedArticlePrefix: evidenceFromRepeatedBody, terminalFootnotes: evidenceFromFootnotes }
         : null,
       removedTailSha256: sha256(removedTail)
     },

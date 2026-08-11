@@ -10,7 +10,30 @@ import process from 'node:process';
 
 const root = process.cwd();
 const manifest = JSON.parse(fs.readFileSync(path.join(root, 'data/tpo-source/manifest.json'), 'utf8'));
-const stageRoots = [
+const cleanManifestPath = path.join(root, 'data/tpo-source-clean/manifest.json');
+const cleanEntriesById = fs.existsSync(cleanManifestPath)
+  ? new Map(JSON.parse(fs.readFileSync(cleanManifestPath, 'utf8')).entries.map(entry => [entry.id, entry]))
+  : new Map();
+const BATCH_FILTERS = {
+  B1: /^(og|online-test|official-model-exam|og-test-2)-/i,
+  B2: /^tpo-([1-9]|10)-/i,
+  B3: /^tpo-(1[1-9]|20)-/i,
+  B4: /^tpo-(2[1-9]|30)-/i
+};
+const parseArgs = (argv) => {
+  const args = { batch: '', stageRoot: '' };
+  for (let index = 0; index < argv.length; index += 1) {
+    const arg = argv[index];
+    const next = () => argv[++index];
+    if (arg === '--batch') args.batch = next();
+    else if (arg === '--stage-root') args.stageRoot = path.resolve(root, next());
+    else throw new Error(`Unknown argument: ${arg}`);
+  }
+  if (args.batch && !BATCH_FILTERS[args.batch]) throw new Error(`Unknown batch ${args.batch}`);
+  return args;
+};
+const args = parseArgs(process.argv.slice(2));
+const defaultStageRoots = [
   '.tmp_model_compare/og-dual-gpu-2026-08-10T11-56-49-250Z/mac/output',
   '.tmp_model_compare/og-dual-gpu-2026-08-10T11-56-49-250Z/p920/output',
   '.tmp_model_compare/b1-remainder-dual-gpu-2026-08-10T14-14-12-755Z/mac/output',
@@ -18,6 +41,7 @@ const stageRoots = [
   '.tmp_model_compare/b2-dual-gpu-2026-08-10T14-46-29-693Z/mac/output',
   '.tmp_model_compare/b2-dual-gpu-2026-08-10T14-46-29-693Z/p920/output'
 ].map(item => path.join(root, item));
+const stageRoots = args.stageRoot ? [args.stageRoot] : defaultStageRoots;
 const allowedTypes = new Set([
   'subject', 'verb', 'object', 'predicative', 'object-complement',
   'clause-subject', 'clause-verb', 'clause-object', 'clause-predicative',
@@ -25,6 +49,9 @@ const allowedTypes = new Set([
   'conjunction', 'modifier', 'adverbial'
 ]);
 const sourceById = new Map((manifest.articles || []).map(item => [item.id, item]));
+const sources = args.batch
+  ? (manifest.articles || []).filter(item => BATCH_FILTERS[args.batch].test(item.id))
+  : (manifest.articles || []);
 const accepted = new Map();
 const rejected = [];
 
@@ -73,7 +100,7 @@ for (const stageRoot of stageRoots) {
 }
 
 const articles = [];
-for (const source of manifest.articles || []) {
+for (const source of sources) {
   const acceptedItem = accepted.get(source.id);
   if (!acceptedItem) continue;
   const questionsPath = path.join(root, 'data/tpo-source', source.questionsPath);
@@ -83,7 +110,8 @@ for (const source of manifest.articles || []) {
     id: source.id,
     title: `${source.section} / ${source.title}`,
     questions: quiz.questions || [],
-    unsupportedQuestions: quiz.unsupported || []
+    unsupportedQuestions: quiz.unsupported || [],
+    footnotes: cleanEntriesById.get(source.id)?.footnotes || []
   });
 }
 
@@ -94,11 +122,12 @@ fs.mkdirSync(backupDir, { recursive: true });
 if (fs.existsSync(output)) fs.copyFileSync(output, path.join(backupDir, 'reader-articles-tpo.import.before-quality-filter.json'));
 if (fs.existsSync(report)) fs.copyFileSync(report, path.join(backupDir, 'reader-articles-tpo.report.before-quality-filter.json'));
 const approvedIds = new Set(articles.map(article => article.id));
-const excluded = (manifest.articles || []).filter(source => !approvedIds.has(source.id)).map(source => ({ id: source.id, title: `${source.section} / ${source.title}` }));
+const excluded = sources.filter(source => !approvedIds.has(source.id)).map(source => ({ id: source.id, title: `${source.section} / ${source.title}` }));
 const payload = {
   generatedAt: new Date().toISOString(),
   policy: 'strict structural gate: exact reconstruction, non-empty segments, approved labels, no fallback',
-  sourceExpectedCount: manifest.expectedArticles,
+  batch: args.batch || 'all-staged',
+  sourceExpectedCount: sources.length,
   approvedCount: articles.length,
   excludedCount: excluded.length,
   approved: articles.map(article => ({ id: article.id, title: article.title })),
