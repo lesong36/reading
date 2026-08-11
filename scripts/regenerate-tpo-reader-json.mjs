@@ -101,6 +101,7 @@ const main = async () => {
     String(args.timeoutMs),
     '--chunk-sentences',
     String(args.chunkSentences),
+    '--checkpoint',
     '--no-fallback'
   ];
   if (args.model) cmd.push('--model', args.model);

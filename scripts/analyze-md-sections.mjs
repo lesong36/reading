@@ -670,6 +670,10 @@ const isSentenceBoundary = (line, index) => {
   const after = line.slice(index + 1);
   const nextVisible = after.match(/^\s*([^\s"'”’)]?)/)?.[1] || '';
   if (/\d$/.test(line.slice(0, index)) && /^\d/.test(after)) return false;
+  // Do not split an initialism at its first period: B.C., A.D., U.S., etc.
+  // The existing backward check only sees `B.` at this point, so it cannot
+  // recognize the complete abbreviation until it is already too late.
+  if (/^[A-Za-z]\./.test(after)) return false;
 
   // Abbreviations such as St. Denis, Dr. Smith, U.S. policy and e.g. are not
   // independent sentences. Only suppress them when more text follows.

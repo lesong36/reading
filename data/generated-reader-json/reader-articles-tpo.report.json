@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-08-11T10:16:07.487Z",
+  "generatedAt": "2026-08-11T14:32:00.004Z",
   "policy": "strict structural gate: exact reconstruction, non-empty segments, approved labels, no fallback",
-  "batch": "B1",
-  "sourceExpectedCount": 17,
-  "approvedCount": 17,
+  "batch": "B1,B2",
+  "sourceExpectedCount": 44,
+  "approvedCount": 44,
   "excludedCount": 0,
   "approved": [
     {
@@ -47,6 +47,30 @@
       "title": "OG / Geology and Landscape"
     },
     {
+      "id": "tpo-1-groundwater",
+      "title": "TPO-1 / Groundwater"
+    },
+    {
+      "id": "tpo-1-the-origins-of-theater",
+      "title": "TPO-1 / The Origins of Theater"
+    },
+    {
+      "id": "tpo-1-timberline-vegetation-on-mountains",
+      "title": "TPO-1 / Timberline Vegetation on Mountains"
+    },
+    {
+      "id": "tpo-3-architecture",
+      "title": "TPO-3 / Architecture"
+    },
+    {
+      "id": "tpo-3-depletion-of-the-ogallala-aquifer",
+      "title": "TPO-3 / Depletion of the Ogallala Aquifer"
+    },
+    {
+      "id": "tpo-3-the-long-term-stability-of-ecosystems",
+      "title": "TPO-3 / The Long-Term Stability of Ecosystems"
+    },
+    {
       "id": "online-test-opportunists-and-competitors",
       "title": "Online Test / Opportunists and Competitors"
     },
@@ -59,8 +83,80 @@
       "title": "Online Test / Electricity from Wind"
     },
     {
+      "id": "tpo-4-deer-populations-of-the-puget-sound",
+      "title": "TPO-4 / Deer Populations of the Puget Sound"
+    },
+    {
+      "id": "tpo-4-cave-art-in-europe",
+      "title": "TPO-4 / Cave Art in Europe"
+    },
+    {
+      "id": "tpo-4-petroleum-resources",
+      "title": "TPO-4 / Petroleum Resources"
+    },
+    {
       "id": "official-model-exam-meteorite-impact-and-dinosaur-extinction",
       "title": "Official Model Exam / Meteorite Impact and Dinosaur Extinction"
+    },
+    {
+      "id": "tpo-5-minerals-and-plants",
+      "title": "TPO-5 / Minerals and Plants"
+    },
+    {
+      "id": "tpo-5-the-origin-of-the-pacific-island-people",
+      "title": "TPO-5 / The Origin of the Pacific Island People"
+    },
+    {
+      "id": "tpo-5-the-cambrian-explosion",
+      "title": "TPO-5 / The Cambrian Explosion"
+    },
+    {
+      "id": "tpo-6-powering-the-industrial-revolution",
+      "title": "TPO-6 / Powering the Industrial Revolution"
+    },
+    {
+      "id": "tpo-6-william-smith",
+      "title": "TPO-6 / William Smith"
+    },
+    {
+      "id": "tpo-6-infantile-amnesia",
+      "title": "TPO-6 / Infantile Amnesia"
+    },
+    {
+      "id": "tpo-7-the-geologic-history-of-the-mediterranean",
+      "title": "TPO-7 / The Geologic History of the Mediterranean"
+    },
+    {
+      "id": "tpo-7-ancient-rome-and-greece",
+      "title": "TPO-7 / Ancient Rome and Greece"
+    },
+    {
+      "id": "tpo-7-agriculture-iron-and-the-bantu-peoples",
+      "title": "TPO-7 / Agriculture, Iron, and the Bantu Peoples"
+    },
+    {
+      "id": "tpo-8-the-rise-of-teotihuaca-n",
+      "title": "TPO-8 / The Rise of Teotihuacán"
+    },
+    {
+      "id": "tpo-8-extinction-of-the-dinosaurs",
+      "title": "TPO-8 / Extinction of the Dinosaurs"
+    },
+    {
+      "id": "tpo-8-running-water-on-mars",
+      "title": "TPO-8 / Running Water on Mars"
+    },
+    {
+      "id": "tpo-9-colonizing-the-americas-via-the-northwest-coast",
+      "title": "TPO-9 / Colonizing the Americas via the Northwest Coast"
+    },
+    {
+      "id": "tpo-9-reflection-in-teaching",
+      "title": "TPO-9 / Reflection in Teaching"
+    },
+    {
+      "id": "tpo-9-the-arrival-of-plant-life-in-hawaii",
+      "title": "TPO-9 / The Arrival of Plant Life in Hawaii"
     },
     {
       "id": "og-test-2-feeding-habits-of-east-african-herbivores",
@@ -73,6 +169,18 @@
     {
       "id": "og-test-2-green-icebergs",
       "title": "OG Test 2 / Green Icebergs"
+    },
+    {
+      "id": "tpo-10-chinese-pottery",
+      "title": "TPO-10 / Chinese Pottery"
+    },
+    {
+      "id": "tpo-10-variations-in-the-climate",
+      "title": "TPO-10 / Variations in the Climate"
+    },
+    {
+      "id": "tpo-10-seventeenth-century-european-economic-growth",
+      "title": "TPO-10 / Seventeenth-Century European Economic Growth"
     }
   ],
   "excluded": [],
@@ -83,17 +191,6 @@
       "issues": [
         "s39:question_material_in_body",
         "s41:question_material_in_body"
-      ]
-    },
-    {
-      "id": "tpo-10-variations-in-the-climate",
-      "file": "data/generated-reader-json-tpo/tpo-10-variations-in-the-climate/sections/006-TPO-10-Variations-in-the-Climate.json",
-      "issues": [
-        "s16:invalid_segment_type",
-        "s18:invalid_segment_type",
-        "s22:invalid_segment_type",
-        "s23:invalid_segment_type",
-        "s24:invalid_segment_type"
       ]
     },
     {
@@ -310,28 +407,6 @@
       ]
     },
     {
-      "id": "tpo-3-architecture",
-      "file": "data/generated-reader-json-tpo/tpo-3-architecture/sections/007-TPO-3-Architecture.json",
-      "issues": [
-        "s12:invalid_segment_type"
-      ]
-    },
-    {
-      "id": "tpo-3-the-long-term-stability-of-ecosystems",
-      "file": "data/generated-reader-json-tpo/tpo-3-the-long-term-stability-of-ecosystems/sections/009-TPO-3-The-Long-Term-Stability-of-Ecosystems.json",
-      "issues": [
-        "s2:invalid_segment_type",
-        "s12:invalid_segment_type",
-        "s13:invalid_segment_type",
-        "s19:invalid_segment_type",
-        "s20:invalid_segment_type",
-        "s22:invalid_segment_type",
-        "s30:invalid_segment_type",
-        "s32:invalid_segment_type",
-        "s33:invalid_segment_type"
-      ]
-    },
-    {
       "id": "tpo-30-the-pace-of-evolutionary-change",
       "file": "data/generated-reader-json-tpo/tpo-30-the-pace-of-evolutionary-change/sections/030-TPO-30-The-Pace-of-Evolutionary-Change.json",
       "issues": [
@@ -345,140 +420,23 @@
       ]
     },
     {
-      "id": "tpo-5-minerals-and-plants",
-      "file": "data/generated-reader-json-tpo/tpo-5-minerals-and-plants/sections/013-TPO-5-Minerals-and-Plants.json",
+      "id": "tpo-6-infantile-amnesia",
+      "file": "data/generated-reader-json-tpo/tpo-6-infantile-amnesia/sections/016-TPO-6-Infantile-Amnesia.json",
       "issues": [
-        "s23:invalid_segment_type"
-      ]
-    },
-    {
-      "id": "tpo-6-william-smith",
-      "file": "data/generated-reader-json-tpo/tpo-6-william-smith/sections/018-TPO-6-William-Smith.json",
-      "issues": [
-        "s17:invalid_segment_type"
-      ]
-    },
-    {
-      "id": "tpo-7-agriculture-iron-and-the-bantu-peoples",
-      "file": "data/generated-reader-json-tpo/tpo-7-agriculture-iron-and-the-bantu-peoples/sections/019-TPO-7-Agriculture-Iron-and-the-Bantu-Peoples.json",
-      "issues": [
-        "s2:invalid_segment_type",
-        "s3:invalid_segment_type",
-        "s4:invalid_segment_type",
-        "s5:invalid_segment_type",
-        "s6:invalid_segment_type",
-        "s7:invalid_segment_type",
-        "s8:invalid_segment_type",
-        "s9:invalid_segment_type",
-        "s10:invalid_segment_type",
-        "s11:invalid_segment_type",
-        "s12:invalid_segment_type",
-        "s13:invalid_segment_type",
-        "s14:invalid_segment_type",
-        "s15:invalid_segment_type",
-        "s16:invalid_segment_type",
-        "s17:invalid_segment_type",
-        "s18:invalid_segment_type",
-        "s19:invalid_segment_type",
-        "s20:invalid_segment_type",
-        "s21:invalid_segment_type",
-        "s22:invalid_segment_type",
-        "s23:invalid_segment_type",
-        "s24:invalid_segment_type",
-        "s25:invalid_segment_type",
-        "s26:invalid_segment_type",
-        "s27:invalid_segment_type",
-        "s28:invalid_segment_type",
-        "s29:invalid_segment_type",
-        "s30:invalid_segment_type",
-        "s31:invalid_segment_type",
-        "s32:invalid_segment_type",
-        "s33:invalid_segment_type"
-      ]
-    },
-    {
-      "id": "tpo-7-ancient-rome-and-greece",
-      "file": "data/generated-reader-json-tpo/tpo-7-ancient-rome-and-greece/sections/020-TPO-7-Ancient-Rome-and-Greece.json",
-      "issues": [
-        "s3:invalid_segment_type",
-        "s7:invalid_segment_type",
-        "s8:invalid_segment_type",
-        "s28:invalid_segment_type",
-        "s36:invalid_segment_type"
-      ]
-    },
-    {
-      "id": "tpo-7-the-geologic-history-of-the-mediterranean",
-      "file": "data/generated-reader-json-tpo/tpo-7-the-geologic-history-of-the-mediterranean/sections/021-TPO-7-The-Geologic-History-of-the-Mediterranean.json",
-      "issues": [
-        "s12:invalid_segment_type",
-        "s13:invalid_segment_type",
-        "s14:invalid_segment_type",
-        "s15:invalid_segment_type",
-        "s16:invalid_segment_type",
-        "s17:invalid_segment_type",
-        "s18:invalid_segment_type",
-        "s19:invalid_segment_type",
-        "s20:invalid_segment_type",
-        "s21:invalid_segment_type",
-        "s22:invalid_segment_type",
-        "s23:invalid_segment_type",
-        "s24:invalid_segment_type",
-        "s25:invalid_segment_type",
-        "s26:invalid_segment_type",
-        "s27:invalid_segment_type",
-        "s28:invalid_segment_type",
-        "s29:invalid_segment_type",
-        "s30:invalid_segment_type",
-        "s31:invalid_segment_type",
-        "s32:invalid_segment_type",
-        "s33:invalid_segment_type",
-        "s34:invalid_segment_type"
-      ]
-    },
-    {
-      "id": "tpo-8-extinction-of-the-dinosaurs",
-      "file": "data/generated-reader-json-tpo/tpo-8-extinction-of-the-dinosaurs/sections/022-TPO-8-Extinction-of-the-Dinosaurs.json",
-      "issues": [
-        "s15:invalid_segment_type"
+        "s33:missing_segments"
       ]
     },
     {
       "id": "tpo-8-the-rise-of-teotihuaca-n",
       "file": "data/generated-reader-json-tpo/tpo-8-the-rise-of-teotihuaca-n/sections/024-TPO-8-The-Rise-of-Teotihuaca-n.json",
       "issues": [
-        "s2:invalid_segment_type",
-        "s3:invalid_segment_type",
-        "s4:invalid_segment_type",
-        "s5:invalid_segment_type",
-        "s6:invalid_segment_type",
-        "s7:invalid_segment_type",
-        "s8:invalid_segment_type",
-        "s9:invalid_segment_type",
-        "s10:invalid_segment_type",
-        "s11:invalid_segment_type",
-        "s12:invalid_segment_type",
-        "s13:invalid_segment_type",
-        "s14:invalid_segment_type",
-        "s15:invalid_segment_type",
-        "s16:invalid_segment_type",
-        "s17:invalid_segment_type",
-        "s18:invalid_segment_type",
-        "s19:invalid_segment_type",
-        "s20:invalid_segment_type",
-        "s21:invalid_segment_type",
-        "s22:invalid_segment_type",
-        "s23:invalid_segment_type",
-        "s24:invalid_segment_type",
-        "s25:invalid_segment_type",
-        "s26:invalid_segment_type",
-        "s27:invalid_segment_type",
-        "s28:invalid_segment_type"
+        "s11:question_material_in_body",
+        "s18:question_material_in_body"
       ]
     }
   ],
   "stageRoots": [
     "data/generated-reader-json-tpo"
   ],
-  "backup": ".tmp_model_compare/tpo-pack-backup-2026-08-11T10-16-07-484Z"
+  "backup": ".tmp_model_compare/tpo-pack-backup-2026-08-11T14-32-00-001Z"
 }

@@ -21,15 +21,17 @@ const BATCH_FILTERS = {
   B4: /^tpo-(2[1-9]|30)-/i
 };
 const parseArgs = (argv) => {
-  const args = { batch: '', stageRoot: '' };
+  const args = { batches: [], stageRoot: '' };
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
     const next = () => argv[++index];
-    if (arg === '--batch') args.batch = next();
+    if (arg === '--batch') args.batches = next().split(',').map(value => value.trim()).filter(Boolean);
     else if (arg === '--stage-root') args.stageRoot = path.resolve(root, next());
     else throw new Error(`Unknown argument: ${arg}`);
   }
-  if (args.batch && !BATCH_FILTERS[args.batch]) throw new Error(`Unknown batch ${args.batch}`);
+  for (const batch of args.batches) {
+    if (!BATCH_FILTERS[batch]) throw new Error(`Unknown batch ${batch}`);
+  }
   return args;
 };
 const args = parseArgs(process.argv.slice(2));
@@ -49,8 +51,8 @@ const allowedTypes = new Set([
   'conjunction', 'modifier', 'adverbial'
 ]);
 const sourceById = new Map((manifest.articles || []).map(item => [item.id, item]));
-const sources = args.batch
-  ? (manifest.articles || []).filter(item => BATCH_FILTERS[args.batch].test(item.id))
+const sources = args.batches.length
+  ? (manifest.articles || []).filter(item => args.batches.some(batch => BATCH_FILTERS[batch].test(item.id)))
   : (manifest.articles || []);
 const accepted = new Map();
 const rejected = [];
@@ -126,7 +128,7 @@ const excluded = sources.filter(source => !approvedIds.has(source.id)).map(sourc
 const payload = {
   generatedAt: new Date().toISOString(),
   policy: 'strict structural gate: exact reconstruction, non-empty segments, approved labels, no fallback',
-  batch: args.batch || 'all-staged',
+  batch: args.batches.join(',') || 'all-staged',
   sourceExpectedCount: sources.length,
   approvedCount: articles.length,
   excludedCount: excluded.length,
