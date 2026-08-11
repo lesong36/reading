@@ -14,9 +14,12 @@
     "merge:reader-json": "node scripts/merge-reader-json.mjs",
     "merge:shiwen": "node scripts/merge-shiwen-bundle.mjs",
     "merge:tpo": "node scripts/merge-tpo-bundle.mjs",
+    "clean:tpo": "node scripts/build-clean-tpo-passages.mjs",
+    "monitor:reader-analysis": "node scripts/monitor-reader-analysis.mjs",
     "monitor:shiwen-analysis": "node scripts/monitor-shiwen-analysis.mjs",
     "regenerate:reader-json:local": "node scripts/regenerate-reader-json-local.mjs",
     "regenerate:tpo": "node scripts/regenerate-tpo-reader-json.mjs",
+    "serve:analysis-dashboard": "node scripts/serve-analysis-dashboard.mjs",
     "sync:app": "node scripts/sync-app-entry.mjs"
   },
   "dependencies": {

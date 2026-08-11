@@ -30,6 +30,10 @@ npm run extract:tpo
 # Optional: only TPO-1
 npm run extract:tpo -- --only TPO-1
 
+# Build immutable, audit-backed clean copies for the model. This must run
+# before every TPO/OG batch; raw passages and quiz material stay untouched.
+npm run clean:tpo
+
 # Analyze a batch on P920:8090
 npm run regenerate:tpo -- --batch B0
 npm run regenerate:tpo -- --batch B1
@@ -62,7 +66,9 @@ Resume-safe: existing successful section JSON is skipped unless `--force`.
 
 | Path | Meaning |
 |---|---|
-| `data/tpo-source/passages/*.md` | English body only |
+| `data/tpo-source/passages/*.md` | Immutable raw Word extraction (may retain quiz source material) |
+| `data/tpo-source-clean/passages/*.md` | Deterministic body-only derivative used by P920; never manually edit |
+| `data/tpo-source-clean/manifest.json` | Hashes, cutoff evidence, and audit outcome for every clean passage |
 | `data/tpo-source/questions/*.json` | Quiz items + answers |
 | `data/tpo-source/manifest.json` | Inventory + validation |
 | `data/generated-reader-json-tpo/` | Per-section Qwen outputs |
@@ -74,3 +80,16 @@ Resume-safe: existing successful section JSON is skipped unless `--force`.
 2. Re-run the same batch (skips OK files)
 3. Or: `npm run analyze:md-sections -- --only "Groundwater" --force ...`
 4. `npm run merge:tpo` after repairs
+
+## Source fidelity gate
+
+`npm run clean:tpo` never changes `data/tpo-source/passages`. It evaluates a
+possible `Paragraph 1:`-style boundary using deterministic evidence before it
+is removed: either the tail is represented in the extracted question data, or
+it repeats the start of the article verbatim (allowing the heading title that
+may have been lost by the Word exporter). A marker without either proof is
+quarantined in the audit manifest, rather than silently truncating prose.
+
+P920 receives only `data/tpo-source-clean/passages`. This prevents a malformed
+quiz extraction from consuming GPU time and creating an otherwise
+structurally-valid but semantically invalid analysis.

@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-08-11T01:49:19.254Z",
+  "generatedAt": "2026-08-11T01:57:22.123Z",
   "policy": "strict structural gate: exact reconstruction, non-empty segments, approved labels, no fallback",
   "sourceExpectedCount": 104,
-  "approvedCount": 15,
-  "excludedCount": 89,
+  "approvedCount": 14,
+  "excludedCount": 90,
   "approved": [
     {
       "id": "og-applied-arts-and-fine-arts",
@@ -48,10 +48,6 @@
     {
       "id": "official-model-exam-meteorite-impact-and-dinosaur-extinction",
       "title": "Official Model Exam / Meteorite Impact and Dinosaur Extinction"
-    },
-    {
-      "id": "tpo-5-the-origin-of-the-pacific-island-people",
-      "title": "TPO-5 / The Origin of the Pacific Island People"
     },
     {
       "id": "og-test-2-feeding-habits-of-east-african-herbivores",
@@ -118,6 +114,10 @@
     {
       "id": "tpo-5-minerals-and-plants",
       "title": "TPO-5 / Minerals and Plants"
+    },
+    {
+      "id": "tpo-5-the-origin-of-the-pacific-island-people",
+      "title": "TPO-5 / The Origin of the Pacific Island People"
     },
     {
       "id": "tpo-5-the-cambrian-explosion",
@@ -555,6 +555,13 @@
       ]
     },
     {
+      "id": "tpo-5-the-origin-of-the-pacific-island-people",
+      "file": ".tmp_model_compare/b2-dual-gpu-2026-08-10T14-46-29-693Z/p920/output/tpo-5-the-origin-of-the-pacific-island-people/sections/009-TPO-5-The-Origin-of-the-Pacific-Island-People.json",
+      "issues": [
+        "s29:question_material_in_body"
+      ]
+    },
+    {
       "id": "tpo-6-powering-the-industrial-revolution",
       "file": ".tmp_model_compare/b2-dual-gpu-2026-08-10T14-46-29-693Z/p920/output/tpo-6-powering-the-industrial-revolution/sections/010-TPO-6-Powering-the-Industrial-Revolution.json",
       "issues": [
@@ -585,5 +592,5 @@
     ".tmp_model_compare/b2-dual-gpu-2026-08-10T14-46-29-693Z/mac/output",
     ".tmp_model_compare/b2-dual-gpu-2026-08-10T14-46-29-693Z/p920/output"
   ],
-  "backup": ".tmp_model_compare/tpo-pack-backup-2026-08-11T01-49-19-251Z"
+  "backup": ".tmp_model_compare/tpo-pack-backup-2026-08-11T01-57-22-122Z"
 }
