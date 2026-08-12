@@ -1,39 +1,81 @@
 {
   "sourceFile": "tpo-22-the-allende-meteorite.md",
   "sectionTitle": "TPO-22 / The Allende Meteorite",
-  "generatedAt": "2026-08-05T12:27:41.450Z",
+  "generatedAt": "2026-08-12T06:51:38.131Z",
   "warnings": [],
   "article": {
     "id": "tpo-22-the-allende-meteorite-05-TPO-22-The-Allende-Meteorite",
     "title": "TPO-22 / The Allende Meteorite",
-    "timestamp": 1785932861454,
+    "timestamp": 1786517498135,
     "glossary": [
       {
-        "term": "refractory inclusions",
-        "translation": "难熔包裹体",
+        "term": "condensation sequence",
+        "translation": "凝结序列",
         "kind": "term",
-        "note": "陨石中耐高温、富含钙铝的矿物团块。",
+        "note": "指在太阳系星云冷却过程中，不同矿物按特定顺序从气相凝结成固相的过程。",
+        "aliases": []
+      },
+      {
+        "term": "refractory inclusions",
+        "translation": "难熔包体",
+        "kind": "term",
+        "note": "陨石中耐高温、难熔化的矿物集合体。",
+        "aliases": []
+      },
+      {
+        "term": "chondritic meteorite",
+        "translation": "球粒陨石",
+        "kind": "term",
+        "note": "含有球粒结构的陨石，保留了太阳系早期的信息。",
+        "aliases": []
+      },
+      {
+        "term": "interstellar dust",
+        "translation": "星际尘埃",
+        "kind": "term",
+        "note": "存在于恒星之间空间中的尘埃颗粒。",
         "aliases": []
       },
       {
         "term": "volatile elements",
         "translation": "挥发性元素",
         "kind": "term",
-        "note": "容易变成气体的元素，如氢、碳等。",
+        "note": "指在较低温度下容易变成气体的化学元素，如氢、碳、氮等。",
         "aliases": []
       },
       {
-        "term": "condensation",
-        "translation": "凝结",
+        "term": "chondrite matrix",
+        "translation": "球粒陨石基质",
         "kind": "term",
-        "note": "气体冷却变成固体的过程。",
+        "note": "包裹球粒和包裹体的细粒物质。",
         "aliases": []
       },
       {
-        "term": "interstellar",
-        "translation": "星际的",
+        "term": "nebular matter",
+        "translation": "星云物质",
         "kind": "term",
-        "note": "位于恒星之间的空间。",
+        "note": "指形成太阳系的原始星云（Solar Nebula）中的尘埃和气体混合物。",
+        "aliases": []
+      },
+      {
+        "term": "melting event",
+        "translation": "熔融事件",
+        "kind": "context_phrase",
+        "note": "指球粒在太阳系早期经历的高温熔化过程。",
+        "aliases": []
+      },
+      {
+        "term": "iron sulfide",
+        "translation": "硫化铁",
+        "kind": "term",
+        "note": "一种常见的含铁矿物，如陨硫铁。",
+        "aliases": []
+      },
+      {
+        "term": "nebular dust",
+        "translation": "星云尘埃",
+        "kind": "term",
+        "note": "形成太阳系的原始星云中的尘埃颗粒。",
         "aliases": []
       },
       {
@@ -44,45 +86,94 @@
         "aliases": []
       },
       {
-        "term": "aggregated",
-        "translation": "聚集",
-        "kind": "term",
-        "note": "集合在一起形成整体。",
-        "aliases": []
-      },
-      {
-        "term": "perplexing",
-        "translation": "令人困惑的",
-        "kind": "term",
-        "note": "引起困惑或难题的。",
-        "aliases": []
-      },
-      {
-        "term": "Chihuahua",
-        "translation": "奇瓦瓦州",
+        "term": "solar system",
+        "translation": "太阳系",
         "kind": "proper_noun",
-        "note": "墨西哥的一个州，阿连德陨石发现地。",
+        "note": "指由太阳及其引力束缚的天体系统。",
         "aliases": []
       },
       {
-        "term": "chondrite",
+        "term": "noble gases",
+        "translation": "稀有气体 / 惰性气体",
+        "kind": "term",
+        "note": "化学性质极不活泼的气体元素，如氦、氖、氩等。",
+        "aliases": []
+      },
+      {
+        "term": "atmosphere",
+        "translation": "大气层",
+        "kind": "term",
+        "note": "包围地球的气体层。",
+        "aliases": []
+      },
+      {
+        "term": "chondrites",
         "translation": "球粒陨石",
         "kind": "term",
-        "note": "一种含有球粒（chondrules）的陨石类型。",
+        "note": "一类含有球粒（chondrules）的陨石，被认为是太阳系形成初期未发生熔融分异的原始物质。",
         "aliases": []
       },
       {
-        "term": "chondrule",
+        "term": "chondrules",
         "translation": "球粒",
         "kind": "term",
         "note": "陨石中毫米大小的球形硅酸盐颗粒。",
         "aliases": []
       },
       {
-        "term": "enigmatic",
-        "translation": "神秘的",
+        "term": "abundance",
+        "translation": "丰度",
         "kind": "term",
-        "note": "难以解释或理解的。",
+        "note": "指元素在物质中的相对含量。",
+        "aliases": []
+      },
+      {
+        "term": "Chihuahua",
+        "translation": "奇瓦瓦州",
+        "kind": "proper_noun",
+        "note": "墨西哥的一个州，陨石坠落的具体地点。",
+        "aliases": []
+      },
+      {
+        "term": "chondrite",
+        "translation": "球粒陨石",
+        "kind": "term",
+        "note": "一类含有球粒（chondrules）的陨石。",
+        "aliases": []
+      },
+      {
+        "term": "chondrule",
+        "translation": "球粒",
+        "kind": "term",
+        "note": "球粒陨石中特有的圆形或椭圆形硅酸盐小颗粒。",
+        "aliases": []
+      },
+      {
+        "term": "distilled",
+        "translation": "蒸馏的 / 提炼的",
+        "kind": "term",
+        "note": "此处比喻经过“蒸馏”过程去除了挥发性成分，留下了更重的物质。",
+        "aliases": []
+      },
+      {
+        "term": "enigmatic",
+        "translation": "神秘的，难以解释的",
+        "kind": "term",
+        "note": "形容球粒的形成机制曾长期让科学家困惑。",
+        "aliases": []
+      },
+      {
+        "term": "inclusion",
+        "translation": "包裹体",
+        "kind": "term",
+        "note": "指陨石中包裹在基质里的矿物颗粒或集合体。",
+        "aliases": []
+      },
+      {
+        "term": "localized",
+        "translation": "局部的",
+        "kind": "term",
+        "note": "指加热事件只发生在很小的区域，而非整个星云。",
         "aliases": []
       },
       {
@@ -93,24 +184,103 @@
         "aliases": []
       },
       {
+        "term": "chondros",
+        "translation": "种子（希腊语词源）",
+        "kind": "term",
+        "note": "希腊语单词，意为“种子”，是chondrite一词的词源。",
+        "aliases": []
+      },
+      {
+        "term": "condense",
+        "translation": "凝结，凝聚",
+        "kind": "term",
+        "note": "指气体冷却变为固体或液体的过程。",
+        "aliases": []
+      },
+      {
+        "term": "peculiar",
+        "translation": "奇特的，异常的",
+        "kind": "term",
+        "note": "形容不寻常或独特的性质。",
+        "aliases": []
+      },
+      {
+        "term": "pristine",
+        "translation": "原始的，未受污染的",
+        "kind": "term",
+        "note": "指未经历后期热变质或化学变化的状态。",
+        "aliases": []
+      },
+      {
         "term": "silicate",
         "translation": "硅酸盐",
         "kind": "term",
-        "note": "含有硅和氧的矿物化合物。",
+        "note": "一种由硅和氧组成的化合物，是岩石的主要成分。",
+        "aliases": []
+      },
+      {
+        "term": "specimen",
+        "translation": "标本",
+        "kind": "term",
+        "note": "用于科学研究的样本。",
+        "aliases": []
+      },
+      {
+        "term": "textures",
+        "translation": "纹理，结构",
+        "kind": "term",
+        "note": "指岩石或矿物在显微镜下观察到的微观结构特征。",
+        "aliases": []
+      },
+      {
+        "term": "Allende",
+        "translation": "艾伦德（陨石）",
+        "kind": "proper_noun",
+        "note": "指著名的艾伦德碳质球粒陨石。",
+        "aliases": []
+      },
+      {
+        "term": "plummet",
+        "translation": "垂直坠落",
+        "kind": "term",
+        "note": "指物体以极快的速度垂直向下掉落。",
+        "aliases": []
+      },
+      {
+        "term": "pockets",
+        "translation": "口袋，小区域",
+        "kind": "context_phrase",
+        "note": "比喻星云中热量集中且能迅速散失的小空间。",
+        "aliases": []
+      },
+      {
+        "term": "enigma",
+        "translation": "谜，谜团",
+        "kind": "term",
+        "note": "指难以理解或解释的事物。",
         "aliases": []
       },
       {
         "term": "matrix",
         "translation": "基质",
         "kind": "term",
-        "note": "包裹球粒和包裹体的细粒物质。",
+        "note": "包裹其他物质的背景材料，此处指陨石中包裹球粒的深色灰色物质。",
         "aliases": []
       },
       {
-        "term": "meteor",
-        "translation": "流星",
+        "term": "nebula",
+        "translation": "星云",
         "kind": "term",
-        "note": "在大气层中燃烧发光的太空碎片。",
+        "note": "指太阳系形成前的原始气体和尘埃云（solar nebula）。",
+        "aliases": [
+          "nebular"
+        ]
+      },
+      {
+        "term": "crust",
+        "translation": "外壳",
+        "kind": "term",
+        "note": "物体表面的硬层，此处指陨石因高温熔融形成的黑色玻璃质外壳。",
         "aliases": []
       }
     ],
@@ -119,78 +289,68 @@
         "id": "s1",
         "para": 1,
         "text": "Sometime after midnight on February 8,1969, a large, bright meteor entered Earth's atmosphere and broke into thousands of pieces, plummeted to the ground, and scattered over an area 50 miles long and 10 miles wide in the state of Chihuahua in Mexico.",
-        "translation": "1969年2月8日午夜过后不久，一颗巨大明亮的流星进入地球大气层，分裂成数千块碎片，坠落到地面，并散落在墨西哥奇瓦瓦州长50英里、宽10英里的区域内。",
-        "grammarFocus": "并列谓语结构；时间状语前置",
+        "translation": "1969年2月8日午夜过后不久，一颗巨大明亮的流星进入地球大气层，分裂成数千块碎片，垂直坠落到地面，并散落在墨西哥奇瓦瓦州一个长50英里、宽10英里的区域内。",
+        "grammarFocus": "并列谓语结构；时间状语前置；长定语修饰地点。",
         "pronounRef": "无",
-        "logicConnector": "and (连接三个连续动作)",
+        "logicConnector": "and（连接三个连续的动作：entered, broke, plummeted, scattered）",
         "sentenceCoach": {
-          "summary": "这是一个描述陨石坠落全过程的长句，注意动词的并列关系。",
-          "keyHint": "找到主语 meteor，然后看它后面跟着的三个动作。"
+          "summary": "这是一条长长的时间线，记录了流星从进入大气层到最终散落的整个过程。",
+          "keyHint": "注意动词的并列关系，它们按顺序发生。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁发生了什么事？是那颗流星进入了大气层、碎裂、坠落并散落。",
-          "grammarQuestion": "你看，meteor 后面跟着 entered, broke, plummeted, scattered，它们都是流星做的动作，像接力赛一样。",
-          "modifierQuestion": "‘50 miles long and 10 miles wide’ 是在形容那个区域有多大，就像给区域量尺寸一样。",
-          "relationshipQuestion": "先入大气层，再碎裂，然后坠落，最后散落，这是一个时间顺序。",
-          "commonMistake": "不要把 broke 当成过去分词修饰 meteor，它是和 entered 一样的谓语动词，因为前面有 and 或者逗号隐含的并列关系。",
+          "mainQuestion": "谁做了什么？是那颗巨大的流星进入了大气层并摔碎了。",
+          "grammarQuestion": "你看，流星做了一连串动作：进入、分裂、坠落、散落，它们由and连接，像火车车厢一样连在一起。",
+          "modifierQuestion": "最后那个长长的部分是在描述散落的地方有多大、在哪里，就像给地点画了一张地图。",
+          "relationshipQuestion": "时间状语在最前面告诉我们故事发生的时间，然后主体部分讲述流星的动作。",
+          "commonMistake": "容易把broke into pieces和后面的plummeted当成两个独立的句子，其实它们都是流星做的动作，共用一个主语。",
           "thinkingPath": [
-            "找到主语 meteor",
-            "找出它做的动作 entered, broke, plummeted, scattered",
-            "看这些动作发生的地点和方式"
+            "找到时间状语，确定故事背景",
+            "找到主语meteor，锁定主角",
+            "找出所有动词，理清动作顺序"
           ],
-          "encouragement": "太棒了！你成功拆解了这个复杂的动作链条。"
+          "encouragement": "你成功追踪了流星的完整旅程，太棒了！"
         },
-        "analysis": "### 【主干结构】\n主语是 a large, bright meteor。谓语部分由四个动词短语组成，通过逗号和 and 连接，表示连续发生的动作：entered..., broke..., plummeted..., and scattered...。\n\n### 【主谓一致】\n主语 meteor 是单数，所有谓语动词 entered, broke, plummeted, scattered 均使用过去式，符合单数主语和过去时间的语境。\n\n### 【动词时态与原形】\n全部使用一般过去时，描述过去发生的具体事件。\n\n### 【从句剖析】\n无从句。",
+        "analysis": "### 【主干结构】\n主语是 a large, bright meteor。谓语部分由四个动词短语并列组成，通过 and 连接：entered..., broke..., plummeted..., and scattered...。\n\n### 【主谓一致】\n主语 meteor 是单数，所有谓语动词 entered, broke, plummeted, scattered 均使用过去式，符合单数主语和过去时间的语境。\n\n### 【动词时态与原形】\n全部使用一般过去时，描述过去发生的特定事件。\n\n### 【从句剖析】\n无从句。但包含复杂的介词短语作后置定语：over an area [50 miles long and 10 miles wide] [in the state of Chihuahua] [in Mexico]。",
         "segments": [
           {
-            "text": "Sometime after midnight on February 8,1969, ",
+            "text": "Sometime after midnight on February 8,1969,",
             "type": "adverbial",
             "label": "时间状语"
           },
           {
-            "text": "a large, bright meteor ",
+            "text": " a large, bright meteor",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "entered Earth's atmosphere ",
+            "text": " entered Earth's atmosphere",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "broke into thousands of pieces, ",
+            "text": " broke into thousands of pieces,",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "plummeted to the ground, ",
+            "text": " plummeted to the ground,",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "scattered over an area ",
+            "text": " scattered over an area 50 miles long and 10 miles wide in the state of Chihuahua in Mexico.",
             "type": "verb",
             "label": "谓语"
-          },
-          {
-            "text": "50 miles long and 10 miles wide ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "in the state of Chihuahua in Mexico.",
-            "type": "adverbial",
-            "label": "地点状语"
           }
         ]
       },
@@ -199,45 +359,40 @@
         "para": 1,
         "text": "The first meteorite from this fall was found in the village of Pueblito de Allende.",
         "translation": "这次坠落中找到的第一块陨石是在阿连德小村发现的。",
-        "grammarFocus": "被动语态；介词短语作后置定语",
-        "pronounRef": "this fall 指代前一句流星坠落的事件",
+        "grammarFocus": "被动语态；介词短语作后置定语。",
+        "pronounRef": "this fall 指代上一句提到的流星坠落事件。",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "简单的被动句，注意 from this fall 修饰 meteorite。",
-          "keyHint": "谁被发现了？第一块陨石。在哪里发现的？在阿连德小村。"
+          "summary": "这句话告诉我们第一块陨石是在哪里被发现的。",
+          "keyHint": "注意 was found 是被动语态，强调发现的结果。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁被发现了？是第一块陨石。",
-          "grammarQuestion": "was found 是被动语态，表示陨石‘被’发现。",
-          "modifierQuestion": "‘from this fall’ 告诉我们这块陨石是从哪次坠落中来的。",
-          "relationshipQuestion": "句子核心是‘陨石被发现’，其他部分补充细节。",
-          "commonMistake": "不要误以为 this fall 是动词，它是名词短语，指‘这次坠落’。",
+          "mainQuestion": "第一块陨石在哪里被发现？在阿连德小村。",
+          "grammarQuestion": "这里用了被动语态 was found，说明陨石是被人们发现的，而不是它自己发现。",
+          "modifierQuestion": "from this fall 像一个小标签，贴在 meteorite 后面，告诉我们是哪次坠落留下的。",
+          "relationshipQuestion": "主语是 meteorite，动作是 found，地点是 village。",
+          "commonMistake": "容易忽略 from this fall 的作用，它限定了陨石的来源。",
           "thinkingPath": [
+            "识别被动语态 was found",
             "找到主语 meteorite",
-            "找到谓语 was found",
-            "理解 from this fall 修饰 meteorite"
+            "理解 from this fall 的修饰关系"
           ],
-          "encouragement": "你看得很准，被动语态有时候会让句子变长，但核心很简单。"
+          "encouragement": "你抓住了被动语态的核心，真细心！"
         },
-        "analysis": "### 【主干结构】\n主语是 The first meteorite。谓语是 was found（被动语态）。地点状语是 in the village of Pueblito de Allende。\n\n### 【主谓一致】\n主语 meteorite 是单数，谓语 was 是单数形式，一致。\n\n### 【动词时态与原形】\n一般过去时的被动语态。\n\n### 【从句剖析】\n无从句。",
+        "analysis": "### 【主干结构】\n主语：The first meteorite。谓语：was found（被动语态）。地点状语：in the village of Pueblito de Allende。\n\n### 【主谓一致】\n主语 meteorite 为单数，谓语动词使用单数形式 was。\n\n### 【动词时态与原形】\n一般过去时的被动语态 was found。\n\n### 【从句剖析】\n无从句。from this fall 是介词短语作后置定语，修饰 meteorite。",
         "segments": [
           {
-            "text": "The first meteorite ",
+            "text": "The first meteorite from this fall",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "from this fall ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "was found ",
+            "text": " was found",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "in the village of Pueblito de Allende.",
+            "text": " in the village of Pueblito de Allende.",
             "type": "adverbial",
             "label": "地点状语"
           }
@@ -247,64 +402,63 @@
         "id": "s3",
         "para": 1,
         "text": "Altogether, roughly two tons of meteorite fragments were recovered, all of which bear the name Allende for the location of the first discovery.",
-        "translation": "总共回收了大约两吨陨石碎片，所有这些碎片都以阿连德命名，以纪念首次发现的地点。",
-        "grammarFocus": "非限制性定语从句；all of which 结构",
-        "pronounRef": "which 指代 meteorite fragments",
+        "translation": "总共回收了大约两吨陨石碎片，所有这些碎片都因首次发现的地点而命名为阿连德。",
+        "grammarFocus": "非限制性定语从句；介词+which结构。",
+        "pronounRef": "which 指代 meteorite fragments。",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "注意 all of which 引导的从句，它补充说明这些碎片的命名原因。",
-          "keyHint": "which 指代前面的碎片，bear the name 是命名。"
+          "summary": "前半句说回收了多少，后半句解释为什么叫阿连德陨石。",
+          "keyHint": "注意 all of which 引导的从句，它补充说明了碎片的命名原因。"
         },
         "teachingFocus": {
-          "mainQuestion": "回收了什么？两吨碎片。它们叫什么名字？阿连德。",
-          "grammarQuestion": "all of which 引导了一个从句，which 代替前面的 fragments，bear 是动词。",
-          "modifierQuestion": "‘for the location...’ 解释了为什么叫阿连德。",
-          "relationshipQuestion": "前半句说回收了碎片，后半句解释这些碎片的命名由来。",
-          "commonMistake": "which 指代的是 fragments（复数），所以动词用 bear（复数形式），而不是 bears。",
+          "mainQuestion": "回收了多少碎片？为什么它们叫阿连德？",
+          "grammarQuestion": "all of which 引导了一个非限制性定语从句，which 指代前面的 fragments，意思是‘这些碎片中的每一个’。",
+          "modifierQuestion": "for the location... 解释了 bear the name 的原因，就像给名字贴上了说明书。",
+          "relationshipQuestion": "主句讲回收事实，从句讲命名由来，两者紧密相连。",
+          "commonMistake": "容易把 all of which 当成两个独立的句子，其实它是一个从句，修饰前面的 fragments。",
           "thinkingPath": [
             "找到主句 were recovered",
             "识别 all of which 引导的从句",
-            "确定 which 指代 fragments",
-            "理解 bear the name 的含义"
+            "理解 which 指代 fragments"
           ],
-          "encouragement": "你抓住了 which 指代的关键，这有助于理解整个句子的逻辑。"
+          "encouragement": "你成功拆解了复杂的从句结构，太厉害了！"
         },
-        "analysis": "### 【主干结构】\n主句：roughly two tons of meteorite fragments were recovered。\n从句：all of which bear the name Allende...，这是一个非限制性定语从句，修饰 fragments。\n\n### 【主谓一致】\n主句主语 fragments 是复数，谓语 were 是复数。\n从句中 which 指代 fragments，视为复数，谓语 bear 用复数形式。\n\n### 【动词时态与原形】\n主句用一般过去时被动语态；从句用一般现在时，表示客观事实或命名状态。\n\n### 【从句剖析】\nall of which 引导非限制性定语从句，which 在从句中作主语。",
+        "analysis": "### 【主干结构】\n主句：roughly two tons of meteorite fragments were recovered。从句：all of which bear the name Allende...。\n\n### 【主谓一致】\n主句主语 fragments 为复数，谓语 were recovered 用复数。从句中 which 指代 fragments，故谓语 bear 用复数。\n\n### 【动词时态与原形】\n主句：一般过去时被动语态 were recovered。从句：一般现在时 bear，表示客观事实或命名状态。\n\n### 【从句剖析】\nall of which bear... 是非限制性定语从句，修饰 meteorite fragments。which 在从句中作主语。",
         "segments": [
           {
-            "text": "Altogether, ",
+            "text": "Altogether,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "roughly two tons of meteorite fragments ",
+            "text": " roughly two tons of meteorite fragments",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "were recovered, ",
+            "text": " were recovered,",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "all of which ",
+            "text": " all of which",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "bear ",
+            "text": " bear",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "the name Allende ",
+            "text": " the name Allende",
             "type": "clause-object",
             "label": "从句宾语"
           },
           {
-            "text": "for the location of the first discovery.",
+            "text": " for the location of the first discovery.",
             "type": "adverbial",
-            "label": "状语"
+            "label": "原因状语"
           }
         ]
       },
@@ -312,89 +466,83 @@
         "id": "s4",
         "para": 2,
         "text": "Individual specimens of Allende are covered with a black, glassy crust that formed when their exteriors melted as they were slowed by Earth's atmosphere.",
-        "translation": "阿连德陨石的单个标本覆盖着一层黑色、玻璃状的地壳，这层地壳是在它们的外部在地球大气层中减速时熔化形成的。",
-        "grammarFocus": "定语从句嵌套时间状语从句和原因/时间状语从句",
-        "pronounRef": "their 指代 specimens; they 指代 exteriors 或 specimens",
+        "translation": "阿连德陨石的单个标本覆盖着一层黑色玻璃状外壳，这层外壳是在它们穿过地球大气层减速时，外部熔化形成的。",
+        "grammarFocus": "定语从句嵌套时间状语从句和原因/时间状语从句。",
+        "pronounRef": "their 指代 specimens；they 指代 specimens。",
         "logicConnector": "that, when, as",
         "sentenceCoach": {
-          "summary": "这是一个多层嵌套的句子，像俄罗斯套娃，一层层剥开。",
-          "keyHint": "先找 crust，再看 that 引导的从句，最后看 when 和 as。"
+          "summary": "这句话描述了陨石外壳的形成过程，像剥洋葱一样层层深入。",
+          "keyHint": "注意 that 引导的定语从句修饰 crust，里面还套着 when 和 as 引导的从句。"
         },
         "teachingFocus": {
-          "mainQuestion": "标本被什么覆盖？被一层黑色地壳覆盖。",
-          "grammarQuestion": "that formed... 是修饰 crust 的定语从句。when... 是修饰 formed 的时间状语。as... 是修饰 melted 的时间/原因状语。",
-          "modifierQuestion": "‘black, glassy’ 形容 crust 的样子。",
-          "relationshipQuestion": "地壳形成于外部熔化时，而外部熔化是因为大气层减速。",
-          "commonMistake": "容易混淆 when 和 as 修饰的对象。when 修饰 formed（地壳形成的时间），as 修饰 melted（外部熔化的过程）。",
+          "mainQuestion": "陨石标本是什么样子的？外壳是怎么形成的？",
+          "grammarQuestion": "that formed... 是定语从句，修饰 crust。when 和 as 引导的从句解释了形成的时间和条件。",
+          "modifierQuestion": "black, glassy 是形容词，修饰 crust。when... 和 as... 是状语，修饰 formed。",
+          "relationshipQuestion": "主句讲外观，从句讲成因，层层递进。",
+          "commonMistake": "容易混淆 when 和 as 的引导对象，它们都修饰 formed，描述形成过程。",
           "thinkingPath": [
-            "找到主干 specimens are covered",
-            "找到 that 引导的定语从句修饰 crust",
-            "在从句中找到 when 引导的时间状语",
-            "在时间状语中找到 as 引导的状语"
+            "找到主句 are covered with crust",
+            "识别 that 引导的定语从句",
+            "理清 when 和 as 引导的状语从句"
           ],
-          "encouragement": "你像侦探一样层层剥开了这个句子，真厉害！"
+          "encouragement": "你像侦探一样层层剥开了句子的秘密，真棒！"
         },
-        "analysis": "### 【主干结构】\n主语：Individual specimens of Allende。\n谓语：are covered with。\n宾语/介词宾语：a black, glassy crust。\n\n### 【主谓一致】\n主语 specimens 是复数，谓语 are 是复数。\n\n### 【动词时态与原形】\n主句用一般现在时被动语态；从句用一般过去时，描述过去形成的过程。\n\n### 【从句剖析】\n1. that formed...：定语从句，修饰 crust。\n2. when their exteriors melted...：时间状语从句，修饰 formed。\n3. as they were slowed...：时间/原因状语从句，修饰 melted。",
+        "analysis": "### 【主干结构】\n主句：Individual specimens of Allende are covered with a black, glassy crust。定语从句：that formed... 修饰 crust。\n\n### 【主谓一致】\n主句主语 specimens 为复数，谓语 are covered 用复数。从句主语 that 指代 crust（单数），谓语 formed 用单数。\n\n### 【动词时态与原形】\n主句：一般现在时被动语态 are covered。从句：一般过去时 formed, melted, were slowed。\n\n### 【从句剖析】\n1. that formed...：定语从句，修饰 crust。\n2. when their exteriors melted：时间状语从句，修饰 formed。\n3. as they were slowed by Earth's atmosphere：时间/原因状语从句，修饰 melted。",
         "segments": [
           {
-            "text": "Individual specimens of Allende ",
+            "text": "Individual specimens of Allende",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are covered with ",
+            "text": " are covered with",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "a black, glassy crust ",
+            "text": " a black, glassy crust",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "that ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "formed ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "when ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "their exteriors ",
+            "text": " that",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "melted ",
+            "text": " formed",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "as ",
+            "text": " when",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "they ",
+            "text": " their exteriors",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "were slowed ",
+            "text": " melted",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "by Earth's atmosphere.",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " as",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " they",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " were slowed by Earth's atmosphere.",
+            "type": "clause-verb",
+            "label": "从句谓语"
           }
         ]
       },
@@ -402,97 +550,92 @@
         "id": "s5",
         "para": 2,
         "text": "When broken open, Allende stones are revealed to contain an assortment of small, distinctive objects, spherical or irregular in shape and embedded in a dark gray matrix (binding material), which were once constituents of the solar nebula—the interstellar cloud of gas and dust out of which our solar system was formed.",
-        "translation": "当被打破时，阿连德陨石被发现含有各种各样小而独特的物体，它们在形状上是球形或不规则的，并嵌入在深灰色的基质（结合材料）中，这些物体曾经是太阳星云的组成部分——即形成我们太阳系的星际气体和尘埃云。",
-        "grammarFocus": "过去分词作状语；非限制性定语从句；破折号解释说明",
-        "pronounRef": "which 指代 objects",
-        "logicConnector": "When, out of which",
+        "translation": "当被打破时，阿连德陨石被发现含有各种各样小而独特的物体，它们形状呈球形或不规则，嵌入在深灰色的基质（结合材料）中，这些物体曾是太阳星云的组成部分——即形成我们太阳系的星际气体和尘埃云。",
+        "grammarFocus": "过去分词作状语；非限制性定语从句；同位语；介词+which定语从句。",
+        "pronounRef": "which 指代 objects。",
+        "logicConnector": "When, and, which, out of which",
         "sentenceCoach": {
-          "summary": "句子很长，注意破折号后面的解释，以及 which 指代的内容。",
-          "keyHint": "When broken open 是状语，which 指代 objects。"
+          "summary": "这句话描述了打开陨石后看到的内部结构，信息量很大，需要分层阅读。",
+          "keyHint": "注意 which 指代 objects，而破折号后面的内容是 solar nebula 的同位语。"
         },
         "teachingFocus": {
-          "mainQuestion": "石头里有什么？有小而独特的物体。",
-          "grammarQuestion": "When broken open 是省略的时间状语。which 引导定语从句修饰 objects。破折号解释 solar nebula。",
-          "modifierQuestion": "spherical or irregular... 和 embedded... 都是修饰 objects 的。",
-          "relationshipQuestion": "物体嵌入基质中，它们曾是星云的一部分，星云形成了太阳系。",
-          "commonMistake": "which 指代的是 objects（复数），所以谓语用 were。不要误以为指代 matrix。",
+          "mainQuestion": "打开陨石后看到了什么？这些物体来自哪里？",
+          "grammarQuestion": "When broken open 是省略的时间状语。which 引导非限制性定语从句修饰 objects。破折号后是 solar nebula 的同位语。",
+          "modifierQuestion": "spherical or irregular... 和 embedded... 是形容词短语和过去分词短语，修饰 objects。",
+          "relationshipQuestion": "主句讲包含什么，从句讲这些物体的来源，同位语解释来源是什么。",
+          "commonMistake": "容易把 which 指代对象搞错，它指代的是 objects，而不是 matrix 或 nebula。",
           "thinkingPath": [
-            "找到主干 stones are revealed to contain objects",
-            "识别 When broken open 为状语",
-            "识别 which 引导的定语从句修饰 objects",
-            "理解破折号后的同位语解释"
+            "识别 When broken open 状语",
+            "找到主句 contain objects",
+            "理清 which 引导的定语从句",
+            "理解破折号后的同位语"
           ],
-          "encouragement": "你成功识别了 which 的指代对象，这是理解长难句的关键！"
+          "encouragement": "你成功梳理了复杂的修饰关系，像拼图高手一样！"
         },
-        "analysis": "### 【主干结构】\n状语：When broken open。\n主语：Allende stones。\n谓语：are revealed to contain。\n宾语：an assortment of small, distinctive objects。\n\n### 【主谓一致】\n主语 stones 是复数，谓语 are 是复数。\n\n### 【动词时态与原形】\n主句用一般现在时被动语态；从句用一般过去时。\n\n### 【从句剖析】\n1. When broken open：省略的时间状语从句，完整形式为 When they are broken open。\n2. which were once constituents...：非限制性定语从句，修饰 objects。\n3. out of which our solar system was formed：定语从句，修饰 solar nebula。",
+        "analysis": "### 【主干结构】\n状语：When broken open。主句：Allende stones are revealed to contain an assortment of small, distinctive objects。定语从句：which were once constituents... 修饰 objects。同位语：the interstellar cloud... 解释 solar nebula。\n\n### 【主谓一致】\n主句主语 stones 为复数，谓语 are revealed 用复数。从句主语 which 指代 objects（复数），谓语 were 用复数。\n\n### 【动词时态与原形】\n主句：一般现在时被动语态 are revealed。从句：一般过去时 were。同位语中：was formed 一般过去时被动语态。\n\n### 【从句剖析】\n1. When broken open：省略的时间状语从句，完整形式为 When they are broken open。\n2. which were once constituents...：非限制性定语从句，修饰 objects。\n3. out of which our solar system was formed：限制性定语从句，修饰 cloud。",
         "segments": [
           {
-            "text": "When broken open, ",
+            "text": "When broken open,",
             "type": "adverbial",
-            "label": "状语"
+            "label": "时间状语"
           },
           {
-            "text": "Allende stones ",
+            "text": " Allende stones",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are revealed to contain ",
+            "text": " are revealed to contain",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "an assortment of small, distinctive objects, ",
+            "text": " an assortment of small, distinctive objects,",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "spherical or irregular in shape ",
+            "text": " spherical or irregular in shape",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "embedded in a dark gray matrix (binding material), ",
+            "text": " embedded in a dark gray matrix (binding material),",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "which ",
+            "text": " which",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "were once constituents ",
+            "text": " were once constituents of the solar nebula",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "of the solar nebula—",
-            "type": "clause-object",
-            "label": "从句宾语"
-          },
-          {
-            "text": "the interstellar cloud of gas and dust ",
+            "text": "—the interstellar cloud of gas and dust",
             "type": "modifier",
             "label": "同位语"
           },
           {
-            "text": "out of which ",
+            "text": " out of which",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "our solar system ",
+            "text": " our solar system",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "was formed.",
+            "text": " was formed.",
             "type": "clause-verb",
             "label": "从句谓语"
           }
@@ -503,107 +646,101 @@
         "para": 3,
         "text": "The Allende meteorite is classified as a chondrite.",
         "translation": "阿连德陨石被归类为球粒陨石。",
-        "grammarFocus": "被动语态；介词短语",
+        "grammarFocus": "被动语态；介词短语作补语。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "简单的被动句，介绍陨石的分类。",
-          "keyHint": "is classified as 表示被归类为。"
+          "summary": "这句话简单直接，给出了陨石的分类。",
+          "keyHint": "注意 is classified as 是被动语态，表示分类结果。"
         },
         "teachingFocus": {
-          "mainQuestion": "阿连德陨石是什么类型的？它是球粒陨石。",
-          "grammarQuestion": "is classified as 是被动语态，表示分类。",
-          "modifierQuestion": "无复杂修饰。",
-          "relationshipQuestion": "句子直接给出分类信息。",
-          "commonMistake": "不要漏掉 as，classified as 是固定搭配。",
+          "mainQuestion": "阿连德陨石属于哪一类？",
+          "grammarQuestion": "is classified as 是被动语态，表示被归类为...。",
+          "modifierQuestion": "as a chondrite 是介词短语，作主语补足语，说明分类结果。",
+          "relationshipQuestion": "主语是 meteorite，动作是 classified，结果是 chondrite。",
+          "commonMistake": "容易忽略 as 的作用，它引出了分类的具体名称。",
           "thinkingPath": [
             "找到主语 meteorite",
-            "找到谓语 is classified",
-            "找到介词 as 引出分类"
+            "识别被动语态 is classified as",
+            "理解 chondrite 是分类名称"
           ],
-          "encouragement": "简单明了，你掌握得很好！"
+          "encouragement": "你一眼就看穿了句子的核心，真快！"
         },
-        "analysis": "### 【主干结构】\n主语：The Allende meteorite。\n谓语：is classified。\n状语/补语：as a chondrite。\n\n### 【主谓一致】\n主语单数，谓语 is 单数。\n\n### 【动词时态与原形】\n一般现在时被动语态。\n\n### 【从句剖析】\n无从句。",
+        "analysis": "### 【主干结构】\n主语：The Allende meteorite。谓语：is classified as。宾语/补语：a chondrite。\n\n### 【主谓一致】\n主语 meteorite 为单数，谓语 is 用单数。\n\n### 【动词时态与原形】\n一般现在时被动语态 is classified。\n\n### 【从句剖析】\n无从句。",
         "segments": [
           {
-            "text": "The Allende meteorite ",
+            "text": "The Allende meteorite",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is classified ",
+            "text": " is classified as",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "as a chondrite.",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " a chondrite.",
+            "type": "object-complement",
+            "label": "宾语补足语"
           }
         ]
       },
       {
         "id": "s7",
         "para": 3,
-        "text": "Chondrites take their name from the Greek word chondros—meaning \"seed,\" an allusion to their appearance as rocks containing tiny seeds.",
-        "translation": "球粒陨石的名字来源于希腊语单词 chondros——意为“种子”，这是对其外观像含有微小种子的岩石的暗示。",
-        "grammarFocus": "破折号解释说明；现在分词作定语",
-        "pronounRef": "their 指代 Chondrites",
+        "text": "Chondrites take their name from the Greek word chondros—meaning \"seed\"—an allusion to their appearance as rocks containing tiny seeds.",
+        "translation": "球粒陨石的名字来源于希腊语单词 chondros——意为“种子”——这是对它们看起来像含有微小种子的岩石的暗示。",
+        "grammarFocus": "破折号插入语；同位语；现在分词作定语。",
+        "pronounRef": "their 指代 Chondrites。",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "注意破折号后的解释，以及 meaning 和 an allusion 的作用。",
-          "keyHint": "take their name from 表示得名于。"
+          "summary": "这句话解释了 chondrites 名字的来源和含义。",
+          "keyHint": "注意破折号中间的内容是对 chondros 的解释，后面是 an allusion 的同位语或补充说明。"
         },
         "teachingFocus": {
-          "mainQuestion": "球粒陨石为什么叫这个名字？因为希腊语中 chondros 意思是种子。",
-          "grammarQuestion": "meaning... 和 an allusion... 都是对 chondros 的解释。",
-          "modifierQuestion": "containing tiny seeds 修饰 rocks。",
-          "relationshipQuestion": "名字来源 -> 单词含义 -> 外观暗示。",
-          "commonMistake": "an allusion 是名词，不是动词，它是对前面内容的进一步说明。",
+          "mainQuestion": "Chondrites 这个名字是怎么来的？",
+          "grammarQuestion": "take their name from... 是固定搭配，表示名字来源于...。破折号中间是插入语，解释 chondros 的意思。",
+          "modifierQuestion": "containing tiny seeds 是现在分词短语，修饰 rocks。",
+          "relationshipQuestion": "主句讲名字来源，插入语解释词义，后半部分解释命名的原因。",
+          "commonMistake": "容易把破折号后的内容当成独立的句子，其实它是补充说明。",
           "thinkingPath": [
-            "找到主干 Chondrites take their name",
-            "理解 from the Greek word chondros",
-            "识别破折号后的解释内容",
-            "理解 containing tiny seeds 修饰 rocks"
+            "找到主句 take their name from",
+            "识别破折号中的插入语",
+            "理解 an allusion 的指代关系"
           ],
-          "encouragement": "你理解了词源的解释，这有助于记忆单词！"
+          "encouragement": "你成功解读了破折号的秘密，真聪明！"
         },
-        "analysis": "### 【主干结构】\n主语：Chondrites。\n谓语：take。\n宾语：their name。\n状语：from the Greek word chondros。\n\n### 【主谓一致】\n主语 Chondrites 是复数，谓语 take 是复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。meaning... 和 an allusion... 是名词短语作同位语或补充说明。",
+        "analysis": "### 【主干结构】\n主语：Chondrites。谓语：take。宾语：their name。状语：from the Greek word chondros。插入语：—meaning \"seed\"—。同位语/补充说明：an allusion to their appearance...\n\n### 【主谓一致】\n主语 Chondrites 为复数，谓语 take 用复数。\n\n### 【动词时态与原形】\n一般现在时 take。\n\n### 【从句剖析】\n无从句。containing tiny seeds 是现在分词短语作后置定语，修饰 rocks。",
         "segments": [
           {
-            "text": "Chondrites ",
+            "text": "Chondrites",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "take ",
+            "text": " take",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "their name ",
+            "text": " their name",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "from the Greek word chondros—",
+            "text": " from the Greek word chondros",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "meaning \"seed,\" ",
-            "type": "modifier",
-            "label": "补充说明"
-          },
-          {
-            "text": "an allusion to their appearance as rocks ",
+            "text": "—meaning \"seed\"—",
             "type": "modifier",
             "label": "同位语"
           },
           {
-            "text": "containing tiny seeds.",
+            "text": "an allusion to their appearance as rocks containing tiny seeds.",
             "type": "modifier",
-            "label": "定语"
+            "label": "同位语"
           }
         ]
       },
@@ -611,69 +748,63 @@
         "id": "s8",
         "para": 3,
         "text": "These seeds are actually chondrules: millimeter-sized melted droplets of silicate material that were cooled into spheres of glass and crystal.",
-        "translation": "这些种子实际上是球粒：毫米大小的硅酸盐材料熔化液滴，被冷却成玻璃和晶体的球体。",
-        "grammarFocus": "冒号解释说明；定语从句",
-        "pronounRef": "that 指代 droplets",
+        "translation": "这些种子实际上是球粒：毫米大小的硅酸盐材料熔融液滴，被冷却成玻璃和晶体的球体。",
+        "grammarFocus": "冒号解释说明；定语从句。",
+        "pronounRef": "These seeds 指代上一句提到的 tiny seeds。",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "冒号后面是对 chondrules 的详细解释。",
-          "keyHint": "that 引导的从句修饰 droplets。"
+          "summary": "这句话解释了 seeds 到底是什么，冒号后面是详细解释。",
+          "keyHint": "注意冒号后面的内容是 chondrules 的同位语，进一步解释其构成。"
         },
         "teachingFocus": {
-          "mainQuestion": "这些种子是什么？是球粒。",
-          "grammarQuestion": "that were cooled... 是定语从句，修饰 droplets。",
-          "modifierQuestion": "millimeter-sized... 形容 droplets。",
-          "relationshipQuestion": "种子 = 球粒 = 冷却后的液滴。",
-          "commonMistake": "that 指代 droplets，所以谓语用 were。",
+          "mainQuestion": "Seeds 实际上是什么？",
+          "grammarQuestion": "冒号后面是 chondrules 的同位语，详细解释其性质。that were cooled... 是定语从句，修饰 droplets。",
+          "modifierQuestion": "millimeter-sized melted droplets... 是名词短语，作同位语。that... 是定语从句，修饰 droplets。",
+          "relationshipQuestion": "主句讲 seeds 是 chondrules，冒号后解释 chondrules 是什么。",
+          "commonMistake": "容易忽略冒号的解释作用，将其误认为两个独立句子。",
           "thinkingPath": [
-            "找到主干 seeds are chondrules",
-            "理解冒号后的解释",
-            "识别 that 引导的定语从句",
-            "确定 that 指代 droplets"
+            "找到主句 seeds are chondrules",
+            "识别冒号后的同位语",
+            "理清 that 引导的定语从句"
           ],
-          "encouragement": "你成功理解了冒号的解释功能，很棒！"
+          "encouragement": "你成功理解了冒号的解释功能，真棒！"
         },
-        "analysis": "### 【主干结构】\n主语：These seeds。\n谓语：are。\n表语：actually chondrules。\n\n### 【主谓一致】\n主语 seeds 是复数，谓语 are 是复数。\n\n### 【动词时态与原形】\n主句用一般现在时；从句用一般过去时被动语态。\n\n### 【从句剖析】\nthat were cooled...：定语从句，修饰 droplets。",
+        "analysis": "### 【主干结构】\n主语：These seeds。谓语：are。表语：actually chondrules。同位语：millimeter-sized melted droplets...。定语从句：that were cooled... 修饰 droplets。\n\n### 【主谓一致】\n主语 seeds 为复数，谓语 are 用复数。从句主语 that 指代 droplets（复数），谓语 were 用复数。\n\n### 【动词时态与原形】\n主句：一般现在时 are。从句：一般过去时被动语态 were cooled。\n\n### 【从句剖析】\nthat were cooled into spheres of glass and crystal：定语从句，修饰 droplets。",
         "segments": [
           {
-            "text": "These seeds ",
+            "text": "These seeds",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are ",
+            "text": " are actually",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "actually chondrules: ",
+            "text": " chondrules",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "millimeter-sized melted droplets ",
+            "text": ":",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": " millimeter-sized melted droplets of silicate material",
             "type": "modifier",
             "label": "同位语"
           },
           {
-            "text": "of silicate material ",
-            "type": "modifier",
-            "label": "定语"
+            "text": " that",
+            "type": "clause-subject",
+            "label": "从句主语"
           },
           {
-            "text": "that ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "were cooled ",
+            "text": " were cooled into spheres of glass and crystal.",
             "type": "clause-verb",
             "label": "从句谓语"
-          },
-          {
-            "text": "into spheres of glass and crystal.",
-            "type": "adverbial",
-            "label": "状语"
           }
         ]
       },
@@ -681,119 +812,108 @@
         "id": "s9",
         "para": 3,
         "text": "A few chondrules contain grains that survived the melting event, so these enigmatic chondrules must have formed when compact masses of nebular dust were fused at high temperatures—approaching 1,700 degrees Celsius—and then cooled before these surviving grains could melt.",
-        "translation": "少数球粒含有在熔化事件中幸存的颗粒，因此这些神秘的球粒必须是在星云尘埃的致密团块在高温（接近1700摄氏度）下融合然后冷却时形成的，而这些幸存的颗粒在此之前尚未熔化。",
-        "grammarFocus": "并列句；定语从句；时间状语从句",
-        "pronounRef": "that 指代 grains; these 指代 chondrules",
-        "logicConnector": "so, when, before",
+        "translation": "少数球粒含有在熔融事件中幸存下来的颗粒，因此这些神秘的球粒一定是在星云尘埃的致密团块于高温（接近1700摄氏度）下融合，并在这些幸存颗粒熔化之前冷却时形成的。",
+        "grammarFocus": "so 引导的结果状语从句；when 引导的时间状语从句；before 引导的时间状语从句；分词短语作插入语。",
+        "pronounRef": "these enigmatic chondrules 指代前半句提到的 'A few chondrules'；these surviving grains 指代 'grains that survived the melting event'。",
+        "logicConnector": "so 表示因果关系，前半句是现象/证据，后半句是推论。",
         "sentenceCoach": {
-          "summary": "so 连接因果，when 和 before 引导时间状语。",
-          "keyHint": "so 后面是结论，when 和 before 描述过程。"
+          "summary": "这是一个长难句，像剥洋葱一样，先看主干‘球粒形成了’，再看‘什么时候形成的’。",
+          "keyHint": "注意破折号中间的内容是补充说明温度的，不要被它打断主句节奏。"
         },
         "teachingFocus": {
-          "mainQuestion": "为什么球粒是神秘的？因为它们形成时，里面的颗粒还没熔化。",
-          "grammarQuestion": "so 连接两个独立分句。that survived... 修饰 grains。when... 和 before... 是时间状语。",
-          "modifierQuestion": "enigmatic 形容 chondrules。",
-          "relationshipQuestion": "因为含有幸存颗粒，所以球粒形成过程很神秘。",
-          "commonMistake": "so 是并列连词，连接两个完整句子，不要误以为是副词。",
+          "mainQuestion": "我们要找谁做了什么？是‘球粒’形成了，对吧？",
+          "grammarQuestion": "看看‘so’后面，这是科学家根据证据得出的结论，用了‘must have formed’表示对过去的肯定推测。",
+          "modifierQuestion": "‘when’后面那一大段是在讲形成的具体时间场景，就像电影回放一样，先融合，再冷却。",
+          "relationshipQuestion": "前面的‘grains survived’是证据，后面的‘must have formed’是结论，它们通过‘so’紧紧连在一起。",
+          "commonMistake": "很多同学看到破折号就慌了，其实破折号里的‘approaching...’只是给‘high temperatures’加个注脚，读的时候稍微停顿一下就行。",
           "thinkingPath": [
-            "找到前半句 contain grains",
-            "识别 that 引导的定语从句",
-            "找到 so 连接的后半句",
-            "识别 when 和 before 引导的时间状语"
+            "找到主句的主语和谓语：chondrules ... must have formed",
+            "识别连接词 so，知道后面是结论",
+            "拆解 when 引导的时间状语，理清‘融合’和‘冷却’的顺序"
           ],
-          "encouragement": "你理清了因果关系和时间顺序，非常清晰！"
+          "encouragement": "太棒了！你能理清这么长句子的时间顺序，逻辑感满分！"
         },
-        "analysis": "### 【主干结构】\n前半句：A few chondrules contain grains。\n后半句：these enigmatic chondrules must have formed。\n\n### 【主谓一致】\n前半句主语 chondrules 复数，谓语 contain 复数。\n后半句主语 chondrules 复数，谓语 must have formed。\n\n### 【动词时态与原形】\n前半句一般现在时；后半句情态动词+完成时，表示对过去的推测。\n\n### 【从句剖析】\n1. that survived...：定语从句，修饰 grains。\n2. when compact masses... were fused...：时间状语从句，修饰 formed。\n3. before these surviving grains could melt：时间状语从句，修饰 cooled。",
+        "analysis": "### 【主干结构】\n主句是 'these enigmatic chondrules must have formed'。前半句 'A few chondrules contain grains...' 是原因或背景。\n\n### 【主谓一致】\n'A few chondrules' 是复数，动词 'contain' 用原形；'these enigmatic chondrules' 是复数，情态动词 'must' 后接原形 'have formed'。\n\n### 【动词时态与原形】\n'contain' 是一般现在时，陈述事实；'must have formed' 是情态动词+完成式，表示对过去发生事情的肯定推测。\n\n### 【从句剖析】\n1. 'that survived the melting event' 是定语从句，修饰 'grains'。\n2. 'when compact masses... were fused... and then cooled...' 是时间状语从句，修饰 'formed'。\n3. 'before these surviving grains could melt' 是时间状语从句，修饰 'cooled'。\n\n### 【代词指代】\n'these enigmatic chondrules' 指代前文的 'A few chondrules'；'these surviving grains' 指代 'grains that survived...'。\n\n### 【非谓语动词】\n'approaching 1,700 degrees Celsius' 是现在分词短语，作插入语，补充说明 'high temperatures' 的具体数值。",
         "segments": [
           {
-            "text": "A few chondrules ",
-            "type": "subject",
-            "label": "主语"
+            "text": "A few chondrules",
+            "type": "subject"
           },
           {
-            "text": "contain ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " contain",
+            "type": "verb"
           },
           {
-            "text": "grains ",
-            "type": "object",
-            "label": "宾语"
+            "text": " grains",
+            "type": "object"
           },
           {
-            "text": "that ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": " that",
+            "type": "clause-subject"
           },
           {
-            "text": "survived ",
-            "type": "clause-verb",
-            "label": "从句谓语"
+            "text": " survived",
+            "type": "clause-verb"
           },
           {
-            "text": "the melting event, ",
-            "type": "clause-object",
-            "label": "从句宾语"
+            "text": " the melting event",
+            "type": "clause-object"
           },
           {
-            "text": "so ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": ", so",
+            "type": "conjunction"
           },
           {
-            "text": "these enigmatic chondrules ",
-            "type": "coord-subject",
-            "label": "并列主语"
+            "text": " these enigmatic chondrules",
+            "type": "coord-subject"
           },
           {
-            "text": "must have formed ",
-            "type": "coord-verb",
-            "label": "并列谓语"
+            "text": " must have formed",
+            "type": "coord-verb"
           },
           {
-            "text": "when ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": " when",
+            "type": "conjunction"
           },
           {
-            "text": "compact masses of nebular dust ",
-            "type": "clause-subject",
-            "label": "从句主语"
+            "text": " compact masses of nebular dust",
+            "type": "clause-subject"
           },
           {
-            "text": "were fused ",
-            "type": "clause-verb",
-            "label": "从句谓语"
+            "text": " were fused",
+            "type": "clause-verb"
           },
           {
-            "text": "at high temperatures—approaching 1,700 degrees Celsius—",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " at high temperatures",
+            "type": "adverbial"
           },
           {
-            "text": "and ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": "—approaching 1,700 degrees Celsius—",
+            "type": "modifier"
           },
           {
-            "text": "then cooled ",
-            "type": "clause-verb",
-            "label": "从句谓语"
+            "text": "and",
+            "type": "conjunction"
           },
           {
-            "text": "before ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": " then cooled",
+            "type": "clause-verb"
           },
           {
-            "text": "these surviving grains ",
-            "type": "clause-subject",
-            "label": "从句主语"
+            "text": " before",
+            "type": "conjunction"
           },
           {
-            "text": "could melt.",
-            "type": "clause-verb",
-            "label": "从句谓语"
+            "text": " these surviving grains",
+            "type": "clause-subject"
+          },
+          {
+            "text": " could melt",
+            "type": "clause-verb"
+          },
+          {
+            "text": ".",
+            "type": "modifier"
           }
         ]
       },
@@ -801,97 +921,96 @@
         "id": "s10",
         "para": 3,
         "text": "Study of the textures of chondrules confirms that they cooled rather quickly, in times measured in minutes or hours, so the heating events that formed them must have been localized.",
-        "translation": "对球粒纹理的研究证实，它们冷却得相当快，时间以分钟或小时计，因此形成它们的热事件必须是局部的。",
-        "grammarFocus": "宾语从句；过去分词作定语；并列句",
-        "pronounRef": "that 指代 study confirms 的内容; they 指代 chondrules",
-        "logicConnector": "so",
+        "translation": "对球粒纹理的研究证实，它们冷却得相当快，耗时以分钟或小时计，因此形成它们的热事件一定是局部的。",
+        "grammarFocus": "that 引导的宾语从句；过去分词短语作后置定语；so 引导的结果状语从句；that 引导的定语从句。",
+        "pronounRef": "they 指代 'chondrules'；them 指代 'chondrules'。",
+        "logicConnector": "so 表示因果关系，前文是研究证据，后文是推论。",
         "sentenceCoach": {
-          "summary": "that 引导宾语从句，so 连接结果。",
-          "keyHint": "confirms that... 是研究证实的内容。"
+          "summary": "这句话有两个部分，中间用 so 连接。前半部分讲‘冷却快’，后半部分讲‘热源局部’。",
+          "keyHint": "注意 'in times measured in...' 是插入的补充信息，解释‘quickly’有多快。"
         },
         "teachingFocus": {
-          "mainQuestion": "研究证实了什么？球粒冷却很快。",
-          "grammarQuestion": "that 引导宾语从句。in times measured... 是状语。so 连接结果。",
-          "modifierQuestion": "that formed them 修饰 heating events。",
-          "relationshipQuestion": "因为冷却快，所以热事件是局部的。",
-          "commonMistake": "that 引导的是宾语从句，不是定语从句，因为它在 confirms 后面作宾语。",
+          "mainQuestion": "谁证实了什么？是‘研究’证实了‘它们冷却得快’。",
+          "grammarQuestion": "看看 'measured in minutes or hours'，这是过去分词做形容词，修饰 'times'，意思是‘被计算为...的时间’。",
+          "modifierQuestion": "'that formed them' 是个小尾巴，紧紧跟在 'heating events' 后面，告诉我们是哪些热事件。",
+          "relationshipQuestion": "因为冷却快（证据），所以热源一定是局部的（结论），这就是 so 的逻辑。",
+          "commonMistake": "容易把 'in times measured in...' 当成主要动作，其实它只是修饰 'quickly' 的具体细节。",
           "thinkingPath": [
-            "找到主干 Study confirms",
-            "识别 that 引导的宾语从句",
-            "理解 in times measured... 是补充说明",
-            "识别 so 连接的结果分句"
+            "找到主句主语 'Study' 和谓语 'confirms'",
+            "识别 that 引导的宾语从句内容",
+            "分析 so 后面的结论部分，找到 'heating events' 和 'localized'"
           ],
-          "encouragement": "你成功区分了宾语从句和定语从句，真棒！"
+          "encouragement": "你抓住了‘研究证实’这个核心，非常棒！继续加油！"
         },
-        "analysis": "### 【主干结构】\n主语：Study of the textures of chondrules。\n谓语：confirms。\n宾语：that they cooled rather quickly...\n\n### 【主谓一致】\n主语 Study 单数，谓语 confirms 单数。\n\n### 【动词时态与原形】\n主句一般现在时；从句一般过去时。\n\n### 【从句剖析】\n1. that they cooled...：宾语从句，作 confirms 的宾语。\n2. that formed them：定语从句，修饰 heating events。",
+        "analysis": "### 【主干结构】\n主句是 'Study ... confirms that ...'。that 后面是宾语从句。so 后面是另一个并列的结果分句。\n\n### 【主谓一致】\n'Study' 是单数，动词 'confirms' 用第三人称单数；'they' 指代复数 chondrules，动词 'cooled' 用过去式；'heating events' 是复数，情态动词 'must' 后接原形。\n\n### 【动词时态与原形】\n'confirms' 是一般现在时；'cooled' 是一般过去时；'must have been' 是情态动词+完成式，表示对过去的推测。\n\n### 【从句剖析】\n1. 'that they cooled rather quickly...' 是宾语从句，作 confirms 的宾语。\n2. 'that formed them' 是定语从句，修饰 'heating events'。\n\n### 【代词指代】\n'they' 和 'them' 均指代 'chondrules'。\n\n### 【非谓语动词】\n'measured in minutes or hours' 是过去分词短语，作后置定语，修饰 'times'。",
         "segments": [
           {
-            "text": "Study of the textures of chondrules ",
+            "text": "Study of the textures of chondrules",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "confirms ",
+            "text": " confirms",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "that ",
+            "text": " that",
             "type": "conjunction",
-            "label": "连接词"
+            "label": "宾语从句引导词"
           },
           {
-            "text": "they ",
+            "text": " they",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "cooled ",
+            "text": " cooled",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "rather quickly, ",
+            "text": " rather quickly,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "in times measured in minutes or hours, ",
+            "text": " in times measured in minutes or hours,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "so ",
+            "text": " so",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "the heating events ",
-            "type": "coord-subject",
-            "label": "并列主语"
+            "text": " the heating events",
+            "type": "subject",
+            "label": "主语"
           },
           {
-            "text": "that ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": " that",
+            "type": "clause-subject",
+            "label": "定语从句主语引导词"
           },
           {
-            "text": "formed ",
+            "text": " formed",
             "type": "clause-verb",
-            "label": "从句谓语"
+            "label": "定语从句谓语"
           },
           {
-            "text": "them ",
+            "text": " them",
             "type": "clause-object",
-            "label": "从句宾语"
+            "label": "定语从句宾语"
           },
           {
-            "text": "must have been ",
-            "type": "coord-verb",
-            "label": "并列谓语"
+            "text": " must have been",
+            "type": "verb",
+            "label": "谓语"
           },
           {
-            "text": "localized.",
+            "text": " localized.",
             "type": "predicative",
             "label": "表语"
           }
@@ -901,87 +1020,86 @@
         "id": "s11",
         "para": 3,
         "text": "It seems very unlikely that large portions of the nebula were heated to such extreme temperatures, and huge nebula areas could not possibly have lost heat so fast.",
-        "translation": "星云的大部分被加热到如此极端的温度似乎非常不可能，而且巨大的星云区域不可能这么快失去热量。",
-        "grammarFocus": "形式主语 it；并列句",
-        "pronounRef": "无",
-        "logicConnector": "and",
+        "translation": "星云的大部分区域被加热到如此极端的温度似乎非常不可能，而且巨大的星云区域也不可能如此快速地散热。",
+        "grammarFocus": "It 作形式主语，that 引导真正的主语从句；and 连接两个并列分句；could not possibly have done 表示对过去的否定推测。",
+        "pronounRef": "无显著代词指代，nebula 重复出现以强调范围。",
+        "logicConnector": "and 表示并列，补充说明另一个不可能的情况。",
         "sentenceCoach": {
-          "summary": "It 是形式主语，真正的主语是 that 从句。",
-          "keyHint": "It seems unlikely that... 是常见句型。"
+          "summary": "这句话用了 It seems... 的句型，It 是假主语，真正的主语在后面。",
+          "keyHint": "注意 could not possibly have lost，这是‘不可能已经...’的意思，表示强烈的否定推测。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么似乎不可能？星云大部分被加热到极端温度。",
-          "grammarQuestion": "It 是形式主语，that 从句是真正主语。and 连接两个并列分句。",
-          "modifierQuestion": "very unlikely 修饰整个 that 从句的情况。",
-          "relationshipQuestion": "两个分句并列，说明星云加热和冷却的特点。",
-          "commonMistake": "不要误以为 It 指代某个具体事物，它是形式主语。",
+          "mainQuestion": "什么似乎不可能？是‘星云大部分被加热’这件事不可能。",
+          "grammarQuestion": "看看 'It seems unlikely that...'，这是英语中很常见的‘形式主语’结构，把长长的主语从句放到后面去。",
+          "modifierQuestion": "'so fast' 修饰 'lost heat'，表示散热的速度。",
+          "relationshipQuestion": "两个分句由 and 连接，都在说‘不可能’：一个是不可能加热到那么高，一个是不可能散热那么快。",
+          "commonMistake": "容易把 It 当成‘它’，其实 It 在这里没有实际意义，只是占位符。",
           "thinkingPath": [
-            "找到 It seems unlikely",
-            "识别 that 引导的真正主语从句",
-            "识别 and 连接的第二个分句",
-            "理解 could not possibly have lost 的含义"
+            "识别 It 为形式主语，找到 that 引导的真正主语从句",
+            "分析 and 连接的第二个分句，注意 could not possibly have lost",
+            "理解两个分句都在论证‘大规模加热/冷却’的不可能性"
           ],
-          "encouragement": "你掌握了形式主语的用法，这有助于理解长句！"
+          "encouragement": "你成功识别了形式主语 It，这步很难，但你做到了！"
         },
-        "analysis": "### 【主干结构】\n分句1：It seems very unlikely that large portions...。\n分句2：huge nebula areas could not possibly have lost heat so fast。\n\n### 【主谓一致】\n分句1谓语 seems 单数；分句2主语 areas 复数，谓语 could have lost。\n\n### 【动词时态与原形】\n分句1一般现在时；分句2情态动词+完成时。\n\n### 【从句剖析】\nthat large portions...：主语从句，作 It 的真正主语。",
+        "analysis": "### 【主干结构】\n第一个分句：It (形式主语) seems (系动词) unlikely (表语) that... (真正的主语从句)。\n第二个分句：huge nebula areas (主语) could not possibly have lost (谓语) heat (宾语) so fast (状语)。\n\n### 【主谓一致】\nIt 是单数，seems 用第三人称单数；areas 是复数，情态动词 could 后接原形。\n\n### 【动词时态与原形】\nseems 是一般现在时；were heated 是一般过去时的被动语态；could not possibly have lost 是情态动词+完成式，表示对过去的否定推测。\n\n### 【从句剖析】\n'that large portions of the nebula were heated to such extreme temperatures' 是主语从句，作 seems unlikely 的真正主语。\n\n### 【代词指代】\n无显著代词指代。\n\n### 【非谓语动词】\n无显著非谓语动词。",
         "segments": [
           {
-            "text": "It ",
+            "text": "It",
             "type": "subject",
-            "label": "主语"
+            "label": "形式主语"
           },
           {
-            "text": "seems ",
+            "text": " seems",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "very unlikely ",
+            "text": " very unlikely",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "that ",
+            "text": " that",
             "type": "conjunction",
-            "label": "连接词"
+            "label": "主语从句引导词"
           },
           {
-            "text": "large portions of the nebula ",
+            "text": " large portions of the nebula",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "were heated ",
+            "text": " were heated",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "to such extreme temperatures, ",
+            "text": " to such extreme temperatures,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "huge nebula areas ",
+            "text": " huge nebula areas",
             "type": "coord-subject",
             "label": "并列主语"
           },
           {
-            "text": "could not possibly have lost ",
+            "text": " could not possibly have lost",
             "type": "coord-verb",
             "label": "并列谓语"
           },
           {
-            "text": "heat ",
+            "text": " heat",
             "type": "coord-object",
             "label": "并列宾语"
           },
           {
-            "text": "so fast.",
+            "text": " so fast.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -991,69 +1109,58 @@
         "id": "s12",
         "para": 3,
         "text": "Chondrules must have been melted in small pockets of the nebula that were able to lose heat rapidly.",
-        "translation": "球粒必须在星云的小 pockets（区域）中被熔化，这些区域能够快速散热。",
-        "grammarFocus": "定语从句",
-        "pronounRef": "that 指代 pockets",
-        "logicConnector": "无",
+        "translation": "球粒一定是在星云中那些能够快速散热的小区域里被熔化的。",
+        "grammarFocus": "must have been done 表示对过去被动动作的肯定推测；that 引导的定语从句修饰 pockets。\n",
+        "pronounRef": "无显著代词指代。",
+        "logicConnector": "无显著逻辑连词，为陈述句。",
         "sentenceCoach": {
-          "summary": "that 引导定语从句修饰 pockets。",
-          "keyHint": "that 指代 pockets，谓语用 were。"
+          "summary": "这句话是结论，告诉我们球粒在哪里被熔化的。",
+          "keyHint": "注意 'that were able to...' 是修饰 'pockets' 的，说明这些口袋的特点。"
         },
         "teachingFocus": {
-          "mainQuestion": "球粒在哪里被熔化？在星云的小区域里。",
-          "grammarQuestion": "that were able to... 是定语从句，修饰 pockets。",
-          "modifierQuestion": "small 形容 pockets。",
-          "relationshipQuestion": "小区域能快速散热，所以球粒在那里熔化。",
-          "commonMistake": "that 指代 pockets，所以谓语用 were，不是 was。",
+          "mainQuestion": "球粒在哪里被熔化？在‘小区域’里。",
+          "grammarQuestion": "'must have been melted' 是被动语态的推测，表示‘一定被熔化’。",
+          "modifierQuestion": "'that were able to lose heat rapidly' 是个定语从句，专门修饰 'pockets'，告诉我们这些口袋能干嘛。",
+          "relationshipQuestion": "主句说‘在口袋里熔化’，从句解释‘口袋的特点’，两者紧密相连。",
+          "commonMistake": "容易把 that 引导的从句当成修饰 melted 的，其实它是修饰 pockets 的。",
           "thinkingPath": [
-            "找到主干 Chondrules must have been melted",
-            "识别 in small pockets of the nebula",
-            "识别 that 引导的定语从句",
-            "确定 that 指代 pockets"
+            "找到主句主干：Chondrules must have been melted",
+            "识别地点状语：in small pockets of the nebula",
+            "分析 that 引导的定语从句，确定其修饰对象是 pockets"
           ],
-          "encouragement": "你准确找到了定语从句的修饰对象，真棒！"
+          "encouragement": "你准确找到了定语从句的修饰对象，非常细心！"
         },
-        "analysis": "### 【主干结构】\n主语：Chondrules。\n谓语：must have been melted。\n状语：in small pockets of the nebula。\n\n### 【主谓一致】\n主语 Chondrules 复数，谓语 must have been melted。\n\n### 【动词时态与原形】\n情态动词+完成时被动语态。\n\n### 【从句剖析】\nthat were able to lose heat rapidly：定语从句，修饰 pockets。",
+        "analysis": "### 【主干结构】\n主句是 'Chondrules must have been melted in small pockets of the nebula'。\n\n### 【主谓一致】\n'Chondrules' 是复数，情态动词 must 后接原形；'pockets' 是复数，were able to 用复数形式。\n\n### 【动词时态与原形】\nmust have been melted 是情态动词+完成式的被动语态，表示对过去被动动作的肯定推测。\n\n### 【从句剖析】\n'that were able to lose heat rapidly' 是定语从句，修饰先行词 'pockets'。\n\n### 【代词指代】\n无显著代词指代。\n\n### 【非谓语动词】\n无显著非谓语动词。",
         "segments": [
           {
-            "text": "Chondrules ",
+            "text": "Chondrules",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "must have been melted ",
+            "text": " must have been melted",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "in small pockets ",
+            "text": " in small pockets of the nebula",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "of the nebula ",
-            "type": "modifier",
-            "label": "定语"
+            "text": " that",
+            "type": "clause-subject",
+            "label": "定语从句主语引导词"
           },
           {
-            "text": "that ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "were able to lose ",
+            "text": " were able to",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "heat ",
+            "text": " lose heat rapidly.",
             "type": "clause-object",
             "label": "从句宾语"
-          },
-          {
-            "text": "rapidly.",
-            "type": "adverbial",
-            "label": "状语"
           }
         ]
       },
@@ -1061,46 +1168,46 @@
         "id": "s13",
         "para": 3,
         "text": "The origin of these peculiar glassy spheres remains an enigma.",
-        "translation": "这些奇特的玻璃球体的起源仍然是一个谜。",
-        "grammarFocus": "主系表结构",
-        "pronounRef": "无",
+        "translation": "这些奇特的玻璃状球体的起源仍然是一个谜。",
+        "grammarFocus": "主系表结构；介词短语作后置定语",
+        "pronounRef": "these 指代前文提到的特定球体",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "简单的主系表结构，总结前文。",
-          "keyHint": "remains an enigma 表示仍然是个谜。"
+          "summary": "这句话很简单，就是在说这些球体是从哪来的还是个谜。",
+          "keyHint": "注意 'remains' 是谓语，后面跟着的是 'an enigma'（一个谜）。"
         },
         "teachingFocus": {
-          "mainQuestion": "球粒的起源是什么？是个谜。",
-          "grammarQuestion": "remains 是系动词，an enigma 是表语。",
-          "modifierQuestion": "peculiar glassy 修饰 spheres。",
-          "relationshipQuestion": "句子直接给出结论。",
-          "commonMistake": "无。",
+          "mainQuestion": "谁 remains（保持/是） an enigma（谜）？",
+          "grammarQuestion": "of these peculiar glassy spheres 是修饰 origin 的，就像给 origin 穿了一件小外套。",
+          "modifierQuestion": "peculiar 和 glassy 是两个好朋友，一起修饰 spheres，告诉我们球体是什么样的。",
+          "relationshipQuestion": "origin（起源）是主语的核心，它决定了谓语用单数 remains。",
+          "commonMistake": "不要把 remains 当成‘剩余’的意思，这里它是‘依然是’的意思。",
           "thinkingPath": [
-            "找到主语 origin",
-            "找到谓语 remains",
-            "找到表语 an enigma"
+            "找到动词 remains",
+            "问谁 remains？找到 origin",
+            "看 origin 后面跟着什么？是 an enigma"
           ],
-          "encouragement": "简单句也能传达重要信息，你掌握得很好！"
+          "encouragement": "你一眼就看穿了句子的骨架，真棒！"
         },
-        "analysis": "### 【主干结构】\n主语：The origin of these peculiar glassy spheres。\n谓语：remains。\n表语：an enigma。\n\n### 【主谓一致】\n主语 origin 单数，谓语 remains 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。",
+        "analysis": "### 【主干结构】\n主语是 The origin，谓语是 remains（系动词），表语是 an enigma。\n\n### 【主谓一致】\n主语 origin 是单数，所以谓语动词使用单数形式 remains。\n\n### 【动词时态与原形】\nremains 是 remain 的第三人称单数形式，表示一般现在时，陈述一个事实。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\nthese 是指示代词，指代前文提到的特定对象。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\nof these peculiar glassy spheres 是介词短语作后置定语，修饰 origin。其中 peculiar 和 glassy 是形容词，修饰 spheres。",
         "segments": [
           {
-            "text": "The origin ",
+            "text": "The origin",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "of these peculiar glassy spheres ",
+            "text": " of these peculiar glassy spheres",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "remains ",
+            "text": " remains",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "an enigma.",
+            "text": " an enigma.",
             "type": "predicative",
             "label": "表语"
           }
@@ -1110,64 +1217,63 @@
         "id": "s14",
         "para": 4,
         "text": "Equally perplexing constituents of Allende are the refractory inclusions: irregular white masses that tend to be larger than chondrules.",
-        "translation": "同样令人困惑的阿连德陨石成分是难熔包裹体：不规则的白色团块，往往比球粒大。",
-        "grammarFocus": "倒装句；冒号解释说明；定语从句",
-        "pronounRef": "that 指代 masses",
-        "logicConnector": "无",
+        "translation": "艾伦德陨石中同样令人困惑的组成部分是难熔包体：不规则的白色团块，它们往往比球粒大。",
+        "grammarFocus": "倒装句；定语从句；冒号用法",
+        "pronounRef": "无",
+        "logicConnector": "Equally 表示并列/比较",
         "sentenceCoach": {
-          "summary": "这是一个倒装句，主语是 constituents，谓语是 are。",
-          "keyHint": "that 引导定语从句修饰 masses。"
+          "summary": "这是一个倒装句，先把形容词放前面，后面才说主语是什么。",
+          "keyHint": "注意冒号后面的内容是在解释什么是 refractory inclusions。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么成分令人困惑？难熔包裹体。",
-          "grammarQuestion": "Equally perplexing constituents... are... 是倒装。that 引导定语从句。",
-          "modifierQuestion": "irregular white 修饰 masses。",
-          "relationshipQuestion": "包裹体是白色团块，比球粒大。",
-          "commonMistake": "注意这是倒装句，正常语序是 The refractory inclusions are equally perplexing constituents...。",
+          "mainQuestion": "谁是 refractory inclusions（难熔包体）？是 constituents（组成部分）。",
+          "grammarQuestion": "句子倒装了！正常语序是 The refractory inclusions are equally perplexing constituents... 但作者为了强调 perplexing，把形容词提前了。",
+          "modifierQuestion": "that tend to be larger than chondrules 是一个定语从句，专门修饰 masses（团块）。",
+          "relationshipQuestion": "冒号起到了解释说明的作用，后面的 irregular white masses 就是在具体描述 refractory inclusions。",
+          "commonMistake": "容易把 are 误认为是修饰 inclusions 的，其实 are 是连接主语 constituents 和表语 inclusions 的。",
           "thinkingPath": [
-            "找到谓语 are",
-            "找到主语 constituents",
-            "识别冒号后的解释",
-            "识别 that 引导的定语从句"
+            "找到动词 are",
+            "问谁是主语？是 constituents",
+            "看 that 引导的从句修饰谁？修饰 masses"
           ],
-          "encouragement": "你识别出了倒装句，这很不容易！"
+          "encouragement": "倒装句难不倒你，你抓住了核心动词 are！"
         },
-        "analysis": "### 【主干结构】\n主语：Equally perplexing constituents of Allende。\n谓语：are。\n表语：the refractory inclusions。\n\n### 【主谓一致】\n主语 constituents 复数，谓语 are 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\nthat tend to be larger than chondrules：定语从句，修饰 masses。",
+        "analysis": "### 【主干结构】\n这是一个倒装句。正常语序应为：The refractory inclusions are equally perplexing constituents of Allende.\n主语：The refractory inclusions\n谓语：are\n表语：equally perplexing constituents of Allende\n\n### 【主谓一致】\n主语 inclusions 是复数，谓语动词使用 are。\n\n### 【动词时态与原形】\nare 是 be 动词的复数形式，一般现在时。\n\n### 【从句剖析】\nthat tend to be larger than chondrules 是定语从句，修饰先行词 masses。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\ntend to be 中 to be 是不定式，作 tend 的宾语。\n\n### 【修饰语分析】\nEqually perplexing 是形容词短语，前置修饰 constituents。\nof Allende 是介词短语修饰 constituents。\nirregular white masses 是同位语，解释说明 refractory inclusions。\nthat... 从句修饰 masses。",
         "segments": [
           {
-            "text": "Equally perplexing constituents of Allende ",
-            "type": "subject",
-            "label": "主语"
+            "text": "Equally perplexing constituents of Allende",
+            "type": "predicative",
+            "label": "表语"
           },
           {
-            "text": "are ",
+            "text": " are",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "the refractory inclusions: ",
-            "type": "predicative",
-            "label": "表语"
+            "text": " the refractory inclusions",
+            "type": "subject",
+            "label": "主语"
           },
           {
-            "text": "irregular white masses ",
+            "text": ": irregular white masses",
             "type": "modifier",
             "label": "同位语"
           },
           {
-            "text": "that ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": " that",
+            "type": "clause-subject",
+            "label": "从句主语"
           },
           {
-            "text": "tend to be ",
+            "text": " tend",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "larger than chondrules.",
-            "type": "predicative",
-            "label": "表语"
+            "text": " to be larger than chondrules.",
+            "type": "clause-predicative",
+            "label": "从句表语"
           }
         ]
       },
@@ -1175,64 +1281,58 @@
         "id": "s15",
         "para": 4,
         "text": "They are composed of minerals uncommon on Earth, all rich in calcium, aluminum, and titanium, the most refractory (resistant to melting) of the major elements in the nebula.",
-        "translation": "它们由地球上罕见的矿物组成，所有这些矿物都富含钙、铝和钛，它们是星云中主要元素中最难熔的。",
-        "grammarFocus": "过去分词作定语；同位语",
-        "pronounRef": "They 指代 refractory inclusions",
+        "translation": "它们由地球上罕见的矿物组成，这些矿物富含钙、铝和钛，它们是星云中主要元素中最难熔的（抗熔化）。",
+        "grammarFocus": "被动语态；形容词短语作后置定语；独立主格/形容词短语作补充说明",
+        "pronounRef": "They 指代上一句的 refractory inclusions",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "uncommon on Earth 修饰 minerals。the most refractory... 是同位语。",
-          "keyHint": "all rich in... 是独立主格结构或形容词短语作补充说明。"
+          "summary": "这句话在说这些包体是由什么矿物组成的，以及这些矿物的特点。",
+          "keyHint": "注意 uncommon on Earth 是修饰 minerals 的，不要把它当成谓语。"
         },
         "teachingFocus": {
-          "mainQuestion": "它们由什么组成？由富含钙铝钛的矿物组成。",
-          "grammarQuestion": "uncommon on Earth 是后置定语。all rich in... 是补充说明。the most refractory... 是同位语。",
-          "modifierQuestion": "resistant to melting 解释 refractory。",
-          "relationshipQuestion": "矿物富含某些元素，这些元素最难熔。",
-          "commonMistake": "all rich in... 不是完整的句子，它是形容词短语作状语或补语。",
+          "mainQuestion": "They（包体）are composed of（由...组成）什么？是 minerals（矿物）。",
+          "grammarQuestion": "uncommon on Earth 是形容词短语后置修饰 minerals，相当于 which are uncommon on Earth。",
+          "modifierQuestion": "all rich in... 是形容词短语作补充说明，修饰 minerals。the most refractory... 是同位语，解释 calcium, aluminum, and titanium。",
+          "relationshipQuestion": "They 指代难熔包体。minerals 是 composed of 的宾语。",
+          "commonMistake": "容易把 uncommon on Earth 当成谓语，其实谓语是 are composed。",
           "thinkingPath": [
-            "找到主干 They are composed of minerals",
-            "识别 uncommon on Earth 修饰 minerals",
-            "识别 all rich in... 的补充说明作用",
-            "识别 the most refractory... 是同位语"
+            "找到谓语 are composed",
+            "看 composed of 后面跟着什么？minerals",
+            "看 minerals 后面跟着什么？uncommon on Earth（修饰语）"
           ],
-          "encouragement": "你成功拆解了复杂的修饰成分，真棒！"
+          "encouragement": "你成功识别了后置定语，火眼金睛！"
         },
-        "analysis": "### 【主干结构】\n主语：They。\n谓语：are composed of。\n宾语：minerals。\n\n### 【主谓一致】\n主语 They 复数，谓语 are 复数。\n\n### 【动词时态与原形】\n一般现在时被动语态。\n\n### 【从句剖析】\n无从句。",
+        "analysis": "### 【主干结构】\n主语：They\n谓语：are composed of（被动语态）\n宾语：minerals\n\n### 【主谓一致】\nThey 是复数，are 是复数形式。\n\n### 【动词时态与原形】\nare composed 是被动语态，一般现在时。\n\n### 【从句剖析】\n无显性从句，但包含非限制性修饰成分。\n\n### 【代词指代】\nThey 指代上一句的 refractory inclusions。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\nuncommon on Earth 是形容词短语作后置定语，修饰 minerals。\nall rich in calcium, aluminum, and titanium 是形容词短语作补充说明（独立主格结构的变体或形容词短语），进一步描述 minerals。\nthe most refractory... 是名词短语作同位语，解释说明 calcium, aluminum, and titanium。\n(resistant to melting) 是括号内的解释性同位语，解释 refractory。",
         "segments": [
           {
-            "text": "They ",
+            "text": "They",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are composed of ",
+            "text": " are composed of",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "minerals ",
+            "text": " minerals",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "uncommon on Earth, ",
+            "text": " uncommon on Earth",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "all rich in calcium, aluminum, and titanium, ",
+            "text": ", all rich in calcium, aluminum, and titanium",
             "type": "modifier",
             "label": "补充说明"
           },
           {
-            "text": "the most refractory (resistant to melting) ",
+            "text": ", the most refractory (resistant to melting) of the major elements in the nebula.",
             "type": "modifier",
             "label": "同位语"
-          },
-          {
-            "text": "of the major elements in the nebula.",
-            "type": "modifier",
-            "label": "定语"
           }
         ]
       },
@@ -1240,62 +1340,61 @@
         "id": "s16",
         "para": 4,
         "text": "The same minerals that occur in refractory inclusions are believed to be the earliest-formed substances to have condensed out of the solar nebula.",
-        "translation": "被认为是在太阳星云中凝结形成的最早物质的是那些出现在难熔包裹体中的相同矿物。",
-        "grammarFocus": "定语从句；不定式作定语",
-        "pronounRef": "that 指代 minerals",
+        "translation": "人们认为，存在于难熔包体中的那些相同矿物，是太阳星云中凝结形成的最早物质。",
+        "grammarFocus": "定语从句；被动语态；不定式作后置定语",
+        "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "that 引导定语从句修饰 minerals。to have condensed... 修饰 substances。",
-          "keyHint": "are believed to be 是被动语态。"
+          "summary": "这句话很长，但核心是‘矿物被认为是物质’。",
+          "keyHint": "注意 that occur in refractory inclusions 是修饰 minerals 的定语从句。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么被认为是最早形成的物质？出现在包裹体中的矿物。",
-          "grammarQuestion": "that occur... 是定语从句。to have condensed... 是不定式作定语。",
-          "modifierQuestion": "earliest-formed 修饰 substances。",
-          "relationshipQuestion": "矿物出现在包裹体中，它们是最早凝结的物质。",
-          "commonMistake": "to have condensed 是不定式的完成式，表示动作发生在谓语之前。",
+          "mainQuestion": "什么 are believed to be substances？是 The same minerals。",
+          "grammarQuestion": "that occur in refractory inclusions 是定语从句，修饰 minerals。are believed 是被动语态。",
+          "modifierQuestion": "to have condensed out of the solar nebula 是不定式短语作后置定语，修饰 substances。",
+          "relationshipQuestion": "minerals 是主语，believed 是谓语部分，substances 是主语补足语（在被动语态中）。",
+          "commonMistake": "容易把 are believed to be 当成三个动词，其实它是一个被动结构加不定式。",
           "thinkingPath": [
-            "找到主语 minerals",
-            "识别 that 引导的定语从句",
-            "找到谓语 are believed to be",
-            "识别 to have condensed... 修饰 substances"
+            "找到谓语 are believed",
+            "看 are believed 前面是谁？The same minerals",
+            "看 minerals 后面跟着什么？that 从句（修饰语）"
           ],
-          "encouragement": "你理解了不定式完成式的用法，这很关键！"
+          "encouragement": "你拆解了长难句的定语从句，逻辑非常清晰！"
         },
-        "analysis": "### 【主干结构】\n主语：The same minerals。\n谓语：are believed to be。\n表语：the earliest-formed substances。\n\n### 【主谓一致】\n主语 minerals 复数，谓语 are 复数。\n\n### 【动词时态与原形】\n一般现在时被动语态。\n\n### 【从句剖析】\nthat occur in refractory inclusions：定语从句，修饰 minerals。",
+        "analysis": "### 【主干结构】\n主语：The same minerals\n谓语：are believed（被动语态）\n主语补足语：to be the earliest-formed substances\n\n### 【主谓一致】\n主语 minerals 是复数，are 是复数形式。\n\n### 【动词时态与原形】\nare believed 是被动语态，一般现在时。\nto be 是不定式。\nto have condensed 是完成式不定式。\n\n### 【从句剖析】\nthat occur in refractory inclusions 是定语从句，修饰 minerals。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nto be 是不定式，作主语补足语。\nto have condensed 是不定式完成式，作后置定语修饰 substances。\n\n### 【修饰语分析】\nthat occur in refractory inclusions 是定语从句，修饰 minerals。\nto have condensed out of the solar nebula 是不定式短语作后置定语，修饰 substances。",
         "segments": [
           {
-            "text": "The same minerals ",
+            "text": "The same minerals",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "that ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": " that",
+            "type": "clause-subject",
+            "label": "从句主语"
           },
           {
-            "text": "occur ",
+            "text": " occur in refractory inclusions",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "in refractory inclusions ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "are believed to be ",
+            "text": " are believed",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "the earliest-formed substances ",
-            "type": "predicative",
-            "label": "表语"
+            "text": " to be",
+            "type": "object-complement",
+            "label": "主语补足语"
           },
           {
-            "text": "to have condensed out of the solar nebula.",
+            "text": " the earliest-formed substances",
+            "type": "object-complement",
+            "label": "主语补足语"
+          },
+          {
+            "text": " to have condensed out of the solar nebula.",
             "type": "modifier",
             "label": "定语"
           }
@@ -1305,104 +1404,73 @@
         "id": "s17",
         "para": 4,
         "text": "However, studies of the textures of inclusions reveal that the order in which the minerals appeared in the inclusions varies from inclusion to inclusion, and often does not match the theoretical condensation sequence for those metals.",
-        "translation": "然而，对包裹体纹理的研究显示，矿物在包裹体中出现的顺序因包裹体而异，并且通常与这些金属的理论凝结序列不匹配。",
-        "grammarFocus": "宾语从句；定语从句；并列谓语",
-        "pronounRef": "that 指代 reveal 的内容",
-        "logicConnector": "However, and",
+        "translation": "然而，对包裹体结构的研究所揭示的顺序表明，矿物在包裹体中出现的顺序因包裹体而异，且通常与这些金属的理论凝结序列不符。",
+        "grammarFocus": "宾语从句嵌套定语从句；主谓一致（复数主语 studies 对应 reveal）；并列谓语（varies... and does not match）。",
+        "pronounRef": "that 引导宾语从句；in which 引导定语从句修饰 order。",
+        "logicConnector": "However 表示转折，引出与前文不同的发现。",
         "sentenceCoach": {
-          "summary": "that 引导宾语从句，in which 引导定语从句。",
-          "keyHint": "varies... and does not match... 是并列谓语。"
+          "summary": "这是一句长难句，我们要像剥洋葱一样，先找到主干，再看里面的从句。",
+          "keyHint": "注意主语是 studies，谓语是 reveal，后面跟着一个很长的 that 从句。"
         },
         "teachingFocus": {
-          "mainQuestion": "研究揭示了什么？矿物出现的顺序不一致。",
-          "grammarQuestion": "that 引导宾语从句。in which 引导定语从句。varies 和 does not match 是并列谓语。",
-          "modifierQuestion": "theoretical condensation sequence 修饰 order。",
-          "relationshipQuestion": "顺序不一致，且不匹配理论序列。",
-          "commonMistake": "in which 引导定语从句，修饰 order。",
+          "mainQuestion": "谁揭示了什么？是‘研究’揭示了‘顺序’。",
+          "grammarQuestion": "那个 that 后面好长啊，怎么知道哪里是头哪里是尾？",
+          "modifierQuestion": "in which the minerals appeared... 是修饰 order 的，就像给 order 贴了个标签。",
+          "relationshipQuestion": "varies... and does not match 是两个并列的动作，主语都是 order。",
+          "commonMistake": "容易把 reveal 当成从句里的动词，其实它是主句的谓语。",
           "thinkingPath": [
-            "找到主干 studies reveal",
+            "找到主句主语 studies 和谓语 reveal",
             "识别 that 引导的宾语从句",
-            "识别 in which 引导的定语从句",
-            "识别 varies 和 does not match 是并列谓语"
+            "在从句中找到主语 order 和谓语 varies"
           ],
-          "encouragement": "你成功识别了并列谓语，这有助于理解句子结构！"
+          "encouragement": "你拆解得真棒！长句子就像乐高，拆开了就简单啦。"
         },
-        "analysis": "### 【主干结构】\n主语：studies of the textures of inclusions。\n谓语：reveal。\n宾语：that the order... varies... and does not match...\n\n### 【主谓一致】\n主语 studies 复数，谓语 reveal 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n1. that the order...：宾语从句。\n2. in which the minerals appeared...：定语从句，修饰 order。",
+        "analysis": "### 【主干结构】\n主句主语是 **studies**，谓语是 **reveal**。宾语是一个由 **that** 引导的宾语从句。\n\n### 【从句剖析】\n宾语从句内部结构：\n- 主语：**the order**\n- 定语从句：**in which the minerals appeared in the inclusions**，修饰 order，说明是什么样的顺序。\n- 谓语部分：**varies from inclusion to inclusion**（因包裹体而异）\n- 并列谓语：**and often does not match the theoretical condensation sequence for those metals**（且通常不与那些金属的理论凝结序列匹配）。\n\n### 【主谓一致】\n主句主语 studies 是复数，谓语用 reveal。宾语从句主语 order 是单数，谓语用 varies 和 does not match。\n\n### 【逻辑关系】\nHowever 表示转折，指出研究结果与预期或前文可能提到的情况不同。",
         "segments": [
           {
-            "text": "However, ",
+            "text": "However,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "studies of the textures of inclusions ",
+            "text": " studies of the textures of inclusions",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "reveal ",
+            "text": " reveal",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "that ",
+            "text": " that",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "the order ",
+            "text": " the order",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "in which ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "the minerals ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "appeared ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "in the inclusions ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "varies ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "from inclusion to inclusion, ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "and ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "often does not match ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "the theoretical condensation sequence ",
-            "type": "clause-object",
-            "label": "从句宾语"
-          },
-          {
-            "text": "for those metals.",
+            "text": " in which the minerals appeared in the inclusions",
             "type": "modifier",
             "label": "定语"
+          },
+          {
+            "text": " varies from inclusion to inclusion,",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " often does not match the theoretical condensation sequence for those metals.",
+            "type": "clause-verb",
+            "label": "从句谓语"
           }
         ]
       },
@@ -1410,72 +1478,51 @@
         "id": "s18",
         "para": 5,
         "text": "Chondrules and inclusions in Allende are held together by the chondrite matrix, a mixture of fine-grained, mostly silicate minerals that also includes grains of iron metal and iron sulfide.",
-        "translation": "阿连德陨石中的球粒和包裹体由球粒基质结合在一起，这是一种主要由细粒硅酸盐矿物组成的混合物，还包括铁金属和硫化铁的颗粒。",
-        "grammarFocus": "被动语态；同位语；定语从句",
-        "pronounRef": "that 指代 mixture",
-        "logicConnector": "无",
+        "translation": "阿连德陨石中的球粒和包裹体由球粒陨石基质结合在一起，这是一种由细粒的、主要是硅酸盐矿物组成的混合物，其中还包含铁金属和硫化铁的颗粒。",
+        "grammarFocus": "被动语态；同位语；定语从句。",
+        "pronounRef": "that 引导定语从句修饰 mixture。",
+        "logicConnector": "无显著逻辑连词，主要是陈述事实。",
         "sentenceCoach": {
-          "summary": "a mixture... 是 matrix 的同位语。that 引导定语从句。",
-          "keyHint": "that 指代 mixture，谓语用 includes。"
+          "summary": "这句话介绍了阿连德陨石的结构，注意那个长长的同位语。",
+          "keyHint": "a mixture... 是 chondrite matrix 的同位语，用来解释它是什么。"
         },
         "teachingFocus": {
-          "mainQuestion": "球粒和包裹体被什么结合在一起？被球粒基质。",
-          "grammarQuestion": "a mixture... 是同位语。that 引导定语从句。",
-          "modifierQuestion": "fine-grained, mostly silicate 修饰 minerals。",
-          "relationshipQuestion": "基质是混合物，包含铁颗粒。",
-          "commonMistake": "that 指代 mixture，所以谓语用 includes，不是 include。",
+          "mainQuestion": "什么东西被结合在一起？是球粒和包裹体。",
+          "grammarQuestion": "a mixture... 这一大串是什么成分？",
+          "modifierQuestion": "that also includes... 是修饰 mixture 的定语从句。",
+          "relationshipQuestion": "are held together by... 是被动语态，说明基质起到了粘合剂的作用。",
+          "commonMistake": "容易把 that 从句当成修饰 minerals 的，其实它修饰的是 mixture。",
           "thinkingPath": [
-            "找到主干 Chondrules and inclusions are held together",
-            "识别 by the chondrite matrix",
-            "识别 a mixture... 是同位语",
-            "识别 that 引导的定语从句"
+            "找到主句主语 Chondrules and inclusions",
+            "识别谓语 are held together",
+            "识别同位语 a mixture 及其后的定语从句"
           ],
-          "encouragement": "你成功识别了同位语和定语从句，真棒！"
+          "encouragement": "你找得很准！同位语就像是一个解释员，帮你理解前面的词。"
         },
-        "analysis": "### 【主干结构】\n主语：Chondrules and inclusions in Allende。\n谓语：are held together。\n状语：by the chondrite matrix。\n\n### 【主谓一致】\n主语 Chondrules and inclusions 复数，谓语 are 复数。\n\n### 【动词时态与原形】\n一般现在时被动语态。\n\n### 【从句剖析】\nthat also includes...：定语从句，修饰 mixture。",
+        "analysis": "### 【主干结构】\n主语：**Chondrules and inclusions in Allende**\n谓语：**are held together**（被动语态）\n状语：**by the chondrite matrix**\n\n### 【同位语与定语从句】\n- **a mixture of fine-grained, mostly silicate minerals** 是 **chondrite matrix** 的同位语，对基质进行解释说明。\n- **that also includes grains of iron metal and iron sulfide** 是定语从句，修饰 **mixture**，说明混合物中还包含什么。\n\n### 【非谓语动词】\n无。",
         "segments": [
           {
-            "text": "Chondrules and inclusions in Allende ",
+            "text": "Chondrules and inclusions in Allende",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are held together ",
+            "text": " are held together",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "by the chondrite matrix, ",
+            "text": " by the chondrite matrix,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "a mixture ",
+            "text": " a mixture of fine-grained, mostly silicate minerals",
             "type": "modifier",
             "label": "同位语"
           },
           {
-            "text": "of fine-grained, mostly silicate minerals ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "that ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "also includes ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "grains ",
-            "type": "clause-object",
-            "label": "从句宾语"
-          },
-          {
-            "text": "of iron metal and iron sulfide.",
+            "text": " that also includes grains of iron metal and iron sulfide.",
             "type": "modifier",
             "label": "定语"
           }
@@ -1485,84 +1532,73 @@
         "id": "s19",
         "para": 5,
         "text": "At one time it was thought that these matrix grains might be pristine nebular dust, the sort of stuff from which chondrules and inclusions were made.",
-        "translation": "曾经人们认为这些基质颗粒可能是原始的星云尘埃，即球粒和包裹体由之形成的那种物质。",
-        "grammarFocus": "形式主语 it；宾语从句；定语从句",
-        "pronounRef": "that 指代 thought 的内容",
-        "logicConnector": "无",
+        "translation": "曾经人们认为这些基质颗粒可能是原始的星云尘埃，即球粒和包裹体所由形成的那种物质。",
+        "grammarFocus": "形式主语 it；宾语从句；定语从句。",
+        "pronounRef": "it 指代后面的 that 从句；from which 指代 dust。",
+        "logicConnector": "At one time 表示过去的时间状语。",
         "sentenceCoach": {
-          "summary": "it 是形式主语，that 从句是真正主语。from which 引导定语从句。",
-          "keyHint": "from which 指代 stuff。"
+          "summary": "这句话用了形式主语 it，真正的主语在后面。",
+          "keyHint": "it was thought that... 是固定句型，it 是占位符。"
         },
         "teachingFocus": {
-          "mainQuestion": "人们曾经认为什么？基质颗粒是原始星云尘埃。",
-          "grammarQuestion": "it was thought that... 是常见句型。from which 引导定语从句。",
-          "modifierQuestion": "pristine 修饰 dust。",
-          "relationshipQuestion": "尘埃是球粒和包裹体的原料。",
-          "commonMistake": "from which 引导定语从句，修饰 stuff。",
+          "mainQuestion": "人们曾经认为什么？",
+          "grammarQuestion": "it 到底指代谁？",
+          "modifierQuestion": "from which... 是修饰 stuff 的定语从句。",
+          "relationshipQuestion": "the sort of stuff... 是 dust 的同位语。",
+          "commonMistake": "容易把 it 当成指代前面的某个名词，其实 it 是形式主语。",
           "thinkingPath": [
-            "找到主干 it was thought",
-            "识别 that 引导的真正主语从句",
-            "识别 the sort of stuff 是同位语",
-            "识别 from which 引导的定语从句"
+            "识别形式主语 it 和谓语 was thought",
+            "找到真正的主语 that 从句",
+            "分析从句内部的同位语和定语从句"
           ],
-          "encouragement": "你理解了 from which 的用法，这很关键！"
+          "encouragement": "你发现了形式主语的秘密！it 就像一个小信封，装着真正的主语。"
         },
-        "analysis": "### 【主干结构】\n主语：it (形式主语)。\n谓语：was thought。\n真正主语：that these matrix grains might be pristine nebular dust...\n\n### 【主谓一致】\n主语 it 单数，谓语 was 单数。\n\n### 【动词时态与原形】\n一般过去时被动语态。\n\n### 【从句剖析】\n1. that these matrix grains...：主语从句。\n2. from which chondrules and inclusions were made：定语从句，修饰 stuff。",
+        "analysis": "### 【主干结构】\n形式主语：**it**\n谓语：**was thought**\n真正主语：**that these matrix grains might be pristine nebular dust**（宾语从句作真正主语，或视为 it 作形式主语，that 从句为真正主语）。\n\n### 【同位语与定语从句】\n- **the sort of stuff** 是 **pristine nebular dust** 的同位语。\n- **from which chondrules and inclusions were made** 是定语从句，修饰 **stuff**，说明这种物质是用来制作球粒和包裹体的。\n\n### 【时态】\n一般过去时，表示过去的观点。",
         "segments": [
           {
-            "text": "At one time ",
+            "text": "At one time",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "it ",
+            "text": " it",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "was thought ",
+            "text": " was thought",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "that ",
+            "text": " that",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "these matrix grains ",
+            "text": " these matrix grains",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "might be ",
+            "text": " might be",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "pristine nebular dust, ",
+            "text": " pristine nebular dust,",
             "type": "clause-predicative",
             "label": "从句表语"
           },
           {
-            "text": "the sort of stuff ",
+            "text": " the sort of stuff",
             "type": "modifier",
             "label": "同位语"
           },
           {
-            "text": "from which ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "chondrules and inclusions ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "were made.",
-            "type": "clause-verb",
-            "label": "从句谓语"
+            "text": " from which chondrules and inclusions were made.",
+            "type": "modifier",
+            "label": "定语"
           }
         ]
       },
@@ -1570,84 +1606,73 @@
         "id": "s20",
         "para": 5,
         "text": "However, detailed studies of the chondrite matrix suggest that much of it, too, has been formed by condensation or melting in the nebula, although minute amounts of surviving interstellar dust are mixed with the processed materials.",
-        "translation": "然而，对球粒基质的详细研究表明，它的大部分也是通过星云中的凝结或熔化形成的，尽管有微量的幸存星际尘埃与加工后的材料混合在一起。",
-        "grammarFocus": "宾语从句；让步状语从句",
-        "pronounRef": "that 指代 suggest 的内容; it 指代 matrix",
-        "logicConnector": "However, although",
+        "translation": "然而，对球粒陨石基质的详细研究表明，其中的大部分也是通过星云中的凝结或熔融形成的，尽管有微量的幸存星际尘埃与加工过的物质混合在一起。",
+        "grammarFocus": "宾语从句；让步状语从句；被动语态。",
+        "pronounRef": "it 指代 chondrite matrix；that 引导宾语从句。",
+        "logicConnector": "However 转折；although 让步。",
         "sentenceCoach": {
-          "summary": "that 引导宾语从句，although 引导让步状语从句。",
-          "keyHint": "although 表示转折。"
+          "summary": "这句话有两个从句，一个是 suggest 的宾语，一个是 although 引导的让步状语。",
+          "keyHint": "注意 although 引导的部分是对前文的补充说明。"
         },
         "teachingFocus": {
-          "mainQuestion": "研究表明了什么？基质大部分是凝结或熔化形成的。",
-          "grammarQuestion": "that 引导宾语从句。although 引导让步状语从句。",
-          "modifierQuestion": "detailed 修饰 studies。",
-          "relationshipQuestion": "尽管有少量原始尘埃，但大部分是加工形成的。",
-          "commonMistake": "although 引导让步状语从句，不要误以为是并列连词。",
+          "mainQuestion": "研究表明了什么？",
+          "grammarQuestion": "although 引导的是什么从句？",
+          "modifierQuestion": "minute amounts... 是主语，are mixed 是谓语。",
+          "relationshipQuestion": "has been formed 和 are mixed 是两个并列的被动动作，分别属于两个分句。",
+          "commonMistake": "容易忽略 although 引导的让步状语从句，导致理解不完整。",
           "thinkingPath": [
-            "找到主干 studies suggest",
+            "找到主句主语 studies 和谓语 suggest",
             "识别 that 引导的宾语从句",
-            "识别 although 引导的让步状语从句",
-            "理解 it 指代 matrix"
+            "识别 although 引导的让步状语从句"
           ],
-          "encouragement": "你成功识别了让步状语从句，这有助于理解逻辑关系！"
+          "encouragement": "你抓住了两个从句！although 就像一个小转折，让句子更丰富。"
         },
-        "analysis": "### 【主干结构】\n主语：detailed studies of the chondrite matrix。\n谓语：suggest。\n宾语：that much of it... has been formed...\n\n### 【主谓一致】\n主语 studies 复数，谓语 suggest 复数。\n\n### 【动词时态与原形】\n一般现在时；从句用现在完成时被动语态。\n\n### 【从句剖析】\n1. that much of it...：宾语从句。\n2. although minute amounts...：让步状语从句。",
+        "analysis": "### 【主干结构】\n主句主语：**detailed studies of the chondrite matrix**\n主句谓语：**suggest**\n宾语：**that much of it, too, has been formed by condensation or melting in the nebula**\n\n### 【从句剖析】\n- **that** 引导宾语从句，主语是 **much of it**，谓语是 **has been formed**。\n- **although** 引导让步状语从句，主语是 **minute amounts of surviving interstellar dust**，谓语是 **are mixed**。\n\n### 【主谓一致】\nmuch of it 视为单数，用 has been formed。\nminute amounts 视为复数，用 are mixed。",
         "segments": [
           {
-            "text": "However, ",
+            "text": "However,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "detailed studies of the chondrite matrix ",
+            "text": " detailed studies of the chondrite matrix",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "suggest ",
+            "text": " suggest",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "that ",
+            "text": " that",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "much of it, too, ",
+            "text": " much of it, too,",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "has been formed ",
+            "text": " has been formed by condensation or melting in the nebula,",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "by condensation or melting in the nebula, ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "although ",
+            "text": " although",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "minute amounts of surviving interstellar dust ",
+            "text": " minute amounts of surviving interstellar dust",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "are mixed ",
+            "text": " are mixed with the processed materials.",
             "type": "clause-verb",
             "label": "从句谓语"
-          },
-          {
-            "text": "with the processed materials.",
-            "type": "adverbial",
-            "label": "状语"
           }
         ]
       },
@@ -1655,67 +1680,51 @@
         "id": "s21",
         "para": 6,
         "text": "All these diverse constituents are aggregated together to form chondritic meteorites, like Allende, that have chemical compositions much like that of the Sun.",
-        "translation": "所有这些不同的成分聚集在一起形成球粒陨石，如阿连德，它们的化学成分与太阳非常相似。",
-        "grammarFocus": "不定式作目的状语；定语从句",
-        "pronounRef": "that 指代 meteorites",
-        "logicConnector": "无",
+        "translation": "所有这些不同的成分聚集在一起，形成了球粒陨石，如阿连德，它们的化学成分与太阳非常相似。",
+        "grammarFocus": "被动语态；不定式作目的状语；定语从句。",
+        "pronounRef": "that 引导定语从句修饰 meteorites。",
+        "logicConnector": "无显著逻辑连词。",
         "sentenceCoach": {
-          "summary": "to form... 是不定式作目的状语。that 引导定语从句。",
-          "keyHint": "that 指代 meteorites，谓语用 have。"
+          "summary": "这句话描述了陨石的形成过程，注意 like Allende 是插入语。",
+          "keyHint": "that have... 是修饰 meteorites 的定语从句。"
         },
         "teachingFocus": {
-          "mainQuestion": "成分聚集在一起形成什么？形成球粒陨石。",
-          "grammarQuestion": "to form... 是不定式。that 引导定语从句。",
-          "modifierQuestion": "like Allende 是插入语。",
-          "relationshipQuestion": "成分形成陨石，陨石成分像太阳。",
-          "commonMistake": "that 指代 meteorites，所以谓语用 have，不是 has。",
+          "mainQuestion": "成分聚集在一起形成了什么？",
+          "grammarQuestion": "like Allende 是什么成分？",
+          "modifierQuestion": "that have... 是修饰 meteorites 的定语从句。",
+          "relationshipQuestion": "to form... 是不定式，表示目的或结果。",
+          "commonMistake": "容易把 like Allende 当成定语从句的一部分，其实它是插入语。",
           "thinkingPath": [
-            "找到主干 constituents are aggregated",
-            "识别 to form... 是不定式",
-            "识别 like Allende 是插入语",
+            "找到主句主语 constituents 和谓语 are aggregated",
+            "识别不定式 to form...",
             "识别 that 引导的定语从句"
           ],
-          "encouragement": "你成功识别了不定式和定语从句，真棒！"
+          "encouragement": "你识别出了插入语！like Allende 就像一个小例子，帮你理解。"
         },
-        "analysis": "### 【主干结构】\n主语：All these diverse constituents。\n谓语：are aggregated together。\n状语：to form chondritic meteorites。\n\n### 【主谓一致】\n主语 constituents 复数，谓语 are 复数。\n\n### 【动词时态与原形】\n一般现在时被动语态。\n\n### 【从句剖析】\nthat have chemical compositions...：定语从句，修饰 meteorites。",
+        "analysis": "### 【主干结构】\n主语：**All these diverse constituents**\n谓语：**are aggregated together**\n目的状语：**to form chondritic meteorites**\n\n### 【定语从句】\n- **like Allende** 是插入语，举例说明 chondritic meteorites。\n- **that have chemical compositions much like that of the Sun** 是定语从句，修饰 **chondritic meteorites**，说明它们的化学成分与太阳相似。\n\n### 【非谓语动词】\nto form 是不定式，作目的状语。",
         "segments": [
           {
-            "text": "All these diverse constituents ",
+            "text": "All these diverse constituents",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are aggregated together ",
+            "text": " are aggregated together",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "to form chondritic meteorites, ",
+            "text": " to form chondritic meteorites,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "like Allende, ",
+            "text": " like Allende,",
             "type": "modifier",
             "label": "补充说明"
           },
           {
-            "text": "that ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "have ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "chemical compositions ",
-            "type": "clause-object",
-            "label": "从句宾语"
-          },
-          {
-            "text": "much like that of the Sun.",
+            "text": " that have chemical compositions much like that of the Sun.",
             "type": "modifier",
             "label": "定语"
           }
@@ -1725,184 +1734,138 @@
         "id": "s22",
         "para": 6,
         "text": "To compare the compositions of a meteorite and the Sun, it is necessary that we use ratios of elements rather than simply the abundances of atoms.",
-        "translation": "为了比较陨石和太阳的成分，我们需要使用元素的比例，而不仅仅是原子的丰度。",
-        "grammarFocus": "不定式作目的状语；形式主语 it",
-        "pronounRef": "it 是形式主语",
-        "logicConnector": "rather than",
+        "translation": "为了比较陨石和太阳的成分，我们需要使用元素的比率，而不仅仅是原子的丰度。",
+        "grammarFocus": "不定式作目的状语；形式主语 it；宾语从句。",
+        "pronounRef": "it 指代 that 从句。",
+        "logicConnector": "rather than 表示选择。",
         "sentenceCoach": {
-          "summary": "To compare... 是不定式作目的状语。it 是形式主语。",
-          "keyHint": "it is necessary that... 是常见句型。"
+          "summary": "这句话用了形式主语 it，真正的主语是 that 从句。",
+          "keyHint": "To compare... 是目的状语，放在句首。"
         },
         "teachingFocus": {
-          "mainQuestion": "为了比较成分，我们需要做什么？使用元素比例。",
-          "grammarQuestion": "To compare... 是不定式。it 是形式主语，that 从句是真正主语。",
-          "modifierQuestion": "rather than 连接两个对比成分。",
-          "relationshipQuestion": "比较成分需要看比例，而不是丰度。",
-          "commonMistake": "it 是形式主语，不要误以为 it 指代某个具体事物。",
+          "mainQuestion": "为了比较成分，我们需要做什么？",
+          "grammarQuestion": "it is necessary that... 是什么句型？",
+          "modifierQuestion": "To compare... 是目的状语。",
+          "relationshipQuestion": "rather than 连接两个并列成分，表示选择。",
+          "commonMistake": "容易把 it 当成指代前面的某个名词，其实 it 是形式主语。",
           "thinkingPath": [
-            "找到 To compare... 是不定式",
-            "找到 it is necessary",
-            "识别 that 引导的真正主语从句",
-            "理解 rather than 的对比作用"
+            "识别不定式 To compare... 作目的状语",
+            "识别形式主语 it 和谓语 is necessary",
+            "找到真正的主语 that 从句"
           ],
-          "encouragement": "你理解了形式主语的用法，这很关键！"
+          "encouragement": "你找到了形式主语！it 就像一个小信封，装着真正的主语。"
         },
-        "analysis": "### 【主干结构】\n状语：To compare the compositions of a meteorite and the Sun。\n主语：it (形式主语)。\n谓语：is。\n表语：necessary。\n真正主语：that we use ratios...\n\n### 【主谓一致】\n主语 it 单数，谓语 is 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\nthat we use ratios...：主语从句。",
+        "analysis": "### 【主干结构】\n目的状语：**To compare the compositions of a meteorite and the Sun**\n形式主语：**it**\n谓语：**is necessary**\n真正主语：**that we use ratios of elements rather than simply the abundances of atoms**\n\n### 【非谓语动词】\nTo compare 是不定式，作目的状语。\n\n### 【逻辑关系】\nrather than 表示选择，强调使用 ratios 而不是 abundances。",
         "segments": [
           {
-            "text": "To compare the compositions of a meteorite and the Sun, ",
+            "text": "To compare the compositions of a meteorite and the Sun,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "it ",
+            "text": " it",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " is necessary",
             "type": "verb",
-            "label": "系动词"
+            "label": "谓语"
           },
           {
-            "text": "necessary ",
-            "type": "predicative",
-            "label": "表语"
-          },
-          {
-            "text": "that ",
+            "text": " that",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "we ",
+            "text": " we",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "use ",
+            "text": " use ratios of elements rather than simply the abundances of atoms.",
             "type": "clause-verb",
             "label": "从句谓语"
-          },
-          {
-            "text": "ratios of elements ",
-            "type": "clause-object",
-            "label": "从句宾语"
-          },
-          {
-            "text": "rather than ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "simply the abundances of atoms.",
-            "type": "clause-object",
-            "label": "从句宾语"
           }
         ]
       },
       {
         "id": "s23",
         "para": 6,
-        "text": "After all, the Sun has many more atoms of any element, say iron, than does a meteorite specimen, but the ratios of iron to silicon in the two kinds of matter might be comparable.",
-        "translation": "毕竟，太阳中任何元素的原子数量都比陨石标本多得多，但这两种物质中铁和硅的比例可能是相当的。",
-        "grammarFocus": "比较级；倒装句；并列句",
-        "pronounRef": "无",
-        "logicConnector": "After all, but",
+        "text": "After all, the Sun has many more   atoms of any element, say iron, than does a meteorite specimen, but the ratios of iron to silicon in the two kinds of matter might be comparable.",
+        "translation": "毕竟，太阳中任何元素（比如铁）的原子数量都比陨石样本多得多，但这两种物质中铁和硅的比率可能是可比的。",
+        "grammarFocus": "比较级；倒装句；并列句。",
+        "pronounRef": "say iron 是插入语，举例说明 any element。",
+        "logicConnector": "After all 表示解释原因；but 表示转折。",
         "sentenceCoach": {
-          "summary": "than does a meteorite specimen 是倒装句。but 连接两个分句。",
-          "keyHint": "than does... 是倒装，正常语序是 a meteorite specimen does。"
+          "summary": "这句话有两个分句，由 but 连接，注意第一个分句中的倒装。",
+          "keyHint": "than does a meteorite specimen 是倒装句，正常语序是 a meteorite specimen does。"
         },
         "teachingFocus": {
-          "mainQuestion": "太阳和陨石相比，什么更多？原子数量。",
-          "grammarQuestion": "many more... than... 是比较级。than does... 是倒装。but 连接并列句。",
-          "modifierQuestion": "say iron 是插入语。",
-          "relationshipQuestion": "虽然原子数量不同，但比例可能相当。",
-          "commonMistake": "than does a meteorite specimen 是倒装，不要误以为是疑问句。",
+          "mainQuestion": "太阳和陨石相比，有什么不同？",
+          "grammarQuestion": "than does a meteorite specimen 为什么倒装？",
+          "modifierQuestion": "say iron 是插入语，举例说明。",
+          "relationshipQuestion": "but 连接两个并列分句，表示转折。",
+          "commonMistake": "容易忽略 than 后面的倒装，导致理解困难。",
           "thinkingPath": [
-            "找到主干 the Sun has many more atoms",
-            "识别 than does a meteorite specimen 是倒装比较",
-            "识别 but 连接的后半句",
-            "理解 ratios... might be comparable"
+            "识别主句主语 the Sun 和谓语 has",
+            "识别比较结构 many more... than...",
+            "识别倒装句 than does a meteorite specimen",
+            "识别并列连词 but 和第二个分句"
           ],
-          "encouragement": "你成功识别了倒装句，这很不容易！"
+          "encouragement": "你发现了倒装句！than does... 就像一个小魔术，把动词提前了。"
         },
-        "analysis": "### 【主干结构】\n分句1：the Sun has many more atoms...\n分句2：the ratios... might be comparable。\n\n### 【主谓一致】\n分句1主语 Sun 单数，谓语 has 单数。\n分句2主语 ratios 复数，谓语 might be。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。",
+        "analysis": "### 【主干结构】\n第一个分句：\n主语：**the Sun**\n谓语：**has**\n宾语：**many more atoms of any element**\n比较状语：**than does a meteorite specimen**（倒装，正常语序为 than a meteorite specimen does）\n\n第二个分句：\n主语：**the ratios of iron to silicon in the two kinds of matter**\n谓语：**might be**\n表语：**comparable**\n\n### 【插入语】\nsay iron 是插入语，举例说明 any element。\n\n### 【逻辑关系】\nAfter all 表示解释原因；but 表示转折，指出虽然原子数量不同，但比率可能相似。",
         "segments": [
           {
-            "text": "After all, ",
+            "text": "After all,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "the Sun ",
+            "text": " the Sun",
             "type": "coord-subject",
             "label": "并列主语"
           },
           {
-            "text": "has ",
+            "text": " has",
             "type": "coord-verb",
             "label": "并列谓语"
           },
           {
-            "text": "many more atoms ",
+            "text": " many more   atoms of any element,",
             "type": "coord-object",
             "label": "并列宾语"
           },
           {
-            "text": "of any element, ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "say iron, ",
+            "text": " say iron,",
             "type": "modifier",
             "label": "补充说明"
           },
           {
-            "text": "than ",
+            "text": " than does a meteorite specimen,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " but",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "does ",
-            "type": "coord-verb",
-            "label": "并列谓语"
-          },
-          {
-            "text": "a meteorite specimen, ",
+            "text": " the ratios of iron to silicon in the two kinds of matter",
             "type": "coord-subject",
             "label": "并列主语"
           },
           {
-            "text": "but ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "the ratios ",
-            "type": "coord-subject",
-            "label": "并列主语"
-          },
-          {
-            "text": "of iron to silicon ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "in the two kinds of matter ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "might be ",
+            "text": " might be",
             "type": "coord-verb",
             "label": "并列谓语"
           },
           {
-            "text": "comparable.",
-            "type": "predicative",
-            "label": "表语"
+            "text": " comparable.",
+            "type": "coord-predicative",
+            "label": "并列表语"
           }
         ]
       },
@@ -1910,41 +1873,41 @@
         "id": "s24",
         "para": 6,
         "text": "The compositional similarity is striking.",
-        "translation": "这种成分的相似性令人瞩目。",
-        "grammarFocus": "主系表结构",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "translation": "这种成分的相似性令人惊叹。",
+        "grammarFocus": "主系表结构。",
+        "pronounRef": "无。",
+        "logicConnector": "无。",
         "sentenceCoach": {
-          "summary": "简单的主系表结构，总结前文。",
-          "keyHint": "striking 表示引人注目的。"
+          "summary": "这是一句简单句，主系表结构。",
+          "keyHint": "striking 是形容词，作表语。"
         },
         "teachingFocus": {
-          "mainQuestion": "相似性如何？令人瞩目。",
-          "grammarQuestion": "is 是系动词，striking 是表语。",
-          "modifierQuestion": "compositional 修饰 similarity。",
-          "relationshipQuestion": "句子直接给出评价。",
+          "mainQuestion": "什么令人惊叹？",
+          "grammarQuestion": "striking 是什么成分？",
+          "modifierQuestion": "无。",
+          "relationshipQuestion": "无。",
           "commonMistake": "无。",
           "thinkingPath": [
-            "找到主语 similarity",
-            "找到谓语 is",
+            "找到主语 The compositional similarity",
+            "找到系动词 is",
             "找到表语 striking"
           ],
-          "encouragement": "简单句也能传达重要信息，你掌握得很好！"
+          "encouragement": "你识别出了主系表结构！简单句也很重要哦。"
         },
-        "analysis": "### 【主干结构】\n主语：The compositional similarity。\n谓语：is。\n表语：striking。\n\n### 【主谓一致】\n主语 similarity 单数，谓语 is 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。",
+        "analysis": "### 【主干结构】\n主语：**The compositional similarity**\n系动词：**is**\n表语：**striking**\n\n### 【词汇】\nstriking 意为“显著的，令人惊叹的”。",
         "segments": [
           {
-            "text": "The compositional similarity ",
+            "text": "The compositional similarity",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " is",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "striking.",
+            "text": " striking.",
             "type": "predicative",
             "label": "表语"
           }
@@ -1954,67 +1917,67 @@
         "id": "s25",
         "para": 6,
         "text": "The major difference is that Allende is depleted in the most volatile elements, like hydrogen, carbon, oxygen, nitrogen, and the noble gases, relative to the Sun.",
-        "translation": "主要的区别是，与太阳相比，阿连德陨石中挥发性元素含量较低，如氢、碳、氧、氮和惰性气体。",
-        "grammarFocus": "表语从句",
+        "translation": "主要的区别在于，与太阳相比，艾伦德陨石中挥发性元素（如氢、碳、氧、氮和稀有气体）的含量较低。",
+        "grammarFocus": "主语从句 / 被动语态 / 比较结构",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "that 引导表语从句。",
-          "keyHint": "that 从句解释 difference 的内容。"
+          "summary": "这句话在对比陨石和太阳的成分差异。",
+          "keyHint": "注意 'is depleted in' 表示‘缺乏’，以及 'relative to' 表示‘相对于’。"
         },
         "teachingFocus": {
-          "mainQuestion": "主要区别是什么？阿连德陨石中挥发性元素较少。",
-          "grammarQuestion": "that 引导表语从句。",
-          "modifierQuestion": "like... 是插入语。relative to the Sun 是状语。",
-          "relationshipQuestion": "区别在于挥发性元素的含量。",
-          "commonMistake": "that 引导表语从句，不是定语从句。",
+          "mainQuestion": "谁和谁在比？比的是什么？",
+          "grammarQuestion": "‘is depleted in’ 是什么意思？它和主动语态有什么区别？",
+          "modifierQuestion": "‘like...’ 这一长串是在列举哪些具体的挥发性元素？",
+          "relationshipQuestion": "‘relative to the Sun’ 是修饰前面的元素，还是修饰整个比较关系？",
+          "commonMistake": "容易把 'depleted in' 误解为‘充满’，其实它是‘缺乏、耗尽’的意思。",
           "thinkingPath": [
-            "找到主干 difference is",
-            "识别 that 引导的表语从句",
-            "识别 like... 是插入语",
-            "识别 relative to the Sun 是状语"
+            "找到主语 'The major difference'",
+            "识别系动词 'is'",
+            "抓住表语从句 'that Allende is depleted...'",
+            "定位比较对象 'relative to the Sun'"
           ],
-          "encouragement": "你成功识别了表语从句，这有助于理解句子结构！"
+          "encouragement": "你抓住了核心对比，这就像侦探找到了两个嫌疑人的不同点！"
         },
-        "analysis": "### 【主干结构】\n主语：The major difference。\n谓语：is。\n表语：that Allende is depleted...\n\n### 【主谓一致】\n主语 difference 单数，谓语 is 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\nthat Allende is depleted...：表语从句。",
+        "analysis": "### 【主干结构】\n主句主语是 'The major difference'，系动词是 'is'，表语是一个由 'that' 引导的名词性从句。\n\n### 【从句剖析】\n'that Allende is depleted in the most volatile elements...' 是表语从句，解释 difference 的具体内容。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\n'like hydrogen, carbon, oxygen, nitrogen, and the noble gases' 是介词短语作后置定语，举例说明 'volatile elements'。\n'relative to the Sun' 是形容词短语作状语/定语，说明比较的基准。",
         "segments": [
           {
-            "text": "The major difference ",
+            "text": "The major difference",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " is",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "that ",
+            "text": " that",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "Allende ",
+            "text": " Allende",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "is depleted ",
+            "text": " is depleted in",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "in the most volatile elements, ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " the most volatile elements,",
+            "type": "clause-object",
+            "label": "从句宾语"
           },
           {
-            "text": "like hydrogen, carbon, oxygen, nitrogen, and the noble gases, ",
+            "text": " like hydrogen, carbon, oxygen, nitrogen, and the noble gases,",
             "type": "modifier",
-            "label": "补充说明"
+            "label": "定语"
           },
           {
-            "text": "relative to the Sun.",
+            "text": " relative to the Sun.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -2024,62 +1987,57 @@
         "id": "s26",
         "para": 6,
         "text": "These are the elements that tend to form gases even at very low temperatures.",
-        "translation": "这些是即使在很低温度下也倾向于形成气体的元素。",
-        "grammarFocus": "定语从句",
-        "pronounRef": "that 指代 elements",
+        "translation": "这些元素即使在非常低的温度下也倾向于形成气体。",
+        "grammarFocus": "定语从句 / 动词短语",
+        "pronounRef": "These 指代上一句提到的 volatile elements",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "that 引导定语从句修饰 elements。",
-          "keyHint": "that 指代 elements，谓语用 tend。"
+          "summary": "这句话解释了为什么叫‘挥发性’元素。",
+          "keyHint": "注意 'tend to' 表示‘倾向于’，以及 'even at' 强调温度的低。"
         },
         "teachingFocus": {
-          "mainQuestion": "这些元素有什么特点？倾向于形成气体。",
-          "grammarQuestion": "that 引导定语从句。",
-          "modifierQuestion": "even at very low temperatures 是状语。",
-          "relationshipQuestion": "元素在低温下形成气体。",
-          "commonMistake": "that 指代 elements，所以谓语用 tend，不是 tends。",
+          "mainQuestion": "‘These’ 指的是什么？它们有什么共同特点？",
+          "grammarQuestion": "‘that tend to form gases’ 这个从句修饰哪个词？",
+          "modifierQuestion": "‘even at very low temperatures’ 这个状语强调了什么？",
+          "relationshipQuestion": "这个从句如何定义这些元素的性质？",
+          "commonMistake": "容易忽略 'even' 的强调作用，以为只是普通的时间状语。",
           "thinkingPath": [
-            "找到主干 These are the elements",
-            "识别 that 引导的定语从句",
-            "确定 that 指代 elements",
-            "理解 even at very low temperatures 是状语"
+            "识别主语 'These'",
+            "识别系动词 'are'",
+            "识别表语 'the elements'",
+            "分析定语从句 'that tend to...'"
           ],
-          "encouragement": "你成功识别了定语从句，真棒！"
+          "encouragement": "你成功锁定了‘这些元素’的身份，真棒！"
         },
-        "analysis": "### 【主干结构】\n主语：These。\n谓语：are。\n表语：the elements。\n\n### 【主谓一致】\n主语 These 复数，谓语 are 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\nthat tend to form gases...：定语从句，修饰 elements。",
+        "analysis": "### 【主干结构】\n主语 'These'，系动词 'are'，表语 'the elements'。\n\n### 【从句剖析】\n'that tend to form gases even at very low temperatures' 是定语从句，修饰先行词 'elements'。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\n'even at very low temperatures' 是介词短语作状语，修饰 'form'，强调条件之苛刻。",
         "segments": [
           {
-            "text": "These ",
+            "text": "These",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are ",
+            "text": " are",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "the elements ",
+            "text": " the elements",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "that ",
+            "text": " that",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "tend to form ",
+            "text": " tend to form gases",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "gases ",
-            "type": "clause-object",
-            "label": "从句宾语"
-          },
-          {
-            "text": "even at very low temperatures.",
+            "text": " even at very low temperatures.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -2089,67 +2047,68 @@
         "id": "s27",
         "para": 6,
         "text": "We might think of chondrites as samples of distilled Sun, a sort of solar sludge from which only gases have been removed.",
-        "translation": "我们可以把球粒陨石看作是蒸馏太阳的样本，一种去除了气体的太阳淤泥。",
-        "grammarFocus": "定语从句",
-        "pronounRef": "from which 指代 sludge",
+        "translation": "我们可以把球粒陨石看作是蒸馏过的太阳样本，一种去除了气体的太阳淤泥。",
+        "grammarFocus": "固定搭配 / 同位语 / 定语从句",
+        "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "from which 引导定语从句修饰 sludge。",
-          "keyHint": "from which 指代 sludge。"
+          "summary": "这句话用了两个比喻来解释球粒陨石。",
+          "keyHint": "注意 'think of A as B' 结构，以及 'from which' 引导的定语从句。"
         },
         "teachingFocus": {
-          "mainQuestion": "我们可以把球粒陨石看作什么？蒸馏太阳的样本。",
-          "grammarQuestion": "from which 引导定语从句。",
-          "modifierQuestion": "a sort of solar sludge 是同位语。",
-          "relationshipQuestion": "样本是去除了气体的太阳淤泥。",
-          "commonMistake": "from which 引导定语从句，修饰 sludge。",
+          "mainQuestion": "我们把球粒陨石比作什么？",
+          "grammarQuestion": "'think of... as...' 是什么意思？",
+          "modifierQuestion": "'a sort of solar sludge...' 是什么成分？它修饰谁？",
+          "relationshipQuestion": "'from which' 中的 'which' 指代什么？气体是从哪里被移除的？",
+          "commonMistake": "容易把 'a sort of solar sludge' 误认为是另一个独立的句子，其实它是同位语。",
           "thinkingPath": [
-            "找到主干 We might think of chondrites as samples",
-            "识别 a sort of solar sludge 是同位语",
-            "识别 from which 引导的定语从句",
-            "确定 from which 指代 sludge"
+            "找到主语 'We'",
+            "找到谓语 'might think of'",
+            "找到宾语 'chondrites'",
+            "找到补语 'as samples...'",
+            "分析同位语和定语从句"
           ],
-          "encouragement": "你成功识别了 from which 的用法，这很关键！"
+          "encouragement": "你发现了两个精彩的比喻，想象力满分！"
         },
-        "analysis": "### 【主干结构】\n主语：We。\n谓语：might think of。\n宾语：chondrites。\n补语：as samples of distilled Sun。\n\n### 【主谓一致】\n主语 We 复数，谓语 might think 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\nfrom which only gases have been removed：定语从句，修饰 sludge。",
+        "analysis": "### 【主干结构】\n主语 'We'，谓语 'might think of'，宾语 'chondrites'，宾语补足语 'as samples of distilled Sun'。\n\n### 【从句剖析】\n'from which only gases have been removed' 是定语从句，修饰先行词 'solar sludge'（或 'samples'，逻辑上指太阳物质）。\n\n### 【非谓语动词】\n'distilled' 是过去分词作定语，修饰 'Sun'。\n\n### 【修饰语】\n'a sort of solar sludge...' 是 'samples of distilled Sun' 的同位语，进一步解释说明。",
         "segments": [
           {
-            "text": "We ",
+            "text": "We",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "might think of ",
+            "text": " might think of",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "chondrites ",
+            "text": " chondrites",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "as samples of distilled Sun, ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " as samples of distilled Sun,",
+            "type": "object-complement",
+            "label": "宾语补足语"
           },
           {
-            "text": "a sort of solar sludge ",
+            "text": " a sort of solar sludge",
             "type": "modifier",
             "label": "同位语"
           },
           {
-            "text": "from which ",
+            "text": " from which",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " only gases",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "only gases ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "have been removed.",
+            "text": " have been removed.",
             "type": "clause-verb",
             "label": "从句谓语"
           }
@@ -2159,123 +2118,123 @@
         "id": "s28",
         "para": 6,
         "text": "Since practically all the solar system's mass resides in the Sun, this similarity in chemistry means that chondrites have average solar system composition, except for the most volatile elements; they are truly lumps of nebular matter, probably similar in composition to the matter from which planets were assembled.",
-        "translation": "由于太阳系几乎所有的质量都集中在太阳中，这种化学相似性意味着球粒陨石具有平均太阳系成分（除了最挥发性元素）；它们确实是星云物质的团块，其成分可能与形成行星的物质相似。",
-        "grammarFocus": "原因状语从句；宾语从句；分号连接并列句",
-        "pronounRef": "that 指代 means 的内容",
-        "logicConnector": "Since, ;",
+        "translation": "由于太阳系几乎所有的质量都集中在太阳中，这种化学相似性意味着球粒陨石具有平均的太阳系成分（除了最易挥发的元素）；它们确实是星云物质的团块，其成分可能与组装行星的物质相似。",
+        "grammarFocus": "原因状语从句 / 宾语从句 / 分号连接并列句 / 定语从句",
+        "pronounRef": "this similarity 指代前文提到的陨石与太阳化学成分的相似性",
+        "logicConnector": "Since (原因), ; (并列), probably (推测)",
         "sentenceCoach": {
-          "summary": "Since 引导原因状语从句。that 引导宾语从句。分号连接两个并列分句。",
-          "keyHint": "that 引导宾语从句。"
+          "summary": "这是一个长难句，分号前后是两个独立的完整句子。",
+          "keyHint": "前半句是原因，后半句是结论；分号后是对结论的进一步解释。"
         },
         "teachingFocus": {
-          "mainQuestion": "化学相似性意味着什么？球粒陨石具有平均太阳系成分。",
-          "grammarQuestion": "Since 引导原因状语从句。that 引导宾语从句。分号连接两个并列分句。",
-          "modifierQuestion": "except for... 是状语。probably similar... 是形容词短语作状语。",
-          "relationshipQuestion": "因为质量集中在太阳，所以成分相似意味着球粒陨石代表平均成分。",
-          "commonMistake": "that 引导宾语从句，不是定语从句。",
+          "mainQuestion": "为什么球粒陨石很重要？",
+          "grammarQuestion": "分号 '; ' 前后是两个什么关系的句子？",
+          "modifierQuestion": "'except for...' 修饰的是哪个部分？",
+          "relationshipQuestion": "'from which planets were assembled' 修饰的是哪个词？",
+          "commonMistake": "容易把分号后的 'they' 误认为是前半句的一部分，其实它是新句子的主语。",
           "thinkingPath": [
-            "找到 Since 引导的原因状语从句",
-            "找到主干 similarity means",
-            "识别 that 引导的宾语从句",
-            "识别分号连接的后半句",
-            "识别 from which 引导的定语从句"
+            "识别原因状语从句 'Since...'",
+            "识别主句 'this similarity... means that...'",
+            "识别宾语从句 'that chondrites have...'",
+            "识别分号后的并列句 'they are...'",
+            "识别最后的定语从句 'from which...'"
           ],
-          "encouragement": "你成功识别了原因状语从句和宾语从句，这很关键！"
+          "encouragement": "你拆解了这个超级长句，像拆乐高一样精准！"
         },
-        "analysis": "### 【主干结构】\n原因状语：Since practically all the solar system's mass resides in the Sun。\n主句1：this similarity in chemistry means that chondrites have average solar system composition...\n主句2：they are truly lumps of nebular matter...\n\n### 【主谓一致】\n主句1主语 similarity 单数，谓语 means 单数。\n主句2主语 they 复数，谓语 are 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n1. Since...：原因状语从句。\n2. that chondrites have...：宾语从句。\n3. from which planets were assembled：定语从句，修饰 matter。",
+        "analysis": "### 【主干结构】\n整个句子由分号分为两部分。\n第一部分：原因状语从句 'Since...' + 主句 'this similarity... means that...'。\n第二部分：独立主句 'they are...'。\n\n### 【从句剖析】\n1. 'Since practically all the solar system's mass resides in the Sun'：原因状语从句。\n2. 'that chondrites have average solar system composition...'：宾语从句，作 'means' 的宾语。\n3. 'from which planets were assembled'：定语从句，修饰 'the matter'。\n\n### 【非谓语动词】\n'probably similar in composition...'：形容词短语作状语/补足语，修饰 'lumps' 或整个主句，表示状态。\n\n### 【修饰语】\n'except for the most volatile elements'：介词短语作状语/定语，排除例外情况。\n'practically'：副词，修饰 'all'。\n'truly'：副词，修饰 'are'。",
         "segments": [
           {
-            "text": "Since ",
+            "text": "Since",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "practically all the solar system's mass ",
+            "text": " practically all the solar system's mass",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "resides ",
+            "text": " resides",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "in the Sun, ",
+            "text": " in the Sun,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "this similarity in chemistry ",
+            "text": " this similarity in chemistry",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "means ",
+            "text": " means",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "that ",
+            "text": " that",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "chondrites ",
+            "text": " chondrites",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "have ",
+            "text": " have",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "average solar system composition, ",
+            "text": " average solar system composition,",
             "type": "clause-object",
             "label": "从句宾语"
           },
           {
-            "text": "except for the most volatile elements; ",
+            "text": " except for the most volatile elements;",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "they ",
+            "text": " they",
             "type": "coord-subject",
-            "label": "并列主语"
+            "label": "并列句主语"
           },
           {
-            "text": "are ",
+            "text": " are",
             "type": "coord-verb",
-            "label": "并列谓语"
+            "label": "并列句谓语"
           },
           {
-            "text": "truly lumps of nebular matter, ",
+            "text": " truly lumps of nebular matter,",
             "type": "coord-predicative",
-            "label": "并列表语"
+            "label": "并列句表语"
           },
           {
-            "text": "probably similar in composition ",
+            "text": " probably similar in composition",
             "type": "modifier",
             "label": "补充说明"
           },
           {
-            "text": "to the matter ",
+            "text": " to the matter",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "from which ",
+            "text": " from which",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " planets",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "planets ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "were assembled.",
+            "text": " were assembled.",
             "type": "clause-verb",
             "label": "从句谓语"
           }

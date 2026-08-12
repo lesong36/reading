@@ -1,6 +1,6 @@
 # TPO pipeline progress
 
-Updated: 2026-08-05
+Updated: 2026-08-09
 
 ## LLM endpoint (locked)
 
@@ -24,10 +24,10 @@ Updated: 2026-08-05
 |---|---|---|---|
 | Extract | 104 passages + questions | done | 104/104 extracted; 1,129 official-answer single-choice items; 155 unsupported items |
 | B0 | TPO-1 (3) | done | 3/3 Qwen analyses, no warnings/fallbacks; merge validation passed |
-| B1 | OG + Online + Official + OG Test 2 | done | 17/17 analyses succeeded after retry; no warnings or fallbacks |
-| B2 | TPO 1,3–10 | done | 27/27 analyses completed; 8 segment-alignment mismatches repaired losslessly before merge validation |
-| B3 | TPO 11–20 | done | 30/30 analyses succeeded after retry; 16 segment-alignment mismatches repaired losslessly before merge validation |
-| B4 | TPO 21–30 | done | 30/30 analyses completed; 7 segment-alignment mismatches repaired losslessly before merge validation |
+| B1 | OG + Online + Official + OG Test 2 | running | 全量重析 17/17；保留旧深度解析协议，按连续 8 句分块并携带全文上下文 |
+| B2 | TPO 1,3–10 | pending reanalysis | 旧产物不再视为质量合格；B1 审计后依次全量重析 27/27 |
+| B3 | TPO 11–20 | pending reanalysis | 旧产物不再视为质量合格；B2 后全量重析 30/30 |
+| B4 | TPO 21–30 | pending reanalysis | 旧产物不再视为质量合格；B3 后全量重析 30/30 |
 | Quiz UI | index.html | done | 阅读/做题切换、判卷与 `reader_quiz_progress_{articleId}` 进度存储已实现 |
 | Merge/ship | import JSON + sync | done | 104 篇合并包已生成并同步至正式 macOS App；TPO/OG 书架筛选已加入 |
 
@@ -36,5 +36,5 @@ Updated: 2026-08-05
 ```bash
 cd /Users/coty/Documents/Lei_MBP/repo/app_dev/reading_new
 curl -s http://100.121.25.47:8090/v1/models | jq -r '.data[].id'
-npm run regenerate:tpo -- --batch B1
+npm run regenerate:tpo -- --batch B1 --force --chunk-sentences 8
 ```

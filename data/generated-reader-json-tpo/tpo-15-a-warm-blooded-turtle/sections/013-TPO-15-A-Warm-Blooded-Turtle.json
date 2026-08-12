@@ -1,93 +1,199 @@
 {
   "sourceFile": "tpo-15-a-warm-blooded-turtle.md",
   "sectionTitle": "TPO-15 / A Warm-Blooded Turtle",
-  "generatedAt": "2026-08-05T08:55:28.867Z",
+  "generatedAt": "2026-08-11T16:43:13.678Z",
   "warnings": [],
   "article": {
     "id": "tpo-15-a-warm-blooded-turtle-13-TPO-15-A-Warm-Blooded-Turtle",
     "title": "TPO-15 / A Warm-Blooded Turtle",
-    "timestamp": 1785920128879,
+    "timestamp": 1786466593690,
     "glossary": [
       {
         "term": "countercurrent exchange system",
         "translation": "逆流交换系统",
         "kind": "term",
-        "note": "一种生理机制，通过让冷血和热血血管紧密相邻来回收热量。",
+        "note": "生物学机制，指两种流体反向流动以进行热量或物质交换的系统。",
+        "aliases": [
+          "逆流交换"
+        ]
+      },
+      {
+        "term": "central body temperature",
+        "translation": "核心体温",
+        "kind": "term",
+        "note": "动物体内主要器官的温度，对生存至关重要。",
+        "aliases": []
+      },
+      {
+        "term": "surface-to-volume ratio",
+        "translation": "表面积与体积比",
+        "kind": "term",
+        "note": "生物学/物理学概念，指物体表面积与其体积的比值，影响热量散失速度。",
         "aliases": []
       },
       {
         "term": "contradiction in terms",
         "translation": "自相矛盾的说法",
         "kind": "context_phrase",
-        "note": "指“温血”和“爬行动物”通常被认为是不兼容的概念。",
+        "note": "指“恒温”通常被认为与“爬行动物”（冷血动物）的定义冲突。",
+        "aliases": []
+      },
+      {
+        "term": "reptilian equivalent",
+        "translation": "爬行类对应物",
+        "kind": "context_phrase",
+        "note": "指棱皮龟虽然没有鲸脂，但有功能相似的皮肤结构。",
         "aliases": []
       },
       {
         "term": "cellular metabolism",
         "translation": "细胞代谢",
         "kind": "term",
-        "note": "生物体内细胞产生能量的过程，通常伴随热量产生。",
+        "note": "细胞内发生的化学反应，通常产生热量作为副产品。",
         "aliases": []
-      },
-      {
-        "term": "insulating blubber",
-        "translation": "隔热脂肪层",
-        "kind": "context_phrase",
-        "note": "鲸鱼等动物用来保暖的厚脂肪层。",
-        "aliases": [
-          "blubber"
-        ]
       },
       {
         "term": "leatherback turtle",
         "translation": "棱皮龟",
         "kind": "proper_noun",
-        "note": "本文的主角，一种特殊的海龟。",
+        "note": "一种大型海龟，是唯一具有恒温能力的海龟。",
         "aliases": [
           "leatherback"
         ]
       },
       {
-        "term": "aerodynamic shape",
-        "translation": "空气动力学形状",
-        "kind": "context_phrase",
-        "note": "指鳍状肢为了减少水中阻力而形成的流线型。",
-        "aliases": []
-      },
-      {
         "term": "reptilian whale",
         "translation": "爬行动物鲸",
         "kind": "context_phrase",
-        "note": "比喻棱皮龟像鲸鱼一样是恒温动物，尽管它是爬行动物。",
+        "note": "比喻棱皮龟像鲸鱼一样具有恒温特性，尽管它是爬行动物。",
         "aliases": []
+      },
+      {
+        "term": "solar radiation",
+        "translation": "太阳辐射",
+        "kind": "term",
+        "note": "来自太阳的能量，包括光和热。",
+        "aliases": []
+      },
+      {
+        "term": "steam radiator",
+        "translation": "蒸汽散热器",
+        "kind": "term",
+        "note": "老式供暖设备，文中用作类比。",
+        "aliases": [
+          "radiator"
+        ]
       },
       {
         "term": "gigantothermy",
         "translation": "巨温性",
         "kind": "term",
-        "note": "通过巨大的体型来保持体温稳定的现象。",
+        "note": "指大型动物因体积大而能保持体温恒定的现象。",
         "aliases": []
       },
       {
-        "term": "hatchlings",
-        "translation": "幼龟",
+        "term": "oil-saturated",
+        "translation": "充满油脂的",
+        "kind": "term",
+        "note": "形容皮肤富含油脂，有助于防水和保温。",
+        "aliases": []
+      },
+      {
+        "term": "cold-blooded",
+        "translation": "冷血的",
+        "kind": "term",
+        "note": "指变温动物，体温随环境变化。",
+        "aliases": []
+      },
+      {
+        "term": "green turtle",
+        "translation": "绿海龟",
         "kind": "proper_noun",
-        "note": "刚孵化出来的小棱皮龟。",
+        "note": "一种常见的海龟品种。",
+        "aliases": []
+      },
+      {
+        "term": "mode of life",
+        "translation": "生活方式",
+        "kind": "context_phrase",
+        "note": "此处特指生理代谢和体温调节的模式。",
+        "aliases": []
+      },
+      {
+        "term": "warm-blooded",
+        "translation": "温血的",
+        "kind": "term",
+        "note": "指恒温动物，能维持相对稳定的体温。",
+        "aliases": []
+      },
+      {
+        "term": "aerodynamic",
+        "translation": "空气动力学的",
+        "kind": "term",
+        "note": "指物体形状能减少空气阻力，这里指减少游泳时的水阻力。",
+        "aliases": []
+      },
+      {
+        "term": "Leatherback",
+        "translation": "棱皮龟",
+        "kind": "proper_noun",
+        "note": "一种大型海龟，以其独特的生理特征闻名。",
+        "aliases": []
+      },
+      {
+        "term": "insulation",
+        "translation": "隔热层",
+        "kind": "term",
+        "note": "指海龟体内的脂肪层，用于保持体温。",
+        "aliases": [
+          "thermal insulation"
+        ]
+      },
+      {
+        "term": "loggerhead",
+        "translation": "红海龟",
+        "kind": "proper_noun",
+        "note": "一种常见的海龟品种。",
         "aliases": []
       },
       {
         "term": "physiology",
         "translation": "生理学",
         "kind": "term",
-        "note": "本文讨论海龟身体机能和体温调节的科学领域。",
+        "note": "生物学分支，研究生物体生命活动的功能机制。",
+        "aliases": []
+      },
+      {
+        "term": "adulthood",
+        "translation": "成年期",
+        "kind": "term",
+        "note": "指动物达到性成熟或成体的阶段。",
         "aliases": []
       },
       {
         "term": "cheloniid",
-        "translation": "龟鳖科（传统海龟）",
+        "translation": "龟鳖科的",
         "kind": "term",
-        "note": "指除了棱皮龟以外的其他海龟种类。",
+        "note": "指属于 Cheloniidae 科的海龟，通常指有硬壳的海龟。",
         "aliases": []
+      },
+      {
+        "term": "hatchling",
+        "translation": "幼龟",
+        "kind": "term",
+        "note": "刚孵化出来的小海龟。",
+        "aliases": [
+          "newborn turtle"
+        ]
+      },
+      {
+        "term": "ice floe",
+        "translation": "浮冰",
+        "kind": "term",
+        "note": "漂浮在海面上的大片薄冰。",
+        "aliases": [
+          "ice sheet"
+        ]
       },
       {
         "term": "basking",
@@ -95,6 +201,45 @@
         "kind": "term",
         "note": "动物暴露在阳光下以吸收热量。",
         "aliases": []
+      },
+      {
+        "term": "blubber",
+        "translation": "鲸脂",
+        "kind": "term",
+        "note": "海洋哺乳动物皮下厚厚的脂肪层，用于保温。",
+        "aliases": []
+      },
+      {
+        "term": "fibrous",
+        "translation": "纤维状的",
+        "kind": "term",
+        "note": "形容组织由纤维构成，具有结构强度。",
+        "aliases": []
+      },
+      {
+        "term": "flipper",
+        "translation": "鳍状肢",
+        "kind": "term",
+        "note": "海龟用于游泳的肢体。",
+        "aliases": [
+          "fin"
+        ]
+      },
+      {
+        "term": "immense",
+        "translation": "巨大的",
+        "kind": "term",
+        "note": "形容体积或程度极大。",
+        "aliases": []
+      },
+      {
+        "term": "gull",
+        "translation": "海鸥",
+        "kind": "proper_noun",
+        "note": "一种鸟类，文中提到其腿部也有逆流交换系统。",
+        "aliases": [
+          "seagull"
+        ]
       }
     ],
     "data": [
@@ -102,57 +247,53 @@
         "id": "s1",
         "para": 1,
         "text": "When it comes to physiology, the leatherback turtle is, in some ways, more like a reptilian whale than a turtle.",
-        "translation": "在生理学方面，棱皮龟在某些方面更像是一种爬行动物鲸，而不是普通的乌龟。",
-        "grammarFocus": "比较结构 more like A than B",
-        "pronounRef": "无",
-        "logicConnector": "When it comes to... (当谈到……时)",
+        "translation": "在生理学方面，棱皮龟在某些方面更像是一种爬行动物鲸，而不是海龟。",
+        "grammarFocus": "比较结构 more like A than B；固定搭配 when it comes to",
+        "pronounRef": "it 指代泛指的“它”（在生理方面），无具体先行词。",
+        "logicConnector": "than 引导比较对象，强调相似性超过差异性。",
         "sentenceCoach": {
-          "summary": "这句话是文章的开篇，直接点出棱皮龟的特殊身份。",
-          "keyHint": "注意比较的对象：它不像普通乌龟，而像鲸鱼。"
+          "summary": "这句话通过比较，揭示了棱皮龟独特的生理特征。",
+          "keyHint": "注意 'more like... than...' 结构，它是在说它像谁更多。"
         },
         "teachingFocus": {
-          "mainQuestion": "这句话告诉我们，棱皮龟虽然叫乌龟，但它的身体构造更像鲸鱼，这是为什么呢？",
-          "grammarQuestion": "看看这个‘更像……而不是……’的结构，它是如何把棱皮龟和普通乌龟区分开的？",
-          "modifierQuestion": "‘在生理学方面’和‘在某些方面’这两个小短语，是不是让句子变得更严谨了？",
-          "relationshipQuestion": "作者把棱皮龟和鲸鱼放在一起比较，是为了突出棱皮龟的什么特点？",
-          "commonMistake": "孩子可能会忽略‘than a turtle’，以为它完全不是乌龟。其实它还是乌龟，只是某些方面像鲸鱼。",
+          "mainQuestion": "这句话的主角是谁？它被比作什么？",
+          "grammarQuestion": "怎么理解 'more like A than B' 这个比较结构？",
+          "modifierQuestion": "'in some ways' 这个插入语起到了什么限制作用？",
+          "relationshipQuestion": "为什么作者说它像鲸鱼而不是海龟？",
+          "commonMistake": "不要把 'than a turtle' 理解为它不是海龟，而是说它在生理特征上更像鲸鱼。",
           "thinkingPath": [
-            "找到主语：leatherback turtle",
-            "找到比较结构：more like... than..."
+            "找到主语 'the leatherback turtle'",
+            "识别比较结构 'more like... than...'",
+            "理解插入语 'in some ways' 的范围限制"
           ],
-          "encouragement": "你发现棱皮龟是个‘伪装者’了吗？它其实是个拥有鲸鱼身体的乌龟侦探！"
+          "encouragement": "你发现了吗？这只海龟其实是个“伪装者”，它有着像鲸鱼一样的体温秘密！"
         },
-        "analysis": "### 【主干结构】\n主语是 'the leatherback turtle'，谓语是 'is'，表语部分是 'more like a reptilian whale than a turtle'。\n\n### 【主谓一致】\n主语是单数，系动词用 is，一致。\n\n### 【动词时态与原形】\n使用一般现在时 is，陈述客观事实。\n\n### 【从句剖析】\n'When it comes to physiology' 是时间状语从句，其中 'it' 是形式主语，'comes to' 是固定搭配，意为‘谈到’。\n\n### 【修饰语】\n'in some ways' 是插入语，作状语，修饰整个比较结构，表示‘在某些方面’。\n\n### 【比较结构】\n'more like A than B' 是核心结构，意为‘更像A而不是B’。这里 A 是 'a reptilian whale'，B 是 'a turtle'。",
+        "analysis": "### 【主干结构】\n主语是 'the leatherback turtle'，系动词是 'is'，表语部分是 'more like a reptilian whale than a turtle'。\n\n### 【主谓一致】\n主语是单数，谓语动词 'is' 使用单数形式，一致。\n\n### 【动词时态与原形】\n使用一般现在时 'is'，陈述客观事实。\n\n### 【从句剖析】\n'When it comes to physiology' 是时间状语从句，其中 'it' 是形式主语，'comes to' 是固定搭配，意为“谈到/涉及”。\n\n### 【修饰语分析】\n'in some ways' 是插入语，作状语，修饰整个比较结构，表示“在某些方面”，限制了比较的范围，并非完全等同。\n\n### 【比较结构】\n'more like A than B' 意为“更像A而不是B”。这里 A 是 'a reptilian whale'，B 是 'a turtle'。作者意在强调其生理特征（如恒温）更接近鲸鱼（哺乳动物），而非典型的海龟（冷血爬行动物）。",
         "segments": [
           {
-            "text": "When it comes to physiology, ",
+            "text": "When it comes to physiology,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "the leatherback turtle ",
+            "text": " the leatherback turtle",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is, ",
+            "text": " is,",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "in some ways, ",
-            "type": "modifier",
+            "text": " in some ways,",
+            "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "more like a reptilian whale ",
+            "text": " more like a reptilian whale than a turtle.",
             "type": "predicative",
             "label": "表语"
-          },
-          {
-            "text": "than a turtle.",
-            "type": "conjunction",
-            "label": "连接词及比较对象"
           }
         ]
       },
@@ -160,78 +301,73 @@
         "id": "s2",
         "para": 1,
         "text": "It swims farther into the cold of the northern and southern oceans than any other sea turtle, and it deals with the chilly waters in a way unique among reptiles.",
-        "translation": "它游向北方和南方寒冷海域的深度超过任何其他海龟，并且它以爬行动物中独一无二的方式应对寒冷的水域。",
-        "grammarFocus": "比较级 farther... than; 并列句",
-        "pronounRef": "It 指代 leatherback turtle",
-        "logicConnector": "and (并列)",
+        "translation": "它游向南北极寒冷海域的距离比任何其他海龟都远，并且它以爬行动物中独一无二的方式应对寒冷的水域。",
+        "grammarFocus": "比较级 farther... than...；并列句结构；形容词短语后置定语 unique among reptiles",
+        "pronounRef": "It 指代上一句的 'the leatherback turtle'。",
+        "logicConnector": "and 连接两个并列的分句，分别描述游泳能力和应对方式。",
         "sentenceCoach": {
-          "summary": "这是一个并列句，前半句讲它游得远，后半句讲它适应环境的方式独特。",
-          "keyHint": "注意 'any other' 的用法，表示‘其他任何’。"
+          "summary": "这是一个并列句，前半句讲它游得远，后半句讲它适应能力强。",
+          "keyHint": "注意 'than any other sea turtle' 是典型的比较级表达，意为“比其他任何海龟都...”。"
         },
         "teachingFocus": {
-          "mainQuestion": "这句话有两个部分，用 'and' 连起来，分别说了棱皮龟的两个超能力。",
-          "grammarQuestion": "看看 'farther... than any other...'，这是怎么表达‘最’的意思的？",
-          "modifierQuestion": "'unique among reptiles' 是修饰什么的？它告诉我们棱皮龟在爬行动物家族里有多特别。",
-          "relationshipQuestion": "前半句的‘游得远’和后半句的‘应对寒冷’有什么联系？",
-          "commonMistake": "孩子可能不理解 'any other sea turtle'，为什么要有 'other'？因为棱皮龟自己也是海龟，所以要排除自己，跟‘其他’比。",
+          "mainQuestion": "这句话由哪两个主要部分组成？它们之间是什么关系？",
+          "grammarQuestion": "'than any other sea turtle' 在句中起什么作用？",
+          "modifierQuestion": "'unique among reptiles' 修饰的是哪个词？",
+          "relationshipQuestion": "两个分句如何共同描绘棱皮龟的生存能力？",
+          "commonMistake": "容易忽略 'any other' 的含义，它排除了棱皮龟自己，表示在同类中的极致。",
           "thinkingPath": [
-            "识别并列连词 and",
-            "分析前半句的比较结构",
-            "分析后半句的修饰语"
+            "识别并列连词 'and'",
+            "分析第一个分句的比较结构",
+            "分析第二个分句的修饰语 'unique among reptiles'"
           ],
-          "encouragement": "棱皮龟就像游泳冠军，不仅游得远，还有一套独特的保暖秘籍！"
+          "encouragement": "太棒了！你成功拆解了这个长句子，就像侦探一样找到了两个并列的秘密线索！"
         },
-        "analysis": "### 【主干结构】\n这是一个由 'and' 连接的并列句。\n第一分句：主语 'It'，谓语 'swims'，状语 'farther into the cold of the northern and southern oceans'，比较对象 'than any other sea turtle'。\n第二分句：主语 'it'，谓语 'deals with'，宾语 'the chilly waters'，方式状语 'in a way unique among reptiles'。\n\n### 【主谓一致】\n两个分句主语均为单数，谓语动词 swims/deals 均为单数形式。\n\n### 【比较结构】\n'farther... than any other sea turtle'：'farther' 是 far 的比较级。'any other + 单数名词' 表示在同类事物中比较，隐含最高级意义（即比所有其他海龟都游得远）。\n\n### 【修饰语】\n'unique among reptiles' 是形容词短语作后置定语，修饰 'way'。意为‘在爬行动物中独一无二的’。\n\n### 【逻辑关系】\n'and' 连接两个并列的事实，共同支撑第一句的观点。",
+        "analysis": "### 【主干结构】\n这是一个由 'and' 连接的并列句。\n第一分句：主语 'It'，谓语 'swims'，状语 'farther into the cold of the northern and southern oceans'，比较状语 'than any other sea turtle'。\n第二分句：主语 'it'，谓语 'deals with'，宾语 'the chilly waters'，方式状语 'in a way unique among reptiles'。\n\n### 【主谓一致】\n两个分句的主语 'It' 和 'it' 均指代单数名词，谓语动词 'swims' 和 'deals' 均使用第三人称单数形式，一致。\n\n### 【动词时态与原形】\n使用一般现在时，陈述普遍事实。\n\n### 【修饰语分析】\n'unique among reptiles' 是形容词短语，后置修饰 'way'，意为“在爬行动物中独一无二的”。\n'farther... than...' 是比较结构，'than any other sea turtle' 是比较对象。\n\n### 【逻辑关系】\n'and' 表示并列，补充说明棱皮龟的两个显著特征：游泳距离远和适应能力强。",
         "segments": [
           {
-            "text": "It ",
+            "text": "It",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "swims ",
+            "text": " swims",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "farther into the cold of the northern and southern oceans ",
+            "text": " farther into the cold of the northern and southern oceans",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "than any other sea turtle, ",
-            "type": "conjunction",
-            "label": "连接词及比较对象"
-          },
-          {
-            "text": "and ",
-            "type": "conjunction",
-            "label": "并列连词"
-          },
-          {
-            "text": "it ",
-            "type": "subject",
-            "label": "主语"
-          },
-          {
-            "text": "deals with ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "the chilly waters ",
-            "type": "object",
-            "label": "宾语"
-          },
-          {
-            "text": "in a way ",
+            "text": " than any other sea turtle,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "unique among reptiles.",
-            "type": "modifier",
-            "label": "定语"
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " it",
+            "type": "coord-subject",
+            "label": "并列主语"
+          },
+          {
+            "text": " deals with",
+            "type": "coord-verb",
+            "label": "并列谓语"
+          },
+          {
+            "text": " the chilly waters",
+            "type": "coord-object",
+            "label": "并列宾语"
+          },
+          {
+            "text": " in a way unique among reptiles.",
+            "type": "adverbial",
+            "label": "状语"
           }
         ]
       },
@@ -239,42 +375,43 @@
         "id": "s3",
         "para": 2,
         "text": "A warm-blooded turtle may seem to be a contradiction in terms.",
-        "translation": "温血乌龟听起来可能是一个自相矛盾的说法。",
-        "grammarFocus": "seem to be; 固定搭配 contradiction in terms",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "translation": "一只恒温的海龟听起来可能是一个自相矛盾的说法。",
+        "grammarFocus": "系动词 seem + 不定式 to be；固定搭配 contradiction in terms",
+        "pronounRef": "无代词。",
+        "logicConnector": "无显性逻辑连词，为独立陈述句。",
         "sentenceCoach": {
-          "summary": "这句话提出了一个常见的疑问：乌龟怎么可能是温血的呢？",
-          "keyHint": "'contradiction in terms' 是个高级短语，意思是‘术语上的矛盾’。"
+          "summary": "这句话提出了一个看似矛盾的观点，为下文解释做铺垫。",
+          "keyHint": "'seem to be' 表示“看起来是”，暗示后面会有解释说明它其实并不矛盾。"
         },
         "teachingFocus": {
-          "mainQuestion": "为什么作者说‘温血乌龟’听起来很矛盾？",
-          "grammarQuestion": "'may seem to be' 表示一种可能性或表象，不是绝对的事实。",
-          "modifierQuestion": "'in terms' 在这里是什么意思？它修饰 contradiction，表示在定义或术语层面。",
-          "relationshipQuestion": "这句话为下文解释棱皮龟如何做到温血做了铺垫。",
-          "commonMistake": "孩子可能不理解 'in terms'，以为是指‘金钱’。在这里它指‘措辞’或‘概念’。",
+          "mainQuestion": "这句话的主语是什么？它看起来像什么？",
+          "grammarQuestion": "'seem to be' 后面接的是什么成分？",
+          "modifierQuestion": "'in terms' 在这里是什么意思？",
+          "relationshipQuestion": "为什么作者说它是“自相矛盾”的？",
+          "commonMistake": "不要误以为 'in terms' 是“在条款中”，这里指“在术语定义上”或“从概念上讲”。",
           "thinkingPath": [
-            "识别主语：A warm-blooded turtle",
-            "识别谓语结构：may seem to be"
+            "确定主语 'A warm-blooded turtle'",
+            "识别谓语部分 'may seem to be'",
+            "理解表语 'a contradiction in terms'"
           ],
-          "encouragement": "就像说‘火是冷的’一样，‘温血乌龟’听起来很奇怪，但棱皮龟会告诉我们真相！"
+          "encouragement": "你抓住了句子的核心！‘自相矛盾’这个词很有趣，让我们看看作者是如何解开这个谜团的。"
         },
-        "analysis": "### 【主干结构】\n主语 'A warm-blooded turtle'，谓语 'may seem'，不定式短语 'to be a contradiction in terms' 作主语补足语（或视为系动词后的表语部分）。\n\n### 【动词时态】\n'may seem' 使用情态动词 may 表示可能性，seem 是系动词性质的动词。\n\n### 【固定搭配】\n'contradiction in terms'：指一个概念本身包含矛盾，例如‘圆形的方形’。这里指‘温血’（通常指哺乳动物/鸟类）和‘乌龟’（通常指冷血爬行动物）这两个概念放在一起看似矛盾。",
+        "analysis": "### 【主干结构】\n主语 'A warm-blooded turtle'，谓语 'may seem'，不定式 'to be a contradiction in terms' 作主语补足语（或视为系动词结构的一部分，seem to be 整体视为系动词短语）。\n\n### 【主谓一致】\n主语单数，谓语动词 'seems' (含情态动词 may) 使用单数形式，一致。\n\n### 【动词时态与原形】\n使用情态动词 may + 动词原形 seem，表示可能性。\n\n### 【修饰语分析】\n'in terms' 是介词短语，修饰 'contradiction'，意为“在术语/定义上”。\n\n### 【逻辑关系】\n这句话是一个引入性的陈述，提出一个普遍认知的矛盾，下文将解释为何不矛盾。",
         "segments": [
           {
-            "text": "A warm-blooded turtle ",
+            "text": "A warm-blooded turtle",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "may seem ",
+            "text": " may seem",
             "type": "verb",
-            "label": "系动词"
+            "label": "谓语"
           },
           {
-            "text": "to be a contradiction in terms.",
-            "type": "predicative",
-            "label": "表语"
+            "text": " to be a contradiction in terms.",
+            "type": "object-complement",
+            "label": "主语补足语"
           }
         ]
       },
@@ -282,62 +419,58 @@
         "id": "s4",
         "para": 2,
         "text": "Nonetheless, an adult leatherback can maintain a body temperature of between 25 and 26°C (77-79°F) in seawater that is only 8°C (46.4°F).",
-        "translation": "尽管如此，成年棱皮龟能在只有8°C（46.4°F）的海水中保持25到26°C（77-79°F）的体温。",
-        "grammarFocus": "定语从句 that is only...; 介词短语作状语",
-        "pronounRef": "that 指代 seawater",
-        "logicConnector": "Nonetheless (转折)",
+        "translation": "尽管如此，成年棱皮龟仍能在仅8°C（46.4°F）的海水中保持25至26°C（77-79°F）的体温。",
+        "grammarFocus": "让步状语 Nonetheless；定语从句 that is only 8°C...；介词短语作状语",
+        "pronounRef": "无代词。",
+        "logicConnector": "Nonetheless 表示转折/让步，连接上一句的“矛盾”观点。",
         "sentenceCoach": {
-          "summary": "这句话用具体的数字对比，展示了棱皮龟的奇迹。",
-          "keyHint": "注意 'that is only...' 是修饰 seawater 的从句。"
+          "summary": "这句话用具体数据反驳了上一句的“矛盾”说法。",
+          "keyHint": "注意 'that is only 8°C...' 是修饰 'seawater' 的定语从句。"
         },
         "teachingFocus": {
-          "mainQuestion": "Nonetheless 告诉我们，虽然听起来矛盾，但棱皮龟真的能做到。",
-          "grammarQuestion": "看看 'that is only 8°C'，它是谁的小尾巴？它修饰哪个词？",
-          "modifierQuestion": "'in seawater...' 是状语，说明保持体温的环境。",
-          "relationshipQuestion": "高温的体温和低温的海水形成强烈对比，突出了棱皮龟的能力。",
-          "commonMistake": "孩子可能不知道 'Nonetheless' 的意思，它等于 'However' 或 'Nevertheless'，表示‘尽管如此’。",
+          "mainQuestion": "这句话的主语是谁？它能做什么？",
+          "grammarQuestion": "'that is only 8°C...' 修饰的是哪个词？",
+          "modifierQuestion": "'of between 25 and 26°C...' 修饰的是什么？",
+          "relationshipQuestion": "Nonetheless 如何连接上下文？",
+          "commonMistake": "容易混淆 'that' 指代的对象，它指代 'seawater'，而不是温度。",
           "thinkingPath": [
-            "识别转折词 Nonetheless",
-            "找到定语从句 that is only..."
+            "识别连接词 'Nonetheless'",
+            "找到主语 'an adult leatherback'",
+            "分析定语从句 'that is only 8°C...'"
           ],
-          "encouragement": "棱皮龟就像穿着超级保暖衣的潜水员，在冰水里也能保持温暖！"
+          "encouragement": "你看得很仔细！数据是科学文章的眼睛，你成功找到了修饰海水温度的那个小句子。"
         },
-        "analysis": "### 【主干结构】\n主语 'an adult leatherback'，谓语 'can maintain'，宾语 'a body temperature'，后置定语 'of between 25 and 26°C (77-79°F)' 修饰 temperature，状语 'in seawater'。\n\n### 【从句剖析】\n'that is only 8°C (46.4°F)' 是定语从句，修饰先行词 'seawater'。'that' 在从句中作主语。\n\n### 【逻辑连接】\n'Nonetheless' 是副词，表示转折，承接上一句的‘矛盾’说法，引出事实。\n\n### 【介词短语】\n'of between...' 修饰 temperature，说明温度的范围。",
+        "analysis": "### 【主干结构】\n主语 'an adult leatherback'，谓语 'can maintain'，宾语 'a body temperature'。\n\n### 【主谓一致】\n主语单数，谓语 'can maintain' 使用原形，一致。\n\n### 【动词时态与原形】\n使用情态动词 can + 动词原形 maintain，表示能力。\n\n### 【从句剖析】\n'that is only 8°C (46.4°F)' 是定语从句，修饰先行词 'seawater'。'that' 在从句中作主语。\n\n### 【修饰语分析】\n'of between 25 and 26°C (77-79°F)' 是介词短语，作后置定语，修饰 'body temperature'。\n'in seawater...' 是介词短语，作地点/环境状语，修饰 'maintain'。\n'Nonetheless' 是副词，作连接性状语，表示转折。\n\n### 【逻辑关系】\n'Nonetheless' 表示尽管前文说它是矛盾的说法，但事实上它能做到。",
         "segments": [
           {
-            "text": "Nonetheless, ",
+            "text": "Nonetheless,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "an adult leatherback ",
+            "text": " an adult leatherback",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "can maintain ",
+            "text": " can maintain",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "a body temperature ",
+            "text": " a body temperature of between 25 and 26°C (77-79°F)",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "of between 25 and 26°C (77-79°F) ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "in seawater ",
+            "text": " in seawater",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "that is only 8°C (46.4°F).",
-            "type": "clause-subject",
-            "label": "从句主语及谓语"
+            "text": " that is only 8°C (46.4°F).",
+            "type": "modifier",
+            "label": "定语"
           }
         ]
       },
@@ -345,55 +478,46 @@
         "id": "s5",
         "para": 2,
         "text": "Accomplishing this feat requires adaptations both to generate heat in the turtle’s body and to keep it from escaping into the surrounding waters.",
-        "translation": "完成这一壮举需要两种适应机制：一种是在乌龟体内产生热量，另一种是防止热量逃逸到周围的水中。",
-        "grammarFocus": "动名词作主语; both...and... 连接不定式",
-        "pronounRef": "it 指代 heat",
-        "logicConnector": "both...and... (并列)",
+        "translation": "完成这一壮举需要两种适应机制：一种是在龟体内产生热量，另一种是防止热量逃逸到周围水域。",
+        "grammarFocus": "动名词短语作主语 Accomplishing this feat；并列不定式 both to... and to...；keep sb/sth from doing",
+        "pronounRef": "it 指代 'heat'。",
+        "logicConnector": "both... and... 连接两个并列的不定式短语。",
         "sentenceCoach": {
-          "summary": "这句话解释了棱皮龟怎么做到的：既要产热，又要保温。",
-          "keyHint": "主语是 'Accomplishing this feat'，这是一个动名词短语。"
+          "summary": "这句话解释了实现恒温的两个关键适应机制。",
+          "keyHint": "主语是动名词短语 'Accomplishing this feat'，谓语是 'requires'。"
         },
         "teachingFocus": {
-          "mainQuestion": "棱皮龟要完成‘保持体温’这个壮举，需要哪两个步骤？",
-          "grammarQuestion": "'Accomplishing this feat' 是主语，动词用单数 requires。",
-          "modifierQuestion": "'both to generate... and to keep...' 是修饰 adaptations 的定语，说明适应的具体内容。",
-          "relationshipQuestion": "'generate heat'（产热）和 'keep it from escaping'（保温）是相辅相成的。",
-          "commonMistake": "孩子可能误以为 'Accomplishing' 是谓语，其实它是主语的一部分，谓语是 'requires'。",
+          "mainQuestion": "这句话的主语是什么？它需要什么？",
+          "grammarQuestion": "'both to... and to...' 连接的是什么成分？",
+          "modifierQuestion": "'in the turtle’s body' 修饰哪个动词？",
+          "relationshipQuestion": "两个适应机制之间是什么关系？",
+          "commonMistake": "容易误以为主语是 'this feat'，实际上主语是 'Accomplishing this feat' 这个动作。",
           "thinkingPath": [
-            "识别动名词短语作主语",
-            "识别 both...and... 连接的并列不定式"
+            "识别动名词主语 'Accomplishing this feat'",
+            "找到谓语 'requires'",
+            "分析宾语 'adaptations' 后的修饰成分"
           ],
-          "encouragement": "棱皮龟是个聪明的工程师，既会制造热量，又会锁住热量！"
+          "encouragement": "你太厉害了！动名词作主语是难点，但你一眼就看穿了它的真面目。"
         },
-        "analysis": "### 【主干结构】\n主语 'Accomplishing this feat'（动名词短语），谓语 'requires'，宾语 'adaptations'。\n\n### 【修饰语】\n'both to generate heat in the turtle’s body and to keep it from escaping into the surrounding waters' 是形容词/不定式短语作后置定语，修饰 'adaptations'。这里 'both...and...' 连接两个不定式短语，说明 adaptations 的具体内容。\n\n### 【代词指代】\n'it' 指代 'heat'。'keep it from escaping' 意为‘防止它逃逸’。\n\n### 【动词搭配】\n'keep sb/sth from doing sth' 是固定搭配，意为‘阻止某人/某物做某事’。",
+        "analysis": "### 【主干结构】\n主语 'Accomplishing this feat'（动名词短语），谓语 'requires'，宾语 'adaptations'。\n\n### 【主谓一致】\n动名词短语作主语视为单数，谓语 'requires' 使用第三人称单数形式，一致。\n\n### 【动词时态与原形】\n使用一般现在时 'requires'，陈述客观事实。\n\n### 【修饰语分析】\n'both to generate heat in the turtle’s body and to keep it from escaping into the surrounding waters' 是两个并列的不定式短语，作后置定语，修饰 'adaptations'。\n'in the turtle’s body' 修饰 'generate'。\n'from escaping into the surrounding waters' 是介词短语，修饰 'keep'，构成 'keep it from doing' 结构。\n\n### 【代词指代】\n'it' 指代 'heat'，因为热量是逃逸的主体。\n\n### 【逻辑关系】\n'both... and...' 表示并列，列出两个必要的适应机制。",
         "segments": [
           {
-            "text": "Accomplishing this feat ",
+            "text": "Accomplishing this feat",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "requires ",
+            "text": " requires",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "adaptations ",
+            "text": " adaptations",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "both to generate heat in the turtle’s body ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "and ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "to keep it from escaping into the surrounding waters.",
+            "text": " both to generate heat in the turtle’s body and to keep it from escaping into the surrounding waters.",
             "type": "modifier",
             "label": "定语"
           }
@@ -403,66 +527,51 @@
         "id": "s6",
         "para": 2,
         "text": "Leatherbacks apparently do not generate internal heat the way we do, or the way birds do, as a by-product of cellular metabolism.",
-        "translation": "棱皮龟显然不像我们或鸟类那样，通过细胞代谢的副产品来产生内部热量。",
-        "grammarFocus": "the way...; as a by-product",
-        "pronounRef": "we 指人类, birds 指鸟类",
-        "logicConnector": "or (选择/并列)",
+        "translation": "棱皮龟显然不像我们或鸟类那样，将内部热量作为细胞代谢的副产品产生出来。",
+        "grammarFocus": "方式状语 the way...；并列结构 the way we do, or the way birds do；介词短语作状语",
+        "pronounRef": "we 指代人类；birds 指代鸟类。",
+        "logicConnector": "or 连接两个并列的方式状语从句。",
         "sentenceCoach": {
-          "summary": "这句话解释了棱皮龟产热方式的‘不同’之处。",
-          "keyHint": "'the way we do' 是方式状语，意思是‘像我们做的那样’。"
+          "summary": "这句话通过对比，说明了棱皮龟产热方式的不同。",
+          "keyHint": "'the way we do' 和 'the way birds do' 是方式状语，修饰 'generate'。"
         },
         "teachingFocus": {
-          "mainQuestion": "棱皮龟产热的方式和我们人类、鸟类有什么不一样？",
-          "grammarQuestion": "'the way we do' 和 'the way birds do' 是省略句，完整形式是 'the way that we generate heat'。",
-          "modifierQuestion": "'as a by-product of cellular metabolism' 修饰 generate heat，说明热量产生的来源。",
-          "relationshipQuestion": "作者通过对比人类和鸟类，突出棱皮龟产热方式的特殊性。",
-          "commonMistake": "孩子可能不理解 'apparently'，它表示‘显然’、‘看来’，是作者基于观察的推断。",
+          "mainQuestion": "这句话的主语是谁？它不做什么？",
+          "grammarQuestion": "'the way we do' 在句中起什么作用？",
+          "modifierQuestion": "'as a by-product...' 修饰哪个动词？",
+          "relationshipQuestion": "棱皮龟的产热方式与人类和鸟类有何不同？",
+          "commonMistake": "容易误以为 'as a by-product' 修饰 'metabolism'，实际上它修饰 'generate'，说明热量是代谢的副产品。",
           "thinkingPath": [
-            "识别主语 Leatherbacks",
-            "识别谓语 do not generate",
-            "识别方式状语 the way..."
+            "确定主语 'Leatherbacks'",
+            "识别谓语 'do not generate'",
+            "分析方式状语 'the way we do...'"
           ],
-          "encouragement": "棱皮龟是个独特的厨师，它不用我们常用的‘代谢’配方来做饭！"
+          "encouragement": "你抓住了重点！‘the way’ 引导的方式状语就像是一个小剧场，展示了其他动物的做法。"
         },
-        "analysis": "### 【主干结构】\n主语 'Leatherbacks'，谓语 'do not generate'，宾语 'internal heat'。\n\n### 【方式状语】\n'the way we do, or the way birds do' 是方式状语，修饰 generate。'do' 代替 'generate internal heat'，避免重复。\n\n### 【补充说明】\n'as a by-product of cellular metabolism' 是介词短语，作状语或补足语，解释热量是如何产生的（作为细胞代谢的副产品）。\n\n### 【副词】\n'apparently' 是副词，修饰整个句子，表示‘显然’、‘据观察’。",
+        "analysis": "### 【主干结构】\n主语 'Leatherbacks'，谓语 'do not generate'，宾语 'internal heat'。\n\n### 【主谓一致】\n主语 'Leatherbacks' 是复数，谓语 'do not generate' 使用复数形式，一致。\n\n### 【动词时态与原形】\n使用一般现在时，陈述客观事实。\n\n### 【修饰语分析】\n'the way we do, or the way birds do' 是两个并列的方式状语，修饰 'generate'。'do' 是代动词，代替 'generate internal heat'。\n'as a by-product of cellular metabolism' 是介词短语，作方式/结果状语，修饰 'generate'，说明热量产生的机制。\n'apparently' 是副词，作状语，表示“显然”。\n\n### 【逻辑关系】\n通过对比人类和鸟类的产热方式（代谢副产品），强调棱皮龟的不同。",
         "segments": [
           {
-            "text": "Leatherbacks ",
+            "text": "Leatherbacks",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "apparently ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "do not generate ",
+            "text": " apparently do not generate",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "internal heat ",
+            "text": " internal heat",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "the way we do, ",
+            "text": " the way we do, or the way birds do,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "or ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "the way birds do, ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "as a by-product of cellular metabolism.",
+            "text": " as a by-product of cellular metabolism.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -472,66 +581,67 @@
         "id": "s7",
         "para": 2,
         "text": "A leatherback may be able to pick up some body heat by basking at the surface; its dark, almost black body color may help it to absorb solar radiation.",
-        "translation": "棱皮龟可能通过在表面晒太阳来吸收一些体热；它深色、近乎黑色的体色可能有助于它吸收太阳辐射。",
-        "grammarFocus": "分号连接两个独立分句; help sb to do sth",
-        "pronounRef": "its 指代 leatherback",
-        "logicConnector": "分号 (并列/补充)",
+        "translation": "棱皮龟可能通过在表面晒太阳来吸收一些体热；其深色、近乎黑色的体色可能有助于它吸收太阳辐射。",
+        "grammarFocus": "分号连接两个独立分句；be able to do；by doing 方式状语；help sb to do",
+        "pronounRef": "it 指代 'a leatherback'。",
+        "logicConnector": "分号表示两个分句关系紧密，补充说明。",
         "sentenceCoach": {
-          "summary": "分号前后讲了两个帮助棱皮龟获取热量的方法：晒太阳和深色皮肤。",
-          "keyHint": "注意 'help it to absorb' 的结构。"
+          "summary": "分号前后分别讲了两种吸热方式：晒太阳和体色吸热。",
+          "keyHint": "注意分号前后的两个独立句子，它们共同解释了热量的来源。"
         },
         "teachingFocus": {
-          "mainQuestion": "棱皮龟除了肌肉产热，还有什么办法获取热量？",
-          "grammarQuestion": "分号连接了两个相关的句子，前半句讲行为，后半句讲身体特征。",
-          "modifierQuestion": "'dark, almost black' 是形容词短语，修饰 'body color'。",
-          "relationshipQuestion": "深色皮肤和吸收太阳辐射之间有因果关系。",
-          "commonMistake": "孩子可能不知道 'basking' 是‘晒太阳’的意思，这个词常用来形容动物享受阳光。",
+          "mainQuestion": "分号前后的两个句子分别讲了什么？",
+          "grammarQuestion": "'by basking' 在句中起什么作用？",
+          "modifierQuestion": "'dark, almost black' 修饰哪个词？",
+          "relationshipQuestion": "两个分句如何共同支持论点？",
+          "commonMistake": "容易忽略分号的并列作用，误以为后半句是前半句的结果。",
           "thinkingPath": [
-            "识别分号分隔的两个分句",
-            "分析 'help it to absorb' 结构"
+            "识别分号分隔的两个独立分句",
+            "分析第一个分句的方式状语 'by basking'",
+            "分析第二个分句的主语和谓语"
           ],
-          "encouragement": "棱皮龟是个聪明的太阳能用户，它知道如何利用阳光和深色衣服！"
+          "encouragement": "你成功拆解了分号连接的长句！就像两列并行的火车，各自运送着关于热量的信息。"
         },
-        "analysis": "### 【主干结构】\n分号连接两个独立分句。\n第一分句：主语 'A leatherback'，谓语 'may be able to pick up'，宾语 'some body heat'，方式状语 'by basking at the surface'。\n第二分句：主语 'its dark, almost black body color'，谓语 'may help'，宾语 'it'，宾语补足语 'to absorb solar radiation'。\n\n### 【动词搭配】\n'be able to do' 表示‘能够做’。\n'help sb (to) do sth' 表示‘帮助某人做某事’，to 可省略。\n\n### 【修饰语】\n'dark, almost black' 是并列形容词，修饰 'body color'。\n'by basking at the surface' 是介词短语作方式状语。",
+        "analysis": "### 【主干结构】\n分号连接两个独立分句。\n第一分句：主语 'A leatherback'，谓语 'may be able to pick up'，宾语 'some body heat'，方式状语 'by basking at the surface'。\n第二分句：主语 'its dark, almost black body color'，谓语 'may help'，宾语 'it'，宾语补足语 'to absorb solar radiation'。\n\n### 【主谓一致】\n第一分句主语单数，谓语 'may be' 使用单数形式；第二分句主语单数（color），谓语 'may help' 使用单数形式，一致。\n\n### 【动词时态与原形】\n使用情态动词 may + 动词原形，表示可能性。\n\n### 【修饰语分析】\n'by basking at the surface' 是介词短语，作方式状语，修饰 'pick up'。\n'dark, almost black' 是形容词短语，作前置定语，修饰 'body color'。\n'to absorb solar radiation' 是不定式，作宾语补足语，修饰 'help it'。\n\n### 【代词指代】\n'it' 指代 'A leatherback'。\n\n### 【逻辑关系】\n分号表示并列或补充，两个分句分别描述了两种吸热途径。",
         "segments": [
           {
-            "text": "A leatherback ",
+            "text": "A leatherback",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "may be able to pick up ",
+            "text": " may be able to pick up",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "some body heat ",
+            "text": " some body heat",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "by basking at the surface; ",
+            "text": " by basking at the surface;",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "its dark, almost black body color ",
-            "type": "subject",
-            "label": "主语"
+            "text": " its dark, almost black body color",
+            "type": "coord-subject",
+            "label": "并列主语"
           },
           {
-            "text": "may help ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " may help",
+            "type": "coord-verb",
+            "label": "并列谓语"
           },
           {
-            "text": "it ",
-            "type": "object",
-            "label": "宾语"
+            "text": " it",
+            "type": "coord-object",
+            "label": "并列宾语"
           },
           {
-            "text": "to absorb solar radiation.",
-            "type": "predicative",
+            "text": " to absorb solar radiation.",
+            "type": "object-complement",
             "label": "宾语补足语"
           }
         ]
@@ -540,45 +650,46 @@
         "id": "s8",
         "para": 2,
         "text": "However, most of its internal heat comes from the action of its muscles.",
-        "translation": "然而，它大部分内部热量来自肌肉的作用。",
-        "grammarFocus": "comes from; 介词短语作表语/状语",
-        "pronounRef": "its 指代 leatherback",
-        "logicConnector": "However (转折)",
+        "translation": "然而，它大部分的内部热量来自肌肉的作用。",
+        "grammarFocus": "转折连词 However；介词短语作表语/状语",
+        "pronounRef": "its 指代 'a leatherback'。",
+        "logicConnector": "However 表示转折，引出主要的热量来源。",
         "sentenceCoach": {
-          "summary": "这句话揭示了棱皮龟主要的产热来源：肌肉运动。",
-          "keyHint": "'comes from' 表示来源。"
+          "summary": "这句话指出了最主要的产热来源。",
+          "keyHint": "'comes from' 表示来源，'the action of its muscles' 是核心来源。"
         },
         "teachingFocus": {
-          "mainQuestion": "棱皮龟的热量主要来自哪里？",
-          "grammarQuestion": "'most of its internal heat' 是主语，谓语是 'comes'。",
-          "modifierQuestion": "'from the action of its muscles' 是介词短语，说明热量的来源。",
-          "relationshipQuestion": "'However' 转折了上一句提到的晒太阳，指出肌肉才是主要来源。",
-          "commonMistake": "孩子可能不理解 'action of its muscles'，其实就是‘肌肉收缩/运动’。",
+          "mainQuestion": "这句话的主语是什么？热量来自哪里？",
+          "grammarQuestion": "'from the action of its muscles' 在句中起什么作用？",
+          "modifierQuestion": "'most of its internal heat' 中的 'most of' 修饰什么？",
+          "relationshipQuestion": "这句话与前文提到的晒太阳和体色吸热是什么关系？",
+          "commonMistake": "容易忽略 'However' 的转折意味，它强调肌肉产热是主要方式，而非次要方式。",
           "thinkingPath": [
-            "识别主语 most of its internal heat",
-            "识别谓语 comes from"
+            "识别转折词 'However'",
+            "找到主语 'most of its internal heat'",
+            "分析谓语 'comes from' 和宾语 'the action of its muscles'"
           ],
-          "encouragement": "棱皮龟是个运动健将，它的肌肉就像小发动机，不断产生热量！"
+          "encouragement": "你找到了最终的答案！肌肉才是棱皮龟的“发动机”，太神奇了！"
         },
-        "analysis": "### 【主干结构】\n主语 'most of its internal heat'，谓语 'comes'，介词短语 'from the action of its muscles' 作状语或表语（取决于语法体系，此处视为来源状语更通顺）。\n\n### 【逻辑连接】\n'However' 表示转折，对比前文提到的晒太阳产热，强调肌肉产热才是主要的。\n\n### 【介词短语】\n'from the action of its muscles' 解释热量的来源。",
+        "analysis": "### 【主干结构】\n主语 'most of its internal heat'，谓语 'comes'，介词短语 'from the action of its muscles' 作状语（或视为表语，取决于语法体系，此处视为来源状语更贴切）。\n\n### 【主谓一致】\n主语核心词 'most' 指代不可数名词 'heat'，视为单数，谓语 'comes' 使用第三人称单数形式，一致。\n\n### 【动词时态与原形】\n使用一般现在时，陈述客观事实。\n\n### 【修饰语分析】\n'of its internal heat' 是介词短语，修饰 'most'。\n'from the action of its muscles' 是介词短语，修饰 'comes'，说明来源。\n'of its muscles' 是介词短语，修饰 'action'。\n\n### 【代词指代】\n'its' 指代 'a leatherback'。\n\n### 【逻辑关系】\n'However' 表示转折，强调尽管有晒太阳等方式，但主要热量来源是肌肉运动。",
         "segments": [
           {
-            "text": "However, ",
+            "text": "However,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "most of its internal heat ",
+            "text": " most of its internal heat",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "comes ",
+            "text": " comes",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "from the action of its muscles.",
+            "text": " from the action of its muscles.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -589,45 +700,45 @@
         "para": 3,
         "text": "Leatherbacks keep their body heat in three different ways.",
         "translation": "棱皮龟通过三种不同的方式保持体温。",
-        "grammarFocus": "keep sth + adj/prep phrase",
-        "pronounRef": "their 指代 leatherbacks",
+        "grammarFocus": "主谓宾结构；介词短语作状语",
+        "pronounRef": "their 指代 Leatherbacks",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这是第三段的主题句，预告了接下来要讲的三种保温方式。",
-          "keyHint": "'in three different ways' 是方式状语。"
+          "summary": "这句话是总起句，告诉我们棱皮龟有“三招”保暖。",
+          "keyHint": "注意主语 Leatherbacks 是复数概念。"
         },
         "teachingFocus": {
-          "mainQuestion": "棱皮龟有几种保温方法？",
-          "grammarQuestion": "'keep their body heat' 是动宾结构，意思是‘保持体温’。",
-          "modifierQuestion": "'in three different ways' 修饰 keep，说明方式。",
-          "relationshipQuestion": "这句话统领全段，下文将详细解释这三种方式。",
-          "commonMistake": "无特别难点。",
+          "mainQuestion": "谁在保持体温？棱皮龟。",
+          "grammarQuestion": "它们是怎么保持的？通过三种不同的方式。",
+          "modifierQuestion": "“in three different ways”是状语，修饰动词 keep，告诉我们方法。",
+          "relationshipQuestion": "主语 Leatherbacks 执行动作 keep，宾语是 body heat。",
+          "commonMistake": "不要把 ways 当成主语，它是介词 in 的宾语。",
           "thinkingPath": [
-            "识别主语 Leatherbacks",
-            "识别谓语 keep",
-            "识别宾语 their body heat"
+            "找到动作 keep",
+            "找到谁在做动作 Leatherbacks",
+            "找到保持的是什么 body heat"
           ],
-          "encouragement": "棱皮龟是个多面手，它有三招保温秘籍！"
+          "encouragement": "太棒了！你一眼就看出了句子的核心动作！"
         },
-        "analysis": "### 【主干结构】\n主语 'Leatherbacks'，谓语 'keep'，宾语 'their body heat'，方式状语 'in three different ways'。\n\n### 【动词搭配】\n'keep sth + adj/prep' 表示‘使某物保持某种状态’。这里 keep body heat 意为保持热量不散失。",
+        "analysis": "### 【主干结构】\n主语：Leatherbacks\n谓语：keep\n宾语：their body heat\n状语：in three different ways\n\n### 【主谓一致】\nLeatherbacks 是复数名词，谓语动词 keep 使用原形，符合主谓一致。\n\n### 【动词时态与原形】\n使用一般现在时 keep，表示一种普遍的事实或习惯。\n\n### 【代词指代】\ntheir 指代主语 Leatherbacks。",
         "segments": [
           {
-            "text": "Leatherbacks ",
+            "text": "Leatherbacks",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "keep ",
+            "text": " keep",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "their body heat ",
+            "text": " their body heat",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "in three different ways.",
+            "text": " in three different ways.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -637,46 +748,46 @@
         "id": "s10",
         "para": 3,
         "text": "The first, and simplest, is size.",
-        "translation": "第一种，也是最简单的，是体型。",
-        "grammarFocus": "插入语 and simplest",
+        "translation": "第一种，也是最简单的，是体型大小。",
+        "grammarFocus": "主系表结构；插入语",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话引出了第一种保温方式：体型大。",
-          "keyHint": "'and simplest' 是插入语，补充说明 size 的特点。"
+          "summary": "这句话揭示了第一个方法：大。",
+          "keyHint": "注意 and simplest 是插入语，用来补充说明 first。"
         },
         "teachingFocus": {
-          "mainQuestion": "第一种保温方式是什么？",
-          "grammarQuestion": "'The first' 是主语，'is' 是系动词，'size' 是表语。",
-          "modifierQuestion": "'and simplest' 是插入语，修饰 The first，表示它也是最简单的。",
-          "relationshipQuestion": "这句话简洁地提出了第一个要点。",
-          "commonMistake": "孩子可能忽略插入语，直接读 The first is size。",
+          "mainQuestion": "第一个方法是什么？是 size（体型）。",
+          "grammarQuestion": "is 是系动词，连接主语 The first 和表语 size。",
+          "modifierQuestion": "“, and simplest,” 是插入语，作为同位语或补充说明，修饰 The first。",
+          "relationshipQuestion": "主语 The first 指代前文提到的三种方式中的第一种。",
+          "commonMistake": "不要把 and simplest 当成并列谓语，它只是修饰 The first 的形容词短语。",
           "thinkingPath": [
-            "识别主语 The first",
-            "识别插入语 and simplest",
-            "识别表语 size"
+            "找到系动词 is",
+            "找到主语 The first",
+            "找到表语 size"
           ],
-          "encouragement": "原来体型大就是第一种保温秘诀，简单又有效！"
+          "encouragement": "你抓住了句子的骨架，真厉害！"
         },
-        "analysis": "### 【主干结构】\n主语 'The first'，系动词 'is'，表语 'size'。\n\n### 【插入语】\n', and simplest,' 是插入语，对 'The first' 进行补充说明，表示它不仅是第一个提到的，而且是最简单的。",
+        "analysis": "### 【主干结构】\n主语：The first\n系动词：is\n表语：size\n修饰语：, and simplest, （插入语，作同位语或补充说明）\n\n### 【主谓一致】\nThe first 是单数概念，系动词 is 使用单数形式。\n\n### 【动词时态与原形】\n使用一般现在时 is。\n\n### 【修饰语分析】\n“, and simplest,” 是形容词短语，作为插入语，对主语 The first 进行补充说明，强调其简单性。",
         "segments": [
           {
-            "text": "The first, ",
+            "text": "The first",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "and simplest, ",
+            "text": ", and simplest,",
             "type": "modifier",
-            "label": "插入语"
+            "label": "同位语/补充说明"
           },
           {
-            "text": "is ",
+            "text": " is",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "size.",
+            "text": " size.",
             "type": "predicative",
             "label": "表语"
           }
@@ -686,57 +797,76 @@
         "id": "s11",
         "para": 3,
         "text": "The bigger the animal is, the lower its surface-to-volume ratio; for every ounce of body mass, there is proportionately less surface through which heat can escape.",
-        "translation": "动物越大，其表面积与体积之比就越低；每盎司体重对应的表面积比例越小，热量逃逸的表面积就越少。",
-        "grammarFocus": "The more..., the more... 结构; 定语从句 through which",
+        "translation": "动物越大，其表面积与体积比越低；每盎司体重对应的表面积比例越小，热量散失的途径就越少。",
+        "grammarFocus": "The more..., the more... 结构；定语从句",
         "pronounRef": "its 指代 the animal",
-        "logicConnector": "分号 (解释说明)",
+        "logicConnector": "分号连接两个并列的分句，解释说明关系",
         "sentenceCoach": {
-          "summary": "这句话解释了为什么体型大有助于保温：表面积与体积的比例问题。",
-          "keyHint": "'The bigger..., the lower...' 是固定比较结构。"
+          "summary": "这是一个经典的比较句型，解释为什么大体型有助于保温。",
+          "keyHint": "注意分号前后是两个独立的完整句子，后半句包含一个定语从句。"
         },
         "teachingFocus": {
-          "mainQuestion": "为什么动物越大，保温效果越好？",
-          "grammarQuestion": "'The bigger..., the lower...' 是‘越……越……’的结构。",
-          "modifierQuestion": "'through which heat can escape' 是定语从句，修饰 surface。",
-          "relationshipQuestion": "分号前后是因果关系：因为比例低，所以散热少。",
-          "commonMistake": "孩子可能不理解 'surface-to-volume ratio'，这是‘表面积与体积之比’，是科学概念。",
+          "mainQuestion": "前半句：动物越大，比例越低。后半句：每单位体重，表面积越小。",
+          "grammarQuestion": "“The bigger..., the lower...” 是固定搭配，表示“越...越...”。",
+          "modifierQuestion": "“through which heat can escape” 是定语从句，修饰 surface。",
+          "relationshipQuestion": "分号前的句子解释体型与比例的关系；分号后的句子进一步解释比例低意味着什么。",
+          "commonMistake": "容易忽略分号后的 there be 句型，或者搞错定语从句修饰的对象。",
           "thinkingPath": [
             "识别 The bigger..., the lower... 结构",
-            "识别定语从句 through which..."
+            "找到分号，断开句子",
+            "在后半句中找到 through which 引导的从句"
           ],
-          "encouragement": "棱皮龟像个巨大的保温瓶，身体越大，散热口相对就越小！"
+          "encouragement": "这个长句有点难，但你拆解得很清晰！"
         },
-        "analysis": "### 【主干结构】\n分号连接两个分句。\n第一分句：'The bigger the animal is' 是状语从句，'the lower its surface-to-volume ratio' 是主句（省略了 is）。\n第二分句：'for every ounce of body mass' 是状语，'there is' 是存在句，'proportionately less surface' 是主语，'through which heat can escape' 是定语从句修饰 surface。\n\n### 【比较结构】\n'The + comparative..., the + comparative...' 表示‘越……越……’。\n\n### 【定语从句】\n'through which heat can escape'：'which' 指代 'surface'，'through which' 意为‘通过它（表面积）’。",
+        "analysis": "### 【主干结构】\n分句1：\n主语：the animal\n系动词：is\n表语：bigger (前置)\n主语：its surface-to-volume ratio\n系动词：lower (前置)\n\n分句2：\n状语：for every ounce of body mass\n谓语：there is\n主语：proportionately less surface\n定语从句：through which heat can escape\n\n### 【主谓一致】\n分句1中，the animal 是单数，is 是单数；ratio 是单数，lower 是形容词作表语，无变化。\n分句2中，there is 与 surface 一致，surface 是不可数名词或单数概念，使用 is。\n\n### 【从句剖析】\n“through which heat can escape” 是定语从句，修饰先行词 surface。which 指代 surface，through which 表示“通过表面积”。\n\n### 【非谓语动词】\n无。",
         "segments": [
           {
-            "text": "The bigger the animal is, ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": "The bigger",
+            "type": "clause-predicative"
           },
           {
-            "text": "the lower its surface-to-volume ratio; ",
-            "type": "clause-predicative",
-            "label": "从句表语"
+            "text": " the animal",
+            "type": "clause-subject"
           },
           {
-            "text": "for every ounce of body mass, ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " is,",
+            "type": "clause-verb"
           },
           {
-            "text": "there is ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " the lower",
+            "type": "clause-predicative"
           },
           {
-            "text": "proportionately less surface ",
-            "type": "subject",
-            "label": "主语"
+            "text": " its surface-to-volume ratio",
+            "type": "clause-subject"
           },
           {
-            "text": "through which heat can escape.",
-            "type": "clause-subject",
-            "label": "从句主语及谓语"
+            "text": ";",
+            "type": "conjunction"
+          },
+          {
+            "text": " for every ounce of body mass,",
+            "type": "adverbial"
+          },
+          {
+            "text": " there is",
+            "type": "verb"
+          },
+          {
+            "text": " proportionately less surface",
+            "type": "subject"
+          },
+          {
+            "text": " through which",
+            "type": "conjunction"
+          },
+          {
+            "text": " heat",
+            "type": "clause-subject"
+          },
+          {
+            "text": " can escape.",
+            "type": "clause-verb"
           }
         ]
       },
@@ -745,60 +875,67 @@
         "para": 3,
         "text": "An adult leatherback is twice the size of the biggest cheloniid sea turtles and will therefore take longer to cool off.",
         "translation": "成年棱皮龟的体型是最大龟鳖科海龟的两倍，因此冷却下来需要更长的时间。",
-        "grammarFocus": "twice the size of; take time to do",
+        "grammarFocus": "并列谓语；倍数表达法",
         "pronounRef": "无",
-        "logicConnector": "therefore (因果)",
+        "logicConnector": "and 连接两个谓语部分；therefore 表示因果",
         "sentenceCoach": {
-          "summary": "这句话用具体比较说明棱皮龟的体型优势，并引出保温结果。",
-          "keyHint": "'twice the size of' 表示‘是……大小的两倍’。"
+          "summary": "这句话有两个动作：是...的两倍，以及冷却得慢。",
+          "keyHint": "注意 is 和 will take 是并列的谓语，共享主语 An adult leatherback。"
         },
         "teachingFocus": {
-          "mainQuestion": "棱皮龟比其他海龟大多少？这带来了什么好处？",
-          "grammarQuestion": "'twice the size of' 是倍数表达法。",
-          "modifierQuestion": "'therefore' 是连接副词，表示结果。",
-          "relationshipQuestion": "体型大（原因）导致冷却慢（结果）。",
-          "commonMistake": "孩子可能不理解 'cheloniid'，这是指传统海龟（如绿海龟、玳瑁等），区别于棱皮龟。",
+          "mainQuestion": "棱皮龟有多大？是其他海龟的两倍。结果呢？冷却得慢。",
+          "grammarQuestion": "“twice the size of...” 是倍数表达法。",
+          "modifierQuestion": "“therefore” 是副词，表示结果，连接前后逻辑。",
+          "relationshipQuestion": "前半句是事实描述，后半句是由此产生的结果。",
+          "commonMistake": "容易把 and 后面的 will take 当成新的主语，其实它还是棱皮龟在冷却。",
           "thinkingPath": [
-            "识别倍数表达 twice the size of",
-            "识别连接副词 therefore"
+            "找到主语 An adult leatherback",
+            "找到第一个谓语 is",
+            "找到连词 and",
+            "找到第二个谓语 will take"
           ],
-          "encouragement": "棱皮龟是个大块头，冷却速度慢，就像大石头一样保温持久！"
+          "encouragement": "你成功识别了并列谓语，真细心！"
         },
-        "analysis": "### 【主干结构】\n主语 'An adult leatherback'，谓语部分由 'is' 和 'will take' 两个动词构成，由 'and' 连接。\n第一谓语：'is twice the size of the biggest cheloniid sea turtles'。\n第二谓语：'will therefore take longer to cool off'。\n\n### 【倍数表达】\n'twice the size of...' 表示‘是……大小的两倍’。\n\n### 【逻辑连接】\n'therefore' 表示‘因此’，引出体型大带来的结果：冷却时间长。",
+        "analysis": "### 【主干结构】\n主语：An adult leatherback\n谓语1：is\n表语1：twice the size of the biggest cheloniid sea turtles\n连词：and\n谓语2：will take\n状语2：therefore\n宾语2：longer (时间状语作宾语或补足语，此处 longer 修饰 take longer)\n不定式：to cool off\n\n### 【主谓一致】\n主语 An adult leatherback 是单数，is 是单数；will take 不受单复数影响。\n\n### 【动词时态与原形】\nis 是一般现在时；will take 是一般将来时，表示基于前述事实的推断结果。\n\n### 【非谓语动词】\nto cool off 是不定式，作目的状语或结果状语，修饰 take longer。",
         "segments": [
           {
-            "text": "An adult leatherback ",
+            "text": "An adult leatherback",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " is",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "twice the size of the biggest cheloniid sea turtles ",
+            "text": " twice the size of the biggest cheloniid sea turtles",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "and ",
+            "text": " and",
             "type": "conjunction",
-            "label": "并列连词"
+            "label": "连接词"
           },
           {
-            "text": "will therefore ",
+            "text": " will",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "take longer ",
-            "type": "object",
-            "label": "宾语"
+            "text": " therefore",
+            "type": "adverbial",
+            "label": "状语"
           },
           {
-            "text": "to cool off.",
-            "type": "modifier",
+            "text": " take longer",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " to cool off.",
+            "type": "adverbial",
             "label": "状语"
           }
         ]
@@ -808,41 +945,42 @@
         "para": 3,
         "text": "Maintaining a high body temperature through sheer bulk is called gigantothermy.",
         "translation": "通过巨大的体型保持高温被称为巨温性。",
-        "grammarFocus": "动名词作主语; 被动语态",
+        "grammarFocus": "动名词短语作主语；被动语态",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话给这种保温方式起了一个专业的名字：巨温性。",
-          "keyHint": "主语是 'Maintaining a high body temperature...'，这是一个很长的动名词短语。"
+          "summary": "这句话定义了一个科学术语：巨温性。",
+          "keyHint": "主语很长，是动名词短语 Maintaining...，谓语是 is called。"
         },
         "teachingFocus": {
-          "mainQuestion": "这种靠体型保温的方式叫什么名字？",
-          "grammarQuestion": "'Maintaining...' 是主语，'is called' 是被动语态谓语。",
-          "modifierQuestion": "'through sheer bulk' 是方式状语，修饰 Maintaining。",
-          "relationshipQuestion": "这句话定义了前文描述的现象。",
-          "commonMistake": "孩子可能不理解 'sheer bulk'，'sheer' 表示‘纯粹的’、‘十足的’，'bulk' 表示‘大块头’。",
+          "mainQuestion": "什么被称为巨温性？保持高温的行为。",
+          "grammarQuestion": "“Maintaining...” 是动名词短语，作主语，谓语动词用单数 is。",
+          "modifierQuestion": "“through sheer bulk” 是状语，修饰 Maintaining，说明方式。",
+          "relationshipQuestion": "主语描述一个行为，谓语说明这个行为的名称。",
+          "commonMistake": "容易把 Maintaining 当成谓语，或者忽略主语是动名词短语这一事实。",
           "thinkingPath": [
-            "识别动名词短语作主语",
-            "识别被动语态 is called"
+            "找到谓语 is called",
+            "找到主语 Maintaining a high body temperature through sheer bulk",
+            "识别动名词短语作主语"
           ],
-          "encouragement": "科学家给棱皮龟的绝招起了个酷酷的名字：巨温性！"
+          "encouragement": "你找到了长长的主语，真棒！"
         },
-        "analysis": "### 【主干结构】\n主语 'Maintaining a high body temperature through sheer bulk'（动名词短语），谓语 'is called'（被动语态），宾语 'gigantothermy'。\n\n### 【动名词短语】\n'Maintaining...' 整个短语作主语，谓语动词用单数 is。\n\n### 【介词短语】\n'through sheer bulk' 修饰 Maintaining，说明通过什么方式（通过巨大的体型）。",
+        "analysis": "### 【主干结构】\n主语：Maintaining a high body temperature through sheer bulk\n谓语：is called\n表语/主语补足语：gigantothermy\n\n### 【主谓一致】\n主语是动名词短语，视为单数，谓语 is 使用单数形式。\n\n### 【动词时态与原形】\nis called 是一般现在时的被动语态。\n\n### 【非谓语动词】\nMaintaining 是动名词，作主语。",
         "segments": [
           {
-            "text": "Maintaining a high body temperature through sheer bulk ",
+            "text": "Maintaining a high body temperature through sheer bulk",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is called ",
+            "text": " is called",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "gigantothermy.",
-            "type": "object",
-            "label": "宾语"
+            "text": " gigantothermy.",
+            "type": "predicative",
+            "label": "表语"
           }
         ]
       },
@@ -851,64 +989,61 @@
         "para": 3,
         "text": "It works for elephants, for whales, and, perhaps, it worked for many of the larger dinosaurs.",
         "translation": "它对大象有效，对鲸鱼有效，也许，它对许多大型恐龙也有效。",
-        "grammarFocus": "并列句; 时态变化",
+        "grammarFocus": "并列句；时态对比",
         "pronounRef": "It 指代 gigantothermy",
-        "logicConnector": "and (并列)",
+        "logicConnector": "and 连接两个并列分句",
         "sentenceCoach": {
-          "summary": "这句话列举了其他使用巨温性的动物，包括现存的和已灭绝的。",
+          "summary": "这句话列举了巨温性适用的动物，包括现存的和已灭绝的。",
           "keyHint": "注意时态的变化：works (现在时) 和 worked (过去时)。"
         },
         "teachingFocus": {
-          "mainQuestion": "除了棱皮龟，还有哪些动物用这种方式保温？",
-          "grammarQuestion": "'It works for...' 表示‘对……有效’。",
-          "modifierQuestion": "'perhaps' 是插入语，表示推测。",
-          "relationshipQuestion": "通过列举大象、鲸鱼和恐龙，说明巨温性的普遍性。",
-          "commonMistake": "孩子可能不理解为什么恐龙用过去时 worked，因为恐龙已经灭绝了。",
+          "mainQuestion": "巨温性对谁有效？大象、鲸鱼，还有恐龙。",
+          "grammarQuestion": "and 连接两个独立分句，第二个分句主语 it 重复出现。",
+          "modifierQuestion": "“, perhaps,” 是插入语，表示推测。",
+          "relationshipQuestion": "前一分句讲现在，后一分句讲过去，形成对比和补充。",
+          "commonMistake": "容易忽略 perhaps 的位置，或者搞错 worked 的时态。",
           "thinkingPath": [
-            "识别主语 It",
-            "识别并列结构 for elephants, for whales, and..."
+            "找到第一个分句 It works...",
+            "找到连词 and",
+            "找到第二个分句 it worked...",
+            "注意 perhaps 的位置"
           ],
-          "encouragement": "原来大象、鲸鱼甚至恐龙都是巨温性的粉丝！"
+          "encouragement": "你注意到了时态的变化，真敏锐！"
         },
-        "analysis": "### 【主干结构】\n主语 'It'，谓语 'works'，介词短语 'for elephants, for whales' 作状语。\n后半部分：', and, perhaps, it worked for many of the larger dinosaurs.' 是并列分句，主语 'it'，谓语 'worked'，状语 'for many of the larger dinosaurs'。\n\n### 【时态】\n'works' 用一般现在时，因为大象和鲸鱼现在还活着。\n'worked' 用一般过去时，因为恐龙已经灭绝。\n\n### 【插入语】\n'perhaps' 表示‘也许’，修饰 worked，表示推测。",
+        "analysis": "### 【主干结构】\n分句1：\n主语：It\n谓语：works\n状语：for elephants, for whales\n\n分句2：\n主语：it\n谓语：worked\n状语：for many of the larger dinosaurs\n\n### 【主谓一致】\nIt 是单数，works 和 worked 均符合单数主语。\n\n### 【动词时态与原形】\nworks 是一般现在时，表示当前事实；worked 是一般过去时，表示过去的事实（恐龙已灭绝）。\n\n### 【修饰语分析】\n“, perhaps,” 是插入语，修饰整个分句或谓语，表示不确定性。",
         "segments": [
           {
-            "text": "It ",
+            "text": "It",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "works ",
+            "text": " works for elephants, for whales,",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "for elephants, ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "for whales, ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "and, ",
+            "text": " and",
             "type": "conjunction",
-            "label": "并列连词"
+            "label": "连接词"
           },
           {
-            "text": "perhaps, ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": ", perhaps,",
+            "type": "modifier",
+            "label": "状语/插入语"
           },
           {
-            "text": "it worked ",
-            "type": "clause-subject",
-            "label": "从句主语及谓语"
+            "text": " it",
+            "type": "coord-subject",
+            "label": "主语"
           },
           {
-            "text": "for many of the larger dinosaurs.",
+            "text": " worked",
+            "type": "coord-verb",
+            "label": "谓语"
+          },
+          {
+            "text": " for many of the larger dinosaurs.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -919,49 +1054,51 @@
         "para": 3,
         "text": "It apparently works, in a smaller way, for some other sea turtles.",
         "translation": "显然，它在某种程度上对其他一些海龟也有效。",
-        "grammarFocus": "插入语 in a smaller way",
+        "grammarFocus": "插入语；副词修饰",
         "pronounRef": "It 指代 gigantothermy",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话将巨温性的适用范围缩小到其他海龟。",
-          "keyHint": "'in a smaller way' 表示程度较轻。"
+          "summary": "这句话进一步补充，巨温性对其他海龟也有效，但效果较小。",
+          "keyHint": "注意 apparently 和 in a smaller way 都是修饰 works 的。"
         },
         "teachingFocus": {
-          "mainQuestion": "巨温性对其他海龟有效吗？",
-          "grammarQuestion": "'apparently' 是副词，修饰 works。",
-          "modifierQuestion": "'in a smaller way' 是插入语，修饰 works，表示效果不如大象那么显著。",
-          "relationshipQuestion": "从大象、鲸鱼过渡到其他海龟，范围逐渐缩小。",
-          "commonMistake": "孩子可能不理解 'in a smaller way'，意思是‘以较小的程度’或‘效果较弱’。",
+          "mainQuestion": "巨温性对其他海龟有效吗？有效，但方式较小。",
+          "grammarQuestion": "“in a smaller way” 是插入语，作状语，修饰 works。",
+          "modifierQuestion": "apparently 是副词，修饰 works，表示“显然”。",
+          "relationshipQuestion": "这句话是对前文恐龙和大型动物巨温性的补充，指出其他海龟也有类似现象。",
+          "commonMistake": "容易把 in a smaller way 当成主语或宾语。",
           "thinkingPath": [
-            "识别主语 It",
-            "识别插入语 in a smaller way"
+            "找到主语 It",
+            "找到谓语 works",
+            "找到插入语 in a smaller way",
+            "找到副词 apparently"
           ],
-          "encouragement": "其他海龟也用这招，但效果可能没棱皮龟那么强哦！"
+          "encouragement": "你成功识别了插入语，真厉害！"
         },
-        "analysis": "### 【主干结构】\n主语 'It'，谓语 'works'，状语 'for some other sea turtles'。\n\n### 【插入语】\n', in a smaller way,' 是插入语，修饰 works，表示这种巨温性在其他海龟身上表现得不那么强烈。\n\n### 【副词】\n'apparently' 修饰 works，表示‘显然’。",
+        "analysis": "### 【主干结构】\n主语：It\n谓语：works\n状语：apparently, in a smaller way, for some other sea turtles\n\n### 【主谓一致】\nIt 是单数，works 是单数。\n\n### 【动词时态与原形】\nworks 是一般现在时。\n\n### 【修饰语分析】\napparently 是副词，修饰 works。\nin a smaller way 是介词短语，作方式状语，插入在谓语和介词短语之间。\nfor some other sea turtles 是介词短语，作对象状语。",
         "segments": [
           {
-            "text": "It ",
+            "text": "It",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "apparently ",
+            "text": " apparently",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "works, ",
+            "text": " works",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "in a smaller way, ",
+            "text": ", in a smaller way,",
             "type": "modifier",
-            "label": "插入语"
+            "label": "状语/插入语"
           },
           {
-            "text": "for some other sea turtles.",
+            "text": " for some other sea turtles.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -971,72 +1108,65 @@
         "id": "s16",
         "para": 3,
         "text": "Large loggerhead and green turtles can maintain their body temperature at a degree or two above that of the surrounding water, and gigantothermy is probably the way they do it.",
-        "translation": "大型红海龟和绿海龟可以将体温保持在周围水温以上一到两度，巨温性可能就是它们这样做的方式。",
-        "grammarFocus": "that 指代 body temperature; 定语从句 they do it",
-        "pronounRef": "that 指代 body temperature; they 指代 turtles",
-        "logicConnector": "and (并列)",
+        "translation": "大型红海龟和绿海龟能将体温保持在周围水温以上一两度，而巨温性可能就是它们这样做的方式。",
+        "grammarFocus": "并列句；定语从句",
+        "pronounRef": "their 指代 turtles; that 指代 body temperature; they 指代 turtles; it 指代 maintain body temperature",
+        "logicConnector": "and 连接两个并列分句",
         "sentenceCoach": {
-          "summary": "这句话具体说明了其他海龟的保温效果，并推测原因。",
-          "keyHint": "'that of the surrounding water' 中 that 指代 body temperature。"
+          "summary": "这句话具体说明了其他海龟如何保温，并指出巨温性是原因。",
+          "keyHint": "注意 that 指代 body temperature，避免重复。"
         },
         "teachingFocus": {
-          "mainQuestion": "其他海龟能比水温高多少？",
-          "grammarQuestion": "'that of...' 是代词 that 指代前文提到的名词，避免重复。",
-          "modifierQuestion": "'they do it' 是定语从句，修饰 the way。",
-          "relationshipQuestion": "前半句讲现象，后半句讲原因推测。",
-          "commonMistake": "孩子可能不理解 'that of the surrounding water'，that 指代 body temperature，意思是‘周围水的体温’。",
+          "mainQuestion": "其他海龟怎么保温？保持比水温高一两度。为什么？因为巨温性。",
+          "grammarQuestion": "“that of the surrounding water” 中 that 指代 body temperature。",
+          "modifierQuestion": "“they do it” 是定语从句，修饰 the way。",
+          "relationshipQuestion": "前一分句描述现象，后一分句解释原因。",
+          "commonMistake": "容易搞错 that 的指代对象，或者忽略 they do it 是定语从句。",
           "thinkingPath": [
-            "识别 that 的指代",
-            "识别定语从句 they do it"
+            "找到第一个分句 Large loggerhead and green turtles can maintain...",
+            "找到连词 and",
+            "找到第二个分句 gigantothermy is probably the way...",
+            "找到定语从句 they do it"
           ],
-          "encouragement": "其他海龟也能稍微暖一点，巨温性真是海龟界的通用技能！"
+          "encouragement": "你成功拆解了复杂的并列句和从句，真棒！"
         },
-        "analysis": "### 【主干结构】\n分号连接两个分句。\n第一分句：主语 'Large loggerhead and green turtles'，谓语 'can maintain'，宾语 'their body temperature'，状语 'at a degree or two above that of the surrounding water'。\n第二分句：主语 'gigantothermy'，谓语 'is'，表语 'probably the way'，定语从句 'they do it' 修饰 way。\n\n### 【代词指代】\n'that' 指代 'body temperature'。\n'they' 指代 'turtles'。\n\n### 【定语从句】\n'they do it' 是省略了 that/which 的定语从句，修饰 'the way'。",
+        "analysis": "### 【主干结构】\n分句1：\n主语：Large loggerhead and green turtles\n谓语：can maintain\n宾语：their body temperature\n状语：at a degree or two above that of the surrounding water\n\n分句2：\n主语：gigantothermy\n系动词：is\n表语：probably the way\n定语从句：they do it\n\n### 【主谓一致】\n分句1主语是复数，can maintain 不变。\n分句2主语 gigantothermy 是单数，is 是单数。\n\n### 【从句剖析】\n“they do it” 是定语从句，修饰先行词 the way。they 指代 turtles，it 指代 maintain body temperature。\n\n### 【代词指代】\nthat 指代 body temperature，避免重复。",
         "segments": [
           {
-            "text": "Large loggerhead and green turtles ",
-            "type": "subject",
-            "label": "主语"
+            "text": "Large loggerhead and green turtles",
+            "type": "subject"
           },
           {
-            "text": "can maintain ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " can maintain",
+            "type": "verb"
           },
           {
-            "text": "their body temperature ",
-            "type": "object",
-            "label": "宾语"
+            "text": " their body temperature",
+            "type": "object"
           },
           {
-            "text": "at a degree or two above that of the surrounding water, ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " at a degree or two above that of the surrounding water,",
+            "type": "adverbial"
           },
           {
-            "text": "and ",
-            "type": "conjunction",
-            "label": "并列连词"
+            "text": " and",
+            "type": "conjunction"
           },
           {
-            "text": "gigantothermy ",
-            "type": "subject",
-            "label": "主语"
+            "text": " gigantothermy",
+            "type": "coord-subject"
           },
           {
-            "text": "is ",
-            "type": "verb",
-            "label": "系动词"
+            "text": " is",
+            "type": "coord-verb"
           },
           {
-            "text": "probably the way ",
-            "type": "predicative",
-            "label": "表语"
+            "text": " probably the way",
+            "type": "coord-predicative"
           },
           {
-            "text": "they do it.",
-            "type": "clause-subject",
-            "label": "从句主语及谓语"
+            "text": " they do it.",
+            "type": "clause-object"
           }
         ]
       },
@@ -1044,72 +1174,76 @@
         "id": "s17",
         "para": 3,
         "text": "Muscular activity helps, too, and an actively swimming green turtle may be 7°C (12.6°F) warmer than the waters it swims through.",
-        "translation": "肌肉活动也有帮助，而且一只 actively 游泳的绿海龟可能比它游过的水域温暖7°C（12.6°F）。",
-        "grammarFocus": "定语从句 it swims through",
+        "translation": "肌肉活动也有帮助，一只正在积极游泳的绿海龟可能比它游过的海水温度高出7°C（12.6°F）。",
+        "grammarFocus": "并列句结构；比较级；定语从句省略关系代词",
         "pronounRef": "it 指代 green turtle",
-        "logicConnector": "and (并列)",
+        "logicConnector": "and 表示并列补充",
         "sentenceCoach": {
-          "summary": "这句话补充了肌肉活动对保温的贡献。",
-          "keyHint": "'it swims through' 是定语从句，修饰 waters。"
+          "summary": "这是一个由 and 连接的两个独立分句组成的并列句。",
+          "keyHint": "注意后半句中 waters 后面紧跟的 it swims through 是一个省略了 that/which 的定语从句。"
         },
         "teachingFocus": {
-          "mainQuestion": "肌肉活动对保温有帮助吗？",
-          "grammarQuestion": "'Muscular activity helps, too' 是简单句，too 表示‘也’。",
-          "modifierQuestion": "'it swims through' 是定语从句，修饰 waters。",
-          "relationshipQuestion": "肌肉活动是另一个保温因素。",
-          "commonMistake": "孩子可能不理解 'actively swimming'，这是形容词短语，修饰 green turtle。",
+          "mainQuestion": "谁在帮忙？是肌肉活动。谁比水热？是正在游泳的绿海龟。",
+          "grammarQuestion": "and 把两个完整的句子连在一起，就像把两节火车车厢连起来一样。",
+          "modifierQuestion": "it swims through 是修饰 waters 的，告诉我们是在哪些水里游泳。",
+          "relationshipQuestion": "前半句说原因（肌肉活动），后半句说结果（体温比水高）。",
+          "commonMistake": "容易把 it swims through 当成另一个独立的句子，其实它是修饰 waters 的。",
           "thinkingPath": [
-            "识别主语 Muscular activity",
-            "识别定语从句 it swims through"
+            "找到连接词 and，把句子切成两半。",
+            "前半部分找主语 Muscular activity。",
+            "后半部分找主语 green turtle，并识别 it swims through 是修饰 waters 的。"
           ],
-          "encouragement": "游泳时的肌肉运动也能产生热量，棱皮龟真是活力满满！"
+          "encouragement": "你成功拆解了一个长句子，真棒！"
         },
-        "analysis": "### 【主干结构】\n分号连接两个分句。\n第一分句：主语 'Muscular activity'，谓语 'helps'，状语 'too'。\n第二分句：主语 'an actively swimming green turtle'，谓语 'may be'，表语 '7°C (12.6°F) warmer'，比较状语 'than the waters'，定语从句 'it swims through' 修饰 waters。\n\n### 【定语从句】\n'it swims through' 是省略了 that/which 的定语从句，修饰 'waters'。'through' 是介词，与 swims 搭配。",
+        "analysis": "### 【主干结构】\n这是一个并列句，由连词 **and** 连接两个独立的分句。\n\n**分句1：** Muscular activity helps, too.\n- 主语：Muscular activity\n- 谓语：helps\n- 状语：too（也）\n\n**分句2：** an actively swimming green turtle may be 7°C (12.6°F) warmer than the waters it swims through.\n- 主语：an actively swimming green turtle\n- 系动词：may be\n- 表语：7°C (12.6°F) warmer（比较级结构）\n- 状语：than the waters it swims through（比较状语）\n\n### 【主谓一致】\n- Muscular activity 是单数，谓语 helps 用单数形式。\n- green turtle 是单数，谓语 may be 是情态动词+原形，不受单复数影响。\n\n### 【动词时态与原形】\n- helps: 一般现在时，表示客观事实。\n- may be: 情态动词+系动词，表示可能性。\n\n### 【从句剖析】\n- **定语从句**：在分句2中，\"it swims through\" 是修饰 \"the waters\" 的定语从句。完整形式为 \"than the waters **that/which** it swims through\"。关系代词在从句中作 through 的宾语，因此被省略。\n\n### 【代词指代】\n- **it**: 指代 \"green turtle\"（绿海龟）。",
         "segments": [
           {
-            "text": "Muscular activity ",
-            "type": "subject",
-            "label": "主语"
+            "text": "Muscular activity",
+            "type": "subject"
           },
           {
-            "text": "helps, ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " helps",
+            "type": "verb"
           },
           {
-            "text": "too, ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": ", too,",
+            "type": "adverbial"
           },
           {
-            "text": "and ",
-            "type": "conjunction",
-            "label": "并列连词"
+            "text": " and",
+            "type": "conjunction"
           },
           {
-            "text": "an actively swimming green turtle ",
-            "type": "subject",
-            "label": "主语"
+            "text": " an actively swimming green turtle",
+            "type": "subject"
           },
           {
-            "text": "may be ",
-            "type": "verb",
-            "label": "系动词"
+            "text": " may be",
+            "type": "verb"
           },
           {
-            "text": "7°C (12.6°F) warmer ",
-            "type": "predicative",
-            "label": "表语"
+            "text": " 7°C (12.6°F) warmer",
+            "type": "predicative"
           },
           {
-            "text": "than the waters ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " than the waters",
+            "type": "adverbial"
           },
           {
-            "text": "it swims through.",
-            "type": "clause-subject",
-            "label": "从句主语及谓语"
+            "text": " it",
+            "type": "clause-subject"
+          },
+          {
+            "text": " swims",
+            "type": "clause-verb"
+          },
+          {
+            "text": " through",
+            "type": "modifier"
+          },
+          {
+            "text": ".",
+            "type": "modifier"
           }
         ]
       },
@@ -1117,55 +1251,56 @@
         "id": "s18",
         "para": 4,
         "text": "Gigantothermy, though, would not be enough to keep a leatherback warm in cold northern waters.",
-        "translation": "然而，仅靠巨温性不足以让棱皮龟在寒冷的北方水域保持温暖。",
-        "grammarFocus": "插入语 though; enough to do",
+        "translation": "然而，巨温性不足以让棱皮龟在寒冷的北方水域保持温暖。",
+        "grammarFocus": "插入语；不定式作结果/目的状语；keep + obj + adj 结构",
         "pronounRef": "无",
-        "logicConnector": "though (转折)",
+        "logicConnector": "though 作为插入语，表示转折",
         "sentenceCoach": {
-          "summary": "这句话指出巨温性的局限性，引出下文的其他保温机制。",
-          "keyHint": "'though' 是插入语，表示转折。"
+          "summary": "注意 though 是插入语，去掉后句子依然完整。",
+          "keyHint": "keep a leatherback warm 是核心结构，warm 是形容词作宾语补足语。"
         },
         "teachingFocus": {
-          "mainQuestion": "巨温性能让棱皮龟在北方水域完全保暖吗？",
-          "grammarQuestion": "'would not be enough' 表示‘将不足以’。",
-          "modifierQuestion": "'to keep a leatherback warm' 是不定式作结果状语或补足语。",
-          "relationshipQuestion": "转折词 though 提示读者，前文提到的巨温性不够用。",
-          "commonMistake": "孩子可能不理解 'though' 放在句中作插入语，相当于 'however'。",
+          "mainQuestion": "什么不够？巨温性。让谁保持什么状态？让棱皮龟保持温暖。",
+          "grammarQuestion": "though 夹在中间，像个小插曲，表示转折，但不影响句子主干。",
+          "modifierQuestion": "in cold northern waters 告诉我们在哪里保持温暖。",
+          "relationshipQuestion": "巨温性（原因）不足以导致棱皮龟温暖（结果）。",
+          "commonMistake": "容易把 though 当成句子的主要连接词，其实它是插入语，语气较弱。",
           "thinkingPath": [
-            "识别插入语 though",
-            "识别 enough to do 结构"
+            "识别插入语 though，暂时忽略它找主干。",
+            "找到主语 Gigantothermy 和谓语 would be。",
+            "分析 keep a leatherback warm 结构。"
           ],
-          "encouragement": "巨温性虽然厉害，但在极寒的北方还不够用，棱皮龟需要更多帮手！"
+          "encouragement": "你抓住了句子的核心，太厉害了！"
         },
-        "analysis": "### 【主干结构】\n主语 'Gigantothermy'，谓语 'would not be'，表语 'enough'，不定式短语 'to keep a leatherback warm' 作状语或补足语，状语 'in cold northern waters'。\n\n### 【插入语】\n', though,' 是插入语，表示转折，相当于 'however'。\n\n### 【形容词搭配】\n'enough to do sth' 表示‘足够做某事’。",
+        "analysis": "### 【主干结构】\n- 主语：Gigantothermy\n- 谓语：would be\n- 表语：enough\n- 状语：to keep a leatherback warm in cold northern waters（不定式短语作状语，修饰 enough，表示程度或结果）\n\n### 【主谓一致】\n- Gigantothermy 是单数概念，谓语 would be 是情态动词+原形，一致。\n\n### 【动词时态与原形】\n- would be: 情态动词+系动词，表示假设或推测。\n\n### 【从句剖析】\n- 无从句。to keep... 是不定式短语。\n\n### 【代词指代】\n- 无代词。\n\n### 【非谓语动词】\n- **to keep**: 不定式，在此处修饰 enough，说明不够到什么程度。",
         "segments": [
           {
-            "text": "Gigantothermy, ",
+            "text": "Gigantothermy,",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "though, ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " though,",
+            "type": "modifier",
+            "label": "插入语"
           },
           {
-            "text": "would not be ",
+            "text": " would not be",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "enough ",
+            "text": " enough",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "to keep a leatherback warm ",
+            "text": " to keep a leatherback warm",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "in cold northern waters.",
+            "text": " in cold northern waters.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -1175,65 +1310,66 @@
         "id": "s19",
         "para": 4,
         "text": "It is not enough for whales, which supplement it with a thick layer of insulating blubber (fat).",
-        "translation": "对鲸鱼来说也不够，它们用一层厚厚的隔热脂肪（blubber）来补充。",
-        "grammarFocus": "非限制性定语从句 which supplement...",
-        "pronounRef": "It 指代 gigantothermy; which 指代 whales",
-        "logicConnector": "无",
+        "translation": "这对鲸鱼来说也不够，它们用一层厚厚的绝缘鲸脂（脂肪）来补充它。",
+        "grammarFocus": "非限制性定语从句；补充说明",
+        "pronounRef": "It 指代 Gigantothermy; it 指代 Gigantothermy",
+        "logicConnector": "which 引导非限制性定语从句",
         "sentenceCoach": {
-          "summary": "这句话以鲸鱼为例，说明它们也用巨温性，但需要额外补充。",
-          "keyHint": "'which supplement it...' 是非限制性定语从句，修饰 whales。"
+          "summary": "which 引导的从句是对 whales 的补充说明，解释鲸鱼怎么做。",
+          "keyHint": "注意从句中的 it 指代前面的 Gigantothermy，而不是 whales。"
         },
         "teachingFocus": {
-          "mainQuestion": "鲸鱼怎么解决巨温性不够的问题？",
-          "grammarQuestion": "'which' 引导非限制性定语从句，补充说明鲸鱼的行为。",
-          "modifierQuestion": "'with a thick layer of insulating blubber' 是方式状语，修饰 supplement。",
-          "relationshipQuestion": "鲸鱼和棱皮龟类似，都需要额外保温措施。",
-          "commonMistake": "孩子可能不理解 'supplement it with...'，意思是‘用……来补充它（巨温性）’。",
+          "mainQuestion": "对谁不够？对鲸鱼。鲸鱼怎么做？它们用鲸脂补充。",
+          "grammarQuestion": "which 引导的从句像是一个小尾巴，补充说明鲸鱼的行为。",
+          "modifierQuestion": "a thick layer of insulating blubber (fat) 是补充的工具。",
+          "relationshipQuestion": "巨温性对鲸鱼不够，所以鲸鱼用鲸脂来补充。",
+          "commonMistake": "容易混淆从句中的 it 指代谁，它指代的是 Gigantothermy（巨温性），而不是 whales。",
           "thinkingPath": [
-            "识别非限制性定语从句 which...",
-            "识别 supplement... with... 结构"
+            "找到主句 It is not enough for whales。",
+            "识别 which 引导的非限制性定语从句。",
+            "分析从句中的 it 指代 Gigantothermy。"
           ],
-          "encouragement": "鲸鱼也穿‘脂肪棉袄’来保暖，棱皮龟也有类似的装备！"
+          "encouragement": "你读懂了鲸鱼的秘密武器，真聪明！"
         },
-        "analysis": "### 【主干结构】\n主句：'It is not enough for whales'。\n从句：', which supplement it with a thick layer of insulating blubber (fat).' 是非限制性定语从句，修饰 whales。\n\n### 【定语从句】\n'which' 指代 'whales'，在从句中作主语。\n'supplement it with...'：'it' 指代 'gigantothermy'，'with...' 是补充的手段。\n\n### 【介词短语】\n'of insulating blubber (fat)' 修饰 'layer'。",
+        "analysis": "### 【主干结构】\n- 主句：It is not enough for whales.\n  - 主语：It（指代 Gigantothermy）\n  - 谓语：is\n  - 表语：not enough\n  - 状语：for whales\n\n- 从句：which supplement it with a thick layer of insulating blubber (fat).\n  - 连接词/主语：which（指代 whales）\n  - 谓语：supplement\n  - 宾语：it（指代 Gigantothermy）\n  - 状语：with a thick layer of insulating blubber (fat)\n\n### 【主谓一致】\n- It 指代 Gigantothermy（单数），谓语 is 用单数。\n- which 指代 whales（复数），谓语 supplement 用复数形式。\n\n### 【动词时态与原形】\n- is: 一般现在时。\n- supplement: 一般现在时，复数形式。\n\n### 【从句剖析】\n- **非限制性定语从句**：which supplement... 修饰 whales，提供额外信息。",
         "segments": [
           {
-            "text": "It ",
+            "text": "It",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " is",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "not enough ",
+            "text": " not enough",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "for whales, ",
+            "text": " for whales,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "which ",
+            "text": " which",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "supplement ",
+            "text": " supplement",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "it ",
+            "text": " it",
             "type": "clause-object",
             "label": "从句宾语"
           },
           {
-            "text": "with a thick layer of insulating blubber (fat).",
+            "text": " with a thick layer of insulating blubber (fat).",
             "type": "adverbial",
             "label": "状语"
           }
@@ -1243,72 +1379,74 @@
         "id": "s20",
         "para": 4,
         "text": "Leatherbacks do not have blubber, but they do have a reptilian equivalent: thick, oil-saturated skin, with a layer of fibrous, fatty tissue just beneath it.",
-        "translation": "棱皮龟没有脂肪层，但它们有爬行动物的等效物：厚厚的、充满油脂的皮肤，下面有一层纤维状脂肪组织。",
-        "grammarFocus": "but 连接并列句; 冒号解释说明",
-        "pronounRef": "they 指代 leatherbacks; it 指代 skin",
-        "logicConnector": "but (转折)",
+        "translation": "棱皮龟没有鲸脂，但它们确实有爬行类的对应物：厚厚的、充满油脂的皮肤，在其下方有一层纤维状脂肪组织。",
+        "grammarFocus": "并列句；强调句 do have；冒号解释说明；with 复合结构",
+        "pronounRef": "it 指代 skin",
+        "logicConnector": "but 表示转折",
         "sentenceCoach": {
-          "summary": "这句话对比鲸鱼和棱皮龟，指出棱皮龟用皮肤代替脂肪层。",
-          "keyHint": "冒号后面的内容解释 'reptilian equivalent'。"
+          "summary": "but 连接两个对比的分句，冒号后面是对 equivalent 的具体解释。",
+          "keyHint": "do have 中的 do 是强调语气，表示‘确实有’。"
         },
         "teachingFocus": {
-          "mainQuestion": "棱皮龟没有脂肪层，那它用什么保温？",
-          "grammarQuestion": "'but' 连接两个分句，表示转折。",
-          "modifierQuestion": "'thick, oil-saturated skin' 是冒号后的解释内容。",
-          "relationshipQuestion": "鲸鱼用脂肪，棱皮龟用皮肤，功能相同但结构不同。",
-          "commonMistake": "孩子可能不理解 'equivalent'，意思是‘等效物’、‘对应物’。",
+          "mainQuestion": "棱皮龟有什么？没有鲸脂，但有替代品。替代品是什么？是皮肤。",
+          "grammarQuestion": "but 连接两个相反的情况，do have 强调‘确实有’。",
+          "modifierQuestion": "冒号后面的内容详细解释了什么是 reptilian equivalent。",
+          "relationshipQuestion": "没有A，但是有B，B具体是C。",
+          "commonMistake": "容易忽略冒号后的内容是对前面名词的解释，或者误以为 with 引导的是从句。",
           "thinkingPath": [
-            "识别转折连词 but",
-            "识别冒号后的解释结构"
+            "找到连接词 but，分成两半。",
+            "前半部分：Leatherbacks do not have blubber。",
+            "后半部分：they do have a reptilian equivalent。",
+            "分析冒号后的内容，它是 equivalent 的同位语/解释。"
           ],
-          "encouragement": "棱皮龟没有脂肪层，但它有特殊的皮肤，这也是保暖神器！"
+          "encouragement": "你发现了棱皮龟的独特之处，真棒！"
         },
-        "analysis": "### 【主干结构】\n分号连接两个分句。\n第一分句：主语 'Leatherbacks'，谓语 'do not have'，宾语 'blubber'。\n第二分句：主语 'they'，谓语 'do have'，宾语 'a reptilian equivalent'。\n\n### 【冒号】\n冒号后 'thick, oil-saturated skin, with a layer of fibrous, fatty tissue just beneath it.' 是对 'reptilian equivalent' 的具体解释。\n\n### 【介词短语】\n'with a layer...' 是伴随状语，修饰 skin。\n'just beneath it' 修饰 layer，'it' 指代 'skin'。",
+        "analysis": "### 【主干结构】\n这是一个由 **but** 连接的并列句。\n\n**分句1：** Leatherbacks do not have blubber.\n- 主语：Leatherbacks\n- 谓语：do not have\n- 宾语：blubber\n\n**分句2：** they do have a reptilian equivalent: thick, oil-saturated skin, with a layer of fibrous, fatty tissue just beneath it.\n- 主语：they（指代 Leatherbacks）\n- 谓语：do have（do 表强调）\n- 宾语：a reptilian equivalent\n- 同位语/解释：thick, oil-saturated skin（解释 equivalent）\n- 状语/修饰：with a layer of fibrous, fatty tissue just beneath it（修饰 skin）\n\n### 【主谓一致】\n- Leatherbacks 是复数，谓语 do not have 用复数。\n- they 是复数，谓语 do have 用复数。\n\n### 【动词时态与原形】\n- do not have: 一般现在时，否定。\n- do have: 一般现在时，强调。\n\n### 【从句剖析】\n- 无从句。\n\n### 【代词指代】\n- **they**: 指代 Leatherbacks。\n- **it**: 指代 skin。",
         "segments": [
           {
-            "text": "Leatherbacks ",
+            "text": "Leatherbacks",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "do not have ",
+            "text": " do not have",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "blubber, ",
+            "text": " blubber,",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "but ",
+            "text": " but",
             "type": "conjunction",
-            "label": "并列连词"
+            "label": "连接词"
           },
           {
-            "text": "they ",
-            "type": "subject",
-            "label": "主语"
+            "text": " they",
+            "type": "coord-subject",
+            "label": "并列主语"
           },
           {
-            "text": "do have ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " do have",
+            "type": "coord-verb",
+            "label": "并列谓语"
           },
           {
-            "text": "a reptilian equivalent: ",
-            "type": "object",
-            "label": "宾语"
+            "text": " a reptilian equivalent:",
+            "type": "coord-object",
+            "label": "并列宾语"
           },
           {
-            "text": "thick, oil-saturated skin, ",
+            "text": " thick, oil-saturated skin,",
             "type": "modifier",
             "label": "同位语"
           },
           {
-            "text": "with a layer of fibrous, fatty tissue just beneath it.",
+            "text": " with a layer of fibrous, fatty tissue just beneath it.",
             "type": "modifier",
-            "label": "状语"
+            "label": "定语"
           }
         ]
       },
@@ -1316,56 +1454,46 @@
         "id": "s21",
         "para": 4,
         "text": "Insulation protects the leatherback everywhere but on its head and flippers.",
-        "translation": "隔热层保护了棱皮龟全身，除了头部和鳍状肢。",
-        "grammarFocus": "everywhere but...",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "translation": "保温层保护着棱皮龟全身，除了头部和鳍状肢。",
+        "grammarFocus": "介词短语作状语；but 表示排除",
+        "pronounRef": "its 指代 the leatherback",
+        "logicConnector": "but 表示排除",
         "sentenceCoach": {
-          "summary": "这句话指出隔热层的保护范围，排除了头部和鳍状肢。",
-          "keyHint": "'everywhere but...' 意思是‘除了……之外的所有地方’。"
+          "summary": "but 在这里表示‘除了’，指出保温层保护不到的地方。",
+          "keyHint": "everywhere but... 是一个固定搭配，意思是‘除了... everywhere’。"
         },
         "teachingFocus": {
-          "mainQuestion": "隔热层保护了棱皮龟的哪些部位？",
-          "grammarQuestion": "'everywhere but...' 是固定搭配，表示排除。",
-          "modifierQuestion": "'on its head and flippers' 是介词短语，修饰 everywhere。",
-          "relationshipQuestion": "头部和鳍状肢是保温的薄弱环节。",
-          "commonMistake": "孩子可能不理解 'but' 在这里表示‘除了’，而不是‘但是’。",
+          "mainQuestion": "什么保护棱皮龟？保温层。保护哪里？全身除了头和鳍。",
+          "grammarQuestion": "but 在这里不是‘但是’，而是‘除了’，表示排除。",
+          "modifierQuestion": "on its head and flippers 是排除的具体部位。",
+          "relationshipQuestion": "保温层保护全身，但头和鳍例外。",
+          "commonMistake": "容易把 but 理解为转折连词，这里它是介词，表示排除。",
           "thinkingPath": [
-            "识别主语 Insulation",
-            "识别谓语 protects",
-            "识别 everywhere but..."
+            "找到主语 Insulation 和谓语 protects。",
+            "找到宾语 the leatherback。",
+            "分析 everywhere but on... 结构，理解 but 表示排除。"
           ],
-          "encouragement": "棱皮龟的‘保暖衣’几乎覆盖全身，只有头和手脚露在外面！"
+          "encouragement": "你理解了‘除了’的用法，真细心！"
         },
-        "analysis": "### 【主干结构】\n主语 'Insulation'，谓语 'protects'，宾语 'the leatherback'，地点状语 'everywhere but on its head and flippers'。\n\n### 【介词搭配】\n'everywhere but...' 表示‘除了……之外的所有地方’。",
+        "analysis": "### 【主干结构】\n- 主语：Insulation\n- 谓语：protects\n- 宾语：the leatherback\n- 状语：everywhere but on its head and flippers\n\n### 【主谓一致】\n- Insulation 是单数，谓语 protects 用单数。\n\n### 【动词时态与原形】\n- protects: 一般现在时。\n\n### 【从句剖析】\n- 无从句。\n\n### 【代词指代】\n- **its**: 指代 the leatherback。",
         "segments": [
           {
-            "text": "Insulation ",
+            "text": "Insulation",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "protects ",
+            "text": " protects",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "the leatherback ",
+            "text": " the leatherback",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "everywhere ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "but ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "on its head and flippers.",
+            "text": " everywhere but on its head and flippers.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -1375,77 +1503,78 @@
         "id": "s22",
         "para": 4,
         "text": "Because the flippers are comparatively thin and blade-like, they are the one part of the leatherback that is likely to become chilled.",
-        "translation": "因为鳍状肢相对较薄且像刀片一样，它们是棱皮龟最可能变冷的部位。",
-        "grammarFocus": "Because 引导原因状语从句; 定语从句 that is likely...",
-        "pronounRef": "they 指代 flippers",
-        "logicConnector": "Because (因果)",
+        "translation": "因为鳍状肢相对较薄且像刀片一样，它们是棱皮龟上最可能变冷的部位。",
+        "grammarFocus": "原因状语从句；定语从句；likely to do",
+        "pronounRef": "they 指代 the flippers",
+        "logicConnector": "Because 引导原因状语从句",
         "sentenceCoach": {
-          "summary": "这句话解释了为什么鳍状肢容易冷。",
-          "keyHint": "'that is likely to become chilled' 是定语从句，修饰 part。"
+          "summary": "Because 引导原因，主句说明结果。",
+          "keyHint": "that is likely to become chilled 是修饰 part 的定语从句。"
         },
         "teachingFocus": {
-          "mainQuestion": "为什么鳍状肢容易冷？",
-          "grammarQuestion": "'Because' 引导原因状语从句。",
-          "modifierQuestion": "'that is likely to become chilled' 是定语从句，修饰 'the one part'。",
-          "relationshipQuestion": "鳍状肢薄（原因）导致易冷（结果）。",
-          "commonMistake": "孩子可能不理解 'blade-like'，意思是‘像刀片一样的’，形容薄而锋利。",
+          "mainQuestion": "为什么鳍状肢容易冷？因为它们薄且像刀片。哪部分最冷？鳍状肢。",
+          "grammarQuestion": "Because 引导原因状语从句，放在句首。",
+          "modifierQuestion": "that is likely to become chilled 修饰 part，说明哪部分容易冷。",
+          "relationshipQuestion": "因为鳍薄（原因），所以它们容易冷（结果）。",
+          "commonMistake": "容易忽略 that 引导的定语从句，或者误以为 it 指代 flippers。",
           "thinkingPath": [
-            "识别原因状语从句 Because...",
-            "识别定语从句 that is likely..."
+            "识别 Because 引导的原因状语从句。",
+            "找到主句主语 they 和谓语 are。",
+            "分析 that is likely to become chilled 是定语从句，修饰 part。"
           ],
-          "encouragement": "鳍状肢太薄了，像刀片一样，所以最容易变冷！"
+          "encouragement": "你理清了因果关系，真棒！"
         },
-        "analysis": "### 【主干结构】\n原因状语从句：'Because the flippers are comparatively thin and blade-like'。\n主句：'they are the one part of the leatherback'，定语从句 'that is likely to become chilled' 修饰 part。\n\n### 【定语从句】\n'that is likely to become chilled'：'that' 指代 'part'，'is likely to' 表示‘可能’。",
+        "analysis": "### 【主干结构】\n- 状语从句：Because the flippers are comparatively thin and blade-like.\n  - 连接词：Because\n  - 主语：the flippers\n  - 谓语：are\n  - 表语：comparatively thin and blade-like\n\n- 主句：they are the one part of the leatherback that is likely to become chilled.\n  - 主语：they（指代 the flippers）\n  - 谓语：are\n  - 表语：the one part of the leatherback\n  - 定语从句：that is likely to become chilled（修饰 part）\n\n### 【主谓一致】\n- the flippers 是复数，谓语 are 用复数。\n- they 是复数，谓语 are 用复数。\n- that 指代 part（单数），谓语 is 用单数。\n\n### 【动词时态与原形】\n- are: 一般现在时。\n- is: 一般现在时。\n\n### 【从句剖析】\n- **原因状语从句**：Because the flippers are... 解释为什么鳍状肢容易冷。\n- **定语从句**：that is likely to become chilled 修饰 the one part。",
         "segments": [
           {
-            "text": "Because ",
+            "text": "Because",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "the flippers ",
+            "text": " the flippers",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "are ",
+            "text": " are",
             "type": "clause-verb",
-            "label": "从句系动词"
+            "label": "从句谓语"
           },
           {
-            "text": "comparatively thin and blade-like, ",
+            "text": " comparatively thin and blade-like,",
             "type": "clause-predicative",
             "label": "从句表语"
           },
           {
-            "text": "they ",
+            "text": " they",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are ",
+            "text": " are",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "the one part ",
+            "text": " the one part of the leatherback",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "of the leatherback ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "that ",
+            "text": " that",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "is likely to become chilled.",
+            "text": " is",
             "type": "clause-verb",
             "label": "从句谓语"
+          },
+          {
+            "text": " likely to become chilled.",
+            "type": "clause-predicative",
+            "label": "从句表语"
           }
         ]
       },
@@ -1453,50 +1582,66 @@
         "id": "s23",
         "para": 4,
         "text": "There is not much that the turtle can do about this without compromising the aerodynamic shape of the flipper.",
-        "translation": "在不损害鳍状肢空气动力学形状的情况下，乌龟能做的关于这一点的事情不多。",
-        "grammarFocus": "定语从句 that the turtle can do; without doing",
+        "translation": "在不损害鳍状肢空气动力学形状的情况下，海龟对此能做的不多。",
+        "grammarFocus": "There be 句型；定语从句；without 复合结构",
         "pronounRef": "this 指代 flippers becoming chilled",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话说明棱皮龟在鳍状肢保暖上面临的限制。",
-          "keyHint": "'that the turtle can do' 是定语从句，修饰 much。"
+          "summary": "There be 句型，that 引导定语从句修饰 much。",
+          "keyHint": "without compromising... 是状语，表示在不损害形状的前提下。"
         },
         "teachingFocus": {
-          "mainQuestion": "棱皮龟能做什么来让鳍状肢变暖？",
-          "grammarQuestion": "'There is not much that...' 是存在句，that 引导定语从句。",
-          "modifierQuestion": "'without compromising...' 是介词短语作状语，表示条件。",
-          "relationshipQuestion": "为了保持流线型，棱皮龟不能给鳍状肢加太多保暖层。",
-          "commonMistake": "孩子可能不理解 'compromising'，在这里意思是‘损害’、‘妥协’。",
+          "mainQuestion": "海龟能做什么？不多。前提是什么？不损害鳍的形状。",
+          "grammarQuestion": "There is not much that... 是固定句型，that 引导定语从句。",
+          "modifierQuestion": "without compromising... 是状语，修饰 can do。",
+          "relationshipQuestion": "海龟能做的很少，因为不能损害鳍的形状。",
+          "commonMistake": "容易忽略 that 引导的定语从句，或者误以为 this 指代 flipper。",
           "thinkingPath": [
-            "识别定语从句 that the turtle can do",
-            "识别 without compromising..."
+            "识别 There is not much 句型。",
+            "找到 that the turtle can do about this 是定语从句，修饰 much。",
+            "分析 without compromising... 是状语。"
           ],
-          "encouragement": "棱皮龟想给鳍状肢保暖，但又不能破坏它的游泳形状，真难！"
+          "encouragement": "你读懂了海龟的困境，真棒！"
         },
-        "analysis": "### 【主干结构】\n存在句：'There is not much'，定语从句 'that the turtle can do about this' 修饰 much，状语 'without compromising the aerodynamic shape of the flipper'。\n\n### 【定语从句】\n'that the turtle can do about this'：'that' 指代 'much'，'about this' 修饰 do。\n\n### 【介词短语】\n'without compromising...' 表示‘在不损害……的情况下’。",
+        "analysis": "### 【主干结构】\n- 主句：There is not much.\n  - 引导词：There\n  - 谓语：is\n  - 主语：not much\n\n- 定语从句：that the turtle can do about this.\n  - 连接词/宾语：that（指代 much，作 do 的宾语）\n  - 主语：the turtle\n  - 谓语：can do\n  - 状语：about this\n\n- 状语：without compromising the aerodynamic shape of the flipper.\n  - 介词：without\n  - 宾语：compromising the aerodynamic shape of the flipper（动名词短语）\n\n### 【主谓一致】\n- much 是单数，谓语 is 用单数。\n- the turtle 是单数，谓语 can do 是情态动词+原形。\n\n### 【动词时态与原形】\n- is: 一般现在时。\n- can do: 情态动词+原形。\n\n### 【从句剖析】\n- **定语从句**：that the turtle can do about this 修饰 much。",
         "segments": [
           {
-            "text": "There ",
-            "type": "subject",
-            "label": "主语"
+            "text": "There",
+            "type": "modifier",
+            "label": "引导词"
           },
           {
-            "text": "is ",
+            "text": " is",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "not much ",
-            "type": "object",
-            "label": "宾语"
+            "text": " not much",
+            "type": "subject",
+            "label": "主语"
           },
           {
-            "text": "that the turtle can do about this ",
-            "type": "modifier",
-            "label": "定语"
+            "text": " that",
+            "type": "clause-object",
+            "label": "从句宾语"
           },
           {
-            "text": "without compromising the aerodynamic shape of the flipper.",
+            "text": " the turtle",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " can do",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " about this",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " without compromising the aerodynamic shape of the flipper.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -1506,72 +1651,99 @@
         "id": "s24",
         "para": 4,
         "text": "The problem is that as blood flows through the turtle’s flippers, it risks losing enough heat to lower the animal’s central body temperature when it returns.",
-        "translation": "问题是，当血液流经乌龟的鳍状肢时，它冒着失去足够多热量的风险，当血液回流时，这会降低动物的核心体温。",
-        "grammarFocus": "表语从句 that as...; 时间状语从句 when...",
+        "translation": "问题是，当血液流经海龟的鳍状肢时，它（血液）在返回时可能会流失足够的热量，从而降低动物的核心体温。",
+        "grammarFocus": "表语从句；时间状语从句嵌套；不定式作结果状语",
         "pronounRef": "it 指代 blood; it 指代 blood",
-        "logicConnector": "as (当...时); when (当...时)",
+        "logicConnector": "that 引导表语从句；as 引导时间状语从句",
         "sentenceCoach": {
-          "summary": "这句话详细描述了热量流失的过程。",
-          "keyHint": "'that as blood flows...' 是表语从句，解释 problem。"
+          "summary": "The problem is that... 是表语从句，解释问题是什么。",
+          "keyHint": "as... 和 when... 都是时间状语，修饰 risks losing。"
         },
         "teachingFocus": {
-          "mainQuestion": "血液流经鳍状肢时会发生什么？",
-          "grammarQuestion": "'that' 引导表语从句，解释 problem。\n'as' 引导时间状语从句。",
-          "modifierQuestion": "'when it returns' 是时间状语从句，修饰 risks losing 或 lower。\n'enough heat to lower...' 是不定式作结果状语。",
-          "relationshipQuestion": "血液流出去变冷，流回来时带走热量，导致体温下降。",
-          "commonMistake": "孩子可能不理解 'it risks losing'，'it' 指代 blood，血液冒着流失热量的风险。",
+          "mainQuestion": "问题是什么？血液流失热量。什么时候流失？流经鳍和返回时。",
+          "grammarQuestion": "that 引导表语从句，解释 problem 的内容。",
+          "modifierQuestion": "as... 和 when... 是时间状语，修饰 risks losing。",
+          "relationshipQuestion": "血液流经鳍（过程），返回时（结果），流失热量（后果）。",
+          "commonMistake": "容易混淆 it 指代 blood 还是 turtle，这里 it 指代 blood。",
           "thinkingPath": [
-            "识别表语从句 that...",
-            "识别时间状语从句 as... 和 when..."
+            "识别 The problem is that... 结构，that 引导表语从句。",
+            "在从句中找到 as... 时间状语。",
+            "找到主句 it risks losing...，分析 it 指代 blood。",
+            "分析 to lower... 是不定式作结果状语。"
           ],
-          "encouragement": "血液像快递员，去的时候变冷了，回来的时候把热量也带走了！"
+          "encouragement": "你理清了复杂的从句结构，真棒！"
         },
-        "analysis": "### 【主干结构】\n主语 'The problem'，系动词 'is'，表语从句 'that as blood flows through the turtle’s flippers, it risks losing enough heat to lower the animal’s central body temperature when it returns.'\n\n### 【表语从句】\n'that...' 引导的从句解释 problem 的内容。\n\n### 【从句嵌套】\n在表语从句中：\n'as blood flows...' 是时间状语从句。\n'it risks losing...' 是主句（在表语从句内）。\n'to lower...' 是不定式作结果状语。\n'when it returns' 是时间状语从句，修饰 risks losing 或 lower。\n\n### 【代词指代】\n'it' 指代 'blood'。",
+        "analysis": "### 【主干结构】\n- 主句：The problem is that...\n  - 主语：The problem\n  - 谓语：is\n  - 表语：that...（表语从句）\n\n- 表语从句：as blood flows through the turtle’s flippers, it risks losing enough heat to lower the animal’s central body temperature when it returns.\n  - 时间状语从句：as blood flows through the turtle’s flippers.\n    - 连接词：as\n    - 主语：blood\n    - 谓语：flows\n    - 状语：through the turtle’s flippers\n  - 主句部分：it risks losing enough heat to lower the animal’s central body temperature when it returns.\n    - 主语：it（指代 blood）\n    - 谓语：risks\n    - 宾语：losing enough heat（动名词短语）\n    - 状语：to lower the animal’s central body temperature（不定式作结果状语）\n    - 时间状语：when it returns.\n      - 连接词：when\n      - 主语：it（指代 blood）\n      - 谓语：returns\n\n### 【主谓一致】\n- The problem 是单数，谓语 is 用单数。\n- blood 是单数，谓语 flows 用单数。\n- it (blood) 是单数，谓语 risks 用单数。\n- it (blood) 是单数，谓语 returns 用单数。\n\n### 【动词时态与原形】\n- is: 一般现在时。\n- flows: 一般现在时。\n- risks: 一般现在时。\n- returns: 一般现在时。\n\n### 【从句剖析】\n- **表语从句**：that... 解释 problem。\n- **时间状语从句**：as... 和 when... 修饰 risks losing。\n\n### 【代词指代】\n- **it**: 指代 blood。",
         "segments": [
           {
-            "text": "The problem ",
+            "text": "The problem",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " is",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "that ",
+            "text": " that",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "as blood flows through the turtle’s flippers, ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " as",
+            "type": "conjunction",
+            "label": "连接词"
           },
           {
-            "text": "it ",
+            "text": " blood",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "risks ",
+            "text": " flows",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "losing enough heat ",
-            "type": "clause-object",
-            "label": "从句宾语"
-          },
-          {
-            "text": "to lower the animal’s central body temperature ",
+            "text": " through the turtle’s flippers,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "when it returns.",
+            "text": " it",
+            "type": "coord-subject",
+            "label": "并列主语"
+          },
+          {
+            "text": " risks",
+            "type": "coord-verb",
+            "label": "并列谓语"
+          },
+          {
+            "text": " losing enough heat",
+            "type": "coord-object",
+            "label": "并列宾语"
+          },
+          {
+            "text": " to lower the animal’s central body temperature",
             "type": "adverbial",
             "label": "状语"
+          },
+          {
+            "text": " when",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " it",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " returns.",
+            "type": "clause-verb",
+            "label": "从句谓语"
           }
         ]
       },
@@ -1579,50 +1751,56 @@
         "id": "s25",
         "para": 4,
         "text": "The solution is to allow the flippers to cool down without drawing heat away from the rest of the turtle’s body.",
-        "translation": "解决方案是允许鳍状肢冷却，而不从乌龟身体的其余部分带走热量。",
-        "grammarFocus": "表语不定式 to allow...",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "translation": "解决方案是让鳍状肢冷却，同时不将热量从海龟身体的其余部分带走。",
+        "grammarFocus": "不定式作表语；without doing 结构",
+        "pronounRef": "the turtle's 指代棱皮龟的",
+        "logicConnector": "without 表示伴随状态/方式",
         "sentenceCoach": {
-          "summary": "这句话提出了问题的解决方案。",
-          "keyHint": "'to allow...' 是表语，解释 solution。"
+          "summary": "这句话告诉我们棱皮龟保持体温的秘诀：让手脚凉快，但身体暖和。",
+          "keyHint": "注意 'without drawing heat away'，意思是‘不带走热量’。"
         },
         "teachingFocus": {
-          "mainQuestion": "棱皮龟如何解决鳍状肢散热的问题？",
-          "grammarQuestion": "'The solution is to allow...' 是主系表结构，不定式作表语。",
-          "modifierQuestion": "'without drawing heat away...' 是介词短语作状语，修饰 allow。\n'the rest of the turtle’s body' 是介词短语，修饰 away。",
-          "relationshipQuestion": "让鳍状肢冷，但不影响身体其他部分。",
-          "commonMistake": "孩子可能不理解 'drawing heat away'，意思是‘带走热量’。",
+          "mainQuestion": "我们要找谁做了什么？主语是 'The solution'，谓语是 'is'。",
+          "grammarQuestion": "看看 'is' 后面是什么？它是不定式 'to allow...'，用来解释这个‘解决方案’具体是什么。",
+          "modifierQuestion": "'without drawing heat away...' 是怎么修饰 'allow' 的？它告诉我们允许冷却时的条件：不能把身体的热量也弄丢了。",
+          "relationshipQuestion": "'the flippers' 是 'allow' 的宾语，'to cool down' 是宾语补足语，说明让鳍状肢做什么。",
+          "commonMistake": "孩子容易把 'without drawing...' 当成独立的句子，其实它是跟在 'allow' 后面的状语，说明允许冷却时的状态。",
           "thinkingPath": [
-            "识别表语不定式 to allow...",
-            "识别 without drawing..."
+            "找到主语 The solution",
+            "找到系动词 is",
+            "看后面是不定式 to allow..."
           ],
-          "encouragement": "棱皮龟的解决方案很巧妙：让手脚冷，但身体暖！"
+          "encouragement": "你找主干的速度真快！就像找到了宝藏地图的起点一样棒！"
         },
-        "analysis": "### 【主干结构】\n主语 'The solution'，系动词 'is'，表语 'to allow the flippers to cool down without drawing heat away from the rest of the turtle’s body.'\n\n### 【不定式作表语】\n'to allow...' 解释 solution 的具体内容。\n\n### 【动词搭配】\n'allow sb/sth to do sth' 表示‘允许某人/某物做某事’。\n\n### 【介词短语】\n'without drawing heat away...' 是方式状语。\n'from the rest of the turtle’s body' 修饰 away。",
+        "analysis": "### 【主干结构】\n主语：The solution\n系动词：is\n表语：to allow the flippers to cool down (不定式短语作表语)\n\n### 【主谓一致】\n主语 The solution 是单数，系动词用 is，一致。\n\n### 【动词时态与原形】\nis 是一般现在时，表示客观事实或定义。\nto allow 是不定式，作表语。\nto cool down 是不定式作宾语补足语。\ndrawing 是动名词，作介词 without 的宾语。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\nthe turtle's 指代前文提到的棱皮龟。\n\n### 【非谓语动词】\nto allow: 不定式作表语。\nto cool down: 不定式作宾语补足语。\ndrawing: 动名词作介词 without 的宾语。\n\n### 【修饰语】\nwithout drawing heat away from the rest of the turtle’s body: 介词短语作状语，修饰 allow，说明允许冷却时的条件。",
         "segments": [
           {
-            "text": "The solution ",
+            "text": "The solution",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " is",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "to allow the flippers to cool down ",
-            "type": "predicative",
-            "label": "表语"
+            "text": " to allow",
+            "type": "modifier",
+            "label": "表语（不定式）"
           },
           {
-            "text": "without drawing heat away ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " the flippers",
+            "type": "object",
+            "label": "宾语"
           },
           {
-            "text": "from the rest of the turtle’s body.",
+            "text": " to cool down",
+            "type": "object-complement",
+            "label": "宾语补足语"
+          },
+          {
+            "text": " without drawing heat away from the rest of the turtle’s body.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -1632,261 +1810,273 @@
         "id": "s26",
         "para": 4,
         "text": "The leatherback accomplishes this by arranging the blood vessels in the base of its flipper into a countercurrent exchange system.",
-        "translation": "棱皮龟通过将鳍状肢基部的血管排列成逆流交换系统来实现这一点。",
-        "grammarFocus": "by doing sth; arrange... into...",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "translation": "棱皮龟通过在鳍状肢基部排列血管，形成一个逆流交换系统来实现这一点。",
+        "grammarFocus": "by doing 方式状语；arrange A into B",
+        "pronounRef": "this 指代上一句的解决方案；its 指代棱皮龟的",
+        "logicConnector": "by 表示方式",
         "sentenceCoach": {
-          "summary": "这句话解释了实现解决方案的具体机制。",
-          "keyHint": "'by arranging...' 是方式状语，说明如何实现。"
+          "summary": "棱皮龟是怎么做到的呢？它通过‘排列血管’这个动作来实现。",
+          "keyHint": "注意 'by arranging...'，这是实现目标的方法。"
         },
         "teachingFocus": {
-          "mainQuestion": "棱皮龟是怎么排列血管的？",
-          "grammarQuestion": "'by arranging...' 是介词短语作方式状语。",
-          "modifierQuestion": "'in the base of its flipper' 是介词短语，修饰 blood vessels。\n'into a countercurrent exchange system' 是介词短语，修饰 arranging。",
-          "relationshipQuestion": "血管的排列方式实现了逆流交换。",
-          "commonMistake": "孩子可能不理解 'countercurrent exchange system'，这是专业术语，指‘逆流交换系统’。",
+          "mainQuestion": "谁实现了这个目标？主语是 'The leatherback'，谓语是 'accomplishes'。",
+          "grammarQuestion": "看看 'by' 后面是什么？它是动名词 'arranging'，表示通过某种方式。",
+          "modifierQuestion": "'in the base of its flipper' 修饰 'blood vessels'，告诉我们血管在哪里。",
+          "relationshipQuestion": "'the blood vessels' 是 'arranging' 的宾语，'into a countercurrent exchange system' 是结果状语或补足语，说明排列成什么样子。",
+          "commonMistake": "孩子可能不理解 'arrange A into B'，以为 'into' 是介词短语修饰 vessels，其实它是说明排列的结果。",
           "thinkingPath": [
-            "识别主语 The leatherback",
-            "识别谓语 accomplishes",
-            "识别方式状语 by arranging..."
+            "找到主语 The leatherback",
+            "找到谓语 accomplishes",
+            "看 by 后面的方式状语"
           ],
-          "encouragement": "棱皮龟是个血管建筑师，它把血管排成特殊的队形！"
+          "encouragement": "你抓住了‘方式’这个关键点，真像个小侦探！"
         },
-        "analysis": "### 【主干结构】\n主语 'The leatherback'，谓语 'accomplishes'，宾语 'this'，方式状语 'by arranging the blood vessels in the base of its flipper into a countercurrent exchange system.'\n\n### 【介词短语】\n'by arranging...' 是方式状语。\n'in the base of its flipper' 修饰 blood vessels。\n'into a countercurrent exchange system' 修饰 arranging，表示排列的结果。",
+        "analysis": "### 【主干结构】\n主语：The leatherback\n谓语：accomplishes\n宾语：this\n方式状语：by arranging the blood vessels... into a countercurrent exchange system\n\n### 【主谓一致】\n主语 The leatherback 是单数，谓语用 accomplishes，一致。\n\n### 【动词时态与原形】\naccomplishes 是一般现在时，表示客观事实。\narranging 是动名词，作介词 by 的宾语。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\nthis 指代上一句提到的 'solution'。\nits 指代 The leatherback 的。\n\n### 【非谓语动词】\narranging: 动名词作介词 by 的宾语。\n\n### 【修饰语】\nin the base of its flipper: 介词短语作后置定语，修饰 blood vessels。\ninto a countercurrent exchange system: 介词短语作状语/补足语，修饰 arranging，说明排列的结果。",
         "segments": [
           {
-            "text": "The leatherback ",
+            "text": "The leatherback",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "accomplishes ",
+            "text": " accomplishes",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "this ",
+            "text": " this",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "by arranging the blood vessels ",
+            "text": " by arranging the blood vessels in the base of its flipper into a countercurrent exchange system.",
             "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "in the base of its flipper ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "into a countercurrent exchange system.",
-            "type": "adverbial",
-            "label": "状语"
+            "label": "方式状语"
           }
         ]
       },
       {
         "id": "s27",
         "para": 5,
-        "text": "In a countercurrent exchange system, the blood vessels carrying cooled blood from the flippers run close enough to the blood vessels carrying warm blood from the body to pick up some heat from the warmer blood vessels;",
-        "translation": "在逆流交换系统中，携带冷却血液的血管从鳍状肢流出，与携带温暖血液的血管靠得足够近，以便从较温暖的血管中吸收一些热量；",
-        "grammarFocus": "现在分词作定语 carrying...; close enough to... to...",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "text": "In a countercurrent exchange system, the blood vessels carrying cooled blood from the flippers run close enough to the blood vessels carrying warm blood from the body to pick up some heat from the warmer blood vessels; thus, the heat is transferred from the outgoing to the ingoing vessels before it reaches the flipper itself.",
+        "translation": "在逆流交换系统中，从鳍状肢携带冷却血液的血管与从身体携带温暖血液的血管靠得足够近，以便从较暖的血管中吸收一些热量；因此，热量在到达鳍状肢本身之前，就从流出血管转移到了流入血管。",
+        "grammarFocus": "分词作定语；enough to do 结构；被动语态；before 引导的时间状语从句",
+        "pronounRef": "it 指代 the heat",
+        "logicConnector": "thus 表示结果；before 表示时间",
         "sentenceCoach": {
-          "summary": "这句话详细解释了逆流交换系统的工作原理。",
-          "keyHint": "'carrying cooled blood...' 是定语从句的简化，修饰 blood vessels。"
+          "summary": "这是一个长句，分号前后两部分。前半部分讲血管怎么排列，后半部分讲热量怎么转移。",
+          "keyHint": "注意 'carrying...' 是修饰血管的，不要把它当成谓语。"
         },
         "teachingFocus": {
-          "mainQuestion": "逆流交换系统是怎么工作的？",
-          "grammarQuestion": "'carrying cooled blood...' 是现在分词短语作后置定语，修饰 blood vessels。\n'close enough to... to...' 是‘足够近以至于……’的结构。",
-          "modifierQuestion": "'carrying warm blood from the body' 也是定语，修饰 blood vessels。\n'to pick up some heat...' 是不定式作结果状语。",
-          "relationshipQuestion": "冷血管和热血管靠得近，热量就从热血管传给冷血管。",
-          "commonMistake": "孩子可能不理解 'carrying cooled blood'，意思是‘携带冷却血液的’。",
+          "mainQuestion": "分号前：谁跑？主语是 'the blood vessels'，谓语是 'run'。分号后：什么被转移？主语是 'the heat'，谓语是 'is transferred'。",
+          "grammarQuestion": "看看 'carrying cooled blood...' 是什么？它是现在分词短语作后置定语，修饰前面的 'blood vessels'。",
+          "modifierQuestion": "'close enough to...' 是程度状语，修饰 run。'to pick up...' 是不定式作结果状语。",
+          "relationshipQuestion": "'thus' 连接前后两个分句，表示因果关系。'before' 引导时间状语从句，修饰 is transferred。",
+          "commonMistake": "孩子容易把 'carrying' 当成谓语，其实谓语是 'run'。或者把 'to pick up' 当成目的状语，其实这里是结果。",
           "thinkingPath": [
-            "识别现在分词作定语 carrying...",
-            "识别 close enough to... to... 结构"
+            "找到分号，断开长句",
+            "找第一个分句的主语和谓语",
+            "找第二个分句的主语和谓语"
           ],
-          "encouragement": "冷血管和热血管手拉手，热量就传过去了！"
+          "encouragement": "你能分清分号前后的关系，太厉害了！就像把两条路分开了一样清楚！"
         },
-        "analysis": "### 【主干结构】\n状语 'In a countercurrent exchange system'，主语 'the blood vessels'，定语 'carrying cooled blood from the flippers'，谓语 'run'，状语 'close enough to the blood vessels'，定语 'carrying warm blood from the body'，结果状语 'to pick up some heat from the warmer blood vessels'。\n\n### 【现在分词作定语】\n'carrying cooled blood from the flippers' 修饰 'blood vessels'。\n'carrying warm blood from the body' 修饰 'blood vessels'。\n\n### 【形容词搭配】\n'close enough to... to...' 表示‘足够近以至于……’。",
+        "analysis": "### 【主干结构】\n分句1：\n主语：the blood vessels (carrying cooled blood from the flippers)\n谓语：run\n状语：close enough to the blood vessels (carrying warm blood from the body) to pick up some heat from the warmer blood vessels\n\n分句2：\n主语：the heat\n谓语：is transferred\n状语：from the outgoing to the ingoing vessels\n时间状语从句：before it reaches the flipper itself\n\n### 【主谓一致】\n分句1主语 vessels 是复数，谓语 run 用原形，一致。\n分句2主语 heat 是单数，谓语 is transferred 用单数，一致。\n\n### 【动词时态与原形】\nrun: 一般现在时。\nis transferred: 一般现在时被动语态。\nreaches: 一般现在时。\n\n### 【从句剖析】\nbefore it reaches the flipper itself: 时间状语从句。\n\n### 【代词指代】\nit 指代 the heat。\n\n### 【非谓语动词】\ncarrying cooled blood from the flippers: 现在分词短语作后置定语，修饰 blood vessels。\ncarrying warm blood from the body: 现在分词短语作后置定语，修饰 blood vessels。\nto pick up: 不定式作结果状语。\n\n### 【修饰语】\nIn a countercurrent exchange system: 介词短语作状语，修饰整个分句1。\nclose enough to...: 程度状语。\nfrom the outgoing to the ingoing vessels: 介词短语作状语，修饰 transferred。",
         "segments": [
           {
-            "text": "In a countercurrent exchange system, ",
+            "text": "In a countercurrent exchange system,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "the blood vessels ",
+            "text": " the blood vessels carrying cooled blood from the flippers",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "carrying cooled blood from the flippers ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "run ",
+            "text": " run",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "close enough ",
+            "text": " close enough to the blood vessels carrying warm blood from the body",
+            "type": "adverbial",
+            "label": "程度状语"
+          },
+          {
+            "text": " to pick up some heat from the warmer blood vessels;",
+            "type": "adverbial",
+            "label": "结果状语"
+          },
+          {
+            "text": " thus,",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " the heat",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " is transferred",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " from the outgoing to the ingoing vessels",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "to the blood vessels ",
+            "text": " before it reaches the flipper itself.",
             "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "carrying warm blood from the body ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "to pick up some heat ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "from the warmer blood vessels;",
-            "type": "adverbial",
-            "label": "状语"
+            "label": "时间状语从句"
           }
         ]
       },
       {
         "id": "s28",
         "para": 5,
-        "text": "thus, the heat is transferred from the outgoing to the ingoing vessels before it reaches the flipper itself.",
-        "translation": "因此，热量在到达鳍状肢本身之前，从流出的血管转移到流入的血管。",
-        "grammarFocus": "被动语态 is transferred; before 引导时间状语从句",
-        "pronounRef": "it 指代 heat",
-        "logicConnector": "thus (结果); before (时间)",
+        "text": "This is the same arrangement found in an old-fashioned steam radiator, in which the coiled pipes pass heat back and forth as water courses through them.",
+        "translation": "这与老式蒸汽散热器中的相同排列方式一样，在散热器中，盘绕的管道随着水流经而前后传递热量。",
+        "grammarFocus": "过去分词作后置定语；which 引导的非限制性定语从句；as 引导的时间状语从句",
+        "pronounRef": "This 指代上一句描述的逆流交换系统；them 指代 pipes",
+        "logicConnector": "in which 引导定语从句；as 引导时间状语从句",
         "sentenceCoach": {
-          "summary": "这句话总结了热量转移的过程。",
-          "keyHint": "'from the outgoing to the ingoing vessels' 表示从流出血管到流入血管。"
+          "summary": "这句话用老式散热器来打比方，帮助理解。",
+          "keyHint": "注意 'found in...' 是修饰 arrangement 的，不是谓语。"
         },
         "teachingFocus": {
-          "mainQuestion": "热量是怎么转移的？",
-          "grammarQuestion": "'is transferred' 是被动语态。\n'from... to...' 表示从……到……。",
-          "modifierQuestion": "'before it reaches the flipper itself' 是时间状语从句。",
-          "relationshipQuestion": "热量在到达鳍状肢前就被回收了。",
-          "commonMistake": "孩子可能不理解 'outgoing' 和 'ingoing'，分别指‘流出的’和‘流入的’。",
+          "mainQuestion": "这是什么？主语是 'This'，谓语是 'is'，表语是 'the same arrangement'。",
+          "grammarQuestion": "看看 'found in...' 是什么？它是过去分词短语作后置定语，修饰 arrangement。",
+          "modifierQuestion": "'in which...' 是非限制性定语从句，修饰 radiator。'as water courses through them' 是时间状语从句，修饰 pass heat。",
+          "relationshipQuestion": "'in which' 指代 in the radiator。'them' 指代 pipes。",
+          "commonMistake": "孩子可能把 'found' 当成谓语，其实谓语是 'is'。或者不理解 'in which' 指代什么。",
           "thinkingPath": [
-            "识别被动语态 is transferred",
-            "识别 from... to... 结构",
-            "识别时间状语从句 before..."
+            "找到主干 This is the same arrangement",
+            "看 found in... 修饰谁",
+            "看 in which 引导的从句"
           ],
-          "encouragement": "热量在去鳍状肢的路上就被截获了，真聪明！"
+          "encouragement": "你找到了打比方的句子，真棒！就像找到了生活中的例子一样容易理解！"
         },
-        "analysis": "### 【主干结构】\n连接副词 'thus'，主语 'the heat'，谓语 'is transferred'，状语 'from the outgoing to the ingoing vessels'，时间状语从句 'before it reaches the flipper itself.'\n\n### 【被动语态】\n'is transferred' 表示‘被转移’。\n\n### 【介词搭配】\n'from... to...' 表示从……到……。\n\n### 【时间状语从句】\n'before it reaches...' 修饰 transferred。",
+        "analysis": "### 【主干结构】\n主语：This\n系动词：is\n表语：the same arrangement\n后置定语：found in an old-fashioned steam radiator\n非限制性定语从句：in which the coiled pipes pass heat back and forth as water courses through them\n\n### 【主谓一致】\nThis 是单数，is 用单数，一致。\n\n### 【动词时态与原形】\nis: 一般现在时。\npass: 一般现在时。\ncourses: 一般现在时。\n\n### 【从句剖析】\nin which the coiled pipes pass heat back and forth as water courses through them: 非限制性定语从句，修饰 radiator。\nas water courses through them: 时间状语从句，修饰 pass heat。\n\n### 【代词指代】\nThis 指代上一句描述的逆流交换系统。\nwhich 指代 radiator。\nthem 指代 pipes。\n\n### 【非谓语动词】\nfound: 过去分词作后置定语，修饰 arrangement。\n\n### 【修饰语】\nin an old-fashioned steam radiator: 介词短语作状语，修饰 found。\nback and forth: 副词短语作状语，修饰 pass。\n",
         "segments": [
           {
-            "text": "thus, ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "the heat ",
+            "text": "This",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is transferred ",
+            "text": " is",
             "type": "verb",
-            "label": "谓语"
+            "label": "系动词"
           },
           {
-            "text": "from the outgoing ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " the same arrangement",
+            "type": "predicative",
+            "label": "表语"
           },
           {
-            "text": "to the ingoing vessels ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " found in an old-fashioned steam radiator,",
+            "type": "modifier",
+            "label": "后置定语"
           },
           {
-            "text": "before ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "it reaches the flipper itself.",
+            "text": " in which",
             "type": "clause-subject",
-            "label": "从句主语及谓语"
+            "label": "定语从句主语（介词+关系代词）"
+          },
+          {
+            "text": " the coiled pipes",
+            "type": "clause-subject",
+            "label": "定语从句主语"
+          },
+          {
+            "text": " pass",
+            "type": "clause-verb",
+            "label": "定语从句谓语"
+          },
+          {
+            "text": " heat",
+            "type": "clause-object",
+            "label": "定语从句宾语"
+          },
+          {
+            "text": " back and forth",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " as water courses through them.",
+            "type": "adverbial",
+            "label": "时间状语从句"
           }
         ]
       },
       {
         "id": "s29",
         "para": 5,
-        "text": "This is the same arrangement found in an old-fashioned steam radiator, in which the coiled pipes pass heat back and forth as water courses through them.",
-        "translation": "这与老式蒸汽散热器中的相同排列方式一样，在其中，盘绕的管道随着水在其中流动而来回传递热量。",
-        "grammarFocus": "过去分词作定语 found...; 非限制性定语从句 in which...",
-        "pronounRef": "This 指代 countercurrent exchange system",
-        "logicConnector": "无",
+        "text": "The leatherback is certainly not the only animal with such an arrangement; gulls have a countercurrent exchange in their legs.",
+        "translation": "棱皮龟 certainly 不是唯一拥有这种排列方式的动物；海鸥的腿部也有逆流交换系统。",
+        "grammarFocus": "not the only...; 分号连接并列句",
+        "pronounRef": "such 指代前文提到的逆流交换系统",
+        "logicConnector": "分号连接两个并列分句",
         "sentenceCoach": {
-          "summary": "这句话用老式散热器类比，帮助理解逆流交换系统。",
-          "keyHint": "'found in...' 是过去分词短语，作后置定语，修饰 arrangement。"
+          "summary": "这句话告诉我们，不止棱皮龟有这种本领，海鸥也有。",
+          "keyHint": "注意 'not the only'，意思是‘不是唯一的’。"
         },
         "teachingFocus": {
-          "mainQuestion": "棱皮龟的系统和什么老式设备类似？",
-          "grammarQuestion": "'found in...' 是过去分词短语作后置定语。\n'in which...' 是非限制性定语从句，修饰 radiator。",
-          "modifierQuestion": "'the coiled pipes' 是定语从句的主语。\n'as water courses through them' 是时间状语从句。",
-          "relationshipQuestion": "散热器和棱皮龟的血管系统原理相似。",
-          "commonMistake": "孩子可能不理解 'courses through'，意思是‘流经’。",
+          "mainQuestion": "分号前：棱皮龟是什么？主语是 'The leatherback'，谓语是 'is'。分号后：谁有？主语是 'gulls'，谓语是 'have'。",
+          "grammarQuestion": "看看 'with such an arrangement' 是什么？它是介词短语作后置定语，修饰 animal。",
+          "modifierQuestion": "分号连接两个独立的句子，表示并列或补充说明。",
+          "relationshipQuestion": "两个分句是并列关系，共同说明拥有这种排列方式的动物不止一种。",
+          "commonMistake": "孩子可能不理解分号的用法，以为是一个句子。或者不理解 'with' 修饰 animal。",
           "thinkingPath": [
-            "识别过去分词 found...",
-            "识别非限制性定语从句 in which..."
+            "找到分号，断开句子",
+            "找第一个分句的主语和谓语",
+            "找第二个分句的主语和谓语"
           ],
-          "encouragement": "棱皮龟的系统和老式暖气片的原理一样，真神奇！"
+          "encouragement": "你发现了分号两边的秘密，真棒！就像发现了两个好朋友一样！"
         },
-        "analysis": "### 【主干结构】\n主语 'This'，系动词 'is'，表语 'the same arrangement'，后置定语 'found in an old-fashioned steam radiator'，非限制性定语从句 'in which the coiled pipes pass heat back and forth as water courses through them.'\n\n### 【过去分词作定语】\n'found in...' 修饰 'arrangement'。\n\n### 【非限制性定语从句】\n'in which...' 修饰 'radiator'。\n\n### 【时间状语从句】\n'as water courses through them' 修饰 pass heat。",
+        "analysis": "### 【主干结构】\n分句1：\n主语：The leatherback\n系动词：is\n表语：not the only animal\n后置定语：with such an arrangement\n\n分句2：\n主语：gulls\n谓语：have\n宾语：a countercurrent exchange\n状语：in their legs\n\n### 【主谓一致】\n分句1主语 The leatherback 是单数，is 用单数，一致。\n分句2主语 gulls 是复数，have 用复数，一致。\n\n### 【动词时态与原形】\nis: 一般现在时。\nhave: 一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\nsuch 指代前文提到的逆流交换系统。\ntheir 指代 gulls 的。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\ncertainly: 副词作状语，修饰 is。\nwith such an arrangement: 介词短语作后置定语，修饰 animal。\nin their legs: 介词短语作状语，修饰 have。",
         "segments": [
           {
-            "text": "This ",
+            "text": "The leatherback",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " is",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "the same arrangement ",
+            "text": " certainly not the only animal",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "found in an old-fashioned steam radiator, ",
+            "text": " with such an arrangement;",
             "type": "modifier",
-            "label": "定语"
+            "label": "后置定语"
           },
           {
-            "text": "in which ",
-            "type": "clause-subject",
-            "label": "从句主语"
+            "text": " gulls",
+            "type": "coord-subject",
+            "label": "并列主语"
           },
           {
-            "text": "the coiled pipes ",
-            "type": "clause-subject",
-            "label": "从句主语"
+            "text": " have",
+            "type": "coord-verb",
+            "label": "并列谓语"
           },
           {
-            "text": "pass heat back and forth ",
-            "type": "clause-verb",
-            "label": "从句谓语"
+            "text": " a countercurrent exchange",
+            "type": "coord-object",
+            "label": "并列宾语"
           },
           {
-            "text": "as water courses through them.",
+            "text": " in their legs.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -1895,129 +2085,91 @@
       {
         "id": "s30",
         "para": 5,
-        "text": "The leatherback is certainly not the only animal with such an arrangement; gulls have a countercurrent exchange in their legs.",
-        "translation": "棱皮龟肯定不是唯一拥有这种排列方式的动物；海鸥的腿中也有逆流交换。",
-        "grammarFocus": "with such an arrangement; 分号连接并列句",
-        "pronounRef": "无",
-        "logicConnector": "分号 (并列)",
+        "text": "That is why a gull can stand on an ice floe without freezing.",
+        "translation": "这就是为什么海鸥能在浮冰上站立而不冻僵。",
+        "grammarFocus": "why 引导的表语从句；without doing",
+        "pronounRef": "That 指代上一句提到的海鸥腿部有逆流交换系统",
+        "logicConnector": "why 引导表语从句",
         "sentenceCoach": {
-          "summary": "这句话指出其他动物也有类似机制。",
-          "keyHint": "'with such an arrangement' 是介词短语，修饰 animal。"
+          "summary": "这句话解释了海鸥为什么不怕冷。",
+          "keyHint": "注意 'That is why...'，意思是‘这就是为什么...’。"
         },
         "teachingFocus": {
-          "mainQuestion": "还有其他动物有这种机制吗？",
-          "grammarQuestion": "'with such an arrangement' 是后置定语。\n分号连接两个独立分句。",
-          "modifierQuestion": "'in their legs' 是介词短语，修饰 exchange。",
-          "relationshipQuestion": "海鸥和棱皮龟都有逆流交换系统。",
-          "commonMistake": "无特别难点。",
+          "mainQuestion": "这是什么？主语是 'That'，谓语是 'is'，表语是 'why...' 从句。",
+          "grammarQuestion": "看看 'why...' 是什么？它是表语从句，解释原因。",
+          "modifierQuestion": "'on an ice floe' 是地点状语，修饰 stand。'without freezing' 是方式状语，修饰 stand。",
+          "relationshipQuestion": "That 指代上一句的内容，即海鸥腿部有逆流交换系统。",
+          "commonMistake": "孩子可能不理解 'That is why...' 的结构，以为 why 是疑问词。",
           "thinkingPath": [
-            "识别介词短语 with such an arrangement",
-            "识别分号连接的并列句"
+            "找到主干 That is...",
+            "看 why 引导的从句",
+            "看 without freezing"
           ],
-          "encouragement": "海鸥也有这种保暖秘籍，大自然真奇妙！"
+          "encouragement": "你找到了原因，真棒！就像找到了问题的答案一样！"
         },
-        "analysis": "### 【主干结构】\n分号连接两个分句。\n第一分句：主语 'The leatherback'，谓语 'is'，表语 'not the only animal'，后置定语 'with such an arrangement'。\n第二分句：主语 'gulls'，谓语 'have'，宾语 'a countercurrent exchange'，状语 'in their legs'。\n\n### 【介词短语】\n'with such an arrangement' 修饰 'animal'。\n'in their legs' 修饰 'exchange'。",
+        "analysis": "### 【主干结构】\n主语：That\n系动词：is\n表语：why a gull can stand on an ice floe without freezing (表语从句)\n\n### 【主谓一致】\nThat 是单数，is 用单数，一致。\n\n### 【动词时态与原形】\nis: 一般现在时。\ncan stand: 情态动词+动词原形。\n\n### 【从句剖析】\nwhy a gull can stand on an ice floe without freezing: 表语从句。\n\n### 【代词指代】\nThat 指代上一句提到的海鸥腿部有逆流交换系统。\n\n### 【非谓语动词】\nfreezing: 动名词作介词 without 的宾语。\n\n### 【修饰语】\non an ice floe: 介词短语作地点状语，修饰 stand。\nwithout freezing: 介词短语作方式状语，修饰 stand。",
         "segments": [
           {
-            "text": "The leatherback ",
+            "text": "That",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " is",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "certainly not the only animal ",
+            "text": " why a gull can stand on an ice floe without freezing.",
             "type": "predicative",
-            "label": "表语"
-          },
-          {
-            "text": "with such an arrangement; ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "gulls ",
-            "type": "subject",
-            "label": "主语"
-          },
-          {
-            "text": "have ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "a countercurrent exchange ",
-            "type": "object",
-            "label": "宾语"
-          },
-          {
-            "text": "in their legs.",
-            "type": "adverbial",
-            "label": "状语"
+            "label": "表语从句"
           }
         ]
       },
       {
         "id": "s31",
-        "para": 5,
-        "text": "That is why a gull can stand on an ice floe without freezing.",
-        "translation": "这就是为什么海鸥能在冰架上站立而不冻僵。",
-        "grammarFocus": "That is why...; without doing",
-        "pronounRef": "That 指代前文提到的 countercurrent exchange",
-        "logicConnector": "why (结果)",
+        "para": 6,
+        "text": "All this applies, of course, only to an adult leatherback.",
+        "translation": "当然，这一切只适用于成年棱皮龟。",
+        "grammarFocus": "插入语 of course; apply to",
+        "pronounRef": "All this 指代前文描述的逆流交换系统及其作用",
+        "logicConnector": "of course 插入语",
         "sentenceCoach": {
-          "summary": "这句话解释了海鸥为什么能在冰上站立。",
-          "keyHint": "'That is why...' 是固定句型，表示‘那就是为什么……’。"
+          "summary": "这句话限定了适用范围，只适用于成年龟。",
+          "keyHint": "注意 'of course' 是插入语，可以暂时忽略。"
         },
         "teachingFocus": {
-          "mainQuestion": "海鸥为什么能在冰上站立？",
-          "grammarQuestion": "'That is why...' 引导表语从句。\n'without freezing' 是介词短语作状语。",
-          "modifierQuestion": "'on an ice floe' 是介词短语，修饰 stand。",
-          "relationshipQuestion": "逆流交换系统让海鸥的腿不冷，所以能站在冰上。",
-          "commonMistake": "孩子可能不理解 'ice floe'，意思是‘浮冰’、‘冰架’。",
+          "mainQuestion": "什么适用？主语是 'All this'，谓语是 'applies'。",
+          "grammarQuestion": "看看 'of course' 是什么？它是插入语，表示语气。",
+          "modifierQuestion": "'only to an adult leatherback' 是介词短语作状语，修饰 applies。",
+          "relationshipQuestion": "All this 指代前文描述的机制。",
+          "commonMistake": "孩子可能把 'of course' 当成句子的一部分，其实它是插入语。",
           "thinkingPath": [
-            "识别 That is why... 句型",
-            "识别 without freezing"
+            "找到主干 All this applies",
+            "看 of course 插入语",
+            "看 only to..."
           ],
-          "encouragement": "海鸥的腿像穿了保暖袜，所以在冰上站得稳稳的！"
+          "encouragement": "你找到了插入语，真棒！就像找到了句子中的小插曲一样！"
         },
-        "analysis": "### 【主干结构】\n主语 'That'，系动词 'is'，表语从句 'why a gull can stand on an ice floe without freezing.'\n\n### 【表语从句】\n'why...' 引导的从句解释原因。\n\n### 【介词短语】\n'on an ice floe' 修饰 stand。\n'without freezing' 修饰 stand，表示伴随状态。",
+        "analysis": "### 【主干结构】\n主语：All this\n谓语：applies\n状语：of course (插入语)\n状语：only to an adult leatherback\n\n### 【主谓一致】\nAll this 是单数，applies 用单数，一致。\n\n### 【动词时态与原形】\napplies: 一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\nAll this 指代前文描述的逆流交换系统及其作用。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nof course: 插入语，表示语气。\nonly to an adult leatherback: 介词短语作状语，修饰 applies。",
         "segments": [
           {
-            "text": "That ",
+            "text": "All this",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " applies,",
             "type": "verb",
-            "label": "系动词"
+            "label": "谓语"
           },
           {
-            "text": "why ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": " of course,",
+            "type": "modifier",
+            "label": "插入语"
           },
           {
-            "text": "a gull ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "can stand ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "on an ice floe ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "without freezing.",
+            "text": " only to an adult leatherback.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -2026,297 +2178,274 @@
       {
         "id": "s32",
         "para": 6,
-        "text": "All this applies, of course, only to an adult leatherback.",
-        "translation": "当然，这一切只适用于成年棱皮龟。",
-        "grammarFocus": "插入语 of course; applies to",
-        "pronounRef": "All this 指代前文提到的保温机制",
-        "logicConnector": "of course (插入语)",
+        "text": "Hatchlings are simply too small to conserve body heat, even with insulation and countercurrent exchange systems.",
+        "translation": "幼龟 simply 太小了，无法保持体温，即使有隔热层和逆流交换系统。",
+        "grammarFocus": "too...to... 结构; even with",
+        "pronounRef": "无",
+        "logicConnector": "even with 表示让步",
         "sentenceCoach": {
-          "summary": "这句话限定了前文描述的机制只适用于成年棱皮龟。",
-          "keyHint": "'of course' 是插入语，表示‘当然’。"
+          "summary": "这句话解释了为什么幼龟不能保持体温。",
+          "keyHint": "注意 'too small to...'，意思是‘太小而不能...’。"
         },
         "teachingFocus": {
-          "mainQuestion": "这些保温机制对所有棱皮龟都有效吗？",
-          "grammarQuestion": "'All this' 是主语，'applies to' 是谓语。",
-          "modifierQuestion": "'of course' 是插入语。\n'only to an adult leatherback' 是介词短语，修饰 applies。",
-          "relationshipQuestion": "幼年棱皮龟没有这些机制。",
-          "commonMistake": "孩子可能不理解 'applies to'，意思是‘适用于’。",
+          "mainQuestion": "谁太小？主语是 'Hatchlings'，谓语是 'are'。",
+          "grammarQuestion": "看看 'too small to...' 是什么？它是形容词短语作表语，to conserve... 是不定式作结果状语。",
+          "modifierQuestion": "'even with insulation and countercurrent exchange systems' 是介词短语作让步状语。",
+          "relationshipQuestion": "too...to... 表示‘太...而不能...’。",
+          "commonMistake": "孩子可能不理解 'too...to...' 的否定含义，以为是可以保持体温。",
           "thinkingPath": [
-            "识别主语 All this",
-            "识别谓语 applies to",
-            "识别插入语 of course"
+            "找到主干 Hatchlings are too small",
+            "看 to conserve...",
+            "看 even with..."
           ],
-          "encouragement": "这些保暖绝招只有成年棱皮龟才有，小宝宝还没有哦！"
+          "encouragement": "你找到了‘太小而不能’的结构，真棒！就像找到了限制条件一样！"
         },
-        "analysis": "### 【主干结构】\n主语 'All this'，谓语 'applies'，插入语 'of course'，状语 'only to an adult leatherback.'\n\n### 【动词搭配】\n'apply to...' 表示‘适用于……’。\n\n### 【插入语】\n'of course' 表示‘当然’，起补充说明作用。",
+        "analysis": "### 【主干结构】\n主语：Hatchlings\n系动词：are\n表语：simply too small\n结果状语：to conserve body heat\n让步状语：even with insulation and countercurrent exchange systems\n\n### 【主谓一致】\nHatchlings 是复数，are 用复数，一致。\n\n### 【动词时态与原形】\nare: 一般现在时。\nconserve: 动词原形，作不定式。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nto conserve: 不定式作结果状语。\n\n### 【修饰语】\nsimply: 副词作状语，修饰 too small。\nwith insulation and countercurrent exchange systems: 介词短语作让步状语。",
         "segments": [
           {
-            "text": "All this ",
+            "text": "Hatchlings",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "applies, ",
+            "text": " are",
             "type": "verb",
-            "label": "谓语"
+            "label": "系动词"
           },
           {
-            "text": "of course, ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " simply too small",
+            "type": "predicative",
+            "label": "表语"
           },
           {
-            "text": "only to an adult leatherback.",
+            "text": " to conserve body heat,",
             "type": "adverbial",
-            "label": "状语"
+            "label": "结果状语"
+          },
+          {
+            "text": " even with insulation and countercurrent exchange systems.",
+            "type": "adverbial",
+            "label": "让步状语"
           }
         ]
       },
       {
         "id": "s33",
         "para": 6,
-        "text": "Hatchlings are simply too small to conserve body heat, even with insulation and countercurrent exchange systems.",
-        "translation": "幼龟 simply 太小了，无法保存体温，即使有隔热层和逆流交换系统。",
-        "grammarFocus": "too small to...; even with",
-        "pronounRef": "无",
-        "logicConnector": "even (让步)",
+        "text": "We do not know how old, or how large, a leatherback has to be before it can switch from a cold-blooded to a warm-blooded mode of life.",
+        "translation": "我们不知道棱皮龟长到多大年纪、长到多大体型，才能从冷血模式切换到温血模式。",
+        "grammarFocus": "宾语从句的嵌套与省略；before引导的时间状语从句。",
+        "pronounRef": "We指代科学家或人类；it指代a leatherback（棱皮龟）。",
+        "logicConnector": "before：在……之前（时间关系）。",
         "sentenceCoach": {
-          "summary": "这句话解释为什么幼龟不能保温。",
-          "keyHint": "'too small to...' 表示‘太小而不能……’。"
+          "summary": "这句话是个大包裹，里面装着两个小包裹，我们要一层层拆开看。",
+          "keyHint": "注意 how old 和 how large 是并列的，它们共同引导后面的从句。"
         },
         "teachingFocus": {
-          "mainQuestion": "为什么幼龟不能保温？",
-          "grammarQuestion": "'too small to conserve...' 是‘太……而不能……’的结构。\n'even with...' 是让步状语。",
-          "modifierQuestion": "'with insulation and countercurrent exchange systems' 是介词短语，修饰 conserve 或整个句子。",
-          "relationshipQuestion": "体型小是幼龟不能保温的主要原因。",
-          "commonMistake": "孩子可能不理解 'Hatchlings'，意思是‘幼龟’、‘刚孵化的龟’。",
+          "mainQuestion": "谁不知道？不知道关于棱皮龟的什么事？",
+          "grammarQuestion": "how old 和 how large 后面为什么没有逗号隔开主句，而是直接连着 a leatherback？",
+          "modifierQuestion": "before 引导的部分是在告诉我们切换模式的时间条件。",
+          "relationshipQuestion": "‘不知道’的内容，就是棱皮龟‘必须达到’的条件。",
+          "commonMistake": "容易把 how old, or how large 当成两个独立的句子，其实它们是同一个宾语从句里的并列成分。",
           "thinkingPath": [
-            "识别主语 Hatchlings",
-            "识别 too small to... 结构",
-            "识别 even with..."
+            "找到主句动词 know，确定‘不知道’的对象",
+            "识别 how old... 和 how large... 是并列的疑问词引导的从句",
+            "分析 before 引导的时间状语，理解切换的条件"
           ],
-          "encouragement": "小棱皮龟太小了，保暖装备也帮不了它们！"
+          "encouragement": "你像侦探一样剥开了这个长句的外衣，真棒！"
         },
-        "analysis": "### 【主干结构】\n主语 'Hatchlings'，系动词 'are'，表语 'simply too small'，结果状语 'to conserve body heat'，让步状语 'even with insulation and countercurrent exchange systems.'\n\n### 【形容词搭配】\n'too... to...' 表示‘太……而不能……’。\n\n### 【介词短语】\n'even with...' 表示‘即使有……’。",
+        "analysis": "### 【主干结构】\n主句是 \"We do not know...\"，主语是 We，谓语是 do not know。\n\n### 【宾语从句】\nknow 的宾语是一个由 how old 和 how large 引导的从句结构。这里省略了 that，完整结构类似于：We do not know [how old (a leatherback) has to be] or [how large (a leatherback) has to be]。\n\n### 【插入语/并列】\n\", or ,\" 连接了 how old 和 how large，表示选择或并列关系，修饰同一个主语 a leatherback。\n\n### 【时间状语从句】\nbefore 引导时间状语从句 \"it can switch from a cold-blooded to a warm-blooded mode of life\"。其中 it 指代 a leatherback。switch from A to B 表示从A切换到B。\n\n### 【主谓一致】\n主句主语 We 是复数，谓语用 do not。从句主语 it 是单数，谓语用 can switch。",
         "segments": [
           {
-            "text": "Hatchlings ",
+            "text": "We",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are ",
+            "text": " do not know",
             "type": "verb",
-            "label": "系动词"
+            "label": "谓语"
           },
           {
-            "text": "simply too small ",
-            "type": "predicative",
-            "label": "表语"
+            "text": " how old,",
+            "type": "clause-subject",
+            "label": "从句主语引导词1"
           },
           {
-            "text": "to conserve body heat, ",
+            "text": " or",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " how large,",
+            "type": "clause-subject",
+            "label": "从句主语引导词2"
+          },
+          {
+            "text": " a leatherback",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " has to be",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " before",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " it",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " can switch",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " from a cold-blooded",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "even with insulation and countercurrent exchange systems.",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " to",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " a warm-blooded mode of life.",
+            "type": "clause-object",
+            "label": "宾语"
           }
         ]
       },
       {
         "id": "s34",
         "para": 6,
-        "text": "We do not know how old, or how large, a leatherback has to be before it can switch from a cold-blooded to a warm-blooded mode of life.",
-        "translation": "我们不知道棱皮龟必须长到多大或多老，才能从冷血生活方式切换到温血生活方式。",
-        "grammarFocus": "宾语从句 how old...; before 引导时间状语从句",
-        "pronounRef": "it 指代 leatherback",
-        "logicConnector": "before (时间)",
+        "text": "Leatherbacks reach their immense size in a much shorter time than it takes other sea turtles to grow.",
+        "translation": "棱皮龟达到其巨大体型所需的时间，比其他海龟长到那么大所需的时间要短得多。",
+        "grammarFocus": "比较级结构；形式主语 it 的用法；不定式作真正主语。",
+        "pronounRef": "their 指代 Leatherbacks；it 指代达到其体型这件事（形式主语）。",
+        "logicConnector": "than：比（比较关系）。",
         "sentenceCoach": {
-          "summary": "这句话提出了一个未解之谜：棱皮龟什么时候开始温血？",
-          "keyHint": "'how old, or how large' 是宾语从句的一部分。"
+          "summary": "这是一个比较句，比较的是两种海龟‘长身体’的速度。",
+          "keyHint": "注意 than 后面跟着的 it takes... 结构，it 是形式主语。"
         },
         "teachingFocus": {
-          "mainQuestion": "棱皮龟什么时候开始温血？",
-          "grammarQuestion": "'how old, or how large, a leatherback has to be' 是宾语从句，作 know 的宾语。\n'before it can switch...' 是时间状语从句。",
-          "modifierQuestion": "'from a cold-blooded to a warm-blooded mode of life' 是介词短语，修饰 switch。",
-          "relationshipQuestion": "棱皮龟从小是冷血，长大后变成温血。",
-          "commonMistake": "孩子可能不理解 'switch from... to...'，意思是‘从……切换到……’。",
+          "mainQuestion": "谁达到了巨大体型？用了多长时间？",
+          "grammarQuestion": "than 后面为什么是 it takes other sea turtles to grow，而不是直接说 other sea turtles grow？",
+          "modifierQuestion": "much 修饰 shorter，表示‘短得多’，加强语气。",
+          "relationshipQuestion": "Leatherbacks 的时间 < other sea turtles 的时间。",
+          "commonMistake": "容易忽略 than 后面的 it 是形式主语，误以为 it 指代某只具体的海龟。",
           "thinkingPath": [
-            "识别宾语从句 how old...",
-            "识别时间状语从句 before..."
+            "找到主句主干：Leatherbacks reach size",
+            "识别比较结构：in a much shorter time than...",
+            "解析 than 后的从句：it takes sb. to do sth."
           ],
-          "encouragement": "科学家还在研究棱皮龟什么时候变身温血动物呢！"
+          "encouragement": "你抓住了比较句的核心，像天平一样平衡了两个部分！"
         },
-        "analysis": "### 【主干结构】\n主语 'We'，谓语 'do not know'，宾语从句 'how old, or how large, a leatherback has to be before it can switch from a cold-blooded to a warm-blooded mode of life.'\n\n### 【宾语从句】\n'how old, or how large, a leatherback has to be' 是宾语从句，其中 'how old' 和 'how large' 是表语。\n\n### 【时间状语从句】\n'before it can switch...' 修饰 has to be 或整个宾语从句。\n\n### 【介词搭配】\n'switch from... to...' 表示‘从……切换到……’。",
+        "analysis": "### 【主干结构】\n主句主语 Leatherbacks，谓语 reach，宾语 their immense size。\n\n### 【状语与比较】\nin a much shorter time 是时间状语。than 引导比较状语从句。\n\n### 【比较从句结构】\nthan it takes other sea turtles to grow。\n这里 it 是形式主语，真正的主语是后面的不定式 to grow。结构为：it takes + sb. + time + to do sth.（某人做某事花费时间）。\n完整逻辑是：...than (it takes other sea turtles to grow [to that size]).\n\n### 【主谓一致】\n主句主语 Leatherbacks 复数，谓语 reach 原形。从句主语 it 单数，谓语 takes 三单。",
         "segments": [
           {
-            "text": "We ",
+            "text": "Leatherbacks",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "do not know ",
+            "text": " reach",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "how old, ",
-            "type": "clause-predicative",
-            "label": "从句表语"
+            "text": " their immense size",
+            "type": "object",
+            "label": "宾语"
           },
           {
-            "text": "or ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "how large, ",
-            "type": "clause-predicative",
-            "label": "从句表语"
-          },
-          {
-            "text": "a leatherback ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "has to be ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "before ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "it ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "can switch ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "from a cold-blooded to a warm-blooded mode of life.",
+            "text": " in a much shorter time",
             "type": "adverbial",
             "label": "状语"
+          },
+          {
+            "text": " than",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " it",
+            "type": "clause-subject",
+            "label": "从句主语(形式)"
+          },
+          {
+            "text": " takes",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " other sea turtles",
+            "type": "clause-object",
+            "label": "从句宾语"
+          },
+          {
+            "text": " to grow.",
+            "type": "clause-predicative",
+            "label": "从句真正主语(不定式)"
           }
         ]
       },
       {
         "id": "s35",
         "para": 6,
-        "text": "Leatherbacks reach their immense size in a much shorter time than it takes other sea turtles to grow.",
-        "translation": "棱皮龟在比其它海龟长得更大所需时间短得多的时间内达到其巨大的体型。",
-        "grammarFocus": "比较结构 in a much shorter time than...",
-        "pronounRef": "无",
-        "logicConnector": "than (比较)",
-        "sentenceCoach": {
-          "summary": "这句话比较了棱皮龟和其他海龟的生长速度。",
-          "keyHint": "'in a much shorter time than...' 是比较结构。"
-        },
-        "teachingFocus": {
-          "mainQuestion": "棱皮龟长得比其他海龟快吗？",
-          "grammarQuestion": "'in a much shorter time than...' 是比较结构。\n'it takes other sea turtles to grow' 是时间状语从句的简化。",
-          "modifierQuestion": "'much shorter' 修饰 time。\n'than it takes...' 是比较对象。",
-          "relationshipQuestion": "棱皮龟生长速度快，所以能更快达到温血体型。",
-          "commonMistake": "孩子可能不理解 'it takes... to grow'，意思是‘……生长需要（时间）’。",
-          "thinkingPath": [
-            "识别主语 Leatherbacks",
-            "识别谓语 reach",
-            "识别比较结构 in a much shorter time than..."
-          ],
-          "encouragement": "棱皮龟是个生长加速器，比其他海龟长得快多了！"
-        },
-        "analysis": "### 【主干结构】\n主语 'Leatherbacks'，谓语 'reach'，宾语 'their immense size'，状语 'in a much shorter time than it takes other sea turtles to grow.'\n\n### 【比较结构】\n'in a much shorter time than...' 表示‘在比……短得多的时间里’。\n\n### 【时间状语从句】\n'than it takes other sea turtles to grow' 是比较对象，其中 'it' 是形式主语，真正的主语是 'to grow'。",
-        "segments": [
-          {
-            "text": "Leatherbacks ",
-            "type": "subject",
-            "label": "主语"
-          },
-          {
-            "text": "reach ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "their immense size ",
-            "type": "object",
-            "label": "宾语"
-          },
-          {
-            "text": "in a much shorter time ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "than ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "it takes other sea turtles to grow.",
-            "type": "adverbial",
-            "label": "状语"
-          }
-        ]
-      },
-      {
-        "id": "s36",
-        "para": 6,
         "text": "Perhaps their rush to adulthood is driven by a simple need to keep warm.",
-        "translation": "也许它们急于成年是由一个简单的需求驱动的：保持温暖。",
-        "grammarFocus": "被动语态 is driven by; 不定式作定语 to keep warm",
-        "pronounRef": "their 指代 leatherbacks",
-        "logicConnector": "无",
+        "translation": "也许它们急于成年是为了保持体温这一简单需求所驱动的。",
+        "grammarFocus": "被动语态；不定式作后置定语。",
+        "pronounRef": "their 指代 Leatherbacks。",
+        "logicConnector": "无显性逻辑连词，Perhaps 表示推测语气。",
         "sentenceCoach": {
-          "summary": "这句话推测棱皮龟快速生长的原因。",
-          "keyHint": "'to keep warm' 是定语，修饰 need。"
+          "summary": "这句话解释了原因，用了被动语态，强调‘被需求驱动’。",
+          "keyHint": "注意 is driven by 是被动结构，to keep warm 修饰 need。"
         },
         "teachingFocus": {
-          "mainQuestion": "棱皮龟为什么急于成年？",
-          "grammarQuestion": "'is driven by' 是被动语态。\n'to keep warm' 是不定式作后置定语，修饰 need。",
-          "modifierQuestion": "'a simple need' 是宾语。\n'to keep warm' 解释 need 的内容。",
-          "relationshipQuestion": "为了保暖，棱皮龟需要快速长大。",
-          "commonMistake": "孩子可能不理解 'rush to adulthood'，意思是‘急于成年’。",
+          "mainQuestion": "什么被驱动？被什么驱动？",
+          "grammarQuestion": "为什么用 is driven by 而不是 drive？",
+          "modifierQuestion": "to keep warm 是修饰 need 的，说明是什么样的需求。",
+          "relationshipQuestion": "rush（行为） <- driven by <- need（原因）。",
+          "commonMistake": "容易把 to keep warm 当成谓语，其实它是修饰 need 的定语。",
           "thinkingPath": [
-            "识别主语 Perhaps their rush to adulthood",
-            "识别谓语 is driven by",
-            "识别不定式 to keep warm"
+            "识别被动语态 is driven by",
+            "找到动作发出者 a simple need",
+            "分析 to keep warm 修饰 need"
           ],
-          "encouragement": "棱皮龟急着长大，就是为了不被冻着，真聪明！"
+          "encouragement": "你读懂了背后的因果关系，真像个小小心理学家！"
         },
-        "analysis": "### 【主干结构】\n主语 'Perhaps their rush to adulthood'，谓语 'is driven'，状语 'by a simple need'，后置定语 'to keep warm.'\n\n### 【被动语态】\n'is driven by' 表示‘被……驱动’。\n\n### 【不定式作定语】\n'to keep warm' 修饰 'need'，解释需求的内容。",
+        "analysis": "### 【主干结构】\n主语 their rush to adulthood，谓语 is driven，状语 by a simple need。\n\n### 【被动语态】\nis driven by 表示‘被...驱动’。主动形式为 A drives B。这里 B 是 rush，A 是 need。\n\n### 【定语】\nto keep warm 是不定式作后置定语，修饰名词 need。解释是什么样的需求（保暖的需求）。\n\n### 【主谓一致】\n主语 rush 是单数，谓语 is 用单数。",
         "segments": [
           {
-            "text": "Perhaps ",
+            "text": "Perhaps",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "their rush to adulthood ",
+            "text": " their rush to adulthood",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is driven ",
+            "text": " is driven",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "by a simple need ",
+            "text": " by a simple need",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "to keep warm.",
+            "text": " to keep warm.",
             "type": "modifier",
             "label": "定语"
           }

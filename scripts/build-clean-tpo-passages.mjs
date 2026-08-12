@@ -49,6 +49,9 @@ const boundaryPatterns = [
   { id: 'question_prompt', pattern: /(?:^|\n)\s*Questions?\s*\d+\s*[:.]/ig },
   { id: 'directions', pattern: /(?:^|\n)\s*Directions?\s*[:：]/ig },
   { id: 'answer_choices', pattern: /(?:^|\n)\s*Answer\s+Choices?\s*[:：]/ig },
+  // Some TPO exports use an explicit terminal glossary heading followed by
+  // unnumbered term definitions. It must not become a synthetic sentence.
+  { id: 'glossary_block', pattern: /(?:^|\n)\s*\[Glossary\]\s*\n\s*[A-Za-z][^\n]*:\s+[^\n]+(?:\n\s*[A-Za-z][^\n]*:\s+[^\n]+)*\s*$/ig },
   // A terminal numbered "term: definition" block is a textbook footnote
   // block, not a reading sentence. It is retained as structured metadata.
   { id: 'footnote_block', pattern: /(?:^|\n)\s*1\.\s+[A-Za-z][^\n]*:\s+[^\n]+(?:\n\s*\d+\.\s+[A-Za-z][^\n]*:\s+[^\n]+)*\s*$/ig }
@@ -69,8 +72,15 @@ const findBoundary = (source) => {
 };
 
 const normalize = (value) => value.toLowerCase().replace(/\s+/g, ' ').trim();
-const parseFootnotes = (tail) => [...String(tail || '').matchAll(/^\s*(\d+)\.\s+(.+)$/gm)]
-  .map((match) => ({ marker: match[1], text: match[2].trim() }));
+const parseFootnotes = (tail, kind) => {
+  if (kind === 'glossary_block') {
+    return [...String(tail || '').matchAll(/^\s*([^\n:]+):\s+(.+)$/gm)]
+      .filter((match) => match[1].trim().toLowerCase() !== '[glossary]')
+      .map((match) => ({ marker: match[1].trim(), text: match[2].trim() }));
+  }
+  return [...String(tail || '').matchAll(/^\s*(\d+)\.\s+(.+)$/gm)]
+    .map((match) => ({ marker: match[1], text: match[2].trim() }));
+};
 
 const assess = (source, file, questionText) => {
   const boundary = findBoundary(source);
@@ -93,8 +103,8 @@ const assess = (source, file, questionText) => {
   const evidenceFromRepeatedBody = boundary
     ? normalizedBody.startsWith(normalizedTail.slice(0, 160)) || normalizedBody.startsWith(tailWithoutRepeatedTitle.slice(0, 160))
     : false;
-  const footnotes = boundary?.id === 'footnote_block' ? parseFootnotes(removedTail) : [];
-  const evidenceFromFootnotes = boundary?.id === 'footnote_block' && footnotes.length > 0;
+  const footnotes = ['footnote_block', 'glossary_block'].includes(boundary?.id) ? parseFootnotes(removedTail, boundary.id) : [];
+  const evidenceFromFootnotes = ['footnote_block', 'glossary_block'].includes(boundary?.id) && footnotes.length > 0;
   const markerEvidence = evidenceFromQuestionData || evidenceFromRepeatedBody || evidenceFromFootnotes;
   // Only a marker that is also present in this article's extracted question
   // data is a confirmed duplicate exercise block.  A natural "Paragraph 1:"

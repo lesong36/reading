@@ -1,39 +1,69 @@
 {
   "sourceFile": "online-test-electricity-from-wind.md",
   "sectionTitle": "Online Test / Electricity from Wind",
-  "generatedAt": "2026-08-04T17:50:45.632Z",
+  "generatedAt": "2026-08-11T05:42:55.387Z",
   "warnings": [],
   "article": {
     "id": "online-test-electricity-from-wind-15-Online-Test-Electricity-from-Wind",
     "title": "Online Test / Electricity from Wind",
-    "timestamp": 1785865845646,
+    "timestamp": 1786426975401,
     "glossary": [
       {
         "term": "transmission and distribution lines",
-        "translation": "输配电线路",
+        "translation": "输电和配电线路",
         "kind": "term",
-        "note": "输送和分配电力的电线",
+        "note": "输送电力的电线网络。",
+        "aliases": []
+      },
+      {
+        "term": "natural-gas-burning turbines",
+        "translation": "燃气轮机",
+        "kind": "term",
+        "note": "以天然气为燃料的涡轮发动机，用于发电。",
         "aliases": []
       },
       {
         "term": "pumped-storage hydropower",
-        "translation": "抽水蓄能水电",
+        "translation": "抽水蓄能",
         "kind": "term",
-        "note": "一种利用多余电力将水抽到高处储存，需要时放水发电的技术",
+        "note": "一种利用电力负荷低谷时的电能抽水至上水库，在电力负荷高峰期再放水至下水库发电的水电站。",
         "aliases": []
       },
       {
-        "term": "coal-fired power plants",
-        "translation": "燃煤发电厂",
-        "kind": "term",
-        "note": "燃烧煤炭产生电力的工厂",
+        "term": "pitted ... against ...",
+        "translation": "使……与……对立",
+        "kind": "context_phrase",
+        "note": "形象地描述两方势力处于对抗状态。",
         "aliases": []
       },
       {
-        "term": "environmentalists",
-        "translation": "环保主义者",
+        "term": "energy storage system",
+        "translation": "储能系统",
         "kind": "term",
-        "note": "致力于保护自然环境的人",
+        "note": "用于储存电能以便在需要时释放的设备或系统。",
+        "aliases": []
+      },
+      {
+        "term": "twenty-first century",
+        "translation": "21世纪",
+        "kind": "proper_noun",
+        "note": "时间名词短语",
+        "aliases": [
+          "21st century"
+        ]
+      },
+      {
+        "term": "Wind power experts",
+        "translation": "风能专家",
+        "kind": "context_phrase",
+        "note": "指研究风力发电的专业人士",
+        "aliases": []
+      },
+      {
+        "term": "residential needs",
+        "translation": "居民需求",
+        "kind": "context_phrase",
+        "note": "指家庭日常用电需求",
         "aliases": []
       },
       {
@@ -47,21 +77,28 @@
         "term": "visual pollution",
         "translation": "视觉污染",
         "kind": "term",
-        "note": "指景观不美观造成的污染",
+        "note": "指风力发电机因体积巨大或排列密集，破坏了自然景观的美感。",
+        "aliases": []
+      },
+      {
+        "term": "mass production",
+        "translation": "大规模生产",
+        "kind": "term",
+        "note": "指工业上大量制造产品的过程，通常能降低成本。",
         "aliases": []
       },
       {
         "term": "migratory birds",
         "translation": "候鸟",
         "kind": "term",
-        "note": "随季节迁徙的鸟类",
+        "note": "随季节变化进行长距离迁徙的鸟类。",
         "aliases": []
       },
       {
         "term": "utility company",
         "translation": "公用事业公司",
         "kind": "term",
-        "note": "提供电力、水等公共服务的公司",
+        "note": "指提供电力、水、气等公共服务的公司。",
         "aliases": []
       },
       {
@@ -75,7 +112,7 @@
         "term": "carbon dioxide",
         "translation": "二氧化碳",
         "kind": "term",
-        "note": "主要的温室气体",
+        "note": "温室气体之一",
         "aliases": [
           "CO2"
         ]
@@ -84,23 +121,31 @@
         "term": "birds of prey",
         "translation": "猛禽",
         "kind": "term",
-        "note": "捕食其他动物的鸟类，如鹰、隼",
-        "aliases": [
-          "raptors"
-        ]
+        "note": "指以其他动物为食的鸟类，如鹰、隼等。",
+        "aliases": []
       },
       {
         "term": "heat-trapping",
-        "translation": "吸热的/保温的",
-        "kind": "term",
-        "note": "指能捕获热量导致温室效应的气体或物质",
+        "translation": "锁热的",
+        "kind": "modifier",
+        "note": "形容能捕获热量导致温室效应的",
         "aliases": []
+      },
+      {
+        "term": "United States",
+        "translation": "美国",
+        "kind": "proper_noun",
+        "note": "国家名称",
+        "aliases": [
+          "U.S.",
+          "USA"
+        ]
       },
       {
         "term": "wind turbines",
         "translation": "风力涡轮机",
         "kind": "term",
-        "note": "将风能转化为电能的核心设备",
+        "note": "将风能转化为电能的设备",
         "aliases": [
           "windmills"
         ]
@@ -109,43 +154,89 @@
         "term": "backup power",
         "translation": "备用电源",
         "kind": "term",
-        "note": "主电源失效或不足时提供的电力",
+        "note": "在主电源故障或需求激增时提供的额外电力。",
         "aliases": []
       },
       {
         "term": "electrocuted",
         "translation": "触电身亡",
         "kind": "term",
-        "note": "被电击中致死",
+        "note": "指被电流击中致死。",
+        "aliases": []
+      },
+      {
+        "term": "hydrogen gas",
+        "translation": "氢气",
+        "kind": "term",
+        "note": "一种清洁能源载体，可通过电解水制得。",
+        "aliases": [
+          "hydrogen"
+        ]
+      },
+      {
+        "term": "steady winds",
+        "translation": "稳定的风",
+        "kind": "term",
+        "note": "风速和风向变化较小的风，适合持续发电。",
         "aliases": []
       },
       {
         "term": "competitive",
         "translation": "有竞争力的",
         "kind": "term",
-        "note": "在价格或性能上能与其它能源抗衡",
+        "note": "指价格或性能上能与对手抗衡",
+        "aliases": []
+      },
+      {
+        "term": "electricity",
+        "translation": "电力",
+        "kind": "term",
+        "note": "不可数名词",
         "aliases": []
       },
       {
         "term": "peak demand",
         "translation": "高峰需求",
         "kind": "term",
-        "note": "用电量的最高时期",
+        "note": "用电需求量最大的时段。",
         "aliases": []
       },
       {
         "term": "plate glass",
         "translation": "平板玻璃",
         "kind": "term",
-        "note": "建筑物窗户常用的透明玻璃",
+        "note": "常用于现代建筑窗户的大块透明玻璃。",
         "aliases": []
       },
       {
         "term": "ridge lines",
         "translation": "山脊线",
         "kind": "term",
-        "note": "山脉顶部的连线，通常风力较大",
+        "note": "山脉顶部狭长的隆起部分，通常风力强劲，适合安装风机。",
         "aliases": []
+      },
+      {
+        "term": "coal-fired",
+        "translation": "燃煤的",
+        "kind": "modifier",
+        "note": "以煤炭为燃料的",
+        "aliases": []
+      },
+      {
+        "term": "economical",
+        "translation": "经济的，划算的",
+        "kind": "term",
+        "note": "指成本低、效率高，值得投入。",
+        "aliases": []
+      },
+      {
+        "term": "solar cell",
+        "translation": "太阳能电池",
+        "kind": "term",
+        "note": "将光能直接转换为电能的装置。",
+        "aliases": [
+          "solar panel"
+        ]
       },
       {
         "term": "wind farms",
@@ -164,24 +255,38 @@
         ]
       },
       {
-        "term": "renewable",
-        "translation": "可再生的",
+        "term": "projected",
+        "translation": "预计的，预测的",
         "kind": "term",
-        "note": "可以自然补充的能源",
+        "note": "基于现有数据对未来情况的预估。",
         "aliases": []
       },
       {
-        "term": "virtually",
-        "translation": "几乎/实质上",
+        "term": "renewable",
+        "translation": "可再生的",
         "kind": "term",
-        "note": "几乎等于，差不多",
+        "note": "指可以自然补充、不会枯竭的资源，如风能、太阳能。",
+        "aliases": []
+      },
+      {
+        "term": "wind farm",
+        "translation": "风电场",
+        "kind": "term",
+        "note": "集中安装风力发电机的区域。",
         "aliases": []
       },
       {
         "term": "champion",
-        "translation": "拥护/捍卫",
+        "translation": "拥护，捍卫",
         "kind": "term",
-        "note": "在这里作动词，支持或保护某事物",
+        "note": "此处作动词，意为支持或保护某事物。",
+        "aliases": []
+      },
+      {
+        "term": "in place",
+        "translation": "到位，准备就绪",
+        "kind": "context_phrase",
+        "note": "指技术或系统已经建立好，可以使用。",
         "aliases": []
       },
       {
@@ -193,16 +298,23 @@
       },
       {
         "term": "dwarfed",
-        "translation": "相形见绌/远小于",
+        "translation": "使……显得微不足道",
         "kind": "term",
-        "note": "被...远远超过",
+        "note": "动词 dwarf 的过去分词，意为使……相形见绌。",
+        "aliases": []
+      },
+      {
+        "term": "dynamic",
+        "translation": "动态的；充满活力的",
+        "kind": "term",
+        "note": "在科学语境中常指不断变化、活跃的状态",
         "aliases": []
       },
       {
         "term": "falcons",
         "translation": "隼",
         "kind": "proper_noun",
-        "note": "一种猛禽",
+        "note": "一种飞行速度极快的猛禽。",
         "aliases": []
       },
       {
@@ -216,22 +328,34 @@
         "term": "leasing",
         "translation": "租赁",
         "kind": "term",
-        "note": "出租土地或物品以获取收入",
+        "note": "出租土地或资产以获取收入",
         "aliases": []
+      },
+      {
+        "term": "project",
+        "translation": "预测；预计",
+        "kind": "term",
+        "note": "此处作动词，意为根据现有数据推测未来情况",
+        "aliases": [
+          "forecast",
+          "predict"
+        ]
       },
       {
         "term": "eagles",
         "translation": "鹰",
         "kind": "proper_noun",
-        "note": "一种大型猛禽",
+        "note": "大型猛禽，视力极佳。",
         "aliases": []
       },
       {
-        "term": "hawks",
-        "translation": "鹰",
-        "kind": "proper_noun",
-        "note": "一种猛禽",
-        "aliases": []
+        "term": "supply",
+        "translation": "供应；提供",
+        "kind": "term",
+        "note": "此处指提供电力",
+        "aliases": [
+          "provide"
+        ]
       }
     ],
     "data": [
@@ -240,27 +364,28 @@
         "para": 1,
         "text": "Since 1980, the use of wind to produce electricity has been growing rapidly.",
         "translation": "自1980年以来，利用风能发电的使用量一直在迅速增长。",
-        "grammarFocus": "现在完成进行时 (has been growing) 表示从过去开始一直持续到现在并可能继续的动作。",
+        "grammarFocus": "现在完成进行时 (has been growing) 表示从过去开始并持续至今的动作。",
         "pronounRef": "无",
         "logicConnector": "Since 1980 标记时间起点。",
         "sentenceCoach": {
-          "summary": "注意时间状语和动词时态的配合。",
-          "keyHint": "看到 Since + 过去时间点，通常用完成时。"
+          "summary": "看时间状语，找谓语动词，理解动作的持续性。",
+          "keyHint": "注意 has been growing 是“一直在增长”，强调过程。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁在增长？是‘风能的使用’在增长哦。",
-          "grammarQuestion": "为什么用 has been growing 而不是 grows 呢？因为从1980年到现在一直在发生。",
-          "modifierQuestion": "‘to produce electricity’ 是告诉我们要用风能做什么。",
-          "relationshipQuestion": "时间状语放在句首，强调了变化的起点。",
-          "commonMistake": "容易忘记用完成时，或者误以为主语是 wind。",
+          "mainQuestion": "谁在增长？是“风能的使用”在增长。",
+          "grammarQuestion": "为什么用 has been growing 而不是 grows？因为从1980年到现在一直在发生。",
+          "modifierQuestion": "of wind to produce electricity 是修饰 use 的，告诉我们是什么样的使用。",
+          "relationshipQuestion": "时间状语 Since 1980 修饰整个谓语部分，说明动作持续的时间段。",
+          "commonMistake": "容易漏掉 has been，只写 growing，或者误用一般现在时 grows。",
           "thinkingPath": [
-            "找到时间词 Since 1980",
-            "确定主语是 the use",
-            "选择正确的动词形式"
+            "找到时间起点 Since 1980",
+            "锁定主语 the use",
+            "识别谓语 has been growing",
+            "理解 rapidly 修饰增长的速度"
           ],
-          "encouragement": "你抓住了时间的线索，真棒！"
+          "encouragement": "你抓住了时间线索，真棒！这就是完成进行时的魅力。"
         },
-        "analysis": "### 【主干结构】\n主语：the use (of wind to produce electricity)\n谓语：has been growing\n状语：Since 1980\n\n### 【主谓一致】\n主语核心词是 use (单数)，所以谓语动词用 has。\n\n### 【动词时态与原形】\nhas been growing: 现在完成进行时。结构为 have/has + been + doing。表示动作从过去某一时间开始，一直持续到现在，并且可能还在继续。这里强调风能利用增长的持续过程。\n\n### 【修饰语】\n‘of wind’ 是介词短语作后置定语，修饰 use。\n‘to produce electricity’ 是不定式作后置定语，修饰 wind 或整个 use 的目的。\n\n### 【逻辑】\nSince 1980 设定了时间背景，主句描述在此背景下的持续状态。",
+        "analysis": "### 【主干结构】\n主语：the use\n谓语：has been growing\n状语：rapidly\n### 【主谓一致】\n主语 the use 是单数，谓语动词使用 has。\n### 【动词时态与原形】\nhas been growing：现在完成进行时，表示从过去某一时间（1980年）开始一直持续到现在的动作，并可能继续下去。\n### 【修饰语剖析】\nSince 1980：时间状语，修饰谓语，界定动作起始点。\nof wind to produce electricity：介词短语作后置定语，修饰 use。其中 to produce electricity 是不定式作目的状语或后置定语修饰 wind（或整个 use of wind），解释用途。\nrapidly：副词，作方式状语，修饰 growing。",
         "segments": [
           {
             "text": "Since 1980, ",
@@ -268,22 +393,22 @@
             "label": "时间状语"
           },
           {
-            "text": "the use ",
+            "text": "the use",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "of wind to produce electricity ",
+            "text": " of wind to produce electricity",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "has been growing ",
+            "text": " has been growing",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "rapidly.",
+            "text": " rapidly.",
             "type": "adverbial",
             "label": "方式状语"
           }
@@ -293,28 +418,29 @@
         "id": "s2",
         "para": 1,
         "text": "In 1994 there were nearly 20,000 wind turbines worldwide, most grouped in clusters called wind farms that collectively produced 3,000 megawatts of electricity.",
-        "translation": "1994年，全球有近2万台风力涡轮机，大多数聚集在被称为风电场的集群中， collectively 产生了3000兆瓦的电力。",
+        "translation": "1994年，全球有近2万台风力涡轮机，大多数聚集在被称为风电场的集群中，这些集群 collectively 产生了3000兆瓦的电力。",
         "grammarFocus": "There be 句型；独立主格结构/分词短语作状语；定语从句。",
         "pronounRef": "that 指代 wind farms。",
-        "logicConnector": "that 引导定语从句。",
+        "logicConnector": "逗号连接主句和补充说明部分。",
         "sentenceCoach": {
-          "summary": "这是一个长句，我们要像剥洋葱一样，先找主干，再看修饰。",
-          "keyHint": "注意 that 引导的从句是修饰 wind farms 的。"
+          "summary": "先找 There be 主干，再看逗号后面的补充信息。",
+          "keyHint": "注意 that 引导的从句修饰的是 wind farms。"
         },
         "teachingFocus": {
-          "mainQuestion": "1994年有什么？有将近2万台风力涡轮机。",
-          "grammarQuestion": "‘most grouped...’ 这部分不是完整的句子，它是补充说明这些涡轮机的状态。",
-          "modifierQuestion": "‘called wind farms’ 是过去分词短语，告诉我们要把这些集群叫什么名字。",
-          "relationshipQuestion": "‘that collectively produced...’ 是专门解释 wind farms 能产生多少电的。",
-          "commonMistake": "容易把 grouped 当成谓语动词，其实它是非谓语动词，修饰 most (指代 turbines)。",
+          "mainQuestion": "1994年有什么？有近2万台风力涡轮机。",
+          "grammarQuestion": "most grouped... 是什么结构？它是独立主格结构，补充说明这些涡轮机的状态。",
+          "modifierQuestion": "called wind farms 修饰 clusters；that... 从句修饰 wind farms。",
+          "relationshipQuestion": "that 从句描述了风电场的功能（产生电力）。",
+          "commonMistake": "容易把 grouped 当作谓语动词，其实它是分词作状语/定语；容易搞错 that 修饰的是 farms 而不是 clusters。",
           "thinkingPath": [
-            "找到 There were 主干",
-            "识别 most grouped... 为补充说明",
-            "找到 that 引导的从句修饰 wind farms"
+            "识别 There were 主干",
+            "定位主语 20,000 wind turbines",
+            "分析 most grouped... 为补充说明",
+            "拆解 that 从句修饰 wind farms"
           ],
-          "encouragement": "你能分清主干和枝叶，真是个小侦探！"
+          "encouragement": "你成功拆解了长难句的层层包裹，像剥洋葱一样清晰！"
         },
-        "analysis": "### 【主干结构】\nThere were nearly 20,000 wind turbines worldwide.\n\n### 【非谓语动词】\nmost grouped in clusters...: 这是一个独立主格结构（或视为非限制性定语从句的省略形式，即 most of which were grouped...），其中 most 指代前面的 wind turbines。grouped 是过去分词，表示被动/状态。\n\ncalled wind farms: 过去分词短语作后置定语，修饰 clusters。\n\n### 【定语从句】\nthat collectively produced 3,000 megawatts of electricity: 定语从句，修饰先行词 wind farms。that 在从句中作主语。\n\n### 【修饰语】\nworldwide: 地点状语。\ncollectively: 副词，修饰 produced，表示“集体地/总共”。\n\n### 【逻辑】\n先说总数，再描述分布状态（grouped in clusters），最后说明这些集群的产出能力。",
+        "analysis": "### 【主干结构】\n句型：There be 句型\n主语：nearly 20,000 wind turbines\n### 【主谓一致】\nThere were 对应复数主语 turbines。\n### 【非谓语动词】\ngrouped：过去分词，在 most grouped in clusters... 中构成独立主格结构（或视为非限制性定语从句的省略形式），作状语或后置定语，补充说明 turbines 的分布状态。\ncalled：过去分词，作后置定语，修饰 clusters。\n### 【从句剖析】\nthat collectively produced 3,000 megawatts of electricity：定语从句，修饰先行词 wind farms。that 在从句中作主语，produced 是谓语。\n### 【修饰语剖析】\nIn 1994：时间状语。\nworldwide：地点状语。\nmost grouped in clusters called wind farms：独立主格结构，most 指代前面的 turbines，grouped 是分词，in clusters 是地点状语，called wind farms 是 clusters 的定语。\ncollectively：副词，修饰 produced。",
         "segments": [
           {
             "text": "In 1994 ",
@@ -322,34 +448,29 @@
             "label": "时间状语"
           },
           {
-            "text": "there were ",
+            "text": "there were",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "nearly 20,000 wind turbines ",
+            "text": " nearly 20,000 wind turbines",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "worldwide, ",
+            "text": " worldwide, ",
             "type": "adverbial",
             "label": "地点状语"
           },
           {
-            "text": "most grouped in clusters ",
+            "text": "most grouped in clusters called wind farms",
             "type": "modifier",
             "label": "补充说明"
           },
           {
-            "text": "called wind farms ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "that collectively produced 3,000 megawatts of electricity.",
-            "type": "clause-verb",
-            "label": "从句谓语"
+            "text": " that collectively produced 3,000 megawatts of electricity.",
+            "type": "clause-object",
+            "label": "定语从句宾语部分"
           }
         ]
       },
@@ -359,51 +480,57 @@
         "text": "Most were in Denmark (which got 3 percent of its electricity from wind turbines) and California (where 17,000 machines produced 1 percent of the state’s electricity, enough to meet the residential needs of a city as large as San Francisco).",
         "translation": "大多数位于丹麦（其3%的电力来自风力涡轮机）和加利福尼亚（那里17,000台机器产生了该州1%的电力，足以满足一个像旧金山那样大的城市的居民需求）。",
         "grammarFocus": "并列地点状语；两个非限制性定语从句；形容词短语作结果状语。",
-        "pronounRef": "which 指代 Denmark; where 指代 California。",
+        "pronounRef": "its 指代 Denmark；the state's 指代 California。",
         "logicConnector": "and 连接两个地点。",
         "sentenceCoach": {
-          "summary": "这句话有两个括号，里面是两个小故事，分别讲丹麦和加州。",
-          "keyHint": "注意括号里的 which 和 where 分别引导从句。"
+          "summary": "主干是 Most were in A and B，括号里是详细解释。",
+          "keyHint": "注意括号内的 which 和 where 引导的从句分别修饰丹麦和加州。"
         },
         "teachingFocus": {
-          "mainQuestion": "这些涡轮机主要在哪里？在丹麦和加州。",
-          "grammarQuestion": "括号里的内容是对丹麦和加州的补充介绍，用 which 和 where 引导。",
-          "modifierQuestion": "‘enough to meet...’ 是形容词短语，说明产生的电力足够做什么。",
-          "relationshipQuestion": "as large as San Francisco 是修饰 city 的，表示城市的大小。",
-          "commonMistake": "容易忽略括号内的从句也是句子的一部分，或者搞混 which 和 where 的用法。",
+          "mainQuestion": "大多数涡轮机在哪里？在丹麦和加州。",
+          "grammarQuestion": "括号里的内容是什么？是非限制性定语从句，提供额外信息。",
+          "modifierQuestion": "enough to meet... 是形容词短语作状语，表示结果。",
+          "relationshipQuestion": "which 从句解释丹麦的情况，where 从句解释加州的情况。",
+          "commonMistake": "容易混淆 which 和 where 的用法；容易忽略 enough 短语的逻辑主语是前面的电力产量。",
           "thinkingPath": [
-            "找到主干 Most were in Denmark and California",
+            "提取主干 Most were in Denmark and California",
             "分析 Denmark 后的 which 从句",
-            "分析 California 后的 where 从句及 enough 短语"
+            "分析 California 后的 where 从句",
+            "理解 enough 短语修饰电力产量"
           ],
-          "encouragement": "你成功拆解了两个复杂的括号，太厉害了！"
+          "encouragement": "你像侦探一样找到了两个地点的详细信息，太厉害了！"
         },
-        "analysis": "### 【主干结构】\nMost were in Denmark ... and California ...\n\n### 【定语从句】\n(which got 3 percent of its electricity from wind turbines): 非限制性定语从句，修饰 Denmark。which 作主语。\n(where 17,000 machines produced 1 percent of the state’s electricity): 非限制性定语从句，修饰 California。where 作地点状语。\n\n### 【非谓语/形容词短语】\nenough to meet the residential needs...: 形容词 enough 引导的结果状语/补充说明，修饰前面产生的 1 percent electricity。\n\n### 【修饰语】\nas large as San Francisco: 形容词短语作后置定语，修饰 city。\n\n### 【逻辑】\n先说地点，再用括号详细补充这两个地点的风能利用情况。",
+        "analysis": "### 【主干结构】\n主语：Most (指代 wind turbines)\n谓语：were\n表语/地点状语：in Denmark ... and California ...\n### 【主谓一致】\nMost 指代复数 turbines，故用 were。\n### 【从句剖析】\nwhich got 3 percent of its electricity from wind turbines：非限制性定语从句，修饰 Denmark。which 作主语。\nwhere 17,000 machines produced 1 percent of the state’s electricity：非限制性定语从句，修饰 California。where 作地点状语。\n### 【非谓语动词/形容词短语】\nenough to meet the residential needs...：形容词 enough 引导的不定式短语，作结果状语，修饰前面提到的 electricity 产量。\nas large as San Francisco：比较结构，修饰 city。\n### 【修饰语剖析】\nits：指代 Denmark。\nthe state’s：指代 California。",
         "segments": [
           {
-            "text": "Most were in Denmark ",
+            "text": "Most",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " were",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "(which got 3 percent of its electricity from wind turbines) ",
-            "type": "clause-verb",
-            "label": "从句谓语"
+            "text": " in Denmark",
+            "type": "adverbial",
+            "label": "地点状语"
           },
           {
-            "text": "and California ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": " (which got 3 percent of its electricity from wind turbines)",
+            "type": "clause-object",
+            "label": "定语从句"
           },
           {
-            "text": "(where 17,000 machines produced 1 percent of the state’s electricity, ",
-            "type": "clause-verb",
-            "label": "从句谓语"
+            "text": " and California",
+            "type": "adverbial",
+            "label": "地点状语"
           },
           {
-            "text": "enough to meet the residential needs of a city as large as San Francisco).",
-            "type": "modifier",
-            "label": "补充说明"
+            "text": " (where 17,000 machines produced 1 percent of the state’s electricity, enough to meet the residential needs of a city as large as San Francisco).",
+            "type": "clause-object",
+            "label": "定语从句"
           }
         ]
       },
@@ -411,48 +538,54 @@
         "id": "s4",
         "para": 1,
         "text": "In principle, all the power needs of the United States could be provided by exploiting the wind potential of just three states—North Dakota, South Dakota, and Texas.",
-        "translation": "原则上，美国所有的电力需求可以通过开发仅三个州——北达科他州、南达科他州和德克萨斯州——的风能潜力来满足。",
-        "grammarFocus": "被动语态 (could be provided)；动名词短语作方式状语；破折号解释说明。",
+        "translation": "原则上，仅通过开发北达科他州、南达科他州和德克萨斯州这三个州的风能潜力，就能满足美国所有的电力需求。",
+        "grammarFocus": "被动语态 (could be provided)；方式状语 (by exploiting...)；破折号引出同位语。",
         "pronounRef": "无",
-        "logicConnector": "破折号用于解释 three states 具体是哪三个。",
+        "logicConnector": "破折号表示解释说明。",
         "sentenceCoach": {
-          "summary": "这句话告诉我们，只要用好三个州的风，美国就不缺电。",
-          "keyHint": "注意 could be provided 是被动语态，动作执行者是 exploiting..."
+          "summary": "看被动语态，找动作发出者或方式。",
+          "keyHint": "by exploiting... 说明了如何提供电力。"
         },
         "teachingFocus": {
-          "mainQuestion": "美国的电需求能被满足吗？能，通过开发风能。",
-          "grammarQuestion": "‘by exploiting...’ 是介词短语，表示通过什么方式。",
-          "modifierQuestion": "破折号后面的内容是对 three states 的具体列举。",
-          "relationshipQuestion": "exploiting the wind potential 是手段，provided 是结果。",
-          "commonMistake": "容易把 by exploiting 当成谓语，其实谓语是 could be provided。",
+          "mainQuestion": "美国的电力需求能被满足吗？能，通过开发三个州的风能。",
+          "grammarQuestion": "could be provided 是被动语态，表示“被提供”。",
+          "modifierQuestion": "by exploiting... 是方式状语；破折号后是 states 的同位语。",
+          "relationshipQuestion": "exploiting 是 provided 的方式。",
+          "commonMistake": "容易忽略 by 短语的逻辑主语；容易误读破折号后的内容为并列谓语。",
           "thinkingPath": [
-            "找到主干 all needs could be provided",
-            "识别 by exploiting... 为方式状语",
-            "理解破折号的作用"
+            "识别 In principle 为插入语",
+            "锁定主干 all needs could be provided",
+            "分析 by exploiting... 为方式状语",
+            "理解破折号后为 states 的同位语"
           ],
-          "encouragement": "你读懂了破折号的秘密，真细心！"
+          "encouragement": "你读懂了被动语态和方式状语的配合，逻辑非常清晰！"
         },
-        "analysis": "### 【主干结构】\n(all the power needs of the United States) could be provided.\n\n### 【被动语态】\ncould be provided: 情态动词的被动语态。could 表示可能性或理论上的能力。\n\n### 【方式状语】\nby exploiting the wind potential of just three states: 介词 by + 动名词 exploiting，表示手段/方式。\n\n### 【同位语/解释说明】\n—North Dakota, South Dakota, and Texas: 破折号引出同位语，具体说明 three states 是哪三个。\n\n### 【逻辑】\nIn principle 设定理论前提，主干说明可能性，by 短语说明方法，破折号细化对象。",
+        "analysis": "### 【主干结构】\n主语：all the power needs of the United States\n谓语：could be provided\n### 【主谓一致】\nneeds 是复数，情态动词 could 不变形，被动语态 be provided。\n### 【动词时态与原形】\ncould be provided：情态动词的被动语态，表示可能性。\n### 【非谓语动词】\nexploiting：动名词，作介词 by 的宾语，构成方式状语。\n### 【修饰语剖析】\nIn principle：插入语/状语，表示“原则上”。\nof the United States：定语，修饰 needs。\nby exploiting the wind potential of just three states：方式状语，修饰 provided。\n—North Dakota, South Dakota, and Texas：同位语，解释说明 three states。",
         "segments": [
           {
             "text": "In principle, ",
             "type": "adverbial",
-            "label": "方式状语"
+            "label": "状语"
           },
           {
-            "text": "all the power needs of the United States ",
+            "text": "all the power needs of the United States",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "could be provided ",
+            "text": " could be provided",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "by exploiting the wind potential of just three states—North Dakota, South Dakota, and Texas.",
+            "text": " by exploiting the wind potential of just three states",
             "type": "adverbial",
             "label": "方式状语"
+          },
+          {
+            "text": "—North Dakota, South Dakota, and Texas.",
+            "type": "modifier",
+            "label": "同位语"
           }
         ]
       },
@@ -461,52 +594,53 @@
         "para": 2,
         "text": "Large wind farms can be built in six months to a year and then easily expanded as needed.",
         "translation": "大型风电场可以在六个月到一年内建成，然后根据需要进行轻松扩建。",
-        "grammarFocus": "被动语态 (can be built, expanded)；并列谓语。",
+        "grammarFocus": "被动语态；并列谓语；as needed 状语。",
         "pronounRef": "无",
         "logicConnector": "and 连接两个被动动作。",
         "sentenceCoach": {
-          "summary": "风电场建得快，改起来也容易。",
-          "keyHint": "注意 can be built 和 (can be) expanded 共享情态动词 can。"
+          "summary": "找 can be built 和 expanded，注意它们是并列的。",
+          "keyHint": "as needed 意思是“根据需要”。"
         },
         "teachingFocus": {
-          "mainQuestion": "风电场怎么建？几个月就能建好。",
-          "grammarQuestion": "‘can be built... and ... expanded’ 是两个并列的被动动作。",
-          "modifierQuestion": "‘as needed’ 是状语，表示‘根据需要’。",
-          "relationshipQuestion": "先建好，再扩建，有时间顺序。",
-          "commonMistake": "容易漏掉第二个被动语态中的 be，或者不理解 as needed 的意思。",
+          "mainQuestion": "风电场能做什么？能被建造，能被扩建。",
+          "grammarQuestion": "can be built 和 expanded 是并列的被动结构。",
+          "modifierQuestion": "in six months to a year 是时间状语；as needed 是条件/方式状语。",
+          "relationshipQuestion": "and 连接两个动作，表示先后或并列关系。",
+          "commonMistake": "容易漏掉 can 对 expanded 的管辖；容易误解 as needed 的意思。",
           "thinkingPath": [
-            "找到 can be built",
+            "识别主语 Large wind farms",
+            "锁定谓语 can be built",
             "识别 and 连接的 expanded",
-            "理解 as needed"
+            "理解时间状语和 as needed"
           ],
-          "encouragement": "你发现了两个动作的并列关系，真棒！"
+          "encouragement": "你发现了并列谓语的秘密，阅读速度真快！"
         },
-        "analysis": "### 【主干结构】\nLarge wind farms can be built ... and ... expanded.\n\n### 【被动语态】\ncan be built: 情态动词被动语态。\ncan (be) expanded: 省略了 be 的被动语态，与 built 并列。\n\n### 【状语】\nin six months to a year: 时间状语。\nas needed: 条件/方式状语，意为‘as they are needed’。\n\n### 【逻辑】\n描述风电场建设的两个阶段：初始建设和后续扩建。",
+        "analysis": "### 【主干结构】\n主语：Large wind farms\n谓语：can be built ... and ... expanded\n### 【主谓一致】\n主语复数，情态动词 can 不变。\n### 【动词时态与原形】\ncan be built：情态动词被动语态。\n(expanded)：省略了 can be 的被动语态，与 built 并列。\n### 【修饰语剖析】\nin six months to a year：时间状语，修饰 built。\nthen：副词，表示时间顺序。\neasily：副词，修饰 expanded。\nas needed：状语，意为“根据需要”。",
         "segments": [
           {
-            "text": "Large wind farms ",
+            "text": "Large wind farms",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "can be built ",
+            "text": " can be built",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "in six months to a year ",
+            "text": " in six months to a year",
             "type": "adverbial",
             "label": "时间状语"
           },
           {
-            "text": "and then easily expanded ",
+            "text": " and then easily expanded",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "as needed.",
+            "text": " as needed.",
             "type": "adverbial",
-            "label": "方式状语"
+            "label": "方式/条件状语"
           }
         ]
       },
@@ -514,52 +648,57 @@
         "id": "s6",
         "para": 2,
         "text": "With a moderate to fairly high net energy yield, these systems emit no heat-trapping carbon dioxide or other air pollutants and need no water for cooling; manufacturing them produces little water pollution.",
-        "translation": "具有中等到相当高的净能量产出，这些系统不排放吸热的二氧化碳或其他空气污染物，也不需要水来冷却；制造它们产生的水污染很少。",
-        "grammarFocus": "With 复合结构作状语；并列谓语；分号连接两个独立分句。",
-        "pronounRef": "them 指代 these systems (wind turbines)。",
+        "translation": "具有中等到相当高的净能量产出，这些系统不排放吸热二氧化碳或其他空气污染物，也不需要水来冷却；制造它们产生的水污染很少。",
+        "grammarFocus": "With 复合结构作状语；并列谓语；分号连接两个独立分句；动名词短语作主语。",
+        "pronounRef": "them 指代 systems (wind turbines)。",
         "logicConnector": "and 连接 emit 和 need；分号连接两个相关句子。",
         "sentenceCoach": {
-          "summary": "这句话讲了风电系统的三个优点：排放少、用水少、制造污染少。",
-          "keyHint": "注意分号前后是两个完整的句子，但意思紧密相关。"
+          "summary": "前半句讲运行时的环保，后半句讲制造时的环保。",
+          "keyHint": "注意分号前后是两个完整的句子。"
         },
         "teachingFocus": {
-          "mainQuestion": "这些系统有什么优点？不排废气，不耗水。",
-          "grammarQuestion": "‘With a moderate...’ 是伴随状语，提供背景信息。",
-          "modifierQuestion": "‘heat-trapping’ 修饰 carbon dioxide。",
-          "relationshipQuestion": "分号前的句子讲运行时的优点，分号后的句子讲制造时的优点。",
-          "commonMistake": "容易忽略 With 结构的语法功能，或者分不清分号的作用。",
+          "mainQuestion": "这些系统有什么优点？不排废气，不耗水，制造污染少。",
+          "grammarQuestion": "With... 是伴随状语；分号前后是并列关系。",
+          "modifierQuestion": "heat-trapping 修饰 carbon dioxide；for cooling 修饰 water。",
+          "relationshipQuestion": "manufacturing them 是后半句的主语。",
+          "commonMistake": "容易忽略 With 结构的语法功能；容易把 manufacturing 当作谓语动词而忽略主语。",
           "thinkingPath": [
-            "分析 With 结构",
-            "找到主语 these systems",
-            "识别 emit 和 need 两个谓语",
-            "分析分号后的句子"
+            "分析 With 结构作状语",
+            "提取主干 these systems emit... and need...",
+            "识别分号后的新句子",
+            "分析 manufacturing them 作主语"
           ],
-          "encouragement": "你成功区分了分号前后的内容，真厉害！"
+          "encouragement": "你成功区分了分号前后的两个独立意思，太棒了！"
         },
-        "analysis": "### 【主干结构】\n这些 systems emit ... and need ... ; manufacturing them produces ...\n\n### 【状语】\nWith a moderate to fairly high net energy yield: With + 名词短语，作伴随状语或原因状语，说明系统的特性。\n\n### 【并列谓语】\nemit no ... and need no ...: 主语 these systems 的两个动作。\n\n### 【非谓语/动名词】\nmanufacturing them: 动名词短语作主语，指‘制造它们’这件事。\n\n### 【逻辑】\n先说系统特性，再说运行时的环保性，最后说制造时的环保性。",
+        "analysis": "### 【主干结构】\n第一分句：主语 these systems，谓语 emit 和 need（并列）。\n第二分句：主语 manufacturing them，谓语 produces。\n### 【主谓一致】\n第一分句主语复数，谓语原形。\n第二分句主语 manufacturing them（动名词短语视为单数），谓语 produces 用单数。\n### 【非谓语动词】\nWith a moderate... yield：介词短语作状语。\nmanufacturing：动名词，作第二分句的主语。\n### 【修饰语剖析】\nheat-trapping：定语，修饰 carbon dioxide。\nfor cooling：目的状语，修饰 need water。\nlittle：定语，修饰 water pollution。",
         "segments": [
           {
             "text": "With a moderate to fairly high net energy yield, ",
             "type": "adverbial",
-            "label": "方式状语"
+            "label": "方式/伴随状语"
           },
           {
-            "text": "these systems ",
+            "text": "these systems",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "emit no heat-trapping carbon dioxide or other air pollutants ",
+            "text": " emit no heat-trapping carbon dioxide or other air pollutants",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "and need no water for cooling; ",
+            "text": " and need no water for cooling;",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "manufacturing them produces little water pollution.",
+            "text": " manufacturing them",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": " produces little water pollution.",
             "type": "verb",
             "label": "谓语"
           }
@@ -569,51 +708,52 @@
         "id": "s7",
         "para": 2,
         "text": "The land under wind turbines can be used for grazing cattle and other purposes, and leasing land for wind turbines can provide extra income for farmers and ranchers.",
-        "translation": "风力涡轮机下的土地可用于放牧牛群和其他用途，租赁土地用于风力涡轮机可以为农民和牧场主提供额外收入。",
-        "grammarFocus": "被动语态 (can be used)；动名词作主语 (leasing land)；并列句。",
+        "translation": "风力涡轮机下的土地可用于放牧牛群和其他用途，租赁风力涡轮机用地可为农民和牧场主提供额外收入。",
+        "grammarFocus": "被动语态；并列句；动名词短语作主语。",
         "pronounRef": "无",
-        "logicConnector": "and 连接两个并列分句。",
+        "logicConnector": "and 连接两个独立分句。",
         "sentenceCoach": {
-          "summary": "风电场不仅发电，还能让土地发挥其他价值。",
-          "keyHint": "注意 leasing land 是动名词短语，作第二个分句的主语。"
+          "summary": "前半句讲土地用途，后半句讲经济收益。",
+          "keyHint": "注意 leasing land... 是后半句的主语。"
         },
         "teachingFocus": {
-          "mainQuestion": "土地能用来做什么？放牧和赚钱。",
-          "grammarQuestion": "‘leasing land...’ 是动名词短语，把动作变成名词作主语。",
-          "modifierQuestion": "‘under wind turbines’ 修饰 land。",
-          "relationshipQuestion": "两个分句分别讲土地的物理用途和经济用途。",
-          "commonMistake": "容易把 leasing 当成谓语动词，其实它是动名词。",
+          "mainQuestion": "土地能做什么？能放牧，能租出去赚钱。",
+          "grammarQuestion": "and 连接两个完整的句子，注意主语的变化。",
+          "modifierQuestion": "under wind turbines 修饰 land；for grazing... 修饰 used。",
+          "relationshipQuestion": "leasing land... 是后半句的主语，表示租赁这一行为。",
+          "commonMistake": "容易混淆 under wind turbines 修饰的对象；容易忽略 leasing 是动名词作主语。",
           "thinkingPath": [
-            "找到 can be used 被动结构",
+            "识别前半句主干 The land can be used",
+            "分析 under wind turbines 为定语",
             "识别 and 连接的后半句",
-            "分析 leasing land 作主语"
+            "分析 leasing land... 为后半句主语"
           ],
-          "encouragement": "你读懂了动名词的用法，真棒！"
+          "encouragement": "你理清了并列句中不同主语的转换，逻辑满分！"
         },
-        "analysis": "### 【主干结构】\nThe land ... can be used ... ; leasing land ... can provide ...\n\n### 【被动语态】\ncan be used: 情态动词被动语态。\n\n### 【动名词主语】\nleasing land for wind turbines: 动名词短语作第二个分句的主语。\n\n### 【修饰语】\nunder wind turbines: 介词短语作后置定语，修饰 land。\n\n### 【逻辑】\n并列两个分句，分别说明土地在风电场中的两种价值。",
+        "analysis": "### 【主干结构】\n第一分句：主语 The land，谓语 can be used。\n第二分句：主语 leasing land for wind turbines，谓语 can provide。\n### 【主谓一致】\n第一分句主语单数，情态动词 can 不变。\n第二分句主语 leasing land...（动名词短语视为单数），谓语 can provide。\n### 【非谓语动词】\nunder wind turbines：介词短语作后置定语。\nfor grazing cattle：介词短语作目的/用途状语。\nleasing：动名词，作第二分句主语。\n### 【修饰语剖析】\nand other purposes：并列宾语，与 grazing cattle 并列。\nfor farmers and ranchers：受益对象状语。",
         "segments": [
           {
-            "text": "The land under wind turbines ",
+            "text": "The land under wind turbines",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "can be used ",
+            "text": " can be used",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "for grazing cattle and other purposes, ",
+            "text": " for grazing cattle and other purposes,",
             "type": "adverbial",
-            "label": "目的状语"
+            "label": "目的/用途状语"
           },
           {
-            "text": "and leasing land for wind turbines ",
-            "type": "subject",
+            "text": " and leasing land for wind turbines",
+            "type": "clause-subject",
             "label": "主语"
           },
           {
-            "text": "can provide extra income for farmers and ranchers.",
+            "text": " can provide extra income for farmers and ranchers.",
             "type": "verb",
             "label": "谓语"
           }
@@ -623,41 +763,42 @@
         "id": "s8",
         "para": 3,
         "text": "Wind power has a significant cost advantage over nuclear power and has become competitive with coal-fired power plants in many places.",
-        "translation": "风能相比核能具有显著的成本优势，并且在许多地方已经变得与燃煤发电厂具有竞争力。",
-        "grammarFocus": "并列谓语 (has ..., has become ...)；比较级结构。",
+        "translation": "风能相比核能具有显著的成本优势，并且在许多地方已与燃煤发电厂具有竞争力。",
+        "grammarFocus": "并列谓语；比较结构。",
         "pronounRef": "无",
-        "logicConnector": "and 连接两个谓语。",
+        "logicConnector": "and 连接两个谓语部分。",
         "sentenceCoach": {
-          "summary": "风能比核能便宜，和煤电差不多。",
-          "keyHint": "注意 has 出现了两次，共享主语 Wind power。"
+          "summary": "找 Wind power 的两个优点：成本优势和竞争力。",
+          "keyHint": "注意 has 和 has become 是并列的谓语。"
         },
         "teachingFocus": {
-          "mainQuestion": "风能便宜吗？比核能便宜。",
-          "grammarQuestion": "‘has a ... advantage’ 和 ‘has become ...’ 是两个并列的动作。",
-          "modifierQuestion": "‘over nuclear power’ 和 ‘with coal-fired power plants’ 是比较的对象。",
-          "relationshipQuestion": "先说优势，再说竞争力。",
-          "commonMistake": "容易忽略第二个 has，或者不理解 competitive with 的意思。",
+          "mainQuestion": "风能有什么优势？成本比核能低，竞争力比煤电强。",
+          "grammarQuestion": "has... and has become... 是并列谓语，共享主语 Wind power。",
+          "modifierQuestion": "over nuclear power 修饰 advantage；with coal-fired... 修饰 competitive。",
+          "relationshipQuestion": "两个谓语描述了风能的不同优势方面。",
+          "commonMistake": "容易漏掉第二个 has；容易误解 competitive with 的含义。",
           "thinkingPath": [
-            "找到主语 Wind power",
-            "识别 has 和 has become 两个谓语",
-            "理解比较对象"
+            "锁定主语 Wind power",
+            "识别第一个谓语 has a significant cost advantage",
+            "识别 and 连接的第二个谓语 has become competitive",
+            "理解比较对象 over nuclear power 和 with coal-fired plants"
           ],
-          "encouragement": "你抓住了并列谓语，真细心！"
+          "encouragement": "你精准捕捉了风能的两大优势，总结能力很强！"
         },
-        "analysis": "### 【主干结构】\nWind power has ... and has become ...\n\n### 【并列谓语】\nhas a significant cost advantage: 拥有成本优势。\nhas become competitive: 变得有竞争力。\n\n### 【修饰语】\nover nuclear power: 介词短语，修饰 advantage，表示比较对象。\nwith coal-fired power plants: 介词短语，修饰 competitive，表示比较对象。\nin many places: 地点状语。\n\n### 【逻辑】\n并列陈述风能的两个经济优势。",
+        "analysis": "### 【主干结构】\n主语：Wind power\n谓语：has ... and has become ...\n### 【主谓一致】\n主语单数，谓语动词使用第三人称单数形式 has。\n### 【动词时态与原形】\nhas：一般现在时，表示事实。\nhas become：现在完成时，表示状态的变化。\n### 【修饰语剖析】\na significant cost advantage：宾语。\nover nuclear power：介词短语作后置定语，修饰 advantage，表示比较对象。\ncompetitive：形容词，作表语。\nwith coal-fired power plants：介词短语作状语，修饰 competitive，表示比较对象。\nin many places：地点状语。",
         "segments": [
           {
-            "text": "Wind power ",
+            "text": "Wind power",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "has a significant cost advantage over nuclear power ",
+            "text": " has a significant cost advantage over nuclear power",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "and has become competitive with coal-fired power plants in many places.",
+            "text": " and has become competitive with coal-fired power plants in many places.",
             "type": "verb",
             "label": "谓语"
           }
@@ -667,33 +808,33 @@
         "id": "s9",
         "para": 3,
         "text": "With new technological advances and mass production, projected cost declines should make wind power one of the world’s cheapest ways to produce electricity.",
-        "translation": "随着新技术进步和大规模生产，预期的成本下降应使风能成为世界上最便宜的发电方式之一。",
-        "grammarFocus": "With 复合结构；make + object + object complement (宾语补足语)。",
+        "translation": "随着新技术的进步和大规模生产，预计的成本下降将使风能成为世界上生产电力最便宜的方式之一。",
+        "grammarFocus": "make + object + object-complement 结构；介词短语作状语。",
         "pronounRef": "无",
-        "logicConnector": "无",
+        "logicConnector": "With... 表示伴随或原因背景。",
         "sentenceCoach": {
-          "summary": "技术进步会让风能更便宜。",
-          "keyHint": "注意 make wind power one of... 是‘使风能成为...’的结构。"
+          "summary": "看看风能怎么变得这么便宜！",
+          "keyHint": "注意 'make' 后面跟着的两个部分：宾语和它的结果。"
         },
         "teachingFocus": {
-          "mainQuestion": "风能会变便宜吗？会，因为技术进步。",
-          "grammarQuestion": "‘make wind power one of...’ 是使役动词用法，wind power 是宾语，one of... 是宾语补足语。",
-          "modifierQuestion": "‘projected cost declines’ 是主语，‘With...’ 是状语。",
-          "relationshipQuestion": "成本下降导致风能成为最便宜的方式之一。",
-          "commonMistake": "容易把 one of... 当成宾语，其实它是补足语。",
+          "mainQuestion": "谁让风能变得便宜了？是‘成本下降’这个动作让风能变成了‘最便宜的方式之一’。",
+          "grammarQuestion": "记住 'make A B' 的积木搭法：make (动词) + wind power (A，宾语) + one of... (B，宾语补足语，说明A变成了什么)。",
+          "modifierQuestion": "开头的 'With...' 就像给句子铺了一块地毯，告诉我们这是在什么背景下发生的。",
+          "relationshipQuestion": "因为技术进步和量产（原因），所以成本下降（结果1），进而让风能变便宜（结果2）。",
+          "commonMistake": "不要把 'one of...' 当成宾语，真正的宾语是 'wind power'，'one of...' 是告诉我们要把风能看作什么。",
           "thinkingPath": [
-            "分析 With 结构",
-            "找到主语 projected cost declines",
-            "识别 make ... one of... 结构"
+            "找到动词 'make'。",
+            "问自己：make 谁？答案是 'wind power'。",
+            "问自己：把 wind power 变成了什么？答案是 'one of the... ways'。"
           ],
-          "encouragement": "你读懂了使役动词的用法，真棒！"
+          "encouragement": "你抓住了句子的骨架，真棒！"
         },
-        "analysis": "### 【主干结构】\n(projected cost declines) should make (wind power) (one of the world’s cheapest ways...).\n\n### 【宾语补足语】\none of the world’s cheapest ways to produce electricity: 作 wind power 的补足语，说明 wind power 变成什么。\n\n### 【状语】\nWith new technological advances and mass production: With + 名词短语，作原因/条件状语。\n\n### 【逻辑】\n技术进步和量产导致成本下降，从而使风能成为廉价能源。",
+        "analysis": "### 【主干结构】\n本句主干为：Subject (cost declines) + Verb (should make) + Object (wind power) + Object-Complement (one of the world’s cheapest ways to produce electricity)。\n\n### 【主谓一致】\n主语 'cost declines' 是复数，谓语动词 'should make' 使用原形（情态动词后），逻辑一致。\n\n### 【动词时态与原形】\n'should make' 表示推测或预期，使用情态动词 should + 动词原形。\n\n### 【从句剖析】\n无从句。'to produce electricity' 是不定式作后置定语，修饰 'ways'。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n'to produce electricity' 是不定式短语，作定语修饰 'ways'，解释是什么样的方式。\n\n### 【修饰语分析】\n'With new technological advances and mass production' 是介词短语作状语，表示背景或原因。\n'projected' 是过去分词作定语，修饰 'cost declines'，意为‘预计的’。\n'of the world’s cheapest' 是介词短语作定语，修饰 'ways'。\n'one of the...' 结构表示‘...之一’。",
         "segments": [
           {
             "text": "With new technological advances and mass production, ",
             "type": "adverbial",
-            "label": "方式状语"
+            "label": "状语"
           },
           {
             "text": "projected cost declines ",
@@ -712,7 +853,7 @@
           },
           {
             "text": "one of the world’s cheapest ways to produce electricity.",
-            "type": "predicative",
+            "type": "object-complement",
             "label": "宾语补足语"
           }
         ]
@@ -721,33 +862,34 @@
         "id": "s10",
         "para": 3,
         "text": "In the long run, electricity from large wind farms in remote areas might be used to make hydrogen gas from water during periods when there is less than peak demand for electricity.",
-        "translation": "从长远来看，偏远地区大型风电场的电力可能被用来从水中制造氢气，这是在电力需求低于峰值的时期。",
-        "grammarFocus": "被动语态 (might be used)；不定式作目的状语；定语从句 (when...)。",
+        "translation": "从长远来看，来自偏远地区大型风电场的电力可能被用来在水电需求低于峰值的时期，从水中制造氢气。",
+        "grammarFocus": "被动语态 might be used to do；定语从句 when there is...；介词短语嵌套。",
         "pronounRef": "无",
-        "logicConnector": "when 引导定语从句。",
+        "logicConnector": "In the long run 表示时间跨度；during periods 表示时间段。",
         "sentenceCoach": {
-          "summary": "电多的时候，可以把电变成氢气存起来。",
-          "keyHint": "注意 when 引导的从句修饰 periods。"
+          "summary": "这是一句很长的句子，我们要像剥洋葱一样，一层层拆开它。",
+          "keyHint": "先找到核心动作 'might be used'，看看是谁被使用，用来做什么。"
         },
         "teachingFocus": {
-          "mainQuestion": "多余的电用来做什么？制造氢气。",
-          "grammarQuestion": "‘to make hydrogen gas’ 是不定式，表示目的。",
-          "modifierQuestion": "‘when there is less than peak demand...’ 是定语从句，修饰 periods。",
-          "relationshipQuestion": "在需求低的时候，用电制氢。",
-          "commonMistake": "容易搞混 when 从句修饰的是 periods 还是整个句子。",
+          "mainQuestion": "谁被用来制造氢气？是‘来自偏远地区大型风电场的电力’。",
+          "grammarQuestion": "注意 'might be used to make'，这是被动语态加不定式，表示‘可能被用来做...’。",
+          "modifierQuestion": "句子中间有一大段 'during periods when...'，这是一个时间状语，里面还藏着一个 'when' 引导的定语从句，修饰 'periods'。",
+          "relationshipQuestion": "电力被用来制氢，这个动作发生的时间条件是‘当电力需求低于峰值时’。",
+          "commonMistake": "容易把 'from water' 误认为是修饰 'make' 的，其实它是修饰 'hydrogen gas' 的来源，或者说是 'make hydrogen gas from water' 这个整体动作的一部分。",
           "thinkingPath": [
-            "找到 might be used",
-            "识别 to make... 为目的",
-            "分析 when 从句修饰 periods"
+            "找到核心动词短语 'might be used'。",
+            "找出主语 'electricity'，并看清它前面的长定语 'from large wind farms in remote areas'。",
+            "找出目的 'to make hydrogen gas from water'。",
+            "找出时间状语 'during periods when...'。"
           ],
-          "encouragement": "你理清了时间状语和从句的关系，真厉害！"
+          "encouragement": "你能读懂这么长的句子，真是个阅读小侦探！"
         },
-        "analysis": "### 【主干结构】\n(electricity ...) might be used to make hydrogen gas ...\n\n### 【被动语态】\nmight be used: 情态动词被动语态。\n\n### 【目的状语】\nto make hydrogen gas from water: 不定式短语，表示 used 的目的。\n\n### 【定语从句】\nduring periods when there is less than peak demand for electricity: when 引导定语从句，修饰 periods。during periods 是时间状语。\n\n### 【逻辑】\n在用电低谷期，将风能转化为氢能储存。",
+        "analysis": "### 【主干结构】\n本句主干为：Subject (electricity) + Verb (might be used) + Adverbial (to make hydrogen gas from water) + Adverbial (during periods when there is less than peak demand for electricity)。\n\n### 【主谓一致】\n主语 'electricity' 是不可数名词，视为单数，谓语 'might be used' 使用被动语态，逻辑一致。\n\n### 【动词时态与原形】\n'might be used' 是情态动词 might + be + 过去分词，表示可能性的被动。\n'to make' 是不定式，表示目的。\n\n### 【从句剖析】\n'when there is less than peak demand for electricity' 是定语从句，修饰先行词 'periods'。从句内部是 'there be' 句型。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n'to make hydrogen gas from water' 是不定式短语，作目的状语，修饰 'be used'。\n\n### 【修饰语分析】\n'In the long run' 是介词短语作时间状语。\n'from large wind farms in remote areas' 是介词短语作后置定语，修饰 'electricity'。\n'during periods' 是介词短语作时间状语。\n'when there is less than peak demand for electricity' 是定语从句，修饰 'periods'。\n'from water' 是介词短语，修饰 'make hydrogen gas' 或 'hydrogen gas'，表示原料来源。",
         "segments": [
           {
             "text": "In the long run, ",
             "type": "adverbial",
-            "label": "时间状语"
+            "label": "状语"
           },
           {
             "text": "electricity from large wind farms in remote areas ",
@@ -762,12 +904,17 @@
           {
             "text": "to make hydrogen gas from water ",
             "type": "adverbial",
-            "label": "目的状语"
+            "label": "状语"
           },
           {
-            "text": "during periods when there is less than peak demand for electricity.",
+            "text": "during periods ",
             "type": "adverbial",
-            "label": "时间状语"
+            "label": "状语"
+          },
+          {
+            "text": "when there is less than peak demand for electricity.",
+            "type": "modifier",
+            "label": "定语"
           }
         ]
       },
@@ -776,27 +923,29 @@
         "para": 3,
         "text": "The hydrogen gas could then be fed into a storage system and used to generate electricity when additional or backup power is needed.",
         "translation": "然后，氢气可以被送入储存系统，并在需要额外或备用电力时用于发电。",
-        "grammarFocus": "被动语态 (could be fed, used)；时间状语从句 (when...)。",
+        "grammarFocus": "被动语态的并列结构 could be fed ... and (be) used；时间状语从句 when...。",
         "pronounRef": "无",
-        "logicConnector": "and 连接两个被动动作；when 引导时间状语。",
+        "logicConnector": "then 表示时间顺序；and 连接两个被动动作；when 引导时间条件。",
         "sentenceCoach": {
-          "summary": "氢气存起来，需要时再变回电。",
-          "keyHint": "注意 when 引导的从句表示‘当...时候’。"
+          "summary": "氢气有两个命运：先被储存，再被用来发电。",
+          "keyHint": "注意 'and' 连接的两个被动动作，第二个被动动词 'used' 前面省略了 'be'。"
         },
         "teachingFocus": {
-          "mainQuestion": "氢气什么时候用来发电？需要备用电的时候。",
-          "grammarQuestion": "‘could be fed... and used...’ 是两个并列的被动动作。",
-          "modifierQuestion": "‘when additional or backup power is needed’ 是时间状语从句。",
-          "relationshipQuestion": "先储存，后使用。",
-          "commonMistake": "容易忽略 when 从句的修饰对象。",
+          "mainQuestion": "氢气被做了什么？它被‘送入储存系统’并且被‘用来发电’。",
+          "grammarQuestion": "注意 'could be fed ... and used'，这是两个被动动词共享情态动词 'could' 和助动词 'be'（第二个 be 省略）。",
+          "modifierQuestion": "'when additional or backup power is needed' 是时间状语从句，说明什么时候用来发电。",
+          "relationshipQuestion": "先储存（fed into storage），后使用（used to generate），这是一个时间上的先后顺序。",
+          "commonMistake": "容易忽略 'and' 后面省略了 'be'，导致读起来不通顺。记住 'could be A and B' 的结构。",
           "thinkingPath": [
-            "找到 could be fed and used",
-            "识别 when 从句",
-            "理解时间顺序"
+            "找到主语 'The hydrogen gas'。",
+            "找到谓语部分 'could then be fed ... and used'。",
+            "找出第一个动作的对象 'into a storage system'。",
+            "找出第二个动作的目的 'to generate electricity'。",
+            "找出时间条件 'when additional or backup power is needed'。"
           ],
-          "encouragement": "你读懂了氢气的循环过程，真棒！"
+          "encouragement": "你发现了省略的 'be'，眼睛真尖！"
         },
-        "analysis": "### 【主干结构】\nThe hydrogen gas could be fed ... and used ...\n\n### 【被动语态】\ncould be fed: 情态动词被动语态。\n(could be) used: 省略了 could be 的被动语态，与 fed 并列。\n\n### 【时间状语从句】\nwhen additional or backup power is needed: 修饰 used 的时间。\n\n### 【逻辑】\n描述氢气的储存和使用过程。",
+        "analysis": "### 【主干结构】\n本句主干为：Subject (The hydrogen gas) + Verb (could be fed ... and used) + Adverbial (into a storage system) + Adverbial (to generate electricity) + Adverbial (when additional or backup power is needed)。\n\n### 【主谓一致】\n主语 'The hydrogen gas' 是单数，谓语 'could be fed' 和 '(be) used' 使用被动语态，逻辑一致。\n\n### 【动词时态与原形】\n'could be fed' 和 'could be used'（省略 be）是情态动词的被动语态。\n'to generate electricity' 是不定式作目的状语。\n\n### 【从句剖析】\n'when additional or backup power is needed' 是时间状语从句，修饰 'used to generate electricity'。从句内部是被动语态 'is needed'。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n'to generate electricity' 是不定式短语，作目的状语，修饰 'used'。\n\n### 【修饰语分析】\n'then' 是副词，作状语，表示时间顺序。\n'into a storage system' 是介词短语，作地点/方向状语，修饰 'fed'。\n'when additional or backup power is needed' 是时间状语从句，修饰整个主句或第二个谓语部分。",
         "segments": [
           {
             "text": "The hydrogen gas ",
@@ -816,7 +965,7 @@
           {
             "text": "when additional or backup power is needed.",
             "type": "adverbial",
-            "label": "时间状语"
+            "label": "状语"
           }
         ]
       },
@@ -824,28 +973,29 @@
         "id": "s12",
         "para": 4,
         "text": "Wind power is most economical in areas with steady winds.",
-        "translation": "风能在风力稳定的地区最经济。",
-        "grammarFocus": "系表结构；介词短语作定语。",
+        "translation": "风能在风力稳定的地区最具经济性。",
+        "grammarFocus": "系表结构 is most economical；介词短语作地点状语。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "风稳的地方，风能最划算。",
-          "keyHint": "注意 most economical 是最高级。"
+          "summary": "这是一句简单明了的判断句，告诉我们风能哪里最划算。",
+          "keyHint": "注意 'most economical' 是最高级，表示‘最划算’。"
         },
         "teachingFocus": {
-          "mainQuestion": "风能在哪里最便宜？在风稳的地方。",
-          "grammarQuestion": "‘with steady winds’ 修饰 areas。",
-          "modifierQuestion": "‘most economical’ 是表语。",
-          "relationshipQuestion": "条件（风稳）决定结果（经济）。",
-          "commonMistake": "容易忽略 with 短语的修饰作用。",
+          "mainQuestion": "风能哪里最划算？是在‘风力稳定的地区’。",
+          "grammarQuestion": "'is most economical' 是系动词 + 表语结构，表示状态。",
+          "modifierQuestion": "'in areas with steady winds' 是介词短语作地点状语，修饰 'is most economical'。",
+          "relationshipQuestion": "风能的‘经济性’与‘地区的风力稳定性’直接相关。",
+          "commonMistake": "不要把 'with steady winds' 当成修饰 'areas' 以外的词，它是修饰 'areas' 的定语。",
           "thinkingPath": [
-            "找到 is most economical",
-            "分析 in areas with steady winds",
-            "理解 with 短语修饰 areas"
+            "找到主语 'Wind power'。",
+            "找到系动词 'is'。",
+            "找到表语 'most economical'。",
+            "找到地点状语 'in areas with steady winds'。"
           ],
-          "encouragement": "你抓住了关键条件，真细心！"
+          "encouragement": "简单的句子也能读出大智慧，做得好！"
         },
-        "analysis": "### 【主干结构】\nWind power is most economical.\n\n### 【表语】\nmost economical: 形容词最高级，作表语。\n\n### 【状语/定语】\nin areas with steady winds: 介词短语作地点状语，其中 with steady winds 修饰 areas。\n\n### 【逻辑】\n陈述风能经济的条件。",
+        "analysis": "### 【主干结构】\n本句主干为：Subject (Wind power) + Verb (is) + Predicative (most economical) + Adverbial (in areas with steady winds)。\n\n### 【主谓一致】\n主语 'Wind power' 是单数，系动词 'is' 使用单数形式，逻辑一致。\n\n### 【动词时态与原形】\n'is' 是一般现在时，表示客观事实或普遍真理。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n'most economical' 是形容词最高级，作表语。\n'in areas with steady winds' 是介词短语作地点状语。\n'with steady winds' 是介词短语作后置定语，修饰 'areas'。",
         "segments": [
           {
             "text": "Wind power ",
@@ -865,7 +1015,7 @@
           {
             "text": "in areas with steady winds.",
             "type": "adverbial",
-            "label": "地点状语"
+            "label": "状语"
           }
         ]
       },
@@ -873,43 +1023,78 @@
         "id": "s13",
         "para": 4,
         "text": "In areas where the wind dies down, backup electricity from a utility company or from an energy storage system becomes necessary.",
-        "translation": "在风力减弱的地区，来自公用事业公司或储能系统的备用电力变得必要。",
-        "grammarFocus": "定语从句 (where...)；主谓一致。",
+        "translation": "在风力减弱（停风）的地区，来自公用事业公司或储能系统的备用电力变得必不可少。",
+        "grammarFocus": "定语从句修饰地点状语；主语由介词短语修饰；主谓一致。",
         "pronounRef": "无",
-        "logicConnector": "where 引导定语从句。",
+        "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "风小的时候，需要备用电源。",
-          "keyHint": "注意 where 引导的从句修饰 areas。"
+          "summary": "先找主干“备用电力变得必要”，再看哪里需要备用电力。",
+          "keyHint": "注意主语是“备用电力”，而不是“地区”。"
         },
         "teachingFocus": {
-          "mainQuestion": "风小的时候怎么办？用备用电。",
-          "grammarQuestion": "‘where the wind dies down’ 是定语从句，修饰 areas。",
-          "modifierQuestion": "‘from a utility company...’ 修饰 backup electricity。",
-          "relationshipQuestion": "风小导致需要备用电。",
-          "commonMistake": "容易搞混 where 的用法，或者忽略主谓一致。",
+          "mainQuestion": "我们要找谁变得必要了？是“备用电力”哦。",
+          "grammarQuestion": "那个“where the wind dies down”是专门用来形容“areas”的，就像给地区贴了个标签。",
+          "modifierQuestion": "从哪来的备用电力？有两个来源，用“or”连起来，像两条路选一条。",
+          "relationshipQuestion": "因为风停了，所以备用电力才变得必要，这是因果关系。",
+          "commonMistake": "很多同学会把“areas”当成主语，其实主语是后面的“backup electricity”哦，因为“变得必要”的是电，不是地方。",
           "thinkingPath": [
-            "找到 becomes necessary",
-            "分析 In areas where... 结构",
-            "识别 where 从句修饰 areas"
+            "找到谓语“becomes”，它是单数。",
+            "往前找谁“变得必要”，是“backup electricity”。",
+            "看看“backup electricity”前面有什么修饰语。"
           ],
-          "encouragement": "你读懂了条件关系，真棒！"
+          "encouragement": "你像侦探一样找到了句子的核心，真棒！"
         },
-        "analysis": "### 【主干结构】\n(backup electricity ...) becomes necessary.\n\n### 【定语从句】\nwhere the wind dies down: 定语从句，修饰 areas。where 作地点状语。\n\n### 【主语】\nbackup electricity from a utility company or from an energy storage system: 主语核心词是 electricity，单数，所以谓语用 becomes。\n\n### 【逻辑】\n风小需要备用电。",
+        "analysis": "### 【主干结构】\n本句主干为：Backup electricity becomes necessary.（备用电力变得必要。）\n\n### 【主谓一致】\n主语是“backup electricity”（不可数名词/单数概念），谓语动词使用单数形式“becomes”。\n\n### 【动词时态与原形】\n“becomes”为一般现在时，表示客观事实或常态。\n\n### 【从句剖析】\n“where the wind dies down”是定语从句，修饰先行词“areas”。\n- “where”是关系副词，在从句中作地点状语。\n- “the wind”是从句主语，“dies down”是从句谓语（减弱/平息）。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n- “In areas...”：介词短语作地点状语，修饰整个句子或谓语，说明情况发生的背景。\n- “from a utility company or from an energy storage system”：介词短语作后置定语，修饰“backup electricity”，说明电力的来源。",
         "segments": [
           {
-            "text": "In areas where the wind dies down, ",
+            "text": "In areas ",
             "type": "adverbial",
             "label": "地点状语"
           },
           {
-            "text": "backup electricity from a utility company or from an energy storage system ",
+            "text": "where ",
+            "type": "clause-subject",
+            "label": "关系副词（引导定语从句）"
+          },
+          {
+            "text": "the wind ",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": "dies down",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": ", ",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": "backup electricity ",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "becomes necessary.",
+            "text": "from a utility company or from an energy storage system ",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": "becomes ",
             "type": "verb",
             "label": "谓语"
+          },
+          {
+            "text": "necessary",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
           }
         ]
       },
@@ -917,28 +1102,28 @@
         "id": "s14",
         "para": 4,
         "text": "Backup power could also be provided by linking wind farms with a solar cell, with conventional or pumped-storage hydropower, or with efficient natural-gas-burning turbines.",
-        "translation": "备用电力也可以通过将风电场与太阳能电池板、传统或抽水蓄能水电，或高效天然气涡轮机连接来提供。",
-        "grammarFocus": "被动语态 (could be provided)；by + doing 结构；并列介词短语。",
+        "translation": "通过将风电场与太阳能电池、常规或抽水蓄能水电，或高效燃气轮机连接起来，也可以提供备用电力。",
+        "grammarFocus": "被动语态；方式状语（by doing）；并列介词短语。",
         "pronounRef": "无",
-        "logicConnector": "or 连接并列选项。",
+        "logicConnector": "or（表示选择/并列）",
         "sentenceCoach": {
-          "summary": "备用电可以从太阳能、水电或天然气获得。",
-          "keyHint": "注意 by linking... with... or with... or with... 结构。"
+          "summary": "看被动语态“被提供”，再看通过什么方式“连接”。",
+          "keyHint": "注意“by linking...”后面跟着三个并列的“with...”结构。"
         },
         "teachingFocus": {
-          "mainQuestion": "备用电从哪里来？太阳能、水电或天然气。",
-          "grammarQuestion": "‘by linking...’ 是方式状语。",
-          "modifierQuestion": "‘with a solar cell...’ 等是 linking 的宾语。",
-          "relationshipQuestion": "列举三种备用电源。",
-          "commonMistake": "容易忽略 by 短语的语法功能。",
+          "mainQuestion": "谁被提供了？是“Backup power”（备用电力）。",
+          "grammarQuestion": "“could be provided”是被动语态，表示电力是被提供的，不是它自己提供的。",
+          "modifierQuestion": "“by linking...”是方式状语，告诉我们怎么提供电力。后面跟着三个“with...”是并列的，像三个好朋友手拉手。",
+          "relationshipQuestion": "通过连接不同的能源，我们就能获得备用电力。",
+          "commonMistake": "很多同学会漏看“by linking”，或者搞不清后面三个“with”是并列关系，记得它们都是“linking”的对象哦。",
           "thinkingPath": [
-            "找到 could be provided",
-            "分析 by linking... 结构",
-            "识别 or 连接的并列成分"
+            "找到谓语“could be provided”，是被动语态。",
+            "找到动作发出者或方式：“by linking...”。",
+            "看看“linking”后面连着谁，有三个“with”引导的部分。"
           ],
-          "encouragement": "你理清了并列选项，真厉害！"
+          "encouragement": "你成功拆解了长长的并列结构，像拼图高手一样！"
         },
-        "analysis": "### 【主干结构】\nBackup power could be provided.\n\n### 【被动语态】\ncould be provided: 情态动词被动语态。\n\n### 【方式状语】\nby linking wind farms with ...: by + 动名词，表示方式。\n\n### 【并列介词短语】\nwith a solar cell, with conventional or pumped-storage hydropower, or with efficient natural-gas-burning turbines: 三个 with 短语并列，作 linking 的宾语。\n\n### 【逻辑】\n列举三种提供备用电的方式。",
+        "analysis": "### 【主干结构】\n本句主干为：Backup power could be provided.（备用电力可以被提供。）\n\n### 【主谓一致】\n主语“Backup power”为单数，情态动词“could”后接动词原形“be”，被动语态结构正确。\n\n### 【动词时态与原形】\n“could be provided”为情态动词的被动语态，表示可能性或能力。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n“linking”是动名词，作介词“by”的宾语，构成方式状语。\n\n### 【修饰语分析】\n- “also”：副词，修饰谓语，表示“也”。\n- “by linking wind farms with...”：介词短语作方式状语，说明提供电力的方法。\n- “with a solar cell, with conventional or pumped-storage hydropower, or with efficient natural-gas-burning turbines”：三个并列的介词短语，作“linking”的宾语补足语或伴随状语，说明风电场与哪些能源连接。注意“conventional or pumped-storage hydropower”中“or”连接两个形容词修饰“hydropower”。",
         "segments": [
           {
             "text": "Backup power ",
@@ -946,14 +1131,29 @@
             "label": "主语"
           },
           {
-            "text": "could also be provided ",
+            "text": "could ",
             "type": "verb",
-            "label": "谓语"
+            "label": "情态动词"
           },
           {
-            "text": "by linking wind farms with a solar cell, with conventional or pumped-storage hydropower, or with efficient natural-gas-burning turbines.",
+            "text": "also ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "be provided ",
+            "type": "verb",
+            "label": "谓语（被动）"
+          },
+          {
+            "text": "by linking wind farms with a solar cell, with conventional or pumped-storage hydropower, or with efficient natural-gas-burning turbines",
             "type": "adverbial",
             "label": "方式状语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
           }
         ]
       },
@@ -961,28 +1161,28 @@
         "id": "s15",
         "para": 4,
         "text": "Some drawbacks to wind farms include visual pollution and noise, although these can be overcome by improving their design and locating them in isolated areas.",
-        "translation": "风电场的一些缺点包括视觉污染和噪音，尽管这些可以通过改进设计和将其位于偏远地区来克服。",
-        "grammarFocus": "让步状语从句 (although...)；by + doing 结构。",
-        "pronounRef": "these 指代 visual pollution and noise。",
-        "logicConnector": "although 引导让步状语从句。",
+        "translation": "风力农场的一些缺点包括视觉污染和噪音，尽管通过改进设计和将其建在偏远地区可以克服这些缺点。",
+        "grammarFocus": "让步状语从句 (although) 与并列宾语；动名词短语作方式状语。",
+        "pronounRef": "these 指代前面的 drawbacks (缺点)；their 指代 wind farms (风力农场)；them 指代 wind farms。",
+        "logicConnector": "although 引导让步状语从句，表示转折关系。",
         "sentenceCoach": {
-          "summary": "风电场有缺点，但可以改进。",
-          "keyHint": "注意 although 引导的从句表示转折。"
+          "summary": "先找主干“缺点包括什么”，再看 although 后面怎么解决这些缺点。",
+          "keyHint": "注意 although 后面的主语 these 指的是前面的缺点，而不是风力农场。"
         },
         "teachingFocus": {
-          "mainQuestion": "风电场有什么缺点？视觉污染和噪音。",
-          "grammarQuestion": "‘although these can be overcome...’ 是让步状语从句。",
-          "modifierQuestion": "‘by improving... and locating...’ 是方式状语。",
-          "relationshipQuestion": "先说缺点，再说解决办法。",
-          "commonMistake": "容易忽略 although 的转折语气。",
+          "mainQuestion": "这句话告诉我们风力农场有什么不好？",
+          "grammarQuestion": "although 后面跟着的是解决问题的办法，我们要看清是谁克服了这些缺点。",
+          "modifierQuestion": "by improving... and locating... 是两个并列的动作，像双胞胎一样一起修饰 overcome。",
+          "relationshipQuestion": "前半句说缺点，后半句说怎么改，它们之间是转折关系。",
+          "commonMistake": "容易搞混 these 指代的是 drawbacks 还是 wind farms，其实是指 drawbacks。",
           "thinkingPath": [
-            "找到 include 主干",
-            "分析 although 从句",
-            "识别 by 短语作方式状语"
+            "找到主语 drawbacks 和谓语 include",
+            "识别 although 引导的从句",
+            "分析 by 后面的两个动名词短语"
           ],
-          "encouragement": "你读懂了转折关系，真棒！"
+          "encouragement": "你像侦探一样抓住了句子的核心，太棒了！"
         },
-        "analysis": "### 【主干结构】\nSome drawbacks ... include visual pollution and noise.\n\n### 【让步状语从句】\nalthough these can be overcome ...: although 引导让步状语从句，these 指代 drawbacks。\n\n### 【方式状语】\nby improving their design and locating them in isolated areas: by + 动名词，表示克服缺点的方法。\n\n### 【逻辑】\n先陈述缺点，再提出解决方案。",
+        "analysis": "### 【主干结构】\n主句主语是 Some drawbacks，谓语是 include，宾语是 visual pollution and noise。\n\n### 【主谓一致】\n主语 drawbacks 是复数，谓语 include 使用原形，保持一致。\n\n### 【动词时态与原形】\n主句使用一般现在时 include，表示客观事实。\n\n### 【从句剖析】\nalthough 引导让步状语从句。从句主语是 these（指代 drawbacks），谓语是 can be overcome（被动语态）。\n\n### 【代词指代】\nthese 指代 drawbacks；their 指代 wind farms；them 指代 wind farms。\n\n### 【非谓语动词】\nby 后面接了两个动名词 improving 和 locating，构成并列结构，作方式状语，说明如何克服缺点。",
         "segments": [
           {
             "text": "Some drawbacks to wind farms ",
@@ -995,19 +1195,39 @@
             "label": "谓语"
           },
           {
-            "text": "visual pollution and noise, ",
+            "text": "visual pollution and noise",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "although these can be overcome ",
-            "type": "verb",
-            "label": "谓语"
+            "text": ", ",
+            "type": "conjunction",
+            "label": "连接词"
           },
           {
-            "text": "by improving their design and locating them in isolated areas.",
+            "text": "although ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "these ",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": "can be overcome ",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": "by improving their design and locating them in isolated areas",
             "type": "adverbial",
-            "label": "方式状语"
+            "label": "状语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
           }
         ]
       },
@@ -1015,28 +1235,28 @@
         "id": "s16",
         "para": 5,
         "text": "Large wind farms might also interfere with the flight patterns of migratory birds in certain areas, and they have killed large birds of prey (especially hawks, falcons, and eagles) that prefer to hunt along the same ridge lines that are ideal for wind turbines.",
-        "translation": "大型风电场可能会干扰某些地区候鸟的飞行模式，并且它们已经杀死了大型猛禽（特别是鹰、隼和鹰），这些猛禽喜欢沿着同样适合风力涡轮机的山脊线捕猎。",
-        "grammarFocus": "并列句；定语从句嵌套。",
-        "pronounRef": "they 指代 Large wind farms; that 指代 birds of prey。",
-        "logicConnector": "and 连接两个并列分句。",
+        "translation": "大型风力农场也可能在某些地区干扰候鸟的飞行模式，并且它们已经杀死了大型猛禽（特别是鹰、隼和鹰），这些猛禽喜欢沿着同样适合风力涡轮机的山脊线捕猎。",
+        "grammarFocus": "并列句结构 (and)；嵌套定语从句；插入语。",
+        "pronounRef": "they 指代 Large wind farms。",
+        "logicConnector": "and 连接两个并列的主句，表示递进或补充。",
         "sentenceCoach": {
-          "summary": "风电场影响鸟类，特别是猛禽。",
-          "keyHint": "注意有两个 that 引导的定语从句。"
+          "summary": "这是一个长句子，由 and 连接两个部分，后半部分有很多修饰成分，像俄罗斯套娃。",
+          "keyHint": "注意有两个 that 引导的从句，第一个修饰 birds of prey，第二个修饰 ridge lines。"
         },
         "teachingFocus": {
-          "mainQuestion": "风电场对鸟类有什么影响？干扰飞行，杀死猛禽。",
-          "grammarQuestion": "‘that prefer to hunt...’ 是定语从句，修饰 birds of prey。",
-          "modifierQuestion": "‘that are ideal for wind turbines’ 是定语从句，修饰 ridge lines。",
-          "relationshipQuestion": "两个分句分别讲干扰和杀死。",
-          "commonMistake": "容易搞混两个 that 从句的修饰对象。",
+          "mainQuestion": "风力农场对鸟类做了什么两件事？",
+          "grammarQuestion": "and 连接了两个独立的句子，我们要分别看清它们的主谓宾。",
+          "modifierQuestion": "括号里的内容是补充说明，两个 that 从句像链条一样一环扣一环。",
+          "relationshipQuestion": "前半句说干扰飞行，后半句说杀死猛禽，两者都是负面影响。",
+          "commonMistake": "容易混淆两个 that 从句分别修饰谁，第一个 that 修饰 birds，第二个 that 修饰 ridge lines。",
           "thinkingPath": [
-            "找到 interfere with 和 have killed",
-            "分析 that prefer... 从句",
-            "分析 that are ideal... 从句"
+            "识别 and 连接的并列句结构",
+            "分析第一个从句的主谓宾",
+            "拆解嵌套的定语从句"
           ],
-          "encouragement": "你理清了嵌套从句，真厉害！"
+          "encouragement": "你能理清这么复杂的句子，真是语言小天才！"
         },
-        "analysis": "### 【主干结构】\nLarge wind farms might interfere ... and they have killed ...\n\n### 【并列句】\nand 连接两个独立分句。\n\n### 【定语从句】\nthat prefer to hunt along the same ridge lines: 定语从句，修饰 birds of prey。\nthat are ideal for wind turbines: 定语从句，修饰 ridge lines。\n\n### 【修饰语】\nespecially hawks, falcons, and eagles: 插入语，举例说明 birds of prey。\n\n### 【逻辑】\n并列陈述风电场对鸟类的两种影响。",
+        "analysis": "### 【主干结构】\n这是一个由 and 连接的并列句。\n第一分句：主语 Large wind farms，谓语 might also interfere with，宾语 the flight patterns of migratory birds。\n第二分句：主语 they，谓语 have killed，宾语 large birds of prey。\n\n### 【主谓一致】\n第一分句主语复数，谓语 might interfere 无变化；第二分句 they 复数，谓语 have killed 复数形式。\n\n### 【动词时态与原形】\n第一分句使用情态动词 might + 动词原形，表示可能性。\n第二分句使用现在完成时 have killed，表示过去发生且对现在有影响。\n\n### 【从句剖析】\n1. 第一个定语从句：that prefer to hunt along the same ridge lines，修饰 birds of prey。\n2. 第二个定语从句：that are ideal for wind turbines，修饰 ridge lines。\n\n### 【代词指代】\nthey 指代 Large wind farms。\n\n### 【非谓语动词】\nto hunt 是不定式作 prefer 的宾语。",
         "segments": [
           {
             "text": "Large wind farms ",
@@ -1044,24 +1264,79 @@
             "label": "主语"
           },
           {
-            "text": "might also interfere with the flight patterns of migratory birds in certain areas, ",
+            "text": "might also interfere with ",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "and they have killed large birds of prey (especially hawks, falcons, and eagles) ",
-            "type": "verb",
-            "label": "谓语"
+            "text": "the flight patterns of migratory birds in certain areas",
+            "type": "object",
+            "label": "宾语"
           },
           {
-            "text": "that prefer to hunt along the same ridge lines ",
+            "text": ", ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "and ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "they ",
+            "type": "coord-subject",
+            "label": "并列主语"
+          },
+          {
+            "text": "have killed ",
+            "type": "coord-verb",
+            "label": "并列谓语"
+          },
+          {
+            "text": "large birds of prey ",
+            "type": "coord-object",
+            "label": "并列宾语"
+          },
+          {
+            "text": "(especially hawks, falcons, and eagles) ",
+            "type": "modifier",
+            "label": "补充说明"
+          },
+          {
+            "text": "that ",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": "prefer ",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "that are ideal for wind turbines.",
+            "text": "to hunt along the same ridge lines ",
+            "type": "clause-object",
+            "label": "从句宾语"
+          },
+          {
+            "text": "that ",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": "are ",
             "type": "clause-verb",
             "label": "从句谓语"
+          },
+          {
+            "text": "ideal for wind turbines",
+            "type": "clause-predicative",
+            "label": "从句表语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
           }
         ]
       },
@@ -1069,28 +1344,28 @@
         "id": "s17",
         "para": 5,
         "text": "The killing of birds of prey by wind turbines has pitted environmentalists who champion wildlife protection against environmentalists who promote renewable wind energy.",
-        "translation": "风力涡轮机杀死猛禽这一事件，使拥护野生动物保护的环保主义者与推广可再生风能的环保主义者对立起来。",
-        "grammarFocus": "动名词短语作主语；定语从句；pitted A against B 结构。",
+        "translation": "风力涡轮机捕杀猛禽，使得拥护野生动物保护的环境主义者与推广可再生风能的环境主义者陷入了对立。",
+        "grammarFocus": "现在完成时态；两个定语从句分别修饰两类环境主义者；pitted A against B 结构。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "杀鸟事件让环保主义者内部产生了分歧。",
-          "keyHint": "注意 pitted A against B 是‘使A与B对立’。"
+          "summary": "这句话讲了一个“左右互搏”的故事，都是环保人士，但意见不合。",
+          "keyHint": "注意 pitted ... against ... 这个结构，它像一座桥，把两拨人连在对立的两端。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁和谁对立？两类环保主义者。",
-          "grammarQuestion": "‘who champion...’ 和 ‘who promote...’ 都是定语从句。",
-          "modifierQuestion": "‘The killing of birds...’ 是主语。",
-          "relationshipQuestion": "事件导致对立。",
-          "commonMistake": "容易忽略动名词短语作主语。",
+          "mainQuestion": "谁和谁打架了？是风力发电机抓了鸟，让两拨环保人士吵起来了。",
+          "grammarQuestion": "怎么知道这两拨人不一样？因为后面跟着两个长长的“身份证”（定语从句），分别介绍了他们支持什么。",
+          "modifierQuestion": "那两个长长的定语从句就像给环保人士贴的标签，告诉我们他们各自守护什么。",
+          "relationshipQuestion": "风力发电是起因，对立是结果，两个定语从句是细节补充。",
+          "commonMistake": "容易把 pitted 当成“坑”，这里它是“使对立”的意思。",
           "thinkingPath": [
-            "找到 has pitted",
-            "分析主语 The killing...",
-            "识别两个 who 从句"
+            "找到动作 pitted（使对立）",
+            "看谁对立谁（environmentalists against environmentalists）",
+            "看他们各自是谁（看 who 引导的从句）"
           ],
-          "encouragement": "你读懂了对立关系，真棒！"
+          "encouragement": "你抓住了句子的核心冲突，真棒！"
         },
-        "analysis": "### 【主干结构】\nThe killing ... has pitted environmentalists ... against environmentalists ...\n\n### 【主语】\nThe killing of birds of prey by wind turbines: 动名词短语作主语。\n\n### 【谓语】\nhas pitted ... against ...: 使役动词，表示使两者对立。\n\n### 【定语从句】\nwho champion wildlife protection: 修饰第一个 environmentalists。\nwho promote renewable wind energy: 修饰第二个 environmentalists。\n\n### 【逻辑】\n陈述事件导致的对立。",
+        "analysis": "### 【主干结构】\n主语是 The killing of birds of prey by wind turbines（风力涡轮机对猛禽的捕杀），谓语是 has pitted（使……对立），宾语是 environmentalists，宾语补足语/介词短语是 against environmentalists。\n\n### 【主谓一致】\n主语核心词是 killing（动名词/名词化），视为单数，所以谓语动词用 has。\n\n### 【动词时态与原形】\nhas pitted 是现在完成时，表示过去发生的动作对现在造成的影响或状态。\n\n### 【从句剖析】\n1. who champion wildlife protection：定语从句，修饰第一个 environmentalists。意思是“拥护野生动物保护的（环保人士）”。\n2. who promote renewable wind energy：定语从句，修饰第二个 environmentalists。意思是“推广可再生风能的（环保人士）”。\n\n### 【代词指代】\n无代词指代。",
         "segments": [
           {
             "text": "The killing of birds of prey by wind turbines ",
@@ -1103,14 +1378,29 @@
             "label": "谓语"
           },
           {
-            "text": "environmentalists who champion wildlife protection ",
-            "type": "object",
-            "label": "宾语"
+            "text": "environmentalists ",
+            "type": "subject",
+            "label": "主语（被对立的一方）"
           },
           {
-            "text": "against environmentalists who promote renewable wind energy.",
-            "type": "object",
-            "label": "宾语"
+            "text": "who champion wildlife protection ",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": "against ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "environmentalists ",
+            "type": "subject",
+            "label": "主语（对立的一方）"
+          },
+          {
+            "text": "who promote renewable wind energy.",
+            "type": "modifier",
+            "label": "定语"
           }
         ]
       },
@@ -1119,27 +1409,28 @@
         "para": 5,
         "text": "Researchers are evaluating how serious this problem is and hope to find ways to eliminate or sharply reduce this problem.",
         "translation": "研究人员正在评估这个问题的严重程度，并希望找到消除或大幅减少这个问题的方法。",
-        "grammarFocus": "并列谓语 (are evaluating, hope)；宾语从句 (how serious...)；不定式作定语。",
-        "pronounRef": "this problem 指代 birds of prey killed by wind turbines。",
-        "logicConnector": "and 连接两个谓语。",
+        "grammarFocus": "现在进行时；宾语从句；并列谓语；不定式作后置定语。",
+        "pronounRef": "this problem 指代上一句提到的“风力涡轮机捕杀猛禽”的问题。",
+        "logicConnector": "and 连接两个并列的谓语动作。",
         "sentenceCoach": {
-          "summary": "研究人员在研究这个问题，并想办法解决。",
-          "keyHint": "注意 how serious this problem is 是宾语从句。"
+          "summary": "研究人员在“做两件事”：一是评估问题，二是寻找办法。",
+          "keyHint": "注意 and 前后的动词形式，前面是 are evaluating，后面是 hope，主语都是 Researchers。"
         },
         "teachingFocus": {
-          "mainQuestion": "研究人员在做什么？评估问题，寻找方法。",
-          "grammarQuestion": "‘how serious this problem is’ 是宾语从句。",
-          "modifierQuestion": "‘to eliminate or sharply reduce this problem’ 修饰 ways。",
-          "relationshipQuestion": "先评估，后寻找方法。",
-          "commonMistake": "容易忽略 how 从句的语法功能。",
+          "mainQuestion": "研究人员在忙什么？他们在看问题有多严重，并想办法解决它。",
+          "grammarQuestion": "怎么知道问题有多严重？用 how serious this problem is 这个句子作为 evaluating 的对象。",
+          "modifierQuestion": "to eliminate or sharply reduce this problem 是 ways 的标签，告诉我们要找什么样的方法。",
+          "relationshipQuestion": "评估是第一步，找方法是第二步，两者通过 and 连接。",
+          "commonMistake": "容易误以为 and 后面也是 are，其实主语 Researchers 统领两个动词，第二个动词用原形 hope。",
           "thinkingPath": [
-            "找到 are evaluating 和 hope",
-            "分析 how serious... 从句",
-            "识别 to eliminate... 不定式"
+            "找到主语 Researchers",
+            "找到两个并列动作 are evaluating 和 hope",
+            "看 evaluating 后面跟了什么（宾语从句）",
+            "看 ways 后面跟了什么（不定式修饰）"
           ],
-          "encouragement": "你理清了研究步骤，真厉害！"
+          "encouragement": "你成功拆解了并列谓语，逻辑很清晰！"
         },
-        "analysis": "### 【主干结构】\nResearchers are evaluating ... and hope ...\n\n### 【并列谓语】\nare evaluating ... and hope ...\n\n### 【宾语从句】\nhow serious this problem is: 作 evaluating 的宾语。\n\n### 【定语】\nto eliminate or sharply reduce this problem: 不定式短语作后置定语，修饰 ways。\n\n### 【逻辑】\n陈述研究人员的两个动作。",
+        "analysis": "### 【主干结构】\n主语是 Researchers，谓语是并列的 are evaluating 和 hope。\n\n### 【主谓一致】\n主语 Researchers 是复数，谓语动词用复数形式 are 和 hope。\n\n### 【动词时态与原形】\nare evaluating 是现在进行时，表示正在进行的动作；hope 是一般现在时，表示当前的愿望或状态。\n\n### 【从句剖析】\nhow serious this problem is：宾语从句，作 evaluating 的宾语。注意语序是陈述语序（主语 this problem + 系动词 is + 表语 how serious）。\n\n### 【非谓语动词】\nto eliminate or sharply reduce this problem：不定式短语作后置定语，修饰 ways。",
         "segments": [
           {
             "text": "Researchers ",
@@ -1157,14 +1448,24 @@
             "label": "宾语"
           },
           {
-            "text": "and hope ",
+            "text": "and ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "hope ",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "to find ways to eliminate or sharply reduce this problem.",
+            "text": "to find ways ",
             "type": "object",
             "label": "宾语"
+          },
+          {
+            "text": "to eliminate or sharply reduce this problem.",
+            "type": "modifier",
+            "label": "定语"
           }
         ]
       },
@@ -1172,48 +1473,69 @@
         "id": "s19",
         "para": 5,
         "text": "Some analysts also contend that the number of birds killed by wind turbines is dwarfed by birds killed by other human-related sources and by the potential loss of entire bird species from possible global warming.",
-        "translation": "一些分析师还认为，风力涡轮机杀死的鸟类数量与其他人类相关来源杀死的鸟类以及可能因全球变暖而灭绝的整个鸟类物种的潜在损失相比，相形见绌。",
-        "grammarFocus": "宾语从句 (that...)；被动语态 (is dwarfed by)；并列比较对象。",
+        "translation": "一些分析人士还认为，风力涡轮机捕杀的鸟类数量，与其他人类相关来源捕杀的鸟类以及因可能的全球变暖导致的整个鸟类物种潜在损失相比，显得微不足道。",
+        "grammarFocus": "宾语从句；被动语态；比较结构；过去分词作定语。",
         "pronounRef": "无",
-        "logicConnector": "that 引导宾语从句。",
+        "logicConnector": "and 连接两个被比较的对象。",
         "sentenceCoach": {
-          "summary": "风电场杀鸟不算多，和其他原因比。",
-          "keyHint": "注意 is dwarfed by 是‘被...远远超过’。"
+          "summary": "分析师在“比大小”，说风力发电杀鸟其实不算多。",
+          "keyHint": "注意 is dwarfed by...，这是被动语态，意思是“被……比得显得很小”。"
         },
         "teachingFocus": {
-          "mainQuestion": "风电场杀鸟多吗？不多，比其他原因少。",
-          "grammarQuestion": "‘that the number... is dwarfed by...’ 是宾语从句。",
-          "modifierQuestion": "‘killed by wind turbines’ 修饰 birds。",
-          "relationshipQuestion": "比较风电场杀鸟和其他原因杀鸟。",
-          "commonMistake": "容易忽略 dwarfed 的意思。",
+          "mainQuestion": "分析师觉得风力发电杀鸟多吗？不多，跟其他来源比，它显得很少。",
+          "grammarQuestion": "怎么表达“显得少”？用 is dwarfed by，就像小矮人站在巨人旁边。",
+          "modifierQuestion": "killed by wind turbines 和 killed by other... 都是定语，告诉我们是哪些鸟。",
+          "relationshipQuestion": "contend 是观点，that 后面是具体内容。内容里是一个比较：风力杀鸟 vs 其他来源杀鸟+物种损失。",
+          "commonMistake": "dwarfed 容易不认识，它本义是“侏儒”，这里作动词“使相形见绌”。",
           "thinkingPath": [
-            "找到 contend that...",
-            "分析 is dwarfed by 结构",
-            "识别并列比较对象"
+            "找到观点动词 contend",
+            "看 that 后面的内容",
+            "找到核心被动结构 is dwarfed by",
+            "看 by 后面比较的两个部分"
           ],
-          "encouragement": "你读懂了比较关系，真棒！"
+          "encouragement": "你读懂了分析师的“比较法”，真厉害！"
         },
-        "analysis": "### 【主干结构】\nSome analysts contend that ...\n\n### 【宾语从句】\nthat the number of birds ... is dwarfed by ...\n\n### 【被动语态】\nis dwarfed by: 被...远远超过。\n\n### 【修饰语】\nkilled by wind turbines: 过去分词短语，修饰 birds。\nkilled by other human-related sources: 过去分词短语，修饰 birds。\n\n### 【逻辑】\n陈述分析师的观点，比较不同原因导致的鸟类死亡数量。",
+        "analysis": "### 【主干结构】\n主语是 Some analysts，谓语是 contend，宾语是 that 引导的从句。\n\n### 【主谓一致】\n主语 Some analysts 是复数，谓语 contend 用复数形式。\n\n### 【动词时态与原形】\ncontend 是一般现在时，表示观点；is dwarfed 是被动语态，表示状态。\n\n### 【从句剖析】\nthat the number of birds killed by wind turbines is dwarfed by birds killed by other human-related sources and by the potential loss of entire bird species from possible global warming：宾语从句。\n\n### 【非谓语动词】\n1. killed by wind turbines：过去分词短语作后置定语，修饰 birds。\n2. killed by other human-related sources：过去分词短语作后置定语，修饰 birds。\n\n### 【被动语态】\nis dwarfed by...：被……比得微不足道。",
         "segments": [
           {
-            "text": "Some analysts also contend ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "that the number of birds killed by wind turbines ",
+            "text": "Some analysts ",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is dwarfed by ",
+            "text": "also contend ",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "birds killed by other human-related sources and by the potential loss of entire bird species from possible global warming.",
-            "type": "object",
-            "label": "宾语"
+            "text": "that ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "the number of birds killed by wind turbines ",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": "is dwarfed ",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": "by birds killed by other human-related sources ",
+            "type": "adverbial",
+            "label": "状语（比较对象1）"
+          },
+          {
+            "text": "and ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "by the potential loss of entire bird species from possible global warming.",
+            "type": "adverbial",
+            "label": "状语（比较对象2）"
           }
         ]
       },
@@ -1221,28 +1543,29 @@
         "id": "s20",
         "para": 5,
         "text": "Recorded deaths of birds of prey and other birds in wind farms in the United States currently amount to no more than 300 per year.",
-        "translation": "美国风电场记录的猛禽和其他鸟类的死亡数量目前每年不超过300只。",
-        "grammarFocus": "主谓一致；amount to 短语。",
+        "translation": "美国风力农场中记录的猛禽和其他鸟类的死亡数量目前每年不超过 300 只。",
+        "grammarFocus": "主谓宾结构；amount to 短语；介词短语作定语。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "美国风电场每年杀鸟不超过300只。",
-          "keyHint": "注意 amount to 是‘总计为’。"
+          "summary": "这句话在报数字，说美国风力发电杀鸟不多。",
+          "keyHint": "amount to 意思是“总计达到”，后面跟数字。"
         },
         "teachingFocus": {
-          "mainQuestion": "美国风电场杀多少鸟？不超过300只。",
-          "grammarQuestion": "‘Recorded deaths ... amount to ...’ 是主谓结构。",
-          "modifierQuestion": "‘of birds...’ 和 ‘in wind farms...’ 修饰 deaths。",
-          "relationshipQuestion": "陈述具体数据。",
-          "commonMistake": "容易忽略 amount to 的意思。",
+          "mainQuestion": "美国风力发电一年杀多少鸟？不超过 300 只。",
+          "grammarQuestion": "怎么表达“总计”？用 amount to，就像算账一样加起来。",
+          "modifierQuestion": "Recorded deaths... in the United States 这一长串都是主语，告诉我们是什么死亡、在哪里。",
+          "relationshipQuestion": "主语是死亡数量，谓语是达到，宾语是数字。",
+          "commonMistake": "amount to 容易被拆开理解，它是一个固定短语，意思是“总计”。",
           "thinkingPath": [
-            "找到 amount to",
-            "分析主语 Recorded deaths",
-            "识别修饰语"
+            "找到主语 deaths",
+            "看 deaths 前面有哪些修饰语",
+            "找到谓语 amount to",
+            "看后面跟的数字"
           ],
-          "encouragement": "你读懂了数据，真细心！"
+          "encouragement": "你准确找到了数字，数据敏感度很高！"
         },
-        "analysis": "### 【主干结构】\nRecorded deaths ... amount to no more than 300 per year.\n\n### 【谓语】\namount to: 总计为，达到。\n\n### 【修饰语】\nof birds of prey and other birds: 介词短语，修饰 deaths。\nin wind farms in the United States: 介词短语，修饰 deaths。\n\n### 【逻辑】\n陈述具体数据。",
+        "analysis": "### 【主干结构】\n主语是 Recorded deaths，谓语是 amount to，宾语是 no more than 300。\n\n### 【主谓一致】\n主语核心词是 deaths（复数），但 amount to 在这里表示“总计为”，通常视为整体概念，谓语动词用单数 amount（注意：amount 本身单复数同形，但此处语境为单数概念）。若严格看主语 deaths，谓语也可用复数，但 amount to 常作固定搭配。此处 amount 为动词原形/复数形式，符合主语 deaths。\n\n### 【动词时态与原形】\namount 是一般现在时，表示事实。\n\n### 【从句剖析】\n无从句。\n\n### 【非谓语动词】\nRecorded：过去分词作前置定语，修饰 deaths，表示“被记录的”。",
         "segments": [
           {
             "text": "Recorded deaths of birds of prey and other birds in wind farms in the United States ",
@@ -1265,78 +1588,110 @@
         "id": "s21",
         "para": 5,
         "text": "By contrast, in the United States an estimated 97 million birds are killed each year when they collide with buildings made of plate glass, 57 million are killed on highways each year; at least 3.8 million die annually from pollution and poisoning; and millions of birds are electrocuted each year by transmission and distribution lines carrying power produced by nuclear and coal power plants.",
-        "translation": "相比之下，在美国，估计每年有9700万只鸟因撞上平板玻璃建筑而死亡，5700万只在高速公路上死亡；至少380万只因污染和中毒死亡；每年有数百万只鸟被输送和配电线路触电身亡，这些线路输送的是核能和燃煤发电厂产生的电力。",
-        "grammarFocus": "并列句；时间状语从句；分词短语作定语。",
+        "translation": "相比之下，在美国，估计每年有 9700 万只鸟因撞上平板玻璃建筑而死亡，5700 万只在高速公路上死亡；至少 380 万只死于污染和中毒；每年还有数百万只鸟被输送和配电线路触电身亡，这些线路输送的是核能和燃煤发电厂产生的电力。",
+        "grammarFocus": "并列分句；时间状语从句；过去分词作定语；现在分词作定语。",
         "pronounRef": "they 指代 birds。",
-        "logicConnector": "By contrast; and; ; 连接并列分句。",
+        "logicConnector": "By contrast（对比）；分号 ; 和 and 连接并列的分句。",
         "sentenceCoach": {
-          "summary": "和其他原因比，风电场杀鸟很少。",
-          "keyHint": "注意分号连接了三个并列的分句。"
+          "summary": "这句话像列清单，对比了四种杀鸟的原因。",
+          "keyHint": "注意分号 ; 的使用，它把四个并列的情况分开了，每个情况都是一个完整的句子。"
         },
         "teachingFocus": {
-          "mainQuestion": "其他原因杀多少鸟？很多。",
-          "grammarQuestion": "‘when they collide...’ 是时间状语从句。",
-          "modifierQuestion": "‘made of plate glass’ 修饰 buildings。",
-          "relationshipQuestion": "列举其他原因导致的鸟类死亡。",
-          "commonMistake": "容易忽略分号的并列作用。",
+          "mainQuestion": "除了风力发电，还有什么杀鸟？玻璃、公路、污染、电线。",
+          "grammarQuestion": "怎么把这么多情况说清楚？用分号 ; 把它们隔开，像排队一样。",
+          "modifierQuestion": "made of plate glass 修饰 buildings；carrying power... 修饰 lines。",
+          "relationshipQuestion": "By contrast 引出对比，后面四个分句是并列的对比细节。",
+          "commonMistake": "容易忽略分号的作用，以为是一个长句，其实是四个并列句。",
           "thinkingPath": [
-            "找到 are killed, die, are electrocuted",
-            "分析 when 从句",
-            "识别分号连接的并列分句"
+            "找到 By contrast",
+            "找到第一个分句：97 million birds are killed",
+            "找到第二个分句：57 million are killed",
+            "找到第三个分句：3.8 million die",
+            "找到第四个分句：millions of birds are electrocuted"
           ],
-          "encouragement": "你理清了并列结构，真厉害！"
+          "encouragement": "你成功拆解了长难句的并列结构，太棒了！"
         },
-        "analysis": "### 【主干结构】\n97 million birds are killed ...; 57 million are killed ...; at least 3.8 million die ...; and millions of birds are electrocuted ...\n\n### 【并列句】\n分号连接三个独立分句，and 连接最后一个分句。\n\n### 【时间状语从句】\nwhen they collide with buildings made of plate glass: 修饰 are killed。\n\n### 【分词短语】\ncarrying power produced by nuclear and coal power plants: 现在分词短语，修饰 lines。\n\n### 【逻辑】\n列举其他原因导致的鸟类死亡数量。",
+        "analysis": "### 【主干结构】\n本句由 By contrast 引导，包含四个并列的分句，用分号和 and 连接。\n1. an estimated 97 million birds are killed... when they collide...\n2. 57 million are killed...\n3. at least 3.8 million die...\n4. millions of birds are electrocuted...\n\n### 【主谓一致】\n1. birds (复数) are killed\n2. 57 million (birds, 复数) are killed\n3. 3.8 million (birds, 复数) die\n4. millions of birds (复数) are electrocuted\n\n### 【动词时态与原形】\n全部使用一般现在时，表示普遍事实。\n\n### 【从句剖析】\nwhen they collide with buildings made of plate glass：时间状语从句，修饰 are killed。\n\n### 【非谓语动词】\n1. made of plate glass：过去分词短语作后置定语，修饰 buildings。\n2. carrying power produced by nuclear and coal power plants：现在分词短语作后置定语，修饰 lines。其中 produced by... 是过去分词短语修饰 power。\n\n### 【代词指代】\nthey 指代 birds。",
         "segments": [
           {
             "text": "By contrast, ",
             "type": "adverbial",
-            "label": "方式状语"
+            "label": "状语"
           },
           {
             "text": "in the United States ",
             "type": "adverbial",
-            "label": "地点状语"
+            "label": "状语"
           },
           {
             "text": "an estimated 97 million birds ",
-            "type": "subject",
-            "label": "主语"
+            "type": "coord-subject",
+            "label": "并列主语1"
           },
           {
-            "text": "are killed each year ",
-            "type": "verb",
-            "label": "谓语"
+            "text": "are killed ",
+            "type": "coord-verb",
+            "label": "并列谓语1"
+          },
+          {
+            "text": "each year ",
+            "type": "adverbial",
+            "label": "状语"
           },
           {
             "text": "when they collide with buildings made of plate glass, ",
             "type": "adverbial",
-            "label": "时间状语"
+            "label": "状语（时间）"
           },
           {
-            "text": "57 million are killed on highways each year; ",
-            "type": "verb",
-            "label": "谓语"
+            "text": "57 million ",
+            "type": "coord-subject",
+            "label": "并列主语2"
           },
           {
-            "text": "at least 3.8 million die annually from pollution and poisoning; ",
-            "type": "verb",
-            "label": "谓语"
+            "text": "are killed ",
+            "type": "coord-verb",
+            "label": "并列谓语2"
           },
           {
-            "text": "and millions of birds ",
-            "type": "subject",
-            "label": "主语"
-          },
-          {
-            "text": "are electrocuted each year ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "by transmission and distribution lines carrying power produced by nuclear and coal power plants.",
+            "text": "on highways each year; ",
             "type": "adverbial",
-            "label": "方式状语"
+            "label": "状语"
+          },
+          {
+            "text": "at least 3.8 million ",
+            "type": "coord-subject",
+            "label": "并列主语3"
+          },
+          {
+            "text": "die ",
+            "type": "coord-verb",
+            "label": "并列谓语3"
+          },
+          {
+            "text": "annually from pollution and poisoning; ",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": "and ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "millions of birds ",
+            "type": "coord-subject",
+            "label": "并列主语4"
+          },
+          {
+            "text": "are electrocuted ",
+            "type": "coord-verb",
+            "label": "并列谓语4"
+          },
+          {
+            "text": "each year by transmission and distribution lines carrying power produced by nuclear and coal power plants.",
+            "type": "adverbial",
+            "label": "状语"
           }
         ]
       },
@@ -1344,28 +1699,28 @@
         "id": "s22",
         "para": 6,
         "text": "The technology is in place for a major expansion of wind power worldwide.",
-        "translation": "技术已经到位，可以在全球范围内大规模扩展风能。",
-        "grammarFocus": "be in place 短语。",
+        "translation": "为了在全球范围内大规模扩展风能，技术已经准备就绪。",
+        "grammarFocus": "主系表结构；介词短语作目的状语。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "技术准备好了，可以大规模扩展。",
-          "keyHint": "注意 is in place 是‘到位/准备好’。"
+          "summary": "这句话是说，技术已经准备好了，可以大干一场了。",
+          "keyHint": "is in place 意思是“到位、就绪”，就像积木搭好了。"
         },
         "teachingFocus": {
-          "mainQuestion": "技术准备好了吗？准备好了。",
-          "grammarQuestion": "‘is in place’ 是固定短语。",
-          "modifierQuestion": "‘for a major expansion...’ 修饰 technology。",
-          "relationshipQuestion": "技术到位导致可以扩展。",
-          "commonMistake": "容易忽略 in place 的意思。",
+          "mainQuestion": "风能发展准备好了吗？技术已经到位了。",
+          "grammarQuestion": "怎么表达“到位”？用 is in place，这是一个固定搭配。",
+          "modifierQuestion": "for a major expansion... 是目的状语，告诉我们技术到位是为了什么。",
+          "relationshipQuestion": "技术到位是现状，扩展风能不能是目的。",
+          "commonMistake": "in place 容易被误解为“在地方”，这里意思是“准备就绪”。",
           "thinkingPath": [
-            "找到 is in place",
-            "分析 for 短语",
-            "理解整体意思"
+            "找到主语 The technology",
+            "找到谓语 is in place",
+            "看 for 后面跟的目的"
           ],
-          "encouragement": "你读懂了固定短语，真棒！"
+          "encouragement": "你理解了“准备就绪”的意思，真棒！"
         },
-        "analysis": "### 【主干结构】\nThe technology is in place.\n\n### 【谓语】\nis in place: 到位，准备好。\n\n### 【状语】\nfor a major expansion of wind power worldwide: 介词短语，表示目的或对象。\n\n### 【逻辑】\n陈述技术准备情况。",
+        "analysis": "### 【主干结构】\n主语是 The technology，谓语是 is，表语是 in place。\n\n### 【主谓一致】\n主语 The technology 是单数，谓语 is 用单数形式。\n\n### 【动词时态与原形】\nis 是一般现在时，表示状态。\n\n### 【从句剖析】\n无从句。\n\n### 【非谓语动词】\n无。",
         "segments": [
           {
             "text": "The technology ",
@@ -1373,68 +1728,89 @@
             "label": "主语"
           },
           {
-            "text": "is in place ",
+            "text": "is ",
             "type": "verb",
-            "label": "谓语"
+            "label": "系动词"
+          },
+          {
+            "text": "in place ",
+            "type": "predicative",
+            "label": "表语"
           },
           {
             "text": "for a major expansion of wind power worldwide.",
             "type": "adverbial",
-            "label": "目的状语"
+            "label": "状语"
           }
         ]
       },
       {
         "id": "s23",
         "para": 6,
-        "text": "Wind power is a virtually unlimited source of energy at favorable sites, and even excluding environmentally sensitive areas, the global potential of wind power is much higher than the current world electricity use.",
-        "translation": "风能是优质地点几乎无限的能源来源，即使排除环境敏感区域，风能全球潜力也远高于当前世界用电量。",
-        "grammarFocus": "并列句；分词短语作状语；比较级。",
+        "text": "Wind power is a virtually  unlimited source of energy at favorable sites, and even excluding environmentally sensitive areas, the global potential of wind power is much higher than the current world electricity use.",
+        "translation": "在适宜地点，风能是一种几乎无限的能源来源；即使排除环境敏感区，风能全球潜力也远高于当前全球用电量。",
+        "grammarFocus": "并列句；现在分词作状语；比较级。",
         "pronounRef": "无",
         "logicConnector": "and 连接两个并列分句。",
         "sentenceCoach": {
-          "summary": "风能潜力巨大。",
-          "keyHint": "注意 even excluding... 是插入语。"
+          "summary": "这句话在夸风能：资源多，潜力大。",
+          "keyHint": "注意 even excluding...，这是一个插入的状语，表示“即使不考虑...”。"
         },
         "teachingFocus": {
-          "mainQuestion": "风能潜力大吗？很大。",
-          "grammarQuestion": "‘even excluding...’ 是现在分词短语作状语。",
-          "modifierQuestion": "‘virtually unlimited’ 修饰 source。",
-          "relationshipQuestion": "并列陈述风能的两个优势。",
-          "commonMistake": "容易忽略 even excluding 的语法功能。",
+          "mainQuestion": "风能资源多吗？多，几乎无限。潜力大吗？大，比现在用电还多。",
+          "grammarQuestion": "怎么表达“即使不考虑”？用 even excluding，就像把某些地方先拿开不看。",
+          "modifierQuestion": "virtually unlimited 修饰 source；at favorable sites 是地点状语。",
+          "relationshipQuestion": "前半句说资源无限，后半句说潜力巨大，两者通过 and 连接。",
+          "commonMistake": "excluding 容易被当成谓语，其实它是分词作状语，真正谓语是 is。",
           "thinkingPath": [
-            "找到 is a ... source 和 is much higher",
-            "分析 even excluding 短语",
-            "理解比较结构"
+            "找到 and 前后的两个分句",
+            "看第一个分句：Wind power is a source",
+            "看第二个分句：potential is higher",
+            "看 even excluding 的作用"
           ],
-          "encouragement": "你读懂了比较关系，真厉害！"
+          "encouragement": "你成功对比了两个分句，逻辑很清晰！"
         },
-        "analysis": "### 【主干结构】\nWind power is a ... source ... ; the global potential ... is much higher ...\n\n### 【并列句】\nand 连接两个独立分句。\n\n### 【状语】\neven excluding environmentally sensitive areas: 现在分词短语，作让步状语。\n\n### 【比较级】\nis much higher than ...: 比较结构。\n\n### 【逻辑】\n并列陈述风能的两个优势。",
+        "analysis": "### 【主干结构】\n本句由 and 连接两个并列分句。\n1. Wind power is a virtually unlimited source of energy at favorable sites.\n2. even excluding environmentally sensitive areas, the global potential of wind power is much higher than the current world electricity use.\n\n### 【主谓一致】\n1. Wind power (单数) is\n2. potential (单数) is\n\n### 【动词时态与原形】\n全部使用一般现在时，表示事实。\n\n### 【从句剖析】\n无从句。\n\n### 【非谓语动词】\nexcluding：现在分词作状语，表示让步或条件。\n\n### 【比较级】\nis much higher than...：比……高得多。",
         "segments": [
           {
             "text": "Wind power ",
-            "type": "subject",
-            "label": "主语"
+            "type": "coord-subject",
+            "label": "并列主语1"
           },
           {
-            "text": "is a virtually unlimited source of energy at favorable sites, ",
-            "type": "verb",
-            "label": "谓语"
+            "text": "is ",
+            "type": "coord-verb",
+            "label": "并列谓语1"
           },
           {
-            "text": "and even excluding environmentally sensitive areas, ",
+            "text": "a virtually  unlimited source of energy at favorable sites, ",
+            "type": "coord-predicative",
+            "label": "并列表语1"
+          },
+          {
+            "text": "and ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "even excluding environmentally sensitive areas, ",
             "type": "adverbial",
-            "label": "让步状语"
+            "label": "状语"
           },
           {
             "text": "the global potential of wind power ",
-            "type": "subject",
-            "label": "主语"
+            "type": "coord-subject",
+            "label": "并列主语2"
           },
           {
-            "text": "is much higher than the current world electricity use.",
-            "type": "verb",
-            "label": "谓语"
+            "text": "is ",
+            "type": "coord-verb",
+            "label": "并列谓语2"
+          },
+          {
+            "text": "much higher than the current world electricity use.",
+            "type": "coord-predicative",
+            "label": "并列表语2"
           }
         ]
       },
@@ -1442,33 +1818,34 @@
         "id": "s24",
         "para": 6,
         "text": "In theory, Argentina, Canada, Chile, China, Russia, and the United Kingdom could use wind to meet all of their energy needs.",
-        "translation": "理论上，阿根廷、加拿大、智利、中国、俄罗斯和英国可以利用风能满足其所有能源需求。",
-        "grammarFocus": "情态动词 (could)；不定式作目的状语。",
-        "pronounRef": "their 指代 国家们。",
+        "translation": "理论上，阿根廷、加拿大、智利、中国、俄罗斯和英国可以利用风能来满足其所有的能源需求。",
+        "grammarFocus": "主谓宾结构；不定式作目的状语；情态动词。",
+        "pronounRef": "their 指代前面的国家们。",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "理论上，这些国家可以用风能自给自足。",
-          "keyHint": "注意 to meet... 是不定式作目的状语。"
+          "summary": "这句话列出了一堆国家，说它们理论上能用风能吃饱喝足。",
+          "keyHint": "to meet... 是目的，告诉我们用风能干什么。"
         },
         "teachingFocus": {
-          "mainQuestion": "这些国家能用风能满足需求吗？理论上可以。",
-          "grammarQuestion": "‘to meet all of their energy needs’ 是不定式，表示目的。",
-          "modifierQuestion": "‘In theory’ 是状语。",
-          "relationshipQuestion": "理论上的可能性。",
-          "commonMistake": "容易忽略 to meet 的语法功能。",
+          "mainQuestion": "哪些国家能用风能？列出的这些国家。用来干什么？满足能源需求。",
+          "grammarQuestion": "怎么表达“用来做某事”？用 to meet，不定式表目的。",
+          "modifierQuestion": "In theory 是状语，表示“理论上”。",
+          "relationshipQuestion": "主语是国家们，谓语是 could use，宾语是 wind，目的是 meet needs。",
+          "commonMistake": "could 表示可能性或能力，这里表示理论上的可能性。",
           "thinkingPath": [
-            "找到 could use",
-            "分析 to meet 不定式",
-            "理解 In theory"
+            "找到主语：一系列国家",
+            "找到谓语：could use",
+            "找到宾语：wind",
+            "找到目的：to meet needs"
           ],
-          "encouragement": "你读懂了目的状语，真棒！"
+          "encouragement": "你准确找到了目的状语，真棒！"
         },
-        "analysis": "### 【主干结构】\n(Argentina, ..., and the United Kingdom) could use wind ...\n\n### 【状语】\nIn theory: 方式状语。\n\n### 【目的状语】\nto meet all of their energy needs: 不定式短语，表示 use wind 的目的。\n\n### 【逻辑】\n陈述理论上的可能性。",
+        "analysis": "### 【主干结构】\n主语是 Argentina, Canada, Chile, China, Russia, and the United Kingdom，谓语是 could use，宾语是 wind，目的状语是 to meet all of their energy needs。\n\n### 【主谓一致】\n主语是多个国家的并列，视为复数，情态动词 could 不变形。\n\n### 【动词时态与原形】\ncould use 是情态动词+动词原形，表示理论上的可能性。\n\n### 【从句剖析】\n无从句。\n\n### 【非谓语动词】\nto meet all of their energy needs：不定式短语作目的状语。",
         "segments": [
           {
             "text": "In theory, ",
             "type": "adverbial",
-            "label": "方式状语"
+            "label": "状语"
           },
           {
             "text": "Argentina, Canada, Chile, China, Russia, and the United Kingdom ",
@@ -1476,14 +1853,19 @@
             "label": "主语"
           },
           {
-            "text": "could use wind ",
+            "text": "could use ",
             "type": "verb",
             "label": "谓语"
           },
           {
+            "text": "wind ",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
             "text": "to meet all of their energy needs.",
             "type": "adverbial",
-            "label": "目的状语"
+            "label": "状语"
           }
         ]
       },
@@ -1491,28 +1873,29 @@
         "id": "s25",
         "para": 6,
         "text": "Wind power experts project that by the middle of the twenty-first century wind power could supply more than 10 percent of the world’s electricity and 10-25 percent of the electricity used in the United States.",
-        "translation": "风能专家预测，到21世纪中叶，风能可以提供世界电力的10%以上，以及美国用电量的10-25%。",
-        "grammarFocus": "宾语从句 (that...)；时间状语 (by the middle...)。",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "translation": "风能专家预测，到21世纪中叶，风能可能供应全球超过10%的电力，以及美国使用的10-25%的电力。",
+        "grammarFocus": "宾语从句结构；过去将来时态；并列宾语",
+        "pronounRef": "本句无代词",
+        "logicConnector": "that 引导宾语从句；and 连接两个并列的百分比宾语",
         "sentenceCoach": {
-          "summary": "专家预测风能占比会很高。",
-          "keyHint": "注意 by the middle of... 是时间状语。"
+          "summary": "这是一个典型的“专家预测未来”的长句，我们要像侦探一样，先找到谁在预测，再找到预测的具体内容。",
+          "keyHint": "注意 that 后面的内容才是预测的具体结果，不要把它和前面的主语搞混了。"
         },
         "teachingFocus": {
-          "mainQuestion": "专家预测风能占比多少？10%以上。",
-          "grammarQuestion": "‘that ... could supply ...’ 是宾语从句。",
-          "modifierQuestion": "‘by the middle of the twenty-first century’ 是时间状语。",
-          "relationshipQuestion": "预测未来情况。",
-          "commonMistake": "容易忽略 by 短语的时间含义。",
+          "mainQuestion": "谁在说话？他们在说什么？我们要先找到句子的主人“Wind power experts”和他们的动作“project”。",
+          "grammarQuestion": "that 就像一扇大门，门后面藏着专家预测的具体内容，我们要小心地把这扇门打开看看里面有什么。",
+          "modifierQuestion": "by the middle of the twenty-first century 是个时间状语，它告诉我们这个预测发生的时间点，就像给画面加上了时间标签。",
+          "relationshipQuestion": "and 连接了两个并列的部分，告诉我们风能不仅供应世界，还供应美国，它们是平等的伙伴关系。",
+          "commonMistake": "很多同学看到 that 就晕了，其实 that 后面整句话都是 project 的宾语，就像“我告诉你”后面跟着的都是“你”听到的话一样。",
           "thinkingPath": [
-            "找到 project that...",
-            "分析 by the middle... 时间状语",
-            "识别 supply 的宾语"
+            "找到主语 Wind power experts",
+            "找到谓语动词 project",
+            "识别 that 引导的宾语从句",
+            "分析从句中的并列结构"
           ],
-          "encouragement": "你读懂了预测内容，真厉害！"
+          "encouragement": "你真棒！能一眼看出这个长句子的骨架，接下来我们慢慢拆解里面的细节吧！"
         },
-        "analysis": "### 【主干结构】\nWind power experts project that ...\n\n### 【宾语从句】\nthat by the middle of the twenty-first century wind power could supply ...\n\n### 【时间状语】\nby the middle of the twenty-first century: 在21世纪中叶之前。\n\n### 【逻辑】\n陈述专家预测。",
+        "analysis": "### 【主干结构】\n本句是一个复合句，主句的主语是 \"Wind power experts\"，谓语是 \"project\"。\"that\" 引导一个宾语从句，作为 \"project\" 的宾语。\n\n### 【主谓一致】\n主句主语 \"Wind power experts\" 是复数，谓语动词 \"project\" 使用原形，符合主谓一致原则。\n\n### 【动词时态与原形】\n主句谓语 \"project\" 使用一般现在时，表示当前的预测或观点。宾语从句中使用 \"could supply\"，\"could\" 是情态动词，表示过去将来时或可能性，这里指从过去（或现在）看未来的可能性。\n\n### 【从句剖析】\n宾语从句内容：\"by the middle of the twenty-first century wind power could supply more than 10 percent of the world’s electricity and 10-25 percent of the electricity used in the United States.\"\n- 从句主语：\"wind power\"\n- 从句谓语：\"could supply\"\n- 从句宾语：由 \"and\" 连接的两个并列名词短语：\n  1. \"more than 10 percent of the world’s electricity\"\n  2. \"10-25 percent of the electricity used in the United States\"\n- 时间状语：\"by the middle of the twenty-first century\" 置于从句句首，修饰整个从句。\n\n### 【代词指代】\n本句无代词。\n\n### 【非谓语动词】\n\"used in the United States\" 是过去分词短语作后置定语，修饰 \"the electricity\"，相当于 \"which is used in the United States\"。",
         "segments": [
           {
             "text": "Wind power experts ",
@@ -1525,24 +1908,44 @@
             "label": "谓语"
           },
           {
-            "text": "that by the middle of the twenty-first century ",
+            "text": "that ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "by the middle of the twenty-first century ",
             "type": "adverbial",
-            "label": "时间状语"
+            "label": "状语"
           },
           {
             "text": "wind power ",
-            "type": "subject",
-            "label": "主语"
+            "type": "clause-subject",
+            "label": "从句主语"
           },
           {
             "text": "could supply ",
-            "type": "verb",
-            "label": "谓语"
+            "type": "clause-verb",
+            "label": "从句谓语"
           },
           {
-            "text": "more than 10 percent of the world’s electricity and 10-25 percent of the electricity used in the United States.",
-            "type": "object",
-            "label": "宾语"
+            "text": "more than 10 percent of the world’s electricity ",
+            "type": "clause-object",
+            "label": "从句宾语"
+          },
+          {
+            "text": "and ",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": "10-25 percent of the electricity ",
+            "type": "clause-object",
+            "label": "从句宾语"
+          },
+          {
+            "text": "used in the United States.",
+            "type": "modifier",
+            "label": "定语"
           }
         ]
       }

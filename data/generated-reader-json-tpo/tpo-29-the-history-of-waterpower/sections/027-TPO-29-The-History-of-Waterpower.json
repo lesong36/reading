@@ -1,118 +1,339 @@
 {
   "sourceFile": "tpo-29-the-history-of-waterpower.md",
   "sectionTitle": "TPO-29 / The History of Waterpower",
-  "generatedAt": "2026-08-05T13:54:49.713Z",
+  "generatedAt": "2026-08-12T09:03:34.298Z",
   "warnings": [],
   "article": {
     "id": "tpo-29-the-history-of-waterpower-27-TPO-29-The-History-of-Waterpower",
     "title": "TPO-29 / The History of Waterpower",
-    "timestamp": 1785938089739,
+    "timestamp": 1786525414324,
     "glossary": [
       {
-        "term": "electrotechnology",
-        "translation": "电气技术",
+        "term": "full-scale power stations",
+        "translation": "大型发电站",
+        "kind": "context_phrase",
+        "note": "指具备完整规模、能大规模发电的电力设施，区别于早期的实验性装置。",
+        "aliases": []
+      },
+      {
+        "term": "hydro (water) technology",
+        "translation": "水力（水）技术",
         "kind": "term",
-        "note": "涉及电的应用技术",
+        "note": "指利用水流能量进行工作的技术，文中特指早期的水轮机等。",
+        "aliases": []
+      },
+      {
+        "term": "efficiency competition",
+        "translation": "效率竞争",
+        "kind": "context_phrase",
+        "note": "指不同动力源或机械在能量转换效率方面的比较。",
+        "aliases": []
+      },
+      {
+        "term": "seventeenth century",
+        "translation": "17世纪",
+        "kind": "proper_noun",
+        "note": "时间名词，指公元1601年至1700年。",
+        "aliases": []
+      },
+      {
+        "term": "electrotechnology",
+        "translation": "电工技术",
+        "kind": "term",
+        "note": "指与电的产生、传输和应用相关的工程技术领域。",
+        "aliases": []
+      },
+      {
+        "term": "mechanical power",
+        "translation": "机械动力",
+        "kind": "term",
+        "note": "指通过机械装置转换或传递的动力。",
         "aliases": []
       },
       {
         "term": "renewable energy",
         "translation": "可再生能源",
         "kind": "term",
-        "note": "指水能、风能等可自然补充的能源",
+        "note": "指自然界中可以不断再生、永续利用的能源，如风能、水能、太阳能等。",
         "aliases": []
       },
       {
-        "term": "horizontal-axis",
-        "translation": "水平轴的",
+        "term": "enter the scene",
+        "translation": "登场，进入视野",
+        "kind": "context_phrase",
+        "note": "比喻新事物出现并开始产生影响。",
+        "aliases": []
+      },
+      {
+        "term": "Michael Faraday",
+        "translation": "迈克尔·法拉第",
+        "kind": "proper_noun",
+        "note": "英国物理学家、化学家，电磁学领域的奠基人之一。",
+        "aliases": []
+      },
+      {
+        "term": "electric field",
+        "translation": "电场",
         "kind": "term",
-        "note": "指水轮旋转轴平行于地面的设计",
+        "note": "电荷周围存在的一种特殊物质，对放入其中的电荷有力的作用。",
+        "aliases": []
+      },
+      {
+        "term": "keep pace with",
+        "translation": "与...同步，跟上...的步伐",
+        "kind": "context_phrase",
+        "note": "指水力应用的发展速度与技术进步保持一致。",
         "aliases": []
       },
       {
         "term": "kinetic energy",
         "translation": "动能",
         "kind": "term",
-        "note": "物理学概念，物体因运动而具有的能量",
+        "note": "物体由于运动而具有的能量。",
+        "aliases": []
+      },
+      {
+        "term": "magnetic field",
+        "translation": "磁场",
+        "kind": "term",
+        "note": "磁体周围存在的一种特殊物质，对放入其中的磁体或电流有力的作用。",
         "aliases": []
       },
       {
         "term": "overshot wheel",
-        "translation": "顶射式水轮",
+        "translation": "水斗式水轮（或顶射式水轮）",
         "kind": "term",
-        "note": "水流从水轮顶部注入，利用重力驱动",
+        "note": "一种水力机械，水流从上方落下冲击水轮叶片使其转动，效率较高。",
+        "aliases": []
+      },
+      {
+        "term": "sophisticated",
+        "translation": "精密的，复杂的",
+        "kind": "term",
+        "note": "此处形容水车技术日益精良。",
         "aliases": []
       },
       {
         "term": "vertical-axis",
         "translation": "垂直轴的",
         "kind": "term",
-        "note": "指水轮旋转轴垂直于地面的设计",
+        "note": "指水轮旋转轴垂直于地面的结构。",
         "aliases": []
       },
       {
-        "term": "Fourneyron",
-        "translation": "富尔龙",
+        "term": "water turbine",
+        "translation": "水轮机",
+        "kind": "term",
+        "note": "一种将水流的动能或势能转化为机械能的旋转机械，比传统水轮更高效。",
+        "aliases": []
+      },
+      {
+        "term": "hydro plants",
+        "translation": "水电站",
+        "kind": "term",
+        "note": "利用水力资源发电的工厂或设施。",
+        "aliases": [
+          "hydroelectric plants"
+        ]
+      },
+      {
+        "term": "output power",
+        "translation": "输出功率",
+        "kind": "term",
+        "note": "机械或设备向外提供的功率。",
+        "aliases": []
+      },
+      {
+        "term": "steam engine",
+        "translation": "蒸汽机",
+        "kind": "term",
+        "note": "名词短语，工业革命时期的核心动力装置。",
+        "aliases": []
+      },
+      {
+        "term": "Latin turbo",
+        "translation": "拉丁语 turbo",
         "kind": "proper_noun",
-        "note": "Benjamin Fourneyron，早期水轮机发明者",
+        "note": "指拉丁语单词 turbo，意为旋转、陀螺，是水轮机（turbine）的词源。",
+        "aliases": []
+      },
+      {
+        "term": "pessimistic",
+        "translation": "悲观的",
+        "kind": "term",
+        "note": "形容词，形容对未来的看法不乐观，认为情况会变差。",
+        "aliases": []
+      },
+      {
+        "term": "steam power",
+        "translation": "蒸汽动力",
+        "kind": "term",
+        "note": "利用蒸汽机产生的动力，工业革命的核心动力来源。",
+        "aliases": []
+      },
+      {
+        "term": "coal-fired",
+        "translation": "燃煤的",
+        "kind": "term",
+        "note": "复合形容词，指由燃烧煤炭提供动力的。",
+        "aliases": []
+      },
+      {
+        "term": "efficiency",
+        "translation": "效率",
+        "kind": "term",
+        "note": "指能量转换的有效程度。",
+        "aliases": []
+      },
+      {
+        "term": "horizontal",
+        "translation": "水平的",
+        "kind": "term",
+        "note": "指水轮旋转轴平行于地面的结构。",
+        "aliases": []
+      },
+      {
+        "term": "horsepower",
+        "translation": "马力",
+        "kind": "term",
+        "note": "功率单位，常用于描述发动机或机械的输出能力。",
+        "aliases": []
+      },
+      {
+        "term": "irrigation",
+        "translation": "灌溉",
+        "kind": "term",
+        "note": "人工补充土壤水分以利于作物生长的措施。",
+        "aliases": []
+      },
+      {
+        "term": "superseded",
+        "translation": "被取代",
+        "kind": "verb",
+        "note": "动词 supersede 的过去分词，指被更先进的事物所替代。",
+        "aliases": []
+      },
+      {
+        "term": "waterpower",
+        "translation": "水力",
+        "kind": "term",
+        "note": "指利用水流产生的能量作为动力来源。",
+        "aliases": []
+      },
+      {
+        "term": "waterwheel",
+        "translation": "水车",
+        "kind": "term",
+        "note": "利用水流动力转动的轮子，用于提水或磨面。",
         "aliases": []
       },
       {
         "term": "Godalming",
         "translation": "戈达明",
         "kind": "proper_noun",
-        "note": "英格兰萨里郡的一个城镇，拥有世界上第一个公共供电系统",
+        "note": "英国萨里郡的一个城镇，文中提到的世界上第一个公共供电系统的所在地。",
+        "aliases": []
+      },
+      {
+        "term": "take over",
+        "translation": "接管，占据主导地位",
+        "kind": "context_phrase",
+        "note": "动词短语，这里指蒸汽机逐渐取代水力成为主要动力来源。",
         "aliases": []
       },
       {
         "term": "Wey River",
         "translation": "韦河",
         "kind": "proper_noun",
-        "note": "英格兰的一条河流，早期水电站所在地",
+        "note": "流经英国萨里郡的一条河流。",
         "aliases": []
+      },
+      {
+        "term": "kilowatt",
+        "translation": "千瓦",
+        "kind": "term",
+        "note": "功率单位，符号 kW，用于衡量电力设备的输出能力。",
+        "aliases": [
+          "kW"
+        ]
+      },
+      {
+        "term": "megawatt",
+        "translation": "兆瓦",
+        "kind": "term",
+        "note": "功率单位，符号 MW，1 MW = 1000 kW，用于衡量大型电站的发电能力。",
+        "aliases": [
+          "MW"
+        ]
       },
       {
         "term": "obsolete",
         "translation": "过时的，淘汰的",
         "kind": "term",
-        "note": "指因新技术出现而不再使用",
+        "note": "形容词，指因新技术出现而不再使用或过时的。",
         "aliases": []
       },
       {
-        "term": "Faraday",
-        "translation": "法拉第",
-        "kind": "proper_noun",
-        "note": "Michael Faraday，著名物理学家，电磁感应发现者",
+        "term": "patented",
+        "translation": "获得专利",
+        "kind": "verb",
+        "note": "动词 patent 的过去式，指正式获得某项发明的专利权。",
         "aliases": []
       },
       {
         "term": "harness",
         "translation": "利用，驾驭",
         "kind": "term",
-        "note": "本文指利用自然资源（如水力）作为动力",
+        "note": "本文指利用自然力量（如水力）作为能源。",
         "aliases": []
       },
       {
         "term": "turbine",
         "translation": "涡轮机",
         "kind": "term",
-        "note": "一种将流体能量转化为旋转机械能的装置",
+        "note": "一种通过流体（如蒸汽、气体、水）冲击叶片产生旋转运动的机械。",
         "aliases": []
       },
       {
-        "term": "hydro",
-        "translation": "水力的，水能的",
+        "term": "blades",
+        "translation": "叶片",
         "kind": "term",
-        "note": "hydro- 前缀，指与水有关",
-        "aliases": [
-          "hydropower"
-        ]
+        "note": "水轮或涡轮上受水流冲击的部分。",
+        "aliases": []
+      },
+      {
+        "term": "Saxons",
+        "translation": "撒克逊人",
+        "kind": "proper_noun",
+        "note": "中世纪早期居住在不列颠群岛的日耳曼部落。",
+        "aliases": []
+      },
+      {
+        "term": "Surrey",
+        "translation": "萨里郡",
+        "kind": "proper_noun",
+        "note": "英格兰南部的一个郡。",
+        "aliases": []
       },
       {
         "term": "noria",
-        "translation": "水车（一种古老的提水装置）",
+        "translation": "诺里亚水车",
         "kind": "proper_noun",
-        "note": "一种带有悬挂容器的轮式水车，用于灌溉",
+        "note": "一种古老的提水装置，通常带有悬挂的容器。",
+        "aliases": []
+      },
+      {
+        "term": "B.C.",
+        "translation": "公元前",
+        "kind": "acronym",
+        "note": "Before Christ 的缩写，表示公元前的时间。",
+        "aliases": []
+      },
+      {
+        "term": "mill",
+        "translation": "磨坊",
+        "kind": "term",
+        "note": "利用水力驱动进行谷物研磨或其他加工的场所。",
         "aliases": []
       }
     ],
@@ -121,28 +342,28 @@
         "id": "s1",
         "para": 1,
         "text": "Moving water was one of the earliest energy sources to be harnessed to reduce the workload of people and animals.",
-        "translation": "流动的水是最早被利用来减轻人类和动物工作负担的能源之一。",
-        "grammarFocus": "不定式作后置定语；被动语态",
+        "translation": "流动的水是最早被利用来减轻人和动物工作负荷的能源之一。",
+        "grammarFocus": "不定式作后置定语；被动语态的不定式。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
           "summary": "这句话告诉我们，古人很早就学会了用水力干活。",
-          "keyHint": "注意 'to be harnessed' 是修饰 'sources' 的，表示‘被利用的’。"
+          "keyHint": "注意 'to be harnessed' 是修饰 'energy sources' 的，说明这些能源被用来做什么。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁被利用了？是‘流动的水’这种能源。",
-          "grammarQuestion": "为什么用 'to be harnessed'？因为它在修饰前面的 'sources'，告诉我们是‘被利用’的那些能源。",
-          "modifierQuestion": "'to reduce...' 是做什么的？它是目的状语，说明利用水是为了什么。",
-          "relationshipQuestion": "主语是 'Moving water'，谓语是 'was'，后面的一长串都是补充说明它的。",
-          "commonMistake": "孩子容易把 'to be harnessed' 当成谓语，其实句子的核心动词是 'was'。",
+          "mainQuestion": "谁（什么）是最早的能源？是流动的水。",
+          "grammarQuestion": "‘to be harnessed’ 像个小尾巴，紧紧跟在 ‘energy sources’ 后面，告诉我们要怎么利用这些能源。",
+          "modifierQuestion": "‘to reduce the workload...’ 也是个小尾巴，跟在后面解释利用能源是为了什么。",
+          "relationshipQuestion": "流动的水 -> 是 -> 能源 -> 被利用 -> 为了减轻负荷。",
+          "commonMistake": "不要把 ‘to be harnessed’ 当成句子的主要动词，它只是修饰语，真正的动词是 ‘was’。",
           "thinkingPath": [
-            "找到主语 'Moving water'",
-            "找到谓语 'was'",
-            "看后面的长尾巴是修饰谁的"
+            "找到动词 was",
+            "找到主语 Moving water",
+            "看后面的 to be harnessed 是修饰谁的"
           ],
-          "encouragement": "你找得很准！这就是句子的骨架。"
+          "encouragement": "你抓住了句子的主干，真棒！就像找到了火车的车头一样。"
         },
-        "analysis": "### 【主干结构】\n主语：Moving water\n谓语：was\n表语：one of the earliest energy sources\n\n### 【修饰成分】\n1. 'to be harnessed...'：不定式被动语态作后置定语，修饰 'energy sources'。意思是‘被利用的能源’。\n2. 'to reduce the workload...'：不定式作目的状语，修饰 'harnessed'，说明利用能源的目的。\n\n### 【词汇解析】\nharness: 原意是给马套上挽具，这里引申为‘利用、控制（自然资源）’。\nworkload: 工作量，负担。",
+        "analysis": "### 【主干结构】\n主语是 'Moving water'，谓语是 'was'，表语是 'one of the earliest energy sources'。\n\n### 【主谓一致】\n主语 'Moving water' 是不可数名词概念，谓语用单数 'was'，一致。\n\n### 【动词时态与原形】\n'was' 是一般过去时，表示过去的状态。\n\n### 【非谓语动词】\n'to be harnessed' 是被动语态的不定式，作后置定语，修饰 'energy sources'，意为‘被利用的’。\n'to reduce' 是不定式，作目的状语，修饰 'harnessed'，意为‘为了减轻’。\n\n### 【修饰语】\n'of people and animals' 是介词短语作后置定语，修饰 'workload'。",
         "segments": [
           {
             "text": "Moving water",
@@ -150,12 +371,12 @@
             "label": "主语"
           },
           {
-            "text": " was ",
+            "text": " was",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "one of the earliest energy sources",
+            "text": " one of the earliest energy sources",
             "type": "predicative",
             "label": "表语"
           },
@@ -175,28 +396,28 @@
         "id": "s2",
         "para": 1,
         "text": "No one knows exactly when the waterwheel was invented, but irrigation systems existed at least 5,000 years ago, and it seems probable that the earliest waterpower device was the noria, a waterwheel that raised water for irrigation in attached jars.",
-        "translation": "没有人确切知道水轮是什么时候发明的，但灌溉系统至少在5000年前就已存在，而且最早的用水设备很可能是诺里亚水车，这是一种通过连接的罐子提水用于灌溉的水轮。",
-        "grammarFocus": "宾语从句；并列句；形式主语 it；同位语；定语从句",
-        "pronounRef": "it 指代后面 that 引导的从句内容",
-        "logicConnector": "but (转折), and (并列)",
+        "translation": "没有人确切知道水车是什么时候发明的，但灌溉系统至少在5000年前就已存在，而且最早的用水装置似乎是诺里亚水车，一种在连接的罐子里提水用于灌溉的水车。",
+        "grammarFocus": "宾语从句；并列句结构；形式主语 it；同位语；定语从句。",
+        "pronounRef": "it 指代后面 that 引导的从句内容。",
+        "logicConnector": "but（转折）；and（并列）",
         "sentenceCoach": {
-          "summary": "这是一个很长的并列句，像三节车厢连在一起，我们要一节一节看。",
-          "keyHint": "注意 'it seems probable that...' 中，it 是假主人，真主人是后面的 that 从句。"
+          "summary": "这句话很长，像三节车厢连在一起，分别讲了三个事实。",
+          "keyHint": "注意 'but' 和 'and' 把句子分成了三部分，每部分都有自己的主语和谓语。"
         },
         "teachingFocus": {
-          "mainQuestion": "这句话说了三件事：不知道发明时间、灌溉系统很古老、最早的设备是什么。",
-          "grammarQuestion": "看到 'it seems probable that...' 不要慌，it 只是占位符，真正重要的是 that 后面的内容。",
-          "modifierQuestion": "'a waterwheel...' 是同位语，用来解释什么是 noria；'that raised water...' 是定语从句，修饰 waterwheel。",
-          "relationshipQuestion": "三个分句由 but 和 and 连接，逻辑是：虽然不知道具体时间，但已知很古老，且推测出具体设备。",
-          "commonMistake": "孩子容易在长句中迷失，忘记主句动词是 knows, existed, seems。",
+          "mainQuestion": "第一部分是‘没人知道...’，第二部分是‘灌溉系统存在...’，第三部分是‘看起来...是诺里亚水车’。",
+          "grammarQuestion": "'when the waterwheel was invented' 是 knows 的宾语；'that the earliest...' 是 seems probable 的真正主语，it 只是替身。",
+          "modifierQuestion": "'a waterwheel...' 是 noria 的同位语，解释它是什么；'that raised water...' 是修饰 waterwheel 的定语从句。",
+          "relationshipQuestion": "虽然不知道发明时间，但知道灌溉系统很古老，且推测最早的设备是诺里亚水车。",
+          "commonMistake": "容易把 'it seems probable that...' 中的 it 当成‘它’（指代某物），其实 it 是形式主语，真正的主语是后面的 that 从句。",
           "thinkingPath": [
-            "找到连接词 but 和 and",
+            "找到并列连词 but 和 and",
             "拆分出三个独立分句",
-            "分析每个分句的主干"
+            "分析每个分句的主干和从句"
           ],
-          "encouragement": "你能把这么长的句子拆开，真像个小侦探！"
+          "encouragement": "你能理清这么长的句子，就像解开了一个复杂的绳结，太厉害了！"
         },
-        "analysis": "### 【主干结构】\n这是一个由 but 和 and 连接的并列复合句。\n1. 分句1: No one (主) knows (谓) [when the waterwheel was invented] (宾从句)。\n2. 分句2: irrigation systems (主) existed (谓) [at least 5,000 years ago] (状)。\n3. 分句3: it (形式主) seems (系) probable (表) [that the earliest waterpower device was the noria...] (真主从句)。\n\n### 【从句剖析】\n- 'when the waterwheel was invented': 宾语从句，作 knows 的宾语。\n- 'that the earliest waterpower device was the noria...': 主语从句，作 seems probable 的真正主语。\n- 'that raised water for irrigation in attached jars': 定语从句，修饰 noria/waterwheel。\n\n### 【同位语】\n'a waterwheel...' 是 'the noria' 的同位语，解释说明 noria 是什么。",
+        "analysis": "### 【主干结构】\n这是一个由 'but' 和 'and' 连接的并列复合句。\n分句1: No one knows [宾语从句].\n分句2: irrigation systems existed [状语].\n分句3: it seems probable [that 从句].\n\n### 【主谓一致】\n'No one' 作主语，谓语 'knows' 用单数；'irrigation systems' 复数，谓语 'existed' 过去式；'it' 单数，'seems' 单数。\n\n### 【从句剖析】\n1. 'when the waterwheel was invented': 宾语从句，作 knows 的宾语。\n2. 'that the earliest waterpower device was the noria': 主语从句，由形式主语 it 代替，真正的主语在后。\n3. 'that raised water for irrigation in attached jars': 定语从句，修饰先行词 waterwheel。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\n'exactly' 修饰 knows；'at least 5,000 years ago' 是时间状语；'a waterwheel...' 是 noria 的同位语。",
         "segments": [
           {
             "text": "No one",
@@ -204,62 +425,62 @@
             "label": "主语"
           },
           {
-            "text": " knows ",
+            "text": " knows",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "exactly ",
-            "type": "modifier",
-            "label": "状语"
-          },
-          {
-            "text": "when the waterwheel was invented",
-            "type": "clause-object",
-            "label": "宾语从句"
-          },
-          {
-            "text": ", but ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "irrigation systems",
-            "type": "coord-subject",
-            "label": "主语"
-          },
-          {
-            "text": " existed ",
-            "type": "coord-verb",
-            "label": "谓语"
-          },
-          {
-            "text": "at least 5,000 years ago",
+            "text": " exactly",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": ", and ",
+            "text": " when the waterwheel was invented",
+            "type": "clause-object",
+            "label": "宾语从句"
+          },
+          {
+            "text": ", but",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "it",
+            "text": " irrigation systems",
+            "type": "coord-subject",
+            "label": "并列主语"
+          },
+          {
+            "text": " existed",
+            "type": "coord-verb",
+            "label": "并列谓语"
+          },
+          {
+            "text": " at least 5,000 years ago",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ", and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " it",
             "type": "clause-subject",
             "label": "形式主语"
           },
           {
-            "text": " seems ",
+            "text": " seems",
             "type": "clause-verb",
             "label": "系动词"
           },
           {
-            "text": "probable ",
+            "text": " probable",
             "type": "clause-predicative",
             "label": "表语"
           },
           {
-            "text": "that the earliest waterpower device was the noria",
+            "text": " that the earliest waterpower device was the noria",
             "type": "clause-subject",
             "label": "主语从句"
           },
@@ -271,7 +492,7 @@
           {
             "text": " that raised water for irrigation in attached jars.",
             "type": "modifier",
-            "label": "定语从句"
+            "label": "定语"
           }
         ]
       },
@@ -279,28 +500,28 @@
         "id": "s3",
         "para": 1,
         "text": "The device appears to have evolved no later than the fifth century B.C., perhaps independently in different regions of the Middle and Far East.",
-        "translation": "该设备似乎不晚于公元前5世纪就已经演化出来，可能是在中东和远东的不同地区独立发展起来的。",
-        "grammarFocus": "appear to do 结构；不定式完成式；状语",
-        "pronounRef": "The device 指代上一句的 noria",
+        "translation": "该装置的出现时间不晚于公元前5世纪，可能在中东和远东的不同地区独立发展而来。",
+        "grammarFocus": "appear to do 结构；不定式的完成式；介词短语作状语。",
+        "pronounRef": "The device 指代上一句的 noria。",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话在推测设备出现的时间和地点。",
-          "keyHint": "'appears to have evolved' 表示‘似乎已经演化’，强调动作发生在过去。"
+          "summary": "这句话在推测这个装置出现的时间和地点。",
+          "keyHint": "注意 'appears to have evolved'，表示‘看起来已经进化/发展了’，是对过去的推测。"
         },
         "teachingFocus": {
-          "mainQuestion": "设备什么时候出现的？不晚于公元前5世纪。",
-          "grammarQuestion": "'appears to have done' 是固定搭配，表示对过去情况的推测。",
-          "modifierQuestion": "'perhaps independently...' 是状语，补充说明演化的方式。",
-          "relationshipQuestion": "主句是 'The device appears...'，后面是补充信息。",
-          "commonMistake": "孩子可能不理解 'to have evolved' 为什么用完成式，因为动作发生在 appear 之前。",
+          "mainQuestion": "这个装置看起来是在公元前5世纪或之前发展起来的。",
+          "grammarQuestion": "'appears to have evolved' 中，to have evolved 是完成式不定式，表示动作发生在 appears 之前。",
+          "modifierQuestion": "'no later than...' 是时间状语；'perhaps independently...' 是方式/地点状语。",
+          "relationshipQuestion": "时间上限定在公元前5世纪前，地点上可能是多地独立发展。",
+          "commonMistake": "容易忽略 'to have evolved' 中的完成式含义，误以为只是普通的不定式。",
           "thinkingPath": [
-            "找到主语 'The device'",
-            "找到谓语部分 'appears to have evolved'",
-            "看后面的地点状语"
+            "找到谓语 appears",
+            "分析 to have evolved 的时态含义",
+            "识别后面的状语成分"
           ],
-          "encouragement": "你对时态的敏感度真棒！"
+          "encouragement": "你读懂了‘看起来已经...’这种微妙的时态，真是火眼金睛！"
         },
-        "analysis": "### 【主干结构】\n主语：The device\n谓语：appears to have evolved\n\n### 【非谓语动词】\n'to have evolved': 不定式的完成式，表示‘演化’这个动作发生在‘appears’（似乎）之前，或者强调其完成状态。\n\n### 【状语】\n'no later than the fifth century B.C.': 时间状语，修饰 evolved。\n'perhaps independently in different regions...': 方式/地点状语，补充说明演化的背景。",
+        "analysis": "### 【主干结构】\n主语 'The device'，谓语 'appears'，不定式 'to have evolved' 作主语补足语（或视为谓语的一部分，表示状态）。\n\n### 【主谓一致】\n'The device' 单数，'appears' 单数，一致。\n\n### 【动词时态与原形】\n'appears' 一般现在时；'to have evolved' 不定式完成式，表示在 appears 之前已经发生。\n\n### 【从句剖析】\n无。\n\n### 【修饰语】\n'no later than the fifth century B.C.' 是时间状语，修饰 evolved。\n'perhaps independently in different regions of the Middle and Far East' 是方式及地点状语，修饰 evolved。",
         "segments": [
           {
             "text": "The device",
@@ -308,9 +529,14 @@
             "label": "主语"
           },
           {
-            "text": " appears to have evolved",
+            "text": " appears",
             "type": "verb",
             "label": "谓语"
+          },
+          {
+            "text": " to have evolved",
+            "type": "modifier",
+            "label": "补足语"
           },
           {
             "text": " no later than the fifth century B.C.",
@@ -319,7 +545,7 @@
           },
           {
             "text": ", perhaps independently in different regions of the Middle and Far East.",
-            "type": "modifier",
+            "type": "adverbial",
             "label": "状语"
           }
         ]
@@ -328,28 +554,28 @@
         "id": "s4",
         "para": 2,
         "text": "The earliest waterpower mills were probably vertical-axis mills for grinding corn, known as Norse or Greek mills, which seem to have appeared during the first or second century B.C. in the Middle East and a few centuries later in Scandinavia.",
-        "translation": "最早的水力磨坊可能是用于磨玉米的垂直轴磨坊，被称为北欧或希腊磨坊，它们似乎出现在公元前一二世纪的中东地区，几个世纪后又出现在斯堪的纳维亚。",
-        "grammarFocus": "定语从句；过去分词作定语；不定式作定语",
-        "pronounRef": "which 指代 mills",
+        "translation": "最早的水力磨坊可能是用于磨玉米的垂直轴磨坊，被称为北欧或希腊磨坊，它们似乎出现在公元前1或2世纪的中东，几个世纪后出现在斯堪的纳维亚。",
+        "grammarFocus": "定语从句；过去分词短语作定语；不定式作定语。",
+        "pronounRef": "which 指代 Norse or Greek mills。",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话介绍了最早的水磨坊是什么样以及它们出现在哪里。",
-          "keyHint": "'which' 引导的从句修饰前面的 mills，不要漏掉这个关系词。"
+          "summary": "这句话介绍了最早的水磨，包括它的用途、名称和出现的时间地点。",
+          "keyHint": "注意 'which' 引导的从句是修饰 'mills' 的，描述了这些磨坊的历史轨迹。"
         },
         "teachingFocus": {
-          "mainQuestion": "最早的水磨坊是什么类型的？垂直轴的，用来磨玉米。",
-          "grammarQuestion": "'known as...' 是过去分词短语作后置定语，修饰 mills。",
-          "modifierQuestion": "'which seem to have appeared...' 是非限制性定语从句，补充说明这些磨坊的出现时间和地点。",
-          "relationshipQuestion": "主句介绍磨坊类型，从句介绍历史分布。",
-          "commonMistake": "孩子可能忽略 'which' 指代的是 mills，导致理解偏差。",
+          "mainQuestion": "最早的水磨是垂直轴的，用来磨玉米，叫北欧或希腊磨坊。",
+          "grammarQuestion": "'known as...' 是过去分词短语作后置定语，修饰 mills；'which seem...' 是非限制性定语从句，修饰 mills。",
+          "modifierQuestion": "'for grinding corn' 是不定式短语作定语，修饰 mills。",
+          "relationshipQuestion": "这些磨坊在中东出现较早，在斯堪的纳维亚出现较晚。",
+          "commonMistake": "容易把 'known as...' 当成谓语，其实它是修饰语，真正的谓语是 'were' 和 'seem'。",
           "thinkingPath": [
-            "找到主语 'The earliest waterpower mills'",
-            "找到谓语 'were'",
-            "分析后面的修饰成分"
+            "找到主干：mills were mills",
+            "识别 known as 是修饰语",
+            "分析 which 从句的内容"
           ],
-          "encouragement": "你抓住了句子的核心，非常棒！"
+          "encouragement": "你成功拆解了长长的修饰语，就像给句子做了个清晰的解剖，真棒！"
         },
-        "analysis": "### 【主干结构】\n主语：The earliest waterpower mills\n谓语：were\n表语：probably vertical-axis mills\n\n### 【修饰成分】\n1. 'for grinding corn': 介词短语作后置定语，修饰 mills，说明用途。\n2. 'known as Norse or Greek mills': 过去分词短语作后置定语，修饰 mills，说明名称。\n3. 'which seem to have appeared...': 非限制性定语从句，修饰 mills，补充说明其出现的时间和地点。\n\n### 【从句剖析】\n在定语从句中：\n主语：which (指代 mills)\n谓语：seem to have appeared\n状语：during the first or second century B.C. in the Middle East / and a few centuries later in Scandinavia",
+        "analysis": "### 【主干结构】\n主语 'The earliest waterpower mills'，谓语 'were'，表语 'vertical-axis mills'。\n\n### 【主谓一致】\n'mills' 复数，'were' 复数；'which' 指代 mills 复数，'seem' 复数，一致。\n\n### 【动词时态与原形】\n'were' 一般过去时；'seem to have appeared' 一般现在时+不定式完成式，表示对过去的推测。\n\n### 【从句剖析】\n'which seem to have appeared...': 非限制性定语从句，修饰先行词 'Norse or Greek mills'。\n\n### 【修饰语】\n'for grinding corn': 不定式短语作后置定语，修饰 mills。\n'known as Norse or Greek mills': 过去分词短语作后置定语，修饰 mills。\n'in the Middle East...': 地点状语，修饰 appeared。",
         "segments": [
           {
             "text": "The earliest waterpower mills",
@@ -357,12 +583,17 @@
             "label": "主语"
           },
           {
-            "text": " were ",
+            "text": " were",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "probably vertical-axis mills",
+            "text": " probably",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " vertical-axis mills",
             "type": "predicative",
             "label": "表语"
           },
@@ -379,7 +610,7 @@
           {
             "text": ", which seem to have appeared during the first or second century B.C. in the Middle East and a few centuries later in Scandinavia.",
             "type": "modifier",
-            "label": "定语从句"
+            "label": "定语"
           }
         ]
       },
@@ -387,33 +618,53 @@
         "id": "s5",
         "para": 2,
         "text": "In the following centuries, increasingly sophisticated waterpower mills were built throughout the Roman Empire and beyond its boundaries in the Middle East and northern Europe.",
-        "translation": "在接下来的几个世纪里，越来越复杂的水力磨坊在罗马帝国境内以及中东和北欧的边界之外被建造起来。",
-        "grammarFocus": "被动语态；介词短语作状语",
-        "pronounRef": "its 指代 Roman Empire",
+        "translation": "在接下来的几个世纪里，日益精密的水力磨坊在罗马帝国境内以及中东和北欧的边界之外都被建造起来。",
+        "grammarFocus": "被动语态；介词短语作状语。",
+        "pronounRef": "its 指代 Roman Empire。",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话描述了水磨坊在罗马帝国时期的广泛传播。",
-          "keyHint": "'increasingly sophisticated' 是形容词短语，修饰 mills，表示‘越来越精密的’。"
+          "summary": "这句话描述了水磨在罗马帝国及其周边地区的广泛传播。",
+          "keyHint": "注意 'were built' 是被动语态，主语是 mills。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁建造了水磨坊？（被动语态，没说是谁）",
-          "grammarQuestion": "'were built' 是被动语态，表示磨坊被建造。",
-          "modifierQuestion": "'In the following centuries' 是时间状语；'throughout...' 是地点状语。",
-          "relationshipQuestion": "时间状语 + 主语 + 被动谓语 + 地点状语。",
-          "commonMistake": "孩子可能找不到动作的执行者，因为这是被动句。",
+          "mainQuestion": "日益精密的水磨在罗马帝国及更远的地方被建造。",
+          "grammarQuestion": "'were built' 是被动语态，表示磨坊被建造；'increasingly sophisticated' 是形容词短语作前置定语。",
+          "modifierQuestion": "'In the following centuries' 是时间状语；'throughout... and beyond...' 是地点状语。",
+          "relationshipQuestion": "时间上是在接下来的世纪，地点上是从帝国境内扩展到境外。",
+          "commonMistake": "容易忽略 'increasingly sophisticated' 是修饰 mills 的，误以为是修饰 built。",
           "thinkingPath": [
-            "找到时间状语 'In the following centuries'",
-            "找到主语 'increasingly sophisticated waterpower mills'",
-            "找到谓语 'were built'"
+            "找到被动谓语 were built",
+            "找到主语 waterpower mills",
+            "识别前面的时间状语和后面的地点状语"
           ],
-          "encouragement": "你识别出了被动语态，真厉害！"
+          "encouragement": "你抓住了被动语态的核心，就像看到了动作的承受者，真聪明！"
         },
-        "analysis": "### 【主干结构】\n状语：In the following centuries\n主语：increasingly sophisticated waterpower mills\n谓语：were built\n\n### 【修饰成分】\n1. 'increasingly sophisticated': 形容词短语作前置定语，修饰 mills。\n2. 'throughout the Roman Empire and beyond its boundaries...': 介词短语作地点状语，修饰 built。\n\n### 【词汇解析】\nsophisticated: 复杂的，精密的。\nthroughout: 遍及，贯穿。",
+        "analysis": "### 【主干结构】\n主语 'increasingly sophisticated waterpower mills'，谓语 'were built'。\n\n### 【主谓一致】\n'mills' 复数，'were' 复数，一致。\n\n### 【动词时态与原形】\n'were built' 一般过去时的被动语态。\n\n### 【从句剖析】\n无。\n\n### 【修饰语】\n'In the following centuries': 时间状语。\n'increasingly sophisticated': 前置定语，修饰 mills。\n'throughout the Roman Empire and beyond its boundaries in the Middle East and northern Europe': 地点状语，修饰 built。",
         "segments": [
           {
-            "text": "In the following centuries, increasingly sophisticated waterpower mills were built throughout the Roman Empire and beyond its boundaries in the Middle East and northern Europe.",
-            "type": "other",
-            "label": "完整句"
+            "text": "In the following centuries",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ",",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": " increasingly sophisticated waterpower mills",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " were built",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " throughout the Roman Empire and beyond its boundaries in the Middle East and northern Europe.",
+            "type": "adverbial",
+            "label": "状语"
           }
         ]
       },
@@ -421,33 +672,53 @@
         "id": "s6",
         "para": 2,
         "text": "In England, the Saxons are thought to have used both horizontal0 and vertical-axis wheels.",
-        "translation": "在英格兰，撒克逊人被认为使用了水平轴和垂直轴两种水轮。",
-        "grammarFocus": "被动语态的不定式结构；be thought to do",
+        "translation": "在英格兰，撒克逊人被认为既使用过水平轴轮，也使用过垂直轴轮。",
+        "grammarFocus": "被动语态的不定式结构；be thought to do。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话引用了历史学家的观点，关于撒克逊人使用的水轮类型。",
-          "keyHint": "'are thought to have used' 表示‘被认为曾经使用过’。"
+          "summary": "这句话讲的是撒克逊人使用的水轮类型。",
+          "keyHint": "注意 'are thought to have used'，表示‘被认为曾经使用过’。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁被认为使用了水轮？撒克逊人。",
-          "grammarQuestion": "'be thought to have done' 是‘被认为做过某事’的结构。",
-          "modifierQuestion": "'both horizontal and vertical-axis wheels' 是 used 的宾语。",
-          "relationshipQuestion": "主语是 the Saxons，谓语部分是 are thought to have used。",
-          "commonMistake": "孩子可能混淆 'are thought' 和 'used' 的关系，其实 thought 是主要谓语动词。",
+          "mainQuestion": "撒克逊人被认为使用过两种轮子：水平轴和垂直轴。",
+          "grammarQuestion": "'are thought to have used' 是被动结构，to have used 是完成式不定式，表示过去的动作。",
+          "modifierQuestion": "'In England' 是地点状语；'both... and...' 连接两个并列的宾语。",
+          "relationshipQuestion": "地点在英格兰，人物是撒克逊人，动作是使用两种轮子。",
+          "commonMistake": "容易把 'are thought' 当成主要动作，其实主要动作是 'used'，'are thought' 表示推测。",
           "thinkingPath": [
-            "找到主语 'the Saxons'",
-            "找到谓语结构 'are thought to have used'",
-            "找到宾语 'both... wheels'"
+            "找到主语 the Saxons",
+            "分析 are thought to have used 的结构",
+            "识别 both... and... 连接的宾语"
           ],
-          "encouragement": "你读懂了这种复杂的谓语结构，真棒！"
+          "encouragement": "你读懂了‘被认为做过某事’这种复杂的结构，真是逻辑小达人！"
         },
-        "analysis": "### 【主干结构】\n主语：the Saxons\n谓语：are thought to have used\n宾语：both horizontal and vertical-axis wheels\n\n### 【语法结构】\n'be thought to have done': 被动语态 + 不定式完成式。表示过去发生的动作，且是别人认为的。\n\n### 【词汇解析】\nSaxons: 撒克逊人（盎格鲁-撒克逊人，早期英格兰的居民）。\nhorizontal: 水平的。",
+        "analysis": "### 【主干结构】\n主语 'the Saxons'，谓语部分 'are thought to have used'，宾语 'both horizontal0 and vertical-axis wheels'。\n\n### 【主谓一致】\n'the Saxons' 复数，'are' 复数，一致。\n\n### 【动词时态与原形】\n'are' 一般现在时；'to have used' 不定式完成式，表示在 are thought 之前已经使用过。\n\n### 【从句剖析】\n无。\n\n### 【修饰语】\n'In England': 地点状语。\n'both horizontal0 and vertical-axis': 并列定语，修饰 wheels。",
         "segments": [
           {
-            "text": "In England, the Saxons are thought to have used both horizontal0 and vertical-axis wheels.",
-            "type": "other",
-            "label": "完整句"
+            "text": "In England",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ",",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": " the Saxons",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " are thought to have used",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " both horizontal0 and vertical-axis wheels.",
+            "type": "object",
+            "label": "宾语"
           }
         ]
       },
@@ -456,27 +727,27 @@
         "para": 2,
         "text": "The first documented English mill was in the eighth century, but three centuries later about 5,000 were recorded, suggesting that every settlement of any size had its mill.",
         "translation": "第一座有文献记载的英格兰磨坊出现在第八世纪，但三个世纪后记录了大约5000座，这表明任何规模的定居点都有自己的磨坊。",
-        "grammarFocus": "现在分词作结果状语；宾语从句",
-        "pronounRef": "that 引导从句，suggesting 的逻辑主语是整个前句",
-        "logicConnector": "but (转折)",
+        "grammarFocus": "并列句；现在分词作结果状语；宾语从句。",
+        "pronounRef": "its 指代 every settlement。",
+        "logicConnector": "but（转折）",
         "sentenceCoach": {
-          "summary": "这句话通过数据对比，说明了水磨坊的普及程度。",
-          "keyHint": "'suggesting...' 是现在分词短语，表示前面情况导致的结果或暗示。"
+          "summary": "这句话对比了早期和后来的磨坊数量，说明了普及程度。",
+          "keyHint": "注意 'suggesting...' 是结果状语，解释前面数量多的含义。"
         },
         "teachingFocus": {
-          "mainQuestion": "磨坊普及了吗？是的，每个定居点都有。",
-          "grammarQuestion": "'suggesting that...' 是现在分词作状语，表示结果或推论。",
-          "modifierQuestion": "'that every settlement... had its mill' 是 suggesting 的宾语从句。",
-          "relationshipQuestion": "前半句讲早期，后半句讲后期，suggesting 引出结论。",
-          "commonMistake": "孩子可能不知道 suggesting 修饰什么，其实它修饰整个主句描述的情况。",
+          "mainQuestion": "早期只有一座记录在案的磨坊，后来发展到5000座，说明每个地方都有。",
+          "grammarQuestion": "'suggesting...' 是现在分词短语作结果状语；'that every settlement...' 是 suggesting 的宾语从句。",
+          "modifierQuestion": "'documented English' 修饰 mill；'of any size' 修饰 settlement。",
+          "relationshipQuestion": "时间从第八世纪到三个世纪后，数量从1到5000，结果是普及。",
+          "commonMistake": "容易把 'suggesting' 当成谓语动词，其实它是非谓语动词，作状语。",
           "thinkingPath": [
-            "找到两个分句的主干",
-            "识别 suggesting 的作用",
-            "分析 suggesting 后面的从句"
+            "找到并列连词 but",
+            "拆分前后两个分句",
+            "分析 suggesting 从句的作用"
           ],
-          "encouragement": "你理解了分词作状语的用法，真聪明！"
+          "encouragement": "你理清了因果逻辑，就像侦探发现了线索之间的联系，真棒！"
         },
-        "analysis": "### 【主干结构】\n分句1: The first documented English mill (主) was (谓) in the eighth century (状)。\n分句2: about 5,000 (主) were recorded (谓)。\n\n### 【非谓语动词】\n'suggesting that...': 现在分词短语作结果状语，修饰前面的整个情况，表示‘这表明/暗示’。\n\n### 【从句剖析】\n'that every settlement of any size had its mill': 宾语从句，作 suggesting 的宾语。\n\n### 【词汇解析】\ndocumented: 有文献记载的。\nsettlement: 定居点，村落。",
+        "analysis": "### 【主干结构】\n分句1: The first documented English mill was in the eighth century.\n分句2: about 5,000 were recorded.\n\n### 【主谓一致】\n'mill' 单数，'was' 单数；'5,000' 复数，'were' 复数，一致。\n\n### 【动词时态与原形】\n'was' 和 'were recorded' 都是一般过去时。\n\n### 【从句剖析】\n'that every settlement of any size had its mill': 宾语从句，作 suggesting 的宾语。\n\n### 【修饰语】\n'documented English': 前置定语，修饰 mill。\n'suggesting that...': 现在分词短语作结果状语，修饰整个前句。\n'of any size': 后置定语，修饰 settlement。",
         "segments": [
           {
             "text": "The first documented English mill",
@@ -484,38 +755,38 @@
             "label": "主语"
           },
           {
-            "text": " was ",
+            "text": " was",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "in the eighth century",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " in the eighth century",
+            "type": "predicative",
+            "label": "表语"
           },
           {
-            "text": ", but ",
+            "text": ", but",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "three centuries later ",
+            "text": " three centuries later",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "about 5,000",
+            "text": " about 5,000",
             "type": "coord-subject",
-            "label": "主语"
+            "label": "并列主语"
           },
           {
             "text": " were recorded",
             "type": "coord-verb",
-            "label": "谓语"
+            "label": "并列谓语"
           },
           {
             "text": ", suggesting that every settlement of any size had its mill.",
-            "type": "modifier",
+            "type": "adverbial",
             "label": "状语"
           }
         ]
@@ -524,33 +795,78 @@
         "id": "s8",
         "para": 3,
         "text": "Raising water and grinding corn were by no means the only uses of the waterpower mill, and during the following centuries, the applications of waterpower kept pace with the developing technologies of mining, iron working, paper making, and the wool and cotton industries.",
-        "translation": "提水和磨玉米绝不是水力磨坊的唯一用途，在接下来的几个世纪里，水力的应用与采矿、炼铁、造纸以及羊毛和棉花工业的发展技术同步推进。",
-        "grammarFocus": "动名词作主语；并列句；keep pace with",
+        "translation": "提水和磨玉米绝不是水力磨坊的唯一用途，在接下来的几个世纪里，水力应用与采矿、炼铁、造纸以及羊毛和棉花工业的发展技术同步推进。",
+        "grammarFocus": "动名词作主语；并列句；keep pace with 短语。",
         "pronounRef": "无",
-        "logicConnector": "and (并列)",
+        "logicConnector": "and（并列）",
         "sentenceCoach": {
-          "summary": "这句话告诉我们水力磨坊的用途非常广泛。",
-          "keyHint": "'Raising water and grinding corn' 是动名词短语作主语。"
+          "summary": "这句话讲了水力磨坊用途的扩展，从提水磨粮到工业应用。",
+          "keyHint": "注意 'Raising water and grinding corn' 是动名词短语作主语，谓语用复数 were。"
         },
         "teachingFocus": {
-          "mainQuestion": "水力磨坊只用来提水和磨玉米吗？不是，用途很多。",
-          "grammarQuestion": "'by no means' 是插入语，表示‘绝不’。",
-          "modifierQuestion": "'of the waterpower mill' 修饰 uses。\n'with the developing technologies...' 修饰 pace。",
-          "relationshipQuestion": "两个分句由 and 连接，前句否定唯一性，后句肯定多样性。",
-          "commonMistake": "孩子可能把 'Raising...' 当成动词，其实它是主语。",
+          "mainQuestion": "提水和磨粮不是唯一用途，水力应用后来跟上了其他工业技术的发展。",
+          "grammarQuestion": "'Raising... and grinding...' 是动名词短语作主语；'kept pace with' 是谓语动词短语。",
+          "modifierQuestion": "'by no means' 是插入语，表示‘绝不’；'of the waterpower mill' 修饰 uses。\n'developing technologies of...' 是介词短语修饰 applications 的伴随状态。",
+          "relationshipQuestion": "前半句否定唯一性，后半句肯定扩展性，两者通过 and 连接。",
+          "commonMistake": "容易把 'Raising water and grinding corn' 当成两个句子，其实它们共同构成一个主语。",
           "thinkingPath": [
-            "找到主语 'Raising water and grinding corn'",
-            "找到谓语 'were'",
-            "分析 and 后面的第二个分句"
+            "找到主语 Raising... and grinding...",
+            "确认谓语 were",
+            "分析 and 后面的并列分句"
           ],
-          "encouragement": "你找到了动名词主语，真棒！"
+          "encouragement": "你成功识别了动名词主语，就像找到了句子的引擎，真厉害！"
         },
-        "analysis": "### 【主干结构】\n分句1: Raising water and grinding corn (主) were (谓) by no means the only uses (表) of the waterpower mill (定)。\n分句2: the applications of waterpower (主) kept pace (谓) with the developing technologies... (状)。\n\n### 【语法结构】\n'Raising water and grinding corn': 两个动名词短语并列作主语，谓语动词用复数 were。\n'by no means': 否定副词短语，修饰 the only uses。\n'keep pace with': 固定搭配，表示‘与...同步/并进’。\n\n### 【词汇解析】\nby no means: 绝不，一点也不。\napplications: 应用。\niron working: 炼铁。",
+        "analysis": "### 【主干结构】\n分句1: Raising water and grinding corn were by no means the only uses of the waterpower mill.\n分句2: the applications of waterpower kept pace with the developing technologies...\n\n### 【主谓一致】\n'Raising water and grinding corn' 是并列主语，视为复数，谓语 'were' 复数，一致；'applications' 复数，'kept' 过去式，一致。\n\n### 【动词时态与原形】\n'were' 和 'kept' 都是一般过去时。\n\n### 【从句剖析】\n无。\n\n### 【修饰语】\n'by no means': 状语，修饰 were。\n'of the waterpower mill': 后置定语，修饰 uses。\n'during the following centuries': 时间状语。\n'of mining, iron working...': 后置定语，修饰 technologies。",
         "segments": [
           {
-            "text": "Raising water and grinding corn were by no means the only uses of the waterpower mill, and during the following centuries, the applications of waterpower kept pace with the developing technologies of mining, iron working, paper making, and the wool and cotton industries.",
-            "type": "other",
-            "label": "完整句"
+            "text": "Raising water and grinding corn",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " were",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " by no means",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the only uses of the waterpower mill",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": ", and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " during the following centuries",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ",",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": " the applications of waterpower",
+            "type": "coord-subject",
+            "label": "并列主语"
+          },
+          {
+            "text": " kept pace with",
+            "type": "coord-verb",
+            "label": "并列谓语"
+          },
+          {
+            "text": " the developing technologies of mining, iron working, paper making, and the wool and cotton industries.",
+            "type": "object",
+            "label": "宾语"
           }
         ]
       },
@@ -558,33 +874,73 @@
         "id": "s9",
         "para": 3,
         "text": "Water was the main source of mechanical power, and by the end of the seventeenth century, England alone is thought to have had some 20,000 working mill.",
-        "translation": "水是机械动力的主要来源，到17世纪末，仅英格兰就被认为拥有大约20,000座运转中的磨坊。",
-        "grammarFocus": "被动语态的不定式结构；单复数错误（mill应为mills）",
+        "translation": "水是机械动力的主要来源，据认为，到17世纪末，仅英格兰就有大约20,000座正在运行的磨坊。",
+        "grammarFocus": "并列句结构；被动语态的完成时态；主谓一致。",
         "pronounRef": "无",
-        "logicConnector": "and (并列)",
+        "logicConnector": "and：表示并列关系，连接两个独立的分句，补充说明水力的应用规模。",
         "sentenceCoach": {
-          "summary": "这句话强调了水力的重要性和磨坊的数量。",
-          "keyHint": "'England alone is thought to have had...' 表示‘仅英格兰就被认为拥有...’。"
+          "summary": "这是一个由 and 连接的两个大句子，前半句讲水的作用，后半句讲磨坊的数量。",
+          "keyHint": "注意后半句的时态变化，虽然讲的是过去，但用了 is thought 这种现在时的被动语态来引用观点。"
         },
         "teachingFocus": {
-          "mainQuestion": "水是什么？机械动力的主要来源。",
-          "grammarQuestion": "'is thought to have had' 表示‘被认为曾经拥有’。",
-          "modifierQuestion": "'by the end of the seventeenth century' 是时间状语。\n'alone' 修饰 England。",
-          "relationshipQuestion": "两个分句并列，前句讲地位，后句讲数量。",
-          "commonMistake": "原文 '20,000 working mill' 中 mill 应为 mills，注意复数。",
+          "mainQuestion": "我们要像侦探一样，先找到两个句子的‘骨架’：谁做了什么？",
+          "grammarQuestion": "看这个 and 就像一座桥，把‘水很重要’和‘磨坊很多’这两件事连在了一起。",
+          "modifierQuestion": "注意看 by the end... 和 England alone，它们像小标签一样贴在句子上，告诉我们时间和地点。",
+          "relationshipQuestion": "前半句是背景，后半句是具体的例子，它们一起证明了水力的重要性。",
+          "commonMistake": "很多同学看到 is thought 会困惑，其实它就像‘大家觉得’，后面接的 to have had 才是真正发生在过去的事情哦。",
           "thinkingPath": [
-            "找到主语 'Water'",
-            "找到谓语 'was'",
-            "分析 and 后面的第二个分句"
+            "找到连接词 and，把句子切成两半。",
+            "分别找出每一半的主语和谓语。",
+            "识别出 is thought to have had 是‘被认为拥有’的意思。"
           ],
-          "encouragement": "你注意到了数量的表达，真细心！"
+          "encouragement": "你真棒！能一眼看出这是两个句子拼起来的，太厉害了！"
         },
-        "analysis": "### 【主干结构】\n分句1: Water (主) was (谓) the main source (表) of mechanical power (定)。\n分句2: England alone (主) is thought to have had (谓) some 20,000 working mill (宾)。\n\n### 【语法结构】\n'is thought to have had': 被动语态 + 不定式完成式，表示对过去情况的推测。\n'alone': 副词，修饰 England，强调‘仅’。\n\n### 【词汇解析】\nmechanical power: 机械动力。\nseventeenth century: 17世纪。",
+        "analysis": "### 【主干结构】\n这是一个由并列连词 **and** 连接的并列句，包含两个独立的分句。\n\n**分句 1：**\n- 主语：Water\n- 谓语：was\n- 表语：the main source\n- 定语：of mechanical power（修饰 source）\n\n**分句 2：**\n- 状语：by the end of the seventeenth century（时间状语）\n- 主语：England alone（England 是主语，alone 是后置定语，强调‘仅英格兰’）\n- 谓语：is thought（被动语态，表示‘据认为’）\n- 宾语补足语：to have had some 20,000 working mill（不定式的完成式，表示动作发生在 is thought 之前）\n\n### 【主谓一致】\n- 分句 1 中，Water 是单数，was 是单数形式，一致。\n- 分句 2 中，England 是单数，is 是单数形式，一致。注意 thought 是过去分词，不参与主谓一致变化。\n\n### 【动词时态与原形】\n- was：一般过去时，描述过去的状态。\n- is thought：一般现在时的被动语态，表示现在的普遍看法或研究结论。\n- to have had：不定式的完成式，表示‘拥有’这个动作发生在‘认为’之前，即过去已经拥有。\n\n### 【从句剖析】\n本句没有从句，是典型的并列句结构。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n- to have had：不定式完成式，作主语 England 的补足语（在被动结构 is thought 中，原主动结构为 People think England to have had... 或 It is thought that England had...）。\n\n### 【修饰语】\n- of mechanical power：介词短语作后置定语，修饰 source。\n- by the end of the seventeenth century：介词短语作时间状语。\n- alone：副词作后置定语，修饰 England。\n- working：现在分词作定语，修饰 mill，表示‘正在运行的’。\n\n### 【难点解析】\n'is thought to have had' 是学术英语中常见的结构，相当于 'people think that it had'。使用完成式不定式 to have had 是为了强调‘拥有磨坊’这一动作发生在‘认为’这一动作之前。",
         "segments": [
           {
-            "text": "Water was the main source of mechanical power, and by the end of the seventeenth century, England alone is thought to have had some 20,000 working mill.",
-            "type": "other",
-            "label": "完整句"
+            "text": "Water",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " was",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " the main source",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " of mechanical power",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": ", and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " by the end of the seventeenth century,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " England alone",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " is thought",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " to have had some 20,000 working mill.",
+            "type": "object-complement",
+            "label": "宾语补足语"
           }
         ]
       },
@@ -592,36 +948,41 @@
         "id": "s10",
         "para": 3,
         "text": "There was much debate on the relative efficiencies of different types of waterwheels.",
-        "translation": "关于不同类型水轮的相对效率存在很多争论。",
-        "grammarFocus": "There be 句型；介词短语作后置定语",
+        "translation": "关于不同类型水轮的相对效率，人们进行了大量辩论。",
+        "grammarFocus": "There be 句型；介词短语作后置定语；名词所有格/介词短语修饰。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话简单说明了当时人们对水轮效率的关注。",
-          "keyHint": "'on the relative efficiencies...' 修饰 debate。"
+          "summary": "这是一个简单的 There be 句型，重点在于理解后面那一长串修饰语。",
+          "keyHint": "debate 后面跟着 on...，就像辩论的主题是后面的内容。"
         },
         "teachingFocus": {
-          "mainQuestion": "有什么？关于水轮效率的争论。",
-          "grammarQuestion": "'There was' 是存在句，引出话题。",
-          "modifierQuestion": "'on the relative efficiencies...' 是介词短语作后置定语，修饰 debate。\n'of different types of waterwheels' 修饰 efficiencies。",
-          "relationshipQuestion": "There be + 主语 + 定语。",
-          "commonMistake": "孩子可能不理解 'relative efficiencies' 的意思，即‘相对效率’。",
+          "mainQuestion": "这是一个 There be 句型，我们要找到‘有什么’。",
+          "grammarQuestion": "看 on 这个介词，它像一根绳子，把 debate 和它讨论的内容连在一起。",
+          "modifierQuestion": "of different types... 像俄罗斯套娃一样，一层层修饰前面的词。",
+          "relationshipQuestion": "debate 是核心，on... 是它的内容，of... 是 efficiencies 的属性。",
+          "commonMistake": "很多同学分不清 efficiencies 到底修饰谁，其实它是 of different types 的中心词，而 different types 又是修饰 waterwheels 的。",
           "thinkingPath": [
-            "找到 'There was'",
-            "找到主语 'much debate'",
-            "分析后面的定语"
+            "识别 There was 句型。",
+            "找到真正的主语 debate。",
+            "顺着 on 和 of 理清修饰关系。"
           ],
-          "encouragement": "你读懂了存在句，真棒！"
+          "encouragement": "你看得很仔细！能分清这么多 of 的关系，真是个小语法专家！"
         },
-        "analysis": "### 【主干结构】\n句型：There be\n主语：much debate\n\n### 【修饰成分】\n'on the relative efficiencies of different types of waterwheels': 介词短语作后置定语，修饰 debate。\n\n### 【词汇解析】\nrelative: 相对的。\nefficiencies: 效率。",
+        "analysis": "### 【主干结构】\n这是一个 **There be** 句型。\n- There：引导词\n- was：谓语动词\n- much debate：真正的主语（主语）\n\n### 【主谓一致】\n- 主语 debate 是不可数名词，视为单数，谓语动词用 was，一致。\n\n### 【动词时态与原形】\n- was：一般过去时，描述过去存在的状态或事件。\n\n### 【从句剖析】\n本句没有从句。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\n- on the relative efficiencies of different types of waterwheels：介词短语作后置定语，修饰 debate，说明辩论的主题。\n  - the relative efficiencies：介词 on 的宾语。\n  - of different types of waterwheels：介词短语作后置定语，修饰 efficiencies。\n    - different types：of 的宾语。\n    - of waterwheels：介词短语作后置定语，修饰 types。\n\n### 【难点解析】\n这句话的难点在于多重介词短语的嵌套修饰。理解顺序应该是：\n1. 有辩论 (There was debate)。\n2. 关于什么？关于效率 (on efficiencies)。\n3. 什么样的效率？相对效率 (relative efficiencies)。\n4. 谁的效率？不同类型水轮的 (of different types of waterwheels)。\n\n这种层层递进的修饰结构在学术英语中非常常见，阅读时需要从后往前拆解，或者抓住核心名词 debate，然后看它被什么修饰。",
         "segments": [
           {
-            "text": "There was ",
+            "text": "There",
+            "type": "subject",
+            "label": "引导词"
+          },
+          {
+            "text": " was",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "much debate",
+            "text": " much debate",
             "type": "subject",
             "label": "主语"
           },
@@ -636,51 +997,51 @@
         "id": "s11",
         "para": 3,
         "text": "The period from about 1650 until 1800 saw some excellent scientific and technical investigations of different designs.",
-        "translation": "从大约1650年到1800年这段时间，见证了对不同设计的许多优秀的科学和技术研究。",
-        "grammarFocus": "拟人化用法；see 表示‘见证/经历’",
+        "translation": "从大约1650年到1800年这一时期，见证了针对不同设计的许多优秀的科学和技术研究。",
+        "grammarFocus": "拟人化动词 saw 的用法；时间状语后置修饰 period。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话用拟人手法，说这段时间‘见证’了研究。",
-          "keyHint": "'saw' 在这里不是‘看见’，而是‘经历/见证’。"
+          "summary": "这句话的主干是“时期见证了研究”，时间范围是1650到1800年。",
+          "keyHint": "注意 saw 在这里不是“看见”，而是“见证/经历”的意思。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁见证了研究？这段时间。",
-          "grammarQuestion": "'saw' 是谓语，主语是 'The period...'。",
-          "modifierQuestion": "'from about 1650 until 1800' 修饰 period。\n'of different designs' 修饰 investigations。",
-          "relationshipQuestion": "主语 + 谓语 + 宾语。",
-          "commonMistake": "孩子可能不理解 period 怎么能 see，这是拟人用法。",
+          "mainQuestion": "想象一下，时间是一位摄影师，它拍下了这一时期发生的精彩研究。",
+          "grammarQuestion": "这里的 saw 是谓语动词，主语是 The period，而不是人。",
+          "modifierQuestion": "from about 1650 until 1800 是修饰 period 的定语，告诉我们具体是哪个时期。",
+          "relationshipQuestion": "investigations 是 saw 的宾语，of different designs 是修饰 investigations 的定语。",
+          "commonMistake": "不要把 saw 当成过去式“看见”，要理解成“见证”。",
           "thinkingPath": [
-            "找到主语 'The period'",
-            "找到谓语 'saw'",
-            "找到宾语 'investigations'"
+            "找到主语 The period",
+            "找到谓语 saw",
+            "找到宾语 investigations"
           ],
-          "encouragement": "你理解了拟人用法，真聪明！"
+          "encouragement": "你抓住了句子的骨架，真棒！"
         },
-        "analysis": "### 【主干结构】\n主语：The period\n谓语：saw\n宾语：some excellent scientific and technical investigations\n\n### 【修饰成分】\n'from about 1650 until 1800': 介词短语作后置定语，修饰 period。\n'of different designs': 介词短语作后置定语，修饰 investigations。\n\n### 【词汇解析】\nsaw: see 的过去式，这里意为‘见证’。\ninvestigations: 调查，研究。",
+        "analysis": "### 【主干结构】\n主语：The period\n谓语：saw\n宾语：some excellent scientific and technical investigations\n\n### 【主谓一致】\n主语 The period 是单数，谓语 saw 是过去式，符合单数主语要求。\n\n### 【动词时态与原形】\nsaw 是 see 的过去式，表示过去发生的动作或状态。\n\n### 【修饰语分析】\n1. from about 1650 until 1800：介词短语作后置定语，修饰 The period，限定时间范围。\n2. of different designs：介词短语作后置定语，修饰 investigations，说明研究的对象。\n3. excellent scientific and technical：形容词并列，修饰 investigations，说明研究的性质。",
         "segments": [
           {
-            "text": "The period ",
+            "text": "The period",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "from about 1650 until 1800 ",
+            "text": " from about 1650 until 1800",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "saw ",
+            "text": " saw",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "some excellent scientific and technical investigations ",
+            "text": " some excellent scientific and technical investigations",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "of different designs.",
+            "text": " of different designs.",
             "type": "modifier",
             "label": "定语"
           }
@@ -690,67 +1051,107 @@
         "id": "s12",
         "para": 3,
         "text": "They revealed output powers ranging from about 1 horsepower to perhaps 60 for the largest wheels and confirmed that for maximum efficiency, the water should pass across the blades as smoothly as possible and fall away with minimum speed, having given up almost all of its kinetic energy.",
-        "translation": "它们揭示了输出功率范围从大约1马力到最大水轮的60马力，并证实为了达到最大效率，水应尽可能平滑地流过叶片并以最小速度离开，几乎释放了所有的动能。",
-        "grammarFocus": "现在分词作定语；宾语从句；并列谓语",
-        "pronounRef": "They 指代 investigations",
-        "logicConnector": "and (并列)",
+        "translation": "它们揭示了输出功率的范围，从大约1马力到最大水轮的约60马力，并证实为了达到最大效率，水应尽可能平滑地流过叶片，并以最小速度离开，几乎释放了其所有的动能。",
+        "grammarFocus": "并列谓语 revealed 和 confirmed；ranging 作后置定语；that 引导宾语从句；having given up 作状语。",
+        "pronounRef": "They 指代上一句的 investigations（研究结果/数据）。",
+        "logicConnector": "and 连接两个并列的谓语动词 revealed 和 confirmed。",
         "sentenceCoach": {
-          "summary": "这句话总结了研究的结果，包括功率范围和最佳水流方式。",
-          "keyHint": "'ranging from...' 是现在分词短语，修饰 output powers。"
+          "summary": "这句话有两个主要动作：揭示了功率范围，并证实了水流的最佳状态。",
+          "keyHint": "注意 that 后面是一个完整的句子，是 confirmed 的内容。"
         },
         "teachingFocus": {
-          "mainQuestion": "研究揭示了什么？功率范围和最佳水流方式。",
-          "grammarQuestion": "'They revealed... and confirmed...' 是并列谓语。",
-          "modifierQuestion": "'ranging from...' 修饰 output powers。\n'that for maximum efficiency...' 是 confirmed 的宾语从句。\n'having given up...' 是现在分词完成式，作状语。",
-          "relationshipQuestion": "主语 They，两个谓语 revealed 和 confirmed，后面跟着各自的宾语或从句。",
-          "commonMistake": "孩子可能忽略 'having given up' 的逻辑主语是 water。",
+          "mainQuestion": "这句话像是一个双重报告：先报告了功率的大小，再报告了水流的最佳方式。",
+          "grammarQuestion": "revealed 和 confirmed 是并列谓语，共享主语 They。",
+          "modifierQuestion": "ranging... 修饰 output powers；that 从句是 confirmed 的宾语；having given up... 是伴随状语。",
+          "relationshipQuestion": "that 从句内部，water 是主语，pass 和 fall 是并列谓语。",
+          "commonMistake": "容易忽略 having given up 是伴随状语，修饰 water 的动作过程。",
           "thinkingPath": [
-            "找到主语 'They'",
-            "找到谓语 'revealed' 和 'confirmed'",
-            "分析宾语和从句"
+            "找到主语 They",
+            "找到并列谓语 revealed 和 confirmed",
+            "分析 that 从句内部结构"
           ],
-          "encouragement": "你抓住了并列谓语，真棒！"
+          "encouragement": "你成功拆解了长难句，太厉害了！"
         },
-        "analysis": "### 【主干结构】\n主语：They (指代 investigations)\n谓语1：revealed\n宾语1：output powers\n谓语2：confirmed\n宾语2：that... (宾语从句)\n\n### 【修饰成分】\n'ranging from about 1 horsepower to perhaps 60 for the largest wheels': 现在分词短语作后置定语，修饰 output powers。\n'for maximum efficiency': 目的状语，位于宾语从句中。\n'as smoothly as possible': 方式状语，修饰 pass。\n'with minimum speed': 方式状语，修饰 fall away。\n'having given up almost all of its kinetic energy': 现在分词完成式作状语，表示伴随状态或结果，逻辑主语是 water。\n\n### 【从句剖析】\n'that for maximum efficiency, the water should pass... and fall away...': 宾语从句，作 confirmed 的宾语。\n\n### 【词汇解析】\noutput powers: 输出功率。\nblades: 叶片。\nkinetic energy: 动能。",
+        "analysis": "### 【主干结构】\n主语：They\n谓语1：revealed\n宾语1：output powers\n连词：and\n谓语2：confirmed\n宾语2：that 从句\n\n### 【主谓一致】\n主语 They 是复数，谓语 revealed 和 confirmed 均为过去式，符合复数主语要求。\n\n### 【动词时态与原形】\nrevealed/confirmed 为一般过去时；pass/fall 为情态动词 should 后的原形；having given up 为现在分词的完成式。\n\n### 【从句剖析】\n1. ranging from about 1 horsepower to perhaps 60 for the largest wheels：现在分词短语作后置定语，修饰 output powers。\n2. that for maximum efficiency, the water should pass across the blades as smoothly as possible and fall away with minimum speed, having given up almost all of its kinetic energy：宾语从句，作 confirmed 的宾语。\n   - 从句主语：the water\n   - 从句谓语：should pass ... and fall away\n   - 状语：for maximum efficiency（目的状语）；as smoothly as possible（方式状语）；with minimum speed（方式状语）\n   - 伴随状语：having given up almost all of its kinetic energy（现在分词完成式，表示在 pass/fall 之前或同时完成的动作）\n\n### 【非谓语动词】\nranging：现在分词，表主动和进行，修饰 output powers。\nhaving given up：现在分词完成式，作伴随状语，修饰 water 的动作。",
         "segments": [
           {
-            "text": "They ",
+            "text": "They",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "revealed ",
+            "text": " revealed",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "output powers ",
+            "text": " output powers",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "ranging from about 1 horsepower to perhaps 60 for the largest wheels ",
+            "text": " ranging from about 1 horsepower to perhaps 60 for the largest wheels",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "confirmed ",
+            "text": " confirmed",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "that for maximum efficiency, the water should pass across the blades as smoothly as possible and fall away with minimum speed",
-            "type": "clause-object",
-            "label": "宾语从句"
+            "text": " that",
+            "type": "conjunction",
+            "label": "连接词"
           },
           {
-            "text": ", having given up almost all of its kinetic energy.",
-            "type": "modifier",
+            "text": " for maximum efficiency,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the water",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " should pass",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " across the blades",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " as smoothly as possible",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " fall away",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " with minimum speed,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " having given up almost all of its kinetic energy.",
+            "type": "adverbial",
             "label": "状语"
           }
         ]
@@ -759,58 +1160,89 @@
         "id": "s13",
         "para": 3,
         "text": "(They also proved that, in principle, the overshot wheel, a type of wheel in which an overhead stream of water powers the wheel, should win the efficiency competition.)",
-        "translation": "（它们还证明，原则上，顶射式水轮——一种水流从上方流过驱动水轮的水轮类型——应该在效率竞争中获胜。）",
-        "grammarFocus": "宾语从句；同位语；定语从句",
-        "pronounRef": "They 指代 investigations",
-        "logicConnector": "无",
+        "translation": "（他们还证明，原则上，水斗式水轮应在效率竞争中胜出。）",
+        "grammarFocus": "宾语从句嵌套定语从句；同位语解释说明；情态动词 should 表预测或理应如此。",
+        "pronounRef": "They 指代前文提到的研究人员或实验者；which 指代 wheel。",
+        "logicConnector": "that 引导宾语从句；in principle 作为插入语，表示“原则上/大体上”。",
         "sentenceCoach": {
-          "summary": "这句话括号内补充说明了哪种水轮效率最高。",
-          "keyHint": "'a type of wheel...' 是同位语，解释 overshot wheel。"
+          "summary": "这是一个长难句，像俄罗斯套娃，我们要一层层拆开看。",
+          "keyHint": "先找到主句的动词 proved，然后看它证明了什么内容。"
         },
         "teachingFocus": {
-          "mainQuestion": "哪种水轮效率最高？顶射式水轮。",
-          "grammarQuestion": "'proved that...' 是宾语从句。",
-          "modifierQuestion": "'a type of wheel...' 是同位语。\n'in which...' 是定语从句，修饰 wheel。\n'in principle' 是插入语。",
-          "relationshipQuestion": "主语 They，谓语 proved，宾语是 that 从句。",
-          "commonMistake": "孩子可能被同位语和定语从句打断，找不到主句。",
+          "mainQuestion": "谁证明了什么？我们要先找到动作的发出者和动作本身。",
+          "grammarQuestion": "那个长长的 that 后面跟着的内容，就是被证明的具体事实，它是整个句子的核心信息。",
+          "modifierQuestion": "中间那个逗号隔开的部分，是在给‘水斗式水轮’做详细的名片介绍，告诉我们它是怎么工作的。",
+          "relationshipQuestion": "‘原则上’这个词像是一个小括号，提醒我们这是一个理论上的结论，不一定每时每刻都绝对成立。",
+          "commonMistake": "容易把中间介绍水轮工作原理的那一长串当成句子的主干，其实它只是修饰语，删掉后句子依然完整。",
           "thinkingPath": [
-            "找到主语 'They'",
-            "找到谓语 'proved'",
-            "分析 that 从句的主干"
+            "找到主句主语 They 和谓语 proved",
+            "识别 that 引导的宾语从句",
+            "在从句中找到主语 overshot wheel 和谓语 should win",
+            "识别中间插入的同位语和定语从句作为补充信息"
           ],
-          "encouragement": "你理清了复杂的修饰成分，真厉害！"
+          "encouragement": "太棒了！你能抓住主干，剩下的修饰部分就像衣服一样，穿脱自如啦！"
         },
-        "analysis": "### 【主干结构】\n主语：They\n谓语：proved\n宾语：that... (宾语从句)\n\n### 【从句剖析】\n宾语从句主干：the overshot wheel should win the efficiency competition。\n\n### 【修饰成分】\n'in principle': 插入语，表示‘原则上’。\n'a type of wheel in which an overhead stream of water powers the wheel': 同位语，解释 overshot wheel。\n'in which...': 定语从句，修饰 wheel。\n\n### 【词汇解析】\novershot wheel: 顶射式水轮。\nin principle: 原则上。",
+        "analysis": "### 【主干结构】\n主句主语是 They，谓语是 proved，宾语是由 that 引导的整个从句。\n宾语从句的主干是：the overshot wheel should win the efficiency competition.\n\n### 【主谓一致】\n主句主语 They 是复数，谓语 proved 使用过去式。\n宾语从句中，主语 the overshot wheel 是单数，情态动词 should 不变，谓语动词 win 用原形。\n\n### 【动词时态与原形】\nproved 是过去式，表示过去的研究结果。\nshould win 是情态动词+动词原形，表示推测或理应发生的情况。\npowers 是宾语从句中定语从句的谓语，主语 stream 是单数，故用 powers。\n\n### 【从句剖析】\n1. **宾语从句**：that, in principle, the overshot wheel... should win the efficiency competition. 这是 proved 的内容。\n2. **同位语**：a type of wheel... 是对 the overshot wheel 的解释说明。\n3. **定语从句**：in which an overhead stream of water powers the wheel. 修饰 wheel，解释这种轮子的工作原理（水流从上方落下驱动轮子）。\n\n### 【代词指代】\nThey：指代前文的研究者。\nwhich：指代 wheel。\n\n### 【非谓语动词】\n无明显的非谓语动词结构，主要依靠从句和同位语扩展句子。",
         "segments": [
           {
             "text": "(They",
-            "type": "subject",
-            "label": "主语"
+            "type": "subject"
           },
           {
-            "text": " also proved ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " also",
+            "type": "adverbial"
           },
           {
-            "text": "that, in principle, the overshot wheel",
-            "type": "clause-subject",
-            "label": "主语"
+            "text": " proved",
+            "type": "verb"
           },
           {
-            "text": ", a type of wheel",
-            "type": "modifier",
-            "label": "同位语"
+            "text": " that,",
+            "type": "conjunction"
           },
           {
-            "text": " in which an overhead stream of water powers the wheel",
-            "type": "modifier",
-            "label": "定语从句"
+            "text": " in principle,",
+            "type": "adverbial"
           },
           {
-            "text": ", should win the efficiency competition.)",
-            "type": "clause-verb",
-            "label": "谓语"
+            "text": " the overshot wheel,",
+            "type": "clause-subject"
+          },
+          {
+            "text": " a type of wheel",
+            "type": "modifier"
+          },
+          {
+            "text": " in which",
+            "type": "conjunction"
+          },
+          {
+            "text": " an overhead stream of water",
+            "type": "clause-subject"
+          },
+          {
+            "text": " powers",
+            "type": "clause-verb"
+          },
+          {
+            "text": " the wheel,",
+            "type": "clause-object"
+          },
+          {
+            "text": " should",
+            "type": "clause-verb"
+          },
+          {
+            "text": " win",
+            "type": "clause-verb"
+          },
+          {
+            "text": " the efficiency competition.",
+            "type": "clause-object"
+          },
+          {
+            "text": ")",
+            "type": "modifier"
           }
         ]
       },
@@ -819,47 +1251,68 @@
         "para": 4,
         "text": "But then steam power entered the scene, putting the whole future of waterpower in doubt.",
         "translation": "但随后蒸汽动力登场，使水力动力的整个未来变得不确定。",
-        "grammarFocus": "现在分词作结果状语",
-        "pronounRef": "无",
-        "logicConnector": "But (转折)",
+        "grammarFocus": "现在分词短语作结果状语；enter the scene 习语；put... in doubt 习语。",
+        "pronounRef": "无复杂代词指代。",
+        "logicConnector": "But 表示转折；then 表示时间顺序。",
         "sentenceCoach": {
-          "summary": "这句话说明了蒸汽动力对水力动力的冲击。",
-          "keyHint": "'putting...' 是现在分词，表示结果。"
+          "summary": "这句话前半部分是主句，后半部分是用 -ing 形式补充说明带来的后果。",
+          "keyHint": "注意 putting 前面没有连词，它是伴随或结果状语，不是另一个谓语。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁进入了场景？蒸汽动力。",
-          "grammarQuestion": "'putting...' 是现在分词作结果状语，表示进入场景带来的后果。",
-          "modifierQuestion": "'the whole future of waterpower' 是 putting 的宾语。\n'in doubt' 是宾语补足语。",
-          "relationshipQuestion": "主句 + 分词短语。",
-          "commonMistake": "孩子可能不知道 putting 的逻辑主语是 steam power entered the scene 这件事。",
+          "mainQuestion": "谁进入了舞台？是蒸汽动力。",
+          "grammarQuestion": "逗号后面的 putting... 不是新的句子，而是对前面动作结果的描述，就像多米诺骨牌倒下的连锁反应。",
+          "modifierQuestion": "the whole future of waterpower 是 putting 的宾语，in doubt 是宾语补足语，说明未来变得怎么样了。",
+          "relationshipQuestion": "蒸汽动力的出现（因）导致了水力未来不确定（果）。",
+          "commonMistake": "容易误以为 putting 是谓语动词，因为它在逗号后面。其实它是分词，表示伴随状态或结果。",
           "thinkingPath": [
-            "找到主语 'steam power'",
-            "找到谓语 'entered'",
-            "分析 putting 的作用"
+            "识别转折连词 But 和时间副词 then",
+            "找到主句主语 steam power 和谓语 entered",
+            "识别 putting 为现在分词，引导结果状语",
+            "分析 putting 的宾语和补足语结构"
           ],
-          "encouragement": "你理解了分词作状语，真棒！"
+          "encouragement": "你看得很准！分词结构就像影子一样，紧紧跟着主句的动作，帮你补充更多细节。"
         },
-        "analysis": "### 【主干结构】\n主语：steam power\n谓语：entered\n\n### 【非谓语动词】\n'putting the whole future of waterpower in doubt': 现在分词短语作结果状语，表示蒸汽动力进入场景导致的结果。\n\n### 【词汇解析】\nenter the scene: 登场，出现。\nin doubt: 不确定，受怀疑。",
+        "analysis": "### 【主干结构】\n主句主语是 steam power，谓语是 entered，宾语是 the scene。\n\n### 【主谓一致】\n主语 steam power 是单数，谓语 entered 使用过去式。\n\n### 【动词时态与原形】\nentered 是过去式，表示过去发生的动作。\nputting 是现在分词，表示主动和进行/结果。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nputting... 是现在分词短语，作结果状语，说明蒸汽动力登场带来的后果。",
         "segments": [
           {
-            "text": "But then ",
+            "text": "But",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " then",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "steam power",
+            "text": " steam power",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": " entered the scene",
+            "text": " entered",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": ", putting the whole future of waterpower in doubt.",
-            "type": "modifier",
-            "label": "状语"
+            "text": " the scene,",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " putting",
+            "type": "adverbial",
+            "label": "状语（分词）"
+          },
+          {
+            "text": " the whole future of waterpower",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " in doubt.",
+            "type": "object-complement",
+            "label": "宾语补足语"
           }
         ]
       },
@@ -867,51 +1320,52 @@
         "id": "s15",
         "para": 4,
         "text": "An energy analyst writing in the year 1800 would have painted a very pessimistic picture of the future for waterpower.",
-        "translation": "一位在1800年写作的能源分析师会对水力动力的未来描绘出一幅非常悲观的图景。",
-        "grammarFocus": "现在分词作定语；虚拟语气/过去将来完成时",
+        "translation": "一位在1800年撰写报告的能量分析师，会对水力的未来描绘出一幅非常悲观的图景。",
+        "grammarFocus": "虚拟语气（would have done）与现在分词作后置定语",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话想象了1800年分析师的看法。",
-          "keyHint": "'writing in the year 1800' 修饰 analyst。"
+          "summary": "想象一位1800年的分析师，他眼中的水力未来并不美好。",
+          "keyHint": "注意 'would have painted' 表示对过去情况的推测或假设。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁描绘了图景？能源分析师。",
-          "grammarQuestion": "'would have painted' 表示‘本会描绘’或‘可能会描绘’，这里是虚拟语气或过去将来完成时，表示对过去的推测。",
-          "modifierQuestion": "'writing in the year 1800' 是现在分词短语作后置定语，修饰 analyst。\n'of the future for waterpower' 修饰 picture。",
-          "relationshipQuestion": "主语 + 谓语 + 宾语。",
-          "commonMistake": "孩子可能不理解 'would have painted' 的时态含义。",
+          "mainQuestion": "谁在画画？他画了什么？",
+          "grammarQuestion": "为什么用 'would have painted' 而不是 'painted'？",
+          "modifierQuestion": "'writing in the year 1800' 是修饰谁的？",
+          "relationshipQuestion": "分析师和水力未来之间是什么关系？",
+          "commonMistake": "容易把 'writing' 当成谓语动词，其实它是修饰 analyst 的。",
           "thinkingPath": [
-            "找到主语 'An energy analyst'",
-            "找到谓语 'would have painted'",
-            "分析 writing 的作用"
+            "找到动作发出者：energy analyst",
+            "识别修饰成分：writing in the year 1800",
+            "抓住核心谓语：would have painted",
+            "看清宾语内容：a very pessimistic picture"
           ],
-          "encouragement": "你读懂了复杂的时态，真聪明！"
+          "encouragement": "你像个小侦探一样，成功锁定了句子的主角和动作！"
         },
-        "analysis": "### 【主干结构】\n主语：An energy analyst\n谓语：would have painted\n宾语：a very pessimistic picture\n\n### 【修饰成分】\n'writing in the year 1800': 现在分词短语作后置定语，修饰 analyst。\n'of the future for waterpower': 介词短语作后置定语，修饰 picture。\n\n### 【词汇解析】\npessimistic: 悲观的。",
+        "analysis": "### 【主干结构】\n主语是 'An energy analyst'，谓语是 'would have painted'，宾语是 'a very pessimistic picture'。\n\n### 【主谓一致】\n主语是单数 'analyst'，谓语动词使用单数形式。\n\n### 【动词时态与原形】\n'would have painted' 是虚拟语气结构，表示对过去（1800年）情况的假设或推测。如果分析师真的在1800年写文章，他会画出这样的图景。\n\n### 【从句剖析】\n本句没有从句，但包含一个现在分词短语作后置定语。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n'writing in the year 1800' 是现在分词短语，作后置定语修饰 'analyst'，相当于定语从句 'who wrote in the year 1800'。",
         "segments": [
           {
-            "text": "An energy analyst ",
+            "text": "An energy analyst",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "writing in the year 1800 ",
+            "text": " writing in the year 1800",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "would have painted ",
+            "text": " would have painted",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "a very pessimistic picture ",
+            "text": " a very pessimistic picture",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "of the future for waterpower.",
+            "text": " of the future for waterpower.",
             "type": "modifier",
             "label": "定语"
           }
@@ -921,53 +1375,54 @@
         "id": "s16",
         "para": 4,
         "text": "The coal-fired steam engine was taking over, and the waterwheel was fast becoming obsolete.",
-        "translation": "燃煤蒸汽机正在接管，而水轮正迅速变得过时。",
-        "grammarFocus": "进行时态；并列句",
+        "translation": "燃煤蒸汽机正在接管（主导地位），而水轮正迅速变得过时。",
+        "grammarFocus": "并列句结构与进行时态",
         "pronounRef": "无",
-        "logicConnector": "and (并列)",
+        "logicConnector": "and 表示并列/顺承",
         "sentenceCoach": {
-          "summary": "这句话描述了新旧动力的更替。",
-          "keyHint": "'was taking over' 和 'was becoming' 都是进行时，表示正在发生的变化。"
+          "summary": "这是一个并列句，前后两部分描述了两种动力的消长。",
+          "keyHint": "注意 'and' 连接的两个分句，主语分别是蒸汽机和水轮。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁在接管？蒸汽机。",
-          "grammarQuestion": "'was taking over' 和 'was becoming' 都是过去进行时。",
-          "modifierQuestion": "'coal-fired' 修饰 steam engine。\n'fast' 修饰 becoming。",
-          "relationshipQuestion": "两个分句并列，描述同时发生的两个变化。",
-          "commonMistake": "孩子可能忽略 'fast' 是副词，修饰 becoming。",
+          "mainQuestion": "谁在接管？谁在变老？",
+          "grammarQuestion": "'was taking over' 和 'was becoming' 是什么时态？",
+          "modifierQuestion": "'coal-fired' 和 'fast' 分别修饰谁？",
+          "relationshipQuestion": "蒸汽机和水轮之间是什么关系？",
+          "commonMistake": "容易忽略 'and' 前后是两个独立的完整句子。",
           "thinkingPath": [
-            "找到两个分句的主干",
-            "识别进行时态",
-            "分析修饰语"
+            "识别并列连词 'and'",
+            "拆分前半句：主语 steam engine，谓语 was taking over",
+            "拆分后半句：主语 waterwheel，谓语 was becoming",
+            "理解对比关系：新事物取代旧事物"
           ],
-          "encouragement": "你识别出了进行时态，真棒！"
+          "encouragement": "你成功拆解了并列句，像拼图一样把两个画面拼在了一起！"
         },
-        "analysis": "### 【主干结构】\n分句1: The coal-fired steam engine (主) was taking over (谓)。\n分句2: the waterwheel (主) was fast becoming obsolete (谓)。\n\n### 【语法结构】\n'was taking over': 过去进行时，表示正在接管。\n'was becoming obsolete': 过去进行时，表示正在变得过时。\n\n### 【词汇解析】\ncoal-fired: 燃煤的。\nobsolete: 过时的。",
+        "analysis": "### 【主干结构】\n这是一个由 'and' 连接的并列句。\n前半句：主语 'The coal-fired steam engine'，谓语 'was taking over'。\n后半句：主语 'the waterwheel'，谓语 'was fast becoming obsolete'。\n\n### 【主谓一致】\n前半句主语 'engine' 为单数，后半句主语 'waterwheel' 为单数，谓语均使用单数形式。\n\n### 【动词时态与原形】\n两句均使用过去进行时（was/were + doing），表示在1800年那个时间点，动作正在进行中。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n无。",
         "segments": [
           {
             "text": "The coal-fired steam engine",
-            "type": "subject",
-            "label": "主语"
+            "type": "coord-subject",
+            "label": "并列主语"
           },
           {
-            "text": " was taking over",
-            "type": "verb",
-            "label": "谓语"
+            "text": " was taking over,",
+            "type": "coord-verb",
+            "label": "并列谓语"
           },
           {
-            "text": ", and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "the waterwheel",
+            "text": " the waterwheel",
             "type": "coord-subject",
-            "label": "主语"
+            "label": "并列主语"
           },
           {
             "text": " was fast becoming obsolete.",
             "type": "coord-verb",
-            "label": "谓语"
+            "label": "并列谓语"
           }
         ]
       },
@@ -975,53 +1430,59 @@
         "id": "s17",
         "para": 4,
         "text": "However, like many later experts, this one would have suffered from an inability to see into the future.",
-        "translation": "然而，像许多后来的专家一样，这位分析师也会因无法预见未来而受苦。",
-        "grammarFocus": "虚拟语气；介词短语作状语",
-        "pronounRef": "this one 指代 energy analyst",
-        "logicConnector": "However (转折)",
+        "translation": "然而，像许多后来的专家一样，这位专家也会因为无法预见未来而遭受损失（或处于劣势）。",
+        "grammarFocus": "虚拟语气/情态动词完成式 (would have suffered) 表示对过去情况的推测或假设；介词短语作插入语。",
+        "pronounRef": "this one 指代前文提到的某位早期专家或人物。",
+        "logicConnector": "However 表示转折，承接上文。",
         "sentenceCoach": {
-          "summary": "这句话指出分析师的局限性。",
-          "keyHint": "'like many later experts' 是插入语，表示类比。"
+          "summary": "注意 'would have done' 这种表示过去可能性的结构，以及插入语的位置。",
+          "keyHint": "把 'like many later experts' 看作括号里的补充说明，先抓主干 'this one would have suffered'。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁受苦了？这位分析师。",
-          "grammarQuestion": "'would have suffered' 表示‘本会受苦’，虚拟语气。",
-          "modifierQuestion": "'like many later experts' 是介词短语作状语。\n'to see into the future' 是不定式，修饰 inability。",
-          "relationshipQuestion": "主语 this one，谓语 would have suffered，宾语 an inability。",
-          "commonMistake": "孩子可能不理解 'this one' 指代谁。",
+          "mainQuestion": "这句话的主语是谁？他遭遇了什么问题？",
+          "grammarQuestion": "为什么这里要用 'would have suffered' 而不是 'suffered'？",
+          "modifierQuestion": "'like many later experts' 是修饰谁的？它像不像一个夹心饼干里的馅料？",
+          "relationshipQuestion": "这位专家因为什么能力缺失而‘受苦’？",
+          "commonMistake": "容易把 'would have suffered' 当成已经发生的动作，其实它更多表示一种‘本来会……’的推测或虚拟语气。",
           "thinkingPath": [
             "找到主语 'this one'",
-            "找到谓语 'would have suffered'",
-            "分析 like 短语的作用"
+            "识别谓语 'would have suffered'",
+            "理解插入语 'like...' 的作用",
+            "分析原因 'from an inability...'"
           ],
-          "encouragement": "你理解了虚拟语气，真厉害！"
+          "encouragement": "你抓住了主干，真棒！就像侦探一样，你发现了核心线索。"
         },
-        "analysis": "### 【主干结构】\n主语：this one\n谓语：would have suffered\n宾语：an inability\n\n### 【修饰成分】\n'However': 转折副词。\n'like many later experts': 介词短语作状语，表示类比。\n'to see into the future': 不定式作后置定语，修饰 inability。\n\n### 【词汇解析】\ninability: 无能，无法。\nsee into the future: 预见未来。",
+        "analysis": "### 【主干结构】\n主语：this one\n谓语：would have suffered\n状语/原因：from an inability to see into the future\n\n### 【插入语】\n'like many later experts' 是介词短语作插入语，修饰主语 this one，表示类比。\n\n### 【动词时态与原形】\n'would have suffered' 是情态动词 would + have + 过去分词 suffered。这里表示对过去情况的推测，意为‘本来会遭受’或‘可能会遭受’，暗示这是一种假设或普遍规律下的结果。\n\n### 【非谓语动词】\n'to see into the future' 是不定式作后置定语，修饰名词 inability，解释是什么样的‘无能’。\n\n### 【代词指代】\n'this one' 指代前文提到的某位特定专家。",
         "segments": [
           {
-            "text": "However",
+            "text": "However,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": ", like many later experts",
+            "text": " like many later experts,",
             "type": "modifier",
             "label": "状语"
           },
           {
-            "text": ", this one",
+            "text": " this one",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": " would have suffered from ",
+            "text": " would have suffered",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "an inability to see into the future.",
-            "type": "object",
-            "label": "宾语"
+            "text": " from an inability",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " to see into the future.",
+            "type": "modifier",
+            "label": "定语"
           }
         ]
       },
@@ -1029,63 +1490,89 @@
         "id": "s18",
         "para": 4,
         "text": "A century later the picture was completely different: by then, the world had an electric industry, and a quarter of its generating capacity was water powered.",
-        "translation": "一个世纪后，情况完全不同了：到那时，世界已经有了电力工业，其四分之一的发电能力是水力的。",
-        "grammarFocus": "冒号解释说明；并列句",
-        "pronounRef": "its 指代 electric industry 或 world",
-        "logicConnector": "and (并列)",
+        "translation": "一个世纪后，情况截然不同：那时，世界已经拥有电力工业，且其四分之一的发电能力由水力提供。",
+        "grammarFocus": "冒号后的解释说明；并列句结构 (and)；被动语态/系表结构 (was water powered)。",
+        "pronounRef": "its 指代 the electric industry 或 the world 的发电能力，结合语境指世界/电力行业的总发电能力。",
+        "logicConnector": "冒号表示解释；and 表示并列。",
         "sentenceCoach": {
-          "summary": "这句话对比了现在和未来的情况。",
-          "keyHint": "冒号后面的内容解释 'different'。"
+          "summary": "冒号后面是重点，描述了‘不同’的具体表现，注意两个并列的分句。",
+          "keyHint": "拆分冒号后的内容，分别看‘有了电力工业’和‘水力发电占比’。"
         },
         "teachingFocus": {
-          "mainQuestion": "情况有什么不同？有了电力工业。",
-          "grammarQuestion": "冒号用于解释说明。\n'by then' 是时间状语。",
-          "modifierQuestion": "'completely' 修饰 different。\n'water powered' 是表语。",
-          "relationshipQuestion": "主句 + 冒号 + 解释分句。",
-          "commonMistake": "孩子可能不知道冒号的作用。",
+          "mainQuestion": "一个世纪后，情况变得怎么样了？具体有哪些变化？",
+          "grammarQuestion": "冒号在这里起到了什么作用？and 连接的两个部分是什么关系？",
+          "modifierQuestion": "'completely' 修饰谁？'by then' 是什么成分？",
+          "relationshipQuestion": "'water powered' 是怎么构成的？它和前面的 'had an electric industry' 是什么关系？",
+          "commonMistake": "容易忽略 'water powered' 中的连字符，把它当成两个词，其实它是一个复合形容词，作表语。",
           "thinkingPath": [
-            "找到主句 'the picture was different'",
-            "分析冒号后的内容",
-            "找到并列分句"
+            "识别主干 'the picture was different'",
+            "理解冒号的解释功能",
+            "拆分并列句 'the world had...' 和 'a quarter... was...'",
+            "分析 'water powered' 的结构"
           ],
-          "encouragement": "你理解了冒号的用法，真棒！"
+          "encouragement": "你的逻辑很清晰！像拼图一样，你把句子的各个部分都找对了位置。"
         },
-        "analysis": "### 【主干结构】\n主句: the picture was completely different\n解释部分: the world had an electric industry, and a quarter of its generating capacity was water powered.\n\n### 【语法结构】\n冒号: 用于引出解释说明。\n'by then': 时间状语，表示‘到那时’。\n\n### 【词汇解析】\ngenerating capacity: 发电能力。",
+        "analysis": "### 【主干结构】\n主句：the picture was completely different\n解释部分（冒号后）：\n分句1：the world had an electric industry\n分句2：a quarter of its generating capacity was water powered\n\n### 【并列结构】\n'and' 连接两个并列的分句，分别描述电力工业的建立和水力发电的占比。\n\n### 【动词时态与原形】\n'was' 和 'had' 均为一般过去时，描述过去某个时间点（A century later）的状态。\n'was water powered' 中，'water powered' 是复合形容词，作表语，表示‘由水力驱动的’。\n\n### 【修饰语】\n'completely' 修饰形容词 different，表示程度。\n'by then' 是时间状语，指‘到那时为止’。\n\n### 【代词指代】\n'its' 指代 'the world' 或隐含的 'the electric industry's'，结合语境指世界总的发电能力。",
         "segments": [
           {
-            "text": "A century later ",
+            "text": "A century later",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "the picture ",
+            "text": " the picture",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "was completely different",
+            "text": " was",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": ": by then, the world had an electric industry",
+            "text": " completely different:",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " by then,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the world",
             "type": "coord-subject",
             "label": "主语"
           },
           {
-            "text": ", and ",
+            "text": " had",
+            "type": "coord-verb",
+            "label": "谓语"
+          },
+          {
+            "text": " an electric industry,",
+            "type": "coord-object",
+            "label": "宾语"
+          },
+          {
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "a quarter of its generating capacity ",
+            "text": " a quarter of its generating capacity",
             "type": "coord-subject",
             "label": "主语"
           },
           {
-            "text": "was water powered.",
+            "text": " was",
             "type": "coord-verb",
             "label": "系动词"
+          },
+          {
+            "text": " water powered.",
+            "type": "coord-predicative",
+            "label": "表语"
           }
         ]
       },
@@ -1093,28 +1580,29 @@
         "id": "s19",
         "para": 5,
         "text": "The growth of the electric-power industry was the result of a remarkable series of scientific discoveries and development in electrotechnology during the nineteenth century, but significant changes in what we might now call hydro (water) technology also played their part.",
-        "translation": "电力工业的增长是19世纪电气技术的一系列杰出科学发现和发展的结果，但我们现在可能称之为水力（水）技术的显著变化也发挥了作用。",
-        "grammarFocus": "宾语从句；并列句",
-        "pronounRef": "what 引导从句",
-        "logicConnector": "but (转折)",
+        "translation": "电力工业的增长是19世纪电工技术中一系列非凡的科学发现和发展成果的结果，但我们现在可能称之为水力（水）技术的重大变化也发挥了作用。",
+        "grammarFocus": "长主语和长表语；but 连接的并列句；宾语从句 (what we might now call...)。",
+        "pronounRef": "their 指代 significant changes。",
+        "logicConnector": "but 表示转折/并列，对比电力技术和水力技术两者的贡献。",
         "sentenceCoach": {
-          "summary": "这句话解释了电力工业增长的两个原因。",
-          "keyHint": "'what we might now call...' 是宾语从句，作 call 的宾语。"
+          "summary": "这是一个长难句，前半部分讲电力技术，后半部分讲水力技术，用 but 连接。",
+          "keyHint": "先找到 but，把句子切成两半，分别分析主干。"
         },
         "teachingFocus": {
-          "mainQuestion": "电力工业增长的原因是什么？科学发现和水力技术变化。",
-          "grammarQuestion": "'was the result of...' 是主系表结构。\n'but' 连接两个并列分句。",
-          "modifierQuestion": "'in what we might now call hydro (water) technology' 修饰 changes。\n'also played their part' 是第二个分句的谓语。",
-          "relationshipQuestion": "两个分句由 but 连接，前句讲科学发现，后句讲技术变化。",
-          "commonMistake": "孩子可能忽略 'what' 从句的完整性。",
+          "mainQuestion": "电力工业增长的原因有哪些？这两部分原因是什么关系？",
+          "grammarQuestion": "'what we might now call...' 是什么从句？它在句中作什么成分？",
+          "modifierQuestion": "'remarkable series of...' 修饰谁？'during the nineteenth century' 修饰谁？",
+          "relationshipQuestion": "'played their part' 是什么意思？their 指代什么？",
+          "commonMistake": "容易在长主语 'The growth... century' 中迷失，忘记主语核心词是 growth。",
           "thinkingPath": [
-            "找到第一个分句的主干",
-            "找到 but 后的第二个分句",
-            "分析 what 从句"
+            "识别并列连词 but",
+            "分析前半句主干：The growth was the result",
+            "分析后半句主干：changes played their part",
+            "理解宾语从句 what we might now call..."
           ],
-          "encouragement": "你理清了并列句，真棒！"
+          "encouragement": "你成功拆解了长句子，就像解开了一团复杂的毛线球，真厉害！"
         },
-        "analysis": "### 【主干结构】\n分句1: The growth of the electric-power industry (主) was (谓) the result (表) of a remarkable series... (定)。\n分句2: significant changes in what we might now call hydro (water) technology (主) also played (谓) their part (宾)。\n\n### 【从句剖析】\n'what we might now call hydro (water) technology': 宾语从句，作 call 的宾语，同时整个介词短语 'in...' 修饰 changes。\n\n### 【词汇解析】\nremarkable: 杰出的，显著的。\nelectrotechnology: 电气技术。",
+        "analysis": "### 【主干结构】\n并列句，由 but 连接。\n前半句：The growth ... was the result ...\n后半句：significant changes ... also played their part.\n\n### 【从句剖析】\n'what we might now call hydro (water) technology' 是宾语从句，作介词 in 的宾语，即 'changes in [what...]'。\n\n### 【修饰语】\n'of a remarkable series of scientific discoveries and development in electrotechnology during the nineteenth century' 是介词短语作后置定语，修饰 result。\n'during the nineteenth century' 是时间状语，修饰 discoveries and development。\n\n### 【动词时态与原形】\n'was' 和 'played' 均为一般过去时。\n'might call' 是情态动词 might + 动词原形，表示推测或委婉语气。\n\n### 【代词指代】\n'their' 指代 'significant changes'。",
         "segments": [
           {
             "text": "The growth of the electric-power industry",
@@ -1122,29 +1610,49 @@
             "label": "主语"
           },
           {
-            "text": " was ",
+            "text": " was",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "the result of a remarkable series of scientific discoveries and development in electrotechnology during the nineteenth century",
+            "text": " the result",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": ", but ",
+            "text": " of a remarkable series of scientific discoveries and development in electrotechnology during the nineteenth century,",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " but",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "significant changes in what we might now call hydro (water) technology",
+            "text": " significant changes",
             "type": "coord-subject",
             "label": "主语"
           },
           {
-            "text": " also played their part.",
+            "text": " in what we might now call hydro (water) technology",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " also",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " played",
             "type": "coord-verb",
             "label": "谓语"
+          },
+          {
+            "text": " their part.",
+            "type": "coord-object",
+            "label": "宾语"
           }
         ]
       },
@@ -1152,58 +1660,65 @@
         "id": "s20",
         "para": 5,
         "text": "In 1832, the year of Michael Faraday’s discovery that a changing magnetic field produces an electric field, a young French engineer patented a new and more efficient waterwheel.",
-        "translation": "1832年，迈克尔·法拉第发现变化的磁场产生电场的那一年，一位年轻的法国工程师获得了一项新且更高效水轮的专利。",
-        "grammarFocus": "同位语；定语从句",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "translation": "1832年，迈克尔·法拉第发现变化的磁场产生电场的那一年，一位年轻的法国工程师获得了一项新型且更高效水轮的专利。",
+        "grammarFocus": "同位语 (the year of...)；同位语从句 (that a changing...)；时间状语前置。",
+        "pronounRef": "无复杂代词指代。",
+        "logicConnector": "无显著逻辑连词，主要是时间顺序和同位解释。",
         "sentenceCoach": {
-          "summary": "这句话介绍了水轮发明的背景和时间。",
-          "keyHint": "'that a changing magnetic field...' 是同位语从句，解释 discovery。"
+          "summary": "注意中间长长的同位语部分，它解释了1832年发生了什么大事。",
+          "keyHint": "找到 'In 1832' 和 'a young French engineer patented...'，中间的是插入的同位语。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁获得了专利？年轻的法国工程师。",
-          "grammarQuestion": "'the year of...' 是同位语，解释 1832。\n'that...' 是同位语从句，解释 discovery。",
-          "modifierQuestion": "'a new and more efficient waterwheel' 是 patented 的宾语。",
-          "relationshipQuestion": "时间状语 + 主语 + 谓语 + 宾语。",
-          "commonMistake": "孩子可能混淆同位语从句和定语从句。",
+          "mainQuestion": "1832年发生了哪两件重要的事？",
+          "grammarQuestion": "'that a changing magnetic field produces an electric field' 是什么从句？它修饰谁？",
+          "modifierQuestion": "'the year of...' 是什么成分？'new and more efficient' 修饰谁？",
+          "relationshipQuestion": "法拉第的发现和水轮专利之间有什么联系？（通过年份连接）",
+          "commonMistake": "容易把 'that' 引导的从句当成定语从句，其实它是同位语从句，解释 discovery 的具体内容。",
           "thinkingPath": [
-            "找到主语 'a young French engineer'",
-            "找到谓语 'patented'",
-            "分析 that 从句的作用"
+            "识别时间状语 In 1832",
+            "识别同位语 the year of... 及其内部的同位语从句",
+            "找到主句主语 a young French engineer",
+            "找到主句谓语 patented 和宾语 a new... waterwheel"
           ],
-          "encouragement": "你识别了同位语从句，真聪明！"
+          "encouragement": "你像侦探一样，从复杂的信息中找到了核心人物和动作，太棒了！"
         },
-        "analysis": "### 【主干结构】\n状语: In 1832, the year of Michael Faraday’s discovery that a changing magnetic field produces an electric field\n主语: a young French engineer\n谓语: patented\n宾语: a new and more efficient waterwheel\n\n### 【从句剖析】\n'that a changing magnetic field produces an electric field': 同位语从句，解释 discovery 的具体内容。\n\n### 【词汇解析】\npatented: 获得专利。\nmagnetic field: 磁场。",
+        "analysis": "### 【主干结构】\n主语：a young French engineer\n谓语：patented\n宾语：a new and more efficient waterwheel\n\n### 【从句剖析】\n'the year of Michael Faraday’s discovery that a changing magnetic field produces an electric field' 是介词短语作同位语，修饰 In 1832（或隐含的年份概念）。\n其中 'that a changing magnetic field produces an electric field' 是同位语从句，解释 discovery 的内容。\n\n### 【修饰语】\n'new and more efficient' 是并列形容词，修饰 waterwheel。\n\n### 【动词时态与原形】\n'produces' 和 'patented' 均为一般过去时（produces 在从句中表示客观真理或当时发现的事实，通常用一般现在时，但此处描述的是当时的发现内容，也可视为过去时态下的陈述，原文用 produces 强调科学原理的普遍性）。注意：原文是 produces，表示客观事实。",
         "segments": [
           {
-            "text": "In 1832",
-            "type": "adverbial",
-            "label": "状语"
+            "text": "In 1832,",
+            "type": "adverbial"
           },
           {
-            "text": ", the year of Michael Faraday’s discovery ",
-            "type": "modifier",
-            "label": "同位语"
+            "text": " the year of Michael Faraday’s discovery",
+            "type": "modifier"
           },
           {
-            "text": "that a changing magnetic field produces an electric field",
-            "type": "modifier",
-            "label": "同位语从句"
+            "text": " that",
+            "type": "conjunction"
           },
           {
-            "text": ", a young French engineer ",
-            "type": "subject",
-            "label": "主语"
+            "text": " a changing magnetic field",
+            "type": "clause-subject"
           },
           {
-            "text": "patented ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " produces",
+            "type": "clause-verb"
           },
           {
-            "text": "a new and more efficient waterwheel.",
-            "type": "object",
-            "label": "宾语"
+            "text": " an electric field,",
+            "type": "clause-object"
+          },
+          {
+            "text": " a young French engineer",
+            "type": "subject"
+          },
+          {
+            "text": " patented",
+            "type": "verb"
+          },
+          {
+            "text": " a new and more efficient waterwheel.",
+            "type": "object"
           }
         ]
       },
@@ -1211,60 +1726,62 @@
         "id": "s21",
         "para": 5,
         "text": "His name was Nenoit Fourneyron, and his device was the first successful water turbine.",
-        "translation": "他的名字是诺瓦伊·富尔龙，他的设备是第一个成功的水轮机。",
-        "grammarFocus": "并列句",
-        "pronounRef": "His 指代 engineer",
-        "logicConnector": "and (并列)",
+        "translation": "他的名字是诺瓦伊·富尔内龙，他的装置是第一台成功的水轮机。",
+        "grammarFocus": "并列句；系表结构。",
+        "pronounRef": "His 指代上一句中的 young French engineer。",
+        "logicConnector": "and 表示并列。",
         "sentenceCoach": {
-          "summary": "这句话介绍了发明者的名字和成就。",
-          "keyHint": "两个分句并列，介绍名字和设备。"
+          "summary": "简单的并列句，介绍了发明者的名字和他的发明。",
+          "keyHint": "注意两个分句都是主系表结构。"
         },
         "teachingFocus": {
-          "mainQuestion": "他是谁？诺瓦伊·富尔龙。",
-          "grammarQuestion": "两个简单句由 and 连接。",
-          "modifierQuestion": "无复杂修饰。",
-          "relationshipQuestion": "并列关系。",
-          "commonMistake": "无。",
+          "mainQuestion": "这位工程师是谁？他发明了什么？",
+          "grammarQuestion": "两个分句的结构有什么共同点？",
+          "modifierQuestion": "'first successful' 修饰谁？",
+          "relationshipQuestion": "名字和发明之间是什么关系？",
+          "commonMistake": "无特别常见错误，注意专有名词的拼写。",
           "thinkingPath": [
-            "找到第一个分句",
-            "找到第二个分句"
+            "识别并列连词 and",
+            "分析第一个分句：His name was...",
+            "分析第二个分句：his device was...",
+            "理解 'first successful' 的修饰关系"
           ],
-          "encouragement": "你读懂了简单句，真棒！"
+          "encouragement": "你读得很顺畅！像讲故事一样，把人物和事件都串联起来了。"
         },
-        "analysis": "### 【主干结构】\n分句1: His name (主) was (谓) Nenoit Fourneyron (表)。\n分句2: his device (主) was (谓) the first successful water turbine (表)。\n\n### 【词汇解析】\nturbine: 涡轮机。",
+        "analysis": "### 【主干结构】\n并列句，由 and 连接。\n分句1：His name was Nenoit Fourneyron\n分句2：his device was the first successful water turbine\n\n### 【修饰语】\n'first successful' 是形容词短语，修饰 water turbine。\n\n### 【动词时态与原形】\n'was' 均为一般过去时，系动词。\n\n### 【代词指代】\n'His' 指代上一句中的 'a young French engineer'。",
         "segments": [
           {
-            "text": "His name ",
+            "text": "His name",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "was ",
+            "text": " was",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "Nenoit Fourneyron",
+            "text": " Nenoit Fourneyron,",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": ", and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "his device ",
+            "text": " his device",
             "type": "coord-subject",
             "label": "主语"
           },
           {
-            "text": "was ",
+            "text": " was",
             "type": "coord-verb",
             "label": "系动词"
           },
           {
-            "text": "the first successful water turbine.",
+            "text": " the first successful water turbine.",
             "type": "coord-predicative",
             "label": "表语"
           }
@@ -1274,53 +1791,54 @@
         "id": "s22",
         "para": 5,
         "text": "(The word turbine comes form the Latin turbo: something that spins).",
-        "translation": "（单词 turbine 来自拉丁语 turbo：旋转的东西。）",
-        "grammarFocus": "定语从句",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "translation": "（单词 turbine 源自拉丁语 turbo：意为旋转的东西。）",
+        "grammarFocus": "括号内的补充说明；同位语（冒号后）；定语从句（that spins）。",
+        "pronounRef": "无。",
+        "logicConnector": "冒号表示解释说明。",
         "sentenceCoach": {
-          "summary": "这句话解释了 turbine 的词源。",
-          "keyHint": "'that spins' 是定语从句，修饰 something。"
+          "summary": "括号里是词源解释，注意 'form' 可能是 'from' 的拼写错误（原文如此），以及冒号后的同位语。",
+          "keyHint": "关注 'comes from' 和 'that spins' 的结构。"
         },
         "teachingFocus": {
-          "mainQuestion": "turbine 来自哪里？拉丁语 turbo。",
-          "grammarQuestion": "'that spins' 是定语从句。",
-          "modifierQuestion": "无复杂修饰。",
-          "relationshipQuestion": "主句 + 同位语解释。",
-          "commonMistake": "注意原文 'form' 应为 'from'，拼写错误。",
+          "mainQuestion": "turbine 这个词是怎么来的？它的意思是什么？",
+          "grammarQuestion": "'that spins' 是什么从句？它修饰谁？",
+          "modifierQuestion": "冒号后面的内容是什么成分？",
+          "relationshipQuestion": "拉丁语 turbo 和 turbine 有什么关系？",
+          "commonMistake": "注意原文 'form' 应为 'from'，但不影响理解；'that spins' 是定语从句。",
           "thinkingPath": [
-            "找到主语 'The word turbine'",
-            "找到谓语 'comes'",
-            "分析 that 从句"
+            "识别主语 The word turbine",
+            "识别谓语 comes from",
+            "识别宾语 the Latin turbo",
+            "分析冒号后的同位语 something that spins",
+            "分析定语从句 that spins"
           ],
-          "encouragement": "你注意到了词源，真棒！"
+          "encouragement": "你发现了单词的秘密！像语言学家一样，你追溯了词的根源。"
         },
-        "analysis": "### 【主干结构】\n主语: The word turbine\n谓语: comes\n状语: from the Latin turbo\n\n### 【修饰成分】\n'something that spins': 同位语，解释 turbo。\n'that spins': 定语从句，修饰 something。\n\n### 【词汇解析】\nturbo: 旋转（拉丁语）。",
+        "analysis": "### 【主干结构】\n主语：The word turbine\n谓语：comes form (from)\n宾语：the Latin turbo\n\n### 【从句剖析】\n'that spins' 是定语从句，修饰 something。\n\n### 【修饰语】\n冒号后的 'something that spins' 是 turbo 的同位语，解释其含义。\n\n### 【动词时态与原形】\n'comes' 是一般现在时，表示词源事实。\n'spins' 是定语从句中的谓语，一般现在时。\n\n### 【拼写注意】\n原文 'form' 应为 'from'，属拼写错误。",
         "segments": [
           {
             "text": "(The word turbine",
-            "type": "subject",
-            "label": "主语"
+            "type": "subject"
           },
           {
             "text": " comes form",
-            "type": "verb",
-            "label": "谓语"
+            "type": "verb"
           },
           {
-            "text": " the Latin turbo",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " the Latin turbo:",
+            "type": "object"
           },
           {
-            "text": ": something",
-            "type": "modifier",
-            "label": "同位语"
+            "text": " something",
+            "type": "modifier"
           },
           {
-            "text": " that spins).",
-            "type": "modifier",
-            "label": "定语从句"
+            "text": " that",
+            "type": "conjunction"
+          },
+          {
+            "text": " spins).",
+            "type": "clause-verb"
           }
         ]
       },
@@ -1328,41 +1846,42 @@
         "id": "s23",
         "para": 5,
         "text": "The waterwheel, unaltered for nearly 2,000 years, had finally been superseded.",
-        "translation": "水轮在近2000年未变后，最终被取代了。",
-        "grammarFocus": "过去分词短语作插入语；被动语态",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "translation": "水轮机在几乎2000年未改变之后，最终被取代了。",
+        "grammarFocus": "过去完成时被动语态；插入语（过去分词短语）。",
+        "pronounRef": "无。",
+        "logicConnector": "无。",
         "sentenceCoach": {
-          "summary": "这句话总结了水轮的历史命运。",
-          "keyHint": "'unaltered for nearly 2,000 years' 是插入语，修饰 waterwheel。"
+          "summary": "注意插入语 'unaltered...' 和谓语 'had been superseded' 的时态。",
+          "keyHint": "先抓主干 'The waterwheel had been superseded'，再看插入语。"
         },
         "teachingFocus": {
-          "mainQuestion": "水轮怎么了？被取代了。",
-          "grammarQuestion": "'had been superseded' 是过去完成时的被动语态。",
-          "modifierQuestion": "'unaltered for nearly 2,000 years' 是过去分词短语作后置定语或插入语。",
-          "relationshipQuestion": "主语 + 插入语 + 谓语。",
-          "commonMistake": "孩子可能忽略插入语，导致句子理解不完整。",
+          "mainQuestion": "水轮机的命运是什么？它保持了多久没变？",
+          "grammarQuestion": "'had been superseded' 是什么时态和语态？",
+          "modifierQuestion": "'unaltered for nearly 2,000 years' 是什么成分？",
+          "relationshipQuestion": "为什么它最终被取代了？（隐含：因为新技术的出现）",
+          "commonMistake": "容易忽略过去完成时 'had been'，它表示在‘过去某个时间点’之前已经完成的动作。",
           "thinkingPath": [
-            "找到主语 'The waterwheel'",
-            "找到谓语 'had been superseded'",
-            "分析插入语"
+            "识别主语 The waterwheel",
+            "识别插入语 unaltered...",
+            "识别谓语 had been superseded",
+            "理解过去完成时的含义"
           ],
-          "encouragement": "你读懂了插入语，真棒！"
+          "encouragement": "你抓住了时间的线索！过去完成时就像时光机，带你回到了更远的过去。"
         },
-        "analysis": "### 【主干结构】\n主语: The waterwheel\n谓语: had finally been superseded\n\n### 【修饰成分】\n'unaltered for nearly 2,000 years': 过去分词短语作后置定语或插入语，修饰 waterwheel，表示状态。\n\n### 【词汇解析】\nunaltered: 未改变的。\nsuperseded: 取代，替代。",
+        "analysis": "### 【主干结构】\n主语：The waterwheel\n谓语：had been superseded\n\n### 【插入语】\n'unaltered for nearly 2,000 years' 是过去分词短语作插入语，修饰主语 The waterwheel，表示状态。\n\n### 【动词时态与原形】\n'had been superseded' 是过去完成时的被动语态，表示在‘过去’（如1832年或之后）某个时间点之前，水轮机已经被取代。\n\n### 【修饰语】\n'for nearly 2,000 years' 是时间状语，修饰 unaltered。",
         "segments": [
           {
-            "text": "The waterwheel",
+            "text": "The waterwheel,",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": ", unaltered for nearly 2,000 years",
+            "text": " unaltered for nearly 2,000 years,",
             "type": "modifier",
-            "label": "定语"
+            "label": "状语"
           },
           {
-            "text": ", had finally been superseded.",
+            "text": " had finally been superseded.",
             "type": "verb",
             "label": "谓语"
           }
@@ -1372,41 +1891,63 @@
         "id": "s24",
         "para": 6,
         "text": "Half a century of development was needed before Faraday’s discoveries in electricity were translated into full-scale power stations.",
-        "translation": "在法拉第的电力发现转化为大规模发电站之前，需要半个世纪的发展。",
-        "grammarFocus": "before 引导的时间状语从句；被动语态",
-        "pronounRef": "无",
-        "logicConnector": "before (时间)",
+        "translation": "在法拉第的电学发现转化为大型发电站之前，需要半个世纪的发展。",
+        "grammarFocus": "被动语态；before 引导的时间状语从句。",
+        "pronounRef": "无。",
+        "logicConnector": "before 表示时间先后。",
         "sentenceCoach": {
-          "summary": "这句话说明了从发现到应用的时间跨度。",
-          "keyHint": "'before...' 引导时间状语从句。"
+          "summary": "注意主句的被动语态和 before 从句的被动语态。",
+          "keyHint": "先理解主句 'Half a century... was needed'，再看 before 从句。"
         },
         "teachingFocus": {
-          "mainQuestion": "需要多久？半个世纪。",
-          "grammarQuestion": "'was needed' 是被动语态。\n'before...' 是时间状语从句。",
-          "modifierQuestion": "'in electricity' 修饰 discoveries。\n'into full-scale power stations' 修饰 translated。",
-          "relationshipQuestion": "主句 + 时间状语从句。",
-          "commonMistake": "孩子可能不理解 'translated into' 的意思，即‘转化为’。",
+          "mainQuestion": "法拉第的发现变成大型发电站花了多长时间？",
+          "grammarQuestion": "'was needed' 和 'were translated' 都是被动语态，为什么？",
+          "modifierQuestion": "'in electricity' 修饰谁？",
+          "relationshipQuestion": "'before' 引导的从句和主句是什么时间关系？",
+          "commonMistake": "容易混淆 'before' 引导的从句中动作发生的先后顺序，实际上从句动作发生在主句动作之后（或主句动作持续到从句动作发生）。",
           "thinkingPath": [
-            "找到主句 'Half a century... was needed'",
-            "找到 before 从句",
-            "分析被动语态"
+            "识别主句主语 Half a century of development",
+            "识别主句谓语 was needed",
+            "识别连词 before",
+            "分析从句主语 Faraday’s discoveries",
+            "分析从句谓语 were translated"
           ],
-          "encouragement": "你理解了时间状语从句，真棒！"
+          "encouragement": "你理清了时间的顺序！像看地图一样，你找到了起点和终点。"
         },
-        "analysis": "### 【主干结构】\n主语: Half a century of development\n谓语: was needed\n\n### 【从句剖析】\n'before Faraday’s discoveries in electricity were translated into full-scale power stations': 时间状语从句。\n\n### 【词汇解析】\ntranslated into: 转化为。\nfull-scale: 大规模的。",
+        "analysis": "### 【主干结构】\n主句：Half a century of development was needed\n从句：before Faraday’s discoveries in electricity were translated into full-scale power stations\n\n### 【从句剖析】\n'before...' 是时间状语从句。\n\n### 【修饰语】\n'in electricity' 是介词短语作后置定语，修饰 discoveries。\n'into full-scale power stations' 是介词短语作状语，修饰 translated，表示结果。\n\n### 【动词时态与原形】\n'was needed' 和 'were translated' 均为一般过去时的被动语态。\n\n### 【语态】\n主句和从句均使用被动语态，强调‘发展’被需要，‘发现’被转化。",
         "segments": [
           {
-            "text": "Half a century of development ",
+            "text": "Half a century of development",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "was needed ",
+            "text": " was needed",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "before Faraday’s discoveries in electricity were translated into full-scale power stations.",
+            "text": " before",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " Faraday’s discoveries",
+            "type": "clause-subject",
+            "label": "主语"
+          },
+          {
+            "text": " in electricity",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " were translated",
+            "type": "clause-verb",
+            "label": "谓语"
+          },
+          {
+            "text": " into full-scale power stations.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -1416,56 +1957,57 @@
         "id": "s25",
         "para": 6,
         "text": "In 1881 the Godalming power station in Surrey, England, on the banks of the Wey River, created the world’s first public electricity supply.",
-        "translation": "1881年，位于英格兰萨里郡韦河岸边的戈达明发电站创造了世界上第一个公共电力供应。",
-        "grammarFocus": "多个介词短语作后置定语",
+        "translation": "1881年，位于英格兰萨里郡韦河岸边的戈达明发电站，建立了世界上第一个公共供电系统。",
+        "grammarFocus": "长主语中的多重介词短语作后置定语；一般过去时。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话介绍了世界上第一个公共供电系统。",
-          "keyHint": "多个介词短语修饰 power station。"
+          "summary": "这句话像一张名片，介绍了世界上第一个公共供电系统的诞生时间和地点。",
+          "keyHint": "注意主语很长，中间插入了很多地点信息，找到动词 created 就能抓住主干。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁创造了供电系统？戈达明发电站。",
-          "grammarQuestion": "多个介词短语作后置定语，修饰 power station。",
-          "modifierQuestion": "'in Surrey, England' 和 'on the banks of the Wey River' 都修饰 power station。",
-          "relationshipQuestion": "主语 + 谓语 + 宾语。",
-          "commonMistake": "孩子可能被多个介词短语打断，找不到主干。",
+          "mainQuestion": "谁做了什么？是戈达明发电站建立了第一个公共供电系统。",
+          "grammarQuestion": "主语后面跟了一大串地点描述，它们都是用来修饰发电站的，就像给发电站贴上的地址标签。",
+          "modifierQuestion": "这些地点信息层层嵌套，先说在萨里郡，再说在韦河边，最后说在岸上，像俄罗斯套娃一样。",
+          "relationshipQuestion": "时间状语 In 1881 放在句首，强调了这一历史时刻的重要性。",
+          "commonMistake": "容易把 in Surrey, England, on the banks of the Wey River 当成谓语，其实它们只是修饰语，真正的动作是 created。",
           "thinkingPath": [
-            "找到主语 'the Godalming power station'",
-            "找到谓语 'created'",
-            "找到宾语 'supply'"
+            "找到时间 In 1881",
+            "找到主语 the Godalming power station",
+            "找到谓语 created",
+            "找到宾语 the world’s first public electricity supply"
           ],
-          "encouragement": "你理清了多个修饰语，真棒！"
+          "encouragement": "你成功拆解了这么长的句子，真棒！就像剥洋葱一样，一层层找到了核心。"
         },
-        "analysis": "### 【主干结构】\n主语: the Godalming power station\n谓语: created\n宾语: the world’s first public electricity supply\n\n### 【修饰成分】\n'in 1881': 时间状语。\n'in Surrey, England': 介词短语作后置定语，修饰 power station。\n'on the banks of the Wey River': 介词短语作后置定语，修饰 power station。\n\n### 【词汇解析】\nSurrey: 萨里郡（英格兰）。",
+        "analysis": "### 【主干结构】\n主语：the Godalming power station\n谓语：created\n宾语：the world’s first public electricity supply\n\n### 【主谓一致】\n主语是单数 power station，谓语动词 created 使用过去式，符合单数主语和过去时间的语境。\n\n### 【动词时态与原形】\ncreated 是 create 的过去式，表示动作发生在 1881 年，已完成的过去动作。\n\n### 【从句剖析】\n本句无从句。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n1. In 1881：时间状语，置于句首强调时间。\n2. in Surrey, England：介词短语作后置定语，修饰 power station，说明其所在郡和国家。\n3. on the banks of the Wey River：介词短语作后置定语，进一步修饰 power station，说明其具体位置在河边。",
         "segments": [
           {
-            "text": "In 1881 ",
+            "text": "In 1881",
             "type": "adverbial",
-            "label": "状语"
+            "label": "时间状语"
           },
           {
-            "text": "the Godalming power station ",
+            "text": " the Godalming power station",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "in Surrey, England",
+            "text": " in Surrey, England,",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": ", on the banks of the Wey River",
+            "text": " on the banks of the Wey River,",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": ", created ",
+            "text": " created",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "the world’s first public electricity supply.",
+            "text": " the world’s first public electricity supply.",
             "type": "object",
             "label": "宾语"
           }
@@ -1476,45 +2018,46 @@
         "para": 6,
         "text": "The power source of this most modern technology was a traditional waterwheel.",
         "translation": "这项最现代技术的动力来源是一个传统的水轮。",
-        "grammarFocus": "主系表结构",
-        "pronounRef": "无",
+        "grammarFocus": "主系表结构；介词短语作定语。",
+        "pronounRef": "this 指代上一句提到的 public electricity supply 技术。",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话揭示了现代技术背后的传统动力。",
-          "keyHint": "简单的主系表结构。"
+          "summary": "这句话揭示了看似高科技的电力背后，其实依靠的是古老的水轮。",
+          "keyHint": "注意 was 是系动词，后面跟着的是表语，说明主语是什么。"
         },
         "teachingFocus": {
-          "mainQuestion": "动力来源是什么？传统水轮。",
-          "grammarQuestion": "主系表结构。",
-          "modifierQuestion": "'of this most modern technology' 修饰 power source。\n'traditional' 修饰 waterwheel。",
-          "relationshipQuestion": "主语 + 系动词 + 表语。",
-          "commonMistake": "无。",
+          "mainQuestion": "动力来源是什么？是传统的水轮。",
+          "grammarQuestion": "这是一个典型的主系表结构，was 连接了主语和表语。",
+          "modifierQuestion": "of this most modern technology 修饰 power source，说明是哪个技术的动力源。",
+          "relationshipQuestion": "this 指代前文提到的电力供应技术，体现了上下文的衔接。",
+          "commonMistake": "容易忽略 of 短语的修饰作用，直接看主语 power source，导致理解偏差。",
           "thinkingPath": [
-            "找到主语 'The power source'",
-            "找到系动词 'was'",
-            "找到表语 'waterwheel'"
+            "找到主语 The power source",
+            "找到系动词 was",
+            "找到表语 a traditional waterwheel",
+            "理解 of 短语修饰 power source"
           ],
-          "encouragement": "你读懂了简单句，真棒！"
+          "encouragement": "你抓住了句子的骨架，主系表结构是最基础的句型，你掌握得很好！"
         },
-        "analysis": "### 【主干结构】\n主语: The power source\n系动词: was\n表语: a traditional waterwheel\n\n### 【修饰成分】\n'of this most modern technology': 介词短语作后置定语，修饰 power source。\n\n### 【词汇解析】\nmodern: 现代的。",
+        "analysis": "### 【主干结构】\n主语：The power source\n系动词：was\n表语：a traditional waterwheel\n\n### 【主谓一致】\n主语 source 是单数，系动词 was 是单数过去式，一致。\n\n### 【动词时态与原形】\nwas 是 be 动词的过去式，表示过去的状态。\n\n### 【从句剖析】\n本句无从句。\n\n### 【代词指代】\nthis 指代上一句中的 electricity supply 技术。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\nof this most modern technology：介词短语作后置定语，修饰 power source，限定动力的来源对象。",
         "segments": [
           {
-            "text": "The power source ",
+            "text": "The power source",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "of this most modern technology ",
+            "text": " of this most modern technology",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "was ",
+            "text": " was",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "a traditional waterwheel.",
+            "text": " a traditional waterwheel.",
             "type": "predicative",
             "label": "表语"
           }
@@ -1524,73 +2067,105 @@
         "id": "s27",
         "para": 6,
         "text": "Unfortunately this early plant experienced the problem common to many forms of renewable energy: the flow in the Wey River was unreliable, and the waterwheel was soon replaced by a steam engine.",
-        "translation": "不幸的是，这个早期工厂经历了可再生能源常见的一个问题：韦河的水流不稳定，水轮很快被蒸汽机取代。",
-        "grammarFocus": "形容词短语作后置定语；冒号解释说明；并列句",
+        "translation": "不幸的是，这座早期工厂遇到了许多可再生能源形式共有的问题：韦河的水流不稳定，水轮很快被蒸汽机取代。",
+        "grammarFocus": "形容词短语作后置定语；冒号引出解释说明；并列句。",
         "pronounRef": "无",
-        "logicConnector": "and (并列)",
+        "logicConnector": "and 连接两个并列的分句。",
         "sentenceCoach": {
-          "summary": "这句话说明了早期水电站的问题。",
-          "keyHint": "'common to...' 是形容词短语，修饰 problem。"
+          "summary": "这句话先说遇到了问题，然后用冒号详细解释问题是什么，最后说结果。",
+          "keyHint": "冒号后面的内容是解释 problem 的具体内容，要重点看。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么问题？水流不稳定。",
-          "grammarQuestion": "'common to...' 是后置定语。\n冒号后解释 problem。",
-          "modifierQuestion": "'common to many forms of renewable energy' 修饰 problem。\n'by a steam engine' 是状语，修饰 replaced。",
-          "relationshipQuestion": "主句 + 冒号 + 解释分句。",
-          "commonMistake": "孩子可能不知道 'common to' 的意思，即‘对...来说是常见的’。",
+          "mainQuestion": "遇到了什么问题？水流不稳定，导致水轮被蒸汽机取代。",
+          "grammarQuestion": "common to... 是形容词短语作后置定语，修饰 problem。",
+          "modifierQuestion": "冒号后面的整个句子都是对 problem 的同位语解释，说明问题的具体内容。",
+          "relationshipQuestion": "and 连接了两个结果：水流不可靠，以及水轮被取代。",
+          "commonMistake": "容易把 common to many forms of renewable energy 当成谓语，其实它是修饰 problem 的定语。",
           "thinkingPath": [
-            "找到主语 'this early plant'",
-            "找到谓语 'experienced'",
-            "分析冒号后的内容"
+            "找到主句主语 this early plant",
+            "找到谓语 experienced",
+            "找到宾语 the problem",
+            "找到 common to... 修饰 problem",
+            "看冒号后的解释内容"
           ],
-          "encouragement": "你理解了冒号的解释作用，真棒！"
+          "encouragement": "你成功识别了冒号的解释功能，这有助于理解长难句的逻辑，做得很好！"
         },
-        "analysis": "### 【主干结构】\n主句: this early plant experienced the problem\n解释部分: the flow in the Wey River was unreliable, and the waterwheel was soon replaced by a steam engine.\n\n### 【修饰成分】\n'common to many forms of renewable energy': 形容词短语作后置定语，修饰 problem。\n'by a steam engine': 介词短语作状语，修饰 replaced。\n\n### 【词汇解析】\nunreliable: 不稳定的，不可靠的。",
+        "analysis": "### 【主干结构】\n主句主语：this early plant\n主句谓语：experienced\n主句宾语：the problem\n\n### 【主谓一致】\n主句主语 plant 是单数，谓语 experienced 使用过去式，一致。\n\n### 【动词时态与原形】\nexperienced 是 experience 的过去式。\n\n### 【从句剖析】\n无传统从句，但冒号后是一个并列句，作为 problem 的同位语/解释性内容。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n1. Unfortunately：副词作状语，修饰整句，表示不幸。\n2. common to many forms of renewable energy：形容词短语作后置定语，修饰 problem，说明问题的普遍性。\n3. 冒号后部分：the flow in the Wey River was unreliable, and the waterwheel was soon replaced by a steam engine. 这是一个由 and 连接的并列句，具体解释 problem 的内容。\n   - 分句1：主语 the flow，状语 in the Wey River，系动词 was，表语 unreliable。\n   - 分句2：主语 the waterwheel，状语 soon，谓语 was replaced，状语 by a steam engine（被动语态）。",
         "segments": [
           {
-            "text": "Unfortunately ",
+            "text": "Unfortunately",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "this early plant ",
+            "text": " this early plant",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "experienced ",
+            "text": " experienced",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "the problem ",
+            "text": " the problem",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "common to many forms of renewable energy",
+            "text": " common to many forms of renewable energy:",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": ": the flow in the Wey River was unreliable",
-            "type": "coord-subject",
-            "label": "主语"
+            "text": " the flow",
+            "type": "clause-subject",
+            "label": "从句主语"
           },
           {
-            "text": ", and ",
+            "text": " in the Wey River",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " was",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " unreliable,",
+            "type": "clause-predicative",
+            "label": "从句表语"
+          },
+          {
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "the waterwheel ",
+            "text": " the waterwheel",
             "type": "coord-subject",
-            "label": "主语"
+            "label": "并列主语"
           },
           {
-            "text": "was soon replaced by a steam engine.",
+            "text": " was",
             "type": "coord-verb",
-            "label": "谓语"
+            "label": "并列谓语"
+          },
+          {
+            "text": " soon",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " replaced",
+            "type": "coord-verb",
+            "label": "并列谓语"
+          },
+          {
+            "text": " by a steam engine.",
+            "type": "adverbial",
+            "label": "状语"
           }
         ]
       },
@@ -1598,56 +2173,59 @@
         "id": "s28",
         "para": 7,
         "text": "From this primitive start, the electric industry grew during the final 20 years of the nineteenth century at a rate seldom if ever exceeded by any technology.",
-        "translation": "从这个原始的起点开始，电力工业在19世纪最后20年间以几乎任何技术都难以超越的速度增长。",
-        "grammarFocus": "过去分词短语作后置定语；插入语",
+        "translation": "从这个原始的起点开始，电力行业在19世纪最后20年间以任何技术都难以超越（或从未被超越）的速度增长。",
+        "grammarFocus": "过去分词短语作后置定语；插入语 seldom if ever。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话描述了电力工业的快速增长。",
-          "keyHint": "'seldom if ever exceeded...' 是过去分词短语，修饰 rate。"
+          "summary": "这句话描述了电力行业惊人的增长速度，用了非常强烈的修饰语。",
+          "keyHint": "注意 rate 后面的 seldom if ever exceeded by any technology，这是修饰 rate 的，表示速度极快。"
         },
         "teachingFocus": {
-          "mainQuestion": "电力工业增长如何？速度极快。",
-          "grammarQuestion": "'seldom if ever exceeded...' 是后置定语。\n'seldom if ever' 是插入语，表示‘很少甚至从未’。",
-          "modifierQuestion": "'by any technology' 修饰 exceeded。\n'at a rate...' 是状语，修饰 grew。",
-          "relationshipQuestion": "状语 + 主语 + 谓语 + 状语。",
-          "commonMistake": "孩子可能不理解 'seldom if ever' 的含义。",
+          "mainQuestion": "电力行业怎么增长的？以极快的速度增长，这个速度是其他技术很少甚至从未达到的。",
+          "grammarQuestion": "exceeded by any technology 是过去分词短语作后置定语，修饰 rate。",
+          "modifierQuestion": "seldom if ever 是插入语，加强语气，表示“很少甚至从未”。",
+          "relationshipQuestion": "From this primitive start 表示起点，与后面的 grew 形成时间上的对比。",
+          "commonMistake": "容易把 exceeded 当成谓语动词，其实它是分词，修饰 rate，真正的谓语是 grew。",
           "thinkingPath": [
-            "找到主语 'the electric industry'",
-            "找到谓语 'grew'",
-            "分析 rate 的修饰语"
+            "找到状语 From this primitive start",
+            "找到主语 the electric industry",
+            "找到谓语 grew",
+            "找到时间状语 during...",
+            "找到方式状语 at a rate...",
+            "分析 rate 后的修饰语"
           ],
-          "encouragement": "你读懂了复杂的修饰语，真棒！"
+          "encouragement": "你成功拆解了复杂的后置定语，理解了 seldom if ever 的语气，非常细心！"
         },
-        "analysis": "### 【主干结构】\n状语: From this primitive start\n主语: the electric industry\n谓语: grew\n状语: during the final 20 years of the nineteenth century\n状语: at a rate seldom if ever exceeded by any technology\n\n### 【修饰成分】\n'seldom if ever exceeded by any technology': 过去分词短语作后置定语，修饰 rate。\n'seldom if ever': 插入语，表示‘很少甚至从未’。\n\n### 【词汇解析】\nprimitive: 原始的。\nexceeded: 超过。",
+        "analysis": "### 【主干结构】\n主语：the electric industry\n谓语：grew\n\n### 【主谓一致】\n主语 industry 是单数，谓语 grew 使用过去式，一致。\n\n### 【动词时态与原形】\ngrew 是 grow 的过去式，表示过去的增长过程。\n\n### 【从句剖析】\n无传统从句，但有分词短语作定语。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\nexceeded：过去分词，作后置定语，修饰 rate，表示“被...超越”。\n\n### 【修饰语分析】\n1. From this primitive start：介词短语作状语，表示起点。\n2. during the final 20 years of the nineteenth century：介词短语作时间状语。\n3. at a rate seldom if ever exceeded by any technology：介词短语作方式状语，修饰 grew。\n   - rate 是介词宾语。\n   - seldom if ever exceeded by any technology 是过去分词短语作后置定语，修饰 rate。\n   - seldom if ever 是插入语，修饰 exceeded，表示频率极低。",
         "segments": [
           {
-            "text": "From this primitive start",
+            "text": "From this primitive start,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": ", the electric industry ",
+            "text": " the electric industry",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "grew ",
+            "text": " grew",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "during the final 20 years of the nineteenth century ",
+            "text": " during the final 20 years of the nineteenth century",
             "type": "adverbial",
-            "label": "状语"
+            "label": "时间状语"
           },
           {
-            "text": "at a rate ",
+            "text": " at a rate",
             "type": "adverbial",
-            "label": "状语"
+            "label": "方式状语"
           },
           {
-            "text": "seldom if ever exceeded by any technology.",
+            "text": " seldom if ever exceeded by any technology.",
             "type": "modifier",
             "label": "定语"
           }
@@ -1657,58 +2235,65 @@
         "id": "s29",
         "para": 7,
         "text": "The capacity of individual power stations, many of them hydro plants, rose from a few kilowatts to over a megawatt in less than a decade.",
-        "translation": "单个发电站的能力，其中许多是水力发电厂，在不到十年的时间里从几千瓦上升到超过一兆瓦。",
-        "grammarFocus": "同位语；介词短语作状语",
-        "pronounRef": "them 指代 power stations",
+        "translation": "单个发电站的能力，其中许多是水电站，在不到十年的时间里从几千瓦增长到超过一兆瓦。",
+        "grammarFocus": "同位语/插入语；介词短语作定语和状语。",
+        "pronounRef": "them 指代 individual power stations。",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话说明了发电站能力的提升。",
-          "keyHint": "'many of them hydro plants' 是同位语，修饰 power stations。"
+          "summary": "这句话展示了发电站能力的巨大飞跃，中间插入了对发电站类型的说明。",
+          "keyHint": "注意 many of them hydro plants 是插入语，补充说明 power stations 的类型。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么上升了？发电站的能力。",
-          "grammarQuestion": "'many of them hydro plants' 是同位语。\n'from... to...' 是状语，表示范围。",
-          "modifierQuestion": "'of individual power stations' 修饰 capacity。\n'in less than a decade' 是时间状语。",
-          "relationshipQuestion": "主语 + 谓语 + 状语。",
-          "commonMistake": "孩子可能忽略同位语，导致主语理解不完整。",
+          "mainQuestion": "能力怎么变化的？从几千瓦增长到超过一兆瓦。",
+          "grammarQuestion": "many of them hydro plants 是独立主格结构或同位语性质的插入语，修饰 power stations。",
+          "modifierQuestion": "of individual power stations 修饰 capacity；from...to... 表示变化的范围。",
+          "relationshipQuestion": "them 指代前面的 power stations，体现了指代关系。",
+          "commonMistake": "容易把 many of them hydro plants 当成谓语，其实它是插入语，真正的谓语是 rose。",
           "thinkingPath": [
-            "找到主语 'The capacity'",
-            "找到谓语 'rose'",
-            "分析同位语"
+            "找到主语 The capacity",
+            "找到 of 短语修饰 capacity",
+            "找到插入语 many of them hydro plants",
+            "找到谓语 rose",
+            "找到 from...to... 表示变化范围"
           ],
-          "encouragement": "你识别了同位语，真棒！"
+          "encouragement": "你成功识别了插入语，理解了 them 的指代，对句子结构的把握越来越精准了！"
         },
-        "analysis": "### 【主干结构】\n主语: The capacity\n谓语: rose\n\n### 【修饰成分】\n'of individual power stations': 介词短语作后置定语，修饰 capacity。\n'many of them hydro plants': 同位语，修饰 power stations。\n'from a few kilowatts to over a megawatt': 介词短语作状语，表示范围。\n'in less than a decade': 时间状语。\n\n### 【词汇解析】\ncapacity: 能力，容量。\nhydro plants: 水力发电厂。",
+        "analysis": "### 【主干结构】\n主语：The capacity\n谓语：rose\n\n### 【主谓一致】\n主语 capacity 是单数，谓语 rose 使用过去式，一致。\n\n### 【动词时态与原形】\nrose 是 rise 的过去式，表示增长。\n\n### 【从句剖析】\n无传统从句。\n\n### 【代词指代】\nthem 指代 individual power stations。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\n1. of individual power stations：介词短语作后置定语，修饰 capacity，说明是谁的能力。\n2. many of them hydro plants：名词短语作同位语/插入语，补充说明 individual power stations 的构成，其中 many of them 是主语，hydro plants 是表语（省略了 is/are）。\n3. from a few kilowatts to over a megawatt：介词短语作状语，表示变化的起点和终点。\n4. in less than a decade：介词短语作时间状语，表示变化的时间跨度。",
         "segments": [
           {
-            "text": "The capacity ",
+            "text": "The capacity",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "of individual power stations",
+            "text": " of individual power stations,",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": ", many of them hydro plants",
+            "text": " many of them hydro plants,",
             "type": "modifier",
             "label": "同位语"
           },
           {
-            "text": ", rose ",
+            "text": " rose",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "from a few kilowatts to over a megawatt ",
+            "text": " from a few kilowatts",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "in less than a decade.",
+            "text": " to over a megawatt",
             "type": "adverbial",
             "label": "状语"
+          },
+          {
+            "text": " in less than a decade.",
+            "type": "adverbial",
+            "label": "时间状语"
           }
         ]
       }

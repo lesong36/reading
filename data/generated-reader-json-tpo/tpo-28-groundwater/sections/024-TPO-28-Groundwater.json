@@ -1,95 +1,277 @@
 {
   "sourceFile": "tpo-28-groundwater.md",
   "sectionTitle": "TPO-28 / Groundwater",
-  "generatedAt": "2026-08-05T13:41:34.450Z",
+  "generatedAt": "2026-08-12T08:47:00.794Z",
   "warnings": [],
   "article": {
     "id": "tpo-28-groundwater-24-TPO-28-Groundwater",
     "title": "TPO-28 / Groundwater",
-    "timestamp": 1785937294473,
+    "timestamp": 1786524420817,
     "glossary": [
       {
-        "term": "sediment sorting",
+        "term": "metamorphic rocks",
+        "translation": "变质岩",
+        "kind": "proper_noun",
+        "note": "由原有岩石在高温高压下变质形成的岩石。",
+        "aliases": []
+      },
+      {
+        "term": "Sedimentary rocks",
+        "translation": "沉积岩",
+        "kind": "proper_noun",
+        "note": "三大岩石类型之一，由沉积物固结而成。",
+        "aliases": []
+      },
+      {
+        "term": "Sediment sorting",
         "translation": "沉积物分选",
         "kind": "term",
-        "note": "沉积颗粒大小均匀程度的指标，影响孔隙和渗透性。",
+        "note": "地质学概念，指沉积颗粒大小均匀程度的过程。",
+        "aliases": []
+      },
+      {
+        "term": "topographic lows",
+        "translation": "地形低洼处",
+        "kind": "term",
+        "note": "指地势较低的区域，水往低处流，最终汇聚于此。",
+        "aliases": []
+      },
+      {
+        "term": "sediment grains",
+        "translation": "沉积颗粒",
+        "kind": "term",
+        "note": "指构成沉积岩的最小固体单元，如沙粒、泥粒等。",
+        "aliases": []
+      },
+      {
+        "term": "interconnected",
+        "translation": "相互连通的",
+        "kind": "term",
+        "note": "形容词，强调孔隙之间是连在一起的，水流才能通过。",
+        "aliases": []
+      },
+      {
+        "term": "overlying rock",
+        "translation": "上覆岩石",
+        "kind": "term",
+        "note": "位于目标层位上方的岩石层，其重量产生压力。",
+        "aliases": []
+      },
+      {
+        "term": "intergranular",
+        "translation": "颗粒间的",
+        "kind": "term",
+        "note": "复合形容词，inter-（之间）+ granular（颗粒的），指颗粒之间的空间。",
         "aliases": []
       },
       {
         "term": "potable water",
         "translation": "饮用水",
         "kind": "term",
-        "note": "指适合人类饮用的水，文中解释为 freshwater suitable for drinking。",
+        "note": "指适合人类饮用的水，区别于咸水或受污染的水。",
         "aliases": []
       },
       {
-        "term": "permeability",
-        "translation": "渗透性",
+        "term": "arid regions",
+        "translation": "干旱地区",
         "kind": "term",
-        "note": "流体通过岩石连通孔隙的能力。",
+        "note": "指降水量很少、气候干燥的区域。",
         "aliases": []
       },
       {
-        "term": "account for",
-        "translation": "占据（比例）；构成",
-        "kind": "context_phrase",
-        "note": "被动语态 is accounted for by 表示“由……构成/占据”，此处指地下水构成了大部分饮用水。",
+        "term": "Permeability",
+        "translation": "渗透率",
+        "kind": "term",
+        "note": "岩石允许流体通过的能力，决定取水难易。",
+        "aliases": []
+      },
+      {
+        "term": "crystalline",
+        "translation": "结晶的",
+        "kind": "term",
+        "note": "指矿物原子排列成规则结构的状态。",
+        "aliases": []
+      },
+      {
+        "term": "glacial ice",
+        "translation": "冰川冰",
+        "kind": "term",
+        "note": "指冰川中的冰，具有搬运和沉积沉积物的能力。",
+        "aliases": []
+      },
+      {
+        "term": "groundwater",
+        "translation": "地下水",
+        "kind": "term",
+        "note": "存在于地表以下岩石孔隙和裂缝中的水。",
         "aliases": []
       },
       {
         "term": "vadose zone",
         "translation": "包气带",
         "kind": "term",
-        "note": "地下水位以上的区域，土壤孔隙中既有空气也有水。",
+        "note": "指地下水位以上的区域，土壤孔隙中同时含有空气和水。",
+        "aliases": []
+      },
+      {
+        "term": "water table",
+        "translation": "地下水位",
+        "kind": "term",
+        "note": "指地下饱和带（所有空隙充满水）与不饱和带之间的分界面。",
+        "aliases": []
+      },
+      {
+        "term": "aquicludes",
+        "translation": "隔水层",
+        "kind": "term",
+        "note": "几乎不透水的岩层，如泥岩。",
         "aliases": []
       },
       {
         "term": "compaction",
         "translation": "压实作用",
         "kind": "term",
-        "note": "沉积物在压力下体积减小的过程，通常降低孔隙度。",
+        "note": "地质学概念，指沉积物在压力下体积减小的过程。",
+        "aliases": []
+      },
+      {
+        "term": "resistance",
+        "translation": "阻力",
+        "kind": "term",
+        "note": "名词，指流体流动时受到的阻碍作用。",
         "aliases": []
       },
       {
         "term": "topography",
         "translation": "地形",
         "kind": "term",
-        "note": "地球表面的形状特征，如山脉和山谷。",
+        "note": "指地表的高低起伏形态。",
         "aliases": []
       },
       {
-        "term": "aquiclude",
-        "translation": "隔水层",
+        "term": "fractures",
+        "translation": "裂缝",
         "kind": "term",
-        "note": "不透水的岩石层，水难以通过。",
+        "note": "岩石中的断裂或裂隙，也是地下水储存和流动的空间。",
         "aliases": []
       },
       {
         "term": "intersect",
-        "translation": "相交；穿过",
+        "translation": "相交，穿过",
         "kind": "term",
-        "note": "此处指地下水位上升到与地表相交。",
+        "note": "在此语境下指地下水位上升到与地表接触。",
+        "aliases": []
+      },
+      {
+        "term": "mudstones",
+        "translation": "泥岩",
+        "kind": "proper_noun",
+        "note": "一种细粒沉积岩，通常不透水。",
         "aliases": []
       },
       {
         "term": "percolate",
-        "translation": "渗透；渗漏",
+        "translation": "渗透，过滤",
         "kind": "term",
-        "note": "液体缓慢通过多孔介质（如土壤或岩石）的过程。",
+        "note": "指液体缓慢通过多孔介质（如土壤）向下移动。",
         "aliases": []
       },
       {
-        "term": "porosity",
+        "term": "reservoir",
+        "translation": "水库/蓄水池",
+        "kind": "term",
+        "note": "在此语境下指地下储存水的岩层结构。",
+        "aliases": []
+      },
+      {
+        "term": "Aquifers",
+        "translation": "含水层",
+        "kind": "term",
+        "note": "能够储存并传输大量地下水的岩层。",
+        "aliases": []
+      },
+      {
+        "term": "drainage",
+        "translation": "排水道，河谷",
+        "kind": "term",
+        "note": "指水流经的通道，如溪流或河谷。",
+        "aliases": []
+      },
+      {
+        "term": "Porosity",
         "translation": "孔隙度",
         "kind": "term",
-        "note": "岩石中孔隙空间占总体积的百分比，决定储水能力。",
+        "note": "岩石中孔隙体积占总体积的比例，决定储水能力。",
+        "aliases": []
+      },
+      {
+        "term": "Sediment",
+        "translation": "沉积物",
+        "kind": "term",
+        "note": "由水、风或冰川搬运并沉积下来的物质，如沙子或小石块。",
+        "aliases": []
+      },
+      {
+        "term": "tortuous",
+        "translation": "蜿蜒曲折的",
+        "kind": "term",
+        "note": "形容词，形容路径弯曲、不直，导致流体流动阻力大。",
         "aliases": []
       },
       {
         "term": "aquifer",
         "translation": "含水层",
         "kind": "term",
-        "note": "能够储存并允许水渗出的岩石层。",
+        "note": "可从中提取水的地下蓄水层。",
+        "aliases": []
+      },
+      {
+        "term": "contour",
+        "translation": "轮廓，等高线",
+        "kind": "term",
+        "note": "在此处指地下水位表面跟随地表起伏的形状。",
+        "aliases": []
+      },
+      {
+        "term": "Igneous",
+        "translation": "火成岩的",
+        "kind": "term",
+        "note": "由岩浆冷却凝固形成的岩石。",
+        "aliases": []
+      },
+      {
+        "term": "springs",
+        "translation": "泉水",
+        "kind": "term",
+        "note": "地下水自然涌出地表的地点。",
+        "aliases": []
+      },
+      {
+        "term": "grain",
+        "translation": "颗粒",
+        "kind": "term",
+        "note": "指构成土壤或岩石的微小矿物颗粒。",
+        "aliases": []
+      },
+      {
+        "term": "marsh",
+        "translation": "沼泽",
+        "kind": "term",
+        "note": "一种湿地类型，通常水位接近或高于地表。",
+        "aliases": []
+      },
+      {
+        "term": "pores",
+        "translation": "孔隙",
+        "kind": "term",
+        "note": "岩石或土壤中微小的空隙，可以储存水。",
+        "aliases": []
+      },
+      {
+        "term": "pore",
+        "translation": "孔隙",
+        "kind": "term",
+        "note": "岩石或土壤颗粒之间的微小空隙。",
         "aliases": []
       }
     ],
@@ -99,53 +281,56 @@
         "para": 1,
         "text": "Most of the world’s potable water----freshwater suitable for drinking----is accounted for by groundwater, which is stored in the pores and fractures in rocks.",
         "translation": "世界上大部分饮用水——即适合饮用的淡水——是由地下水构成的，地下水储存在岩石的孔隙和裂缝中。",
-        "grammarFocus": "非限制性定语从句；插入语；被动语态",
-        "pronounRef": "which 指代 groundwater",
-        "logicConnector": "无",
+        "grammarFocus": "被动语态 (is accounted for by) 与非限制性定语从句 (which is stored...) 的结合使用。",
+        "pronounRef": "which 指代前面的 groundwater。",
+        "logicConnector": "---- 破折号中间的内容是对 potable water 的同位语解释。",
         "sentenceCoach": {
-          "summary": "先抓主干“水由地下水构成”，再看插入语解释什么是饮用水，最后看从句说水存在哪。",
-          "keyHint": "注意破折号中间的内容是对前面名词的解释。"
+          "summary": "先抓主干：大部分水被地下水占据。",
+          "keyHint": "注意破折号里的内容是解释说明，阅读时可以暂时跳过，先看主句。"
         },
         "teachingFocus": {
-          "mainQuestion": "这句话的主干是谁构成了谁？",
-          "grammarQuestion": "破折号中间的部分是做什么的？",
-          "modifierQuestion": "which 引导的从句是在补充说明谁？",
-          "relationshipQuestion": "地下水和岩石的孔隙是什么关系？",
-          "commonMistake": "容易把破折号里的内容当成句子的主要部分，其实它只是解释说明。",
+          "mainQuestion": "这句话的主干是谁在做什么？记住‘Most of water is accounted for by groundwater’，意思是大部分水归地下水管。",
+          "grammarQuestion": "看到‘is accounted for by’不要慌，它就是‘被...占据/构成’的意思，是被动语态哦。",
+          "modifierQuestion": "破折号中间‘freshwater suitable for drinking’就像给‘potable water’贴的标签，告诉我们要喝的是这种淡水。",
+          "relationshipQuestion": "后面的‘which...’是在补充说明地下水住在哪里，就像给地下水画了一张地图。",
+          "commonMistake": "容易把‘accounted for’当成‘解释’，在这里它其实是‘构成/占据比例’的意思。",
           "thinkingPath": [
             "找到主语 Most of the world’s potable water",
             "找到谓语 is accounted for by",
-            "识别插入语 freshwater suitable for drinking",
-            "分析 which 引导的定语从句"
+            "找到宾语 groundwater",
+            "看 which 引导的从句补充说明 groundwater 的位置"
           ],
-          "encouragement": "你像侦探一样找到了句子的核心，真棒！"
+          "encouragement": "太棒了！你成功拆解了一个带破折号和从句的长难句，像个小侦探一样精准！"
         },
-        "analysis": "### 【主干结构】\n主语是 \"Most of the world’s potable water\"，谓语是被动语态 \"is accounted for by\"，宾语是 \"groundwater\"。\n\n### 【插入语】\n\"----freshwater suitable for drinking----\" 是插入语，用来解释说明前面的 \"potable water\"（饮用水）。\n\n### 【定语从句】\n\", which is stored in the pores and fractures in rocks\" 是非限制性定语从句，修饰先行词 \"groundwater\"。其中 \"in the pores and fractures in rocks\" 是介词短语作地点状语。\n\n### 【词汇】\n\"account for\" 在此处意为“占据（比例）”或“构成”。",
+        "analysis": "### 【主干结构】\n主语是 \"Most of the world’s potable water\"，谓语是被动语态 \"is accounted for by\"，宾语是 \"groundwater\"。\n\n### 【主谓一致】\n主语核心词是 \"Most\"，指代不可数名词 \"water\"，所以谓语动词用单数 \"is\"。\n\n### 【动词时态与原形】\n\"is accounted for\" 是一般现在时的被动语态，表示客观事实。\n\n### 【从句剖析】\n\"which is stored in the pores and fractures in rocks\" 是非限制性定语从句，修饰先行词 \"groundwater\"。\"which\" 在从句中作主语，\"is stored\" 是谓语。\n\n### 【代词指代】\n\"which\" 指代 \"groundwater\"。\n\n### 【修饰语】\n\"----freshwater suitable for drinking----\" 是插入语，作为 \"potable water\" 的同位语/解释性修饰语，说明什么是 potable water。",
         "segments": [
           {
             "text": "Most of the world’s potable water",
-            "type": "subject",
-            "label": "主语"
+            "type": "subject"
           },
           {
             "text": "----freshwater suitable for drinking----",
-            "type": "modifier",
-            "label": "同位语/插入语"
+            "type": "modifier"
           },
           {
-            "text": "is accounted for by ",
-            "type": "verb",
-            "label": "谓语"
+            "text": "is accounted for by",
+            "type": "verb"
           },
           {
-            "text": "groundwater",
-            "type": "object",
-            "label": "宾语"
+            "text": " groundwater",
+            "type": "object"
           },
           {
-            "text": ", which is stored in the pores and fractures in rocks.",
-            "type": "clause-modifier",
-            "label": "非限制性定语从句"
+            "text": ", which",
+            "type": "clause-subject"
+          },
+          {
+            "text": " is stored",
+            "type": "clause-verb"
+          },
+          {
+            "text": " in the pores and fractures in rocks.",
+            "type": "adverbial"
           }
         ]
       },
@@ -153,47 +338,47 @@
         "id": "s2",
         "para": 1,
         "text": "There is more than 50 times as much freshwater stored underground than in all the freshwater rivers and lakes at the surface.",
-        "translation": "地下储存的淡水比地表所有淡水和河流湖泊中的淡水多出50多倍。",
-        "grammarFocus": "比较级结构；There be 句型",
+        "translation": "地下储存的淡水比地表所有淡水和湖泊中的淡水多出50多倍。",
+        "grammarFocus": "比较级结构 'more than ... times as much ... as ...' 的省略形式。",
         "pronounRef": "无",
-        "logicConnector": "无",
+        "logicConnector": "than 引导比较对象。",
         "sentenceCoach": {
-          "summary": "这是一个 There be 句型，重点在于比较结构 \"more than 50 times as much... than...\"。",
-          "keyHint": "注意比较的对象是地下淡水和地表淡水。"
+          "summary": "这是一个比较句，比较地下水和地表水的量。",
+          "keyHint": "注意 'more than 50 times as much... than...' 这个倍数比较结构。"
         },
         "teachingFocus": {
-          "mainQuestion": "这句话在比较什么？",
-          "grammarQuestion": "\"more than 50 times as much... than...\" 是什么结构？",
-          "modifierQuestion": "\"stored underground\" 修饰谁？",
-          "relationshipQuestion": "地下淡水和地表淡水的数量关系是怎样的？",
-          "commonMistake": "容易忽略 \"stored underground\" 是后置定语，误以为它是谓语。",
+          "mainQuestion": "这句话在比什么？比的是‘地下淡水’和‘地表淡水’谁更多。",
+          "grammarQuestion": "记住这个倍数公式：‘A is X times as much as B’，这里用了 'more than 50 times'，意思是‘超过50倍’。",
+          "modifierQuestion": "'stored underground' 是修饰 freshwater 的，告诉你是哪种淡水；'at the surface' 修饰 rivers and lakes。",
+          "relationshipQuestion": "地下淡水是‘主体’，地表淡水是‘参照物’，地下比地表多50倍。",
+          "commonMistake": "容易漏掉第二个 as，直接说 'more than 50 times... than'，其实完整结构是 'as much... as'，这里第二个 as 被省略或隐含在 than 的比较逻辑中（注：严格语法中 as much... as 是标准，此处 than 引导比较状语，结构为 more than 50 times as much A as B，原文省略了第二个 as 或视为 than 引导比较从句的简化）。",
           "thinkingPath": [
             "识别 There be 句型",
-            "找出比较主体 \"freshwater stored underground\"",
-            "识别比较结构 \"more than 50 times as much... than...\"",
-            "找出比较对象 \"in all the freshwater rivers and lakes at the surface\""
+            "找到比较主体：freshwater stored underground",
+            "找到比较倍数：more than 50 times",
+            "找到比较对象：all the freshwater rivers and lakes at the surface"
           ],
-          "encouragement": "你成功拆解了复杂的比较结构，太厉害了！"
+          "encouragement": "厉害！倍数比较句最难了，但你一眼就看穿了它的核心，真聪明！"
         },
-        "analysis": "### 【主干结构】\n这是一个 There be 句型。There is 是谓语部分。主语是 \"more than 50 times as much freshwater\"。\n\n### 【比较结构】\n核心结构是 \"as much... as...\" 的变体，这里用了 \"more than 50 times as much... than...\" 表示倍数比较。注意：通常 as...as 结构，但在表示倍数时，有时会用 more...than 或 times as...as。此处结构略显混合，但意为“是……的50多倍”。\n\n### 【后置定语】\n\"stored underground\" 是过去分词短语作后置定语，修饰 \"freshwater\"。\n\n### 【比较对象】\n\"than in all the freshwater rivers and lakes at the surface\" 是比较状语，省略了主语和谓语，完整形式隐含为 \"than there is in...\"。",
+        "analysis": "### 【主干结构】\n这是一个 There be 句型。There is 是谓语部分，主语是 \"more than 50 times as much freshwater\"。\n\n### 【主谓一致】\n主语核心是 \"freshwater\" (不可数)，谓语用 \"is\"。\n\n### 【动词时态与原形】\n\"is\" 是一般现在时，表示客观事实。\n\n### 【从句/非谓语】\n\"stored underground\" 是过去分词短语作后置定语，修饰 \"freshwater\"，相当于 \"which is stored underground\"。\n\n### 【修饰语】\n\"than in all the freshwater rivers and lakes at the surface\" 是比较状语，省略了谓语部分，完整逻辑是 \"than (there is) in all the...\"。\n\n### 【比较结构】\n\"more than 50 times as much... than...\" 是倍数比较结构。",
         "segments": [
           {
-            "text": "There is ",
+            "text": "There is",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "more than 50 times as much freshwater ",
+            "text": " more than 50 times as much freshwater",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "stored underground ",
+            "text": " stored underground",
             "type": "modifier",
-            "label": "后置定语"
+            "label": "定语"
           },
           {
-            "text": "than in all the freshwater rivers and lakes at the surface.",
+            "text": " than in all the freshwater rivers and lakes at the surface.",
             "type": "adverbial",
             "label": "比较状语"
           }
@@ -203,42 +388,42 @@
         "id": "s3",
         "para": 1,
         "text": "Nearly 50 percent of all groundwater is stored in the upper 1,000 meters of Earth.",
-        "translation": "近50%的地下水储存在地球表层1000米以内。",
-        "grammarFocus": "主谓一致；介词短语作状语",
+        "translation": "几乎所有地下水中，有将近50%储存在地球表层1000米以内。",
+        "grammarFocus": "百分数作主语的谓语动词单复数问题。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "简单的主谓宾结构，注意主语是百分比短语。",
-          "keyHint": "主语的核心词是 percent，谓语动词用单数。"
+          "summary": "简单的主谓宾结构，注意百分数的用法。",
+          "keyHint": "'50 percent of...' 后面接不可数名词 groundwater，所以动词用单数 is。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁被储存了？",
-          "grammarQuestion": "主语 \"Nearly 50 percent of all groundwater\" 的谓语动词为什么用单数？",
-          "modifierQuestion": "\"in the upper 1,000 meters of Earth\" 是什么成分？",
-          "relationshipQuestion": "地下水的储存深度和总量有什么关系？",
-          "commonMistake": "看到 percent 可能误判谓语单复数，需看 of 后面的名词不可数。",
+          "mainQuestion": "这句话告诉我们地下水藏在哪里？藏在地球浅层1000米以内。",
+          "grammarQuestion": "当看到 'percent of...' 时，要看它后面的名词。这里后面是 'groundwater' (不可数)，所以动词用单数 'is'。",
+          "modifierQuestion": "'in the upper 1,000 meters of Earth' 是地点状语，告诉我们具体的深度范围。",
+          "relationshipQuestion": "主语是‘大部分地下水’，动作是‘被储存’，地点是‘浅层’。",
+          "commonMistake": "看到 50 percent 就想用复数，一定要看它修饰的名词！Groundwater 是不可数的，所以用 is。",
           "thinkingPath": [
-            "确定主语 Nearly 50 percent of all groundwater",
-            "确定谓语 is stored",
-            "确定地点状语 in the upper 1,000 meters of Earth",
-            "理解整体含义"
+            "找到主语 Nearly 50 percent of all groundwater",
+            "判断主语性质：不可数，谓语用单数",
+            "找到谓语 is stored",
+            "找到地点状语 in the upper 1,000 meters of Earth"
           ],
-          "encouragement": "你准确地抓住了主谓一致的关键点，继续加油！"
+          "encouragement": "做得好！你掌握了百分数主谓一致的关键秘诀，继续加油！"
         },
-        "analysis": "### 【主干结构】\n主语是 \"Nearly 50 percent of all groundwater\"，谓语是 \"is stored\"，地点状语是 \"in the upper 1,000 meters of Earth\"。\n\n### 【主谓一致】\n主语中心词是 \"percent\"，其后的 \"groundwater\" 是不可数名词，因此谓语动词使用单数 \"is\"。\n\n### 【介词短语】\n\"in the upper 1,000 meters of Earth\" 是介词短语作地点状语，修饰 \"stored\"。",
+        "analysis": "### 【主干结构】\n主语是 \"Nearly 50 percent of all groundwater\"，谓语是 \"is stored\"，状语是 \"in the upper 1,000 meters of Earth\"。\n\n### 【主谓一致】\n主语的核心取决于 'of' 后面的名词 'groundwater'，它是不可数名词，因此谓语动词使用单数 'is'。\n\n### 【动词时态与原形】\n\"is stored\" 是一般现在时的被动语态。\n\n### 【修饰语】\n\"Nearly\" 修饰 \"50 percent\"，表示‘将近’。\n\n### 【介词短语】\n\"in the upper 1,000 meters of Earth\" 是地点状语，修饰 stored。",
         "segments": [
           {
-            "text": "Nearly 50 percent of all groundwater ",
+            "text": "Nearly 50 percent of all groundwater",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is stored ",
+            "text": " is stored",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "in the upper 1,000 meters of Earth.",
+            "text": " in the upper 1,000 meters of Earth.",
             "type": "adverbial",
             "label": "地点状语"
           }
@@ -249,84 +434,80 @@
         "para": 1,
         "text": "At greater depths within Earth, the pressure of the overlying rock causes pores and cracks to close, reducing the space that pore water can occupy, and almost complete closure occurs at a depth of about 10 kilometers.",
         "translation": "在地球更深的地方，上覆岩石的压力导致孔隙和裂缝闭合，减少了孔隙水可以占据的空间，并且在大约10公里的深度几乎完全闭合。",
-        "grammarFocus": "并列句；现在分词作结果状语；定语从句",
+        "grammarFocus": "并列句结构 (and) 与非谓语动词 (reducing) 及定语从句 (that...) 的结合。",
         "pronounRef": "无",
-        "logicConnector": "and",
+        "logicConnector": "and 连接两个并列的分句。",
         "sentenceCoach": {
-          "summary": "这是一个并列句，由 and 连接两个独立分句。前半句包含分词状语和定语从句。",
-          "keyHint": "注意 reducing 是结果状语，that 引导的是定语从句。"
+          "summary": "这是一个长并列句，前半部分讲压力导致闭合，后半部分讲最终结果。",
+          "keyHint": "注意 'reducing...' 是结果状语，修饰前面的动作。"
         },
         "teachingFocus": {
-          "mainQuestion": "这句话由哪两个主要部分组成的？",
-          "grammarQuestion": "reducing 在这里起什么作用？",
-          "modifierQuestion": "that pore water can occupy 修饰谁？",
-          "relationshipQuestion": "压力增大如何影响孔隙和空间？",
-          "commonMistake": "容易把 reducing 当作谓语动词，其实它是非谓语动词。",
+          "mainQuestion": "这句话讲了两个现象：一是压力让裂缝变小，二是深处几乎全堵死了。",
+          "grammarQuestion": "'causes... to close' 是‘使...做某事’的结构。'reducing...' 是现在分词作结果状语，表示前面动作带来的自然结果。",
+          "modifierQuestion": "'that pore water can occupy' 是定语从句，修饰 'space'，告诉你是哪种空间。",
+          "relationshipQuestion": "前半句是因（压力导致闭合），后半句是果（空间减少，最终完全闭合）。",
+          "commonMistake": "容易把 'reducing' 当成谓语动词，其实它是非谓语动词，表示伴随或结果。真正的谓语是 causes 和 occurs。",
           "thinkingPath": [
-            "识别并列连词 and",
-            "分析前半句：主语 pressure, 谓语 causes, 宾语 pores and cracks, 宾补 to close",
-            "分析 reducing 短语作结果状语",
-            "分析 that 定语从句",
-            "分析后半句：主语 closure, 谓语 occurs"
+            "找到第一个分句主语 the pressure... 和谓语 causes...",
+            "识别 reducing... 为非谓语动词短语",
+            "识别 that... 为定语从句",
+            "找到 and 连接的第二个分句主语 closure 和谓语 occurs"
           ],
-          "encouragement": "你成功拆解了长难句的并列结构，真棒！"
+          "encouragement": "哇，你拆解了一个超级复杂的句子！像剥洋葱一样一层层剥开，太厉害了！"
         },
-        "analysis": "### 【主干结构】\n这是一个由 \"and\" 连接的并列句。\n前半句：主语 \"the pressure of the overlying rock\"，谓语 \"causes\"，宾语 \"pores and cracks\"，宾语补足语 \"to close\"。\n后半句：主语 \"almost complete closure\"，谓语 \"occurs\"。\n\n### 【非谓语动词】\n\", reducing the space...\" 是现在分词短语作结果状语，表示前面动作（闭合）导致的结果。\n\n### 【定语从句】\n\"that pore water can occupy\" 是限制性定语从句，修饰先行词 \"space\"。\n\n### 【状语】\n\"At greater depths within Earth\" 是地点状语，置于句首。",
+        "analysis": "### 【主干结构】\n这是一个由 'and' 连接的并列句。\n分句1: \"the pressure ... causes pores and cracks to close\"\n分句2: \"almost complete closure occurs ...\"\n\n### 【主谓一致】\n分句1主语 'pressure' 是单数，谓语 'causes' 用单数。\n分句2主语 'closure' 是单数，谓语 'occurs' 用单数。\n\n### 【动词时态与原形】\n'causes' 和 'occurs' 均为一般现在时。\n\n### 【从句剖析】\n\"that pore water can occupy\" 是限制性定语从句，修饰先行词 \"space\"。\n\n### 【非谓语动词】\n\"reducing the space...\" 是现在分词短语作结果状语，表示‘导致...减少’。\n\n### 【修饰语】\n\"At greater depths within Earth\" 是地点状语，修饰整个分句1。\n\"of the overlying rock\" 修饰 pressure。\n\"at a depth of about 10 kilometers\" 是地点状语，修饰 occurs。",
         "segments": [
           {
             "text": "At greater depths within Earth",
-            "type": "adverbial",
-            "label": "地点状语"
+            "type": "adverbial"
           },
           {
-            "text": ", the pressure of the overlying rock ",
-            "type": "subject",
-            "label": "主语"
+            "text": ", the pressure of the overlying rock",
+            "type": "subject"
           },
           {
-            "text": "causes ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " causes",
+            "type": "verb"
           },
           {
-            "text": "pores and cracks ",
-            "type": "object",
-            "label": "宾语"
+            "text": " pores and cracks",
+            "type": "object"
           },
           {
-            "text": "to close",
-            "type": "modifier",
-            "label": "宾语补足语"
+            "text": " to close",
+            "type": "object-complement"
           },
           {
-            "text": ", reducing the space ",
-            "type": "adverbial",
-            "label": "结果状语"
+            "text": ", reducing the space",
+            "type": "modifier"
           },
           {
-            "text": "that pore water can occupy",
-            "type": "clause-modifier",
-            "label": "定语从句"
+            "text": " that",
+            "type": "clause-subject"
           },
           {
-            "text": ", and ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": " pore water",
+            "type": "clause-subject"
           },
           {
-            "text": "almost complete closure ",
-            "type": "subject",
-            "label": "主语"
+            "text": " can occupy",
+            "type": "clause-verb"
           },
           {
-            "text": "occurs ",
-            "type": "verb",
-            "label": "谓语"
+            "text": ", and",
+            "type": "conjunction"
           },
           {
-            "text": "at a depth of about 10 kilometers.",
-            "type": "adverbial",
-            "label": "地点状语"
+            "text": " almost complete closure",
+            "type": "coord-subject"
+          },
+          {
+            "text": " occurs",
+            "type": "coord-verb"
+          },
+          {
+            "text": " at a depth of about 10 kilometers.",
+            "type": "adverbial"
           }
         ]
       },
@@ -335,28 +516,28 @@
         "para": 1,
         "text": "The greatest water storage, therefore, lies near the surface.",
         "translation": "因此，最大的储水区位于地表附近。",
-        "grammarFocus": "插入语；主系表结构",
+        "grammarFocus": "插入语 'therefore' 的使用及主系表/主谓结构。",
         "pronounRef": "无",
-        "logicConnector": "therefore",
+        "logicConnector": "therefore 表示因果结论。",
         "sentenceCoach": {
-          "summary": "简单的句子，注意 therefore 是插入语，表示结论。",
-          "keyHint": "therefore 不影响句子主干结构。"
+          "summary": "这是前文的结论句，简单明了。",
+          "keyHint": "注意 'therefore' 是插入语，去掉它句子依然完整。"
         },
         "teachingFocus": {
-          "mainQuestion": "这句话的结论是什么？",
-          "grammarQuestion": "therefore 在句中起什么作用？",
-          "modifierQuestion": "near the surface 是什么成分？",
-          "relationshipQuestion": "前文的分析如何导向这个结论？",
-          "commonMistake": "可能会误以为 therefore 是主语的一部分。",
+          "mainQuestion": "这句话是结论：水都藏在浅层。",
+          "grammarQuestion": "'lies' 在这里是‘位于’的意思，是不及物动词，后面接地点状语 'near the surface'。",
+          "modifierQuestion": "'therefore' 是副词，表示‘因此’，连接上文的原因和这里的结论。",
+          "relationshipQuestion": "因为上文说了深层压力大、空间小，所以‘因此’结论是储水在浅层。",
+          "commonMistake": "不要把 'lies' 当成‘躺下’，在这里它是‘位于/存在’的意思。",
           "thinkingPath": [
-            "识别主语 The greatest water storage",
+            "找到主语 The greatest water storage",
             "识别插入语 therefore",
-            "识别谓语 lies",
-            "识别地点状语 near the surface"
+            "找到谓语 lies",
+            "找到地点状语 near the surface"
           ],
-          "encouragement": "你轻松掌握了插入语的用法，真聪明！"
+          "encouragement": "完美！你抓住了结论句的核心，逻辑非常清晰！"
         },
-        "analysis": "### 【主干结构】\n主语 \"The greatest water storage\"，谓语 \"lies\"，地点状语 \"near the surface\"。\n\n### 【插入语】\n\", therefore,\" 是副词作插入语，表示逻辑结论，意为“因此”。\n\n### 【系动词/不及物动词】\n\"lies\" 在此处作不及物动词，表示“位于”。",
+        "analysis": "### 【主干结构】\n主语是 \"The greatest water storage\"，谓语是 \"lies\"，状语是 \"near the surface\"。\n\n### 【主谓一致】\n主语是单数，谓语用单数 \"lies\"。\n\n### 【动词时态与原形】\n\"lies\" 是一般现在时，表示客观事实。\n\n### 【修饰语】\n\"therefore\" 是插入语，表示逻辑结论，修饰整个句子。\n\n### 【介词短语】\n\"near the surface\" 是地点状语。",
         "segments": [
           {
             "text": "The greatest water storage",
@@ -364,17 +545,17 @@
             "label": "主语"
           },
           {
-            "text": ", therefore, ",
+            "text": ", therefore,",
             "type": "adverbial",
-            "label": "插入语"
+            "label": "插入语/状语"
           },
           {
-            "text": "lies ",
+            "text": " lies",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "near the surface.",
+            "text": " near the surface.",
             "type": "adverbial",
             "label": "地点状语"
           }
@@ -383,187 +564,236 @@
       {
         "id": "s6",
         "para": 2,
-        "text": "Groundwater is stored in a variety of rock types.",
-        "translation": "地下水储存在各种类型的岩石中。",
-        "grammarFocus": "被动语态；介词短语",
+        "text": "Aquifers, Porosity and Permeability",
+        "translation": "含水层、孔隙度和渗透率",
+        "grammarFocus": "名词短语并列，作为章节标题。",
         "pronounRef": "无",
-        "logicConnector": "无",
+        "logicConnector": "and 连接并列名词。",
         "sentenceCoach": {
-          "summary": "简单的被动句，介绍地下水储存的位置。",
-          "keyHint": "注意 in a variety of rock types 是地点状语。"
+          "summary": "这是小标题，列出了本节要讲的三个核心概念。",
+          "keyHint": "这三个词是本节的关键术语，需要重点记忆。"
         },
         "teachingFocus": {
-          "mainQuestion": "地下水存在哪里？",
-          "grammarQuestion": "is stored 是什么时态和语态？",
-          "modifierQuestion": "in a variety of rock types 修饰谁？",
-          "relationshipQuestion": "地下水和岩石类型有什么关系？",
-          "commonMistake": "无",
+          "mainQuestion": "这一节要讲哪三个关于地下水的专业概念？",
+          "grammarQuestion": "这是名词短语的并列，没有动词，是典型的标题写法。",
+          "modifierQuestion": "无",
+          "relationshipQuestion": "这三个概念是并列关系，都是描述地下水储存特性的。",
+          "commonMistake": "不要试图给标题加谓语动词，标题通常省略动词。",
           "thinkingPath": [
-            "识别主语 Groundwater",
-            "识别谓语 is stored",
-            "识别地点状语 in a variety of rock types"
+            "识别 Aquifers",
+            "识别 Porosity",
+            "识别 Permeability",
+            "理解这是三个并列的专业术语"
           ],
-          "encouragement": "你准确理解了被动语态，继续加油！"
+          "encouragement": "你认出了这三个专业术语，看来你已经准备好进入新知识领域了！"
         },
-        "analysis": "### 【主干结构】\n主语 \"Groundwater\"，谓语 \"is stored\"（被动语态），地点状语 \"in a variety of rock types\"。\n\n### 【词汇】\n\"a variety of\" 意为“各种各样的”。",
+        "analysis": "### 【主干结构】\n这是一个名词短语并列结构，作为章节标题。\n\n### 【词汇】\nAquifers (含水层), Porosity (孔隙度), Permeability (渗透率) 是本节的核心术语。\n\n### 【逻辑】\n三者并列，通过 'and' 连接最后两项。",
         "segments": [
           {
-            "text": "Groundwater ",
+            "text": "Aquifers",
             "type": "subject",
-            "label": "主语"
+            "label": "名词1"
           },
           {
-            "text": "is stored ",
-            "type": "verb",
-            "label": "谓语"
+            "text": ", Porosity",
+            "type": "subject",
+            "label": "名词2"
           },
           {
-            "text": "in a variety of rock types.",
-            "type": "adverbial",
-            "label": "地点状语"
+            "text": " and Permeability",
+            "type": "subject",
+            "label": "名词3"
           }
         ]
       },
       {
         "id": "s7",
         "para": 2,
-        "text": "A groundwater reservoir from which water can be extracted is called an aquifer.",
-        "translation": "可以从中提取水的地下水储层被称为含水层。",
-        "grammarFocus": "定语从句；被动语态",
-        "pronounRef": "which 指代 reservoir",
+        "text": "Groundwater is stored in a variety of rock types.",
+        "translation": "地下水储存在各种类型的岩石中。",
+        "grammarFocus": "被动语态及介词短语作状语。",
+        "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "主语很长，因为包含了一个定语从句。注意 is called 是被动语态。",
-          "keyHint": "from which 引导的从句修饰 reservoir。"
+          "summary": "简单句，说明地下水的储存位置。",
+          "keyHint": "'a variety of' 意思是‘各种各样的’。"
         },
         "teachingFocus": {
-          "mainQuestion": "这句话定义了什么是含水层？",
-          "grammarQuestion": "from which water can be extracted 是什么从句？",
-          "modifierQuestion": "从句修饰哪个词？",
-          "relationshipQuestion": "储层和含水层是什么关系？",
-          "commonMistake": "容易把从句中的 can be extracted 误认为是主句的谓语。",
+          "mainQuestion": "地下水藏在什么样的岩石里？藏在各种类型的岩石里。",
+          "grammarQuestion": "'is stored' 是被动语态，表示‘被储存’。'in...' 是地点状语。",
+          "modifierQuestion": "'a variety of' 修饰 'rock types'，表示种类繁多。",
+          "relationshipQuestion": "主语是地下水，动作是储存，地点是岩石中。",
+          "commonMistake": "不要忽略 'a variety of'，它强调了岩石类型的多样性。",
           "thinkingPath": [
-            "识别主语 A groundwater reservoir",
-            "识别定语从句 from which water can be extracted",
-            "识别主句谓语 is called",
-            "识别宾语/表语 an aquifer"
+            "找到主语 Groundwater",
+            "找到谓语 is stored",
+            "找到地点状语 in a variety of rock types"
           ],
-          "encouragement": "你成功拆解了带定语从句的主语，真棒！"
+          "encouragement": "简洁明了！你准确抓住了句子的核心信息，很棒！"
         },
-        "analysis": "### 【主干结构】\n主语 \"A groundwater reservoir\"，谓语 \"is called\"，宾语/主语补足语 \"an aquifer\"。\n\n### 【定语从句】\n\"from which water can be extracted\" 是限制性定语从句，修饰先行词 \"reservoir\"。which 指代 reservoir，from which 表示 \"extract water from the reservoir\"。\n\n### 【被动语态】\n\"is called\" 是被动语态，表示“被称为”。",
+        "analysis": "### 【主干结构】\n主语是 \"Groundwater\"，谓语是 \"is stored\"，状语是 \"in a variety of rock types\"。\n\n### 【主谓一致】\n主语是单数，谓语用单数 \"is\"。\n\n### 【动词时态与原形】\n\"is stored\" 是一般现在时的被动语态。\n\n### 【修饰语】\n\"a variety of\" 修饰 \"rock types\"，表示‘各种类型的’。\n\n### 【介词短语】\n\"in a variety of rock types\" 是地点状语。",
         "segments": [
           {
-            "text": "A groundwater reservoir ",
+            "text": "Groundwater",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "from which water can be extracted ",
-            "type": "clause-modifier",
-            "label": "定语从句"
-          },
-          {
-            "text": "is called ",
+            "text": " is stored",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "an aquifer.",
-            "type": "predicative",
-            "label": "主语补足语"
+            "text": " in a variety of rock types.",
+            "type": "adverbial",
+            "label": "地点状语"
           }
         ]
       },
       {
         "id": "s8",
         "para": 2,
-        "text": "We can effectively think of an aquifer as a deposit of water.",
-        "translation": "我们可以有效地将含水层视为水的沉积物。",
-        "grammarFocus": "think of...as... 结构",
-        "pronounRef": "无",
+        "text": "A groundwater reservoir from which water can be extracted is called an aquifer.",
+        "translation": "可以从中提取水的地下蓄水层被称为含水层。",
+        "grammarFocus": "定语从句 (from which...) 和被动语态 (is called)。",
+        "pronounRef": "which 指代 reservoir。",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "简单的主动句，使用 think of A as B 结构。",
-          "keyHint": "注意 effectively 是副词，修饰 think。"
+          "summary": "定义句，解释什么是含水层。",
+          "keyHint": "注意 'from which' 引导的定语从句，修饰 reservoir。"
         },
         "teachingFocus": {
-          "mainQuestion": "我们把含水层想象成什么？",
-          "grammarQuestion": "think of...as... 是什么意思？",
-          "modifierQuestion": "effectively 修饰谁？",
-          "relationshipQuestion": "含水层和水沉积物有什么关系？",
-          "commonMistake": "无",
+          "mainQuestion": "这句话定义了什么是‘含水层’？就是能取水的地下蓄水层。",
+          "grammarQuestion": "'from which water can be extracted' 是定语从句，修饰 'reservoir'。'from which' 相当于 'from the reservoir'。",
+          "modifierQuestion": "整个从句 'from which...' 是修饰主语 'reservoir' 的，告诉你是哪种 reservoir。",
+          "relationshipQuestion": "主语是‘能取水的蓄水层’，它被叫做‘含水层’。",
+          "commonMistake": "容易把 'from which' 拆开看，其实它是一个整体，引导定语从句，介词 from 提前是因为 extract water from the reservoir。",
           "thinkingPath": [
-            "识别主语 We",
-            "识别谓语 can think of",
-            "识别宾语 an aquifer",
-            "识别补语 as a deposit of water"
+            "找到主语 A groundwater reservoir",
+            "识别 from which... 为定语从句修饰 reservoir",
+            "找到谓语 is called",
+            "找到宾语补足语 an aquifer"
           ],
-          "encouragement": "你准确理解了比喻结构，继续加油！"
+          "encouragement": "太棒了！你成功解析了带介词提前的定语从句，这是高阶语法哦！"
         },
-        "analysis": "### 【主干结构】\n主语 \"We\"，谓语 \"can think of\"，宾语 \"an aquifer\"，宾语补足语 \"as a deposit of water\"。\n\n### 【固定搭配】\n\"think of A as B\" 意为“把A看作B”。\n\n### 【副词】\n\"effectively\" 是副词，修饰动词 \"think\"，意为“有效地”或“实质上”。",
+        "analysis": "### 【主干结构】\n主语是 \"A groundwater reservoir\"，谓语是 \"is called\"，宾语补足语是 \"an aquifer\"。\n\n### 【主谓一致】\n主语是单数，谓语用单数 \"is\"。\n\n### 【动词时态与原形】\n\"is called\" 是一般现在时的被动语态。\n\n### 【从句剖析】\n\"from which water can be extracted\" 是限制性定语从句，修饰先行词 \"reservoir\"。\n\"which\" 指代 \"reservoir\"，介词 \"from\" 提前，因为 extract water from the reservoir。\n\n### 【修饰语】\n定语从句整体作为主语的后置定语。",
         "segments": [
           {
-            "text": "We ",
-            "type": "subject",
-            "label": "主语"
+            "text": "A groundwater reservoir",
+            "type": "subject"
           },
           {
-            "text": "can effectively think of ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " from which",
+            "type": "clause-subject"
           },
           {
-            "text": "an aquifer ",
-            "type": "object",
-            "label": "宾语"
+            "text": " water",
+            "type": "clause-subject"
           },
           {
-            "text": "as a deposit of water.",
-            "type": "modifier",
-            "label": "宾语补足语"
+            "text": " can be extracted",
+            "type": "clause-verb"
+          },
+          {
+            "text": " is called",
+            "type": "verb"
+          },
+          {
+            "text": " an aquifer.",
+            "type": "object-complement"
           }
         ]
       },
       {
         "id": "s9",
         "para": 2,
-        "text": "Extraction of water depends on two properties of the aquifer: porosity and permeability.",
-        "translation": "水的提取取决于含水层的两个特性：孔隙度和渗透性。",
-        "grammarFocus": "冒号用法；主谓宾结构",
-        "pronounRef": "无",
+        "text": "We can effectively think of an aquifer as a deposit of water.",
+        "translation": "我们可以有效地将含水层视为一个水的沉积层。",
+        "grammarFocus": "think of A as B 结构",
+        "pronounRef": "We 指代说话者及读者或一般人群。",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "简单句，冒号后面解释两个特性。",
-          "keyHint": "注意 depends on 是固定搭配。"
+          "summary": "这是一个简单的比喻句，把复杂的地质概念简化。",
+          "keyHint": "注意 think of ... as ... 这个固定搭配。"
         },
         "teachingFocus": {
-          "mainQuestion": "提取水取决于什么？",
-          "grammarQuestion": "冒号的作用是什么？",
-          "modifierQuestion": "of water 和 of the aquifer 分别修饰谁？",
-          "relationshipQuestion": "含水层特性和水提取有什么关系？",
-          "commonMistake": "无",
+          "mainQuestion": "这句话的主语是谁？它在做什么动作？",
+          "grammarQuestion": "think of A as B 是什么意思？",
+          "modifierQuestion": "effectively 修饰的是 think 这个动作，表示‘有效地’或‘恰当地’。",
+          "relationshipQuestion": "aquifer（含水层）被比作 deposit of water（水的沉积层）。",
+          "commonMistake": "不要把 think of 和 as 分开理解，它们是一起用的，意思是‘把A看作B’。",
           "thinkingPath": [
-            "识别主语 Extraction of water",
-            "识别谓语 depends on",
-            "识别宾语 two properties of the aquifer",
-            "识别冒号后的同位语 porosity and permeability"
+            "找到主语 We",
+            "找到谓语 think of",
+            "找到宾语 aquifer",
+            "找到补语 a deposit of water"
           ],
-          "encouragement": "你准确理解了冒号的解释作用，真棒！"
+          "encouragement": "你发现了吗？这句话就像给含水层穿了一件‘水袋’的外衣，形象吧？"
         },
-        "analysis": "### 【主干结构】\n主语 \"Extraction of water\"，谓语 \"depends on\"，宾语 \"two properties of the aquifer\"。\n\n### 【同位语】\n\": porosity and permeability\" 是同位语，具体说明 \"two properties\" 是什么。\n\n### 【介词短语】\n\"of water\" 修饰 \"Extraction\"，\"of the aquifer\" 修饰 \"properties\"。",
+        "analysis": "### 【主干结构】\n主语 We + 谓语 can think of + 宾语 an aquifer + 宾语补足语 as a deposit of water。\n\n### 【主谓一致】\n主语 We 是复数，情态动词 can 不变形，符合规则。\n\n### 【动词时态与原形】\ncan think 是情态动词+动词原形，表示一般性的能力或观点。\n\n### 【固定搭配】\nthink of A as B：把A看作B。这里将抽象的‘含水层’具象化为‘水的沉积层’，帮助理解。",
         "segments": [
           {
-            "text": "Extraction of water ",
+            "text": "We",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "depends on ",
+            "text": " can effectively think of",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "two properties of the aquifer",
+            "text": " an aquifer",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " as a deposit of water.",
+            "type": "object-complement",
+            "label": "宾语补足语"
+          }
+        ]
+      },
+      {
+        "id": "s10",
+        "para": 2,
+        "text": "Extraction of water depends on two properties of the aquifer: porosity and permeability.",
+        "translation": "水的开采取决于含水层的两个特性：孔隙度和渗透率。",
+        "grammarFocus": "depend on 短语；冒号引出解释",
+        "pronounRef": "无",
+        "logicConnector": "冒号（:）用于引出对 properties 的具体说明。",
+        "sentenceCoach": {
+          "summary": "这句话指出了决定地下水开采的两个关键因素。",
+          "keyHint": "冒号后面的内容就是前面提到的‘两个特性’。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "谁取决于谁？",
+          "grammarQuestion": "depend on 是什么意思？",
+          "modifierQuestion": "of water 和 of the aquifer 都是定语，分别修饰 Extraction 和 properties。",
+          "relationshipQuestion": "porosity and permeability 是 two properties 的同位语，具体解释这两个特性是什么。",
+          "commonMistake": "不要把 depends on 拆成 depends 和 on 两个部分，on 是介词，后面必须接名词。",
+          "thinkingPath": [
+            "找到主语 Extraction",
+            "找到谓语 depends on",
+            "找到宾语 two properties",
+            "识别冒号后的同位语"
+          ],
+          "encouragement": "冒号就像一个小喇叭，大声告诉你：‘注意啦，这两个特性就是……’"
+        },
+        "analysis": "### 【主干结构】\n主语 Extraction of water + 谓语 depends on + 宾语 two properties of the aquifer。\n\n### 【主谓一致】\n主语核心词 Extraction 是单数，谓语动词 depends 使用第三人称单数形式，正确。\n\n### 【动词时态与原形】\ndepends on 是一般现在时，表示客观事实。\n\n### 【标点符号】\n冒号（:）用于引出同位语 porosity and permeability，具体说明 two properties 的内容。",
+        "segments": [
+          {
+            "text": "Extraction of water",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " depends on",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " two properties of the aquifer",
             "type": "object",
             "label": "宾语"
           },
@@ -575,182 +805,100 @@
         ]
       },
       {
-        "id": "s10",
-        "para": 2,
-        "text": "Between sediment grains are spaces that can be filled with water.",
-        "translation": "沉积物颗粒之间是充满水的空间。",
-        "grammarFocus": "倒装句；定语从句",
-        "pronounRef": "that 指代 spaces",
-        "logicConnector": "无",
-        "sentenceCoach": {
-          "summary": "这是一个倒装句，正常语序是 Spaces that can be filled with water are between sediment grains.。",
-          "keyHint": "注意 that 引导的定语从句。"
-        },
-        "teachingFocus": {
-          "mainQuestion": "哪里有空隙？",
-          "grammarQuestion": "为什么句子是倒装的？",
-          "modifierQuestion": "that can be filled with water 修饰谁？",
-          "relationshipQuestion": "沉积物颗粒和空隙有什么关系？",
-          "commonMistake": "容易误判主语和谓语的位置。",
-          "thinkingPath": [
-            "识别地点状语 Between sediment grains",
-            "识别谓语 are",
-            "识别主语 spaces",
-            "识别定语从句 that can be filled with water"
-          ],
-          "encouragement": "你成功识别了倒装结构，继续加油！"
-        },
-        "analysis": "### 【主干结构】\n这是一个完全倒装句。正常语序应为 \"Spaces that can be filled with water are between sediment grains.\"。\n倒装后：地点状语 \"Between sediment grains\" 置于句首，谓语 \"are\"，主语 \"spaces\"。\n\n### 【定语从句】\n\"that can be filled with water\" 是限制性定语从句，修饰先行词 \"spaces\"。\n\n### 【被动语态】\n\"can be filled\" 是情态动词的被动语态。",
-        "segments": [
-          {
-            "text": "Between sediment grains ",
-            "type": "adverbial",
-            "label": "地点状语"
-          },
-          {
-            "text": "are ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "spaces ",
-            "type": "subject",
-            "label": "主语"
-          },
-          {
-            "text": "that can be filled with water.",
-            "type": "clause-modifier",
-            "label": "定语从句"
-          }
-        ]
-      },
-      {
         "id": "s11",
         "para": 2,
-        "text": "This pore space is known as porosity and is expressed as a percentage of the total rock volume.",
-        "translation": "这种孔隙空间被称为孔隙度，并以岩石总体积的百分比来表示。",
-        "grammarFocus": "并列谓语；被动语态",
-        "pronounRef": "This 指代 spaces",
-        "logicConnector": "and",
+        "text": "Between sediment grains are spaces that can be filled with water.",
+        "translation": "在沉积颗粒之间存在着可以被水填充的空间。",
+        "grammarFocus": "倒装句；定语从句",
+        "pronounRef": "无",
+        "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "简单句，有两个并列的被动谓语。",
-          "keyHint": "注意 is known as 和 is expressed as 是并列结构。"
+          "summary": "这是一个倒装句，为了强调位置。",
+          "keyHint": "正常语序是 Spaces are between...，这里把 Between... 提前了。"
         },
         "teachingFocus": {
-          "mainQuestion": "孔隙空间被称为什么？如何表示？",
-          "grammarQuestion": "and 连接的两个谓语是什么？",
-          "modifierQuestion": "of the total rock volume 修饰谁？",
-          "relationshipQuestion": "孔隙度和岩石体积有什么关系？",
-          "commonMistake": "无",
+          "mainQuestion": "哪里有什么？",
+          "grammarQuestion": "为什么句子是倒装的？",
+          "modifierQuestion": "that can be filled with water 是定语从句，修饰 spaces。",
+          "relationshipQuestion": "Between sediment grains 是状语提前，spaces 是主语，are 是谓语。",
+          "commonMistake": "容易误以为 Between sediment grains 是主语，其实它是地点状语，主语是后面的 spaces。",
           "thinkingPath": [
-            "识别主语 This pore space",
-            "识别第一个谓语 is known as",
-            "识别第一个补语 porosity",
-            "识别连词 and",
-            "识别第二个谓语 is expressed as",
-            "识别第二个补语 a percentage of the total rock volume"
+            "识别倒装结构",
+            "找到真正的主语 spaces",
+            "找到谓语 are",
+            "分析 that 引导的定语从句"
           ],
-          "encouragement": "你准确理解了并列谓语，真棒！"
+          "encouragement": "就像玩捉迷藏，先说地点‘在桌子底下’，再说‘有一只猫’，这样更有趣！"
         },
-        "analysis": "### 【主干结构】\n主语 \"This pore space\"，谓语部分由 \"and\" 连接的两个被动语态动词短语组成：\"is known as porosity\" 和 \"is expressed as a percentage of the total rock volume\"。\n\n### 【并列结构】\n\"is known as...\" 和 \"is expressed as...\" 是并列的谓语部分。\n\n### 【介词短语】\n\"of the total rock volume\" 修饰 \"percentage\"。",
+        "analysis": "### 【主干结构】\n这是一个完全倒装句。正常语序为：Spaces that can be filled with water are between sediment grains.\n\n### 【主谓一致】\n主语 spaces 是复数，谓语 are 是复数，一致。\n\n### 【定语从句】\nthat can be filled with water 是定语从句，修饰先行词 spaces。that 在从句中作主语，can be filled 是被动语态。\n\n### 【倒装】\n为了平衡句子结构或强调地点，将介词短语 Between sediment grains 置于句首，主语 spaces 和谓语 are 倒装。",
         "segments": [
           {
-            "text": "This pore space ",
+            "text": "Between sediment grains",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " are",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " spaces",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is known as ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "porosity ",
-            "type": "predicative",
-            "label": "主语补足语"
-          },
-          {
-            "text": "and ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "is expressed as ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "a percentage of the total rock volume.",
-            "type": "predicative",
-            "label": "主语补足语"
+            "text": " that can be filled with water.",
+            "type": "modifier",
+            "label": "定语从句"
           }
         ]
       },
       {
         "id": "s12",
         "para": 2,
-        "text": "Porosity is important for water-storage capacity, but for water to flow through rocks, the pore spaces must be connected.",
-        "translation": "孔隙度对储水能力很重要，但为了让水通过岩石流动，孔隙空间必须连通。",
-        "grammarFocus": "转折连词；不定式作目的状语",
-        "pronounRef": "无",
-        "logicConnector": "but",
+        "text": "This pore space is known as porosity and is expressed as a percentage of the total rock volume.",
+        "translation": "这种孔隙空间被称为孔隙度，并以岩石总体积的百分比来表示。",
+        "grammarFocus": "被动语态；并列谓语",
+        "pronounRef": "This pore space 指代上一句提到的 spaces。",
+        "logicConnector": "and 连接两个被动语态的谓语。",
         "sentenceCoach": {
-          "summary": "由 but 连接的转折复句。后半句包含不定式短语作目的状语。",
-          "keyHint": "注意 for water to flow through rocks 是不定式的逻辑主语结构。"
+          "summary": "这句话定义了什么是孔隙度。",
+          "keyHint": "注意 is known as 和 is expressed as 两个被动结构。"
         },
         "teachingFocus": {
-          "mainQuestion": "孔隙度重要，但还需要什么条件？",
-          "grammarQuestion": "for water to flow through rocks 是什么结构？",
-          "modifierQuestion": "for water-storage capacity 修饰谁？",
-          "relationshipQuestion": "孔隙度和连通性有什么关系？",
-          "commonMistake": "容易忽略 for water to flow 是不定式结构。",
+          "mainQuestion": "This pore space 是什么？",
+          "grammarQuestion": "is known as 和 is expressed as 有什么区别？",
+          "modifierQuestion": "of the total rock volume 修饰 percentage。",
+          "relationshipQuestion": "and 连接两个并列的谓语部分，描述 pore space 的两个方面。",
+          "commonMistake": "不要把 is known as 和 is expressed as 当成两个独立的句子，它们共享主语 This pore space。",
           "thinkingPath": [
-            "识别前半句：主语 Porosity, 谓语 is, 表语 important",
-            "识别转折连词 but",
-            "识别后半句目的状语 for water to flow through rocks",
-            "识别后半句主语 the pore spaces, 谓语 must be connected"
+            "找到主语 This pore space",
+            "找到第一个谓语 is known as",
+            "找到连接词 and",
+            "找到第二个谓语 is expressed as"
           ],
-          "encouragement": "你成功拆解了转折句，继续加油！"
+          "encouragement": "and 就像一座桥，把两个关于 pore space 的描述连在了一起。"
         },
-        "analysis": "### 【主干结构】\n这是一个由 \"but\" 连接的并列句。\n前半句：主语 \"Porosity\"，谓语 \"is\"，表语 \"important\"，状语 \"for water-storage capacity\"。\n后半句：目的状语 \"for water to flow through rocks\"，主语 \"the pore spaces\"，谓语 \"must be connected\"。\n\n### 【不定式结构】\n\"for water to flow through rocks\" 是 \"for + 宾语 + 不定式\" 结构，作目的状语，意为“为了让水流动”。\n\n### 【介词短语】\n\"for water-storage capacity\" 是介词短语作状语，修饰 \"important\"。",
+        "analysis": "### 【主干结构】\n主语 This pore space + 谓语1 is known as + 补语1 porosity + and + 谓语2 is expressed as + 补语2 a percentage of the total rock volume.\n\n### 【主谓一致】\n主语 This pore space 是单数，两个谓语动词 is 均使用单数形式，正确。\n\n### 【被动语态】\nis known as：被称为；is expressed as：被表示为。两个都是被动语态，描述 pore space 的属性。\n\n### 【并列结构】\nand 连接两个并列的谓语部分，结构对称。",
         "segments": [
           {
-            "text": "Porosity ",
+            "text": "This pore space",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " is known as porosity",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "important ",
-            "type": "predicative",
-            "label": "表语"
-          },
-          {
-            "text": "for water-storage capacity",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": ", but ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "for water to flow through rocks",
-            "type": "adverbial",
-            "label": "目的状语"
-          },
-          {
-            "text": ", the pore spaces ",
-            "type": "subject",
-            "label": "主语"
-          },
-          {
-            "text": "must be connected.",
+            "text": " is expressed as a percentage of the total rock volume.",
             "type": "verb",
             "label": "谓语"
           }
@@ -759,229 +907,218 @@
       {
         "id": "s13",
         "para": 2,
-        "text": "The ability of water, or other fluids, to flow through the interconnected pore spaces in rocks is termed permeability.",
-        "translation": "水或其他流体通过岩石中连通的孔隙空间流动的能力被称为渗透性。",
-        "grammarFocus": "长主语；插入语；被动语态",
+        "text": "Porosity is important for water-storage capacity, but for water to flow through rocks, the pore spaces must be connected.",
+        "translation": "孔隙度对于储水能力很重要，但为了让水流经岩石，孔隙空间必须是连通的。",
+        "grammarFocus": "转折连词 but；不定式作目的状语",
         "pronounRef": "无",
-        "logicConnector": "无",
+        "logicConnector": "but 表示转折，前后分句意思相对。",
         "sentenceCoach": {
-          "summary": "主语很长，包含插入语。注意 is termed 是被动语态。",
-          "keyHint": "主语的核心词是 ability，to flow... 是定语修饰 ability。"
+          "summary": "这句话用 but 连接了两个观点：孔隙度重要，但连通性更重要。",
+          "keyHint": "注意 but 后面的 for water to flow... 是目的状语。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么能力被称为渗透性？",
-          "grammarQuestion": "or other fluids 是什么成分？",
-          "modifierQuestion": "to flow through... 修饰谁？",
-          "relationshipQuestion": "流动能力和渗透性有什么关系？",
-          "commonMistake": "容易把插入语 or other fluids 当作主语的一部分，导致谓语判断错误。",
+          "mainQuestion": "Porosity 重要，但是什么更重要？",
+          "grammarQuestion": "for water to flow through rocks 是什么成分？",
+          "modifierQuestion": "for water-storage capacity 修饰 important。",
+          "relationshipQuestion": "but 连接两个并列分句，前句讲孔隙度的重要性，后句讲连通性的必要性。",
+          "commonMistake": "容易忽略 but 后面的 for water to flow... 是状语，误以为是主语。",
           "thinkingPath": [
-            "识别主语核心 ability",
-            "识别插入语 or other fluids",
-            "识别不定式定语 to flow through the interconnected pore spaces in rocks",
-            "识别谓语 is termed",
-            "识别宾语/表语 permeability"
+            "找到第一个分句的主语 Porosity",
+            "找到连接词 but",
+            "识别第二个分句的目的状语 for water to flow...",
+            "找到第二个分句的主语 the pore spaces"
           ],
-          "encouragement": "你成功识别了长主语中的插入语，真棒！"
+          "encouragement": "but 就像一个小路标，告诉你：‘虽然前面是这样，但后面更重要哦！’"
         },
-        "analysis": "### 【主干结构】\n主语 \"The ability of water, or other fluids, to flow through the interconnected pore spaces in rocks\"，谓语 \"is termed\"，宾语/主语补足语 \"permeability\"。\n\n### 【插入语】\n\", or other fluids,\" 是插入语，补充说明 water 也包括其他流体。\n\n### 【不定式定语】\n\"to flow through the interconnected pore spaces in rocks\" 是不定式短语作后置定语，修饰 \"ability\"。\n\n### 【被动语态】\n\"is termed\" 是被动语态，意为“被称为”。",
+        "analysis": "### 【主干结构】\n分句1：Porosity is important for water-storage capacity.\n分句2：for water to flow through rocks, the pore spaces must be connected.\n\n### 【主谓一致】\n分句1主语 Porosity 单数，is 单数；分句2主语 the pore spaces 复数，must be 复数，均正确。\n\n### 【非谓语动词】\nfor water to flow through rocks 是不定式复合结构，作目的状语，修饰 must be connected。\n\n### 【连词】\nbut 是并列连词，连接两个独立的分句，表示转折关系。",
         "segments": [
           {
-            "text": "The ability of water",
+            "text": "Porosity",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": ", or other fluids, ",
-            "type": "modifier",
-            "label": "插入语"
-          },
-          {
-            "text": "to flow through the interconnected pore spaces in rocks ",
-            "type": "modifier",
-            "label": "后置定语"
-          },
-          {
-            "text": "is termed ",
+            "text": " is important for water-storage capacity",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "permeability.",
-            "type": "predicative",
-            "label": "主语补足语"
+            "text": ", but",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " for water to flow through rocks",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ", the pore spaces",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " must be connected.",
+            "type": "verb",
+            "label": "谓语"
           }
         ]
       },
       {
         "id": "s14",
         "para": 2,
-        "text": "In the intergranular spaces of rocks, however, fluid must flow around and between grains in a tortuous path; this winding path causes a resistance to flow.",
-        "translation": "然而，在岩石的颗粒间空间中，流体必须沿着曲折的路径在颗粒周围和之间流动；这种蜿蜒的路径导致了对流动的阻力。",
-        "grammarFocus": "分号连接并列句；插入语",
-        "pronounRef": "this 指代 tortuous path",
-        "logicConnector": "however",
+        "text": "The ability of water, or other fluids, to flow through the interconnected pore spaces in rocks is termed permeability.",
+        "translation": "水或其他流体流经岩石中相互连通的孔隙空间的能力被称为渗透率。",
+        "grammarFocus": "长主语；被动语态",
+        "pronounRef": "无",
+        "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "分号连接两个独立分句。注意 however 是插入语。",
-          "keyHint": "注意 this winding path 指代前句的 tortuous path。"
+          "summary": "这是一个定义句，主语很长，谓语很短。",
+          "keyHint": "主语的核心词是 ability，后面的 to flow... 是定语。"
         },
         "teachingFocus": {
-          "mainQuestion": "流体如何流动？产生了什么结果？",
-          "grammarQuestion": "however 在句中起什么作用？",
-          "modifierQuestion": "in a tortuous path 修饰谁？",
-          "relationshipQuestion": "路径的曲折性和阻力有什么关系？",
-          "commonMistake": "容易忽略 however 的转折语气。",
+          "mainQuestion": "什么被称为渗透率？",
+          "grammarQuestion": "to flow through... 修饰谁？",
+          "modifierQuestion": "of water, or other fluids 和 to flow... 都是修饰 ability 的定语。",
+          "relationshipQuestion": "主语 The ability... 和谓语 is termed permeability 之间隔得很远，需要耐心找。",
+          "commonMistake": "容易被插入语 or other fluids 干扰，误以为主语是 fluids。",
           "thinkingPath": [
-            "识别地点状语 In the intergranular spaces of rocks",
-            "识别插入语 however",
-            "识别前半句主语 fluid, 谓语 must flow, 状语 around and between grains, 方式状语 in a tortuous path",
-            "识别分号",
-            "识别后半句主语 this winding path, 谓语 causes, 宾语 a resistance to flow"
+            "找到主语核心词 ability",
+            "识别插入语 or other fluids",
+            "识别不定式 to flow... 作定语",
+            "找到谓语 is termed"
           ],
-          "encouragement": "你准确理解了分号和插入语，继续加油！"
+          "encouragement": "主语像一条长长的火车，谓语 is termed 是终点站，我们要耐心地把火车头找到。"
         },
-        "analysis": "### 【主干结构】\n这是一个由分号连接的并列句。\n前半句：地点状语 \"In the intergranular spaces of rocks\"，插入语 \"however\"，主语 \"fluid\"，谓语 \"must flow\"，方式状语 \"around and between grains\" 和 \"in a tortuous path\"。\n后半句：主语 \"this winding path\"，谓语 \"causes\"，宾语 \"a resistance to flow\"。\n\n### 【代词指代】\n\"this winding path\" 中的 \"this\" 指代前半句中的 \"tortuous path\"。\n\n### 【介词短语】\n\"to flow\" 是介词短语，修饰 \"resistance\"。",
+        "analysis": "### 【主干结构】\n主语 The ability (of water, or other fluids, to flow through the interconnected pore spaces in rocks) + 谓语 is termed + 补语 permeability.\n\n### 【主谓一致】\n主语核心词 ability 是单数，谓语 is 是单数，正确。\n\n### 【非谓语动词】\nto flow through the interconnected pore spaces in rocks 是不定式短语，作后置定语，修饰 ability。\n\n### 【插入语】\nor other fluids 是插入语，补充说明 water 的同类项，不影响句子主干。",
         "segments": [
           {
-            "text": "In the intergranular spaces of rocks",
-            "type": "adverbial",
-            "label": "地点状语"
-          },
-          {
-            "text": ", however",
-            "type": "adverbial",
-            "label": "插入语"
-          },
-          {
-            "text": ", fluid ",
+            "text": "The ability of water, or other fluids, to flow through the interconnected pore spaces in rocks",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "must flow ",
+            "text": " is termed",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "around and between grains ",
-            "type": "adverbial",
-            "label": "方式状语"
-          },
-          {
-            "text": "in a tortuous path",
-            "type": "adverbial",
-            "label": "方式状语"
-          },
-          {
-            "text": "; ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "this winding path ",
-            "type": "subject",
-            "label": "主语"
-          },
-          {
-            "text": "causes ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "a resistance to flow.",
-            "type": "object",
-            "label": "宾语"
+            "text": " permeability.",
+            "type": "predicative",
+            "label": "表语"
           }
         ]
       },
       {
         "id": "s15",
         "para": 2,
-        "text": "The rate at which the flowing water overcomes this resistance is related to the permeability of rock.",
-        "translation": "流动的水克服这种阻力的速率与岩石的渗透性有关。",
-        "grammarFocus": "定语从句；主系表结构",
-        "pronounRef": "this 指代 resistance",
-        "logicConnector": "无",
+        "text": "In the intergranular spaces of rocks, however, fluid must flow around and between grains in a tortuous path; this winding path causes a resistance to flow.",
+        "translation": "然而，在岩石的颗粒间空间中，流体必须沿着蜿蜒的路径在颗粒周围和之间流动；这种蜿蜒的路径导致了对流动的阻力。",
+        "grammarFocus": "分号连接并列句；however 插入语",
+        "pronounRef": "this winding path 指代前文提到的 tortuous path。",
+        "logicConnector": "however 表示转折；分号连接两个紧密相关的独立分句。",
         "sentenceCoach": {
-          "summary": "主语包含一个定语从句。注意 is related to 是固定搭配。",
-          "keyHint": "注意 at which 引导的定语从句修饰 rate。"
+          "summary": "分号前后是两个因果相关的句子：路径弯曲导致阻力。",
+          "keyHint": "注意 however 的位置，它不影响句子结构。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么与渗透性有关？",
-          "grammarQuestion": "at which the flowing water overcomes this resistance 是什么从句？",
-          "modifierQuestion": "which 指代什么？",
-          "relationshipQuestion": "克服阻力的速率和渗透性有什么关系？",
-          "commonMistake": "容易把 at which 中的 at 漏掉，导致从句结构不完整。",
+          "mainQuestion": "流体怎么流动？结果如何？",
+          "grammarQuestion": "however 在句中起什么作用？",
+          "modifierQuestion": "in a tortuous path 修饰 flow。",
+          "relationshipQuestion": "前句描述流动方式，后句描述这种流动方式的结果（产生阻力）。",
+          "commonMistake": "容易把 however 当成连词放在句首，其实它是副词，用逗号隔开。",
           "thinkingPath": [
-            "识别主语核心 rate",
-            "识别定语从句 at which the flowing water overcomes this resistance",
-            "识别谓语 is related to",
-            "识别宾语 the permeability of rock"
+            "识别插入语 however",
+            "找到第一个分句的主语 fluid",
+            "找到第一个分句的谓语 must flow",
+            "找到第二个分句的主语 this winding path"
           ],
-          "encouragement": "你成功拆解了带介词的定语从句，真棒！"
+          "encouragement": "分号就像两个好朋友手拉手，前一个说‘路很弯’，后一个说‘所以阻力大’。"
         },
-        "analysis": "### 【主干结构】\n主语 \"The rate\"，谓语 \"is related to\"，宾语 \"the permeability of rock\"。\n\n### 【定语从句】\n\"at which the flowing water overcomes this resistance\" 是限制性定语从句，修饰先行词 \"rate\"。which 指代 rate，at which 表示 \"at the rate\"。\n\n### 【固定搭配】\n\"be related to\" 意为“与……有关”。",
+        "analysis": "### 【主干结构】\n分句1：In the intergranular spaces of rocks, however, fluid must flow around and between grains in a tortuous path.\n分句2：this winding path causes a resistance to flow.\n\n### 【主谓一致】\n分句1主语 fluid 单数，must flow 不变；分句2主语 this winding path 单数，causes 单数，正确。\n\n### 【标点符号】\n分号（;）连接两个语义紧密相关的独立分句。however 是副词，作插入语，表示转折。\n\n### 【指代】\nthis winding path 指代前句中的 tortuous path，形成因果逻辑。",
         "segments": [
           {
-            "text": "The rate ",
+            "text": "In the intergranular spaces of rocks, however,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " fluid",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "at which the flowing water overcomes this resistance ",
-            "type": "clause-modifier",
-            "label": "定语从句"
-          },
-          {
-            "text": "is related to ",
+            "text": " must flow around and between grains",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "the permeability of rock.",
-            "type": "object",
-            "label": "宾语"
+            "text": " in a tortuous path",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": ";",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " this winding path",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " causes a resistance to flow.",
+            "type": "verb",
+            "label": "谓语"
           }
         ]
       },
       {
         "id": "s16",
-        "para": 3,
-        "text": "Sediment sorting and compaction influence permeability and porosity.",
-        "translation": "沉积物分选和压实作用影响渗透性和孔隙度。",
-        "grammarFocus": "主谓宾结构",
-        "pronounRef": "无",
+        "para": 2,
+        "text": "The rate at which the flowing water overcomes this resistance is related to the permeability of rock.",
+        "translation": "流动的水克服这种阻力的速率与岩石的渗透率有关。",
+        "grammarFocus": "定语从句；主系表结构",
+        "pronounRef": "this resistance 指代上一句提到的 resistance。",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "简单的主谓宾结构，介绍两个影响因素。",
-          "keyHint": "注意主语是并列的两个名词。"
+          "summary": "这是一个带有长定语从句的主系表结构。",
+          "keyHint": "at which 引导的从句修饰 rate。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么影响渗透性和孔隙度？",
-          "grammarQuestion": "主语是什么？",
-          "modifierQuestion": "无",
-          "relationshipQuestion": "分选、压实与渗透性、孔隙度有什么关系？",
-          "commonMistake": "无",
+          "mainQuestion": "什么与渗透率有关？",
+          "grammarQuestion": "at which 引导的从句修饰谁？",
+          "modifierQuestion": "at which the flowing water overcomes this resistance 是定语从句，修饰 rate。",
+          "relationshipQuestion": "主语 The rate... 和表语 the permeability of rock 通过 is related to 连接。",
+          "commonMistake": "容易把 at which 当成介词短语修饰 overcomes，其实它修饰 rate。",
           "thinkingPath": [
-            "识别主语 Sediment sorting and compaction",
-            "识别谓语 influence",
-            "识别宾语 permeability and porosity"
+            "找到主语核心词 rate",
+            "识别 at which 引导的定语从句",
+            "找到从句中的主语 the flowing water",
+            "找到主句的谓语 is related to"
           ],
-          "encouragement": "你准确理解了简单句的主谓宾，继续加油！"
+          "encouragement": "at which 就像一个小钩子，把‘水流克服阻力’这个动作钩在‘速率’这个词上。"
         },
-        "analysis": "### 【主干结构】\n主语 \"Sediment sorting and compaction\"，谓语 \"influence\"，宾语 \"permeability and porosity\"。\n\n### 【并列主语】\n\"Sediment sorting\" 和 \"compaction\" 是并列主语，谓语动词用复数 \"influence\"。",
+        "analysis": "### 【主干结构】\n主语 The rate (at which the flowing water overcomes this resistance) + 谓语 is related to + 宾语 the permeability of rock.\n\n### 【主谓一致】\n主语核心词 rate 是单数，谓语 is 是单数，正确。\n\n### 【定语从句】\nat which the flowing water overcomes this resistance 是定语从句，修饰先行词 rate。which 指代 rate，at which 表示‘在...速率下’。\n\n### 【介词短语】\nis related to：与...有关。",
         "segments": [
           {
-            "text": "Sediment sorting and compaction ",
+            "text": "The rate",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "influence ",
+            "text": " at which the flowing water overcomes this resistance",
+            "type": "modifier",
+            "label": "定语从句"
+          },
+          {
+            "text": " is related to",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "permeability and porosity.",
+            "text": " the permeability of rock.",
             "type": "object",
             "label": "宾语"
           }
@@ -990,85 +1127,128 @@
       {
         "id": "s17",
         "para": 3,
-        "text": "The more poorly sorted or the more tightly compacted a sediment is ,the lower its porosity and permeability.",
-        "translation": "沉积物分选越差或压实越紧密，其孔隙度和渗透性就越低。",
-        "grammarFocus": "比较级结构 The more..., the more...",
-        "pronounRef": "its 指代 a sediment",
+        "text": "Sediment sorting and compaction influence permeability and porosity.",
+        "translation": "沉积物的分选和压实作用影响渗透性和孔隙度。",
+        "grammarFocus": "并列主语与并列宾语",
+        "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "经典的“越……越……”结构。",
-          "keyHint": "注意 is 的位置在主语 a sediment 之后。"
+          "summary": "这句话是全文的总起句，告诉我们两个关键因素（分选、压实）决定了两个关键性质（渗透性、孔隙度）。",
+          "keyHint": "注意主语是两个名词短语并列，谓语动词用复数。"
         },
         "teachingFocus": {
-          "mainQuestion": "沉积物的状态如何影响其孔隙度和渗透性？",
-          "grammarQuestion": "The more..., the lower... 是什么结构？",
-          "modifierQuestion": "poorly sorted 和 tightly compacted 修饰谁？",
-          "relationshipQuestion": "分选/压实程度与孔隙度/渗透性成什么关系？",
-          "commonMistake": "容易忽略 is 的位置，导致句子结构混乱。",
+          "mainQuestion": "谁影响了谁？找到动作发出者和接受者。",
+          "grammarQuestion": "当主语由 'and' 连接两个部分时，动词要用复数形式哦。",
+          "modifierQuestion": "这里没有复杂的修饰语，结构非常直接。",
+          "relationshipQuestion": "分选和压实是原因，渗透性和孔隙度是结果。",
+          "commonMistake": "容易误以为主语很长，动词要用单数，其实 'A and B' 是复数。",
           "thinkingPath": [
-            "识别前半句 The more poorly sorted or the more tightly compacted a sediment is",
-            "识别后半句 the lower its porosity and permeability",
-            "理解比较级对应关系"
+            "找到动词 influence",
+            "往前找是谁发出的动作",
+            "确认主语是两个名词并列"
           ],
-          "encouragement": "你成功掌握了比较级结构，真棒！"
+          "encouragement": "太棒了！你一眼就看穿了句子的骨架。"
         },
-        "analysis": "### 【主干结构】\n这是一个 \"The more..., the more...\" 结构的比较句。\n前半句：\"The more poorly sorted or the more tightly compacted\" 是表语前置，主语 \"a sediment\"，谓语 \"is\"。\n后半句：\"the lower\" 是表语前置，主语 \"its porosity and permeability\"。\n\n### 【比较级】\n\"poorly sorted\" 和 \"tightly compacted\" 是形容词短语的比较级形式，修饰 \"a sediment\"。\n\n### 【代词指代】\n\"its\" 指代 \"a sediment\"。",
+        "analysis": "### 【主干结构】\n这是一个简单句。主语是 \"Sediment sorting and compaction\"，谓语是 \"influence\"，宾语是 \"permeability and porosity\"。\n\n### 【主谓一致】\n主语由 'and' 连接两个名词短语，视为复数，因此谓语动词使用原形 'influence'。\n\n### 【动词时态与原形】\n使用一般现在时，陈述客观事实。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无代词。",
         "segments": [
           {
-            "text": "The more poorly sorted or the more tightly compacted ",
-            "type": "predicative",
-            "label": "表语"
-          },
-          {
-            "text": "a sediment ",
+            "text": "Sediment sorting and compaction",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " influence",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": ",the lower ",
-            "type": "predicative",
-            "label": "表语"
-          },
-          {
-            "text": "its porosity and permeability.",
-            "type": "subject",
-            "label": "主语"
+            "text": " permeability and porosity.",
+            "type": "object",
+            "label": "宾语"
           }
         ]
       },
       {
         "id": "s18",
         "para": 3,
-        "text": "Sedimentary rocks----the most common rock type near the surface----are also the most common reservoirs for water because they contain the most space that can be filled with water.",
-        "translation": "沉积岩——地表最常见的岩石类型——也是最常见的储水层，因为它们包含最多的可被水填充的空间。",
-        "grammarFocus": "插入语；原因状语从句；定语从句",
-        "pronounRef": "they 指代 Sedimentary rocks",
-        "logicConnector": "because",
+        "text": "The more poorly sorted or the more tightly compacted a sediment is ,the lower its porosity and permeability.",
+        "translation": "沉积物分选越差或压实越紧密，其孔隙度和渗透性就越低。",
+        "grammarFocus": "The more..., the more... 句型",
+        "pronounRef": "its 指代 a sediment",
+        "logicConnector": "比较级关联",
         "sentenceCoach": {
-          "summary": "主语包含插入语，句尾有原因状语从句。",
-          "keyHint": "注意 because 引导的原因状语从句。"
+          "summary": "这是一个经典的‘越……越……’句型，用来表达两个变化之间的正比或反比关系。",
+          "keyHint": "前半部分是条件，后半部分是结果，中间用逗号隔开。"
         },
         "teachingFocus": {
-          "mainQuestion": "为什么沉积岩是常见的储水层？",
-          "grammarQuestion": "破折号中间的内容是什么？",
-          "modifierQuestion": "that can be filled with water 修饰谁？",
-          "relationshipQuestion": "沉积岩的空间和储水有什么关系？",
-          "commonMistake": "容易忽略 because 引导的原因状语。",
+          "mainQuestion": "前半句发生了什么变化？后半句随之发生了什么变化？",
+          "grammarQuestion": "记住这个魔法句型：The more A, the more B. A 变了，B 也跟着变。",
+          "modifierQuestion": "poorly sorted 和 tightly compacted 是形容词短语，被 poorly 和 tightly 修饰。",
+          "relationshipQuestion": "分选差/压实紧（原因）导致孔隙度/渗透性低（结果）。",
+          "commonMistake": "容易把 is 的位置搞错，或者忘记后半句也要用比较级 lower。",
           "thinkingPath": [
-            "识别主语 Sedimentary rocks",
-            "识别插入语 the most common rock type near the surface",
-            "识别谓语 are",
-            "识别表语 the most common reservoirs for water",
-            "识别原因状语从句 because they contain the most space that can be filled with water"
+            "识别 The more... 结构",
+            "找到主语 a sediment 和系动词 is",
+            "看后半句 lower 对应前面的变化"
           ],
-          "encouragement": "你成功拆解了带插入语和从句的长句，继续加油！"
+          "encouragement": "这个句型很难，但你拆解得很清楚，真厉害！"
         },
-        "analysis": "### 【主干结构】\n主语 \"Sedimentary rocks\"，谓语 \"are\"，表语 \"the most common reservoirs for water\"。\n\n### 【插入语】\n\"----the most common rock type near the surface----\" 是插入语，解释说明 \"Sedimentary rocks\"。\n\n### 【原因状语从句】\n\"because they contain the most space that can be filled with water\" 是原因状语从句，解释为什么沉积岩是常见的储水层。\n\n### 【定语从句】\n\"that can be filled with water\" 是限制性定语从句，修饰先行词 \"space\"。\n\n### 【代词指代】\n\"they\" 指代 \"Sedimentary rocks\"。",
+        "analysis": "### 【主干结构】\n这是一个复合句，使用 \"The more..., the more...\" 结构。前半部分是状语从句（或比较状语），后半部分是主句。\n\n### 【主谓一致】\n从句主语是 'a sediment'（单数），系动词用 'is'。主句主语是 'its porosity and permeability'（复数概念，但作为整体性质有时视为单数，此处 lower 是形容词比较级，不涉及动词变化，但逻辑上是复数主语）。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n\"The more poorly sorted or the more tightly compacted a sediment is\" 是状语从句，表示条件/程度。\n\n### 【代词指代】\n'its' 指代前面的 'a sediment'。",
+        "segments": [
+          {
+            "text": "The more poorly sorted or the more tightly compacted",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " a sediment",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " is",
+            "type": "clause-verb",
+            "label": "从句系动词"
+          },
+          {
+            "text": " ,the lower",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " its porosity and permeability.",
+            "type": "subject",
+            "label": "主语"
+          }
+        ]
+      },
+      {
+        "id": "s19",
+        "para": 3,
+        "text": "Sedimentary rocks----the most common rock type near the surface----are also the most common reservoirs for water because they contain the most space that can be filled with water.",
+        "translation": "沉积岩——地表最常见的岩石类型——也是最常见的含水层，因为它们含有最多的可以被水填充的空间。",
+        "grammarFocus": "插入语（同位语）与原因状语从句",
+        "pronounRef": "they 指代 Sedimentary rocks",
+        "logicConnector": "because 引导原因",
+        "sentenceCoach": {
+          "summary": "这句话有个长长的插入语，像眼镜一样架在主语和谓语之间，先把它拿开，句子就清晰了。",
+          "keyHint": "破折号中间的内容是对 'Sedimentary rocks' 的解释，去掉不影响主干。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "谁是最常见的含水层？为什么？",
+          "grammarQuestion": "破折号中间的部分是插入语，用来补充说明主语，阅读时可以暂时跳过。",
+          "modifierQuestion": "that can be filled with water 是定语从句，修饰 space。",
+          "relationshipQuestion": "因为含有大量空间（原因），所以是含水层（结果/属性）。",
+          "commonMistake": "容易被破折号里的长内容干扰，忘记主语是 rocks，谓语是 are。",
+          "thinkingPath": [
+            "找到主语 Sedimentary rocks",
+            "跳过破折号间的插入语",
+            "找到谓语 are",
+            "分析 because 引导的原因"
+          ],
+          "encouragement": "你能透过复杂的修饰语看到主干，真是个小侦探！"
+        },
+        "analysis": "### 【主干结构】\n主句：Sedimentary rocks are also the most common reservoirs for water.\n原因状语从句：because they contain the most space.\n\n### 【主谓一致】\n主语 'Sedimentary rocks' 是复数，谓语 'are' 是复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n1. 'the most common rock type near the surface' 是 'Sedimentary rocks' 的同位语（插入语）。\n2. 'because they contain the most space...' 是原因状语从句。\n3. 'that can be filled with water' 是定语从句，修饰 'space'。\n\n### 【代词指代】\n'they' 指代 'Sedimentary rocks'。",
         "segments": [
           {
             "text": "Sedimentary rocks",
@@ -1078,204 +1258,129 @@
           {
             "text": "----the most common rock type near the surface----",
             "type": "modifier",
-            "label": "同位语/插入语"
+            "label": "同位语"
           },
           {
-            "text": "are ",
+            "text": "are also the most common reservoirs for water",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "also the most common reservoirs for water ",
-            "type": "predicative",
-            "label": "表语"
-          },
-          {
-            "text": "because they contain the most space ",
-            "type": "clause-adverbial",
-            "label": "原因状语从句"
-          },
-          {
-            "text": "that can be filled with water.",
-            "type": "clause-modifier",
-            "label": "定语从句"
-          }
-        ]
-      },
-      {
-        "id": "s19",
-        "para": 3,
-        "text": "Sandstones generally make good aquifers, while finer-grained mudstones are typically impermeable.",
-        "translation": "砂岩通常构成良好的含水层，而细粒泥岩通常是不透水的。",
-        "grammarFocus": "while 引导的对比状语从句",
-        "pronounRef": "无",
-        "logicConnector": "while",
-        "sentenceCoach": {
-          "summary": "while 表示对比，连接两个分句。",
-          "keyHint": "注意 while 在这里表示“而”，表示对比。"
-        },
-        "teachingFocus": {
-          "mainQuestion": "砂岩和泥岩有什么不同？",
-          "grammarQuestion": "while 在这里表示什么关系？",
-          "modifierQuestion": "generally 和 typically 修饰谁？",
-          "relationshipQuestion": "砂岩和泥岩的渗透性有什么关系？",
-          "commonMistake": "容易误以为 while 表示时间。",
-          "thinkingPath": [
-            "识别前半句 Sandstones generally make good aquifers",
-            "识别连词 while",
-            "识别后半句 finer-grained mudstones are typically impermeable"
-          ],
-          "encouragement": "你准确理解了 while 的对比用法，真棒！"
-        },
-        "analysis": "### 【主干结构】\n这是一个由 \"while\" 连接的并列句，表示对比。\n前半句：主语 \"Sandstones\"，谓语 \"make\"，宾语 \"good aquifers\"，状语 \"generally\"。\n后半句：主语 \"finer-grained mudstones\"，谓语 \"are\"，表语 \"impermeable\"，状语 \"typically\"。\n\n### 【连词】\n\"while\" 在此处表示对比，意为“而”。",
-        "segments": [
-          {
-            "text": "Sandstones ",
-            "type": "subject",
-            "label": "主语"
-          },
-          {
-            "text": "generally ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "make ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "good aquifers",
-            "type": "object",
-            "label": "宾语"
-          },
-          {
-            "text": ", while ",
+            "text": " because",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "finer-grained mudstones ",
-            "type": "subject",
-            "label": "主语"
+            "text": " they",
+            "type": "clause-subject",
+            "label": "从句主语"
           },
           {
-            "text": "are ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " contain",
+            "type": "clause-verb",
+            "label": "从句谓语"
           },
           {
-            "text": "typically ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " the most space",
+            "type": "clause-object",
+            "label": "从句宾语"
           },
           {
-            "text": "impermeable.",
-            "type": "predicative",
-            "label": "表语"
+            "text": " that can be filled with water.",
+            "type": "modifier",
+            "label": "定语从句"
           }
         ]
       },
       {
         "id": "s20",
         "para": 3,
-        "text": "Impermeable rocks are referred to as aquicludes.",
-        "translation": "不透水的岩石被称为隔水层。",
-        "grammarFocus": "被动语态；固定搭配",
+        "text": "Sandstones generally make good aquifers, while finer-grained mudstones are typically impermeable.",
+        "translation": "砂岩通常构成良好的含水层，而细粒泥岩通常是不透水的。",
+        "grammarFocus": "while 引导的对比状语从句",
         "pronounRef": "无",
-        "logicConnector": "无",
+        "logicConnector": "while 表示对比",
         "sentenceCoach": {
-          "summary": "简单被动句，介绍术语。",
-          "keyHint": "注意 are referred to as 是固定搭配。"
+          "summary": "while 在这里不是‘当……时候’，而是‘然而’，用来对比两种岩石的不同特性。",
+          "keyHint": "前半句说砂岩好（含水），后半句说泥岩不好（不透水）。"
         },
         "teachingFocus": {
-          "mainQuestion": "不透水的岩石被称为什么？",
-          "grammarQuestion": "are referred to as 是什么意思？",
-          "modifierQuestion": "无",
-          "relationshipQuestion": "不透水岩石和隔水层有什么关系？",
-          "commonMistake": "无",
+          "mainQuestion": "砂岩和泥岩在透水性上有什么不同？",
+          "grammarQuestion": "while 连接两个并列的分句，表示转折或对比关系。",
+          "modifierQuestion": "finer-grained 是形容词，修饰 mudstones。",
+          "relationshipQuestion": "对比关系：砂岩是含水层 vs 泥岩是不透水层。",
+          "commonMistake": "误以为 while 只表示时间，忽略其对比含义。",
           "thinkingPath": [
-            "识别主语 Impermeable rocks",
-            "识别谓语 are referred to as",
-            "识别宾语/表语 aquicludes"
+            "识别 while 作为连词",
+            "分析前半句 Sandstones make aquifers",
+            "分析后半句 mudstones are impermeable",
+            "理解对比逻辑"
           ],
-          "encouragement": "你准确理解了被动语态，继续加油！"
+          "encouragement": "你抓住了对比的关键，逻辑感满分！"
         },
-        "analysis": "### 【主干结构】\n主语 \"Impermeable rocks\"，谓语 \"are referred to as\"，宾语/主语补足语 \"aquicludes\"。\n\n### 【固定搭配】\n\"refer to A as B\" 的被动形式 \"A is referred to as B\"，意为“把A称为B”。",
+        "analysis": "### 【主干结构】\n这是一个并列句，由 while 连接两个独立分句。\n分句1：Sandstones generally make good aquifers.\n分句2：finer-grained mudstones are typically impermeable.\n\n### 【主谓一致】\n分句1主语 Sandstones 复数，谓语 make 复数。\n分句2主语 mudstones 复数，谓语 are 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\nwhile 引导的从句在此处表示对比，功能上类似并列连词，但语法上常视为状语从句或并列句的一部分。",
         "segments": [
           {
-            "text": "Impermeable rocks ",
-            "type": "subject",
-            "label": "主语"
+            "text": "Sandstones generally make good aquifers,",
+            "type": "coord-subject",
+            "label": "并列主语"
           },
           {
-            "text": "are referred to as ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " while",
+            "type": "conjunction",
+            "label": "连接词"
           },
           {
-            "text": "aquicludes.",
-            "type": "predicative",
-            "label": "主语补足语"
+            "text": " finer-grained mudstones",
+            "type": "coord-subject",
+            "label": "并列主语"
+          },
+          {
+            "text": " are typically impermeable.",
+            "type": "coord-verb",
+            "label": "并列谓语"
           }
         ]
       },
       {
         "id": "s21",
         "para": 3,
-        "text": "Igneous and metamorphic rocks are more compact, commonly crystalline, and rarely contain spaces between grains.",
-        "translation": "火成岩和变质岩更致密，通常为结晶状，且颗粒间很少有空隙。",
-        "grammarFocus": "并列谓语",
+        "text": "Impermeable rocks are referred to as aquicludes.",
+        "translation": "不透水岩层被称为隔水层。",
+        "grammarFocus": "被动语态 be referred to as",
         "pronounRef": "无",
-        "logicConnector": "and",
+        "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "主语后有三个并列的谓语部分。",
-          "keyHint": "注意 are more compact, commonly crystalline, and rarely contain... 是并列结构。"
+          "summary": "这是一个定义句，告诉我们不透水岩层的专业名称是什么。",
+          "keyHint": "注意 'be referred to as' 是固定搭配，意为‘被称为’。"
         },
         "teachingFocus": {
-          "mainQuestion": "火成岩和变质岩有什么特点？",
-          "grammarQuestion": "and 连接了哪几个部分？",
-          "modifierQuestion": "commonly 和 rarely 修饰谁？",
-          "relationshipQuestion": "致密性和空隙有什么关系？",
-          "commonMistake": "容易忽略 and 连接的并列谓语。",
+          "mainQuestion": "不透水岩层被称为什么？",
+          "grammarQuestion": "被动语态结构：be + 过去分词。这里用的是 referred to as。",
+          "modifierQuestion": "无复杂修饰语。",
+          "relationshipQuestion": "Impermeable rocks 是主体，aquicludes 是它的别名。",
+          "commonMistake": "容易漏掉 referred 后面的 to。",
           "thinkingPath": [
-            "识别主语 Igneous and metamorphic rocks",
-            "识别第一个谓语部分 are more compact",
-            "识别第二个谓语部分 commonly crystalline",
-            "识别连词 and",
-            "识别第三个谓语部分 rarely contain spaces between grains"
+            "找到被动语态 are referred to",
+            "识别 as 引出的名称",
+            "理解定义关系"
           ],
-          "encouragement": "你成功识别了并列谓语，真棒！"
+          "encouragement": "定义句通常很简单，你掌握得很快！"
         },
-        "analysis": "### 【主干结构】\n主语 \"Igneous and metamorphic rocks\"，谓语部分由 \"and\" 连接三个并列成分：\n1. \"are more compact\"（系表结构）\n2. \"commonly crystalline\"（形容词短语，省略了 are）\n3. \"rarely contain spaces between grains\"（动宾结构）\n\n### 【并列结构】\n三个谓语部分共同描述主语的特点。",
+        "analysis": "### 【主干结构】\n简单句，被动语态。\n主语：Impermeable rocks\n谓语：are referred to as\n宾语/补足语：aquicludes\n\n### 【主谓一致】\n主语 rocks 复数，谓语 are 复数。\n\n### 【动词时态与原形】\n一般现在时被动语态。\n\n### 【从句剖析】\n无从句。",
         "segments": [
           {
-            "text": "Igneous and metamorphic rocks ",
+            "text": "Impermeable rocks",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are more compact",
+            "text": " are referred to as",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": ", commonly crystalline",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": ", and ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "rarely contain ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "spaces between grains.",
+            "text": " aquicludes.",
             "type": "object",
             "label": "宾语"
           }
@@ -1284,743 +1389,1095 @@
       {
         "id": "s22",
         "para": 3,
-        "text": "However, even igneous and metamorphic rocks may act as groundwater reservoirs if extensive fracturing occurs in such rocks and if the fracture system is interconnected.",
-        "translation": "然而，即使火成岩和变质岩，如果发生广泛的断裂且断裂系统连通，也可能作为地下水储层。",
-        "grammarFocus": "条件状语从句；插入语",
-        "pronounRef": "such 指代 igneous and metamorphic rocks",
-        "logicConnector": "if",
+        "text": "Igneous and metamorphic rocks are more compact, commonly crystalline, and rarely contain spaces between grains.",
+        "translation": "火成岩和变质岩更致密，通常为结晶状，且颗粒间很少含有空间。",
+        "grammarFocus": "并列谓语结构",
+        "pronounRef": "无",
+        "logicConnector": "and 连接并列成分",
         "sentenceCoach": {
-          "summary": "主句在前，两个 if 引导的条件状语从句在后。",
-          "keyHint": "注意 even... 是插入语，强调即使这些岩石。"
+          "summary": "这句话用 and 连接了三个关于火成岩和变质岩的特点，像列清单一样。",
+          "keyHint": "注意主语是复数，后面跟着三个并列的谓语部分。"
         },
         "teachingFocus": {
-          "mainQuestion": "火成岩和变质岩在什么情况下可以作为储水层？",
-          "grammarQuestion": "if 引导了几个条件？",
-          "modifierQuestion": "even 修饰谁？",
-          "relationshipQuestion": "断裂和储水有什么关系？",
-          "commonMistake": "容易忽略 even 的强调作用。",
+          "mainQuestion": "火成岩和变质岩有什么三个特点？",
+          "grammarQuestion": "一个主语对应多个谓语，用 and 连接。",
+          "modifierQuestion": "commonly 和 rarely 是副词，修饰后面的形容词和动词。",
+          "relationshipQuestion": "并列关系，列举岩石的物理特性。",
+          "commonMistake": "容易把 crystalline 当作动词，其实它是形容词。",
           "thinkingPath": [
-            "识别插入语 even igneous and metamorphic rocks",
-            "识别主句谓语 may act as groundwater reservoirs",
-            "识别第一个条件状语从句 if extensive fracturing occurs in such rocks",
-            "识别连词 and",
-            "识别第二个条件状语从句 if the fracture system is interconnected"
+            "找到主语 Igneous and metamorphic rocks",
+            "识别第一个谓语 are more compact",
+            "识别第二个谓语部分 commonly crystalline",
+            "识别第三个谓语 rarely contain"
           ],
-          "encouragement": "你成功拆解了多重条件从句，继续加油！"
+          "encouragement": "你能理清并列的多个特点，条理真清晰！"
         },
-        "analysis": "### 【主干结构】\n主语 \"even igneous and metamorphic rocks\"，谓语 \"may act as\"，宾语 \"groundwater reservoirs\"。\n\n### 【条件状语从句】\n由 \"and\" 连接两个 \"if\" 引导的条件状语从句：\n1. \"if extensive fracturing occurs in such rocks\"\n2. \"if the fracture system is interconnected\"\n\n### 【插入语】\n\"even\" 是副词，修饰主语，表示“即使”。\n\n### 【代词指代】\n\"such rocks\" 指代 \"igneous and metamorphic rocks\"。",
+        "analysis": "### 【主干结构】\n简单句，主语后跟三个并列的谓语成分。\n主语：Igneous and metamorphic rocks\n谓语1：are more compact\n谓语2：commonly crystalline (系表结构省略了are，或视为形容词短语并列)\n谓语3：rarely contain spaces between grains\n\n### 【主谓一致】\n主语复数，谓语动词 contain 用原形。are 也是复数形式。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。",
         "segments": [
           {
-            "text": "However",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": ", even igneous and metamorphic rocks ",
+            "text": "Igneous and metamorphic rocks",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "may act as ",
+            "text": " are more compact,",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "groundwater reservoirs ",
-            "type": "object",
-            "label": "宾语"
+            "text": " commonly crystalline,",
+            "type": "modifier",
+            "label": "表语/修饰语"
           },
           {
-            "text": "if extensive fracturing occurs in such rocks ",
-            "type": "clause-adverbial",
-            "label": "条件状语从句"
-          },
-          {
-            "text": "and ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "if the fracture system is interconnected.",
-            "type": "clause-adverbial",
-            "label": "条件状语从句"
+            "text": " and rarely contain spaces between grains.",
+            "type": "verb",
+            "label": "谓语"
           }
         ]
       },
       {
         "id": "s23",
-        "para": 4,
-        "text": "The water table is the underground boundary below which all the cracks and pores are filled with water.",
-        "translation": "地下水位是地下边界，其下方的所有裂缝和孔隙都充满了水。",
-        "grammarFocus": "定语从句",
-        "pronounRef": "which 指代 boundary",
-        "logicConnector": "无",
+        "para": 3,
+        "text": "However, even igneous and metamorphic rocks may act as groundwater reservoirs if extensive fracturing occurs in such rocks and if the fracture system is interconnected.",
+        "translation": "然而，即使火成岩和变质岩，如果发生广泛的断裂且断裂系统相互连通，也可能作为地下水含水层。",
+        "grammarFocus": "if 引导的条件状语从句（双重条件）",
+        "pronounRef": "such rocks 指代 igneous and metamorphic rocks",
+        "logicConnector": "However 转折, if 条件",
         "sentenceCoach": {
-          "summary": "主系表结构，表语包含一个定语从句。",
-          "keyHint": "注意 below which 引导的定语从句。"
+          "summary": "这是一个‘虽然……但是……如果……就……’的复杂句，注意有两个 if 条件。",
+          "keyHint": "主干是 rocks may act as reservoirs，后面跟着两个 if 条件。"
         },
         "teachingFocus": {
-          "mainQuestion": "地下水位是什么？",
-          "grammarQuestion": "below which 引导的从句修饰谁？",
-          "modifierQuestion": "which 指代什么？",
-          "relationshipQuestion": "地下水位和裂缝、孔隙有什么关系？",
-          "commonMistake": "容易忽略 below which 中的介词 below。",
+          "mainQuestion": "火成岩和变质岩在什么条件下能成为含水层？",
+          "grammarQuestion": "两个 if 从句并列，共同修饰主句。",
+          "modifierQuestion": "even 修饰主语，表示强调。",
+          "relationshipQuestion": "转折关系（However）+ 条件关系（if）。",
+          "commonMistake": "容易忽略第二个 if，或者搞不清两个 if 的关系。",
           "thinkingPath": [
-            "识别主语 The water table",
-            "识别谓语 is",
-            "识别表语 the underground boundary",
-            "识别定语从句 below which all the cracks and pores are filled with water"
+            "识别 However 转折",
+            "找到主干 rocks may act as reservoirs",
+            "找到第一个 if 条件",
+            "找到第二个 if 条件"
           ],
-          "encouragement": "你准确理解了介词提前引导的定语从句，真棒！"
+          "encouragement": "两个条件从句都抓住了，你的耐心真棒！"
         },
-        "analysis": "### 【主干结构】\n主语 \"The water table\"，谓语 \"is\"，表语 \"the underground boundary\"。\n\n### 【定语从句】\n\"below which all the cracks and pores are filled with water\" 是限制性定语从句，修饰先行词 \"boundary\"。which 指代 boundary，below which 表示 \"below the boundary\"。\n\n### 【被动语态】\n\"are filled with\" 是被动语态，意为“被……充满”。",
+        "analysis": "### 【主干结构】\n主句：even igneous and metamorphic rocks may act as groundwater reservoirs.\n条件状语从句1：if extensive fracturing occurs in such rocks.\n条件状语从句2：if the fracture system is interconnected.\n\n### 【主谓一致】\n主句主语 rocks 复数，谓语 may act。\n从句1主语 fracturing 单数，谓语 occurs。\n从句2主语 system 单数，谓语 is。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n两个 if 引导的条件状语从句并列。\n\n### 【代词指代】\n'such rocks' 指代 'igneous and metamorphic rocks'。",
         "segments": [
           {
-            "text": "The water table ",
+            "text": "However,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " even igneous and metamorphic rocks",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " may act as groundwater reservoirs",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "the underground boundary ",
-            "type": "predicative",
-            "label": "表语"
+            "text": " if",
+            "type": "conjunction",
+            "label": "连接词"
           },
           {
-            "text": "below which all the cracks and pores are filled with water.",
-            "type": "clause-modifier",
-            "label": "定语从句"
+            "text": " extensive fracturing",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " occurs in such rocks",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " and if",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " the fracture system",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " is interconnected.",
+            "type": "clause-verb",
+            "label": "从句谓语"
           }
         ]
       },
       {
         "id": "s24",
         "para": 4,
-        "text": "In some cases, the water table reaches Earth’s surface, where it is expressed as rivers, lakes and marshes.",
-        "translation": "在某些情况下，地下水位到达地表，在那里表现为河流、湖泊和沼泽。",
-        "grammarFocus": "非限制性定语从句",
-        "pronounRef": "it 指代 the water table",
+        "text": "The Water Table",
+        "translation": "地下水位",
+        "grammarFocus": "名词短语（标题）",
+        "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "主句后接非限制性定语从句，解释地表的表现。",
-          "keyHint": "注意 where 引导的定语从句。"
+          "summary": "这是一个章节标题，不是完整句子，但它是接下来内容的主题。",
+          "keyHint": "标题通常简洁，直接点明主题。"
         },
         "teachingFocus": {
-          "mainQuestion": "地下水位在地表表现为什么？",
-          "grammarQuestion": "where 引导的从句修饰谁？",
-          "modifierQuestion": "it 指代什么？",
-          "relationshipQuestion": "地下水位和地表水体有什么关系？",
-          "commonMistake": "无",
+          "mainQuestion": "这一节要讲什么？",
+          "grammarQuestion": "这是一个名词短语，作为标题使用。",
+          "modifierQuestion": "Water 修饰 Table，表示‘水的桌子’（比喻水面）。",
+          "relationshipQuestion": "无复杂关系，直接点题。",
+          "commonMistake": "无。",
           "thinkingPath": [
-            "识别主句 In some cases, the water table reaches Earth’s surface",
-            "识别非限制性定语从句 where it is expressed as rivers, lakes and marshes"
+            "识别这是标题",
+            "理解 Water Table 的含义"
           ],
-          "encouragement": "你成功识别了非限制性定语从句，继续加油！"
+          "encouragement": "标题抓得准，接下来我们深入看看地下水位吧！"
         },
-        "analysis": "### 【主干结构】\n主句：主语 \"the water table\"，谓语 \"reaches\"，宾语 \"Earth’s surface\"。\n\n### 【非限制性定语从句】\n\", where it is expressed as rivers, lakes and marshes\" 是非限制性定语从句，修饰先行词 \"Earth’s surface\"。where 表示 \"at the surface\"。\n\n### 【代词指代】\n\"it\" 指代 \"the water table\"。",
+        "analysis": "### 【主干结构】\n名词短语，作为章节标题。\n\n### 【主谓一致】\n无谓语。\n\n### 【动词时态与原形】\n无。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。",
         "segments": [
           {
-            "text": "In some cases",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": ", the water table ",
+            "text": "The Water Table",
             "type": "subject",
             "label": "主语"
-          },
-          {
-            "text": "reaches ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "Earth’s surface",
-            "type": "object",
-            "label": "宾语"
-          },
-          {
-            "text": ", where it is expressed as rivers, lakes and marshes.",
-            "type": "clause-modifier",
-            "label": "非限制性定语从句"
           }
         ]
       },
       {
         "id": "s25",
         "para": 4,
-        "text": "Typically, though, the water table may be tens or hundreds of meters below the surface.",
-        "translation": "通常，地下水位可能在地表以下几十或几百米。",
-        "grammarFocus": "插入语",
+        "text": "The water table is the underground boundary below which all the cracks and pores are filled with water.",
+        "translation": "地下水位是所有裂缝和孔隙都充满水的地下分界面。",
+        "grammarFocus": "定语从句 (below which...)",
         "pronounRef": "无",
-        "logicConnector": "though",
+        "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "简单句，though 是插入语，表示转折。",
-          "keyHint": "注意 though 的位置。"
+          "summary": "这是一个定义句，核心是“地下水位是分界面”。",
+          "keyHint": "注意 below which 引导的从句修饰 boundary。"
         },
         "teachingFocus": {
-          "mainQuestion": "地下水位通常在哪里？",
-          "grammarQuestion": "though 在句中起什么作用？",
-          "modifierQuestion": "tens or hundreds of meters below the surface 是什么成分？",
-          "relationshipQuestion": "地下水位和地表有什么关系？",
-          "commonMistake": "无",
+          "mainQuestion": "我们要找的主角是谁？是“地下水位”，它被定义为一个“分界面”。",
+          "grammarQuestion": "那个长长的“below which...”是在给谁贴标签？它在告诉我们要找的分界面有什么特点。",
+          "modifierQuestion": "想象一下，这个分界面下面像海绵一样，所有的裂缝和孔隙都喝饱了水。",
+          "relationshipQuestion": "分界面（boundary）是主角，下面的裂缝和孔隙（cracks and pores）是它的特征描述。",
+          "commonMistake": "不要把 below which 当成两个分开的词，它是一个整体，意思是“在这个分界面之下”。",
           "thinkingPath": [
-            "识别插入语 though",
-            "识别主语 the water table",
-            "识别谓语 may be",
-            "识别表语 tens or hundreds of meters below the surface"
+            "找到主语 The water table",
+            "找到谓语 is",
+            "找到宾语 the underground boundary",
+            "看 below which 后面发生了什么"
           ],
-          "encouragement": "你准确理解了插入语，真棒！"
+          "encouragement": "你抓住了定义的核心，真棒！"
         },
-        "analysis": "### 【主干结构】\n主语 \"the water table\"，谓语 \"may be\"，表语 \"tens or hundreds of meters below the surface\"。\n\n### 【插入语】\n\", though,\" 是副词作插入语，表示转折，意为“然而”或“不过”。",
+        "analysis": "### 【主干结构】\n主语：The water table\n谓语：is\n表语：the underground boundary\n\n### 【从句剖析】\nbelow which all the cracks and pores are filled with water 是定语从句，修饰 boundary。\n- which 指代 boundary。\n- below which = below the boundary。\n- 从句主语：all the cracks and pores\n- 从句谓语：are filled with\n- 从句宾语/补语：water\n\n### 【非谓语动词】\n无\n\n### 【代词指代】\n无",
         "segments": [
           {
-            "text": "Typically",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": ", though",
-            "type": "adverbial",
-            "label": "插入语"
-          },
-          {
-            "text": ", the water table ",
+            "text": "The water table",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "may be ",
+            "text": " is",
             "type": "verb",
-            "label": "谓语"
+            "label": "系动词"
           },
           {
-            "text": "tens or hundreds of meters below the surface.",
+            "text": " the underground boundary",
             "type": "predicative",
             "label": "表语"
+          },
+          {
+            "text": " below which",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " all the cracks and pores",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " are filled with",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " water.",
+            "type": "clause-object",
+            "label": "从句宾语"
           }
         ]
       },
       {
         "id": "s26",
         "para": 4,
-        "text": "The water table is not flat but usually follows the contours of the topography.",
-        "translation": "地下水位不是平坦的，而是通常遵循地形的轮廓。",
-        "grammarFocus": "not...but... 结构",
-        "pronounRef": "无",
-        "logicConnector": "but",
+        "text": "In some cases, the water table reaches Earth’s surface, where it is expressed as rivers, lakes and marshes.",
+        "translation": "在某些情况下，地下水位到达地球表面，在那里它表现为河流、湖泊和沼泽。",
+        "grammarFocus": "非限制性定语从句 (where...)",
+        "pronounRef": "it 指代 the water table",
+        "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "not...but... 连接两个谓语部分。",
-          "keyHint": "注意 follows 是谓语动词。"
+          "summary": "前半句说水位到了地表，后半句解释到了地表后变成了什么。",
+          "keyHint": "where 引导的从句补充说明地表的情况。"
         },
         "teachingFocus": {
-          "mainQuestion": "地下水位是平坦的吗？",
-          "grammarQuestion": "not...but... 连接了什么？",
-          "modifierQuestion": "of the topography 修饰谁？",
-          "relationshipQuestion": "地下水位和地形有什么关系？",
-          "commonMistake": "无",
+          "mainQuestion": "地下水位有时候会跑到地面上来，这时候它变成了什么？",
+          "grammarQuestion": "where 在这里不是问“哪里”，而是指“在地表这个地方”，后面跟着的是对地表的补充说明。",
+          "modifierQuestion": "想象地下水位像水一样涌出地面，变成了我们熟悉的河流和湖泊。",
+          "relationshipQuestion": "主句讲动作（reaches），从句讲结果/状态（is expressed as）。",
+          "commonMistake": "it 指的是前面的 water table，不是 surface。",
           "thinkingPath": [
-            "识别主语 The water table",
-            "识别谓语部分 is not flat but usually follows",
-            "识别宾语 the contours of the topography"
+            "找到主语 the water table",
+            "找到谓语 reaches",
+            "找到宾语 Earth’s surface",
+            "看 where 后面怎么描述 surface"
           ],
-          "encouragement": "你准确理解了 not...but... 结构，继续加油！"
+          "encouragement": "你发现了 where 的妙用，它就像一个小喇叭，补充了重要信息！"
         },
-        "analysis": "### 【主干结构】\n主语 \"The water table\"，谓语部分由 \"not...but...\" 连接：\n1. \"is not flat\"（系表结构）\n2. \"usually follows the contours of the topography\"（动宾结构）\n\n### 【并列结构】\n\"not flat\" 和 \"follows the contours...\" 是并列的谓语部分，表示转折。",
+        "analysis": "### 【主干结构】\n状语：In some cases\n主语：the water table\n谓语：reaches\n宾语：Earth’s surface\n\n### 【从句剖析】\nwhere it is expressed as rivers, lakes and marshes 是非限制性定语从句，修饰 Earth’s surface。\n- where 指代 Earth’s surface。\n- 从句主语：it (指代 the water table)\n- 从句谓语：is expressed as\n- 从句宾语：rivers, lakes and marshes\n\n### 【非谓语动词】\n无\n\n### 【代词指代】\nit 指代 the water table",
         "segments": [
           {
-            "text": "The water table ",
+            "text": "In some cases,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the water table",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is not flat ",
+            "text": " reaches",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "but ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "usually follows ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "the contours of the topography.",
+            "text": " Earth’s surface,",
             "type": "object",
             "label": "宾语"
+          },
+          {
+            "text": " where",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " it",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " is expressed as",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " rivers, lakes and marshes.",
+            "type": "clause-object",
+            "label": "从句宾语"
           }
         ]
       },
       {
         "id": "s27",
         "para": 4,
-        "text": "Above the water table is the vadose zone, through which rainwater percolates.",
-        "translation": "地下水位以上是包气带，雨水通过它渗透。",
-        "grammarFocus": "倒装句；定语从句",
-        "pronounRef": "which 指代 vadose zone",
-        "logicConnector": "无",
+        "text": "Typically, though, the water table may be tens or hundreds of meters below the surface.",
+        "translation": "然而通常情况下，地下水位可能在地表以下几十或几百米深处。",
+        "grammarFocus": "插入语 (though) 与情态动词 (may)",
+        "pronounRef": "无",
+        "logicConnector": "though (转折/让步)",
         "sentenceCoach": {
-          "summary": "倒装句，通过 which 引导定语从句。",
-          "keyHint": "注意正常语序是 The vadose zone is above the water table.。"
+          "summary": "虽然前面说了可能在地表，但这里用 though 转折，说通常是在地下深处。",
+          "keyHint": "though 是插入语，不影响句子主干结构。"
         },
         "teachingFocus": {
-          "mainQuestion": "地下水位以上是什么？",
-          "grammarQuestion": "through which 引导的从句修饰谁？",
-          "modifierQuestion": "which 指代什么？",
-          "relationshipQuestion": "包气带和雨水渗透有什么关系？",
-          "commonMistake": "容易误判主语和谓语的位置。",
+          "mainQuestion": "虽然有时候在地表，但大多数时候地下水位藏得多深？",
+          "grammarQuestion": "though 夹在逗号中间，像个调皮的孩子，但它只是表示转折，句子主干是“水位是...”。",
+          "modifierQuestion": "tens or hundreds of meters 是距离，below the surface 是位置，它们一起描述了水位有多深。",
+          "relationshipQuestion": "主句陈述事实，though 提供语气上的转折。",
+          "commonMistake": "不要把 though 当成“虽然”放在句首，这里它是插入语，相当于“however”。",
           "thinkingPath": [
-            "识别地点状语 Above the water table",
-            "识别谓语 is",
-            "识别主语 the vadose zone",
-            "识别定语从句 through which rainwater percolates"
+            "忽略插入语 though",
+            "找到主语 the water table",
+            "找到谓语 may be",
+            "找到表语 tens or hundreds of meters below the surface"
           ],
-          "encouragement": "你成功识别了倒装句和定语从句，真棒！"
+          "encouragement": "你能透过插入语看到句子的骨架，真厉害！"
         },
-        "analysis": "### 【主干结构】\n这是一个倒装句。正常语序为 \"The vadose zone is above the water table.\"。\n倒装后：地点状语 \"Above the water table\" 置于句首，谓语 \"is\"，主语 \"the vadose zone\"。\n\n### 【定语从句】\n\", through which rainwater percolates\" 是非限制性定语从句，修饰先行词 \"vadose zone\"。which 指代 vadose zone，through which 表示 \"through the vadose zone\"。\n\n### 【被动语态】\n无，percolates 是不及物动词。",
+        "analysis": "### 【主干结构】\n状语：Typically\n插入语：though\n主语：the water table\n谓语：may be\n表语：tens or hundreds of meters below the surface\n\n### 【从句剖析】\n无\n\n### 【非谓语动词】\n无\n\n### 【代词指代】\n无",
         "segments": [
           {
-            "text": "Above the water table ",
+            "text": "Typically,",
             "type": "adverbial",
-            "label": "地点状语"
+            "label": "状语"
           },
           {
-            "text": "is ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " though,",
+            "type": "adverbial",
+            "label": "状语"
           },
           {
-            "text": "the vadose zone",
+            "text": " the water table",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": ", through which rainwater percolates.",
-            "type": "clause-modifier",
-            "label": "非限制性定语从句"
+            "text": " may be",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " tens or hundreds of meters below the surface.",
+            "type": "predicative",
+            "label": "表语"
           }
         ]
       },
       {
         "id": "s28",
         "para": 4,
-        "text": "Water in the vadose zone drains down to the water table, leaving behind a thin coating of water on mineral grains.",
-        "translation": "包气带中的水向下排入地下水位，在矿物颗粒上留下一层薄薄的水膜。",
-        "grammarFocus": "现在分词作结果状语",
+        "text": "The water table is not flat but usually follows the contours of the topography.",
+        "translation": "地下水位不是平坦的，而是通常跟随地形的轮廓。",
+        "grammarFocus": "并列谓语 (is not... but follows...)",
         "pronounRef": "无",
-        "logicConnector": "无",
+        "logicConnector": "but (转折/并列)",
         "sentenceCoach": {
-          "summary": "主句后接现在分词短语作结果状语。",
-          "keyHint": "注意 leaving behind 是结果状语。"
+          "summary": "这句话用 not... but... 结构对比了两个状态：不平坦，而是跟随地形。",
+          "keyHint": "注意 but 连接了两个谓语部分。"
         },
         "teachingFocus": {
-          "mainQuestion": "包气带中的水去了哪里？留下了什么？",
-          "grammarQuestion": "leaving behind 是什么成分？",
-          "modifierQuestion": "in the vadose zone 修饰谁？",
-          "relationshipQuestion": "包气带的水和地下水位有什么关系？",
-          "commonMistake": "容易把 leaving behind 当作谓语动词。",
+          "mainQuestion": "地下水位是平的吗？不，它像地形一样起伏。",
+          "grammarQuestion": "not... but... 就像天平的两端，一边说“不是平的”，一边说“而是跟随地形”。",
+          "modifierQuestion": "contours of the topography 是地形起伏的轮廓线。",
+          "relationshipQuestion": "is not flat 和 follows the contours 是并列关系，由 but 连接。",
+          "commonMistake": "but 后面跟的是动词 follows，不是名词，因为它和前面的 is 并列。",
           "thinkingPath": [
-            "识别主语 Water in the vadose zone",
-            "识别谓语 drains down to the water table",
-            "识别结果状语 leaving behind a thin coating of water on mineral grains"
+            "找到主语 The water table",
+            "找到第一个谓语 is not flat",
+            "找到连接词 but",
+            "找到第二个谓语 usually follows..."
           ],
-          "encouragement": "你准确理解了现在分词作结果状语，继续加油！"
+          "encouragement": "你准确抓住了 not... but... 的对比关系，太棒了！"
         },
-        "analysis": "### 【主干结构】\n主语 \"Water in the vadose zone\"，谓语 \"drains down to\"，宾语 \"the water table\"。\n\n### 【非谓语动词】\n\", leaving behind a thin coating of water on mineral grains\" 是现在分词短语作结果状语，表示排水动作的结果。\n\n### 【介词短语】\n\"in the vadose zone\" 修饰 \"Water\"。\n\"on mineral grains\" 修饰 \"coating\"。",
+        "analysis": "### 【主干结构】\n主语：The water table\n谓语1：is not flat\n连接词：but\n谓语2：usually follows the contours of the topography\n\n### 【从句剖析】\n无\n\n### 【非谓语动词】\n无\n\n### 【代词指代】\n无",
         "segments": [
           {
-            "text": "Water in the vadose zone ",
+            "text": "The water table",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "drains down to ",
+            "text": " is not flat",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " but",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " usually follows",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "the water table",
+            "text": " the contours of the topography.",
             "type": "object",
             "label": "宾语"
-          },
-          {
-            "text": ", leaving behind a thin coating of water on mineral grains.",
-            "type": "adverbial",
-            "label": "结果状语"
           }
         ]
       },
       {
         "id": "s29",
         "para": 4,
-        "text": "The vadose zone supplies plant roots near the surface with water.",
-        "translation": "包气带为地表附近的植物根系提供水分。",
-        "grammarFocus": "supply A with B 结构",
+        "text": "Above the water table is the vadose zone, through which rainwater percolates.",
+        "translation": "地下水位以上是包气带，雨水在其中渗透。",
+        "grammarFocus": "倒装句 (Above... is...) 与定语从句 (through which...)",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "简单句，使用 supply A with B 结构。",
-          "keyHint": "注意 near the surface 修饰 plant roots。"
+          "summary": "这是一个倒装句，先说位置，再说物体。后面跟着一个从句解释这个位置。",
+          "keyHint": "正常语序是 The vadose zone is above the water table."
         },
         "teachingFocus": {
-          "mainQuestion": "包气带为谁提供水分？",
-          "grammarQuestion": "supply A with B 是什么意思？",
-          "modifierQuestion": "near the surface 修饰谁？",
-          "relationshipQuestion": "包气带和植物根系有什么关系？",
-          "commonMistake": "无",
+          "mainQuestion": "在地下水位上面住着谁？住着包气带。",
+          "grammarQuestion": "句子把地点 Above the water table 提到了前面，为了强调位置。through which 指的是在这个区域里。",
+          "modifierQuestion": "rainwater percolates 是雨水渗透的动作，through which 告诉我们渗透的路径。",
+          "relationshipQuestion": "主句介绍包气带的位置，从句描述包气带的功能。",
+          "commonMistake": "不要以为 Above the water table 是主语，真正的 subject 是 the vadose zone。",
           "thinkingPath": [
-            "识别主语 The vadose zone",
-            "识别谓语 supplies",
-            "识别间接宾语 plant roots near the surface",
-            "识别直接宾语 with water"
+            "找到地点状语 Above the water table",
+            "找到谓语 is",
+            "找到主语 the vadose zone",
+            "看 through which 后面发生了什么"
           ],
-          "encouragement": "你准确理解了 supply A with B 结构，真棒！"
+          "encouragement": "你识破了倒装句的伪装，找到了真正的主语，真聪明！"
         },
-        "analysis": "### 【主干结构】\n主语 \"The vadose zone\"，谓语 \"supplies\"，间接宾语 \"plant roots near the surface\"，直接宾语 \"with water\"。\n\n### 【固定搭配】\n\"supply A with B\" 意为“给A提供B”。\n\n### 【介词短语】\n\"near the surface\" 修饰 \"plant roots\"。",
+        "analysis": "### 【主干结构】\n表语/前置成分：Above the water table\n谓语：is\n主语：the vadose zone\n\n### 【从句剖析】\nthrough which rainwater percolates 是定语从句，修饰 the vadose zone。\n- which 指代 the vadose zone。\n- through which = through the vadose zone。\n- 从句主语：rainwater\n- 从句谓语：percolates\n\n### 【非谓语动词】\n无\n\n### 【代词指代】\n无",
         "segments": [
           {
-            "text": "The vadose zone ",
+            "text": "Above the water table",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " is",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " the vadose zone,",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "supplies ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " through which",
+            "type": "modifier",
+            "label": "定语"
           },
           {
-            "text": "plant roots near the surface ",
-            "type": "object",
-            "label": "间接宾语"
+            "text": " rainwater",
+            "type": "clause-subject",
+            "label": "从句主语"
           },
           {
-            "text": "with water.",
-            "type": "object",
-            "label": "直接宾语"
+            "text": " percolates.",
+            "type": "clause-verb",
+            "label": "从句谓语"
           }
         ]
       },
       {
         "id": "s30",
-        "para": 5,
-        "text": "Because the surface of the water table is not flat but instead rises and falls with topography, groundwater is affected by gravity in the same fashion as surface water.",
-        "translation": "因为地下水位表面不是平坦的，而是随地形起伏，所以地下水受重力影响的方式与地表水相同。",
-        "grammarFocus": "原因状语从句；not...but instead... 结构",
+        "para": 4,
+        "text": "Water in the vadose zone drains down to the water table, leaving behind a thin coating of water on mineral grains.",
+        "translation": "包气带中的水向下流到地下水位，在矿物颗粒上留下一层薄薄的水膜。",
+        "grammarFocus": "现在分词作结果状语 (leaving...)",
         "pronounRef": "无",
-        "logicConnector": "Because",
+        "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "Because 引导原因状语从句，主句是被动语态。",
-          "keyHint": "注意 not flat but instead rises and falls 是并列谓语。"
+          "summary": "前半句说水流下去，后半句说流下去后留下的结果。",
+          "keyHint": "leaving 引导的部分是水流下去带来的自然结果。"
         },
         "teachingFocus": {
-          "mainQuestion": "地下水为什么受重力影响？",
-          "grammarQuestion": "Because 引导的是什么从句？",
-          "modifierQuestion": "in the same fashion as surface water 修饰谁？",
-          "relationshipQuestion": "地下水位表面和地形有什么关系？",
-          "commonMistake": "容易忽略 not...but instead... 的并列结构。",
+          "mainQuestion": "水流下去之后，留下了什么？",
+          "grammarQuestion": "leaving 不是谓语动词，它是伴随状语，表示主句动作发生后的结果。",
+          "modifierQuestion": "a thin coating of water 是留下的东西，on mineral grains 是留下的位置。",
+          "relationshipQuestion": "drains down 是主动作，leaving behind 是伴随结果。",
+          "commonMistake": "不要把 leaving 当成第二个谓语，它没有主语，是主句主语 Water 发出的动作结果。",
           "thinkingPath": [
-            "识别原因状语从句 Because the surface of the water table is not flat but instead rises and falls with topography",
-            "识别主句 groundwater is affected by gravity in the same fashion as surface water"
+            "找到主语 Water",
+            "找到谓语 drains down",
+            "找到宾语/方向 to the water table",
+            "看 leaving 后面留下了什么"
           ],
-          "encouragement": "你成功拆解了原因状语从句，继续加油！"
+          "encouragement": "你理解了 leaving 表示结果，就像侦探发现了线索！"
         },
-        "analysis": "### 【主干结构】\n原因状语从句：主语 \"the surface of the water table\"，谓语部分 \"is not flat but instead rises and falls\"，状语 \"with topography\"。\n主句：主语 \"groundwater\"，谓语 \"is affected by\"，宾语 \"gravity\"，状语 \"in the same fashion as surface water\"。\n\n### 【并列结构】\n\"not flat but instead rises and falls\" 是并列的谓语部分，表示转折。\n\n### 【介词短语】\n\"in the same fashion as surface water\" 修饰 \"affected\"，表示影响的方式。",
+        "analysis": "### 【主干结构】\n主语：Water (in the vadose zone 是定语)\n谓语：drains down\n方向状语：to the water table\n\n### 【从句剖析】\n无\n\n### 【非谓语动词】\nleaving behind a thin coating of water on mineral grains 是现在分词短语作结果状语。\n- leaving 是现在分词。\n- behind 是副词，与 leaving 搭配。\n- a thin coating of water 是 leaving 的宾语。\n- on mineral grains 是地点状语。\n\n### 【代词指代】\n无",
         "segments": [
           {
-            "text": "Because the surface of the water table ",
-            "type": "clause-subject",
-            "label": "主语"
-          },
-          {
-            "text": "is not flat ",
-            "type": "clause-verb",
-            "label": "谓语"
-          },
-          {
-            "text": "but instead ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "rises and falls ",
-            "type": "clause-verb",
-            "label": "谓语"
-          },
-          {
-            "text": "with topography",
-            "type": "clause-adverbial",
-            "label": "状语"
-          },
-          {
-            "text": ", groundwater ",
+            "text": "Water",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is affected by ",
+            "text": " in the vadose zone",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " drains down to",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "gravity ",
+            "text": " the water table,",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "in the same fashion as surface water.",
+            "text": " leaving behind",
+            "type": "modifier",
+            "label": "状语"
+          },
+          {
+            "text": " a thin coating of water",
+            "type": "object-complement",
+            "label": "宾语补足语"
+          },
+          {
+            "text": " on mineral grains.",
             "type": "adverbial",
-            "label": "方式状语"
+            "label": "状语"
           }
         ]
       },
       {
         "id": "s31",
-        "para": 5,
-        "text": "Groundwater flows downhill to topographic lows.",
-        "translation": "地下水向地形低处流动。",
-        "grammarFocus": "主谓宾结构",
+        "para": 4,
+        "text": "The vadose zone supplies plant roots near the surface with water.",
+        "translation": "包气带为地表附近的植物根系提供水分。",
+        "grammarFocus": "双宾语结构 (supply sb. with sth.)",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "简单句，介绍地下水的流动方向。",
-          "keyHint": "注意 downhill 和 to topographic lows 都是状语。"
+          "summary": "这句话讲包气带给植物根系送水。",
+          "keyHint": "supply A with B 结构，A 是植物根系，B 是水。"
         },
         "teachingFocus": {
-          "mainQuestion": "地下水向哪里流动？",
-          "grammarQuestion": "downhill 是什么词性？",
-          "modifierQuestion": "to topographic lows 修饰谁？",
-          "relationshipQuestion": "地下水和地形低处有什么关系？",
-          "commonMistake": "无",
+          "mainQuestion": "谁给植物根系送水？是包气带。",
+          "grammarQuestion": "supply... with... 就像快递员送货，把水 (water) 送给植物根系 (plant roots)。",
+          "modifierQuestion": "near the surface 修饰 plant roots，说明根系的位置。",
+          "relationshipQuestion": "主语是包气带，动作是提供，对象是根系，物品是水。",
+          "commonMistake": "不要混淆 supply 的用法，这里是 supply A with B，不是 supply B to A（虽然意思相近，但结构不同）。",
           "thinkingPath": [
-            "识别主语 Groundwater",
-            "识别谓语 flows",
-            "识别方式状语 downhill",
-            "识别方向状语 to topographic lows"
+            "找到主语 The vadose zone",
+            "找到谓语 supplies",
+            "找到间接宾语 plant roots",
+            "找到直接宾语 with water"
           ],
-          "encouragement": "你准确理解了简单句，真棒！"
+          "encouragement": "你准确识别了双宾语结构，像个小老师一样清晰！"
         },
-        "analysis": "### 【主干结构】\n主语 \"Groundwater\"，谓语 \"flows\"，方式状语 \"downhill\"，方向状语 \"to topographic lows\"。\n\n### 【词汇】\n\"topographic lows\" 意为“地形低处”。",
+        "analysis": "### 【主干结构】\n主语：The vadose zone\n谓语：supplies\n间接宾语：plant roots\n直接宾语：water (由 with 引出)\n\n### 【从句剖析】\n无\n\n### 【非谓语动词】\n无\n\n### 【代词指代】\n无",
         "segments": [
           {
-            "text": "Groundwater ",
+            "text": "The vadose zone",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "flows ",
+            "text": " supplies",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "downhill ",
-            "type": "adverbial",
-            "label": "方式状语"
+            "text": " plant roots",
+            "type": "object",
+            "label": "宾语"
           },
           {
-            "text": "to topographic lows.",
-            "type": "adverbial",
-            "label": "方向状语"
+            "text": " near the surface",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " with water.",
+            "type": "object-complement",
+            "label": "宾语补足语"
           }
         ]
       },
       {
         "id": "s32",
         "para": 5,
-        "text": "If the water table intersect the land surface, groundwater will flow out onto the surface at springs, weather to be collected there or to subsequently flow farther along a drainage.",
-        "translation": "如果地下水位穿过地表，地下水将在泉水处流出地表，在那里被收集或随后沿排水道继续流动。",
-        "grammarFocus": "条件状语从句；并列不定式",
+        "text": "Because the surface of the water table is not flat but instead rises and falls with topography, groundwater is affected by gravity in the same fashion as surface water.",
+        "translation": "因为地下水位表面不是平坦的，而是随地形起伏，所以地下水受重力影响的方式与地表水相同。",
+        "grammarFocus": "原因状语从句 (Because...) 与并列谓语 (rises and falls)",
         "pronounRef": "无",
-        "logicConnector": "If",
+        "logicConnector": "Because (原因), but instead (转折/并列)",
         "sentenceCoach": {
-          "summary": "If 引导条件状语从句，主句包含并列的不定式。",
-          "keyHint": "注意 weather 可能是印刷错误，应为 wait 或 where，但根据上下文可能是 where。这里按原文 weather 处理，可能是 where 的笔误，或者指天气。但根据语境，更可能是 where。不过题目要求不修改，我们按原文解析。如果是 weather，可能是指在泉水处，天气将其收集？不太通顺。更可能是 where。但为了严格遵循原文，我们保留 weather。或者可能是 wait? 不，最可能是 where。但原文是 weather。我们按原文解析，可能是指在泉水处，（被）天气收集？或者是一个名词。这里假设是 where 的笔误，但解析时保留原文。",
-          "thinkingPath": [
-            "识别条件状语从句 If the water table intersect the land surface",
-            "识别主句主语 groundwater",
-            "识别谓语 will flow out onto the surface at springs",
-            "识别后置定语 weather to be collected there or to subsequently flow farther along a drainage"
-          ],
-          "encouragement": "你成功拆解了条件状语从句，继续加油！"
+          "summary": "因为水位起伏，所以地下水流动方式像地表水。",
+          "keyHint": "Because 引导原因，主句讲结果。"
         },
         "teachingFocus": {
-          "mainQuestion": "如果地下水位穿过地表，会发生什么？",
-          "grammarQuestion": "If 引导的是什么从句？",
-          "modifierQuestion": "to be collected there or to subsequently flow farther along a drainage 修饰谁？",
-          "relationshipQuestion": "地下水位和地表水有什么关系？",
-          "commonMistake": "容易忽略 weather 可能是 where 的笔误，但按原文解析。",
+          "mainQuestion": "为什么地下水受重力影响的方式和地表水一样？因为水位是起伏的。",
+          "grammarQuestion": "Because 后面是原因，主句是结果。rises and falls 是两个并列的动作。",
+          "modifierQuestion": "in the same fashion as surface water 修饰 affected，说明影响的方式。",
+          "relationshipQuestion": "因果关系：因为水位起伏，所以重力影响方式相同。",
+          "commonMistake": "不要把 but instead 当成连接主从句的词，它连接的是 rises 和 falls。",
           "thinkingPath": [
-            "识别条件状语从句 If the water table intersect the land surface",
-            "识别主句主语 groundwater",
-            "识别谓语 will flow out onto the surface at springs",
-            "识别后置定语 weather to be collected there or to subsequently flow farther along a drainage"
+            "找到 Because 引导的原因从句",
+            "在从句中找到主语 the surface... 和谓语 is not... but rises and falls",
+            "找到主句主语 groundwater",
+            "找到主句谓语 is affected"
           ],
-          "encouragement": "你成功拆解了条件状语从句，继续加油！"
+          "encouragement": "你理清了因果关系，像侦探一样找到了真相！"
         },
-        "analysis": "### 【主干结构】\n条件状语从句：主语 \"the water table\"，谓语 \"intersect\"，宾语 \"the land surface\"。\n主句：主语 \"groundwater\"，谓语 \"will flow out onto\"，宾语 \"the surface\"，地点状语 \"at springs\"。\n\n### 【后置定语】\n\", weather to be collected there or to subsequently flow farther along a drainage\" 是后置定语，修饰 \"springs\" 或整个主句。weather 可能是 where 的笔误，意为“在那里被收集或随后沿排水道继续流动”。\n\n### 【并列不定式】\n\"to be collected there\" 和 \"to subsequently flow farther along a drainage\" 是并列的不定式。",
+        "analysis": "### 【主干结构】\n原因状语从句：Because the surface of the water table is not flat but instead rises and falls with topography\n主句主语：groundwater\n主句谓语：is affected\n方式状语：in the same fashion as surface water\n\n### 【从句剖析】\nBecause... topography 是原因状语从句。\n- 从句主语：the surface of the water table\n- 从句谓语1：is not flat\n- 连接词：but instead\n- 从句谓语2：rises and falls\n- 状语：with topography\n\n### 【非谓语动词】\n无\n\n### 【代词指代】\n无",
         "segments": [
           {
-            "text": "If the water table intersect the land surface",
-            "type": "clause-adverbial",
-            "label": "条件状语从句"
+            "text": "Because",
+            "type": "conjunction",
+            "label": "连接词"
           },
           {
-            "text": ", groundwater ",
+            "text": " the surface of the water table",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " is not flat",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " but instead",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " rises and falls",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " with topography,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " groundwater",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "will flow out onto ",
+            "text": " is affected by",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "the surface ",
+            "text": " gravity",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "at springs",
+            "text": " in the same fashion as surface water.",
             "type": "adverbial",
-            "label": "地点状语"
-          },
-          {
-            "text": ", weather to be collected there or to subsequently flow farther along a drainage.",
-            "type": "modifier",
-            "label": "后置定语"
+            "label": "状语"
           }
         ]
       },
       {
         "id": "s33",
         "para": 5,
-        "text": "Groundwater commonly collects in stream drainages but may remain entirely beneath the surface of dry stream-beds in arid regions.",
-        "translation": "地下水通常在河道中汇集，但在干旱地区可能完全留在干燥河床的表面之下。",
-        "grammarFocus": "并列谓语",
+        "text": "Groundwater flows downhill to topographic lows.",
+        "translation": "地下水向低处流动，流向地形低洼处。",
+        "grammarFocus": "主谓结构；介词短语作状语。",
         "pronounRef": "无",
-        "logicConnector": "but",
+        "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "主语后有两个并列的谓语部分。",
-          "keyHint": "注意 commonly collects... but may remain... 是并列结构。"
+          "summary": "这是一个简单的主谓宾结构，描述了水的自然流向。",
+          "keyHint": "注意 'flows' 是第三人称单数形式。"
         },
         "teachingFocus": {
-          "mainQuestion": "地下水通常在哪里？",
-          "grammarQuestion": "but 连接了什么？",
-          "modifierQuestion": "in stream drainages 和 in arid regions 修饰谁？",
-          "relationshipQuestion": "地下水和河道有什么关系？",
-          "commonMistake": "无",
+          "mainQuestion": "这句话告诉我们地下水往哪里流？",
+          "grammarQuestion": "谁在流？是 'Groundwater'（地下水）。",
+          "modifierQuestion": "它往哪流？'downhill'（向低处）和 'to topographic lows'（到地形低洼处）告诉了我们方向。",
+          "relationshipQuestion": "主语 'Groundwater' 直接执行动作 'flows'。",
+          "commonMistake": "不要漏掉 'to'，它是连接流向目的地的关键小词。",
           "thinkingPath": [
-            "识别主语 Groundwater",
-            "识别第一个谓语 commonly collects in stream drainages",
-            "识别连词 but",
-            "识别第二个谓语 may remain entirely beneath the surface of dry stream-beds in arid regions"
+            "找到动作 'flows'（流）。",
+            "找到谁在流 'Groundwater'（地下水）。",
+            "看看它流到哪里 'to topographic lows'（地形低洼处）。"
           ],
-          "encouragement": "你准确理解了并列谓语，真棒！"
+          "encouragement": "你抓住了句子的核心动作，真棒！"
         },
-        "analysis": "### 【主干结构】\n主语 \"Groundwater\"，谓语部分由 \"but\" 连接：\n1. \"commonly collects in stream drainages\"\n2. \"may remain entirely beneath the surface of dry stream-beds in arid regions\"\n\n### 【并列结构】\n两个谓语部分共同描述地下水的不同状态。\n\n### 【介词短语】\n\"in stream drainages\" 修饰 \"collects\"。\n\"in arid regions\" 修饰 \"remain\" 或 \"dry stream-beds\"。",
+        "analysis": "### 【主干结构】\n这是一个简单句。主语是 'Groundwater'，谓语是 'flows'。\n\n### 【主谓一致】\n主语 'Groundwater' 是不可数名词，视为单数，因此谓语动词使用第三人称单数形式 'flows'。\n\n### 【动词时态与原形】\n使用一般现在时 'flows'，表示客观事实或自然规律。\n\n### 【修饰语分析】\n'downhill' 是副词，作状语，修饰 'flows'，表示方向。\n'to topographic lows' 是介词短语，作方向状语，修饰 'flows'，说明流动的终点。",
         "segments": [
           {
-            "text": "Groundwater ",
+            "text": "Groundwater",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "commonly collects ",
+            "text": " flows",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "in stream drainages ",
+            "text": " downhill",
             "type": "adverbial",
-            "label": "地点状语"
+            "label": "状语"
           },
           {
-            "text": "but ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "may remain ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "entirely beneath the surface of dry stream-beds ",
+            "text": " to topographic lows.",
             "type": "adverbial",
-            "label": "地点状语"
-          },
-          {
-            "text": "in arid regions.",
-            "type": "adverbial",
-            "label": "地点状语"
+            "label": "状语"
           }
         ]
       },
       {
         "id": "s34",
         "para": 5,
-        "text": "In particularly wet years, short stretches of an otherwise dry stream-bed may have flowing water because the water table rises to intersect the land surface.",
-        "translation": "在特别湿润的年份，原本干燥的河床的短段可能有流动的水，因为地下水位上升并与地表相交。",
-        "grammarFocus": "原因状语从句",
+        "text": "If the water table intersect the land surface, groundwater will flow out onto the surface at springs, weather to be collected there or to subsequently flow farther along a drainage.",
+        "translation": "如果地下水位穿过地表，地下水就会在泉水处流出地表，在那里被收集起来，或者随后沿着排水道流得更远。（注：原文 'weather' 应为 'whether' 的拼写错误，此处按 'whether' 解析）",
+        "grammarFocus": "条件状语从句；主句中的选择结构 'whether... or...'。",
         "pronounRef": "无",
-        "logicConnector": "because",
+        "logicConnector": "If（如果）引导条件；whether... or...（或者...或者...）表示选择。",
         "sentenceCoach": {
-          "summary": "主句后接 because 引导的原因状语从句。",
-          "keyHint": "注意 otherwise dry 修饰 stream-bed。"
+          "summary": "这是一个‘如果...就...’的句子，后面还跟着两个可能的结果。",
+          "keyHint": "注意 'weather' 在这里应该是 'whether'，表示‘是否’。"
         },
         "teachingFocus": {
-          "mainQuestion": "为什么干燥的河床会有流动的水？",
-          "grammarQuestion": "because 引导的是什么从句？",
-          "modifierQuestion": "otherwise dry 修饰谁？",
-          "relationshipQuestion": "地下水位和河床水有什么关系？",
-          "commonMistake": "无",
+          "mainQuestion": "如果地下水位碰到地表，会发生什么？",
+          "grammarQuestion": "前半部分是‘如果’（If）引导的条件，后半部分是‘就会’（will flow）引导的结果。",
+          "modifierQuestion": "结果有两种可能：要么被收集，要么流得更远，用 'whether... or...' 连接。",
+          "relationshipQuestion": "条件从句决定主句是否发生，主句中的两个不定式短语表示两种并列的可能性。",
+          "commonMistake": "原文中的 'weather'（天气）是拼写错误，应该是 'whether'（是否）。不要把它当成‘天气’。",
           "thinkingPath": [
-            "识别地点状语 In particularly wet years",
-            "识别主语 short stretches of an otherwise dry stream-bed",
-            "识别谓语 may have",
-            "识别宾语 flowing water",
-            "识别原因状语从句 because the water table rises to intersect the land surface"
+            "找到条件 'If...'（如果地下水位穿过地表）。",
+            "找到结果 'groundwater will flow out...'（地下水流出）。",
+            "找到两种后续情况 'whether... or...'（要么被收集，要么流得更远）。"
           ],
-          "encouragement": "你成功拆解了原因状语从句，继续加油！"
+          "encouragement": "你成功拆解了复杂的条件句，太厉害了！"
         },
-        "analysis": "### 【主干结构】\n主句：主语 \"short stretches of an otherwise dry stream-bed\"，谓语 \"may have\"，宾语 \"flowing water\"。\n原因状语从句：主语 \"the water table\"，谓语 \"rises\"，目的状语 \"to intersect the land surface\"。\n\n### 【介词短语】\n\"of an otherwise dry stream-bed\" 修饰 \"short stretches\"。\n\"otherwise dry\" 修饰 \"stream-bed\"。\n\n### 【不定式】\n\"to intersect the land surface\" 是不定式作目的状语，修饰 \"rises\"。",
+        "analysis": "### 【主干结构】\n这是一个复合句。包含一个由 'If' 引导的条件状语从句和一个主句。\n\n### 【主谓一致】\n从句主语 'the water table' 是单数，谓语 'intersect' 在此处应为 'intersects'（原文可能有误，或为虚拟语气/古体，但通常一般现在时单数需加s，此处按原文解析，视为谓语动词）。\n主句主语 'groundwater' 是单数，谓语 'will flow' 使用将来时。\n\n### 【动词时态与原形】\n从句使用一般现在时 'intersect'（或 intersects）表示条件。\n主句使用一般将来时 'will flow' 表示结果。\n\n### 【从句剖析】\n'If the water table intersect the land surface' 是条件状语从句。\n\n### 【非谓语动词】\n'to be collected there' 和 'to subsequently flow farther along a drainage' 是两个并列的不定式短语，作为 'whether' 引导的选择结构的一部分，修饰 'flow out' 后的状态或后续动作。注意：原文 'weather' 应为 'whether'。",
         "segments": [
           {
-            "text": "In particularly wet years",
-            "type": "adverbial",
-            "label": "时间状语"
+            "text": "If",
+            "type": "conjunction",
+            "label": "连接词"
           },
           {
-            "text": ", short stretches of an otherwise dry stream-bed ",
+            "text": " the water table",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " intersect",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " the land surface,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " groundwater",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "may have ",
+            "text": " will flow out",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "flowing water ",
+            "text": " onto the surface",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " at springs,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " weather",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " to be collected there",
+            "type": "modifier",
+            "label": "修饰语"
+          },
+          {
+            "text": " or",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " to subsequently flow farther along a drainage.",
+            "type": "modifier",
+            "label": "修饰语"
+          }
+        ]
+      },
+      {
+        "id": "s35",
+        "para": 5,
+        "text": "Groundwater commonly collects in stream drainages but may remain entirely beneath the surface of dry stream-beds in arid regions.",
+        "translation": "地下水通常汇集在溪流排水道中，但在干旱地区可能完全留在干燥河床的表面之下。",
+        "grammarFocus": "并列谓语；情态动词 'may' 的用法。",
+        "pronounRef": "无",
+        "logicConnector": "but（但是）表示转折。",
+        "sentenceCoach": {
+          "summary": "这句话用 'but' 连接了两个相反的情况：通常汇集，但有时留在地下。",
+          "keyHint": "注意 'collects' 和 'may remain' 是并列的谓语部分。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "地下水通常在哪里？但在干旱地区又在哪里？",
+          "grammarQuestion": "'but' 连接了两个动作：'collects'（汇集）和 'may remain'（可能停留）。",
+          "modifierQuestion": "'commonly'（通常）修饰第一个动作，'entirely'（完全）和 'in arid regions'（在干旱地区）修饰第二个动作。",
+          "relationshipQuestion": "两个分句共享主语 'Groundwater'，通过 'but' 形成对比。",
+          "commonMistake": "不要忽略 'but' 前后的对比关系，前半句是常态，后半句是特殊情况。",
+          "thinkingPath": [
+            "找到主语 'Groundwater'（地下水）。",
+            "找到第一个动作 'collects'（汇集）及其地点 'in stream drainages'。",
+            "找到转折词 'but'。",
+            "找到第二个动作 'may remain'（可能停留）及其地点 'beneath the surface...'。"
+          ],
+          "encouragement": "你敏锐地发现了句子中的对比关系，真细心！"
+        },
+        "analysis": "### 【主干结构】\n这是一个并列句，由连词 'but' 连接两个分句。主语 'Groundwater' 共享。\n\n### 【主谓一致】\n主语 'Groundwater' 是单数，第一个谓语 'collects' 是第三人称单数形式。\n第二个谓语 'may remain' 中 'may' 是情态动词，后接原形 'remain'。\n\n### 【动词时态与原形】\n'collects' 使用一般现在时，表示常态。\n'may remain' 使用情态动词 + 动词原形，表示可能性。\n\n### 【修饰语分析】\n'commonly' 是副词，修饰 'collects'。\n'in stream drainages' 是介词短语，作地点状语，修饰 'collects'。\n'entirely' 是副词，修饰 'remain'。\n'beneath the surface of dry stream-beds' 是介词短语，作地点状语，修饰 'remain'。\n'in arid regions' 是介词短语，作地点状语，修饰整个第二个分句或 'remain'。",
+        "segments": [
+          {
+            "text": "Groundwater",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " commonly",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " collects",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " in stream drainages",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " but",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " may remain",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " entirely",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " beneath the surface of dry stream-beds",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " in arid regions.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s36",
+        "para": 5,
+        "text": "In particularly wet years, short stretches of an otherwise dry stream-bed may have flowing water because the water table rises to intersect the land surface.",
+        "translation": "在特别湿润的年份，原本干燥的河床的短段可能会有流动的水，因为地下水位上升并穿过地表。",
+        "grammarFocus": "原因状语从句；介词短语作状语。",
+        "pronounRef": "无",
+        "logicConnector": "because（因为）引导原因。",
+        "sentenceCoach": {
+          "summary": "这句话解释了为什么有些干河床会有水：因为地下水位上升了。",
+          "keyHint": "注意 'because' 引导的是原因，解释前面的现象。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "为什么有些干河床在湿润年份会有水？",
+          "grammarQuestion": "'because' 引导原因状语从句，解释主句 'may have flowing water' 的原因。",
+          "modifierQuestion": "'In particularly wet years' 是时间状语，'short stretches of an otherwise dry stream-bed' 是主语部分。",
+          "relationshipQuestion": "主句描述现象，从句解释原因。",
+          "commonMistake": "不要混淆 'because' 前后的因果关系，先有现象，后有原因。",
+          "thinkingPath": [
+            "找到时间背景 'In particularly wet years'（在特别湿润的年份）。",
+            "找到主语 'short stretches...'（短段河床）。",
+            "找到主句动作 'may have flowing water'（可能有流动的水）。",
+            "找到原因 'because...'（因为地下水位上升...）。"
+          ],
+          "encouragement": "你成功找到了现象背后的原因，逻辑清晰！"
+        },
+        "analysis": "### 【主干结构】\n这是一个复合句。主句是 'short stretches... may have flowing water'，由 'because' 引导原因状语从句。\n\n### 【主谓一致】\n主句主语 'short stretches' 是复数，谓语 'may have' 使用复数形式（情态动词后接原形，主语复数不影响情态动词形式，但影响语义）。\n从句主语 'the water table' 是单数，谓语 'rises' 是第三人称单数形式。\n\n### 【动词时态与原形】\n主句使用情态动词 'may' + 动词原形 'have'，表示可能性。\n从句使用一般现在时 'rises'，表示客观事实或自然规律。\n\n### 【从句剖析】\n'because the water table rises to intersect the land surface' 是原因状语从句。\n\n### 【修饰语分析】\n'In particularly wet years' 是介词短语，作时间状语。\n'short stretches of an otherwise dry stream-bed' 是主语部分，其中 'of an otherwise dry stream-bed' 是介词短语作后置定语，修饰 'stretches'。\n'to intersect the land surface' 是不定式短语，作目的状语或结果状语，修饰 'rises'。",
+        "segments": [
+          {
+            "text": "In particularly wet years,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " short stretches",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " of an otherwise dry stream-bed",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " may have",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " flowing water",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "because the water table rises ",
-            "type": "clause-adverbial",
-            "label": "原因状语从句"
+            "text": " because",
+            "type": "conjunction",
+            "label": "连接词"
           },
           {
-            "text": "to intersect the land surface.",
+            "text": " the water table",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " rises",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " to intersect the land surface.",
             "type": "adverbial",
-            "label": "目的状语"
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s37",
+        "para": 6,
+        "text": "[Glossary]",
+        "translation": "【词汇表】",
+        "grammarFocus": "标题/标签。",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这是词汇表的标题。",
+          "keyHint": "注意方括号表示这是一个标签。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "这是什么部分？",
+          "grammarQuestion": "这是一个名词短语，作为标题。",
+          "modifierQuestion": "方括号 '[ ]' 表示这是一个标签或标题。",
+          "relationshipQuestion": "无。",
+          "commonMistake": "不要把它当成句子的一部分，它是一个独立的标签。",
+          "thinkingPath": [
+            "看到方括号 '[ ]'。",
+            "识别出 'Glossary' 是词汇表的意思。",
+            "知道这是接下来单词解释的标题。"
+          ],
+          "encouragement": "你认出了这个标题，准备学习新单词吧！"
+        },
+        "analysis": "### 【主干结构】\n这是一个名词短语，作为标题。\n\n### 【修饰语分析】\n方括号 '[ ]' 是标点符号，用于标记这是一个标签或标题。",
+        "segments": [
+          {
+            "text": "[Glossary]",
+            "type": "modifier",
+            "label": "标题"
+          }
+        ]
+      },
+      {
+        "id": "s38",
+        "para": 6,
+        "text": "Sediment: materials (such as sand or small rocks) that are deposited by water, wind, or glacial ice.",
+        "translation": "沉积物：由水、风或冰川冰沉积的物质（如沙子或小石块）。",
+        "grammarFocus": "定语从句；被动语态。",
+        "pronounRef": "无",
+        "logicConnector": "such as（例如）用于举例。",
+        "sentenceCoach": {
+          "summary": "这是一个定义句，解释了什么是沉积物。",
+          "keyHint": "注意 'that' 引导的从句修饰 'materials'。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "沉积物是什么？",
+          "grammarQuestion": "'that' 引导定语从句，修饰 'materials'（物质）。",
+          "modifierQuestion": "'such as sand or small rocks' 是插入语，举例说明 'materials'。",
+          "relationshipQuestion": "主句定义 'Sediment' 为 'materials'，从句描述这些物质是如何形成的。",
+          "commonMistake": "不要忽略 'that' 从句，它提供了关于沉积物的关键信息。",
+          "thinkingPath": [
+            "找到被定义词 'Sediment'（沉积物）。",
+            "找到定义 'materials'（物质）。",
+            "找到例子 'such as sand or small rocks'（如沙子或小石块）。",
+            "找到定语从句 'that are deposited...'（被...沉积的物质）。"
+          ],
+          "encouragement": "你成功拆解了定义句，理解了沉积物的来源！"
+        },
+        "analysis": "### 【主干结构】\n这是一个定义句。'Sediment' 是主题，'materials' 是定义的核心名词。\n\n### 【主谓一致】\n定语从句中，关系代词 'that' 指代 'materials'（复数），因此谓语 'are deposited' 使用复数形式。\n\n### 【动词时态与原形】\n'are deposited' 使用一般现在时的被动语态，表示沉积物是被沉积的。\n\n### 【从句剖析】\n'that are deposited by water, wind, or glacial ice' 是定语从句，修饰 'materials'。\n\n### 【修饰语分析】\n'(such as sand or small rocks)' 是插入语，作同位语或举例，修饰 'materials'。\n'by water, wind, or glacial ice' 是介词短语，作被动语态中的施动者状语。",
+        "segments": [
+          {
+            "text": "Sediment:",
+            "type": "subject",
+            "label": "主题"
+          },
+          {
+            "text": " materials",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " (such as sand or small rocks)",
+            "type": "modifier",
+            "label": "同位语/举例"
+          },
+          {
+            "text": " that",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " are deposited",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " by water, wind, or glacial ice.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s39",
+        "para": 6,
+        "text": "Topography: the shape of a surface such as Earth’s, including the rise and fall of such features as mountains and valleys.",
+        "translation": "地形：如地球表面的形状，包括山脉和山谷等特征的高低起伏。",
+        "grammarFocus": "介词短语作定语；现在分词短语作状语/补充说明。",
+        "pronounRef": "Earth's（地球的）",
+        "logicConnector": "such as（例如）用于举例。",
+        "sentenceCoach": {
+          "summary": "这是一个定义句，解释了什么是地形。",
+          "keyHint": "注意 'including' 引导的部分是对地形的进一步解释。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "地形是什么？",
+          "grammarQuestion": "'the shape' 是定义的核心，'of a surface' 修饰 'shape'。",
+          "modifierQuestion": "'including...' 是现在分词短语，作补充说明，解释地形的具体内容。",
+          "relationshipQuestion": "主句定义 'Topography' 为 'the shape'，补充部分描述其具体表现。",
+          "commonMistake": "不要忽略 'including' 部分，它提供了地形的具体例子。",
+          "thinkingPath": [
+            "找到被定义词 'Topography'（地形）。",
+            "找到定义 'the shape'（形状）。",
+            "找到修饰 'shape' 的部分 'of a surface such as Earth’s'（如地球表面的）。",
+            "找到补充说明 'including...'（包括...）。"
+          ],
+          "encouragement": "你成功理解了地形的定义，太棒了！"
+        },
+        "analysis": "### 【主干结构】\n这是一个定义句。'Topography' 是主题，'the shape' 是定义的核心名词。\n\n### 【主谓一致】\n无谓语动词，这是一个名词短语定义。\n\n### 【动词时态与原形】\n无谓语动词。\n\n### 【从句剖析】\n无从句。\n\n### 【修饰语分析】\n'of a surface such as Earth’s' 是介词短语，作后置定语，修饰 'shape'。\n'including the rise and fall of such features as mountains and valleys' 是现在分词短语，作补充说明，修饰整个定义部分，解释地形的具体内容。",
+        "segments": [
+          {
+            "text": "Topography:",
+            "type": "subject",
+            "label": "主题"
+          },
+          {
+            "text": " the shape",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " of a surface such as Earth’s,",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " including the rise and fall of such features as mountains and valleys.",
+            "type": "modifier",
+            "label": "补充说明"
           }
         ]
       }

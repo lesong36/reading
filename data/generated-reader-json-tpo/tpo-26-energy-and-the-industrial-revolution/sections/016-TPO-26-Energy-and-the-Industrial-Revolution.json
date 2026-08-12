@@ -1,116 +1,265 @@
 {
   "sourceFile": "tpo-26-energy-and-the-industrial-revolution.md",
   "sectionTitle": "TPO-26 / Energy and the Industrial Revolution",
-  "generatedAt": "2026-08-05T13:10:00.833Z",
+  "generatedAt": "2026-08-12T07:57:58.475Z",
   "warnings": [],
   "article": {
     "id": "tpo-26-energy-and-the-industrial-revolution-16-TPO-26-Energy-and-the-Industrial-Revolution",
     "title": "TPO-26 / Energy and the Industrial Revolution",
-    "timestamp": 1785935400848,
+    "timestamp": 1786521478490,
     "glossary": [
       {
         "term": "Industrial Revolution",
         "translation": "工业革命",
         "kind": "proper_noun",
-        "note": "指18世纪至19世纪发生的从手工生产向机器大生产转变的历史时期。",
+        "note": "指18世纪至19世纪初从手工生产向机器大生产转变的历史时期。",
         "aliases": []
       },
       {
         "term": "commercially viable",
         "translation": "商业上可行的",
         "kind": "context_phrase",
-        "note": "指瓦特的蒸汽机不仅技术先进，而且成本低、能赚钱。",
+        "note": "指产品或技术不仅技术上成功，而且能盈利、适合大规模商业应用。",
         "aliases": []
       },
       {
-        "term": "rolling mills",
-        "translation": "轧钢厂，轧机",
+        "term": "seasonal employment",
+        "translation": "季节性工作",
         "kind": "term",
-        "note": "用于将铁块轧制成不同形状和尺寸的机器。",
+        "note": "指只在一年中特定季节（如收获期）提供的工作。",
+        "aliases": []
+      },
+      {
+        "term": "processed charcoal",
+        "translation": "加工木炭",
+        "kind": "term",
+        "note": "指经过高温处理去除杂质的木炭，是早期炼铁的重要燃料。",
+        "aliases": []
+      },
+      {
+        "term": "mechanical energy",
+        "translation": "机械能",
+        "kind": "term",
+        "note": "动能和势能的总和，此处指用于驱动机器的能量。",
+        "aliases": []
+      },
+      {
+        "term": "Mining operations",
+        "translation": "采矿作业",
+        "kind": "term",
+        "note": "在矿山进行的开采活动，早期平行轨道多用于此。",
+        "aliases": []
+      },
+      {
+        "term": "keep pace with",
+        "translation": "与...保持同步；跟上...的步伐",
+        "kind": "context_phrase",
+        "note": "指工厂的发展速度要匹配销售增长的速度。",
+        "aliases": []
+      },
+      {
+        "term": "transformation",
+        "translation": "变革；转型",
+        "kind": "term",
+        "note": "指形态、性质或功能的巨大改变。",
+        "aliases": []
+      },
+      {
+        "term": "mechanization",
+        "translation": "机械化",
+        "kind": "term",
+        "note": "使用机器代替人力进行生产的过程。",
+        "aliases": []
+      },
+      {
+        "term": "Rolling mills",
+        "translation": "轧钢厂/轧机",
+        "kind": "term",
+        "note": "利用机械压力将铁块轧制成特定形状和尺寸的工厂设备。",
         "aliases": []
       },
       {
         "term": "rotary engine",
-        "translation": "旋转引擎",
+        "translation": "旋转发动机",
         "kind": "term",
-        "note": "能将直线运动转化为旋转运动的装置，用于驱动机器。",
+        "note": "一种将直线运动转化为旋转运动的装置。",
+        "aliases": []
+      },
+      {
+        "term": "rural laborer",
+        "translation": "农村劳工",
+        "kind": "term",
+        "note": "指来自乡村地区，从事农业或临时工作的劳动者。",
+        "aliases": []
+      },
+      {
+        "term": "working class",
+        "translation": "工人阶级",
+        "kind": "proper_noun",
+        "note": "社会学概念，指依靠出卖劳动力获取工资的社会群体。",
         "aliases": []
       },
       {
         "term": "entrepreneur",
-        "translation": "企业家",
+        "translation": "企业家；创业者",
         "kind": "term",
-        "note": "组织和管理企业，承担风险以获取利润的人。",
+        "note": "指组织资源、承担风险以获取利润的人。",
         "aliases": []
       },
       {
-        "term": "implications",
-        "translation": "影响，后果",
+        "term": "Refined iron",
+        "translation": "熟铁/精炼铁",
         "kind": "term",
-        "note": "指某事引发的后续连锁反应。",
+        "note": "经过处理去除杂质的高质量铁。",
         "aliases": []
       },
       {
-        "term": "entrenching",
-        "translation": "巩固，确立",
+        "term": "steam engine",
+        "translation": "蒸汽机",
         "kind": "term",
-        "note": "指蒸汽机车进一步巩固了工业革命的根基。",
+        "note": "工业革命的核心动力机械，标志着从人力/畜力向机械动力的转变。",
+        "aliases": []
+      },
+      {
+        "term": "water-driven",
+        "translation": "水力驱动的",
+        "kind": "term",
+        "note": "利用水流动力运作的机器。",
         "aliases": []
       },
       {
         "term": "water table",
         "translation": "地下水位",
         "kind": "term",
-        "note": "地下水面的高度，煤矿往往位于此水位之下。",
+        "note": "地下水面所在的深度。",
+        "aliases": []
+      },
+      {
+        "term": "consequent",
+        "translation": "随之发生的；作为结果的",
+        "kind": "term",
+        "note": "指由前文提到的原因导致的结果。",
+        "aliases": []
+      },
+      {
+        "term": "facilitate",
+        "translation": "促进；使便利",
+        "kind": "term",
+        "note": "使某事更容易发生或进行。",
+        "aliases": []
+      },
+      {
+        "term": "James Watt",
+        "translation": "詹姆斯·瓦特",
+        "kind": "proper_noun",
+        "note": "苏格兰发明家，对蒸汽机进行了重大改进，推动了工业革命。",
         "aliases": []
       },
       {
         "term": "prominence",
         "translation": "突出，显著",
         "kind": "term",
-        "note": "文中指能源问题被历史学家特别重视。",
+        "note": "在此语境下指将某事视为重要或给予特别关注。",
         "aliases": []
       },
       {
-        "term": "coal seam",
-        "translation": "煤层",
+        "term": "raw cotton",
+        "translation": "原棉；未加工的棉花",
         "kind": "term",
-        "note": "地下含有煤炭的岩层。",
+        "note": "从棉株上采摘后未经过纺纱织布处理的棉花。",
         "aliases": []
       },
       {
-        "term": "charcoal",
+        "term": "sixtyfold",
+        "translation": "六十倍",
+        "kind": "term",
+        "note": "表示数量增加了六十倍。",
+        "aliases": []
+      },
+      {
+        "term": "Charcoal",
         "translation": "木炭",
         "kind": "term",
-        "note": "由木材在缺氧条件下加热制成，曾是主要燃料。",
+        "note": "由木材烧制而成的燃料，早期炼铁的主要能源。",
         "aliases": []
       },
       {
-        "term": "bellows",
+        "term": "entrench",
+        "translation": "巩固；确立",
+        "kind": "term",
+        "note": "原意指挖掘战壕，此处比喻使某种状态或制度变得稳固、不可动摇。",
+        "aliases": []
+      },
+      {
+        "term": "Raw iron",
+        "translation": "生铁",
+        "kind": "term",
+        "note": "未经精炼的铁，含有较多杂质。",
+        "aliases": []
+      },
+      {
+        "term": "reinvest",
+        "translation": "再投资",
+        "kind": "term",
+        "note": "将赚取的利润再次投入生产或新项目中，而非消费掉。",
+        "aliases": []
+      },
+      {
+        "term": "Bellows",
         "translation": "风箱",
         "kind": "term",
-        "note": "用于向熔炉鼓入空气以助燃气的装置。",
+        "note": "用于向熔炉鼓入空气以助燃的设备，此处指蒸汽驱动的风箱。",
+        "aliases": []
+      },
+      {
+        "term": "Freight",
+        "translation": "货物",
+        "kind": "term",
+        "note": "通过运输工具运送的大量商品。",
         "aliases": []
       },
       {
         "term": "milling",
-        "translation": "磨粉，研磨",
+        "translation": "磨碎，研磨",
         "kind": "term",
         "note": "指利用水力或风力驱动磨坊进行谷物加工等任务。",
         "aliases": []
       },
       {
-        "term": "shaft",
-        "translation": "轴，传动轴",
+        "term": "drain",
+        "translation": "排水；排干",
         "kind": "term",
-        "note": "机械中传递动力和旋转运动的杆状部件。",
+        "note": "在文中指将矿井中的地下水排出。",
         "aliases": []
       },
       {
-        "term": "coke",
+        "term": "shaft",
+        "translation": "轴；传动轴",
+        "kind": "term",
+        "note": "机械中用于传递动力或运动的杆状部件。",
+        "aliases": []
+      },
+      {
+        "term": "weave",
+        "translation": "织布；编织",
+        "kind": "term",
+        "note": "将纱线交织成布匹的过程。",
+        "aliases": []
+      },
+      {
+        "term": "Coke",
         "translation": "焦炭",
         "kind": "term",
-        "note": "煤干馏后的产物，含碳量高，杂质少，用于炼铁。",
+        "note": "煤加热后留下的固体残留物，作为炼铁燃料比木炭更优质。",
+        "aliases": [
+          "coal-derived coke"
+        ]
+      },
+      {
+        "term": "seam",
+        "translation": "矿层；煤层",
+        "kind": "term",
+        "note": "地下矿藏中连续的一层矿石或煤炭。",
         "aliases": []
       }
     ],
@@ -119,76 +268,77 @@
         "id": "s1",
         "para": 1,
         "text": "For years historians have sought to identify crucial elements in the eighteenth-century rise in industry, technology, and economic power known as the Industrial Revolution, and many give prominence to the problem of energy.",
-        "translation": "多年来，历史学家一直致力于确定被称为工业革命的18世纪工业、技术和经济实力崛起的关键要素，许多人特别强调了能源问题。",
-        "grammarFocus": "并列句结构；过去分词短语作后置定语；介词短语作定语。",
-        "pronounRef": "many 指代 historians 中的一部分人。",
-        "logicConnector": "and 连接两个并列的分句，表示递进或补充。",
+        "translation": "多年来，历史学家一直在努力确定被称为工业革命的18世纪工业、技术和经济实力崛起的关键要素，许多人将能源问题置于突出地位。",
+        "grammarFocus": "并列句结构；过去分词短语作后置定语；主谓一致。",
+        "pronounRef": "many 指代前文提到的 historians（历史学家）。",
+        "logicConnector": "and 连接两个并列的分句，表示递进或补充说明。",
         "sentenceCoach": {
-          "summary": "这是一个长难句，像一个大包裹，里面装了两个主要信息。",
-          "keyHint": "先找到两个动词 have sought 和 give prominence，它们分别是两个分句的核心。"
+          "summary": "这是一个由 and 连接的两个长分句组成的并列句，前半部分讲历史学家在找原因，后半部分讲很多人关注能源。",
+          "keyHint": "注意 'known as...' 是修饰前面整个 'rise...' 概念的，不要把它当成谓语。"
         },
         "teachingFocus": {
-          "mainQuestion": "历史学家们在找什么？他们在找工业革命的关键要素。",
-          "grammarQuestion": "怎么区分谁在找？看动词，前半句是 historians have sought，后半句是 many give prominence。",
-          "modifierQuestion": "那个长长的 known as... 是贴在 rise 后面的标签，告诉我们要找的是哪个时期的崛起。",
-          "relationshipQuestion": "两个分句是好朋友，用 and 手拉手，一起说明历史学家的关注点。",
-          "commonMistake": "容易把 known as 当成谓语动词，其实它是修饰语，真正的动词是 have sought。",
+          "mainQuestion": "我们要先找到两个动作：历史学家在 'seek'（寻找），很多人 'give prominence'（重视）。",
+          "grammarQuestion": "看看 'known as the Industrial Revolution'，它是像小尾巴一样挂在 'rise...' 后面的，用来解释这个崛起叫什么名字。",
+          "modifierQuestion": "注意 'in the eighteenth-century rise...' 这个长长的介词短语，它是告诉我们在哪个领域里找关键要素。",
+          "relationshipQuestion": "前半句说大家在找原因，后半句说很多人觉得能源是重点，这两部分是并列关系，一起构成了历史学家的研究现状。",
+          "commonMistake": "很多同学看到 'known as' 以为是句子的主要动词，其实它是过去分词，真正的动词是 'have sought' 和 'give'。",
           "thinkingPath": [
-            "找到并列连词 and",
-            "分别提取 and 前后的主谓结构",
-            "识别 known as 是修饰语"
+            "找到两个动词：have sought 和 give",
+            "识别连接词 and",
+            "分析 known as 修饰谁",
+            "确认 many 指代谁"
           ],
-          "encouragement": "你抓住了句子的骨架，真棒！"
+          "encouragement": "太棒了！你能一眼看出这是两个并列的句子吗？就像火车头拉着两节车厢一样清晰！"
         },
-        "analysis": "### 【主干结构】\n这是一个由 and 连接的并列句。\n第一分句：Historians (主语) have sought (谓语) to identify crucial elements (宾语)...\n第二分句：many (主语) give prominence (谓语) to the problem of energy (宾语/介词宾语)。\n\n### 【主谓一致】\nhistorians 是复数，have sought 正确；many 指代复数概念，give 用原形，正确。\n\n### 【动词时态与原形】\nhave sought: 现在完成时，表示从过去持续到现在的影响。\ngive: 一般现在时，陈述事实。\n\n### 【从句剖析】\n无完整从句，但有分词短语作定语。\n\n### 【代词指代】\nmany 指代前文的 historians。\n\n### 【非谓语动词】\nto identify: 不定式作 seek 的宾语。\nknown as: 过去分词短语，作后置定语，修饰 rise in industry...。\n\n### 【修饰语详解】\nin the eighteenth-century rise...: 介词短语修饰 elements。\nknown as the Industrial Revolution: 过去分词短语，修饰 rise。\nto the problem of energy: 介词短语，修饰 prominence (give prominence to 是固定搭配)。",
+        "analysis": "### 【主干结构】\n这是一个并列句，由连词 **and** 连接两个独立分句。\n- **分句1**: Historians (主语) have sought (谓语) to identify... (不定式作宾语)。\n- **分句2**: many (主语，指代historians) give prominence to... (谓语+宾语)。\n\n### 【主谓一致】\n- 'historians' 是复数，谓语 'have sought' 使用复数形式。\n- 'many' 指代复数名词，谓语 'give' 使用复数形式。\n\n### 【动词时态与原形】\n- 'have sought': 现在完成时，表示从过去持续到现在的影响或动作。\n- 'give': 一般现在时，陈述当前的一种普遍观点或现象。\n\n### 【从句/修饰语剖析】\n- 'known as the Industrial Revolution': 过去分词短语作后置定语，修饰前面的名词短语 'the eighteenth-century rise in industry, technology, and economic power'。它解释了这种‘崛起’被称为什么。\n- 'in the eighteenth-century rise...': 介词短语作状语/定语，限定 'identify crucial elements' 的范围。\n\n### 【代词指代】\n- 'many': 指代前文的 'historians'。",
         "segments": [
           {
-            "text": "For years ",
+            "text": "For years",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "historians ",
+            "text": " historians",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "have sought ",
+            "text": " have sought",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "to identify crucial elements ",
+            "text": " to identify crucial elements",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "in the eighteenth-century rise in industry, technology, and economic power ",
+            "text": " in the eighteenth-century rise in industry, technology, and economic power",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "known as the Industrial Revolution, ",
+            "text": " known as the Industrial Revolution,",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "many ",
+            "text": " many",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "give prominence ",
+            "text": " give prominence to",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "to the problem of energy.",
+            "text": " the problem of energy.",
             "type": "object",
             "label": "宾语"
           }
@@ -199,55 +349,56 @@
         "para": 1,
         "text": "Until the eighteenth century, people relied on energy derived from plants as well as animal and human muscle to provide power.",
         "translation": "直到18世纪，人们依赖源自植物以及动物和人类肌肉的能量来提供动力。",
-        "grammarFocus": "rely on 搭配；过去分词作定语；as well as 连接并列成分。",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "grammarFocus": "介词短语作时间状语；过去分词作后置定语；不定式作目的状语。",
+        "pronounRef": "无代词。",
+        "logicConnector": "无逻辑连词，为简单陈述句。",
         "sentenceCoach": {
-          "summary": "这句话告诉我们工业革命前人们靠什么干活。",
-          "keyHint": "注意 derived from 是修饰 energy 的，不要把它当成谓语。"
+          "summary": "这句话告诉我们18世纪之前人们是怎么获取动力的，主要靠生物能。",
+          "keyHint": "注意 'derived from...' 是修饰 'energy' 的，说明能量的来源。"
         },
         "teachingFocus": {
-          "mainQuestion": "人们靠什么提供动力？靠植物、动物和人的肌肉。",
-          "grammarQuestion": "derived from plants... 是谁的修饰语？是 energy 的。",
-          "modifierQuestion": "to provide power 是目的状语，说明依赖能量的目的。",
-          "relationshipQuestion": "rely on A as well as B，A和B是并列的，都作为 on 的宾语。",
-          "commonMistake": "容易把 derived 当成谓语动词，其实它是分词，核心动词是 relied。",
+          "mainQuestion": "谁在依赖能量？是 'people'。他们依赖什么？依赖 'energy'。",
+          "grammarQuestion": "看看 'derived from plants...'，它是像小标签一样贴在 'energy' 后面的，告诉我们能量是从哪来的。",
+          "modifierQuestion": "'to provide power' 是告诉我们要能量做什么，这是目的状语。",
+          "relationshipQuestion": "时间状语 'Until...' 设定了背景，主句 'people relied...' 描述了当时的状态。",
+          "commonMistake": "不要把 'derived' 当成谓语动词，它没有时态变化，是过去分词，真正的谓语是 'relied'。",
           "thinkingPath": [
-            "找到核心动词 relied",
-            "识别 derived from... 是后置定语",
-            "理解 as well as 连接并列名词"
+            "找到时间状语 Until...",
+            "找到主语 people 和谓语 relied",
+            "分析 derived from... 修饰谁",
+            "理解 to provide power 的作用"
           ],
-          "encouragement": "你分清了主谓和修饰语，进步很大！"
+          "encouragement": "你找得很准！'relied on' 就像一个人紧紧抓住某样东西，这里人们抓住的是能量。"
         },
-        "analysis": "### 【主干结构】\nPeople (主语) relied on energy (宾语) to provide power (目的状语)。\n\n### 【主谓一致】\npeople 复数，relied 过去式，正确。\n\n### 【动词时态与原形】\nrelied: 一般过去时，描述过去的状态。\n\n### 【从句剖析】\n无完整从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nderived from plants...: 过去分词短语，作后置定语，修饰 energy。\nto provide power: 不定式，作目的状语。\n\n### 【修饰语详解】\nderived from plants as well as animal and human muscle: 过去分词短语修饰 energy。\nas well as: 连词短语，连接 plants 和 animal and human muscle。",
+        "analysis": "### 【主干结构】\n- **主语**: people\n- **谓语**: relied on\n- **宾语**: energy\n- **目的状语**: to provide power\n\n### 【主谓一致】\n- 'people' 是复数集合名词，谓语 'relied' 使用过去式，符合复数语境。\n\n### 【动词时态与原形】\n- 'relied': 一般过去时，描述过去（18世纪之前）的状态。\n- 'derived': 过去分词，表被动和完成。\n- 'provide': 不定式，表目的。\n\n### 【从句/修饰语剖析】\n- 'Until the eighteenth century': 介词短语作时间状语，修饰整个句子，限定时间范围。\n- 'derived from plants as well as animal and human muscle': 过去分词短语作后置定语，修饰 'energy'。其中 'as well as' 连接 'plants' 和 'animal and human muscle'，表示并列。\n\n### 【代词指代】\n- 无代词。",
         "segments": [
           {
-            "text": "Until the eighteenth century, ",
+            "text": "Until the eighteenth century,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "people ",
+            "text": " people",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "relied on ",
+            "text": " relied on",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "energy ",
+            "text": " energy",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "derived from plants as well as animal and human muscle ",
+            "text": " derived from plants as well as animal and human muscle",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "to provide power.",
+            "text": " to provide power.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -257,53 +408,49 @@
         "id": "s3",
         "para": 1,
         "text": "Increased efficiency in the use of water and wind helped with such tasks as pumping, milling, or sailing.",
-        "translation": "提高水和风的使用效率有助于抽水、磨粉或航行等任务。",
-        "grammarFocus": "help with 搭配；such...as 举例结构。",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "translation": "在水和风的使用上效率的提高，帮助完成了诸如抽水、磨碎或航行等任务。",
+        "grammarFocus": "主语中心词是 efficiency；介词短语作定语；such...as 结构。",
+        "pronounRef": "无代词。",
+        "logicConnector": "无逻辑连词。",
         "sentenceCoach": {
-          "summary": "这句话讲的是水和风效率提高带来的好处。",
-          "keyHint": "Increased efficiency 是主语，helped 是谓语。"
+          "summary": "这句话讲的是水力和风力效率提高带来的好处。",
+          "keyHint": "主语的核心词是 'efficiency'（效率），而不是 'water and wind'。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么帮助了这些任务？水和风使用效率的提高。",
-          "grammarQuestion": "such tasks as... 是举例，pumping, milling, sailing 是具体任务。",
-          "modifierQuestion": "in the use of water and wind 修饰 efficiency。",
-          "relationshipQuestion": "Increased efficiency 是动作发出者，helped 是动作。",
-          "commonMistake": "容易把 pumping, milling, sailing 当成谓语，其实它们是名词性质的动名词，作为 as 的宾语。",
+          "mainQuestion": "谁帮助了任务？是 'efficiency'（效率）。什么效率？使用水和风的效率。",
+          "grammarQuestion": "'in the use of water and wind' 是修饰 'efficiency' 的，告诉我们是什么方面的效率。",
+          "modifierQuestion": "'such tasks as pumping, milling, or sailing' 是 'helped with' 的宾语部分，列举了具体的任务。",
+          "relationshipQuestion": "效率提高（原因）导致了任务完成（结果/帮助）。",
+          "commonMistake": "很多同学会把 'water and wind' 当成主语，其实它们是 'use' 的对象，'use' 又是修饰 'efficiency' 的，主语是 'efficiency'。",
           "thinkingPath": [
-            "找到主语 Increased efficiency",
             "找到谓语 helped",
-            "识别 such...as 结构"
+            "往前找主语，核心词是 efficiency",
+            "分析 in the use... 修饰 efficiency",
+            "理解 such tasks as... 是宾语"
           ],
-          "encouragement": "你一眼就看出了主语，真厉害！"
+          "encouragement": "你抓住了核心！'efficiency' 就像是一个超级英雄，它让水和风变得更有用。"
         },
-        "analysis": "### 【主干结构】\nIncreased efficiency (主语) helped (谓语) with such tasks (宾语)。\n\n### 【主谓一致】\nefficiency 单数，helped 过去式，正确。\n\n### 【动词时态与原形】\nhelped: 一般过去时。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\npumping, milling, sailing: 动名词，作为 as 的宾语，列举 tasks。\n\n### 【修饰语详解】\nin the use of water and wind: 介词短语，修饰 efficiency。\nas pumping, milling, or sailing: 介词 as 引导的短语，举例说明 tasks。",
+        "analysis": "### 【主干结构】\n- **主语**: Increased efficiency (核心词 efficiency)\n- **谓语**: helped with\n- **宾语**: such tasks\n\n### 【主谓一致】\n- 'efficiency' 是单数不可数名词，谓语 'helped' 使用单数形式（过去式）。\n\n### 【动词时态与原形】\n- 'helped': 一般过去时。\n\n### 【从句/修饰语剖析】\n- 'Increased': 过去分词作前置定语，修饰 'efficiency'。\n- 'in the use of water and wind': 介词短语作后置定语，修饰 'efficiency'。\n- 'such tasks as pumping, milling, or sailing': 'such...as...' 结构，'pumping, milling, or sailing' 是动名词短语，作为 'tasks' 的同位语或具体举例。\n\n### 【代词指代】\n- 无代词。",
         "segments": [
           {
-            "text": "Increased efficiency ",
+            "text": "Increased efficiency",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "in the use of water and wind ",
+            "text": " in the use of water and wind",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "helped with ",
+            "text": " helped with",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "such tasks ",
+            "text": " such tasks as pumping, milling, or sailing.",
             "type": "object",
             "label": "宾语"
-          },
-          {
-            "text": "as pumping, milling, or sailing.",
-            "type": "modifier",
-            "label": "定语"
           }
         ]
       },
@@ -312,55 +459,56 @@
         "para": 1,
         "text": "However, by the eighteenth century, Great Britain in particular was experiencing an energy shortage.",
         "translation": "然而，到了18世纪，特别是英国正经历着能源短缺。",
-        "grammarFocus": "in particular 插入语；进行时态表示趋势。",
-        "pronounRef": "无",
+        "grammarFocus": "插入语 in particular；进行时态。",
+        "pronounRef": "无代词。",
         "logicConnector": "However 表示转折。",
         "sentenceCoach": {
-          "summary": "转折词 However 告诉我们情况变了。",
-          "keyHint": "in particular 是插入语，去掉后句子更清晰。"
+          "summary": "这句话用 However 转折，指出英国当时遇到了能源不够用的问题。",
+          "keyHint": "'in particular' 是插入语，强调 'Great Britain'，去掉它句子依然完整。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁在经历能源短缺？英国。",
-          "grammarQuestion": "was experiencing 是过去进行时，强调当时正在发生的趋势。",
-          "modifierQuestion": "in particular 强调 Great Britain。",
-          "relationshipQuestion": "However 连接上一句，表示对比。",
-          "commonMistake": "容易忽略 in particular 的强调作用，或者把它当成谓语的一部分。",
+          "mainQuestion": "谁在经历短缺？是 'Great Britain'。经历了什么？'an energy shortage'。",
+          "grammarQuestion": "'in particular' 像是一个小括号，专门用来强调英国，你可以先跳过它看主干。",
+          "modifierQuestion": "'by the eighteenth century' 是时间状语，表示在这个时间点之前或之时。",
+          "relationshipQuestion": "However 连接上文，表示与之前能源充足或效率提高的对比，引出问题。",
+          "commonMistake": "不要把 'in particular' 当成谓语的一部分，它是修饰主语的插入语。",
           "thinkingPath": [
-            "识别转折词 However",
+            "看到 However 知道是转折",
             "找到主语 Great Britain",
-            "识别插入语 in particular"
+            "识别插入语 in particular",
+            "找到谓语 was experiencing"
           ],
-          "encouragement": "你抓住了转折关系，思路很清晰！"
+          "encouragement": "你看得很仔细！'in particular' 就像放大镜，专门把英国放大给我们看。"
         },
-        "analysis": "### 【主干结构】\nGreat Britain (主语) was experiencing (谓语) an energy shortage (宾语)。\n\n### 【主谓一致】\nGreat Britain 视为单数，was experiencing 正确。\n\n### 【动词时态与原形】\nwas experiencing: 过去进行时，表示过去某一阶段正在进行的状况。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语详解】\nHowever: 连接副词，表转折。\nby the eighteenth century: 时间状语。\nin particular: 插入语，修饰 Great Britain，表示“特别是”。",
+        "analysis": "### 【主干结构】\n- **主语**: Great Britain\n- **谓语**: was experiencing\n- **宾语**: an energy shortage\n\n### 【主谓一致】\n- 'Great Britain' 是单数专有名词，谓语 'was experiencing' 使用单数形式。\n\n### 【动词时态与原形】\n- 'was experiencing': 过去进行时，强调在18世纪那个时间段内正在持续的状态。\n\n### 【从句/修饰语剖析】\n- 'However': 副词，作连接性状语，表示转折。\n- 'by the eighteenth century': 介词短语作时间状语。\n- 'in particular': 插入语，作状语或定语，修饰 'Great Britain'，表示‘特别是’。\n\n### 【代词指代】\n- 无代词。",
         "segments": [
           {
-            "text": "However, ",
+            "text": "However,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "by the eighteenth century, ",
+            "text": " by the eighteenth century,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "Great Britain ",
+            "text": " Great Britain",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "in particular ",
+            "text": " in particular",
             "type": "modifier",
             "label": "状语"
           },
           {
-            "text": "was experiencing ",
+            "text": " was experiencing",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "an energy shortage.",
+            "text": " an energy shortage.",
             "type": "object",
             "label": "宾语"
           }
@@ -370,51 +518,52 @@
         "id": "s5",
         "para": 1,
         "text": "Wood, the primary source of heat for homes and industries and also used in the iron industry as processed charcoal, was diminishing in supply.",
-        "translation": "木材是家庭和工业的主要热源，也作为加工木炭用于钢铁工业，其供应量正在减少。",
-        "grammarFocus": "同位语；过去分词短语作定语；主谓一致。",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "translation": "木材，作为家庭和工业的主要热源，也作为加工木炭用于钢铁工业，其供应量正在减少。",
+        "grammarFocus": "同位语；过去分词短语作后置定语；主谓一致。",
+        "pronounRef": "无代词。",
+        "logicConnector": "无逻辑连词。",
         "sentenceCoach": {
-          "summary": "这句话中间有个很长的插入部分，解释木材的用途。",
-          "keyHint": "跳过逗号中间的部分，主语是 Wood，谓语是 was diminishing。"
+          "summary": "这句话的主干是‘木材供应量在减少’，中间插了一大段话介绍木材的用途。",
+          "keyHint": "中间的逗号部分全是修饰 'Wood' 的，跳过它们直接找谓语 'was diminishing'。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么在减少？木材的供应。",
-          "grammarQuestion": "the primary source... 和 used in... 都是修饰 Wood 的。",
-          "modifierQuestion": "中间两个逗号之间的内容是同位语和分词短语，补充说明 Wood。",
-          "relationshipQuestion": "Wood 是核心，后面的内容都在描述它。",
-          "commonMistake": "容易把 used 当成谓语，其实它是分词，核心谓语是 was diminishing。",
+          "mainQuestion": "什么东西在减少？是 'Wood'（木材）。怎么减少？'was diminishing in supply'。",
+          "grammarQuestion": "看看两个逗号中间的部分，那是给 'Wood' 做的‘自我介绍’，告诉我们要木材有什么用。",
+          "modifierQuestion": "'the primary source...' 是同位语，解释木材是什么；'and also used...' 是过去分词短语，继续补充木材的用途。",
+          "relationshipQuestion": "因为木材用途广泛（热源、炼铁），所以它的减少才显得重要。",
+          "commonMistake": "很多同学会被中间长长的同位语和分词短语迷惑，找不到谓语。记住，谓语是 'was diminishing'。",
           "thinkingPath": [
             "找到主语 Wood",
-            "跳过中间的同位语和分词短语",
-            "找到谓语 was diminishing"
+            "跳过两个逗号之间的长修饰语",
+            "找到谓语 was diminishing",
+            "理解 in supply 是状语"
           ],
-          "encouragement": "你成功跳过了干扰项，找到了核心！"
+          "encouragement": "你真厉害！能穿过这么长的‘干扰项’找到真正的谓语，就像侦探破案一样！"
         },
-        "analysis": "### 【主干结构】\nWood (主语) was diminishing (谓语) in supply (状语)。\n\n### 【主谓一致】\nWood 不可数名词，视为单数，was 正确。\n\n### 【动词时态与原形】\nwas diminishing: 过去进行时，表示逐渐减少的过程。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nused in the iron industry...: 过去分词短语，作后置定语，修饰 Wood。\n\n### 【修饰语详解】\nthe primary source of heat for homes and industries: 名词短语，作 Wood 的同位语。\nalso used in the iron industry as processed charcoal: 过去分词短语，作后置定语，修饰 Wood。",
+        "analysis": "### 【主干结构】\n- **主语**: Wood\n- **谓语**: was diminishing\n- **状语**: in supply\n\n### 【主谓一致】\n- 'Wood' 是单数不可数名词，谓语 'was diminishing' 使用单数形式。\n\n### 【动词时态与原形】\n- 'was diminishing': 过去进行时，描述过去正在发生的趋势。\n- 'used': 过去分词，表被动。\n\n### 【从句/修饰语剖析】\n- 'the primary source of heat for homes and industries': 名词短语作同位语，解释说明 'Wood'。\n- 'and also used in the iron industry as processed charcoal': 过去分词短语作后置定语，与前面的同位语并列（通过 and 连接），进一步修饰 'Wood'。注意这里省略了 'which was' 或 'that was'。\n\n### 【代词指代】\n- 无代词。",
         "segments": [
           {
-            "text": "Wood, ",
+            "text": "Wood,",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "the primary source of heat for homes and industries ",
+            "text": " the primary source of heat for homes and industries",
             "type": "modifier",
             "label": "同位语"
           },
           {
-            "text": "and also used in the iron industry as processed charcoal, ",
+            "text": " and also used in the iron industry as processed charcoal,",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "was diminishing ",
+            "text": " was diminishing",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "in supply.",
+            "text": " in supply.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -424,61 +573,67 @@
         "id": "s6",
         "para": 1,
         "text": "Great Britain had large amounts of coal; however, there were not yet efficient means by which to produce mechanical energy or to power machinery.",
-        "translation": "英国有大量的煤炭；然而，当时还没有生产机械能或驱动机器的高效方法。",
-        "grammarFocus": "分号连接并列句；there be 句型；by which 引导定语从句。",
-        "pronounRef": "无",
+        "translation": "英国有大量的煤炭；然而，当时还没有高效的方法来产生机械能或为机器提供动力。",
+        "grammarFocus": "分号连接并列句；there be 句型；定语从句 by which...。",
+        "pronounRef": "无代词。",
         "logicConnector": "however 表示转折。",
         "sentenceCoach": {
-          "summary": "分号前后是两个对比的情况：有煤，但没法用。",
-          "keyHint": "by which to produce... 是修饰 means 的，可以理解为 to produce... by which。"
+          "summary": "分号前后是两个对比的分句：前面说有煤，后面说没法用。",
+          "keyHint": "注意 'by which to produce...' 是修饰 'means' 的，意思是‘用来...的方法’。"
         },
         "teachingFocus": {
-          "mainQuestion": "英国有什么？有煤。缺什么？缺高效的使用煤的方法。",
-          "grammarQuestion": "there were not yet efficient means 是核心结构。",
-          "modifierQuestion": "by which to produce... 是定语，修饰 means。",
-          "relationshipQuestion": "however 连接前后两个分句，形成转折。",
-          "commonMistake": "容易把 by which 当成介词短语修饰前面的词，其实它引导的是定语从句的简化形式。",
+          "mainQuestion": "分号前：英国有什么？有煤。分号后：有什么没有？没有高效的方法。",
+          "grammarQuestion": "'by which to produce...' 是一个‘介词+关系代词+不定式’的结构，相当于一个简化的定语从句，修饰 'means'。",
+          "modifierQuestion": "'large amounts of' 修饰 'coal'，表示数量多。",
+          "relationshipQuestion": "分号后的 'however' 表示转折，尽管有煤（分号前），但没法用（分号后）。",
+          "commonMistake": "不要把 'by which' 当成介词短语状语，它是引导定语从句的关系词，修饰前面的 'means'。",
           "thinkingPath": [
             "识别分号分隔的两个分句",
-            "找到 however 表示转折",
-            "分析 by which 引导的定语结构"
+            "分析第一分句：Great Britain had coal",
+            "分析第二分句：there were no means",
+            "理解 by which to... 修饰 means"
           ],
-          "encouragement": "你分清了分号的作用，真棒！"
+          "encouragement": "分号就像一座桥，连接了两个相反的想法。你成功走过了这座桥！"
         },
-        "analysis": "### 【主干结构】\n第一分句：Great Britain (主语) had (谓语) large amounts of coal (宾语)。\n第二分句：there (引导词) were (谓语) not yet efficient means (主语)。\n\n### 【主谓一致】\nGreat Britain 单数，had 过去式；means 单复数同形，此处指多种方法，用复数 were，正确。\n\n### 【动词时态与原形】\nhad: 一般过去时。\nwere: 一般过去时。\n\n### 【从句剖析】\nby which to produce mechanical energy or to power machinery: 介词+关系代词+不定式，相当于定语从句 which to produce... by，修饰 means。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nto produce... / to power...: 不定式，在定语结构中作目的或内容。\n\n### 【修饰语详解】\nhowever: 连接副词，表转折。\nby which to produce...: 定语，修饰 means。",
+        "analysis": "### 【主干结构】\n这是一个由分号连接的并列句。\n- **分句1**: Great Britain (主语) had (谓语) large amounts of coal (宾语)。\n- **分句2**: there (引导词) were (谓语) not yet efficient means (主语/逻辑主语)。\n\n### 【主谓一致】\n- 'Great Britain' 单数，'had' 过去式。\n- 'means' 单复数同形，此处根据 'were' 判断为复数概念（多种方法），或视为复数处理。\n\n### 【动词时态与原形】\n- 'had': 一般过去时。\n- 'were': 一般过去时。\n- 'produce', 'power': 不定式，作后置定语修饰 means。\n\n### 【从句/修饰语剖析】\n- 'however': 连接副词，表示转折。\n- 'by which to produce mechanical energy or to power machinery': '介词(by) + 关系代词(which) + 不定式' 结构，作后置定语修饰 'means'。which 指代 means。意思是‘用来产生机械能或驱动机器的方法’。\n\n### 【代词指代】\n- which: 指代 'means'。",
         "segments": [
           {
-            "text": "Great Britain ",
+            "text": "Great Britain",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "had ",
+            "text": " had",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "large amounts of coal; ",
+            "text": " large amounts of coal;",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "however, ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": " however,",
+            "type": "adverbial",
+            "label": "状语"
           },
           {
-            "text": "there ",
-            "type": "subject",
-            "label": "主语"
+            "text": " there",
+            "type": "clause-subject",
+            "label": "引导词"
           },
           {
-            "text": "were not yet efficient means ",
-            "type": "verb",
+            "text": " were",
+            "type": "clause-verb",
             "label": "谓语"
           },
           {
-            "text": "by which to produce mechanical energy or to power machinery.",
+            "text": " not yet efficient means",
+            "type": "clause-predicative",
+            "label": "表语"
+          },
+          {
+            "text": " by which to produce mechanical energy or to power machinery.",
             "type": "modifier",
             "label": "定语"
           }
@@ -488,41 +643,42 @@
         "id": "s7",
         "para": 1,
         "text": "This was to occur with progress in the development of the steam engine.",
-        "translation": "这将随着蒸汽机的发展进步而发生。",
-        "grammarFocus": "be to do 表示将来或注定；with 短语作状语。",
-        "pronounRef": "This 指代前文提到的高效使用煤炭产生机械能的情况。",
-        "logicConnector": "无",
+        "translation": "这将在蒸汽机发展的进步中发生。",
+        "grammarFocus": "be to do 结构表示将来或注定；介词短语作状语。",
+        "pronounRef": "This 指代前句提到的‘用煤产生机械能或驱动机器’这一情况。",
+        "logicConnector": "无逻辑连词。",
         "sentenceCoach": {
-          "summary": "这句话预示着蒸汽机将解决能源问题。",
-          "keyHint": "This 指代前一句的‘高效方法’。"
+          "summary": "这句话预言了问题的解决方式：靠蒸汽机。",
+          "keyHint": "'was to occur' 表示过去看来将来会发生的事，或者注定要发生。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么会发生？高效使用能源的情况会发生。",
-          "grammarQuestion": "was to occur 表示过去将来时，指从过去看将来会发生的事。",
-          "modifierQuestion": "with progress... 是方式状语，说明通过什么发生。",
-          "relationshipQuestion": "This 承接上文，指代前文提到的需求。",
-          "commonMistake": "容易把 was to occur 当成一般过去时，其实它带有‘注定’或‘计划’的意味。",
+          "mainQuestion": "什么会发生？'This'（指代前文的情况）。怎么发生？'was to occur'。",
+          "grammarQuestion": "'was to occur' 是一种特殊的将来时态，表示过去视角下的将来，或者命运的安排。",
+          "modifierQuestion": "'with progress in the development of the steam engine' 是方式状语，说明是通过什么进步发生的。",
+          "relationshipQuestion": "This 指代前一句的‘缺乏高效用煤方法’，这句话说明这个方法将通过蒸汽机的发展来实现。",
+          "commonMistake": "不要把 'to occur' 当成目的状语，它是谓语的一部分，构成 'be to do' 结构。",
           "thinkingPath": [
-            "识别代词 This 的指代对象",
-            "理解 was to do 的时态含义",
-            "分析 with 短语的作用"
+            "找到主语 This",
+            "识别谓语 was to occur",
+            "分析 with progress... 是状语",
+            "理解 This 指代前文"
           ],
-          "encouragement": "你理解了代词的指代，真聪明！"
+          "encouragement": "你读懂了历史的预言！'was to' 就像时间机器，带我们看到了未来的解决方案。"
         },
-        "analysis": "### 【主干结构】\nThis (主语) was to occur (谓语)。\n\n### 【主谓一致】\nThis 单数，was 正确。\n\n### 【动词时态与原形】\nwas to occur: 过去将来时，表示从过去某个时间点看，将来会发生的事情。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\nThis 指代前一句中提到的 ‘efficient means by which to produce mechanical energy or to power machinery’ 这一情况的实现。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语详解】\nwith progress in the development of the steam engine: 介词短语，作方式状语，修饰 occur。",
+        "analysis": "### 【主干结构】\n- **主语**: This\n- **谓语**: was to occur\n- **状语**: with progress in the development of the steam engine\n\n### 【主谓一致】\n- 'This' 是单数，'was' 是单数过去式。\n\n### 【动词时态与原形】\n- 'was to occur': ‘be to + 动词原形’结构，表示过去将来时，或表示注定、计划好的事情。\n\n### 【从句/修饰语剖析】\n- 'with progress in the development of the steam engine': 介词短语作方式状语，修饰 'occur'。其中 'in the development of the steam engine' 修饰 'progress'。\n\n### 【代词指代】\n- This: 指代前一句中提到的‘用煤产生机械能或驱动机器’这一需求或情况。",
         "segments": [
           {
-            "text": "This ",
+            "text": "This",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "was to occur ",
+            "text": " was to occur",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "with progress in the development of the steam engine.",
+            "text": " with progress in the development of the steam engine.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -532,58 +688,77 @@
         "id": "s8",
         "para": 2,
         "text": "In the late 1700s James Watt designed an efficient and commercially viable steam engine that was soon applied to a variety of industrial uses as it became cheaper to use.",
-        "translation": "在18世纪70年代末，詹姆斯·瓦特设计了一种高效且商业上可行的蒸汽机，随着使用成本降低，它很快被应用于各种工业用途。",
-        "grammarFocus": "定语从句；as 引导原因状语从句。",
-        "pronounRef": "it 指代 use of the steam engine。",
-        "logicConnector": "as 表示原因。",
+        "translation": "在18世纪70年代末，詹姆斯·瓦特设计了一种高效且商业上可行的蒸汽机，它很快被应用于各种工业用途，因为使用它变得更便宜了。",
+        "grammarFocus": "定语从句 that...；原因状语从句 as...；形容词并列。",
+        "pronounRef": "it 指代 'steam engine' 或 'using the steam engine'。",
+        "logicConnector": "as 引导原因状语从句。",
         "sentenceCoach": {
-          "summary": "这句话讲了瓦特的发明及其广泛应用的原因。",
-          "keyHint": "that 引导的从句修饰 steam engine，as 引导的从句解释为什么应用广泛。"
+          "summary": "这句话讲了瓦特发明蒸汽机及其影响。",
+          "keyHint": "注意 'that was soon applied...' 是修饰蒸汽机的定语从句，'as it became...' 是解释为什么应用广泛的原因。"
         },
         "teachingFocus": {
-          "mainQuestion": "瓦特设计了什么？设计了高效的蒸汽机。",
-          "grammarQuestion": "that was soon applied... 是定语从句，修饰 steam engine。",
-          "modifierQuestion": "as it became cheaper to use 是原因状语，解释应用广泛的原因。",
-          "relationshipQuestion": "that 从句和 as 从句都依附于主句，提供额外信息。",
-          "commonMistake": "容易混淆 that 和 as 引导的从句类型，that 是定语，as 是状语。",
+          "mainQuestion": "谁设计了什么？James Watt 设计了 steam engine。",
+          "grammarQuestion": "'that was soon applied...' 是一个定语从句，告诉我们要这个蒸汽机后来怎么样了。",
+          "modifierQuestion": "'as it became cheaper to use' 是原因状语从句，解释为什么它被广泛应用。",
+          "relationshipQuestion": "瓦特设计（主句）-> 蒸汽机被应用（定语从句）-> 因为变便宜了（原因状语）。",
+          "commonMistake": "不要把 'as' 当成‘当...时候’，在这里它更倾向于表示‘因为’，解释应用广泛的原因。",
           "thinkingPath": [
-            "找到主句 James Watt designed...",
+            "找到主句：James Watt designed...",
             "识别 that 引导的定语从句",
-            "识别 as 引导的原因状语从句"
+            "识别 as 引导的原因状语从句",
+            "理解 it 指代蒸汽机"
           ],
-          "encouragement": "你分清了定语从句和状语从句，真棒！"
+          "encouragement": "你理清了复杂的句子关系！就像拼图一样，每一块都找到了它的位置。"
         },
-        "analysis": "### 【主干结构】\nJames Watt (主语) designed (谓语) an efficient and commercially viable steam engine (宾语)。\n\n### 【主谓一致】\nJames Watt 单数，designed 过去式；that 指代 engine 单数，was 正确。\n\n### 【动词时态与原形】\ndesigned: 一般过去时。\nwas applied: 一般过去时被动语态。\nbecame: 一般过去时。\n\n### 【从句剖析】\nthat was soon applied to a variety of industrial uses: 定语从句，修饰 steam engine。\nas it became cheaper to use: 原因状语从句，修饰 applied 或整个主句情况。\n\n### 【代词指代】\nit 指代 using the steam engine (使用蒸汽机)。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语详解】\nefficient and commercially viable: 形容词，修饰 steam engine。\nto a variety of industrial uses: 介词短语，修饰 applied。\nas it became cheaper to use: 原因状语从句。",
+        "analysis": "### 【主干结构】\n- **主语**: James Watt\n- **谓语**: designed\n- **宾语**: an efficient and commercially viable steam engine\n\n### 【主谓一致】\n- 'James Watt' 单数，'designed' 过去式。\n- 'that' 指代 steam engine（单数），'was applied' 单数。\n- 'it' 指代 steam engine（单数），'became' 过去式。\n\n### 【动词时态与原形】\n- 'designed': 一般过去时。\n- 'was applied': 一般过去时，被动语态。\n- 'became': 一般过去时。\n\n### 【从句/修饰语剖析】\n- 'that was soon applied to a variety of industrial uses': 定语从句，修饰 'steam engine'。that 作主语。\n- 'as it became cheaper to use': 原因状语从句，修饰主句或定语从句中的动作，解释应用广泛的原因。as 意为‘因为’。it 是形式主语，真正的主语是 'to use (the steam engine)'。\n\n### 【代词指代】\n- it: 指代 'steam engine' 或使用蒸汽机这一行为。",
         "segments": [
           {
-            "text": "In the late 1700s ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": "In the late 1700s",
+            "type": "adverbial"
           },
           {
-            "text": "James Watt ",
-            "type": "subject",
-            "label": "主语"
+            "text": " James Watt",
+            "type": "subject"
           },
           {
-            "text": "designed ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " designed",
+            "type": "verb"
           },
           {
-            "text": "an efficient and commercially viable steam engine ",
-            "type": "object",
-            "label": "宾语"
+            "text": " an efficient and commercially viable steam engine",
+            "type": "object"
           },
           {
-            "text": "that was soon applied to a variety of industrial uses ",
-            "type": "modifier",
-            "label": "定语"
+            "text": " that",
+            "type": "clause-subject"
           },
           {
-            "text": "as it became cheaper to use.",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " was soon applied",
+            "type": "clause-verb"
+          },
+          {
+            "text": " to a variety of industrial uses",
+            "type": "modifier"
+          },
+          {
+            "text": " as",
+            "type": "conjunction"
+          },
+          {
+            "text": " it",
+            "type": "clause-subject"
+          },
+          {
+            "text": " became",
+            "type": "clause-verb"
+          },
+          {
+            "text": " cheaper",
+            "type": "clause-predicative"
+          },
+          {
+            "text": " to use.",
+            "type": "modifier"
           }
         ]
       },
@@ -591,61 +766,77 @@
         "id": "s9",
         "para": 2,
         "text": "The engine helped solve the problem of draining coal mines of groundwater and increased the production of coal needed to power steam engines elsewhere.",
-        "translation": "这台引擎帮助解决了煤矿地下水排水问题，并增加了为其他地方蒸汽机提供动力所需的煤炭产量。",
-        "grammarFocus": "help (to) do 结构；过去分词作定语。",
+        "translation": "这台发动机帮助解决了煤矿地下水排水的问题，并增加了用于在其他地方驱动蒸汽机的煤炭产量。",
+        "grammarFocus": "并列谓语结构 (helped... and increased...)；过去分词作后置定语 (needed...)。",
         "pronounRef": "无",
-        "logicConnector": "and 连接两个谓语动词。",
+        "logicConnector": "and (并列关系)",
         "sentenceCoach": {
-          "summary": "这句话讲了蒸汽机的两个主要贡献。",
-          "keyHint": "helped solve 和 increased 是并列的谓语。"
+          "summary": "这句话讲了蒸汽机做的两件事：排水和产煤。",
+          "keyHint": "注意 'and' 连接的两个动词短语，它们共享同一个主语 'The engine'。"
         },
         "teachingFocus": {
-          "mainQuestion": "引擎做了什么？解决了排水问题，增加了煤炭产量。",
-          "grammarQuestion": "helped solve 中 solve 是不带 to 的不定式。",
-          "modifierQuestion": "needed to power... 是过去分词短语，修饰 coal。",
-          "relationshipQuestion": "and 连接 helped 和 increased，表示两个动作都由 The engine 发出。",
-          "commonMistake": "容易把 needed 当成谓语，其实它是分词，核心谓语是 helped 和 increased。",
+          "mainQuestion": "谁帮了忙？谁增加了产量？答案是‘这台发动机’，它做了两件事。",
+          "grammarQuestion": "看到 'and' 连接两个动词时，要明白它们的主语是同一个，就像一个人做了两件事。",
+          "modifierQuestion": "'needed to power...' 像个小尾巴，紧紧跟在 'coal' 后面，告诉我们要用这些煤来做什么。",
+          "relationshipQuestion": "排水解决了问题，产煤提供了动力，这两件事共同推动了蒸汽机的使用。",
+          "commonMistake": "容易把 'needed' 当成第二个谓语动词，其实它是修饰 'coal' 的，真正的谓语是 'helped' 和 'increased'。",
           "thinkingPath": [
-            "找到主语 The engine",
-            "找到并列谓语 helped 和 increased",
-            "识别 needed 是分词作定语"
+            "找到主语 'The engine'",
+            "找到第一个动作 'helped solve'",
+            "找到连接词 'and'",
+            "找到第二个动作 'increased'"
           ],
-          "encouragement": "你找到了并列谓语，思路很清晰！"
+          "encouragement": "你抓住了句子的主干，真棒！就像找到了火车的头，剩下的车厢自然就跟上了。"
         },
-        "analysis": "### 【主干结构】\nThe engine (主语) helped solve... (谓语1) and increased... (谓语2)。\n\n### 【主谓一致】\nThe engine 单数，helped 和 increased 过去式，正确。\n\n### 【动词时态与原形】\nhelped: 一般过去时。\nincreased: 一般过去时。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nsolve: 省略 to 的不定式，作 help 的宾语。\ndraining: 动名词，作 of 的宾语。\nneeded: 过去分词，作后置定语，修饰 coal。\n\n### 【修饰语详解】\nof draining coal mines of groundwater: 介词短语，修饰 problem。\nto power steam engines elsewhere: 不定式，修饰 needed 或 coal，表目的。",
+        "analysis": "### 【主干结构】\n主语是 'The engine'。谓语部分由 'and' 连接的两个动词短语组成：'helped solve...' 和 'increased...'。\n\n### 【主谓一致】\n主语 'The engine' 是单数，谓语动词 'helped' 和 'increased' 均使用过去式，符合单数主语和过去时态的语境。\n\n### 【动词时态与原形】\n'helped' 是过去式，后接不定式省略 to 的 'solve' (help do sth)。\n'increased' 是过去式。\n\n### 【从句/非谓语剖析】\n'of draining coal mines of groundwater' 是介词短语作后置定语，修饰 'problem'。\n'needed to power steam engines elsewhere' 是过去分词短语作后置定语，修饰 'coal'。其中 'to power...' 是不定式作目的状语或补足语，解释 'needed' 的内容。\n\n### 【代词指代】\n无代词。",
         "segments": [
           {
-            "text": "The engine ",
+            "text": "The engine",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "helped solve ",
+            "text": " helped",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "the problem of draining coal mines of groundwater ",
+            "text": " solve the problem",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "and ",
+            "text": " of draining coal mines of groundwater",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "increased ",
+            "text": " increased",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "the production of coal ",
+            "text": " the production",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "needed to power steam engines elsewhere.",
+            "text": " of coal",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " needed",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " to power steam engines elsewhere.",
             "type": "modifier",
             "label": "定语"
           }
@@ -655,54 +846,79 @@
         "id": "s10",
         "para": 2,
         "text": "A rotary engine attached to the steam engine enabled shafts to be turned and machines to be driven, resulting in mills using steam power to spin and weave cotton.",
-        "translation": "连接到蒸汽机的旋转引擎使轴得以转动，机器得以驱动，导致工厂使用蒸汽动力来纺纱和织布。",
-        "grammarFocus": "enable sb/sth to do; 过去分词作定语；现在分词作结果状语。",
+        "translation": "连接到蒸汽机上的旋转发动机使轴得以转动，机器得以运转，从而产生了使用蒸汽动力纺纱和织布的工厂。",
+        "grammarFocus": "enable sb/sth to do sth 结构；过去分词作定语 (attached...)；现在分词作结果状语 (resulting...)。",
         "pronounRef": "无",
-        "logicConnector": "无",
+        "logicConnector": "resulting in (因果关系/结果)",
         "sentenceCoach": {
-          "summary": "这句话解释了旋转引擎如何驱动机器，以及最终的结果。",
-          "keyHint": "attached to... 修饰 rotary engine，resulting in... 是结果。"
+          "summary": "旋转发动机让轴和机器动起来，最后导致了使用蒸汽动力的工厂出现。",
+          "keyHint": "注意 'enabled' 后面的宾语和宾语补足语结构，以及句尾的 'resulting in'。"
         },
         "teachingFocus": {
-          "mainQuestion": "旋转引擎使什么得以转动？使轴和机器得以转动。",
-          "grammarQuestion": "enabled shafts to be turned 是 enable 的被动不定式结构。",
-          "modifierQuestion": "attached to the steam engine 是定语，修饰 rotary engine。",
-          "relationshipQuestion": "resulting in... 是前面动作导致的结果。",
-          "commonMistake": "容易把 resulting 当成谓语，其实它是现在分词作状语。",
+          "mainQuestion": "谁让轴转动、让机器运转？是‘连接到蒸汽机上的旋转发动机’。",
+          "grammarQuestion": "'enabled A to be B and C to be D' 是一个并列的宾语补足语结构，A和C是宾语，B和D是补足语。",
+          "modifierQuestion": "'attached to...' 修饰 'rotary engine'，说明是什么样的旋转发动机；'resulting in...' 是结果，说明前面动作带来的后果。",
+          "relationshipQuestion": "旋转发动机是工具，轴和机器是受动者，工厂是最终的结果。",
+          "commonMistake": "容易忽略 'attached to the steam engine' 是修饰语，误以为它是谓语；或者误以为 'resulting' 是并列谓语。",
           "thinkingPath": [
-            "找到主语 A rotary engine",
-            "识别 attached to... 是定语",
-            "找到谓语 enabled",
-            "识别 resulting in... 是结果状语"
+            "找到主语 'A rotary engine'",
+            "找到修饰语 'attached to...'",
+            "找到谓语 'enabled'",
+            "找到宾语和补足语 'shafts to be turned...'"
           ],
-          "encouragement": "你抓住了结果状语，真棒！"
+          "encouragement": "你成功拆解了长难句的修饰部分，就像给积木找到了正确的连接点！"
         },
-        "analysis": "### 【主干结构】\nA rotary engine (主语) enabled (谓语) shafts to be turned and machines to be driven (宾语+宾补)。\n\n### 【主谓一致】\nA rotary engine 单数，enabled 过去式，正确。\n\n### 【动词时态与原形】\nenabled: 一般过去时。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nattached to the steam engine: 过去分词短语，作后置定语，修饰 rotary engine。\nto be turned / to be driven: 不定式的被动式，作 enable 的宾语补足语。\nresulting in...: 现在分词短语，作结果状语。\nusing steam power...: 现在分词短语，作后置定语，修饰 mills。\n\n### 【修饰语详解】\nattached to the steam engine: 定语，修饰 rotary engine。\nresulting in mills using steam power to spin and weave cotton: 结果状语。",
+        "analysis": "### 【主干结构】\n主语是 'A rotary engine'。谓语是 'enabled'。宾语是 'shafts' 和 'machines'。宾语补足语是 'to be turned' 和 'to be driven'。\n\n### 【主谓一致】\n主语 'A rotary engine' 是单数，谓语 'enabled' 使用过去式，一致。\n\n### 【动词时态与原形】\n'enabled' 是过去式。\n'to be turned' 和 'to be driven' 是不定式的被动形式。\n\n### 【从句/非谓语剖析】\n'attached to the steam engine' 是过去分词短语作后置定语，修饰 'rotary engine'。\n'resulting in mills...' 是现在分词短语作结果状语，修饰整个主句动作。\n'using steam power to spin and weave cotton' 是现在分词短语作后置定语，修饰 'mills'。\n\n### 【代词指代】\n无代词。",
         "segments": [
           {
-            "text": "A rotary engine ",
+            "text": "A rotary engine",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "attached to the steam engine ",
+            "text": " attached to the steam engine",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "enabled ",
+            "text": " enabled",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "shafts to be turned and machines to be driven, ",
+            "text": " shafts",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "resulting in mills using steam power to spin and weave cotton.",
+            "text": " to be turned",
+            "type": "object-complement",
+            "label": "宾语补足语"
+          },
+          {
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " machines",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " to be driven,",
+            "type": "object-complement",
+            "label": "宾语补足语"
+          },
+          {
+            "text": " resulting in mills",
             "type": "adverbial",
             "label": "状语"
+          },
+          {
+            "text": " using steam power to spin and weave cotton.",
+            "type": "modifier",
+            "label": "定语"
           }
         ]
       },
@@ -710,51 +926,82 @@
         "id": "s11",
         "para": 2,
         "text": "Since the steam engine was fired by coal, the large mills did not need to be located by rivers, as had mills that used water- driven machines.",
-        "translation": "由于蒸汽机由煤炭驱动，大型工厂不需要建在河边，就像使用水力驱动机器的工厂那样。",
-        "grammarFocus": "since 引导原因状语；as 引导方式/比较状语；倒装结构。",
+        "translation": "由于蒸汽机由煤炭驱动，大型工厂不再需要建在河边，就像使用水力驱动机器的工厂那样。",
+        "grammarFocus": "Since 引导的原因状语从句；as 引导的方式/比较状语从句（倒装结构）；定语从句 (that used...)。",
         "pronounRef": "无",
-        "logicConnector": "since 表原因，as 表比较。",
+        "logicConnector": "Since (原因); as (比较/方式)",
         "sentenceCoach": {
-          "summary": "这句话对比了蒸汽机工厂和水力工厂的选址。",
-          "keyHint": "as had mills... 是倒装，正常语序是 mills that used... had not needed to be located by rivers。"
+          "summary": "因为用煤，所以工厂不用靠河了，这和以前用水力的工厂不一样。",
+          "keyHint": "注意 'as had mills...' 是倒装结构，正常语序是 'mills had located by rivers'。"
         },
         "teachingFocus": {
-          "mainQuestion": "大型工厂为什么不需要建在河边？因为用煤，不用水。",
-          "grammarQuestion": "as had mills... 是 as 引导的比较状语从句，且发生了倒装。",
-          "modifierQuestion": "that used water-driven machines 是定语从句，修饰 mills。",
-          "relationshipQuestion": "since 引导原因，as 引导比较。",
-          "commonMistake": "容易看不懂 as had mills 的倒装结构，其实 had 是助动词，代替 need to be located。",
+          "mainQuestion": "为什么工厂不用靠河了？因为蒸汽机用煤。",
+          "grammarQuestion": "'as had mills...' 是一个比较状语从句，使用了倒装，'had' 指代前面的 'were located'。",
+          "modifierQuestion": "'that used water-driven machines' 是定语从句，修饰 'mills'，说明是哪类工厂。",
+          "relationshipQuestion": "原因（用煤）导致结果（不靠河），并与过去（靠水）进行对比。",
+          "commonMistake": "容易误解 'as had mills' 的意思，不知道 'had' 在这里代替了 'were located'。",
           "thinkingPath": [
-            "识别 since 引导的原因状语",
-            "找到主句 the large mills did not need...",
-            "分析 as 引导的比较状语从句及其倒装"
+            "识别 'Since' 引导的原因从句",
+            "找到主句 'the large mills did not need...'",
+            "识别 'as' 引导的比较从句",
+            "分析 'that used...' 定语从句"
           ],
-          "encouragement": "你理解了倒装结构，真厉害！"
+          "encouragement": "你读懂了倒装句，就像看穿了魔术师的把戏，真厉害！"
         },
-        "analysis": "### 【主干结构】\nSince the steam engine was fired by coal (原因状语从句), the large mills (主语) did not need to be located by rivers (谓语+状语), as had mills that used water-driven machines (比较状语从句)。\n\n### 【主谓一致】\nthe steam engine 单数，was 正确；mills 复数，had 正确。\n\n### 【动词时态与原形】\nwas fired: 一般过去时被动语态。\ndid not need: 一般过去时。\nhad: 助动词，代替 need to be located。\n\n### 【从句剖析】\nSince the steam engine was fired by coal: 原因状语从句。\nas had mills that used water-driven machines: 比较状语从句，其中 that used water-driven machines 是定语从句修饰 mills。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nfired: 过去分词，表被动。\n\n### 【修饰语详解】\nby coal: 介词短语，修饰 fired。\nby rivers: 介词短语，修饰 located。\nthat used water-driven machines: 定语从句，修饰 mills。",
+        "analysis": "### 【主干结构】\n主句主语是 'the large mills'，谓语是 'did not need'，宾语是不定式 'to be located by rivers'。\n\n### 【主谓一致】\n主句主语 'the large mills' 是复数，谓语 'did not need' 使用过去式，一致。\n\n### 【动词时态与原形】\n'was fired' 是过去式被动语态。\n'did not need' 是过去式否定。\n'to be located' 是不定式被动。\n\n### 【从句剖析】\n'Since the steam engine was fired by coal' 是原因状语从句。\n'as had mills that used water-driven machines' 是方式/比较状语从句。其中 'that used water-driven machines' 是定语从句，修饰 'mills'。'as had mills' 是倒装，正常语序为 'as mills had (been located by rivers)'。\n\n### 【代词指代】\n无代词。",
         "segments": [
           {
-            "text": "Since the steam engine was fired by coal, ",
+            "text": "Since",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " the steam engine",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " was fired",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " by coal,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "the large mills ",
+            "text": " the large mills",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "did not need to be located by rivers, ",
+            "text": " did not need",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "as had mills ",
-            "type": "subject",
-            "label": "主语"
+            "text": " to be located by rivers,",
+            "type": "object",
+            "label": "宾语"
           },
           {
-            "text": "that used water- driven machines.",
+            "text": " as",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " had",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " mills",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " that used water- driven machines.",
             "type": "modifier",
             "label": "定语"
           }
@@ -764,51 +1011,62 @@
         "id": "s12",
         "para": 2,
         "text": "The shift to increased mechanization in cotton production is apparent in the import of raw cotton and the sale of cotton goods.",
-        "translation": "棉花生产中机械化程度的提高在原料棉花进口和棉制品销售中显而易见。",
-        "grammarFocus": "be apparent in 结构；名词短语作主语。",
+        "translation": "棉花生产中机械化程度的提高，体现在原棉进口和棉制品销售的增加上。",
+        "grammarFocus": "主系表结构；介词短语作后置定语；'in' 表示体现的方面。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话通过数据和现象说明机械化的趋势。",
-          "keyHint": "主语是 The shift，谓语是 is apparent。"
+          "summary": "机械化提高了，这表现在买更多棉花和卖更多棉布上。",
+          "keyHint": "注意 'The shift to...' 是主语核心，'is apparent in...' 是谓语部分。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么显而易见？机械化的转变。",
-          "grammarQuestion": "in the import... and the sale... 是介词短语，作表语补足语或地点状语。",
-          "modifierQuestion": "to increased mechanization in cotton production 是定语，修饰 shift。",
-          "relationshipQuestion": "shift 是核心，apparent 是状态。",
-          "commonMistake": "容易把 in the import... 当成谓语的一部分，其实它是修饰 apparent 的。",
+          "mainQuestion": "什么变得明显了？‘棉花生产中机械化程度的提高’这一转变。",
+          "grammarQuestion": "'is apparent in...' 是主系表结构，'in...' 说明明显的方面。",
+          "modifierQuestion": "'to increased mechanization in cotton production' 是介词短语修饰 'shift'，说明是什么样的转变。",
+          "relationshipQuestion": "转变（原因/现象）体现在进口和销售（结果/表现）上。",
+          "commonMistake": "容易把 'in the import...' 当成主语的一部分，其实它是表语部分的介词短语。",
           "thinkingPath": [
-            "找到主语 The shift",
-            "找到谓语 is apparent",
-            "分析 in 短语的作用"
+            "找到主语 'The shift'",
+            "找到修饰主语的介词短语 'to...'",
+            "找到系动词 'is'",
+            "找到表语 'apparent'"
           ],
-          "encouragement": "你抓住了主谓结构，真棒！"
+          "encouragement": "你准确找到了句子的核心，就像找到了地图上的起点！"
         },
-        "analysis": "### 【主干结构】\nThe shift (主语) is (系动词) apparent (表语) in the import... and the sale... (状语/补语)。\n\n### 【主谓一致】\nThe shift 单数，is 正确。\n\n### 【动词时态与原形】\nis: 一般现在时。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语详解】\nto increased mechanization in cotton production: 介词短语，修饰 shift。\nin the import of raw cotton and the sale of cotton goods: 介词短语，修饰 apparent，说明在哪些方面显而易见。",
+        "analysis": "### 【主干结构】\n主语是 'The shift'。系动词是 'is'。表语是 'apparent'。\n\n### 【主谓一致】\n主语 'The shift' 是单数，系动词 'is' 使用单数形式，一致。\n\n### 【动词时态与原形】\n'is' 是一般现在时。\n\n### 【从句/非谓语剖析】\n'to increased mechanization in cotton production' 是介词短语作后置定语，修饰 'shift'。\n'in the import of raw cotton and the sale of cotton goods' 是介词短语作状语或表语补足语，说明 'apparent' 的方面。\n\n### 【代词指代】\n无代词。",
         "segments": [
           {
-            "text": "The shift ",
+            "text": "The shift",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "to increased mechanization in cotton production ",
+            "text": " to increased mechanization in cotton production",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "is ",
+            "text": " is",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "apparent ",
+            "text": " apparent",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "in the import of raw cotton and the sale of cotton goods.",
+            "text": " in the import of raw cotton",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " the sale of cotton goods.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -818,51 +1076,52 @@
         "id": "s13",
         "para": 2,
         "text": "Between 1760 and 1850, the amount of raw cotton imported increased 230 times.",
-        "translation": "在1760年到1850年间，进口的原料棉花数量增加了230倍。",
-        "grammarFocus": "过去分词作定语；倍数表达法。",
+        "translation": "在1760年到1850年间，进口的原棉数量增加了230倍。",
+        "grammarFocus": "时间状语前置；过去分词作后置定语 (imported)；倍数表达法。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话用数据展示了棉花进口的增长。",
-          "keyHint": "imported 是过去分词，修饰 raw cotton。"
+          "summary": "这段时间里，原棉进口量翻了230倍。",
+          "keyHint": "注意 'imported' 是修饰 'raw cotton' 的，不是谓语。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么增加了230倍？原料棉花的数量。",
-          "grammarQuestion": "imported 是过去分词，作后置定语，修饰 raw cotton。",
-          "modifierQuestion": "Between 1760 and 1850 是时间状语。",
-          "relationshipQuestion": "amount 是主语，increased 是谓语。",
-          "commonMistake": "容易把 imported 当成谓语，其实它是分词，核心谓语是 increased。",
+          "mainQuestion": "什么增加了230倍？‘进口的原棉数量’。",
+          "grammarQuestion": "'imported' 是过去分词作后置定语，修饰 'raw cotton'，表示被动和完成。",
+          "modifierQuestion": "'Between 1760 and 1850' 是时间状语，放在句首强调时间范围。",
+          "relationshipQuestion": "时间范围限定了数量增长的具体时期。",
+          "commonMistake": "容易把 'imported' 当成谓语动词，误以为句子有两个谓语。",
           "thinkingPath": [
-            "找到主语 the amount",
-            "识别 imported 是分词作定语",
-            "找到谓语 increased"
+            "识别时间状语 'Between...'",
+            "找到主语 'the amount'",
+            "找到修饰主语的定语 'of raw cotton imported'",
+            "找到谓语 'increased'"
           ],
-          "encouragement": "你分清了分词和谓语，真棒！"
+          "encouragement": "你成功避开了‘imported’这个陷阱，真细心！"
         },
-        "analysis": "### 【主干结构】\nthe amount (主语) increased (谓语) 230 times (状语)。\n\n### 【主谓一致】\nthe amount 单数，increased 过去式，正确。\n\n### 【动词时态与原形】\nincreased: 一般过去时。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nimported: 过去分词，作后置定语，修饰 raw cotton。\n\n### 【修饰语详解】\nBetween 1760 and 1850: 时间状语。\nof raw cotton imported: 介词短语，修饰 amount，其中 imported 修饰 raw cotton。",
+        "analysis": "### 【主干结构】\n主语是 'the amount'。谓语是 'increased'。宾语/状语是 '230 times'。\n\n### 【主谓一致】\n主语 'the amount' 是单数，谓语 'increased' 使用过去式，一致。\n\n### 【动词时态与原形】\n'increased' 是过去式。\n\n### 【从句/非谓语剖析】\n'of raw cotton imported' 是介词短语作后置定语，修饰 'amount'。其中 'imported' 是过去分词，修饰 'raw cotton'。\n\n### 【代词指代】\n无代词。",
         "segments": [
           {
-            "text": "Between 1760 and 1850, ",
+            "text": "Between 1760 and 1850,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "the amount ",
+            "text": " the amount",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "of raw cotton imported ",
+            "text": " of raw cotton imported",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "increased ",
+            "text": " increased",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "230 times.",
+            "text": " 230 times.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -872,66 +1131,72 @@
         "id": "s14",
         "para": 2,
         "text": "Production of British cotton goods increased sixtyfold, and cotton cloth became Great Britain’s most important product, accounting for one-half of all exports.",
-        "translation": "英国棉制品的产量增加了六十倍，棉布成为英国最重要的产品，占所有出口量的一半。",
-        "grammarFocus": "并列句；现在分词作结果状语。",
+        "translation": "英国棉制品产量增加了六十倍，棉布成为英国最重要的产品，占所有出口量的一半。",
+        "grammarFocus": "并列句 (and)；现在分词作结果状语 (accounting...)。",
         "pronounRef": "无",
-        "logicConnector": "and 连接并列分句。",
+        "logicConnector": "and (并列); accounting for (结果)",
         "sentenceCoach": {
-          "summary": "这句话讲了棉制品产量增加和棉布地位提升。",
-          "keyHint": "accounting for... 是结果状语，修饰前面的情况。"
+          "summary": "英国棉布产量大增，成为最重要产品，还占了一半出口。",
+          "keyHint": "注意 'accounting for...' 是补充说明前面的结果。"
         },
         "teachingFocus": {
-          "mainQuestion": "棉布成为了什么？英国最重要的产品。",
-          "grammarQuestion": "accounting for... 是现在分词短语，作结果状语。",
-          "modifierQuestion": "of British cotton goods 修饰 Production。",
-          "relationshipQuestion": "and 连接两个并列分句，accounting for 补充说明结果。",
-          "commonMistake": "容易把 accounting 当成谓语，其实它是分词，核心谓语是 increased 和 became。",
+          "mainQuestion": "英国棉制品产量怎么变？棉布变成了什么？",
+          "grammarQuestion": "'and' 连接两个独立分句。'accounting for...' 是现在分词短语，作结果状语，补充说明棉布的地位。",
+          "modifierQuestion": "'accounting for one-half of all exports' 修饰前面的整个情况或 'product'，说明其占比。",
+          "relationshipQuestion": "产量增加导致棉布成为重要产品，进而占据大量出口份额。",
+          "commonMistake": "容易把 'accounting' 当成谓语动词，误以为句子有三个谓语。",
           "thinkingPath": [
-            "找到并列连词 and",
-            "分别提取两个分句的主谓",
-            "识别 accounting for 是分词作状语"
+            "找到第一个分句 'Production... increased'",
+            "找到连接词 'and'",
+            "找到第二个分句 'cotton cloth became...'",
+            "找到分词短语 'accounting for...'"
           ],
-          "encouragement": "你抓住了并列结构和分词状语，真棒！"
+          "encouragement": "你理清了并列句的关系，就像搭好了积木的骨架！"
         },
-        "analysis": "### 【主干结构】\n第一分句：Production (主语) increased (谓语)。\n第二分句：cotton cloth (主语) became (谓语) Great Britain’s most important product (表语)。\n\n### 【主谓一致】\nProduction 单数，increased 过去式；cotton cloth 单数，became 过去式，正确。\n\n### 【动词时态与原形】\nincreased: 一般过去时。\nbecame: 一般过去时。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\naccounting for one-half of all exports: 现在分词短语，作结果状语，修饰整个第二分句或 became...。\n\n### 【修饰语详解】\nof British cotton goods: 介词短语，修饰 Production。\naccounting for...: 结果状语。",
+        "analysis": "### 【主干结构】\n这是一个并列句。第一分句：主语 'Production'，谓语 'increased'。第二分句：主语 'cotton cloth'，谓语 'became'，表语 'Great Britain’s most important product'。\n\n### 【主谓一致】\n第一分句主语 'Production' 单数，谓语 'increased' 过去式。\n第二分句主语 'cotton cloth' 单数，谓语 'became' 过去式。\n\n### 【动词时态与原形】\n'increased' 和 'became' 均为过去式。\n\n### 【从句/非谓语剖析】\n'of British cotton goods' 是介词短语修饰 'Production'。\n'accounting for one-half of all exports' 是现在分词短语作结果状语，修饰第二分句。\n\n### 【代词指代】\n无代词。",
         "segments": [
           {
-            "text": "Production ",
+            "text": "Production",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "of British cotton goods ",
+            "text": " of British cotton goods",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "increased sixtyfold, ",
+            "text": " increased",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "and ",
+            "text": " sixtyfold,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "cotton cloth ",
-            "type": "subject",
-            "label": "主语"
+            "text": " cotton cloth",
+            "type": "coord-subject",
+            "label": "并列主语"
           },
           {
-            "text": "became ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " became",
+            "type": "coord-verb",
+            "label": "并列谓语"
           },
           {
-            "text": "Great Britain’s most important product, ",
-            "type": "predicative",
-            "label": "表语"
+            "text": " Great Britain’s most important product,",
+            "type": "coord-predicative",
+            "label": "并列表语"
           },
           {
-            "text": "accounting for one-half of all exports.",
+            "text": " accounting for one-half of all exports.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -941,64 +1206,104 @@
         "id": "s15",
         "para": 2,
         "text": "The success of the steam engine resulted in increased demands for coal, and the consequent increase in coal production was made possible as the steam-powered pumps drained water from the ever-deeper coal seams found below the water table.",
-        "translation": "蒸汽机的成功导致了对煤炭需求的增加，随之而来的煤炭产量的增加成为可能，因为蒸汽动力泵将水从水位线以下越来越深的煤层中排出。",
-        "grammarFocus": "result in; 被动语态；as 引导原因状语；过去分词作定语。",
+        "translation": "蒸汽机的成功导致了对煤炭需求的增加，随之而来的煤炭产量增加成为可能，因为蒸汽动力泵将水从水位以下越来越深的煤层中排出。",
+        "grammarFocus": "并列句 (and)；result in 短语；as 引导的原因状语从句；过去分词作后置定语 (found...)。",
         "pronounRef": "无",
-        "logicConnector": "and 连接并列分句，as 引导原因。",
+        "logicConnector": "and (并列); as (原因)",
         "sentenceCoach": {
-          "summary": "这句话解释了蒸汽机如何促进煤炭生产。",
-          "keyHint": "found below the water table 是修饰 coal seams 的。"
+          "summary": "蒸汽机成功->煤需求增->煤产量增，原因是水泵能把深层煤层的水排干。",
+          "keyHint": "注意 'as' 引导的是原因状语从句，解释为什么产量增加成为可能。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么使煤炭产量增加成为可能？蒸汽泵排水。",
-          "grammarQuestion": "was made possible 是被动语态。",
-          "modifierQuestion": "found below the water table 是过去分词短语，修饰 coal seams。",
-          "relationshipQuestion": "and 连接两个结果，as 解释第二个结果的原因。",
-          "commonMistake": "容易把 found 当成谓语，其实它是分词，核心谓语是 resulted 和 was made。",
+          "mainQuestion": "蒸汽机成功带来了什么？为什么煤产量能增加？",
+          "grammarQuestion": "'and' 连接两个并列分句。'as' 引导原因状语从句。'found below...' 是过去分词修饰 'coal seams'。",
+          "modifierQuestion": "'consequent increase...' 中 'consequent' 是形容词修饰 'increase'。'found below the water table' 修饰 'coal seams'。",
+          "relationshipQuestion": "蒸汽机成功导致煤需求增，煤需求增导致煤产量增，而水泵排水是煤产量增的技术条件。",
+          "commonMistake": "容易混淆 'as' 是‘当...时’还是‘因为’，这里根据语境是‘因为’。",
           "thinkingPath": [
-            "找到并列连词 and",
-            "分析第一个分句 The success... resulted in...",
-            "分析第二个分句 the increase... was made possible...",
-            "识别 as 引导的原因状语从句及 found 的分词作用"
+            "找到第一个分句 'The success... resulted in...'",
+            "找到连接词 'and'",
+            "找到第二个分句 'the consequent increase... was made possible'",
+            "找到 'as' 引导的原因从句"
           ],
-          "encouragement": "你理清了长句的逻辑关系，真棒！"
+          "encouragement": "你成功拆解了长难句的逻辑链条，真像个小侦探！"
         },
-        "analysis": "### 【主干结构】\n第一分句：The success (主语) resulted in increased demands (宾语)。\n第二分句：the consequent increase (主语) was made possible (谓语)。\n\n### 【主谓一致】\nThe success 单数，resulted 过去式；the increase 单数，was 过去式，正确。\n\n### 【动词时态与原形】\nresulted: 一般过去时。\nwas made: 一般过去时被动语态。\ndrained: 一般过去时。\n\n### 【从句剖析】\nas the steam-powered pumps drained water...: 原因状语从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nfound below the water table: 过去分词短语，作后置定语，修饰 coal seams。\n\n### 【修饰语详解】\nof the steam engine: 定语，修饰 success。\nfor coal: 定语，修饰 demands。\nas the steam-powered pumps drained water from the ever-deeper coal seams found below the water table: 原因状语从句，其中 found... 修饰 coal seams。",
+        "analysis": "### 【主干结构】\n这是一个并列句。第一分句：主语 'The success'，谓语 'resulted in'，宾语 'increased demands'。第二分句：主语 'the consequent increase'，谓语 'was made possible'。\n\n### 【主谓一致】\n第一分句主语 'The success' 单数，谓语 'resulted' 过去式。\n第二分句主语 'the consequent increase' 单数，谓语 'was made' 过去式被动。\n\n### 【动词时态与原形】\n'resulted' 和 'was made' 均为过去式。\n'drained' 是过去式。\n\n### 【从句/非谓语剖析】\n'of the steam engine' 修饰 'success'。\n'for coal' 修饰 'demands'。\n'as the steam-powered pumps drained water...' 是原因状语从句。\n'from the ever-deeper coal seams' 是介词短语修饰 'drained'。\n'found below the water table' 是过去分词短语作后置定语，修饰 'coal seams'。\n\n### 【代词指代】\n无代词。",
         "segments": [
           {
-            "text": "The success ",
+            "text": "The success",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "of the steam engine ",
+            "text": " of the steam engine",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "resulted in increased demands for coal, ",
+            "text": " resulted in",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "and ",
+            "text": " increased demands",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " for coal,",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "the consequent increase in coal production ",
-            "type": "subject",
-            "label": "主语"
+            "text": " the consequent increase",
+            "type": "coord-subject",
+            "label": "并列主语"
           },
           {
-            "text": "was made possible ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " in coal production",
+            "type": "modifier",
+            "label": "定语"
           },
           {
-            "text": "as the steam-powered pumps drained water from the ever-deeper coal seams found below the water table.",
+            "text": " was made possible",
+            "type": "coord-verb",
+            "label": "并列谓语"
+          },
+          {
+            "text": " as",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " the steam-powered pumps",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " drained",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " water",
+            "type": "clause-object",
+            "label": "从句宾语"
+          },
+          {
+            "text": " from the ever-deeper coal seams",
             "type": "adverbial",
             "label": "状语"
+          },
+          {
+            "text": " found below the water table.",
+            "type": "modifier",
+            "label": "定语"
           }
         ]
       },
@@ -1006,63 +1311,69 @@
         "id": "s16",
         "para": 3,
         "text": "The availability of steam power and the demands for new machines facilitated the transformation of the iron industry.",
-        "translation": "蒸汽动力的可用性和对新机器的需求促进了钢铁行业的转型。",
-        "grammarFocus": "并列主语；facilitate 用法。",
+        "translation": "蒸汽动力的可用性和对新机器的需求促进了钢铁行业的变革。",
+        "grammarFocus": "复合主语 (A and B)；谓语动词单复数；名词化结构。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话讲了两个因素如何推动钢铁行业转型。",
-          "keyHint": "主语是 availability 和 demands，谓语是 facilitated。"
+          "summary": "蒸汽动力和新机器需求，一起推动了钢铁行业的变革。",
+          "keyHint": "注意主语是两个部分，谓语动词用复数。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么促进了转型？蒸汽动力的可用性和对新机器的需求。",
-          "grammarQuestion": "and 连接两个主语，谓语用复数 facilitated。",
-          "modifierQuestion": "of steam power 修饰 availability，for new machines 修饰 demands。",
-          "relationshipQuestion": "availability 和 demands 共同作为主语。",
-          "commonMistake": "容易忽略并列主语，导致谓语动词单复数错误。",
+          "mainQuestion": "什么促进了钢铁行业的变革？",
+          "grammarQuestion": "主语是 'The availability... and the demands...'，由 'and' 连接，谓语动词用复数 'facilitated'。",
+          "modifierQuestion": "'of steam power' 修饰 'availability'，'for new machines' 修饰 'demands'。",
+          "relationshipQuestion": "两个因素共同作用，导致了钢铁行业的变革。",
+          "commonMistake": "容易忽略主语是复数，误用单数谓语。",
           "thinkingPath": [
-            "找到并列连词 and",
-            "识别两个主语 availability 和 demands",
-            "确认谓语 facilitated 是复数形式"
+            "找到主语部分 'The availability...'",
+            "找到连接词 'and'",
+            "找到主语部分 'the demands...'",
+            "找到谓语 'facilitated'"
           ],
-          "encouragement": "你注意到了并列主语，真棒！"
+          "encouragement": "你准确识别了复数主语，真棒！"
         },
-        "analysis": "### 【主干结构】\nThe availability... and the demands... (主语) facilitated (谓语) the transformation (宾语)。\n\n### 【主谓一致】\n主语是复数概念，facilitated 过去式，正确。\n\n### 【动词时态与原形】\nfacilitated: 一般过去时。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语详解】\nof steam power: 介词短语，修饰 availability。\nfor new machines: 介词短语，修饰 demands。\nof the iron industry: 介词短语，修饰 transformation。",
+        "analysis": "### 【主干结构】\n主语是 'The availability of steam power and the demands for new machines'。谓语是 'facilitated'。宾语是 'the transformation'。\n\n### 【主谓一致】\n主语由 'and' 连接两个名词短语，视为复数，谓语 'facilitated' 使用过去式，符合复数主语语境。\n\n### 【动词时态与原形】\n'facilitated' 是过去式。\n\n### 【从句/非谓语剖析】\n'of steam power' 是介词短语作后置定语，修饰 'availability'。\n'for new machines' 是介词短语作后置定语，修饰 'demands'。\n'of the iron industry' 是介词短语作后置定语，修饰 'transformation'。\n\n### 【代词指代】\n无代词。",
         "segments": [
           {
-            "text": "The availability ",
+            "text": "The availability",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "of steam power ",
+            "text": " of steam power",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "the demands ",
+            "text": " the demands",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "for new machines ",
+            "text": " for new machines",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "facilitated ",
+            "text": " facilitated",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "the transformation of the iron industry.",
+            "text": " the transformation",
             "type": "object",
             "label": "宾语"
+          },
+          {
+            "text": " of the iron industry.",
+            "type": "modifier",
+            "label": "定语"
           }
         ]
       },
@@ -1070,52 +1381,71 @@
         "id": "s17",
         "para": 3,
         "text": "Charcoal, made from wood and thus in limited supply, was replaced with coal-derived coke (substance left after coal is heated) as steam-driven bellows came into use for producing of raw iron.",
-        "translation": "木炭由木材制成，供应有限，随着蒸汽驱动的风箱开始用于生产生铁，它被煤衍生的焦炭（煤加热后留下的物质）所取代。",
-        "grammarFocus": "过去分词作定语；插入语；as 引导时间/原因状语。",
+        "translation": "木炭（由木材制成，因此供应有限）被煤焦（煤加热后留下的物质）所取代，因为蒸汽驱动的风箱开始用于生产生铁。",
+        "grammarFocus": "过去分词作定语；as引导的时间/原因状语从句；被动语态。",
         "pronounRef": "无",
-        "logicConnector": "as 引导状语从句。",
+        "logicConnector": "as（随着/因为）",
         "sentenceCoach": {
-          "summary": "这句话讲了木炭如何被焦炭取代。",
-          "keyHint": "made from wood... 是插入语，修饰 Charcoal。"
+          "summary": "这句话讲的是能源的更替：木炭退场，焦炭登场。",
+          "keyHint": "注意括号里的内容是对 coke 的解释，阅读时可以先跳过，抓住主干 'Charcoal was replaced with coke'。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么被焦炭取代？木炭。",
-          "grammarQuestion": "was replaced with... 是被动语态。",
-          "modifierQuestion": "made from wood and thus in limited supply 是过去分词短语，作插入语，修饰 Charcoal。",
-          "relationshipQuestion": "as 引导的从句说明取代的背景或原因。",
-          "commonMistake": "容易把 made 当成谓语，其实它是分词，核心谓语是 was replaced。",
+          "mainQuestion": "谁被谁取代了？是木炭被焦炭取代了。",
+          "grammarQuestion": "‘made from wood...’ 是修饰木炭的，‘as...’ 是解释为什么替换的，我们要学会把修饰语和主干分开看。",
+          "modifierQuestion": "括号里的内容就像给单词做的‘身份证’，告诉我们 coke 是什么，读的时候可以先忽略它，不影响句子意思。",
+          "relationshipQuestion": "因为蒸汽风箱好用（as从句），所以焦炭取代了木炭，这是一种因果和时间的关系。",
+          "commonMistake": "容易把括号里的内容当成句子的一部分去分析主谓宾，其实它只是补充说明，去掉后句子依然完整。",
           "thinkingPath": [
-            "找到主语 Charcoal",
-            "识别 made from... 是分词短语作定语",
-            "找到谓语 was replaced",
-            "识别 as 引导的状语从句"
+            "找到主语 Charcoal 和谓语 was replaced",
+            "识别括号内容为补充说明",
+            "理解 as 引导的从句是背景原因"
           ],
-          "encouragement": "你抓住了被动语态和分词结构，真棒！"
+          "encouragement": "你抓住了句子的骨架，真棒！就像剥洋葱一样，一层层去掉修饰，核心意思就出来了。"
         },
-        "analysis": "### 【主干结构】\nCharcoal (主语) was replaced (谓语) with coal-derived coke (宾语/介词宾语)。\n\n### 【主谓一致】\nCharcoal 单数，was 正确。\n\n### 【动词时态与原形】\nwas replaced: 一般过去时被动语态。\ncame: 一般过去时。\n\n### 【从句剖析】\nas steam-driven bellows came into use...: 时间或原因状语从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nmade from wood...: 过去分词短语，作后置定语，修饰 Charcoal。\nleft after coal is heated: 过去分词短语，作后置定语，修饰 substance。\n\n### 【修饰语详解】\nmade from wood and thus in limited supply: 插入语，修饰 Charcoal。\n(substance left after coal is heated): 同位语，解释 coke。\nas steam-driven bellows came into use for producing of raw iron: 状语从句。",
+        "analysis": "### 【主干结构】\n主语：Charcoal\n谓语：was replaced with（被...取代）\n宾语/对象：coal-derived coke\n\n### 【主谓一致】\n主语 Charcoal 是不可数名词，谓语使用单数 was。\n\n### 【动词时态与原形】\nwas replaced：一般过去时的被动语态，表示过去发生的动作。\n\n### 【从句剖析】\nas steam-driven bellows came into use for producing of raw iron：由 as 引导的状语从句，表示时间或原因。主语是 steam-driven bellows，谓语是 came into use。\n\n### 【非谓语动词】\nmade from wood and thus in limited supply：过去分词短语作后置定语，修饰 Charcoal。相当于定语从句 which was made from...\n\n(substance left after coal is heated)：括号内的名词短语作同位语，解释 coke。其中 left after coal is heated 是过去分词短语修饰 substance。\n\n### 【修饰语分析】\n‘made from wood and thus in limited supply’ 是插入语性质的定语，解释 Charcoal 的来源和特性。\n‘coal-derived’ 是复合形容词，修饰 coke。\n‘steam-driven’ 是复合形容词，修饰 bellows。",
         "segments": [
           {
-            "text": "Charcoal, ",
+            "text": "Charcoal",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "made from wood and thus in limited supply, ",
+            "text": ", made from wood and thus in limited supply,",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "was replaced with coal-derived coke ",
+            "text": " was replaced with",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "(substance left after coal is heated) ",
+            "text": " coal-derived coke",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " (substance left after coal is heated)",
             "type": "modifier",
             "label": "同位语"
           },
           {
-            "text": "as steam-driven bellows came into use for producing of raw iron.",
+            "text": " as",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " steam-driven bellows",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " came into use",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " for producing of raw iron.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -1125,46 +1455,46 @@
         "id": "s18",
         "para": 3,
         "text": "Impurities were burnt away with the use of coke, producing a high-quality refined iron.",
-        "translation": "使用焦炭烧掉了杂质，生产出高质量的精炼铁。",
+        "translation": "使用焦炭燃烧掉了杂质，生产出高质量的精炼铁。",
         "grammarFocus": "被动语态；现在分词作结果状语。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话讲了使用焦炭的好处。",
-          "keyHint": "producing... 是结果状语，说明烧掉杂质后的结果。"
+          "summary": "这句话解释了用焦炭的好处：杂质没了，铁变好了。",
+          "keyHint": "注意逗号后面的 ‘producing...’，它不是新的句子，而是前面动作带来的自然结果。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么被烧掉了？杂质。",
-          "grammarQuestion": "were burnt away 是被动语态。",
-          "modifierQuestion": "producing a high-quality refined iron 是现在分词短语，作结果状语。",
-          "relationshipQuestion": "producing 是前面动作导致的结果。",
-          "commonMistake": "容易把 producing 当成谓语，其实它是分词，核心谓语是 were burnt。",
+          "mainQuestion": "什么被烧掉了？杂质（Impurities）。",
+          "grammarQuestion": "‘producing...’ 是现在分词，表示前面动作产生的结果，就像多米诺骨牌倒下的下一张。",
+          "modifierQuestion": "‘with the use of coke’ 是方式状语，告诉我们用什么方法烧掉杂质。",
+          "relationshipQuestion": "因为用了焦炭（方式），所以杂质被烧掉（结果1），进而生产出好铁（结果2）。",
+          "commonMistake": "容易把 producing 当成谓语动词，认为句子有两个谓语。其实它是非谓语动词，表示伴随或结果。",
           "thinkingPath": [
-            "找到主语 Impurities",
-            "找到谓语 were burnt away",
-            "识别 producing... 是分词作结果状语"
+            "找到主干：Impurities were burnt away",
+            "识别 with 短语为方式状语",
+            "理解 producing 为结果状语"
           ],
-          "encouragement": "你理解了结果状语，真棒！"
+          "encouragement": "你发现了 ‘producing’ 的秘密！它就像是一个小尾巴，告诉我们接下来发生了什么。"
         },
-        "analysis": "### 【主干结构】\nImpurities (主语) were burnt away (谓语) with the use of coke (状语)。\n\n### 【主谓一致】\nImpurities 复数，were 正确。\n\n### 【动词时态与原形】\nwere burnt: 一般过去时被动语态。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nproducing a high-quality refined iron: 现在分词短语，作结果状语。\n\n### 【修饰语详解】\nwith the use of coke: 方式状语。\nproducing...: 结果状语。",
+        "analysis": "### 【主干结构】\n主语：Impurities\n谓语：were burnt away（被烧掉）\n\n### 【主谓一致】\n主语 Impurities 是复数，谓语使用 were。\n\n### 【动词时态与原形】\nwere burnt away：一般过去时的被动语态。\n\n### 【非谓语动词】\nproducing a high-quality refined iron：现在分词短语作结果状语，表示 ‘burnt away’ 这个动作带来的直接后果。\n\n### 【修饰语分析】\n‘with the use of coke’：介词短语作方式状语，修饰 were burnt away，说明使用焦炭作为手段。",
         "segments": [
           {
-            "text": "Impurities ",
+            "text": "Impurities",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "were burnt away ",
+            "text": " were burnt away",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "with the use of coke, ",
+            "text": " with the use of coke,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "producing a high-quality refined iron.",
+            "text": " producing a high-quality refined iron.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -1174,46 +1504,51 @@
         "id": "s19",
         "para": 3,
         "text": "Reduced cost was also instrumental in developing steam-powered rolling mills capable of producing finished iron of various shapes and sizes.",
-        "translation": "成本的降低也在开发能够生产各种形状和尺寸成品铁的蒸汽动力轧机方面发挥了重要作用。",
-        "grammarFocus": "be instrumental in; 过去分词作定语；capable of 短语。",
+        "translation": "成本的降低也在开发能够生产各种形状和尺寸成品铁的蒸汽动力轧钢厂方面起到了重要作用。",
+        "grammarFocus": "be instrumental in（在...中起重要作用）；形容词短语作后置定语。",
         "pronounRef": "无",
-        "logicConnector": "无",
+        "logicConnector": "also（也）",
         "sentenceCoach": {
-          "summary": "这句话讲了成本降低对轧机开发的作用。",
-          "keyHint": "capable of... 是修饰 rolling mills 的。"
+          "summary": "这句话讲的是成本降低带来的另一个好处：促进了新机器的发展。",
+          "keyHint": "‘capable of...’ 是修饰 rolling mills 的，就像给机器贴的标签，说明它能干什么。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么在开发轧机方面发挥了作用？成本的降低。",
-          "grammarQuestion": "was instrumental in 是固定搭配，表示‘在...方面起重要作用’。",
-          "modifierQuestion": "capable of producing... 是形容词短语，作后置定语，修饰 rolling mills。",
-          "relationshipQuestion": "Reduced cost 是主语，was 是谓语。",
-          "commonMistake": "容易把 capable 当成谓语，其实它是形容词，核心谓语是 was。",
+          "mainQuestion": "什么起了作用？成本的降低（Reduced cost）。",
+          "grammarQuestion": "‘be instrumental in’ 是一个固定搭配，意思是‘在...方面起重要作用’，相当于 helped 或 played a key role in。",
+          "modifierQuestion": "‘capable of producing...’ 是形容词短语，专门用来修饰前面的 rolling mills，告诉我们要找的是‘能生产...的’轧钢厂。",
+          "relationshipQuestion": "成本降低是原因，开发轧钢厂是结果/影响领域。",
+          "commonMistake": "容易忽略 capable of 后面的长串内容，导致不知道是什么样的轧钢厂。",
           "thinkingPath": [
-            "找到主语 Reduced cost",
-            "找到谓语 was instrumental",
-            "识别 capable of... 是分词/形容词短语作定语"
+            "找到主语 Reduced cost 和谓语 was instrumental",
+            "识别 in developing... 为介词短语作状语",
+            "理解 capable of... 为后置定语修饰 mills"
           ],
-          "encouragement": "你抓住了固定搭配和后置定语，真棒！"
+          "encouragement": "你读懂了 ‘instrumental’ 这个高级词！它就像是一个超级英雄，在关键时刻发挥了作用。"
         },
-        "analysis": "### 【主干结构】\nReduced cost (主语) was (系动词) instrumental (表语) in developing steam-powered rolling mills (状语/补语)。\n\n### 【主谓一致】\nReduced cost 单数，was 正确。\n\n### 【动词时态与原形】\nwas: 一般过去时。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nproducing finished iron...: 动名词短语，作 capable of 的宾语。\n\n### 【修饰语详解】\nalso: 副词，修饰 instrumental。\nin developing steam-powered rolling mills: 介词短语，修饰 instrumental。\ncapable of producing finished iron of various shapes and sizes: 形容词短语，作后置定语，修饰 rolling mills。",
+        "analysis": "### 【主干结构】\n主语：Reduced cost\n谓语：was\n表语：instrumental（起作用的/有帮助的）\n\n### 【主谓一致】\n主语 Reduced cost 是单数概念，谓语使用 was。\n\n### 【动词时态与原形】\nwas：一般过去时。\n\n### 【非谓语动词】\ndeveloping：动名词，作介词 in 的宾语。\n\n### 【修饰语分析】\n‘also’：副词，修饰 was instrumental，表示‘也’。\n‘in developing steam-powered rolling mills...’：介词短语作状语，说明在哪个方面起作用。\n‘capable of producing finished iron of various shapes and sizes’：形容词短语作后置定语，修饰 rolling mills。其中 ‘of various shapes and sizes’ 是介词短语修饰 finished iron。",
         "segments": [
           {
-            "text": "Reduced cost ",
+            "text": "Reduced cost",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "was also instrumental ",
+            "text": " was",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "in developing steam-powered rolling mills ",
+            "text": " also",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "capable of producing finished iron of various shapes and sizes.",
+            "text": " instrumental in developing steam-powered rolling mills",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " capable of producing finished iron of various shapes and sizes.",
             "type": "modifier",
             "label": "定语"
           }
@@ -1223,81 +1558,81 @@
         "id": "s20",
         "para": 3,
         "text": "The resulting boom in the iron industry expanded the annual iron output by more than 170 times between 1740 and 1840, and by the 1850s Great Britain was producing more tons of iron than the rest of the world combined.",
-        "translation": "由此引发的钢铁行业繁荣使1740年至1840年间的年铁产量增加了170多倍，到19世纪50年代，英国生产的铁吨数超过了世界其他地区的总和。",
-        "grammarFocus": "并列句；比较级；by 表示倍数。",
+        "translation": "由此引发的钢铁业繁荣使1740年至1840年间的年铁产量增加了170多倍，到了19世纪50年代，英国的铁产量超过了世界其他地区的总和。",
+        "grammarFocus": "并列句（and连接）；比较级（more...than...）；by表示增加的幅度。",
         "pronounRef": "无",
-        "logicConnector": "and 连接并列分句。",
+        "logicConnector": "and（并且/同时）",
         "sentenceCoach": {
-          "summary": "这句话用数据展示了钢铁行业的巨大成就。",
-          "keyHint": "expanded... by... 表示增加了多少。"
+          "summary": "这是一个长并列句，前半句讲产量激增，后半句讲英国称霸全球。",
+          "keyHint": "注意 ‘by more than 170 times’，by 在这里表示‘增加了’多少，而不是‘增加到’。"
         },
         "teachingFocus": {
-          "mainQuestion": "钢铁行业发生了什么？繁荣，产量大增。",
-          "grammarQuestion": "expanded... by more than 170 times 表示增加了170多倍。",
-          "modifierQuestion": "resulting in... 是形容词，修饰 boom。",
-          "relationshipQuestion": "and 连接两个分句，分别讲产量增长和地位提升。",
-          "commonMistake": "容易混淆 expanded 和 was producing 的主语，前者是 boom，后者是 Great Britain。",
+          "mainQuestion": "谁扩大了产量？繁荣（boom）。谁生产了更多铁？英国（Great Britain）。",
+          "grammarQuestion": "句子由 and 连接两个独立的分句。前半句是主谓宾结构，后半句也是主谓宾结构，中间用 and 并列。",
+          "modifierQuestion": "‘in the iron industry’ 修饰 boom；‘between 1740 and 1840’ 是时间状语；‘than the rest of the world combined’ 是比较状语。",
+          "relationshipQuestion": "前半句是历史数据的变化，后半句是最终的地位对比，两者共同展示了钢铁业的辉煌。",
+          "commonMistake": "容易混淆 ‘expanded by’（增加了）和 ‘expanded to’（增加到）。这里是用 by，表示增长的倍数。",
           "thinkingPath": [
-            "找到并列连词 and",
-            "分析第一个分句 The boom expanded...",
-            "分析第二个分句 Great Britain was producing..."
+            "识别 and 为并列连词，将句子分为前后两部分",
+            "分析前半句：主语 boom，谓语 expanded，宾语 output",
+            "分析后半句：主语 Great Britain，谓语 was producing，宾语 tons"
           ],
-          "encouragement": "你理清了并列分句的主语，真棒！"
+          "encouragement": "你成功拆解了一个长难句！就像把两条绳子解开，每条绳子的结都看得清清楚楚。"
         },
-        "analysis": "### 【主干结构】\n第一分句：The resulting boom (主语) expanded (谓语) the annual iron output (宾语)。\n第二分句：Great Britain (主语) was producing (谓语) more tons of iron (宾语)。\n\n### 【主谓一致】\nboom 单数，expanded 过去式；Great Britain 单数，was producing 过去进行时，正确。\n\n### 【动词时态与原形】\nexpanded: 一般过去时。\nwas producing: 过去进行时。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nresulting: 现在分词，作定语，修饰 boom。\n\n### 【修饰语详解】\nin the iron industry: 定语，修饰 boom。\nby more than 170 times: 状语，修饰 expanded。\nbetween 1740 and 1840: 时间状语。\nby the 1850s: 时间状语。\nthan the rest of the world combined: 比较状语。",
+        "analysis": "### 【主干结构】\n这是一个并列句，由 and 连接。\n分句1：The resulting boom... expanded the annual iron output...\n分句2：Great Britain was producing more tons of iron...\n\n### 【主谓一致】\n分句1主语 boom 是单数，谓语 expanded 是过去式。\n分句2主语 Great Britain 是单数，谓语 was producing 是过去进行时。\n\n### 【动词时态与原形】\nexpanded：一般过去时。\nwas producing：过去进行时，表示过去某段时间持续的状态。\n\n### 【从句剖析】\n无从句。\n\n### 【修饰语分析】\n‘The resulting’：形容词，修饰 boom。\n‘in the iron industry’：介词短语作后置定语，修饰 boom。\n‘by more than 170 times’：介词短语作状语，表示增加的幅度。\n‘between 1740 and 1840’：介词短语作时间状语。\n‘by the 1850s’：介词短语作时间状语。\n‘than the rest of the world combined’：比较状语，修饰 more。\n‘combined’：过去分词作后置定语，修饰 the rest of the world，意为‘加起来’。",
         "segments": [
           {
-            "text": "The resulting boom in the iron industry ",
+            "text": "The resulting boom in the iron industry",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "expanded ",
+            "text": " expanded",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "the annual iron output ",
+            "text": " the annual iron output",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "by more than 170 times ",
+            "text": " by more than 170 times",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "between 1740 and 1840, ",
+            "text": " between 1740 and 1840,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "by the 1850s ",
+            "text": " by the 1850s",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "Great Britain ",
-            "type": "subject",
-            "label": "主语"
+            "text": " Great Britain",
+            "type": "coord-subject",
+            "label": "并列主语"
           },
           {
-            "text": "was producing ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " was producing",
+            "type": "coord-verb",
+            "label": "并列谓语"
           },
           {
-            "text": "more tons of iron ",
-            "type": "object",
-            "label": "宾语"
+            "text": " more tons of iron",
+            "type": "coord-object",
+            "label": "并列宾语"
           },
           {
-            "text": "than the rest of the world combined.",
+            "text": " than the rest of the world combined.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -1307,58 +1642,58 @@
         "id": "s21",
         "para": 3,
         "text": "The developments in the iron industry were in part a response to the demand for more machines and the ever-widening use of higher-quality iron in other industries.",
-        "translation": "钢铁行业的发展部分是对更多机器需求和其他行业对更高质量铁日益广泛使用的回应。",
-        "grammarFocus": "be a response to; 并列宾语。",
+        "translation": "钢铁业的 developments（发展/进步）部分是对对更多机器的需求以及其他行业对更高质量铁日益广泛使用的回应。",
+        "grammarFocus": "be a response to（是对...的回应）；并列宾语。",
         "pronounRef": "无",
-        "logicConnector": "and 连接两个需求。",
+        "logicConnector": "and（和）",
         "sentenceCoach": {
-          "summary": "这句话解释了钢铁行业发展的原因。",
-          "keyHint": "were a response to... 是核心结构。"
+          "summary": "这句话解释了钢铁业发展的原因：是为了满足其他行业的需求。",
+          "keyHint": "‘in part’ 意思是‘部分地’，说明这只是原因之一，不要漏掉这个限定词。"
         },
         "teachingFocus": {
-          "mainQuestion": "钢铁行业的发展是对什么的回应？对机器需求和高质量铁需求的回应。",
-          "grammarQuestion": "were a response to... 是系表结构。",
-          "modifierQuestion": "in the iron industry 修饰 developments。",
-          "relationshipQuestion": "demand for more machines 和 use of higher-quality iron 是并列的。",
-          "commonMistake": "容易把 to 当成介词短语的一部分，其实它是 response to 的固定搭配。",
+          "mainQuestion": "钢铁业的发展是什么的回应？是对需求的回应。",
+          "grammarQuestion": "‘be a response to’ 是核心结构。to 后面接了两个并列的名词短语：demand... 和 use...。",
+          "modifierQuestion": "‘in the iron industry’ 修饰 developments；‘for more machines’ 修饰 demand；‘in other industries’ 修饰 use。",
+          "relationshipQuestion": "需求（demand/use）是因，钢铁业的发展（developments）是果/回应。",
+          "commonMistake": "容易忽略 ‘in part’，认为这是唯一的原因。实际上还有其他原因，只是这里提到了这两个。",
           "thinkingPath": [
-            "找到主语 The developments",
-            "找到谓语 were a response",
-            "识别 to 的宾语是 demand 和 use"
+            "找到主语 developments 和谓语 were",
+            "识别表语 a response to",
+            "分析 to 后面的两个并列宾语"
           ],
-          "encouragement": "你抓住了固定搭配，真棒！"
+          "encouragement": "你找到了句子的‘因果关系’！就像侦探找到了线索，明白了事情发生的动机。"
         },
-        "analysis": "### 【主干结构】\nThe developments (主语) were (系动词) a response (表语) to the demand... and the use... (介词宾语)。\n\n### 【主谓一致】\ndevelopments 复数，were 正确。\n\n### 【动词时态与原形】\nwere: 一般过去时。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语详解】\nin the iron industry: 定语，修饰 developments。\nin part: 状语，修饰 were。\nto the demand for more machines and the ever-widening use of higher-quality iron in other industries: 介词短语，作 response 的补足语。",
+        "analysis": "### 【主干结构】\n主语：The developments\n谓语：were\n表语：a response\n\n### 【主谓一致】\n主语 developments 是复数，谓语使用 were。\n\n### 【动词时态与原形】\nwere：一般过去时。\n\n### 【从句剖析】\n无从句。\n\n### 【修饰语分析】\n‘in the iron industry’：介词短语作后置定语，修饰 developments。\n‘in part’：副词短语，作状语，修饰 were a response，表示‘部分地’。\n‘to the demand for more machines and the ever-widening use of higher-quality iron in other industries’：介词短语作状语/补足语，修饰 response。其中包含两个由 and 连接的并列宾语：\n1. the demand for more machines\n2. the ever-widening use of higher-quality iron in other industries\n‘for more machines’：介词短语修饰 demand。\n‘ever-widening’：形容词，修饰 use。\n‘of higher-quality iron’：介词短语修饰 use。\n‘in other industries’：介词短语修饰 use。",
         "segments": [
           {
-            "text": "The developments in the iron industry ",
+            "text": "The developments in the iron industry",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "were in part ",
+            "text": " were",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "a response ",
+            "text": " in part",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " a response to the demand for more machines",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "to the demand for more machines ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "the ever-widening use of higher-quality iron in other industries.",
-            "type": "modifier",
-            "label": "定语"
+            "text": " the ever-widening use of higher-quality iron in other industries.",
+            "type": "predicative",
+            "label": "表语"
           }
         ]
       },
@@ -1366,58 +1701,63 @@
         "id": "s22",
         "para": 4,
         "text": "Steam power and iron combined to revolutionize transport, which in turn had further implications.",
-        "translation": "蒸汽动力和铁结合彻底改变了交通运输，这反过来又产生了进一步的影响。",
-        "grammarFocus": "非限制性定语从句；in turn 短语。",
-        "pronounRef": "which 指代前面整个主句内容。",
-        "logicConnector": "which 引导非限制性定语从句。",
+        "translation": "蒸汽动力和铁结合，彻底改变了交通运输，而这反过来又产生了进一步的影响。",
+        "grammarFocus": "非限制性定语从句；which 指代前文整句内容。",
+        "pronounRef": "which 指代 ‘Steam power and iron combined to revolutionize transport’ 这一整件事。",
+        "logicConnector": "in turn（反过来/继而）",
         "sentenceCoach": {
-          "summary": "这句话讲了蒸汽和铁结合带来的连锁反应。",
-          "keyHint": "which 指代 revolutionize transport 这件事。"
+          "summary": "这句话是承上启下的过渡句，讲钢铁和蒸汽如何改变交通并引发连锁反应。",
+          "keyHint": "注意逗号后面的 ‘which...’，它不是修饰 transport，而是修饰前面整句话的意思。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么彻底改变了交通？蒸汽动力和铁的结合。",
-          "grammarQuestion": "which 引导非限制性定语从句，修饰前面整个句子。",
-          "modifierQuestion": "in turn 是插入语，表示‘反过来’。",
-          "relationshipQuestion": "which 从句是对主句结果的进一步说明。",
-          "commonMistake": "容易把 which 当成指代 transport，其实它指代前面整个事件。",
+          "mainQuestion": "什么改变了交通？蒸汽动力和铁的结合。什么产生了进一步影响？这种改变。",
+          "grammarQuestion": "‘which’ 引导非限制性定语从句，修饰前面的整个主句。‘in turn’ 表示连锁反应。",
+          "modifierQuestion": "‘to revolutionize transport’ 是不定式作目的状语或结果状语，解释 combined 的目的/结果。",
+          "relationshipQuestion": "蒸汽+铁 -> 改变交通 -> 产生进一步影响。这是一个因果链条。",
+          "commonMistake": "容易误以为 which 只修饰 transport。实际上，which 在这里指代的是前面描述的整个事件。",
           "thinkingPath": [
-            "找到主句 Steam power and iron combined to revolutionize transport",
-            "识别 which 引导的非限制性定语从句",
-            "理解 which 指代前面整个事件"
+            "找到主干：Steam power and iron combined",
+            "识别 to revolutionize transport 为状语",
+            "理解 which 从句修饰前文整句"
           ],
-          "encouragement": "你理解了非限制性定语从句，真棒！"
+          "encouragement": "你读懂了 ‘which’ 的‘大胃口’！它吞下了前面整句话的意思，然后继续讲故事。"
         },
-        "analysis": "### 【主干结构】\nSteam power and iron (主语) combined (谓语) to revolutionize transport (目的状语)。\n\n### 【主谓一致】\nSteam power and iron 复数，combined 过去式，正确。\n\n### 【动词时态与原形】\ncombined: 一般过去时。\nhad: 一般过去时。\n\n### 【从句剖析】\nwhich in turn had further implications: 非限制性定语从句，修饰前面整个主句。\n\n### 【代词指代】\nwhich 指代 Steam power and iron combined to revolutionize transport 这一事件。\n\n### 【非谓语动词】\nto revolutionize transport: 不定式，作目的状语。\n\n### 【修饰语详解】\nin turn: 插入语，修饰 had。",
+        "analysis": "### 【主干结构】\n主语：Steam power and iron\n谓语：combined\n\n### 【主谓一致】\n主语是并列结构，谓语 combined 是过去式，无需考虑单复数变化（过去式无单复数区别）。\n\n### 【动词时态与原形】\ncombined：一般过去时。\n\n### 【从句剖析】\nwhich in turn had further implications：非限制性定语从句，修饰前面整个主句 ‘Steam power and iron combined to revolutionize transport’。which 在从句中作主语，had 是谓语，further implications 是宾语。\n\n### 【非谓语动词】\nto revolutionize transport：不定式短语，作目的状语或结果状语，表示 combined 的目的或自然结果。\n\n### 【修饰语分析】\n‘in turn’：副词短语，作状语，修饰 had，表示‘继而/反过来’。",
         "segments": [
           {
-            "text": "Steam power and iron ",
+            "text": "Steam power and iron",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "combined ",
+            "text": " combined",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "to revolutionize transport, ",
+            "text": " to revolutionize transport,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "which ",
-            "type": "subject",
-            "label": "主语"
+            "text": " which",
+            "type": "clause-subject",
+            "label": "从句主语"
           },
           {
-            "text": "in turn ",
-            "type": "modifier",
+            "text": " in turn",
+            "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "had further implications.",
-            "type": "verb",
-            "label": "谓语"
+            "text": " had",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " further implications.",
+            "type": "clause-object",
+            "label": "从句宾语"
           }
         ]
       },
@@ -1425,62 +1765,66 @@
         "id": "s23",
         "para": 4,
         "text": "Improvements in road construction and sailing had occurred, but shipping heavy freight over land remained expensive, even with the use of rivers and canals wherever possible.",
-        "translation": "道路建设和航运有所改进，但陆路运输重货仍然昂贵，即使尽可能利用河流和运河。",
-        "grammarFocus": "并列句；even with 短语；wherever possible 省略句。",
+        "translation": "道路建设和航运的改进已经发生，但陆路运输重货仍然昂贵，即使尽可能利用河流和运河。",
+        "grammarFocus": "转折并列句（but）；even with 引导的让步状语。",
         "pronounRef": "无",
-        "logicConnector": "but 表示转折。",
+        "logicConnector": "but（但是）",
         "sentenceCoach": {
-          "summary": "这句话讲了交通改进但仍有问题。",
-          "keyHint": "wherever possible 是 wherever it was possible 的省略。"
+          "summary": "这句话用 but 转折，指出虽然交通有进步，但陆运还是很贵。",
+          "keyHint": "注意 ‘even with...’，它表示‘即使有...的情况下’，强调陆运昂贵的程度。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么问题仍然存在？陆路运输重货昂贵。",
-          "grammarQuestion": "but 连接两个转折的分句。",
-          "modifierQuestion": "even with... 是让步状语。",
-          "relationshipQuestion": "but 表示前后对比。",
-          "commonMistake": "容易忽略 wherever possible 的省略结构。",
+          "mainQuestion": "什么发生了？改进（Improvements）。什么仍然昂贵？陆路运输（shipping heavy freight over land）。",
+          "grammarQuestion": "句子由 but 连接两个并列分句。前半句是过去完成时，后半句是过去时。",
+          "modifierQuestion": "‘in road construction and sailing’ 修饰 Improvements；‘over land’ 修饰 shipping；‘even with...’ 是让步状语。",
+          "relationshipQuestion": "前半句是背景（有进步），后半句是转折（仍有问题）。",
+          "commonMistake": "容易忽略 ‘even with’ 的让步意味，认为它只是简单的伴随状态。",
           "thinkingPath": [
-            "找到并列连词 but",
-            "分析第一个分句 Improvements... had occurred",
-            "分析第二个分句 shipping... remained expensive",
-            "识别 even with... 和 wherever possible"
+            "识别 but 为转折连词，分隔两个分句",
+            "分析前半句：主语 Improvements，谓语 had occurred",
+            "分析后半句：主语 shipping...，谓语 remained"
           ],
-          "encouragement": "你抓住了转折关系，真棒！"
+          "encouragement": "你抓住了 ‘but’ 这个转折点！就像看电影时，剧情突然反转，你立刻注意到了变化。"
         },
-        "analysis": "### 【主干结构】\n第一分句：Improvements (主语) had occurred (谓语)。\n第二分句：shipping heavy freight over land (主语) remained (系动词) expensive (表语)。\n\n### 【主谓一致】\nImprovements 复数，had occurred 过去完成时；shipping 动名词短语视为单数，remained 过去式，正确。\n\n### 【动词时态与原形】\nhad occurred: 过去完成时。\nremained: 一般过去时。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nshipping heavy freight over land: 动名词短语，作主语。\n\n### 【修饰语详解】\nin road construction and sailing: 定语，修饰 Improvements。\neven with the use of rivers and canals: 让步状语。\nwherever possible: 让步状语，修饰 use 或整个情况。",
+        "analysis": "### 【主干结构】\n这是一个并列句，由 but 连接。\n分句1：Improvements... had occurred\n分句2：shipping heavy freight over land remained expensive\n\n### 【主谓一致】\n分句1主语 Improvements 是复数，谓语 had occurred。\n分句2主语 shipping... 是动名词短语，视为单数，谓语 remained 是过去式。\n\n### 【动词时态与原形】\nhad occurred：过去完成时，表示在某个过去时间点之前已经发生的动作。\nremained：一般过去时。\n\n### 【从句剖析】\n无从句。\n\n### 【修饰语分析】\n‘in road construction and sailing’：介词短语作后置定语，修饰 Improvements。\n‘heavy’：形容词，修饰 freight。\n‘over land’：介词短语作后置定语或状语，修饰 shipping，说明运输方式。\n‘even with the use of rivers and canals’：介词短语作让步状语，修饰 remained expensive。\n‘wherever possible’：状语从句省略形式（wherever it is possible），修饰 use，表示‘在任何可能的地方’。",
         "segments": [
           {
-            "text": "Improvements in road construction and sailing ",
+            "text": "Improvements in road construction and sailing",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "had occurred, ",
+            "text": " had occurred,",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "but ",
+            "text": " but",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "shipping heavy freight over land ",
+            "text": " shipping heavy freight over land",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "remained expensive, ",
+            "text": " remained",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "even with the use of rivers and canals ",
+            "text": " expensive,",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " even with the use of rivers and canals",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "wherever possible.",
+            "text": " wherever possible.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -1490,63 +1834,73 @@
         "id": "s24",
         "para": 4,
         "text": "Parallel rails had long been used in mining operations to move bigger loads, but horses were still the primary source of power.",
-        "translation": "平行轨道早已用于采矿作业以运输更大的负载，但马仍然是主要的动力来源。",
-        "grammarFocus": "被动语态；不定式作目的状语。",
+        "translation": "平行轨道早在采矿作业中就被用来运输更大的负载，但马仍然是主要的动力来源。",
+        "grammarFocus": "被动语态；转折并列句。",
         "pronounRef": "无",
-        "logicConnector": "but 表示转折。",
+        "logicConnector": "but（但是）",
         "sentenceCoach": {
-          "summary": "这句话讲了采矿中的运输方式。",
-          "keyHint": "to move bigger loads 是目的状语。"
+          "summary": "这句话对比了轨道的使用和马的作用：轨道有了，但马还是主力。",
+          "keyHint": "注意 ‘had long been used’，long 表示‘长久以来’，强调时间跨度。"
         },
         "teachingFocus": {
-          "mainQuestion": "平行轨道用来做什么？运输更大的负载。",
-          "grammarQuestion": "had long been used 是过去完成时被动语态。",
-          "modifierQuestion": "to move bigger loads 是目的状语。",
-          "relationshipQuestion": "but 连接两个分句，对比轨道和马的作用。",
-          "commonMistake": "容易把 to move 当成谓语，其实它是不定式作目的状语。",
+          "mainQuestion": "什么被使用？平行轨道（Parallel rails）。什么是主要动力？马（horses）。",
+          "grammarQuestion": "句子由 but 连接两个并列分句。前半句是被动语态，后半句是主系表结构。",
+          "modifierQuestion": "‘long’ 修饰 used；‘in mining operations’ 修饰 used；‘to move bigger loads’ 修饰 used 的目的。",
+          "relationshipQuestion": "前半句讲技术（轨道）的应用，后半句讲动力（马）的局限，形成转折。",
+          "commonMistake": "容易忽略 ‘long’ 的位置，它放在 had 和 been 之间，修饰整个被动动作的时间长度。",
           "thinkingPath": [
-            "找到并列连词 but",
-            "分析第一个分句 Parallel rails had long been used...",
-            "分析第二个分句 horses were still the primary source of power"
+            "识别 but 为转折连词",
+            "分析前半句：主语 rails，谓语 had been used",
+            "分析后半句：主语 horses，谓语 were，表语 source"
           ],
-          "encouragement": "你理解了被动语态和目的状语，真棒！"
+          "encouragement": "你读懂了 ‘long’ 的时间感！它让句子变得有历史厚度，告诉我们这件事发生很久了。"
         },
-        "analysis": "### 【主干结构】\n第一分句：Parallel rails (主语) had long been used (谓语) in mining operations (状语) to move bigger loads (目的状语)。\n第二分句：horses (主语) were (系动词) still the primary source of power (表语)。\n\n### 【主谓一致】\nParallel rails 复数，had been used 过去完成时被动语态；horses 复数，were 过去式，正确。\n\n### 【动词时态与原形】\nhad long been used: 过去完成时被动语态。\nwere: 一般过去时。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nto move bigger loads: 不定式，作目的状语。\n\n### 【修饰语详解】\nlong: 副词，修饰 had been used。\nin mining operations: 地点状语。\nto move bigger loads: 目的状语。",
+        "analysis": "### 【主干结构】\n这是一个并列句，由 but 连接。\n分句1：Parallel rails had long been used...\n分句2：horses were still the primary source of power.\n\n### 【主谓一致】\n分句1主语 rails 是复数，谓语 had been used。\n分句2主语 horses 是复数，谓语 were。\n\n### 【动词时态与原形】\nhad been used：过去完成时的被动语态。\nwere：一般过去时。\n\n### 【从句剖析】\n无从句。\n\n### 【修饰语分析】\n‘long’：副词，作状语，修饰 had been used，表示‘长久以来’。\n‘in mining operations’：介词短语作地点/范围状语，修饰 used。\n‘to move bigger loads’：不定式短语作目的状语，修饰 used。\n‘still’：副词，作状语，修饰 were，表示‘仍然’。",
         "segments": [
           {
-            "text": "Parallel rails ",
+            "text": "Parallel rails",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "had long been used ",
+            "text": " had long been used",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "in mining operations ",
+            "text": " in mining operations",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "to move bigger loads, ",
+            "text": " to move bigger loads,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "but ",
+            "text": " but",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "horses ",
-            "type": "subject",
-            "label": "主语"
+            "text": " horses",
+            "type": "coord-subject",
+            "label": "并列主语"
           },
           {
-            "text": "were still the primary source of power.",
-            "type": "verb",
-            "label": "系动词"
+            "text": " were",
+            "type": "coord-verb",
+            "label": "并列系动词"
+          },
+          {
+            "text": " still",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the primary source of power.",
+            "type": "coord-predicative",
+            "label": "并列表语"
           }
         ]
       },
@@ -1554,53 +1908,53 @@
         "id": "s25",
         "para": 4,
         "text": "However, the arrival of the steam engine initiated a complete transformation in rail transportation, entrenching and expanding the Industrial Revolution.",
-        "translation": "然而，蒸汽机的到来引发了铁路交通的彻底变革，巩固并扩大了工业革命。",
-        "grammarFocus": "现在分词作结果状语。",
+        "translation": "然而，蒸汽机的到来引发了铁路运输的彻底变革，巩固并扩大了工业革命。",
+        "grammarFocus": "现在分词短语作结果状语",
         "pronounRef": "无",
-        "logicConnector": "However 表示转折。",
+        "logicConnector": "However 表示转折，承接上文（通常上文讲农业或早期工业的局限）。",
         "sentenceCoach": {
-          "summary": "这句话讲了蒸汽机对铁路和工业革命的深远影响。",
-          "keyHint": "entrenching and expanding... 是结果状语。"
+          "summary": "看蒸汽机如何像推土机一样，彻底改变了铁路，并让工业革命变得更强大。",
+          "keyHint": "注意逗号后面的 entrenching and expanding，它们是蒸汽机到来带来的直接结果。"
         },
         "teachingFocus": {
-          "mainQuestion": "蒸汽机的到来引发了什么？铁路交通的彻底变革。",
-          "grammarQuestion": "initiated a complete transformation 是核心结构。",
-          "modifierQuestion": "entrenching and expanding... 是现在分词短语，作结果状语。",
-          "relationshipQuestion": "entrenching and expanding 是 transformation 的结果。",
-          "commonMistake": "容易把 entrenching 当成谓语，其实它是分词，核心谓语是 initiated。",
+          "mainQuestion": "谁带来了变化？是蒸汽机。它做了什么？引发了铁路的彻底变革。",
+          "grammarQuestion": "逗号后面的 entrenching 和 expanding 是谁的动作？它们是蒸汽机到来后产生的自然结果，就像多米诺骨牌倒下的后续动作。",
+          "modifierQuestion": "complete 修饰 transformation，强调变革是‘彻底的’；in rail transportation 告诉我们变革发生在哪里。",
+          "relationshipQuestion": "蒸汽机到来（因） -> 铁路变革（果1） -> 巩固/扩大工业革命（果2/进一步的结果）。",
+          "commonMistake": "孩子容易把 entrenching 当成谓语动词。记住，前面已经有 initiated 了，逗号后没有连词，所以 -ing 形式通常是伴随或结果状语。",
           "thinkingPath": [
-            "找到主语 the arrival",
-            "找到谓语 initiated",
-            "识别 entrenching and expanding... 是分词作结果状语"
+            "找到主句的主语和谓语：arrival 和 initiated",
+            "识别宾语：transformation",
+            "看逗号后：entrenching and expanding 是补充说明结果"
           ],
-          "encouragement": "你抓住了结果状语，真棒！"
+          "encouragement": "你抓住了核心动作！蒸汽机就像一位大力士，推倒了旧铁路，建起了新世界。"
         },
-        "analysis": "### 【主干结构】\nthe arrival (主语) initiated (谓语) a complete transformation (宾语)。\n\n### 【主谓一致】\nthe arrival 单数，initiated 过去式，正确。\n\n### 【动词时态与原形】\ninitiated: 一般过去时。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nentrenching and expanding the Industrial Revolution: 现在分词短语，作结果状语。\n\n### 【修饰语详解】\nof the steam engine: 定语，修饰 arrival。\nin rail transportation: 定语，修饰 transformation。\nentrenching and expanding...: 结果状语。",
+        "analysis": "### 【主干结构】\n主语：the arrival of the steam engine（蒸汽机的到来）\n谓语：initiated（引发）\n宾语：a complete transformation（彻底的变革）\n状语：in rail transportation（在铁路运输方面）\n\n### 【非谓语动词】\nentrenching and expanding the Industrial Revolution：这是现在分词短语作**结果状语**。它表示主句动作（引发变革）所导致的自然结果或进一步的影响。entrench（巩固）和 expand（扩大）是并列关系。\n\n### 【词汇解析】\n- arrival: 到来，到达。\n- initiate: 开始，发起。\n- entrench: 原意是挖战壕，引申为巩固地位或制度，使其稳固。",
         "segments": [
           {
-            "text": "However, ",
+            "text": "However,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "the arrival of the steam engine ",
+            "text": " the arrival of the steam engine",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "initiated ",
+            "text": " initiated",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "a complete transformation in rail transportation, ",
+            "text": " a complete transformation in rail transportation,",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "entrenching and expanding the Industrial Revolution.",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " entrenching and expanding the Industrial Revolution.",
+            "type": "modifier",
+            "label": "结果状语"
           }
         ]
       },
@@ -1608,53 +1962,48 @@
         "id": "s26",
         "para": 4,
         "text": "As transportation improved, distant and larger markets within the nation could be reached, thereby encouraging the development of larger factories to keep pace with increasing sales.",
-        "translation": "随着交通的改善，国内遥远且更大的市场得以触及，从而鼓励了更大工厂的发展，以跟上日益增长的销售。",
-        "grammarFocus": "as 引导时间/原因状语；被动语态；thereby 引导结果状语。",
+        "translation": "随着交通的改善，国内遥远且更大的市场得以触及，从而促进了更大工厂的发展，以跟上销售增长的步伐。",
+        "grammarFocus": "As 引导的时间/原因状语从句；被动语态；thereby doing 结构",
         "pronounRef": "无",
-        "logicConnector": "as 引导状语，thereby 表示结果。",
+        "logicConnector": "As 引导背景；thereby 表示因果关系（因为市场被触及，所以促进了工厂发展）。",
         "sentenceCoach": {
-          "summary": "这句话讲了交通改善带来的连锁反应。",
-          "keyHint": "thereby encouraging... 是结果状语。"
+          "summary": "交通变好了，市场变大了，工厂为了跟上销售，也必须变大。",
+          "keyHint": "注意 thereby encouraging，它是前面整个情况导致的结果。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么得以触及？国内遥远且更大的市场。",
-          "grammarQuestion": "could be reached 是被动语态。",
-          "modifierQuestion": "thereby encouraging... 是结果状语。",
-          "relationshipQuestion": "as 引导背景，thereby 引导结果。",
-          "commonMistake": "容易把 encouraging 当成谓语，其实它是分词，核心谓语是 could be reached。",
+          "mainQuestion": "交通改善后，发生了什么？更大的市场被连接上了。",
+          "grammarQuestion": "could be reached 是被动语态，意思是‘市场可以被到达/触及’。thereby encouraging 是结果状语，解释这种连接带来的后果。",
+          "modifierQuestion": "distant and larger 修饰 markets；within the nation 限定市场的范围；to keep pace... 是不定式作目的状语，解释为什么要发展大工厂。",
+          "relationshipQuestion": "交通改善（背景） -> 市场被触及（主句事件） -> 促进工厂发展（结果） -> 跟上销售（目的）。",
+          "commonMistake": "容易忽略 thereby 的逻辑功能。它不是连词，不能连接两个句子，而是副词，后面接 -ing 形式表示结果。",
           "thinkingPath": [
-            "识别 as 引导的状语从句",
-            "找到主句 markets could be reached",
-            "识别 thereby encouraging... 是分词作结果状语"
+            "识别 As 引导的从句：As transportation improved",
+            "找到主句：markets could be reached",
+            "分析 thereby encouraging 的作用：它是结果"
           ],
-          "encouragement": "你理解了结果状语，真棒！"
+          "encouragement": "太棒了！你看到了交通和市场之间的紧密联系，这就是工业革命的链条。"
         },
-        "analysis": "### 【主干结构】\nAs transportation improved (状语从句), distant and larger markets (主语) could be reached (谓语)。\n\n### 【主谓一致】\nmarkets 复数，could be reached 正确。\n\n### 【动词时态与原形】\nimproved: 一般过去时。\ncould be reached: 一般过去时被动语态。\n\n### 【从句剖析】\nAs transportation improved: 时间或原因状语从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\nencouraging the development...: 现在分词短语，作结果状语。\nto keep pace with increasing sales: 不定式，作目的状语，修饰 development 或 encouraging。\n\n### 【修饰语详解】\ndistant and larger: 形容词，修饰 markets。\nwithin the nation: 定语，修饰 markets。\nthereby encouraging...: 结果状语。\nto keep pace...: 目的状语。",
+        "analysis": "### 【主干结构】\n状语从句：As transportation improved（随着交通改善）\n主句主语：distant and larger markets within the nation（国内遥远且更大的市场）\n主句谓语：could be reached（可以被触及/到达）\n\n### 【非谓语动词】\nthereby encouraging the development of larger factories...：现在分词短语作**结果状语**。thereby 是副词，意为‘从而’，强调前面的动作（市场被触及）导致了后面的结果（促进工厂发展）。\nto keep pace with increasing sales：不定式短语作**目的状语**，修饰 encouraging 或 development，说明促进工厂发展的目的是什么。",
         "segments": [
           {
-            "text": "As transportation improved, ",
+            "text": "As transportation improved,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "distant and larger markets within the nation ",
+            "text": " distant and larger markets within the nation",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "could be reached, ",
+            "text": " could be reached,",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "thereby encouraging the development of larger factories ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "to keep pace with increasing sales.",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " thereby encouraging the development of larger factories to keep pace with increasing sales.",
+            "type": "modifier",
+            "label": "结果状语"
           }
         ]
       },
@@ -1662,46 +2011,46 @@
         "id": "s27",
         "para": 4,
         "text": "Greater productivity and rising demands provided entrepreneurs with profits that could be reinvested to take advantage of new technologies to further expand capacity, or to seek alternative investment opportunities.",
-        "translation": "更高的生产力和日益增长的需求为企业家提供了利润，这些利润可以重新投资以利用新技术进一步扩大产能，或寻找替代的投资机会。",
-        "grammarFocus": "provide sb with sth; 定语从句；不定式作目的状语。",
-        "pronounRef": "that 指代 profits。",
-        "logicConnector": "or 连接两个不定式短语。",
+        "translation": "更高的生产力和上升的需求为企业家提供了利润，这些利润可以被再投资，以利用新技术进一步扩大产能，或寻找替代的投资机会。",
+        "grammarFocus": "provide sb with sth 结构；定语从句；不定式作目的状语",
+        "pronounRef": "that 指代 profits",
+        "logicConnector": "or 连接两个并列的不定式目的。",
         "sentenceCoach": {
-          "summary": "这句话讲了利润的用途。",
-          "keyHint": "that 引导的定语从句修饰 profits。"
+          "summary": "企业家赚了钱（利润），这些钱可以再利用，要么扩大生产，要么找新投资。",
+          "keyHint": "注意 that 引导的从句修饰 profits，以及后面两个 to 不定式的并列关系。"
         },
         "teachingFocus": {
-          "mainQuestion": "企业家得到了什么？利润。",
-          "grammarQuestion": "that could be reinvested... 是定语从句，修饰 profits。",
-          "modifierQuestion": "to take advantage... 和 to seek... 是目的状语。",
-          "relationshipQuestion": "that 从句修饰 profits，不定式修饰 reinvested。",
-          "commonMistake": "容易把 that 当成关系代词指代 entrepreneurs，其实它指代 profits。",
+          "mainQuestion": "谁提供了利润？生产力和需求。给了谁？企业家。给了什么？利润。",
+          "grammarQuestion": "that could be reinvested 是定语从句，修饰 profits。to take advantage... 和 to seek... 是两个并列的不定式，说明利润再投资的目的。",
+          "modifierQuestion": "Greater 和 rising 分别修饰 productivity 和 demands；that 从句是 profits 的定语；两个 to 短语是 reinvested 的目的状语。",
+          "relationshipQuestion": "生产力/需求（因） -> 提供利润（果） -> 利润再投资（动作） -> 扩大产能/寻找机会（目的）。",
+          "commonMistake": "容易混淆 provide 的结构。这里是 provide entrepreneurs with profits，而不是 provide profits to entrepreneurs（虽然意思相近，但结构不同）。另外，容易漏看 or 连接的第二个目的。",
           "thinkingPath": [
-            "找到主句 Greater productivity and rising demands provided entrepreneurs with profits",
-            "识别 that 引导的定语从句",
-            "分析不定式 to take advantage... 和 to seek..."
+            "找到主句主干：productivity and demands provided entrepreneurs with profits",
+            "识别 that 从句：修饰 profits",
+            "分析 to 不定式：表示 reinvested 的目的，注意 or 的并列"
           ],
-          "encouragement": "你理清了定语从句和不定式，真棒！"
+          "encouragement": "你像侦探一样理清了利润的流向！从赚到再投资，每一步都有目的。"
         },
-        "analysis": "### 【主干结构】\nGreater productivity and rising demands (主语) provided (谓语) entrepreneurs (间接宾语) with profits (直接宾语)。\n\n### 【主谓一致】\n主语是复数，provided 过去式，正确。\n\n### 【动词时态与原形】\nprovided: 一般过去时。\ncould be reinvested: 一般过去时被动语态。\n\n### 【从句剖析】\nthat could be reinvested...: 定语从句，修饰 profits。\n\n### 【代词指代】\nthat 指代 profits。\n\n### 【非谓语动词】\nto take advantage of new technologies: 不定式，作目的状语，修饰 reinvested。\nto further expand capacity: 不定式，作目的状语，修饰 take advantage。\nto seek alternative investment opportunities: 不定式，与 to take advantage... 并列。\n\n### 【修饰语详解】\nthat could be reinvested to take advantage of new technologies to further expand capacity, or to seek alternative investment opportunities: 定语从句，修饰 profits。",
+        "analysis": "### 【主干结构】\n主语：Greater productivity and rising demands（更高的生产力和上升的需求）\n谓语：provided（提供）\n间接宾语：entrepreneurs（企业家）\n直接宾语：profits（利润）\n\n### 【从句剖析】\nthat could be reinvested...：定语从句，修饰先行词 profits。that 在从句中作主语，could be reinvested 是被动语态谓语。\n\n### 【非谓语动词】\nto take advantage of new technologies...：不定式短语作**目的状语**，修饰 reinvested。其中 to further expand capacity 是 take advantage of... 的目的。\nor to seek alternative investment opportunities：or 连接另一个不定式 to seek，与 to take advantage 并列，共同作为 reinvested 的目的。",
         "segments": [
           {
-            "text": "Greater productivity and rising demands ",
+            "text": "Greater productivity and rising demands",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "provided ",
+            "text": " provided",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "entrepreneurs with profits ",
+            "text": " entrepreneurs with profits",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "that could be reinvested to take advantage of new technologies to further expand capacity, or to seek alternative investment opportunities.",
+            "text": " that could be reinvested to take advantage of new technologies to further expand capacity, or to seek alternative investment opportunities.",
             "type": "modifier",
             "label": "定语"
           }
@@ -1711,53 +2060,49 @@
         "id": "s28",
         "para": 4,
         "text": "Also, the availability of jobs in railway construction attracted many rural laborers accustomed to seasonal and temporary employment.",
-        "translation": "此外，铁路建设工作的可用性吸引了许多习惯于季节性临时工作的农村劳动力。",
-        "grammarFocus": "过去分词作定语。",
+        "translation": "此外，铁路建设工作的就业机会吸引了许多习惯于季节性临时工作的农村劳工。",
+        "grammarFocus": "过去分词短语作后置定语",
         "pronounRef": "无",
-        "logicConnector": "Also 表示递进。",
+        "logicConnector": "Also 表示递进/补充，引出另一个吸引劳动力的因素。",
         "sentenceCoach": {
-          "summary": "这句话讲了铁路建设对农村劳动力的吸引。",
-          "keyHint": "accustomed to... 是过去分词短语，修饰 laborers。"
+          "summary": "铁路建设提供了工作，吸引了那些习惯打零工的农村人。",
+          "keyHint": "注意 accustomed to... 是修饰 laborers 的，不是谓语。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁被吸引了？农村劳动力。",
-          "grammarQuestion": "attracted many rural laborers 是核心结构。",
-          "modifierQuestion": "accustomed to seasonal and temporary employment 是过去分词短语，作后置定语，修饰 laborers。",
-          "relationshipQuestion": "availability 是主语，attracted 是谓语。",
-          "commonMistake": "容易把 accustomed 当成谓语，其实它是分词，核心谓语是 attracted。",
+          "mainQuestion": "什么吸引了农村劳工？铁路建设的工作机会。",
+          "grammarQuestion": "attracted 是主句谓语。accustomed to... 是过去分词短语作后置定语，修饰 rural laborers，相当于 who were accustomed to...。",
+          "modifierQuestion": "in railway construction 修饰 jobs；accustomed to seasonal and temporary employment 修饰 rural laborers。",
+          "relationshipQuestion": "铁路工作机会（主语核心） -> 吸引（谓语） -> 农村劳工（宾语） -> 这些劳工的特点是习惯临时工作（定语）。",
+          "commonMistake": "容易把 accustomed 当成谓语动词。记住，前面已经有 attracted 了，accustomed 在这里是形容词化的过去分词，作定语。",
           "thinkingPath": [
-            "找到主语 the availability",
-            "找到谓语 attracted",
-            "识别 accustomed to... 是分词作定语"
+            "找到主句谓语：attracted",
+            "识别主语：availability of jobs",
+            "识别宾语：rural laborers",
+            "分析 accustomed to...：它是 laborers 的定语"
           ],
-          "encouragement": "你抓住了分词定语，真棒！"
+          "encouragement": "你看得很准！铁路就像磁铁，把习惯临时工作的农村人吸了过来。"
         },
-        "analysis": "### 【主干结构】\nthe availability (主语) attracted (谓语) many rural laborers (宾语)。\n\n### 【主谓一致】\nthe availability 单数，attracted 过去式，正确。\n\n### 【动词时态与原形】\nattracted: 一般过去时。\n\n### 【从句剖析】\n无。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\naccustomed to seasonal and temporary employment: 过去分词短语，作后置定语，修饰 laborers。\n\n### 【修饰语详解】\nof jobs in railway construction: 定语，修饰 availability。\naccustomed to...: 定语，修饰 laborers。",
+        "analysis": "### 【主干结构】\n状语：Also（此外）\n主语：the availability of jobs in railway construction（铁路建设工作的可用性/机会）\n谓语：attracted（吸引）\n宾语：many rural laborers（许多农村劳工）\n\n### 【非谓语动词】\naccustomed to seasonal and temporary employment：过去分词短语作**后置定语**，修饰 rural laborers。它相当于定语从句 who were accustomed to...，表示这些劳工的特征是习惯于季节性和临时性工作。",
         "segments": [
           {
-            "text": "Also, ",
+            "text": "Also,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "the availability of jobs in railway construction ",
+            "text": " the availability of jobs in railway construction",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "attracted ",
+            "text": " attracted",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "many rural laborers ",
+            "text": " many rural laborers accustomed to seasonal and temporary employment.",
             "type": "object",
             "label": "宾语"
-          },
-          {
-            "text": "accustomed to seasonal and temporary employment.",
-            "type": "modifier",
-            "label": "定语"
           }
         ]
       },
@@ -1765,46 +2110,52 @@
         "id": "s29",
         "para": 4,
         "text": "When the work was completed, many moved to other construction jobs or to factory work in cities and towns, where they became part of an expanding working class.",
-        "translation": "当工作完成后，许多人转移到其他建筑工地或城市城镇的工厂工作，在那里他们成为了不断扩大的工人阶级的一部分。",
-        "grammarFocus": "时间状语从句；非限制性定语从句。",
-        "pronounRef": "they 指代 many (rural laborers)。",
-        "logicConnector": "When 引导时间状语，where 引导定语从句。",
+        "translation": "当工作完成后，许多人转去其他建筑工地或城市城镇的工厂工作，在那里他们成为了不断扩大的工人阶级的一部分。",
+        "grammarFocus": "When 引导的时间状语从句；非限制性定语从句",
+        "pronounRef": "where 指代 cities and towns；they 指代 many (laborers)",
+        "logicConnector": "When 表示时间先后；where 引导非限制性定语从句，补充说明地点及结果。",
         "sentenceCoach": {
-          "summary": "这句话讲了工人完成工作后的去向。",
-          "keyHint": "where 引导的定语从句修饰 cities and towns。"
+          "summary": "铁路活干完了，这些人去了城市工厂，从此变成了工人阶级的一员。",
+          "keyHint": "注意 where 引导的从句，它描述了这些人在城市里的新身份。"
         },
         "teachingFocus": {
-          "mainQuestion": "许多人去了哪里？其他建筑工地或城市城镇的工厂。",
-          "grammarQuestion": "When the work was completed 是时间状语从句。",
-          "modifierQuestion": "where they became... 是非限制性定语从句，修饰 cities and towns。",
-          "relationshipQuestion": "where 从句补充说明在那些地方的情况。",
-          "commonMistake": "容易把 where 当成副词修饰 moved，其实它引导定语从句修饰地点。",
+          "mainQuestion": "工作完成后，这些人去了哪里？去了其他工地或城市工厂。",
+          "grammarQuestion": "When the work was completed 是时间状语从句。where they became... 是非限制性定语从句，修饰 cities and towns，表示在这些地方他们成为了工人阶级。",
+          "modifierQuestion": "other construction jobs 和 factory work in cities and towns 是 moved 的方向/目的地；where 从句是补充说明。",
+          "relationshipQuestion": "工作完成（时间背景） -> 迁移（主句动作） -> 成为工人阶级（地点/结果）。",
+          "commonMistake": "容易忽略 where 的非限制性定语从句性质，误以为是地点状语。记住，where 前有逗号，且修饰的是地点名词 cities and towns，引导的是补充说明的从句。",
           "thinkingPath": [
-            "识别 When 引导的时间状语从句",
-            "找到主句 many moved...",
-            "识别 where 引导的非限制性定语从句"
+            "识别 When 从句：When the work was completed",
+            "找到主句：many moved to...",
+            "识别 where 从句：where they became...",
+            "理解 where 修饰 cities and towns"
           ],
-          "encouragement": "你理解了定语从句，真棒！"
+          "encouragement": "你成功追踪了这些人的迁徙路线！从农村到城市，从临时工到工人阶级，这是一次重要的人生转变。"
         },
-        "analysis": "### 【主干结构】\nWhen the work was completed (时间状语从句), many (主语) moved (谓语) to other construction jobs or to factory work in cities and towns (状语)。\n\n### 【主谓一致】\nmany 复数，moved 过去式，正确。\n\n### 【动词时态与原形】\nwas completed: 一般过去时被动语态。\nmoved: 一般过去时。\nbecame: 一般过去时。\n\n### 【从句剖析】\nWhen the work was completed: 时间状语从句。\nwhere they became part of an expanding working class: 非限制性定语从句，修饰 cities and towns。\n\n### 【代词指代】\nthey 指代 many (rural laborers)。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语详解】\nin cities and towns: 定语，修饰 factory work。\nwhere they became...: 定语从句。",
+        "analysis": "### 【主干结构】\n状语从句：When the work was completed（当工作完成时）\n主句主语：many（许多人，指代前文的 rural laborers）\n主句谓语：moved（迁移/转去）\n主句状语/宾语：to other construction jobs or to factory work in cities and towns（去其他建筑工地或城市城镇的工厂工作）\n\n### 【从句剖析】\nwhere they became part of an expanding working class：非限制性定语从句，修饰先行词 cities and towns。where 在从句中作地点状语，they 指代 many (laborers)，became 是系动词，part of... 是表语。",
         "segments": [
           {
-            "text": "When the work was completed, ",
+            "text": "When the work was completed,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "many ",
+            "text": " many",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "moved to other construction jobs or to factory work in cities and towns, ",
+            "text": " moved",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "where they became part of an expanding working class.",
+            "text": " to other construction jobs or to factory work in cities and towns,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " where they became part of an expanding working class.",
             "type": "modifier",
             "label": "定语"
           }

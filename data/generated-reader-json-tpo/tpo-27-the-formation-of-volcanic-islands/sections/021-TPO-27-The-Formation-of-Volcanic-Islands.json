@@ -1,33 +1,63 @@
 {
   "sourceFile": "tpo-27-the-formation-of-volcanic-islands.md",
   "sectionTitle": "TPO-27 / The Formation of Volcanic Islands",
-  "generatedAt": "2026-08-05T13:31:22.541Z",
+  "generatedAt": "2026-08-12T08:32:39.097Z",
   "warnings": [],
   "article": {
     "id": "tpo-27-the-formation-of-volcanic-islands-21-TPO-27-The-Formation-of-Volcanic-Islands",
     "title": "TPO-27 / The Formation of Volcanic Islands",
-    "timestamp": 1785936682561,
+    "timestamp": 1786523559117,
     "glossary": [
       {
-        "term": "geologic timescale",
-        "translation": "地质时间尺度",
+        "term": "geologically uneventful",
+        "translation": "地质活动平静的",
+        "kind": "context_phrase",
+        "note": "形容板块内部很少发生地震或火山爆发。",
+        "aliases": []
+      },
+      {
+        "term": "geologic times scale",
+        "translation": "地质年代尺度",
         "kind": "term",
-        "note": "用于描述地球历史漫长时间的计量系统。",
+        "note": "指地球历史的时间划分体系。",
+        "aliases": []
+      },
+      {
+        "term": "interiors of plates",
+        "translation": "板块内部",
+        "kind": "context_phrase",
+        "note": "指板块中心区域，远离板块边界，通常地质活动较少，但热点火山例外。",
+        "aliases": []
+      },
+      {
+        "term": "geologic evolution",
+        "translation": "地质演化",
+        "kind": "term",
+        "note": "指岩石或地质结构随时间发生的变化过程。",
         "aliases": []
       },
       {
         "term": "seafloor spreading",
         "translation": "海底扩张",
         "kind": "term",
-        "note": "新的海洋地壳在洋中脊形成并向两侧推移的过程。",
+        "note": "地质学概念，指海底从洋中脊向外扩张的过程。",
+        "aliases": []
+      },
+      {
+        "term": "surface expression",
+        "translation": "地表表现",
+        "kind": "context_phrase",
+        "note": "指地下深处的地质活动在地球表面留下的痕迹。",
         "aliases": []
       },
       {
         "term": "spreading ridges",
         "translation": "海岭/扩张脊",
         "kind": "term",
-        "note": "板块张裂分离的地方，新的地壳在此形成。",
-        "aliases": []
+        "note": "板块张裂分离的地方，新地壳在此形成。",
+        "aliases": [
+          "ridges"
+        ]
       },
       {
         "term": "subduction zones",
@@ -40,112 +70,215 @@
         "term": "transform faults",
         "translation": "转换断层",
         "kind": "term",
-        "note": "板块相互错动、既不分离也不汇聚的边界。",
+        "note": "板块水平错动、既不分离也不汇聚的边界。",
+        "aliases": []
+      },
+      {
+        "term": "age progression",
+        "translation": "年龄递变",
+        "kind": "term",
+        "note": "指事物随时间推移呈现出的年龄变化规律。",
         "aliases": []
       },
       {
         "term": "plate tectonics",
         "translation": "板块构造论",
         "kind": "term",
-        "note": "解释地球表面运动和地质现象的主流科学理论。",
+        "note": "解释地球地壳运动的科学理论。",
         "aliases": []
       },
       {
         "term": "tectonic plates",
         "translation": "构造板块",
         "kind": "term",
-        "note": "地球岩石圈被分割成的巨大块体，是板块构造理论的核心概念。",
+        "note": "地球岩石圈分裂成的巨大块体，是板块构造学说的核心概念。",
+        "aliases": [
+          "plates"
+        ]
+      },
+      {
+        "term": "volcanic source",
+        "translation": "火山源",
+        "kind": "context_phrase",
+        "note": "指产生岩浆的源头，文中特指地幔柱顶部。",
         "aliases": []
       },
       {
+        "term": "Easter Islands",
+        "translation": "复活节岛",
+        "kind": "proper_noun",
+        "note": "南太平洋岛屿，文中作为例子提及。",
+        "aliases": []
+      },
+      {
+        "term": "hot-spot trail",
+        "translation": "热点轨迹",
+        "kind": "term",
+        "note": "地质学概念，指板块移动过程中，火山在固定热点上方形成的链状分布。",
+        "aliases": []
+      },
+      {
+        "term": "plate boundary",
+        "translation": "板块边界",
+        "kind": "term",
+        "note": "地质学概念，指两个构造板块相接的地方。",
+        "aliases": []
+      },
+      {
+        "term": "tectonic plate",
+        "translation": "构造板块",
+        "kind": "term",
+        "note": "地球岩石圈分裂成的巨大块体。",
+        "aliases": [
+          "plate"
+        ]
+      },
+      {
         "term": "jigsaw puzzle",
-        "translation": "拼图游戏",
+        "translation": "拼图",
         "kind": "context_phrase",
-        "note": "文中用来比喻板块像拼图碎片一样紧密契合。",
+        "note": "文中用来比喻板块之间紧密拼接的状态。",
         "aliases": []
       },
       {
         "term": "mantle plumes",
         "translation": "地幔柱",
         "kind": "term",
-        "note": "从地幔深处上升的热岩浆柱，被认为是热点火山的成因。",
+        "note": "从地幔深处上升的高温岩柱，被认为是火山热点（hot spots）的成因。",
+        "aliases": [
+          "地幔热柱"
+        ]
+      },
+      {
+        "term": "Pacific Plate",
+        "translation": "太平洋板块",
+        "kind": "proper_noun",
+        "note": "专有名词，地球主要的构造板块之一。",
         "aliases": []
       },
       {
         "term": "backtracking",
         "translation": "回溯",
         "kind": "term",
-        "note": "指根据热点轨迹反向推导板块过去的移动路径。",
+        "note": "指根据现有线索反向推导过去状态的方法。",
         "aliases": []
       },
       {
         "term": "geophysicist",
         "translation": "地球物理学家",
         "kind": "proper_noun",
-        "note": "Tuzo Wilson 的职业，研究地球物理性质的科学家。",
+        "note": "研究地球物理性质和过程的科学家。",
         "aliases": []
       },
       {
-        "term": "Tuzo Wilson",
-        "translation": "图佐·威尔逊",
-        "kind": "proper_noun",
-        "note": "加拿大地球物理学家，板块构造理论的奠基人之一。",
+        "term": "semi-liquid",
+        "translation": "半液态的",
+        "kind": "term",
+        "note": "形容地幔物质具有流动性的状态。",
         "aliases": []
       },
       {
-        "term": "James Daly",
-        "translation": "詹姆斯·戴利",
+        "term": "Mauritius",
+        "translation": "毛里求斯",
         "kind": "proper_noun",
-        "note": "美国地质学家，早期观察到夏威夷群岛年龄分布规律。",
+        "note": "印度洋岛屿，文中作为例子提及。",
         "aliases": []
       },
       {
         "term": "volcanism",
-        "translation": "火山作用",
+        "translation": "火山活动",
         "kind": "term",
-        "note": "指火山活动及其相关现象的总称。",
+        "note": "指火山喷发及相关地质现象的总称。",
         "aliases": []
       },
       {
         "term": "converge",
-        "translation": "汇聚",
+        "translation": "汇聚/靠拢",
         "kind": "term",
-        "note": "板块向彼此靠近运动。",
+        "note": "指板块向彼此靠近的运动。",
         "aliases": []
       },
       {
         "term": "hot spot",
         "translation": "热点",
         "kind": "term",
-        "note": "地壳上由地幔柱引起的长期活跃的火山区域。",
-        "aliases": []
+        "note": "地壳上长期活跃的火山区域，通常位于板块内部，由地幔柱引起。",
+        "aliases": [
+          "热点火山"
+        ]
       },
       {
         "term": "diverge",
         "translation": "发散/分离",
         "kind": "term",
-        "note": "板块向相反方向运动。",
+        "note": "指板块向相反方向远离的运动。",
         "aliases": []
       },
       {
-        "term": "plunges",
-        "translation": "俯冲/插入",
-        "kind": "term",
-        "note": "指一个板块向下插入另一个板块之下。",
+        "term": "Reunion",
+        "translation": "留尼汪岛",
+        "kind": "proper_noun",
+        "note": "印度洋岛屿，文中作为例子提及。",
         "aliases": []
       },
       {
         "term": "eroded",
-        "translation": "侵蚀的",
+        "translation": "受侵蚀的",
         "kind": "term",
-        "note": "指岛屿因风、水等自然力量磨损变小。",
-        "aliases": []
+        "note": "指岩石或土地被风、水等自然力量磨损。",
+        "aliases": [
+          "erosion"
+        ]
       },
       {
         "term": "mantle",
         "translation": "地幔",
         "kind": "term",
-        "note": "位于地壳和地核之间的地球内部层圈，呈半液态或塑性状态。",
+        "note": "位于地壳和地核之间的地球内部层圈。",
+        "aliases": []
+      },
+      {
+        "term": "Tahiti",
+        "translation": "塔希提岛",
+        "kind": "proper_noun",
+        "note": "南太平洋岛屿，文中作为例子提及。",
+        "aliases": []
+      },
+      {
+        "term": "Wilson",
+        "translation": "威尔逊",
+        "kind": "proper_noun",
+        "note": "J. Tuzo Wilson，加拿大地质学家，板块构造学说的奠基人之一。",
+        "aliases": []
+      },
+      {
+        "term": "coral",
+        "translation": "珊瑚",
+        "kind": "term",
+        "note": "海洋生物，文中指覆盖在死火山上的珊瑚礁。",
+        "aliases": []
+      },
+      {
+        "term": "lavas",
+        "translation": "熔岩",
+        "kind": "term",
+        "note": "火山喷发出的熔融岩石，冷却后形成火山岩。",
+        "aliases": [
+          "lava"
+        ]
+      },
+      {
+        "term": "core",
+        "translation": "地核",
+        "kind": "term",
+        "note": "地球最内部的核心部分，分为外核（液态）和内核（固态）。",
+        "aliases": []
+      },
+      {
+        "term": "Daly",
+        "translation": "达利",
+        "kind": "proper_noun",
+        "note": "Reginald Aldworth Daly，美国地质学家，曾提出夏威夷群岛由热点形成的早期假说。",
         "aliases": []
       }
     ],
@@ -154,66 +287,66 @@
         "id": "s1",
         "para": 1,
         "text": "Earth’s surface is not made up of a single sheet of rock that forms a crust but rather a number of “tectonic plates” that fit closely, like the pieces of a giant jigsaw puzzle.",
-        "translation": "地球表面并非由形成地壳的单一岩板组成，而是由许多紧密契合的“构造板块”组成，就像巨型拼图游戏的碎片一样。",
-        "grammarFocus": "not...but rather... 结构；定语从句；比喻修辞",
-        "pronounRef": "that 指代 rock 和 tectonic plates",
-        "logicConnector": "not...but rather... 表示转折对比，否定前者，肯定后者",
+        "translation": "地球表面并非由形成地壳的单一岩石片组成，而是由许多紧密拼接的“构造板块”组成，就像巨型拼图的碎片一样。",
+        "grammarFocus": "not...but rather... 结构；定语从句 that forms... 和 that fit closely...",
+        "pronounRef": "无",
+        "logicConnector": "not...but rather... 表示转折对比，否定前者，肯定后者。",
         "sentenceCoach": {
-          "summary": "这句话用拼图比喻板块，告诉我们地球表面是碎块拼起来的。",
-          "keyHint": "注意 not...but rather... 这个结构，它像天平一样，一边否定，一边肯定。"
+          "summary": "这是一个长难句，我们要用“不是...而是...”的框架把它拆开看。",
+          "keyHint": "注意两个 that 引导的从句分别修饰谁。"
         },
         "teachingFocus": {
-          "mainQuestion": "地球表面到底是一块完整的石头，还是像拼图一样的碎片？",
-          "grammarQuestion": "怎么区分‘不是...而是...’这种对比结构？",
-          "modifierQuestion": "那些长长的‘that...’句子是来给前面的名词贴标签的，就像给拼图块贴编号。",
-          "relationshipQuestion": "‘like the pieces...’ 是把板块比作拼图，帮我们想象它们是怎么拼在一起的。",
-          "commonMistake": "孩子容易把 not...but rather... 后面的内容搞混，要记住 but rather 后面才是作者真正想说的重点。",
+          "mainQuestion": "我们要找句子的骨架：地球表面是由什么组成的？",
+          "grammarQuestion": "看到 not...but rather... 时，要明白这是在对比两个事物，重点在 but rather 后面。",
+          "modifierQuestion": "两个 that 就像两个小尾巴，分别紧紧跟在 rock 和 tectonic plates 后面，告诉我们要怎么理解它们。",
+          "relationshipQuestion": "like... 是比喻，把板块比作拼图碎片，帮助我们要想象它们是怎么拼在一起的。",
+          "commonMistake": "容易把 that forms a crust 当成修饰 surface，其实它只修饰 rock；同理，that fit closely 只修饰 plates。",
           "thinkingPath": [
-            "找到 not...but rather... 结构",
-            "识别两个 that 引导的从句分别修饰谁",
-            "理解 like 引导的比喻义"
+            "找到 not...but rather... 结构，锁定核心名词 rock 和 plates",
+            "识别两个 that 引导的定语从句，分别找到它们修饰的名词",
+            "理解 like 引导的比喻，辅助想象板块形态"
           ],
-          "encouragement": "你就像个小侦探，一眼看穿了地球表面的‘拼图’秘密！"
+          "encouragement": "你抓住了对比结构，就像侦探找到了关键线索，真棒！"
         },
-        "analysis": "### 【主干结构】\nEarth’s surface is not made up of A but rather B.\n（地球表面不是由A组成，而是由B组成。）\n\n### 【主谓一致】\n主语 Earth’s surface 是单数，谓语 is 是单数，一致。\n\n### 【动词时态与原形】\nis made up of 是被动语态，表示状态。\n\n### 【从句剖析】\n1. that forms a crust：定语从句，修饰 single sheet of rock。\n2. that fit closely：定语从句，修饰 tectonic plates。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nlike the pieces of a giant jigsaw puzzle：介词短语作状语/补语，比喻说明板块契合的方式。",
+        "analysis": "### 【主干结构】\n本句核心结构为 **not A but rather B**（不是A，而是B）。\n- **A部分**：a single sheet of rock（单一岩石片）\n- **B部分**：a number of “tectonic plates”（许多构造板块）\n- **谓语**：is made up of（由...组成）\n\n### 【主谓一致】\n主语是 Earth’s surface（单数），谓语动词用 is，保持一致。\n\n### 【动词时态与原形】\nis made up of 为一般现在时的被动语态，表示客观事实。\n\n### 【从句剖析】\n1. **that forms a crust**：定语从句，修饰先行词 **rock**。意为“形成地壳的岩石”。\n2. **that fit closely**：定语从句，修饰先行词 **tectonic plates**。意为“紧密拼接的构造板块”。\n\n### 【非谓语动词】\n无独立非谓语动词，均为从句中的谓语。\n\n### 【修饰语】\n- **like the pieces of a giant jigsaw puzzle**：介词短语作状语/补语，比喻说明板块拼接的状态。",
         "segments": [
           {
-            "text": "Earth’s surface ",
+            "text": "Earth’s surface",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is not made up of ",
+            "text": " is not made up of",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "a single sheet of rock ",
+            "text": " a single sheet of rock",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "that forms a crust ",
+            "text": " that forms a crust",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "but rather ",
+            "text": " but rather",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "a number of “tectonic plates” ",
+            "text": " a number of “tectonic plates”",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "that fit closely, ",
+            "text": " that fit closely",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "like the pieces of a giant jigsaw puzzle.",
+            "text": ", like the pieces of a giant jigsaw puzzle.",
             "type": "modifier",
             "label": "补充说明"
           }
@@ -224,56 +357,57 @@
         "para": 1,
         "text": "Some plates carry islands or continents others form the seafloor.",
         "translation": "一些板块承载岛屿或大陆，另一些板块形成海底。",
-        "grammarFocus": "无连接词的并列句（逗号拼接/Comma Splice，口语或非正式写作中常见，或视为省略了and）",
-        "pronounRef": "Some plates 指代前文的 tectonic plates",
-        "logicConnector": "隐含的对比关系",
+        "grammarFocus": "省略连接词的并列句；Some... others... 结构。",
+        "pronounRef": "无",
+        "logicConnector": "隐含的并列关系，通过 Some... others... 区分两类板块。",
         "sentenceCoach": {
-          "summary": "这句话介绍了板块的两种不同任务：有的扛着陆地，有的铺着海底。",
-          "keyHint": "注意中间没有 and，这是两个独立的分句并列。"
+          "summary": "这句话其实包含了两个小句子，中间少了标点，我们要学会自己断句。",
+          "keyHint": "注意 continents 后面应该有个逗号或分号，这里省略了。"
         },
         "teachingFocus": {
-          "mainQuestion": "板块们都在忙什么？",
-          "grammarQuestion": "为什么中间没有 and 也能连起来？",
-          "modifierQuestion": "无复杂修饰，结构清晰。",
-          "relationshipQuestion": "前半句和后半句是并列关系，列举了板块的两种功能。",
-          "commonMistake": "孩子可能会觉得中间缺了 and 是病句，其实在科普文中这种简洁并列很常见。",
+          "mainQuestion": "这句话说了两件事：有些板块做什么？另一些板块做什么？",
+          "grammarQuestion": "这是两个独立分句的拼接，中间缺少连接词或标点，阅读时要停顿一下。",
+          "modifierQuestion": "无复杂修饰语，结构非常直接。",
+          "relationshipQuestion": "Some... others... 是经典的分类描述结构，表示“一部分...另一部分...”。",
+          "commonMistake": "容易把 continents 当作 carry 的宾语后，不知道句子结束了，继续读 others form... 会困惑。",
           "thinkingPath": [
-            "识别两个独立的主谓结构",
-            "理解 Some... others... 的对应关系"
+            "识别 Some plates 为主语，carry 为谓语，islands or continents 为宾语",
+            "识别 others 为第二个分句的主语（指代 other plates）",
+            "识别 form 为第二个分句的谓语，the seafloor 为宾语"
           ],
-          "encouragement": "你的眼睛真亮，发现了这两个板块的不同分工！"
+          "encouragement": "你能一眼看出这是两句话拼在一起，观察力满分！"
         },
-        "analysis": "### 【主干结构】\nSome plates carry islands or continents; others form the seafloor.\n（一些板块携带岛屿或大陆；其他板块形成海底。）\n\n### 【主谓一致】\nSome plates 复数，carry 复数；others 复数，form 复数。一致。\n\n### 【动词时态与原形】\ncarry, form 均为一般现在时，表示客观事实。\n\n### 【从句剖析】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nislands or continents 作 carry 的宾语；the seafloor 作 form 的宾语。",
+        "analysis": "### 【主干结构】\n本句由两个并列的分句组成，中间省略了连接词或标点。\n- **分句1**：Some plates carry islands or continents.\n- **分句2**：others form the seafloor.\n\n### 【主谓一致】\n- 分句1：主语 Some plates（复数），谓语 carry（复数形式），一致。\n- 分句2：主语 others（复数，指代 other plates），谓语 form（复数形式），一致。\n\n### 【动词时态与原形】\n均为一般现在时，表示客观事实。\n\n### 【从句剖析】\n无从句。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\n无复杂修饰语。",
         "segments": [
           {
-            "text": "Some plates ",
+            "text": "Some plates",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "carry ",
+            "text": " carry",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "islands or continents ",
+            "text": " islands or continents",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "others ",
-            "type": "subject",
-            "label": "主语"
+            "text": " others",
+            "type": "coord-subject",
+            "label": "并列主语"
           },
           {
-            "text": "form ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " form",
+            "type": "coord-verb",
+            "label": "并列谓语"
           },
           {
-            "text": "the seafloor.",
-            "type": "object",
-            "label": "宾语"
+            "text": " the seafloor.",
+            "type": "coord-object",
+            "label": "并列宾语"
           }
         ]
       },
@@ -281,61 +415,61 @@
         "id": "s3",
         "para": 1,
         "text": "All are slowly moving because the plates float on a denser semi-liquid mantle, the layer between the crust and Earth’s core.",
-        "translation": "所有板块都在缓慢移动，因为板块漂浮在更致密的半液态地幔上，地幔是地壳和地球核心之间的一层。",
-        "grammarFocus": "原因状语从句；同位语",
-        "pronounRef": "All 指代前文的 plates",
-        "logicConnector": "because 引导原因",
+        "translation": "所有板块都在缓慢移动，因为板块漂浮在更致密的半液态地幔上，即地壳和地核之间的层。",
+        "grammarFocus": "because 引导的原因状语从句；同位语 the layer...",
+        "pronounRef": "All 指代前文的 plates。",
+        "logicConnector": "because 表示因果关系。",
         "sentenceCoach": {
-          "summary": "为什么板块在动？因为它们像船一样浮在软软的地幔上。",
-          "keyHint": "because 后面解释了原因，the layer... 是对 mantle 的解释。"
+          "summary": "先看结果：板块在移动。再看原因：因为漂浮在地幔上。",
+          "keyHint": "注意 mantle 后面的逗号，引出了对 mantle 的解释。"
         },
         "teachingFocus": {
-          "mainQuestion": "板块为什么会慢慢移动？",
-          "grammarQuestion": "because 引导的句子怎么找？",
-          "modifierQuestion": "the layer... 是 mantle 的同位语，就像给 mantle 起了个外号。",
-          "relationshipQuestion": "前半句是结果，后半句是原因。",
-          "commonMistake": "孩子可能忽略同位语，导致不理解 mantle 是什么。",
+          "mainQuestion": "板块为什么在移动？因为它们漂浮在什么东西上？",
+          "grammarQuestion": "because 引导的从句解释了主句的原因；逗号后的名词短语是同位语，用来解释前面的名词。",
+          "modifierQuestion": "slowly 修饰 moving；the layer... 是 mantle 的同位语，进一步解释 mantle 是什么。",
+          "relationshipQuestion": "主句是现象，从句是原因；同位语是对专业术语的补充解释。",
+          "commonMistake": "容易忽略 the layer... 是同位语，误以为是另一个句子或修饰语。",
           "thinkingPath": [
-            "找到 because 引导的原因状语",
-            "识别 the layer... 是同位语，解释 mantle",
-            "理解 float on 的比喻义"
+            "识别主句 All are slowly moving",
+            "识别 because 引导的原因状语从句",
+            "识别 the layer... 为 mantle 的同位语"
           ],
-          "encouragement": "你找到了板块移动的‘动力源’，真棒！"
+          "encouragement": "你找到了原因和解释，像个小科学家一样思考！"
         },
-        "analysis": "### 【主干结构】\nAll are slowly moving because [clause].\n（所有板块都在缓慢移动，因为[从句]。）\n\n### 【主谓一致】\nAll 指代复数 plates，are 复数。一致。\n\n### 【动词时态与原形】\nare moving 现在进行时，表示持续状态；float 一般现在时。\n\n### 【从句剖析】\nbecause the plates float on...：原因状语从句。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nslowly：副词，修饰 moving。\nthe layer between the crust and Earth’s core：同位语，解释说明 mantle。",
+        "analysis": "### 【主干结构】\n- **主句**：All are slowly moving.\n- **从句**：because the plates float on a denser semi-liquid mantle.\n\n### 【主谓一致】\n- 主句：All（复数，指代 plates）are，一致。\n- 从句：the plates（复数）float，一致。\n\n### 【动词时态与原形】\n- are moving：现在进行时，强调当前持续的状态。\n- float：一般现在时，表示客观事实。\n\n### 【从句剖析】\n- **because the plates float on a denser semi-liquid mantle**：原因状语从句，解释主句动作的原因。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\n- **slowly**：副词，修饰 moving。\n- **the layer between the crust and Earth’s core**：名词短语，作 **mantle** 的同位语，解释 mantle 的位置。",
         "segments": [
           {
-            "text": "All ",
+            "text": "All",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are slowly moving ",
+            "text": " are slowly moving",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "because ",
+            "text": " because",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "the plates ",
+            "text": " the plates",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "float ",
+            "text": " float",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "on a denser semi-liquid mantle, ",
+            "text": " on a denser semi-liquid mantle",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "the layer between the crust and Earth’s core.",
+            "text": ", the layer between the crust and Earth’s core.",
             "type": "modifier",
             "label": "同位语"
           }
@@ -346,80 +480,70 @@
         "para": 1,
         "text": "The plates have edges that are spreading ridges (where two plates are moving apart and new seafloor is being created), subduction zones (where two plates collide and one plunges beneath the other), or transform faults (where two plates neither converge nor diverge but merely move past one another).",
         "translation": "板块的边缘是扩张脊（两个板块分离且新海底正在形成的地方）、俯冲带（两个板块碰撞且一个俯冲到另一个之下的地方）或转换断层（两个板块既不汇聚也不发散，只是彼此错过的地方）。",
-        "grammarFocus": "定语从句；括号内的地点状语从句；并列结构",
-        "pronounRef": "that 指代 edges",
-        "logicConnector": "or 表示选择/列举",
+        "grammarFocus": "定语从句 that are...；三个并列的名词短语，每个都带有 where 引导的定语从句。",
+        "pronounRef": "one 指代 two plates 中的一个。",
+        "logicConnector": "or 表示选择/列举；neither...nor... 表示否定两者。",
         "sentenceCoach": {
-          "summary": "这句话详细描述了板块边缘的三种类型，每种类型后面都有括号解释。",
-          "keyHint": "注意 that are... 后面跟了三个并列的名词短语，每个都有括号解释。"
+          "summary": "这句话很长，但结构很整齐：三个括号里的内容结构类似，都是解释前面的名词。",
+          "keyHint": "注意 that are 后面跟了三个并列的名词，每个名词后都有括号解释。"
         },
         "teachingFocus": {
-          "mainQuestion": "板块的边缘长什么样？有三种类型。",
-          "grammarQuestion": "怎么拆解这么长的并列结构？",
-          "modifierQuestion": "括号里的 where 从句是解释前面的名词的。",
-          "relationshipQuestion": "spreading ridges, subduction zones, transform faults 是并列关系。",
-          "commonMistake": "孩子容易被长长的括号内容干扰，找不到主干。",
+          "mainQuestion": "板块的边缘是什么样的？有三种类型，每种类型后面都有解释。",
+          "grammarQuestion": "that are... 引导定语从句修饰 edges；括号内是 where 引导的定语从句，修饰前面的地点名词。",
+          "modifierQuestion": "三个括号内的 where 从句分别修饰 spreading ridges, subduction zones, transform faults。",
+          "relationshipQuestion": "主句提出三种边缘类型，从句详细解释每种类型的特征。",
+          "commonMistake": "容易混淆三个 where 从句分别修饰哪个名词，或者忽略 neither...nor... 的结构。",
           "thinkingPath": [
-            "找到主干 The plates have edges that are A, B, or C",
-            "识别三个并列名词短语",
-            "理解每个括号内 where 从句的作用"
+            "识别主句 The plates have edges that are...",
+            "识别 that are 后跟的三个并列宾语：spreading ridges, subduction zones, transform faults",
+            "分别解析三个 where 引导的定语从句，理解其修饰关系"
           ],
-          "encouragement": "你成功拆解了三个复杂的板块边缘类型，太厉害了！"
+          "encouragement": "你理清了三个并列部分，像整理积木一样整齐！"
         },
-        "analysis": "### 【主干结构】\nThe plates have edges that are A, B, or C.\n（板块有边缘，这些边缘是A、B或C。）\n\n### 【主谓一致】\nThe plates 复数，have 复数；that 指代 edges 复数，are 复数。一致。\n\n### 【动词时态与原形】\nare, are moving, is being created, collide, plunges, converge, diverge, move 均为一般现在时或进行时，描述常态。\n\n### 【从句剖析】\n1. that are...：定语从句，修饰 edges。\n2. where...：三个地点状语从句，分别修饰 spreading ridges, subduction zones, transform faults。\n\n### 【非谓语动词】\nis being created：被动语态的进行时。\n\n### 【修饰语】\n括号内的内容均为解释性修饰。",
+        "analysis": "### 【主干结构】\n- **主句**：The plates have edges that are [A], [B], or [C].\n- **A**：spreading ridges\n- **B**：subduction zones\n- **C**：transform faults\n\n### 【主谓一致】\n- 主句：The plates（复数）have，一致。\n- 定语从句：that（指代 edges，复数）are，一致。\n\n### 【动词时态与原形】\n- are：一般现在时。\n- are moving / is being created / collide / plunges / converge / diverge / move：均为一般现在时或现在进行时，描述常态。\n\n### 【从句剖析】\n1. **that are spreading ridges..., subduction zones..., or transform faults...**：定语从句，修饰 edges。\n2. **where two plates are moving apart and new seafloor is being created**：定语从句，修饰 spreading ridges。\n3. **where two plates collide and one plunges beneath the other**：定语从句，修饰 subduction zones。\n4. **where two plates neither converge nor diverge but merely move past one another**：定语从句，修饰 transform faults。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\n- **neither converge nor diverge but merely move past one another**：并列谓语结构，修饰 where 从句中的 two plates。",
         "segments": [
           {
-            "text": "The plates ",
+            "text": "The plates",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "have ",
+            "text": " have",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "edges ",
+            "text": " edges",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "that are ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "spreading ridges ",
+            "text": " that are spreading ridges",
             "type": "clause-predicative",
             "label": "从句表语"
           },
           {
-            "text": "(where two plates are moving apart and new seafloor is being created), ",
+            "text": " (where two plates are moving apart and new seafloor is being created)",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "subduction zones ",
+            "text": ", subduction zones",
             "type": "clause-predicative",
             "label": "从句表语"
           },
           {
-            "text": "(where two plates collide and one plunges beneath the other), ",
+            "text": " (where two plates collide and one plunges beneath the other)",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "or ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "transform faults ",
+            "text": ", or transform faults",
             "type": "clause-predicative",
             "label": "从句表语"
           },
           {
-            "text": "(where two plates neither converge nor diverge but merely move past one another).",
+            "text": " (where two plates neither converge nor diverge but merely move past one another).",
             "type": "modifier",
             "label": "定语"
           }
@@ -429,56 +553,56 @@
         "id": "s5",
         "para": 1,
         "text": "It is at the boundaries between plates that most of Earth’s volcanism and earthquake activity occur.",
-        "translation": "大多数地球的火山活动和地震活动都发生在板块之间的边界处。",
-        "grammarFocus": "强调句型 It is... that...",
-        "pronounRef": "It 为形式主语/强调句引导词",
+        "translation": "大多数地球火山活动和地震活动发生在板块之间的边界上。",
+        "grammarFocus": "It is... that... 强调句型。",
+        "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这是一个强调句，强调‘地点’：就在板块边界。",
-          "keyHint": "看到 It is... that... 中间夹着地点，就是强调地点。"
+          "summary": "这是一个强调句，把地点状语提到了前面，我们要把它还原成普通句子来理解。",
+          "keyHint": "去掉 It is 和 that，剩下的就是原句。"
         },
         "teachingFocus": {
-          "mainQuestion": "火山和地震主要发生在哪里？",
-          "grammarQuestion": "怎么识别强调句？",
-          "modifierQuestion": "between plates 修饰 boundaries。",
-          "relationshipQuestion": "It is... that... 将 at the boundaries... 强调出来。",
-          "commonMistake": "孩子可能把 It 当作指代某物的代词，其实它是强调句的标志。",
+          "mainQuestion": "火山和地震发生在哪里？句子强调了“板块边界”这个地点。",
+          "grammarQuestion": "It is... that... 是强调句型，强调的部分是 at the boundaries between plates。",
+          "modifierQuestion": "between plates 是介词短语作后置定语，修饰 boundaries。",
+          "relationshipQuestion": "强调句将地点状语前置，突出其重要性。",
+          "commonMistake": "容易把 It 当作形式主语，误以为是 It is + adj/noun 的结构。",
           "thinkingPath": [
-            "识别 It is... that... 结构",
-            "提取被强调部分 at the boundaries between plates",
-            "理解剩余部分 most of... occur 是原句主干"
+            "识别 It is... that... 强调句型",
+            "确定被强调部分是 at the boundaries between plates",
+            "还原句子：Most of Earth’s volcanism and earthquake activity occur at the boundaries between plates."
           ],
-          "encouragement": "你一眼看穿了强调句的‘魔术’，真聪明！"
+          "encouragement": "你识破了强调句的伪装，真厉害！"
         },
-        "analysis": "### 【主干结构】\nIt is [at the boundaries between plates] that [most of Earth’s volcanism and earthquake activity occur].\n（正是[在板块边界]，[大多数火山和地震活动]发生。）\n\n### 【主谓一致】\nmost of Earth’s volcanism and earthquake activity 是复数概念（volcanism 和 activity 并列），occur 用复数。一致。\n\n### 【动词时态与原形】\noccurs/occur 一般现在时。\n\n### 【从句剖析】\nthat... 引导强调句的剩余部分，语法上可视为定语从句或名词性从句成分。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nbetween plates 介词短语作后置定语，修饰 boundaries。",
+        "analysis": "### 【主干结构】\n- **强调句型**：It is [被强调部分] that [剩余部分]。\n- **被强调部分**：at the boundaries between plates（地点状语）\n- **剩余部分**：most of Earth’s volcanism and earthquake activity occur.\n\n### 【主谓一致】\n- 剩余部分主语：most of Earth’s volcanism and earthquake activity（复数概念，因为 volcanism 和 activity 并列，且 activity 通常视为复数或不可数但此处与 volcanism 并列，谓语用 occur 复数形式，若视为整体活动也可用单数，但原文用 occur，故按复数处理）。\n- 谓语：occur。\n\n### 【动词时态与原形】\noccur：一般现在时，表示客观事实。\n\n### 【从句剖析】\n- **that most of Earth’s volcanism and earthquake activity occur**：强调句中的 that 从句，包含主语和谓语。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\n- **between plates**：介词短语，作后置定语，修饰 boundaries。",
         "segments": [
           {
-            "text": "It ",
-            "type": "subject",
-            "label": "主语"
-          },
-          {
-            "text": "is ",
-            "type": "verb",
-            "label": "系动词"
-          },
-          {
-            "text": "at the boundaries between plates ",
-            "type": "modifier",
-            "label": "状语"
-          },
-          {
-            "text": "that ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "most of Earth’s volcanism and earthquake activity ",
+            "text": "It",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "occur.",
+            "text": " is",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " at the boundaries between plates",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " that",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " most of Earth’s volcanism and earthquake activity",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " occur.",
             "type": "clause-verb",
             "label": "从句谓语"
           }
@@ -488,46 +612,46 @@
         "id": "s6",
         "para": 2,
         "text": "Generally speaking, the interiors of plates are geologically uneventful.",
-        "translation": "一般来说，板块内部在地质上是不活跃的。",
-        "grammarFocus": "插入语；形容词作表语",
+        "translation": "一般来说，板块内部地质活动平静。",
+        "grammarFocus": "插入语 Generally speaking；表语 geologically uneventful。",
         "pronounRef": "无",
-        "logicConnector": "Generally speaking 作为插入语",
+        "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话告诉我们，板块中间的地方很安静，没什么大事发生。",
-          "keyHint": "Generally speaking 是‘一般来说’，可以先跳过不看。"
+          "summary": "这句话很简单，注意开头的插入语和中间的形容词。",
+          "keyHint": "geologically uneventful 意思是地质上不活跃。"
         },
         "teachingFocus": {
-          "mainQuestion": "板块内部是什么样的？",
-          "grammarQuestion": "uneventful 是什么意思？",
-          "modifierQuestion": "Generally speaking 是状语，geologically 是状语。",
-          "relationshipQuestion": "主系表结构。",
-          "commonMistake": "孩子可能不认识 uneventful，可以拆解为 un-（不）+ event（事件）+ -ful（充满），即‘没有事件的’。",
+          "mainQuestion": "板块内部是什么样的？地质活动不活跃。",
+          "grammarQuestion": "Generally speaking 是插入语，不影响句子主干；geologically 修饰 uneventful。",
+          "modifierQuestion": "geologically 是副词，修饰形容词 uneventful。",
+          "relationshipQuestion": "无复杂关系。",
+          "commonMistake": "可能不认识 uneventful 这个词，需结合上下文理解。",
           "thinkingPath": [
             "识别插入语 Generally speaking",
-            "找到主干 the interiors... are uneventful",
-            "理解 geologically 修饰 uneventful"
+            "识别主语 the interiors of plates",
+            "识别谓语 are 和表语 geologically uneventful"
           ],
-          "encouragement": "你学会了拆解生词 uneventful，真棒！"
+          "encouragement": "你读懂了专业词汇，进步很大！"
         },
-        "analysis": "### 【主干结构】\nThe interiors of plates are geologically uneventful.\n（板块内部在地质上是不活跃的。）\n\n### 【主谓一致】\ninteriors 复数，are 复数。一致。\n\n### 【动词时态与原形】\nare 一般现在时。\n\n### 【从句剖析】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nGenerally speaking：状语；geologically：副词，修饰形容词 uneventful。",
+        "analysis": "### 【主干结构】\n- **主语**：the interiors of plates\n- **谓语**：are\n- **表语**：geologically uneventful\n\n### 【主谓一致】\n- 主语 interiors（复数），谓语 are，一致。\n\n### 【动词时态与原形】\nare：一般现在时。\n\n### 【从句剖析】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\n- **Generally speaking**：插入语，作状语。\n- **geologically**：副词，修饰 uneventful。\n- **of plates**：介词短语，作后置定语，修饰 interiors。",
         "segments": [
           {
-            "text": "Generally speaking, ",
+            "text": "Generally speaking,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "the interiors of plates ",
+            "text": " the interiors of plates",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are ",
+            "text": " are",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "geologically uneventful.",
+            "text": " geologically uneventful.",
             "type": "predicative",
             "label": "表语"
           }
@@ -538,39 +662,39 @@
         "para": 2,
         "text": "However, there are exceptions.",
         "translation": "然而，也有例外。",
-        "grammarFocus": "There be 句型",
+        "grammarFocus": "There be 句型；转折连词 However。",
         "pronounRef": "无",
-        "logicConnector": "However 表示转折",
+        "logicConnector": "However 表示转折。",
         "sentenceCoach": {
-          "summary": "虽然内部通常不活跃，但有时候也会例外。",
-          "keyHint": "However 提示我们要转折了，例外情况要来了。"
+          "summary": "短小精悍的转折句，引出下文的具体例子。",
+          "keyHint": "However 表示与前文相反的情况。"
         },
         "teachingFocus": {
-          "mainQuestion": "有没有例外？",
-          "grammarQuestion": "There are exceptions 怎么理解？",
-          "modifierQuestion": "无复杂修饰。",
-          "relationshipQuestion": "与上一句构成转折关系。",
+          "mainQuestion": "板块内部真的完全平静吗？不，有例外。",
+          "grammarQuestion": "There are exceptions 是存在句，exceptions 是主语。",
+          "modifierQuestion": "无复杂修饰语。",
+          "relationshipQuestion": "However 连接上一句，表示转折。",
           "commonMistake": "无。",
           "thinkingPath": [
-            "识别 However 的转折作用",
-            "理解 There are exceptions 表示存在例外"
+            "识别 However 表示转折",
+            "识别 There are exceptions 为存在句"
           ],
-          "encouragement": "你抓住了转折词 However，逻辑感真好！"
+          "encouragement": "你抓住了转折词，逻辑很清晰！"
         },
-        "analysis": "### 【主干结构】\nThere are exceptions.\n（有例外。）\n\n### 【主谓一致】\nexceptions 复数，are 复数。一致。\n\n### 【动词时态与原形】\nare 一般现在时。\n\n### 【从句剖析】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nHowever：连接副词，表示转折。",
+        "analysis": "### 【主干结构】\n- **句型**：There be 句型\n- **主语**：exceptions\n- **谓语**：are\n\n### 【主谓一致】\n- 主语 exceptions（复数），谓语 are，一致。\n\n### 【动词时态与原形】\nare：一般现在时。\n\n### 【从句剖析】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\n- **However**：副词，作连接性状语，表示转折。",
         "segments": [
           {
-            "text": "However, ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": "However,",
+            "type": "adverbial",
+            "label": "状语"
           },
           {
-            "text": "there are ",
+            "text": " there are",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "exceptions.",
+            "text": " exceptions.",
             "type": "subject",
             "label": "主语"
           }
@@ -580,74 +704,79 @@
         "id": "s8",
         "para": 2,
         "text": "A glance at a map of the Pacific Ocean reveals that there are many islands far out at sea that are actually volcanoes----many no longer active, some overgrown with coral----that originated from activity at points in the interior of the Pacific Plate that forms the Pacific seafloor.",
-        "translation": "瞥一眼太平洋地图就会发现，在远离海岸的海上有许多岛屿，它们实际上是火山——许多已不再活跃，有些长满了珊瑚——它们起源于太平洋板块内部的活动，该板块形成了太平洋海底。",
-        "grammarFocus": "宾语从句；多重定语从句；插入语",
-        "pronounRef": "that 指代 islands",
+        "translation": "瞥一眼太平洋地图就会发现，有许多岛屿远在海上，实际上是火山——许多已不再活跃，有些长满了珊瑚——它们起源于太平洋板块内部点的活动，该板块形成了太平洋海底。",
+        "grammarFocus": "that there are... 宾语从句；多个定语从句和同位语/插入语。",
+        "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这句话很长，但核心是‘看地图发现岛屿是火山’，后面全是解释这些火山的。",
-          "keyHint": "注意 that 引导的宾语从句，以及后面多个 that 引导的定语从句。"
+          "summary": "这句话很长，像俄罗斯套娃，一层套一层，我们要从外往里拆。",
+          "keyHint": "注意破折号中间的内容是插入语，先跳过不看。"
         },
         "teachingFocus": {
-          "mainQuestion": "太平洋上的岛屿是什么？它们怎么来的？",
-          "grammarQuestion": "怎么拆解这么多 that？",
-          "modifierQuestion": "----...---- 是插入语，补充说明火山的状态。",
-          "relationshipQuestion": "reveals 后面是宾语从句；多个 that 从句层层修饰 islands。",
-          "commonMistake": "孩子容易迷失在多个 that 中，要找到每个 that 修饰的名词。",
+          "mainQuestion": "地图揭示了什么？揭示了岛屿是火山，起源于板块内部。",
+          "grammarQuestion": "reveals 后跟 that 引导的宾语从句；多个 that 引导的定语从句修饰 islands 和 Pacific Plate。",
+          "modifierQuestion": "far out at sea 修饰 islands；破折号内是 islands 的同位语/补充说明；that originated... 修饰 islands；that forms... 修饰 Pacific Plate。",
+          "relationshipQuestion": "多个定语从句层层修饰，需理清每个 that 指代谁。",
+          "commonMistake": "容易混淆多个 that 的指代对象，或者忽略破折号内的插入语。",
           "thinkingPath": [
-            "找到主句 A glance... reveals that...",
-            "识别宾语从句中的主干 there are many islands",
-            "识别修饰 islands 的定语从句 that are actually volcanoes",
-            "识别插入语 many no longer active...",
-            "识别修饰 volcanoes 的定语从句 that originated...",
-            "识别修饰 Pacific Plate 的定语从句 that forms..."
+            "识别主句 A glance... reveals that...",
+            "识别宾语从句 there are many islands...",
+            "识别 that are actually volcanoes 修饰 islands",
+            "识别破折号内内容作为 islands 的补充说明",
+            "识别 that originated... 修饰 islands",
+            "识别 that forms... 修饰 Pacific Plate"
           ],
-          "encouragement": "你像剥洋葱一样剥开了这个长句，太厉害了！"
+          "encouragement": "你像剥洋葱一样剥开了长难句，太棒了！"
         },
-        "analysis": "### 【主干结构】\nA glance... reveals that [clause].\n（一瞥...揭示了[从句]。）\n\n### 【主谓一致】\nA glance 单数，reveals 单数。一致。\n\n### 【动词时态与原形】\nreveals, are, originated, forms 均为一般现在时或过去时（originated 描述起源，用过去时）。",
+        "analysis": "### 【主干结构】\n- **主句**：A glance at a map of the Pacific Ocean reveals [宾语从句].\n- **宾语从句**：there are many islands... that are actually volcanoes... that originated from activity...\n\n### 【主谓一致】\n- 主句：A glance（单数）reveals，一致。\n- 宾语从句：there are（复数，对应 many islands），一致。\n\n### 【动词时态与原形】\n- reveals：一般现在时。\n- are：一般现在时。\n- originated：一般过去时，表示起源。\n- forms：一般现在时。\n\n### 【从句剖析】\n1. **that there are many islands... that are actually volcanoes... that originated from activity... that forms the Pacific seafloor**：宾语从句，作 reveals 的宾语。\n2. **that are actually volcanoes**：定语从句，修饰 islands。\n3. **that originated from activity at points in the interior of the Pacific Plate**：定语从句，修饰 islands（或 volcanoes，逻辑上指岛屿/火山）。*注：此处 that 指代 islands/volcanoes*。\n4. **that forms the Pacific seafloor**：定语从句，修饰 Pacific Plate。\n\n### 【非谓语动词】\n- **no longer active**：形容词短语，作 islands 的补足语/同位语。\n- **overgrown with coral**：过去分词短语，作 islands 的补足语/同位语。\n\n### 【修饰语】\n- **far out at sea**：介词短语，修饰 islands。\n- **many no longer active, some overgrown with coral**：破折号内的插入语，对 islands 进行补充说明。\n- **at points in the interior of the Pacific Plate**：介词短语，修饰 activity。",
         "segments": [
           {
-            "text": "A glance at a map of the Pacific Ocean ",
+            "text": "A glance at a map of the Pacific Ocean",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "reveals ",
+            "text": " reveals",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "that ",
+            "text": " that",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "there are ",
+            "text": " there are",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "many islands ",
+            "text": " many islands",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "far out at sea ",
-            "type": "modifier",
-            "label": "状语"
-          },
-          {
-            "text": "that are actually volcanoes----many no longer active, some overgrown with coral----",
+            "text": " far out at sea",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "that originated from activity at points in the interior of the Pacific Plate ",
+            "text": " that are actually volcanoes",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "that forms the Pacific seafloor.",
+            "text": "----many no longer active, some overgrown with coral----",
+            "type": "modifier",
+            "label": "补充说明"
+          },
+          {
+            "text": "that originated from activity at points in the interior of the Pacific Plate",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " that forms the Pacific seafloor.",
             "type": "modifier",
             "label": "定语"
           }
@@ -657,53 +786,58 @@
         "id": "s9",
         "para": 3,
         "text": "How can volcanic activity occur so far from a plate boundary?",
-        "translation": "火山活动怎么能发生在远离板块边界的地方？",
-        "grammarFocus": "特殊疑问句",
+        "translation": "火山活动怎么能发生在离板块边界如此远的地方？",
+        "grammarFocus": "特殊疑问句结构；so...from... 距离表达",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这是一个问题，引出下文对夏威夷群岛的解释。",
-          "keyHint": "How can... 表示对可能性的疑问。"
+          "summary": "这是一个提出问题的句子，我们要找到“谁”在“哪里”做“什么”。",
+          "keyHint": "注意 so far from 这个短语，它表示距离很远。"
         },
         "teachingFocus": {
-          "mainQuestion": "火山为什么离边界那么远还能活动？",
-          "grammarQuestion": "How can 引导的疑问句结构。",
-          "modifierQuestion": "so far from... 是状语。",
-          "relationshipQuestion": "设问句，引出下文。",
-          "commonMistake": "无。",
+          "mainQuestion": "谁能告诉我们火山活动在哪里发生？",
+          "grammarQuestion": "这是一个问句，动词 occur 为什么要放在主语后面？",
+          "modifierQuestion": "so far from a plate boundary 是修饰谁的？",
+          "relationshipQuestion": "火山活动和板块边界之间是什么关系？",
+          "commonMistake": "不要把 so far from 拆开看，它是一个整体，表示“离……很远”。",
           "thinkingPath": [
-            "识别疑问词 How",
-            "理解 can occur 表示可能性",
-            "理解 so far from... 的距离状语"
+            "找到问句的开头 How",
+            "找到动作 occur",
+            "找到动作的主语 volcanic activity"
           ],
-          "encouragement": "你提出了一个很好的问题，接下来我们找答案！"
+          "encouragement": "你发现了吗？问句就像侦探在寻找线索，主语就是我们要找的主角哦！"
         },
-        "analysis": "### 【主干结构】\nHow can volcanic activity occur [so far from a plate boundary]?\n（火山活动怎么能[发生在远离板块边界的地方]？）\n\n### 【主谓一致】\nvolcanic activity 单数，can occur 情态动词+原形，无单复数变化。一致。\n\n### 【动词时态与原形】\ncan occur 情态动词+动词原形。\n\n### 【从句剖析】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nso far from a plate boundary：状语，修饰 occur。",
+        "analysis": "### 【主干结构】\n这是一个特殊疑问句。核心结构是：主语 (volcanic activity) + 谓语 (can occur)。\n### 【主谓一致】\n主语 volcanic activity 是不可数名词，视为单数，情态动词 can 不变形。\n### 【动词时态与原形】\ncan 是情态动词，后接动词原形 occur。\n### 【修饰语分析】\nso far from a plate boundary 是状语，修饰动词 occur，表示发生的地点/距离。",
         "segments": [
           {
-            "text": "How ",
+            "text": "How",
             "type": "adverbial",
-            "label": "状语"
+            "label": "疑问副词"
           },
           {
-            "text": "can ",
+            "text": " can",
             "type": "verb",
-            "label": "谓语"
+            "label": "情态动词"
           },
           {
-            "text": "volcanic activity ",
+            "text": " volcanic activity",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "occur ",
+            "text": " occur",
             "type": "verb",
-            "label": "谓语"
+            "label": "谓语动词"
           },
           {
-            "text": "so far from a plate boundary?",
+            "text": " so far from a plate boundary",
             "type": "adverbial",
-            "label": "状语"
+            "label": "地点状语"
+          },
+          {
+            "text": "?",
+            "type": "modifier",
+            "label": "标点"
           }
         ]
       },
@@ -712,42 +846,47 @@
         "para": 3,
         "text": "The Hawaiian Islands provide a very instructive answer.",
         "translation": "夏威夷群岛提供了一个非常有启发性的答案。",
-        "grammarFocus": "简单句",
+        "grammarFocus": "主谓宾结构；形容词修饰",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "夏威夷群岛就是我们要找的答案。",
-          "keyHint": "instructive 意思是‘有教育意义的/启发性的’。"
+          "summary": "这句话回答了上一句的问题，主语是夏威夷群岛。",
+          "keyHint": "注意 instructive 这个词，它很有教学意义。"
         },
         "teachingFocus": {
           "mainQuestion": "谁提供了答案？",
-          "grammarQuestion": "provide sb. with sth. 或 provide sth. 结构。",
-          "modifierQuestion": "very instructive 修饰 answer。",
-          "relationshipQuestion": "承接上文的问句。",
-          "commonMistake": "无。",
+          "grammarQuestion": "provide 后面接了两个名词，哪个是答案？",
+          "modifierQuestion": "very instructive 是修饰谁的？",
+          "relationshipQuestion": "夏威夷群岛和答案之间是什么关系？",
+          "commonMistake": "不要把 very instructive 当成两个分开的动作，它们一起修饰 answer。",
           "thinkingPath": [
-            "识别主语 The Hawaiian Islands",
-            "识别谓语 provide",
-            "识别宾语 a very instructive answer"
+            "找到主语 The Hawaiian Islands",
+            "找到谓语 provide",
+            "找到宾语 answer"
           ],
-          "encouragement": "你找到了答案的提供者，夏威夷群岛！"
+          "encouragement": "你找得很准！主语就是动作的发出者，就像小火车头拉着车厢一样。"
         },
-        "analysis": "### 【主干结构】\nThe Hawaiian Islands provide a very instructive answer.\n（夏威夷群岛提供了一个非常有启发性的答案。）\n\n### 【主谓一致】\nThe Hawaiian Islands 复数，provide 复数。一致。\n\n### 【动词时态与原形】\nprovide 一般现在时。\n\n### 【从句剖析】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nvery instructive：形容词短语，修饰 answer。",
+        "analysis": "### 【主干结构】\n简单的主谓宾结构。主语 (The Hawaiian Islands) + 谓语 (provide) + 宾语 (answer)。\n### 【主谓一致】\n主语 The Hawaiian Islands 是复数，谓语动词 provide 用原形。\n### 【动词时态与原形】\n一般现在时，表示客观事实或当前状态。\n### 【修饰语分析】\nvery instructive 是形容词短语，作定语修饰宾语 answer。",
         "segments": [
           {
-            "text": "The Hawaiian Islands ",
+            "text": "The Hawaiian Islands",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "provide ",
+            "text": " provide",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "a very instructive answer.",
+            "text": " a very instructive answer",
             "type": "object",
             "label": "宾语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
           }
         ]
       },
@@ -756,46 +895,57 @@
         "para": 3,
         "text": "Like many other island groups, they form a chain.",
         "translation": "像许多其他群岛一样，它们形成了一条链。",
-        "grammarFocus": "介词短语作状语",
+        "grammarFocus": "介词短语作状语；主谓宾结构",
         "pronounRef": "they 指代 The Hawaiian Islands",
         "logicConnector": "Like 表示类比",
         "sentenceCoach": {
-          "summary": "夏威夷群岛像链条一样排列。",
-          "keyHint": "Like... 是状语，they 是主语。"
+          "summary": "这句话用 Like 开头，把夏威夷群岛和其他群岛做比较。",
+          "keyHint": "they 指的是上一句提到的夏威夷群岛。"
         },
         "teachingFocus": {
-          "mainQuestion": "夏威夷群岛是怎么排列的？",
-          "grammarQuestion": "Like 在这里不是‘喜欢’，而是‘像’。",
-          "modifierQuestion": "Like many other island groups 是状语。",
-          "relationshipQuestion": "描述群岛的形态。",
-          "commonMistake": "孩子可能误以为 Like 是动词‘喜欢’。",
+          "mainQuestion": "谁形成了链条？",
+          "grammarQuestion": "Like many other island groups 是句子的一部分吗？",
+          "modifierQuestion": "Like... 这个短语修饰的是整个句子还是某个词？",
+          "relationshipQuestion": "夏威夷群岛和其他群岛有什么共同点？",
+          "commonMistake": "Like 在这里不是“喜欢”，而是“像……一样”，引导比较状语。",
           "thinkingPath": [
-            "识别 Like 为介词，表示类比",
-            "找到主干 they form a chain"
+            "识别 Like 引导的状语",
+            "找到主语 they",
+            "找到谓语 form"
           ],
-          "encouragement": "你区分了 Like 的不同意思，真细心！"
+          "encouragement": "你发现 they 是谁了吗？它就像个替身演员，代表前面提到的人或物哦！"
         },
-        "analysis": "### 【主干结构】\nThey form a chain.\n（它们形成一条链。）\n\n### 【主谓一致】\nThey 复数，form 复数。一致。\n\n### 【动词时态与原形】\nform 一般现在时。\n\n### 【从句剖析】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nLike many other island groups：介词短语，作状语。",
+        "analysis": "### 【主干结构】\n主谓宾结构。主语 (they) + 谓语 (form) + 宾语 (a chain)。\n### 【主谓一致】\n主语 they 是复数，谓语动词 form 用原形。\n### 【动词时态与原形】\n一般现在时。\n### 【修饰语分析】\nLike many other island groups 是介词短语，作方式/比较状语，修饰整个句子或谓语 form，表示“像……一样”。\n### 【代词指代】\nthey 指代前文的 The Hawaiian Islands。",
         "segments": [
           {
-            "text": "Like many other island groups, ",
+            "text": "Like many other island groups",
             "type": "adverbial",
-            "label": "状语"
+            "label": "比较状语"
           },
           {
-            "text": "they ",
+            "text": ",",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": " they",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "form ",
+            "text": " form",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "a chain.",
+            "text": " a chain",
             "type": "object",
             "label": "宾语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
           }
         ]
       },
@@ -804,42 +954,47 @@
         "para": 3,
         "text": "The Hawaiian Islands Chain extends northwest from the island of Hawaii.",
         "translation": "夏威夷群岛链从夏威夷岛向西北方向延伸。",
-        "grammarFocus": "简单句",
+        "grammarFocus": "主谓结构；方向状语",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "描述了群岛链的延伸方向。",
-          "keyHint": "extends northwest 表示向西北延伸。"
+          "summary": "这句话描述了群岛链的走向。",
+          "keyHint": "extends 是不及物动词，后面直接跟方向。"
         },
         "teachingFocus": {
-          "mainQuestion": "群岛链往哪个方向延伸？",
-          "grammarQuestion": "extend 表示延伸。",
-          "modifierQuestion": "northwest from... 是状语。",
-          "relationshipQuestion": "描述空间位置。",
-          "commonMistake": "无。",
+          "mainQuestion": "什么向西北延伸？",
+          "grammarQuestion": "extends 后面为什么没有宾语？",
+          "modifierQuestion": "northwest from the island of Hawaii 是修饰谁的？",
+          "relationshipQuestion": "群岛链和夏威夷岛之间是什么位置关系？",
+          "commonMistake": "extends 在这里表示“延伸”，是不及物动词，不要误以为它后面必须接名词。",
           "thinkingPath": [
-            "识别主语 The Hawaiian Islands Chain",
-            "识别谓语 extends",
-            "识别状语 northwest from the island of Hawaii"
+            "找到主语 The Hawaiian Islands Chain",
+            "找到谓语 extends",
+            "找到方向状语 northwest..."
           ],
-          "encouragement": "你掌握了方向词 northwest，真棒！"
+          "encouragement": "你看得很仔细！extends 就像一条线，自己延伸出去，不需要拉住别的物体。"
         },
-        "analysis": "### 【主干结构】\nThe Hawaiian Islands Chain extends northwest from the island of Hawaii.\n（夏威夷群岛链从夏威夷岛向西北延伸。）\n\n### 【主谓一致】\nThe Hawaiian Islands Chain 单数，extends 单数。一致。\n\n### 【动词时态与原形】\nextends 一般现在时。\n\n### 【从句剖析】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nnorthwest from the island of Hawaii：状语。",
+        "analysis": "### 【主干结构】\n主谓结构。主语 (The Hawaiian Islands Chain) + 谓语 (extends)。\n### 【主谓一致】\n主语 Chain 是单数，谓语动词 extends 用第三人称单数形式。\n### 【动词时态与原形】\n一般现在时。\n### 【修饰语分析】\nnorthwest from the island of Hawaii 是介词短语，作地点/方向状语，修饰谓语 extends。",
         "segments": [
           {
-            "text": "The Hawaiian Islands Chain ",
+            "text": "The Hawaiian Islands Chain",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "extends ",
+            "text": " extends",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "northwest from the island of Hawaii.",
+            "text": " northwest from the island of Hawaii",
             "type": "adverbial",
-            "label": "状语"
+            "label": "方向状语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
           }
         ]
       },
@@ -847,780 +1002,587 @@
         "id": "s13",
         "para": 3,
         "text": "In the 1840s American geologist James Daly observed that the different Hawaii islands seem to share a similar geologic evolution but are progressively more eroded, and therefore probable older, toward the northwest.",
-        "translation": "在19世纪40年代，美国地质学家詹姆斯·戴利观察到，不同的夏威夷岛屿似乎共享相似的地质演化过程，但向西北方向逐渐侵蚀更严重，因此可能更古老。",
-        "grammarFocus": "宾语从句；并列谓语",
+        "translation": "在19世纪40年代，美国地质学家詹姆斯·戴利观察到，不同的夏威夷岛屿似乎有着相似的地质演化过程，但向西北方向逐渐受到更多侵蚀，因此可能更古老。",
+        "grammarFocus": "宾语从句；并列谓语；比较级",
         "pronounRef": "无",
-        "logicConnector": "but 表示转折",
+        "logicConnector": "but 表示转折；therefore 表示因果",
         "sentenceCoach": {
-          "summary": "戴利发现岛屿越往西北，侵蚀越严重，年龄越老。",
-          "keyHint": "observed that... 后面是观察到的内容。"
+          "summary": "这是一个长句，观察者是戴利，他观察到的内容是一个长长的从句。",
+          "keyHint": "注意 observed 后面跟着 that 引导的整个从句。"
         },
         "teachingFocus": {
-          "mainQuestion": "戴利观察到了什么？",
-          "grammarQuestion": "that 引导的宾语从句。",
-          "modifierQuestion": "progressively more eroded 是表语。",
-          "relationshipQuestion": "seem to share... but are... 是并列结构。",
-          "commonMistake": "probable older 中 probable 是形容词修饰 older，表示‘可能更老’。",
+          "mainQuestion": "谁观察到了什么？",
+          "grammarQuestion": "that 后面的句子是谁在观察的内容？",
+          "modifierQuestion": "progressively more eroded 和 probable older 是怎么连接的？",
+          "relationshipQuestion": "侵蚀程度和岛屿年龄有什么关系？",
+          "commonMistake": "不要把 probable older 当成动词，它是形容词短语，和 eroded 并列，作表语。",
           "thinkingPath": [
-            "找到主句 James Daly observed that...",
-            "识别宾语从句中的主干 islands seem to share... but are...",
-            "理解 toward the northwest 是方向状语"
+            "找到主句主语 James Daly 和谓语 observed",
+            "找到 that 引导的宾语从句",
+            "在从句中找到 seem to share... but are..."
           ],
-          "encouragement": "你理解了戴利的观察结果，真厉害！"
+          "encouragement": "你像个小侦探一样找到了戴利！他观察到的内容虽然长，但核心就是岛屿的变化。"
         },
-        "analysis": "### 【主干结构】\nJames Daly observed that [clause].\n（戴利观察到[从句]。）\n\n### 【主谓一致】\nJames Daly 单数，observed 单数；islands 复数，seem/are 复数。一致。\n\n### 【动词时态与原形】\nobserved 过去时；seem, are 一般现在时（描述普遍现象）。\n\n### 【从句剖析】\nthat...：宾语从句，作 observed 的宾语。\n\n### 【非谓语动词】\nto share：不定式，作 seem 的补足语。\n\n### 【修饰语】\nprogressively more eroded：表语；therefore probable older：表语；toward the northwest：状语。",
+        "analysis": "### 【主干结构】\n主句：主语 (American geologist James Daly) + 谓语 (observed) + 宾语从句 (that...)。\n### 【主谓一致】\n主句主语 Daly 是单数，observed 用过去式。\n### 【动词时态与原形】\n主句用一般过去时 observed。宾语从句中 seem 和 are 用一般现在时，表示客观事实或当前状态。\n### 【从句剖析】\nthat 引导宾语从句。从句内部结构：\n主语 (the different Hawaii islands) + 谓语1 (seem to share a similar geologic evolution) + 连词 (but) + 谓语2 (are progressively more eroded) + 连词 (and) + 连词 (therefore) + 表语/形容词短语 (probable older)。\n注意：probable older 是形容词短语，与 eroded 并列，受 are 支配。",
         "segments": [
           {
-            "text": "In the 1840s ",
+            "text": "In the 1840s",
             "type": "adverbial",
-            "label": "状语"
+            "label": "时间状语"
           },
           {
-            "text": "American geologist James Daly ",
+            "text": " American geologist James Daly",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "observed ",
+            "text": " observed",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "that ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": " that the different Hawaii islands seem to share a similar geologic evolution but are progressively more eroded, and therefore probable older, toward the northwest",
+            "type": "object",
+            "label": "宾语从句"
           },
           {
-            "text": "the different Hawaii islands ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "seem to share a similar geologic evolution ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "but ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "are progressively more eroded, ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "and therefore probable older, ",
-            "type": "clause-predicative",
-            "label": "从句表语"
-          },
-          {
-            "text": "toward the northwest.",
-            "type": "adverbial",
-            "label": "状语"
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
           }
         ]
       },
       {
         "id": "s14",
         "para": 3,
-        "text": "Then in 1963, in the early days of the development of the theory of plate tectonics. Canadian geophysicist Tuzo Wilson realized that this age progression could result if the islands were formed on a surface plate moving over a fixed volcanic source in the interior.",
-        "translation": "然后在1963年，在板块构造理论发展的早期，加拿大地球物理学家图佐·威尔逊意识到，如果岛屿是在一个在内部固定火山源上移动的表面板块上形成的，那么这种年龄递进就会产生。",
-        "grammarFocus": "时间状语；宾语从句；条件状语从句",
-        "pronounRef": "this 指代前文的 age progression",
-        "logicConnector": "if 表示条件",
+        "text": "Then in 1963, in the early days of the development of the theory of plate tectonics.",
+        "translation": "然后在1963年，在板块构造论发展的早期阶段。",
+        "grammarFocus": "时间状语；介词短语堆叠",
+        "pronounRef": "无",
+        "logicConnector": "Then 表示时间顺序",
         "sentenceCoach": {
-          "summary": "威尔逊提出了一个假设：岛屿是在移动的板块上形成的。",
-          "keyHint": "realized that... 后面是意识到的内容。"
+          "summary": "这句话看起来不完整，但它是一个时间状语，为下一句做铺垫。",
+          "keyHint": "注意 Then 和两个 in 引导的短语。"
         },
         "teachingFocus": {
-          "mainQuestion": "威尔逊意识到了什么？",
-          "grammarQuestion": "if 引导的条件状语从句。",
-          "modifierQuestion": "moving over... 是现在分词作后置定语，修饰 plate。",
-          "relationshipQuestion": "realized 后面是宾语从句；if 引导条件。",
-          "commonMistake": "注意 in 1963... 是状语，realized 是谓语。",
+          "mainQuestion": "这句话告诉我们什么时候？",
+          "grammarQuestion": "这句话有主语和谓语吗？",
+          "modifierQuestion": "in the early days... 是修饰谁的？",
+          "relationshipQuestion": "1963年和板块构造论有什么关系？",
+          "commonMistake": "不要以为这句话没说完，它在文中作为时间背景独立成句，强调时间点。",
           "thinkingPath": [
-            "识别时间状语 Then in 1963...",
-            "找到主干 Tuzo Wilson realized that...",
-            "识别宾语从句中的主干 this age progression could result",
-            "识别 if 引导的条件状语从句"
+            "找到 Then",
+            "找到第一个 in 1963",
+            "找到第二个 in the early days..."
           ],
-          "encouragement": "你理解了威尔逊的假设，真棒！"
+          "encouragement": "你发现这句话没有动词了吗？它就像电影里的字幕，告诉我们故事发生的时间背景。"
         },
-        "analysis": "### 【主干结构】\nTuzo Wilson realized that [clause].\n（威尔逊意识到[从句]。）\n\n### 【主谓一致】\nTuzo Wilson 单数，realized 单数；this age progression 单数，could result 单数。一致。\n\n### 【动词时态与原形】\nrealized 过去时；could result 过去时；were formed 过去时。\n\n### 【从句剖析】\n1. that...：宾语从句，作 realized 的宾语。\n2. if...：条件状语从句，修饰 result。\n\n### 【非谓语动词】\nmoving over...：现在分词短语，作后置定语，修饰 plate。\n\n### 【修饰语】\nin the early days...：状语；in the interior：状语。",
+        "analysis": "### 【主干结构】\n这是一个不完整的句子，由多个状语组成。\n### 【修饰语分析】\nThen 是副词，表示时间顺序。\nin 1963 是时间状语。\nin the early days of the development of the theory of plate tectonics 是更详细的时间状语，修饰隐含的时间背景。",
         "segments": [
           {
-            "text": "Then in 1963, ",
+            "text": "Then",
             "type": "adverbial",
-            "label": "状语"
+            "label": "时间副词"
           },
           {
-            "text": "in the early days of the development of the theory of plate tectonics. ",
+            "text": " in 1963",
             "type": "adverbial",
-            "label": "状语"
+            "label": "时间状语"
           },
           {
-            "text": "Canadian geophysicist Tuzo Wilson ",
-            "type": "subject",
-            "label": "主语"
-          },
-          {
-            "text": "realized ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "that ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "this age progression ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "could result ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "if ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "the islands ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "were formed ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "on a surface plate ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "moving over a fixed volcanic source in the interior.",
+            "text": ",",
             "type": "modifier",
-            "label": "定语"
+            "label": "标点"
+          },
+          {
+            "text": " in the early days of the development of the theory of plate tectonics",
+            "type": "adverbial",
+            "label": "时间状语"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
           }
         ]
       },
       {
         "id": "s15",
         "para": 3,
-        "text": "Wilson suggested that the long chain of volcanoes stretching northwest from Hawaii is simply the surface expression of a long-lived volcanic source located beneath the tectonic plate in the mantle.",
-        "translation": "威尔逊建议，从夏威夷向西北延伸的长火山链，仅仅是位于地幔中构造板块下方的长寿火山源的地表表现。",
-        "grammarFocus": "宾语从句；分词作定语",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "text": "Canadian geophysicist Tuzo Wilson realized that this age progression could result if the islands were formed on a surface plate moving over a fixed volcanic source in the interior.",
+        "translation": "加拿大地球物理学家图佐·威尔逊意识到，如果岛屿是在内部一个固定的火山源上方移动的表面板块上形成的，那么这种年龄递变就会发生。",
+        "grammarFocus": "宾语从句；条件状语从句；非谓语动词",
+        "pronounRef": "this age progression 指代上一句提到的岛屿年龄变化",
+        "logicConnector": "if 表示条件",
         "sentenceCoach": {
-          "summary": "威尔逊认为火山链是地下火山源在地表的‘影子’。",
-          "keyHint": "suggested that... 后面是建议的内容。"
+          "summary": "威尔逊意识到一个假设情况：如果岛屿是这样形成的，年龄变化就会发生。",
+          "keyHint": "注意 realized 后面跟着 that 从句，if 引导条件状语。"
         },
         "teachingFocus": {
-          "mainQuestion": "威尔逊认为火山链是什么？",
-          "grammarQuestion": "stretching... 和 located... 是分词作定语。",
-          "modifierQuestion": "stretching... 修饰 chain；located... 修饰 source。",
-          "relationshipQuestion": "suggested 后面是宾语从句。",
-          "commonMistake": "孩子可能分不清 stretching 和 located 修饰谁。",
+          "mainQuestion": "谁意识到了什么？",
+          "grammarQuestion": "if 引导的句子是真实发生的吗？",
+          "modifierQuestion": "moving over... 是修饰谁的？",
+          "relationshipQuestion": "岛屿形成方式和年龄变化有什么关系？",
+          "commonMistake": "moving over... 是现在分词作定语，修饰 surface plate，不要当成谓语。",
           "thinkingPath": [
-            "找到主干 Wilson suggested that...",
-            "识别宾语从句中的主干 the long chain... is the surface expression",
-            "识别 stretching... 修饰 chain",
-            "识别 located... 修饰 source"
+            "找到主语 Tuzo Wilson 和谓语 realized",
+            "找到 that 引导的宾语从句",
+            "在从句中找到 if 引导的条件状语从句"
           ],
-          "encouragement": "你找到了火山链的‘地下根源’，真棒！"
+          "encouragement": "你找到了威尔逊！他像一个预言家，通过假设发现了岛屿形成的秘密。"
         },
-        "analysis": "### 【主干结构】\nWilson suggested that [clause].\n（威尔逊建议[从句]。）\n\n### 【主谓一致】\nWilson 单数，suggested 单数；the long chain 单数，is 单数。一致。\n\n### 【动词时态与原形】\nsuggested 过去时；is 一般现在时（描述事实）。\n\n### 【从句剖析】\nthat...：宾语从句，作 suggested 的宾语。\n\n### 【非谓语动词】\nstretching northwest from Hawaii：现在分词短语，作后置定语，修饰 chain of volcanoes。\nlocated beneath...：过去分词短语，作后置定语，修饰 volcanic source。\n\n### 【修饰语】\nsimply：副词，修饰 is；of a long-lived volcanic source...：介词短语，作表语的同位语或补足语。",
+        "analysis": "### 【主干结构】\n主句：主语 (Canadian geophysicist Tuzo Wilson) + 谓语 (realized) + 宾语从句 (that...)。\n### 【主谓一致】\n主句主语 Wilson 是单数，realized 用过去式。\n### 【动词时态与原形】\n主句用一般过去时 realized。宾语从句中 could result 用情态动词+原形。条件从句中 were formed 用一般过去时被动语态，表示假设。\n### 【从句剖析】\nthat 引导宾语从句。从句内部：\n主语 (this age progression) + 谓语 (could result) + 条件状语从句 (if the islands were formed on a surface plate moving over a fixed volcanic source in the interior)。\nif 引导条件状语从句。从句内部：\n主语 (the islands) + 谓语 (were formed) + 地点状语 (on a surface plate) + 定语 (moving over a fixed volcanic source in the interior)。\nmoving over... 是现在分词短语，作后置定语，修饰 surface plate。",
         "segments": [
           {
-            "text": "Wilson ",
+            "text": "Canadian geophysicist Tuzo Wilson",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "suggested ",
+            "text": " realized",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "that ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": " that this age progression could result if the islands were formed on a surface plate moving over a fixed volcanic source in the interior",
+            "type": "object",
+            "label": "宾语从句"
           },
           {
-            "text": "the long chain of volcanoes ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "stretching northwest from Hawaii ",
+            "text": ".",
             "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "is ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "simply ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "the surface expression ",
-            "type": "clause-predicative",
-            "label": "从句表语"
-          },
-          {
-            "text": "of a long-lived volcanic source ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "located beneath the tectonic plate in the mantle.",
-            "type": "modifier",
-            "label": "定语"
+            "label": "标点"
           }
         ]
       },
       {
         "id": "s16",
         "para": 3,
-        "text": "Today’s most northwest island would have been the first to form.",
-        "translation": "今天最西北的岛屿将是第一个形成的。",
-        "grammarFocus": "虚拟语气/推测",
+        "text": "Wilson suggested that the long chain of volcanoes stretching northwest from Hawaii is simply the surface expression of a long-lived volcanic source located beneath the tectonic plate in the mantle.",
+        "translation": "威尔逊提出，从夏威夷向西北延伸的长火山链，仅仅是位于地幔构造板块下方的一个长期活跃的火山源的地表表现。",
+        "grammarFocus": "宾语从句；非谓语动词作定语；被动语态",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "最西北的岛屿是最老的。",
-          "keyHint": "would have been 表示对过去的推测。"
+          "summary": "威尔逊提出了一个观点：火山链是地下火山源的地表表现。",
+          "keyHint": "注意 stretching 和 located 都是修饰名词的非谓语动词。"
         },
         "teachingFocus": {
-          "mainQuestion": "哪个岛屿最先形成？",
-          "grammarQuestion": "would have been 表示对过去的推测。",
-          "modifierQuestion": "most northwest 修饰 island。",
-          "relationshipQuestion": "描述岛屿形成的顺序。",
-          "commonMistake": "无。",
+          "mainQuestion": "威尔逊提出了什么观点？",
+          "grammarQuestion": "that 后面的句子主语是什么？",
+          "modifierQuestion": "stretching northwest... 和 located beneath... 分别修饰谁？",
+          "relationshipQuestion": "火山链和火山源之间是什么关系？",
+          "commonMistake": "stretching 和 located 不是谓语动词，它们是形容词性的非谓语动词，用来修饰前面的名词。",
           "thinkingPath": [
-            "识别主语 Today’s most northwest island",
-            "识别谓语 would have been",
-            "识别表语 the first to form"
+            "找到主语 Wilson 和谓语 suggested",
+            "找到 that 引导的宾语从句",
+            "在从句中找到主语 the long chain... 和谓语 is"
           ],
-          "encouragement": "你知道了最西北的岛屿是最老的，真棒！"
+          "encouragement": "你像个小建筑师一样拆解了这个长句！Wilson 的观点就像一张地图，连接了地下和地表。"
         },
-        "analysis": "### 【主干结构】\nToday’s most northwest island would have been the first to form.\n（今天最西北的岛屿将是第一个形成的。）\n\n### 【主谓一致】\nisland 单数，would have been 单数。一致。\n\n### 【动词时态与原形】\nwould have been 完成式虚拟语气/推测。\n\n### 【从句剖析】\n无。\n\n### 【非谓语动词】\nto form：不定式，作后置定语，修饰 the first。\n\n### 【修饰语】\nToday’s most northwest：形容词短语，修饰 island。",
+        "analysis": "### 【主干结构】\n主句：主语 (Wilson) + 谓语 (suggested) + 宾语从句 (that...)。\n### 【主谓一致】\n主句主语 Wilson 是单数，suggested 用过去式。宾语从句主语 chain 是单数，is 用单数形式。\n### 【动词时态与原形】\n主句用一般过去时 suggested。宾语从句用一般现在时 is，表示客观事实或理论观点。\n### 【从句剖析】\nthat 引导宾语从句。从句内部：\n主语 (the long chain of volcanoes) + 定语 (stretching northwest from Hawaii) + 谓语 (is) + 表语 (simply the surface expression of a long-lived volcanic source) + 定语 (located beneath the tectonic plate in the mantle)。\nstretching northwest from Hawaii 是现在分词短语，作后置定语，修饰 volcanoes 或 chain。\nlocated beneath... 是过去分词短语，作后置定语，修饰 volcanic source。",
         "segments": [
           {
-            "text": "Today’s most northwest island ",
+            "text": "Wilson",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "would have been ",
+            "text": " suggested",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "the first to form.",
-            "type": "predicative",
-            "label": "表语"
+            "text": " that the long chain of volcanoes stretching northwest from Hawaii is simply the surface expression of a long-lived volcanic source located beneath the tectonic plate in the mantle",
+            "type": "object",
+            "label": "宾语从句"
+          },
+          {
+            "text": ".",
+            "type": "modifier",
+            "label": "标点"
           }
         ]
       },
       {
         "id": "s17",
         "para": 3,
-        "text": "They as the plate moved slowly northwest, new volcanic islands would have forms as the plate moved over the volcanic source.",
-        "translation": "随着板块缓慢向西北移动，新的火山岛会在板块经过火山源时形成。",
-        "grammarFocus": "状语从句；主句",
-        "pronounRef": "They 指代 islands（可能有笔误，应为 Then 或 As），forms 应为 formed",
-        "logicConnector": "as 表示时间/原因",
+        "text": "Today’s most northwest island would have been the first to form.",
+        "translation": "如今位于最西北端的岛屿，原本应该是第一个形成的。",
+        "grammarFocus": "虚拟语气/推测：would have been + 不定式",
+        "pronounRef": "Today's 指代现在的地理位置",
+        "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "板块移动，新岛屿形成。",
-          "keyHint": "as 引导时间状语从句。"
+          "summary": "这句话在讲夏威夷群岛形成的顺序：越往西北，岛屿越老。",
+          "keyHint": "注意 'would have been' 表示对过去情况的推测或假设。"
         },
         "teachingFocus": {
-          "mainQuestion": "新岛屿是怎么形成的？",
-          "grammarQuestion": "as 引导的时间状语从句。",
-          "modifierQuestion": "slowly northwest 修饰 moved。",
-          "relationshipQuestion": "as... 是状语，主句是 new volcanic islands would have formed。",
-          "commonMistake": "They as... 可能是 Then as... 的笔误；forms 应为 formed。",
+          "mainQuestion": "我们要找的是哪个岛屿？它是第一个形成的吗？",
+          "grammarQuestion": "为什么这里用 'would have been' 而不是 'was'？",
+          "modifierQuestion": "'most northwest' 是怎么修饰 'island' 的？",
+          "relationshipQuestion": "'the first to form' 和前面的岛屿是什么关系？",
+          "commonMistake": "孩子容易把 'would have been' 当成过去进行时，其实它表示‘本该是’或‘推测是’。",
           "thinkingPath": [
-            "识别 as the plate moved... 为状语从句",
-            "识别主句 new volcanic islands would have formed",
-            "识别 as the plate moved over... 为另一个状语从句"
+            "找到主语：Today’s most northwest island",
+            "找到谓语：would have been",
+            "找到表语/补足语：the first to form"
           ],
-          "encouragement": "你理解了板块移动和新岛屿形成的关系，真棒！"
+          "encouragement": "你发现了吗？这个句子就像在倒放电影，告诉我们谁是最早出生的‘老大哥’！"
         },
-        "analysis": "### 【主干结构】\n[As the plate moved slowly northwest], new volcanic islands would have formed [as the plate moved over the volcanic source].\n（[随着板块缓慢向西北移动]，新的火山岛会在[板块经过火山源时]形成。）\n\n### 【主谓一致】\nislands 复数，would have formed 复数。一致。\n\n### 【动词时态与原形】\nmoved 过去时；would have formed 过去将来完成时/推测。\n\n### 【从句剖析】\n1. As the plate moved slowly northwest：时间状语从句。\n2. as the plate moved over the volcanic source：时间状语从句。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nslowly northwest：状语，修饰 moved。",
+        "analysis": "### 【主干结构】\n主语：Today’s most northwest island\n谓语：would have been\n表语/补足语：the first to form\n\n### 【主谓一致】\n主语是单数 island，谓语动词对应单数形式。\n\n### 【动词时态与原形】\n'would have been' 是情态动词 would + 完成式 have + 过去分词 been。这里表示对过去情况的推测（推测该岛屿在过去应该是第一个形成的），或者表示一种假设条件下的结果。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n'to form' 是不定式，作后置定语修饰 'the first'，表示‘第一个形成的’。",
         "segments": [
           {
-            "text": "They ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "as ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "the plate ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "moved ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "slowly northwest, ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "new volcanic islands ",
+            "text": "Today’s most northwest island",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "would have forms ",
+            "text": " would have been",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "as ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "the plate ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "moved ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "over the volcanic source.",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " the first to form.",
+            "type": "predicative",
+            "label": "表语"
           }
         ]
       },
       {
         "id": "s18",
         "para": 3,
-        "text": "The most recent island, Hawaii, would be at the end of the chain and is now over the volcanic source.",
-        "translation": "最新的岛屿，夏威夷，将位于链条的末端，现在位于火山源上方。",
-        "grammarFocus": "同位语；并列谓语",
-        "pronounRef": "无",
-        "logicConnector": "and 表示并列",
+        "text": "They as the plate moved slowly northwest, new volcanic islands would have forms as the plate moved over the volcanic source.",
+        "translation": "随着板块缓慢向西北移动，新的火山岛会在板块经过火山源时形成。（注：原文 forms 应为 formed，此处按原文解析）",
+        "grammarFocus": "状语从句嵌套；被动语态/系表结构",
+        "pronounRef": "They 指代前句提到的岛屿（或泛指岛屿群体）",
+        "logicConnector": "as... as... (随着...随着...)",
         "sentenceCoach": {
-          "summary": "夏威夷是最新的岛屿，正好在火山源上面。",
-          "keyHint": "Hawaii 是 the most recent island 的同位语。"
+          "summary": "这句话解释了岛屿形成的动态过程：板块移动，新岛诞生。",
+          "keyHint": "注意两个 'as' 引导的时间状语从句，它们描述了动作发生的背景。"
         },
         "teachingFocus": {
-          "mainQuestion": "夏威夷在哪里？",
-          "grammarQuestion": "同位语 Hawaii 解释 the most recent island。",
-          "modifierQuestion": "at the end of the chain 是表语。",
-          "relationshipQuestion": "would be... and is... 是并列谓语。",
-          "commonMistake": "无。",
+          "mainQuestion": "谁在移动？移动时发生了什么？",
+          "grammarQuestion": "两个 'as' 分别引导了什么？",
+          "modifierQuestion": "'slowly' 修饰谁？'over the volcanic source' 修饰谁？",
+          "relationshipQuestion": "板块移动和新岛形成之间有什么因果或时间关系？",
+          "commonMistake": "原文 'would have forms' 语法上略显奇怪（通常应为 formed），但结构上是 would have + 过去分词/名词。这里视作被动或系表结构理解。孩子可能困惑为什么有两个 as。",
           "thinkingPath": [
-            "识别主语 The most recent island, Hawaii",
-            "识别谓语 would be... and is...",
-            "识别表语 at the end of the chain 和 over the volcanic source"
+            "识别第一个 as 从句：as the plate moved slowly northwest",
+            "识别主句：new volcanic islands would have forms",
+            "识别第二个 as 从句：as the plate moved over the volcanic source"
           ],
-          "encouragement": "你找到了夏威夷的位置，真棒！"
+          "encouragement": "就像两列火车并行，板块在动，岛屿在变，这两个 as 就像两条轨道，紧紧跟着主句跑！"
         },
-        "analysis": "### 【主干结构】\nThe most recent island, Hawaii, would be at the end of the chain and is now over the volcanic source.\n（最新的岛屿，夏威夷，将位于链条的末端，现在位于火山源上方。）\n\n### 【主谓一致】\nisland 单数，would be/is 单数。一致。\n\n### 【动词时态与原形】\nwould be 过去将来时/推测；is 一般现在时。\n\n### 【从句剖析】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nHawaii：同位语，解释 the most recent island；now：副词，修饰 is。",
+        "analysis": "### 【主干结构】\n主句：new volcanic islands would have forms\n\n### 【主谓一致】\n主句主语 new volcanic islands 是复数，谓语 would have forms 对应复数。\n\n### 【动词时态与原形】\n'would have forms'：would have + 过去分词（假设 forms 为 formed 的笔误）或名词。此处理解为‘将会形成’。\n\n### 【从句剖析】\n1. 'as the plate moved slowly northwest'：时间状语从句，修饰主句动作发生的背景。\n2. 'as the plate moved over the volcanic source'：时间状语从句，进一步说明形成的具体条件。\n\n### 【代词指代】\n'They' 指代前文提到的岛屿，但在本句结构中略显突兀，可能是承接上文的泛指，或者原文有缺漏（如 They being...）。但在本句独立解析中，它作为独立成分或呼语处理，或者指代隐含的主语群体。鉴于句子结构 'They as...' 略显松散，通常理解为 'As they moved...' 的变体或笔误，但按字面解析，They 为主语或独立成分，as 引导从句。更合理的解析是：They (指岛屿) 随着板块移动... 但语法上 They 后直接接 as 从句较少见，可能是 'They, as the plate moved..., would have forms...' 的省略逗号形式，或者 They 是多余的。此处按 'They' 为主语，'as...' 为状语处理，或者视 'They' 为指代前文，本句实际主语是 'new volcanic islands'。为了结构清晰，我们将 'They' 视为主语（或独立指代），'new volcanic islands' 视为主句主语。但更常见的语法结构是：As the plate moved..., new volcanic islands would have formed... 这里的 'They' 可能是指代 'islands' 的复指，或者原文是 'There'。鉴于必须忠实原文，我们将 'They' 视为主语，'as...' 为状语，但主句主语又是 'new volcanic islands'，造成双主语。另一种解析：'They' 是主语，'as...' 是状语，'new volcanic islands' 是同位语或复指。最稳妥的切分是将 'They' 视为主语，'as...' 为状语，主句谓语 'would have forms'，'new volcanic islands' 视为主语的同位语或前置主语。但根据标准语法，'new volcanic islands' 才是逻辑主语。让我们将 'They' 视为主语，'as...' 为状语，'new volcanic islands' 视为主语补足语或同位语？不，更可能是：They (指代前文岛屿) [as the plate moved...], new volcanic islands would have forms... 这里 'They' 和 'new volcanic islands' 是同位关系。我们将 'They' 标为主语，'new volcanic islands' 标为主语的同位语或复指。\n\n修正解析：\n主语：They (指代岛屿)\n状语：as the plate moved slowly northwest\n同位语/复指主语：new volcanic islands\n谓语：would have forms\n状语：as the plate moved over the volcanic source\n\n### 【非谓语动词】\n无。",
         "segments": [
           {
-            "text": "The most recent island, ",
+            "text": "They",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "Hawaii, ",
-            "type": "modifier",
-            "label": "同位语"
-          },
-          {
-            "text": "would be ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "at the end of the chain ",
-            "type": "predicative",
-            "label": "表语"
-          },
-          {
-            "text": "and ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "is ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "now ",
+            "text": " as the plate moved slowly northwest,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "over the volcanic source.",
-            "type": "predicative",
-            "label": "表语"
+            "text": " new volcanic islands",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " would have forms",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " as the plate moved over the volcanic source.",
+            "type": "adverbial",
+            "label": "状语"
           }
         ]
       },
       {
         "id": "s19",
-        "para": 4,
-        "text": "Although this idea was not immediately accepted, the dating of lavas in the Hawaii (and other) chains showed that their ages increase away from the presently active volcano, just as Daly had suggested.",
-        "translation": "虽然这个想法没有立即被接受，但对夏威夷（和其他）链条中熔岩的测年显示，它们的年龄随着远离目前活跃的火山而增加，正如戴利所建议的那样。",
-        "grammarFocus": "让步状语从句；宾语从句",
-        "pronounRef": "their 指代 lavas",
-        "logicConnector": "Although 表示让步",
+        "para": 3,
+        "text": "The most recent island, Hawaii, would be at the end of the chain and is now over the volcanic source.",
+        "translation": "最新的岛屿，即夏威夷，应该位于链条的末端，并且现在正位于火山源之上。",
+        "grammarFocus": "同位语；并列谓语",
+        "pronounRef": "无",
+        "logicConnector": "and (并列)",
         "sentenceCoach": {
-          "summary": "虽然一开始没人信，但测年结果证明了戴利的观点。",
-          "keyHint": "Although 引导让步状语从句。"
+          "summary": "这句话介绍了夏威夷的位置和状态。",
+          "keyHint": "注意 'Hawaii' 是 'The most recent island' 的同位语，用来具体说明是谁。"
         },
         "teachingFocus": {
-          "mainQuestion": "这个想法被接受了吗？",
-          "grammarQuestion": "Although 引导的让步状语从句。",
-          "modifierQuestion": "in the Hawaii... chains 修饰 lavas。",
-          "relationshipQuestion": "Although... 是状语，主句是 the dating... showed that...",
-          "commonMistake": "just as Daly had suggested 是方式状语从句。",
+          "mainQuestion": "哪个岛屿是最新的？它在哪里？",
+          "grammarQuestion": "'Hawaii' 和前面的岛屿是什么关系？",
+          "modifierQuestion": "'most recent' 修饰谁？",
+          "relationshipQuestion": "'would be' 和 'is' 为什么时态不同？",
+          "commonMistake": "孩子可能忽略同位语，直接读成 'The most recent island would be...'，导致不知道 Hawaii 是谁。",
           "thinkingPath": [
-            "识别 Although 引导的让步状语从句",
-            "找到主句 the dating... showed that...",
-            "识别 that 引导的宾语从句",
-            "识别 just as... 引导的方式状语从句"
+            "找到主语：The most recent island",
+            "识别同位语：Hawaii",
+            "找到谓语：would be ... and is ..."
           ],
-          "encouragement": "你理解了科学发现的过程，真棒！"
+          "encouragement": "夏威夷就像是一个名字标签，贴在‘最新岛屿’这个盒子上，让我们一眼就能认出它！"
         },
-        "analysis": "### 【主干结构】\nAlthough [clause], the dating... showed that [clause], just as [clause].\n（虽然[从句]，测年...显示[从句]，正如[从句]。）\n\n### 【主谓一致】\nidea 单数，was 单数；dating 单数，showed 单数；ages 复数，increase 复数。一致。\n\n### 【动词时态与原形】\nwas 过去时；showed 过去时；increase 一般现在时；had suggested 过去完成时。\n\n### 【从句剖析】\n1. Although...：让步状语从句。\n2. that...：宾语从句，作 showed 的宾语。\n3. just as...：方式状语从句。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nin the Hawaii... chains：介词短语，修饰 lavas；away from...：状语，修饰 increase。",
+        "analysis": "### 【主干结构】\n主语：The most recent island\n同位语：Hawaii\n谓语1：would be\n表语1：at the end of the chain\n连词：and\n谓语2：is\n表语2：over the volcanic source\n\n### 【主谓一致】\n主语是单数，谓语动词用单数形式。\n\n### 【动词时态与原形】\n'would be'：表示推测或假设情况下的状态。\n'is'：表示现在的实际状态。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n无。",
         "segments": [
           {
-            "text": "Although ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "this idea ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "was not immediately accepted, ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "the dating of lavas in the Hawaii (and other) chains ",
+            "text": "The most recent island,",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "showed ",
+            "text": " Hawaii,",
+            "type": "modifier",
+            "label": "同位语"
+          },
+          {
+            "text": " would be",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "that ",
+            "text": " at the end of the chain",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "their ages ",
-            "type": "clause-subject",
-            "label": "从句主语"
+            "text": " is",
+            "type": "verb",
+            "label": "谓语"
           },
           {
-            "text": "increase ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "away from the presently active volcano, ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "just as ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "Daly ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "had suggested.",
-            "type": "clause-verb",
-            "label": "从句谓语"
+            "text": " now over the volcanic source.",
+            "type": "predicative",
+            "label": "表语"
           }
         ]
       },
       {
         "id": "s20",
         "para": 4,
-        "text": "Wilson’s analysis of these data is now a central part of plate tectonics.",
-        "translation": "威尔逊对这些数据的分析现在是板块构造论的核心部分。",
-        "grammarFocus": "简单句",
-        "pronounRef": "these 指代前文提到的数据",
-        "logicConnector": "无",
+        "text": "Although this idea was not immediately accepted, the dating of lavas in the Hawaii (and other) chains showed that their ages increase away from the presently active volcano, just as Daly had suggested.",
+        "translation": "虽然这个观点没有立即被接受，但对夏威夷（及其他）链条中熔岩的测年显示，它们的年龄随着远离目前活跃的火山而增加，正如达利所建议的那样。",
+        "grammarFocus": "让步状语从句；宾语从句；比较状语",
+        "pronounRef": "this idea 指代前文的观点；their 指代 lavas/ages",
+        "logicConnector": "Although (虽然); just as (正如)",
         "sentenceCoach": {
-          "summary": "威尔逊的分析很重要。",
-          "keyHint": "is now a central part 表示现在的地位。"
+          "summary": "这句话讲了观点被验证的过程：测年数据支持了达利的猜想。",
+          "keyHint": "注意 'showed that...' 后面跟的是一个完整的宾语从句。"
         },
         "teachingFocus": {
-          "mainQuestion": "威尔逊的分析现在怎么样？",
-          "grammarQuestion": "of these data 修饰 analysis。",
-          "modifierQuestion": "now 是时间状语。",
-          "relationshipQuestion": "主系表结构。",
-          "commonMistake": "无。",
+          "mainQuestion": "谁的观点被验证了？通过什么验证的？",
+          "grammarQuestion": "'Although' 引导的从句和主句是什么关系？",
+          "modifierQuestion": "'in the Hawaii (and other) chains' 修饰谁？",
+          "relationshipQuestion": "'just as' 引导的部分和前面的内容有什么关系？",
+          "commonMistake": "孩子可能不知道 'dating' 在这里是名词‘测年’，而不是动词‘约会’。",
           "thinkingPath": [
-            "识别主语 Wilson’s analysis of these data",
-            "识别谓语 is",
-            "识别表语 a central part of plate tectonics"
+            "识别让步状语：Although this idea was not immediately accepted",
+            "找到主句主语：the dating of lavas",
+            "找到主句谓语：showed",
+            "找到宾语从句：that their ages increase..."
           ],
-          "encouragement": "你知道了威尔逊分析的重要性，真棒！"
+          "encouragement": "就像侦探破案，虽然一开始没人信，但证据（测年数据）最终证明了达利是对的！"
         },
-        "analysis": "### 【主干结构】\nWilson’s analysis of these data is now a central part of plate tectonics.\n（威尔逊对这些数据的分析现在是板块构造论的核心部分。）\n\n### 【主谓一致】\nanalysis 单数，is 单数。一致。\n\n### 【动词时态与原形】\nis 一般现在时。\n\n### 【从句剖析】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nof these data：介词短语，修饰 analysis；now：副词，修饰 is；of plate tectonics：介词短语，修饰 part。",
+        "analysis": "### 【主干结构】\n让步状语从句：Although this idea was not immediately accepted\n主句主语：the dating of lavas\n主句谓语：showed\n宾语从句：that their ages increase away from the presently active volcano\n方式状语从句：just as Daly had suggested\n\n### 【主谓一致】\n主句主语 'the dating' 是单数，谓语 'showed' 用单数。\n\n### 【动词时态与原形】\n'was not accepted'：一般过去时被动语态。\n'showed'：一般过去时。\n'increase'：一般现在时（客观事实）。\n'had suggested'：过去完成时（在 showed 之前发生的动作）。\n\n### 【从句剖析】\n1. 'Although this idea was not immediately accepted'：让步状语从句。\n2. 'that their ages increase away from the presently active volcano'：宾语从句，作 showed 的宾语。\n3. 'just as Daly had suggested'：方式状语从句，修饰主句或宾语从句的内容。\n\n### 【代词指代】\n'this idea'：指代前文提到的夏威夷群岛由热点形成的观点。\n'their'：指代 lavas（熔岩）或 islands（岛屿）的年龄。\n\n### 【非谓语动词】\n无。",
         "segments": [
           {
-            "text": "Wilson’s analysis of these data ",
-            "type": "subject",
-            "label": "主语"
-          },
-          {
-            "text": "is ",
-            "type": "verb",
-            "label": "系动词"
-          },
-          {
-            "text": "now ",
+            "text": "Although this idea was not immediately accepted,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "a central part of plate tectonics.",
-            "type": "predicative",
-            "label": "表语"
+            "text": " the dating of lavas in the Hawaii (and other) chains",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " showed",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " that their ages increase away from the presently active volcano,",
+            "type": "clause-object",
+            "label": "宾语"
+          },
+          {
+            "text": " just as Daly had suggested.",
+            "type": "adverbial",
+            "label": "状语"
           }
         ]
       },
       {
         "id": "s21",
         "para": 4,
-        "text": "Most volcanoes that occur in the interiors of plates are believed to be produced by mantle plumes, columns of molten rock that rise from deep within the mantle.",
-        "translation": "大多数发生在板块内部的火山被认为是由地幔柱产生的，地幔柱是从地幔深处上升的熔岩柱。",
-        "grammarFocus": "被动语态；定语从句；同位语",
-        "pronounRef": "that 指代 volcanoes 和 columns",
+        "text": "Wilson’s analysis of these data is now a central part of plate tectonics.",
+        "translation": "威尔逊对这些数据的分析现在是板块构造学说的核心部分。",
+        "grammarFocus": "主系表结构；介词短语作定语",
+        "pronounRef": "these data 指代前文提到的测年数据",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "板块内部的火山是由地幔柱产生的。",
-          "keyHint": "are believed to be produced 是被动语态。"
+          "summary": "这句话强调了威尔逊分析的重要性。",
+          "keyHint": "'of these data' 是修饰 analysis 的，不要漏掉。"
         },
         "teachingFocus": {
-          "mainQuestion": "板块内部的火山是怎么产生的？",
-          "grammarQuestion": "are believed to be produced 是被动语态。",
-          "modifierQuestion": "that occur... 修饰 volcanoes；columns... 是 mantle plumes 的同位语。",
-          "relationshipQuestion": "that rise... 修饰 columns。",
-          "commonMistake": "孩子可能不认识 mantle plumes，需要解释。",
+          "mainQuestion": "谁的分析很重要？它现在是什么地位？",
+          "grammarQuestion": "'of these data' 修饰谁？",
+          "modifierQuestion": "'now' 修饰谁？",
+          "relationshipQuestion": "分析数据和板块构造学说之间是什么关系？",
+          "commonMistake": "孩子可能把 'data' 当成单数，其实 data 是复数（datum 的复数），但这里作介词宾语，不影响主谓一致（主语是 analysis）。",
           "thinkingPath": [
-            "识别主干 Most volcanoes... are believed to be produced by mantle plumes",
-            "识别 that occur... 修饰 volcanoes",
-            "识别 columns... 是 mantle plumes 的同位语",
-            "识别 that rise... 修饰 columns"
+            "找到主语：Wilson’s analysis",
+            "找到修饰语：of these data",
+            "找到谓语：is",
+            "找到表语：a central part"
           ],
-          "encouragement": "你找到了火山的‘制造者’地幔柱，真棒！"
+          "encouragement": "威尔逊的分析就像一块基石，稳稳地放在了板块构造学说的大厦里！"
         },
-        "analysis": "### 【主干结构】\nMost volcanoes... are believed to be produced by mantle plumes...\n（大多数火山...被认为是由地幔柱产生的...）\n\n### 【主谓一致】\nvolcanoes 复数，are 复数。一致。\n\n### 【动词时态与原形】\nare believed 被动语态；rise 一般现在时。\n\n### 【从句剖析】\n1. that occur...：定语从句，修饰 volcanoes。\n2. that rise...：定语从句，修饰 columns。\n\n### 【非谓语动词】\nto be produced：不定式被动语态，作 believed 的补足语。\n\n### 【修饰语】\nin the interiors of plates：介词短语，修饰 volcanoes；of molten rock：介词短语，修饰 columns；from deep within the mantle：介词短语，修饰 rise。",
+        "analysis": "### 【主干结构】\n主语：Wilson’s analysis\n谓语：is\n表语：a central part\n\n### 【主谓一致】\n主语 analysis 是单数，谓语 is 用单数。\n\n### 【动词时态与原形】\n'is'：一般现在时，表示当前的事实。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n'these data'：指代前文提到的熔岩测年数据。\n\n### 【非谓语动词】\n无。",
         "segments": [
           {
-            "text": "Most volcanoes ",
+            "text": "Wilson’s analysis of these data",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "that occur in the interiors of plates ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "are believed ",
+            "text": " is",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "to be produced by mantle plumes, ",
-            "type": "modifier",
-            "label": "补足语"
-          },
-          {
-            "text": "columns of molten rock ",
-            "type": "modifier",
-            "label": "同位语"
-          },
-          {
-            "text": "that rise from deep within the mantle.",
-            "type": "modifier",
-            "label": "定语"
+            "text": " now a central part of plate tectonics.",
+            "type": "predicative",
+            "label": "表语"
           }
         ]
       },
       {
         "id": "s22",
         "para": 4,
-        "text": "A volcano remains an active “hot spot” as long as it is over the plume.",
-        "translation": "只要火山位于地幔柱上方，它就会保持活跃的‘热点’状态。",
-        "grammarFocus": "条件状语从句",
-        "pronounRef": "it 指代 A volcano",
-        "logicConnector": "as long as 表示条件",
+        "text": "Most volcanoes that occur in the interiors of plates are believed to be produced by mantle plumes, columns of molten rock that rise from deep within the mantle.",
+        "translation": "大多数位于板块内部的火山被认为是由地幔柱产生的，地幔柱是从地幔深处上升的熔融岩石柱。",
+        "grammarFocus": "被动语态；不定式作主语补足语；定语从句嵌套",
+        "pronounRef": "无",
+        "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "火山在热点上方就是活跃的。",
-          "keyHint": "as long as 表示‘只要’。"
+          "summary": "这句话解释了板块内部火山的成因。",
+          "keyHint": "注意 'are believed to be produced' 是被动语态的不定式结构。"
         },
         "teachingFocus": {
-          "mainQuestion": "火山什么时候是活跃的？",
-          "grammarQuestion": "as long as 引导条件状语从句。",
-          "modifierQuestion": "an active “hot spot” 是表语。",
-          "relationshipQuestion": "as long as... 是条件状语。",
-          "commonMistake": "无。",
+          "mainQuestion": "哪些火山？它们是怎么形成的？",
+          "grammarQuestion": "'that occur...' 修饰谁？",
+          "modifierQuestion": "'columns of molten rock...' 是什么成分？",
+          "relationshipQuestion": "地幔柱和火山之间是什么关系？",
+          "commonMistake": "孩子可能看不懂 'are believed to be produced'，觉得太长了。其实它就是‘被认为被产生’。",
           "thinkingPath": [
-            "识别主干 A volcano remains an active “hot spot”",
-            "识别 as long as 引导的条件状语从句",
-            "理解 it 指代 volcano"
+            "找到主语：Most volcanoes",
+            "识别定语从句：that occur in the interiors of plates",
+            "找到谓语：are believed",
+            "找到补足语：to be produced by mantle plumes",
+            "识别同位语：columns of molten rock",
+            "识别定语从句：that rise from deep within the mantle"
           ],
-          "encouragement": "你知道了火山活跃的条件，真棒！"
+          "encouragement": "地幔柱就像一根根吸管，把地下的岩浆吸上来，变成了火山，真神奇！"
         },
-        "analysis": "### 【主干结构】\nA volcano remains an active “hot spot” as long as it is over the plume.\n（火山保持活跃的‘热点’状态，只要它位于地幔柱上方。）\n\n### 【主谓一致】\nvolcano 单数，remains 单数；it 单数，is 单数。一致。\n\n### 【动词时态与原形】\nremains 一般现在时；is 一般现在时。\n\n### 【从句剖析】\nas long as...：条件状语从句。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nan active “hot spot”：表语；over the plume：表语/状语。",
+        "analysis": "### 【主干结构】\n主语：Most volcanoes\n定语从句：that occur in the interiors of plates\n谓语：are believed\n主语补足语：to be produced by mantle plumes\n同位语：columns of molten rock\n定语从句：that rise from deep within the mantle\n\n### 【主谓一致】\n主语 Most volcanoes 是复数，谓语 are believed 用复数。\n\n### 【动词时态与原形】\n'are believed'：一般现在时被动语态。\n'to be produced'：不定式被动语态。\n'rise'：一般现在时。\n\n### 【从句剖析】\n1. 'that occur in the interiors of plates'：定语从句，修饰 volcanoes。\n2. 'that rise from deep within the mantle'：定语从句，修饰 columns of molten rock。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n'to be produced'：不定式，作主语补足语。",
         "segments": [
           {
-            "text": "A volcano ",
-            "type": "subject",
-            "label": "主语"
+            "text": "Most volcanoes",
+            "type": "subject"
           },
           {
-            "text": "remains ",
-            "type": "verb",
-            "label": "系动词"
+            "text": " that",
+            "type": "clause-subject"
           },
           {
-            "text": "an active “hot spot” ",
-            "type": "predicative",
-            "label": "表语"
+            "text": " occur",
+            "type": "clause-verb"
           },
           {
-            "text": "as long as ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": " in the interiors of plates",
+            "type": "adverbial"
           },
           {
-            "text": "it ",
-            "type": "clause-subject",
-            "label": "从句主语"
+            "text": " are believed",
+            "type": "verb"
           },
           {
-            "text": "is ",
-            "type": "clause-verb",
-            "label": "从句谓语"
+            "text": " to be produced by mantle plumes,",
+            "type": "object-complement"
           },
           {
-            "text": "over the plume.",
-            "type": "predicative",
-            "label": "表语"
+            "text": " columns of molten rock",
+            "type": "modifier"
+          },
+          {
+            "text": " that",
+            "type": "clause-subject"
+          },
+          {
+            "text": " rise",
+            "type": "clause-verb"
+          },
+          {
+            "text": " from deep within the mantle.",
+            "type": "adverbial"
           }
         ]
       },
       {
         "id": "s23",
         "para": 4,
-        "text": "The plumes apparently originate at great depths, perhaps as deep as the boundary between the core and the mantle, and many have been active for a very long time.",
-        "translation": "地幔柱显然起源于深处，可能深达地核和地幔之间的边界，许多已经活跃了很长时间。",
-        "grammarFocus": "并列句；插入语",
-        "pronounRef": "many 指代 plumes",
-        "logicConnector": "and 表示并列",
+        "text": "A volcano remains an active “hot spot” as long as it is over the plume.",
+        "translation": "只要火山位于地幔柱之上，它就会保持为一个活跃的‘热点’。",
+        "grammarFocus": "系表结构；条件状语从句",
+        "pronounRef": "it 指代 A volcano",
+        "logicConnector": "as long as (只要)",
         "sentenceCoach": {
-          "summary": "地幔柱起源很深，活跃时间很长。",
-          "keyHint": "perhaps... 是插入语，补充说明深度。"
+          "summary": "这句话说明了火山保持活跃的条件。",
+          "keyHint": "'as long as' 引导条件状语从句，表示‘只要...就...’。"
         },
         "teachingFocus": {
-          "mainQuestion": "地幔柱起源哪里？活跃多久？",
-          "grammarQuestion": "and 连接两个并列分句。",
-          "modifierQuestion": "perhaps... 是插入语。",
-          "relationshipQuestion": "两个分句并列描述地幔柱。",
-          "commonMistake": "无。",
+          "mainQuestion": "火山什么时候是活跃的？",
+          "grammarQuestion": "'remains' 是系动词吗？",
+          "modifierQuestion": "'as long as...' 修饰谁？",
+          "relationshipQuestion": "火山位置和活跃状态之间有什么关系？",
+          "commonMistake": "孩子可能不知道 'remains' 是系动词，后面接形容词或名词作表语。",
           "thinkingPath": [
-            "识别主干 The plumes originate... and many have been active...",
-            "识别 perhaps... 为插入语",
-            "理解 between the core and the mantle 修饰 boundary"
+            "找到主语：A volcano",
+            "找到谓语：remains",
+            "找到表语：an active “hot spot”",
+            "找到状语从句：as long as it is over the plume"
           ],
-          "encouragement": "你了解了地幔柱的起源和寿命，真棒！"
+          "encouragement": "就像开关一样，只要地幔柱在下面顶着，火山就一直是活跃的！"
         },
-        "analysis": "### 【主干结构】\nThe plumes originate at great depths... and many have been active for a very long time.\n（地幔柱起源于深处...许多已经活跃了很长时间。）\n\n### 【主谓一致】\nplumes 复数，originate 复数；many 复数，have been 复数。一致。\n\n### 【动词时态与原形】\noriginate 一般现在时；have been active 现在完成时。\n\n### 【从句剖析】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\napparently：副词，修饰 originate；perhaps as deep as...：插入语，修饰 depths；between the core and the mantle：介词短语，修饰 boundary；for a very long time：状语，修饰 have been active。",
+        "analysis": "### 【主干结构】\n主语：A volcano\n谓语：remains\n表语：an active “hot spot”\n状语从句：as long as it is over the plume\n\n### 【主谓一致】\n主语 A volcano 是单数，谓语 remains 用单数。\n\n### 【动词时态与原形】\n'remains'：一般现在时。\n'is'：一般现在时。\n\n### 【从句剖析】\n'as long as it is over the plume'：条件状语从句。\n\n### 【代词指代】\n'it'：指代 A volcano。\n\n### 【非谓语动词】\n无。",
         "segments": [
           {
-            "text": "The plumes ",
+            "text": "A volcano",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "apparently ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "originate ",
+            "text": " remains",
             "type": "verb",
-            "label": "谓语"
+            "label": "系动词"
           },
           {
-            "text": "at great depths, ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " an active “hot spot”",
+            "type": "predicative",
+            "label": "表语"
           },
           {
-            "text": "perhaps as deep as the boundary between the core and the mantle, ",
-            "type": "modifier",
-            "label": "补充说明"
-          },
-          {
-            "text": "and ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "many ",
-            "type": "subject",
-            "label": "主语"
-          },
-          {
-            "text": "have been active ",
-            "type": "verb",
-            "label": "谓语"
-          },
-          {
-            "text": "for a very long time.",
+            "text": " as long as it is over the plume.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -1629,176 +1591,164 @@
       {
         "id": "s24",
         "para": 4,
-        "text": "The oldest volcanoes in the Hawaii hot-spot trail have ages close to 80 million years.",
-        "translation": "夏威夷热点轨迹中最古老的火山年龄接近8000万年。",
-        "grammarFocus": "简单句",
+        "text": "The plumes apparently originate at great depths, perhaps as deep as the boundary between the core and the mantle, and many have been active for a very long time.",
+        "translation": "地幔柱显然起源于深处，也许深达地核与地幔的边界，并且许多地幔柱已经活跃了很长时间。",
+        "grammarFocus": "并列句；插入语",
         "pronounRef": "无",
-        "logicConnector": "无",
+        "logicConnector": "and (并列)",
         "sentenceCoach": {
-          "summary": "最老的火山有8000万岁。",
-          "keyHint": "have ages close to... 表示年龄接近。"
+          "summary": "这句话描述了地幔柱的深度和持续时间。",
+          "keyHint": "注意 'perhaps as deep as...' 是插入语，用来补充说明深度。"
         },
         "teachingFocus": {
-          "mainQuestion": "最老的火山有多老？",
-          "grammarQuestion": "have ages close to... 结构。",
-          "modifierQuestion": "in the Hawaii... trail 修饰 volcanoes。",
-          "relationshipQuestion": "主谓宾结构。",
-          "commonMistake": "无。",
+          "mainQuestion": "地幔柱从哪里来？持续了多久？",
+          "grammarQuestion": "'and' 连接的两个部分是什么关系？",
+          "modifierQuestion": "'apparently' 修饰谁？",
+          "relationshipQuestion": "深度和活跃时间之间有什么联系？",
+          "commonMistake": "孩子可能被长插入语打断，找不到谓语。其实 'originate' 和 'have been' 是两个并列的谓语。",
           "thinkingPath": [
-            "识别主语 The oldest volcanoes in the Hawaii hot-spot trail",
-            "识别谓语 have",
-            "识别宾语 ages close to 80 million years"
+            "找到第一个主句：The plumes apparently originate at great depths",
+            "识别插入语：perhaps as deep as the boundary between the core and the mantle",
+            "找到连词：and",
+            "找到第二个主句：many have been active for a very long time"
           ],
-          "encouragement": "你知道了最老火山的年龄，真棒！"
+          "encouragement": "地幔柱就像深埋地下的古老蜡烛，不仅位置很深，而且燃烧了亿万年！"
         },
-        "analysis": "### 【主干结构】\nThe oldest volcanoes... have ages close to 80 million years.\n（最古老的火山...拥有接近8000万年的年龄。）\n\n### 【主谓一致】\nvolcanoes 复数，have 复数。一致。\n\n### 【动词时态与原形】\nhave 一般现在时。\n\n### 【从句剖析】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nin the Hawaii hot-spot trail：介词短语，修饰 volcanoes；close to 80 million years：形容词短语，修饰 ages。",
+        "analysis": "### 【主干结构】\n主句1：The plumes apparently originate at great depths\n插入语：perhaps as deep as the boundary between the core and the mantle\n连词：and\n主句2：many have been active for a very long time\n\n### 【主谓一致】\n主句1主语 The plumes 是复数，谓语 originate 用复数。\n主句2主语 many (指代 plumes) 是复数，谓语 have been 用复数。\n\n### 【动词时态与原形】\n'originate'：一般现在时。\n'have been'：现在完成时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n无。",
         "segments": [
           {
-            "text": "The oldest volcanoes in the Hawaii hot-spot trail ",
-            "type": "subject",
+            "text": "The plumes apparently originate at great depths,",
+            "type": "coord-subject",
             "label": "主语"
           },
           {
-            "text": "have ",
-            "type": "verb",
-            "label": "谓语"
+            "text": " perhaps as deep as the boundary between the core and the mantle,",
+            "type": "modifier",
+            "label": "补充说明"
           },
           {
-            "text": "ages close to 80 million years.",
-            "type": "object",
-            "label": "宾语"
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " many",
+            "type": "coord-subject",
+            "label": "主语"
+          },
+          {
+            "text": " have been active for a very long time.",
+            "type": "coord-verb",
+            "label": "谓语"
           }
         ]
       },
       {
         "id": "s25",
         "para": 4,
-        "text": "Other islands, including Tahiti and Easter Islands in the pacific, Reunion and Mauritius in the India Ocean, and indeed most of the large islands in the world’s oceans, owe their existence to mantle plumes.",
-        "translation": "其他岛屿，包括太平洋中的塔希提岛和复活节岛、印度洋中的留尼汪岛和毛里求斯岛，以及世界上大多数大型岛屿，都归功于地幔柱。",
-        "grammarFocus": "插入语；主谓宾结构",
+        "text": "The oldest volcanoes in the Hawaii hot-spot trail have ages close to 80 million years.",
+        "translation": "夏威夷热点轨迹中最古老的火山年龄接近8000万年。",
+        "grammarFocus": "主谓宾结构；介词短语作后置定语；数字表达。",
         "pronounRef": "无",
-        "logicConnector": "and 表示并列",
+        "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "许多岛屿的存在都要感谢地幔柱。",
-          "keyHint": "including... 是插入语，列举其他岛屿。"
+          "summary": "这句话告诉我们夏威夷火山链里最老的火山有多老了。",
+          "keyHint": "注意 'have ages close to...' 这种表达年龄的方式。"
         },
         "teachingFocus": {
-          "mainQuestion": "哪些岛屿归功于地幔柱？",
-          "grammarQuestion": "including... 是插入语。",
-          "modifierQuestion": "in the pacific... 修饰 Islands。",
-          "relationshipQuestion": "主语是 Other islands，谓语是 owe，宾语是 their existence。",
-          "commonMistake": "孩子可能被长长的插入语干扰，找不到主干。",
+          "mainQuestion": "谁最老？是夏威夷热点轨迹里的火山。",
+          "grammarQuestion": "怎么表达“接近8000万年”这个年龄？用 'have ages close to...'。",
+          "modifierQuestion": "'in the Hawaii hot-spot trail' 是修饰 'volcanoes' 的，告诉我们这些火山在哪里。",
+          "relationshipQuestion": "主语是 volcanoes，谓语是 have，宾语是 ages，它们之间是拥有关系。",
+          "commonMistake": "不要把 'in the Hawaii hot-spot trail' 当成主语的一部分，它只是修饰语。",
           "thinkingPath": [
-            "识别主干 Other islands owe their existence to mantle plumes",
-            "识别 including... 为插入语",
-            "理解 owe A to B 结构"
+            "找到主语 volcanoes",
+            "找到谓语 have",
+            "找到宾语 ages",
+            "看修饰语在哪里"
           ],
-          "encouragement": "你找到了岛屿存在的‘恩人’地幔柱，真棒！"
+          "encouragement": "你找得很准！这就是句子的骨架。"
         },
-        "analysis": "### 【主干结构】\nOther islands... owe their existence to mantle plumes.\n（其他岛屿...将它们的生存归功于地幔柱。）\n\n### 【主谓一致】\nislands 复数，owe 复数。一致。\n\n### 【动词时态与原形】\nowe 一般现在时。\n\n### 【从句剖析】\n无。\n\n### 【非谓语动词】\nincluding...：现在分词，作插入语。\n\n### 【修饰语】\nincluding...：插入语，列举其他岛屿；in the pacific...：介词短语，修饰 Islands；in the India Ocean...：介词短语，修饰 Reunion and Mauritius；in the world’s oceans：介词短语，修饰 islands。",
+        "analysis": "### 【主干结构】\n主语：The oldest volcanoes\n谓语：have\n宾语：ages\n\n### 【主谓一致】\n主语 volcanoes 是复数，谓语 have 使用复数形式，一致。\n\n### 【动词时态与原形】\n使用一般现在时 have，陈述客观事实。\n\n### 【修饰语分析】\n1. 'The oldest'：形容词最高级，修饰 volcanoes。\n2. 'in the Hawaii hot-spot trail'：介词短语作后置定语，修饰 volcanoes，限定范围。\n3. 'close to 80 million years'：介词短语作后置定语，修饰 ages，说明年龄的具体数值。\n\n### 【词汇解析】\n- hot-spot trail：热点轨迹，指火山链。\n- close to：接近，大约。",
         "segments": [
           {
-            "text": "Other islands, ",
+            "text": "The oldest volcanoes",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "including Tahiti and Easter Islands in the pacific, Reunion and Mauritius in the India Ocean, and indeed most of the large islands in the world’s oceans, ",
+            "text": " in the Hawaii hot-spot trail",
             "type": "modifier",
-            "label": "补充说明"
+            "label": "定语"
           },
           {
-            "text": "owe ",
+            "text": " have",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "their existence ",
+            "text": " ages",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "to mantle plumes.",
+            "text": " close to 80 million years.",
             "type": "modifier",
-            "label": "状语"
+            "label": "定语"
           }
         ]
       },
       {
         "id": "s26",
-        "para": 5,
-        "text": "The oceanic volcanic islands and their hot-spot trails are thus especially useful for geologist because they record the past locations of the plate over a fixed source.",
-        "translation": "因此，海洋火山岛屿及其热点轨迹对地质学家特别有用，因为它们记录了板块在固定源上方的过去位置。",
-        "grammarFocus": "原因状语从句",
-        "pronounRef": "they 指代 islands and trails",
-        "logicConnector": "because 表示原因",
+        "para": 4,
+        "text": "Other islands, including Tahiti and Easter Islands in the pacific, Reunion and Mauritius in the India Ocean, and indeed most of the large islands in the world’s oceans, owe their existence to mantle plumes.",
+        "translation": "其他岛屿，包括太平洋中的塔希提岛和复活节岛、印度洋中的留尼汪岛和毛里求斯，以及事实上世界上大多数大型岛屿，都归功于地幔柱的存在。",
+        "grammarFocus": "插入语（including...）；主谓宾结构；owe A to B 句型。",
+        "pronounRef": "their 指代 Other islands",
+        "logicConnector": "and indeed 表示递进/强调",
         "sentenceCoach": {
-          "summary": "岛屿和轨迹很有用，因为它们记录了板块的历史位置。",
-          "keyHint": "because 引导原因状语从句。"
+          "summary": "这句话列举了很多岛屿，说它们都是地幔柱形成的。",
+          "keyHint": "中间长长的 including... 是插入语，先跳过不看，找主干。"
         },
         "teachingFocus": {
-          "mainQuestion": "岛屿和轨迹为什么有用？",
-          "grammarQuestion": "because 引导原因状语从句。",
-          "modifierQuestion": "thus 是连接副词。",
-          "relationshipQuestion": "主句是 islands... are useful，从句是 because they record...",
-          "commonMistake": "无。",
+          "mainQuestion": "哪些岛屿？是 Other islands。它们怎么了？归功于地幔柱。",
+          "grammarQuestion": "怎么表达“把A归功于B”？用 'owe A to B'。",
+          "modifierQuestion": "including... 这一大段是插入语，用来举例说明哪些是 Other islands。",
+          "relationshipQuestion": "主语是 Other islands，谓语是 owe，宾语是 their existence，to mantle plumes 是介词短语作状语/补足语。",
+          "commonMistake": "容易把 including 后面的内容当成主语，其实主语只是 Other islands。",
           "thinkingPath": [
-            "识别主干 The oceanic volcanic islands and their hot-spot trails are thus especially useful for geologist",
-            "识别 because 引导的原因状语从句",
-            "理解 they record the past locations..."
+            "找到主语 Other islands",
+            "跳过 including 插入语",
+            "找到谓语 owe",
+            "找到宾语 their existence"
           ],
-          "encouragement": "你知道了岛屿和轨迹的用途，真棒！"
+          "encouragement": "长句子就像俄罗斯套娃，先找到最外面的壳，再往里看！"
         },
-        "analysis": "### 【主干结构】\nThe oceanic volcanic islands and their hot-spot trails are thus especially useful for geologist because they record the past locations of the plate over a fixed source.\n（海洋火山岛屿及其热点轨迹因此对地质学家特别有用，因为它们记录了板块在固定源上方的过去位置。）\n\n### 【主谓一致】\nislands and trails 复数，are 复数；they 复数，record 复数。一致。\n\n### 【动词时态与原形】\nare 一般现在时；record 一般现在时。\n\n### 【从句剖析】\nbecause...：原因状语从句。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\nthus：副词，修饰 are；especially：副词，修饰 useful；for geologist：介词短语，修饰 useful；over a fixed source：介词短语，修饰 locations。",
+        "analysis": "### 【主干结构】\n主语：Other islands\n谓语：owe\n宾语：their existence\n介词短语：to mantle plumes\n\n### 【主谓一致】\n主语 Other islands 是复数，谓语 owe 使用复数形式，一致。\n\n### 【动词时态与原形】\n使用一般现在时 owe，陈述客观事实。\n\n### 【修饰语分析】\n1. 'including Tahiti and Easter Islands in the pacific, Reunion and Mauritius in the India Ocean, and indeed most of the large islands in the world’s oceans'：这是一个由 including 引导的长插入语，作为同位语/补充说明，列举了 Other islands 的具体例子。其中包含多个并列的名词短语。\n2. 'their'：代词，指代主语 Other islands。\n\n### 【句型解析】\n- owe A to B：将A归功于B，或A由B引起。这里指岛屿的存在是由地幔柱引起的。\n\n### 【词汇解析】\n- indeed：确实，实际上，用于加强语气。\n- mantle plumes：地幔柱。",
         "segments": [
           {
-            "text": "The oceanic volcanic islands and their hot-spot trails ",
+            "text": "Other islands",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are ",
+            "text": ", including Tahiti and Easter Islands in the pacific, Reunion and Mauritius in the India Ocean, and indeed most of the large islands in the world’s oceans,",
+            "type": "modifier",
+            "label": "同位语"
+          },
+          {
+            "text": " owe",
             "type": "verb",
-            "label": "系动词"
+            "label": "谓语"
           },
           {
-            "text": "thus ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " their existence",
+            "type": "object",
+            "label": "宾语"
           },
           {
-            "text": "especially useful ",
-            "type": "predicative",
-            "label": "表语"
-          },
-          {
-            "text": "for geologist ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "because ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "they ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "record ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "the past locations of the plate ",
-            "type": "clause-object",
-            "label": "从句宾语"
-          },
-          {
-            "text": "over a fixed source.",
-            "type": "adverbial",
+            "text": " to mantle plumes.",
+            "type": "modifier",
             "label": "状语"
           }
         ]
@@ -1806,276 +1756,334 @@
       {
         "id": "s27",
         "para": 5,
-        "text": "They therefore permit the reconstruction of the process of seafloor spreading, and consequently of the geography of continents and of ocean basins in the past.",
-        "translation": "因此，它们允许重建海底扩张的过程，以及大陆和海洋盆地过去的地理状况。",
-        "grammarFocus": "并列宾语",
-        "pronounRef": "They 指代 islands and trails",
-        "logicConnector": "therefore... and consequently...",
+        "text": "The oceanic volcanic islands and their hot-spot trails are thus especially useful for geologist because they record the past locations of the plate over a fixed source.",
+        "translation": "因此，海洋火山岛及其热点轨迹对地质学家来说特别有用，因为它们记录了板块在固定源上方的过去位置。",
+        "grammarFocus": "主系表结构；because 引导的原因状语从句；介词短语作状语。",
+        "pronounRef": "they 指代 The oceanic volcanic islands and their hot-spot trails",
+        "logicConnector": "thus (因此), because (因为)",
         "sentenceCoach": {
-          "summary": "它们帮助我们重建过去的海底扩张和地理。",
-          "keyHint": "permit the reconstruction of A, and consequently of B。"
+          "summary": "这句话解释了为什么这些岛屿对科学家有用，因为能记录历史。",
+          "keyHint": "注意 'thus' 表示结果，'because' 表示原因。"
         },
         "teachingFocus": {
-          "mainQuestion": "它们允许重建什么？",
-          "grammarQuestion": "permit the reconstruction of A, and consequently of B。",
-          "modifierQuestion": "of the process... 修饰 reconstruction。",
-          "relationshipQuestion": "and 连接两个 of 短语，共同修饰 reconstruction。",
-          "commonMistake": "无。",
+          "mainQuestion": "什么有用？是岛屿和轨迹。为什么有用？因为它们记录了位置。",
+          "grammarQuestion": "怎么连接原因？用 'because' 引导从句。",
+          "modifierQuestion": "'thus' 是连接副词，'especially' 修饰 useful，'for geologist' 是介词短语作状语。",
+          "relationshipQuestion": "主句是 islands and trails are useful，从句是 they record locations。",
+          "commonMistake": "不要把 'thus' 当成连词，它是副词，前面通常有逗号或句号，这里紧跟主语后。",
           "thinkingPath": [
-            "识别主干 They therefore permit the reconstruction",
-            "识别 of the process of seafloor spreading",
-            "识别 and consequently of the geography...",
-            "理解 of ocean basins in the past 修饰 geography"
+            "找到主句主语 islands and trails",
+            "找到主句谓语 are",
+            "找到主句表语 useful",
+            "找到 because 引导的从句"
           ],
-          "encouragement": "你理解了重建的内容，真棒！"
+          "encouragement": "你抓住了因果关系，真棒！"
         },
-        "analysis": "### 【主干结构】\nThey therefore permit the reconstruction of A, and consequently of B.\n（因此，它们允许重建A，以及B。）\n\n### 【主谓一致】\nThey 复数，permit 复数。一致。\n\n### 【动词时态与原形】\npermit 一般现在时。\n\n### 【从句剖析】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语】\ntherefore：副词，修饰 permit；consequently：副词，修饰 permit；of the process...：介词短语，修饰 reconstruction；of the geography...：介词短语，修饰 reconstruction；in the past：介词短语，修饰 geography。",
+        "analysis": "### 【主干结构】\n主句主语：The oceanic volcanic islands and their hot-spot trails\n主句谓语：are\n主句表语：useful\n\n### 【主谓一致】\n主语是并列结构（islands and trails），视为复数，谓语 are 使用复数形式，一致。\n\n### 【动词时态与原形】\n主句使用一般现在时 are；从句使用一般现在时 record，陈述客观事实。\n\n### 【从句剖析】\n- 'because they record the past locations of the plate over a fixed source'：原因状语从句，解释为什么 useful。\n  - 从句主语：they (指代主句主语)\n  - 从句谓语：record\n  - 从句宾语：the past locations of the plate\n  - 从句状语：over a fixed source\n\n### 【修饰语分析】\n1. 'thus'：连接副词，表示“因此”，承接上文。\n2. 'especially'：副词，修饰 useful，表示“特别”。\n3. 'for geologist'：介词短语，作状语，表示对象。\n4. 'of the plate'：介词短语，作后置定语，修饰 locations。\n5. 'over a fixed source'：介词短语，作状语，修饰 record，说明记录的位置关系。\n\n### 【词汇解析】\n- geologist：地质学家（原文单数，通常用复数 geologists，此处按原文解析）。\n- fixed source：固定源，指地幔热点。",
         "segments": [
           {
-            "text": "They ",
+            "text": "The oceanic volcanic islands and their hot-spot trails",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "therefore ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "permit ",
+            "text": " are",
             "type": "verb",
-            "label": "谓语"
+            "label": "系动词"
           },
           {
-            "text": "the reconstruction ",
-            "type": "object",
-            "label": "宾语"
+            "text": " thus especially useful",
+            "type": "predicative",
+            "label": "表语"
           },
           {
-            "text": "of the process of seafloor spreading, ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "and consequently ",
+            "text": " for geologist",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "of the geography of continents ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "and ",
+            "text": " because",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "of ocean basins in the past.",
-            "type": "modifier",
-            "label": "定语"
+            "text": " they",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " record",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " the past locations of the plate",
+            "type": "clause-object",
+            "label": "从句宾语"
+          },
+          {
+            "text": " over a fixed source.",
+            "type": "adverbial",
+            "label": "状语"
           }
         ]
       },
       {
         "id": "s28",
         "para": 5,
-        "text": "For example, given the current position of the Pacific Plate, Hawaii is above the Pacific Ocean hot spot.",
-        "translation": "例如，鉴于太平洋板块的当前位置，夏威夷位于太平洋热点上方。",
-        "grammarFocus": "过去分词作状语",
-        "pronounRef": "无",
-        "logicConnector": "For example 表示举例",
+        "text": "They therefore permit the reconstruction of the process of seafloor spreading, and consequently of the geography of continents and of ocean basins in the past.",
+        "translation": "因此，它们允许重建海底扩张的过程，以及 consequently（因此）重建过去大陆和海洋盆地的地理状况。",
+        "grammarFocus": "主谓宾结构；并列宾语；省略结构。",
+        "pronounRef": "They 指代上一句的 islands and trails",
+        "logicConnector": "therefore (因此), consequently (因此/从而)",
         "sentenceCoach": {
-          "summary": "夏威夷现在在热点上面。",
-          "keyHint": "given... 是过去分词短语，作状语。"
+          "summary": "这句话说了两件事：重建海底扩张，重建过去地理。",
+          "keyHint": "注意 'and consequently of...' 是省略了 permit the reconstruction 的并列结构。"
         },
         "teachingFocus": {
-          "mainQuestion": "夏威夷现在在哪里？",
-          "grammarQuestion": "given... 是过去分词短语，作状语。",
-          "modifierQuestion": "of the Pacific Plate 修饰 position。",
-          "relationshipQuestion": "主句是 Hawaii is above the Pacific Ocean hot spot。",
-          "commonMistake": "无。",
+          "mainQuestion": "它们允许做什么？允许重建过程，也允许重建地理。",
+          "grammarQuestion": "怎么表达“允许做某事”？用 'permit the reconstruction of...'。",
+          "modifierQuestion": "'therefore' 和 'consequently' 都是连接副词，表示逻辑结果。",
+          "relationshipQuestion": "主语 They，谓语 permit，宾语是 reconstruction... 和 (reconstruction) of the geography...。",
+          "commonMistake": "容易忽略 'and consequently of...' 前面省略了 'the reconstruction'，导致理解困难。",
           "thinkingPath": [
-            "识别 given... 为过去分词短语，作状语",
-            "识别主干 Hawaii is above the Pacific Ocean hot spot"
+            "找到主语 They",
+            "找到谓语 permit",
+            "找到第一个宾语 reconstruction",
+            "找到并列连词 and",
+            "识别省略结构"
           ],
-          "encouragement": "你知道了夏威夷的当前位置，真棒！"
+          "encouragement": "你发现了省略的秘密，真厉害！"
         },
-        "analysis": "### 【主干结构】\nFor example, given the current position of the Pacific Plate, Hawaii is above the Pacific Ocean hot spot.\n（例如，鉴于太平洋板块的当前位置，夏威夷位于太平洋热点上方。）\n\n### 【主谓一致】\nHawaii 单数，is 单数。一致。\n\n### 【动词时态与原形】\nis 一般现在时。\n\n### 【从句剖析】\n无。\n\n### 【非谓语动词】\ngiven：过去分词，作状语。\n\n### 【修饰语】\nFor example：插入语；given...：状语；of the Pacific Plate：介词短语，修饰 position；above the Pacific Ocean hot spot：表语/状语。",
+        "analysis": "### 【主干结构】\n主语：They\n谓语：permit\n宾语：the reconstruction of the process of seafloor spreading\n并列宾语：(the reconstruction) of the geography of continents and of ocean basins in the past\n\n### 【主谓一致】\n主语 They 是复数，谓语 permit 使用复数形式，一致。\n\n### 【动词时态与原形】\n使用一般现在时 permit，陈述客观事实。\n\n### 【修饰语分析】\n1. 'therefore'：连接副词，表示“因此”。\n2. 'consequently'：连接副词，表示“因此/从而”，修饰第二个并列宾语部分。\n3. 'of the process of seafloor spreading'：介词短语，作后置定语，修饰 reconstruction。\n4. 'of the geography of continents and of ocean basins'：介词短语，作后置定语，修饰省略的 reconstruction。\n5. 'in the past'：介词短语，作后置定语，修饰 geography。\n\n### 【句型解析】\n- permit the reconstruction of A, and consequently of B：允许重建A，以及（允许重建）B。第二个 of B 前省略了 the reconstruction。\n\n### 【词汇解析】\n- seafloor spreading：海底扩张。\n- ocean basins：海洋盆地。",
         "segments": [
           {
-            "text": "For example, ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "given the current position of the Pacific Plate, ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "Hawaii ",
+            "text": "They",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
-            "type": "verb",
-            "label": "系动词"
+            "text": " therefore",
+            "type": "adverbial",
+            "label": "状语"
           },
           {
-            "text": "above the Pacific Ocean hot spot.",
-            "type": "predicative",
-            "label": "表语"
+            "text": " permit",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " the reconstruction of the process of seafloor spreading",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": ", and consequently",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " of the geography of continents and of ocean basins in the past.",
+            "type": "object",
+            "label": "宾语"
           }
         ]
       },
       {
         "id": "s29",
         "para": 5,
-        "text": "So the position of The Pacific Plate 50 million years ago can be determined by moving it such that a 50-million-year-oil volcano in the hot-spot trail sits at the location of Hawaii today.",
-        "translation": "因此，太平洋板块5000万年前的位置可以通过移动它，使得热点轨迹中一个5000万年前的火山位于今天夏威夷的位置来确定。",
-        "grammarFocus": "被动语态；such that 引导结果状语从句",
-        "pronounRef": "it 指代 The Pacific Plate",
-        "logicConnector": "So 表示结果",
+        "text": "For example, given the current position of the Pacific Plate, Hawaii is above the Pacific Ocean hot spot.",
+        "translation": "例如，鉴于太平洋板块的当前位置，夏威夷位于太平洋热点上方。",
+        "grammarFocus": "过去分词短语作状语；主系表结构。",
+        "pronounRef": "无",
+        "logicConnector": "For example (例如)",
         "sentenceCoach": {
-          "summary": "通过移动板块，让老火山对准现在的夏威夷，就能确定过去的位置。",
-          "keyHint": "such that... 引导结果状语从句。"
+          "summary": "这句话举了个例子，说夏威夷现在在热点上面。",
+          "keyHint": "注意 'given...' 是过去分词短语，表示“考虑到/鉴于”。"
         },
         "teachingFocus": {
-          "mainQuestion": "怎么确定5000万年前板块的位置？",
-          "grammarQuestion": "can be determined by moving it such that...",
-          "modifierQuestion": "50 million years ago 修饰 position。",
-          "relationshipQuestion": "by moving it... 是方式状语；such that... 是结果状语。",
-          "commonMistake": "50-million-year-oil 应该是 50-million-year-old 的笔误。",
+          "mainQuestion": "夏威夷在哪里？在热点上方。前提是什么？考虑到板块当前位置。",
+          "grammarQuestion": "怎么表达“考虑到...”？用 'given...' 过去分词短语。",
+          "modifierQuestion": "'For example' 是插入语，'given...' 是状语，修饰整个句子。",
+          "relationshipQuestion": "主句是 Hawaii is above the hot spot。",
+          "commonMistake": "不要把 'given' 当成谓语动词，它是非谓语动词，表示条件或原因。",
           "thinkingPath": [
-            "识别主干 the position... can be determined",
-            "识别 by moving it such that... 为方式状语",
-            "识别 such that... 引导结果状语从句",
-            "理解 a 50-million-year-old volcano... sits at the location of Hawaii today"
+            "找到插入语 For example",
+            "找到状语 given...",
+            "找到主语 Hawaii",
+            "找到谓语 is"
           ],
-          "encouragement": "你理解了确定过去位置的方法，真棒！"
+          "encouragement": "你识别出了非谓语动词，真棒！"
         },
-        "analysis": "### 【主干结构】\nSo the position of The Pacific Plate 50 million years ago can be determined by moving it such that [clause].\n（因此，太平洋板块5000万年前的位置可以通过移动它，使得[从句]来确定。）\n\n### 【主谓一致】\nposition 单数，can be determined 单数；volcano 单数，sits 单数。一致。\n\n### 【动词时态与原形】\ncan be determined 被动语态；sits 一般现在时。\n\n### 【从句剖析】\nsuch that...：结果状语从句。\n\n### 【非谓语动词】\nmoving：动名词，作 by 的宾语。\n\n### 【修饰语】\nof The Pacific Plate 50 million years ago：介词短语，修饰 position；in the hot-spot trail：介词短语，修饰 volcano；at the location of Hawaii today：介词短语，修饰 sits。",
+        "analysis": "### 【主干结构】\n主语：Hawaii\n谓语：is\n表语：above the Pacific Ocean hot spot\n\n### 【主谓一致】\n主语 Hawaii 是单数，谓语 is 使用单数形式，一致。\n\n### 【动词时态与原形】\n使用一般现在时 is，陈述客观事实。\n\n### 【修饰语分析】\n1. 'For example'：介词短语，作插入语，表示举例。\n2. 'given the current position of the Pacific Plate'：过去分词短语，作状语，表示条件或原因，意为“考虑到/鉴于太平洋板块的当前位置”。\n3. 'of the Pacific Plate'：介词短语，作后置定语，修饰 position。\n\n### 【词汇解析】\n- given：介词/过去分词，意为“考虑到”、“鉴于”。\n- hot spot：热点。",
         "segments": [
           {
-            "text": "So ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": "For example,",
+            "type": "adverbial",
+            "label": "状语"
           },
           {
-            "text": "the position of The Pacific Plate 50 million years ago ",
+            "text": " given the current position of the Pacific Plate,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " Hawaii",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "can be determined ",
+            "text": " is",
             "type": "verb",
-            "label": "谓语"
+            "label": "系动词"
           },
           {
-            "text": "by moving it ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "such that ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "a 50-million-year-oil volcano in the hot-spot trail ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "sits ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "at the location of Hawaii today.",
-            "type": "adverbial",
-            "label": "状语"
+            "text": " above the Pacific Ocean hot spot.",
+            "type": "predicative",
+            "label": "表语"
           }
         ]
       },
       {
         "id": "s30",
         "para": 5,
-        "text": "However because the ocean basins really are short-lived features on geologic times scale, reconstruction the world’s geography by backtracking along the hot-spot trail works only for the last 5 percent or so of geologic time.",
-        "translation": "然而，由于海洋盆地确实是地质时间尺度上短暂的特征，通过沿热点轨迹回溯来重建世界地理的方法仅适用于过去5%左右的地质时间。",
-        "grammarFocus": "原因状语从句；动名词短语作主语",
-        "pronounRef": "无",
-        "logicConnector": "However... because...",
+        "text": "So the position of The Pacific Plate 50 million years ago can be determined by moving it such that a 50-million-year-oil volcano in the hot-spot trail sits at the location of Hawaii today.",
+        "translation": "因此，5000万年前太平洋板块的位置可以通过移动它，使得热点轨迹中一个5000万年前的火山（原文oil应为old的笔误）位于今天夏威夷的位置来确定。",
+        "grammarFocus": "被动语态；by 短语作方式状语；such that 引导的结果/方式状语从句。",
+        "pronounRef": "it 指代 The Pacific Plate",
+        "logicConnector": "So (因此)",
         "sentenceCoach": {
-          "summary": "因为海洋盆地寿命短，所以回溯法只能用于最近的地质时间。",
-          "keyHint": "reconstruction... works 是主句，reconstruction 是动名词短语作主语。"
+          "summary": "这句话说了怎么确定过去的位置：移动板块，让老火山对上新位置。",
+          "keyHint": "注意 'such that...' 引导的从句，解释移动的目的或结果。"
         },
         "teachingFocus": {
-          "mainQuestion": "回溯法为什么只能用于最近的地质时间？",
-          "grammarQuestion": "because 引导原因状语从句；reconstruction... works 是主句。",
-          "modifierQuestion": "on geologic times scale 修饰 features。",
-          "relationshipQuestion": "However 表示转折；because 表示原因。",
-          "commonMistake": "reconstruction the world’s geography 中 reconstruction 应为 reconstructing，或者 reconstruction 是名词，the world’s geography 是同位语，但通常用 reconstructing。这里按原文 reconstruction 处理，视为名词短语作主语。",
+          "mainQuestion": "位置怎么确定？通过移动板块。移动成什么样？让老火山对新位置。",
+          "grammarQuestion": "怎么表达“通过做某事”？用 'by doing...'。",
+          "modifierQuestion": "'50 million years ago' 修饰 position，'such that...' 是状语从句。",
+          "relationshipQuestion": "主句是 position can be determined，by 短语是方式状语，such that 从句是补充说明。",
+          "commonMistake": "原文 '50-million-year-oil' 应为 '50-million-year-old'，注意这个笔误。",
           "thinkingPath": [
-            "识别 However 表示转折",
-            "识别 because 引导的原因状语从句",
-            "识别主干 reconstruction... works",
-            "理解 by backtracking... 是方式状语"
+            "找到主语 position",
+            "找到谓语 can be determined",
+            "找到方式状语 by moving...",
+            "找到 such that 引导的从句"
           ],
-          "encouragement": "你理解了回溯法的局限性，真棒！"
+          "encouragement": "你读懂了复杂的移动过程，真聪明！"
         },
-        "analysis": "### 【主干结构】\nHowever, because [clause], [Subject] works only for [Time].\n（然而，因为[从句]，[主语]仅适用于[时间]。）\n\n### 【主谓一致】\nreconstruction 单数，works 单数。一致。\n\n### 【动词时态与原形】\nare 一般现在时；works 一般现在时。\n\n### 【从句剖析】\nbecause...：原因状语从句。\n\n### 【非谓语动词】\nbacktracking：动名词，作 by 的宾语。\n\n### 【修饰语】\nreally：副词，修饰 are；on geologic times scale：介词短语，修饰 features；by backtracking along the hot-spot trail：介词短语，修饰 works；for the last 5 percent or so of geologic time：介词短语，修饰 works。",
+        "analysis": "### 【主干结构】\n主语：the position of The Pacific Plate 50 million years ago\n谓语：can be determined\n方式状语：by moving it such that...\n\n### 【主谓一致】\n主语 position 是单数，谓语 can be determined 使用单数形式，一致。\n\n### 【动词时态与原形】\n使用情态动词 can + 被动语态 be determined，表示可能性或能力。\n\n### 【从句剖析】\n- 'such that a 50-million-year-oil volcano in the hot-spot trail sits at the location of Hawaii today'：such that 引导的状语从句，修饰 moving，表示移动的结果或目的。\n  - 从句主语：a 50-million-year-oil volcano in the hot-spot trail\n  - 从句谓语：sits\n  - 从句状语：at the location of Hawaii today\n  - 注意：原文 'oil' 应为 'old' 的拼写错误，意为“5000万年前的火山”。\n\n### 【修饰语分析】\n1. 'So'：连接副词，表示“因此”。\n2. 'of The Pacific Plate 50 million years ago'：介词短语，作后置定语，修饰 position。\n3. 'by moving it...'：介词短语，作方式状语，修饰 can be determined。\n4. 'in the hot-spot trail'：介词短语，作后置定语，修饰 volcano。\n5. 'of Hawaii'：介词短语，作后置定语，修饰 location。\n6. 'today'：时间状语，修饰 sits。\n\n### 【词汇解析】\n- such that：以至于，使得，用于引导结果或方式状语从句。\n- 50-million-year-old：5000万年前的（原文误写为 oil）。",
         "segments": [
           {
-            "text": "However ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "because ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "the ocean basins ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "really are ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "short-lived features ",
-            "type": "clause-predicative",
-            "label": "从句表语"
-          },
-          {
-            "text": "on geologic times scale, ",
+            "text": "So",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "reconstruction the world’s geography ",
+            "text": " the position of The Pacific Plate 50 million years ago",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "by backtracking along the hot-spot trail ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "works ",
+            "text": " can be determined",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "only for the last 5 percent or so of geologic time.",
+            "text": " by moving it",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " such that",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " a 50-million-year-oil volcano in the hot-spot trail",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " sits",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " at the location of Hawaii today.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s31",
+        "para": 5,
+        "text": "However because the ocean basins really are short-lived features on geologic times scale, reconstruction the world’s geography by backtracking along the hot-spot trail works only for the last 5 percent or so of geologic time.",
+        "translation": "然而，因为海洋盆地在地質年代尺度上确实是短命的特征，所以通过沿热点轨迹回溯来重建世界地理，只适用于地质年代的最后5%左右。",
+        "grammarFocus": "原因状语从句；主语是动名词短语；主谓结构。",
+        "pronounRef": "无",
+        "logicConnector": "However (然而), because (因为)",
+        "sentenceCoach": {
+          "summary": "这句话说了个限制：因为海洋盆地寿命短，所以回溯法只能算最近5%的历史。",
+          "keyHint": "注意主语是 'reconstruction...' 这个动名词短语，谓语是 works。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "什么只适用于最后5%？是重建地理的方法。为什么？因为海洋盆地寿命短。",
+          "grammarQuestion": "怎么表达“通过做某事”？用 'by doing...'。",
+          "modifierQuestion": "'However' 是转折，'because...' 是原因状语从句。",
+          "relationshipQuestion": "主句是 reconstruction works，从句是 because the ocean basins are features。",
+          "commonMistake": "不要把 'reconstruction' 当成动词，它是名词，作主语。谓语是 works。",
+          "thinkingPath": [
+            "找到转折词 However",
+            "找到原因状语从句 because...",
+            "找到主句主语 reconstruction...",
+            "找到主句谓语 works"
+          ],
+          "encouragement": "你理清了因果关系，真棒！"
+        },
+        "analysis": "### 【主干结构】\n主句主语：reconstruction the world’s geography by backtracking along the hot-spot trail\n主句谓语：works\n主句状语：only for the last 5 percent or so of geologic time\n\n### 【主谓一致】\n主语 reconstruction 是单数（动名词短语作主语视为单数），谓语 works 使用单数形式，一致。\n\n### 【动词时态与原形】\n使用一般现在时 works，陈述客观事实。\n\n### 【从句剖析】\n- 'because the ocean basins really are short-lived features on geologic times scale'：原因状语从句，解释为什么 works only for the last 5 percent。\n  - 从句主语：the ocean basins\n  - 从句谓语：are\n  - 从句表语：short-lived features\n  - 从句状语：on geologic times scale\n\n### 【修饰语分析】\n1. 'However'：连接副词，表示转折。\n2. 'really'：副词，修饰 are，表示“确实”。\n3. 'on geologic times scale'：介词短语，作状语，修饰 are/features。\n4. 'the world’s geography'：介词宾语，修饰 reconstruction。\n5. 'by backtracking along the hot-spot trail'：介词短语，作后置定语，修饰 reconstruction，说明重建的方式。\n6. 'along the hot-spot trail'：介词短语，作状语，修饰 backtracking。\n7. 'only for the last 5 percent or so of geologic time'：介词短语，作状语，修饰 works，表示时间范围。\n\n### 【词汇解析】\n- short-lived：短命的，寿命短的。\n- geologic times scale：地质年代尺度（原文 times 应为 time 的笔误，或指复数尺度）。\n- backtracking：回溯。",
+        "segments": [
+          {
+            "text": "However",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " because",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " the ocean basins",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " really are",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " short-lived features",
+            "type": "clause-predicative",
+            "label": "从句表语"
+          },
+          {
+            "text": " on geologic times scale,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " reconstruction the world’s geography by backtracking along the hot-spot trail",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " works",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " only for the last 5 percent or so of geologic time.",
             "type": "adverbial",
             "label": "状语"
           }

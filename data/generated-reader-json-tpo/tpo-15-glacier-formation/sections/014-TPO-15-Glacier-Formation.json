@@ -1,83 +1,255 @@
 {
   "sourceFile": "tpo-15-glacier-formation.md",
   "sectionTitle": "TPO-15 / Glacier Formation",
-  "generatedAt": "2026-08-05T08:58:41.532Z",
+  "generatedAt": "2026-08-11T16:48:11.852Z",
   "warnings": [],
   "article": {
     "id": "tpo-15-glacier-formation-14-TPO-15-Glacier-Formation",
     "title": "TPO-15 / Glacier Formation",
-    "timestamp": 1785920321545,
+    "timestamp": 1786466891865,
     "glossary": [
       {
-        "term": "Hexagonal crystals",
+        "term": "climatic variables",
+        "translation": "气候变量",
+        "kind": "term",
+        "note": "影响气候的关键因素，文中特指降水和温度。",
+        "aliases": []
+      },
+      {
+        "term": "hexagonal crystals",
         "translation": "六边形晶体",
         "kind": "term",
-        "note": "描述雪花的基本物理形态，六角形结构。",
+        "note": "描述雪花的基本物理形态，雪最初落下时呈六角形。",
         "aliases": []
       },
       {
-        "term": "Temperate glaciers",
+        "term": "temperate glaciers",
         "translation": "温带冰川",
         "kind": "term",
-        "note": "温度接近融点的冰川，流动速度较快。",
+        "note": "指冰温接近融点的冰川，通常流动较快。",
         "aliases": []
       },
       {
-        "term": "Hydrologic cycle",
+        "term": "hydrologic cycle",
         "translation": "水循环",
         "kind": "term",
-        "note": "水在地球表面、大气和地下之间循环运动的过程。",
+        "note": "指水在地球表面、大气和地下之间循环运动的过程。",
         "aliases": [
           "water cycle"
         ]
       },
       {
-        "term": "Polar glaciers",
+        "term": "rock formations",
+        "translation": "岩层，岩石构造",
+        "kind": "term",
+        "note": "地质学术语，指地壳中岩石的自然排列结构。",
+        "aliases": []
+      },
+      {
+        "term": "cycling system",
+        "translation": "循环系统",
+        "kind": "context_phrase",
+        "note": "指水在自然界中不断循环的过程。",
+        "aliases": []
+      },
+      {
+        "term": "polar glaciers",
         "translation": "极地冰川",
         "kind": "term",
-        "note": "温度远低于融点的冰川，流动速度较慢。",
+        "note": "指冰温远低于融点的冰川，通常流动较慢。",
         "aliases": []
       },
       {
-        "term": "Recrystallized",
-        "translation": "重结晶的",
+        "term": "recrystallized",
+        "translation": "再结晶的",
         "kind": "term",
-        "note": "物质在固态下重新排列晶体结构的过程。",
+        "note": "描述物质在压力下重新形成晶体结构的过程。",
         "aliases": []
       },
       {
-        "term": "Calving",
-        "translation": "崩解/崩落",
+        "term": "polar regions",
+        "translation": "极地地区",
+        "kind": "context_phrase",
+        "note": "指地球南北两极地区，气候寒冷，积雪不易融化。",
+        "aliases": []
+      },
+      {
+        "term": "precipitation",
+        "translation": "降水",
         "kind": "term",
-        "note": "冰川前端断裂，大块冰块落入海洋或湖泊形成冰山的过程。",
+        "note": "气象学术语，包括雨、雪、冰雹等所有形式的水分降落。",
+        "aliases": []
+      },
+      {
+        "term": "hypothetical",
+        "translation": "假设的",
+        "kind": "term",
+        "note": "基于假设而非现实发生的情况。",
+        "aliases": []
+      },
+      {
+        "term": "icy covering",
+        "translation": "冰层覆盖物",
+        "kind": "context_phrase",
+        "note": "指覆盖在地表上的厚厚冰层，释放后露出地表。",
+        "aliases": []
+      },
+      {
+        "term": "open systems",
+        "translation": "开放系统",
+        "kind": "term",
+        "note": "热力学/系统论概念，指与外界有物质和能量交换的系统。",
+        "aliases": []
+      },
+      {
+        "term": "periodically",
+        "translation": "周期性地，间歇地",
+        "kind": "term",
+        "note": "副词，修饰 covered，说明冰期是反复发生的，不是一次性的。",
+        "aliases": []
+      },
+      {
+        "term": "drastically",
+        "translation": "剧烈地，大幅度地",
+        "kind": "term",
+        "note": "形容变化非常显著或彻底。",
+        "aliases": []
+      },
+      {
+        "term": "rock debris",
+        "translation": "岩石碎片，冰碛物",
+        "kind": "term",
+        "note": "地质学术语，指冰川搬运并沉积的大小不一的岩石碎块。",
+        "aliases": []
+      },
+      {
+        "term": "accumulate",
+        "translation": "积累，堆积",
+        "kind": "term",
+        "note": "指物质逐渐聚集的过程。",
+        "aliases": []
+      },
+      {
+        "term": "Antarctica",
+        "translation": "南极洲",
+        "kind": "proper_noun",
+        "note": "地球上最大的冰川储存地。",
+        "aliases": []
+      },
+      {
+        "term": "atmosphere",
+        "translation": "大气层",
+        "kind": "term",
+        "note": "包围地球的气体层。",
+        "aliases": []
+      },
+      {
+        "term": "freshwater",
+        "translation": "淡水",
+        "kind": "term",
+        "note": "含盐量低的水，区别于海水。",
+        "aliases": []
+      },
+      {
+        "term": "tremendous",
+        "translation": "巨大的，惊人的",
+        "kind": "term",
+        "note": "形容词，修饰 energy，强调冰川运动的力量之大。",
+        "aliases": []
+      },
+      {
+        "term": "elevation",
+        "translation": "海拔，高地",
+        "kind": "term",
+        "note": "名词，指高于海平面的高度，此处指高山地区。",
+        "aliases": []
+      },
+      {
+        "term": "meltwater",
+        "translation": "融水",
+        "kind": "term",
+        "note": "冰雪融化后形成的水。",
+        "aliases": []
+      },
+      {
+        "term": "landform",
+        "translation": "地貌，地形",
+        "kind": "term",
+        "note": "名词，指地球表面自然形成的形态，如山脉、山谷等。",
+        "aliases": []
+      },
+      {
+        "term": "calving",
+        "translation": "崩解（冰川冰断裂入海）",
+        "kind": "term",
+        "note": "冰川学术语，指冰川前端断裂成冰山落入海洋或湖泊的过程。",
+        "aliases": []
+      },
+      {
+        "term": "deposit",
+        "translation": "沉积，堆积",
+        "kind": "term",
+        "note": "动词，指冰川融化或停止移动时，将携带的碎石留在原地。",
         "aliases": []
       },
       {
         "term": "Glacier",
         "translation": "冰川",
         "kind": "term",
-        "note": "本文核心概念，指在陆地上长期存在并缓慢移动的巨大冰体。",
+        "note": "本文核心主题，指在陆地上长期存在的巨大冰体。",
         "aliases": []
       },
       {
-        "term": "Ice age",
-        "translation": "冰河时期/冰期",
-        "kind": "term",
-        "note": "地球历史上气候寒冷、冰川广泛覆盖的时期。",
-        "aliases": []
+        "term": "ice age",
+        "translation": "冰河时期，冰期",
+        "kind": "proper_noun",
+        "note": "专有名词，指地球历史上气候寒冷、冰川广泛覆盖的时期。",
+        "aliases": [
+          "glacial period"
+        ]
       },
       {
-        "term": "Plastic",
+        "term": "plastic",
         "translation": "塑性的",
         "kind": "term",
-        "note": "在此处指物质在压力下发生永久变形而不破裂的性质，而非塑料。",
+        "note": "在地质学中，指材料在压力下发生永久变形而不破裂的性质，此处形容冰的流动特性。",
         "aliases": []
       },
       {
-        "term": "Firn",
+        "term": "surplus",
+        "translation": "盈余，剩余",
+        "kind": "term",
+        "note": "指超过消耗量的部分，此处指积雪多于消融的部分。",
+        "aliases": [
+          "excess"
+        ]
+      },
+      {
+        "term": "engulf",
+        "translation": "吞没，包围",
+        "kind": "term",
+        "note": "动词，形象地描述冰川覆盖并吞食沿途岩石的过程。",
+        "aliases": []
+      },
+      {
+        "term": "static",
+        "translation": "静止的，静态的",
+        "kind": "term",
+        "note": "形容词，指不移动、不变化的状态，与后文 glaciers move 形成对比。",
+        "aliases": []
+      },
+      {
+        "term": "carve",
+        "translation": "雕刻，开凿",
+        "kind": "term",
+        "note": "动词，此处指冰川像刻刀一样在岩石上留下痕迹。",
+        "aliases": []
+      },
+      {
+        "term": "firn",
         "translation": "粒雪",
         "kind": "term",
-        "note": "积雪经过压实、重结晶后形成的介于雪和冰川冰之间的中间阶段物质。",
+        "note": "雪经过压实和再结晶后形成的中间状态物质，介于雪和冰川冰之间。",
         "aliases": []
       }
     ],
@@ -86,89 +258,89 @@
         "id": "s1",
         "para": 1,
         "text": "Glaciers are slowly moving masses of ice that have accumulated on land in areas where more snowfalls during a year than melts.",
-        "translation": "冰川是缓慢移动的冰团，它们积聚在陆地上那些年降雪量大于融化量的地区。",
-        "grammarFocus": "定语从句嵌套；比较级结构省略",
+        "translation": "冰川是缓慢移动的冰体，它们在地表上积累，积累区域的特点是年降雪量大于消融量。",
+        "grammarFocus": "多重定语从句嵌套；比较结构省略。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "先找主语冰川，再看它是什么样的冰团。",
-          "keyHint": "注意 'where' 引导的从句是在解释什么样的地区。"
+          "summary": "这是一个定义句，我们要找出冰川到底是什么，以及它在哪里形成。",
+          "keyHint": "注意 'that' 和 'where' 引导的两个从句，它们像套娃一样修饰前面的名词。"
         },
         "teachingFocus": {
-          "mainQuestion": "我们要找句子的‘骨架’：谁（Glaciers）是（are）什么（masses）？",
-          "grammarQuestion": "那个长长的 'that...' 句子是专门用来形容‘冰团’的，就像给冰团贴标签。",
-          "modifierQuestion": "最后的 'where...' 是在告诉我们这些冰团住在哪里：是那种‘雪下得多、化得少’的地方。",
-          "relationshipQuestion": "注意 'more snowfalls... than melts'，这里省略了主语，意思是‘降雪量比（雪的）融化量多’。",
-          "commonMistake": "容易把 'snowfalls' 当成动词，但这里它是名词，和后面的 'melts'（名词化的动词）做比较。",
+          "mainQuestion": "我们要先找到句子的骨架：冰川是什么？答案是‘缓慢移动的冰体’。",
+          "grammarQuestion": "看看‘that’后面发生了什么？它在详细解释这些冰体是怎么来的。",
+          "modifierQuestion": "‘where’引导的从句是在告诉我们冰川形成的具体环境条件。",
+          "relationshipQuestion": "注意“more snowfalls... than melts”这个比较结构，它省略了动词，意思是“降雪量比融化量大”。",
+          "commonMistake": "孩子容易把‘slowly moving’当成两个独立的词，其实它们一起修饰‘masses’，就像‘红色的球’一样。",
           "thinkingPath": [
-            "找到主语 Glaciers",
-            "找到谓语 are",
-            "找到宾语 masses",
-            "拆解 that 引导的定语从句"
+            "找到主语 Glaciers 和谓语 are",
+            "识别宾语 masses of ice",
+            "顺着 that 找到第一个从句，解释冰的来源",
+            "顺着 where 找到第二个从句，解释地点的条件"
           ],
-          "encouragement": "你抓住了句子的主干，真棒！剩下的修饰成分就像给主干穿上的漂亮衣服。"
+          "encouragement": "你像侦探一样抓住了句子的核心，太棒了！"
         },
-        "analysis": "### 【主干结构】\n主句为简单主系表结构：Glaciers (主语) are (系动词) slowly moving masses of ice (表语)。\n\n### 【从句剖析】\n1. **定语从句 1**：'that have accumulated on land...' 修饰先行词 'masses of ice'。其中 'that' 指代 'masses'，谓语用复数 'have accumulated'。\n2. **定语从句 2**：'in areas where...' 修饰 'land' 或整个地点概念。'where' 引导定语从句修饰 'areas'。\n3. **比较状语**：'where more snowfalls during a year than melts'。这是一个省略句，完整逻辑为 'where the amount of snowfalls... is greater than the amount that melts'。这里 'snowfalls' 和 'melts' 均作名词使用，表示降雪量和融化量。\n\n### 【主谓一致】\n- 'masses' 是复数，所以从句动词用 'have'。\n- 'snowfalls' 和 'melts' 在此处作为不可数概念或总量概念比较，动词形式体现名词化用法。\n\n### 【非谓语动词】\n- 'slowly moving' 是现在分词作定语，修饰 'masses'，表示主动和进行。\n- 'accumulated' 是过去分词，但在 'that have accumulated' 中是谓语动词的完成时态。",
+        "analysis": "### 【主干结构】\n主句是 \"Glaciers are slowly moving masses of ice\"。主语是 Glaciers，系动词 are，表语是 masses of ice。\n\n### 【主谓一致】\nGlaciers 是复数，are 是复数，一致。\n\n### 【动词时态与原形】\n\"have accumulated\" 是现在完成时，表示从过去开始一直持续到现在的积累过程。\n\n### 【从句剖析】\n1. **定语从句 1**：\"that have accumulated on land...\" 修饰先行词 \"masses of ice\"。其中 that 作主语，指代 masses of ice。\n2. **定语从句 2**：\"in areas where more snowfalls during a year than melts\" 修饰先行词 \"areas\"。where 引导定语从句，在从句中作地点状语。从句内部是一个省略句，完整形式为 \"where more snow falls during a year than (snow) melts\"。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n\"slowly moving\" 是现在分词作定语，修饰 masses。",
         "segments": [
           {
-            "text": "Glaciers ",
+            "text": "Glaciers",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are ",
+            "text": " are",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "slowly moving masses of ice ",
+            "text": " slowly moving masses of ice",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "that ",
-            "type": "clause-subject",
-            "label": "从句主语（关系代词）"
-          },
-          {
-            "text": "have accumulated ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "on land ",
-            "type": "adverbial",
-            "label": "地点状语"
-          },
-          {
-            "text": "in areas ",
-            "type": "adverbial",
-            "label": "地点状语"
-          },
-          {
-            "text": "where ",
-            "type": "conjunction",
-            "label": "连接词（关系副词）"
-          },
-          {
-            "text": "more snowfalls ",
+            "text": " that",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "during a year ",
-            "type": "adverbial",
-            "label": "时间状语"
-          },
-          {
-            "text": "than ",
-            "type": "conjunction",
-            "label": "连接词（比较连词）"
-          },
-          {
-            "text": "melts.",
+            "text": " have accumulated",
             "type": "clause-verb",
-            "label": "从句谓语（省略主语）"
+            "label": "从句谓语"
+          },
+          {
+            "text": " on land",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " in areas",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " where",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " more snowfalls",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " during a year",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " than",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " melts.",
+            "type": "clause-verb",
+            "label": "从句谓语"
           }
         ]
       },
@@ -176,69 +348,69 @@
         "id": "s2",
         "para": 1,
         "text": "Snow falls as hexagonal crystals, but once on the ground, snow is soon transformed into a compacted mass of smaller, rounded grains.",
-        "translation": "雪花以六边形晶体的形式落下，但一旦落在地面上，雪很快就被转化为由更小、更圆的颗粒组成的压实团块。",
-        "grammarFocus": "并列句；被动语态；省略结构",
+        "translation": "雪花以六边形晶体的形式落下，但一旦落到地面，雪很快就被转化为由更小、更圆润的颗粒组成的压实团块。",
+        "grammarFocus": "并列句；被动语态；插入语/状语前置。",
         "pronounRef": "无",
-        "logicConnector": "but",
+        "logicConnector": "but 表示转折",
         "sentenceCoach": {
-          "summary": "这是一个由 but 连接的两个完整句子，前半句说雪的样子，后半句说雪的变化。",
-          "keyHint": "注意 'once on the ground' 是省略了 'it is' 的时间状语。"
+          "summary": "这句话描述了雪从天空到地面的变化过程，注意前后两个分句的对比。",
+          "keyHint": "‘but’ 是并列连词，它连接的两个部分地位平等，都要有完整的主谓结构。"
         },
         "teachingFocus": {
-          "mainQuestion": "句子被 'but' 分成了两半，前半部分讲雪落下时的样子，后半部分讲雪落地后的变化。",
-          "grammarQuestion": "后半句用了 'is transformed into'，这是被动语态，意思是‘被转变’，强调雪的状态改变。",
-          "modifierQuestion": "'hexagonal' 形容晶体形状，'compacted', 'smaller', 'rounded' 都是形容词，层层修饰后面的 'mass' 和 'grains'。",
-          "relationshipQuestion": "'once on the ground' 相当于 'once it is on the ground'，表示时间条件。",
-          "commonMistake": "容易忽略 'once on the ground' 中的省略成分，直接把它当成名词短语。",
+          "mainQuestion": "这句话由两个部分组成，中间用‘but’连接，我们要分别看雪在天上是什么样，在地上是什么样。",
+          "grammarQuestion": "看第二个分句，‘is transformed into’ 是被动语态，意思是‘被转化’。",
+          "modifierQuestion": "‘once on the ground’ 是一个省略了主语和谓语的状语，相当于‘once it is on the ground’。",
+          "relationshipQuestion": "第一个分句讲‘落下’，第二个分句讲‘转化’，展示了雪形态的变化。",
+          "commonMistake": "孩子可能会忽略‘once on the ground’中的隐含动词，或者误以为‘compacted’是动词，其实它是形容词修饰‘mass’。",
           "thinkingPath": [
             "识别并列连词 but",
-            "分析前半句主谓宾",
-            "分析后半句被动语态",
-            "理解 once 引导的时间状语"
+            "分析前半句：Snow falls as...",
+            "分析后半句：snow is transformed into...",
+            "理解 once on the ground 的状语功能"
           ],
-          "encouragement": "你能分清 but 前后的对比关系，说明你的逻辑感很强！"
+          "encouragement": "你成功拆解了并列句，逻辑非常清晰！"
         },
-        "analysis": "### 【主干结构】\n并列句，由连词 'but' 连接两个独立分句。\n分句1：Snow (主语) falls (谓语) as hexagonal crystals (状语/方式)。\n分句2：snow (主语) is transformed (谓语) into a compacted mass... (状语/结果)。\n\n### 【从句剖析】\n无复杂从句，但包含省略结构。\n\n### 【非谓语动词】\n- 'hexagonal' 是形容词。\n- 'compacted' 是过去分词作定语，修饰 'mass'，表示‘被压实的’。\n- 'rounded' 是过去分词作定语，修饰 'grains'，表示‘圆形的’。\n\n### 【主谓一致】\n- 'Snow' 是不可数名词，谓语用单数 'falls' 和 'is transformed'。",
+        "analysis": "### 【主干结构】\n这是一个由并列连词 but 连接的并列句。\n前半句：Snow (主语) falls (谓语) as hexagonal crystals (状语)。\n后半句：snow (主语) is transformed (谓语) into a compacted mass... (状语/补足语)。\n\n### 【主谓一致】\nSnow 是不可数名词，视为单数，falls 和 is transformed 均为单数形式，一致。\n\n### 【动词时态与原形】\nfalls: 一般现在时，表示自然规律。\nis transformed: 一般现在时的被动语态。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\ncompacted: 过去分词作定语，修饰 mass，表示‘被压实的’。\nrounded: 过去分词作定语，修饰 grains，表示‘圆形的’。",
         "segments": [
           {
-            "text": "Snow ",
+            "text": "Snow",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "falls ",
+            "text": " falls",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "as hexagonal crystals, ",
+            "text": " as hexagonal crystals,",
             "type": "adverbial",
-            "label": "方式状语"
+            "label": "状语"
           },
           {
-            "text": "but ",
+            "text": " but",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "once on the ground, ",
+            "text": " once on the ground,",
             "type": "adverbial",
-            "label": "时间状语（省略）"
+            "label": "状语"
           },
           {
-            "text": "snow ",
-            "type": "subject",
-            "label": "主语"
+            "text": " snow",
+            "type": "coord-subject",
+            "label": "并列主语"
           },
           {
-            "text": "is soon transformed ",
-            "type": "verb",
-            "label": "谓语（被动）"
+            "text": " is soon transformed",
+            "type": "coord-verb",
+            "label": "并列谓语"
           },
           {
-            "text": "into a compacted mass of smaller, rounded grains.",
+            "text": " into a compacted mass of smaller, rounded grains.",
             "type": "adverbial",
-            "label": "结果状语/介词短语"
+            "label": "状语"
           }
         ]
       },
@@ -246,62 +418,62 @@
         "id": "s3",
         "para": 1,
         "text": "As the air space around them is lessened by compaction and melting, the grains become denser.",
-        "translation": "随着它们周围的空气空间因压实和融化而减少，颗粒变得更加致密。",
-        "grammarFocus": "As 引导的时间/原因状语从句；被动语态",
+        "translation": "随着周围空气空间因压实和融化而减少，颗粒变得更加致密。",
+        "grammarFocus": "As 引导的时间/原因状语从句；被动语态；比较级。",
         "pronounRef": "them 指代 grains",
-        "logicConnector": "As",
+        "logicConnector": "As 表示伴随或原因",
         "sentenceCoach": {
-          "summary": "As 在这里表示‘随着...发生’，描述一个变化的过程。",
-          "keyHint": "注意 'them' 指代的是前面的 'grains'（颗粒）。"
+          "summary": "这句话解释了为什么雪粒会变密：因为空气被挤出去了。",
+          "keyHint": "‘As’ 在这里引导一个过程，随着这个过程发生，主句的结果也随之出现。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘颗粒变得更致密’，从句是‘空气空间减少’，前者是结果，后者是伴随过程。",
-          "grammarQuestion": "'is lessened by...' 是被动语态，表示空间‘被’压实和融化作用所减少。",
-          "modifierQuestion": "'around them' 是介词短语作后置定语，修饰 'air space'。",
-          "relationshipQuestion": "As 引导的从句说明了主句发生的原因或背景条件。",
-          "commonMistake": "容易误以为 As 是‘因为’，虽然逻辑上通，但语法上 As 更强调‘随着...的过程’。",
+          "mainQuestion": "主句是‘颗粒变得更致密’，我们要看是什么导致了这个变化。",
+          "grammarQuestion": "‘is lessened by...’ 是被动语态，表示空气空间‘被’压实和融化作用所减少。",
+          "modifierQuestion": "‘around them’ 是介词短语作后置定语，修饰 air space。",
+          "relationshipQuestion": "从句描述原因/过程，主句描述结果，两者紧密相连。",
+          "commonMistake": "孩子可能不知道 them 指代谁，需要联系上一句的 grains。另外，lessen 是动词，不是形容词。",
           "thinkingPath": [
             "识别 As 引导的状语从句",
-            "找到主句主语 the grains",
-            "找到主句谓语 become",
-            "理解 them 的指代"
+            "找出从句主语 air space 和谓语 is lessened",
+            "找出主句主语 the grains 和谓语 become",
+            "理解 denser 是比较级"
           ],
-          "encouragement": "你发现了代词 them 的指代对象，这就像侦探找到了线索！"
+          "encouragement": "你抓住了因果关系的线索，真厉害！"
         },
-        "analysis": "### 【主干结构】\n主句：the grains (主语) become (系动词) denser (表语)。\n从句：As the air space around them is lessened by compaction and melting (状语从句)。\n\n### 【从句剖析】\nAs 引导时间/原因状语从句。在从句中，'the air space' 是主语，'is lessened' 是谓语（被动），'by compaction and melting' 是动作发出者。\n\n### 【代词指代】\n'them' 指代前一句提到的 'grains' (snow grains)。\n\n### 【非谓语动词】\n无。",
+        "analysis": "### 【主干结构】\nAs 引导状语从句：the air space around them is lessened by compaction and melting。\n主句：the grains become denser。\n\n### 【主谓一致】\nair space 单数，is 单数；grains 复数，become 复数。一致。\n\n### 【动词时态与原形】\nis lessened: 一般现在时被动。\nbecome: 一般现在时系动词。\n\n### 【从句剖析】\nAs 引导时间/原因状语从句。As 在此处意为‘随着’或‘因为’。\n\n### 【代词指代】\nthem 指代上一句提到的 grains (雪粒)。\n\n### 【非谓语动词】\ncompaction 和 melting 是名词，由动词转化而来，作 by 的宾语。",
         "segments": [
           {
-            "text": "As ",
+            "text": "As",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "the air space around them ",
+            "text": " the air space around them",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "is lessened ",
+            "text": " is lessened",
             "type": "clause-verb",
-            "label": "从句谓语（被动）"
+            "label": "从句谓语"
           },
           {
-            "text": "by compaction and melting, ",
+            "text": " by compaction and melting,",
             "type": "adverbial",
-            "label": "方式/原因状语"
+            "label": "状语"
           },
           {
-            "text": "the grains ",
+            "text": " the grains",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "become ",
+            "text": " become",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "denser.",
+            "text": " denser.",
             "type": "predicative",
             "label": "表语"
           }
@@ -311,59 +483,49 @@
         "id": "s4",
         "para": 1,
         "text": "With further melting, refreezing, and increased weight from newer snowfall above, the snow reaches a granular recrystallized stage intermediate between flakes and ice known as firn.",
-        "translation": "随着进一步的融化、重新冻结以及上方新降雪带来的增加重量，雪达到了一个介于片状雪和冰之间的颗粒状重结晶阶段，称为粒雪。",
-        "grammarFocus": "With 复合结构作状语；长定语后置",
+        "translation": "随着进一步的融化、重新冻结以及上方新降雪带来的增加重量，雪达到了一个介于片状雪和冰之间的颗粒状再结晶阶段，称为粒雪。",
+        "grammarFocus": "With 复合结构作状语；长定语修饰；过去分词作后置定语。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "句首的 With 结构列出了三个条件，主句说雪达到了一个新阶段。",
-          "keyHint": "'known as firn' 是过去分词短语，修饰前面的 'stage'。"
+          "summary": "这句话很长，但主干很简单：雪达到了一个阶段。前面的 With 结构是在说条件。",
+          "keyHint": "‘known as firn’ 是修饰 stage 的，告诉我们这个阶段的名称。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘雪达到了一个阶段’，前面的 With 结构说明了达到这个阶段的条件。",
-          "grammarQuestion": "'intermediate between...' 是形容词短语作后置定语，修饰 'stage'。",
-          "modifierQuestion": "'known as firn' 也是后置定语，进一步解释这个阶段的名称。",
-          "relationshipQuestion": "With 结构在这里表示伴随状况或原因，解释了雪是如何变成 firn 的。",
-          "commonMistake": "容易把 'known as firn' 误认为是修饰 'ice'，其实它修饰的是整个 'stage' 或 'granular recrystallized stage'。",
+          "mainQuestion": "主干是‘雪达到了一个阶段’，我们要看清是什么条件促成了这个结果。",
+          "grammarQuestion": "‘With further melting...’ 是介词短语作状语，表示伴随状况或原因。",
+          "modifierQuestion": "‘intermediate between flakes and ice’ 和 ‘known as firn’ 都是修饰 stage 的定语。",
+          "relationshipQuestion": "条件（With...）导致结果（reaches... stage）。",
+          "commonMistake": "孩子容易被长长的 With 短语迷惑，忘记主语是 the snow。另外，intermediate 是形容词，不是动词。",
           "thinkingPath": [
-            "识别 With 引导的状语",
-            "找到主句主语 the snow",
-            "找到主句谓语 reaches",
-            "拆解 stage 后的两个长定语"
+            "识别 With 引导的状语部分",
+            "找到主句主语 the snow 和谓语 reaches",
+            "找到宾语 a granular recrystallized stage",
+            "分析 stage 后面的两个修饰成分"
           ],
-          "encouragement": "你能理清这么长的修饰语，说明你的耐心很好！"
+          "encouragement": "你成功穿透了长难句的迷雾，找到了核心！"
         },
-        "analysis": "### 【主干结构】\n主句：the snow (主语) reaches (谓语) a granular recrystallized stage (宾语)。\n\n### 【修饰语剖析】\n1. **状语**：'With further melting, refreezing, and increased weight from newer snowfall above'。With + 名词短语，表示伴随条件。\n2. **后置定语 1**：'intermediate between flakes and ice'。形容词短语修饰 'stage'，意为‘介于...中间的’。\n3. **后置定语 2**：'known as firn'。过去分词短语修饰 'stage'，意为‘被称为粒雪的’。\n\n### 【词汇】\n- 'granular': 颗粒状的\n- 'recrystallized': 重结晶的\n- 'firn': 粒雪",
+        "analysis": "### 【主干结构】\n状语：With further melting, refreezing, and increased weight from newer snowfall above。\n主句：the snow reaches a granular recrystallized stage...\n\n### 【主谓一致】\nthe snow 单数，reaches 单数。一致。\n\n### 【动词时态与原形】\nreaches: 一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\nknown: 过去分词作后置定语，修饰 stage，相当于 which is known as。",
         "segments": [
           {
-            "text": "With further melting, refreezing, and increased weight from newer snowfall above, ",
+            "text": "With further melting, refreezing, and increased weight from newer snowfall above,",
             "type": "adverbial",
-            "label": "方式/条件状语"
+            "label": "状语"
           },
           {
-            "text": "the snow ",
+            "text": " the snow",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "reaches ",
+            "text": " reaches",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "a granular recrystallized stage ",
+            "text": " a granular recrystallized stage intermediate between flakes and ice known as firn.",
             "type": "object",
             "label": "宾语"
-          },
-          {
-            "text": "intermediate between flakes and ice ",
-            "type": "modifier",
-            "label": "定语"
-          },
-          {
-            "text": "known as firn.",
-            "type": "modifier",
-            "label": "定语"
           }
         ]
       },
@@ -372,53 +534,48 @@
         "para": 1,
         "text": "With additional time, pressure, and refrozen meltwater from above, the small firn granules become larger, interlocked crystals of blue glacial ice.",
         "translation": "随着额外的时间、压力以及来自上方的重新冻结的融水，小的粒雪颗粒变成了较大的、相互锁定的蓝色冰川冰晶体。",
-        "grammarFocus": "With 复合结构；系表结构",
+        "grammarFocus": "With 复合结构作状语；系表结构。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "又是 With 开头，列出条件，然后说粒雪变成了冰川冰。",
-          "keyHint": "'interlocked' 形容晶体像锁一样扣在一起。"
+          "summary": "这句话描述了粒雪如何变成冰川冰，结构与前一句非常相似。",
+          "keyHint": "注意‘become’是系动词，后面接的是描述状态的表语。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘粒雪颗粒变成了晶体’，With 结构提供了变化的条件。",
-          "grammarQuestion": "'become' 是系动词，后面接 'larger, interlocked crystals' 作表语。",
-          "modifierQuestion": "'of blue glacial ice' 是介词短语修饰 'crystals'，说明晶体的材质。",
-          "relationshipQuestion": "With 结构表示随着这些因素的增加，发生了转变。",
-          "commonMistake": "容易忽略 'refrozen meltwater' 中 'refrozen' 是形容词，修饰 'meltwater'。",
+          "mainQuestion": "主干是‘粒雪颗粒变成了晶体’，前面的 With 结构提供了变化的条件。",
+          "grammarQuestion": "‘become’ 是系动词，连接主语和表语，表示状态的变化。",
+          "modifierQuestion": "‘larger, interlocked’ 是形容词并列，修饰 crystals。",
+          "relationshipQuestion": "条件（With...）导致状态变化（become...）。",
+          "commonMistake": "孩子可能分不清‘refrozen’是动词还是形容词，这里它是形容词，修饰 meltwater。",
           "thinkingPath": [
-            "识别 With 状语",
-            "找到主语 firn granules",
-            "找到谓语 become",
-            "找到表语 crystals"
+            "识别 With 引导的状语",
+            "找到主语 the small firn granules",
+            "找到系动词 become",
+            "找到表语 larger, interlocked crystals..."
           ],
-          "encouragement": "你发现句子结构很相似，这说明你掌握了这类句型的规律！"
+          "encouragement": "你发现了句子的对称美，观察力满分！"
         },
-        "analysis": "### 【主干结构】\n主句：the small firn granules (主语) become (系动词) larger, interlocked crystals (表语)。\n\n### 【修饰语剖析】\n1. **状语**：'With additional time, pressure, and refrozen meltwater from above'。With + 名词短语。\n2. **定语**：'of blue glacial ice'。介词短语修饰 'crystals'。\n\n### 【词汇】\n- 'interlocked': 相互锁定的，咬合的",
+        "analysis": "### 【主干结构】\n状语：With additional time, pressure, and refrozen meltwater from above。\n主句：the small firn granules become larger, interlocked crystals of blue glacial ice。\n\n### 【主谓一致】\ngranules 复数，become 复数。一致。\n\n### 【动词时态与原形】\nbecome: 一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\nrefrozen: 过去分词作定语，修饰 meltwater。",
         "segments": [
           {
-            "text": "With additional time, pressure, and refrozen meltwater from above, ",
+            "text": "With additional time, pressure, and refrozen meltwater from above,",
             "type": "adverbial",
-            "label": "方式/条件状语"
+            "label": "状语"
           },
           {
-            "text": "the small firn granules ",
+            "text": " the small firn granules",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "become ",
+            "text": " become",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "larger, interlocked crystals ",
+            "text": " larger, interlocked crystals of blue glacial ice.",
             "type": "predicative",
             "label": "表语"
-          },
-          {
-            "text": "of blue glacial ice.",
-            "type": "modifier",
-            "label": "定语"
           }
         ]
       },
@@ -426,89 +583,84 @@
         "id": "s6",
         "para": 1,
         "text": "When the ice is thick enough, usually over 30 meters, the weight of the snow and firn will cause the ice crystals toward the bottom to become plastic and to flow outward or downward from the area of snow accumulation.",
-        "translation": "当冰足够厚时，通常超过30米，雪和粒雪的重量会使底部的冰晶体变得具有塑性，并从积雪区向外或向下流动。",
-        "grammarFocus": "When 引导的时间状语从句；cause sb/sth to do sth",
+        "translation": "当冰足够厚，通常超过30米时，雪和粒雪的重量会使底部的冰晶体变得具有塑性，并从积雪区域向外或向下流动。",
+        "grammarFocus": "When 引导的时间状语从句；cause sb/sth to do sth 结构；不定式作宾语补足语。",
         "pronounRef": "无",
-        "logicConnector": "When",
+        "logicConnector": "When 表示时间/条件",
         "sentenceCoach": {
-          "summary": "When 引导条件，主句说重量导致冰流动。",
-          "keyHint": "'cause... to become... and to flow...' 是核心结构。"
+          "summary": "这是一个条件句：如果冰够厚，它就会流动。注意 cause 的用法。",
+          "keyHint": "‘cause the ice crystals... to become... and to flow...’ 是核心结构。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘重量使冰晶体流动’，When 从句设定了厚度条件。",
-          "grammarQuestion": "'cause A to do B' 结构中，A 是 'the ice crystals'，B 是 'become plastic and to flow'。",
-          "modifierQuestion": "'toward the bottom' 修饰 'ice crystals'，指明是哪部分的冰。",
-          "relationshipQuestion": "When 表示时间/条件，主句表示结果。",
-          "commonMistake": "容易把 'usually over 30 meters' 当成独立句子，它其实是插入语，补充说明 'thick enough' 的具体数值。",
+          "mainQuestion": "主干是‘重量使冰晶体流动’，When 引导的条件是前提。",
+          "grammarQuestion": "‘cause A to do B’ 结构中，A 是宾语，to do B 是宾语补足语。",
+          "modifierQuestion": "‘toward the bottom’ 修饰 ice crystals，‘usually over 30 meters’ 是插入语，补充说明 thickness。",
+          "relationshipQuestion": "条件（When...）导致结果（will cause...）。",
+          "commonMistake": "孩子可能忽略‘to become’和‘to flow’是并列的不定式，都作补足语。",
           "thinkingPath": [
-            "识别 When 从句",
+            "识别 When 引导的时间状语从句",
             "找到主句主语 the weight",
-            "找到主句谓语 cause",
-            "找到宾语补足语 to become... and to flow"
+            "找到谓语 will cause",
+            "找到宾语 the ice crystals 和补足语 to become... and to flow..."
           ],
-          "encouragement": "你抓住了 cause 这个关键动词，句子结构就清晰多了！"
+          "encouragement": "你理清了复杂的动作链条，真棒！"
         },
-        "analysis": "### 【主干结构】\n从句：When the ice is thick enough (时间状语从句)。\n主句：the weight (主语) will cause (谓语) the ice crystals (宾语) to become plastic and to flow (宾语补足语)。\n\n### 【修饰语剖析】\n1. **插入语**：'usually over 30 meters'。补充说明 'thick enough'。\n2. **定语**：'toward the bottom'。修饰 'ice crystals'。\n3. **状语**：'from the area of snow accumulation'。修饰 'flow'，表示流动的起点。\n\n### 【词汇】\n- 'plastic': 塑性的，可塑的",
+        "analysis": "### 【主干结构】\nWhen 引导时间状语从句：When the ice is thick enough, usually over 30 meters。\n主句：the weight of the snow and firn will cause the ice crystals toward the bottom to become plastic and to flow outward or downward from the area of snow accumulation。\n\n### 【主谓一致】\nthe weight 单数，will cause 单数。一致。\n\n### 【动词时态与原形】\nis: 一般现在时。\nwill cause: 一般将来时。\nbecome/flow: 不定式。\n\n### 【从句剖析】\nWhen 引导时间状语从句。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\nto become, to flow: 不定式作宾语补足语。",
         "segments": [
           {
-            "text": "When ",
+            "text": "When",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "the ice ",
+            "text": " the ice",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "is ",
+            "text": " is",
             "type": "clause-verb",
-            "label": "从句系动词"
+            "label": "从句谓语"
           },
           {
-            "text": "thick enough, ",
+            "text": " thick enough,",
             "type": "clause-predicative",
             "label": "从句表语"
           },
           {
-            "text": "usually over 30 meters, ",
+            "text": " usually over 30 meters,",
             "type": "modifier",
-            "label": "插入语/补充说明"
+            "label": "补充说明"
           },
           {
-            "text": "the weight of the snow and firn ",
+            "text": " the weight of the snow and firn",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "will cause ",
+            "text": " will cause",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "the ice crystals toward the bottom ",
+            "text": " the ice crystals toward the bottom",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "to become plastic ",
-            "type": "modifier",
+            "text": " to become plastic",
+            "type": "object-complement",
             "label": "宾语补足语"
           },
           {
-            "text": "and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "to flow outward or downward ",
-            "type": "modifier",
+            "text": " to flow outward or downward from the area of snow accumulation.",
+            "type": "object-complement",
             "label": "宾语补足语"
-          },
-          {
-            "text": "from the area of snow accumulation.",
-            "type": "adverbial",
-            "label": "来源状语"
           }
         ]
       },
@@ -517,57 +669,47 @@
         "para": 2,
         "text": "Glaciers are open systems, with snow as the system’s input and meltwater as the system's main output.",
         "translation": "冰川是开放系统，雪是系统的输入，融水是系统的主要输出。",
-        "grammarFocus": "With 复合结构",
+        "grammarFocus": "With 复合结构作伴随状语/补充说明。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "主句说冰川是开放系统，With 结构解释输入输出。",
-          "keyHint": "'with A as B' 是固定搭配，表示‘把A作为B’。"
+          "summary": "这句话定义了冰川系统的性质，并用 with 结构具体说明了输入和输出。",
+          "keyHint": "‘with A as B’ 是一个固定搭配，用来解释 A 在系统中的角色。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘冰川是开放系统’，With 结构具体说明什么是输入和输出。",
-          "grammarQuestion": "'with snow as...' 是独立主格结构的变体，作伴随状语或补充说明。",
-          "modifierQuestion": "无复杂修饰语，结构清晰。",
-          "relationshipQuestion": "With 部分是对主句 'open systems' 的具体阐释。",
-          "commonMistake": "容易把 with 结构当成主句的一部分，其实它是补充说明。",
+          "mainQuestion": "主干是‘冰川是开放系统’，后面的 with 结构是在具体解释这个系统。",
+          "grammarQuestion": "‘with snow as...’ 是介词复合结构，作状语或补充说明。",
+          "modifierQuestion": "‘the system’s input’ 和 ‘the system's main output’ 是 as 的宾语。",
+          "relationshipQuestion": "主句提出概念，with 结构提供细节。",
+          "commonMistake": "孩子可能不知道 with 在这里不是‘和’的意思，而是‘具有...特征’或‘以...为...’。",
           "thinkingPath": [
-            "找到主句主干",
-            "识别 with 结构",
-            "理解 input 和 output 的对应关系"
+            "找到主句 Glaciers are open systems",
+            "识别 with 引导的补充说明部分",
+            "分析 with snow as... 和 meltwater as... 的平行结构"
           ],
-          "encouragement": "你理解了输入输出的概念，就像理解了机器的运作原理！"
+          "encouragement": "你理解了系统思维的表述方式，很有科学家的潜质！"
         },
-        "analysis": "### 【主干结构】\n主句：Glaciers (主语) are (系动词) open systems (表语)。\n\n### 【修饰语剖析】\n'with snow as the system’s input and meltwater as the system's main output'。With + 名词 + as + 名词，作伴随状语，解释 open systems 的含义。",
+        "analysis": "### 【主干结构】\n主句：Glaciers are open systems。\n状语/补充说明：with snow as the system’s input and meltwater as the system's main output。\n\n### 【主谓一致】\nGlaciers 复数，are 复数。一致。\n\n### 【动词时态与原形】\nare: 一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n无。",
         "segments": [
           {
-            "text": "Glaciers ",
+            "text": "Glaciers",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are ",
+            "text": " are",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "open systems, ",
+            "text": " open systems,",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "with snow as the system’s input ",
+            "text": " with snow as the system’s input and meltwater as the system's main output.",
             "type": "adverbial",
-            "label": "伴随状语"
-          },
-          {
-            "text": "and ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "meltwater as the system's main output.",
-            "type": "adverbial",
-            "label": "伴随状语"
+            "label": "状语"
           }
         ]
       },
@@ -575,46 +717,47 @@
         "id": "s8",
         "para": 2,
         "text": "The glacial system is governed by two basic climatic variables: precipitation and temperature.",
-        "translation": "冰川系统受两个基本气候变量控制：降水和温度。",
-        "grammarFocus": "被动语态；冒号解释",
+        "translation": "冰川系统受两个基本气候变量的控制：降水和温度。",
+        "grammarFocus": "被动语态；冒号用于解释说明。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "主句说系统受变量控制，冒号后列出具体变量。",
-          "keyHint": "冒号后面的内容是对 'variables' 的具体说明。"
+          "summary": "这句话指出了控制冰川系统的两个关键因素。",
+          "keyHint": "冒号后面的内容是对‘two basic climatic variables’的具体解释。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘系统受变量控制’，冒号后列出这两个变量。",
-          "grammarQuestion": "'is governed by' 是被动语态，表示‘被...控制/支配’。",
-          "modifierQuestion": "无复杂修饰语。",
-          "relationshipQuestion": "冒号起到解释说明的作用。",
-          "commonMistake": "容易忽略冒号的语法功能，直接读下去。",
+          "mainQuestion": "主干是‘系统受变量控制’，我们要看是哪两个变量。",
+          "grammarQuestion": "‘is governed by’ 是被动语态，表示‘被...支配/控制’。",
+          "modifierQuestion": "‘two basic climatic’ 修饰 variables。",
+          "relationshipQuestion": "冒号引出同位语，具体说明 variables 的内容。",
+          "commonMistake": "孩子可能不知道 governed 的意思，可以联想‘government’（政府）管理国家。",
           "thinkingPath": [
-            "找到主句主干",
-            "识别被动语态",
-            "理解冒号后的解释内容"
+            "找到主语 The glacial system",
+            "找到谓语 is governed by",
+            "找到宾语 two basic climatic variables",
+            "识别冒号后的解释部分"
           ],
-          "encouragement": "你注意到了冒号的作用，这有助于你快速抓住重点！"
+          "encouragement": "你抓住了关键的控制因素，总结得很到位！"
         },
-        "analysis": "### 【主干结构】\n主句：The glacial system (主语) is governed (谓语，被动) by two basic climatic variables (状语)。\n\n### 【修饰语剖析】\n': precipitation and temperature'。冒号引出同位语，具体说明 'variables' 是什么。",
+        "analysis": "### 【主干结构】\n主句：The glacial system is governed by two basic climatic variables。\n同位语：precipitation and temperature (解释 variables)。\n\n### 【主谓一致】\nThe glacial system 单数，is governed 单数。一致。\n\n### 【动词时态与原形】\nis governed: 一般现在时被动语态。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n无。",
         "segments": [
           {
-            "text": "The glacial system ",
+            "text": "The glacial system",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is governed ",
+            "text": " is governed",
             "type": "verb",
-            "label": "谓语（被动）"
+            "label": "谓语"
           },
           {
-            "text": "by two basic climatic variables: ",
+            "text": " by two basic climatic variables:",
             "type": "adverbial",
-            "label": "方式/施动者状语"
+            "label": "状语"
           },
           {
-            "text": "precipitation and temperature.",
+            "text": " precipitation and temperature.",
             "type": "modifier",
             "label": "同位语"
           }
@@ -624,74 +767,69 @@
         "id": "s9",
         "para": 2,
         "text": "For a glacier to grow or maintain its mass, there must be sufficient snowfall to match or exceed the annual loss through melting, evaporation, and calving, which occurs when the glacier loses solid chunks as icebergs to the sea or to large lakes.",
-        "translation": "为了使冰川增长或维持其质量，必须有足够的降雪来匹配或超过通过融化、蒸发和崩解造成的年度损失，后者发生在冰川将固体块作为冰山落入海洋或大湖时。",
-        "grammarFocus": "For sb to do 不定式作目的状语；there be 句型；定语从句嵌套",
-        "pronounRef": "which 指代 loss",
-        "logicConnector": "无",
+        "translation": "冰川要增长或维持其质量，必须有足够的降雪来匹配或超过通过融化、蒸发和崩解造成的年度损失，后者发生在冰川以冰山的形式向海洋或大型湖泊失去固体冰块时。",
+        "grammarFocus": "There be句型；不定式作目的/结果状语；非限制性定语从句；when引导的时间状语从句。",
+        "pronounRef": "its 指代 glacier；which 指代前面的整个现象或 specifically 'annual loss'（结合语境通常指代 loss 这一过程或现象）；when 引导从句修饰 occurs 的时间背景。",
+        "logicConnector": "For...（为了/对于...）；to match or exceed（去匹配或超过）；through（通过...方式）；which（非限制性定语从句引导词）；when（当...时候）。",
         "sentenceCoach": {
-          "summary": "句首是目的，中间是条件，最后是解释损失的过程。",
-          "keyHint": "'which' 引导的从句修饰 'loss'。"
+          "summary": "这是一个长难句，先找主干“必须有足够的降雪”，再看它要做什么，最后看“which”指代什么。",
+          "keyHint": "注意 which 引导的非限制性定语从句，它修饰的是前面的“年度损失”这一过程。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘必须有足够的降雪’，目的是让冰川增长。",
-          "grammarQuestion": "'to match or exceed...' 是不定式作目的状语，修饰 'snowfall'。",
-          "modifierQuestion": "'which occurs...' 是非限制性定语从句，修饰 'loss'。",
-          "relationshipQuestion": "'when...' 是定语从句中的时间状语，解释 loss 发生的时机。",
-          "commonMistake": "容易搞混 'which' 指代什么，它指代的是 'loss' 这一现象，而不是具体的某个词。",
+          "mainQuestion": "我们要找谁？是冰川，还是降雪？记住，句子说“必须有降雪”，所以降雪是主角。",
+          "grammarQuestion": "看到 'there must be' 不要慌，这是‘存在’的意思，后面跟着的是‘什么东西’存在。",
+          "modifierQuestion": "那个长长的 'which...' 从句像个小尾巴，它是在解释前面的‘年度损失’是怎么发生的。",
+          "relationshipQuestion": "降雪要‘匹配或超过’损失，就像存钱要‘等于或多于’花钱一样，这样冰川才能长大。",
+          "commonMistake": "很多同学看到 which 就不知道指代谁，其实它指代的是前面提到的‘通过融化、蒸发和崩解造成的年度损失’这个过程。",
           "thinkingPath": [
-            "识别 For...to... 目的状语",
-            "找到主句 there must be",
-            "找到宾语 snowfall",
-            "拆解 which 引导的定语从句"
+            "找到主干：必须有足够的降雪",
+            "看目的：为了匹配或超过损失",
+            "看方式：通过融化、蒸发和崩解",
+            "看补充：which 从句解释崩解的过程"
           ],
-          "encouragement": "你能理清这么长的从句嵌套，说明你的逻辑链条很完整！"
+          "encouragement": "你拆解得真棒！这个长句子就像一串糖葫芦，你把它一颗颗串起来啦！"
         },
-        "analysis": "### 【主干结构】\n目的状语：For a glacier to grow or maintain its mass。\n主句：there must be sufficient snowfall (there be 句型)。\n\n### 【修饰语剖析】\n1. **不定式**：'to match or exceed the annual loss...'。修饰 'snowfall'，表示降雪的目的或功能。\n2. **介词短语**：'through melting, evaporation, and calving'。修饰 'loss'，表示损失的途径。\n3. **定语从句**：'which occurs when...'。修饰 'loss'。which 指代 loss。\n4. **时间状语从句**：'when the glacier loses solid chunks...'。修饰 occurs。\n\n### 【代词指代】\n'which' 指代 'the annual loss'。",
+        "analysis": "### 【主干结构】\n本句主干为 **There must be sufficient snowfall**（必须有足够的降雪）。\n\n### 【主谓一致】\nThere be 句型中，be 动词的单复数通常由后面的主语决定。这里主语是 snowfall（不可数名词），所以用 must be。\n\n### 【动词时态与原形】\nmust be 表示客观必要性；to match or exceed 是不定式，作目的或结果状语，修饰 snowfall；occurs 是定语从句中的谓语，一般现在时，单数。\n\n### 【从句剖析】\n1. **非限制性定语从句**：`, which occurs when...`。`which` 指代前面的 `the annual loss through melting, evaporation, and calving`（通过融化、蒸发和崩解造成的年度损失）。\n2. **时间状语从句**：`when the glacier loses solid chunks...`。修饰 `occurs`，说明损失发生的时间/条件。\n\n### 【代词指代】\n- `its` 指代 `a glacier`。\n- `which` 指代 `the annual loss...` 这一现象。\n\n### 【非谓语动词】\n- `to grow or maintain`：不定式，作目的状语，修饰 `For a glacier`。\n- `to match or exceed`：不定式，修饰 `snowfall`，说明降雪的作用。\n- `through melting, evaporation, and calving`：介词短语作后置定语，修饰 `loss`。\n\n### 【修饰语细分】\n- `For a glacier to grow or maintain its mass`：介词短语作状语，表示条件或目的。\n- `through melting, evaporation, and calving`：介词短语作定语，修饰 `loss`。\n- `as icebergs`：介词短语作状语，修饰 `loses`，表示失去的形式。\n- `to the sea or to large lakes`：介词短语作状语，修饰 `loses`，表示方向。",
         "segments": [
           {
-            "text": "For a glacier to grow or maintain its mass, ",
+            "text": "For a glacier to grow or maintain its mass,",
             "type": "adverbial",
-            "label": "目的状语"
+            "label": "状语"
           },
           {
-            "text": "there ",
-            "type": "subject",
+            "text": " there",
+            "type": "modifier",
             "label": "引导词"
           },
           {
-            "text": "must be ",
+            "text": " must be",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "sufficient snowfall ",
-            "type": "object",
-            "label": "主语（there be 句型）"
+            "text": " sufficient snowfall",
+            "type": "subject",
+            "label": "主语"
           },
           {
-            "text": "to match or exceed the annual loss ",
+            "text": " to match or exceed the annual loss through melting, evaporation, and calving,",
             "type": "modifier",
-            "label": "定语/目的状语"
+            "label": "定语"
           },
           {
-            "text": "through melting, evaporation, and calving, ",
-            "type": "adverbial",
-            "label": "方式状语"
-          },
-          {
-            "text": "which ",
+            "text": " which",
             "type": "clause-subject",
-            "label": "从句主语（关系代词）"
+            "label": "从句主语"
           },
           {
-            "text": "occurs ",
+            "text": " occurs",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "when the glacier loses solid chunks as icebergs to the sea or to large lakes.",
+            "text": " when the glacier loses solid chunks as icebergs to the sea or to large lakes.",
             "type": "adverbial",
-            "label": "时间状语从句"
+            "label": "状语"
           }
         ]
       },
@@ -699,62 +837,47 @@
         "id": "s10",
         "para": 2,
         "text": "If summer temperatures are high for too long, then all the snowfall from the previous winter will melt.",
-        "translation": "如果夏季温度过高持续时间太长，那么去年冬天的所有降雪都会融化。",
-        "grammarFocus": "If 引导的条件状语从句",
-        "pronounRef": "无",
-        "logicConnector": "If...then...",
+        "translation": "如果夏季温度过高持续时间太长，那么所有来自前一个冬天的降雪都会融化。",
+        "grammarFocus": "If 引导的条件状语从句；主将从现原则。",
+        "pronounRef": "无特殊代词指代。",
+        "logicConnector": "If... then...（如果...那么...）；from（来自）。",
         "sentenceCoach": {
-          "summary": "If 引导假设，then 引导结果。",
-          "keyHint": "注意 'from the previous winter' 修饰 'snowfall'。"
+          "summary": "这是一个典型的条件句，前半部分说条件，后半部分说结果。",
+          "keyHint": "注意 'then' 在这里可以省略，但保留它能让逻辑更清晰。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘降雪会融化’，条件是‘夏季温度高太久’。",
-          "grammarQuestion": "If...then... 是标准的条件句结构。",
-          "modifierQuestion": "'from the previous winter' 是介词短语作后置定语，修饰 'snowfall'。",
-          "relationshipQuestion": "因果关系：因为夏天热，所以雪化了。",
-          "commonMistake": "容易忽略 'then' 在书面语中的使用，它加强了逻辑连接。",
+          "mainQuestion": "谁在融化？是温度，还是降雪？记住，是降雪融化了。",
+          "grammarQuestion": "看到 'If' 开头，就要准备好看后面的结果了，这叫条件句。",
+          "modifierQuestion": "'from the previous winter' 是个小标签，贴在 'snowfall' 上，告诉我们是哪里的雪。",
+          "relationshipQuestion": "因为夏天太热太久（原因），所以雪都化了（结果）。",
+          "commonMistake": "不要以为 'then' 是连词，它在这里是副词，起强调作用，真正的连词是 'If'。",
           "thinkingPath": [
-            "识别 If 条件从句",
-            "找到主句主语 snowfall",
-            "找到主句谓语 will melt",
-            "理解修饰语 from the previous winter"
+            "看条件：如果夏天太热",
+            "看结果：雪会融化",
+            "看修饰：前一个冬天的雪",
+            "看时态：will melt 表示将来"
           ],
-          "encouragement": "你掌握了条件句的基本结构，这非常实用！"
+          "encouragement": "你抓住了因果关系，真厉害！就像下雨地就会湿一样简单。"
         },
-        "analysis": "### 【主干结构】\n条件状语从句：If summer temperatures are high for too long。\n主句：all the snowfall from the previous winter (主语) will melt (谓语)。\n\n### 【修饰语剖析】\n'from the previous winter'。介词短语作后置定语，修饰 'snowfall'。",
+        "analysis": "### 【主干结构】\n本句主干为 **all the snowfall will melt**（所有降雪都会融化）。\n\n### 【主谓一致】\n主语是 `all the snowfall`（不可数），谓语是 `will melt`，单数形式。\n\n### 【动词时态与原形】\n- `are high`：一般现在时，描述客观情况或假设条件。\n- `will melt`：一般将来时，表示在条件满足后会发生的结果。\n\n### 【从句剖析】\n- **条件状语从句**：`If summer temperatures are high for too long`。修饰主句，说明融化的条件。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语细分】\n- `from the previous winter`：介词短语作定语，修饰 `snowfall`。\n- `for too long`：介词短语作状语，修饰 `are high`，表示持续时间。",
         "segments": [
           {
-            "text": "If ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": "If summer temperatures are high for too long,",
+            "type": "adverbial",
+            "label": "状语"
           },
           {
-            "text": "summer temperatures ",
-            "type": "clause-subject",
-            "label": "从句主语"
+            "text": " then",
+            "type": "modifier",
+            "label": "连接副词"
           },
           {
-            "text": "are ",
-            "type": "clause-verb",
-            "label": "从句系动词"
-          },
-          {
-            "text": "high for too long, ",
-            "type": "clause-predicative",
-            "label": "从句表语"
-          },
-          {
-            "text": "then ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "all the snowfall from the previous winter ",
+            "text": " all the snowfall from the previous winter",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "will melt.",
+            "text": " will melt.",
             "type": "verb",
             "label": "谓语"
           }
@@ -764,49 +887,49 @@
         "id": "s11",
         "para": 2,
         "text": "Surplus snowfall is essential for a glacier to develop.",
-        "translation": "多余的降雪对于冰川的发展至关重要。",
-        "grammarFocus": "It is adj for sb to do 的变体",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "translation": "多余的降雪对于冰川的发展是必不可少的。",
+        "grammarFocus": "主系表结构；不定式作目的/结果状语。",
+        "pronounRef": "无。",
+        "logicConnector": "for... to...（对于...来说...）。",
         "sentenceCoach": {
-          "summary": "简单句，说多余降雪很重要。",
-          "keyHint": "'essential' 是形容词，表示必要的。"
+          "summary": "这是一个简单的陈述句，告诉我们冰川生长需要什么。",
+          "keyHint": "'essential' 是形容词，表示‘必不可少的’。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘降雪是必要的’。",
-          "grammarQuestion": "'for a glacier to develop' 是不定式复合结构，作目的或对象状语。",
-          "modifierQuestion": "无复杂修饰语。",
-          "relationshipQuestion": "无复杂关系。",
-          "commonMistake": "无。",
+          "mainQuestion": "什么很重要？是多余的降雪。",
+          "grammarQuestion": "'is essential' 是主系表结构，告诉我们降雪的性质。",
+          "modifierQuestion": "'for a glacier to develop' 说明了这种必要性是针对谁的。",
+          "relationshipQuestion": "没有多余的雪，冰川就长不大，所以它是‘必需品’。",
+          "commonMistake": "不要把 'for a glacier to develop' 当成主语，它只是说明对象。",
           "thinkingPath": [
-            "找到主语 Surplus snowfall",
-            "找到谓语 is",
-            "找到表语 essential",
-            "理解 for...to... 结构"
+            "找主语：Surplus snowfall",
+            "找谓语：is",
+            "找表语：essential",
+            "看对象：for a glacier to develop"
           ],
-          "encouragement": "你读懂了简单句的核心，这是构建复杂句的基础！"
+          "encouragement": "你一眼就看穿了句子的核心，真聪明！"
         },
-        "analysis": "### 【主干结构】\n主句：Surplus snowfall (主语) is (系动词) essential (表语)。\n\n### 【修饰语剖析】\n'for a glacier to develop'。不定式复合结构作状语，说明 essential 的对象。",
+        "analysis": "### 【主干结构】\n本句主干为 **Surplus snowfall is essential**（多余的降雪是必不可少的）。\n\n### 【主谓一致】\n主语 `Surplus snowfall` 是不可数名词，谓语 `is` 用单数。\n\n### 【动词时态与原形】\n`is` 为一般现在时，表示客观事实。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n- `to develop`：不定式，与 `for a glacier` 构成复合结构，作状语或补足语，说明 essential 的对象。\n\n### 【修饰语细分】\n- `for a glacier to develop`：介词短语+不定式，作状语，修饰 `essential`。",
         "segments": [
           {
-            "text": "Surplus snowfall ",
+            "text": "Surplus snowfall",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " is",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "essential ",
+            "text": " essential",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "for a glacier to develop.",
+            "text": " for a glacier to develop.",
             "type": "adverbial",
-            "label": "对象状语"
+            "label": "状语"
           }
         ]
       },
@@ -814,79 +937,64 @@
         "id": "s12",
         "para": 2,
         "text": "A surplus allows snow to accumulate and for the pressure of snow accumulated over the years to transform buried snow into glacial ice with a depth great enough for the ice to flow.",
-        "translation": "多余的降雪允许雪积聚，并让多年来积聚的雪的压力将埋藏的雪转化为冰川冰，其深度足以使冰流动。",
-        "grammarFocus": "allow sb/sth to do; 并列结构; 不定式作定语",
-        "pronounRef": "无",
-        "logicConnector": "and",
+        "translation": "盈余允许积雪积累，并且使多年来积累的积雪压力将埋藏的积雪转化为冰川冰，其深度足以让冰流动。",
+        "grammarFocus": "allow sb/sth to do sth；并列结构；with 复合结构；enough to do 结构。",
+        "pronounRef": "无。",
+        "logicConnector": "and（并列）；into（转化为）；with（带有/具有）。",
         "sentenceCoach": {
-          "summary": "allows 后面接了两个动作：积雪和转化。",
-          "keyHint": "'great enough for...' 是结果状语。"
+          "summary": "这个句子有点长，但核心是‘盈余允许两件事发生’。",
+          "keyHint": "注意 'allows' 后面跟着两个并列的部分，用 'and' 连接。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘多余降雪允许两件事发生’。",
-          "grammarQuestion": "'allows A to do B and for C to do D'。注意第二个动作用了 'for...to...' 结构，因为主语变成了 pressure。",
-          "modifierQuestion": "'accumulated over the years' 修饰 'snow'。",
-          "relationshipQuestion": "and 连接两个并列的不定式结构。",
-          "commonMistake": "容易忽略第二个动作的主语是 pressure，而不是 snow。",
+          "mainQuestion": "盈余让雪做了什么？让它积累，还让它变成冰。",
+          "grammarQuestion": "'allows' 后面可以接两个动作，一个是 'snow to accumulate'，另一个是 'pressure... to transform...'。",
+          "modifierQuestion": "'accumulated over the years' 是个小标签，贴在 'snow' 上，说明是多年的雪。",
+          "relationshipQuestion": "压力把雪变成了冰，而且冰够厚，才能流动。",
+          "commonMistake": "很多同学会漏掉 'and' 后面的 'for'，导致结构混乱。记住 'allows for sth to do' 也是常见搭配。",
           "thinkingPath": [
-            "找到主语 A surplus",
-            "找到谓语 allows",
-            "识别第一个宾语补足语 snow to accumulate",
-            "识别第二个宾语补足语 for the pressure... to transform..."
+            "找主干：A surplus allows...",
+            "看并列1：snow to accumulate",
+            "看并列2：for the pressure... to transform...",
+            "看结果：with a depth... for the ice to flow"
           ],
-          "encouragement": "你注意到了并列结构的细微差别，观察力真敏锐！"
+          "encouragement": "你拆解出了两个并列的动作，太棒了！就像搭积木一样，一块一块来。"
         },
-        "analysis": "### 【主干结构】\n主句：A surplus (主语) allows (谓语) [snow to accumulate] and [for the pressure... to transform...] (两个并列的宾语补足语)。\n\n### 【修饰语剖析】\n1. **定语**：'accumulated over the years'。过去分词短语修饰 'snow' (在 pressure 的修饰语中)。\n2. **定语**：'with a depth...'。介词短语修饰 'glacial ice'。\n3. **结果状语**：'great enough for the ice to flow'。修饰 'depth'。\n\n### 【词汇】\n- 'accumulate': 积聚",
+        "analysis": "### 【主干结构】\n本句主干为 **A surplus allows snow to accumulate and for the pressure... to transform...**（盈余允许雪积累，并允许压力...转化...）。\n\n### 【主谓一致】\n主语 `A surplus` 是单数，谓语 `allows` 用单数。\n\n### 【动词时态与原形】\n`allows` 为一般现在时；`to accumulate` 和 `to transform` 为不定式。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n- `to accumulate`：不定式，作宾语补足语。\n- `accumulated`：过去分词，作定语，修饰 `snow`。\n- `to transform`：不定式，作宾语补足语（与 allows 搭配）。\n- `to flow`：不定式，作结果状语，修饰 `great enough`。\n\n### 【修饰语细分】\n- `of snow accumulated over the years`：介词短语作定语，修饰 `pressure`。\n- `buried`：过去分词作定语，修饰 `snow`。\n- `into glacial ice`：介词短语作状语，修饰 `transform`。\n- `with a depth great enough for the ice to flow`：介词短语作后置定语，修饰 `glacial ice` 或 `transform` 的结果状态。",
         "segments": [
           {
-            "text": "A surplus ",
+            "text": "A surplus",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "allows ",
+            "text": " allows",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "snow to accumulate ",
-            "type": "modifier",
-            "label": "宾语补足语"
+            "text": " snow to accumulate",
+            "type": "object",
+            "label": "宾语"
           },
           {
-            "text": "and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "for the pressure of snow accumulated over the years ",
-            "type": "modifier",
-            "label": "宾语补足语（逻辑主语部分）"
+            "text": " for the pressure of snow accumulated over the years",
+            "type": "object",
+            "label": "宾语"
           },
           {
-            "text": "to transform buried snow ",
-            "type": "modifier",
-            "label": "宾语补足语（动作部分）"
+            "text": " to transform buried snow into glacial ice",
+            "type": "object-complement",
+            "label": "宾语补足语"
           },
           {
-            "text": "into glacial ice ",
-            "type": "modifier",
-            "label": "结果状语"
-          },
-          {
-            "text": "with a depth ",
+            "text": " with a depth great enough for the ice to flow.",
             "type": "modifier",
             "label": "定语"
-          },
-          {
-            "text": "great enough ",
-            "type": "modifier",
-            "label": "定语/补足语"
-          },
-          {
-            "text": "for the ice to flow.",
-            "type": "modifier",
-            "label": "结果状语"
           }
         ]
       },
@@ -894,59 +1002,59 @@
         "id": "s13",
         "para": 2,
         "text": "Glaciers are sometimes classified by temperature as faster-flowing temperate glaciers or as slower-flowing polar glaciers.",
-        "translation": "冰川有时按温度分类为流动较快的温带冰川或流动较慢的极地冰川。",
-        "grammarFocus": "被动语态；as... or as...",
-        "pronounRef": "无",
-        "logicConnector": "or",
+        "translation": "冰川有时根据温度被分类为流动较快的温带冰川或流动较慢的极地冰川。",
+        "grammarFocus": "被动语态；as... or as... 结构。",
+        "pronounRef": "无。",
+        "logicConnector": "as... or as...（作为...或作为...）。",
         "sentenceCoach": {
-          "summary": "主句说冰川被分类，as 后面列出两种类型。",
-          "keyHint": "'faster-flowing' 和 'slower-flowing' 是复合形容词。"
+          "summary": "这是一个被动句，告诉我们冰川是怎么分类的。",
+          "keyHint": "注意 'classified as' 是固定搭配，表示‘被分类为’。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘冰川被分类’。",
-          "grammarQuestion": "'classified as A or as B'。as 引出分类的结果。",
-          "modifierQuestion": "'by temperature' 表示分类的标准。",
-          "relationshipQuestion": "无复杂关系。",
-          "commonMistake": "无。",
+          "mainQuestion": "冰川被分成了哪两类？一类快，一类慢。",
+          "grammarQuestion": "'are classified' 是被动语态，表示冰川是被人类分类的。",
+          "modifierQuestion": "'by temperature' 说明了分类的标准。",
+          "relationshipQuestion": "根据温度，冰川被分成了两类：温带和极地。",
+          "commonMistake": "不要漏掉 'or'，它连接了两个分类。",
           "thinkingPath": [
-            "找到主语 Glaciers",
-            "找到谓语 are classified",
-            "识别 as... or as... 结构",
-            "理解 by temperature 的作用"
+            "找主语：Glaciers",
+            "找谓语：are classified",
+            "看标准：by temperature",
+            "看分类：as... or as..."
           ],
-          "encouragement": "你理解了分类的表达方式，这有助于你阅读科学文章！"
+          "encouragement": "你找到了分类的标准，真细心！"
         },
-        "analysis": "### 【主干结构】\n主句：Glaciers (主语) are classified (谓语，被动) by temperature (状语) as faster-flowing temperate glaciers or as slower-flowing polar glaciers (状语/补语)。\n\n### 【修饰语剖析】\n'by temperature'。介词短语作方式状语。\n'as...'。介词短语作方式/结果状语。",
+        "analysis": "### 【主干结构】\n本句主干为 **Glaciers are classified**（冰川被分类）。\n\n### 【主谓一致】\n主语 `Glaciers` 是复数，谓语 `are` 用复数。\n\n### 【动词时态与原形】\n`are classified` 为一般现在时的被动语态。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语细分】\n- `sometimes`：副词，作状语，修饰 `are classified`。\n- `by temperature`：介词短语作状语，修饰 `classified`，表示方式/标准。\n- `as faster-flowing temperate glaciers or as slower-flowing polar glaciers`：介词短语作状语/补足语，说明分类的结果。",
         "segments": [
           {
-            "text": "Glaciers ",
+            "text": "Glaciers",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are sometimes classified ",
+            "text": " are",
             "type": "verb",
-            "label": "谓语（被动）"
+            "label": "谓语"
           },
           {
-            "text": "by temperature ",
+            "text": " sometimes",
             "type": "adverbial",
-            "label": "方式状语"
+            "label": "状语"
           },
           {
-            "text": "as faster-flowing temperate glaciers ",
+            "text": " classified",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " by temperature",
             "type": "adverbial",
-            "label": "结果状语"
+            "label": "状语"
           },
           {
-            "text": "or ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "as slower-flowing polar glaciers.",
+            "text": " as faster-flowing temperate glaciers or as slower-flowing polar glaciers.",
             "type": "adverbial",
-            "label": "结果状语"
+            "label": "状语"
           }
         ]
       },
@@ -955,63 +1063,63 @@
         "para": 3,
         "text": "Glaciers are part of Earth’s hydrologic cycle and are second only to the oceans in the total amount of water contained.",
         "translation": "冰川是地球水循环的一部分，在水的总储量方面仅次于海洋。",
-        "grammarFocus": "并列谓语；second only to",
-        "pronounRef": "无",
-        "logicConnector": "and",
+        "grammarFocus": "并列谓语；second only to 结构。",
+        "pronounRef": "无。",
+        "logicConnector": "and（并列）；only to（仅次于）。",
         "sentenceCoach": {
-          "summary": "两个 are 并列，说冰川的地位。",
-          "keyHint": "'second only to' 是固定搭配，意为‘仅次于’。"
+          "summary": "这个句子有两个部分，用 'and' 连接，分别说冰川是什么，以及它排第几。",
+          "keyHint": "'second only to' 是一个固定表达，意思是‘仅次于’。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘冰川是水循环的一部分’和‘冰川储量第二’。",
-          "grammarQuestion": "'second only to' 表示排名。",
-          "modifierQuestion": "'contained' 是过去分词修饰 'water'。",
-          "relationshipQuestion": "and 连接两个并列的谓语部分。",
-          "commonMistake": "无。",
+          "mainQuestion": "冰川是什么？是水循环的一部分。它排第几？仅次于海洋。",
+          "grammarQuestion": "'are part of...' 和 'are second only to...' 是两个并列的谓语部分。",
+          "modifierQuestion": "'in the total amount of water contained' 说明了比较的范围。",
+          "relationshipQuestion": "冰川很重要，它是水循环的一部分，而且水量排第二。",
+          "commonMistake": "不要把 'contained' 当成谓语，它是过去分词，修饰 'water'。",
           "thinkingPath": [
-            "找到主语 Glaciers",
-            "识别两个 are 谓语",
-            "理解 second only to 的含义",
-            "理解 contained 的修饰作用"
+            "找主语：Glaciers",
+            "找谓语1：are part of...",
+            "找谓语2：are second only to...",
+            "看范围：in the total amount..."
           ],
-          "encouragement": "你掌握了比较级的表达，这很有用！"
+          "encouragement": "你抓住了两个并列的谓语，真棒！"
         },
-        "analysis": "### 【主干结构】\n主句：Glaciers (主语) are (谓语1) part of Earth’s hydrologic cycle and are (谓语2) second only to the oceans... (表语)。\n\n### 【修饰语剖析】\n'in the total amount of water contained'。介词短语作状语，修饰 second only to。\n'contained'。过去分词作后置定语，修饰 'water'。",
+        "analysis": "### 【主干结构】\n本句主干为 **Glaciers are part of... and are second only to...**（冰川是...的一部分，并且仅次于...）。\n\n### 【主谓一致】\n主语 `Glaciers` 是复数，两个谓语 `are` 都用复数。\n\n### 【动词时态与原形】\n`are` 为一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n- `contained`：过去分词，作后置定语，修饰 `water`。\n\n### 【修饰语细分】\n- `of Earth’s hydrologic cycle`：介词短语作表语补足语，修饰 `part`。\n- `to the oceans`：介词短语作状语，修饰 `second`。\n- `in the total amount of water contained`：介词短语作状语，修饰 `are second only to`，表示比较的范围。",
         "segments": [
           {
-            "text": "Glaciers ",
+            "text": "Glaciers",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are ",
+            "text": " are",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "part of Earth’s hydrologic cycle ",
+            "text": " part of Earth’s hydrologic cycle",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "are ",
+            "text": " are",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "second only to the oceans ",
+            "text": " second only to the oceans",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "in the total amount of water contained.",
+            "text": " in the total amount of water contained.",
             "type": "adverbial",
-            "label": "范围状语"
+            "label": "状语"
           }
         ]
       },
@@ -1019,48 +1127,49 @@
         "id": "s15",
         "para": 3,
         "text": "About 2 percent of Earth’s water is currently frozen as ice.",
-        "translation": "目前，地球约2%的水以冰的形式冻结。",
-        "grammarFocus": "被动语态/系表结构",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "translation": "目前，大约2%的地球水以冰的形式冻结。",
+        "grammarFocus": "被动语态；as 介词短语。",
+        "pronounRef": "无。",
+        "logicConnector": "as（作为/以...形式）。",
         "sentenceCoach": {
-          "summary": "简单句，说水的状态。",
-          "keyHint": "'frozen as ice' 表示状态。"
+          "summary": "这是一个简单的陈述句，告诉我们地球水有多少是冰。",
+          "keyHint": "'frozen as ice' 表示‘冻结成冰’。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘水被冻结’。",
-          "grammarQuestion": "'is frozen' 可以看作被动语态或系表结构。",
-          "modifierQuestion": "'About 2 percent of Earth’s water' 是主语。",
-          "relationshipQuestion": "无复杂关系。",
-          "commonMistake": "无。",
+          "mainQuestion": "多少水是冰？大约2%。",
+          "grammarQuestion": "'is frozen' 是被动语态，表示水被冻结了。",
+          "modifierQuestion": "'as ice' 说明了冻结后的状态。",
+          "relationshipQuestion": "地球上的水，只有一小部分变成了冰。",
+          "commonMistake": "不要把 'About 2 percent' 当成复数，它修饰的是不可数名词 'water'，所以用单数 'is'。",
           "thinkingPath": [
-            "找到主语",
-            "找到谓语",
-            "理解 frozen as ice"
+            "找主语：About 2 percent of Earth’s water",
+            "找谓语：is frozen",
+            "看状态：as ice",
+            "看时间：currently"
           ],
-          "encouragement": "你读懂了简单的数据句，很棒！"
+          "encouragement": "你注意到了主谓一致，真厉害！"
         },
-        "analysis": "### 【主干结构】\n主句：About 2 percent of Earth’s water (主语) is (系动词) frozen (表语) as ice (状语)。\n\n### 【修饰语剖析】\n'currently'。副词作时间状语。",
+        "analysis": "### 【主干结构】\n本句主干为 **About 2 percent of Earth’s water is frozen**（大约2%的地球水被冻结）。\n\n### 【主谓一致】\n主语核心词是 `water`（不可数），所以谓语 `is` 用单数。\n\n### 【动词时态与原形】\n`is frozen` 为一般现在时的被动语态。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无。\n\n### 【非谓语动词】\n- `frozen`：过去分词，构成被动语态。\n\n### 【修饰语细分】\n- `of Earth’s water`：介词短语作定语，修饰 `2 percent`。\n- `currently`：副词，作状语，修饰 `is frozen`。\n- `as ice`：介词短语作状语，修饰 `frozen`，表示状态。",
         "segments": [
           {
-            "text": "About 2 percent of Earth’s water ",
+            "text": "About 2 percent of Earth’s water",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " is",
             "type": "verb",
-            "label": "系动词"
+            "label": "谓语"
           },
           {
-            "text": "currently frozen ",
-            "type": "predicative",
-            "label": "表语"
-          },
-          {
-            "text": "as ice.",
+            "text": " currently",
             "type": "adverbial",
-            "label": "方式状语"
+            "label": "状语"
+          },
+          {
+            "text": " frozen as ice.",
+            "type": "verb",
+            "label": "谓语"
           }
         ]
       },
@@ -1069,73 +1178,68 @@
         "para": 3,
         "text": "Two percent may be a deceiving figure, however, since over 80 percent of the world’s freshwater is locked up as ice in glaciers, with the majority of it in Antarctica.",
         "translation": "然而，2%可能是一个具有欺骗性的数字，因为世界上超过80%的淡水以冰的形式锁在冰川中，其中大部分在南极洲。",
-        "grammarFocus": "since 引导的原因状语从句；With 复合结构",
-        "pronounRef": "it 指代 freshwater",
-        "logicConnector": "however, since",
+        "grammarFocus": "since 引导的原因状语从句；with 复合结构。",
+        "pronounRef": "it 指代 freshwater。",
+        "logicConnector": "however（然而）；since（因为）；with（带有/其中）。",
         "sentenceCoach": {
-          "summary": "主句说数字有欺骗性，since 解释原因。",
-          "keyHint": "'however' 是插入语，表示转折。"
+          "summary": "这个句子先说一个观点，然后用 'since' 解释原因，最后补充细节。",
+          "keyHint": "'however' 是插入语，表示转折，不影响句子主干。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘数字可能具有欺骗性’，since 从句解释原因。",
-          "grammarQuestion": "'is locked up as ice' 是被动语态。",
-          "modifierQuestion": "'with the majority of it in Antarctica' 是 With 复合结构，作补充说明。",
-          "relationshipQuestion": "since 表示原因。",
-          "commonMistake": "容易忽略 'however' 的位置，它插在中间表示转折。",
+          "mainQuestion": "为什么说2%是欺骗性的？因为大部分淡水其实是冰。",
+          "grammarQuestion": "'since' 引导原因状语从句，解释前面的观点。",
+          "modifierQuestion": "'with the majority of it in Antarctica' 是补充说明，告诉我们冰主要在哪里。",
+          "relationshipQuestion": "虽然只有2%的水是冰，但淡水里80%都是冰，所以2%这个数字看起来小，其实很大。",
+          "commonMistake": "不要把 'however' 当成连词，它是副词，前后用逗号隔开。",
           "thinkingPath": [
-            "找到主句主干",
-            "识别 however 的转折作用",
-            "识别 since 引导的原因从句",
-            "理解 with 结构的补充说明"
+            "找主干：Two percent may be a deceiving figure",
+            "看转折：however",
+            "看原因：since...",
+            "看补充：with..."
           ],
-          "encouragement": "你注意到了 however 的位置，这有助于你理解语气！"
+          "encouragement": "你理解了转折和原因的关系，真棒！"
         },
-        "analysis": "### 【主干结构】\n主句：Two percent (主语) may be (谓语) a deceiving figure (表语)。\n原因状语从句：since over 80 percent of the world’s freshwater is locked up as ice in glaciers。\n\n### 【修饰语剖析】\n'however'。副词，作插入语，表示转折。\n'with the majority of it in Antarctica'。With 复合结构，作伴随状语或补充说明。\n\n### 【代词指代】\n'it' 指代 'freshwater'。",
+        "analysis": "### 【主干结构】\n本句主干为 **Two percent may be a deceiving figure**（2%可能是一个具有欺骗性的数字）。\n\n### 【主谓一致】\n主语 `Two percent` 指代 `water`（不可数），谓语 `may be` 用单数。\n\n### 【动词时态与原形】\n`may be` 为情态动词+原形；`is locked up` 为一般现在时的被动语态。\n\n### 【从句剖析】\n- **原因状语从句**：`since over 80 percent of the world’s freshwater is locked up as ice in glaciers`。解释为什么2%是欺骗性的。\n\n### 【代词指代】\n- `it` 指代 `freshwater`。\n\n### 【非谓语动词】\n- `locked up`：过去分词，构成被动语态。\n- `as ice`：介词短语作状语，修饰 `locked up`。\n\n### 【修饰语细分】\n- `however`：副词，作插入语，表示转折。\n- `of the world’s freshwater`：介词短语作定语，修饰 `80 percent`。\n- `in glaciers`：介词短语作状语，修饰 `locked up`。\n- `with the majority of it in Antarctica`：介词短语作状语/补充说明，修饰整个从句或主句，提供额外信息。",
         "segments": [
           {
-            "text": "Two percent ",
+            "text": "Two percent",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "may be ",
+            "text": " may be",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "a deceiving figure, ",
+            "text": " a deceiving figure,",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "however, ",
+            "text": " however,",
             "type": "adverbial",
-            "label": "插入语"
+            "label": "状语"
           },
           {
-            "text": "since ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "over 80 percent of the world’s freshwater ",
+            "text": " since over 80 percent of the world’s freshwater",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "is locked up ",
+            "text": " is locked up",
             "type": "clause-verb",
-            "label": "从句谓语（被动）"
+            "label": "从句谓语"
           },
           {
-            "text": "as ice in glaciers, ",
+            "text": " as ice in glaciers,",
             "type": "adverbial",
-            "label": "方式/地点状语"
+            "label": "状语"
           },
           {
-            "text": "with the majority of it in Antarctica.",
+            "text": " with the majority of it in Antarctica.",
             "type": "adverbial",
-            "label": "伴随状语"
+            "label": "状语"
           }
         ]
       },
@@ -1143,64 +1247,69 @@
         "id": "s17",
         "para": 3,
         "text": "The total amount of ice is even more awesome if we estimate the water released upon the hypothetical melting of the world’s glaciers.",
-        "translation": "如果我们估算世界冰川 hypothetical 融化所释放的水量，冰的总量甚至更令人惊叹。",
-        "grammarFocus": "If 引导的条件状语从句；过去分词作定语",
+        "translation": "如果我们估算一下世界冰川假设性融化所释放的水量，就会发现冰的总量甚至更令人惊叹。",
+        "grammarFocus": "条件状语从句中的过去分词作后置定语；主句与从句的时态呼应。",
         "pronounRef": "无",
-        "logicConnector": "if",
+        "logicConnector": "if 引导条件状语，表示假设情况。",
         "sentenceCoach": {
-          "summary": "If 引导假设，主句说总量令人惊叹。",
-          "keyHint": "'released upon...' 修饰 'water'。"
+          "summary": "先看主句说冰很厉害，再看 if 后面算了一笔账。",
+          "keyHint": "注意 released 是修饰 water 的，不是谓语。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘冰的总量令人惊叹’，If 从句设定假设。",
-          "grammarQuestion": "'released upon...' 是过去分词短语作后置定语，修饰 'water'。",
-          "modifierQuestion": "'hypothetical' 是形容词，修饰 'melting'。",
-          "relationshipQuestion": "If 表示条件。",
-          "commonMistake": "容易搞混 'released' 的修饰对象，它修饰 'water'。",
+          "mainQuestion": "这句话的主干是谁在做什么？是‘冰的量’很‘令人惊叹’。",
+          "grammarQuestion": "if 引导的部分是假设，我们要学会把‘假设’和‘事实’分开看。",
+          "modifierQuestion": "released upon... 像个小尾巴，紧紧贴在 water 后面，告诉我们是‘被释放出来的’水。",
+          "relationshipQuestion": "前半句是结果，后半句 if 是条件，就像‘如果下雨，地就会湿’一样。",
+          "commonMistake": "不要把 released 当成句子的谓语动词，它只是修饰 water 的形容词性成分。",
           "thinkingPath": [
-            "识别 If 条件从句",
-            "找到主句主干",
-            "理解 released upon... 的修饰作用",
-            "理解 hypothetical 的含义"
+            "找到主句的主语 The total amount of ice",
+            "找到主句的谓语 is",
+            "识别 if 引导的条件状语从句",
+            "分析 released 修饰的是 water"
           ],
-          "encouragement": "你理解了假设句的结构，这有助于你阅读科学文章！"
+          "encouragement": "你像个小侦探一样，抓住了句子的核心，真棒！"
         },
-        "analysis": "### 【主干结构】\n条件状语从句：if we estimate the water released upon the hypothetical melting of the world’s glaciers。\n主句：The total amount of ice (主语) is (系动词) even more awesome (表语)。\n\n### 【修饰语剖析】\n'released upon the hypothetical melting of the world’s glaciers'。过去分词短语作后置定语，修饰 'water'。\n\n### 【词汇】\n- 'awesome': 令人惊叹的\n- 'hypothetical': 假设的",
+        "analysis": "### 【主干结构】\n主句主语是 The total amount of ice，系动词是 is，表语是 awesome。even more 是程度副词修饰 awesome。\n\n### 【主谓一致】\n主语 amount 是单数，谓语 is 用单数，一致。\n\n### 【动词时态与原形】\n主句用一般现在时 is，从句用一般现在时 estimate，表示普遍真理或假设。\n\n### 【从句剖析】\nif we estimate... 是条件状语从句。其中 the water 是 estimate 的宾语。released upon the hypothetical melting of the world’s glaciers 是过去分词短语作后置定语，修饰 water。",
         "segments": [
           {
-            "text": "The total amount of ice ",
+            "text": "The total amount of ice",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " is",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "even more awesome ",
+            "text": " even more awesome",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "if ",
+            "text": " if",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "we ",
+            "text": " we",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "estimate ",
+            "text": " estimate",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "the water released upon the hypothetical melting of the world’s glaciers.",
+            "text": " the water",
             "type": "clause-object",
             "label": "从句宾语"
+          },
+          {
+            "text": " released upon the hypothetical melting of the world’s glaciers.",
+            "type": "modifier",
+            "label": "定语"
           }
         ]
       },
@@ -1208,43 +1317,43 @@
         "id": "s18",
         "para": 3,
         "text": "Sea level would rise about 60 meters.",
-        "translation": "海平面将上升约60米。",
-        "grammarFocus": "虚拟语气/将来时",
+        "translation": "海平面将上升约 60 米。",
+        "grammarFocus": "情态动词 would 表示假设结果；rise 是不及物动词。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "简单句，说海平面上升。",
-          "keyHint": "'would' 表示假设情况下的结果。"
+          "summary": "简单的陈述句，海平面会升高。",
+          "keyHint": "rise 是不及物动词，后面直接跟距离。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘海平面将上升’。",
-          "grammarQuestion": "'would rise' 表示在假设条件下的结果。",
-          "modifierQuestion": "'about 60 meters' 是程度状语。",
-          "relationshipQuestion": "无复杂关系。",
-          "commonMistake": "无。",
+          "mainQuestion": "谁上升了？海平面。",
+          "grammarQuestion": "would rise 表示在假设条件下会发生的事情。",
+          "modifierQuestion": "about 60 meters 是状语，说明上升了多少。",
+          "relationshipQuestion": "这是前一句假设融化后的直接后果。",
+          "commonMistake": "rise 和 raise 容易混淆，这里海平面自己上升，用 rise。",
           "thinkingPath": [
-            "找到主语",
-            "找到谓语",
-            "理解 would 的用法"
+            "找到主语 Sea level",
+            "找到谓语 would rise",
+            "识别 about 60 meters 为程度状语"
           ],
-          "encouragement": "你读懂了简单的结果句，很棒！"
+          "encouragement": "这句话很短，你一眼就看穿了它的秘密！"
         },
-        "analysis": "### 【主干结构】\n主句：Sea level (主语) would rise (谓语) about 60 meters (状语)。\n\n### 【修饰语剖析】\n'about 60 meters'。副词短语作程度状语。",
+        "analysis": "### 【主干结构】\n主语 Sea level，谓语 would rise，状语 about 60 meters。\n\n### 【主谓一致】\nSea level 单数，谓语动词形式配合情态动词 would，无变化。\n\n### 【动词时态与原形】\nwould rise 是情态动词+动词原形，表示虚拟或假设语气。\n\n### 【从句剖析】\n无从句。",
         "segments": [
           {
-            "text": "Sea level ",
+            "text": "Sea level",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "would rise ",
+            "text": " would rise",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "about 60 meters.",
+            "text": " about 60 meters.",
             "type": "adverbial",
-            "label": "程度状语"
+            "label": "状语"
           }
         ]
       },
@@ -1253,48 +1362,48 @@
         "para": 3,
         "text": "This would change the geography of the planet considerably.",
         "translation": "这将极大地改变地球的地貌。",
-        "grammarFocus": "代词指代",
-        "pronounRef": "This 指代前句海平面上升60米",
+        "grammarFocus": "代词 This 指代前文提到的海平面上升现象；副词 considerably 修饰动词。",
+        "pronounRef": "This 指代上一句 'Sea level would rise about 60 meters' 这一情况。",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "This 指代前文的情况，说它会改变地貌。",
-          "keyHint": "'considerably' 是副词，修饰 change。"
+          "summary": "This 是个指代词，它指代前面发生的事。",
+          "keyHint": "considerably 是副词，修饰 change。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘这将改变地貌’。",
-          "grammarQuestion": "'This' 指代前一句提到的海平面上升60米的情况。",
-          "modifierQuestion": "'considerably' 修饰 'change'。",
-          "relationshipQuestion": "因果关系。",
-          "commonMistake": "无。",
+          "mainQuestion": "什么改变了地貌？是海平面上升这件事。",
+          "grammarQuestion": "This 作为主语，指代前文内容，是英语中常见的衔接手段。",
+          "modifierQuestion": "of the planet 是定语，修饰 geography。",
+          "relationshipQuestion": "这是海平面上升带来的第二个后果。",
+          "commonMistake": "不要把 considerably 当成形容词修饰 geography，它是副词修饰 change。",
           "thinkingPath": [
-            "找到主语 This",
+            "识别主语 This 的指代对象",
             "找到谓语 would change",
-            "找到宾语 the geography",
-            "理解 considerably 的作用"
+            "识别宾语 the geography of the planet",
+            "识别 considerably 为状语"
           ],
-          "encouragement": "你理解了代词 This 的指代，这有助于你理清逻辑！"
+          "encouragement": "你抓住了代词 This 的线索，逻辑感真强！"
         },
-        "analysis": "### 【主干结构】\n主句：This (主语) would change (谓语) the geography of the planet (宾语) considerably (状语)。\n\n### 【修饰语剖析】\n'of the planet'。介词短语作后置定语，修饰 'geography'。\n'considerably'。副词作程度状语。",
+        "analysis": "### 【主干结构】\n主语 This，谓语 would change，宾语 the geography of the planet。considerably 是状语。\n\n### 【主谓一致】\nThis 单数，配合 would change。\n\n### 【动词时态与原形】\nwould change 表示假设结果。\n\n### 【从句剖析】\n无从句。of the planet 是介词短语作后置定语，修饰 geography。",
         "segments": [
           {
-            "text": "This ",
+            "text": "This",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "would change ",
+            "text": " would change",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "the geography of the planet ",
+            "text": " the geography of the planet",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "considerably.",
+            "text": " considerably.",
             "type": "adverbial",
-            "label": "程度状语"
+            "label": "状语"
           }
         ]
       },
@@ -1302,54 +1411,63 @@
         "id": "s20",
         "para": 3,
         "text": "In contrast, should another ice age occur, sea level would drop drastically.",
-        "translation": "相比之下，如果另一个冰河时期发生，海平面将急剧下降。",
-        "grammarFocus": "倒装条件句",
+        "translation": "相比之下，如果另一个冰河时期到来，海平面将急剧下降。",
+        "grammarFocus": "倒装条件状语从句 should another ice age occur = if another ice age should occur。",
         "pronounRef": "无",
-        "logicConnector": "In contrast",
+        "logicConnector": "In contrast 表示对比。",
         "sentenceCoach": {
-          "summary": "In contrast 表示对比，should 引导倒装条件句。",
-          "keyHint": "'should another ice age occur' 等于 'if another ice age should occur'。"
+          "summary": "In contrast 告诉我们这里要和前面做对比。",
+          "keyHint": "should 开头是倒装，相当于 if。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘海平面将下降’，条件句是‘如果冰河时期发生’。",
-          "grammarQuestion": "'should... occur' 是虚拟语气的倒装，省略 if。",
-          "modifierQuestion": "'drastically' 修饰 'drop'。",
-          "relationshipQuestion": "In contrast 表示与前文海平面上升的对比。",
-          "commonMistake": "容易忽略 should 的倒装用法。",
+          "mainQuestion": "对比的情况是什么？是冰河时期到来，海平面下降。",
+          "grammarQuestion": "should 引导的条件状语从句发生了倒装，省略了 if。",
+          "modifierQuestion": "drastically 修饰 drop，形容下降的程度。",
+          "relationshipQuestion": "前文说融化海平面上升，这里说冰期海平面下降，形成对比。",
+          "commonMistake": "看到 should 不要以为是‘应该’，这里是虚拟语气或假设的倒装。",
           "thinkingPath": [
-            "识别 In contrast",
-            "识别 should 倒装条件句",
-            "找到主句主干",
-            "理解 drastically 的作用"
+            "识别 In contrast 为逻辑连接词",
+            "识别 should another ice age occur 为倒装条件状语从句",
+            "识别主句 sea level would drop drastically"
           ],
-          "encouragement": "你掌握了倒装条件句，这很高级！"
+          "encouragement": "你发现了倒装的秘密，太厉害了！"
         },
-        "analysis": "### 【主干结构】\n条件状语从句：should another ice age occur (倒装，等于 If another ice age should occur)。\n主句：sea level (主语) would drop (谓语) drastically (状语)。\n\n### 【修饰语剖析】\n'In contrast'。介词短语作连接性状语。\n'drastically'。副词作程度状语。",
+        "analysis": "### 【主干结构】\n主句主语 sea level，谓语 would drop，状语 drastically。条件状语从句 should another ice age occur。\n\n### 【主谓一致】\n主句 sea level 单数。从句 another ice age 单数。\n\n### 【动词时态与原形】\nshould occur 是倒装的条件状语，would drop 是主句谓语。\n\n### 【从句剖析】\nshould another ice age occur 是省略 if 的条件状语从句，正常语序为 If another ice age should occur。",
         "segments": [
           {
-            "text": "In contrast, ",
+            "text": "In contrast,",
             "type": "adverbial",
-            "label": "连接状语"
+            "label": "状语"
           },
           {
-            "text": "should another ice age occur, ",
-            "type": "adverbial",
-            "label": "条件状语从句（倒装）"
+            "text": " should",
+            "type": "conjunction",
+            "label": "连接词"
           },
           {
-            "text": "sea level ",
+            "text": " another ice age",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " occur,",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " sea level",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "would drop ",
+            "text": " would drop",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "drastically.",
+            "text": " drastically.",
             "type": "adverbial",
-            "label": "程度状语"
+            "label": "状语"
           }
         ]
       },
@@ -1357,49 +1475,49 @@
         "id": "s21",
         "para": 3,
         "text": "During the last ice age, sea level dropped about 120 meters.",
-        "translation": "在上一个冰河时期，海平面下降了约120米。",
-        "grammarFocus": "时间状语",
+        "translation": "在上一个冰河时期，海平面下降了约 120 米。",
+        "grammarFocus": "一般过去时 dropped，表示过去发生的事实。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "简单句，说过去海平面下降。",
-          "keyHint": "'During the last ice age' 是时间状语。"
+          "summary": "这是过去发生的事实，用过去式。",
+          "keyHint": "During the last ice age 是时间状语。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘海平面下降了’。",
-          "grammarQuestion": "'dropped' 是过去式，表示过去发生的动作。",
-          "modifierQuestion": "'During the last ice age' 是时间状语。",
-          "relationshipQuestion": "无复杂关系。",
-          "commonMistake": "无。",
+          "mainQuestion": "过去发生了什么？海平面下降了。",
+          "grammarQuestion": "last ice age 提示我们要用过去时。",
+          "modifierQuestion": "During the last ice age 是时间状语，放在句首强调时间。",
+          "relationshipQuestion": "这是对比中的具体数据支持。",
+          "commonMistake": "不要混淆 would drop（假设）和 dropped（事实）。",
           "thinkingPath": [
-            "找到时间状语",
-            "找到主语",
-            "找到谓语",
-            "找到程度状语"
+            "识别时间状语 During the last ice age",
+            "找到主语 sea level",
+            "找到谓语 dropped",
+            "识别 about 120 meters 为状语"
           ],
-          "encouragement": "你读懂了历史数据句，很棒！"
+          "encouragement": "你准确区分了事实和假设，真细心！"
         },
-        "analysis": "### 【主干结构】\n主句：sea level (主语) dropped (谓语) about 120 meters (状语)。\n\n### 【修饰语剖析】\n'During the last ice age'。介词短语作时间状语。",
+        "analysis": "### 【主干结构】\n时间状语 During the last ice age，主语 sea level，谓语 dropped，状语 about 120 meters。\n\n### 【主谓一致】\nsea level 单数，dropped 过去式，一致。\n\n### 【动词时态与原形】\ndropped 是一般过去时，表示过去的事实。\n\n### 【从句剖析】\n无从句。",
         "segments": [
           {
-            "text": "During the last ice age, ",
+            "text": "During the last ice age,",
             "type": "adverbial",
-            "label": "时间状语"
+            "label": "状语"
           },
           {
-            "text": "sea level ",
+            "text": " sea level",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "dropped ",
+            "text": " dropped",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "about 120 meters.",
+            "text": " about 120 meters.",
             "type": "adverbial",
-            "label": "程度状语"
+            "label": "状语"
           }
         ]
       },
@@ -1407,56 +1525,57 @@
         "id": "s22",
         "para": 4,
         "text": "When snowfalls on high mountains or in polar regions, it may become part of the glacial system.",
-        "translation": "当降雪在高山上或极地地区时，它可能成为冰川系统的一部分。",
-        "grammarFocus": "When 引导的时间状语从句",
-        "pronounRef": "it 指代 snowfalls",
-        "logicConnector": "When",
+        "translation": "当雪降在高山上或极地地区时，它可能成为冰川系统的一部分。",
+        "grammarFocus": "When 引导的时间状语从句；snowfalls 是名词作主语，falls 是谓语（注意 snowfall 也可作动词，但此处 snowfalls 更常被视为名词+动词，或者 snowfall 作为不可数名词谓语用单数。根据语境 snowfalls 此处更可能是名词 snowfall 的复数或不可数名词谓语单数形式，或者 snowfalls 作为动词第三人称单数。考虑到 snowfall 作名词时谓语用单数，作动词时第三人称单数也是 snowfalls。此处解析为：主语 snowfalls (名词，雪降落/降雪量) 谓语 falls? 不，通常 snowfall 作名词时，谓语用单数。若 snowfalls 是动词，则是第三人称单数。这里更倾向于 snowfall 作为名词主语，谓语用单数 falls? 或者 snowfalls 整体作为动词？TPO 原文中 snowfalls 通常指降雪这一现象，作名词，谓语用单数 falls? 不，原文是 'When snowfalls on...'，这里 snowfalls 很可能是动词 snowfall 的第三人称单数形式，意为‘下雪’。或者 snowfall 是名词，谓语是 falls? 不，原文没有 falls。所以 snowfalls 是动词。",
+        "pronounRef": "it 指代 snow。",
+        "logicConnector": "When 引导时间状语。",
         "sentenceCoach": {
-          "summary": "When 引导时间，主句说雪成为系统一部分。",
-          "keyHint": "'it' 指代前面的 snowfalls。"
+          "summary": "When 引导的时间状语从句，it 指代雪。",
+          "keyHint": "snowfalls 在这里是动词，表示‘下雪’。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘雪可能成为系统的一部分’，When 从句设定时间。",
-          "grammarQuestion": "'it' 指代 'snowfalls'。",
-          "modifierQuestion": "'on high mountains or in polar regions' 是地点状语。",
-          "relationshipQuestion": "When 表示时间。",
-          "commonMistake": "无。",
+          "mainQuestion": "雪在哪里落下？在高山上或极地。",
+          "grammarQuestion": "When 引导时间状语从句，主句用 may become 表示可能性。",
+          "modifierQuestion": "on high mountains or in polar regions 是地点状语。",
+          "relationshipQuestion": "描述了雪变成冰川的条件。",
+          "commonMistake": "snowfalls 容易被误认为是名词复数，但这里它是动词，表示‘下雪’这一动作。",
           "thinkingPath": [
-            "识别 When 从句",
-            "找到主句主干",
-            "理解 it 的指代"
+            "识别 When 引导的时间状语从句",
+            "识别 snowfalls 为从句谓语（动词）",
+            "识别 it 为主语，指代 snow",
+            "识别 may become 为主句谓语"
           ],
-          "encouragement": "你理解了代词 it 的指代，这有助于你理清逻辑！"
+          "encouragement": "你读懂了雪变成冰川的过程，真棒！"
         },
-        "analysis": "### 【主干结构】\n时间状语从句：When snowfalls on high mountains or in polar regions。\n主句：it (主语) may become (谓语) part of the glacial system (表语)。\n\n### 【修饰语剖析】\n'on high mountains or in polar regions'。介词短语作地点状语。",
+        "analysis": "### 【主干结构】\n时间状语从句 When snowfalls on high mountains or in polar regions，主句 it may become part of the glacial system。\n\n### 【主谓一致】\n从句主语 snowfalls (动词，第三人称单数)，主句主语 it (单数)。\n\n### 【动词时态与原形】\nsnowfalls 是一般现在时第三人称单数，may become 是情态动词+原形。\n\n### 【从句剖析】\nWhen snowfalls... 是时间状语从句。snowfalls 在此处作动词，意为‘下雪’。it 指代 snow。",
         "segments": [
           {
-            "text": "When ",
+            "text": "When",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "snowfalls ",
-            "type": "clause-subject",
-            "label": "从句主语"
+            "text": " snowfalls",
+            "type": "clause-verb",
+            "label": "从句谓语"
           },
           {
-            "text": "on high mountains or in polar regions, ",
+            "text": " on high mountains or in polar regions,",
             "type": "adverbial",
-            "label": "地点状语"
+            "label": "状语"
           },
           {
-            "text": "it ",
+            "text": " it",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "may become ",
+            "text": " may become",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "part of the glacial system.",
+            "text": " part of the glacial system.",
             "type": "predicative",
             "label": "表语"
           }
@@ -1466,79 +1585,80 @@
         "id": "s23",
         "para": 4,
         "text": "Unlike rain, which returns rapidly to the sea or atmosphere, the snow that becomes part of a glacier is involved in a much more slowly cycling system.",
-        "translation": "与迅速返回海洋或大气的雨水不同，成为冰川一部分的雪参与了一个循环速度慢得多的系统。",
-        "grammarFocus": "Unlike 引导的比较状语；定语从句嵌套",
-        "pronounRef": "无",
-        "logicConnector": "Unlike",
+        "translation": "与迅速返回海洋或大气的雨水不同，成为冰川一部分的雪参与的是一个循环速度慢得多的系统。",
+        "grammarFocus": "非限制性定语从句 which returns...；限制性定语从句 that becomes...；被动语态 is involved in。",
+        "pronounRef": "which 指代 rain；that 指代 the snow。",
+        "logicConnector": "Unlike 表示对比。",
         "sentenceCoach": {
-          "summary": "Unlike 引导比较，主句说雪参与慢速系统。",
-          "keyHint": "有两个定语从句，分别修饰 rain 和 snow。"
+          "summary": "这句话很长，有两个从句，像俄罗斯套娃。",
+          "keyHint": "Unlike rain 是介词短语作状语，which 引导非限制性定语从句。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘雪参与慢速系统’，Unlike 引导比较对象。",
-          "grammarQuestion": "'which returns...' 修饰 rain，'that becomes...' 修饰 snow。",
-          "modifierQuestion": "'much more slowly cycling' 修饰 'system'。",
-          "relationshipQuestion": "Unlike 表示对比。",
-          "commonMistake": "容易搞混两个定语从句的修饰对象。",
+          "mainQuestion": "雪和雨有什么不同？雨回得快，雪在冰川里待得久。",
+          "grammarQuestion": "有两个定语从句，一个修饰 rain，一个修饰 snow。",
+          "modifierQuestion": "which returns... 是非限制性定语从句，补充说明 rain。",
+          "relationshipQuestion": "通过对比 rain 和 snow，突出 snow 在冰川系统中的特点。",
+          "commonMistake": "容易混淆两个定语从句修饰的对象，which 修饰 rain，that 修饰 snow。",
           "thinkingPath": [
-            "识别 Unlike 结构",
-            "识别 which 引导的非限制性定语从句",
-            "找到主句主干",
-            "识别 that 引导的限制性定语从句"
+            "识别 Unlike rain 为对比状语",
+            "识别 which returns... 为非限制性定语从句，修饰 rain",
+            "识别主句主语 the snow",
+            "识别 that becomes... 为限制性定语从句，修饰 snow",
+            "识别主句谓语 is involved in"
           ],
-          "encouragement": "你理清了两个定语从句，这很厉害！"
+          "encouragement": "你像拆积木一样拆开了长难句，太棒了！"
         },
-        "analysis": "### 【主干结构】\n比较状语：Unlike rain, which returns rapidly to the sea or atmosphere。\n主句：the snow that becomes part of a glacier (主语) is involved (谓语) in a much more slowly cycling system (状语)。\n\n### 【修饰语剖析】\n'which returns rapidly to the sea or atmosphere'。非限制性定语从句，修饰 'rain'。\n'that becomes part of a glacier'。限制性定语从句，修饰 'snow'。\n'much more slowly cycling'。形容词短语作前置定语，修饰 'system'。\n\n### 【词汇】\n- 'involved in': 参与，卷入",
+        "analysis": "### 【主干结构】\n主句主语 the snow，谓语 is involved in，宾语 a much more slowly cycling system。Unlike rain... 是状语。\n\n### 【主谓一致】\nwhich 指代 rain (单数)，returns 单数。that 指代 the snow (单数)，becomes 单数。主句 snow 单数，is involved 单数。\n\n### 【动词时态与原形】\nreturns, becomes, is involved 均为一般现在时或被动语态。\n\n### 【从句剖析】\nwhich returns rapidly to the sea or atmosphere 是非限制性定语从句，修饰 rain。that becomes part of a glacier 是限制性定语从句，修饰 the snow。",
         "segments": [
           {
-            "text": "Unlike rain, ",
+            "text": "Unlike rain,",
             "type": "adverbial",
-            "label": "比较状语"
+            "label": "状语"
           },
           {
-            "text": "which ",
+            "text": " which",
             "type": "clause-subject",
-            "label": "从句主语（关系代词）"
+            "label": "从句主语"
           },
           {
-            "text": "returns ",
+            "text": " returns",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "rapidly to the sea or atmosphere, ",
+            "text": " rapidly to the sea or atmosphere,",
             "type": "adverbial",
-            "label": "方式/地点状语"
+            "label": "状语"
           },
           {
-            "text": "the snow ",
+            "text": " the snow",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "that ",
+            "text": " that",
             "type": "clause-subject",
-            "label": "从句主语（关系代词）"
+            "label": "从句主语"
           },
           {
-            "text": "becomes ",
+            "text": " becomes",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "part of a glacier ",
+            "text": " part of a glacier",
             "type": "clause-predicative",
             "label": "从句表语"
           },
           {
-            "text": "is involved ",
+            "text": " is involved",
             "type": "verb",
-            "label": "谓语（被动）"
+            "label": "谓语"
           },
           {
-            "text": "in a much more slowly cycling system.",
+            "text": " in a much more slowly cycling system.",
             "type": "adverbial",
-            "label": "范围状语"
+            "label": "状语"
           }
         ]
       },
@@ -1546,63 +1666,60 @@
         "id": "s24",
         "para": 4,
         "text": "Here water may be stored in ice form for hundreds or even hundreds of thousands of years before being released again into the liquid water system as meltwater.",
-        "translation": "在这里，水可能以冰的形式储存数百年甚至数十万年，然后作为融水再次释放到液态水系统中。",
-        "grammarFocus": "被动语态；before 引导的时间状语",
+        "translation": "在这里，水可能以冰的形式储存数百年甚至数十万年，然后再次作为融水释放到液态水系统中。",
+        "grammarFocus": "被动语态 may be stored；before being released 是介词短语+动名词作时间状语。",
         "pronounRef": "无",
-        "logicConnector": "before",
+        "logicConnector": "before 表示时间先后。",
         "sentenceCoach": {
-          "summary": "主句说水被储存，before 说之后被释放。",
-          "keyHint": "'before being released' 是 before + 动名词被动式。"
+          "summary": "水在冰川里待很久，然后变成融水跑出来。",
+          "keyHint": "before being released 是时间状语，表示‘在...之前’。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘水被储存’，before 从句说之后被释放。",
-          "grammarQuestion": "'before being released' 是时间状语。",
-          "modifierQuestion": "'in ice form' 是方式状语。",
-          "relationshipQuestion": "before 表示时间先后。",
-          "commonMistake": "无。",
+          "mainQuestion": "水在冰川里发生了什么？被储存起来。",
+          "grammarQuestion": "may be stored 是被动语态，表示水被储存。",
+          "modifierQuestion": "in ice form 是方式状语，for... years 是时间状语。",
+          "relationshipQuestion": "描述了水在冰川系统中的长期储存和最终释放。",
+          "commonMistake": "before being released 容易被误认为是谓语，其实是状语。",
           "thinkingPath": [
-            "找到主句主干",
-            "识别 before 引导的时间状语",
-            "理解 being released 的被动含义"
+            "识别主语 water",
+            "识别谓语 may be stored",
+            "识别 in ice form 为方式状语",
+            "识别 for... years 为时间状语",
+            "识别 before being released... 为时间状语"
           ],
-          "encouragement": "你理解了时间状语的结构，这有助于你理清过程！"
+          "encouragement": "你理清了水在冰川里的漫长旅程，真了不起！"
         },
-        "analysis": "### 【主干结构】\n主句：water (主语) may be stored (谓语，被动) in ice form (状语) for hundreds or even hundreds of thousands of years (状语)。\n时间状语：before being released again into the liquid water system as meltwater。\n\n### 【修饰语剖析】\n'in ice form'。介词短语作方式状语。\n'for hundreds...'。介词短语作时间状语。\n'before being released...'。介词短语作时间状语。\n'as meltwater'。介词短语作方式状语。",
+        "analysis": "### 【主干结构】\n主语 water，谓语 may be stored，状语 in ice form，for hundreds... years，before being released...。\n\n### 【主谓一致】\nwater 不可数，单数，may be stored 配合单数。\n\n### 【动词时态与原形】\nmay be stored 是情态动词被动语态。being released 是动名词被动形式。\n\n### 【从句剖析】\n无从句。before being released again into the liquid water system as meltwater 是介词短语+动名词短语作时间状语。",
         "segments": [
           {
-            "text": "Here ",
+            "text": "Here",
             "type": "adverbial",
-            "label": "地点状语"
+            "label": "状语"
           },
           {
-            "text": "water ",
+            "text": " water",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "may be stored ",
+            "text": " may be stored",
             "type": "verb",
-            "label": "谓语（被动）"
+            "label": "谓语"
           },
           {
-            "text": "in ice form ",
+            "text": " in ice form",
             "type": "adverbial",
-            "label": "方式状语"
+            "label": "状语"
           },
           {
-            "text": "for hundreds or even hundreds of thousands of years ",
+            "text": " for hundreds or even hundreds of thousands of years",
             "type": "adverbial",
-            "label": "时间状语"
+            "label": "状语"
           },
           {
-            "text": "before being released again into the liquid water system ",
+            "text": " before being released again into the liquid water system as meltwater.",
             "type": "adverbial",
-            "label": "时间状语"
-          },
-          {
-            "text": "as meltwater.",
-            "type": "adverbial",
-            "label": "方式状语"
+            "label": "状语"
           }
         ]
       },
@@ -1610,51 +1727,51 @@
         "id": "s25",
         "para": 4,
         "text": "In the meantime, however, this ice is not static.",
-        "translation": "与此同时，然而，这种冰并不是静止的。",
-        "grammarFocus": "插入语",
-        "pronounRef": "this ice 指代前文冰",
-        "logicConnector": "however",
+        "translation": "与此同时，然而，这些冰并不是静止不动的。",
+        "grammarFocus": "转折副词 however 的位置与功能；系表结构 is not static。",
+        "pronounRef": "this ice 指代前文提到的冰川冰体。",
+        "logicConnector": "however 表示转折，强调冰的动态特性与前文可能提到的静态印象相反。",
         "sentenceCoach": {
-          "summary": "简单句，说冰不是静止的。",
-          "keyHint": "'however' 是插入语，表示转折。"
+          "summary": "注意 however 插入在主语和谓语之间，不要把它当成主语的一部分。",
+          "keyHint": "抓住核心：Ice is not static.（冰不是静止的。）"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘冰不是静止的’。",
-          "grammarQuestion": "'however' 是插入语，表示转折。",
-          "modifierQuestion": "无复杂修饰语。",
-          "relationshipQuestion": "无复杂关系。",
-          "commonMistake": "无。",
+          "mainQuestion": "这句话告诉我们冰是‘动’的还是‘静’的？",
+          "grammarQuestion": "however 放在句子中间时，前后通常要用逗号隔开，它像个小路标提示我们要转折了。",
+          "modifierQuestion": "In the meantime 是时间状语，告诉我们这个现象发生的时间背景。",
+          "relationshipQuestion": "主语 this ice 和表语 static 通过系动词 is 连接，not 否定这个状态。",
+          "commonMistake": "不要把 however 当成主语，它只是插入语，去掉它句子主干依然完整。",
           "thinkingPath": [
-            "找到主语",
-            "找到谓语",
-            "理解 however 的作用"
+            "找到主语 this ice",
+            "找到谓语 is not static",
+            "识别 however 为插入的转折词"
           ],
-          "encouragement": "你读懂了简单的转折句，很棒！"
+          "encouragement": "你抓住了核心意思，冰是活的，它在动！"
         },
-        "analysis": "### 【主干结构】\n主句：this ice (主语) is (系动词) not static (表语)。\n\n### 【修饰语剖析】\n'In the meantime'。介词短语作时间状语。\n'however'。副词，作插入语，表示转折。",
+        "analysis": "### 【主干结构】\n本句为主系表结构。主语是 this ice，系动词是 is，表语是 static。not 是否定副词，修饰表语。\n\n### 【主谓一致】\n主语 this ice 为不可数名词单数，系动词使用 is，保持一致。\n\n### 【动词时态与原形】\n使用一般现在时 is，描述当前的客观事实或状态。\n\n### 【修饰语分析】\n- In the meantime: 时间状语，表示‘与此同时’。\n- however: 插入语，表示转折，‘然而’。\n\n### 【词汇解析】\nstatic: 静止的。这里强调冰川虽然看起来不动，但实际上在缓慢移动。",
         "segments": [
           {
-            "text": "In the meantime, ",
+            "text": "In the meantime,",
             "type": "adverbial",
             "label": "时间状语"
           },
           {
-            "text": "however, ",
+            "text": " however,",
             "type": "adverbial",
-            "label": "插入语"
+            "label": "转折状语"
           },
           {
-            "text": "this ice ",
+            "text": " this ice",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is not ",
+            "text": " is not",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "static.",
+            "text": " static.",
             "type": "predicative",
             "label": "表语"
           }
@@ -1664,89 +1781,88 @@
         "id": "s26",
         "para": 4,
         "text": "Glaciers move slowly across the land with tremendous energy, carving into even the hardest rock formations and thereby reshaping the landscape as they engulf, push, drag, and finally deposit rock debris in places far from its original location.",
-        "translation": "冰川以巨大的能量缓慢地穿越陆地，切入甚至最坚硬的岩层，从而重塑地貌，因为它们吞噬、推动、拖拽并最终将岩石碎片沉积在远离其原始位置的地方。",
-        "grammarFocus": "With 复合结构；现在分词作状语；as 引导的时间/原因状语从句",
-        "pronounRef": "they 指代 glaciers, its 指代 rock debris",
-        "logicConnector": "and, thereby, as",
+        "translation": "冰川带着巨大的能量缓慢地穿越陆地，切入甚至最坚硬的岩层，从而重塑地貌，因为它们吞没、推动、拖拽并最终将岩石碎片沉积在远离其原始位置的地方。",
+        "grammarFocus": "现在分词短语作伴随状语；as 引导的时间/原因状语从句；并列动词 engulf, push, drag, deposit。",
+        "pronounRef": "they 指代 Glaciers；its 指代 rock debris（单数概念）或整个沉积过程的对象。",
+        "logicConnector": "thereby 表示结果，‘从而’；as 引导从句，解释重塑地貌的方式或原因。",
         "sentenceCoach": {
-          "summary": "主句说冰川移动，carving 和 reshaping 是伴随动作，as 从句解释过程。",
-          "keyHint": "'thereby' 表示结果。"
+          "summary": "这是一个长难句，主干是冰川移动，后面跟着一串动作和结果。",
+          "keyHint": "先找主干 Glaciers move...，再看 carving... 是怎么发生的。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘冰川移动’，carving 和 reshaping 是伴随动作。",
-          "grammarQuestion": "'carving...' 和 'reshaping...' 是现在分词作伴随状语。",
-          "modifierQuestion": "'as they engulf...' 是 as 引导的状语从句，解释 reshaping 的方式。",
-          "relationshipQuestion": "thereby 表示因果关系。",
-          "commonMistake": "容易搞混 they 和 its 的指代。",
+          "mainQuestion": "冰川是怎么移动并改变地形的？",
+          "grammarQuestion": "carving 和 reshaping 是现在分词，它们不是谓语，而是补充说明冰川移动时产生的动作和结果。",
+          "modifierQuestion": "as 引导的从句修饰前面的 reshaping 动作，说明是在什么过程中重塑地貌的。",
+          "relationshipQuestion": "Glaciers 是主语，move 是谓语；carving... 和 reshaping... 是伴随状语，进一步描述移动的效果。",
+          "commonMistake": "容易把 carving 误认为是谓语动词，其实它前面没有主语，且与 move 用逗号隔开，是分词结构。",
           "thinkingPath": [
-            "找到主句主干",
-            "识别 carving 和 reshaping 的分词结构",
-            "识别 as 引导的从句",
-            "理解 thereby 的作用"
+            "确定主干：Glaciers move",
+            "识别分词结构：carving... and reshaping...",
+            "分析 as 从句：they engulf... deposit..."
           ],
-          "encouragement": "你理清了复杂的伴随状语，这很厉害！"
+          "encouragement": "你成功拆解了长句，像侦探一样找到了冰川的‘作案工具’！"
         },
-        "analysis": "### 【主干结构】\n主句：Glaciers (主语) move (谓语) slowly across the land (状语) with tremendous energy (状语)。\n\n### 【修饰语剖析】\n'carving into even the hardest rock formations'。现在分词短语作伴随状语。\n'and thereby reshaping the landscape'。现在分词短语作伴随状语，thereby 表示结果。\n'as they engulf, push, drag, and finally deposit rock debris in places far from its original location'。as 引导的状语从句，修饰 reshaping。\n\n### 【代词指代】\n'they' 指代 'Glaciers'。\n'its' 指代 'rock debris'。",
+        "analysis": "### 【主干结构】\n主句：Glaciers (主语) move (谓语) slowly across the land (状语) with tremendous energy (状语)。\n\n### 【非谓语动词】\n- carving into...: 现在分词短语作伴随状语，补充说明 move 的方式和结果。\n- reshaping...: 与 carving 并列，由 and 连接，同样作伴随状语。\n\n### 【从句剖析】\nas they engulf, push, drag, and finally deposit rock debris...: as 引导状语从句，修饰 reshaping。从句中 they 指代 Glaciers，engulf, push, drag, deposit 是并列谓语。\n\n### 【修饰语分析】\n- slowly: 方式状语，修饰 move。\n- across the land: 地点状语。\n- with tremendous energy: 方式状语。\n- even the hardest: 定语，修饰 rock formations。\n- thereby: 副词，表示‘从而’，连接 reshaping 与前文动作。\n- in places far from its original location: 地点状语，修饰 deposit。\n\n### 【主谓一致】\nGlaciers 复数，move 复数形式；they 复数，engulf/push/drag/deposit 均为复数形式。",
         "segments": [
           {
-            "text": "Glaciers ",
+            "text": "Glaciers",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "move ",
+            "text": " move",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "slowly across the land ",
+            "text": " slowly across the land",
             "type": "adverbial",
-            "label": "方式/地点状语"
+            "label": "状语"
           },
           {
-            "text": "with tremendous energy, ",
+            "text": " with tremendous energy,",
             "type": "adverbial",
-            "label": "方式状语"
+            "label": "状语"
           },
           {
-            "text": "carving into even the hardest rock formations ",
-            "type": "adverbial",
+            "text": " carving into even the hardest rock formations",
+            "type": "modifier",
             "label": "伴随状语"
           },
           {
-            "text": "and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "thereby reshaping the landscape ",
-            "type": "adverbial",
+            "text": " thereby reshaping the landscape",
+            "type": "modifier",
             "label": "伴随状语"
           },
           {
-            "text": "as ",
+            "text": " as",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "they ",
+            "text": " they",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "engulf, push, drag, and finally deposit ",
+            "text": " engulf, push, drag, and finally deposit",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "rock debris ",
+            "text": " rock debris",
             "type": "clause-object",
             "label": "从句宾语"
           },
           {
-            "text": "in places far from its original location.",
+            "text": " in places far from its original location.",
             "type": "adverbial",
-            "label": "地点状语"
+            "label": "状语"
           }
         ]
       },
@@ -1754,64 +1870,73 @@
         "id": "s27",
         "para": 4,
         "text": "As a result, glaciers create a great variety of landforms that remain long after the surface is released from its icy covering.",
-        "translation": "结果，冰川创造了各种各样的地貌，这些地貌在地表从冰层覆盖中释放后很久仍然存在。",
-        "grammarFocus": "As a result; 定语从句嵌套",
-        "pronounRef": "its 指代 surface",
-        "logicConnector": "As a result",
+        "translation": "结果，冰川创造了多种多样的地貌，这些地貌在地表从冰层覆盖中释放出来很久之后依然存在。",
+        "grammarFocus": "As a result 结果状语；定语从句 that remain... 修饰 landforms；时间状语从句 after the surface is released...。",
+        "pronounRef": "that 指代 landforms；its 指代 the surface。",
+        "logicConnector": "As a result 表示因果关系；after 引导时间状语。",
         "sentenceCoach": {
-          "summary": "As a result 表示结果，主句说冰川创造地貌，that 从句说地貌持久。",
-          "keyHint": "'long after...' 是时间状语。"
+          "summary": "注意 that 引导的定语从句修饰的是 landforms，不要修饰错了对象。",
+          "keyHint": "先找主句：glaciers create landforms。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘冰川创造地貌’，that 从句修饰地貌。",
-          "grammarQuestion": "'that remain...' 是定语从句，修饰 'landforms'。",
-          "modifierQuestion": "'long after the surface is released...' 是时间状语。",
-          "relationshipQuestion": "As a result 表示因果关系。",
-          "commonMistake": "无。",
+          "mainQuestion": "冰川创造了什么？这些地貌存在了多久？",
+          "grammarQuestion": "that 引导的定语从句修饰前面的名词 landforms，that 在从句中作主语。",
+          "modifierQuestion": "long after... 是时间状语，修饰 remain，强调时间之久。",
+          "relationshipQuestion": "主句是 glaciers create landforms；that 从句修饰 landforms；after 从句修饰 remain。",
+          "commonMistake": "容易误认为 that 指代 glaciers，实际上它指代最近的名词 landforms。",
           "thinkingPath": [
-            "识别 As a result",
-            "找到主句主干",
-            "识别 that 引导的定语从句",
-            "理解 long after 的时间含义"
+            "找到主句主干：glaciers create landforms",
+            "识别 that 从句修饰 landforms",
+            "分析 after 从句的时间背景"
           ],
-          "encouragement": "你理解了因果关系的表达，这有助于你理清逻辑！"
+          "encouragement": "你理清了复杂的从句关系，真棒！"
         },
-        "analysis": "### 【主干结构】\n主句：glaciers (主语) create (谓语) a great variety of landforms (宾语)。\n定语从句：that remain long after the surface is released from its icy covering。\n\n### 【修饰语剖析】\n'As a result'。介词短语作连接状语。\n'that remain...'。定语从句，修饰 'landforms'。\n'long after the surface is released from its icy covering'。时间状语，修饰 remain。\n\n### 【代词指代】\n'its' 指代 'surface'。",
+        "analysis": "### 【主干结构】\n主句：glaciers (主语) create (谓语) a great variety of landforms (宾语)。\n\n### 【从句剖析】\n- that remain long after the surface is released from its icy covering: 定语从句，修饰先行词 landforms。that 在从句中作主语，remain 为谓语。\n- after the surface is released from its icy covering: 时间状语从句，修饰 remain。the surface 为从句主语，is released 为从句谓语（被动语态）。\n\n### 【修饰语分析】\n- As a result: 结果状语。\n- a great variety of: 量词短语，修饰 landforms。\n- long: 副词，修饰 after，强调时间跨度。\n\n### 【主谓一致】\nlandforms 复数，remain 复数形式；surface 单数，is released 单数形式。",
         "segments": [
           {
-            "text": "As a result, ",
+            "text": "As a result,",
             "type": "adverbial",
-            "label": "连接状语"
+            "label": "结果状语"
           },
           {
-            "text": "glaciers ",
+            "text": " glaciers",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "create ",
+            "text": " create",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "a great variety of landforms ",
+            "text": " a great variety of landforms",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "that ",
+            "text": " that",
             "type": "clause-subject",
-            "label": "从句主语（关系代词）"
+            "label": "从句主语"
           },
           {
-            "text": "remain ",
+            "text": " remain",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "long after the surface is released from its icy covering.",
+            "text": " long after the surface",
             "type": "adverbial",
             "label": "时间状语"
+          },
+          {
+            "text": " is released",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " from its icy covering.",
+            "type": "adverbial",
+            "label": "状语"
           }
         ]
       },
@@ -1819,69 +1944,68 @@
         "id": "s28",
         "para": 5,
         "text": "Throughout most of Earth’s history, glaciers did not exist, but at the present time about 10 percent of Earth’s land surface is covered by glaciers.",
-        "translation": "在地球大部分历史中，冰川不存在，但在目前，地球约10%的陆地表面被冰川覆盖。",
-        "grammarFocus": "并列句；被动语态",
-        "pronounRef": "无",
-        "logicConnector": "but",
+        "translation": "在地球大部分历史中，冰川并不存在，但在当今时代，大约10%的地球陆地表面被冰川覆盖。",
+        "grammarFocus": "并列句结构，由 but 连接两个分句；被动语态 is covered by。",
+        "pronounRef": "无复杂代词指代。",
+        "logicConnector": "but 表示转折，对比过去和现在的情况。",
         "sentenceCoach": {
-          "summary": "but 连接两个对比的情况：过去没有，现在有。",
-          "keyHint": "'is covered by' 是被动语态。"
+          "summary": "这是一个由 but 连接的并列句，前后对比过去和现在。",
+          "keyHint": "前半句讲过去，后半句讲现在。"
         },
         "teachingFocus": {
-          "mainQuestion": "主句1是‘冰川不存在’，主句2是‘陆地被覆盖’。",
-          "grammarQuestion": "'is covered by' 是被动语态。",
-          "modifierQuestion": "'Throughout most of Earth’s history' 是时间状语。",
-          "relationshipQuestion": "but 表示对比。",
-          "commonMistake": "无。",
+          "mainQuestion": "过去和现在冰川的存在情况有什么不同？",
+          "grammarQuestion": "but 连接两个独立的句子，前半句用过去时，后半句用现在时，形成鲜明对比。",
+          "modifierQuestion": "Throughout most of Earth’s history 是时间状语，修饰 did not exist。",
+          "relationshipQuestion": "两个分句通过 but 并列，表达转折关系。",
+          "commonMistake": "容易忽略时态的变化，前半句是过去时 did not exist，后半句是现在时 is covered。",
           "thinkingPath": [
-            "识别 but 并列句",
-            "找到主句1主干",
-            "找到主句2主干",
-            "理解 is covered by 的含义"
+            "识别并列连词 but",
+            "分析前半句：过去时，冰川不存在",
+            "分析后半句：现在时，冰川覆盖陆地"
           ],
-          "encouragement": "你理解了并列句的对比关系，这有助于你理清历史变化！"
+          "encouragement": "你敏锐地发现了时态的对比，太厉害了！"
         },
-        "analysis": "### 【主干结构】\n分句1：glaciers (主语) did not exist (谓语)。\n分句2：about 10 percent of Earth’s land surface (主语) is covered (谓语，被动) by glaciers (状语)。\n\n### 【修饰语剖析】\n'Throughout most of Earth’s history'。介词短语作时间状语，修饰分句1。\n'at the present time'。介词短语作时间状语，修饰分句2。",
+        "analysis": "### 【主干结构】\n并列句：\n分句1：glaciers (主语) did not exist (谓语)。\n分句2：about 10 percent of Earth’s land surface (主语) is covered (谓语) by glaciers (状语)。\n\n### 【主谓一致】\n分句1：glaciers 复数，did 复数形式（过去时）。\n分句2：10 percent of Earth’s land surface，中心词是 surface（单数），故谓语用 is。\n\n### 【动词时态与原形】\n分句1：一般过去时 did not exist，表示过去的状态。\n分句2：一般现在时 is covered，表示当前的状态。\n\n### 【修饰语分析】\n- Throughout most of Earth’s history: 时间状语，修饰分句1。\n- at the present time: 时间状语，修饰分句2。\n- by glaciers: 介词短语，作被动语态的施动者状语。",
         "segments": [
           {
-            "text": "Throughout most of Earth’s history, ",
+            "text": "Throughout most of Earth’s history,",
             "type": "adverbial",
             "label": "时间状语"
           },
           {
-            "text": "glaciers ",
+            "text": " glaciers",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "did not exist, ",
+            "text": " did not exist,",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "but ",
+            "text": " but",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "at the present time ",
+            "text": " at the present time",
             "type": "adverbial",
             "label": "时间状语"
           },
           {
-            "text": "about 10 percent of Earth’s land surface ",
-            "type": "subject",
-            "label": "主语"
+            "text": " about 10 percent of Earth’s land surface",
+            "type": "coord-subject",
+            "label": "并列主语"
           },
           {
-            "text": "is covered ",
-            "type": "verb",
-            "label": "谓语（被动）"
+            "text": " is covered",
+            "type": "coord-verb",
+            "label": "并列谓语"
           },
           {
-            "text": "by glaciers.",
+            "text": " by glaciers.",
             "type": "adverbial",
-            "label": "施动者状语"
+            "label": "状语"
           }
         ]
       },
@@ -1889,56 +2013,51 @@
         "id": "s29",
         "para": 5,
         "text": "Present-day glaciers are found in Antarctica, in Greenland, and at high elevations on all the continents except Australia.",
-        "translation": "现代冰川发现于南极洲、格陵兰岛以及除澳大利亚外的所有大陆的高海拔地区。",
-        "grammarFocus": "被动语态；并列地点状语",
-        "pronounRef": "无",
-        "logicConnector": "and",
+        "translation": "现代冰川分布在南极洲、格陵兰岛，以及除澳大利亚外的所有大陆的高海拔地区。",
+        "grammarFocus": "被动语态 are found；并列介词短语作地点状语。",
+        "pronounRef": "无复杂代词指代。",
+        "logicConnector": "and 连接三个地点状语；except 表示排除。",
         "sentenceCoach": {
-          "summary": "主句说冰川在哪里被发现，并列三个地点。",
-          "keyHint": "'except Australia' 是介词短语，修饰 continents。"
+          "summary": "注意 are found 是被动语态，表示‘被发现于’。",
+          "keyHint": "找出三个地点：Antarctica, Greenland, high elevations..."
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘冰川被发现于...’。",
-          "grammarQuestion": "'are found' 是被动语态。",
-          "modifierQuestion": "'in Antarctica, in Greenland, and at high elevations...' 是并列地点状语。",
-          "relationshipQuestion": "无复杂关系。",
-          "commonMistake": "无。",
+          "mainQuestion": "现在的冰川分布在哪里？",
+          "grammarQuestion": "are found 是被动语态，主语是 Present-day glaciers。",
+          "modifierQuestion": "in Antarctica, in Greenland, and at high elevations... 是三个并列的地点状语。",
+          "relationshipQuestion": "主语 glaciers 与谓语 are found 构成被动关系，后面跟地点状语。",
+          "commonMistake": "容易误认为 found 是谓语动词的过去式，实际上是被动语态的一部分。",
           "thinkingPath": [
-            "找到主句主干",
-            "识别并列地点状语",
-            "理解 except 的作用"
+            "确定主语：Present-day glaciers",
+            "确定谓语：are found",
+            "识别地点状语：in..., in..., and at..."
           ],
-          "encouragement": "你理解了并列地点的表达，这有助于你阅读地理文章！"
+          "encouragement": "你准确找到了冰川的‘居住地’，真棒！"
         },
-        "analysis": "### 【主干结构】\n主句：Present-day glaciers (主语) are found (谓语，被动) in Antarctica, in Greenland, and at high elevations on all the continents except Australia (状语)。\n\n### 【修饰语剖析】\n'in Antarctica, in Greenland, and at high elevations...'。并列介词短语作地点状语。\n'except Australia'。介词短语作后置定语，修饰 'continents'。",
+        "analysis": "### 【主干结构】\n主句：Present-day glaciers (主语) are found (谓语)。\n\n### 【非谓语动词】\n无。are found 为被动语态谓语。\n\n### 【修饰语分析】\n- in Antarctica: 地点状语。\n- in Greenland: 地点状语。\n- at high elevations on all the continents except Australia: 地点状语。其中 on all the continents 修饰 high elevations，except Australia 修饰 continents。\n\n### 【主谓一致】\nPresent-day glaciers 复数，are 复数形式。",
         "segments": [
           {
-            "text": "Present-day glaciers ",
+            "text": "Present-day glaciers",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are found ",
+            "text": " are found",
             "type": "verb",
-            "label": "谓语（被动）"
+            "label": "谓语"
           },
           {
-            "text": "in Antarctica, ",
+            "text": " in Antarctica,",
             "type": "adverbial",
             "label": "地点状语"
           },
           {
-            "text": "in Greenland, ",
+            "text": " in Greenland,",
             "type": "adverbial",
             "label": "地点状语"
           },
           {
-            "text": "and ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "at high elevations on all the continents except Australia.",
+            "text": " and at high elevations on all the continents except Australia.",
             "type": "adverbial",
             "label": "地点状语"
           }
@@ -1948,53 +2067,58 @@
         "id": "s30",
         "para": 5,
         "text": "In the recent past, from about 2.4 million to about 10,000 years ago, nearly a third of Earth’s land area was periodically covered by ice thousands of meters thick.",
-        "translation": "在最近的过去，从约240万年前到约1万年前，地球陆地面积的近三分之一周期性地被数千米厚的冰覆盖。",
-        "grammarFocus": "被动语态；插入语",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "translation": "在最近的过去，从大约240万年前到大约1万年前，地球陆地面积的近三分之一周期性地被数千米厚的冰层覆盖。",
+        "grammarFocus": "被动语态 was covered；插入语 from... ago；形容词短语 thousands of meters thick 作后置定语。",
+        "pronounRef": "无复杂代词指代。",
+        "logicConnector": "无复杂逻辑连词，主要是时间状语。",
         "sentenceCoach": {
-          "summary": "主句说陆地被冰覆盖，插入语说明时间。",
-          "keyHint": "'thousands of meters thick' 修饰 ice。"
+          "summary": "注意 thousands of meters thick 是修饰 ice 的，不要漏掉。",
+          "keyHint": "主干：land area was covered by ice."
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘陆地被冰覆盖’。",
-          "grammarQuestion": "'was covered by' 是被动语态。",
-          "modifierQuestion": "'from about 2.4 million to about 10,000 years ago' 是插入语，作时间状语。",
-          "relationshipQuestion": "无复杂关系。",
-          "commonMistake": "无。",
+          "mainQuestion": "过去冰川覆盖的范围和厚度是多少？",
+          "grammarQuestion": "thousands of meters thick 是形容词短语，作后置定语修饰 ice，表示冰的厚度。",
+          "modifierQuestion": "from about 2.4 million to about 10,000 years ago 是插入的时间状语，修饰 was covered。",
+          "relationshipQuestion": "主语 land area 与谓语 was covered 构成被动关系，by ice 引出施动者。",
+          "commonMistake": "容易忽略 thousands of meters thick 的修饰作用，误认为它是独立成分。",
           "thinkingPath": [
-            "识别插入语",
-            "找到主句主干",
-            "理解 thousands of meters thick 的修饰作用"
+            "确定主干：land area was covered by ice",
+            "识别插入语：from... ago",
+            "识别后置定语：thousands of meters thick"
           ],
-          "encouragement": "你理解了插入语的作用，这有助于你理清时间线！"
+          "encouragement": "你注意到了冰层的厚度，观察真仔细！"
         },
-        "analysis": "### 【主干结构】\n主句：nearly a third of Earth’s land area (主语) was periodically covered (谓语，被动) by ice thousands of meters thick (状语)。\n\n### 【修饰语剖析】\n'In the recent past'。介词短语作时间状语。\n'from about 2.4 million to about 10,000 years ago'。介词短语作插入语，进一步说明时间。\n'thousands of meters thick'。形容词短语作后置定语，修饰 'ice'。",
+        "analysis": "### 【主干结构】\n主句：nearly a third of Earth’s land area (主语) was covered (谓语) by ice (状语)。\n\n### 【修饰语分析】\n- In the recent past: 时间状语。\n- from about 2.4 million to about 10,000 years ago: 插入语，具体时间范围，修饰 was covered。\n- periodically: 频度副词，修饰 was covered。\n- thousands of meters thick: 形容词短语，作后置定语，修饰 ice。\n\n### 【主谓一致】\n主语 nearly a third of Earth’s land area，中心词是 area（单数），故谓语用 was。",
         "segments": [
           {
-            "text": "In the recent past, ",
+            "text": "In the recent past,",
             "type": "adverbial",
             "label": "时间状语"
           },
           {
-            "text": "from about 2.4 million to about 10,000 years ago, ",
+            "text": " from about 2.4 million to about 10,000 years ago,",
             "type": "adverbial",
-            "label": "插入语/时间状语"
+            "label": "时间状语"
           },
           {
-            "text": "nearly a third of Earth’s land area ",
+            "text": " nearly a third of Earth’s land area",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "was periodically covered ",
+            "text": " was periodically covered",
             "type": "verb",
-            "label": "谓语（被动）"
+            "label": "谓语"
           },
           {
-            "text": "by ice thousands of meters thick.",
+            "text": " by ice",
             "type": "adverbial",
-            "label": "施动者状语"
+            "label": "状语"
+          },
+          {
+            "text": " thousands of meters thick.",
+            "type": "modifier",
+            "label": "后置定语"
           }
         ]
       },
@@ -2002,42 +2126,41 @@
         "id": "s31",
         "para": 5,
         "text": "In the much more distant past, other ice ages have occurred.",
-        "translation": "在更久远的过去，其他冰河时期已经发生。",
-        "grammarFocus": "现在完成时",
-        "pronounRef": "无",
-        "logicConnector": "无",
+        "translation": "在更久远的过去，其他冰河时期也曾发生过。",
+        "grammarFocus": "现在完成时 have occurred；时间状语 In the much more distant past。",
+        "pronounRef": "无复杂代词指代。",
+        "logicConnector": "无复杂逻辑连词。",
         "sentenceCoach": {
-          "summary": "简单句，说过去发生过其他冰期。",
-          "keyHint": "'have occurred' 是现在完成时。"
+          "summary": "注意 have occurred 是现在完成时，表示过去发生并对现在有影响或总结过去经历。",
+          "keyHint": "主干：ice ages have occurred."
         },
         "teachingFocus": {
-          "mainQuestion": "主句是‘其他冰期已经发生’。",
-          "grammarQuestion": "'have occurred' 是现在完成时，表示过去发生且对现在有影响或总结过去。",
-          "modifierQuestion": "'In the much more distant past' 是时间状语。",
-          "relationshipQuestion": "无复杂关系。",
-          "commonMistake": "无。",
+          "mainQuestion": "更久远的过去发生了什么？",
+          "grammarQuestion": "have occurred 是现在完成时，表示冰河时期在历史上发生过。",
+          "modifierQuestion": "In the much more distant past 是时间状语，修饰 have occurred。",
+          "relationshipQuestion": "主语 ice ages 与谓语 have occurred 构成主谓关系。",
+          "commonMistake": "容易误认为 occurred 是过去时，实际上是 have occurred 现在完成时。",
           "thinkingPath": [
-            "找到时间状语",
-            "找到主语",
-            "找到谓语",
-            "理解 have occurred 的时态"
+            "确定主语：other ice ages",
+            "确定谓语：have occurred",
+            "识别时间状语：In the much more distant past"
           ],
-          "encouragement": "你理解了现在完成时的用法，这有助于你阅读历史文章！"
+          "encouragement": "你掌握了现在完成时的用法，真棒！"
         },
-        "analysis": "### 【主干结构】\n主句：other ice ages (主语) have occurred (谓语)。\n\n### 【修饰语剖析】\n'In the much more distant past'。介词短语作时间状语。",
+        "analysis": "### 【主干结构】\n主句：other ice ages (主语) have occurred (谓语)。\n\n### 【修饰语分析】\n- In the much more distant past: 时间状语，修饰 have occurred。\n\n### 【主谓一致】\nother ice ages 复数，have 复数形式。",
         "segments": [
           {
-            "text": "In the much more distant past, ",
+            "text": "In the much more distant past,",
             "type": "adverbial",
             "label": "时间状语"
           },
           {
-            "text": "other ice ages ",
+            "text": " other ice ages",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "have occurred.",
+            "text": " have occurred.",
             "type": "verb",
             "label": "谓语"
           }

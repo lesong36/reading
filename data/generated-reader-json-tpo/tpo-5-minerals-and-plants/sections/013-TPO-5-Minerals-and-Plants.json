@@ -1,18 +1,69 @@
 {
   "sourceFile": "tpo-5-minerals-and-plants.md",
   "sectionTitle": "TPO-5 / Minerals and Plants",
-  "generatedAt": "2026-08-05T06:26:11.012Z",
+  "generatedAt": "2026-08-11T11:22:26.071Z",
   "warnings": [],
   "article": {
     "id": "tpo-5-minerals-and-plants-13-TPO-5-Minerals-and-Plants",
     "title": "TPO-5 / Minerals and Plants",
-    "timestamp": 1785911171024,
+    "timestamp": 1786447346083,
     "glossary": [
+      {
+        "term": "Phosphorus-deficient",
+        "translation": "缺磷的",
+        "kind": "term",
+        "note": "形容词，指植物体内磷元素不足的状态。",
+        "aliases": []
+      },
+      {
+        "term": "microbial pathogens",
+        "translation": "微生物病原体",
+        "kind": "term",
+        "note": "能引起植物疾病的细菌、真菌等微生物。",
+        "aliases": [
+          "pathogens"
+        ]
+      },
+      {
+        "term": "contaminated soils",
+        "translation": "受污染的土壤",
+        "kind": "context_phrase",
+        "note": "指被重金属或化学物质污染的土壤环境。",
+        "aliases": []
+      },
+      {
+        "term": "essential elements",
+        "translation": "必需元素",
+        "kind": "term",
+        "note": "植物生长不可或缺的营养元素，如铜和锌。",
+        "aliases": []
+      },
+      {
+        "term": "Nitrogen-deficient",
+        "translation": "缺氮的",
+        "kind": "term",
+        "note": "形容词，指植物体内氮元素不足的状态。",
+        "aliases": []
+      },
+      {
+        "term": "alpine pennycress",
+        "translation": "高山蔊菜",
+        "kind": "proper_noun",
+        "note": "一种特定的植物名称，文中作为去除重金属的植物例子。",
+        "aliases": []
+      },
       {
         "term": "hyperaccumulators",
         "translation": "超富集植物",
         "kind": "term",
-        "note": "能吸收并储存极高浓度矿物质的植物。",
+        "note": "指能吸收并浓缩土壤中极高浓度矿物质的植物。",
+        "aliases": []
+      },
+      {
+        "term": "mineral depletion",
+        "translation": "矿物质枯竭/流失",
+        "kind": "term",
+        "note": "指土壤中矿物质含量因收获作物等原因而减少的现象。",
         "aliases": []
       },
       {
@@ -26,91 +77,270 @@
         "term": "phytoremediation",
         "translation": "植物修复",
         "kind": "term",
-        "note": "利用植物清除土壤或水体中污染物的技术。",
-        "aliases": []
+        "note": "利用植物来清除或稳定土壤、水体中污染物的技术。",
+        "aliases": [
+          "phytoremediation"
+        ]
       },
       {
         "term": "serpentine soils",
         "translation": "蛇纹岩土壤",
-        "kind": "proper_noun",
-        "note": "一种富含镁、铁，但钙含量极低的特殊土壤类型。",
+        "kind": "term",
+        "note": "一种富含镁和铁但缺乏钙的土壤类型，对大多数植物有毒或难以生存。",
         "aliases": []
       },
       {
         "term": "elemental state",
         "translation": "元素状态",
-        "kind": "context_phrase",
-        "note": "指氮以单质气体形式存在，而非化合物形式。",
+        "kind": "term",
+        "note": "指物质以单质形式存在，未与其他元素化合。",
+        "aliases": []
+      },
+      {
+        "term": "micro nutrients",
+        "translation": "微量元素",
+        "kind": "term",
+        "note": "植物生长所需但需求量极少的矿物质。",
+        "aliases": [
+          "micronutrients"
+        ]
+      },
+      {
+        "term": "sodium chloride",
+        "translation": "氯化钠",
+        "kind": "term",
+        "note": "即食盐的主要成分。",
         "aliases": []
       },
       {
         "term": "hydroponically",
         "translation": "水培地",
         "kind": "term",
-        "note": "指在无土的水溶液中种植植物的方式。",
+        "note": "副词，指在没有土壤的情况下，使用营养液种植植物的方式。",
+        "aliases": []
+      },
+      {
+        "term": "Indian mustard",
+        "translation": "印度芥菜",
+        "kind": "proper_noun",
+        "note": "一种特定的植物名称，文中作为去除硒盐的植物例子。",
+        "aliases": []
+      },
+      {
+        "term": "mustard family",
+        "translation": "十字花科",
+        "kind": "term",
+        "note": "植物学分类，包含许多常见的超富集植物。",
+        "aliases": [
+          "Brassicaceae"
+        ]
+      },
+      {
+        "term": "selenium salts",
+        "translation": "硒盐",
+        "kind": "term",
+        "note": "含有硒元素的盐类，土壤污染物之一。",
+        "aliases": []
+      },
+      {
+        "term": "a hundredfold",
+        "translation": "百倍",
+        "kind": "context_phrase",
+        "note": "表示数量增加一百倍。",
+        "aliases": []
+      },
+      {
+        "term": "legume family",
+        "translation": "豆科",
+        "kind": "term",
+        "note": "植物学分类，包含许多超富集植物。",
+        "aliases": [
+          "Fabaceae"
+        ]
+      },
+      {
+        "term": "spurge family",
+        "translation": "大戟科",
+        "kind": "term",
+        "note": "植物学分类，包含许多超富集植物。",
+        "aliases": [
+          "Euphorbiaceae"
+        ]
+      },
+      {
+        "term": "field trials",
+        "translation": "田间试验",
+        "kind": "term",
+        "note": "在自然或半自然环境下进行的科学实验，区别于实验室试验。",
+        "aliases": []
+      },
+      {
+        "term": "heavy metals",
+        "translation": "重金属",
+        "kind": "term",
+        "note": "如铅、镉、汞等，对生物有毒性的金属元素。",
         "aliases": []
       },
       {
         "term": "nitrate ions",
         "translation": "硝酸根离子",
         "kind": "term",
-        "note": "植物吸收氮的主要形式。",
+        "note": "植物吸收氮元素的主要形式之一。",
         "aliases": []
       },
       {
-        "term": "saline soils",
+        "term": "Saline soils",
         "translation": "盐碱土",
         "kind": "term",
         "note": "含有高浓度氯化钠和其他盐类的土壤。",
         "aliases": []
       },
       {
-        "term": "anthocyanin",
-        "translation": "花青素",
+        "term": "zinc smelter",
+        "translation": "炼锌厂",
         "kind": "term",
-        "note": "一种使植物呈现红色或紫色的色素。",
+        "note": "工业设施，通常会产生含锌的污染物。",
         "aliases": []
       },
       {
-        "term": "aeroponics",
+        "term": "anthocyanin",
+        "translation": "花青素",
+        "kind": "term",
+        "note": "一种使植物呈现红色、紫色或蓝色的色素。",
+        "aliases": []
+      },
+      {
+        "term": "chlorophyll",
+        "translation": "叶绿素",
+        "kind": "term",
+        "note": "植物进行光合作用的关键色素。",
+        "aliases": []
+      },
+      {
+        "term": "facilitates",
+        "translation": "促进；使便利",
+        "kind": "term",
+        "note": "动词，指让某事变得更容易发生。",
+        "aliases": []
+      },
+      {
+        "term": "Hydroponics",
+        "translation": "水培法",
+        "kind": "term",
+        "note": "名词，一种种植技术。",
+        "aliases": []
+      },
+      {
+        "term": "Aeroponics",
         "translation": "气雾栽培",
         "kind": "term",
-        "note": "一种将植物根系悬空并喷洒营养液的技术。",
+        "note": "一种无土栽培技术，植物根系悬空，喷洒营养液。",
         "aliases": []
+      },
+      {
+        "term": "excavation",
+        "translation": "挖掘",
+        "kind": "term",
+        "note": "指将受污染土壤挖出并运走的传统修复方法。",
+        "aliases": [
+          "digging"
+        ]
       },
       {
         "term": "chlorosis",
         "translation": "黄化病",
         "kind": "term",
-        "note": "植物因缺乏叶绿素导致叶片变黄的现象。",
+        "note": "植物叶片因缺乏叶绿素而变黄或变白的症状。",
+        "aliases": []
+      },
+      {
+        "term": "mobilized",
+        "translation": "被调动；被转移",
+        "kind": "term",
+        "note": "动词过去分词，指养分从老叶转移到新叶的过程。",
+        "aliases": []
+      },
+      {
+        "term": "aluminum",
+        "translation": "铝",
+        "kind": "proper_noun",
+        "note": "一种在地壳中丰富但过量时对植物有毒的金属元素。",
         "aliases": []
       },
       {
         "term": "necrosis",
         "translation": "坏死",
         "kind": "term",
-        "note": "植物组织局部死亡形成枯斑。",
+        "note": "植物组织局部死亡的现象。",
         "aliases": []
       },
       {
         "term": "petioles",
         "translation": "叶柄",
         "kind": "term",
-        "note": "连接叶片和茎的部分。",
+        "note": "名词，连接叶片和茎的部分。",
         "aliases": []
       },
       {
-        "term": "smelter",
-        "translation": "冶炼厂",
+        "term": "reburial",
+        "translation": "回填",
         "kind": "term",
-        "note": "熔炼金属的工厂。",
+        "note": "指将挖出的土壤处理后重新埋回原处或新地点。",
+        "aliases": [
+          "backfilling"
+        ]
+      },
+      {
+        "term": "soilless",
+        "translation": "无土的",
+        "kind": "term",
+        "note": "形容词，指不依赖土壤的环境。",
+        "aliases": []
+      },
+      {
+        "term": "cadmium",
+        "translation": "镉",
+        "kind": "proper_noun",
+        "note": "一种有毒的重金属元素。",
+        "aliases": []
+      },
+      {
+        "term": "mercury",
+        "translation": "汞",
+        "kind": "proper_noun",
+        "note": "即水银，一种有毒的重金属元素。",
+        "aliases": []
+      },
+      {
+        "term": "stunted",
+        "translation": "矮小的；发育不良的",
+        "kind": "term",
+        "note": "形容词，指植物生长受到抑制，长得比正常情况矮小。",
         "aliases": []
       },
       {
         "term": "runoff",
         "translation": "径流",
-        "kind": "context_phrase",
-        "note": "指地表水流，此处指携带污染物的地表径流。",
+        "kind": "term",
+        "note": "指雨水或融雪在地表流动时携带污染物进入水体或土壤的过程。",
+        "aliases": [
+          "surface runoff"
+        ]
+      },
+      {
+        "term": "shoots",
+        "translation": "地上茎叶",
+        "kind": "term",
+        "note": "指植物露出地面的部分，通常用于收割以移除污染物。",
+        "aliases": [
+          "above-ground parts"
+        ]
+      },
+      {
+        "term": "omit",
+        "translation": "省略；遗漏",
+        "kind": "term",
+        "note": "动词，指故意不包含某种成分。",
         "aliases": []
       }
     ],
@@ -124,56 +354,56 @@
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "这是一个典型的“研究发现...”句型，注意从句里的被动结构。",
-          "keyHint": "抓住“minerals are required”这个核心被动关系。"
+          "summary": "这是一句典型的学术陈述句，核心在于“研究证明了什么”。",
+          "keyHint": "注意 that 引导的从句中，主语 minerals 和谓语 are required 之间是被动关系。"
         },
         "teachingFocus": {
-          "mainQuestion": "谁发现了什么？研究发现植物需要矿物质。",
-          "grammarQuestion": "为什么用“are required”而不是“require”？因为矿物质是被需要的。",
-          "modifierQuestion": "“for normal growth...”是做什么的？它是目的状语，说明为什么需要矿物质。",
-          "relationshipQuestion": "主句是“Research has shown”，后面跟着的是“show”的具体内容。",
-          "commonMistake": "容易忽略“are required”中的被动含义，误以为是植物去要求矿物质。",
+          "mainQuestion": "谁研究了？研究证明了什么？我们要找到‘研究’和‘证明’这两个动作。",
+          "grammarQuestion": "为什么这里用 are required 而不是 require？因为矿物质是被植物需要的，就像书被读一样。",
+          "modifierQuestion": "for normal growth and development 是做什么的？它是给‘被需要’这个动作加的一个目的说明。",
+          "relationshipQuestion": "that 后面的句子是 research 的内容，就像日记本里记录的事情。",
+          "commonMistake": "孩子容易忽略 that 后面的被动语态，直接当成主动句理解，导致意思反了。",
           "thinkingPath": [
-            "找到主句动词 shown",
-            "识别 that 引导的宾语从句",
-            "分析从句中的被动语态 are required"
+            "找到主语 Research",
+            "找到谓语 has shown",
+            "抓住 that 后面的核心：minerals are required"
           ],
-          "encouragement": "你抓住了句子的骨架，真棒！"
+          "encouragement": "你抓住了句子的骨架，真棒！被动语态就像是在说‘谁被谁需要’，很直观对不对？"
         },
-        "analysis": "### 【主干结构】\n主句主语是 Research，谓语是 has shown。后面由 that 引导宾语从句。\n### 【主谓一致】\nResearch 是不可数名词，谓语用单数 has shown。\n### 【动词时态与原形】\nhas shown 是现在完成时，表示过去的研究对现在有影响。\n### 【从句剖析】\nthat 引导的宾语从句中，主语是 certain minerals，谓语是 are required（被动语态），状语是 for normal growth and development。\n### 【代词指代】\n无。",
+        "analysis": "### 【主干结构】\n主句主语是 Research，谓语是 has shown（现在完成时），宾语是由 that 引导的宾语从句。\n\n### 【主谓一致】\nResearch 是不可数名词，视为单数，所以谓语用 has shown。\n\n### 【动词时态与原形】\nhas shown 使用现在完成时，表示过去的研究对现在仍有影响或结论。\n\n### 【从句剖析】\nthat certain minerals are required by plants for normal growth and development 是宾语从句。\n在从句中：\n- 主语：certain minerals\n- 谓语：are required（被动语态）\n- 动作发出者：by plants\n- 目的状语：for normal growth and development\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n无。",
         "segments": [
           {
-            "text": "Research ",
+            "text": "Research",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "has shown ",
+            "text": " has shown",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "that ",
+            "text": " that",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "certain minerals ",
+            "text": " certain minerals",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "are required ",
+            "text": " are required",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "by plants ",
+            "text": " by plants",
             "type": "modifier",
             "label": "状语"
           },
           {
-            "text": "for normal growth and development.",
+            "text": " for normal growth and development.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -183,61 +413,61 @@
         "id": "s2",
         "para": 1,
         "text": "The soil is the source of these minerals, which are absorbed by the plant with the water from the soil.",
-        "translation": "土壤是这些矿物质的来源，它们随土壤中的水被植物吸收。",
+        "translation": "土壤是这些矿物质的来源，它们随土壤中的水分被植物吸收。",
         "grammarFocus": "非限制性定语从句",
         "pronounRef": "which 指代 minerals",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "逗号后面的 which 从句是对前面矿物质的补充说明。",
-          "keyHint": "which 指代的是 minerals，而不是 soil。"
+          "summary": "前半句说土壤是来源，后半句用 which 补充说明矿物质是怎么被吸收的。",
+          "keyHint": "which 引导的从句修饰前面的 minerals，注意逗号的使用。"
         },
         "teachingFocus": {
-          "mainQuestion": "土壤是什么？是矿物质的来源。",
-          "grammarQuestion": "which 引导的从句修饰谁？修饰 minerals。",
-          "modifierQuestion": "“with the water...”是方式状语，说明吸收的方式。",
-          "relationshipQuestion": "主句陈述事实，从句补充吸收的过程。",
-          "commonMistake": "误以为 which 指代 soil，导致逻辑错误。",
+          "mainQuestion": "土壤是什么？矿物质从哪里来？前半句很简单，后半句的 which 指的是谁呢？",
+          "grammarQuestion": "which 引导的从句是非限制性定语从句，它像一个小尾巴，补充说明前面的名词 minerals。",
+          "modifierQuestion": "with the water from the soil 是状语，说明吸收的方式或伴随状态。",
+          "relationshipQuestion": "which 指代 minerals，所以从句谓语用复数 are absorbed。",
+          "commonMistake": "孩子可能不知道 which 指代 minerals，导致理解成土壤被吸收，或者忽略 with 短语的作用。",
           "thinkingPath": [
-            "识别主句 The soil is the source",
-            "定位 which 引导的非限制性定语从句",
-            "确定 which 指代 minerals"
+            "确认主句：Soil is source",
+            "识别 which 指代 minerals",
+            "理解 absorbed by plant with water"
           ],
-          "encouragement": "你成功拆解了长难句的修饰部分！"
+          "encouragement": "你发现 which 指代 minerals 了吗？就像侦探找到了线索，句子意思就通顺啦！"
         },
-        "analysis": "### 【主干结构】\n主句：The soil is the source of these minerals。\n### 【主谓一致】\nsoil 单数，is 单数；minerals 复数，are 复数。\n### 【动词时态与原形】\n一般现在时，陈述客观事实。\n### 【从句剖析】\nwhich 引导非限制性定语从句，修饰 minerals。从句中 which 作主语，are absorbed 是被动语态。\n### 【代词指代】\nwhich 指代 minerals。",
+        "analysis": "### 【主干结构】\n主句：The soil is the source of these minerals.\n从句：which are absorbed by the plant with the water from the soil.\n\n### 【主谓一致】\n主句主语 The soil 是单数，谓语 is 是单数。\n从句主语 which 指代 minerals（复数），谓语 are absorbed 是复数。\n\n### 【动词时态与原形】\nis 和 are absorbed 均为一般现在时，陈述客观事实。\n\n### 【从句剖析】\nwhich are absorbed by the plant with the water from the soil 是非限制性定语从句，修饰先行词 minerals。\n- 关系代词/主语：which\n- 谓语：are absorbed（被动）\n- 动作发出者：by the plant\n- 方式状语：with the water from the soil\n\n### 【代词指代】\nwhich 指代 minerals。\n\n### 【非谓语动词】\n无。",
         "segments": [
           {
-            "text": "The soil ",
+            "text": "The soil",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " is",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "the source of these minerals, ",
+            "text": " the source of these minerals",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "which ",
+            "text": ", which",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "are absorbed ",
+            "text": " are absorbed",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "by the plant ",
+            "text": " by the plant",
             "type": "modifier",
             "label": "状语"
           },
           {
-            "text": "with the water from the soil.",
+            "text": " with the water from the soil.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -250,63 +480,58 @@
         "translation": "即使是氮，它在元素状态下是气体，通常也是以硝酸根离子的形式从土壤中被吸收的。",
         "grammarFocus": "插入语/非限制性定语从句",
         "pronounRef": "its 指代 nitrogen",
-        "logicConnector": "Even 表示强调",
+        "logicConnector": "Even（甚至）",
         "sentenceCoach": {
-          "summary": "注意两个 is，第一个在从句里，第二个是主句谓语。",
-          "keyHint": "跳过逗号中间的插入语，直接找主句谓语 is absorbed。"
+          "summary": "这句话有个小插曲，用逗号隔开的 which 从句是在解释氮气的特性。",
+          "keyHint": "跳过逗号中间的插入语，主干是 Nitrogen is absorbed..."
         },
         "teachingFocus": {
-          "mainQuestion": "氮是怎么被吸收的？以硝酸根离子形式从土壤吸收。",
-          "grammarQuestion": "中间的 which 从句是插入成分，去掉后句子依然完整。",
-          "modifierQuestion": "“as nitrate ions”是方式状语，说明吸收的形式。",
-          "relationshipQuestion": "Even 强调氮的特殊性（气体），但吸收方式与其他矿物质类似。",
-          "commonMistake": "被插入语干扰，找不到主句谓语。",
+          "mainQuestion": "谁被吸收？氮。它通常是什么状态？气体。但在这里它变成了什么？离子。",
+          "grammarQuestion": "which is a gas... 是插入语，用来补充说明 nitrogen 的特性，去掉它句子依然完整。",
+          "modifierQuestion": "as nitrate ions 是方式状语，说明吸收的形式。",
+          "relationshipQuestion": "Even 强调氮气的特殊性（通常是气体），但它依然遵循被吸收的规律。",
+          "commonMistake": "孩子容易被中间的插入语干扰，找不到真正的主语 nitrogen 和谓语 is absorbed。",
           "thinkingPath": [
-            "识别主语 nitrogen",
-            "跳过 which 引导的插入语",
-            "找到主句谓语 is absorbed"
+            "找到主语 nitrogen",
+            "跳过插入语 which is a gas...",
+            "找到谓语 is absorbed"
           ],
-          "encouragement": "你像侦探一样跳过了干扰项，真厉害！"
+          "encouragement": "你能跳过中间的‘小插曲’直接找到主干吗？太厉害了！这就是阅读的大招。"
         },
-        "analysis": "### 【主干结构】\n主语 nitrogen，谓语 is absorbed。\n### 【主谓一致】\nnitrogen 单数，is 单数。\n### 【动词时态与原形】\n一般现在时被动语态。\n### 【从句剖析】\nwhich 引导非限制性定语从句，修饰 nitrogen，说明氮的物理状态。\n### 【代词指代】\nits 指代 nitrogen。",
+        "analysis": "### 【主干结构】\n主语：nitrogen\n谓语：is absorbed\n状语：from the soil, as nitrate ions\n\n### 【主谓一致】\n主语 nitrogen 是单数，谓语 is absorbed 是单数。\n\n### 【动词时态与原形】\nis absorbed 为一般现在时被动语态。\n\n### 【从句剖析】\nwhich is a gas in its elemental state 是非限制性定语从句，修饰 nitrogen。\n- 主语：which\n- 系动词：is\n- 表语：a gas\n- 状语：in its elemental state\n\n### 【代词指代】\nits 指代 nitrogen。\n\n### 【非谓语动词】\n无。",
         "segments": [
           {
-            "text": "Even nitrogen, ",
+            "text": "Even nitrogen",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "which ",
+            "text": ", which",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "is ",
+            "text": " is",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "a gas in its elemental state, ",
+            "text": " a gas in its elemental state",
             "type": "clause-predicative",
             "label": "从句表语"
           },
           {
-            "text": "is ",
+            "text": ", is normally absorbed",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "normally absorbed ",
-            "type": "modifier",
-            "label": "状语"
-          },
-          {
-            "text": "from the soil ",
+            "text": " from the soil",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "as nitrate ions.",
+            "text": " as nitrate ions.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -319,55 +544,46 @@
         "translation": "有些土壤以微量元素缺乏而闻名，因此无法支持大多数植物的生命。",
         "grammarFocus": "并列谓语",
         "pronounRef": "无",
-        "logicConnector": "therefore 表示因果",
+        "logicConnector": "and, therefore",
         "sentenceCoach": {
-          "summary": "两个 are 并列，一个是 deficient，一个是 unable。",
-          "keyHint": "注意 therefore 的位置，它连接了前后两个状态。"
+          "summary": "这句话有两个谓语，用 and 连接，中间有个 therefore 表示因果关系。",
+          "keyHint": "注意 are deficient 和 are unable 是并列的，共享主语 Some soils。"
         },
         "teachingFocus": {
-          "mainQuestion": "有些土壤怎么了？缺乏微量元素，无法支持植物。",
-          "grammarQuestion": "and 连接了两个形容词短语作表语。",
-          "modifierQuestion": "notoriously 修饰 deficient，表示“众所周知地/臭名昭著地”。",
-          "relationshipQuestion": "因为缺乏微量元素，所以无法支持植物。",
-          "commonMistake": "忽略 therefore 的逻辑连接作用。",
+          "mainQuestion": "土壤怎么了？第一，缺微量元素；第二，养不活植物。这两个结果是怎么连起来的？",
+          "grammarQuestion": "and 连接了两个谓语部分：are deficient... 和 are unable...。therefore 是副词，表示‘因此’。",
+          "modifierQuestion": "notoriously 修饰 deficient，表示‘众所周知地/出名地’缺乏。",
+          "relationshipQuestion": "因为缺微量元素（原因），所以无法支持植物生命（结果）。",
+          "commonMistake": "孩子可能不知道 therefore 是副词，误以为是连词，或者忽略它带来的因果逻辑。",
           "thinkingPath": [
-            "识别主语 Some soils",
-            "识别并列谓语 are deficient 和 are unable",
-            "理解 therefore 的逻辑关系"
+            "找到主语 Some soils",
+            "识别第一个谓语 are deficient",
+            "识别第二个谓语 are unable",
+            "理解 therefore 的因果作用"
           ],
-          "encouragement": "你理清了因果逻辑，太棒了！"
+          "encouragement": "你发现了两个谓语吗？就像火车有两节车厢，它们一起描述了土壤的状态。"
         },
-        "analysis": "### 【主干结构】\n主语 Some soils，谓语由 and 连接的两个部分构成。\n### 【主谓一致】\nsoils 复数，are 复数。\n### 【动词时态与原形】\n一般现在时。\n### 【从句剖析】\n无从句。\n### 【代词指代】\n无。",
+        "analysis": "### 【主干结构】\n主语：Some soils\n谓语1：are notoriously deficient in micro nutrients\n谓语2：are therefore unable to support most plant life\n\n### 【主谓一致】\n主语 Some soils 是复数，谓语 are 是复数。\n\n### 【动词时态与原形】\nare deficient 和 are unable 均为一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\nto support 是不定式，作 unable 的补足语。",
         "segments": [
           {
-            "text": "Some soils ",
+            "text": "Some soils",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are ",
+            "text": " are notoriously deficient in micro nutrients",
             "type": "verb",
-            "label": "系动词"
+            "label": "谓语"
           },
           {
-            "text": "notoriously deficient in micro nutrients ",
-            "type": "predicative",
-            "label": "表语"
-          },
-          {
-            "text": "and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "are ",
+            "text": " are therefore unable to support most plant life.",
             "type": "verb",
-            "label": "系动词"
-          },
-          {
-            "text": "therefore unable to support most plant life.",
-            "type": "predicative",
-            "label": "表语"
+            "label": "谓语"
           }
         ]
       },
@@ -376,65 +592,61 @@
         "para": 1,
         "text": "So-called serpentine soils, for example, are deficient in calcium, and only plants able to tolerate low levels of this mineral can survive.",
         "translation": "例如，所谓的蛇纹岩土壤缺乏钙，只有能够耐受低水平这种矿物质的植物才能生存。",
-        "grammarFocus": "并列句 + 后置定语",
+        "grammarFocus": "并列句与后置定语",
         "pronounRef": "this 指代 calcium",
-        "logicConnector": "and 连接并列句",
+        "logicConnector": "and",
         "sentenceCoach": {
-          "summary": "and 连接两个独立的句子，后半句有个很长的修饰语。",
-          "keyHint": "“able to tolerate...”是修饰 plants 的定语。"
+          "summary": "这是一个并列句，前半句举例，后半句讲结果。注意 plants 后面跟着的 able to... 是修饰它的。",
+          "keyHint": "able to tolerate... 是形容词短语作后置定语，修饰 plants。"
         },
         "teachingFocus": {
-          "mainQuestion": "蛇纹岩土壤缺什么？缺钙。谁能活？能耐受低钙的植物。",
-          "grammarQuestion": "able to tolerate... 是形容词短语作后置定语。",
-          "modifierQuestion": "for example 是插入语，不影响句子结构。",
-          "relationshipQuestion": "前半句讲土壤特点，后半句讲结果。",
-          "commonMistake": "误以为 able 是谓语动词。",
+          "mainQuestion": "前半句说了什么土壤？后半句说了什么植物能活？它们之间有什么关系？",
+          "grammarQuestion": "and 连接两个独立分句。able to tolerate... 是形容词短语，放在 plants 后面修饰它，相当于定语从句 that are able to...。",
+          "modifierQuestion": "for example 是插入语，表示举例。able to tolerate... 修饰 plants。",
+          "relationshipQuestion": "因为土壤缺钙，所以只有耐钙低的植物能活。",
+          "commonMistake": "孩子可能把 able to tolerate... 当成谓语，导致句子结构混乱。",
           "thinkingPath": [
             "识别并列连词 and",
-            "分析前半句主语 serpentine soils",
-            "分析后半句主语 plants 及其修饰语"
+            "分析前半句：Soils are deficient",
+            "分析后半句：Plants can survive",
+            "识别 able to... 修饰 plants"
           ],
-          "encouragement": "你成功识别了后置定语，真细心！"
+          "encouragement": "你找到了 able to... 是修饰 plants 的吗？它就像给 plants 穿了一件‘耐受力外套’。"
         },
-        "analysis": "### 【主干结构】\n并列句。前半句：So-called serpentine soils are deficient in calcium。\n后半句：only plants ... can survive。\n### 【主谓一致】\nsoils 复数，are 复数；plants 复数，can survive。\n### 【动词时态与原形】\n一般现在时。\n### 【从句剖析】\n无从句，但有分词/形容词短语作定语。\n### 【代词指代】\nthis 指代 calcium。",
+        "analysis": "### 【主干结构】\n分句1：So-called serpentine soils are deficient in calcium.\n分句2：only plants ... can survive.\n\n### 【主谓一致】\n分句1主语 soils 复数，谓语 are 复数。\n分句2主语 plants 复数，谓语 can survive 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无显性从句，但 able to tolerate... 是形容词短语作后置定语，功能类似定语从句。\n\n### 【代词指代】\nthis 指代 calcium。\n\n### 【非谓语动词】\nto tolerate 是不定式，包含在形容词短语 able to tolerate 中。",
         "segments": [
           {
-            "text": "So-called serpentine soils, ",
+            "text": "So-called serpentine soils",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "for example, ",
+            "text": ", for example",
             "type": "modifier",
-            "label": "补充说明"
+            "label": "插入语"
           },
           {
-            "text": "are ",
+            "text": ", are deficient in calcium",
             "type": "verb",
-            "label": "系动词"
+            "label": "谓语"
           },
           {
-            "text": "deficient in calcium, ",
-            "type": "predicative",
-            "label": "表语"
-          },
-          {
-            "text": "and ",
+            "text": ", and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "only plants ",
+            "text": " only plants",
             "type": "coord-subject",
             "label": "并列主语"
           },
           {
-            "text": "able to tolerate low levels of this mineral ",
+            "text": " able to tolerate low levels of this mineral",
             "type": "modifier",
             "label": "定语"
           },
           {
-            "text": "can survive.",
+            "text": " can survive.",
             "type": "coord-verb",
             "label": "并列谓语"
           }
@@ -444,68 +656,59 @@
         "id": "s6",
         "para": 1,
         "text": "In modern agriculture, mineral depletion of soils is a major concern, since harvesting crops interrupts the recycling of nutrients back to the soil.",
-        "translation": "在现代农业中，土壤矿物质枯竭是一个主要问题，因为收获作物中断了养分向土壤的循环。",
+        "translation": "在现代农业中，土壤矿物质枯竭是一个主要问题，因为收获作物中断了养分回归土壤的循环。",
         "grammarFocus": "原因状语从句",
         "pronounRef": "无",
-        "logicConnector": "since 引导原因",
+        "logicConnector": "since",
         "sentenceCoach": {
-          "summary": "since 在这里表示“因为”，解释为什么是主要问题。",
-          "keyHint": "注意 harvesting crops 是动名词短语作主语。"
+          "summary": "前半句说现象，后半句用 since 解释原因。注意 harvesting crops 是动名词短语作主语。",
+          "keyHint": "since 引导原因状语从句。harvesting crops 是动名词短语，视为单数。"
         },
         "teachingFocus": {
-          "mainQuestion": "什么是主要问题？土壤矿物质枯竭。",
-          "grammarQuestion": "since 引导原因状语从句。",
-          "modifierQuestion": "harvesting crops 是动名词短语，作从句主语。",
-          "relationshipQuestion": "因为收获中断了循环，所以矿物质枯竭成问题。",
-          "commonMistake": "误以为 since 表示时间“自从”。",
+          "mainQuestion": "什么是主要问题？为什么它是问题？因为收获作物打断了养分循环。",
+          "grammarQuestion": "since 在这里表示‘因为’，引导原因状语从句。harvesting crops 是动名词短语作从句主语，谓语用单数 interrupts。",
+          "modifierQuestion": "In modern agriculture 是状语，限定范围。back to the soil 是状语，修饰 recycling。",
+          "relationshipQuestion": "因果关系：因为中断循环，所以矿物质枯竭是问题。",
+          "commonMistake": "孩子可能不知道 harvesting crops 是主语，误以为 crops 是主语，导致谓语用复数。",
           "thinkingPath": [
-            "识别主句 mineral depletion is a concern",
-            "识别 since 引导的原因状语从句",
-            "分析从句主语 harvesting crops"
+            "找到主句：depletion is concern",
+            "识别 since 引导原因",
+            "分析从句主语：harvesting crops",
+            "理解 interrupts 的单数形式"
           ],
-          "encouragement": "你区分了 since 的用法，真棒！"
+          "encouragement": "你发现 harvesting crops 是主语了吗？动名词短语就像一个大石头，代表一件事，所以谓语用单数。"
         },
-        "analysis": "### 【主干结构】\n主句：mineral depletion of soils is a major concern。\n从句：since harvesting crops interrupts the recycling...\n### 【主谓一致】\ndepletion 单数，is 单数；harvesting 动名词单数，interrupts 单数。\n### 【动词时态与原形】\n一般现在时。\n### 【从句剖析】\nsince 引导原因状语从句。\n### 【代词指代】\n无。",
+        "analysis": "### 【主干结构】\n主句：mineral depletion of soils is a major concern.\n从句：since harvesting crops interrupts the recycling of nutrients back to the soil.\n\n### 【主谓一致】\n主句主语 depletion 单数，谓语 is 单数。\n从句主语 harvesting crops（动名词短语）单数，谓语 interrupts 单数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\nsince 引导原因状语从句。\n- 主语：harvesting crops\n- 谓语：interrupts\n- 宾语：the recycling of nutrients\n- 状语：back to the soil\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\nharvesting 是动名词，作从句主语。",
         "segments": [
           {
-            "text": "In modern agriculture, ",
+            "text": "In modern agriculture",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "mineral depletion of soils ",
+            "text": ", mineral depletion of soils",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is ",
+            "text": " is a major concern",
             "type": "verb",
-            "label": "系动词"
+            "label": "谓语"
           },
           {
-            "text": "a major concern, ",
-            "type": "predicative",
-            "label": "表语"
-          },
-          {
-            "text": "since ",
+            "text": ", since",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "harvesting crops ",
+            "text": " harvesting crops",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "interrupts ",
+            "text": " interrupts the recycling of nutrients back to the soil.",
             "type": "clause-verb",
             "label": "从句谓语"
-          },
-          {
-            "text": "the recycling of nutrients back to the soil.",
-            "type": "clause-object",
-            "label": "从句宾语"
           }
         ]
       },
@@ -513,83 +716,84 @@
         "id": "s7",
         "para": 2,
         "text": "Mineral deficiencies can often be detected by specific symptoms such as chlorosis (loss of chlorophyll resulting in yellow or white leaf tissue), necrosis (isolated dead patches), anthocyanin formation (development of deep red pigmentation of leaves or stem), stunted growth, and development of woody tissue in an herbaceous plant.",
-        "translation": "矿物质缺乏通常可以通过特定的症状来检测，例如黄化病（叶绿素流失导致叶片组织变黄或变白）、坏死（孤立的死斑）、花青素形成（叶片或茎部出现深红色色素）、生长受阻，以及草本植物中木质组织的发育。",
-        "grammarFocus": "被动语态 + 长列举",
+        "translation": "矿物质缺乏症通常可以通过特定的症状来检测，例如黄化病（叶绿素流失导致叶片组织变黄或变白）、坏死（孤立的死斑）、花青素形成（叶片或茎干出现深红色色素）、生长受阻，以及草本植物木质组织的发育。",
+        "grammarFocus": "被动语态与长列举",
         "pronounRef": "无",
-        "logicConnector": "such as 举例",
+        "logicConnector": "such as, and",
         "sentenceCoach": {
-          "summary": "这是一个长句，核心是“deficiencies can be detected”，后面是一长串例子。",
-          "keyHint": "注意括号里的内容是解释前面的术语。"
+          "summary": "这句话很长，核心是‘缺乏症可以通过症状检测’。后面是一长串症状的列举。",
+          "keyHint": "such as 后面跟着多个并列的名词短语，每个短语内部可能有解释性括号。"
         },
         "teachingFocus": {
-          "mainQuestion": "矿物质缺乏怎么检测？通过特定症状。",
-          "grammarQuestion": "such as 后面列举了多个名词短语。",
-          "modifierQuestion": "括号内的内容是同位语，解释前面的术语。",
-          "relationshipQuestion": "症状是检测缺乏的依据。",
-          "commonMistake": "被长列举吓到，找不到谓语 detected。",
+          "mainQuestion": "什么可以被检测？矿物质缺乏症。通过什么检测？通过症状。有哪些症状？后面列了一大堆。",
+          "grammarQuestion": "can be detected 是被动语态。such as 后面列举了多个并列成分，由 and 连接最后一个。括号内是对前面术语的解释。",
+          "modifierQuestion": "by specific symptoms... 是方式状语。括号内的内容是同位语或解释性定语。",
+          "relationshipQuestion": "症状是检测缺乏症的依据。",
+          "commonMistake": "孩子容易被长长的列举吓到，找不到主干，或者不知道括号里的内容是对前面词的解释。",
           "thinkingPath": [
-            "识别主句 Mineral deficiencies can be detected",
-            "识别 such as 引导的举例",
-            "理解括号内容为解释说明"
+            "找到主干：Deficiencies can be detected",
+            "识别 such as 引导的列举",
+            "理解括号内容为解释",
+            "识别并列连词 and"
           ],
-          "encouragement": "你没有被长句子吓倒，真勇敢！"
+          "encouragement": "你不怕长句子吗？试着把括号里的内容先盖住，看看主干是不是清晰多了？"
         },
-        "analysis": "### 【主干结构】\n主语 Mineral deficiencies，谓语 can be detected。\n### 【主谓一致】\ndeficiencies 复数，can 复数。\n### 【动词时态与原形】\n情态动词 can + be detected 被动语态。\n### 【从句剖析】\n无从句。\n### 【代词指代】\n无。",
+        "analysis": "### 【主干结构】\n主语：Mineral deficiencies\n谓语：can often be detected\n状语：by specific symptoms...\n\n### 【主谓一致】\n主语 deficiencies 复数，谓语 can be detected 复数。\n\n### 【动词时态与原形】\n情态动词 can + be detected（被动）。\n\n### 【从句剖析】\n无显性从句。括号内为名词短语，作同位语或解释。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\nresulting in... 是现在分词短语，作后置定语修饰 loss of chlorophyll。",
         "segments": [
           {
-            "text": "Mineral deficiencies ",
+            "text": "Mineral deficiencies",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "can often be detected ",
+            "text": " can often be detected",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "by specific symptoms ",
+            "text": " by specific symptoms such as",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "such as chlorosis ",
-            "type": "modifier",
-            "label": "状语"
-          },
-          {
-            "text": "(loss of chlorophyll resulting in yellow or white leaf tissue), ",
+            "text": " chlorosis",
             "type": "modifier",
             "label": "同位语"
           },
           {
-            "text": "necrosis ",
-            "type": "modifier",
-            "label": "并列举例"
-          },
-          {
-            "text": "(isolated dead patches), ",
+            "text": " (loss of chlorophyll resulting in yellow or white leaf tissue)",
             "type": "modifier",
             "label": "同位语"
           },
           {
-            "text": "anthocyanin formation ",
-            "type": "modifier",
-            "label": "并列举例"
-          },
-          {
-            "text": "(development of deep red pigmentation of leaves or stem), ",
+            "text": ", necrosis",
             "type": "modifier",
             "label": "同位语"
           },
           {
-            "text": "stunted growth, ",
+            "text": " (isolated dead patches)",
             "type": "modifier",
-            "label": "并列举例"
+            "label": "同位语"
           },
           {
-            "text": "and development of woody tissue in an herbaceous plant.",
+            "text": ", anthocyanin formation",
             "type": "modifier",
-            "label": "并列举例"
+            "label": "同位语"
+          },
+          {
+            "text": " (development of deep red pigmentation of leaves or stem)",
+            "type": "modifier",
+            "label": "同位语"
+          },
+          {
+            "text": ", stunted growth",
+            "type": "modifier",
+            "label": "同位语"
+          },
+          {
+            "text": ", and development of woody tissue in an herbaceous plant.",
+            "type": "modifier",
+            "label": "同位语"
           }
         ]
       },
@@ -597,43 +801,43 @@
         "id": "s8",
         "para": 2,
         "text": "Soils are most commonly deficient in nitrogen and phosphorus.",
-        "translation": "土壤最常见的是缺乏氮和磷。",
-        "grammarFocus": "形容词短语作表语",
+        "translation": "土壤最常缺乏的是氮和磷。",
+        "grammarFocus": "主系表结构",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "简单句，注意 deficient in 的搭配。",
-          "keyHint": "deficient in 表示“缺乏...”。"
+          "summary": "这是一句简单的总结句，指出最常见的缺乏元素。",
+          "keyHint": "deficient in 是固定搭配，表示‘缺乏...’。"
         },
         "teachingFocus": {
-          "mainQuestion": "土壤缺什么？氮和磷。",
-          "grammarQuestion": "deficient in 是固定搭配。",
-          "modifierQuestion": "most commonly 修饰 deficient。",
-          "relationshipQuestion": "陈述土壤缺乏的主要元素。",
-          "commonMistake": "误以为 deficient 是动词。",
+          "mainQuestion": "土壤缺什么？氮和磷。这是最常见的情况。",
+          "grammarQuestion": "are deficient in 是主系表结构，in 引出缺乏的对象。",
+          "modifierQuestion": "most commonly 修饰 deficient，表示频率和程度。",
+          "relationshipQuestion": "无复杂关系，直接陈述事实。",
+          "commonMistake": "孩子可能不知道 deficient in 的搭配，或者忽略 most commonly 的程度修饰。",
           "thinkingPath": [
-            "识别主语 Soils",
-            "识别系动词 are",
-            "识别表语 deficient in nitrogen and phosphorus"
+            "找到主语 Soils",
+            "找到谓语 are deficient",
+            "找到宾语 nitrogen and phosphorus"
           ],
-          "encouragement": "你掌握了固定搭配，真棒！"
+          "encouragement": "简单的句子也有力量！你准确找到了缺乏的对象，真棒！"
         },
-        "analysis": "### 【主干结构】\n主语 Soils，系动词 are，表语 deficient。\n### 【主谓一致】\nsoils 复数，are 复数。\n### 【动词时态与原形】\n一般现在时。\n### 【从句剖析】\n无从句。\n### 【代词指代】\n无。",
+        "analysis": "### 【主干结构】\n主语：Soils\n谓语：are deficient\n状语：most commonly\n介词宾语：in nitrogen and phosphorus\n\n### 【主谓一致】\n主语 Soils 复数，谓语 are 复数。\n\n### 【动词时态与原形】\n一般现在时。\n\n### 【从句剖析】\n无从句。\n\n### 【代词指代】\n无代词。\n\n### 【非谓语动词】\n无。",
         "segments": [
           {
-            "text": "Soils ",
+            "text": "Soils",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are ",
+            "text": " are most commonly deficient",
             "type": "verb",
-            "label": "系动词"
+            "label": "谓语"
           },
           {
-            "text": "most commonly deficient in nitrogen and phosphorus.",
-            "type": "predicative",
-            "label": "表语"
+            "text": " in nitrogen and phosphorus.",
+            "type": "modifier",
+            "label": "状语"
           }
         ]
       },
@@ -641,49 +845,49 @@
         "id": "s9",
         "para": 2,
         "text": "Nitrogen-deficient plants exhibit many of the symptoms just described.",
-        "translation": "缺氮植物表现出许多上述症状。",
-        "grammarFocus": "过去分词作后置定语",
+        "translation": "缺氮的植物表现出许多上述症状。",
+        "grammarFocus": "主语 Nitrogen-deficient plants 与谓语 exhibit 的一致；过去分词 just described 作后置定语。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "注意“just described”是修饰 symptoms 的。",
-          "keyHint": "just described = which are just described。"
+          "summary": "先看谁在表现症状，再看是什么样的症状。",
+          "keyHint": "注意 just described 是修饰 symptoms 的，意思是“刚才描述过的”。"
         },
         "teachingFocus": {
-          "mainQuestion": "缺氮植物表现什么？上述症状。",
-          "grammarQuestion": "just described 是过去分词短语作后置定语。",
-          "modifierQuestion": "Nitrogen-deficient 是复合形容词作定语。",
-          "relationshipQuestion": "缺氮导致特定症状。",
-          "commonMistake": "误以为 described 是谓语动词。",
+          "mainQuestion": "这句话的主角是谁？它在做什么？",
+          "grammarQuestion": "‘just described’ 是修饰谁的？它放在名词后面是什么意思？",
+          "modifierQuestion": "‘Nitrogen-deficient’ 像一件衣服，穿在 plants 身上，告诉我们要找的是哪种特定的植物。",
+          "relationshipQuestion": "症状（symptoms）和刚才描述的内容（just described）之间是什么关系？",
+          "commonMistake": "孩子容易把 just described 当成谓语，其实它是形容词性的，修饰 symptoms。",
           "thinkingPath": [
-            "识别主语 Nitrogen-deficient plants",
-            "识别谓语 exhibit",
-            "识别宾语 many of the symptoms",
-            "识别后置定语 just described"
+            "找到主语：Nitrogen-deficient plants",
+            "找到谓语：exhibit",
+            "找到宾语：many of the symptoms",
+            "分析修饰语：just described 修饰 symptoms"
           ],
-          "encouragement": "你识别了后置定语，真细心！"
+          "encouragement": "你找得很准！这就是典型的“谁做了什么”结构。"
         },
-        "analysis": "### 【主干结构】\n主语 Nitrogen-deficient plants，谓语 exhibit，宾语 many of the symptoms。\n### 【主谓一致】\nplants 复数，exhibit 复数。\n### 【动词时态与原形】\n一般现在时。\n### 【从句剖析】\n无从句。\n### 【代词指代】\n无。",
+        "analysis": "### 【主干结构】\n主语：Nitrogen-deficient plants（缺氮的植物）\n谓语：exhibit（表现出）\n宾语：many of the symptoms（许多症状）\n\n### 【修饰语分析】\n- **Nitrogen-deficient**：复合形容词，作前置定语，修饰 plants，限定是“缺氮的”植物。\n- **just described**：过去分词短语，作后置定语，修饰 symptoms，意为“刚才描述过的”。\n\n### 【词汇解析】\n- **exhibit**：展示，表现。\n- **symptom**：症状。\n\n### 【句子逻辑】\n这是一个简单句，核心结构清晰。重点在于理解两个修饰成分如何精准限定主语和宾语。",
         "segments": [
           {
-            "text": "Nitrogen-deficient plants ",
+            "text": "Nitrogen-deficient plants",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "exhibit ",
+            "text": " exhibit",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "many of the symptoms ",
+            "text": " many of the symptoms",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "just described.",
+            "text": " just described.",
             "type": "modifier",
-            "label": "定语"
+            "label": "后置定语"
           }
         ]
       },
@@ -692,75 +896,80 @@
         "para": 2,
         "text": "Leaves develop chlorosis; stems are short and slender, and anthocyanin discoloration occurs on stems, petioles, and lower leaf surfaces.",
         "translation": "叶片出现黄化病；茎短而细，花青素变色发生在茎、叶柄和下叶表面。",
-        "grammarFocus": "分号连接并列句",
+        "grammarFocus": "分号连接两个并列分句；第二个分句由 and 连接两个独立子句。",
         "pronounRef": "无",
-        "logicConnector": "and 连接后半部分",
+        "logicConnector": "分号（;）表示并列；and 表示并列。",
         "sentenceCoach": {
-          "summary": "分号连接两个独立的句子，描述不同部位的症状。",
-          "keyHint": "分号前后是两个完整的句子。"
+          "summary": "分号像是一个大逗号，把两个大的画面分开；and 把第二个画面里的两个细节连起来。",
+          "keyHint": "注意分号前后是两个完整的句子结构。"
         },
         "teachingFocus": {
-          "mainQuestion": "叶子和茎怎么了？叶子黄化，茎短细，有变色。",
-          "grammarQuestion": "分号用于连接关系紧密的独立分句。",
-          "modifierQuestion": "short and slender 是并列形容词作表语。",
-          "relationshipQuestion": "并列描述不同部位的症状。",
-          "commonMistake": "误以为分号后是从句。",
+          "mainQuestion": "分号前面说了什么？分号后面又说了什么？",
+          "grammarQuestion": "分号（;）在这里起到了什么作用？它连接的是两个完整的句子吗？",
+          "modifierQuestion": "‘short and slender’ 是形容谁的？‘on stems...’ 是修饰谁的？",
+          "relationshipQuestion": "‘stems are short and slender’ 和 ‘anthocyanin discoloration occurs...’ 是什么关系？",
+          "commonMistake": "孩子可能忽略分号，把它当成一个长句的中间停顿，导致主语谓语找错。",
           "thinkingPath": [
-            "识别分号前的句子 Leaves develop chlorosis",
-            "识别分号后的句子 stems are... and anthocyanin... occurs",
-            "理解并列关系"
+            "识别分号，将句子分为两部分",
+            "第一部分：Leaves develop chlorosis",
+            "第二部分：stems are short and slender, and anthocyanin discoloration occurs..."
           ],
-          "encouragement": "你理解了分号的用法，真棒！"
+          "encouragement": "分号是句子的‘大呼吸’，你成功抓住了它的节奏！"
         },
-        "analysis": "### 【主干结构】\n分号前：Leaves develop chlorosis。\n分号后：stems are short and slender, and anthocyanin discoloration occurs...\n### 【主谓一致】\nLeaves 复数，develop 复数；stems 复数，are 复数；discoloration 单数，occurs 单数。\n### 【动词时态与原形】\n一般现在时。\n### 【从句剖析】\n无从句。\n### 【代词指代】\n无。",
+        "analysis": "### 【主干结构】\n这是一个由分号连接的并列复合句。\n\n**第一部分（分号前）：**\n- 主语：Leaves\n- 谓语：develop\n- 宾语：chlorosis\n\n**第二部分（分号后）：**\n由连词 and 连接两个并列子句：\n1. **子句1：**\n   - 主语：stems\n   - 系动词：are\n   - 表语：short and slender\n2. **子句2：**\n   - 主语：anthocyanin discoloration\n   - 谓语：occurs\n   - 状语：on stems, petioles, and lower leaf surfaces\n\n### 【修饰语分析】\n- **short and slender**：并列形容词，作表语，描述 stems 的状态。\n- **on stems, petioles, and lower leaf surfaces**：介词短语作地点状语，修饰 occurs，说明变色发生的位置。\n\n### 【词汇解析】\n- **develop**：发展，出现（此处指产生某种症状）。\n- **chlorosis**：黄化病。\n- **slender**：纤细的。\n- **occur**：发生。\n\n### 【句子逻辑】\n分号用于连接两个关系紧密但结构完整的独立分句。第二个分句内部通过 and 进一步列举了茎部的两个具体变化。",
         "segments": [
           {
-            "text": "Leaves ",
+            "text": "Leaves",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "develop ",
+            "text": " develop",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "chlorosis; ",
+            "text": " chlorosis",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "stems ",
-            "type": "subject",
-            "label": "主语"
-          },
-          {
-            "text": "are ",
-            "type": "verb",
-            "label": "系动词"
-          },
-          {
-            "text": "short and slender, ",
-            "type": "predicative",
-            "label": "表语"
-          },
-          {
-            "text": "and ",
+            "text": ";",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "anthocyanin discoloration ",
-            "type": "coord-subject",
-            "label": "并列主语"
+            "text": " stems",
+            "type": "subject",
+            "label": "主语"
           },
           {
-            "text": "occurs ",
-            "type": "coord-verb",
-            "label": "并列谓语"
+            "text": " are",
+            "type": "verb",
+            "label": "系动词"
           },
           {
-            "text": "on stems, petioles, and lower leaf surfaces.",
+            "text": " short and slender",
+            "type": "predicative",
+            "label": "表语"
+          },
+          {
+            "text": ", and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " anthocyanin discoloration",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " occurs",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " on stems, petioles, and lower leaf surfaces.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -770,53 +979,53 @@
         "id": "s11",
         "para": 2,
         "text": "Phosphorus-deficient plants are often stunted, with leaves turning a characteristic dark green, often with the accumulation of anthocyanin.",
-        "translation": "缺磷植物通常生长受阻，叶片呈现特有的深绿色，常伴有花青素的积累。",
-        "grammarFocus": "with 复合结构",
+        "translation": "缺磷的植物通常发育不良，叶片呈现特有的深绿色，通常伴有花青素的积累。",
+        "grammarFocus": "主系表结构；with 复合结构作伴随状语。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "注意 with 引导的伴随状语，描述叶片的状态。",
-          "keyHint": "with leaves turning... 是独立主格结构的变体。"
+          "summary": "先看植物整体状态，再看叶子细节。",
+          "keyHint": "‘with leaves turning...’ 是一个非常重要的伴随状语结构，用来补充说明细节。"
         },
         "teachingFocus": {
-          "mainQuestion": "缺磷植物什么样？生长受阻，叶子深绿。",
-          "grammarQuestion": "with + 名词 + 现在分词 构成伴随状语。",
-          "modifierQuestion": "often 修饰 stunted 和 accumulation。",
-          "relationshipQuestion": "生长受阻是主要症状，叶子颜色是伴随症状。",
-          "commonMistake": "误以为 with 是介词短语修饰 plants。",
+          "mainQuestion": "缺磷的植物整体长什么样？叶子又是什么样？",
+          "grammarQuestion": "‘with leaves turning...’ 这个结构在句中起什么作用？它是不是一个完整的句子？",
+          "modifierQuestion": "‘characteristic’ 修饰谁？‘of anthocyanin’ 修饰谁？",
+          "relationshipQuestion": "‘stunted’ 和后面的 with 结构是什么关系？",
+          "commonMistake": "孩子可能误以为 turning 是谓语动词，其实它是 with 结构中的非谓语动词（现在分词）。",
           "thinkingPath": [
-            "识别主语 Phosphorus-deficient plants",
-            "识别谓语 are stunted",
-            "识别 with 引导的伴随状语"
+            "找到主干：Phosphorus-deficient plants are often stunted",
+            "识别伴随状语：with leaves turning...",
+            "分析 with 结构内部：leaves (宾语) turning (宾补)"
           ],
-          "encouragement": "你理解了伴随状语，真棒！"
+          "encouragement": "你发现了 with 结构这个‘小尾巴’，它让句子更丰富了！"
         },
-        "analysis": "### 【主干结构】\n主语 Phosphorus-deficient plants，系动词 are，表语 stunted。\n### 【主谓一致】\nplants 复数，are 复数。\n### 【动词时态与原形】\n一般现在时。\n### 【从句剖析】\n无从句。\n### 【代词指代】\n无。",
+        "analysis": "### 【主干结构】\n- 主语：Phosphorus-deficient plants\n- 系动词：are\n- 表语：stunted\n- 状语：often（频率副词）\n\n### 【修饰语分析】\n- **with leaves turning a characteristic dark green**：with 复合结构（with + 宾语 + 宾语补足语），作伴随状语，补充说明植物的具体表现。\n  - **leaves**：with 的宾语。\n  - **turning a characteristic dark green**：现在分词短语作宾语补足语，描述 leaves 的状态。\n  - **characteristic**：形容词，修饰 dark green，意为“特有的”。\n- **often with the accumulation of anthocyanin**：另一个 with 复合结构（with + 名词短语），作伴随状语，进一步补充说明。\n  - **the accumulation of anthocyanin**：名词短语，of anthocyanin 修饰 accumulation。\n\n### 【词汇解析】\n- **stunted**：发育不良的，矮小的。\n- **characteristic**：特有的，典型的。\n- **accumulation**：积累。\n\n### 【句子逻辑】\n主句描述整体状态（矮小），两个 with 结构层层递进，详细描述叶片颜色和色素积累的细节。",
         "segments": [
           {
-            "text": "Phosphorus-deficient plants ",
+            "text": "Phosphorus-deficient plants",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are ",
+            "text": " are",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "often stunted, ",
+            "text": " often stunted",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "with leaves turning a characteristic dark green, ",
-            "type": "adverbial",
-            "label": "状语"
+            "text": ", with leaves turning a characteristic dark green",
+            "type": "modifier",
+            "label": "伴随状语"
           },
           {
-            "text": "often with the accumulation of anthocyanin.",
-            "type": "adverbial",
-            "label": "状语"
+            "text": ", often with the accumulation of anthocyanin.",
+            "type": "modifier",
+            "label": "伴随状语"
           }
         ]
       },
@@ -824,68 +1033,59 @@
         "id": "s12",
         "para": 2,
         "text": "Typically, older leaves are affected first as the phosphorus is mobilized to young growing tissue.",
-        "translation": "通常，老叶首先受影响，因为磷被动员到年轻生长组织中。",
-        "grammarFocus": "原因状语从句",
+        "translation": "通常，老叶首先受影响，因为磷被转移到年轻生长的组织中。",
+        "grammarFocus": "as 引导的原因/时间状语从句；被动语态。",
         "pronounRef": "无",
-        "logicConnector": "as 引导原因",
+        "logicConnector": "as（因为/当...时）",
         "sentenceCoach": {
-          "summary": "as 在这里表示“因为”，解释为什么老叶先受影响。",
-          "keyHint": "as 引导原因状语从句。"
+          "summary": "先看结果（老叶受影响），再看原因（磷被移走）。",
+          "keyHint": "‘as’ 在这里解释为什么老叶先受影响，因为它像是一个‘因为’。"
         },
         "teachingFocus": {
-          "mainQuestion": "哪片叶子先受影响？老叶。",
-          "grammarQuestion": "as 引导原因状语从句。",
-          "modifierQuestion": "Typically 是副词作状语。",
-          "relationshipQuestion": "因为磷转移到新组织，所以老叶先受影响。",
-          "commonMistake": "误以为 as 表示时间“当...时”。",
+          "mainQuestion": "哪片叶子先受影响？为什么？",
+          "grammarQuestion": "‘as’ 引导的从句是原因还是时间？‘is mobilized’ 是什么语态？",
+          "modifierQuestion": "‘Typically’ 修饰整个句子吗？‘first’ 修饰谁？",
+          "relationshipQuestion": "主句和 as 从句之间是什么逻辑关系？",
+          "commonMistake": "孩子可能不理解 as 的多义性，或者忽略 is mobilized 的被动含义。",
           "thinkingPath": [
-            "识别主句 older leaves are affected",
-            "识别 as 引导的原因状语从句",
-            "理解因果关系"
+            "找到主句：older leaves are affected first",
+            "找到连接词：as",
+            "分析从句：the phosphorus is mobilized to young growing tissue",
+            "理解逻辑：因为磷被移走，所以老叶先受影响"
           ],
-          "encouragement": "你区分了 as 的用法，真棒！"
+          "encouragement": "你抓住了‘因为’这个逻辑词，句子意思就通顺啦！"
         },
-        "analysis": "### 【主干结构】\n主句：older leaves are affected。\n从句：as the phosphorus is mobilized...\n### 【主谓一致】\nleaves 复数，are 复数；phosphorus 单数，is 单数。\n### 【动词时态与原形】\n一般现在时被动语态。\n### 【从句剖析】\nas 引导原因状语从句。\n### 【代词指代】\n无。",
+        "analysis": "### 【主干结构】\n- 状语：Typically（通常）\n- 主语：older leaves\n- 谓语：are affected（被动语态）\n- 状语：first（首先）\n\n### 【从句剖析】\n- **as the phosphorus is mobilized to young growing tissue**：as 引导的原因状语从句（也可理解为时间，但此处侧重因果解释）。\n  - 主语：the phosphorus\n  - 谓语：is mobilized（被动语态，被调动/转移）\n  - 状语：to young growing tissue（方向状语）\n\n### 【修饰语分析】\n- **Typically**：副词，修饰整个句子，表示一般情况。\n- **first**：副词，修饰 are affected，表示顺序。\n- **young growing**：形容词短语，修饰 tissue。\n\n### 【词汇解析】\n- **affected**：受影响的。\n- **mobilized**：被调动，被转移。\n- **tissue**：组织。\n\n### 【句子逻辑】\n主句陈述现象，as 从句解释现象背后的生理机制：磷从老叶转移到新叶，导致老叶先出现症状。",
         "segments": [
           {
-            "text": "Typically, ",
+            "text": "Typically",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "older leaves ",
+            "text": ",",
+            "type": "modifier",
+            "label": "标点"
+          },
+          {
+            "text": " older leaves",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "are affected ",
+            "text": " are affected",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "first ",
+            "text": " first",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "as ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "the phosphorus ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "is mobilized ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "to young growing tissue.",
+            "text": " as the phosphorus is mobilized to young growing tissue.",
             "type": "adverbial",
-            "label": "状语"
+            "label": "状语从句"
           }
         ]
       },
@@ -894,42 +1094,48 @@
         "para": 2,
         "text": "Iron deficiency is characterized by chlorosis between veins in young leaves.",
         "translation": "缺铁的特征是年轻叶片叶脉间出现黄化病。",
-        "grammarFocus": "被动语态",
+        "grammarFocus": "be characterized by 结构；介词短语作后置定语。",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "be characterized by 是固定搭配，表示“以...为特征”。",
-          "keyHint": "注意 chlorosis between veins 的位置。"
+          "summary": "缺铁有什么特点？看 by 后面的内容。",
+          "keyHint": "‘be characterized by’ 是固定搭配，意思是‘以...为特征’。"
         },
         "teachingFocus": {
-          "mainQuestion": "缺铁的特征是什么？叶脉间黄化。",
-          "grammarQuestion": "be characterized by 被动语态。",
-          "modifierQuestion": "between veins in young leaves 修饰 chlorosis。",
-          "relationshipQuestion": "描述缺铁的典型症状。",
-          "commonMistake": "误以为 characterized 是主动语态。",
+          "mainQuestion": "缺铁的特征是什么？",
+          "grammarQuestion": "‘by chlorosis...’ 在句中作什么成分？‘between veins’ 修饰谁？",
+          "modifierQuestion": "‘in young leaves’ 修饰 chlorosis 还是 veins？",
+          "relationshipQuestion": "主语 Iron deficiency 和 by 后面的内容是什么关系？",
+          "commonMistake": "孩子可能不知道 characterized by 是固定搭配，或者搞不清介词短语的修饰对象。",
           "thinkingPath": [
-            "识别主语 Iron deficiency",
-            "识别谓语 is characterized by",
-            "识别宾语 chlorosis between veins in young leaves"
+            "找到主干：Iron deficiency is characterized by...",
+            "识别固定搭配：be characterized by",
+            "分析 by 的宾语：chlorosis",
+            "分析修饰语：between veins in young leaves"
           ],
-          "encouragement": "你掌握了固定搭配，真棒！"
+          "encouragement": "你掌握了‘以...为特征’这个高级表达，真棒！"
         },
-        "analysis": "### 【主干结构】\n主语 Iron deficiency，谓语 is characterized by，宾语 chlorosis。\n### 【主谓一致】\ndeficiency 单数，is 单数。\n### 【动词时态与原形】\n一般现在时被动语态。\n### 【从句剖析】\n无从句。\n### 【代词指代】\n无。",
+        "analysis": "### 【主干结构】\n- 主语：Iron deficiency\n- 谓语：is characterized by（被动语态，以...为特征）\n- 宾语/介词宾语：chlorosis\n\n### 【修饰语分析】\n- **between veins**：介词短语，作后置定语，修饰 chlorosis，说明黄化病发生的位置（叶脉之间）。\n- **in young leaves**：介词短语，作后置定语，修饰 chlorosis（或整个现象），说明发生部位是年轻叶片。\n\n### 【词汇解析】\n- **deficiency**：缺乏，不足。\n- **characterized by**：以...为特征。\n- **veins**：叶脉。\n\n### 【句子逻辑】\n这是一个典型的定义句，通过 be characterized by 引出缺铁的具体症状表现。",
         "segments": [
           {
-            "text": "Iron deficiency ",
+            "text": "Iron deficiency",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is characterized by ",
+            "text": " is characterized by",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "chlorosis between veins in young leaves.",
+            "text": " chlorosis",
             "type": "object",
             "label": "宾语"
+          },
+          {
+            "text": " between veins in young leaves.",
+            "type": "modifier",
+            "label": "后置定语"
           }
         ]
       },
@@ -937,54 +1143,54 @@
         "id": "s14",
         "para": 3,
         "text": "Much of the research on nutrient deficiencies is based on growing plants hydroponically, that is, in soilless liquid nutrient solutions.",
-        "translation": "许多关于营养缺乏的研究是基于水培植物，即在没有土壤的液体营养溶液中种植。",
-        "grammarFocus": "同位语解释",
+        "translation": "关于营养缺乏的大部分研究基于水培植物，即在没有土壤的液体营养液中种植。",
+        "grammarFocus": "Much of... 主语；be based on；that is 插入语解释说明。",
         "pronounRef": "无",
-        "logicConnector": "that is 解释说明",
+        "logicConnector": "that is（即，也就是）",
         "sentenceCoach": {
-          "summary": "that is 后面是对 hydroponically 的解释。",
-          "keyHint": "that is = 也就是说。"
+          "summary": "研究基于什么方法？that is 后面解释了具体方法。",
+          "keyHint": "‘that is’ 就像‘换句话说’，后面是对 hydroponically 的解释。"
         },
         "teachingFocus": {
-          "mainQuestion": "研究基于什么？水培植物。",
-          "grammarQuestion": "that is 引导同位语，解释 hydroponically。",
-          "modifierQuestion": "on nutrient deficiencies 修饰 research。",
-          "relationshipQuestion": "解释研究的基础方法。",
-          "commonMistake": "误以为 that is 是连词。",
+          "mainQuestion": "研究基于什么？",
+          "grammarQuestion": "‘that is’ 在句中起什么作用？‘in soilless...’ 和 ‘hydroponically’ 是什么关系？",
+          "modifierQuestion": "‘on nutrient deficiencies’ 修饰谁？‘hydroponically’ 修饰谁？",
+          "relationshipQuestion": "‘that is’ 前后的内容是什么关系？",
+          "commonMistake": "孩子可能忽略 that is 的解释作用，或者不知道 hydroponically 和 in soilless... 是同义替换。",
           "thinkingPath": [
-            "识别主语 Much of the research",
-            "识别谓语 is based on",
-            "识别宾语 growing plants hydroponically",
-            "识别 that is 引导的解释性同位语"
+            "找到主语：Much of the research on nutrient deficiencies",
+            "找到谓语：is based on",
+            "找到宾语：growing plants hydroponically",
+            "分析插入语：that is, in soilless liquid nutrient solutions 解释 hydroponically"
           ],
-          "encouragement": "你理解了同位语的解释作用，真棒！"
+          "encouragement": "你读懂了 that is 的‘翻译’功能，句子意思更清晰了！"
         },
-        "analysis": "### 【主干结构】\n主语 Much of the research，谓语 is based on，宾语 growing plants hydroponically。\n### 【主谓一致】\nMuch 单数，is 单数。\n### 【动词时态与原形】\n一般现在时。\n### 【从句剖析】\n无从句。\n### 【代词指代】\n无。",
+        "analysis": "### 【主干结构】\n- 主语：Much of the research on nutrient deficiencies\n  - **Much of**：量词短语，修饰 research。\n  - **on nutrient deficiencies**：介词短语，作后置定语，修饰 research。\n- 谓语：is based on\n- 宾语：growing plants hydroponically\n  - **growing**：动名词，作 based on 的宾语。\n  - **plants**：growing 的宾语。\n  - **hydroponically**：副词，作 growing 的方式状语。\n\n### 【修饰语分析】\n- **that is, in soilless liquid nutrient solutions**：插入语，由 that is 引导，对前面的 hydroponically 进行解释说明。\n  - **in soilless liquid nutrient solutions**：介词短语，作状语，解释 hydroponically 的具体含义。\n\n### 【词汇解析】\n- **deficiency**：缺乏。\n- **based on**：基于。\n- **hydroponically**：水培地。\n- **soilless**：无土的。\n\n### 【句子逻辑】\n主句陈述研究基础，that is 引导的插入语对专业术语 hydroponically 进行通俗解释。",
         "segments": [
           {
-            "text": "Much of the research on nutrient deficiencies ",
+            "text": "Much of the research on nutrient deficiencies",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "is based on ",
+            "text": " is based on",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "growing plants hydroponically, ",
+            "text": " growing plants hydroponically",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "that is, ",
-            "type": "modifier",
-            "label": "补充说明"
+            "text": ", that is,",
+            "type": "conjunction",
+            "label": "连接词"
           },
           {
-            "text": "in soilless liquid nutrient solutions.",
+            "text": " in soilless liquid nutrient solutions.",
             "type": "modifier",
-            "label": "同位语"
+            "label": "同位语/解释说明"
           }
         ]
       },
@@ -992,78 +1198,59 @@
         "id": "s15",
         "para": 3,
         "text": "This technique allows researchers to create solutions that selectively omit certain nutrients and then observe the resulting effects on the plants.",
-        "translation": "这项技术允许研究人员创建选择性省略某些营养素的溶液，然后观察其对植物的影响。",
-        "grammarFocus": "定语从句",
-        "pronounRef": "that 指代 solutions",
-        "logicConnector": "and 连接两个动作",
+        "translation": "这种技术允许研究人员创建选择性省略某些营养素的溶液，然后观察由此产生的对植物的影响。",
+        "grammarFocus": "allow sb to do sth；that 引导定语从句；省略和观察的并列。",
+        "pronounRef": "This technique 指代上一句的水培技术。",
+        "logicConnector": "and（然后）",
         "sentenceCoach": {
-          "summary": "that 引导定语从句修饰 solutions。",
-          "keyHint": "that 指代 solutions，在从句中作主语。"
+          "summary": "技术让研究人员做什么？看 to 后面的两个动作。",
+          "keyHint": "‘that selectively omit...’ 是修饰 solutions 的定语从句。"
         },
         "teachingFocus": {
-          "mainQuestion": "这项技术允许做什么？创建溶液并观察影响。",
-          "grammarQuestion": "that 引导定语从句，修饰 solutions。",
-          "modifierQuestion": "selectively 修饰 omit。",
-          "relationshipQuestion": "描述技术的功能。",
-          "commonMistake": "误以为 that 指代 researchers。",
+          "mainQuestion": "研究人员用这种技术做什么？",
+          "grammarQuestion": "‘that selectively omit...’ 修饰谁？‘and then observe’ 的主语是谁？",
+          "modifierQuestion": "‘selectively’ 修饰谁？‘resulting’ 修饰谁？",
+          "relationshipQuestion": "‘create’ 和 ‘observe’ 是什么关系？",
+          "commonMistake": "孩子可能不知道 that 引导的是定语从句，或者搞不清 observe 的主语是 researchers。",
           "thinkingPath": [
-            "识别主句 This technique allows researchers to create solutions",
-            "识别 that 引导的定语从句",
-            "分析从句中的并列谓语 omit 和 observe"
+            "找到主干：This technique allows researchers to create solutions",
+            "分析定语从句：that selectively omit certain nutrients",
+            "分析并列动作：and then observe the resulting effects",
+            "理解逻辑：先创建溶液，再观察效果"
           ],
-          "encouragement": "你识别了定语从句，真棒！"
+          "encouragement": "你抓住了 that 从句这个‘小尾巴’，句子结构更完整了！"
         },
-        "analysis": "### 【主干结构】\n主句：This technique allows researchers to create solutions。\n从句：that selectively omit... and then observe...\n### 【主谓一致】\ntechnique 单数，allows 单数；solutions 复数，omit/observe 复数。\n### 【动词时态与原形】\n一般现在时。\n### 【从句剖析】\nthat 引导定语从句，修饰 solutions。\n### 【代词指代】\nthat 指代 solutions。",
+        "analysis": "### 【主干结构】\n- 主语：This technique\n- 谓语：allows\n- 宾语：researchers\n- 宾语补足语：to create solutions... and then observe...\n  - **to create**：不定式，作宾补。\n  - **solutions**：create 的宾语。\n  - **that selectively omit certain nutrients**：定语从句，修饰 solutions。\n  - **and then observe**：与 create 并列的不定式动作。\n  - **the resulting effects**：observe 的宾语。\n  - **on the plants**：介词短语，修饰 effects。\n\n### 【从句剖析】\n- **that selectively omit certain nutrients**：定语从句，修饰 solutions。\n  - 关系代词：that（指代 solutions，在从句中作主语）。\n  - 谓语：omit（选择性省略）。\n  - 状语：selectively（有选择地）。\n  - 宾语：certain nutrients。\n\n### 【修饰语分析】\n- **resulting**：现在分词作形容词，修饰 effects，意为“由此产生的”。\n\n### 【词汇解析】\n- **technique**：技术。\n- **allow**：允许。\n- **selectively**：有选择地。\n- **omit**：省略。\n- **resulting**：由此产生的。\n\n### 【句子逻辑】\n主句描述技术的功能，定语从句描述溶液的特性，并列不定式描述研究人员的连续动作。",
         "segments": [
           {
-            "text": "This technique ",
+            "text": "This technique",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "allows ",
+            "text": " allows",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "researchers ",
+            "text": " researchers",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "to create solutions ",
-            "type": "object",
+            "text": " to create solutions",
+            "type": "object-complement",
             "label": "宾语补足语"
           },
           {
-            "text": "that ",
-            "type": "clause-subject",
-            "label": "从句主语"
+            "text": " that selectively omit certain nutrients",
+            "type": "modifier",
+            "label": "定语从句"
           },
           {
-            "text": "selectively omit ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "certain nutrients ",
-            "type": "clause-object",
-            "label": "从句宾语"
-          },
-          {
-            "text": "and ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "then observe ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "the resulting effects on the plants.",
-            "type": "clause-object",
-            "label": "从句宾语"
+            "text": " and then observe the resulting effects on the plants.",
+            "type": "object-complement",
+            "label": "宾语补足语"
           }
         ]
       },
@@ -1071,63 +1258,53 @@
         "id": "s16",
         "para": 3,
         "text": "Hydroponics has applications beyond basic research, since it facilitates the growing of greenhouse vegetables during winter.",
-        "translation": "水培法在基础研究之外也有应用，因为它促进了冬季温室蔬菜的生长。",
-        "grammarFocus": "原因状语从句",
-        "pronounRef": "it 指代 Hydroponics",
-        "logicConnector": "since 引导原因",
+        "translation": "水培法的应用超出了基础研究，因为它促进了冬季温室蔬菜的种植。",
+        "grammarFocus": "since 引导的原因状语从句；beyond 介词短语作后置定语。",
+        "pronounRef": "it 指代 Hydroponics。",
+        "logicConnector": "since（因为）",
         "sentenceCoach": {
-          "summary": "since 引导原因状语从句，解释为什么有应用。",
-          "keyHint": "it 指代 Hydroponics。"
+          "summary": "水培法有什么用？since 后面解释了原因。",
+          "keyHint": "‘beyond basic research’ 修饰 applications，意思是‘超出基础研究’。"
         },
         "teachingFocus": {
-          "mainQuestion": "水培法有什么应用？促进冬季蔬菜生长。",
-          "grammarQuestion": "since 引导原因状语从句。",
-          "modifierQuestion": "beyond basic research 修饰 applications。",
-          "relationshipQuestion": "解释水培法的实际应用价值。",
-          "commonMistake": "误以为 since 表示时间。",
+          "mainQuestion": "水培法的应用范围如何？为什么？",
+          "grammarQuestion": "‘since’ 引导的是原因还是时间？‘beyond basic research’ 修饰谁？",
+          "modifierQuestion": "‘during winter’ 修饰谁？‘greenhouse’ 修饰谁？",
+          "relationshipQuestion": "主句和 since 从句之间是什么逻辑关系？",
+          "commonMistake": "孩子可能不知道 since 在这里表示原因，或者搞不清 beyond 的修饰对象。",
           "thinkingPath": [
-            "识别主句 Hydroponics has applications",
-            "识别 since 引导的原因状语从句",
-            "理解 it 指代 Hydroponics"
+            "找到主干：Hydroponics has applications beyond basic research",
+            "分析 since 从句：since it facilitates the growing of greenhouse vegetables during winter",
+            "理解逻辑：因为促进了冬季种植，所以应用超出基础研究"
           ],
-          "encouragement": "你理解了原因状语，真棒！"
+          "encouragement": "你读懂了 since 的‘因为’含义，句子逻辑更清晰了！"
         },
-        "analysis": "### 【主干结构】\n主句：Hydroponics has applications。\n从句：since it facilitates...\n### 【主谓一致】\nHydroponics 单数，has 单数；it 单数，facilitates 单数。\n### 【动词时态与原形】\n一般现在时。\n### 【从句剖析】\nsince 引导原因状语从句。\n### 【代词指代】\nit 指代 Hydroponics。",
+        "analysis": "### 【主干结构】\n- 主语：Hydroponics\n- 谓语：has\n- 宾语：applications\n- 后置定语：beyond basic research（修饰 applications）\n\n### 【从句剖析】\n- **since it facilitates the growing of greenhouse vegetables during winter**：since 引导的原因状语从句。\n  - 主语：it（指代 Hydroponics）。\n  - 谓语：facilitates（促进）。\n  - 宾语：the growing of greenhouse vegetables。\n  - 状语：during winter（时间状语）。\n\n### 【修饰语分析】\n- **beyond basic research**：介词短语，作后置定语，修饰 applications，意为“超出基础研究的”。\n- **of greenhouse vegetables**：介词短语，作 growing 的后置定语。\n- **greenhouse**：名词作定语，修饰 vegetables。\n- **during winter**：介词短语，作时间状语，修饰 facilitates 或 growing。\n\n### 【词汇解析】\n- **application**：应用。\n- **beyond**：超出。\n- **facilitate**：促进，使便利。\n- **greenhouse**：温室。\n\n### 【句子逻辑】\n主句陈述水培法的应用范围，since 从句解释其应用广泛的原因。",
         "segments": [
           {
-            "text": "Hydroponics ",
+            "text": "Hydroponics",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "has ",
+            "text": " has",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "applications beyond basic research, ",
+            "text": " applications",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "since ",
-            "type": "conjunction",
-            "label": "连接词"
+            "text": " beyond basic research",
+            "type": "modifier",
+            "label": "后置定语"
           },
           {
-            "text": "it ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "facilitates ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "the growing of greenhouse vegetables during winter.",
-            "type": "clause-object",
-            "label": "从句宾语"
+            "text": ", since it facilitates the growing of greenhouse vegetables during winter.",
+            "type": "adverbial",
+            "label": "原因状语从句"
           }
         ]
       },
@@ -1135,79 +1312,59 @@
         "id": "s17",
         "para": 3,
         "text": "Aeroponics, a technique in which plants are suspended and the roots misted with a nutrient solution, is another method for growing plants without soil.",
-        "translation": "气雾栽培是一种技术，植物在其中被悬挂，根系被营养液喷洒，这是另一种无土种植植物的方法。",
-        "grammarFocus": "非限制性定语从句",
+        "translation": "气雾栽培是一种技术，植物在其中被悬挂，根部喷洒营养液雾，这是另一种在无土条件下种植植物的方法。",
+        "grammarFocus": "同位语、定语从句、过去分词作后置定语",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "逗号中间的 in which 从句是插入语，解释 technique。",
-          "keyHint": "去掉插入语，主句是 Aeroponics is another method。"
+          "summary": "找到主语Aeroponics，跳过中间长长的解释，直接看谓语is。",
+          "keyHint": "逗号之间的内容是插入语，用来解释Aeroponics是什么。"
         },
         "teachingFocus": {
-          "mainQuestion": "气雾栽培是什么？另一种无土种植方法。",
-          "grammarQuestion": "in which 引导非限制性定语从句，修饰 technique。",
-          "modifierQuestion": "a technique... 是同位语，解释 Aeroponics。",
-          "relationshipQuestion": "定义气雾栽培。",
-          "commonMistake": "被插入语干扰，找不到主句谓语。",
+          "mainQuestion": "这句话的主角是谁？它在做什么？",
+          "grammarQuestion": "中间那一大段像括号一样的内容，是怎么修饰主角的？",
+          "modifierQuestion": "注意看'suspended'和'misted'，它们像衣服一样穿在plants和roots身上，表示状态。",
+          "relationshipQuestion": "气雾栽培（Aeroponics）和 technique 是什么关系？",
+          "commonMistake": "很多同学会被中间长长的定语从句吓到，忘了主语是Aeroponics，谓语是is。记住：主语和谓语是骨架，其他是肉。",
           "thinkingPath": [
-            "识别主语 Aeroponics",
-            "识别同位语 a technique in which...",
-            "识别主句谓语 is",
-            "识别表语 another method"
+            "找到主语 Aeroponics",
+            "跳过逗号间的同位语解释",
+            "找到谓语 is",
+            "找到表语 another method"
           ],
-          "encouragement": "你成功跳过了插入语，真厉害！"
+          "encouragement": "你像侦探一样找到了句子的骨架，真棒！"
         },
-        "analysis": "### 【主干结构】\n主语 Aeroponics，系动词 is，表语 another method。\n### 【主谓一致】\nAeroponics 单数，is 单数。\n### 【动词时态与原形】\n一般现在时。\n### 【从句剖析】\nin which 引导非限制性定语从句，修饰 technique。\n### 【代词指代】\n无。",
+        "analysis": "### 【主干结构】\n主语：Aeroponics\n谓语：is\n表语：another method\n### 【主谓一致】\n主语 Aeroponics 是单数，谓语 is 用单数形式，一致。\n### 【非谓语动词】\n'suspended' 和 'misted' 是过去分词，分别修饰 plants 和 roots，表示被动和完成的状态。\n### 【从句剖析】\n'in which plants are suspended and the roots misted with a nutrient solution' 是定语从句，修饰 technique。其中 in which 相当于 in the technique。\n### 【修饰语】\n'a technique...' 是 Aeroponics 的同位语，进一步解释 Aeroponics。\n'for growing plants without soil' 是介词短语作后置定语，修饰 method。",
         "segments": [
           {
-            "text": "Aeroponics, ",
+            "text": "Aeroponics,",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "a technique in which ",
+            "text": " a technique",
             "type": "modifier",
             "label": "同位语"
           },
           {
-            "text": "plants ",
-            "type": "clause-subject",
-            "label": "从句主语"
+            "text": " in which plants are suspended and the roots misted with a nutrient solution,",
+            "type": "modifier",
+            "label": "定语从句"
           },
           {
-            "text": "are suspended ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "and ",
-            "type": "conjunction",
-            "label": "连接词"
-          },
-          {
-            "text": "the roots ",
-            "type": "clause-subject",
-            "label": "从句主语"
-          },
-          {
-            "text": "misted ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "with a nutrient solution, ",
-            "type": "adverbial",
-            "label": "状语"
-          },
-          {
-            "text": "is ",
+            "text": " is",
             "type": "verb",
             "label": "系动词"
           },
           {
-            "text": "another method for growing plants without soil.",
+            "text": " another method",
             "type": "predicative",
             "label": "表语"
+          },
+          {
+            "text": " for growing plants without soil.",
+            "type": "modifier",
+            "label": "定语"
           }
         ]
       },
@@ -1215,76 +1372,77 @@
         "id": "s18",
         "para": 4,
         "text": "While mineral deficiencies can limit the growth of plants, an overabundance of certain minerals can be toxic and can also limit growth.",
-        "translation": "虽然矿物质缺乏会限制植物生长，但某些矿物质过量也会产生毒性并限制生长。",
-        "grammarFocus": "让步状语从句",
+        "translation": "虽然矿物质缺乏会限制植物的生长，但某些矿物质过量也会产生毒性并限制生长。",
+        "grammarFocus": "让步状语从句、并列谓语",
         "pronounRef": "无",
-        "logicConnector": "While 引导让步",
+        "logicConnector": "While (虽然/尽管)",
         "sentenceCoach": {
-          "summary": "While 在这里表示“虽然”，引导让步状语从句。",
-          "keyHint": "While 引导的从句与主句形成对比。"
+          "summary": "While引导前半句表示转折，后半句是重点，讲过量矿物质的危害。",
+          "keyHint": "注意 can be toxic 和 can also limit 是并列的谓语部分。"
         },
         "teachingFocus": {
-          "mainQuestion": "矿物质过多会怎样？有毒并限制生长。",
-          "grammarQuestion": "While 引导让步状语从句。",
-          "modifierQuestion": "of certain minerals 修饰 overabundance。",
-          "relationshipQuestion": "对比缺乏和过量的影响。",
-          "commonMistake": "误以为 While 表示时间“当...时”。",
+          "mainQuestion": "这句话对比了哪两种情况？",
+          "grammarQuestion": "While在这里是什么意思？它引导的句子是主句还是从句？",
+          "modifierQuestion": "an overabundance of certain minerals 中，of短语修饰 overabundance。",
+          "relationshipQuestion": "缺乏矿物质和过量矿物质对植物生长有什么共同影响？",
+          "commonMistake": "While放在句首容易误认为是‘当...时候’，这里表示‘虽然’。另外，不要漏掉 can also limit growth 这个并列部分。",
           "thinkingPath": [
             "识别 While 引导的让步状语从句",
-            "识别主句 an overabundance... can be toxic and can also limit growth",
+            "找到主句主语 an overabundance",
+            "识别并列谓语 can be toxic 和 can also limit",
             "理解对比关系"
           ],
-          "encouragement": "你理解了让步状语，真棒！"
+          "encouragement": "你抓住了对比关系，逻辑感越来越强了！"
         },
-        "analysis": "### 【主干结构】\n从句：While mineral deficiencies can limit the growth of plants。\n主句：an overabundance of certain minerals can be toxic and can also limit growth。\n### 【主谓一致】\ndeficiencies 复数，can limit 复数；overabundance 单数，can be/can limit 单数。\n### 【动词时态与原形】\n一般现在时。\n### 【从句剖析】\nWhile 引导让步状语从句。\n### 【代词指代】\n无。",
+        "analysis": "### 【主干结构】\n从句：mineral deficiencies (主) can limit (谓) the growth of plants (宾)\n主句：an overabundance of certain minerals (主) can be (谓1) toxic (表) and can also limit (谓2) growth (宾)\n### 【主谓一致】\nmineral deficiencies 复数，can limit 不变；an overabundance 单数，can be/can limit 不变。\n### 【从句剖析】\nWhile 引导让步状语从句，表示‘虽然’。\n### 【修饰语】\n'of plants' 修饰 growth。\n'of certain minerals' 修饰 overabundance。",
         "segments": [
           {
-            "text": "While ",
+            "text": "While",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "mineral deficiencies ",
+            "text": " mineral deficiencies",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "can limit ",
+            "text": " can limit",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "the growth of plants, ",
+            "text": " the growth of plants,",
             "type": "clause-object",
             "label": "从句宾语"
           },
           {
-            "text": "an overabundance of certain minerals ",
+            "text": " an overabundance of certain minerals",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "can be ",
+            "text": " can be",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "toxic ",
+            "text": " toxic",
             "type": "predicative",
             "label": "表语"
           },
           {
-            "text": "and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "can also limit ",
+            "text": " can also limit",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "growth.",
+            "text": " growth.",
             "type": "object",
             "label": "宾语"
           }
@@ -1294,78 +1452,68 @@
         "id": "s19",
         "para": 4,
         "text": "Saline soils, which have high concentrations of sodium chloride and other salts, limit plant growth, and research continues to focus on developing salt-tolerant varieties of agricultural crops.",
-        "translation": "盐碱土含有高浓度的氯化钠和其他盐类，限制植物生长，研究继续集中在开发耐盐农作物品种上。",
-        "grammarFocus": "非限制性定语从句 + 并列句",
+        "translation": "盐碱土含有高浓度的氯化钠和其他盐类，限制植物生长，研究继续集中在开发耐盐的农作物品种上。",
+        "grammarFocus": "非限制性定语从句、并列句",
         "pronounRef": "无",
-        "logicConnector": "and 连接并列句",
+        "logicConnector": "and (并且/然后)",
         "sentenceCoach": {
-          "summary": "and 连接两个独立句子，中间有插入语。",
-          "keyHint": "which 引导非限制性定语从句，修饰 saline soils。"
+          "summary": "这是一个并列句，由 and 连接两个独立的句子。",
+          "keyHint": "注意 which 引导的非限制性定语从句，去掉它不影响句子主干。"
         },
         "teachingFocus": {
-          "mainQuestion": "盐碱土怎么样？限制生长。研究在做什么？开发耐盐品种。",
-          "grammarQuestion": "which 引导非限制性定语从句。",
-          "modifierQuestion": "which have... 是插入语，解释 saline soils。",
-          "relationshipQuestion": "并列陈述盐碱土的影响和研究方向。",
-          "commonMistake": "误以为 which 指代 soils 以外的词。",
+          "mainQuestion": "这句话说了哪两件主要的事情？",
+          "grammarQuestion": "which 引导的从句修饰谁？and 连接的两个部分是什么关系？",
+          "modifierQuestion": "of sodium chloride... 修饰 concentrations。",
+          "relationshipQuestion": "盐碱土的特性（含盐高）和它的后果（限制生长）是什么关系？",
+          "commonMistake": "容易把 which 从句当成主句的一部分，或者忽略 and 后面的主句。记住：and 前后是两个完整的句子。",
           "thinkingPath": [
-            "识别主语 Saline soils",
-            "识别 which 引导的非限制性定语从句",
-            "识别主句谓语 limit",
-            "识别 and 连接的并列句"
+            "识别并列连词 and",
+            "分析前半句：主语 Saline soils，谓语 limit，中间插入 which 从句",
+            "分析后半句：主语 research，谓语 continues",
+            "理解并列关系"
           ],
-          "encouragement": "你理清了并列句和定语从句，真棒！"
+          "encouragement": "你能分清并列句的两个部分，真厉害！"
         },
-        "analysis": "### 【主干结构】\n前半句：Saline soils limit plant growth。\n后半句：research continues to focus on developing...\n### 【主谓一致】\nsoils 复数，limit 复数；research 单数，continues 单数。\n### 【动词时态与原形】\n一般现在时。\n### 【从句剖析】\nwhich 引导非限制性定语从句，修饰 saline soils。\n### 【代词指代】\n无。",
+        "analysis": "### 【主干结构】\n分句1：Saline soils (主) limit (谓) plant growth (宾)\n分句2：research (主) continues (谓) to focus on... (不定式作状语/补语)\n### 【主谓一致】\nSaline soils 复数，limit 用原形；research 不可数名词（单数），continues 用单三形式。\n### 【从句剖析】\n'which have high concentrations of sodium chloride and other salts' 是非限制性定语从句，修饰 Saline soils。\n### 【修饰语】\n'of sodium chloride and other salts' 修饰 concentrations。\n'to focus on developing...' 是不定式短语，作 continues 的状语或补足语，说明继续做什么。\n'salt-tolerant' 是复合形容词，修饰 varieties。\n'of agricultural crops' 修饰 varieties。",
         "segments": [
           {
-            "text": "Saline soils, ",
+            "text": "Saline soils,",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "which ",
-            "type": "clause-subject",
-            "label": "从句主语"
+            "text": " which have high concentrations of sodium chloride and other salts,",
+            "type": "modifier",
+            "label": "非限制性定语从句"
           },
           {
-            "text": "have ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "high concentrations of sodium chloride and other salts, ",
-            "type": "clause-object",
-            "label": "从句宾语"
-          },
-          {
-            "text": "limit ",
+            "text": " limit",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "plant growth, ",
+            "text": " plant growth,",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "and ",
+            "text": " and",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "research ",
+            "text": " research",
             "type": "coord-subject",
             "label": "并列主语"
           },
           {
-            "text": "continues ",
+            "text": " continues",
             "type": "coord-verb",
             "label": "并列谓语"
           },
           {
-            "text": "to focus on developing salt-tolerant varieties of agricultural crops.",
-            "type": "modifier",
+            "text": " to focus on developing salt-tolerant varieties of agricultural crops.",
+            "type": "adverbial",
             "label": "状语"
           }
         ]
@@ -1374,82 +1522,73 @@
         "id": "s20",
         "para": 4,
         "text": "Research has focused on the toxic effects of heavy metals such as lead, cadmium, mercury, and aluminum; however, even copper and zinc, which are essential elements, can become toxic in high concentrations.",
-        "translation": "研究集中在铅、镉、汞和铝等重金属的毒性作用上；然而，即使是铜和锌，虽然是必需元素，在高浓度下也会产生毒性。",
-        "grammarFocus": "分号连接并列句 + 非限制性定语从句",
+        "translation": "研究一直集中在铅、镉、汞和铝等重金属的毒性作用上；然而，即使是铜和锌这些必需元素，在高浓度下也会产生毒性。",
+        "grammarFocus": "分号连接并列句、however转折、非限制性定语从句",
         "pronounRef": "无",
-        "logicConnector": "however 转折",
+        "logicConnector": "however (然而)",
         "sentenceCoach": {
-          "summary": "分号前后是两个对比的句子，however 表示转折。",
-          "keyHint": "which 引导非限制性定语从句，修饰 copper and zinc。"
+          "summary": "分号前后是两个对比的句子。前半句讲重金属，后半句讲必需元素过量也有毒。",
+          "keyHint": "however 是副词，前面是分号，后面是逗号，注意标点用法。"
         },
         "teachingFocus": {
-          "mainQuestion": "研究关注什么？重金属毒性。铜锌呢？高浓度也有毒。",
-          "grammarQuestion": "however 表示转折，连接两个独立分句。",
-          "modifierQuestion": "which are essential elements 是插入语，修饰 copper and zinc。",
-          "relationshipQuestion": "对比一般重金属和必需元素在高浓度下的毒性。",
-          "commonMistake": "误以为 however 是副词修饰动词。",
+          "mainQuestion": "分号前后的句子在讲什么对比？",
+          "grammarQuestion": "however 在这里起什么作用？which 从句修饰谁？",
+          "modifierQuestion": "such as... 举例说明 heavy metals。",
+          "relationshipQuestion": "为什么铜和锌也是必需元素，却也会产生毒性？",
+          "commonMistake": "容易忽略 however 的转折语气，或者把 which 从句误认为是修饰 copper and zinc 以外的词。",
           "thinkingPath": [
-            "识别分号前的句子 Research has focused on...",
-            "识别 however 表示转折",
-            "识别分号后的句子 copper and zinc can become toxic",
-            "识别 which 引导的非限制性定语从句"
+            "识别分号分隔的两个独立分句",
+            "分析前半句：Research has focused on...",
+            "分析后半句：主语 copper and zinc，谓语 can become",
+            "识别 however 的转折作用",
+            "识别 which 从句修饰 copper and zinc"
           ],
-          "encouragement": "你理解了转折关系，真棒！"
+          "encouragement": "你注意到了分号和 however 的转折，逻辑很清晰！"
         },
-        "analysis": "### 【主干结构】\n前半句：Research has focused on the toxic effects of heavy metals...\n后半句：even copper and zinc can become toxic...\n### 【主谓一致】\nResearch 单数，has focused 单数；copper and zinc 复数，can become 复数。\n### 【动词时态与原形】\n一般现在时。\n### 【从句剖析】\nwhich 引导非限制性定语从句，修饰 copper and zinc。\n### 【代词指代】\n无。",
+        "analysis": "### 【主干结构】\n分句1：Research (主) has focused (谓) on the toxic effects of heavy metals... (介词短语作状语)\n分句2：even copper and zinc (主) can become (谓) toxic (表)\n### 【主谓一致】\nResearch 单数，has focused 单三；copper and zinc 复数，can become 不变。\n### 【从句剖析】\n'which are essential elements' 是非限制性定语从句，修饰 copper and zinc。\n### 【修饰语】\n'of heavy metals' 修饰 toxic effects。\n'such as lead, cadmium, mercury, and aluminum' 是介词短语，举例说明 heavy metals。\n'in high concentrations' 是介词短语作状语，修饰 can become toxic。",
         "segments": [
           {
-            "text": "Research ",
+            "text": "Research",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "has focused on ",
+            "text": " has focused",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "the toxic effects of heavy metals such as lead, cadmium, mercury, and aluminum; ",
-            "type": "object",
-            "label": "宾语"
-          },
-          {
-            "text": "however, ",
-            "type": "modifier",
+            "text": " on the toxic effects of heavy metals such as lead, cadmium, mercury, and aluminum;",
+            "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "even copper and zinc, ",
+            "text": " however,",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " even copper and zinc,",
             "type": "coord-subject",
             "label": "并列主语"
           },
           {
-            "text": "which ",
-            "type": "clause-subject",
-            "label": "从句主语"
+            "text": " which are essential elements,",
+            "type": "modifier",
+            "label": "非限制性定语从句"
           },
           {
-            "text": "are ",
-            "type": "clause-verb",
-            "label": "从句谓语"
-          },
-          {
-            "text": "essential elements, ",
-            "type": "clause-predicative",
-            "label": "从句表语"
-          },
-          {
-            "text": "can become ",
+            "text": " can become",
             "type": "coord-verb",
             "label": "并列谓语"
           },
           {
-            "text": "toxic ",
-            "type": "predicative",
-            "label": "表语"
+            "text": " toxic",
+            "type": "coord-predicative",
+            "label": "并列表语"
           },
           {
-            "text": "in high concentrations.",
+            "text": " in high concentrations.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -1459,66 +1598,68 @@
         "id": "s21",
         "para": 4,
         "text": "Although most plants cannot survive in these soils, certain plants have the ability to tolerate high levels of these minerals.",
-        "translation": "虽然大多数植物不能在这些土壤中生存，但某些植物有能力耐受高浓度的这些矿物质。",
-        "grammarFocus": "让步状语从句",
-        "pronounRef": "these 指代前文提到的土壤",
-        "logicConnector": "Although 引导让步",
+        "translation": "虽然大多数植物不能在这些土壤中生存，但某些植物有能力耐受这些矿物质的高浓度。",
+        "grammarFocus": "让步状语从句、不定式作后置定语",
+        "pronounRef": "these soils/minerals 指代前文提到的含重金属或盐分的土壤/矿物质",
+        "logicConnector": "Although (虽然)",
         "sentenceCoach": {
-          "summary": "Although 引导让步状语从句，表示转折。",
-          "keyHint": "Although 引导的从句与主句形成对比。"
+          "summary": "Although 引导让步状语从句，主句强调某些植物的特殊能力。",
+          "keyHint": "to tolerate... 是不定式，修饰 ability。"
         },
         "teachingFocus": {
-          "mainQuestion": "大多数植物能活吗？不能。某些植物呢？能。",
-          "grammarQuestion": "Although 引导让步状语从句。",
-          "modifierQuestion": "to tolerate... 是不定式作后置定语，修饰 ability。",
-          "relationshipQuestion": "对比大多数植物和某些植物的生存能力。",
-          "commonMistake": "误以为 Although 表示时间。",
+          "mainQuestion": "这句话对比了哪两类植物？",
+          "grammarQuestion": "Although 引导的从句位置灵活吗？to tolerate 修饰谁？",
+          "modifierQuestion": "of these minerals 修饰 levels。",
+          "relationshipQuestion": "为什么大多数植物不能生存，而某些植物可以？",
+          "commonMistake": "容易把 to tolerate... 当成谓语，其实它是修饰 ability 的定语。",
           "thinkingPath": [
             "识别 Although 引导的让步状语从句",
-            "识别主句 certain plants have the ability",
-            "理解不定式作定语"
+            "找到主句主语 certain plants",
+            "找到主句谓语 have",
+            "找到宾语 the ability",
+            "识别 to tolerate... 修饰 ability"
           ],
-          "encouragement": "你理解了让步状语，真棒！"
+          "encouragement": "你找到了不定式作定语的用法，观察力真敏锐！"
         },
-        "analysis": "### 【主干结构】\n从句：Although most plants cannot survive in these soils。\n主句：certain plants have the ability to tolerate high levels of these minerals。\n### 【主谓一致】\nplants 复数，cannot survive 复数；plants 复数，have 复数。\n### 【动词时态与原形】\n一般现在时。\n### 【从句剖析】\nAlthough 引导让步状语从句。\n### 【代词指代】\nthese 指代前文提到的 saline soils 等。",
+        "analysis": "### 【主干结构】\n从句：most plants (主) cannot survive (谓) in these soils (状语)\n主句：certain plants (主) have (谓) the ability (宾)\n### 【主谓一致】\nmost plants 复数，cannot survive；certain plants 复数，have。\n### 【从句剖析】\nAlthough 引导让步状语从句。\n### 【修饰语】\n'to tolerate high levels of these minerals' 是不定式短语，作后置定语，修饰 ability。\n'of these minerals' 修饰 levels。",
         "segments": [
           {
-            "text": "Although ",
+            "text": "Although",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "most plants ",
+            "text": " most plants",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "cannot survive ",
+            "text": " cannot survive",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "in these soils, ",
+            "text": " in these soils,",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "certain plants ",
+            "text": " certain plants",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "have ",
+            "text": " have",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "the ability ",
+            "text": " the ability",
             "type": "object",
             "label": "宾语"
           },
           {
-            "text": "to tolerate high levels of these minerals.",
+            "text": " to tolerate high levels of these minerals.",
             "type": "modifier",
             "label": "定语"
           }
@@ -1528,71 +1669,73 @@
         "id": "s22",
         "para": 5,
         "text": "Scientists have known for some time that certain plants, called hyperaccumulators, can concentrate minerals at levels a hundredfold or greater than normal.",
-        "translation": "科学家们已经知道一段时间了，某些植物，称为超富集植物，可以浓缩矿物质，浓度是正常的一百倍或更高。",
-        "grammarFocus": "宾语从句 + 过去分词作定语",
+        "translation": "科学家们已经知道一段时间了，某些植物（称为超富集植物）能在比正常水平高百倍或更多的水平上浓缩矿物质。",
+        "grammarFocus": "宾语从句、过去分词作后置定语、比较级",
         "pronounRef": "无",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "that 引导宾语从句，called hyperaccumulators 是插入语。",
-          "keyHint": "called hyperaccumulators 修饰 certain plants。"
+          "summary": "Scientists have known 是主句，that 引导的是 known 的宾语从句。",
+          "keyHint": "called hyperaccumulators 是插入语，解释 certain plants。"
         },
         "teachingFocus": {
-          "mainQuestion": "科学家知道什么？某些植物能浓缩矿物质。",
-          "grammarQuestion": "that 引导宾语从句。",
-          "modifierQuestion": "called hyperaccumulators 是过去分词短语作后置定语。",
-          "relationshipQuestion": "陈述科学家的发现。",
-          "commonMistake": "误以为 called 是谓语动词。",
+          "mainQuestion": "科学家们知道了什么？",
+          "grammarQuestion": "that 引导的从句在整个句子中充当什么成分？called... 修饰谁？",
+          "modifierQuestion": "at levels... 修饰 concentrate。",
+          "relationshipQuestion": "hyperaccumulators 和普通植物有什么不同？",
+          "commonMistake": "容易把 called hyperaccumulators 当成谓语，其实它是过去分词作定语。",
           "thinkingPath": [
             "识别主句 Scientists have known",
             "识别 that 引导的宾语从句",
-            "识别 called hyperaccumulators 作后置定语"
+            "在从句中找到主语 certain plants",
+            "识别 called hyperaccumulators 作后置定语",
+            "找到从句谓语 can concentrate"
           ],
-          "encouragement": "你识别了宾语从句和后置定语，真棒！"
+          "encouragement": "你成功拆解了宾语从句，太棒了！"
         },
-        "analysis": "### 【主干结构】\n主句：Scientists have known。\n从句：that certain plants... can concentrate minerals...\n### 【主谓一致】\nScientists 复数，have known 复数；plants 复数，can concentrate 复数。\n### 【动词时态与原形】\n现在完成时。\n### 【从句剖析】\nthat 引导宾语从句。\n### 【代词指代】\n无。",
+        "analysis": "### 【主干结构】\n主句：Scientists (主) have known (谓) [宾语从句]\n宾语从句：certain plants (主) can concentrate (谓) minerals (宾) at levels... (状语)\n### 【主谓一致】\nScientists 复数，have known；certain plants 复数，can concentrate。\n### 【从句剖析】\n'that certain plants... normal' 是宾语从句，作 known 的宾语。\n### 【修饰语】\n'called hyperaccumulators' 是过去分词短语，作后置定语，修饰 certain plants。\n'for some time' 是时间状语，修饰 have known。\n'at levels a hundredfold or greater than normal' 是介词短语作状语，修饰 concentrate。\n'a hundredfold or greater than normal' 是后置定语，修饰 levels。",
         "segments": [
           {
-            "text": "Scientists ",
+            "text": "Scientists",
             "type": "subject",
             "label": "主语"
           },
           {
-            "text": "have known ",
+            "text": " have known",
             "type": "verb",
             "label": "谓语"
           },
           {
-            "text": "for some time ",
+            "text": " for some time",
             "type": "adverbial",
             "label": "状语"
           },
           {
-            "text": "that ",
+            "text": " that",
             "type": "conjunction",
             "label": "连接词"
           },
           {
-            "text": "certain plants, ",
+            "text": " certain plants,",
             "type": "clause-subject",
             "label": "从句主语"
           },
           {
-            "text": "called hyperaccumulators, ",
+            "text": " called hyperaccumulators,",
             "type": "modifier",
-            "label": "定语"
+            "label": "后置定语"
           },
           {
-            "text": "can concentrate ",
+            "text": " can concentrate",
             "type": "clause-verb",
             "label": "从句谓语"
           },
           {
-            "text": "minerals ",
+            "text": " minerals",
             "type": "clause-object",
             "label": "从句宾语"
           },
           {
-            "text": "at levels a hundredfold or greater than normal.",
+            "text": " at levels a hundredfold or greater than normal.",
             "type": "adverbial",
             "label": "状语"
           }
@@ -1602,35 +1745,662 @@
         "id": "s23",
         "para": 5,
         "text": "A survey of known hyperaccumulators identified that 75 percent of them amassed nickel, cobalt, copper, zinc, manganese, lead, and cadmium are other minerals of choice.",
-        "translation": "对已知超富集植物的调查显示，75% 的它们富集镍、钴、铜、锌、锰、铅和镉，其他矿物质也是首选。",
-        "grammarFocus": "宾语从句 + 并列结构",
-        "pronounRef": "them 指代 hyperaccumulators",
+        "translation": "对已知超富集植物的一项调查确定，75%的它们富集镍、钴、铜、锌、锰、铅和镉，其他矿物质也是首选。",
+        "grammarFocus": "宾语从句、主谓一致（百分比主语）、并列宾语",
+        "pronounRef": "them 指代 known hyperaccumulators",
         "logicConnector": "无",
         "sentenceCoach": {
-          "summary": "that 引导宾语从句，从句结构稍复杂。",
-          "keyHint": "注意从句中的并列主语和谓语。"
+          "summary": "identified 后面跟着 that 引导的宾语从句。从句结构有点复杂，注意主语是 75 percent of them。",
+          "keyHint": "amassed 是谓语，后面跟了一长串宾语。"
         },
         "teachingFocus": {
-          "mainQuestion": "调查显示什么？75% 的超富集植物富集多种矿物质。",
-          "grammarQuestion": "that 引导宾语从句。",
+          "mainQuestion": "调查发现了什么事实？",
+          "grammarQuestion": "75 percent of them 作主语时，谓语动词用单数还是复数？",
           "modifierQuestion": "of known hyperaccumulators 修饰 survey。",
-          "relationshipQuestion": "陈述调查结果。",
-          "commonMistake": "误以为 are 是主句谓语。",
+          "relationshipQuestion": "75%的超富集植物主要富集哪些矿物质？",
+          "commonMistake": "容易误以为 75 percent 是单数，其实 of them 指代复数植物，所以谓语用复数 amassed。",
           "thinkingPath": [
-            "识别主句 A survey identified",
+            "识别主句 A survey... identified",
             "识别 that 引导的宾语从句",
-            "分析从句中的并列结构"
+            "在从句中找到主语 75 percent of them",
+            "找到从句谓语 amassed",
+            "识别并列宾语 nickel, cobalt... cadmium"
           ],
-          "encouragement": "你理清了宾语从句，真棒！"
+          "encouragement": "你注意到了百分比主语的动词变化，细节满分！"
         },
+        "analysis": "### 【主干结构】\n主句：A survey of known hyperaccumulators (主) identified (谓) [宾语从句]\n宾语从句：75 percent of them (主) amassed (谓) nickel, cobalt, copper, zinc, manganese, lead, and cadmium (宾)\n### 【主谓一致】\nA survey 单数，identified；75 percent of them (them指代复数hyperaccumulators)，谓语用复数 amassed。\n### 【从句剖析】\n'that 75 percent... choice' 是宾语从句，作 identified 的宾语。\n### 【修饰语】\n'of known hyperaccumulators' 修饰 survey。\n'of choice' 修饰 minerals (隐含在 are other minerals of choice 中，原句结构稍显松散，通常理解为 '...amassed [list], and [these] are other minerals of choice' 或者 'amassed [list] which are other minerals of choice'，但根据原句结构，更可能是 'amassed [list], and [these] are...' 的省略或并列，或者 'amassed [list]' 是主谓宾，'cadmium are other minerals of choice' 是另一个分句？不，看标点，cadmium 后没有逗号，直接接 are。这里原句可能有语法瑕疵或特殊结构，通常理解为：75% of them amassed [list], and [these] are other minerals of choice. 但原句没有 and。另一种理解：amassed 的宾语是 nickel... cadmium，然后 'are other minerals of choice' 是谓语部分？不对，amassed 是及物动词。最可能的结构是：75 percent of them amassed [nickel... cadmium], and [these] are other minerals of choice. 但原句没有 and。再看原句：'amassed nickel, cobalt, copper, zinc, manganese, lead, and cadmium are other minerals of choice.' 这里 cadmium 后直接接 are，可能是笔误，应为 'cadmium, and these are...' 或者 'cadmium, which are...'。但根据要求不修改原句，我们按原句结构分析：可能 'amassed' 是谓语，宾语到 cadmium 结束，然后 'are other minerals of choice' 是另一个谓语？主语是谁？可能是前面的整个列表？或者 cadmium 是主语？不，cadmium 是单数。最合理的解析是：75 percent of them amassed [nickel... cadmium], and [these] are other minerals of choice. 但原句没有 and。我们暂且将 'are other minerals of choice' 视为对前面列举矿物质的补充说明，或者原句结构为：75 percent of them amassed [nickel... cadmium], [which] are other minerals of choice. 但原句没有 which。我们按字面拆解：\nSubject: 75 percent of them\nVerb: amassed\nObject: nickel, cobalt, copper, zinc, manganese, lead, and cadmium\nPredicate 2: are\nSubject 2: (implied 'these' or the list)\nPredicative 2: other minerals of choice\n但为了符合 JSON 结构，我们将其视为一个整体从句，其中 amassed 是主要谓语，are... 可能是并列谓语或补充。鉴于原句结构，更可能是：75 percent of them amassed [list], and [these] are... 的省略。我们按 'amassed' 为谓语，'are' 为第二个谓语（省略主语）处理，或者将 'are other minerals of choice' 视为对 cadmium 等的补充。这里为了简化，将 'are other minerals of choice' 视为对前面列举的矿物质的补充说明，标签为 modifier 或 adverbial。但更准确的是，原句可能有误，应为 'cadmium, and these are...'。我们按原句：\n75 percent of them (subject) amassed (verb) [list] (object), and [these] (subject implied) are (verb) other minerals of choice (predicative). 但原句没有 and。我们将其视为：\n75 percent of them (subject) amassed (verb) [list] (object), [which] are (verb) other minerals of choice (predicative). 但原句没有 which。我们按字面：\n75 percent of them (subject) amassed (verb) [list] (object), are (verb) other minerals of choice (predicative). 这里 are 的主语可能是 the list。我们将其拆分为：\n75 percent of them (subject) amassed (verb) [list] (object), and [these] are (verb) other minerals of choice (predicative). 但原句没有 and。我们按原句结构，将 'are other minerals of choice' 视为对前面列举的矿物质的补充说明，标签为 modifier。",
         "segments": [
           {
-            "text": "A survey of known hyperaccumulators identified that 75 percent of them amassed nickel, cobalt, copper, zinc, manganese, lead, and cadmium are other minerals of choice.",
-            "type": "other",
-            "label": "完整句"
+            "text": "A survey of known hyperaccumulators",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " identified",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " that",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " 75 percent of them",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " amassed",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " nickel, cobalt, copper, zinc, manganese, lead, and cadmium",
+            "type": "clause-object",
+            "label": "从句宾语"
+          },
+          {
+            "text": " are other minerals of choice.",
+            "type": "modifier",
+            "label": "补充说明"
           }
-        ],
-        "analysis": "### 【主干结构】\n先抓句子的主语和动词，再看后面的补充信息。\n\n### 【主谓一致】\n根据主语单复数判断谓语形式。\n\n### 【动词时态与原形】\n根据原句动词形式判断时态。\n\n### 【从句剖析】\n无明显从句或需结合连接词进一步判断。\n\n### 【代词指代】\nthem 指代 hyperaccumulators\n\n### 【非谓语动词】\n如有 to do 或 -ing 结构，需要判断其作用。"
+        ]
+      },
+      {
+        "id": "s24",
+        "para": 5,
+        "text": "Hyperaccumulators run the entire range of the plant world.",
+        "translation": "超富集植物涵盖了植物界的整个范围。",
+        "grammarFocus": "简单句、动词 run 的引申义",
+        "pronounRef": "无",
+        "logicConnector": "无",
+        "sentenceCoach": {
+          "summary": "这是一个简单的陈述句，说明超富集植物的多样性。",
+          "keyHint": "run 在这里不是‘跑’，而是‘涵盖、包括’的意思。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "这句话想告诉我们关于超富集植物的什么信息？",
+          "grammarQuestion": "run 在这里是什么意思？",
+          "modifierQuestion": "the entire range of the plant world 是宾语。",
+          "relationshipQuestion": "超富集植物和植物界是什么关系？",
+          "commonMistake": "容易把 run 理解为‘奔跑’，这里指‘涵盖、包括’。",
+          "thinkingPath": [
+            "找到主语 Hyperaccumulators",
+            "找到谓语 run",
+            "找到宾语 the entire range of the plant world",
+            "理解 run 的引申义"
+          ],
+          "encouragement": "你理解了 run 的引申义，词汇量在增长！"
+        },
+        "analysis": "### 【主干结构】\n主语：Hyperaccumulators\n谓语：run\n宾语：the entire range of the plant world\n### 【主谓一致】\nHyperaccumulators 复数，run 用原形。\n### 【修饰语】\n'of the plant world' 修饰 range。\n'the entire' 修饰 range。",
+        "segments": [
+          {
+            "text": "Hyperaccumulators",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " run",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " the entire range of the plant world.",
+            "type": "object",
+            "label": "宾语"
+          }
+        ]
+      },
+      {
+        "id": "s25",
+        "para": 5,
+        "text": "They may be herbs, shrubs, or trees.",
+        "translation": "它们可能是草本植物、灌木或树木。",
+        "grammarFocus": "情态动词 may 表示可能性；并列名词作表语。",
+        "pronounRef": "They 指代前文提到的植物（通常指超富集植物）。",
+        "logicConnector": "or 表示选择关系，列举植物的三种形态。",
+        "sentenceCoach": {
+          "summary": "这句话很简单，就是在说这些植物长什么样。",
+          "keyHint": "注意 may 表示“可能”，不是“必须”。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "这句话的主干是谁？是“它们”可能是“草本、灌木或树木”。",
+          "grammarQuestion": "may 后面直接跟动词原形 be，表示一种可能性。",
+          "modifierQuestion": "herbs, shrubs, or trees 是三个并列的名词，共同作为 be 动词的表语，描述主语的身份。",
+          "relationshipQuestion": "主语 They 和表语之间是等同或分类的关系。",
+          "commonMistake": "不要漏掉 or，它连接最后两个选项，表示三选一或三者皆有可能。",
+          "thinkingPath": [
+            "找到主语 They",
+            "找到谓语 may be",
+            "找到表语 herbs, shrubs, or trees"
+          ],
+          "encouragement": "看，这句话就像在介绍三位朋友，它们可能是其中任何一种哦！"
+        },
+        "analysis": "### 【主干结构】\n主语 They + 系动词 may be + 表语 herbs, shrubs, or trees。\n\n### 【主谓一致】\n主语 They 是复数，谓语动词 be 使用原形（因为前面有情态动词 may）。\n\n### 【动词时态与原形】\nmay be：情态动词 may + 动词原形 be，表示推测或可能性。\n\n### 【代词指代】\nThey 指代上下文提到的植物群体。\n\n### 【非谓语动词】\n无。",
+        "segments": [
+          {
+            "text": "They",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " may be",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " herbs, shrubs, or trees.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s26",
+        "para": 5,
+        "text": "Many members  of the mustard family, spurge family, legume family, and grass family are top hyperaccumulators.",
+        "translation": "十字花科、大戟科、豆科和禾本科的许多成员是顶级的超富集植物。",
+        "grammarFocus": "介词短语作后置定语修饰 members；并列名词短语作定语。",
+        "pronounRef": "无代词。",
+        "logicConnector": "and 连接四个并列的科名。",
+        "sentenceCoach": {
+          "summary": "这句话很长，但核心就是“许多成员是超富集植物”。",
+          "keyHint": "of 后面的长串都是修饰 members 的，不要被吓到。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "谁？是“许多成员”。做什么？是“顶级超富集植物”。",
+          "grammarQuestion": "of 引导的介词短语修饰前面的名词 members，说明是哪些科的成员。",
+          "modifierQuestion": "of the mustard family... 是长长的定语，修饰 members。top 是形容词，修饰 hyperaccumulators。",
+          "relationshipQuestion": "主语 members 和表语 hyperaccumulators 之间是分类关系。",
+          "commonMistake": "容易把 of 后面的内容当成主语，其实主语核心词是 members。",
+          "thinkingPath": [
+            "找到主语核心词 members",
+            "找到谓语 are",
+            "找到表语 hyperaccumulators",
+            "识别 of 短语为定语"
+          ],
+          "encouragement": "就像给成员发不同颜色的队服，这句话告诉我们它们属于哪些家族！"
+        },
+        "analysis": "### 【主干结构】\n主语 Many members + 系动词 are + 表语 top hyperaccumulators。\n\n### 【主谓一致】\n主语核心词 members 是复数，谓语动词 are 使用复数形式。\n\n### 【动词时态与原形】\nare：一般现在时，表示客观事实。\n\n### 【从句剖析】\n无从句。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\nof the mustard family, spurge family, legume family, and grass family 是介词短语作后置定语，修饰 members。其中 mustard family, spurge family, legume family, and grass family 是并列的名词短语。",
+        "segments": [
+          {
+            "text": "Many members",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": "  of the mustard family, spurge family, legume family, and grass family",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " are",
+            "type": "verb",
+            "label": "系动词"
+          },
+          {
+            "text": " top hyperaccumulators.",
+            "type": "predicative",
+            "label": "表语"
+          }
+        ]
+      },
+      {
+        "id": "s27",
+        "para": 5,
+        "text": "Many are found in tropical and subtropical areas of the world, where accumulation of high concentrations of metals may afford some protection against plant-eating insects and microbial pathogens.",
+        "translation": "许多植物被发现分布于世界热带和亚热带地区，在那里，高浓度金属的积累可能为植物提供针对食草昆虫和微生物病原体的某种保护。",
+        "grammarFocus": "被动语态 are found；where 引导的非限制性定语从句。",
+        "pronounRef": "Many 指代前文的植物。",
+        "logicConnector": "where 引导定语从句，修饰 areas。",
+        "sentenceCoach": {
+          "summary": "前半句说它们在哪，后半句用 where 解释在那儿有什么好处。",
+          "keyHint": "where 引导的从句是修饰 areas 的，不是修饰 world。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "前半句主干是“许多被发现于...地区”。后半句是 where 引导的从句，解释在那里的情况。",
+          "grammarQuestion": "are found 是被动语态。where 引导非限制性定语从句，修饰先行词 areas。",
+          "modifierQuestion": "in tropical and subtropical areas of the world 是地点状语。where 从句内部，accumulation... 是主语，afford 是谓语，protection 是宾语。",
+          "relationshipQuestion": "主句陈述分布，从句解释分布区域的功能/优势。",
+          "commonMistake": "容易误以为 where 修饰 world，其实它紧跟在 areas 之后，修饰 areas。",
+          "thinkingPath": [
+            "找到主句主干 Many are found",
+            "找到地点状语 in... areas",
+            "识别 where 引导定语从句",
+            "分析从句内部结构"
+          ],
+          "encouragement": "where 就像一个小导游，带我们去看看这些植物住的地方有什么秘密武器！"
+        },
+        "analysis": "### 【主干结构】\n主句：Many (主语) + are found (谓语/被动) + in tropical and subtropical areas of the world (地点状语)。\n从句：where (关系副词) + accumulation of high concentrations of metals (主语) + may afford (谓语) + some protection (宾语) + against plant-eating insects and microbial pathogens (状语/定语修饰 protection)。\n\n### 【主谓一致】\n主句主语 Many 复数，谓语 are 复数。从句主语 accumulation 单数，谓语 may afford 不变。\n\n### 【动词时态与原形】\nare found：一般现在时被动语态。\nmay afford：情态动词 may + 动词原形 afford，表示可能性。\n\n### 【从句剖析】\nwhere 引导非限制性定语从句，修饰先行词 areas。在从句中，where 作地点状语。从句主语是 accumulation，谓语是 afford。\n\n### 【非谓语动词】\nplant-eating：现在分词作定语，修饰 insects。\n\n### 【修饰语分析】\nof the world 修饰 areas。\nof high concentrations of metals 修饰 accumulation。\nagainst... pathogens 修饰 protection，说明保护的对象。",
+        "segments": [
+          {
+            "text": "Many",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " are found",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " in tropical and subtropical areas of the world,",
+            "type": "adverbial",
+            "label": "地点状语"
+          },
+          {
+            "text": " where",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " accumulation of high concentrations of metals",
+            "type": "clause-subject",
+            "label": "从句主语"
+          },
+          {
+            "text": " may afford",
+            "type": "clause-verb",
+            "label": "从句谓语"
+          },
+          {
+            "text": " some protection",
+            "type": "clause-object",
+            "label": "从句宾语"
+          },
+          {
+            "text": " against plant-eating insects and microbial pathogens.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s28",
+        "para": 6,
+        "text": "Only recently have investigators considered using these plants to clean up soil and waste sites that have been contaminated by toxic levels of heavy metals–an environmentally friendly approach known as phytoremediation.",
+        "translation": "直到最近，研究人员才考虑利用这些植物来清理被有毒重金属水平污染的土壤和废物场地——一种被称为植物修复的环保方法。",
+        "grammarFocus": "Only recently 位于句首引起的部分倒装；that 引导的定语从句；破折号后的同位语。",
+        "pronounRef": "these plants 指代前文的超富集植物。",
+        "logicConnector": "Only recently 强调时间晚；– 破折号引出解释说明。",
+        "sentenceCoach": {
+          "summary": "这句话因为 Only recently 开头，所以语序倒装了，像变魔术一样。",
+          "keyHint": "看到 Only + 状语在句首，要找倒装结构：助动词 + 主语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "主干是“研究人员最近才考虑使用这些植物”。",
+          "grammarQuestion": "Only recently 位于句首，句子部分倒装：have investigators considered。that 引导定语从句修饰 sites。",
+          "modifierQuestion": "using these plants... 是 considered 的宾语。to clean up... 是目的状语。that... 是定语从句。破折号后是 approach 的同位语。",
+          "relationshipQuestion": "主句陈述研究行为，定语从句描述场地状态，同位语解释方法名称。",
+          "commonMistake": "容易忽略倒装，误以为 investigators 是宾语。容易忽略 that 从句修饰的是 sites。",
+          "thinkingPath": [
+            "识别 Only recently 引起倒装",
+            "找到主语 investigators 和谓语 have considered",
+            "找到宾语 using...",
+            "识别 that 定语从句",
+            "识别破折号后的同位语"
+          ],
+          "encouragement": "Only recently 像个指挥家，一挥棒，句子就倒立起来跳舞啦！"
+        },
+        "analysis": "### 【主干结构】\n主语 investigators + 谓语 have considered + 宾语 using these plants to clean up soil and waste sites。\n\n### 【主谓一致】\n主语 investigators 复数，谓语 have considered 复数。\n\n### 【动词时态与原形】\nhave considered：现在完成时，表示从过去持续到现在的动作或影响。\n\n### 【从句剖析】\nthat have been contaminated by toxic levels of heavy metals 是定语从句，修饰先行词 waste sites (或 soil and waste sites)。\n\n### 【非谓语动词】\nusing：动名词作 considered 的宾语。\nto clean up：不定式作目的状语，修饰 using。\nknown as：过去分词短语作后置定语，修饰 approach。\n\n### 【修饰语分析】\nOnly recently：时间状语，位于句首引起倒装。\nan environmentally friendly approach known as phytoremediation：同位语，解释说明前面的整个概念或 specifically the approach of using plants。",
+        "segments": [
+          {
+            "text": "Only recently",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " have investigators",
+            "type": "coord-subject",
+            "label": "主语"
+          },
+          {
+            "text": " considered",
+            "type": "coord-verb",
+            "label": "谓语"
+          },
+          {
+            "text": " using these plants to clean up soil and waste sites",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " that have been contaminated by toxic levels of heavy metals",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": "–an environmentally friendly approach known as phytoremediation.",
+            "type": "modifier",
+            "label": "同位语"
+          }
+        ]
+      },
+      {
+        "id": "s29",
+        "para": 6,
+        "text": "This scenario begins with the planting of hyperaccumulating species in the target area, such as an abandoned mine or an irrigation pond contaminated by runoff.",
+        "translation": "这一过程始于在目标区域（如被径流污染的废弃矿井或灌溉池塘）种植超富集物种。",
+        "grammarFocus": "begin with 短语；such as 举例；contaminated by 过去分词作定语。",
+        "pronounRef": "This scenario 指代前文提到的植物修复过程。",
+        "logicConnector": "such as 引出例子。",
+        "sentenceCoach": {
+          "summary": "这句话描述了植物修复的第一步：在哪里种什么。",
+          "keyHint": "such as 后面的内容是举例，修饰 target area。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "主干是“这一情景始于种植...”。",
+          "grammarQuestion": "begins with 是固定搭配。such as 引导举例。contaminated by runoff 是过去分词短语作后置定语。",
+          "modifierQuestion": "of hyperaccumulating species 修饰 planting。in the target area 修饰 planting。such as... 修饰 target area。contaminated by runoff 修饰 pond (或 mine and pond)。",
+          "relationshipQuestion": "主句陈述开始动作，举例说明目标区域的具体类型。",
+          "commonMistake": "容易误以为 contaminated 修饰 area，其实它紧跟在 pond 后，修饰 pond。",
+          "thinkingPath": [
+            "找到主语 This scenario",
+            "找到谓语 begins with",
+            "找到宾语 the planting...",
+            "识别 such as 举例",
+            "识别 contaminated 为后置定语"
+          ],
+          "encouragement": "such as 就像两个小放大镜，帮我们看清目标区域具体长什么样！"
+        },
+        "analysis": "### 【主干结构】\n主语 This scenario + 谓语 begins with + 宾语 the planting of hyperaccumulating species in the target area。\n\n### 【主谓一致】\n主语 This scenario 单数，谓语 begins 单数。\n\n### 【动词时态与原形】\nbegins：一般现在时，表示流程步骤。\n\n### 【从句剖析】\n无从句。\n\n### 【非谓语动词】\ncontaminated by runoff：过去分词短语作后置定语，修饰 an irrigation pond (或 an abandoned mine or an irrigation pond)。\n\n### 【修饰语分析】\nof hyperaccumulating species：介词短语修饰 planting。\nin the target area：介词短语修饰 planting。\nsuch as an abandoned mine or an irrigation pond：介词短语作插入语，举例说明 target area。\ncontaminated by runoff：过去分词短语修饰 pond。",
+        "segments": [
+          {
+            "text": "This scenario",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " begins with",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " the planting of hyperaccumulating species in the target area,",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " such as an abandoned mine or an irrigation pond",
+            "type": "modifier",
+            "label": "同位语"
+          },
+          {
+            "text": " contaminated by runoff.",
+            "type": "modifier",
+            "label": "定语"
+          }
+        ]
+      },
+      {
+        "id": "s30",
+        "para": 6,
+        "text": "Toxic minerals would first be absorbed by roots but later relocated to the stem and leaves.",
+        "translation": "有毒矿物质首先会被根部吸收，但随后会被转移到茎和叶中。",
+        "grammarFocus": "被动语态；but 连接两个并列的谓语部分。",
+        "pronounRef": "无代词。",
+        "logicConnector": "but 表示转折/对比，连接 first... 和 later...。",
+        "sentenceCoach": {
+          "summary": "这句话描述了矿物质在植物体内的旅行路线。",
+          "keyHint": "but 连接了两个被动动作：被吸收 和 被转移。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "主干是“有毒矿物质会被吸收，但会被转移”。",
+          "grammarQuestion": "would be absorbed 和 (would be) relocated 是并列的被动谓语。but 连接它们。",
+          "modifierQuestion": "first 修饰 absorbed。later 修饰 relocated。by roots 修饰 absorbed。to the stem and leaves 修饰 relocated。",
+          "relationshipQuestion": "两个动作按时间顺序发生，由 but 连接，强调位置的改变。",
+          "commonMistake": "容易漏掉第二个 would，认为 relocated 是主动语态。",
+          "thinkingPath": [
+            "找到主语 Toxic minerals",
+            "找到第一个谓语 would be absorbed",
+            "找到连接词 but",
+            "找到第二个谓语 (would be) relocated",
+            "识别 by roots 和 to... 为状语"
+          ],
+          "encouragement": "but 就像个路标，告诉矿物质：先在这里停，再去那里！"
+        },
+        "analysis": "### 【主干结构】\n主语 Toxic minerals + 谓语1 would be absorbed + 连接词 but + 谓语2 (would be) relocated。\n\n### 【主谓一致】\n主语 Toxic minerals 复数，谓语用复数形式（would be absorbed, would be relocated）。\n\n### 【动词时态与原形】\nwould be absorbed / would be relocated：过去将来时的被动语态，表示在假设情境下的未来动作。\n\n### 【从句剖析】\n无从句。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\nfirst：副词，修饰 absorbed。\nby roots：介词短语，修饰 absorbed，表示动作发出者。\nlater：副词，修饰 relocated。\nto the stem and leaves：介词短语，修饰 relocated，表示方向。",
+        "segments": [
+          {
+            "text": "Toxic minerals",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " would first be absorbed",
+            "type": "coord-verb",
+            "label": "谓语"
+          },
+          {
+            "text": " by roots",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " but",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " later relocated",
+            "type": "coord-verb",
+            "label": "谓语"
+          },
+          {
+            "text": " to the stem and leaves.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s31",
+        "para": 6,
+        "text": "A harvest of the shoots would remove the toxic compounds off site to be burned or composted to recover the metal for industrial uses.",
+        "translation": "收割地上茎叶会将有毒化合物移出场地，以便焚烧或堆肥，从而回收用于工业用途的金属。",
+        "grammarFocus": "不定式作目的状语；to be burned or composted 被动不定式。",
+        "pronounRef": "无代词。",
+        "logicConnector": "to... 表示目的。",
+        "sentenceCoach": {
+          "summary": "这句话解释了为什么要收割：为了移除毒素并回收金属。",
+          "keyHint": "to be burned... 和 to recover... 都是表示目的的状语。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "主干是“收割会移除化合物”。",
+          "grammarQuestion": "would remove 是谓语。to be burned or composted 是不定式被动语态作目的状语。to recover... 是另一个不定式作目的状语。",
+          "modifierQuestion": "of the shoots 修饰 harvest。off site 修饰 remove。to be burned... 修饰 remove (或 compounds)。to recover... 修饰 burned/composted。for industrial uses 修饰 metal。\n\n### 【修饰语分析】\nof the shoots：介词短语修饰 harvest。\noff site：副词短语，修饰 remove。\nto be burned or composted：不定式短语，作目的状语。\nto recover the metal for industrial uses：不定式短语，作目的状语，修饰前面的动作。\nfor industrial uses：介词短语，修饰 metal。",
+          "relationshipQuestion": "主句陈述动作，后续不定式层层递进说明目的。",
+          "commonMistake": "容易混淆 to be burned 和 to recover 的逻辑关系，它们都是目的。",
+          "thinkingPath": [
+            "找到主语 A harvest",
+            "找到谓语 would remove",
+            "找到宾语 the toxic compounds",
+            "识别 to be burned... 为目的状语",
+            "识别 to recover... 为目的状语"
+          ],
+          "encouragement": "to 就像个小箭头，指着我们要达到的目标！"
+        },
+        "analysis": "### 【主干结构】\n主语 A harvest of the shoots + 谓语 would remove + 宾语 the toxic compounds + 状语 off site。\n\n### 【主谓一致】\n主语核心词 harvest 单数，谓语 would remove 单数。\n\n### 【动词时态与原形】\nwould remove：过去将来时，表示假设情境下的动作。\n\n### 【从句剖析】\n无从句。\n\n### 【非谓语动词】\nto be burned or composted：不定式被动语态，作目的状语。\nto recover：不定式，作目的状语。\n\n### 【修饰语分析】\nof the shoots：介词短语修饰 harvest。\noff site：副词短语，修饰 remove。\nto be burned or composted：不定式短语，作目的状语。\nto recover the metal for industrial uses：不定式短语，作目的状语，修饰前面的动作。\nfor industrial uses：介词短语，修饰 metal。",
+        "segments": [
+          {
+            "text": "A harvest of the shoots",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " would remove",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " the toxic compounds",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " off site",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " to be burned or composted",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " to recover the metal for industrial uses.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
+      },
+      {
+        "id": "s32",
+        "para": 6,
+        "text": "After several years of cultivation and harvest, the site would be restored at a cost much lower than the price of excavation and reburial, the standard practice for remediation of contaminated soils.",
+        "translation": "经过几年的种植和收割，该场地将被修复，其成本远低于挖掘和回填的价格，这是受污染土壤修复的标准做法。",
+        "grammarFocus": "介词短语作时间状语；比较级 much lower than；同位语 the standard practice...。",
+        "pronounRef": "无代词。",
+        "logicConnector": "After... 表示时间。than 表示比较。",
+        "sentenceCoach": {
+          "summary": "这句话比较了植物修复和传统修复的成本。",
+          "keyHint": "much lower than 是比较级，much 修饰 lower。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "主干是“场地将被修复”。",
+          "grammarQuestion": "would be restored 是被动语态。at a cost... 是方式/条件状语。much lower than... 是比较级短语修饰 cost。the standard practice... 是同位语，解释前面的做法。",
+          "modifierQuestion": "After several years... 是时间状语。at a cost... 是状语。much lower than... 是定语修饰 cost。the standard practice... 是同位语，修饰 excavation and reburial 或整个 remediation process。\n\n### 【修饰语分析】\nAfter several years of cultivation and harvest：介词短语，作时间状语。\nat a cost much lower than the price of excavation and reburial：介词短语，作方式/条件状语。\nmuch lower than the price of excavation and reburial：形容词短语，作后置定语修饰 cost。\nthe standard practice for remediation of contaminated soils：名词短语，作同位语，解释说明前面的 excavation and reburial。",
+          "relationshipQuestion": "主句陈述结果，状语说明条件，同位语补充说明传统做法。",
+          "commonMistake": "容易误以为 the standard practice 修饰 site，其实它修饰 excavation and reburial。",
+          "thinkingPath": [
+            "找到时间状语 After...",
+            "找到主语 the site",
+            "找到谓语 would be restored",
+            "找到状语 at a cost...",
+            "识别 much lower than 为比较结构",
+            "识别 the standard practice 为同位语"
+          ],
+          "encouragement": "much lower than 就像个天平，一边是植物修复，一边是传统修复，植物修复更轻（便宜）！"
+        },
+        "analysis": "### 【主干结构】\n状语 After several years of cultivation and harvest + 主语 the site + 谓语 would be restored + 状语 at a cost much lower than the price of excavation and reburial。\n\n### 【主谓一致】\n主语 the site 单数，谓语 would be restored 单数。\n\n### 【动词时态与原形】\nwould be restored：过去将来时被动语态，表示假设情境下的结果。\n\n### 【从句剖析】\n无从句。\n\n### 【非谓语动词】\n无。\n\n### 【修饰语分析】\nAfter several years of cultivation and harvest：介词短语，作时间状语。\nat a cost much lower than the price of excavation and reburial：介词短语，作方式/条件状语。\nmuch lower than the price of excavation and reburial：形容词短语，作后置定语修饰 cost。\nthe standard practice for remediation of contaminated soils：名词短语，作同位语，解释说明前面的 excavation and reburial。",
+        "segments": [
+          {
+            "text": "After several years of cultivation and harvest,",
+            "type": "adverbial",
+            "label": "时间状语"
+          },
+          {
+            "text": " the site",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " would be restored",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " at a cost much lower than the price of excavation and reburial,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the standard practice for remediation of contaminated soils.",
+            "type": "modifier",
+            "label": "同位语"
+          }
+        ]
+      },
+      {
+        "id": "s33",
+        "para": 6,
+        "text": "For examples, in field trials, the plant alpine pennycress removed zinc and cadmium from soils near a zinc smelter, and Indian mustard, native to Pakistan and India, has been effective in reducing levels of selenium salts by 50 percent in contaminated soils.",
+        "translation": "例如，在田间试验中，高山蔊菜这种植物从炼锌厂附近的土壤中去除了锌和镉，而原产于巴基斯坦和印度的印度芥菜，在受污染的土壤中降低硒盐含量方面效果显著，降幅达50%。",
+        "grammarFocus": "并列句结构（and连接两个独立分句）；同位语（the plant alpine pennycress）；过去分词短语作后置定语（native to...）；现在完成时（has been effective）。",
+        "pronounRef": "本句无代词。",
+        "logicConnector": "and：连接两个并列的分句，分别列举两种不同的植物及其在修复土壤方面的具体成效。",
+        "sentenceCoach": {
+          "summary": "这是一个由 and 连接的长并列句，分别讲了两种植物（高山蔊菜和印度芥菜）是如何清理土壤污染的。",
+          "keyHint": "注意 and 前后是两个完整的句子，主语分别是 alpine pennycress 和 Indian mustard。"
+        },
+        "teachingFocus": {
+          "mainQuestion": "我们要像侦探一样，先找到句子里的两个‘主角’（主语）和他们的‘动作’（谓语），看看他们各自做了什么大事。",
+          "grammarQuestion": "看看连接词 and 是怎么把两个独立的故事连在一起的？前面的故事用过去时，后面的故事用现在完成时，为什么时间不一样呢？",
+          "modifierQuestion": "注意看那些插在名词旁边的‘小尾巴’（修饰语），比如 native to Pakistan and India，它们是怎么悄悄告诉我们要介绍的是哪种植物的？",
+          "relationshipQuestion": "这两个分句是平等的伙伴，它们共同证明了植物可以修复土壤这个观点，你能试着画出它们之间的平行关系吗？",
+          "commonMistake": "很多同学看到长句子就晕了，容易把 and 后面的 Indian mustard 当成前面句子的宾语。记住，and 前面有逗号，后面通常是一个新的、完整的句子开头哦！",
+          "thinkingPath": [
+            "找到连接词 and，把句子切成两半。",
+            "分别找出每一半的主语（谁）和谓语（做了什么）。",
+            "识别插入的修饰成分，确定它们修饰的是哪个名词。",
+            "理解时态差异：前半句是已完成的实验结果（removed），后半句是持续有效的状态（has been effective）。"
+          ],
+          "encouragement": "太棒了！你能拆解这么长的句子，说明你的逻辑积木搭得很稳，继续加油！"
+        },
+        "analysis": "### 【主干结构】\n这是一个由并列连词 **and** 连接的并列句，包含两个独立的分句。\n\n**分句 1：**\n- 主语：the plant alpine pennycress（高山蔊菜这种植物）\n- 谓语：removed（去除）\n- 宾语：zinc and cadmium（锌和镉）\n- 状语：from soils near a zinc smelter（来自炼锌厂附近的土壤）\n\n**分句 2：**\n- 主语：Indian mustard（印度芥菜）\n- 谓语：has been（一直是/表现出）\n- 表语：effective（有效的）\n- 状语/补足：in reducing levels of selenium salts by 50 percent in contaminated soils（在受污染土壤中降低硒盐含量50%方面）\n\n### 【主谓一致】\n- 分句 1 主语 alpine pennycress 是单数，谓语 removed 是过去式，无单复数变化问题。\n- 分句 2 主语 Indian mustard 是单数，谓语 has been 使用单数形式，符合主谓一致原则。\n\n### 【动词时态与原形】\n- **removed**：一般过去时。表示在特定的田间试验（field trials）中已经发生的动作和结果。\n- **has been**：现在完成时。表示印度芥菜在受污染土壤中的有效性从过去持续到现在，或者强调其当前的状态和效果。\n\n### 【从句剖析】\n本句没有传统的从句（如定语从句或状语从句），但包含两个重要的非谓语动词短语作修饰语：\n1. **near a zinc smelter**：介词短语作后置定语，修饰 soils，说明土壤的位置。\n2. **native to Pakistan and India**：过去分词短语作后置定语，修饰 Indian mustard，说明其原产地。\n\n### 【代词指代】\n本句无代词。\n\n### 【非谓语动词】\n- **native to...**：虽然 native 是形容词，但在此处构成形容词短语作后置定语，功能类似分词短语，修饰 Indian mustard。\n- **reducing**：动名词，作为介词 in 的宾语，构成介词短语 in reducing...，修饰 effective，说明在哪方面有效。",
+        "segments": [
+          {
+            "text": "For examples,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " in field trials,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " the plant alpine pennycress",
+            "type": "subject",
+            "label": "主语"
+          },
+          {
+            "text": " removed",
+            "type": "verb",
+            "label": "谓语"
+          },
+          {
+            "text": " zinc and cadmium",
+            "type": "object",
+            "label": "宾语"
+          },
+          {
+            "text": " from soils near a zinc smelter,",
+            "type": "adverbial",
+            "label": "状语"
+          },
+          {
+            "text": " and",
+            "type": "conjunction",
+            "label": "连接词"
+          },
+          {
+            "text": " Indian mustard,",
+            "type": "coord-subject",
+            "label": "并列主语"
+          },
+          {
+            "text": " native to Pakistan and India,",
+            "type": "modifier",
+            "label": "定语"
+          },
+          {
+            "text": " has been",
+            "type": "coord-verb",
+            "label": "并列谓语"
+          },
+          {
+            "text": " effective",
+            "type": "coord-predicative",
+            "label": "并列表语"
+          },
+          {
+            "text": " in reducing levels of selenium salts by 50 percent in contaminated soils.",
+            "type": "adverbial",
+            "label": "状语"
+          }
+        ]
       }
     ],
     "source": {

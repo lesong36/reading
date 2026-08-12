@@ -397,6 +397,9 @@
     const DEFAULT_OPENAI_COMPAT_BASE_URL = '';
     const DEFAULT_OPENAI_COMPAT_MODEL = '';
     const DEFAULT_OPENAI_COMPAT_API_KEY = '';
+    const P920_DICTIONARY_BASE_URL = 'http://100.121.25.47:8090/v1';
+    const DEEPSEEK_DICTIONARY_BASE_URL = 'https://api.deepseek.com';
+    const DEEPSEEK_DICTIONARY_MODEL = 'deepseek-v4-flash';
     const OLLAMA_PRESETS = {
       local: {
         key: 'local',
@@ -1891,10 +1894,9 @@
       './data/generated-reader-json/reader-articles-re-foundations.import.json',
       './data/generated-reader-json/reader-articles-shiwen.import.json'
     ];
-    // v23 removes 时文 exercise leakage and restores answer options.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v23';
-    const BUNDLED_LIBRARY_SEED_VERSION = '23';
-    const EXPECTED_TPO_ARTICLE_COUNT = 104;
+    // v29 adds the corrected Teotihuacán reanalysis to the B1+B2 pack.
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v30';
+    const BUNDLED_LIBRARY_SEED_VERSION = '30';
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
     const normalizeLookupWord = (value = '') =>
@@ -2103,6 +2105,14 @@
       normalizeSavedArticles(articles)
         .filter(article => getArticleFilterKey(article) === 'tpo')
         .length;
+
+    const isTpoCurriculumArticle = (article = {}) => {
+      const id = String(article.id || '').toLowerCase();
+      return /^tpo-\d+/.test(id)
+        || id.startsWith('og-')
+        || id.startsWith('online-test-')
+        || id.startsWith('official-model-exam-');
+    };
 
     const getReFoundationsArticleCount = (articles = []) =>
       normalizeSavedArticles(articles)
@@ -2650,6 +2660,38 @@
       });
     };
 
+    const fetchDictionaryJson = async ({ baseUrl, apiKey = '', model, systemPrompt, userPrompt, disableThinking = false }) => {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (apiKey) headers.Authorization = `Bearer ${sanitizeApiCredential(apiKey)}`;
+        const response = await fetch(`${baseUrl.replace(/\/+$/, '')}/chat/completions`, {
+          method: 'POST',
+          headers,
+          signal: controller.signal,
+          body: JSON.stringify({
+            model,
+            stream: false,
+            temperature: 0.1,
+            max_tokens: 180,
+            ...(disableThinking ? { chat_template_kwargs: { enable_thinking: false } } : {}),
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: userPrompt }
+            ]
+          })
+        });
+        if (!response.ok) throw new Error(`HTTP ${response.status}: ${(await response.text()).slice(0, 240)}`);
+        const payload = await response.json();
+        const content = payload?.choices?.[0]?.message?.content;
+        if (!content) throw new Error('服务返回了空释义。');
+        return { content, usage: payload.usage || {} };
+      } finally {
+        clearTimeout(timeoutId);
+      }
+    };
+
     const saveAiLog = async (logData) => {
       try {
         await fetch('/api/log/save', {
@@ -2746,6 +2788,9 @@
 
       const [vocabPopup, setVocabPopup] = useState(null);
       const [addingWordId, setAddingWordId] = useState(null); 
+      const contextualDictionaryCacheRef = useRef(new Map());
+      const autoAddedVocabKeysRef = useRef(new Set());
+      const p920DictionaryModelRef = useRef(null);
       const fileInputRef = useRef(null);
       const filteredLibraryArticles = useMemo(() => {
         const filtered = libraryFilter === 'all'
@@ -2786,13 +2831,9 @@
 
       useEffect(() => {
         if (!localDataReady) return;
-        const storedTpoCount = getTpoArticleCount(savedArticles);
-        const storedReFoundationsCount = getReFoundationsArticleCount(savedArticles);
         if (
           bundledSeedInFlightRef.current ||
           localStorage.getItem(BUNDLED_LIBRARY_SEED_KEY) === BUNDLED_LIBRARY_SEED_VERSION
-          && storedTpoCount >= EXPECTED_TPO_ARTICLE_COUNT
-          && storedReFoundationsCount >= EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT
         ) return;
 
         let cancelled = false;
@@ -2806,7 +2847,11 @@
               // Bundled articles are canonical curriculum records.  Replace
               // only colliding curriculum IDs so an older OPFS cache cannot
               // override a published correction; personal imports stay intact.
-              const merged = mergeSavedArticles(prev, bundled, { preferIncoming: true });
+              // The TPO pack is an allow-list. Remove superseded TPO/OG
+              // curriculum records first so failed or unreviewed analyses do
+              // not survive in OPFS from an older 104-article bundle.
+              const retained = prev.filter(article => !isTpoCurriculumArticle(article));
+              const merged = mergeSavedArticles(retained, bundled, { preferIncoming: true });
               // The following persistence effect writes the full bundle to OPFS.
               // Do not put it in localStorage: 104 analysed articles exceed its quota.
               setTimeout(() => {
@@ -2931,6 +2976,7 @@
       // --- 全局自定义 UI 弹窗状态 ---
       const [toastMessage, setToastMessage] = useState("");
       const [confirmDialog, setConfirmDialog] = useState(null);
+      const confirmDialogPrimaryButtonRef = useRef(null);
       const [showAiSettings, setShowAiSettings] = useState(false);
       const [aiProvider, setAiProvider] = useState(() => {
         const saved = localStorage.getItem('reader_ai_provider');
@@ -3083,6 +3129,23 @@
         window.addEventListener('click', handleClickOutside);
         return () => window.removeEventListener('click', handleClickOutside);
       }, [vocabPopup]);
+
+      useEffect(() => {
+        if (!confirmDialog) return;
+        confirmDialogPrimaryButtonRef.current?.focus();
+        const handleConfirmDialogKeyDown = (event) => {
+          if (event.key === 'Escape') {
+            event.preventDefault();
+            setConfirmDialog(null);
+          }
+          if (event.key === 'Enter' && !event.repeat) {
+            event.preventDefault();
+            confirmDialog.onConfirm();
+          }
+        };
+        window.addEventListener('keydown', handleConfirmDialogKeyDown);
+        return () => window.removeEventListener('keydown', handleConfirmDialogKeyDown);
+      }, [confirmDialog]);
 
       // Reading View States
       const [selectedSentence, setSelectedSentence] = useState(() => normalizeArticleData(defaultArticleData)[0]);
@@ -3877,16 +3940,140 @@
         openVocabPopupFromEvent(e, sentenceText);
       };
 
+      const saveDictionaryLookupToVocab = (word, contextSentenceText, dictionary) => {
+        if (!dictionary?.meaning) return;
+        const key = String(word || '').trim().toLowerCase();
+        if (!key || autoAddedVocabKeysRef.current.has(key)) return;
+        if (vocabBook.some(entry => String(entry?.word || '').trim().toLowerCase() === key)) return;
+        autoAddedVocabKeysRef.current.add(key);
+        const generateId = () => window.crypto?.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15);
+        setVocabBook(previous => {
+          if (previous.some(entry => String(entry?.word || '').trim().toLowerCase() === key)) return previous;
+          return [{
+            id: generateId(),
+            word,
+            meaning: dictionary.meaning,
+            pronunciation: dictionary.pronunciation || '',
+            etymology: dictionary.note || '来自原文语境查词',
+            exampleSentence: '',
+            sourceContext: contextSentenceText,
+            sourceArticleId: currentArticleId || null,
+            sourceArticleTitle: currentArticleTitle || '',
+            addedAt: new Date().toLocaleDateString(),
+            timestamp: Date.now()
+          }, ...previous];
+        });
+        setToastMessage(`✅ 已查词并加入生词本: ${word}`);
+      };
+
+      const resolveP920DictionaryModel = async () => {
+        if (p920DictionaryModelRef.current) return p920DictionaryModelRef.current;
+        const response = await fetch(`${P920_DICTIONARY_BASE_URL}/models`);
+        if (!response.ok) throw new Error(`P920 模型列表请求失败（HTTP ${response.status}）`);
+        const payload = await response.json();
+        const model = (payload?.data || []).map(item => item?.id).find(id => /qwen3\.6.*35b/i.test(String(id || '')));
+        if (!model) throw new Error('P920 未找到 Qwen3.6 35B 模型。');
+        p920DictionaryModelRef.current = model;
+        return model;
+      };
+
+      const lookupContextualDictionary = async (word, contextSentenceText) => {
+        const systemPrompt = `你是英汉阅读词典。根据原句语境，只输出一个合法 JSON 对象，不要 Markdown：\n{\n  "meaning": "该词在此处最贴切的简明中文含义",\n  "pronunciation": "音标，可为空字符串",\n  "note": "必要时说明词形、搭配或语境；否则为空字符串"\n}`;
+        const userPrompt = `【单词】${word}\n【原文句子】${contextSentenceText}`;
+        const toDictionary = ({ content, usage, provider }) => {
+          const data = parseAiJsonOrThrow(content, provider);
+          return {
+            meaning: String(data.meaning || '').trim() || '暂无语境释义',
+            pronunciation: String(data.pronunciation || '').trim(),
+            note: String(data.note || '').trim(),
+            provider,
+            usage: {
+              promptTokens: Number(usage?.prompt_tokens || 0),
+              completionTokens: Number(usage?.completion_tokens || 0),
+              totalTokens: Number(usage?.total_tokens || 0)
+            }
+          };
+        };
+
+        try {
+          const model = await resolveP920DictionaryModel();
+          return toDictionary({
+            ...(await fetchDictionaryJson({
+              baseUrl: P920_DICTIONARY_BASE_URL,
+              model,
+              disableThinking: true,
+              systemPrompt,
+              userPrompt
+            })),
+            provider: 'Qwen 特供服务（P920）'
+          });
+        } catch (qwenError) {
+          const deepseekApiKey = LOCAL_PRIVATE_CONFIG.deepseekApiKey || (
+            /api\.deepseek\.com/i.test(cloudBaseUrl) ? cloudApiKey : ''
+          );
+          if (!deepseekApiKey) {
+            throw new Error(`Qwen 特供服务不可用：${qwenError.message}；DeepSeek 特供服务未配置 API Key。`);
+          }
+          try {
+            return toDictionary({
+              ...(await fetchDictionaryJson({
+                baseUrl: DEEPSEEK_DICTIONARY_BASE_URL,
+                apiKey: deepseekApiKey,
+                model: DEEPSEEK_DICTIONARY_MODEL,
+                systemPrompt,
+                userPrompt
+              })),
+              provider: 'DeepSeek Flash V4 特供服务'
+            });
+          } catch (deepseekError) {
+            throw new Error(`Qwen 特供服务失败：${qwenError.message}；DeepSeek Flash V4 特供服务失败：${deepseekError.message}`);
+          }
+        }
+      };
+
+      const openContextualDictionary = async (hit, contextSentenceText) => {
+        if (!hit?.word) return;
+        const cacheKey = `${currentArticleId || 'unsaved'}::${hit.word}::${contextSentenceText || ''}`;
+        const cached = contextualDictionaryCacheRef.current.get(cacheKey);
+        const dictionary = cached || null;
+
+        setVocabPopup({
+          word: hit.word,
+          x: hit.x,
+          y: hit.y,
+          context: contextSentenceText,
+          dictionary,
+          lookupState: dictionary ? 'ready' : 'loading',
+          lookupProvider: dictionary?.provider || 'Qwen 特供服务（P920）'
+        });
+        if (dictionary) {
+          saveDictionaryLookupToVocab(hit.word, contextSentenceText, dictionary);
+          return;
+        }
+
+        try {
+          const resolved = await lookupContextualDictionary(hit.word, contextSentenceText);
+          contextualDictionaryCacheRef.current.set(cacheKey, resolved);
+          setVocabPopup(current => (
+            current?.word === hit.word && current.context === contextSentenceText
+              ? { ...current, dictionary: resolved, lookupState: 'ready', lookupProvider: resolved.provider }
+              : current
+          ));
+          saveDictionaryLookupToVocab(hit.word, contextSentenceText, resolved);
+        } catch (error) {
+          setVocabPopup(current => (
+            current?.word === hit.word && current.context === contextSentenceText
+              ? { ...current, lookupState: 'error', lookupError: error.message || '词典查询失败' }
+              : current
+          ));
+        }
+      };
+
       const openVocabPopupFromEvent = (e, sentenceText) => {
         setTimeout(() => {
           const fromSelection = getSelectedWordHit();
           if (fromSelection) {
-            setVocabPopup({
-              word: fromSelection.word,
-              x: fromSelection.x,
-              y: fromSelection.y,
-              context: sentenceText
-            });
+            openContextualDictionary(fromSelection, sentenceText);
             return;
           }
           const point = e?.clientX != null
@@ -3897,12 +4084,7 @@
           if (!point) return;
           const hit = getWordAtClientPoint(point.x, point.y);
           if (!hit) return;
-          setVocabPopup({
-            word: hit.word,
-            x: hit.x,
-            y: hit.y,
-            context: sentenceText
-          });
+          openContextualDictionary(hit, sentenceText);
         }, 40);
       };
 
@@ -3936,12 +4118,7 @@
           if (navigator.vibrate) {
             try { navigator.vibrate(12); } catch (_) {}
           }
-          setVocabPopup({
-            word: hit.word,
-            x: hit.x,
-            y: hit.y,
-            context: origin.sentenceText
-          });
+          openContextualDictionary(hit, origin.sentenceText);
         }, 480);
       };
 
@@ -4055,7 +4232,7 @@
             onTouchMove={handleWordPressMove}
             onTouchEnd={handleWordPressEnd}
             onTouchCancel={handleWordPressEnd}
-            title={!guidedInteractiveStep ? '电脑双击 / iPad 长按单词可查词并加入生词本' : ''}
+            title={!guidedInteractiveStep ? '电脑双击 / iPad 长按单词可查文中释义并加入生词本' : ''}
           >
             <div className="text-xl md:text-2xl font-serif leading-relaxed text-slate-900">
               {guidedNeedsSubSegmentation
@@ -4216,12 +4393,30 @@
       };
 
       // --- Vocab / Dictionary Logic ---
-      const handleAddWordToVocab = async (word, contextSentenceText) => {
+      const handleAddWordToVocab = async (word, contextSentenceText, dictionary = null) => {
         if (vocabBook.some(v => v.word === word)) return; 
         setAddingWordId(word);
         setActiveAiTask('vocab');
         setAiTaskStartedAt(Date.now());
         try {
+          if (dictionary?.meaning) {
+            const generateId = () => window.crypto?.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15);
+            setVocabBook(prev => [{
+              id: generateId(),
+              word,
+              meaning: dictionary.meaning,
+              pronunciation: dictionary.pronunciation || '',
+              etymology: dictionary.note || '来自原文语境查词',
+              exampleSentence: '',
+              sourceContext: contextSentenceText,
+              sourceArticleId: currentArticleId || null,
+              sourceArticleTitle: currentArticleTitle || '',
+              addedAt: new Date().toLocaleDateString(),
+              timestamp: Date.now()
+            }, ...prev]);
+            setToastMessage(`✅ 已加入生词本: ${word}`);
+            return;
+          }
           const sysPrompt = `你是一个专业的英语词汇与词源拓展助手。用户正在阅读英文文章，并希望将生词加入专属卡片本。
 请提供以下细节，严格输出JSON格式：
 {
@@ -5561,40 +5756,40 @@
               </div>
             )}
 
-            {/* Floating Double-Click Popup */}
+            {/* Floating contextual-dictionary popup */}
             {vocabPopup && (
               <div 
                 id="vocab-popup"
-                className="fixed z-[100] bg-white text-slate-800 border border-slate-200 px-3 py-2 rounded-xl shadow-2xl flex flex-col gap-2 text-sm animate-in zoom-in-95 duration-100 min-w-[220px]"
+                className="fixed z-[100] bg-white text-slate-800 border border-slate-200 px-3 py-3 rounded-xl shadow-2xl flex flex-col gap-3 text-sm animate-in zoom-in-95 duration-100 min-w-[250px] max-w-[min(22rem,calc(100vw-2rem))]"
                 style={{ top: vocabPopup.y, left: vocabPopup.x, transform: 'translateX(-50%)' }}
               >
-                <div className="flex items-center gap-3">
-                  <span className="font-bold text-indigo-600 text-base">{vocabPopup.word}</span>
-                  <div className="w-px h-5 bg-slate-200"></div>
-                  {vocabBook.some(v => v.word === vocabPopup.word) ? (
-                    <span className="text-emerald-500 flex items-center gap-1.5 font-medium"><CheckCircle2 className="w-4 h-4" /> 已在生词本</span>
-                  ) : (
-                    <button 
-                      onClick={() => {
-                        handleAddWordToVocab(vocabPopup.word, vocabPopup.context);
-                        setVocabPopup(null);
-                      }}
-                      className="flex items-center gap-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 px-3 py-1.5 rounded-lg font-medium transition-colors min-h-[44px]"
-                    >
-                      <Plus className="w-4 h-4" /> 加入卡片
-                    </button>
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="font-bold text-indigo-700 text-base">{vocabPopup.word}</p>
+                    <p className="mt-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400">文中释义</p>
+                  </div>
+                  {vocabBook.some(v => v.word === vocabPopup.word) && (
+                    <span className="shrink-0 text-emerald-600 flex items-center gap-1 font-medium"><CheckCircle2 className="w-4 h-4" /> 已加入</span>
                   )}
                 </div>
-                {(() => {
-                  const glossaryHit = findGlossaryEntry(currentArticleGlossary, vocabPopup.word);
-                  if (!glossaryHit) return null;
-                  return (
-                    <div className="rounded-lg bg-amber-50 border border-amber-100 px-3 py-2 text-amber-900">
-                      <p className="font-semibold">{glossaryHit.translation}</p>
-                      {glossaryHit.note ? <p className="mt-1 text-xs leading-5 text-amber-800/90">{glossaryHit.note}</p> : null}
-                    </div>
-                  );
-                })()}
+                {vocabPopup.lookupState === 'loading' ? (
+                  <div className="flex items-center gap-2 rounded-lg bg-slate-50 px-3 py-2.5 text-slate-500"><Loader2 className="h-4 w-4 animate-spin text-indigo-500" /> 正在通过 {vocabPopup.lookupProvider} 查词…</div>
+                ) : vocabPopup.dictionary ? (
+                  <div className="rounded-lg border border-amber-100 bg-amber-50 px-3 py-2.5 text-amber-950">
+                    <p className="font-semibold leading-6">{vocabPopup.dictionary.meaning}</p>
+                    {vocabPopup.dictionary.pronunciation ? <p className="mt-1 text-xs text-amber-800">{vocabPopup.dictionary.pronunciation}</p> : null}
+                    {vocabPopup.dictionary.note ? <p className="mt-1 text-xs leading-5 text-amber-800/90">{vocabPopup.dictionary.note}</p> : null}
+                    <p className="mt-2 border-t border-amber-200/80 pt-2 text-[11px] font-medium text-amber-800">
+                      {vocabPopup.dictionary.provider || vocabPopup.lookupProvider}
+                      {vocabPopup.dictionary.usage?.totalTokens > 0
+                        ? ` · ${vocabPopup.dictionary.usage.totalTokens} tokens（输入 ${vocabPopup.dictionary.usage.promptTokens} / 输出 ${vocabPopup.dictionary.usage.completionTokens}）`
+                        : ' · 本次无模型 token 消耗'}
+                    </p>
+                  </div>
+                ) : (
+                  <p className="rounded-lg bg-rose-50 px-3 py-2.5 text-xs leading-5 text-rose-700">查词失败：{vocabPopup.lookupError || '请检查 AI 设置后重试。'}</p>
+                )}
+                <p className="text-center text-xs font-medium text-emerald-700">查词成功后已自动加入生词本</p>
               </div>
             )}
 
@@ -5794,7 +5989,7 @@
                   <div className="text-center py-20 bg-white rounded-2xl border border-slate-200 shadow-sm print:hidden">
                     <BookMarked className="w-16 h-16 text-slate-300 mx-auto mb-4" />
                     <h3 className="text-lg font-semibold text-slate-600 mb-2">生词本还是空的</h3>
-                    <p className="text-slate-500">在阅读区：电脑双击单词，iPad 长按单词，即可加入生词本。</p>
+                    <p className="text-slate-500">在阅读区：电脑双击单词，iPad 长按单词，查到文中释义后即可加入生词本。</p>
                     <button onClick={() => setViewMode('reading')} className="mt-6 text-indigo-600 font-medium hover:underline">返回阅读区去添加</button>
                   </div>
                 ) : (
@@ -5918,7 +6113,7 @@
                     <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 被动语态与非谓语结构解析</li>
                     <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 逐句词法/句法高亮拆解</li>
                     <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 专业术语 / 小说专有名词识别与中文翻译</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 双击任意单词加入自动生成的学习卡片</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 双击任意单词，先看文中释义再加入生词本</li>
                   </ul>
                 </div>
               </div>
@@ -6241,7 +6436,7 @@
                             <div className="mt-3">
                               <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                                 <p className="text-sm font-black uppercase tracking-[0.18em] text-slate-400">原句</p>
-                                <p className="text-xs text-slate-400">电脑双击 / iPad 长按单词可加生词本</p>
+                                <p className="text-xs text-slate-400">电脑双击 / iPad 长按单词可查文中释义并加入生词本</p>
                               </div>
                               <p
                                 className="text-2xl md:text-3xl font-serif leading-relaxed text-slate-950 select-text reader-word-target"
@@ -6250,7 +6445,7 @@
                                 onTouchMove={handleWordPressMove}
                                 onTouchEnd={handleWordPressEnd}
                                 onTouchCancel={handleWordPressEnd}
-                                title="电脑双击 / iPad 长按单词可查词并加入生词本"
+                                title="电脑双击 / iPad 长按单词可查文中释义并加入生词本"
                               >
                                 {selectedSentence.text}
                               </p>
@@ -6367,7 +6562,7 @@
                                     <p className="text-sm font-semibold text-slate-700 mb-2">查词 / 生词本</p>
                                     <p className="text-sm leading-7 text-slate-600">
                                       在这里如果遇到想确认的词，直接用 Mac 的查词方式或双击操作句子中的单词。
-                                      电脑双击或 iPad 长按单词后，会弹出查词与加入生词本入口。
+                                      电脑双击或 iPad 长按单词后，会先显示该词在文中的中文含义，再加入生词本。
                                     </p>
                                   </div>
                                 </div>
@@ -7276,7 +7471,7 @@
                       <span>
                         {articleStudyMode === 'quiz'
                           ? '做题时先点选原文句子，再用鼠标或 iPad 长按设为本题定位句；交卷前不会显示正确答案。'
-                          : '点选左侧句子可切换分析；电脑双击 / iPad 长按单词可加生词本'}
+                          : '点选左侧句子可切换分析；电脑双击 / iPad 长按单词可查文中释义并加入生词本'}
                       </span>
                     </div>
                   </div>
@@ -7343,7 +7538,7 @@
                   <p className="text-slate-600 mb-6">{confirmDialog.message}</p>
                   <div className="flex justify-end gap-3">
                     <button onClick={() => setConfirmDialog(null)} className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg font-medium transition-colors">取消</button>
-                    <button onClick={confirmDialog.onConfirm} className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">确定</button>
+                    <button ref={confirmDialogPrimaryButtonRef} onClick={confirmDialog.onConfirm} className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors">确定（Enter）</button>
                   </div>
                 </div>
               </div>
