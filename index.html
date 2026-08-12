@@ -1894,9 +1894,12 @@
       './data/generated-reader-json/reader-articles-re-foundations.import.json',
       './data/generated-reader-json/reader-articles-shiwen.import.json'
     ];
-    // v29 adds the corrected Teotihuacán reanalysis to the B1+B2 pack.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v30';
-    const BUNDLED_LIBRARY_SEED_VERSION = '30';
+    // v31 repairs clients that had a seed marker despite an incomplete OPFS
+    // library. A marker alone is not proof that all four curriculum bundles
+    // reached the device.
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v31';
+    const BUNDLED_LIBRARY_SEED_VERSION = '31';
+    const EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT = 275;
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
     const normalizeLookupWord = (value = '') =>
@@ -2113,6 +2116,16 @@
         || id.startsWith('online-test-')
         || id.startsWith('official-model-exam-');
     };
+
+    const isBundledCurriculumArticle = (article = {}) => {
+      const filter = getArticleFilterKey(article);
+      return ['四上', 'rfd1', 'rfd2', 'rfd3', 're', 'og', 'tpo', 'shiwen'].includes(filter);
+    };
+
+    const getBundledCurriculumArticleCount = (articles = []) =>
+      normalizeSavedArticles(articles)
+        .filter(isBundledCurriculumArticle)
+        .length;
 
     const getReFoundationsArticleCount = (articles = []) =>
       normalizeSavedArticles(articles)
@@ -2831,10 +2844,10 @@
 
       useEffect(() => {
         if (!localDataReady) return;
-        if (
-          bundledSeedInFlightRef.current ||
-          localStorage.getItem(BUNDLED_LIBRARY_SEED_KEY) === BUNDLED_LIBRARY_SEED_VERSION
-        ) return;
+        if (bundledSeedInFlightRef.current) return;
+        const seedIsCurrent = localStorage.getItem(BUNDLED_LIBRARY_SEED_KEY) === BUNDLED_LIBRARY_SEED_VERSION;
+        const libraryIsComplete = getBundledCurriculumArticleCount(savedArticles) >= EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT;
+        if (seedIsCurrent && libraryIsComplete) return;
 
         let cancelled = false;
         const seedBundledLibrary = async () => {
@@ -2844,13 +2857,11 @@
             if (cancelled) return;
             trySetLocalStorage(BUNDLED_LIBRARY_SEED_KEY, BUNDLED_LIBRARY_SEED_VERSION);
             setSavedArticles(prev => {
-              // Bundled articles are canonical curriculum records.  Replace
-              // only colliding curriculum IDs so an older OPFS cache cannot
-              // override a published correction; personal imports stay intact.
-              // The TPO pack is an allow-list. Remove superseded TPO/OG
-              // curriculum records first so failed or unreviewed analyses do
-              // not survive in OPFS from an older 104-article bundle.
-              const retained = prev.filter(article => !isTpoCurriculumArticle(article));
+              // Bundled articles are canonical curriculum records. Replace the
+              // whole curriculum namespace so an interrupted old download
+              // cannot leave stale records beside the latest 275-article set;
+              // personal imports are retained.
+              const retained = prev.filter(article => !isBundledCurriculumArticle(article));
               const merged = mergeSavedArticles(retained, bundled, { preferIncoming: true });
               // The following persistence effect writes the full bundle to OPFS.
               // Do not put it in localStorage: 104 analysed articles exceed its quota.
