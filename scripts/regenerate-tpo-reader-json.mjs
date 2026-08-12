@@ -37,6 +37,7 @@ const parseArgs = (argv) => {
     // the P920 JSON truncation threshold while retaining paragraph context.
     chunkSentences: process.env.TPO_CHUNK_SENTENCES || '8',
     input: cleanPassagesRoot,
+    ids: [],
     force: false,
     dryRun: false
   };
@@ -50,6 +51,7 @@ const parseArgs = (argv) => {
     else if (arg === '--timeout-ms') args.timeoutMs = next();
     else if (arg === '--chunk-sentences') args.chunkSentences = next();
     else if (arg === '--input') args.input = path.resolve(cwd, next());
+    else if (arg === '--ids') args.ids = next().split(',').map((id) => id.trim()).filter(Boolean);
     else if (arg === '--force') args.force = true;
     else if (arg === '--dry-run') args.dryRun = true;
     else throw new Error(`Unknown argument: ${arg}`);
@@ -135,18 +137,25 @@ const main = async () => {
       .filter((name) => canonicalIds.has(path.basename(name, '.md')))
       .filter((name) => batch.filter.test(name))
       .sort((a, b) => a.localeCompare(b));
-    if (files.length === 0) throw new Error(`No passage files matched batch ${args.batch}`);
-    if (files.length !== batch.expectedCount) {
-      throw new Error(`Batch ${args.batch} expected ${batch.expectedCount} canonical files, found ${files.length}`);
+    const selectedFiles = args.ids.length
+      ? files.filter((name) => args.ids.includes(path.basename(name, '.md')))
+      : files;
+    if (args.ids.length && selectedFiles.length !== args.ids.length) {
+      const selectedIds = new Set(selectedFiles.map((name) => path.basename(name, '.md')));
+      throw new Error(`Requested canonical ids missing from ${args.batch}: ${args.ids.filter((id) => !selectedIds.has(id)).join(', ')}`);
     }
-    for (const file of files) {
+    if (selectedFiles.length === 0) throw new Error(`No passage files matched batch ${args.batch}`);
+    if (!args.ids.length && selectedFiles.length !== batch.expectedCount) {
+      throw new Error(`Batch ${args.batch} expected ${batch.expectedCount} canonical files, found ${selectedFiles.length}`);
+    }
+    for (const file of selectedFiles) {
       fs.copyFileSync(path.join(args.input, file), path.join(batchDir, file));
     }
     inputPath = batchDir;
     // replace --input value
     const idx = cmd.indexOf('--input');
     cmd[idx + 1] = inputPath;
-    console.log(`Batch files: ${files.length}`);
+    console.log(`Batch files: ${selectedFiles.length}`);
   }
 
   console.log(`$ npm ${cmd.join(' ')}`);
