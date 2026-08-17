@@ -1959,14 +1959,16 @@
       };
     };
 
-    const createLocalDataSnapshot = (articles = [], vocab = []) => ({
-      version: 1,
+    const createLocalDataSnapshot = (articles = [], vocab = [], completionRecords = {}) => ({
+      version: 2,
       savedAt: new Date().toISOString(),
       savedArticles: articles,
-      vocabBook: vocab
+      vocabBook: vocab,
+      completionRecords
     });
 
     const QUIZ_PROGRESS_STORAGE_KEY_PREFIX = 'reader_quiz_progress_';
+    const COMPLETION_RECORDS_STORAGE_KEY = 'reader_article_completion_records_v1';
     // Shared by the two GitHub Pages apps under https://lesong36.github.io.
     // It is intentionally an inbox rather than VocabMaster's whole app state,
     // so the receiving app can let its active learner accept the new words.
@@ -2042,8 +2044,74 @@
       };
     };
 
+    const mergeQuizProgress = (local = {}, cloud = {}) => {
+      const localProgress = normalizeQuizProgress(local);
+      const cloudProgress = normalizeQuizProgress(cloud);
+      const localSubmittedAt = Date.parse(localProgress.submittedAt || '') || 0;
+      const cloudSubmittedAt = Date.parse(cloudProgress.submittedAt || '') || 0;
+      const latestSubmission = localSubmittedAt >= cloudSubmittedAt ? localProgress : cloudProgress;
+      return {
+        answers: { ...cloudProgress.answers, ...localProgress.answers },
+        locatorSentenceIds: { ...cloudProgress.locatorSentenceIds, ...localProgress.locatorSentenceIds },
+        submitted: localProgress.submitted || cloudProgress.submitted,
+        submittedAt: latestSubmission.submittedAt || null
+      };
+    };
+
+    const mergeQuizProgressByArticle = (local = {}, cloud = {}) => {
+      const articleIds = new Set([...Object.keys(cloud || {}), ...Object.keys(local || {})]);
+      return Array.from(articleIds).reduce((merged, articleId) => {
+        merged[articleId] = mergeQuizProgress(local?.[articleId], cloud?.[articleId]);
+        return merged;
+      }, {});
+    };
+
     const getQuizProgressStorageKey = (articleId) =>
       articleId ? `${QUIZ_PROGRESS_STORAGE_KEY_PREFIX}${articleId}` : null;
+
+    const normalizeCompletionRecords = (records = {}) => Object.entries(records || {}).reduce((acc, [articleId, record]) => {
+      if (!articleId || !record?.completedAt) return acc;
+      acc[articleId] = {
+        completedAt: record.completedAt,
+        accuracy: Number.isFinite(Number(record.accuracy)) ? Number(record.accuracy) : null,
+        correctCount: Number.isFinite(Number(record.correctCount)) ? Number(record.correctCount) : null,
+        totalCount: Number.isFinite(Number(record.totalCount)) ? Number(record.totalCount) : null,
+        tags: Array.isArray(record.tags) ? record.tags.map(tag => String(tag).trim()).filter(Boolean).slice(0, 8) : []
+      };
+      return acc;
+    }, {});
+
+    const mergeCompletionRecords = (local = {}, cloud = {}) => {
+      const byArticleId = { ...normalizeCompletionRecords(cloud) };
+      Object.entries(normalizeCompletionRecords(local)).forEach(([articleId, record]) => {
+        const existing = byArticleId[articleId];
+        if (!existing || (Date.parse(record.completedAt) || 0) >= (Date.parse(existing.completedAt) || 0)) {
+          byArticleId[articleId] = record;
+        }
+      });
+      return byArticleId;
+    };
+
+    const completionDayKey = (timestamp) => {
+      const date = new Date(timestamp);
+      return Number.isNaN(date.getTime()) ? '' : date.toLocaleDateString('zh-CN');
+    };
+
+    const groupVocabForStudy = (vocab = []) => {
+      const buckets = new Map();
+      vocab.forEach(entry => {
+        const day = entry.addedAt || completionDayKey(entry.timestamp) || '未标注日期';
+        const article = entry.sourceArticleTitle || '其他来源';
+        const key = `${day}::${entry.sourceArticleId || article}`;
+        if (!buckets.has(key)) buckets.set(key, { key, day, article, words: [] });
+        buckets.get(key).words.push(entry);
+      });
+      return Array.from(buckets.values())
+        .sort((a, b) => String(b.words[0]?.timestamp || 0).localeCompare(String(a.words[0]?.timestamp || 0)))
+        .flatMap(bucket => bucket.words.map((_, index) => index % 20 === 0
+          ? { ...bucket, words: bucket.words.slice(index, index + 20), batch: Math.floor(index / 20) + 1 }
+          : null).filter(Boolean));
+    };
 
     const normalizeSavedArticles = (articles = []) =>
       Array.isArray(articles)
@@ -2102,6 +2170,31 @@
       if (sourceText.includes('re-foundations') || sourceText.includes('re foundations')) return 're';
       if (sourceText.includes('shiwen-') || sourceText.includes('时文阅读')) return 'shiwen';
       return 'other';
+    };
+
+    // A library title often carries both its curriculum address and the actual
+    // reading topic.  Keep those two jobs separate so the topic is not pushed
+    // out of the card by a long address (for example, RE Foundations / 1A).
+    const getLibraryArticlePresentation = (article = {}) => {
+      const title = String(article.title || '未命名文章').trim();
+      const parts = title.split('/').map(part => part.trim()).filter(Boolean);
+      const filter = getArticleFilterKey(article);
+      const fallback = { location: '', topic: title, detail: '' };
+
+      if (filter === 're' && parts.length >= 3) {
+        return { location: parts.slice(0, 2).join(' · '), topic: parts.slice(2).join(' / '), detail: '' };
+      }
+      if ((filter === 'og' || filter === 'tpo') && parts.length >= 2) {
+        return { location: parts[0], topic: parts.slice(1).join(' / '), detail: '' };
+      }
+      if (filter === 'shiwen' && parts.length >= 3) {
+        return {
+          location: parts.slice(0, 2).join(' · '),
+          topic: parts.slice(2).join(' / '),
+          detail: article.source?.type || ''
+        };
+      }
+      return fallback;
     };
 
     const getTpoArticleCount = (articles = []) =>
@@ -2187,18 +2280,19 @@
         version: parsed.version || 1,
         savedAt: parsed.savedAt || "",
         savedArticles: Array.isArray(parsed.savedArticles) ? parsed.savedArticles : [],
-        vocabBook: Array.isArray(parsed.vocabBook) ? parsed.vocabBook : []
+        vocabBook: Array.isArray(parsed.vocabBook) ? parsed.vocabBook : [],
+        completionRecords: normalizeCompletionRecords(parsed.completionRecords || {})
       };
     };
 
-    const writeLocalDataFile = async (articles, vocab) => {
+    const writeLocalDataFile = async (articles, vocab, completionRecords = {}) => {
       if (!navigator.storage?.getDirectory) {
         throw new Error('当前浏览器不支持本地文件持久化。');
       }
       const root = await navigator.storage.getDirectory();
       const handle = await root.getFileHandle(LOCAL_DATA_FILE_NAME, { create: true });
       const writable = await handle.createWritable();
-      await writable.write(JSON.stringify(createLocalDataSnapshot(articles, vocab), null, 2));
+      await writable.write(JSON.stringify(createLocalDataSnapshot(articles, vocab, completionRecords), null, 2));
       await writable.close();
     };
 
@@ -2220,6 +2314,7 @@
     const clearLocalLearningStorage = async () => {
       localStorage.removeItem('my_local_articles');
       localStorage.removeItem('my_local_vocab_book');
+      localStorage.removeItem(COMPLETION_RECORDS_STORAGE_KEY);
 
       if (navigator.storage?.getDirectory) {
         const root = await navigator.storage.getDirectory();
@@ -2763,6 +2858,10 @@
       const cloudDataLoadedRef = useRef(false);
       const cloudDataInitializedRef = useRef(false);
       const cloudDataWriteTimerRef = useRef(null);
+      const cloudDataRetryTimerRef = useRef(null);
+      const cloudSyncNeedsMergeRef = useRef(false);
+      const cloudSyncRetryAttemptRef = useRef(0);
+      const cloudWriteInFlightRef = useRef(false);
       const lastCloudSnapshotRef = useRef("");
       const [localPersistenceStatus, setLocalPersistenceStatus] = useState(() => ({
         enabled: false,
@@ -2773,6 +2872,19 @@
       const bundledSeedInFlightRef = useRef(false);
       const [localDataReady, setLocalDataReady] = useState(false);
       const [isLoadingBundledLibrary, setIsLoadingBundledLibrary] = useState(false);
+
+      const scheduleCloudSyncRetry = (message) => {
+        cloudSyncNeedsMergeRef.current = true;
+        if (cloudDataRetryTimerRef.current) return;
+        const delay = Math.min(30000, 1000 * (2 ** cloudSyncRetryAttemptRef.current));
+        cloudSyncRetryAttemptRef.current += 1;
+        setCloudSyncStatus({ enabled: false, message: `${message}；网络恢复后将自动合并并重写。` });
+        cloudDataRetryTimerRef.current = setTimeout(() => {
+          cloudDataRetryTimerRef.current = null;
+          if (navigator.onLine === false) return;
+          setCloudSyncRevision(value => value + 1);
+        }, delay);
+      };
 
       // --- 教材缓存逻辑 (OPFS File) ---
       const [savedArticles, setSavedArticles] = useState(() => {
@@ -2798,6 +2910,12 @@
           return [];
         }
       });
+      const [completionRecords, setCompletionRecords] = useState(() => {
+        try { return normalizeCompletionRecords(JSON.parse(localStorage.getItem(COMPLETION_RECORDS_STORAGE_KEY) || '{}')); } catch { return {}; }
+      });
+      const [completionTagInput, setCompletionTagInput] = useState('');
+      const [answerReportNote, setAnswerReportNote] = useState('');
+      const [isSubmittingAnswerReport, setIsSubmittingAnswerReport] = useState(false);
 
       const [vocabPopup, setVocabPopup] = useState(null);
       const [addingWordId, setAddingWordId] = useState(null); 
@@ -2820,6 +2938,7 @@
             if (cancelled) return;
             if (data.savedArticles.length > 0) setSavedArticles(data.savedArticles);
             if (data.vocabBook.length > 0) setVocabBook(data.vocabBook);
+            if (Object.keys(data.completionRecords || {}).length > 0) setCompletionRecords(data.completionRecords);
             localDataLoadedRef.current = true;
             setLocalDataReady(true);
             setLocalPersistenceStatus({
@@ -2885,12 +3004,13 @@
         trySetLocalStorage('my_local_articles', JSON.stringify(savedArticles));
         trySetLocalStorage('my_local_vocab_book', JSON.stringify(vocabBook));
         trySetLocalStorage('reader_favorite_article_ids', JSON.stringify(favoriteArticleIds));
+        trySetLocalStorage(COMPLETION_RECORDS_STORAGE_KEY, JSON.stringify(completionRecords));
 
         if (!localDataLoadedRef.current || !localPersistenceStatus.enabled) return;
         if (localDataWriteTimerRef.current) clearTimeout(localDataWriteTimerRef.current);
         localDataWriteTimerRef.current = setTimeout(async () => {
           try {
-            await writeLocalDataFile(savedArticles, vocabBook);
+            await writeLocalDataFile(savedArticles, vocabBook, completionRecords);
             setLocalPersistenceStatus({
               enabled: true,
               message: `本地数据文件已自动保存：${LOCAL_DATA_FILE_NAME}`
@@ -2902,13 +3022,19 @@
             });
           }
         }, 500);
-      }, [savedArticles, vocabBook, favoriteArticleIds, localPersistenceStatus.enabled]);
+      }, [savedArticles, vocabBook, favoriteArticleIds, completionRecords, localPersistenceStatus.enabled]);
 
       useEffect(() => {
         if (!supabase || !user) {
+          if (cloudDataRetryTimerRef.current) {
+            clearTimeout(cloudDataRetryTimerRef.current);
+            cloudDataRetryTimerRef.current = null;
+          }
           cloudDataLoadedRef.current = false;
           cloudDataInitializedRef.current = false;
           lastCloudSnapshotRef.current = "";
+          cloudSyncNeedsMergeRef.current = false;
+          cloudSyncRetryAttemptRef.current = 0;
           setCloudSyncStatus({ enabled: Boolean(supabase), message: supabase ? '登录后同步学习记录与 AI 偏好。' : '云同步未配置，当前仅保存到本机。' });
           return;
         }
@@ -2918,28 +3044,51 @@
           if (cancelled) return;
           if (error) {
             cloudDataLoadedRef.current = false;
-            setCloudSyncStatus({ enabled: false, message: `云同步读取失败：${error.message}` });
+            scheduleCloudSyncRetry(`云同步读取失败：${error.message}`);
             return;
           }
           const cloudVocab = normalizeVocabBook(data?.vocabulary || []);
           const cloudFavorites = Array.isArray(data?.favorites) ? data.favorites.filter(id => typeof id === 'string') : [];
           const cloudQuizProgress = data?.quiz_progress && typeof data.quiz_progress === 'object' ? data.quiz_progress : {};
+          const cloudCompletionRecords = normalizeCompletionRecords(data?.completion_records || {});
           const cloudPreferences = data?.preferences && typeof data.preferences === 'object' ? data.preferences : {};
-          Object.entries(cloudQuizProgress).forEach(([articleId, progress]) => {
-            trySetLocalStorage(getQuizProgressStorageKey(articleId), JSON.stringify(normalizeQuizProgress(progress)));
+          const localQuizProgress = {};
+          Object.keys(localStorage).filter(key => key.startsWith(QUIZ_PROGRESS_STORAGE_KEY_PREFIX)).forEach(key => {
+            try { localQuizProgress[key.slice(QUIZ_PROGRESS_STORAGE_KEY_PREFIX.length)] = normalizeQuizProgress(JSON.parse(localStorage.getItem(key))); } catch (error) {}
+          });
+          const mergedQuizProgress = mergeQuizProgressByArticle(localQuizProgress, cloudQuizProgress);
+          Object.entries(mergedQuizProgress).forEach(([articleId, progress]) => {
+            trySetLocalStorage(getQuizProgressStorageKey(articleId), JSON.stringify(progress));
           });
           encryptedAiKeyRef.current = data?.encrypted_ai_key || null;
           if (cloudPreferences.aiProvider) setAiProvider(cloudPreferences.aiProvider);
           if (cloudPreferences.cloudBaseUrl) setCloudBaseUrl(cloudPreferences.cloudBaseUrl);
           if (cloudPreferences.cloudModel) setCloudModel(cloudPreferences.cloudModel);
-          lastCloudSnapshotRef.current = JSON.stringify({ vocabulary: cloudVocab, favorites: cloudFavorites, quizProgress: cloudQuizProgress, preferences: cloudPreferences, encryptedAiKey: data?.encrypted_ai_key || null });
+          lastCloudSnapshotRef.current = JSON.stringify({ vocabulary: cloudVocab, favorites: cloudFavorites, quizProgress: cloudQuizProgress, completionRecords: cloudCompletionRecords, preferences: cloudPreferences, encryptedAiKey: data?.encrypted_ai_key || null });
           cloudDataLoadedRef.current = true;
           cloudDataInitializedRef.current = true;
+          cloudSyncRetryAttemptRef.current = 0;
           setVocabBook(prev => mergeVocabBook(prev, cloudVocab));
           setFavoriteArticleIds(prev => Array.from(new Set([...prev, ...cloudFavorites])));
-          setCloudSyncStatus({ enabled: true, message: `Supabase 已连接：同步 ${cloudVocab.length} 个生词与学习记录。` });
+          setCompletionRecords(prev => mergeCompletionRecords(prev, cloudCompletionRecords));
+          setCloudSyncStatus({ enabled: true, message: cloudSyncNeedsMergeRef.current ? '网络已恢复：正在合并本地与云端记录并重写。' : `Supabase 已连接：同步 ${cloudVocab.length} 个生词与学习记录。` });
         });
         return () => { cancelled = true; if (cloudDataWriteTimerRef.current) clearTimeout(cloudDataWriteTimerRef.current); };
+      }, [user, cloudSyncRevision]);
+
+      useEffect(() => {
+        const resumeCloudSync = () => {
+          if (!supabase || !user) return;
+          if (cloudDataRetryTimerRef.current) {
+            clearTimeout(cloudDataRetryTimerRef.current);
+            cloudDataRetryTimerRef.current = null;
+          }
+          cloudSyncNeedsMergeRef.current = true;
+          setCloudSyncStatus({ enabled: true, message: '网络已恢复：正在合并本地与云端记录...' });
+          setCloudSyncRevision(value => value + 1);
+        };
+        window.addEventListener('online', resumeCloudSync);
+        return () => window.removeEventListener('online', resumeCloudSync);
       }, [user]);
 
       useEffect(() => {
@@ -2960,29 +3109,77 @@
         const preferences = { aiProvider, cloudBaseUrl: cloudBaseUrl.trim(), cloudModel: cloudModel.trim(), ollamaBaseUrl: ollamaBaseUrl.trim(), ollamaModel: ollamaModel.trim(), voiceProvider };
         const readingPositions = currentArticleId ? { [currentArticleId]: { sentenceId: selectedSentence?.id || null, updatedAt: new Date().toISOString() } } : {};
         const writeCloudState = async () => {
+          if (cloudWriteInFlightRef.current) return;
+          cloudWriteInFlightRef.current = true;
           let encryptedAiKey = encryptedAiKeyRef.current;
-          if (syncVaultUnlocked && syncPassphrase && cloudApiKey) {
-            encryptedAiKey = await encryptForSyncVault(cloudApiKey, syncPassphrase);
+          try {
+            if (syncVaultUnlocked && syncPassphrase && cloudApiKey) {
+              encryptedAiKey = await encryptForSyncVault(cloudApiKey, syncPassphrase);
+            }
+            let payload = { user_id: user.id, vocabulary: vocabBook, favorites: favoriteArticleIds, reading_positions: readingPositions, quiz_progress: quizProgressByArticle, completion_records: completionRecords, wrong_answers: wrongAnswers, preferences, encrypted_ai_key: encryptedAiKey, updated_at: new Date().toISOString() };
+            if (cloudSyncNeedsMergeRef.current) {
+              const { data, error } = await supabase.from('reader_sync_state').select('*').eq('user_id', user.id).maybeSingle();
+              if (error) throw error;
+              const mergedQuizProgress = mergeQuizProgressByArticle(payload.quiz_progress, data?.quiz_progress || {});
+              const mergedCompletionRecords = mergeCompletionRecords(payload.completion_records, data?.completion_records || {});
+              payload = {
+                ...payload,
+                vocabulary: mergeVocabBook(payload.vocabulary, data?.vocabulary || []),
+                favorites: Array.from(new Set([...(data?.favorites || []), ...payload.favorites])),
+                reading_positions: { ...(data?.reading_positions || {}), ...payload.reading_positions },
+                quiz_progress: mergedQuizProgress,
+                completion_records: mergedCompletionRecords,
+                encrypted_ai_key: payload.encrypted_ai_key || data?.encrypted_ai_key || null
+              };
+              Object.entries(mergedQuizProgress).forEach(([articleId, progress]) => {
+                trySetLocalStorage(getQuizProgressStorageKey(articleId), JSON.stringify(progress));
+              });
+              setVocabBook(prev => mergeVocabBook(prev, data?.vocabulary || []));
+              setFavoriteArticleIds(prev => Array.from(new Set([...(data?.favorites || []), ...prev])));
+              setCompletionRecords(prev => mergeCompletionRecords(prev, data?.completion_records || {}));
+            }
+            const snapshotKey = JSON.stringify({ vocabulary: payload.vocabulary, favorites: payload.favorites, quizProgress: payload.quiz_progress, completionRecords: payload.completion_records, wrongAnswers: payload.wrong_answers, preferences: payload.preferences, encryptedAiKey: payload.encrypted_ai_key });
+            if (snapshotKey === lastCloudSnapshotRef.current) return;
+            const { error } = await supabase.from('reader_sync_state').upsert(payload, { onConflict: 'user_id' });
+            if (error) throw error;
+            encryptedAiKeyRef.current = payload.encrypted_ai_key;
+            lastCloudSnapshotRef.current = snapshotKey;
+            cloudSyncNeedsMergeRef.current = false;
+            cloudSyncRetryAttemptRef.current = 0;
+            setCloudSyncStatus({ enabled: true, message: `Supabase 已保存：${payload.vocabulary.length} 个生词、进度与偏好。` });
+          } catch (error) {
+            scheduleCloudSyncRetry(`云同步写入失败：${error.message || '网络连接中断'}`);
+          } finally {
+            cloudWriteInFlightRef.current = false;
           }
-          const payload = { user_id: user.id, vocabulary: vocabBook, favorites: favoriteArticleIds, reading_positions: readingPositions, quiz_progress: quizProgressByArticle, wrong_answers: wrongAnswers, preferences, encrypted_ai_key: encryptedAiKey, updated_at: new Date().toISOString() };
-          const snapshotKey = JSON.stringify({ vocabulary: vocabBook, favorites: favoriteArticleIds, quizProgress: quizProgressByArticle, wrongAnswers, preferences, encryptedAiKey });
-          if (snapshotKey === lastCloudSnapshotRef.current) return;
-          const { error } = await supabase.from('reader_sync_state').upsert(payload, { onConflict: 'user_id' });
-          if (error) {
-            setCloudSyncStatus({ enabled: false, message: `云同步写入失败：${error.message}` });
-            return;
-          }
-          encryptedAiKeyRef.current = encryptedAiKey;
-          lastCloudSnapshotRef.current = snapshotKey;
-          setCloudSyncStatus({ enabled: true, message: `Supabase 已保存：${vocabBook.length} 个生词、进度与偏好。` });
         };
-        const snapshotKey = JSON.stringify({ vocabulary: vocabBook, favorites: favoriteArticleIds, quizProgress: quizProgressByArticle, wrongAnswers, preferences, encryptedAiKey: encryptedAiKeyRef.current });
+        const snapshotKey = JSON.stringify({ vocabulary: vocabBook, favorites: favoriteArticleIds, quizProgress: quizProgressByArticle, completionRecords, wrongAnswers, preferences, encryptedAiKey: encryptedAiKeyRef.current });
         if (snapshotKey === lastCloudSnapshotRef.current) return;
         if (cloudDataWriteTimerRef.current) clearTimeout(cloudDataWriteTimerRef.current);
         cloudDataWriteTimerRef.current = setTimeout(async () => {
-          try { await writeCloudState(); } catch (error) { setCloudSyncStatus({ enabled: false, message: `云同步加密失败：${error.message}` }); }
+          await writeCloudState();
         }, 800);
-      }, [vocabBook, favoriteArticleIds, cloudSyncRevision, user]);
+      }, [vocabBook, favoriteArticleIds, completionRecords, cloudSyncRevision, user]);
+
+      useEffect(() => {
+        if (!supabase || !currentArticleId) return;
+        let cancelled = false;
+        supabase.from('quiz_answer_corrections')
+          .select('question_id, corrected_answer_index, teacher_note, reviewed_at')
+          .eq('article_id', currentArticleId)
+          .eq('status', 'approved')
+          .then(({ data, error }) => {
+            if (cancelled || error || !Array.isArray(data)) return;
+            const corrections = data.reduce((acc, item) => {
+              if (Number.isInteger(item.corrected_answer_index)) acc[item.question_id] = item;
+              return acc;
+            }, {});
+            setCurrentArticleQuestions(prev => prev.map(question => corrections[question.id]
+              ? { ...question, answerIndex: corrections[question.id].corrected_answer_index, answerCorrection: corrections[question.id] }
+              : question));
+          });
+        return () => { cancelled = true; };
+      }, [currentArticleId, user]);
 
       // --- 全局自定义 UI 弹窗状态 ---
       const [toastMessage, setToastMessage] = useState("");
@@ -4699,6 +4896,42 @@
         setToastMessage(`📝 已交卷：得分 ${quizCorrectCount}/${supportedQuizQuestions.length}`);
       };
 
+      const handleMarkArticleComplete = () => {
+        if (!currentArticleId) return;
+        const totalCount = supportedQuizQuestions.length;
+        const accuracy = totalCount ? Math.round((quizCorrectCount / totalCount) * 100) : null;
+        const tags = completionTagInput.split(/[，,]/).map(tag => tag.trim()).filter(Boolean).slice(0, 8);
+        setCompletionRecords(prev => ({
+          ...prev,
+          [currentArticleId]: { completedAt: new Date().toISOString(), accuracy, correctCount: totalCount ? quizCorrectCount : null, totalCount: totalCount || null, tags }
+        }));
+        setCompletionTagInput('');
+        setToastMessage(accuracy == null ? '✅ 已记录完成阅读' : `✅ 已记录完成：正确率 ${accuracy}%`);
+      };
+
+      const handleReportAnswer = async () => {
+        if (!currentArticleId || !currentQuizQuestion) return;
+        if (!user || !supabase) { setToastMessage('请先登录云同步账号后再上报答案。'); return; }
+        setIsSubmittingAnswerReport(true);
+        try {
+          const { error } = await supabase.from('quiz_answer_reports').insert({
+            reporter_id: user.id,
+            article_id: currentArticleId,
+            article_title: currentArticleTitle,
+            question_id: currentQuizQuestion.id,
+            question_prompt: currentQuizQuestion.prompt,
+            reported_answer_index: currentQuizQuestion.answerIndex,
+            learner_answer_index: Number.isInteger(currentQuizAnswer) ? currentQuizAnswer : null,
+            note: answerReportNote.trim() || null
+          });
+          if (error) throw error;
+          setAnswerReportNote('');
+          setToastMessage('📨 已上报老师审核；确认后会自动采用更正答案。');
+        } catch (error) {
+          setToastMessage(`上报失败：${error.message || '请确认已执行最新 Supabase 建表 SQL'}`);
+        } finally { setIsSubmittingAnswerReport(false); }
+      };
+
       const handleQuizReset = () => {
         setQuizProgress(createEmptyQuizProgress());
         const firstQuestion = currentArticleQuestions[0] || null;
@@ -5910,36 +6143,47 @@
                       ))}
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {filteredLibraryArticles.map((article) => (
-                      <div key={article.id} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow relative flex flex-col">
-                        <div className="flex justify-between items-start mb-4">
-                          <h3 className="text-xl font-bold text-slate-900 leading-snug pr-8 line-clamp-2">{article.title}</h3>
+                    {filteredLibraryArticles.map((article) => {
+                      const presentation = getLibraryArticlePresentation(article);
+                      const supportedQuestionCount = Array.isArray(article.questions)
+                        ? article.questions.filter(isSupportedQuizQuestion).length
+                        : 0;
+                      return (
+                      <div key={article.id} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow relative flex flex-col min-h-[280px]">
+                        <div className="min-w-0 mb-4">
+                          {presentation.location && (
+                            <p className="mb-2 pr-8 text-[11px] font-bold uppercase tracking-[0.12em] text-indigo-500 truncate" title={presentation.location}>
+                              {presentation.location}
+                            </p>
+                          )}
+                          <h3 className="pr-8 text-xl font-bold text-slate-900 leading-snug line-clamp-2" title={presentation.topic}>{presentation.topic}</h3>
+                          {presentation.detail && (
+                            <p className="mt-1 text-xs font-medium text-slate-400 truncate" title={presentation.detail}>{presentation.detail}</p>
+                          )}
                           <button
                             onClick={() => handleRemoveArticle(article.id)}
-                            className="text-slate-300 hover:text-red-500 transition-colors absolute top-6 right-6"
+                            className="text-slate-300 hover:text-red-500 transition-colors absolute top-5 right-5"
                             title="删除文章"
                           >
                             <Trash2 className="w-5 h-5" />
                           </button>
                         </div>
-                        <div className="text-sm text-slate-500 mb-6 flex-grow">
-                          包含 {article.data.length} 个句子的解析
-                          {Array.isArray(article.questions) && article.questions.length > 0 && (
-                            <div className="mt-2 flex flex-wrap gap-2 text-xs">
-                              <span className="rounded-full bg-indigo-50 px-2.5 py-1 font-semibold text-indigo-700">
-                                {article.questions.filter(isSupportedQuizQuestion).length} 道可自动评分
-                              </span>
-                              {article.questions.filter(question => !isSupportedQuizQuestion(question)).length > 0 && (
-                                <span className="rounded-full bg-amber-50 px-2.5 py-1 font-semibold text-amber-700">
-                                  {article.questions.filter(question => !isSupportedQuizQuestion(question)).length} 道展示官方答案
-                                </span>
-                              )}
+                        <div className="mb-5 flex-grow space-y-3 text-sm text-slate-500">
+                          <p>
+                            {article.data.length} 句解析
+                            {Number.isFinite(article.readability?.wordCount) && ` · ${getWordCountShortLabel(article.readability.wordCount)}`}
+                            {supportedQuestionCount > 0 && ` · ${supportedQuestionCount} 道可评分`}
+                          </p>
+                          <div className="flex flex-wrap gap-2 text-[11px]">
+                            <ReadabilityBadge kind="lexile" readability={article.readability || {}} theme="light" />
+                            <ReadabilityBadge kind="band" readability={article.readability || {}} theme="light" />
+                          </div>
+                          {completionRecords[article.id] && (
+                            <div className="mt-2 rounded-xl bg-emerald-50 px-3 py-2 text-xs font-bold text-emerald-700">
+                              已完成：{completionDayKey(completionRecords[article.id].completedAt)}{completionRecords[article.id].accuracy == null ? '' : ` · 正确率 ${completionRecords[article.id].accuracy}%`}
+                              {completionRecords[article.id].tags.length > 0 && ` · ${completionRecords[article.id].tags.map(tag => `#${tag}`).join(' ')}`}
                             </div>
                           )}
-                          <div className="mt-3">
-                            <ReadabilityBadgeRow readability={article.readability || {}} theme="light" compact />
-                          </div>
-                          <div className="mt-1 text-xs text-slate-400">保存时间: {new Date(article.timestamp).toLocaleString()}</div>
                         </div>
                         <button 
                           onClick={() => handleLoadArticle(article)}
@@ -5948,7 +6192,7 @@
                           <BookOpen className="w-4 h-4" /> 继续阅读
                         </button>
                       </div>
-                    ))}
+                    )})}
                     </div>
                   </React.Fragment>
                 )}
@@ -6004,8 +6248,15 @@
                     <button onClick={() => setViewMode('reading')} className="mt-6 text-indigo-600 font-medium hover:underline">返回阅读区去添加</button>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 print:grid-cols-2 print:gap-4 print:text-black">
-                    {vocabBook.map((wordObj) => (
+                  <div className="space-y-8 print:text-black">
+                    {groupVocabForStudy(vocabBook).map(group => (
+                      <section key={`${group.key}-${group.batch}`} className="rounded-2xl border border-indigo-100 bg-indigo-50/50 p-4">
+                        <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+                          <div><h3 className="font-black text-indigo-900">背词第 {group.batch} 组 · {group.words.length}/20 词</h3><p className="text-xs text-indigo-700">{group.day} · {group.article}</p></div>
+                          <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-indigo-600">同篇、同日优先</span>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 print:grid-cols-2 print:gap-4">
+                    {group.words.map((wordObj) => (
                       <div key={wordObj.id} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm relative group hover:shadow-md transition-shadow break-inside-avoid print:border-gray-400 print:shadow-none print:m-2">
                         <button 
                           onClick={() => handleRemoveWord(wordObj.id)}
@@ -6038,6 +6289,9 @@
                           <span className="print:hidden border border-slate-200 px-2 py-0.5 rounded-full">CEFR A2/B1</span>
                         </div>
                       </div>
+                    ))}
+                        </div>
+                      </section>
                     ))}
                   </div>
                 )}
@@ -6206,6 +6460,13 @@
                           </button>
                         </div>
                       )}
+                      <div className="flex flex-wrap items-center gap-2 border-t border-white/10 pt-3">
+                        <button type="button" onClick={handleMarkArticleComplete} className="rounded-full bg-emerald-500 px-3 py-2 text-sm font-bold text-white hover:bg-emerald-400">
+                          {completionRecords[currentArticleId] ? '更新完成记录' : '记录已完成'}
+                        </button>
+                        <input value={completionTagInput} onChange={(event) => setCompletionTagInput(event.target.value)} placeholder="标签，如：精读、需复习" className="min-w-[180px] flex-1 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-300 outline-none focus:border-indigo-300" />
+                        {completionRecords[currentArticleId] && <span className="text-xs text-emerald-200">{completionDayKey(completionRecords[currentArticleId].completedAt)} · {completionRecords[currentArticleId].accuracy == null ? '已完成' : `正确率 ${completionRecords[currentArticleId].accuracy}%`}</span>}
+                      </div>
                     </div>
                   </div>
                   
@@ -7230,13 +7491,21 @@
                             <React.Fragment>
                               <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm md:px-5">
                                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                                  <div className="flex items-center gap-3 text-sm">
+                                  <div className="flex flex-wrap items-center gap-3 text-sm">
                                     <span className="font-black text-slate-800">题目导航</span>
                                     <span className="text-slate-400">
                                       {quizProgress.submitted
                                         ? `得分 ${quizScoreLabel}`
                                         : `已答 ${quizAnsweredSupportedCount}/${supportedQuizQuestions.length}`}
                                     </span>
+                                    <button
+                                      type="button"
+                                      onClick={handleQuizReset}
+                                      title="清空本篇所有答题记录并从第 1 题重新开始"
+                                      className="rounded-xl border border-slate-200 px-3 py-1.5 text-xs font-bold text-slate-600 transition-colors hover:bg-slate-50"
+                                    >
+                                      清空本篇并重新作答
+                                    </button>
                                   </div>
                                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium text-slate-500">
                                     {quizProgress.submitted ? (
@@ -7338,14 +7607,8 @@
                                           )}
                                         </div>
                                       </div>
+                                      {currentQuizQuestion.answerCorrection && <p className="mt-3 text-xs font-bold text-emerald-700">老师已确认更正答案：{currentQuizQuestion.answerCorrection.teacher_note || '已更新评分答案'}</p>}
                                     </div>
-                                    <button
-                                      type="button"
-                                      onClick={handleQuizReset}
-                                      className="rounded-2xl border border-slate-200 px-4 py-2 text-sm font-bold text-slate-600 hover:bg-slate-50"
-                                    >
-                                      重新作答
-                                    </button>
                                   </div>
 
                                   {currentQuizIsSupported ? (
@@ -7462,6 +7725,13 @@
                                       {quizProgress.submitted ? `已交卷 · ${quizScoreLabel}` : '交卷'}
                                     </button>
                                   </div>
+                                  {quizProgress.submitted && currentQuizIsSupported && (
+                                    <div className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 p-4">
+                                      <p className="text-sm font-bold text-rose-900">觉得正确答案有误？上报给老师审核</p>
+                                      <textarea value={answerReportNote} onChange={(event) => setAnswerReportNote(event.target.value)} placeholder="说明你的依据（可选）" rows="2" className="mt-2 w-full rounded-xl border border-rose-200 bg-white px-3 py-2 text-sm outline-none focus:border-rose-400" />
+                                      <button type="button" onClick={handleReportAnswer} disabled={isSubmittingAnswerReport} className="mt-2 rounded-xl border border-rose-300 bg-white px-3 py-2 text-sm font-bold text-rose-700 hover:bg-rose-100 disabled:opacity-60">{isSubmittingAnswerReport ? '正在上报…' : '上报答案问题'}</button>
+                                    </div>
+                                  )}
                                 </div>
                               )}
                             </React.Fragment>

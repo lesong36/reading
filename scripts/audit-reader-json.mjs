@@ -501,7 +501,9 @@ const main = () => {
     : args.roots.flatMap(discoverDatasets);
 
   const datasets = datasetInputs.map(auditDataset);
-  const packs = fs.existsSync(tpoPackPath) ? [auditImportPack(tpoPackPath)] : [];
+  // A caller auditing an isolated staging root should not be failed by the
+  // unrelated, currently published TPO pack.
+  const packs = args.useDefaultDatasets && fs.existsSync(tpoPackPath) ? [auditImportPack(tpoPackPath)] : [];
 
   const summary = {
     generatedAt: new Date().toISOString(),

@@ -15,6 +15,7 @@ create table if not exists public.reader_sync_state (
   favorites jsonb not null default '[]'::jsonb,
   reading_positions jsonb not null default '{}'::jsonb,
   quiz_progress jsonb not null default '{}'::jsonb,
+  completion_records jsonb not null default '{}'::jsonb,
   wrong_answers jsonb not null default '[]'::jsonb,
   vocab_master_progress jsonb not null default '{}'::jsonb,
   preferences jsonb not null default '{}'::jsonb,
@@ -25,9 +26,39 @@ create table if not exists public.reader_sync_state (
 -- Safe to rerun if the table was created by an earlier draft of this schema.
 alter table public.reader_sync_state add column if not exists wrong_answers jsonb not null default '[]'::jsonb;
 alter table public.reader_sync_state add column if not exists vocab_master_progress jsonb not null default '{}'::jsonb;
+alter table public.reader_sync_state add column if not exists completion_records jsonb not null default '{}'::jsonb;
+
+-- Learners submit suspected answer-key issues here. Teachers review reports in
+-- the Supabase dashboard and create the approved correction below; the browser
+-- only reads approved corrections and therefore cannot change answer keys.
+create table if not exists public.quiz_answer_reports (
+  id bigint generated always as identity primary key,
+  reporter_id uuid not null references auth.users(id) on delete cascade,
+  article_id text not null,
+  article_title text,
+  question_id text not null,
+  question_prompt text,
+  reported_answer_index integer,
+  learner_answer_index integer,
+  note text,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists public.quiz_answer_corrections (
+  id bigint generated always as identity primary key,
+  article_id text not null,
+  question_id text not null,
+  corrected_answer_index integer not null check (corrected_answer_index between 0 and 9),
+  teacher_note text,
+  status text not null default 'approved' check (status in ('draft', 'approved', 'rejected')),
+  reviewed_at timestamptz not null default now(),
+  unique (article_id, question_id)
+);
 
 alter table public.profiles enable row level security;
 alter table public.reader_sync_state enable row level security;
+alter table public.quiz_answer_reports enable row level security;
+alter table public.quiz_answer_corrections enable row level security;
 
 create policy "profiles are readable by their owner"
   on public.profiles for select to authenticated using (auth.uid() = id);
@@ -40,6 +71,13 @@ create policy "reader state is insertable by its owner"
   on public.reader_sync_state for insert to authenticated with check (auth.uid() = user_id);
 create policy "reader state is updatable by its owner"
   on public.reader_sync_state for update to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
+create policy "learners can submit their own answer reports"
+  on public.quiz_answer_reports for insert to authenticated with check (auth.uid() = reporter_id);
+create policy "learners can read their own answer reports"
+  on public.quiz_answer_reports for select to authenticated using (auth.uid() = reporter_id);
+create policy "approved answer corrections are readable"
+  on public.quiz_answer_corrections for select to authenticated using (status = 'approved');
 
 create or replace function public.handle_new_user()
 returns trigger
