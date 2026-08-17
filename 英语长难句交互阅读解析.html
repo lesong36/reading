@@ -2915,6 +2915,7 @@
       });
       const [completionTagInput, setCompletionTagInput] = useState('');
       const [answerReportNote, setAnswerReportNote] = useState('');
+      const [proposedAnswerIndex, setProposedAnswerIndex] = useState(null);
       const [isSubmittingAnswerReport, setIsSubmittingAnswerReport] = useState(false);
 
       const [vocabPopup, setVocabPopup] = useState(null);
@@ -3859,6 +3860,11 @@
         const paragraphSentence = currentArticleData.find(sentence => Number(sentence.para) === currentQuizParagraphNumber);
         if (paragraphSentence) setSelectedSentence(paragraphSentence);
       }, [articleStudyMode, currentQuizParagraphNumber, currentArticleData]);
+
+      useEffect(() => {
+        setProposedAnswerIndex(null);
+        setAnswerReportNote('');
+      }, [currentQuizQuestion?.id]);
 
       useEffect(() => {
         setCurrentArticleReadability(computeArticleReadability(currentArticleData));
@@ -4912,6 +4918,8 @@
       const handleReportAnswer = async () => {
         if (!currentArticleId || !currentQuizQuestion) return;
         if (!user || !supabase) { setToastMessage('请先登录云同步账号后再上报答案。'); return; }
+        if (!Number.isInteger(proposedAnswerIndex)) { setToastMessage('请先选择你认为正确的答案。'); return; }
+        if (!currentQuizLocatorSentence) { setToastMessage('请先在左侧原文长按一句，设为本题定位句。'); return; }
         setIsSubmittingAnswerReport(true);
         try {
           const { error } = await supabase.from('quiz_answer_reports').insert({
@@ -4922,10 +4930,14 @@
             question_prompt: currentQuizQuestion.prompt,
             reported_answer_index: currentQuizQuestion.answerIndex,
             learner_answer_index: Number.isInteger(currentQuizAnswer) ? currentQuizAnswer : null,
+            proposed_answer_index: proposedAnswerIndex,
+            locator_sentence_id: currentQuizLocatorSentence.id,
+            locator_sentence_text: currentQuizLocatorSentence.text,
             note: answerReportNote.trim() || null
           });
           if (error) throw error;
           setAnswerReportNote('');
+          setProposedAnswerIndex(null);
           setToastMessage('📨 已上报老师审核；确认后会自动采用更正答案。');
         } catch (error) {
           setToastMessage(`上报失败：${error.message || '请确认已执行最新 Supabase 建表 SQL'}`);
@@ -7727,9 +7739,23 @@
                                   </div>
                                   {quizProgress.submitted && currentQuizIsSupported && (
                                     <div className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 p-4">
-                                      <p className="text-sm font-bold text-rose-900">觉得正确答案有误？上报给老师审核</p>
-                                      <textarea value={answerReportNote} onChange={(event) => setAnswerReportNote(event.target.value)} placeholder="说明你的依据（可选）" rows="2" className="mt-2 w-full rounded-xl border border-rose-200 bg-white px-3 py-2 text-sm outline-none focus:border-rose-400" />
-                                      <button type="button" onClick={handleReportAnswer} disabled={isSubmittingAnswerReport} className="mt-2 rounded-xl border border-rose-300 bg-white px-3 py-2 text-sm font-bold text-rose-700 hover:bg-rose-100 disabled:opacity-60">{isSubmittingAnswerReport ? '正在上报…' : '上报答案问题'}</button>
+                                      <p className="text-sm font-bold text-rose-900">觉得正确答案有误？把你的答案与原文依据一并交给老师</p>
+                                      <div className="mt-3">
+                                        <p className="mb-2 text-xs font-black tracking-wide text-rose-800">1. 你认为正确的答案 <span className="text-rose-600">*</span></p>
+                                        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                                          {currentQuizQuestion.options.map((option, optionIndex) => (
+                                            <button type="button" key={`report-option-${optionIndex}`} onClick={() => setProposedAnswerIndex(optionIndex)} className={`rounded-xl border px-3 py-2 text-left text-sm transition-colors ${proposedAnswerIndex === optionIndex ? 'border-rose-500 bg-rose-600 font-bold text-white' : 'border-rose-200 bg-white text-slate-700 hover:border-rose-400'}`}>
+                                              <span className="mr-2 font-black">{String.fromCharCode(65 + optionIndex)}.</span>{option}
+                                            </button>
+                                          ))}
+                                        </div>
+                                      </div>
+                                      <div className={`mt-3 rounded-xl border px-3 py-2 text-sm ${currentQuizLocatorSentence ? 'border-amber-300 bg-amber-50 text-amber-950' : 'border-rose-200 bg-white text-rose-700'}`}>
+                                        <p className="font-black">2. 原文依据定位句 <span className="text-rose-600">*</span></p>
+                                        <p className="mt-1">{currentQuizLocatorSentence ? `📍 ${currentQuizLocatorSentence.text}` : '请在左侧原文选中一句后长按，设为本题定位句。'}</p>
+                                      </div>
+                                      <textarea value={answerReportNote} onChange={(event) => setAnswerReportNote(event.target.value)} placeholder="3. 补充理由（可选），例如：该句直接说明…" rows="2" className="mt-3 w-full rounded-xl border border-rose-200 bg-white px-3 py-2 text-sm outline-none focus:border-rose-400" />
+                                      <button type="button" onClick={handleReportAnswer} disabled={isSubmittingAnswerReport || !Number.isInteger(proposedAnswerIndex) || !currentQuizLocatorSentence} className="mt-3 rounded-xl border border-rose-300 bg-white px-3 py-2 text-sm font-bold text-rose-700 hover:bg-rose-100 disabled:cursor-not-allowed disabled:opacity-50">{isSubmittingAnswerReport ? '正在上报…' : '提交给老师审核'}</button>
                                     </div>
                                   )}
                                 </div>

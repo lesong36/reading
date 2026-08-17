@@ -40,9 +40,31 @@ create table if not exists public.quiz_answer_reports (
   question_prompt text,
   reported_answer_index integer,
   learner_answer_index integer,
+  proposed_answer_index integer,
+  locator_sentence_id text,
+  locator_sentence_text text,
   note text,
+  status text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
+  reviewer_id uuid references auth.users(id),
+  reviewed_at timestamptz,
+  review_note text,
   created_at timestamptz not null default now()
 );
+
+-- Add a teacher after registration, for example:
+-- insert into public.teacher_accounts (user_id) values ('<teacher auth.users id>');
+create table if not exists public.teacher_accounts (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  created_at timestamptz not null default now()
+);
+
+alter table public.quiz_answer_reports add column if not exists proposed_answer_index integer;
+alter table public.quiz_answer_reports add column if not exists locator_sentence_id text;
+alter table public.quiz_answer_reports add column if not exists locator_sentence_text text;
+alter table public.quiz_answer_reports add column if not exists status text not null default 'pending';
+alter table public.quiz_answer_reports add column if not exists reviewer_id uuid references auth.users(id);
+alter table public.quiz_answer_reports add column if not exists reviewed_at timestamptz;
+alter table public.quiz_answer_reports add column if not exists review_note text;
 
 create table if not exists public.quiz_answer_corrections (
   id bigint generated always as identity primary key,
@@ -59,6 +81,7 @@ alter table public.profiles enable row level security;
 alter table public.reader_sync_state enable row level security;
 alter table public.quiz_answer_reports enable row level security;
 alter table public.quiz_answer_corrections enable row level security;
+alter table public.teacher_accounts enable row level security;
 
 create policy "profiles are readable by their owner"
   on public.profiles for select to authenticated using (auth.uid() = id);
@@ -76,8 +99,16 @@ create policy "learners can submit their own answer reports"
   on public.quiz_answer_reports for insert to authenticated with check (auth.uid() = reporter_id);
 create policy "learners can read their own answer reports"
   on public.quiz_answer_reports for select to authenticated using (auth.uid() = reporter_id);
+create policy "teachers can review answer reports"
+  on public.quiz_answer_reports for select to authenticated using (exists (select 1 from public.teacher_accounts where user_id = auth.uid()));
+create policy "teachers can update answer reports"
+  on public.quiz_answer_reports for update to authenticated using (exists (select 1 from public.teacher_accounts where user_id = auth.uid())) with check (exists (select 1 from public.teacher_accounts where user_id = auth.uid()));
 create policy "approved answer corrections are readable"
   on public.quiz_answer_corrections for select to authenticated using (status = 'approved');
+create policy "teachers can manage answer corrections"
+  on public.quiz_answer_corrections for all to authenticated using (exists (select 1 from public.teacher_accounts where user_id = auth.uid())) with check (exists (select 1 from public.teacher_accounts where user_id = auth.uid()));
+create policy "teachers can see their own teacher status"
+  on public.teacher_accounts for select to authenticated using (auth.uid() = user_id);
 
 create or replace function public.handle_new_user()
 returns trigger
