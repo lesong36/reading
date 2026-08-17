@@ -83,6 +83,19 @@ alter table public.quiz_answer_reports enable row level security;
 alter table public.quiz_answer_corrections enable row level security;
 alter table public.teacher_accounts enable row level security;
 
+drop policy if exists "profiles are readable by their owner" on public.profiles;
+drop policy if exists "profiles are writable by their owner" on public.profiles;
+drop policy if exists "reader state is readable by its owner" on public.reader_sync_state;
+drop policy if exists "reader state is insertable by its owner" on public.reader_sync_state;
+drop policy if exists "reader state is updatable by its owner" on public.reader_sync_state;
+drop policy if exists "learners can submit their own answer reports" on public.quiz_answer_reports;
+drop policy if exists "learners can read their own answer reports" on public.quiz_answer_reports;
+drop policy if exists "teachers can review answer reports" on public.quiz_answer_reports;
+drop policy if exists "teachers can update answer reports" on public.quiz_answer_reports;
+drop policy if exists "approved answer corrections are readable" on public.quiz_answer_corrections;
+drop policy if exists "teachers can manage answer corrections" on public.quiz_answer_corrections;
+drop policy if exists "teachers can see their own teacher status" on public.teacher_accounts;
+
 create policy "profiles are readable by their owner"
   on public.profiles for select to authenticated using (auth.uid() = id);
 create policy "profiles are writable by their owner"
