@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
-  <title>Readmaster 闹闹爱阅读</title>
+  <title>Readmaster 阅读达人</title>
   
   <!-- 本地 vendor：避免 cdn.tailwindcss.com / 在线 Babel 的 production 警告依赖 -->
   <script src="./vendor/tailwindcss.js"></script>
@@ -71,7 +71,7 @@
   <div id="root">
     <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#f8fafc;color:#0f172a;">
       <div style="width:min(560px,100%);background:rgba(255,255,255,0.92);border:1px solid #e2e8f0;border-radius:28px;padding:32px;box-shadow:0 20px 50px rgba(15,23,42,0.08);text-align:center;">
-        <div style="font-size:28px;font-weight:800;letter-spacing:-0.02em;">Readmaster 闹闹爱阅读</div>
+        <div style="font-size:28px;font-weight:800;letter-spacing:-0.02em;">Readmaster 阅读达人</div>
         <div style="margin-top:12px;font-size:16px;line-height:1.75;color:#475569;">
           正在启动阅读器并加载页面资源。首次打开或更新后，可能需要等待几秒。
         </div>
@@ -5606,13 +5606,12 @@
               <div className="flex items-center justify-center gap-3 w-full mb-2">
                 <BookOpen className="text-indigo-600 w-8 h-8" />
                 <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
-                  Readmaster 闹闹爱阅读
+                  Readmaster 阅读达人
                 </h1>
               </div>
-              {viewMode !== 'reading' && (
+              {viewMode === 'upload' && (
                 <p className="text-slate-600 max-w-2xl mx-auto mt-1">
-                  {viewMode === 'vocab' ? "长期累计你的专属词汇卡片，纯本地存储，随时导入导出防丢失。" :
-                   viewMode === 'upload' ? "上传或粘贴你的英文文章，AI 将为你自动生成交互式解析。" : ""}
+                  上传或粘贴你的英文文章，AI 将为你自动生成交互式解析。
                 </p>
               )}
 
