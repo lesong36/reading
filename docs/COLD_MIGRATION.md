@@ -8,7 +8,7 @@ For any AI tool or human picking up mid-flight.
 - Node 18+
 - P920 LLM is **llama.cpp** on port **8090** (OpenAI-compatible), **not** Ollama `:11434`
 - Base URL: `http://100.121.25.47:8090/v1`
-- Model: any id matching `Qwen3.6` + `35B` from `/v1/models`
+- Model: auto-resolve the available Qwen model from `/v1/models` (currently `Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-Q6_K_P.gguf`)
 - Local Mac Ollama must **not** be used for TPO batches
 
 Resolve model:

@@ -1,6 +1,6 @@
 # TPO pipeline progress
 
-Updated: 2026-08-09
+Updated: 2026-08-20
 
 ## LLM endpoint (locked)
 
@@ -13,7 +13,7 @@ Updated: 2026-08-09
 | Health | `GET /health` → `{"status":"ok"}` |
 | Models | `GET /v1/models` |
 | Chat | `POST /v1/chat/completions` |
-| Model id | auto-pick name matching `qwen3.6` / `Qwen3.6` + `35B` (currently `Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive-Q5_K_P.gguf`) |
+| Model id | auto-pick an available Qwen model (currently `Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-Q6_K_P.gguf`) |
 | Thinking | disabled via `chat_template_kwargs.enable_thinking=false` |
 
 **Not used:** Ollama on `:11434` (refused / not listening). Local Mac Ollama is forbidden for this pipeline.

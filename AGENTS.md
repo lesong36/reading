@@ -25,4 +25,4 @@ Read these in order before changing code or rerunning batches:
 - Never commit `local-config.js` or the original `.doc`.
 - Do not use Word「参考译文」as article body.
 - Quiz answers come from Word「参考答案」, not the model.
-- TPO analysis uses P920 **llama.cpp** at `http://100.121.25.47:8090/v1` (not Ollama). Model id must be Qwen3.6 35B; resolve via `/v1/models`. Never fall back to local Mac Ollama for this pipeline.
+- TPO analysis uses P920 **llama.cpp** at `http://100.121.25.47:8090/v1` (not Ollama). Auto-resolve an available Qwen model via `/v1/models` (currently Qwen3.8 27B). Never fall back to local Mac Ollama for this pipeline.

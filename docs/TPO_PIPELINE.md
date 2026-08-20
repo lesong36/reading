@@ -18,7 +18,7 @@ Word「参考译文」is discarded. Sentence-level Chinese in reader JSON comes 
 P920 serves **llama.cpp** OpenAI-compatible API:
 
 - Base: `http://100.121.25.47:8090/v1`
-- Model: auto-resolve any `Qwen3.6*35B*` id from `/v1/models`
+- Model: auto-resolve an available Qwen model from `/v1/models` (currently `Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-Q6_K_P.gguf`)
 - Do **not** use local Mac Ollama or `:11434`
 
 ## Commands
@@ -47,7 +47,7 @@ Env overrides:
 ```bash
 export LLM_PROVIDER=openai
 export LLM_BASE_URL=http://100.121.25.47:8090/v1
-export LLM_MODEL='Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive-Q5_K_P.gguf'  # optional pin
+export LLM_MODEL='Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-Q6_K_P.gguf'  # optional pin; omit to auto-resolve
 ```
 
 ## Batches

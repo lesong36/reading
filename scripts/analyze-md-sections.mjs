@@ -161,7 +161,7 @@ Options:
   --output <dir>         Output directory. Default: data/generated-reader-json
   --provider <name>      openai (default, llama.cpp/vLLM) or ollama
   --base-url <url>       Default openai: http://100.121.25.47:8090/v1
-  --model <name>         Model id; if empty, auto-pick qwen3.6/Qwen3.6 35B from /v1/models or /api/tags
+  --model <name>         Model id; if empty, auto-pick an available Qwen model from /v1/models or /api/tags
   --api-key <key>        API key for an authenticated OpenAI-compatible endpoint (never logged)
   --heading-level <n>    Heading level to split on, or auto. Default: auto
   --only <text>          Only process files/sections whose title contains text.
@@ -191,7 +191,10 @@ const loadDeepSeekApiKey = () => {
   return match?.[2]?.trim() || '';
 };
 
-const isQwen35bName = (name = '') => /qwen3\.?6.*35b/i.test(name);
+// P920 is upgraded in place. Prefer its current Qwen-family model instead of
+// pinning a retired version/parameter count, while retaining a safe fallback
+// for other OpenAI-compatible endpoints.
+const isQwenModelName = (name = '') => /qwen/i.test(name);
 
 const resolveModelName = async ({ provider, baseUrl, model, apiKey }) => {
   if (model) return model;
@@ -206,7 +209,7 @@ const resolveModelName = async ({ provider, baseUrl, model, apiKey }) => {
       ...(payload?.data || []).map((item) => item.id || item.name),
       ...(payload?.models || []).map((item) => item.name || item.model || item.id)
     ].filter(Boolean);
-    const hit = names.find(isQwen35bName) || names[0];
+    const hit = names.find(isQwenModelName) || names[0];
     if (!hit) throw new Error(`No models found at ${root}/models`);
     return hit;
   }
@@ -215,7 +218,7 @@ const resolveModelName = async ({ provider, baseUrl, model, apiKey }) => {
   if (!response.ok) throw new Error(`Failed to list ollama tags: HTTP ${response.status}`);
   const payload = await response.json();
   const names = (payload?.models || []).map((item) => item.name).filter(Boolean);
-  const hit = names.find(isQwen35bName) || names[0];
+  const hit = names.find(isQwenModelName) || names[0];
   if (!hit) throw new Error(`No models found at ${root}/api/tags`);
   return hit;
 };
