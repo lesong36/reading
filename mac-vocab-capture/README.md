@@ -5,6 +5,7 @@
 ## 当前 MVP
 
 - `⌥⌘D` 全局快捷键；
+- 可在菜单中切换为 `⌃⌥D` 或 `⌃⌥W`；
 - 通过 macOS Accessibility 读取前台选区及其所在完整句子，读取失败时使用剪贴板；
 - 调用任何 OpenAI-compatible `/chat/completions` API；
 - 以与阅读器兼容的词条字段保存到 `~/Library/Application Support/VocabCapture/vocabulary.json`；

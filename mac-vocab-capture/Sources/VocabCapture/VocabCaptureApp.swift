@@ -5,12 +5,25 @@ import Foundation
 import UserNotifications
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
+  private struct ShortcutDefinition {
+    let id: String
+    let title: String
+    let keyCode: UInt32
+    let modifiers: UInt32
+  }
+
+  private let shortcuts = [
+    ShortcutDefinition(id: "option-command-d", title: "⌥⌘D（默认）", keyCode: UInt32(kVK_ANSI_D), modifiers: UInt32(optionKey | cmdKey)),
+    ShortcutDefinition(id: "control-option-d", title: "⌃⌥D", keyCode: UInt32(kVK_ANSI_D), modifiers: UInt32(controlKey | optionKey)),
+    ShortcutDefinition(id: "control-option-w", title: "⌃⌥W", keyCode: UInt32(kVK_ANSI_W), modifiers: UInt32(controlKey | optionKey))
+  ]
   private let store = VocabularyStore()
   private let dictionary = DictionaryClient()
   private var statusItem: NSStatusItem!
   private var hotKeyRef: EventHotKeyRef?
   private var hotKeyHandler: EventHandlerRef?
   private let configurationKey = "VocabCapture.aiConfiguration"
+  private let shortcutKey = "VocabCapture.shortcut"
 
   func applicationDidFinishLaunching(_ notification: Notification) {
     NSApp.setActivationPolicy(.accessory)
@@ -18,16 +31,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     statusItem.button?.title = "词"
     statusItem.menu = makeMenu()
+    installHotKeyHandler()
     registerHotKey()
   }
 
   private func makeMenu() -> NSMenu {
     let menu = NSMenu()
-    menu.addItem(withTitle: "拾取当前选词  ⌥⌘D", action: #selector(captureSelectionAction), keyEquivalent: "")
-    menu.addItem(withTitle: "测试 AI 翻译", action: #selector(testDictionary), keyEquivalent: "")
+    menu.addItem(withTitle: "拾取当前选词  \(currentShortcut.title)", action: #selector(captureSelectionAction), keyEquivalent: "")
     menu.addItem(withTitle: "查看最近加入的单词", action: #selector(showRecentEntries), keyEquivalent: "")
-    menu.addItem(withTitle: "在 Finder 中打开本机生词本", action: #selector(revealVocabularyFile), keyEquivalent: "")
-    menu.addItem(withTitle: "设置 AI 服务…", action: #selector(openSettings), keyEquivalent: ",")
+    menu.addItem(.separator())
+    menu.addItem(withTitle: "设置拾词快捷键…", action: #selector(openShortcutSettings), keyEquivalent: "")
+    menu.addItem(withTitle: "AI 设置…", action: #selector(openSettings), keyEquivalent: ",")
     menu.addItem(.separator())
     menu.addItem(withTitle: "退出拾词助手", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
     return menu
@@ -57,10 +71,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private func requestAccessibilityPermission() {
     let key = kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String
     AXIsProcessTrustedWithOptions([key: true] as CFDictionary)
-  }
-
-  @objc private func testDictionary() {
-    capture(SelectedText(word: "bank", context: "He sat on the bank of the river."))
   }
 
   private func capture(_ selection: SelectedText) {
@@ -160,10 +170,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
   }
 
-  @objc private func revealVocabularyFile() {
-    let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-      .appendingPathComponent("VocabCapture/vocabulary.json")
-    NSWorkspace.shared.activateFileViewerSelecting([url])
+  @objc private func openShortcutSettings() {
+    let alert = NSAlert()
+    alert.messageText = "设置拾词快捷键"
+    alert.informativeText = "选中英文单词后，按此组合键进行语境查词。"
+    let picker = NSPopUpButton(frame: NSRect(x: 0, y: 0, width: 230, height: 28), pullsDown: false)
+    picker.addItems(withTitles: shortcuts.map(\.title))
+    picker.selectItem(at: shortcuts.firstIndex(where: { $0.id == currentShortcut.id }) ?? 0)
+    alert.accessoryView = picker
+    alert.addButton(withTitle: "保存")
+    alert.addButton(withTitle: "取消")
+    guard alert.runModal() == .alertFirstButtonReturn,
+          let selected = shortcuts[safe: picker.indexOfSelectedItem] else { return }
+    UserDefaults.standard.set(selected.id, forKey: shortcutKey)
+    registerHotKey()
+    statusItem.menu = makeMenu()
   }
 
   private var configuration: AIConfiguration {
@@ -177,15 +198,25 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
   }
 
-  private func registerHotKey() {
+  private var currentShortcut: ShortcutDefinition {
+    let savedID = UserDefaults.standard.string(forKey: shortcutKey)
+    return shortcuts.first(where: { $0.id == savedID }) ?? shortcuts[0]
+  }
+
+  private func installHotKeyHandler() {
     var eventType = EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: OSType(kEventHotKeyPressed))
     InstallEventHandler(GetApplicationEventTarget(), { _, _, data in
       let delegate = Unmanaged<AppDelegate>.fromOpaque(data!).takeUnretainedValue()
       delegate.captureSelectionAction()
       return noErr
     }, 1, &eventType, Unmanaged.passUnretained(self).toOpaque(), &hotKeyHandler)
+  }
+
+  private func registerHotKey() {
+    if let hotKeyRef { UnregisterEventHotKey(hotKeyRef) }
+    let shortcut = currentShortcut
     let id = EventHotKeyID(signature: OSType(0x56434150), id: 1)
-    RegisterEventHotKey(UInt32(kVK_ANSI_D), UInt32(optionKey | cmdKey), id, GetApplicationEventTarget(), 0, &hotKeyRef)
+    RegisterEventHotKey(shortcut.keyCode, shortcut.modifiers, id, GetApplicationEventTarget(), 0, &hotKeyRef)
   }
 
   private func show(_ title: String, _ message: String) {
@@ -200,5 +231,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
       center.add(request)
     }
+  }
+}
+
+private extension Array {
+  subscript(safe index: Int) -> Element? {
+    indices.contains(index) ? self[index] : nil
   }
 }
