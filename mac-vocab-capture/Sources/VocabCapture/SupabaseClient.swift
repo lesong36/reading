@@ -100,8 +100,12 @@ actor SupabaseVocabularySync {
   private func validate(response: URLResponse, data: Data) throws {
     guard let http = response as? HTTPURLResponse else { throw SupabaseSyncError.invalidResponse }
     guard 200..<300 ~= http.statusCode else {
-      let message = (try? JSONSerialization.jsonObject(with: data) as? [String: Any])? ["msg"] as? String
-      throw SupabaseSyncError.server(message ?? "Supabase 请求失败（HTTP \(http.statusCode)）。")
+      let payload = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+      let message = payload?["msg"] as? String
+        ?? payload?["message"] as? String
+        ?? payload?["error_description"] as? String
+        ?? String(data: data, encoding: .utf8)
+      throw SupabaseSyncError.server(message?.isEmpty == false ? message! : "Supabase 请求失败（HTTP \(http.statusCode)）。")
     }
   }
 

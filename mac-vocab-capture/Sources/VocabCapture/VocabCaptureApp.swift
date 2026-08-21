@@ -5,7 +5,7 @@ import Foundation
 import UserNotifications
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
-  private struct ShortcutDefinition {
+  fileprivate struct ShortcutDefinition: Codable {
     let id: String
     let title: String
     let keyCode: UInt32
@@ -25,6 +25,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private var hotKeyHandler: EventHandlerRef?
   private let configurationKey = "VocabCapture.aiConfiguration"
   private let shortcutKey = "VocabCapture.shortcut"
+  private let customShortcutKey = "VocabCapture.customShortcut"
 
   func applicationDidFinishLaunching(_ notification: Notification) {
     NSApp.setActivationPolicy(.accessory)
@@ -235,16 +236,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   @objc private func openShortcutSettings() {
     let alert = NSAlert()
     alert.messageText = "设置拾词快捷键"
-    alert.informativeText = "选中英文单词后，按此组合键进行语境查词。"
-    let picker = NSPopUpButton(frame: NSRect(x: 0, y: 0, width: 230, height: 28), pullsDown: false)
-    picker.addItems(withTitles: shortcuts.map(\.title))
-    picker.selectItem(at: shortcuts.firstIndex(where: { $0.id == currentShortcut.id }) ?? 0)
-    alert.accessoryView = picker
+    alert.informativeText = "点下方输入框后，直接按下你希望使用的组合键。建议至少包含 ⌘、⌥ 或 ⌃。"
+    let recorder = ShortcutRecorderView(initial: currentShortcut)
+    alert.accessoryView = recorder
     alert.addButton(withTitle: "保存")
     alert.addButton(withTitle: "取消")
-    guard alert.runModal() == .alertFirstButtonReturn,
-          let selected = shortcuts[safe: picker.indexOfSelectedItem] else { return }
-    UserDefaults.standard.set(selected.id, forKey: shortcutKey)
+    DispatchQueue.main.async { alert.window.makeFirstResponder(recorder) }
+    guard alert.runModal() == .alertFirstButtonReturn, let selected = recorder.shortcut else { return }
+    UserDefaults.standard.set(try? JSONEncoder().encode(selected), forKey: customShortcutKey)
     registerHotKey()
     statusItem.menu = makeMenu()
   }
@@ -261,6 +260,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   private var currentShortcut: ShortcutDefinition {
+    if let data = UserDefaults.standard.data(forKey: customShortcutKey),
+       let custom = try? JSONDecoder().decode(ShortcutDefinition.self, from: data) {
+      return custom
+    }
     let savedID = UserDefaults.standard.string(forKey: shortcutKey)
     return shortcuts.first(where: { $0.id == savedID }) ?? shortcuts[0]
   }
@@ -296,8 +299,58 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 }
 
-private extension Array {
-  subscript(safe index: Int) -> Element? {
-    indices.contains(index) ? self[index] : nil
+private final class ShortcutRecorderView: NSView {
+  private let valueLabel = NSTextField(labelWithString: "")
+  private(set) var shortcut: AppDelegate.ShortcutDefinition?
+
+  init(initial: AppDelegate.ShortcutDefinition) {
+    shortcut = initial
+    super.init(frame: NSRect(x: 0, y: 0, width: 380, height: 42))
+    wantsLayer = true
+    layer?.cornerRadius = 8
+    layer?.borderWidth = 1
+    layer?.borderColor = NSColor.separatorColor.cgColor
+    valueLabel.frame = bounds.insetBy(dx: 12, dy: 9)
+    valueLabel.font = .systemFont(ofSize: 16, weight: .medium)
+    addSubview(valueLabel)
+    updateLabel()
   }
+
+  required init?(coder: NSCoder) { nil }
+  override var acceptsFirstResponder: Bool { true }
+  override func becomeFirstResponder() -> Bool {
+    layer?.borderColor = NSColor.controlAccentColor.cgColor
+    return true
+  }
+  override func resignFirstResponder() -> Bool {
+    layer?.borderColor = NSColor.separatorColor.cgColor
+    return true
+  }
+
+  override func keyDown(with event: NSEvent) {
+    let flags = event.modifierFlags.intersection(NSEvent.ModifierFlags.deviceIndependentFlagsMask)
+    let carbonModifiers = (flags.contains(NSEvent.ModifierFlags.command) ? UInt32(cmdKey) : 0)
+      | (flags.contains(NSEvent.ModifierFlags.option) ? UInt32(optionKey) : 0)
+      | (flags.contains(NSEvent.ModifierFlags.control) ? UInt32(controlKey) : 0)
+      | (flags.contains(NSEvent.ModifierFlags.shift) ? UInt32(shiftKey) : 0)
+    guard carbonModifiers != 0,
+          let character = event.charactersIgnoringModifiers?.uppercased(), !character.isEmpty else {
+      NSSound.beep()
+      return
+    }
+    let title = (flags.contains(NSEvent.ModifierFlags.control) ? "⌃" : "")
+      + (flags.contains(NSEvent.ModifierFlags.option) ? "⌥" : "")
+      + (flags.contains(NSEvent.ModifierFlags.shift) ? "⇧" : "")
+      + (flags.contains(NSEvent.ModifierFlags.command) ? "⌘" : "")
+      + character
+    shortcut = AppDelegate.ShortcutDefinition(
+      id: "custom-\(event.keyCode)-\(carbonModifiers)",
+      title: title,
+      keyCode: UInt32(event.keyCode),
+      modifiers: carbonModifiers
+    )
+    updateLabel()
+  }
+
+  private func updateLabel() { valueLabel.stringValue = shortcut?.title ?? "按下新的组合键" }
 }
