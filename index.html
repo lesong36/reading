@@ -3745,8 +3745,8 @@
         }
         if (activeAiTask === 'glossary') {
           return aiProvider === 'ollama'
-            ? `Ollama 正在识别专业术语与专有名词并生成中文翻译。已运行 ${elapsed}。`
-            : `AI 正在识别专业术语与专有名词并生成中文翻译。已运行 ${elapsed}。`;
+            ? `Ollama 正在谨慎识别术语、生僻词与专有名词并生成中文释义。已运行 ${elapsed}。`
+            : `AI 正在谨慎识别术语、生僻词与专有名词并生成中文释义。已运行 ${elapsed}。`;
         }
         if (activeAiTask === 'simplify') {
           return `AI 正在改写句子。已运行 ${elapsed}。`;
@@ -5060,15 +5060,18 @@
         setAiLastProgressAt(Date.now());
         try {
           const articleText = joinArticleText(currentArticleData);
-          const sysPrompt = `你是英语阅读术语与专有名词助手。请从用户提供的英文文章中识别需要中文释义的词条，并严格输出 JSON。
+          const sysPrompt = `你是英语阅读术语、生僻词与专有名词助手。请从用户提供的英文文章中谨慎识别需要中文释义的词条，并严格输出 JSON。
 要求：
-1. 重点识别：专业术语、学科概念、小说/故事中的专有名词（人名、地名、组织、魔法/设定名、称号）、缩写、以及依赖上下文才好理解的短语。
-2. 不要收录过于普通的高频词（如 the/and/have/make/people）。
-3. term 必须是文中实际出现的英文写法；若有常见别名可放 aliases。
-4. translation 给简洁准确的中文翻译；note 用一句话说明它在本文中的含义或背景。
-5. kind 只能是：term / proper_noun / acronym / context_phrase。
-6. 控制在最重要的 8-40 条，按重要性排序。
-7. 只输出 JSON，不要 Markdown 代码块，不要解释。
+1. 只有满足以下至少一项才可收录：
+   - 生僻词：对读者确有学习价值的低频词；不能只因词长、显得正式或属于普通学术词而收录。
+   - 语境特殊义：在本文中有不同于常见字面义的特定含义，包括真正的专业术语、学科概念和必要缩写。
+   - 专有名词：人名、地名、组织、作品名、物种名，以及其他必须识别的特定名称。
+2. 不收录普通高频词、常见学术词、按字面就能理解的普通搭配，或仅因出现在本文而被误判为“语境短语”的普通表达。
+3. 宁缺毋滥：可以返回空数组；不得为了凑数量补充词条。
+4. term 必须是文中实际出现的英文写法；若有常见别名可放 aliases。
+5. translation 只给出最符合本文语境的简洁中文释义，不要机械直译、泛化释义或百科式扩写；note 仅在语境特殊义或名称背景确有必要时填写。
+6. kind 只能是：rare_word / context_term / proper_noun / acronym。
+7. 按重要性排序；只输出 JSON，不要 Markdown 代码块，不要解释。
 
 输出格式：
 {
@@ -5076,7 +5079,7 @@
     {
       "term": "英文词条",
       "translation": "中文翻译",
-      "kind": "term",
+      "kind": "rare_word",
       "note": "本文语境说明",
       "aliases": ["可选别名"]
     }
@@ -5092,10 +5095,12 @@
           const parsed = parseAiJsonOrThrow(response, 'Ollama');
           const glossary = normalizeGlossary(parsed.glossary || []);
           if (glossary.length === 0) {
-            throw new Error('未识别到可用术语，请换一篇含专业词或专有名词的文章再试。');
+            persistGlossaryToCurrentArticle([]);
+            setToastMessage('这篇文章没有需要标注的术语、生僻词或专有名词。');
+            return;
           }
           persistGlossaryToCurrentArticle(glossary);
-          setToastMessage(`✅ 已识别 ${glossary.length} 个术语/专有名词`);
+          setToastMessage(`✅ 已识别 ${glossary.length} 个术语、生僻词或专有名词`);
         } catch (error) {
           console.error(error);
           setToastMessage(`❌ 术语识别失败：${error.message || '请稍后重试'}`);
@@ -5592,13 +5597,12 @@
    - 语气要温暖、有情绪价值：告诉孩子“这一步你能学会”“慢一点没关系”“我们一起拆”。
    - 避免考研、托福老师式长篇术语堆叠；不要写“详见”“综上”“本句考查”。
    - 给孩子看的话里不要直接说“动词修饰语、名词修饰语、状语、定语”等术语；要说成“动作旁边的小贴纸”“名词旁边的小标签”“补时间/地点的小卡片”“句子里的小房间”等。
-6. **【术语与专有名词 glossary】**：在文章级额外输出 glossary 数组，识别文中需要中文释义的词条：
-   - 专业术语、学科概念、缩写
-   - 小说/故事中的专有名词（人名、地名、组织、设定名、称号）
-   - 依赖本文上下文才好理解的短语
-   - 不要收录过于普通的高频词
-   - term 必须是文中实际出现的英文写法；translation 给简洁中文；note 说明本文语境；kind 为 term / proper_noun / acronym / context_phrase
-   - 控制在最重要的 8-40 条
+6. **【术语、生僻词与专有名词 glossary】**：在文章级额外输出 glossary 数组，但必须宁缺毋滥。只有满足以下至少一项的词条才能收录：
+   - 生僻词：对目标读者确有学习价值的低频词；不能只因词长、显得正式或属于普通学术词而收录。
+   - 语境特殊义：在本文中有不同于常见字面义的特定含义，包括真正的专业术语、学科概念和必要缩写。
+   - 专有名词：人名、地名、组织、作品名、物种名，以及其他必须识别的特定名称。
+   - 普通高频词、常见学术词、按字面就能理解的普通搭配，以及被误判为“语境短语”的普通表达，一律不要收录；可以输出空数组，不得凑数。
+   - term 必须是文中实际出现的英文写法；translation 只能给最符合本文语境的简洁中文释义，不能机械直译或百科式扩写；note 仅在语境特殊义或名称背景确有必要时填写；kind 为 rare_word / context_term / proper_noun / acronym。
 
 输出必须符合以下 JSON 格式：
 {
