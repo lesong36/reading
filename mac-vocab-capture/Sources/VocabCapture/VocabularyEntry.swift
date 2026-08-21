@@ -9,7 +9,7 @@ struct DictionaryResult: Codable, Sendable {
 }
 
 struct VocabularyEntry: Codable, Identifiable, Sendable, Equatable {
-  let id: UUID
+  let id: String
   let word: String
   let meaning: String
   let lemma: String
@@ -24,7 +24,7 @@ struct VocabularyEntry: Codable, Identifiable, Sendable, Equatable {
   let timestamp: Int64
 
   init(word: String, dictionary: DictionaryResult, context: String) {
-    id = UUID()
+    id = UUID().uuidString
     self.word = word
     meaning = dictionary.meaning
     lemma = dictionary.lemma.isEmpty ? word : dictionary.lemma
@@ -40,6 +40,28 @@ struct VocabularyEntry: Codable, Identifiable, Sendable, Equatable {
     sourceArticleTitle = "macOS 拾词助手"
     addedAt = ISO8601DateFormatter().string(from: .now)
     timestamp = Int64(Date().timeIntervalSince1970 * 1_000)
+  }
+
+  enum CodingKeys: String, CodingKey {
+    case id, word, meaning, lemma, partOfSpeech, pronunciation, etymology
+    case exampleSentence, sourceContext, sourceArticleId, sourceArticleTitle, addedAt, timestamp
+  }
+
+  init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: CodingKeys.self)
+    id = try values.decodeIfPresent(String.self, forKey: .id) ?? UUID().uuidString
+    word = try values.decodeIfPresent(String.self, forKey: .word) ?? ""
+    meaning = try values.decodeIfPresent(String.self, forKey: .meaning) ?? "暂无释义"
+    lemma = try values.decodeIfPresent(String.self, forKey: .lemma) ?? word
+    partOfSpeech = try values.decodeIfPresent(String.self, forKey: .partOfSpeech) ?? ""
+    pronunciation = try values.decodeIfPresent(String.self, forKey: .pronunciation) ?? ""
+    etymology = try values.decodeIfPresent(String.self, forKey: .etymology) ?? ""
+    sourceContext = try values.decodeIfPresent(String.self, forKey: .sourceContext) ?? ""
+    exampleSentence = try values.decodeIfPresent(String.self, forKey: .exampleSentence) ?? sourceContext
+    sourceArticleId = try values.decodeIfPresent(String.self, forKey: .sourceArticleId)
+    sourceArticleTitle = try values.decodeIfPresent(String.self, forKey: .sourceArticleTitle) ?? ""
+    addedAt = try values.decodeIfPresent(String.self, forKey: .addedAt) ?? ""
+    timestamp = try values.decodeIfPresent(Int64.self, forKey: .timestamp) ?? 0
   }
 }
 
