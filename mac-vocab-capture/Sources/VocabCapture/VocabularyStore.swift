@@ -13,7 +13,18 @@ actor VocabularyStore {
     ).appendingPathComponent("VocabCapture", isDirectory: true)
     try? fileManager.createDirectory(at: appSupport, withIntermediateDirectories: true)
     fileURL = appSupport.appendingPathComponent("vocabulary.json")
-    entries = (try? JSONDecoder().decode([VocabularyEntry].self, from: Data(contentsOf: fileURL))) ?? []
+    let loaded = (try? JSONDecoder().decode([VocabularyEntry].self, from: Data(contentsOf: fileURL))) ?? []
+    entries = loaded.map { entry in
+      var migrated = entry
+      if migrated.exampleSentence.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+        migrated.exampleSentence = migrated.sourceContext
+      }
+      return migrated
+    }
+    if entries != loaded {
+      let data = try? JSONEncoder.pretty.encode(entries)
+      try? data?.write(to: fileURL, options: .atomic)
+    }
   }
 
   func add(word: String, dictionary: DictionaryResult, context: String) throws -> VocabularyEntry {
@@ -22,12 +33,16 @@ actor VocabularyStore {
     if let existing = entries.first(where: { $0.word.lowercased() == normalized }) { return existing }
     let entry = VocabularyEntry(word: word, dictionary: dictionary, context: context)
     entries.insert(entry, at: 0)
-    let data = try JSONEncoder.pretty.encode(entries)
-    try data.write(to: fileURL, options: .atomic)
+    try persist()
     return entry
   }
 
   func all() -> [VocabularyEntry] { entries }
+
+  private func persist() throws {
+    let data = try JSONEncoder.pretty.encode(entries)
+    try data.write(to: fileURL, options: .atomic)
+  }
 }
 
 private extension JSONEncoder {

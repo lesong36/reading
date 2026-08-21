@@ -8,7 +8,7 @@ struct DictionaryResult: Codable, Sendable {
   let note: String
 }
 
-struct VocabularyEntry: Codable, Identifiable, Sendable {
+struct VocabularyEntry: Codable, Identifiable, Sendable, Equatable {
   let id: UUID
   let word: String
   let meaning: String
@@ -16,7 +16,7 @@ struct VocabularyEntry: Codable, Identifiable, Sendable {
   let partOfSpeech: String
   let pronunciation: String
   let etymology: String
-  let exampleSentence: String
+  var exampleSentence: String
   let sourceContext: String
   let sourceArticleId: String?
   let sourceArticleTitle: String
