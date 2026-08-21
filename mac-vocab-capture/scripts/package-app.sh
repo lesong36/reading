@@ -7,6 +7,9 @@ APP_DIR="$PROJECT_DIR/build/$APP_NAME.app"
 CONTENTS="$APP_DIR/Contents"
 VERSION="$(tr -d '[:space:]' < "$PROJECT_DIR/VERSION")"
 SIGNING_IDENTITY="${VOCAB_CAPTURE_SIGNING_IDENTITY:-}"
+if [[ -z "$SIGNING_IDENTITY" ]]; then
+  SIGNING_IDENTITY="$(security find-identity -v -p codesigning | sed -n 's/.*"\(Apple Development:.*\)"/\1/p' | head -n 1)"
+fi
 
 cd "$PROJECT_DIR"
 swift build -c release

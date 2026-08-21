@@ -37,7 +37,7 @@ open build/拾词助手.app
 - `VERSION` 是唯一版本来源；应用包的版本号从这里生成。
 - 每次发布前运行 `./scripts/bump-version.sh patch`（或 `minor` / `major`），再运行 `./scripts/install-app.sh`。
 - 应用只从 `~/Applications/拾词助手.app` 启动；构建产物会在安装后删除，避免启动台发现多个历史副本。
-- 若在 Xcode 登录 Apple Developer 并获得 Apple Development 证书，可设置 `VOCAB_CAPTURE_SIGNING_IDENTITY` 使用该证书签名；这是跨版本稳定保留 macOS 辅助功能授权的正式发布方案。
+- 发布脚本会自动使用钥匙串中的 Apple Development 证书；也可通过 `VOCAB_CAPTURE_SIGNING_IDENTITY` 指定签名身份。这是跨版本稳定保留 macOS 辅助功能授权的正式发布方案。
 
 首次使用时，在菜单栏图标中配置 API Base URL、模型与 Key（Key 保存到 macOS Keychain）；随后在「系统设置 → 隐私与安全性 → 辅助功能」授予“拾词助手”权限。
 
