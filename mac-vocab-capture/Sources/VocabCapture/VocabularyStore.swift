@@ -39,6 +39,11 @@ actor VocabularyStore {
 
   func all() -> [VocabularyEntry] { entries }
 
+  func replace(with updated: [VocabularyEntry]) throws {
+    entries = updated.sorted { $0.timestamp > $1.timestamp }
+    try persist()
+  }
+
   private func persist() throws {
     let data = try JSONEncoder.pretty.encode(entries)
     try data.write(to: fileURL, options: .atomic)

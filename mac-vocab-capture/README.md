@@ -9,6 +9,7 @@
 - 通过 macOS Accessibility 读取前台选区及其所在完整句子，读取失败时使用剪贴板；
 - 调用任何 OpenAI-compatible `/chat/completions` API；
 - 以与阅读器兼容的词条字段保存到 `~/Library/Application Support/VocabCapture/vocabulary.json`；
+- 使用同一阅读达人账号登录后，将本机词库与 Supabase `reader_sync_state.vocabulary` 读、合并、写回；
 - 预留了 macOS Service 的 `Info.plist` 定义，用于右键选词菜单。
 
 ## 本地开发
@@ -49,3 +50,5 @@ open build/拾词助手.app
 - 增加词条浏览、删除、撤销及 OCR 兜底。
 
 不要把完整屏幕截图或所有剪贴板内容上传给 AI；只在用户显式触发后发送已确认的单词和最小必要语境。
+
+Supabase 登录密码只用于换取认证 session，不会保存；session token 保存在 macOS Keychain。同步只更新该登录用户的 `vocabulary` 列，并按单词与时间戳合并，保留阅读器现有词条。

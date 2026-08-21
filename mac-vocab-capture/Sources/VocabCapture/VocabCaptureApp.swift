@@ -19,6 +19,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   ]
   private let store = VocabularyStore()
   private let dictionary = DictionaryClient()
+  private let cloudSync = SupabaseVocabularySync()
   private var statusItem: NSStatusItem!
   private var hotKeyRef: EventHotKeyRef?
   private var hotKeyHandler: EventHandlerRef?
@@ -39,6 +40,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     let menu = NSMenu()
     menu.addItem(withTitle: "拾取当前选词  \(currentShortcut.title)", action: #selector(captureSelectionAction), keyEquivalent: "")
     menu.addItem(withTitle: "查看最近加入的单词", action: #selector(showRecentEntries), keyEquivalent: "")
+    menu.addItem(withTitle: "同步到阅读达人…", action: #selector(syncToReader), keyEquivalent: "")
     menu.addItem(.separator())
     menu.addItem(withTitle: "设置拾词快捷键…", action: #selector(openShortcutSettings), keyEquivalent: "")
     menu.addItem(withTitle: "AI 设置…", action: #selector(openSettings), keyEquivalent: ",")
@@ -83,7 +85,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
           return
         }
         let entry = try await store.add(word: selection.word, dictionary: result, context: selection.context)
-        await MainActor.run { self.show("已按原句翻译并加入", "\(entry.word) · \(entry.meaning)") }
+        do {
+          let total = try await self.syncVocabulary()
+          await MainActor.run { self.show("已同步到阅读达人", "\(entry.word) · \(entry.meaning)；共 \(total) 个生词") }
+        } catch SupabaseSyncError.notLoggedIn {
+          await MainActor.run { self.show("已加入本机生词本", "\(entry.word) · \(entry.meaning)；登录后可同步到阅读达人") }
+        } catch {
+          await MainActor.run { self.show("已加入本机，云同步失败", error.localizedDescription) }
+        }
       } catch {
         await MainActor.run {
           self.show("查词失败", error.localizedDescription)
@@ -168,6 +177,59 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         alert.runModal()
       }
     }
+  }
+
+  @objc private func syncToReader() {
+    Task {
+      if await cloudSync.isLoggedIn() {
+        do {
+          let total = try await syncVocabulary()
+          await MainActor.run { self.show("已同步到阅读达人", "云端共有 \(total) 个生词") }
+        } catch {
+          await MainActor.run { self.showFailure("同步失败：\(error.localizedDescription)") }
+        }
+      } else {
+        await MainActor.run { self.openSupabaseLogin() }
+      }
+    }
+  }
+
+  private func openSupabaseLogin() {
+    let alert = NSAlert()
+    alert.messageText = "登录阅读达人账号"
+    alert.informativeText = "使用与阅读达人相同的邮箱和密码。密码不会保存在拾词助手中。"
+    let stack = NSStackView(frame: NSRect(x: 0, y: 0, width: 380, height: 112))
+    stack.orientation = .vertical
+    stack.alignment = .leading
+    stack.spacing = 6
+    let email = NSTextField()
+    let password = NSSecureTextField()
+    for (label, field) in [("邮箱", email), ("密码", password)] {
+      stack.addArrangedSubview(NSTextField(labelWithString: label))
+      field.widthAnchor.constraint(equalToConstant: 380).isActive = true
+      field.heightAnchor.constraint(equalToConstant: 26).isActive = true
+      stack.addArrangedSubview(field)
+    }
+    alert.accessoryView = stack
+    alert.addButton(withTitle: "登录并同步")
+    alert.addButton(withTitle: "取消")
+    guard alert.runModal() == .alertFirstButtonReturn else { return }
+    Task {
+      do {
+        _ = try await cloudSync.signIn(email: email.stringValue.trimmingCharacters(in: .whitespacesAndNewlines), password: password.stringValue)
+        let total = try await syncVocabulary()
+        await MainActor.run { self.show("已登录并同步", "阅读达人云端共有 \(total) 个生词") }
+      } catch {
+        await MainActor.run { self.showFailure("登录或同步失败：\(error.localizedDescription)") }
+      }
+    }
+  }
+
+  private func syncVocabulary() async throws -> Int {
+    let local = await store.all()
+    let merged = try await cloudSync.sync(local: local)
+    try await store.replace(with: merged)
+    return merged.count
   }
 
   @objc private func openShortcutSettings() {
