@@ -1,0 +1,58 @@
+import Foundation
+
+struct DictionaryResult: Codable, Sendable {
+  let lemma: String
+  let meaning: String
+  let partOfSpeech: String
+  let pronunciation: String
+  let note: String
+}
+
+struct VocabularyEntry: Codable, Identifiable, Sendable {
+  let id: UUID
+  let word: String
+  let meaning: String
+  let lemma: String
+  let partOfSpeech: String
+  let pronunciation: String
+  let etymology: String
+  let exampleSentence: String
+  let sourceContext: String
+  let sourceArticleId: String?
+  let sourceArticleTitle: String
+  let addedAt: String
+  let timestamp: Int64
+
+  init(word: String, dictionary: DictionaryResult, context: String) {
+    id = UUID()
+    self.word = word
+    meaning = dictionary.meaning
+    lemma = dictionary.lemma.isEmpty ? word : dictionary.lemma
+    partOfSpeech = dictionary.partOfSpeech
+    pronunciation = dictionary.pronunciation
+    etymology = dictionary.note.isEmpty ? "来自 macOS 拾词助手" : dictionary.note
+    // Keep the original sentence in both fields used by the reader's card UI:
+    // sourceContext powers the “来自文章语境” panel and exampleSentence is
+    // rendered as the card's example sentence.
+    exampleSentence = context
+    sourceContext = context
+    sourceArticleId = nil
+    sourceArticleTitle = "macOS 拾词助手"
+    addedAt = ISO8601DateFormatter().string(from: .now)
+    timestamp = Int64(Date().timeIntervalSince1970 * 1_000)
+  }
+}
+
+enum VocabularyError: LocalizedError {
+  case invalidSelection
+  case missingConfiguration
+  case invalidAIResponse
+
+  var errorDescription: String? {
+    switch self {
+    case .invalidSelection: "请先选中一个英文单词或短语。"
+    case .missingConfiguration: "请先在设置中配置 AI 服务。"
+    case .invalidAIResponse: "AI 返回的词典数据格式不正确。"
+    }
+  }
+}

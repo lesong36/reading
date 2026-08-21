@@ -1,0 +1,25 @@
+#!/bin/zsh
+set -euo pipefail
+
+PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+SOURCE_APP="$PROJECT_DIR/build/拾词助手.app"
+TARGET_DIR="$HOME/Applications"
+TARGET_APP="$TARGET_DIR/拾词助手.app"
+
+"$PROJECT_DIR/scripts/package-app.sh"
+mkdir -p "$TARGET_DIR"
+if [[ -e "$TARGET_APP" ]]; then
+  BACKUP="$HOME/.Trash/拾词助手-$(date +%Y%m%d-%H%M%S).app"
+  mv "$TARGET_APP" "$BACKUP"
+fi
+ditto "$SOURCE_APP" "$TARGET_APP"
+LSREGISTER="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister"
+if [[ -x "$LSREGISTER" ]]; then
+  "$LSREGISTER" -u "$SOURCE_APP" >/dev/null 2>&1 || true
+  "$LSREGISTER" -f "$TARGET_APP" >/dev/null 2>&1 || true
+fi
+# The generated bundle must not remain as a second discoverable app outside
+# ~/Applications, otherwise Launchpad may show historical duplicates.
+rm -rf "$SOURCE_APP"
+open "$TARGET_APP"
+echo "$TARGET_APP"
