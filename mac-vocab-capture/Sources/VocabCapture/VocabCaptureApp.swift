@@ -87,8 +87,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
         let entry = try await store.add(word: selection.word, dictionary: result, context: selection.context)
         do {
-          let total = try await self.syncVocabulary()
-          await MainActor.run { self.show("已同步到阅读达人", "\(entry.word) · \(entry.meaning)；共 \(total) 个生词") }
+          let result = try await self.syncVocabulary()
+          await MainActor.run {
+            self.show("已同步到阅读达人", "\(entry.word) · \(entry.meaning)；本次新增/更新 \(result.uploadedCount) 个，云端共 \(result.totalCount) 个")
+          }
         } catch SupabaseSyncError.notLoggedIn {
           await MainActor.run { self.show("已加入本机生词本", "\(entry.word) · \(entry.meaning)；登录后可同步到阅读达人") }
         } catch {
@@ -184,8 +186,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     Task {
       if await cloudSync.isLoggedIn() {
         do {
-          let total = try await syncVocabulary()
-          await MainActor.run { self.show("已同步到阅读达人", "云端共有 \(total) 个生词") }
+          let result = try await syncVocabulary()
+          await MainActor.run { self.show("同步完成", "本次新增/更新 \(result.uploadedCount) 个单词；云端共 \(result.totalCount) 个") }
         } catch {
           await MainActor.run { self.showFailure("同步失败：\(error.localizedDescription)") }
         }
@@ -218,19 +220,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     Task {
       do {
         _ = try await cloudSync.signIn(email: email.stringValue.trimmingCharacters(in: .whitespacesAndNewlines), password: password.stringValue)
-        let total = try await syncVocabulary()
-        await MainActor.run { self.show("已登录并同步", "阅读达人云端共有 \(total) 个生词") }
+        let result = try await syncVocabulary()
+        await MainActor.run { self.show("已登录并同步", "本次新增/更新 \(result.uploadedCount) 个单词；云端共 \(result.totalCount) 个") }
       } catch {
         await MainActor.run { self.showFailure("登录或同步失败：\(error.localizedDescription)") }
       }
     }
   }
 
-  private func syncVocabulary() async throws -> Int {
+  private func syncVocabulary() async throws -> (uploadedCount: Int, totalCount: Int) {
     let local = await store.all()
-    let merged = try await cloudSync.sync(local: local)
-    try await store.replace(with: merged)
-    return merged.count
+    let result = try await cloudSync.sync(local: local)
+    try await store.replace(with: result.vocabulary)
+    return (result.uploadedCount, result.vocabulary.count)
   }
 
   @objc private func openShortcutSettings() {
@@ -241,10 +243,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     alert.accessoryView = recorder
     alert.addButton(withTitle: "保存")
     alert.addButton(withTitle: "取消")
+    if let hotKeyRef {
+      UnregisterEventHotKey(hotKeyRef)
+      self.hotKeyRef = nil
+    }
     DispatchQueue.main.async { alert.window.makeFirstResponder(recorder) }
-    guard alert.runModal() == .alertFirstButtonReturn, let selected = recorder.shortcut else { return }
+    let response = alert.runModal()
+    defer { registerHotKey() }
+    guard response == .alertFirstButtonReturn, let selected = recorder.shortcut else { return }
     UserDefaults.standard.set(try? JSONEncoder().encode(selected), forKey: customShortcutKey)
-    registerHotKey()
     statusItem.menu = makeMenu()
   }
 
@@ -278,14 +285,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   private func registerHotKey() {
-    if let hotKeyRef { UnregisterEventHotKey(hotKeyRef) }
+    if let hotKeyRef {
+      UnregisterEventHotKey(hotKeyRef)
+      self.hotKeyRef = nil
+    }
     let shortcut = currentShortcut
     let id = EventHotKeyID(signature: OSType(0x56434150), id: 1)
     RegisterEventHotKey(shortcut.keyCode, shortcut.modifiers, id, GetApplicationEventTarget(), 0, &hotKeyRef)
   }
 
   private func show(_ title: String, _ message: String) {
-    statusItem.button?.title = title == "已按原句翻译并加入" ? "词 ✓" : "词 !"
+    let failures = ["失败", "未加入", "需要", "未找到"]
+    statusItem.button?.title = failures.contains(where: title.contains) ? "词 !" : "词 ✓"
     DispatchQueue.main.asyncAfter(deadline: .now() + 4) { [weak self] in self?.statusItem.button?.title = "词" }
     let center = UNUserNotificationCenter.current()
     center.requestAuthorization(options: [.alert, .sound]) { granted, _ in
@@ -325,6 +336,10 @@ private final class ShortcutRecorderView: NSView {
   override func resignFirstResponder() -> Bool {
     layer?.borderColor = NSColor.separatorColor.cgColor
     return true
+  }
+
+  override func mouseDown(with event: NSEvent) {
+    window?.makeFirstResponder(self)
   }
 
   override func keyDown(with event: NSEvent) {

@@ -30,6 +30,11 @@ enum SupabaseSyncError: LocalizedError {
   }
 }
 
+struct VocabularySyncResult: Sendable {
+  let vocabulary: [VocabularyEntry]
+  let uploadedCount: Int
+}
+
 actor SupabaseVocabularySync {
   // Same public configuration used by the reader. This key is intentionally a
   // publishable key; RLS remains the authorization boundary.
@@ -50,18 +55,21 @@ actor SupabaseVocabularySync {
 
   func isLoggedIn() -> Bool { KeychainStore.readSupabaseSession() != nil }
 
-  func sync(local: [VocabularyEntry]) async throws -> [VocabularyEntry] {
+  func sync(local: [VocabularyEntry]) async throws -> VocabularySyncResult {
     guard let session = try await validSession() else { throw SupabaseSyncError.notLoggedIn }
     let encodedUserID = session.user.id.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? session.user.id
     let readRequest = makeRequest(
-      path: "/rest/v1/reader_sync_state?user_id=eq.\(encodedUserID)&select=vocabulary",
+      path: "/rest/v1/reader_sync_state?user_id=eq.\(encodedUserID)&select=vocabulary,preferences",
       method: "GET",
       accessToken: session.accessToken
     )
     let (readData, readResponse) = try await URLSession.shared.data(for: readRequest)
     try validate(response: readResponse, data: readData)
     let remoteRows = try JSONDecoder().decode([ReaderStateRow].self, from: readData)
-    let merged = merge(local, remoteRows.first?.vocabulary ?? [])
+    let remoteRow = remoteRows.first
+    let deletedWordKeys = Set((remoteRow?.preferences?.deletedVocabKeys ?? []).map { normalizeWord($0) })
+    let remoteVocabulary = excludingDeleted(remoteRow?.vocabulary ?? [], deletedWordKeys)
+    let merged = merge(excludingDeleted(local, deletedWordKeys), remoteVocabulary)
     let payload = try JSONEncoder().encode(ReaderStateUpdate(vocabulary: merged, updatedAt: ISO8601DateFormatter().string(from: .now)))
     var writeRequest = makeRequest(
       path: "/rest/v1/reader_sync_state?user_id=eq.\(encodedUserID)",
@@ -72,7 +80,7 @@ actor SupabaseVocabularySync {
     writeRequest.setValue("return=representation", forHTTPHeaderField: "Prefer")
     let (writeData, writeResponse) = try await URLSession.shared.data(for: writeRequest)
     try validate(response: writeResponse, data: writeData)
-    return merged
+    return VocabularySyncResult(vocabulary: merged, uploadedCount: changedCount(local: excludingDeleted(local, deletedWordKeys), remote: remoteVocabulary))
   }
 
   private func validSession() async throws -> SupabaseSession? {
@@ -109,18 +117,55 @@ actor SupabaseVocabularySync {
     }
   }
 
+  private func normalizeWord(_ word: String) -> String {
+    word.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+  }
+
+  private func excludingDeleted(_ entries: [VocabularyEntry], _ deletedWordKeys: Set<String>) -> [VocabularyEntry] {
+    entries.filter { !deletedWordKeys.contains(normalizeWord($0.word)) }
+  }
+
   private func merge(_ local: [VocabularyEntry], _ remote: [VocabularyEntry]) -> [VocabularyEntry] {
     var byWord: [String: VocabularyEntry] = [:]
     for entry in remote + local {
-      let key = entry.word.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+      let key = normalizeWord(entry.word)
       guard !key.isEmpty else { continue }
       if byWord[key] == nil || entry.timestamp >= (byWord[key]?.timestamp ?? 0) { byWord[key] = entry }
     }
     return byWord.values.sorted { $0.timestamp > $1.timestamp }
   }
+
+  private func changedCount(local: [VocabularyEntry], remote: [VocabularyEntry]) -> Int {
+    var remoteByWord: [String: VocabularyEntry] = [:]
+    for entry in remote {
+      let key = entry.word.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+      guard !key.isEmpty else { continue }
+      if remoteByWord[key] == nil || entry.timestamp >= (remoteByWord[key]?.timestamp ?? 0) {
+        remoteByWord[key] = entry
+      }
+    }
+    return local.reduce(into: 0) { count, entry in
+      let key = entry.word.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+      guard !key.isEmpty else { return }
+      guard let remoteEntry = remoteByWord[key] else {
+        count += 1
+        return
+      }
+      if entry.timestamp > remoteEntry.timestamp { count += 1 }
+    }
+  }
 }
 
-private struct ReaderStateRow: Codable { let vocabulary: [VocabularyEntry] }
+private struct ReaderStateRow: Codable {
+  let vocabulary: [VocabularyEntry]
+  let preferences: ReaderPreferences?
+}
+
+private struct ReaderPreferences: Codable {
+  let deletedVocabKeys: [String]?
+
+  enum CodingKeys: String, CodingKey { case deletedVocabKeys }
+}
 private struct ReaderStateUpdate: Codable {
   let vocabulary: [VocabularyEntry]
   let updatedAt: String
