@@ -1881,6 +1881,50 @@
       }
     };
 
+    const DICTIONARY_PARTS_OF_SPEECH = new Map([
+      ['noun', '名词'], ['n', '名词'], ['名词', '名词'],
+      ['verb', '动词'], ['v', '动词'], ['动词', '动词'],
+      ['adjective', '形容词'], ['adj', '形容词'], ['形容词', '形容词'],
+      ['adverb', '副词'], ['adv', '副词'], ['副词', '副词'],
+      ['pronoun', '代词'], ['代词', '代词'],
+      ['preposition', '介词'], ['prep', '介词'], ['介词', '介词'],
+      ['conjunction', '连词'], ['连词', '连词'],
+      ['determiner', '限定词'], ['限定词', '限定词'],
+      ['phrase', '短语'], ['短语', '短语']
+    ]);
+
+    const normalizeDictionaryPartOfSpeech = (value = '') =>
+      DICTIONARY_PARTS_OF_SPEECH.get(String(value).trim().toLowerCase().replace(/\.$/, '')) || '';
+
+    // A syntactically valid response can still be pedagogically useless. Keep
+    // generic placeholders and unlabelled meanings out of the vocabulary book.
+    const validateContextualDictionary = (data = {}, providerLabel = '词典服务') => {
+      const meaning = String(data.meaning || '').trim().replace(/[。；;]+$/g, '');
+      const partOfSpeech = normalizeDictionaryPartOfSpeech(data.partOfSpeech || data.part_of_speech);
+      const lemma = String(data.lemma || '').trim();
+      const note = String(data.note || '').trim();
+      if (!partOfSpeech) throw new Error(`${providerLabel} 未给出可用词性。`);
+      if (meaning.length < 2 || meaning.length > 40 || !/[\u4e00-\u9fff]/.test(meaning)) {
+        throw new Error(`${providerLabel} 返回的释义不完整。`);
+      }
+      if (/^(暂无|未知|不详|该词|词义|根据语境|此处意为)/.test(meaning)) {
+        throw new Error(`${providerLabel} 返回了泛化释义。`);
+      }
+      return {
+        lemma,
+        partOfSpeech,
+        meaning,
+        pronunciation: String(data.pronunciation || '').trim(),
+        note
+      };
+    };
+
+    const formatDictionaryMeaning = (entry = {}) => {
+      const meaning = String(entry.meaning || '').trim();
+      const partOfSpeech = normalizeDictionaryPartOfSpeech(entry.partOfSpeech);
+      return partOfSpeech && meaning ? `${partOfSpeech} · ${meaning}` : meaning;
+    };
+
     const sanitizeBaseUrl = (value) => (value || DEFAULT_OLLAMA_BASE_URL).trim().replace(/\/+$/, '');
     const sanitizeApiCredential = (value = "") => value
       .normalize('NFKC')
@@ -2920,6 +2964,7 @@
 
       const [vocabPopup, setVocabPopup] = useState(null);
       const [addingWordId, setAddingWordId] = useState(null); 
+      const [refreshingVocabId, setRefreshingVocabId] = useState(null);
       const contextualDictionaryCacheRef = useRef(new Map());
       const autoAddedVocabKeysRef = useRef(new Set());
       const p920DictionaryModelRef = useRef(null);
@@ -4167,6 +4212,8 @@
             id: generateId(),
             word,
             meaning: dictionary.meaning,
+            lemma: dictionary.lemma || word,
+            partOfSpeech: dictionary.partOfSpeech || '',
             pronunciation: dictionary.pronunciation || '',
             etymology: dictionary.note || '来自原文语境查词',
             exampleSentence: '',
@@ -4185,21 +4232,24 @@
         const response = await fetch(`${P920_DICTIONARY_BASE_URL}/models`);
         if (!response.ok) throw new Error(`P920 模型列表请求失败（HTTP ${response.status}）`);
         const payload = await response.json();
-        const model = (payload?.data || []).map(item => item?.id).find(id => /qwen3\.6.*35b/i.test(String(id || '')));
-        if (!model) throw new Error('P920 未找到 Qwen3.6 35B 模型。');
+        const models = [
+          ...(payload?.data || []).map(item => item?.id || item?.name),
+          ...(payload?.models || []).map(item => item?.id || item?.name || item?.model)
+        ].filter(Boolean);
+        const model = models.find(id => /qwen/i.test(String(id))) || models[0];
+        if (!model) throw new Error('P920 未找到可用模型。');
         p920DictionaryModelRef.current = model;
         return model;
       };
 
       const lookupContextualDictionary = async (word, contextSentenceText) => {
-        const systemPrompt = `你是英汉阅读词典。根据原句语境，只输出一个合法 JSON 对象，不要 Markdown：\n{\n  "meaning": "该词在此处最贴切的简明中文含义",\n  "pronunciation": "音标，可为空字符串",\n  "note": "必要时说明词形、搭配或语境；否则为空字符串"\n}`;
+        const systemPrompt = `你是面向英语阅读学习者的英汉语境词典。只解释目标词在给定句子中的实际用法，不列举其他词义。只输出一个合法 JSON 对象，不要 Markdown：\n{\n  "lemma": "词典原形；短语保留完整短语",\n  "partOfSpeech": "名词|动词|形容词|副词|代词|介词|连词|限定词|短语",\n  "meaning": "不超过 16 个汉字的准确中文释义，不要写‘此处意为’等前缀",\n  "pronunciation": "IPA 音标；可为空字符串",\n  "note": "仅在需要时说明词形变化、支配介词或固定搭配；否则为空字符串"\n}\n\n规则：meaning 必须是这个句子中成立的具体义项；不得给词典式多义列表、泛泛解释、英文释义或占位词。`;
         const userPrompt = `【单词】${word}\n【原文句子】${contextSentenceText}`;
         const toDictionary = ({ content, usage, provider }) => {
           const data = parseAiJsonOrThrow(content, provider);
+          const entry = validateContextualDictionary(data, provider);
           return {
-            meaning: String(data.meaning || '').trim() || '暂无语境释义',
-            pronunciation: String(data.pronunciation || '').trim(),
-            note: String(data.note || '').trim(),
+            ...entry,
             provider,
             usage: {
               promptTokens: Number(usage?.prompt_tokens || 0),
@@ -4280,6 +4330,34 @@
               ? { ...current, lookupState: 'error', lookupError: error.message || '词典查询失败' }
               : current
           ));
+        }
+      };
+
+      const refreshVocabDefinition = async (entry) => {
+        if (!entry?.id || !entry.word || !entry.sourceContext) {
+          setToastMessage('⚠️ 这张卡缺少原文语境，无法重新校验释义。');
+          return;
+        }
+        setRefreshingVocabId(entry.id);
+        try {
+          const dictionary = await lookupContextualDictionary(entry.word, entry.sourceContext);
+          const cacheKey = `${entry.sourceArticleId || 'unsaved'}::${entry.word}::${entry.sourceContext}`;
+          contextualDictionaryCacheRef.current.set(cacheKey, dictionary);
+          setVocabBook(previous => previous.map(word => word.id === entry.id ? {
+            ...word,
+            meaning: dictionary.meaning,
+            lemma: dictionary.lemma || entry.word,
+            partOfSpeech: dictionary.partOfSpeech,
+            pronunciation: dictionary.pronunciation || word.pronunciation || '',
+            etymology: dictionary.note || word.etymology || '',
+            definitionCheckedAt: new Date().toISOString(),
+            definitionProvider: dictionary.provider
+          } : word));
+          setToastMessage(`✅ 已按原文语境重新校验 ${entry.word} 的释义。`);
+        } catch (error) {
+          setToastMessage(`❌ 释义校验失败：${error.message || '请稍后重试'}`);
+        } finally {
+          setRefreshingVocabId(null);
         }
       };
 
@@ -4619,6 +4697,8 @@
               id: generateId(),
               word,
               meaning: dictionary.meaning,
+              lemma: dictionary.lemma || word,
+              partOfSpeech: dictionary.partOfSpeech || '',
               pronunciation: dictionary.pronunciation || '',
               etymology: dictionary.note || '来自原文语境查词',
               exampleSentence: '',
@@ -4655,6 +4735,8 @@
             id: generateId(),
             word: word,
             meaning: data.meaning || "暂无释义",
+            lemma: data.lemma || word,
+            partOfSpeech: normalizeDictionaryPartOfSpeech(data.partOfSpeech) || '',
             pronunciation: data.pronunciation || "",
             etymology: data.etymology || "暂无词源信息",
             exampleSentence: data.exampleSentence || "",
@@ -4940,7 +5022,12 @@
           setProposedAnswerIndex(null);
           setToastMessage('📨 已上报老师审核；确认后会自动采用更正答案。');
         } catch (error) {
-          setToastMessage(`上报失败：${error.message || '请确认已执行最新 Supabase 建表 SQL'}`);
+          const message = String(error?.message || '');
+          if (/quiz_answer_reports|schema cache|PGRST205/i.test(message)) {
+            setToastMessage('上报服务正在更新，请稍候几秒后重试。');
+          } else {
+            setToastMessage(`上报失败：${message || '请稍后重试'}`);
+          }
         } finally { setIsSubmittingAnswerReport(false); }
       };
 
@@ -6221,7 +6308,7 @@
                       <BookMarked className="w-6 h-6 text-indigo-500" />
                       本地词汇卡片库 ({vocabBook.length})
                     </h2>
-                    <p className="text-sm text-slate-500 mt-1">生词卡会自动保存到本机本地数据文件；导出 JSON 仍可作为额外备份。</p>
+                    <p className="text-sm text-slate-500 mt-1">释义按原文语境保存；旧卡可逐张重新校验，避免把多义词的错误义项带进复习。</p>
                     <p className={`text-xs mt-1 ${localPersistenceStatus.enabled ? 'text-emerald-600' : 'text-amber-600'}`}>{localPersistenceStatus.message}</p>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
@@ -6276,10 +6363,10 @@
                         >
                           <Trash2 className="w-5 h-5" />
                         </button>
-                        <div className="mb-4">
+                        <div className="mb-4 pr-8">
                           <h3 className="text-2xl font-bold text-slate-900 mb-1">{wordObj.word}</h3>
                           <div className="text-sm font-medium text-indigo-600 mb-2">{wordObj.pronunciation}</div>
-                          <div className="text-lg font-semibold text-slate-800">{wordObj.meaning}</div>
+                          <div className="text-lg font-semibold text-slate-800">{formatDictionaryMeaning(wordObj)}</div>
                         </div>
                         <div className="space-y-4">
                           <div className="bg-slate-50 rounded-lg p-3 border border-slate-100 print:bg-transparent print:border-l-4 print:border-l-indigo-200 print:border-y-0 print:border-r-0 print:rounded-none">
@@ -6294,6 +6381,14 @@
                             <span className="text-[10px] uppercase font-bold text-slate-400 mb-1 block tracking-wider">🌱 词源记忆</span>
                             <p className="text-sm text-slate-600 leading-snug">{wordObj.etymology}</p>
                           </div>
+                          <button
+                            onClick={() => refreshVocabDefinition(wordObj)}
+                            disabled={refreshingVocabId === wordObj.id || !wordObj.sourceContext}
+                            className="print:hidden text-left text-xs font-semibold text-indigo-600 hover:text-indigo-800 disabled:cursor-not-allowed disabled:text-slate-400"
+                            title="使用原文句子重新校验词性与释义"
+                          >
+                            {refreshingVocabId === wordObj.id ? '正在校验释义…' : '按原文重新校验释义'}
+                          </button>
                         </div>
                         <div className="mt-6 pt-4 border-t border-slate-100 flex justify-between items-center text-xs text-slate-400">
                           <span>Added: {wordObj.addedAt}</span>
