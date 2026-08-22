@@ -84,7 +84,7 @@
   <script type="text/babel" data-type="module">
     import React, { useState, useEffect, useRef, useMemo, Fragment } from 'https://esm.sh/react@18.2.0?target=es2022';
     import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client?bundle';
-    import { BookOpen, Search, Info, MousePointerClick, Zap, AlignLeft, Underline, Link as LinkIcon, Tag, Sparkles, Send, Loader2, UploadCloud, FileText, ArrowLeft, BookMarked, Printer, Plus, Trash2, CheckCircle2, Download, Upload, MessageSquare, Library, Save, FolderOpen, User, LogOut, X, Bot, RefreshCw, KeyRound, ZoomIn, ZoomOut } from 'https://esm.sh/lucide-react@0.292.0?bundle&deps=react@18.2.0';
+    import { BookOpen, Search, Info, MousePointerClick, Zap, AlignLeft, Underline, Link as LinkIcon, Tag, Sparkles, Send, Loader2, UploadCloud, FileText, ArrowLeft, BookMarked, Printer, Plus, Trash2, CheckCircle2, Download, Upload, MessageSquare, Library, Save, FolderOpen, User, LogOut, X, Bot, RefreshCw, KeyRound, ZoomIn, ZoomOut, Clock3 } from 'https://esm.sh/lucide-react@0.292.0?bundle&deps=react@18.2.0';
     import readability from 'https://esm.sh/text-readability@1.1.1?bundle';
     
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2?bundle';
@@ -2128,6 +2128,7 @@
       if (!articleId || !record?.completedAt) return acc;
       acc[articleId] = {
         completedAt: record.completedAt,
+        durationMs: Number.isFinite(Number(record.durationMs)) ? Math.max(0, Number(record.durationMs)) : null,
         accuracy: Number.isFinite(Number(record.accuracy)) ? Number(record.accuracy) : null,
         correctCount: Number.isFinite(Number(record.correctCount)) ? Number(record.correctCount) : null,
         totalCount: Number.isFinite(Number(record.totalCount)) ? Number(record.totalCount) : null,
@@ -2150,6 +2151,22 @@
     const completionDayKey = (timestamp) => {
       const date = new Date(timestamp);
       return Number.isNaN(date.getTime()) ? '' : date.toLocaleDateString('zh-CN');
+    };
+
+    const completionTimeLabel = (timestamp) => {
+      const date = new Date(timestamp);
+      return Number.isNaN(date.getTime()) ? '' : date.toLocaleString('zh-CN', {
+        month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false
+      });
+    };
+
+    const formatReadingDuration = (durationMs) => {
+      if (!Number.isFinite(Number(durationMs))) return '未记录';
+      const totalMinutes = Math.max(0, Math.round(Number(durationMs || 0) / 60000));
+      if (!totalMinutes) return '不足 1 分钟';
+      const hours = Math.floor(totalMinutes / 60);
+      const minutes = totalMinutes % 60;
+      return hours ? `${hours} 小时${minutes ? ` ${minutes} 分钟` : ''}` : `${minutes} 分钟`;
     };
 
     const groupVocabForStudy = (vocab = []) => {
@@ -2985,7 +3002,8 @@
         const restored = new Set(normalizeDeletedVocabKeys(keys));
         if (restored.size) setDeletedVocabKeys(previous => previous.filter(key => !restored.has(key)));
       };
-      const [completionTagInput, setCompletionTagInput] = useState('');
+      const readingStartedAtRef = useRef(null);
+      const [lastReadingSession, setLastReadingSession] = useState(null);
       const [answerReportNote, setAnswerReportNote] = useState('');
       const [proposedAnswerIndex, setProposedAnswerIndex] = useState(null);
       const [isSubmittingAnswerReport, setIsSubmittingAnswerReport] = useState(false);
@@ -5025,6 +5043,8 @@
         setCurrentArticleGlossary(glossary);
         setCurrentArticleReadability(article.readability || computeArticleReadability(normalizedData));
         setSelectedSentence(normalizedData[0]);
+        readingStartedAtRef.current = Date.now();
+        setLastReadingSession(null);
         setViewMode('reading');
         setToastMessage(`📖 正在阅读：${article.title}`);
       };
@@ -5093,17 +5113,35 @@
         setToastMessage(`📝 已交卷：得分 ${quizCorrectCount}/${supportedQuizQuestions.length}`);
       };
 
-      const handleMarkArticleComplete = () => {
-        if (!currentArticleId) return;
-        const totalCount = supportedQuizQuestions.length;
-        const accuracy = totalCount ? Math.round((quizCorrectCount / totalCount) * 100) : null;
-        const tags = completionTagInput.split(/[，,]/).map(tag => tag.trim()).filter(Boolean).slice(0, 8);
+      const handleReturnToLibrary = () => {
+        if (currentArticleId && readingStartedAtRef.current) {
+          setLastReadingSession({ articleId: currentArticleId, durationMs: Math.max(0, Date.now() - readingStartedAtRef.current) });
+          readingStartedAtRef.current = null;
+        }
+        setViewMode('library');
+      };
+
+      const handleMarkArticleComplete = (article) => {
+        if (!article?.id) return;
+        const existing = completionRecords[article.id];
+        const sessionDuration = lastReadingSession?.articleId === article.id ? lastReadingSession.durationMs : 0;
+        const questions = normalizeArticleQuestions(article);
+        const totalCount = questions.filter(isSupportedQuizQuestion).length;
+        const progress = normalizeQuizProgress(JSON.parse(localStorage.getItem(getQuizProgressStorageKey(article.id)) || '{}'));
+        const correctCount = totalCount ? questions.filter(question => isSupportedQuizQuestion(question) && progress.answers?.[question.id] === question.answerIndex).length : null;
+        const accuracy = totalCount && progress.submitted ? Math.round((correctCount / totalCount) * 100) : null;
         setCompletionRecords(prev => ({
           ...prev,
-          [currentArticleId]: { completedAt: new Date().toISOString(), accuracy, correctCount: totalCount ? quizCorrectCount : null, totalCount: totalCount || null, tags }
+          [article.id]: {
+            completedAt: new Date().toISOString(),
+            durationMs: Math.max(0, Number(existing?.durationMs || 0) + sessionDuration),
+            accuracy,
+            correctCount: totalCount && progress.submitted ? correctCount : null,
+            totalCount: totalCount || null,
+            tags: existing?.tags || []
+          }
         }));
-        setCompletionTagInput('');
-        setToastMessage(accuracy == null ? '✅ 已记录完成阅读' : `✅ 已记录完成：正确率 ${accuracy}%`);
+        setToastMessage(accuracy == null ? '✅ 已完成本篇阅读' : `✅ 已完成本篇阅读：正确率 ${accuracy}%`);
       };
 
       const handleReportAnswer = async () => {
@@ -5823,7 +5861,7 @@
                   <BookOpen className="w-4 h-4" /> 语境阅读区
                 </button>
                 <button 
-                  onClick={() => setViewMode('library')}
+                  onClick={viewMode === 'reading' ? handleReturnToLibrary : () => setViewMode('library')}
                   className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-colors shadow-sm ${viewMode === 'library' ? 'bg-indigo-600 text-white' : 'bg-white border border-indigo-200 text-indigo-600 hover:bg-indigo-50'}`}
                 >
                   <Library className="w-4 h-4" /> 我的书架
@@ -6389,19 +6427,36 @@
                             <ReadabilityBadge kind="lexile" readability={article.readability || {}} theme="light" />
                             <ReadabilityBadge kind="band" readability={article.readability || {}} theme="light" />
                           </div>
-                          {completionRecords[article.id] && (
-                            <div className="mt-2 rounded-xl bg-emerald-50 px-3 py-2 text-xs font-bold text-emerald-700">
-                              已完成：{completionDayKey(completionRecords[article.id].completedAt)}{completionRecords[article.id].accuracy == null ? '' : ` · 正确率 ${completionRecords[article.id].accuracy}%`}
-                              {completionRecords[article.id].tags.length > 0 && ` · ${completionRecords[article.id].tags.map(tag => `#${tag}`).join(' ')}`}
+                          {completionRecords[article.id] ? (
+                            <div className="rounded-xl border border-emerald-100 bg-emerald-50 px-3 py-2.5 text-xs text-emerald-800">
+                              <div className="flex items-center gap-1.5 font-black"><CheckCircle2 className="h-4 w-4" /> 已完成本篇阅读</div>
+                              <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 font-medium text-emerald-700">
+                                <span>完成于 {completionTimeLabel(completionRecords[article.id].completedAt)}</span>
+                                <span className="inline-flex items-center gap-1"><Clock3 className="h-3.5 w-3.5" /> 用时 {formatReadingDuration(completionRecords[article.id].durationMs)}</span>
+                                {completionRecords[article.id].accuracy != null && <span>正确率 {completionRecords[article.id].accuracy}%</span>}
+                              </div>
                             </div>
-                          )}
+                          ) : lastReadingSession?.articleId === article.id ? (
+                            <div className="rounded-xl border border-sky-100 bg-sky-50 px-3 py-2 text-xs font-semibold text-sky-700">
+                              本次已阅读 {formatReadingDuration(lastReadingSession.durationMs)}，可在此完成本篇阅读。
+                            </div>
+                          ) : null}
                         </div>
-                        <button 
-                          onClick={() => handleLoadArticle(article)}
-                          className="w-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-medium py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2"
-                        >
-                          <BookOpen className="w-4 h-4" /> 继续阅读
-                        </button>
+                        <div className="mt-auto grid grid-cols-2 gap-2">
+                          <button
+                            onClick={() => handleLoadArticle(article)}
+                            className="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-medium py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2"
+                          >
+                            <BookOpen className="w-4 h-4" /> 继续阅读
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleMarkArticleComplete(article)}
+                            className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 rounded-xl transition-colors"
+                          >
+                            {completionRecords[article.id] ? '更新完成时间' : '完成本篇阅读'}
+                          </button>
+                        </div>
                       </div>
                     )})}
                     </div>
@@ -6679,13 +6734,6 @@
                           </button>
                         </div>
                       )}
-                      <div className="flex flex-wrap items-center gap-2 border-t border-white/10 pt-3">
-                        <button type="button" onClick={handleMarkArticleComplete} className="rounded-full bg-emerald-500 px-3 py-2 text-sm font-bold text-white hover:bg-emerald-400">
-                          {completionRecords[currentArticleId] ? '更新完成记录' : '记录已完成'}
-                        </button>
-                        <input value={completionTagInput} onChange={(event) => setCompletionTagInput(event.target.value)} placeholder="标签，如：精读、需复习" className="min-w-[180px] flex-1 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder:text-slate-300 outline-none focus:border-indigo-300" />
-                        {completionRecords[currentArticleId] && <span className="text-xs text-emerald-200">{completionDayKey(completionRecords[currentArticleId].completedAt)} · {completionRecords[currentArticleId].accuracy == null ? '已完成' : `正确率 ${completionRecords[currentArticleId].accuracy}%`}</span>}
-                      </div>
                     </div>
                   </div>
                   
