@@ -27,7 +27,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private var mouseEventTap: CFMachPort?
   private var mouseEventSource: CFRunLoopSource?
   private var recentEntriesPanel: NSPanel?
-  private var ocrSelectionWindow: OCRSelectionWindow?
+  private var screenshotProcess: Process?
   private var lastLeftMouseDown: CFAbsoluteTime?
   private var lastRightMouseDown: CFAbsoluteTime?
   private let configurationKey = "VocabCapture.aiConfiguration"
@@ -54,8 +54,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     hint.isEnabled = false
     menu.addItem(.separator())
     menu.addItem(withTitle: "拾取当前选词  \(currentShortcut.title)", action: #selector(captureSelectionAction), keyEquivalent: "")
-    let ocrTitle = CGPreflightScreenCaptureAccess() ? "截图 OCR 取词  ⌥⌘O" : "开启截图 OCR…"
-    menu.addItem(withTitle: ocrTitle, action: #selector(captureScreenTextAction), keyEquivalent: "")
+    menu.addItem(withTitle: "截图 OCR 取词  ⌥⌘O", action: #selector(captureScreenTextAction), keyEquivalent: "")
     menu.addItem(withTitle: "查看最近加入的单词", action: #selector(showRecentEntries), keyEquivalent: "")
     menu.addItem(withTitle: "同步到阅读达人…", action: #selector(syncToReader), keyEquivalent: "")
     menu.addItem(.separator())
@@ -99,27 +98,31 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   @objc private func captureScreenTextAction() {
-    guard CGPreflightScreenCaptureAccess() else {
-      setStatus("词 !")
-      // This action is available from the menu before OCR's global shortcut is
-      // registered. Requesting macOS privacy UI from a Carbon hot-key callback
-      // can terminate an accessory menu-bar app on some macOS versions.
-      _ = CGRequestScreenCaptureAccess()
-      return
+    guard screenshotProcess == nil else { return }
+    let fileURL = FileManager.default.temporaryDirectory.appendingPathComponent("vocab-ocr-\(UUID().uuidString).png")
+    let process = Process()
+    process.executableURL = URL(fileURLWithPath: "/usr/sbin/screencapture")
+    process.arguments = ["-i", "-o", "-t", "png", fileURL.path]
+    process.terminationHandler = { [weak self] finished in
+      defer { try? FileManager.default.removeItem(at: fileURL) }
+      guard finished.terminationStatus == 0,
+            let image = NSImage(contentsOf: fileURL),
+            let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
+        DispatchQueue.main.async { self?.screenshotProcess = nil }
+        return
+      }
+      DispatchQueue.main.async {
+        self?.screenshotProcess = nil
+        self?.recognizeScreenText(cgImage)
+      }
     }
-    let mouseLocation = NSEvent.mouseLocation
-    guard let screen = NSScreen.screens.first(where: { $0.frame.contains(mouseLocation) }) ?? NSScreen.main,
-          let screenshot = CGDisplayCreateImage(screen.displayID) else {
-      showFailure(title: "无法截图", OCRCaptureError.screenshotUnavailable.localizedDescription)
-      return
+    do {
+      try process.run()
+      screenshotProcess = process
+      setStatus("词 ···")
+    } catch {
+      showFailure(title: "无法启动截图", error.localizedDescription)
     }
-    let window = OCRSelectionWindow(screen: screen, screenshot: screenshot, completion: { [weak self] image in
-      self?.recognizeScreenText(image)
-    }, cancellation: { [weak self] in
-      self?.ocrSelectionWindow = nil
-    })
-    ocrSelectionWindow = window
-    window.makeKeyAndOrderFront(nil)
   }
 
   private func recognizeScreenText(_ image: CGImage) {
@@ -132,7 +135,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
           return
         }
         await MainActor.run {
-          self.ocrSelectionWindow = nil
           self.capture(selection)
         }
       } catch {
@@ -467,7 +469,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       UnregisterEventHotKey(ocrHotKeyRef)
       self.ocrHotKeyRef = nil
     }
-    guard CGPreflightScreenCaptureAccess() else { return }
     let ocrID = EventHotKeyID(signature: OSType(0x56434150), id: 2)
     RegisterEventHotKey(UInt32(kVK_ANSI_O), UInt32(optionKey | cmdKey), ocrID, GetApplicationEventTarget(), 0, &ocrHotKeyRef)
   }
