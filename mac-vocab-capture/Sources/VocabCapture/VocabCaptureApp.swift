@@ -99,8 +99,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   @objc private func captureScreenTextAction() {
     guard CGPreflightScreenCaptureAccess() else {
-      CGRequestScreenCaptureAccess()
-      showFailure(title: "需要屏幕录制权限", "请在系统设置中允许“拾词助手”进行屏幕录制，然后再按 ⌥⌘O。截图仅用于本机 OCR 识别。")
+      setStatus("词 !")
+      // Request permission after the Carbon hot-key callback has returned.
+      // Showing a second modal alert at the same time as the system privacy
+      // prompt can terminate accessory-style menu-bar apps on some macOS versions.
+      DispatchQueue.main.async {
+        _ = CGRequestScreenCaptureAccess()
+      }
       return
     }
     let mouseLocation = NSEvent.mouseLocation
