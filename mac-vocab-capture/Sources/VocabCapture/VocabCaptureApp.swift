@@ -444,33 +444,16 @@ private final class RecentVocabularyViewController: NSViewController {
     root.wantsLayer = true
     root.layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
 
-    let title = makeLabel("最近加入的单词", font: .systemFont(ofSize: 24, weight: .bold), color: .labelColor)
+    let title = makeLabel("最近加入", font: .systemFont(ofSize: 22, weight: .semibold), color: .labelColor)
     let subtitle = makeLabel(syncDescription, font: .systemFont(ofSize: 13), color: .secondaryLabelColor)
     let scroll = NSScrollView()
     scroll.hasVerticalScroller = true
     scroll.drawsBackground = false
     scroll.borderType = .noBorder
 
-    let document = NSView(frame: NSRect(x: 0, y: 0, width: 500, height: 1))
-    let cards = NSStackView()
-    cards.orientation = .vertical
-    cards.alignment = .width
-    cards.spacing = 12
-    cards.translatesAutoresizingMaskIntoConstraints = false
-    document.addSubview(cards)
-    NSLayoutConstraint.activate([
-      cards.topAnchor.constraint(equalTo: document.topAnchor, constant: 8),
-      cards.leadingAnchor.constraint(equalTo: document.leadingAnchor, constant: 8),
-      cards.trailingAnchor.constraint(equalTo: document.trailingAnchor, constant: -8)
-    ])
-    if entries.isEmpty {
-      cards.addArrangedSubview(emptyState())
-    } else {
-      for entry in entries { cards.addArrangedSubview(card(for: entry)) }
-    }
-    document.layoutSubtreeIfNeeded()
-    document.frame.size.height = cards.fittingSize.height + 16
-    scroll.documentView = document
+    let list = RecentVocabularyListView(entries: entries, width: 508)
+    list.autoresizingMask = [.width]
+    scroll.documentView = list
 
     for view in [title, subtitle, scroll] { view.translatesAutoresizingMaskIntoConstraints = false; root.addSubview(view) }
     NSLayoutConstraint.activate([
@@ -488,46 +471,112 @@ private final class RecentVocabularyViewController: NSViewController {
     view = root
   }
 
-  private func card(for entry: VocabularyEntry) -> NSView {
-    let card = NSView()
-    card.wantsLayer = true
-    card.layer?.cornerRadius = 12
-    card.layer?.borderWidth = 1
-    card.layer?.borderColor = NSColor.separatorColor.cgColor
-    card.layer?.backgroundColor = NSColor.controlBackgroundColor.cgColor
-
-    let word = makeLabel(entry.word, font: .systemFont(ofSize: 22, weight: .bold), color: .labelColor)
-    let phonetic = [entry.partOfSpeech, entry.pronunciation].filter { !$0.isEmpty }.joined(separator: " · ")
-    let detail = makeLabel(phonetic, font: .systemFont(ofSize: 13), color: .systemIndigo)
-    let meaning = makeLabel(entry.meaning, font: .systemFont(ofSize: 16, weight: .medium), color: .labelColor)
-    let sentence = entry.sourceContext.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? entry.exampleSentence : entry.sourceContext
-    let context = makeLabel("来自文章语境\n\(sentence.isEmpty ? "未读取到完整原句" : sentence)", font: .systemFont(ofSize: 14), color: .secondaryLabelColor)
-    let timestamp = makeLabel("加入于 \(formattedDate(entry))", font: .systemFont(ofSize: 12), color: .tertiaryLabelColor)
-    let stack = NSStackView(views: [word, detail, meaning, context, timestamp])
-    stack.orientation = .vertical
-    stack.alignment = .leading
-    stack.spacing = 7
-    stack.translatesAutoresizingMaskIntoConstraints = false
-    card.addSubview(stack)
-    NSLayoutConstraint.activate([
-      stack.topAnchor.constraint(equalTo: card.topAnchor, constant: 16),
-      stack.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 16),
-      stack.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -16),
-      stack.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -16)
-    ])
-    return card
-  }
-
-  private func emptyState() -> NSView {
-    makeLabel("还没有加入单词。选中英文后，按快捷键或鼠标左右键一起按即可开始。", font: .systemFont(ofSize: 15), color: .secondaryLabelColor)
-  }
-
   private func makeLabel(_ text: String, font: NSFont, color: NSColor) -> NSTextField {
     let label = NSTextField(wrappingLabelWithString: text)
     label.font = font
     label.textColor = color
     label.maximumNumberOfLines = 0
     return label
+  }
+
+}
+
+private final class RecentVocabularyListView: NSView {
+  private let entries: [VocabularyEntry]
+  private var cards: [(entry: VocabularyEntry, rect: NSRect)] = []
+  private var layoutWidth: CGFloat = 0
+
+  override var isFlipped: Bool { true }
+
+  init(entries: [VocabularyEntry], width: CGFloat) {
+    self.entries = entries
+    super.init(frame: NSRect(x: 0, y: 0, width: width, height: 1))
+    rebuildLayout(width: width)
+  }
+
+  required init?(coder: NSCoder) { nil }
+
+  override func layout() {
+    super.layout()
+    if abs(bounds.width - layoutWidth) > 1 { rebuildLayout(width: bounds.width) }
+  }
+
+  private func rebuildLayout(width: CGFloat) {
+    layoutWidth = max(width, 280)
+    let cardWidth = layoutWidth - 4
+    var y: CGFloat = 2
+    cards = entries.map { entry in
+      let height = cardHeight(for: entry, width: cardWidth)
+      defer { y += height + 12 }
+      return (entry, NSRect(x: 2, y: y, width: cardWidth, height: height))
+    }
+    if entries.isEmpty { y += 110 }
+    setFrameSize(NSSize(width: layoutWidth, height: max(y, 1)))
+    needsDisplay = true
+  }
+
+  override func draw(_ dirtyRect: NSRect) {
+    super.draw(dirtyRect)
+    if entries.isEmpty {
+      drawText("还没有加入单词。选中英文后，按快捷键或鼠标左右键一起按即可开始。", in: NSRect(x: 18, y: 28, width: bounds.width - 36, height: 54), font: .systemFont(ofSize: 15), color: .secondaryLabelColor)
+      return
+    }
+    for card in cards where dirtyRect.intersects(card.rect) { drawCard(card.entry, in: card.rect) }
+  }
+
+  private func drawCard(_ entry: VocabularyEntry, in rect: NSRect) {
+    let background = NSBezierPath(roundedRect: rect, xRadius: 14, yRadius: 14)
+    NSColor.controlBackgroundColor.setFill()
+    background.fill()
+    NSColor.separatorColor.withAlphaComponent(0.65).setStroke()
+    background.lineWidth = 1
+    background.stroke()
+
+    let inset = rect.insetBy(dx: 20, dy: 18)
+    var y = inset.minY
+    let wordHeight = drawText(entry.word, in: NSRect(x: inset.minX, y: y, width: inset.width, height: 32), font: .systemFont(ofSize: 25, weight: .semibold), color: .labelColor)
+    y += wordHeight + 4
+    let detail = [entry.partOfSpeech, entry.pronunciation].filter { !$0.isEmpty }.joined(separator: " · ")
+    if !detail.isEmpty {
+      let detailHeight = drawText(detail, in: NSRect(x: inset.minX, y: y, width: inset.width, height: 22), font: .systemFont(ofSize: 13, weight: .medium), color: .systemIndigo)
+      y += detailHeight + 10
+    } else { y += 8 }
+    let meaningHeight = drawText(entry.meaning, in: NSRect(x: inset.minX, y: y, width: inset.width, height: 46), font: .systemFont(ofSize: 17, weight: .medium), color: .labelColor)
+    y += meaningHeight + 16
+    let contextLabel = drawText("来自文章语境", in: NSRect(x: inset.minX, y: y, width: inset.width, height: 18), font: .systemFont(ofSize: 12, weight: .semibold), color: .tertiaryLabelColor)
+    y += contextLabel + 5
+    let sentence = entry.sourceContext.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? entry.exampleSentence : entry.sourceContext
+    let sentenceText = sentence.isEmpty ? "未读取到完整原句" : sentence
+    let sentenceHeight = drawText(sentenceText, in: NSRect(x: inset.minX, y: y, width: inset.width, height: rect.maxY - y - 34), font: .systemFont(ofSize: 14), color: .secondaryLabelColor)
+    y += sentenceHeight + 14
+    drawText("加入于 \(formattedDate(entry))", in: NSRect(x: inset.minX, y: y, width: inset.width, height: 18), font: .systemFont(ofSize: 12), color: .tertiaryLabelColor)
+  }
+
+  private func cardHeight(for entry: VocabularyEntry, width: CGFloat) -> CGFloat {
+    let textWidth = width - 40
+    let detail = [entry.partOfSpeech, entry.pronunciation].filter { !$0.isEmpty }.joined(separator: " · ")
+    let sentence = entry.sourceContext.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? entry.exampleSentence : entry.sourceContext
+    return 36
+      + measuredHeight(entry.word, width: textWidth, font: .systemFont(ofSize: 25, weight: .semibold))
+      + (detail.isEmpty ? 8 : 27)
+      + measuredHeight(entry.meaning, width: textWidth, font: .systemFont(ofSize: 17, weight: .medium))
+      + 34
+      + measuredHeight(sentence.isEmpty ? "未读取到完整原句" : sentence, width: textWidth, font: .systemFont(ofSize: 14))
+      + 32
+  }
+
+  @discardableResult
+  private func drawText(_ text: String, in rect: NSRect, font: NSFont, color: NSColor) -> CGFloat {
+    let height = measuredHeight(text, width: rect.width, font: font)
+    let attributes: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: color]
+    NSAttributedString(string: text, attributes: attributes).draw(with: NSRect(x: rect.minX, y: rect.minY, width: rect.width, height: height), options: [.usesLineFragmentOrigin, .usesFontLeading])
+    return height
+  }
+
+  private func measuredHeight(_ text: String, width: CGFloat, font: NSFont) -> CGFloat {
+    let attributes: [NSAttributedString.Key: Any] = [.font: font]
+    let size = NSAttributedString(string: text, attributes: attributes).boundingRect(with: NSSize(width: width, height: .greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading]).size
+    return ceil(size.height)
   }
 
   private func formattedDate(_ entry: VocabularyEntry) -> String {
