@@ -6,6 +6,7 @@
 
 - `⌥⌘D` 全局快捷键；
 - 鼠标左右键在 0.22 秒内同时按下即可拾词（默认开启，可在菜单关闭）；
+- `⌥⌘O` 截图 OCR 取词：框选图片或不可选文字后，在本机识别英文并确认目标词；
 - 可在菜单中切换为 `⌃⌥D` 或 `⌃⌥W`；
 - 通过 macOS Accessibility 读取前台选区及其所在完整句子，读取失败时使用剪贴板；
 - 调用任何 OpenAI-compatible `/chat/completions` API；
@@ -43,6 +44,8 @@ open build/拾词助手.app
 - 发布脚本会自动使用钥匙串中的 Apple Development 证书；也可通过 `VOCAB_CAPTURE_SIGNING_IDENTITY` 指定签名身份。这是跨版本稳定保留 macOS 辅助功能授权的正式发布方案。
 
 首次使用时，在菜单栏图标中配置 API Base URL、模型与 Key（Key 保存到 macOS Keychain）；随后在「系统设置 → 隐私与安全性 → 辅助功能」授予“拾词助手”权限。
+
+截图 OCR 首次使用还需要在「系统设置 → 隐私与安全性 → 屏幕录制」允许“拾词助手”。截图只在本机通过 macOS Vision OCR 识别；仅确认后的单词和必要语境会发送给 AI。
 
 ## 尚未完成的发布前工作
 

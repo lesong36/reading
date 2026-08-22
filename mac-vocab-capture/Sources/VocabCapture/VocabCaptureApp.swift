@@ -22,10 +22,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private let cloudSync = SupabaseVocabularySync()
   private var statusItem: NSStatusItem!
   private var hotKeyRef: EventHotKeyRef?
+  private var ocrHotKeyRef: EventHotKeyRef?
   private var hotKeyHandler: EventHandlerRef?
   private var mouseEventTap: CFMachPort?
   private var mouseEventSource: CFRunLoopSource?
   private var recentEntriesPanel: NSPanel?
+  private var ocrSelectionWindow: OCRSelectionWindow?
   private var lastLeftMouseDown: CFAbsoluteTime?
   private var lastRightMouseDown: CFAbsoluteTime?
   private let configurationKey = "VocabCapture.aiConfiguration"
@@ -52,6 +54,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     hint.isEnabled = false
     menu.addItem(.separator())
     menu.addItem(withTitle: "拾取当前选词  \(currentShortcut.title)", action: #selector(captureSelectionAction), keyEquivalent: "")
+    menu.addItem(withTitle: "截图 OCR 取词  ⌥⌘O", action: #selector(captureScreenTextAction), keyEquivalent: "")
     menu.addItem(withTitle: "查看最近加入的单词", action: #selector(showRecentEntries), keyEquivalent: "")
     menu.addItem(withTitle: "同步到阅读达人…", action: #selector(syncToReader), keyEquivalent: "")
     menu.addItem(.separator())
@@ -92,6 +95,70 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private func requestAccessibilityPermission() {
     let key = kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String
     AXIsProcessTrustedWithOptions([key: true] as CFDictionary)
+  }
+
+  @objc private func captureScreenTextAction() {
+    guard CGPreflightScreenCaptureAccess() else {
+      CGRequestScreenCaptureAccess()
+      showFailure(title: "需要屏幕录制权限", "请在系统设置中允许“拾词助手”进行屏幕录制，然后再按 ⌥⌘O。截图仅用于本机 OCR 识别。")
+      return
+    }
+    let mouseLocation = NSEvent.mouseLocation
+    guard let screen = NSScreen.screens.first(where: { $0.frame.contains(mouseLocation) }) ?? NSScreen.main,
+          let screenshot = CGDisplayCreateImage(screen.displayID) else {
+      showFailure(title: "无法截图", OCRCaptureError.screenshotUnavailable.localizedDescription)
+      return
+    }
+    let window = OCRSelectionWindow(screen: screen, screenshot: screenshot, completion: { [weak self] image in
+      self?.recognizeScreenText(image)
+    }, cancellation: { [weak self] in
+      self?.ocrSelectionWindow = nil
+    })
+    ocrSelectionWindow = window
+    window.makeKeyAndOrderFront(nil)
+  }
+
+  private func recognizeScreenText(_ image: CGImage) {
+    setStatus("词 ···")
+    Task {
+      do {
+        let context = try await OCRClient.recognize(image)
+        guard let selection = await MainActor.run(body: { self.confirmOCRText(context) }) else {
+          await MainActor.run { self.setStatus("词") }
+          return
+        }
+        await MainActor.run {
+          self.ocrSelectionWindow = nil
+          self.capture(selection)
+        }
+      } catch {
+        await MainActor.run { self.showFailure(title: "OCR 识别失败", error.localizedDescription) }
+      }
+    }
+  }
+
+  private func confirmOCRText(_ context: String) -> SelectedText? {
+    let alert = NSAlert()
+    alert.messageText = "确认截图中的单词"
+    alert.informativeText = "识别到的文字：\n\(String(context.prefix(480)))"
+    let field = NSTextField(string: firstEnglishWord(in: context) ?? "")
+    field.placeholderString = "要查询的英文单词"
+    field.frame = NSRect(x: 0, y: 0, width: 360, height: 28)
+    alert.accessoryView = field
+    alert.addButton(withTitle: "翻译并加入")
+    alert.addButton(withTitle: "取消")
+    guard alert.runModal() == .alertFirstButtonReturn else { return nil }
+    let word = field.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+    guard word.range(of: "^[A-Za-z]+(?:['’][A-Za-z]+)?$", options: .regularExpression) != nil else {
+      showFailure(title: "请输入英文单词", "可以修改输入框中的识别结果后再确认。")
+      return nil
+    }
+    return SelectedText(word: word, context: context)
+  }
+
+  private func firstEnglishWord(in text: String) -> String? {
+    guard let range = text.range(of: "[A-Za-z]+(?:['’][A-Za-z]+)?", options: .regularExpression) else { return nil }
+    return String(text[range])
   }
 
   @objc private func toggleMouseChord() {
@@ -375,9 +442,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   private func installHotKeyHandler() {
     var eventType = EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: OSType(kEventHotKeyPressed))
-    InstallEventHandler(GetApplicationEventTarget(), { _, _, data in
+    InstallEventHandler(GetApplicationEventTarget(), { _, event, data in
       let delegate = Unmanaged<AppDelegate>.fromOpaque(data!).takeUnretainedValue()
-      delegate.captureSelectionAction()
+      var hotKeyID = EventHotKeyID()
+      GetEventParameter(event, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), nil, MemoryLayout<EventHotKeyID>.size, nil, &hotKeyID)
+      hotKeyID.id == 2 ? delegate.captureScreenTextAction() : delegate.captureSelectionAction()
       return noErr
     }, 1, &eventType, Unmanaged.passUnretained(self).toOpaque(), &hotKeyHandler)
   }
@@ -390,6 +459,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     let shortcut = currentShortcut
     let id = EventHotKeyID(signature: OSType(0x56434150), id: 1)
     RegisterEventHotKey(shortcut.keyCode, shortcut.modifiers, id, GetApplicationEventTarget(), 0, &hotKeyRef)
+    if let ocrHotKeyRef {
+      UnregisterEventHotKey(ocrHotKeyRef)
+      self.ocrHotKeyRef = nil
+    }
+    let ocrID = EventHotKeyID(signature: OSType(0x56434150), id: 2)
+    RegisterEventHotKey(UInt32(kVK_ANSI_O), UInt32(optionKey | cmdKey), ocrID, GetApplicationEventTarget(), 0, &ocrHotKeyRef)
   }
 
   private func show(_ title: String, _ message: String) {
