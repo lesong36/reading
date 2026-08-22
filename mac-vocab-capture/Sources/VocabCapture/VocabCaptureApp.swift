@@ -46,6 +46,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   private func makeMenu() -> NSMenu {
     let menu = NSMenu()
+    let hint = menu.addItem(withTitle: "选中英文后：\(currentShortcut.title) 或鼠标左右键一起按", action: nil, keyEquivalent: "")
+    hint.isEnabled = false
+    menu.addItem(.separator())
     menu.addItem(withTitle: "拾取当前选词  \(currentShortcut.title)", action: #selector(captureSelectionAction), keyEquivalent: "")
     menu.addItem(withTitle: "查看最近加入的单词", action: #selector(showRecentEntries), keyEquivalent: "")
     menu.addItem(withTitle: "同步到阅读达人…", action: #selector(syncToReader), keyEquivalent: "")
@@ -69,12 +72,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
     guard let selection else {
       if !AXIsProcessTrusted() {
-        show("需要辅助功能权限", "请在系统设置中允许拾词助手读取当前选词。")
-        showFailure("请到“系统设置 → 隐私与安全性 → 辅助功能”，打开“拾词助手”的开关；然后退出并重新打开本应用。未授权时可先复制单词，再按 ⌥⌘D。")
+        showFailure(
+          title: "需要辅助功能权限",
+          "请到“系统设置 → 隐私与安全性 → 辅助功能”，打开“拾词助手”的开关；然后退出并重新打开本应用。未授权时可先复制单词，再按 \(currentShortcut.title)。"
+        )
         return
       }
-      show("未找到英文选词", "请先选择一个英文单词或短语。")
-      showFailure("没有读取到当前选词。请确认先选中英文单词；若该 App 不支持读取选区，可先复制单词后再按 ⌥⌘D。")
+      showFailure(
+        title: "没有读到选词",
+        "请先选中英文单词或短语。若该 App 不支持读取选区，可先复制单词后再按 \(currentShortcut.title)。"
+      )
       return
     }
     capture(selection)
@@ -153,6 +160,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   private func capture(_ selection: SelectedText) {
+    setStatus("词 ···")
     Task {
       do {
         let result = try await dictionary.lookup(selection, configuration: configuration)
@@ -174,8 +182,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
       } catch {
         await MainActor.run {
-          self.show("查词失败", error.localizedDescription)
-          self.showFailure(error.localizedDescription)
+          self.showFailure(title: "查词失败", error.localizedDescription)
         }
       }
     }
@@ -197,10 +204,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     return alert.runModal() == .alertFirstButtonReturn
   }
 
-  private func showFailure(_ message: String) {
+  private func showFailure(title: String = "没有加入生词本", _ message: String) {
+    setStatus("词 !")
     let alert = NSAlert()
     alert.alertStyle = .warning
-    alert.messageText = "没有加入生词本"
+    alert.messageText = title
     alert.informativeText = message
     alert.addButton(withTitle: "知道了")
     alert.runModal()
@@ -265,7 +273,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
           let result = try await syncVocabulary()
           await MainActor.run { self.show("同步完成", "本次新增/更新 \(result.uploadedCount) 个单词；云端共 \(result.totalCount) 个") }
         } catch {
-          await MainActor.run { self.showFailure("同步失败：\(error.localizedDescription)") }
+          await MainActor.run { self.showFailure(title: "同步失败", error.localizedDescription) }
         }
       } else {
         await MainActor.run { self.openSupabaseLogin() }
@@ -299,7 +307,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let result = try await syncVocabulary()
         await MainActor.run { self.show("已登录并同步", "本次新增/更新 \(result.uploadedCount) 个单词；云端共 \(result.totalCount) 个") }
       } catch {
-        await MainActor.run { self.showFailure("登录或同步失败：\(error.localizedDescription)") }
+        await MainActor.run { self.showFailure(title: "登录或同步失败", error.localizedDescription) }
       }
     }
   }
@@ -372,8 +380,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   private func show(_ title: String, _ message: String) {
     let failures = ["失败", "未加入", "需要", "未找到"]
-    statusItem.button?.title = failures.contains(where: title.contains) ? "词 !" : "词 ✓"
-    DispatchQueue.main.asyncAfter(deadline: .now() + 4) { [weak self] in self?.statusItem.button?.title = "词" }
+    setStatus(failures.contains(where: title.contains) ? "词 !" : "词 ✓")
     let center = UNUserNotificationCenter.current()
     center.requestAuthorization(options: [.alert, .sound]) { granted, _ in
       guard granted else { return }
@@ -382,6 +389,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       content.body = message
       let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
       center.add(request)
+    }
+  }
+
+  private func setStatus(_ value: String) {
+    statusItem.button?.title = value
+    guard value != "词" else { return }
+    DispatchQueue.main.asyncAfter(deadline: .now() + 4) { [weak self] in
+      guard self?.statusItem.button?.title == value else { return }
+      self?.statusItem.button?.title = "词"
     }
   }
 
