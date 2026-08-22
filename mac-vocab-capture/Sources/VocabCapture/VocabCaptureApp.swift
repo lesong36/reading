@@ -54,7 +54,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     hint.isEnabled = false
     menu.addItem(.separator())
     menu.addItem(withTitle: "拾取当前选词  \(currentShortcut.title)", action: #selector(captureSelectionAction), keyEquivalent: "")
-    menu.addItem(withTitle: "截图 OCR 取词  ⌥⌘O", action: #selector(captureScreenTextAction), keyEquivalent: "")
+    let ocrTitle = CGPreflightScreenCaptureAccess() ? "截图 OCR 取词  ⌥⌘O" : "开启截图 OCR…"
+    menu.addItem(withTitle: ocrTitle, action: #selector(captureScreenTextAction), keyEquivalent: "")
     menu.addItem(withTitle: "查看最近加入的单词", action: #selector(showRecentEntries), keyEquivalent: "")
     menu.addItem(withTitle: "同步到阅读达人…", action: #selector(syncToReader), keyEquivalent: "")
     menu.addItem(.separator())
@@ -100,12 +101,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   @objc private func captureScreenTextAction() {
     guard CGPreflightScreenCaptureAccess() else {
       setStatus("词 !")
-      // Request permission after the Carbon hot-key callback has returned.
-      // Showing a second modal alert at the same time as the system privacy
-      // prompt can terminate accessory-style menu-bar apps on some macOS versions.
-      DispatchQueue.main.async {
-        _ = CGRequestScreenCaptureAccess()
-      }
+      // This action is available from the menu before OCR's global shortcut is
+      // registered. Requesting macOS privacy UI from a Carbon hot-key callback
+      // can terminate an accessory menu-bar app on some macOS versions.
+      _ = CGRequestScreenCaptureAccess()
       return
     }
     let mouseLocation = NSEvent.mouseLocation
@@ -468,6 +467,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       UnregisterEventHotKey(ocrHotKeyRef)
       self.ocrHotKeyRef = nil
     }
+    guard CGPreflightScreenCaptureAccess() else { return }
     let ocrID = EventHotKeyID(signature: OSType(0x56434150), id: 2)
     RegisterEventHotKey(UInt32(kVK_ANSI_O), UInt32(optionKey | cmdKey), ocrID, GetApplicationEventTarget(), 0, &ocrHotKeyRef)
   }
