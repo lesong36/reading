@@ -23,9 +23,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private var statusItem: NSStatusItem!
   private var hotKeyRef: EventHotKeyRef?
   private var hotKeyHandler: EventHandlerRef?
+  private var mouseEventTap: CFMachPort?
+  private var mouseEventSource: CFRunLoopSource?
+  private var lastLeftMouseDown: CFAbsoluteTime?
+  private var lastRightMouseDown: CFAbsoluteTime?
   private let configurationKey = "VocabCapture.aiConfiguration"
   private let shortcutKey = "VocabCapture.shortcut"
   private let customShortcutKey = "VocabCapture.customShortcut"
+  private let mouseChordEnabledKey = "VocabCapture.mouseChordEnabled"
+  private let mouseChordInterval: CFAbsoluteTime = 0.22
 
   func applicationDidFinishLaunching(_ notification: Notification) {
     NSApp.setActivationPolicy(.accessory)
@@ -35,6 +41,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     statusItem.menu = makeMenu()
     installHotKeyHandler()
     registerHotKey()
+    installMouseChordIfNeeded()
   }
 
   private func makeMenu() -> NSMenu {
@@ -43,6 +50,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     menu.addItem(withTitle: "查看最近加入的单词", action: #selector(showRecentEntries), keyEquivalent: "")
     menu.addItem(withTitle: "同步到阅读达人…", action: #selector(syncToReader), keyEquivalent: "")
     menu.addItem(.separator())
+    let mouseChordItem = menu.addItem(withTitle: "鼠标左右键同时按下拾词", action: #selector(toggleMouseChord), keyEquivalent: "")
+    mouseChordItem.state = mouseChordEnabled ? .on : .off
     menu.addItem(withTitle: "设置拾词快捷键…", action: #selector(openShortcutSettings), keyEquivalent: "")
     menu.addItem(withTitle: "AI 设置…", action: #selector(openSettings), keyEquivalent: ",")
     menu.addItem(.separator())
@@ -74,6 +83,71 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private func requestAccessibilityPermission() {
     let key = kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String
     AXIsProcessTrustedWithOptions([key: true] as CFDictionary)
+  }
+
+  @objc private func toggleMouseChord() {
+    UserDefaults.standard.set(!mouseChordEnabled, forKey: mouseChordEnabledKey)
+    if mouseChordEnabled {
+      installMouseChordIfNeeded()
+    } else {
+      stopMouseChord()
+    }
+    statusItem.menu = makeMenu()
+  }
+
+  private var mouseChordEnabled: Bool {
+    guard UserDefaults.standard.object(forKey: mouseChordEnabledKey) != nil else { return true }
+    return UserDefaults.standard.bool(forKey: mouseChordEnabledKey)
+  }
+
+  private func installMouseChordIfNeeded() {
+    guard mouseChordEnabled, AXIsProcessTrusted(), mouseEventTap == nil else { return }
+    let eventMask = (CGEventMask(1) << CGEventType.leftMouseDown.rawValue)
+      | (CGEventMask(1) << CGEventType.rightMouseDown.rawValue)
+    let callback: CGEventTapCallBack = { _, type, event, userInfo in
+      if let userInfo, type == .leftMouseDown || type == .rightMouseDown {
+        let delegate = Unmanaged<AppDelegate>.fromOpaque(userInfo).takeUnretainedValue()
+        delegate.handleMouseDown(type)
+      }
+      return Unmanaged.passUnretained(event)
+    }
+    guard let tap = CGEvent.tapCreate(
+      tap: .cgSessionEventTap,
+      place: .headInsertEventTap,
+      options: .listenOnly,
+      eventsOfInterest: eventMask,
+      callback: callback,
+      userInfo: Unmanaged.passUnretained(self).toOpaque()
+    ) else { return }
+    let source = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, tap, 0)
+    CFRunLoopAddSource(CFRunLoopGetMain(), source, .commonModes)
+    CGEvent.tapEnable(tap: tap, enable: true)
+    mouseEventTap = tap
+    mouseEventSource = source
+  }
+
+  private func stopMouseChord() {
+    guard let source = mouseEventSource else { return }
+    CFRunLoopRemoveSource(CFRunLoopGetMain(), source, .commonModes)
+    mouseEventTap = nil
+    mouseEventSource = nil
+    lastLeftMouseDown = nil
+    lastRightMouseDown = nil
+  }
+
+  private func handleMouseDown(_ type: CGEventType) {
+    guard mouseChordEnabled, NSApp.modalWindow == nil else { return }
+    let now = CFAbsoluteTimeGetCurrent()
+    if type == .leftMouseDown {
+      lastLeftMouseDown = now
+      guard let right = lastRightMouseDown, now - right <= mouseChordInterval else { return }
+    } else {
+      lastRightMouseDown = now
+      guard let left = lastLeftMouseDown, now - left <= mouseChordInterval else { return }
+    }
+    lastLeftMouseDown = nil
+    lastRightMouseDown = nil
+    DispatchQueue.main.async { [weak self] in self?.captureSelectionAction() }
   }
 
   private func capture(_ selection: SelectedText) {
@@ -308,6 +382,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       center.add(request)
     }
   }
+
+  func applicationWillTerminate(_ notification: Notification) { stopMouseChord() }
 }
 
 private final class ShortcutRecorderView: NSView {
