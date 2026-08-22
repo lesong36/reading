@@ -118,7 +118,8 @@ const parseArgs = (argv) => {
     timeoutMs: 5 * 60 * 1000,
     segmentFallback: false,
     checkpoint: false,
-    qualityRetries: 1
+    qualityRetries: 1,
+    stopAtQuestions: false
   };
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -142,6 +143,7 @@ const parseArgs = (argv) => {
     else if (arg === '--segment-fallback') args.segmentFallback = true;
     else if (arg === '--checkpoint') args.checkpoint = true;
     else if (arg === '--quality-retries') args.qualityRetries = Number(next() || 0);
+    else if (arg === '--stop-at-questions') args.stopAtQuestions = true;
     else if (arg === '--help') {
       printHelp();
       process.exit(0);
@@ -178,6 +180,7 @@ Options:
   --segment-fallback     Preserve model translation/analysis when only sentence text or segment roles fail; replace just those sentence segments with a protected full-sentence segment.
   --checkpoint           Persist completed sentence chunks and resume safely after an interrupted model process.
   --quality-retries <n>  Re-request an invalid chunk from the same model before splitting it (default: 1).
+  --stop-at-questions    Keep only the article body before the first numbered quiz question.
 `);
 };
 
@@ -259,7 +262,7 @@ const cleanSectionText = (lines) =>
     .replace(/\n{3,}/g, '\n\n')
     .trim();
 
-const splitMarkdownSections = (filePath, requestedHeadingLevel) => {
+const splitMarkdownSections = (filePath, requestedHeadingLevel, stopAtQuestions = false) => {
   const text = fs.readFileSync(filePath, 'utf8').replace(/\r\n/g, '\n');
   const lines = text.split('\n');
   const headings = lines
@@ -286,7 +289,8 @@ const splitMarkdownSections = (filePath, requestedHeadingLevel) => {
     const next = headings.slice(i + 1).find(item => item.level <= splitLevel);
     const endIndex = next ? next.index : lines.length;
     const rawLines = lines.slice(heading.index + 1, endIndex);
-    const body = cleanSectionText(rawLines);
+    let body = cleanSectionText(rawLines);
+    if (stopAtQuestions) body = body.replace(/^\d+\.\s+[\s\S]*$/m, '').trim();
     if (!body) continue;
 
     const parentTitle = splitLevel > 1 ? parentByLevel[splitLevel - 1] : '';
@@ -950,7 +954,7 @@ const main = async () => {
   });
   console.log(`LLM provider=${args.provider} baseUrl=${args.baseUrl} model=${args.model}`);
   const files = collectMarkdownFiles(args.input);
-  const sections = files.flatMap(file => splitMarkdownSections(file, args.headingLevel))
+  const sections = files.flatMap(file => splitMarkdownSections(file, args.headingLevel, args.stopAtQuestions))
     .filter(section => {
       if (!args.only) return true;
       const needle = args.only.toLowerCase();

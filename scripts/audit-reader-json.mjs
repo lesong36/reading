@@ -42,6 +42,9 @@ const expectedCounts = {
   rfd1: 16,
   rfd2: 16,
   rfd3: 16,
+  rfd4: 16,
+  rfd5: 16,
+  rfd6: 16,
   '四上英语课文_英文': 24
 };
 

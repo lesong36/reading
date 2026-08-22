@@ -1939,11 +1939,11 @@
       './data/generated-reader-json/reader-articles-shiwen.import.json'
     ];
     // v31 repairs clients that had a seed marker despite an incomplete OPFS
-    // library. A marker alone is not proof that all four curriculum bundles
+    // library. A marker alone is not proof that all curriculum bundles
     // reached the device.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v31';
-    const BUNDLED_LIBRARY_SEED_VERSION = '31';
-    const EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT = 275;
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v32';
+    const BUNDLED_LIBRARY_SEED_VERSION = '32';
+    const EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT = 323;
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
     const normalizeLookupWord = (value = '') =>
@@ -2227,6 +2227,9 @@
       { key: 'rfd1', label: 'RFD1' },
       { key: 'rfd2', label: 'RFD2' },
       { key: 'rfd3', label: 'RFD3' },
+      { key: 'rfd4', label: 'RFD4' },
+      { key: 'rfd5', label: 'RFD5' },
+      { key: 'rfd6', label: 'RFD6' },
       { key: 're', label: 'RE' },
       { key: 'og', label: 'OG' },
       { key: 'tpo', label: 'TPO' },
@@ -2244,6 +2247,9 @@
       if (sourceText.includes('rfd1')) return 'rfd1';
       if (sourceText.includes('rfd2')) return 'rfd2';
       if (sourceText.includes('rfd3')) return 'rfd3';
+      if (sourceText.includes('rfd4')) return 'rfd4';
+      if (sourceText.includes('rfd5')) return 'rfd5';
+      if (sourceText.includes('rfd6')) return 'rfd6';
       if (sourceText.includes('四上')) return '四上';
       if (sourceText.includes('tpo-')) return 'tpo';
       if (sourceText.includes('og /') || sourceText.includes('og-test') || sourceText.includes('online-test') || sourceText.includes('official-model-exam')) return 'og';
@@ -2292,7 +2298,7 @@
 
     const isBundledCurriculumArticle = (article = {}) => {
       const filter = getArticleFilterKey(article);
-      return ['四上', 'rfd1', 'rfd2', 'rfd3', 're', 'og', 'tpo', 'shiwen'].includes(filter);
+      return ['四上', 'rfd1', 'rfd2', 'rfd3', 'rfd4', 'rfd5', 'rfd6', 're', 'og', 'tpo', 'shiwen'].includes(filter);
     };
 
     const getBundledCurriculumArticleCount = (articles = []) =>
