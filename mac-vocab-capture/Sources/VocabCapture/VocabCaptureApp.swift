@@ -146,21 +146,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   private func chooseOCRWords(_ recognizedText: String) -> [String]? {
-    let words = OCRWordPickerView.words(from: recognizedText)
-    guard !words.isEmpty else {
+    let picker = OCRParagraphPickerView(text: recognizedText)
+    guard picker.hasWords else {
       showFailure(title: "没有识别到英文单词", "请框选更清晰的英文段落后重试。")
       return nil
     }
     let alert = NSAlert()
-    alert.messageText = "选择要加入的单词"
-    alert.informativeText = "可一次勾选多个词；它们将共用这次截图识别出的段落语境。"
-    let picker = OCRWordPickerView(words: words)
+    alert.messageText = "在原文中点选要加入的词"
+    alert.informativeText = "点击词语即可高亮选中，可选择多个；它们将共用这段文字作为语境。"
     alert.accessoryView = picker
     alert.addButton(withTitle: "翻译并加入")
     alert.addButton(withTitle: "取消")
     guard alert.runModal() == .alertFirstButtonReturn else { return nil }
     guard !picker.selectedWords.isEmpty else {
-      showFailure(title: "还没有选择单词", "请勾选至少一个英文单词。")
+      showFailure(title: "还没有选择单词", "请直接点击原文中的至少一个英文单词。")
       return nil
     }
     return picker.selectedWords
@@ -532,38 +531,75 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   func applicationWillTerminate(_ notification: Notification) { stopMouseChord() }
 }
 
-private final class OCRWordPickerView: NSView {
-  private var buttons: [NSButton] = []
-  var selectedWords: [String] { buttons.filter { $0.state == .on }.map(\.title) }
+private final class OCRParagraphPickerView: NSView, NSTextViewDelegate {
+  private let text: String
+  private let matches: [NSTextCheckingResult]
+  private let textView = NSTextView()
+  private var selectedOffsets = Set<Int>()
 
-  init(words: [String]) {
-    let columns = 3
-    let rowHeight: CGFloat = 28
-    let rows = Int(ceil(Double(words.count) / Double(columns)))
-    super.init(frame: NSRect(x: 0, y: 0, width: 390, height: CGFloat(rows) * rowHeight))
-    for (index, word) in words.enumerated() {
-      let column = index % columns
-      let row = index / columns
-      let button = NSButton(checkboxWithTitle: word, target: nil, action: nil)
-      button.frame = NSRect(x: CGFloat(column) * 130, y: CGFloat(rows - row - 1) * rowHeight, width: 126, height: rowHeight)
-      button.font = .systemFont(ofSize: 13)
-      addSubview(button)
-      buttons.append(button)
+  var hasWords: Bool { !matches.isEmpty }
+  var selectedWords: [String] {
+    matches.compactMap { match in
+      guard selectedOffsets.contains(match.range.location), let range = Range(match.range, in: text) else { return nil }
+      return String(text[range])
     }
+  }
+
+  init(text: String) {
+    self.text = text
+    let range = NSRange(text.startIndex..., in: text)
+    let expression = try? NSRegularExpression(pattern: "[A-Za-z]+(?:['’][A-Za-z]+)?")
+    matches = expression?.matches(in: text, range: range).filter { $0.range.length > 1 } ?? []
+    super.init(frame: NSRect(x: 0, y: 0, width: 440, height: 220))
+
+    let scroll = NSScrollView(frame: bounds)
+    scroll.hasVerticalScroller = true
+    scroll.borderType = .bezelBorder
+    scroll.autoresizingMask = [.width, .height]
+    textView.isEditable = false
+    textView.isSelectable = true
+    textView.drawsBackground = false
+    textView.delegate = self
+    textView.textContainerInset = NSSize(width: 12, height: 12)
+    textView.textContainer?.widthTracksTextView = true
+    textView.isHorizontallyResizable = false
+    textView.isVerticallyResizable = true
+    scroll.documentView = textView
+    addSubview(scroll)
+    render()
   }
 
   required init?(coder: NSCoder) { nil }
 
-  static func words(from text: String) -> [String] {
-    let range = NSRange(text.startIndex..., in: text)
-    guard let expression = try? NSRegularExpression(pattern: "[A-Za-z]+(?:['’][A-Za-z]+)?") else { return [] }
-    var seen = Set<String>()
-    return expression.matches(in: text, range: range).compactMap { match in
-      guard let range = Range(match.range, in: text) else { return nil }
-      let word = String(text[range])
-      guard word.count > 1, seen.insert(word.lowercased()).inserted else { return nil }
-      return word
-    }.prefix(42).map { $0 }
+  func textView(_ textView: NSTextView, clickedOnLink link: Any, at charIndex: Int) -> Bool {
+    guard let key = link as? String, let offset = Int(key) else { return false }
+    if selectedOffsets.contains(offset) {
+      selectedOffsets.remove(offset)
+    } else {
+      selectedOffsets.insert(offset)
+    }
+    render()
+    return true
+  }
+
+  private func render() {
+    let paragraph = NSMutableParagraphStyle()
+    paragraph.lineSpacing = 5
+    let content = NSMutableAttributedString(string: text, attributes: [
+      .font: NSFont.systemFont(ofSize: 16),
+      .foregroundColor: NSColor.labelColor,
+      .paragraphStyle: paragraph
+    ])
+    for match in matches {
+      let selected = selectedOffsets.contains(match.range.location)
+      content.addAttributes([
+        .link: "\(match.range.location)",
+        .foregroundColor: selected ? NSColor.white : NSColor.systemBlue,
+        .backgroundColor: selected ? NSColor.systemIndigo : NSColor.clear,
+        .underlineStyle: selected ? 0 : NSUnderlineStyle.single.rawValue
+      ], range: match.range)
+    }
+    textView.textStorage?.setAttributedString(content)
   }
 }
 

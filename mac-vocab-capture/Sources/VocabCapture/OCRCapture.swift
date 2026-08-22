@@ -19,7 +19,7 @@ enum OCRClient {
           if let error { continuation.resume(throwing: error); return }
           let text = (request.results as? [VNRecognizedTextObservation])?
             .compactMap { $0.topCandidates(1).first?.string }
-            .joined(separator: " ")
+            .joined(separator: "\n")
             .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
           text.isEmpty ? continuation.resume(throwing: OCRCaptureError.noTextFound) : continuation.resume(returning: text)
         }
