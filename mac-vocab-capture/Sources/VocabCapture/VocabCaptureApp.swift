@@ -134,68 +134,70 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     Task {
       do {
         let recognizedText = try await OCRClient.recognize(image)
-        guard let word = await MainActor.run(body: { self.confirmOCRWord(recognizedText) }) else {
+        guard let words = await MainActor.run(body: { self.chooseOCRWords(recognizedText) }) else {
           await MainActor.run { self.setStatus("词") }
           return
         }
-        await MainActor.run { self.chooseOCRContext(word: word, recognizedText: recognizedText) }
+        await MainActor.run { self.captureOCRWords(words, context: recognizedText) }
       } catch {
         await MainActor.run { self.showFailure(title: "OCR 识别失败", error.localizedDescription) }
       }
     }
   }
 
-  private func confirmOCRWord(_ recognizedText: String) -> String? {
+  private func chooseOCRWords(_ recognizedText: String) -> [String]? {
+    let words = OCRWordPickerView.words(from: recognizedText)
+    guard !words.isEmpty else {
+      showFailure(title: "没有识别到英文单词", "请框选更清晰的英文段落后重试。")
+      return nil
+    }
     let alert = NSAlert()
-    alert.messageText = "确认截图中的单词"
-    alert.informativeText = "识别到的文字：\n\(String(recognizedText.prefix(480)))"
-    let field = NSTextField(string: firstEnglishWord(in: recognizedText) ?? "")
-    field.placeholderString = "要查询的英文单词"
-    field.frame = NSRect(x: 0, y: 0, width: 360, height: 28)
-    alert.accessoryView = field
+    alert.messageText = "选择要加入的单词"
+    alert.informativeText = "可一次勾选多个词；它们将共用这次截图识别出的段落语境。"
+    let picker = OCRWordPickerView(words: words)
+    alert.accessoryView = picker
     alert.addButton(withTitle: "翻译并加入")
     alert.addButton(withTitle: "取消")
     guard alert.runModal() == .alertFirstButtonReturn else { return nil }
-    let word = field.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
-    guard word.range(of: "^[A-Za-z]+(?:['’][A-Za-z]+)?$", options: .regularExpression) != nil else {
-      showFailure(title: "请输入英文单词", "可以修改输入框中的识别结果后再确认。")
+    guard !picker.selectedWords.isEmpty else {
+      showFailure(title: "还没有选择单词", "请勾选至少一个英文单词。")
       return nil
     }
-    return word
+    return picker.selectedWords
   }
 
-  private func chooseOCRContext(word: String, recognizedText: String) {
-    let alert = NSAlert()
-    alert.messageText = "选择语境来源"
-    alert.informativeText = "如果刚才的截图已包含 “\(word)” 所在段落，直接使用即可。文字跨行时，只需框住相关的几行；包含额外文字也没关系。"
-    alert.addButton(withTitle: "直接使用当前区域")
-    alert.addButton(withTitle: "补拍上下文")
-    alert.addButton(withTitle: "取消")
-    switch alert.runModal() {
-    case .alertFirstButtonReturn:
-      capture(SelectedText(word: word, context: recognizedText))
-    case .alertSecondButtonReturn:
-      captureNativeRegion { [weak self] image in self?.recognizeOCRContext(image, word: word) }
-    default:
-      setStatus("词")
-    }
-  }
-
-  private func recognizeOCRContext(_ image: CGImage, word: String) {
+  private func captureOCRWords(_ words: [String], context: String) {
     setStatus("词 ···")
     Task {
+      var added: [VocabularyEntry] = []
+      var failures = 0
+      for word in words {
+        do {
+          let selection = SelectedText(word: word, context: context)
+          let result = try await dictionary.lookup(selection, configuration: configuration)
+          added.append(try await store.add(word: word, dictionary: result, context: context))
+        } catch {
+          failures += 1
+        }
+      }
+      guard !added.isEmpty else {
+        await MainActor.run { self.showFailure(title: "没有加入单词", "请检查 AI 服务设置后重试。") }
+        return
+      }
+      let addedCount = added.count
+      let failureCount = failures
       do {
-        let context = try await OCRClient.recognize(image)
-        await MainActor.run { self.capture(SelectedText(word: word, context: context)) }
+        let result = try await syncVocabulary()
+        await MainActor.run {
+          let suffix = failureCount == 0 ? "" : "；\(failureCount) 个未完成"
+          self.show("已同步到阅读达人", "已加入 \(addedCount) 个单词；本次新增/更新 \(result.uploadedCount) 个，云端共 \(result.totalCount) 个\(suffix)")
+        }
+      } catch SupabaseSyncError.notLoggedIn {
+        await MainActor.run { self.show("已加入本机生词本", "已加入 \(addedCount) 个单词；登录后可同步到阅读达人") }
       } catch {
-        await MainActor.run { self.showFailure(title: "原句 OCR 识别失败", error.localizedDescription) }
+        await MainActor.run { self.show("已加入本机，云同步失败", error.localizedDescription) }
       }
     }
-  }
-
-  private func firstEnglishWord(in text: String) -> String? {
-    guard let range = text.range(of: "[A-Za-z]+(?:['’][A-Za-z]+)?", options: .regularExpression) else { return nil }
-    return String(text[range])
   }
 
   @objc private func toggleMouseChord() {
@@ -528,6 +530,41 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   func applicationWillTerminate(_ notification: Notification) { stopMouseChord() }
+}
+
+private final class OCRWordPickerView: NSView {
+  private var buttons: [NSButton] = []
+  var selectedWords: [String] { buttons.filter { $0.state == .on }.map(\.title) }
+
+  init(words: [String]) {
+    let columns = 3
+    let rowHeight: CGFloat = 28
+    let rows = Int(ceil(Double(words.count) / Double(columns)))
+    super.init(frame: NSRect(x: 0, y: 0, width: 390, height: CGFloat(rows) * rowHeight))
+    for (index, word) in words.enumerated() {
+      let column = index % columns
+      let row = index / columns
+      let button = NSButton(checkboxWithTitle: word, target: nil, action: nil)
+      button.frame = NSRect(x: CGFloat(column) * 130, y: CGFloat(rows - row - 1) * rowHeight, width: 126, height: rowHeight)
+      button.font = .systemFont(ofSize: 13)
+      addSubview(button)
+      buttons.append(button)
+    }
+  }
+
+  required init?(coder: NSCoder) { nil }
+
+  static func words(from text: String) -> [String] {
+    let range = NSRange(text.startIndex..., in: text)
+    guard let expression = try? NSRegularExpression(pattern: "[A-Za-z]+(?:['’][A-Za-z]+)?") else { return [] }
+    var seen = Set<String>()
+    return expression.matches(in: text, range: range).compactMap { match in
+      guard let range = Range(match.range, in: text) else { return nil }
+      let word = String(text[range])
+      guard word.count > 1, seen.insert(word.lowercased()).inserted else { return nil }
+      return word
+    }.prefix(42).map { $0 }
+  }
 }
 
 private final class RecentVocabularyViewController: NSViewController {
