@@ -147,7 +147,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
     lastLeftMouseDown = nil
     lastRightMouseDown = nil
-    DispatchQueue.main.async { [weak self] in self?.captureSelectionAction() }
+    // The chord's first click can collapse a selection in the target app.
+    // Read it before this passive event is delivered to that app.
+    captureSelectionAction()
   }
 
   private func capture(_ selection: SelectedText) {
