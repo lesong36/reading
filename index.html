@@ -6397,6 +6397,16 @@
                       const supportedQuestionCount = Array.isArray(article.questions)
                         ? article.questions.filter(isSupportedQuizQuestion).length
                         : 0;
+                      let quizRecord = null;
+                      try {
+                        const progress = normalizeQuizProgress(JSON.parse(localStorage.getItem(getQuizProgressStorageKey(article.id)) || '{}'));
+                        if (progress.submitted) {
+                          const questions = normalizeArticleQuestions(article);
+                          const supported = questions.filter(isSupportedQuizQuestion);
+                          const correct = supported.filter(question => progress.answers?.[question.id] === question.answerIndex).length;
+                          quizRecord = { submittedAt: progress.submittedAt, correct, total: supported.length };
+                        }
+                      } catch (error) {}
                       return (
                       <div key={article.id} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow relative flex flex-col min-h-[280px]">
                         <div className="min-w-0 mb-4">
@@ -6427,6 +6437,15 @@
                             <ReadabilityBadge kind="lexile" readability={article.readability || {}} theme="light" />
                             <ReadabilityBadge kind="band" readability={article.readability || {}} theme="light" />
                           </div>
+                          {quizRecord && (
+                            <div className="rounded-xl border border-indigo-100 bg-indigo-50 px-3 py-2.5 text-xs text-indigo-800">
+                              <div className="flex items-center gap-1.5 font-black"><CheckCircle2 className="h-4 w-4" /> 已做题并交卷</div>
+                              <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 font-medium text-indigo-700">
+                                <span>交卷于 {completionTimeLabel(quizRecord.submittedAt)}</span>
+                                {quizRecord.total > 0 && <span>得分 {quizRecord.correct} / {quizRecord.total}</span>}
+                              </div>
+                            </div>
+                          )}
                           {completionRecords[article.id] ? (
                             <div className="rounded-xl border border-emerald-100 bg-emerald-50 px-3 py-2.5 text-xs text-emerald-800">
                               <div className="flex items-center gap-1.5 font-black"><CheckCircle2 className="h-4 w-4" /> 已完成本篇阅读</div>
