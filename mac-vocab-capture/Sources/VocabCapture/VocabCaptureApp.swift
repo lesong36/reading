@@ -254,26 +254,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   @objc private func showRecentEntries() {
     Task {
-      let entries = Array((await store.all()).prefix(20))
+      let entries = Array((await store.all()).prefix(12))
       let isLoggedIn = await cloudSync.isLoggedIn()
       await MainActor.run {
-        self.recentEntriesPanel?.close()
-        let panel = NSPanel(
-          contentRect: NSRect(x: 0, y: 0, width: 540, height: 640),
-          styleMask: [.titled, .closable, .resizable],
-          backing: .buffered,
-          defer: false
-        )
-        panel.title = "最近加入的单词"
-        panel.minSize = NSSize(width: 420, height: 420)
-        panel.contentViewController = RecentVocabularyViewController(
-          entries: entries,
-          syncDescription: self.syncDescription(isLoggedIn: isLoggedIn)
-        )
-        panel.center()
-        panel.makeKeyAndOrderFront(nil)
-        NSApp.activate(ignoringOtherApps: true)
-        self.recentEntriesPanel = panel
+        let alert = NSAlert()
+        alert.messageText = "最近加入的单词"
+        let list = entries.isEmpty
+          ? "还没有加入任何单词。"
+          : entries.map { "\($0.word) · \($0.meaning)" }.joined(separator: "\n")
+        alert.informativeText = self.syncDescription(isLoggedIn: isLoggedIn) + "\n\n" + list
+        alert.addButton(withTitle: "关闭")
+        alert.runModal()
       }
     }
   }
