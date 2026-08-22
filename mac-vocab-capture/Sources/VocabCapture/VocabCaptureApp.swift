@@ -152,14 +152,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       return nil
     }
     let alert = NSAlert()
-    alert.messageText = "在原文中点选要加入的词"
-    alert.informativeText = "点击词语即可高亮选中，可选择多个；它们将共用这段文字作为语境。"
+    alert.messageText = "在原文中选择词或词组"
+    alert.informativeText = "单击一个词会导入该词；先点词组首词，再点末词，会把中间连续文字作为一个整体导入。"
     alert.accessoryView = picker
     alert.addButton(withTitle: "翻译并加入")
     alert.addButton(withTitle: "取消")
     guard alert.runModal() == .alertFirstButtonReturn else { return nil }
     guard !picker.selectedWords.isEmpty else {
-      showFailure(title: "还没有选择单词", "请直接点击原文中的至少一个英文单词。")
+      showFailure(title: "还没有选择内容", "请直接点击一个英文词，或依次点击词组的首词和末词。")
       return nil
     }
     return picker.selectedWords
@@ -535,14 +535,17 @@ private final class OCRParagraphPickerView: NSView, NSTextViewDelegate {
   private let text: String
   private let matches: [NSTextCheckingResult]
   private let textView = NSTextView()
-  private var selectedOffsets = Set<Int>()
+  private var selectionStart: Int?
+  private var selectionEnd: Int?
 
   var hasWords: Bool { !matches.isEmpty }
   var selectedWords: [String] {
-    matches.compactMap { match in
-      guard selectedOffsets.contains(match.range.location), let range = Range(match.range, in: text) else { return nil }
+    guard let selectedRange else { return [] }
+    let words = matches[selectedRange].compactMap { match -> String? in
+      guard let range = Range(match.range, in: text) else { return nil }
       return String(text[range])
     }
+    return words.isEmpty ? [] : [words.joined(separator: " ")]
   }
 
   init(text: String) {
@@ -573,10 +576,15 @@ private final class OCRParagraphPickerView: NSView, NSTextViewDelegate {
 
   func textView(_ textView: NSTextView, clickedOnLink link: Any, at charIndex: Int) -> Bool {
     guard let key = link as? String, let offset = Int(key) else { return false }
-    if selectedOffsets.contains(offset) {
-      selectedOffsets.remove(offset)
+    guard let index = matches.firstIndex(where: { $0.range.location == offset }) else { return false }
+    if let selectedRange, selectedRange.contains(index) {
+      selectionStart = nil
+      selectionEnd = nil
+    } else if selectionStart == nil {
+      selectionStart = index
+      selectionEnd = index
     } else {
-      selectedOffsets.insert(offset)
+      selectionEnd = index
     }
     render()
     return true
@@ -591,7 +599,8 @@ private final class OCRParagraphPickerView: NSView, NSTextViewDelegate {
       .paragraphStyle: paragraph
     ])
     for match in matches {
-      let selected = selectedOffsets.contains(match.range.location)
+      let index = matches.firstIndex(where: { $0.range.location == match.range.location })!
+      let selected = selectedRange?.contains(index) == true
       content.addAttributes([
         .link: "\(match.range.location)",
         .foregroundColor: selected ? NSColor.white : NSColor.systemBlue,
@@ -600,6 +609,11 @@ private final class OCRParagraphPickerView: NSView, NSTextViewDelegate {
       ], range: match.range)
     }
     textView.textStorage?.setAttributedString(content)
+  }
+
+  private var selectedRange: ClosedRange<Int>? {
+    guard let selectionStart, let selectionEnd else { return nil }
+    return min(selectionStart, selectionEnd)...max(selectionStart, selectionEnd)
   }
 }
 
