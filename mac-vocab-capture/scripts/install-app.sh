@@ -13,6 +13,8 @@ if [[ -e "$TARGET_APP" ]]; then
   mv "$TARGET_APP" "$BACKUP"
 fi
 ditto "$SOURCE_APP" "$TARGET_APP"
+# `ditto` may preserve Finder metadata from a previously launched bundle.
+xattr -cr "$TARGET_APP" 2>/dev/null || true
 LSREGISTER="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister"
 if [[ -x "$LSREGISTER" ]]; then
   "$LSREGISTER" -u "$SOURCE_APP" >/dev/null 2>&1 || true

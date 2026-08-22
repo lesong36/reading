@@ -20,6 +20,8 @@ cp Resources/Info.plist "$CONTENTS/Info.plist"
 plutil -replace CFBundleShortVersionString -string "$VERSION" "$CONTENTS/Info.plist"
 plutil -replace CFBundleVersion -string "$VERSION" "$CONTENTS/Info.plist"
 chmod 755 "$CONTENTS/MacOS/VocabCapture"
+# Finder metadata can invalidate an otherwise valid code signature.
+xattr -cr "$APP_DIR" 2>/dev/null || true
 if [[ -n "$SIGNING_IDENTITY" ]]; then
   codesign --force --deep --sign "$SIGNING_IDENTITY" --timestamp=none "$APP_DIR" >/dev/null
 else
