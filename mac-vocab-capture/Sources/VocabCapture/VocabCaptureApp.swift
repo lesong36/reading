@@ -166,16 +166,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   private func chooseOCRContext(word: String, recognizedText: String) {
     let alert = NSAlert()
-    alert.messageText = "补充原句语境"
-    alert.informativeText = "为了按原句翻译 “\(word)”，建议再框选包含该词的完整英文句子。"
-    alert.addButton(withTitle: "框选完整句子")
-    alert.addButton(withTitle: "直接使用当前文字")
+    alert.messageText = "选择语境来源"
+    alert.informativeText = "如果刚才的截图已包含 “\(word)” 所在段落，直接使用即可。文字跨行时，只需框住相关的几行；包含额外文字也没关系。"
+    alert.addButton(withTitle: "直接使用当前区域")
+    alert.addButton(withTitle: "补拍上下文")
     alert.addButton(withTitle: "取消")
     switch alert.runModal() {
     case .alertFirstButtonReturn:
-      captureNativeRegion { [weak self] image in self?.recognizeOCRContext(image, word: word) }
-    case .alertSecondButtonReturn:
       capture(SelectedText(word: word, context: recognizedText))
+    case .alertSecondButtonReturn:
+      captureNativeRegion { [weak self] image in self?.recognizeOCRContext(image, word: word) }
     default:
       setStatus("词")
     }
