@@ -98,6 +98,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   @objc private func captureScreenTextAction() {
+    captureNativeRegion { [weak self] image in self?.recognizeOCRWord(image) }
+  }
+
+  private func captureNativeRegion(completion: @escaping (CGImage) -> Void) {
     guard screenshotProcess == nil else { return }
     let fileURL = FileManager.default.temporaryDirectory.appendingPathComponent("vocab-ocr-\(UUID().uuidString).png")
     let process = Process()
@@ -113,7 +117,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       }
       DispatchQueue.main.async {
         self?.screenshotProcess = nil
-        self?.recognizeScreenText(cgImage)
+        completion(cgImage)
       }
     }
     do {
@@ -125,29 +129,27 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
   }
 
-  private func recognizeScreenText(_ image: CGImage) {
+  private func recognizeOCRWord(_ image: CGImage) {
     setStatus("词 ···")
     Task {
       do {
-        let context = try await OCRClient.recognize(image)
-        guard let selection = await MainActor.run(body: { self.confirmOCRText(context) }) else {
+        let recognizedText = try await OCRClient.recognize(image)
+        guard let word = await MainActor.run(body: { self.confirmOCRWord(recognizedText) }) else {
           await MainActor.run { self.setStatus("词") }
           return
         }
-        await MainActor.run {
-          self.capture(selection)
-        }
+        await MainActor.run { self.chooseOCRContext(word: word, recognizedText: recognizedText) }
       } catch {
         await MainActor.run { self.showFailure(title: "OCR 识别失败", error.localizedDescription) }
       }
     }
   }
 
-  private func confirmOCRText(_ context: String) -> SelectedText? {
+  private func confirmOCRWord(_ recognizedText: String) -> String? {
     let alert = NSAlert()
     alert.messageText = "确认截图中的单词"
-    alert.informativeText = "识别到的文字：\n\(String(context.prefix(480)))"
-    let field = NSTextField(string: firstEnglishWord(in: context) ?? "")
+    alert.informativeText = "识别到的文字：\n\(String(recognizedText.prefix(480)))"
+    let field = NSTextField(string: firstEnglishWord(in: recognizedText) ?? "")
     field.placeholderString = "要查询的英文单词"
     field.frame = NSRect(x: 0, y: 0, width: 360, height: 28)
     alert.accessoryView = field
@@ -159,7 +161,36 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       showFailure(title: "请输入英文单词", "可以修改输入框中的识别结果后再确认。")
       return nil
     }
-    return SelectedText(word: word, context: context)
+    return word
+  }
+
+  private func chooseOCRContext(word: String, recognizedText: String) {
+    let alert = NSAlert()
+    alert.messageText = "补充原句语境"
+    alert.informativeText = "为了按原句翻译 “\(word)”，建议再框选包含该词的完整英文句子。"
+    alert.addButton(withTitle: "框选完整句子")
+    alert.addButton(withTitle: "直接使用当前文字")
+    alert.addButton(withTitle: "取消")
+    switch alert.runModal() {
+    case .alertFirstButtonReturn:
+      captureNativeRegion { [weak self] image in self?.recognizeOCRContext(image, word: word) }
+    case .alertSecondButtonReturn:
+      capture(SelectedText(word: word, context: recognizedText))
+    default:
+      setStatus("词")
+    }
+  }
+
+  private func recognizeOCRContext(_ image: CGImage, word: String) {
+    setStatus("词 ···")
+    Task {
+      do {
+        let context = try await OCRClient.recognize(image)
+        await MainActor.run { self.capture(SelectedText(word: word, context: context)) }
+      } catch {
+        await MainActor.run { self.showFailure(title: "原句 OCR 识别失败", error.localizedDescription) }
+      }
+    }
   }
 
   private func firstEnglishWord(in text: String) -> String? {
