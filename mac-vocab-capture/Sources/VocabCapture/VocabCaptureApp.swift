@@ -25,12 +25,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private var hotKeyHandler: EventHandlerRef?
   private var mouseEventTap: CFMachPort?
   private var mouseEventSource: CFRunLoopSource?
+  private var recentEntriesPanel: NSPanel?
   private var lastLeftMouseDown: CFAbsoluteTime?
   private var lastRightMouseDown: CFAbsoluteTime?
   private let configurationKey = "VocabCapture.aiConfiguration"
   private let shortcutKey = "VocabCapture.shortcut"
   private let customShortcutKey = "VocabCapture.customShortcut"
   private let mouseChordEnabledKey = "VocabCapture.mouseChordEnabled"
+  private let lastSyncedAtKey = "VocabCapture.lastSyncedAt"
   private let mouseChordInterval: CFAbsoluteTime = 0.22
 
   func applicationDidFinishLaunching(_ notification: Notification) {
@@ -252,16 +254,26 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   @objc private func showRecentEntries() {
     Task {
-      let entries = await store.all().prefix(10)
-      let body = entries.isEmpty
-        ? "还没有加入任何单词。"
-        : entries.map { "\($0.word) · \($0.meaning)" }.joined(separator: "\n")
+      let entries = Array((await store.all()).prefix(20))
+      let isLoggedIn = await cloudSync.isLoggedIn()
       await MainActor.run {
-        let alert = NSAlert()
-        alert.messageText = "最近加入的单词"
-        alert.informativeText = body
-        alert.addButton(withTitle: "关闭")
-        alert.runModal()
+        self.recentEntriesPanel?.close()
+        let panel = NSPanel(
+          contentRect: NSRect(x: 0, y: 0, width: 540, height: 640),
+          styleMask: [.titled, .closable, .resizable],
+          backing: .buffered,
+          defer: false
+        )
+        panel.title = "最近加入的单词"
+        panel.minSize = NSSize(width: 420, height: 420)
+        panel.contentViewController = RecentVocabularyViewController(
+          entries: entries,
+          syncDescription: self.syncDescription(isLoggedIn: isLoggedIn)
+        )
+        panel.center()
+        panel.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+        self.recentEntriesPanel = panel
       }
     }
   }
@@ -316,7 +328,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     let local = await store.all()
     let result = try await cloudSync.sync(local: local)
     try await store.replace(with: result.vocabulary)
+    UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: lastSyncedAtKey)
     return (result.uploadedCount, result.vocabulary.count)
+  }
+
+  private func syncDescription(isLoggedIn: Bool) -> String {
+    guard isLoggedIn else { return "仅保存在本机 · 登录阅读达人后可同步" }
+    guard UserDefaults.standard.object(forKey: lastSyncedAtKey) != nil else { return "已登录阅读达人 · 尚未手动同步" }
+    let time = Date(timeIntervalSince1970: UserDefaults.standard.double(forKey: lastSyncedAtKey))
+    let formatter = DateFormatter()
+    formatter.dateStyle = .medium
+    formatter.timeStyle = .short
+    return "已同步阅读达人 · 上次同步 \(formatter.string(from: time))"
   }
 
   @objc private func openShortcutSettings() {
@@ -402,6 +425,120 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   func applicationWillTerminate(_ notification: Notification) { stopMouseChord() }
+}
+
+private final class RecentVocabularyViewController: NSViewController {
+  private let entries: [VocabularyEntry]
+  private let syncDescription: String
+
+  init(entries: [VocabularyEntry], syncDescription: String) {
+    self.entries = entries
+    self.syncDescription = syncDescription
+    super.init(nibName: nil, bundle: nil)
+  }
+
+  required init?(coder: NSCoder) { nil }
+
+  override func loadView() {
+    let root = NSView()
+    root.wantsLayer = true
+    root.layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
+
+    let title = makeLabel("最近加入的单词", font: .systemFont(ofSize: 24, weight: .bold), color: .labelColor)
+    let subtitle = makeLabel(syncDescription, font: .systemFont(ofSize: 13), color: .secondaryLabelColor)
+    let scroll = NSScrollView()
+    scroll.hasVerticalScroller = true
+    scroll.drawsBackground = false
+    scroll.borderType = .noBorder
+
+    let document = NSView(frame: NSRect(x: 0, y: 0, width: 500, height: 1))
+    let cards = NSStackView()
+    cards.orientation = .vertical
+    cards.alignment = .width
+    cards.spacing = 12
+    cards.translatesAutoresizingMaskIntoConstraints = false
+    document.addSubview(cards)
+    NSLayoutConstraint.activate([
+      cards.topAnchor.constraint(equalTo: document.topAnchor, constant: 8),
+      cards.leadingAnchor.constraint(equalTo: document.leadingAnchor, constant: 8),
+      cards.trailingAnchor.constraint(equalTo: document.trailingAnchor, constant: -8)
+    ])
+    if entries.isEmpty {
+      cards.addArrangedSubview(emptyState())
+    } else {
+      for entry in entries { cards.addArrangedSubview(card(for: entry)) }
+    }
+    document.layoutSubtreeIfNeeded()
+    document.frame.size.height = cards.fittingSize.height + 16
+    scroll.documentView = document
+
+    for view in [title, subtitle, scroll] { view.translatesAutoresizingMaskIntoConstraints = false; root.addSubview(view) }
+    NSLayoutConstraint.activate([
+      title.topAnchor.constraint(equalTo: root.topAnchor, constant: 22),
+      title.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 24),
+      title.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -24),
+      subtitle.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 4),
+      subtitle.leadingAnchor.constraint(equalTo: title.leadingAnchor),
+      subtitle.trailingAnchor.constraint(equalTo: title.trailingAnchor),
+      scroll.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 18),
+      scroll.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 16),
+      scroll.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -16),
+      scroll.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -18)
+    ])
+    view = root
+  }
+
+  private func card(for entry: VocabularyEntry) -> NSView {
+    let card = NSView()
+    card.wantsLayer = true
+    card.layer?.cornerRadius = 12
+    card.layer?.borderWidth = 1
+    card.layer?.borderColor = NSColor.separatorColor.cgColor
+    card.layer?.backgroundColor = NSColor.controlBackgroundColor.cgColor
+
+    let word = makeLabel(entry.word, font: .systemFont(ofSize: 22, weight: .bold), color: .labelColor)
+    let phonetic = [entry.partOfSpeech, entry.pronunciation].filter { !$0.isEmpty }.joined(separator: " · ")
+    let detail = makeLabel(phonetic, font: .systemFont(ofSize: 13), color: .systemIndigo)
+    let meaning = makeLabel(entry.meaning, font: .systemFont(ofSize: 16, weight: .medium), color: .labelColor)
+    let sentence = entry.sourceContext.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? entry.exampleSentence : entry.sourceContext
+    let context = makeLabel("来自文章语境\n\(sentence.isEmpty ? "未读取到完整原句" : sentence)", font: .systemFont(ofSize: 14), color: .secondaryLabelColor)
+    let timestamp = makeLabel("加入于 \(formattedDate(entry))", font: .systemFont(ofSize: 12), color: .tertiaryLabelColor)
+    let stack = NSStackView(views: [word, detail, meaning, context, timestamp])
+    stack.orientation = .vertical
+    stack.alignment = .leading
+    stack.spacing = 7
+    stack.translatesAutoresizingMaskIntoConstraints = false
+    card.addSubview(stack)
+    NSLayoutConstraint.activate([
+      stack.topAnchor.constraint(equalTo: card.topAnchor, constant: 16),
+      stack.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 16),
+      stack.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -16),
+      stack.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -16)
+    ])
+    return card
+  }
+
+  private func emptyState() -> NSView {
+    makeLabel("还没有加入单词。选中英文后，按快捷键或鼠标左右键一起按即可开始。", font: .systemFont(ofSize: 15), color: .secondaryLabelColor)
+  }
+
+  private func makeLabel(_ text: String, font: NSFont, color: NSColor) -> NSTextField {
+    let label = NSTextField(wrappingLabelWithString: text)
+    label.font = font
+    label.textColor = color
+    label.maximumNumberOfLines = 0
+    return label
+  }
+
+  private func formattedDate(_ entry: VocabularyEntry) -> String {
+    if let date = ISO8601DateFormatter().date(from: entry.addedAt) {
+      let formatter = DateFormatter()
+      formatter.dateStyle = .medium
+      formatter.timeStyle = .short
+      return formatter.string(from: date)
+    }
+    return entry.addedAt.isEmpty ? "刚刚" : entry.addedAt
+  }
 }
 
 private final class ShortcutRecorderView: NSView {
