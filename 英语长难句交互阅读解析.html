@@ -2013,12 +2013,13 @@
       };
     };
 
-    const createLocalDataSnapshot = (articles = [], vocab = [], completionRecords = {}) => ({
-      version: 2,
+    const createLocalDataSnapshot = (articles = [], vocab = [], completionRecords = {}, deletedVocabKeys = []) => ({
+      version: 3,
       savedAt: new Date().toISOString(),
       savedArticles: articles,
       vocabBook: vocab,
-      completionRecords
+      completionRecords,
+      deletedVocabKeys: normalizeDeletedVocabKeys(deletedVocabKeys)
     });
 
     const QUIZ_PROGRESS_STORAGE_KEY_PREFIX = 'reader_quiz_progress_';
@@ -2194,6 +2195,14 @@
     };
 
     const normalizeVocabBook = (vocab = []) => Array.isArray(vocab) ? vocab : [];
+    const getVocabKey = (word = {}) => String(word?.word || word?.id || '').trim().toLowerCase();
+    const normalizeDeletedVocabKeys = (keys = []) => Array.from(new Set(
+      (Array.isArray(keys) ? keys : []).map(key => String(key || '').trim().toLowerCase()).filter(Boolean)
+    ));
+    const removeDeletedVocab = (vocab = [], deletedVocabKeys = []) => {
+      const deleted = new Set(normalizeDeletedVocabKeys(deletedVocabKeys));
+      return normalizeVocabBook(vocab).filter(word => !deleted.has(getVocabKey(word)));
+    };
 
     const LIBRARY_FILTERS = [
       { key: 'all', label: '全部' },
@@ -2306,11 +2315,11 @@
       return Array.from(byId.values()).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
     };
 
-    const mergeVocabBook = (current = [], incoming = []) => {
+    const mergeVocabBook = (current = [], incoming = [], deletedVocabKeys = []) => {
       const byKey = new Map();
-      [...normalizeVocabBook(current), ...normalizeVocabBook(incoming)].forEach(word => {
+      [...removeDeletedVocab(current, deletedVocabKeys), ...removeDeletedVocab(incoming, deletedVocabKeys)].forEach(word => {
         if (!word) return;
-        const key = (word.word || word.id || '').toString().trim().toLowerCase();
+        const key = getVocabKey(word);
         if (!key) return;
         const existing = byKey.get(key);
         if (!existing || (word.timestamp || 0) >= (existing.timestamp || 0)) {
@@ -2335,18 +2344,19 @@
         savedAt: parsed.savedAt || "",
         savedArticles: Array.isArray(parsed.savedArticles) ? parsed.savedArticles : [],
         vocabBook: Array.isArray(parsed.vocabBook) ? parsed.vocabBook : [],
-        completionRecords: normalizeCompletionRecords(parsed.completionRecords || {})
+        completionRecords: normalizeCompletionRecords(parsed.completionRecords || {}),
+        deletedVocabKeys: normalizeDeletedVocabKeys(parsed.deletedVocabKeys || [])
       };
     };
 
-    const writeLocalDataFile = async (articles, vocab, completionRecords = {}) => {
+    const writeLocalDataFile = async (articles, vocab, completionRecords = {}, deletedVocabKeys = []) => {
       if (!navigator.storage?.getDirectory) {
         throw new Error('当前浏览器不支持本地文件持久化。');
       }
       const root = await navigator.storage.getDirectory();
       const handle = await root.getFileHandle(LOCAL_DATA_FILE_NAME, { create: true });
       const writable = await handle.createWritable();
-      await writable.write(JSON.stringify(createLocalDataSnapshot(articles, vocab, completionRecords), null, 2));
+      await writable.write(JSON.stringify(createLocalDataSnapshot(articles, vocab, completionRecords, deletedVocabKeys), null, 2));
       await writable.close();
     };
 
@@ -2368,13 +2378,14 @@
     const clearLocalLearningStorage = async () => {
       localStorage.removeItem('my_local_articles');
       localStorage.removeItem('my_local_vocab_book');
+      localStorage.removeItem('reader_deleted_vocab_keys_v1');
       localStorage.removeItem(COMPLETION_RECORDS_STORAGE_KEY);
 
       if (navigator.storage?.getDirectory) {
         const root = await navigator.storage.getDirectory();
         const handle = await root.getFileHandle(LOCAL_DATA_FILE_NAME, { create: true });
         const writable = await handle.createWritable();
-        await writable.write(JSON.stringify(createLocalDataSnapshot([], []), null, 2));
+        await writable.write(JSON.stringify(createLocalDataSnapshot([], [], {}, []), null, 2));
         await writable.close();
       }
     };
@@ -2964,9 +2975,16 @@
           return [];
         }
       });
+      const [deletedVocabKeys, setDeletedVocabKeys] = useState(() => {
+        try { return normalizeDeletedVocabKeys(JSON.parse(localStorage.getItem('reader_deleted_vocab_keys_v1') || '[]')); } catch { return []; }
+      });
       const [completionRecords, setCompletionRecords] = useState(() => {
         try { return normalizeCompletionRecords(JSON.parse(localStorage.getItem(COMPLETION_RECORDS_STORAGE_KEY) || '{}')); } catch { return {}; }
       });
+      const restoreVocabKeys = (keys = []) => {
+        const restored = new Set(normalizeDeletedVocabKeys(keys));
+        if (restored.size) setDeletedVocabKeys(previous => previous.filter(key => !restored.has(key)));
+      };
       const [completionTagInput, setCompletionTagInput] = useState('');
       const [answerReportNote, setAnswerReportNote] = useState('');
       const [proposedAnswerIndex, setProposedAnswerIndex] = useState(null);
@@ -2993,7 +3011,9 @@
             const data = await readLocalDataFile();
             if (cancelled) return;
             if (data.savedArticles.length > 0) setSavedArticles(data.savedArticles);
-            if (data.vocabBook.length > 0) setVocabBook(data.vocabBook);
+            const persistedDeletedVocabKeys = normalizeDeletedVocabKeys([...deletedVocabKeys, ...data.deletedVocabKeys]);
+            if (persistedDeletedVocabKeys.length > 0) setDeletedVocabKeys(persistedDeletedVocabKeys);
+            if (data.vocabBook.length > 0) setVocabBook(removeDeletedVocab(data.vocabBook, persistedDeletedVocabKeys));
             if (Object.keys(data.completionRecords || {}).length > 0) setCompletionRecords(data.completionRecords);
             localDataLoadedRef.current = true;
             setLocalDataReady(true);
@@ -3059,6 +3079,7 @@
       useEffect(() => {
         trySetLocalStorage('my_local_articles', JSON.stringify(savedArticles));
         trySetLocalStorage('my_local_vocab_book', JSON.stringify(vocabBook));
+        trySetLocalStorage('reader_deleted_vocab_keys_v1', JSON.stringify(deletedVocabKeys));
         trySetLocalStorage('reader_favorite_article_ids', JSON.stringify(favoriteArticleIds));
         trySetLocalStorage(COMPLETION_RECORDS_STORAGE_KEY, JSON.stringify(completionRecords));
 
@@ -3066,7 +3087,7 @@
         if (localDataWriteTimerRef.current) clearTimeout(localDataWriteTimerRef.current);
         localDataWriteTimerRef.current = setTimeout(async () => {
           try {
-            await writeLocalDataFile(savedArticles, vocabBook, completionRecords);
+            await writeLocalDataFile(savedArticles, vocabBook, completionRecords, deletedVocabKeys);
             setLocalPersistenceStatus({
               enabled: true,
               message: `本地数据文件已自动保存：${LOCAL_DATA_FILE_NAME}`
@@ -3078,7 +3099,7 @@
             });
           }
         }, 500);
-      }, [savedArticles, vocabBook, favoriteArticleIds, completionRecords, localPersistenceStatus.enabled]);
+      }, [savedArticles, vocabBook, deletedVocabKeys, favoriteArticleIds, completionRecords, localPersistenceStatus.enabled]);
 
       useEffect(() => {
         if (!supabase || !user) {
@@ -3108,6 +3129,7 @@
           const cloudQuizProgress = data?.quiz_progress && typeof data.quiz_progress === 'object' ? data.quiz_progress : {};
           const cloudCompletionRecords = normalizeCompletionRecords(data?.completion_records || {});
           const cloudPreferences = data?.preferences && typeof data.preferences === 'object' ? data.preferences : {};
+          const cloudDeletedVocabKeys = normalizeDeletedVocabKeys(cloudPreferences.deletedVocabKeys || []);
           const localQuizProgress = {};
           Object.keys(localStorage).filter(key => key.startsWith(QUIZ_PROGRESS_STORAGE_KEY_PREFIX)).forEach(key => {
             try { localQuizProgress[key.slice(QUIZ_PROGRESS_STORAGE_KEY_PREFIX.length)] = normalizeQuizProgress(JSON.parse(localStorage.getItem(key))); } catch (error) {}
@@ -3120,11 +3142,13 @@
           if (cloudPreferences.aiProvider) setAiProvider(cloudPreferences.aiProvider);
           if (cloudPreferences.cloudBaseUrl) setCloudBaseUrl(cloudPreferences.cloudBaseUrl);
           if (cloudPreferences.cloudModel) setCloudModel(cloudPreferences.cloudModel);
-          lastCloudSnapshotRef.current = JSON.stringify({ vocabulary: cloudVocab, favorites: cloudFavorites, quizProgress: cloudQuizProgress, completionRecords: cloudCompletionRecords, preferences: cloudPreferences, encryptedAiKey: data?.encrypted_ai_key || null });
+          lastCloudSnapshotRef.current = JSON.stringify({ vocabulary: removeDeletedVocab(cloudVocab, cloudDeletedVocabKeys), favorites: cloudFavorites, quizProgress: cloudQuizProgress, completionRecords: cloudCompletionRecords, preferences: { ...cloudPreferences, deletedVocabKeys: cloudDeletedVocabKeys }, encryptedAiKey: data?.encrypted_ai_key || null });
           cloudDataLoadedRef.current = true;
           cloudDataInitializedRef.current = true;
           cloudSyncRetryAttemptRef.current = 0;
-          setVocabBook(prev => mergeVocabBook(prev, cloudVocab));
+          const mergedDeletedVocabKeys = normalizeDeletedVocabKeys([...deletedVocabKeys, ...cloudDeletedVocabKeys]);
+          setDeletedVocabKeys(mergedDeletedVocabKeys);
+          setVocabBook(current => mergeVocabBook(current, cloudVocab, mergedDeletedVocabKeys));
           setFavoriteArticleIds(prev => Array.from(new Set([...prev, ...cloudFavorites])));
           setCompletionRecords(prev => mergeCompletionRecords(prev, cloudCompletionRecords));
           setCloudSyncStatus({ enabled: true, message: cloudSyncNeedsMergeRef.current ? '网络已恢复：正在合并本地与云端记录并重写。' : `Supabase 已连接：同步 ${cloudVocab.length} 个生词与学习记录。` });
@@ -3162,7 +3186,7 @@
               : [];
           });
         });
-        const preferences = { aiProvider, cloudBaseUrl: cloudBaseUrl.trim(), cloudModel: cloudModel.trim(), ollamaBaseUrl: ollamaBaseUrl.trim(), ollamaModel: ollamaModel.trim(), voiceProvider };
+        const preferences = { aiProvider, cloudBaseUrl: cloudBaseUrl.trim(), cloudModel: cloudModel.trim(), ollamaBaseUrl: ollamaBaseUrl.trim(), ollamaModel: ollamaModel.trim(), voiceProvider, deletedVocabKeys };
         const readingPositions = currentArticleId ? { [currentArticleId]: { sentenceId: selectedSentence?.id || null, updatedAt: new Date().toISOString() } } : {};
         const writeCloudState = async () => {
           if (cloudWriteInFlightRef.current) return;
@@ -3178,19 +3202,22 @@
               if (error) throw error;
               const mergedQuizProgress = mergeQuizProgressByArticle(payload.quiz_progress, data?.quiz_progress || {});
               const mergedCompletionRecords = mergeCompletionRecords(payload.completion_records, data?.completion_records || {});
+              const mergedDeletedVocabKeys = normalizeDeletedVocabKeys([...(payload.preferences.deletedVocabKeys || []), ...(data?.preferences?.deletedVocabKeys || [])]);
               payload = {
                 ...payload,
-                vocabulary: mergeVocabBook(payload.vocabulary, data?.vocabulary || []),
+                vocabulary: mergeVocabBook(payload.vocabulary, data?.vocabulary || [], mergedDeletedVocabKeys),
                 favorites: Array.from(new Set([...(data?.favorites || []), ...payload.favorites])),
                 reading_positions: { ...(data?.reading_positions || {}), ...payload.reading_positions },
                 quiz_progress: mergedQuizProgress,
                 completion_records: mergedCompletionRecords,
+                preferences: { ...payload.preferences, deletedVocabKeys: mergedDeletedVocabKeys },
                 encrypted_ai_key: payload.encrypted_ai_key || data?.encrypted_ai_key || null
               };
               Object.entries(mergedQuizProgress).forEach(([articleId, progress]) => {
                 trySetLocalStorage(getQuizProgressStorageKey(articleId), JSON.stringify(progress));
               });
-              setVocabBook(prev => mergeVocabBook(prev, data?.vocabulary || []));
+              setDeletedVocabKeys(prev => normalizeDeletedVocabKeys([...prev, ...mergedDeletedVocabKeys]));
+              setVocabBook(prev => mergeVocabBook(prev, data?.vocabulary || [], mergedDeletedVocabKeys));
               setFavoriteArticleIds(prev => Array.from(new Set([...(data?.favorites || []), ...prev])));
               setCompletionRecords(prev => mergeCompletionRecords(prev, data?.completion_records || {}));
             }
@@ -3215,7 +3242,7 @@
         cloudDataWriteTimerRef.current = setTimeout(async () => {
           await writeCloudState();
         }, 800);
-      }, [vocabBook, favoriteArticleIds, completionRecords, cloudSyncRevision, user]);
+      }, [vocabBook, deletedVocabKeys, favoriteArticleIds, completionRecords, cloudSyncRevision, user]);
 
       useEffect(() => {
         if (!supabase || !currentArticleId) return;
@@ -4212,6 +4239,9 @@
       const saveDictionaryLookupToVocab = (word, contextSentenceText, dictionary) => {
         if (!dictionary?.meaning) return;
         const key = String(word || '').trim().toLowerCase();
+        // A lookup can finish after its card was deleted. Deleted words must
+        // never be recreated by that delayed automatic save.
+        if (deletedVocabKeys.includes(key)) return;
         if (!key || autoAddedVocabKeysRef.current.has(key)) return;
         if (vocabBook.some(entry => String(entry?.word || '').trim().toLowerCase() === key)) return;
         autoAddedVocabKeysRef.current.add(key);
@@ -4713,6 +4743,7 @@
       // --- Vocab / Dictionary Logic ---
       const handleAddWordToVocab = async (word, contextSentenceText, dictionary = null) => {
         if (vocabBook.some(v => v.word === word)) return; 
+        restoreVocabKeys([getVocabKey({ word })]);
         setAddingWordId(word);
         setActiveAiTask('vocab');
         setAiTaskStartedAt(Date.now());
@@ -4785,13 +4816,62 @@
         }
       };
 
+      const persistVocabDeletion = async (nextVocabBook, nextDeletedVocabKeys) => {
+        trySetLocalStorage('my_local_vocab_book', JSON.stringify(nextVocabBook));
+        trySetLocalStorage('reader_deleted_vocab_keys_v1', JSON.stringify(nextDeletedVocabKeys));
+
+        if (localDataLoadedRef.current && localPersistenceStatus.enabled) {
+          try {
+            await writeLocalDataFile(savedArticles, nextVocabBook, completionRecords, nextDeletedVocabKeys);
+          } catch (error) {
+            setLocalPersistenceStatus({ enabled: false, message: '本地数据文件写入失败，已使用浏览器本地存储兜底。' });
+          }
+        }
+
+        if (!supabase || !user || !cloudDataLoadedRef.current) return;
+        const { data, error: readError } = await supabase
+          .from('reader_sync_state')
+          .select('preferences')
+          .eq('user_id', user.id)
+          .maybeSingle();
+        if (readError) throw readError;
+        const cloudPreferences = data?.preferences && typeof data.preferences === 'object' ? data.preferences : {};
+        const cloudDeletedVocabKeys = normalizeDeletedVocabKeys([
+          ...nextDeletedVocabKeys,
+          ...(cloudPreferences.deletedVocabKeys || [])
+        ]);
+        const { error: writeError } = await supabase
+          .from('reader_sync_state')
+          .upsert({
+            user_id: user.id,
+            vocabulary: removeDeletedVocab(nextVocabBook, cloudDeletedVocabKeys),
+            preferences: { ...cloudPreferences, deletedVocabKeys: cloudDeletedVocabKeys },
+            updated_at: new Date().toISOString()
+          }, { onConflict: 'user_id' });
+        if (writeError) throw writeError;
+        lastCloudSnapshotRef.current = '';
+        setCloudSyncStatus({ enabled: true, message: 'Supabase 已立即保存删除记录。' });
+      };
+
       const handleRemoveWord = (id) => {
         setConfirmDialog({
           message: "确定要从生词本彻底移除这个单词吗？",
-          onConfirm: () => {
-            setVocabBook(prev => prev.filter(w => w.id !== id));
+          onConfirm: async () => {
+            const removedKey = getVocabKey(vocabBook.find(word => word.id === id));
+            if (!removedKey) return;
+            const nextDeletedVocabKeys = normalizeDeletedVocabKeys([...deletedVocabKeys, removedKey]);
+            const nextVocabBook = vocabBook.filter(word => getVocabKey(word) !== removedKey);
+            setDeletedVocabKeys(nextDeletedVocabKeys);
+            setVocabBook(nextVocabBook);
             setConfirmDialog(null);
-            setToastMessage("🗑️ 单词已移除");
+            setToastMessage("🗑️ 单词已删除，正在保存同步记录...");
+            try {
+              await persistVocabDeletion(nextVocabBook, nextDeletedVocabKeys);
+              setToastMessage("🗑️ 单词已彻底删除并同步");
+            } catch (error) {
+              scheduleCloudSyncRetry(`删除记录同步失败：${error.message || '网络连接中断'}`);
+              setToastMessage("🗑️ 单词已在本机删除；云端将在网络恢复后更新");
+            }
           }
         });
       };
@@ -4875,6 +4955,8 @@
           try {
             const importedData = JSON.parse(event.target.result);
             if (Array.isArray(importedData)) {
+              // Importing is explicit, so it intentionally restores matching deleted words.
+              restoreVocabKeys(importedData.map(getVocabKey));
               setVocabBook(prev => {
                 const newDict = [...prev];
                 importedData.forEach(newWord => {
@@ -4915,6 +4997,7 @@
             try {
               setSavedArticles([]);
               setVocabBook([]);
+              setDeletedVocabKeys([]);
               localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, BUNDLED_LIBRARY_SEED_VERSION);
               await clearLocalLearningStorage();
               setLocalPersistenceStatus(prev => ({
