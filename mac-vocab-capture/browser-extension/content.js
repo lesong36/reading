@@ -97,6 +97,7 @@
   });
 
   let lastPublished = '';
+  let selectionTimer = null;
   const publishCurrentContext = () => {
     const payload = contextFromSelection();
     if (!payload) return;
@@ -108,6 +109,12 @@
     // policy silently blocking the handoff.
     chrome.runtime.sendMessage({ type: 'cache-context', payload });
   };
-  document.addEventListener('selectionchange', () => window.setTimeout(publishCurrentContext, 0));
+  document.addEventListener('selectionchange', () => {
+    // A mouse drag emits one event per character. Wait for the selection to
+    // settle so the app receives one final term/context pair rather than a
+    // stream of partial words.
+    window.clearTimeout(selectionTimer);
+    selectionTimer = window.setTimeout(publishCurrentContext, 250);
+  });
   chrome.runtime.sendMessage({ type: 'content-ready' });
 })();
