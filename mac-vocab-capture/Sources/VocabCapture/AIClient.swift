@@ -20,15 +20,15 @@ struct DictionaryClient {
       request.setValue("Bearer \(configuration.apiKey)", forHTTPHeaderField: "Authorization")
     }
     let prompt = """
-    英汉语境词典。只输出紧凑 JSON，不要空格或解释：
-    {"l":"原形","p":"词性","m":"中文释义（≤10字）","i":"IPA或空","n":"必要搭配（≤8字或空）"}
-    目标：\(selection.word)
-    原句：\(selection.context)
+    你是英汉语境词典。只返回 JSON：
+    {"lemma":"词典原形","partOfSpeech":"词性","meaning":"不超过16字的准确中文释义","pronunciation":"IPA或空字符串","note":"必要时的搭配或词形说明"}
+    目标词：\(selection.word)
+    原文完整句子：\(selection.context)
     """
     let body: [String: Any] = [
       "model": configuration.model,
       "temperature": 0.1,
-      "max_tokens": 64,
+      "max_tokens": 120,
       "response_format": ["type": "json_object"],
       "messages": [["role": "user", "content": prompt]]
     ]
@@ -43,31 +43,12 @@ struct DictionaryClient {
           let message = choices.first?["message"] as? [String: Any],
           let content = message["content"] as? String,
           let json = normalizedJSON(from: content)?.data(using: .utf8) else { throw VocabularyError.invalidAIResponse }
-    let result = try compactDictionaryResult(from: json)
+    let result = try JSONDecoder().decode(DictionaryResult.self, from: json)
     let milliseconds = Int(Date().timeIntervalSince(startedAt) * 1_000)
     ContextDebugLog.write("AI 查询完成：\(milliseconds) ms", word: selection.word)
     return result
   }
 
-  private func compactDictionaryResult(from data: Data) throws -> DictionaryResult {
-    struct CompactResult: Decodable {
-      let l: String
-      let p: String
-      let m: String
-      let i: String
-      let n: String
-    }
-    if let compact = try? JSONDecoder().decode(CompactResult.self, from: data) {
-      return DictionaryResult(
-        lemma: compact.l,
-        meaning: compact.m,
-        partOfSpeech: compact.p,
-        pronunciation: compact.i,
-        note: compact.n
-      )
-    }
-    return try JSONDecoder().decode(DictionaryResult.self, from: data)
-  }
 
   private func normalizedJSON(from content: String) -> String? {
     let trimmed = content.trimmingCharacters(in: .whitespacesAndNewlines)
