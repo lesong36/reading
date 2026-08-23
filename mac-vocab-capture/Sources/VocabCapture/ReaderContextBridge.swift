@@ -24,7 +24,9 @@ final class ReaderContextBridge {
     queue.async { [weak self] in
       guard let self, self.listener == nil else { return }
       do {
-        let listener = try NWListener(using: .tcp, on: self.port)
+        let parameters = NWParameters.tcp
+        parameters.requiredLocalEndpoint = .hostPort(host: "127.0.0.1", port: self.port)
+        let listener = try NWListener(using: parameters)
         listener.newConnectionHandler = { [weak self] connection in
           self?.receive(on: connection)
         }
