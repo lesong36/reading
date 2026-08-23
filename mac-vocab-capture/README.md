@@ -24,12 +24,13 @@ swift build
 swift run
 ```
 
-生成可打开的 App 包（包含 Services 注册所需的 `Info.plist`）：
+生成发布用 App 包（包含 Services 注册所需的 `Info.plist`）：
 
 ```bash
 ./scripts/package-app.sh
-open build/拾词助手.app
 ```
+
+`build/` 中的 App 仅用于压缩发布，不要直接打开；macOS 可能将它额外登记到启动台。
 
 日常使用应安装到固定位置（不要从 `build/` 目录反复启动，以免 macOS 创建多个启动台条目）：
 
