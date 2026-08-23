@@ -3973,10 +3973,6 @@
       }, [currentArticleId, quizProgress]);
 
       useEffect(() => {
-        if (user) setCloudSyncRevision(value => value + 1);
-      }, [currentArticleId, selectedSentence?.id, quizProgress, aiProvider, cloudApiKey, cloudBaseUrl, cloudModel, ollamaBaseUrl, ollamaModel, voiceProvider, syncVaultUnlocked]);
-
-      useEffect(() => {
         if (articleStudyMode !== 'quiz' || !currentQuizParagraphNumber) return;
         const paragraphSentence = currentArticleData.find(sentence => Number(sentence.para) === currentQuizParagraphNumber);
         if (paragraphSentence) setSelectedSentence(paragraphSentence);
