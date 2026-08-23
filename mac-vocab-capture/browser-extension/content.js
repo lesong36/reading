@@ -17,7 +17,40 @@
     return before.toString().length;
   };
 
-  const sentenceForRange = (range) => {
+  const browserSentenceForRange = (range) => {
+    const selection = window.getSelection();
+    if (!selection || typeof selection.modify !== 'function') return null;
+    const original = [];
+    for (let index = 0; index < selection.rangeCount; index += 1) original.push(selection.getRangeAt(index).cloneRange());
+    try {
+      const start = range.cloneRange();
+      start.collapse(true);
+      selection.removeAllRanges();
+      selection.addRange(start);
+      selection.modify('extend', 'backward', 'sentence');
+      const leading = selection.getRangeAt(0).cloneRange();
+
+      const end = range.cloneRange();
+      end.collapse(false);
+      selection.removeAllRanges();
+      selection.addRange(end);
+      selection.modify('extend', 'forward', 'sentence');
+      const trailing = selection.getRangeAt(0).cloneRange();
+
+      const sentence = document.createRange();
+      sentence.setStart(leading.startContainer, leading.startOffset);
+      sentence.setEnd(trailing.endContainer, trailing.endOffset);
+      const result = clean(sentence.toString()).slice(0, 800);
+      return result.length > clean(range.toString()).length ? result : null;
+    } catch (_) {
+      return null;
+    } finally {
+      selection.removeAllRanges();
+      original.forEach(saved => selection.addRange(saved));
+    }
+  };
+
+  const domSentenceForRange = (range) => {
     // Use the text node that actually owns the browser selection. A nearest
     // div may contain an entire article with repeated phrases, making offsets
     // point to the wrong occurrence.
@@ -44,7 +77,8 @@
     if (!selection || selection.rangeCount !== 1) return null;
     const word = clean(selection.toString()).replace(/^[“”"'(（\[]+|[”"'’).,!?;:）\]]+$/g, '');
     if (!phrasePattern.test(word)) return null;
-    const context = sentenceForRange(selection.getRangeAt(0));
+    const range = selection.getRangeAt(0);
+    const context = browserSentenceForRange(range) || domSentenceForRange(range);
     return context.length > word.length ? { word, context } : null;
   };
 

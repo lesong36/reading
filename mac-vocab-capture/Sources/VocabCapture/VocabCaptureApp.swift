@@ -60,6 +60,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             let word = components.queryItems?.first(where: { $0.name == "word" })?.value,
             let context = components.queryItems?.first(where: { $0.name == "context" })?.value,
             let selection = SelectionReader.fromBrowserExtension(word: word, context: context) else { continue }
+      ContextDebugLog.write("浏览器扩展提供的原句", word: selection.word, context: selection.context)
       capture(selection)
     }
   }
