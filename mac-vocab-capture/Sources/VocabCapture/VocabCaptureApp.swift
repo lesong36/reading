@@ -68,24 +68,42 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   private func makeMenu() -> NSMenu {
     let menu = NSMenu()
-    let hint = menu.addItem(withTitle: "选中英文后：\(currentShortcut.title) 或鼠标左右键一起按", action: nil, keyEquivalent: "")
+    let hint = menu.addItem(withTitle: "选中英文后即可查词", action: nil, keyEquivalent: "")
     hint.isEnabled = false
     menu.addItem(.separator())
-    menu.addItem(withTitle: "拾取当前选词  \(currentShortcut.title)", action: #selector(captureSelectionAction), keyEquivalent: "")
-    menu.addItem(withTitle: "截图 OCR 取词  ⌥⌘O", action: #selector(captureScreenTextAction), keyEquivalent: "")
-    menu.addItem(withTitle: "查看最近加入的单词", action: #selector(showRecentEntries), keyEquivalent: "")
-    menu.addItem(withTitle: "打开上下文调试日志", action: #selector(openContextDebugLog), keyEquivalent: "")
+    menu.addItem(withTitle: "查选中词    \(currentShortcut.title)", action: #selector(captureSelectionAction), keyEquivalent: "")
+    menu.addItem(withTitle: "截图取词    ⌥⌘O", action: #selector(captureScreenTextAction), keyEquivalent: "")
+    menu.addItem(.separator())
+    menu.addItem(withTitle: "最近加入的单词", action: #selector(showRecentEntries), keyEquivalent: "")
     menu.addItem(withTitle: "同步到阅读达人…", action: #selector(syncToReader), keyEquivalent: "")
     menu.addItem(.separator())
-    let mouseChordItem = menu.addItem(withTitle: "鼠标左右键同时按下拾词", action: #selector(toggleMouseChord), keyEquivalent: "")
-    mouseChordItem.state = mouseChordEnabled ? .on : .off
-    let floatingButtonItem = menu.addItem(withTitle: "拖选英文后显示“拾词”按钮", action: #selector(toggleFloatingButton), keyEquivalent: "")
-    floatingButtonItem.state = floatingButtonEnabled ? .on : .off
-    menu.addItem(withTitle: "设置拾词快捷键…", action: #selector(openShortcutSettings), keyEquivalent: "")
-    menu.addItem(withTitle: "AI 设置…", action: #selector(openSettings), keyEquivalent: ",")
+    menu.addItem(makeCaptureMethodMenu())
+    menu.addItem(withTitle: "AI 服务设置…", action: #selector(openSettings), keyEquivalent: ",")
+    menu.addItem(makeSupportMenu())
     menu.addItem(.separator())
     menu.addItem(withTitle: "退出拾词助手", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
     return menu
+  }
+
+  private func makeCaptureMethodMenu() -> NSMenuItem {
+    let item = NSMenuItem(title: "取词方式", action: nil, keyEquivalent: "")
+    let submenu = NSMenu(title: "取词方式")
+    let floating = submenu.addItem(withTitle: "拖选后显示“拾词”按钮", action: #selector(toggleFloatingButton), keyEquivalent: "")
+    floating.state = floatingButtonEnabled ? .on : .off
+    let mouseChord = submenu.addItem(withTitle: "左右键同时按下取词", action: #selector(toggleMouseChord), keyEquivalent: "")
+    mouseChord.state = mouseChordEnabled ? .on : .off
+    submenu.addItem(.separator())
+    submenu.addItem(withTitle: "设置拾词快捷键…", action: #selector(openShortcutSettings), keyEquivalent: "")
+    item.submenu = submenu
+    return item
+  }
+
+  private func makeSupportMenu() -> NSMenuItem {
+    let item = NSMenuItem(title: "帮助与诊断", action: nil, keyEquivalent: "")
+    let submenu = NSMenu(title: "帮助与诊断")
+    submenu.addItem(withTitle: "打开上下文调试日志", action: #selector(openContextDebugLog), keyEquivalent: "")
+    item.submenu = submenu
+    return item
   }
 
   @objc func captureSelectionAction() {
