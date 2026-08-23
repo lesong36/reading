@@ -38,6 +38,11 @@ enum SelectionReader {
       .compactMap { sentenceContext(in: $0) }
       .first(where: { isUsableSentence($0, containing: selection.word) }) ?? selection.context
     let selectionBounds = ancestors.lazy.compactMap { selectedTextBounds(in: $0) }.first
+    ContextDebugLog.write(
+      "辅助功能选区位置：\(selectionBounds.map { NSStringFromRect($0) } ?? "未提供")；祖先节点数：\(ancestors.count)",
+      word: selection.word
+    )
+    logAccessibilityAncestors(ancestors, word: selection.word)
     let context = isUsableSentence(directContext, containing: selection.word)
       ? directContext
       : selectionBounds.flatMap { nearbyTextSentence(in: Array(ancestors.prefix(5)), containing: selection.word, around: $0) } ?? selection.context
@@ -155,8 +160,14 @@ enum SelectionReader {
          text.range(of: word, options: [.caseInsensitive, .diacriticInsensitive]) != nil,
          let bounds = elementBounds(of: next.element) {
         let sentence = sentenceFromOCRText(text, containing: word)
+        let distance = rectangleDistance(from: selectionBounds, to: bounds)
+        ContextDebugLog.write(
+          "附近命中文本节点：角色 \(role(of: next.element))；距离 \(Int(distance))；句子有效 \(isUsableSentence(sentence, containing: word))",
+          word: word,
+          context: text
+        )
         if isUsableSentence(sentence, containing: word) {
-          candidates.append((sentence, rectangleDistance(from: selectionBounds, to: bounds)))
+          candidates.append((sentence, distance))
         }
       }
       guard next.depth < 6 else { continue }
@@ -166,9 +177,32 @@ enum SelectionReader {
         pending.append(contentsOf: children.map { ($0, next.depth + 1) })
       }
     }
-    return candidates.min { lhs, rhs in
+    let result = candidates.min { lhs, rhs in
       lhs.distance == rhs.distance ? lhs.sentence.count < rhs.sentence.count : lhs.distance < rhs.distance
     }?.sentence
+    ContextDebugLog.write("附近节点扫描结束：访问 \(visited) 个节点，完整句候选 \(candidates.count) 个", word: word, context: result)
+    return result
+  }
+
+  private static func logAccessibilityAncestors(_ ancestors: [AXUIElement], word: String) {
+    for (index, element) in ancestors.prefix(5).enumerated() {
+      var childrenValue: CFTypeRef?
+      let childCount: Int
+      if AXUIElementCopyAttributeValue(element, kAXChildrenAttribute as CFString, &childrenValue) == .success,
+         let children = childrenValue as? [AXUIElement] {
+        childCount = children.count
+      } else {
+        childCount = 0
+      }
+      ContextDebugLog.write("祖先节点 #\(index)：角色 \(role(of: element))；子节点 \(childCount)", word: word)
+    }
+  }
+
+  private static func role(of element: AXUIElement) -> String {
+    var roleValue: CFTypeRef?
+    guard AXUIElementCopyAttributeValue(element, kAXRoleAttribute as CFString, &roleValue) == .success,
+          let role = roleValue as? String else { return "未知" }
+    return role
   }
 
   private static func elementBounds(of element: AXUIElement) -> CGRect? {
