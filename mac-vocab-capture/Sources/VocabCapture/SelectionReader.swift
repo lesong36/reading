@@ -111,13 +111,7 @@ enum SelectionReader {
     // small neighborhood around the selection, never for the whole document.
     var neighborhood = CFRange(location: max(0, range.location - 360), length: range.length + 720)
     guard let neighborhoodValue = AXValueCreate(.cfRange, &neighborhood) else { return nil }
-    var parameterizedText: CFTypeRef?
-    guard AXUIElementCopyParameterizedAttributeValue(
-      element,
-      kAXStringForRangeParameterizedAttribute as CFString,
-      neighborhoodValue,
-      &parameterizedText
-    ) == .success, let text = parameterizedText as? String else { return nil }
+    guard let text = textForRange(in: element, rangeValue: neighborhoodValue) else { return nil }
     let relativeRange = CFRange(location: max(0, range.location - neighborhood.location), length: range.length)
     return sentence(in: text, selectedRange: relativeRange)
   }
@@ -135,13 +129,7 @@ enum SelectionReader {
     guard AXValueGetValue(axRange, .cfRange, &range), range.location != kCFNotFound else { return nil }
     range.length = min(range.length, 4_000)
     guard let visibleRange = AXValueCreate(.cfRange, &range) else { return nil }
-    var textValue: CFTypeRef?
-    guard AXUIElementCopyParameterizedAttributeValue(
-      element,
-      kAXStringForRangeParameterizedAttribute as CFString,
-      visibleRange,
-      &textValue
-    ) == .success, let text = textValue as? String,
+    guard let text = textForRange(in: element, rangeValue: visibleRange),
       text.range(of: word, options: [.caseInsensitive, .diacriticInsensitive]) != nil else { return nil }
     return sentenceFromOCRText(text, containing: word)
   }
@@ -153,14 +141,14 @@ enum SelectionReader {
     var pending: [(element: AXUIElement, depth: Int)] = [(root, 0)]
     var candidates: [String] = []
     var visited = 0
-    while let next = pending.popLast(), visited < 420 {
+    while let next = pending.popLast(), visited < 800 {
       visited += 1
       if let text = readableText(in: next.element), text.count > word.count,
          text.range(of: word, options: [.caseInsensitive, .diacriticInsensitive]) != nil {
         let sentence = sentenceFromOCRText(text, containing: word)
         if sentence.count > word.count { candidates.append(sentence) }
       }
-      guard next.depth < 3 else { continue }
+      guard next.depth < 6 else { continue }
       var childrenValue: CFTypeRef?
       if AXUIElementCopyAttributeValue(next.element, kAXChildrenAttribute as CFString, &childrenValue) == .success,
          let children = childrenValue as? [AXUIElement] {
@@ -171,11 +159,35 @@ enum SelectionReader {
   }
 
   private static func readableText(in element: AXUIElement) -> String? {
-    var value: CFTypeRef?
-    guard AXUIElementCopyAttributeValue(element, kAXValueAttribute as CFString, &value) == .success,
-          let text = value as? String else { return nil }
-    let normalized = text.trimmingCharacters(in: .whitespacesAndNewlines)
-    return normalized.isEmpty || normalized.count > 8_000 ? nil : normalized
+    for attribute in [kAXValueAttribute, kAXTitleAttribute, kAXDescriptionAttribute] {
+      var value: CFTypeRef?
+      guard AXUIElementCopyAttributeValue(element, attribute as CFString, &value) == .success,
+            let text = value as? String else { continue }
+      let normalized = text.trimmingCharacters(in: .whitespacesAndNewlines)
+      if !normalized.isEmpty, normalized.count <= 8_000 { return normalized }
+    }
+    return nil
+  }
+
+  private static func textForRange(in element: AXUIElement, rangeValue: AXValue) -> String? {
+    var textValue: CFTypeRef?
+    if AXUIElementCopyParameterizedAttributeValue(
+      element,
+      kAXStringForRangeParameterizedAttribute as CFString,
+      rangeValue,
+      &textValue
+    ) == .success, let text = textValue as? String {
+      return text
+    }
+    if AXUIElementCopyParameterizedAttributeValue(
+      element,
+      kAXAttributedStringForRangeParameterizedAttribute as CFString,
+      rangeValue,
+      &textValue
+    ) == .success, let text = textValue as? NSAttributedString {
+      return text.string
+    }
+    return nil
   }
 
   private static func sentence(in text: String, selectedRange: CFRange) -> String? {
