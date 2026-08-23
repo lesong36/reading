@@ -3532,6 +3532,8 @@
       const [guidedTranslationDraft, setGuidedTranslationDraft] = useState({});
       const [guidedShowTranslation, setGuidedShowTranslation] = useState({});
       const [mainPracticeDrops, setMainPracticeDrops] = useState({});
+      const [modifierPracticeDrops, setModifierPracticeDrops] = useState({});
+      const [logicPracticeDrops, setLogicPracticeDrops] = useState({});
       
       // Sentence workbench tabs.  Keep quiz mode separate because it also
       // changes how the passage supports locating evidence for an answer.
@@ -3594,6 +3596,8 @@
         setGuidedTranslationDraft({});
         setGuidedShowTranslation({});
         setMainPracticeDrops({});
+        setModifierPracticeDrops({});
+        setLogicPracticeDrops({});
         setRightPanelTab('analysis');
       }, [selectedSentence]);
 
@@ -7493,7 +7497,7 @@
                                         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
                                           <p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">可用词块</p>
                                           <div className="flex flex-wrap gap-2">
-                                            {(selectedSentence.segments || []).map((segment, index) => !droppedIndexes.includes(index) && segment.type !== 'conjunction' && (
+                                            {(selectedSentence.segments || []).map((segment, index) => !droppedIndexes.includes(index) && (
                                               <button key={index} type="button" draggable onDragStart={event => event.dataTransfer.setData('text/plain', String(index))} className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-base font-semibold text-slate-800 shadow-sm hover:border-indigo-400 cursor-grab active:cursor-grabbing">{segment.text.trim()}</button>
                                             ))}
                                           </div>
@@ -7568,96 +7572,39 @@
                                     )}
 
                                     {/* ── Step 3: 修饰小贴纸 ── */}
-                                    {voiceLessonStepIndex === 1 && (
-                                      <div className="animate-in fade-in duration-300 space-y-5">
-                                        {/* 模板框架：通用概念 */}
-                                        <div className="rounded-3xl border border-slate-100 bg-white/80 p-5">
-                                          <p className="text-sm font-extrabold uppercase tracking-wider text-slate-500 mb-3">修饰小贴纸有哪些类型？</p>
-                                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-xs font-semibold text-slate-600">
-                                            {[['🏠','介宾短语','贴在名词旁（修饰名词）或动词旁（修饰动作）'],['🎨','形容词/短语','贴在名词上，说明"什么样"'],['⚡','副词/短语','贴在动词/形容词上，说明"怎么做"'],['🔗','定语从句','who/which/that，贴在名词后打补丁'],['📦','同位语从句','that引导，解释抽象名词内容'],['🌐','状语从句','when/because/if，修饰整个动作']].map(([icon,name,tip]) => (
-                                              <div key={name} className="rounded-xl bg-amber-50/60 border border-amber-100 px-3 py-2.5">
-                                                <span className="mr-1">{icon}</span><b className="text-sm">{name}</b>
-                                                <div className="text-slate-500 font-medium text-xs mt-1">{tip}</div>
-                                              </div>
-                                            ))}
-                                          </div>
-                                        </div>
-                                        {/* 应用：这句的修饰语 */}
-                                        {(() => {
-                                          const modifiers = (selectedSentence.segments || []).filter(s => ['modifier', 'adverbial'].includes(s.type));
-                                          const clauses = (selectedSentence.segments || []).filter(s => s.type.startsWith('clause') && s.type !== 'conjunction');
-                                          if (modifiers.length === 0 && clauses.length === 0) {
-                                            return <div className="rounded-3xl border border-dashed border-amber-200 bg-amber-50/30 p-5 text-center text-amber-800 font-medium text-sm">✨ 这句没有复杂修饰成分，结构非常清爽。</div>;
-                                          }
-                                          return (
-                                            <div className="space-y-3">
-                                              {modifiers.map((mod, idx) => (
-                                                <div key={idx} className="bg-amber-50/70 border border-dashed border-amber-200 rounded-3xl p-4 shadow-sm flex items-start gap-3">
-                                                  <span className="mt-0.5 p-1.5 bg-amber-100 text-amber-700 rounded-xl font-bold text-xs shrink-0 flex items-center gap-1">
-                                                    <Tag className="w-3.5 h-3.5" /> 贴纸
-                                                  </span>
-                                                  <div>
-                                                    <span className="text-xl font-extrabold text-amber-950 bg-white/80 px-3 py-1 rounded-lg border border-amber-100 inline-block mb-1.5">{mod.text}</span>
-                                                    <p className="text-sm text-amber-800 font-semibold leading-relaxed">{mod.label || '修饰说明'}</p>
-                                                  </div>
-                                                </div>
-                                              ))}
-                                              {clauses.map((cls, idx) => (
-                                                <div key={idx} className="bg-purple-50/70 border border-dashed border-purple-200 rounded-3xl p-4 shadow-sm flex items-start gap-3">
-                                                  <span className="mt-0.5 p-1.5 bg-purple-100 text-purple-700 rounded-xl font-bold text-xs shrink-0 flex items-center gap-1">
-                                                    <BookOpen className="w-3.5 h-3.5" /> 从句
-                                                  </span>
-                                                  <div>
-                                                    <span className="text-xl font-extrabold text-purple-950 bg-white/80 px-3 py-1 rounded-lg border border-purple-100 inline-block mb-1.5">{cls.text}</span>
-                                                    <p className="text-xs text-purple-800 font-semibold leading-relaxed">{cls.label || '补充信息'}</p>
-                                                  </div>
-                                                </div>
-                                              ))}
-                                            </div>
-                                          );
-                                        })()}
-                                        <AiPoints />
-                                      </div>
-                                    )}
+                                    {voiceLessonStepIndex === 1 && (() => {
+                                      const segments = selectedSentence.segments || [];
+                                      const modifiers = segments.map((seg, index) => ({ seg, index })).filter(({ seg }) => ['modifier', 'adverbial'].includes(seg.type));
+                                      const targets = segments.map((seg, index) => ({ seg, index })).filter(({ seg }) => ['subject', 'verb', 'object', 'predicative', 'coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'].includes(seg.type));
+                                      const drops = modifierPracticeDrops[selectedSentence.id] || {};
+                                      const dropped = Object.values(drops).flat();
+                                      const put = (targetIndex, sourceIndex) => setModifierPracticeDrops(prev => ({ ...prev, [selectedSentence.id]: { ...(prev[selectedSentence.id] || {}), [targetIndex]: [...((prev[selectedSentence.id] || {})[targetIndex] || []), sourceIndex] }}));
+                                      return <div className="animate-in fade-in duration-300 space-y-5">
+                                        <div><h4 className="text-xl font-black text-slate-900">挂修饰语</h4><p className="mt-1 text-sm text-slate-500">把修饰成分拖到它说明的词或主干上。</p></div>
+                                        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4"><p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">可用词块（整句）</p><div className="flex flex-wrap gap-2">{segments.map((seg, index) => <span key={index} draggable={!dropped.includes(index)} onDragStart={event => event.dataTransfer.setData('text/plain', String(index))} className={`rounded-xl border px-3 py-2 text-base font-semibold ${dropped.includes(index) ? 'border-slate-100 bg-slate-100 text-slate-300' : 'cursor-grab border-slate-300 bg-white text-slate-800'}`}>{seg.text.trim()}</span>)}</div></div>
+                                        <div className="space-y-3">{targets.map(({ seg, index }) => <div key={index} onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); put(index, Number(event.dataTransfer.getData('text/plain'))); }} className="rounded-2xl border border-dashed border-amber-300 bg-amber-50/50 p-4"><p className="text-xs font-black text-amber-700">修饰谁？</p><p className="mt-1 text-lg font-black text-slate-900">{seg.text.trim()}</p><div className="mt-3 flex min-h-8 flex-wrap gap-2">{(drops[index] || []).map(sourceIndex => <span key={sourceIndex} className="rounded-lg bg-amber-200 px-2 py-1 text-sm font-bold text-amber-950">{segments[sourceIndex]?.text.trim()}</span>)}{!(drops[index] || []).length && <span className="text-sm text-amber-500">把贴纸拖到这里</span>}</div></div>)}</div>
+                                        {modifiers.length === 0 && <p className="text-sm text-slate-500">这句没有明显修饰语；仍可观察每个词块在主干中的位置。</p>}
+                                      </div>;
+                                    })()}
 
                                     {/* ── Step 4: 句子关系连接桥 ── */}
-                                    {voiceLessonStepIndex === 2 && (
-                                      <div className="animate-in fade-in duration-300 space-y-5">
-                                        {/* 模板框架：通用概念 */}
-                                        <div className="rounded-3xl border border-slate-100 bg-white/80 p-5">
-                                          <p className="text-sm font-extrabold uppercase tracking-wider text-slate-500 mb-3">句子之间的连接关系</p>
-                                          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs font-semibold text-slate-600">
-                                            {[['⚖️','并列 FANBOYS','for/and/nor/but/or/yet/so — 两列火车并肩跑'],['🏷️','定语从句','who/which/that — 挂在名词后打补丁'],['📖','同位语从句','that — 解释抽象名词内容'],['🌐','状语从句','when/because/if/although — 交代时间/原因/条件/让步']].map(([icon,name,tip]) => (
-                                              <div key={name} className="rounded-xl bg-sky-50/60 border border-sky-100 px-3 py-2.5">
-                                                <span className="mr-1">{icon}</span><b className="text-sm">{name}</b>
-                                                <div className="text-slate-500 font-medium text-xs mt-1">{tip}</div>
-                                              </div>
-                                            ))}
-                                          </div>
-                                        </div>
-                                        {/* 应用：这句的连接结构 */}
-                                        <div className="bg-gradient-to-r from-sky-50 to-indigo-50 border border-indigo-100 rounded-3xl p-5 shadow-sm space-y-3">
-                                          {selectedSentence.logicConnector ? (
-                                            <div className="p-4 bg-white/90 rounded-2xl border border-indigo-100 shadow-sm">
-                                              <p className="text-sm font-extrabold text-indigo-700 uppercase tracking-wider mb-2">🔗 连接词</p>
-                                              <div className="text-2xl font-black text-slate-900 bg-indigo-50/50 px-4 py-1.5 rounded-xl inline-block mb-2">{selectedSentence.logicConnector}</div>
-                                              <p className="text-sm text-slate-600 font-medium">它决定了两个主要部分之间的逻辑方向。</p>
-                                            </div>
-                                          ) : (
-                                            <div className="p-4 bg-white/90 rounded-2xl border border-sky-100 shadow-sm text-sm text-slate-600 font-medium">
-                                              🚂 无并列连接词 — 检查是否为单句或从句结构
-                                            </div>
-                                          )}
-                                          {(selectedSentence.segments || []).filter(s => s.type === 'conjunction').map((conj, i) => (
-                                            <div key={i} className="p-3 bg-white/80 rounded-2xl border border-sky-100 shadow-sm flex items-center gap-3 text-sm">
-                                              <span className="font-black text-sky-800 bg-sky-100 px-2 py-0.5 rounded-lg">{conj.text}</span>
-                                              <span className="text-slate-600 font-medium">{conj.label || '连接词'}</span>
-                                            </div>
-                                          ))}
-                                        </div>
-                                        <AiPoints />
-                                      </div>
-                                    )}
+                                    {voiceLessonStepIndex === 2 && (() => {
+                                      const segments = selectedSentence.segments || [];
+                                      const connectors = segments.map((seg, index) => ({ seg, index })).filter(({ seg }) => seg.type === 'conjunction' || /\b(and|but|or|so|because|if|when|although|while|that|which|who)\b/i.test(seg.text));
+                                      const clauses = [
+                                        { key: 'main', label: '主干 1', indexes: segments.map((seg, index) => ['subject', 'verb', 'object', 'predicative'].includes(seg.type) ? index : -1).filter(index => index >= 0) },
+                                        { key: 'coord', label: '主干 2 / 从句', indexes: segments.map((seg, index) => /^coord-|^clause-/.test(seg.type) ? index : -1).filter(index => index >= 0) }
+                                      ].filter(item => item.indexes.length);
+                                      const drops = logicPracticeDrops[selectedSentence.id] || {};
+                                      const dropped = Object.values(drops).flat();
+                                      const put = (target, index) => setLogicPracticeDrops(prev => ({ ...prev, [selectedSentence.id]: { ...(prev[selectedSentence.id] || {}), [target]: [...((prev[selectedSentence.id] || {})[target] || []), index] }}));
+                                      return <div className="animate-in fade-in duration-300 space-y-5">
+                                        <div><h4 className="text-xl font-black text-slate-900">连起逻辑</h4><p className="mt-1 text-sm text-slate-500">把连接词拖到两套主干之间；把从句拖到它所补充的主干上。</p></div>
+                                        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4"><p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">可用词块（整句）</p><div className="flex flex-wrap gap-2">{segments.map((seg,index) => <span key={index} draggable={!dropped.includes(index)} onDragStart={event => event.dataTransfer.setData('text/plain', String(index))} className={`rounded-xl border px-3 py-2 text-base font-semibold ${dropped.includes(index) ? 'border-slate-100 bg-slate-100 text-slate-300' : 'cursor-grab border-slate-300 bg-white text-slate-800'}`}>{seg.text.trim()}</span>)}</div></div>
+                                        <div className="space-y-3">{clauses.map((clause, index) => <React.Fragment key={clause.key}><div className="rounded-2xl border border-slate-200 bg-white p-4"><p className="text-xs font-black text-slate-400">{clause.label}</p><p className="mt-1 text-lg font-bold text-slate-900">{clause.indexes.map(i => segments[i].text.trim()).join(' ')}</p></div>{index < clauses.length - 1 && <div onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); put('between', Number(event.dataTransfer.getData('text/plain'))); }} className="rounded-xl border border-dashed border-sky-300 bg-sky-50 p-3 text-center"><span className="text-sm font-bold text-sky-700">{(drops.between || []).map(i => segments[i]?.text.trim()).join(' ') || '把连接词拖到两套主干之间'}</span></div>}</React.Fragment>)}</div>
+                                        {connectors.length === 0 && <p className="text-sm text-slate-500">这句没有明显连接词；可以把修饰性从句拖到相关主干旁，说明它补充谁。</p>}
+                                      </div>;
+                                    })()}
 
                                     {/* ── Step 5: 词组积累 ── */}
                                     {voiceLessonStepIndex === 4 && (
