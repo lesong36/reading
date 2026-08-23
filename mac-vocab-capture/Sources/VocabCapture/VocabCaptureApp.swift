@@ -439,8 +439,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
           return
         }
         let entry = try await store.add(word: contextualSelection.word, dictionary: result, context: contextualSelection.context)
+        ContextDebugLog.write("已写入本机生词本", word: entry.word)
         do {
           let result = try await self.syncVocabulary()
+          ContextDebugLog.write("云同步完成：新增/更新 \(result.uploadedCount) 个", word: entry.word)
           await MainActor.run {
             self.show("已同步到阅读达人", "\(entry.word) · \(entry.meaning)；本次新增/更新 \(result.uploadedCount) 个，云端共 \(result.totalCount) 个")
           }

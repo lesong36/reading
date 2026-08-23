@@ -11,6 +11,7 @@ struct AIConfiguration: Codable, Sendable {
 struct DictionaryClient {
   func lookup(_ selection: SelectedText, configuration: AIConfiguration) async throws -> DictionaryResult {
     guard configuration.isComplete else { throw VocabularyError.missingConfiguration }
+    let startedAt = Date()
     let url = URL(string: configuration.baseURL.trimmingCharacters(in: CharacterSet(charactersIn: "/")) + "/chat/completions")!
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
@@ -27,10 +28,12 @@ struct DictionaryClient {
     let body: [String: Any] = [
       "model": configuration.model,
       "temperature": 0.1,
+      "max_tokens": 120,
       "response_format": ["type": "json_object"],
       "messages": [["role": "user", "content": prompt]]
     ]
     request.httpBody = try JSONSerialization.data(withJSONObject: body)
+    ContextDebugLog.write("AI 查询开始", word: selection.word, context: selection.context)
     let (data, response) = try await URLSession.shared.data(for: request)
     guard let http = response as? HTTPURLResponse, 200..<300 ~= http.statusCode else {
       throw URLError(.badServerResponse)
@@ -40,7 +43,10 @@ struct DictionaryClient {
           let message = choices.first?["message"] as? [String: Any],
           let content = message["content"] as? String,
           let json = normalizedJSON(from: content)?.data(using: .utf8) else { throw VocabularyError.invalidAIResponse }
-    return try JSONDecoder().decode(DictionaryResult.self, from: json)
+    let result = try JSONDecoder().decode(DictionaryResult.self, from: json)
+    let milliseconds = Int(Date().timeIntervalSince(startedAt) * 1_000)
+    ContextDebugLog.write("AI 查询完成：\(milliseconds) ms", word: selection.word)
+    return result
   }
 
   private func normalizedJSON(from content: String) -> String? {
