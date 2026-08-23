@@ -390,7 +390,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     setStatus("词 ···")
     Task {
       do {
-        let contextualSelection = try await contextualSelection(for: selection)
+        let contextualSelection = try contextualSelection(for: selection)
         let result = try await dictionary.lookup(contextualSelection, configuration: configuration)
         let shouldAdd = await MainActor.run { self.confirmAdd(selection: contextualSelection, dictionary: result) }
         guard shouldAdd else {
@@ -416,14 +416,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
   }
 
-  private func contextualSelection(for selection: SelectedText) async throws -> SelectedText {
+  private func contextualSelection(for selection: SelectedText) throws -> SelectedText {
     let context = selection.context.trimmingCharacters(in: .whitespacesAndNewlines)
     guard context.caseInsensitiveCompare(selection.word) == .orderedSame else { return selection }
-    let image = try await ScreenContextCapture.capture(around: NSEvent.mouseLocation)
-    let screenText = try await OCRClient.recognize(image)
-    let sentence = SelectionReader.sentenceFromOCRText(screenText, containing: selection.word)
-    guard sentence.count > selection.word.count else { throw OCRCaptureError.noTextFound }
-    return SelectedText(word: selection.word, context: sentence)
+    throw VocabularyError.missingSentenceContext
   }
 
   private func confirmAdd(selection: SelectedText, dictionary: DictionaryResult) -> Bool {

@@ -67,12 +67,14 @@ struct VocabularyEntry: Codable, Identifiable, Sendable, Equatable {
 
 enum VocabularyError: LocalizedError {
   case invalidSelection
+  case missingSentenceContext
   case missingConfiguration
   case invalidAIResponse
 
   var errorDescription: String? {
     switch self {
     case .invalidSelection: "请先选中一个英文单词或短语。"
+    case .missingSentenceContext: "当前应用没有提供原句。请使用“截图 OCR 取词”，框选包含原句的区域后再选择词。"
     case .missingConfiguration: "请先在设置中配置 AI 服务。"
     case .invalidAIResponse: "AI 返回的词典数据格式不正确。"
     }
