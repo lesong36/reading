@@ -155,7 +155,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     alert.messageText = "在原文中选择词或词组"
     alert.informativeText = "单击一个词会导入该词；先点词组首词，再点末词，会把中间连续文字作为一个整体导入。"
     alert.accessoryView = picker
-    alert.addButton(withTitle: "翻译并加入")
+    alert.addButton(withTitle: "查看语境释义")
     alert.addButton(withTitle: "取消")
     guard alert.runModal() == .alertFirstButtonReturn else { return nil }
     guard !picker.selectedWords.isEmpty else {
@@ -170,25 +170,37 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     Task {
       var added: [VocabularyEntry] = []
       var failures = 0
+      var cancelled = 0
       for word in words {
         do {
           let selection = SelectedText(word: word, context: context)
           let result = try await dictionary.lookup(selection, configuration: configuration)
+          let shouldAdd = await MainActor.run { self.confirmAdd(selection: selection, dictionary: result) }
+          guard shouldAdd else {
+            cancelled += 1
+            continue
+          }
           added.append(try await store.add(word: word, dictionary: result, context: context))
         } catch {
           failures += 1
         }
       }
       guard !added.isEmpty else {
-        await MainActor.run { self.showFailure(title: "没有加入单词", "请检查 AI 服务设置后重试。") }
+        let message = failures > 0 ? "请检查 AI 服务设置后重试。" : "你没有确认加入任何单词。"
+        await MainActor.run { self.show("未加入生词本", message) }
         return
       }
       let addedCount = added.count
       let failureCount = failures
+      let cancelledCount = cancelled
       do {
         let result = try await syncVocabulary()
         await MainActor.run {
-          let suffix = failureCount == 0 ? "" : "；\(failureCount) 个未完成"
+          let parts = [
+            failureCount == 0 ? nil : "\(failureCount) 个未完成",
+            cancelledCount == 0 ? nil : "\(cancelledCount) 个已取消"
+          ].compactMap { $0 }
+          let suffix = parts.isEmpty ? "" : "；\(parts.joined(separator: "，"))"
           self.show("已同步到阅读达人", "已加入 \(addedCount) 个单词；本次新增/更新 \(result.uploadedCount) 个，云端共 \(result.totalCount) 个\(suffix)")
         }
       } catch SupabaseSyncError.notLoggedIn {
