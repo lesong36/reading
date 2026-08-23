@@ -131,19 +131,27 @@ enum SelectionReader {
 
     var range = CFRange()
     guard AXValueGetValue(axRange, .cfRange, &range), range.location != kCFNotFound else { return nil }
+    var candidates: [String] = []
     if AXUIElementCopyAttributeValue(element, kAXValueAttribute as CFString, &textValue) == .success,
-       let text = textValue as? String {
-      return sentence(in: text, selectedRange: range)
+       let text = textValue as? String,
+       let valueSentence = sentence(in: text, selectedRange: range) {
+      candidates.append(valueSentence)
     }
 
-    // Browsers and PDF readers often deliberately omit AXValue for large text,
-    // but still implement the parameterized range request. Ask only for the
-    // small neighborhood around the selection, never for the whole document.
+    // Safari can expose a selected phrase through a leaf whose AXValue starts
+    // after the beginning of its visual sentence. Its parameterized range is
+    // usually wider, so collect both forms and retain the fuller sentence.
+    // Browsers and PDF readers can omit AXValue entirely but still implement
+    // this small neighborhood request.
     var neighborhood = CFRange(location: max(0, range.location - 360), length: range.length + 720)
-    guard let neighborhoodValue = AXValueCreate(.cfRange, &neighborhood) else { return nil }
-    guard let text = textForRange(in: element, rangeValue: neighborhoodValue) else { return nil }
-    let relativeRange = CFRange(location: max(0, range.location - neighborhood.location), length: range.length)
-    return sentence(in: text, selectedRange: relativeRange)
+    if let neighborhoodValue = AXValueCreate(.cfRange, &neighborhood),
+       let text = textForRange(in: element, rangeValue: neighborhoodValue) {
+      let relativeRange = CFRange(location: max(0, range.location - neighborhood.location), length: range.length)
+      if let rangeSentence = sentence(in: text, selectedRange: relativeRange) {
+        candidates.append(rangeSentence)
+      }
+    }
+    return candidates.max(by: { $0.count < $1.count })
   }
 
   private static func selectedTextBounds(in element: AXUIElement) -> CGRect? {
