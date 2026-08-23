@@ -4517,20 +4517,6 @@
         return () => window.removeEventListener('keydown', handleSelectedPhraseLookup);
       }, [selectedSentence, currentArticleId, vocabBook, cloudBaseUrl, cloudApiKey]);
 
-      useEffect(() => {
-        const publishReaderContext = () => {
-          const hit = getSelectedLookupHit();
-          if (!hit?.word || !hit.contextSentenceText || hit.contextSentenceText.length <= hit.word.length) return;
-          fetch('http://127.0.0.1:38473/reader-context', {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-            body: JSON.stringify({ word: hit.word, context: hit.contextSentenceText })
-          }).catch(() => {});
-        };
-        document.addEventListener('selectionchange', publishReaderContext);
-        return () => document.removeEventListener('selectionchange', publishReaderContext);
-      }, [selectedSentence]);
-
       const quizLocatorPressTimerRef = useRef(null);
       const quizLocatorPressOriginRef = useRef(null);
 
