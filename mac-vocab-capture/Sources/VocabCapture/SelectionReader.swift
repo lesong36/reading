@@ -31,10 +31,11 @@ enum SelectionReader {
     guard AXUIElementCopyAttributeValue(element as! AXUIElement, kAXSelectedTextAttribute as CFString, &selectedText) == .success,
           let text = selectedText as? String else { return nil }
     guard let selection = sanitize(text) else { return nil }
-    let context = accessibleAncestors(startingAt: element as! AXUIElement)
+    let accessibilityContext = accessibleAncestors(startingAt: element as! AXUIElement)
       .lazy
       .compactMap { sentenceContext(in: $0) ?? visibleSentenceContext(in: $0, containing: selection.word) }
       .first(where: { $0.count > selection.context.count }) ?? selection.context
+    let context = ReaderContextBridge.shared.sentence(for: selection.word) ?? accessibilityContext
     return SelectedText(word: selection.word, context: context)
   }
 

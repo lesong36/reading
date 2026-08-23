@@ -51,6 +51,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     installHotKeyHandler()
     registerHotKey()
     installMouseChordIfNeeded()
+    ReaderContextBridge.shared.start()
   }
 
   private func makeMenu() -> NSMenu {
