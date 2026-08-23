@@ -31,6 +31,11 @@ const ANALYSIS_SYSTEM_PROMPT = `你是一款专业的英文长难句解析工具
      “Earth” coord-subject，“is” coord-verb，“a dynamic body” coord-predicative。
    - clause-* 只能用于确有从属关系的从句内部成分，不能用于主句、并列句、主语片段或谓语片段。
    - 定语从句/状语从句可分别使用 clause-*；非谓语、同位语、补足语和状语不得伪装成从句。
+2.3 【互动切分硬约束】segments 要服务“先搭最简主干，再把修饰语挂回去”的拖拽练习：
+   - 主语、宾语、表语中若带有定语、介词短语、同位语、非谓语或定语从句，必须把中心词/核心代词单独保留为 subject/object/predicative，把附加部分另拆为 modifier。
+   - 谓语中若带有时间、地点、方式、程度、原因等附加信息，核心动词单独为 verb；附加信息另拆为 adverbial。
+   - 从属子句内部也执行相同规则：先保留最简 clause-subject + clause-verb + clause-object/predicative，再拆 clause 内的 modifier/adverbial。
+   - 例如 "it engages in the most obvious example of aggressive behavior" 应将 it / engages in / example 分别作为主语、谓语、宾语；the most obvious 与 of aggressive behavior 作为 modifier。绝不能把带修饰的长名词短语整体放进 object。
 3. analysis 字段必须使用中文 Markdown 深度剖析，至少包含：
    ### 【主干结构】
    ### 【主谓一致】
