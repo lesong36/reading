@@ -3,16 +3,27 @@
   const phrasePattern = new RegExp(`^${token}(?:[\\s-]+${token}){0,11}$`);
 
   const clean = (value = '') => String(value).replace(/\s+/g, ' ').trim();
-  const sentenceForRange = (range) => {
-    const semanticRoot = (range.startContainer.nodeType === Node.ELEMENT_NODE
-      ? range.startContainer
-      : range.startContainer.parentElement)?.closest('p, li, blockquote, td, th, h1, h2, h3, h4, h5, h6, article, section, div') || document.body;
+  const textOffsetInDocument = (container, offset) => {
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let total = 0;
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node === container) return total + Math.min(offset, node.nodeValue.length);
+      total += node.nodeValue.length;
+    }
     const before = document.createRange();
-    before.selectNodeContents(semanticRoot);
-    before.setEnd(range.startContainer, range.startOffset);
-    const text = semanticRoot.textContent || '';
-    const startOffset = before.toString().length;
-    const endOffset = startOffset + range.toString().length;
+    before.selectNodeContents(document.body);
+    before.setEnd(container, offset);
+    return before.toString().length;
+  };
+
+  const sentenceForRange = (range) => {
+    // Use the text node that actually owns the browser selection. A nearest
+    // div may contain an entire article with repeated phrases, making offsets
+    // point to the wrong occurrence.
+    const text = document.body.textContent || '';
+    const startOffset = textOffsetInDocument(range.startContainer, range.startOffset);
+    const endOffset = textOffsetInDocument(range.endContainer, range.endOffset);
     const left = Math.max(
       text.lastIndexOf('.', Math.max(0, startOffset - 1)),
       text.lastIndexOf('!', Math.max(0, startOffset - 1)),
