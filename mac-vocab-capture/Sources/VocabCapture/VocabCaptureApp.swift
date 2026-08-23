@@ -313,9 +313,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             NSApp.modalWindow == nil,
             let start = selectionDragStart,
             hypot(location.x - start.x, location.y - start.y) >= minimumSelectionDragDistance else { return }
-      // The target app updates its accessibility selection after the mouse-up.
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) { [weak self] in
-        self?.showFloatingSelectionButtonIfNeeded()
+      // Safari commits a drag selection noticeably later than several native
+      // editors. Retry briefly instead of assuming the AX selection is ready
+      // on the first post-mouse-up turn.
+      [0.12, 0.28, 0.52].forEach { delay in
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+          self?.showFloatingSelectionButtonIfNeeded()
+        }
       }
       return
     }
@@ -339,6 +343,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private func showFloatingSelectionButtonIfNeeded() {
     guard floatingButtonEnabled,
           NSApp.modalWindow == nil,
+          floatingSelectionPanel == nil,
           let selection = SelectionReader.readFocusedSelection() else { return }
     floatingSelection = selection
     dismissFloatingSelectionButton(keepingSelection: true)
