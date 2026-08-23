@@ -1391,6 +1391,9 @@
       const grammarStep = buildGrammarStepTeaching(sentence, grammarPoints, segments);
       const modifierStep = buildModifierStepTeaching(sentence, modifierSegments, clauseSegments);
       const relationshipStep = buildRelationshipStepTeaching(sentence, clauseSegments);
+      const vocabularyTerms = normalizeGlossary(sentence.keyTerms || sentence.glossary || [])
+        .filter(term => term?.term)
+        .slice(0, 6);
 
       return [
         {
@@ -1409,23 +1412,8 @@
           displaySummary: `主干：${answerText || joinRoleSummary(subjectText, verbText, objectText)}`
         },
         {
-          key: 'grammar',
-          title: '再看核心语法',
-          prompt: grammarStep.prompt,
-          explanation: grammarStep.explanation,
-          coachLine: grammarStep.coachLine,
-          voiceSegments: grammarStep.voiceSegments,
-          focusLabel: grammarStep.focusLabel,
-          screenTitle: grammarStep.screenTitle,
-          screenPrompt: grammarStep.screenPrompt,
-          sentenceCardTitle: grammarStep.sentenceCardTitle,
-          sentenceCardLines: grammarStep.sentenceCardLines,
-          displayKeywords: makeKeywordList(`${verbText} ${subjectText} ${grammarPoints.join(' ')}`, ['谓语', '时间', '搭配']),
-          displaySummary: `谓语：${verbText || '核心动作'}`
-        },
-        {
           key: 'modifier',
-          title: '拆修饰语和从句',
+          title: '再挂修饰语',
           prompt: modifierStep.prompt,
           explanation: modifierStep.explanation,
           coachLine: modifierStep.coachLine,
@@ -1440,7 +1428,7 @@
         },
         {
           key: 'relationship',
-          title: '理顺句子关系',
+          title: '加入逻辑关系',
           prompt: relationshipStep.prompt,
           explanation: relationshipStep.explanation,
           coachLine: relationshipStep.coachLine,
@@ -1452,6 +1440,38 @@
           sentenceCardLines: relationshipStep.sentenceCardLines,
           displayKeywords: makeKeywordList(`${sentence.logicConnector || ''} ${sentence.pronounRef || ''} ${clauseText}`, ['主干', '补充', '连接']),
           displaySummary: sentence.logicConnector ? `小桥：${sentence.logicConnector}` : '主干 + 补充 + 连接'
+        },
+        {
+          key: 'grammar',
+          title: '检查语法信号',
+          prompt: grammarStep.prompt,
+          explanation: grammarStep.explanation,
+          coachLine: grammarStep.coachLine,
+          voiceSegments: grammarStep.voiceSegments,
+          focusLabel: grammarStep.focusLabel,
+          screenTitle: grammarStep.screenTitle,
+          screenPrompt: grammarStep.screenPrompt,
+          sentenceCardTitle: grammarStep.sentenceCardTitle,
+          sentenceCardLines: grammarStep.sentenceCardLines,
+          displayKeywords: makeKeywordList(`${verbText} ${subjectText} ${grammarPoints.join(' ')}`, ['谓语', '时间', '搭配']),
+          displaySummary: `谓语：${verbText || '核心动作'}`
+        },
+        {
+          key: 'vocabulary',
+          title: '积累重要搭配',
+          prompt: '最后只带走真正值得反复遇见的动词搭配、介词搭配或关键词组。',
+          explanation: vocabularyTerms.length
+            ? `这句优先积累：${vocabularyTerms.map(term => term.term).join('、')}。`
+            : '双击原句里的词，或选中一个词组后按方向键，查看释义并决定是否加入生词本。',
+          coachLine: '不要每个词都收藏；只留下会妨碍理解，或值得在别处再次认出的搭配。',
+          voiceSegments: [],
+          focusLabel: '把值得记住的内容带走',
+          screenTitle: '把词组收进生词本',
+          screenPrompt: '优先记搭配，不只记孤立单词。',
+          sentenceCardTitle: '本句积累',
+          sentenceCardLines: vocabularyTerms.length ? vocabularyTerms.map(term => `${term.term}${term.translation ? `：${term.translation}` : ''}`) : ['选中一个重要词或词组，再决定是否加入生词本。'],
+          displayKeywords: vocabularyTerms.map(term => term.term),
+          displaySummary: vocabularyTerms.length ? `积累：${vocabularyTerms.map(term => term.term).join(' · ')}` : '选出值得记住的搭配'
         }
       ];
     };
@@ -2216,7 +2236,22 @@
       return mergeSavedArticles([], bundles.flat());
     };
 
-    const normalizeVocabBook = (vocab = []) => Array.isArray(vocab) ? vocab : [];
+    // Keep the reader's book on the same identity rule as VocabMaster:
+    // surrounding whitespace and casing never make a second vocabulary word.
+    const normalizeVocabBook = (vocab = []) => {
+      const byKey = new Map();
+      (Array.isArray(vocab) ? vocab : []).forEach(entry => {
+        if (!entry || typeof entry.word !== 'string') return;
+        const word = entry.word.trim();
+        const key = word.toLowerCase();
+        if (!key) return;
+        const existing = byKey.get(key);
+        if (!existing || (entry.timestamp || 0) >= (existing.timestamp || 0)) {
+          byKey.set(key, { ...entry, word });
+        }
+      });
+      return Array.from(byKey.values()).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+    };
     const getVocabKey = (word = {}) => String(word?.word || word?.id || '').trim().toLowerCase();
     const normalizeDeletedVocabKeys = (keys = []) => Array.from(new Set(
       (Array.isArray(keys) ? keys : []).map(key => String(key || '').trim().toLowerCase()).filter(Boolean)
@@ -3497,8 +3532,9 @@
       const [guidedTranslationDraft, setGuidedTranslationDraft] = useState({});
       const [guidedShowTranslation, setGuidedShowTranslation] = useState({});
       
-      // Right Panel Tab State ("analysis" | "ai")
-      const [rightPanelTab, setRightPanelTab] = useState('guided');
+      // Sentence workbench tabs.  Keep quiz mode separate because it also
+      // changes how the passage supports locating evidence for an answer.
+      const [rightPanelTab, setRightPanelTab] = useState('analysis');
 
       // AI Feature States
       const [simplifiedSentence, setSimplifiedSentence] = useState("");
@@ -3556,7 +3592,7 @@
         setGuidedWordGuess({});
         setGuidedTranslationDraft({});
         setGuidedShowTranslation({});
-        setRightPanelTab('guided'); 
+        setRightPanelTab('analysis');
       }, [selectedSentence]);
 
       useEffect(() => {
@@ -4778,7 +4814,8 @@
 
       // --- Vocab / Dictionary Logic ---
       const handleAddWordToVocab = async (word, contextSentenceText, dictionary = null) => {
-        if (vocabBook.some(v => v.word === word)) return; 
+        const wordKey = getVocabKey({ word });
+        if (!wordKey || vocabBook.some(v => getVocabKey(v) === wordKey)) return;
         restoreVocabKeys([getVocabKey({ word })]);
         setAddingWordId(word);
         setActiveAiTask('vocab');
@@ -4786,7 +4823,7 @@
         try {
           if (dictionary?.meaning) {
             const generateId = () => window.crypto?.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15);
-            setVocabBook(prev => [{
+            setVocabBook(prev => normalizeVocabBook([{
               id: generateId(),
               word,
               meaning: dictionary.meaning,
@@ -4800,7 +4837,7 @@
               sourceArticleTitle: currentArticleTitle || '',
               addedAt: new Date().toLocaleDateString(),
               timestamp: Date.now()
-            }, ...prev]);
+            }, ...prev]));
             setToastMessage(`✅ 已加入生词本: ${word}`);
             return;
           }
@@ -4840,7 +4877,7 @@
             timestamp: Date.now()
           };
 
-          setVocabBook(prev => [newWordEntry, ...prev]);
+          setVocabBook(prev => normalizeVocabBook([newWordEntry, ...prev]));
           setToastMessage(`✅ 成功添加生词: ${word}`);
         } catch (error) {
           console.error(error);
@@ -4996,12 +5033,11 @@
               setVocabBook(prev => {
                 const newDict = [...prev];
                 importedData.forEach(newWord => {
-                  if(!newDict.some(w => w.word === newWord.word)) {
+                  if(!newDict.some(w => getVocabKey(w) === getVocabKey(newWord))) {
                     newDict.push(newWord);
                   }
                 });
-                newDict.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-                return newDict;
+                return normalizeVocabBook(newDict);
               });
               setToastMessage(`✅ 成功导入了 ${importedData.length} 个单词记录！`);
             } else {
@@ -6936,50 +6972,42 @@
                   {/* Main Analysis Panel (去除底色框，采用纯白画板) */}
                   <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex-grow sticky top-6 flex flex-col" style={{ maxHeight: 'calc(100vh - 48px)' }}>
                     
-                    {/* One calm toolbar: analysis is the default, while AI and quiz are deliberate actions. */}
+                    {/* The right side is a stable workbench, not a set of scattered actions. */}
                     <div className="bg-white px-5 md:px-6 py-4 border-b border-slate-100 shrink-0">
-                      <div className="flex items-center justify-between gap-3">
-                        <h2 className="font-bold text-slate-800 flex items-center gap-2">
-                          {articleStudyMode === 'quiz'
-                            ? <MousePointerClick className="w-5 h-5 text-indigo-500" />
-                            : rightPanelTab === 'ai'
-                              ? <MessageSquare className="w-5 h-5 text-indigo-500" />
-                              : <Search className="w-5 h-5 text-indigo-500" />}
-                          {articleStudyMode === 'quiz' ? '练习' : rightPanelTab === 'ai' ? 'AI 助教' : '句子解析'}
-                        </h2>
-                        <div className="flex items-center gap-2">
-                          {articleStudyMode === 'read' && rightPanelTab === 'ai' && (
-                            <button
-                              onClick={() => setRightPanelTab('guided')}
-                              className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-50"
-                            >
-                              <FileText className="w-4 h-4" /> 返回解析
-                            </button>
-                          )}
-                          {articleStudyMode === 'read' && rightPanelTab !== 'ai' && (
-                            <button
-                              onClick={() => setRightPanelTab('ai')}
-                              className="inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-semibold text-slate-500 transition-colors hover:bg-slate-50 hover:text-indigo-600"
-                            >
-                              <MessageSquare className="w-4 h-4" /> <span className="hidden sm:inline">问 AI</span>
-                            </button>
-                          )}
-                          {articleStudyMode === 'read' && hasQuizQuestions && (
-                            <button
-                              onClick={() => setArticleStudyMode('quiz')}
-                              className="inline-flex items-center gap-1.5 rounded-xl bg-indigo-600 px-3.5 py-2 text-sm font-bold text-white shadow-sm transition-colors hover:bg-indigo-700"
-                            >
-                              <MousePointerClick className="w-4 h-4" /> 做题
-                            </button>
-                          )}
-                          {articleStudyMode === 'quiz' && (
-                            <button
-                              onClick={() => setArticleStudyMode('read')}
-                              className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-50"
-                            >
-                              <BookOpen className="w-4 h-4" /> 返回解析
-                            </button>
-                          )}
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                          <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-400">阅读工作区</p>
+                          <h2 className="mt-1 font-bold text-slate-800">跟着原句一步步读懂</h2>
+                        </div>
+                        <div className="flex rounded-2xl bg-slate-100 p-1.5" role="tablist" aria-label="阅读工作区">
+                          {[
+                            { key: 'analysis', label: '句子解析', icon: Search },
+                            { key: 'quiz', label: '做题', icon: MousePointerClick },
+                            { key: 'ai', label: '问 AI', icon: MessageSquare }
+                          ].map(({ key, label, icon: Icon }) => {
+                            const active = key === 'quiz' ? articleStudyMode === 'quiz' : articleStudyMode === 'read' && rightPanelTab === key;
+                            return (
+                              <button
+                                key={key}
+                                type="button"
+                                role="tab"
+                                aria-selected={active}
+                                onClick={() => {
+                                  if (key === 'quiz') {
+                                    setArticleStudyMode('quiz');
+                                  } else {
+                                    setArticleStudyMode('read');
+                                    setRightPanelTab(key);
+                                  }
+                                }}
+                                className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-bold transition-all sm:px-4 ${
+                                  active ? 'bg-white text-indigo-700 shadow-sm' : 'text-slate-500 hover:text-slate-800'
+                                }`}
+                              >
+                                <Icon className="h-4 w-4" /> {label}
+                              </button>
+                            );
+                          })}
                         </div>
                       </div>
                       {articleStudyMode === 'quiz' && (
@@ -7382,8 +7410,8 @@
                                         : 'bg-white text-slate-700 border border-sky-100 hover:bg-sky-50'
                                     }`}
                                   >
-                                    <span className="text-xl">{idx === 0 ? '🚂' : idx === 1 ? '🔍' : idx === 2 ? '🏷️' : '🌉'}</span>
-                                    Step {idx + 1}: {voiceLessonPlan[idx]?.title}
+                                    <span className="text-xl">{['🚂', '🏷️', '🌉', '🔍', '📚'][idx] || '•'}</span>
+                                    第 {idx + 1} 步：{voiceLessonPlan[idx]?.title}
                                   </button>
                                 ))}
                               </div>
@@ -7394,7 +7422,7 @@
                                 const verbSegs = (selectedSentence.segments || []).filter(s => s.type === 'verb');
                                 const objectSegs = (selectedSentence.segments || []).filter(s => ['object', 'predicative'].includes(s.type));
                                 const scriptStep = selectedSentence.teachingScript
-                                  ? [selectedSentence.teachingScript.main, selectedSentence.teachingScript.grammar, selectedSentence.teachingScript.modifier, selectedSentence.teachingScript.relationship][voiceLessonStepIndex]
+                                  ? selectedSentence.teachingScript[voiceLessonPlan[voiceLessonStepIndex]?.key]
                                   : null;
 
                                 // AI 要点区：仅 keywords + rhyme + methodTip
@@ -7578,7 +7606,7 @@
                                     )}
 
                                     {/* ── Step 2: 语法放大镜 ── */}
-                                    {voiceLessonStepIndex === 1 && (
+                                    {voiceLessonStepIndex === 3 && (
                                       <div className="animate-in fade-in duration-300 space-y-5">
                                         {/* 模板框架：通用概念 */}
                                         <div className="rounded-3xl border border-slate-100 bg-white/80 p-5">
@@ -7632,7 +7660,7 @@
                                     )}
 
                                     {/* ── Step 3: 修饰小贴纸 ── */}
-                                    {voiceLessonStepIndex === 2 && (
+                                    {voiceLessonStepIndex === 1 && (
                                       <div className="animate-in fade-in duration-300 space-y-5">
                                         {/* 模板框架：通用概念 */}
                                         <div className="rounded-3xl border border-slate-100 bg-white/80 p-5">
@@ -7685,7 +7713,7 @@
                                     )}
 
                                     {/* ── Step 4: 句子关系连接桥 ── */}
-                                    {voiceLessonStepIndex === 3 && (
+                                    {voiceLessonStepIndex === 2 && (
                                       <div className="animate-in fade-in duration-300 space-y-5">
                                         {/* 模板框架：通用概念 */}
                                         <div className="rounded-3xl border border-slate-100 bg-white/80 p-5">
@@ -7720,6 +7748,36 @@
                                           ))}
                                         </div>
                                         <AiPoints />
+                                      </div>
+                                    )}
+
+                                    {/* ── Step 5: 词组积累 ── */}
+                                    {voiceLessonStepIndex === 4 && (
+                                      <div className="animate-in fade-in duration-300 space-y-5">
+                                        <div className="rounded-3xl border border-emerald-100 bg-emerald-50/50 p-5">
+                                          <p className="text-sm font-extrabold uppercase tracking-wider text-emerald-700">只收下值得再遇见的搭配</p>
+                                          <p className="mt-2 text-sm leading-6 text-slate-600">优先选“动词 + 介词 / 宾语”、固定表达和影响理解的关键词组；不需要把每个陌生词都塞进生词本。</p>
+                                        </div>
+                                        {(() => {
+                                          const terms = normalizeGlossary(selectedSentence.keyTerms || selectedSentence.glossary || []).filter(term => term?.term).slice(0, 6);
+                                          return terms.length ? (
+                                            <div className="grid gap-3 sm:grid-cols-2">
+                                              {terms.map((term, index) => (
+                                                <div key={`${term.term}-${index}`} className="rounded-2xl border border-emerald-100 bg-white p-4 shadow-sm">
+                                                  <p className="text-lg font-black text-slate-900">{term.term}</p>
+                                                  <p className="mt-1 text-sm leading-6 text-slate-600">{term.translation || term.note || '结合原句记住它的用法。'}</p>
+                                                  <button type="button" onClick={() => handleAddWordToVocab(term.term, selectedSentence.text, { meaning: term.translation, note: term.note })} className="mt-3 rounded-xl bg-emerald-600 px-3 py-2 text-xs font-black text-white hover:bg-emerald-700">
+                                                    加入生词本
+                                                  </button>
+                                                </div>
+                                              ))}
+                                            </div>
+                                          ) : (
+                                            <div className="rounded-3xl border border-dashed border-emerald-200 bg-white p-6 text-center text-sm leading-7 text-slate-600">
+                                              双击原句里的词，或选中一个词组后按方向键，即可查释义并决定是否加入生词本。
+                                            </div>
+                                          );
+                                        })()}
                                       </div>
                                     )}
                                   </React.Fragment>
