@@ -44,6 +44,15 @@ open build/拾词助手.app
 - 应用只从 `~/Applications/拾词助手.app` 启动；构建产物会在安装后删除，避免启动台发现多个历史副本。
 - 发布脚本会自动使用钥匙串中的 Apple Development 证书；也可通过 `VOCAB_CAPTURE_SIGNING_IDENTITY` 指定签名身份。这是跨版本稳定保留 macOS 辅助功能授权的正式发布方案。
 
+## 安装发布包
+
+从 GitHub Releases 下载同一版本的两个附件：
+
+- `拾词助手-<版本>-macOS.zip`：解压后把“拾词助手”拖入“应用程序”或 `~/Applications`，再打开一次；首次使用按提示授予“辅助功能”权限。
+- `拾词助手-网页取句扩展.zip`：解压后，在 Edge 的 `edge://extensions` 或 Chrome 的 `chrome://extensions` 中打开“开发人员模式”，选择“加载解压缩的扩展”，并选择解压后的文件夹。
+
+网页扩展仅将当前选区及其所在句短暂传给本机的拾词助手，不会上传网页内容。
+
 首次使用时，在菜单栏图标中配置 API Base URL、模型与 Key（Key 保存到 macOS Keychain）；随后在「系统设置 → 隐私与安全性 → 辅助功能」授予“拾词助手”权限。
 
 截图 OCR 使用 macOS 自带的区域截图工具，再在本机通过 macOS Vision OCR 识别；仅确认后的单词和必要语境会发送给 AI。
