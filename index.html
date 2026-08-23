@@ -1942,11 +1942,12 @@
       './data/generated-reader-json/reader-articles-re-foundations.import.json',
       './data/generated-reader-json/reader-articles-shiwen.import.json'
     ];
-    // v31 repairs clients that had a seed marker despite an incomplete OPFS
+    // v33 restores the verified RFD1–3 classroom quiz bank after a bundle
+    // rebuild omitted it. A new seed version makes existing clients reload it.
     // library. A marker alone is not proof that all curriculum bundles
     // reached the device.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v32';
-    const BUNDLED_LIBRARY_SEED_VERSION = '32';
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v33';
+    const BUNDLED_LIBRARY_SEED_VERSION = '33';
     const EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT = 323;
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
