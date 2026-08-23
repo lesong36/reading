@@ -34,11 +34,12 @@ enum SelectionReader {
     let ancestors = accessibleAncestors(startingAt: element as! AXUIElement)
     let directContext = ancestors
       .lazy
-      .compactMap { sentenceContext(in: $0) ?? visibleSentenceContext(in: $0, containing: selection.word) }
+      .compactMap { sentenceContext(in: $0) }
       .first(where: { isUsableSentence($0, containing: selection.word) }) ?? selection.context
+    let selectionBounds = ancestors.lazy.compactMap { selectedTextBounds(in: $0) }.first
     let context = isUsableSentence(directContext, containing: selection.word)
       ? directContext
-      : ancestors.prefix(5).lazy.compactMap { nearbyTextSentence(in: $0, containing: selection.word) }.first ?? selection.context
+      : selectionBounds.flatMap { nearbyTextSentence(in: Array(ancestors.prefix(5)), containing: selection.word, around: $0) } ?? selection.context
     return SelectedText(word: selection.word, context: context)
   }
 
@@ -116,37 +117,41 @@ enum SelectionReader {
     return sentence(in: text, selectedRange: relativeRange)
   }
 
-  /// Chromium can expose the selected text on a leaf but only expose the page's
-  /// visible text on its AXWebArea ancestor. Use that visible text as a final
-  /// contextual source when its selected range is unavailable.
-  private static func visibleSentenceContext(in element: AXUIElement, containing word: String) -> String? {
+  private static func selectedTextBounds(in element: AXUIElement) -> CGRect? {
     var rangeValue: CFTypeRef?
-    guard AXUIElementCopyAttributeValue(element, kAXVisibleCharacterRangeAttribute as CFString, &rangeValue) == .success,
+    guard AXUIElementCopyAttributeValue(element, kAXSelectedTextRangeAttribute as CFString, &rangeValue) == .success,
           let rangeValue,
           CFGetTypeID(rangeValue) == AXValueGetTypeID() else { return nil }
-    var range = CFRange()
-    let axRange = unsafeBitCast(rangeValue, to: AXValue.self)
-    guard AXValueGetValue(axRange, .cfRange, &range), range.location != kCFNotFound else { return nil }
-    range.length = min(range.length, 4_000)
-    guard let visibleRange = AXValueCreate(.cfRange, &range) else { return nil }
-    guard let text = textForRange(in: element, rangeValue: visibleRange),
-      text.range(of: word, options: [.caseInsensitive, .diacriticInsensitive]) != nil else { return nil }
-    return sentenceFromOCRText(text, containing: word)
+    var boundsValue: CFTypeRef?
+    guard AXUIElementCopyParameterizedAttributeValue(
+      element,
+      kAXBoundsForRangeParameterizedAttribute as CFString,
+      rangeValue,
+      &boundsValue
+    ) == .success, let boundsValue,
+      CFGetTypeID(boundsValue) == AXValueGetTypeID() else { return nil }
+    let axBounds = unsafeBitCast(boundsValue, to: AXValue.self)
+    var bounds = CGRect.zero
+    return AXValueGetValue(axBounds, .cgRect, &bounds) ? bounds : nil
   }
 
   /// Some browsers expose a selection through a small leaf node but represent
-  /// the actual sentence as a sibling AXStaticText. Search only the nearby
-  /// accessibility subtree, never the entire application or clipboard.
-  private static func nearbyTextSentence(in root: AXUIElement, containing word: String) -> String? {
-    var pending: [(element: AXUIElement, depth: Int)] = [(root, 0)]
-    var candidates: [String] = []
+  /// its sentence as a sibling AXStaticText. Select the matching sentence
+  /// nearest the selected range, never merely the first matching word.
+  private static func nearbyTextSentence(in roots: [AXUIElement], containing word: String, around selectionBounds: CGRect) -> String? {
+    var pending = roots.map { (element: $0, depth: 0) }
+    var candidates: [(sentence: String, distance: CGFloat)] = []
     var visited = 0
     while let next = pending.popLast(), visited < 800 {
       visited += 1
       if let text = readableText(in: next.element), text.count > word.count,
-         text.range(of: word, options: [.caseInsensitive, .diacriticInsensitive]) != nil {
+         text.count <= 1_500,
+         text.range(of: word, options: [.caseInsensitive, .diacriticInsensitive]) != nil,
+         let bounds = elementBounds(of: next.element) {
         let sentence = sentenceFromOCRText(text, containing: word)
-        if isUsableSentence(sentence, containing: word) { candidates.append(sentence) }
+        if isUsableSentence(sentence, containing: word) {
+          candidates.append((sentence, rectangleDistance(from: selectionBounds, to: bounds)))
+        }
       }
       guard next.depth < 6 else { continue }
       var childrenValue: CFTypeRef?
@@ -155,7 +160,30 @@ enum SelectionReader {
         pending.append(contentsOf: children.map { ($0, next.depth + 1) })
       }
     }
-    return candidates.min(by: { $0.count < $1.count })
+    return candidates.min { lhs, rhs in
+      lhs.distance == rhs.distance ? lhs.sentence.count < rhs.sentence.count : lhs.distance < rhs.distance
+    }?.sentence
+  }
+
+  private static func elementBounds(of element: AXUIElement) -> CGRect? {
+    var positionValue: CFTypeRef?
+    var sizeValue: CFTypeRef?
+    guard AXUIElementCopyAttributeValue(element, kAXPositionAttribute as CFString, &positionValue) == .success,
+          AXUIElementCopyAttributeValue(element, kAXSizeAttribute as CFString, &sizeValue) == .success,
+          let positionValue, let sizeValue,
+          CFGetTypeID(positionValue) == AXValueGetTypeID(), CFGetTypeID(sizeValue) == AXValueGetTypeID() else { return nil }
+    var position = CGPoint.zero
+    var size = CGSize.zero
+    let positionAXValue = unsafeBitCast(positionValue, to: AXValue.self)
+    let sizeAXValue = unsafeBitCast(sizeValue, to: AXValue.self)
+    guard AXValueGetValue(positionAXValue, .cgPoint, &position), AXValueGetValue(sizeAXValue, .cgSize, &size) else { return nil }
+    return CGRect(origin: position, size: size)
+  }
+
+  private static func rectangleDistance(from source: CGRect, to target: CGRect) -> CGFloat {
+    let horizontal = max(source.minX - target.maxX, target.minX - source.maxX, 0)
+    let vertical = max(source.minY - target.maxY, target.minY - source.maxY, 0)
+    return hypot(horizontal, vertical)
   }
 
   private static func isUsableSentence(_ text: String, containing word: String) -> Bool {
