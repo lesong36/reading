@@ -3636,6 +3636,7 @@
       const [guidedTranslationDraft, setGuidedTranslationDraft] = useState({});
       const [guidedShowTranslation, setGuidedShowTranslation] = useState({});
       const [mainPracticeDrops, setMainPracticeDrops] = useState({});
+      const [customSyntaxFrames, setCustomSyntaxFrames] = useState({});
       const [modifierPracticeDrops, setModifierPracticeDrops] = useState({});
       const [logicPracticeDrops, setLogicPracticeDrops] = useState({});
       const [practiceSelectedToken, setPracticeSelectedToken] = useState(null);
@@ -7573,7 +7574,19 @@
                                   <React.Fragment>
                                     {/* ── Step 1: 主谓宾/主系表 ── */}
                                     {voiceLessonStepIndex === 0 && (() => {
-                                      const groups = buildPracticeFrames(selectedSentence.segments || []);
+                                      const automaticGroups = buildPracticeFrames(selectedSentence.segments || []);
+                                      const manualGroups = (customSyntaxFrames[selectedSentence.id] || []).map((frame, index) => ({
+                                        key: frame.key,
+                                        label: '手动补充层',
+                                        connectorBefore: null,
+                                        connector: frame.connector,
+                                        roleIndexes: { subject: [], verb: [], object: [], complement: [] },
+                                        contentIndexes: [],
+                                        kind: 'manual-core',
+                                        manual: true,
+                                        sharedSubject: frame.sharedSubject
+                                      }));
+                                      const groups = [...automaticGroups, ...manualGroups];
                                       const drops = mainPracticeDrops[selectedSentence.id] || {};
                                       const droppedIndexes = Object.values(drops).flat();
                                       const place = (groupKey, role, index) => setMainPracticeDrops(prev => ({
@@ -7606,9 +7619,13 @@
                                             ))}
                                           </div>
                                         </div>
+                                        <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3">
+                                          <p className="text-sm text-slate-600">自动结构只是初稿；发现缺层时可以手动补充。</p>
+                                          <button type="button" onClick={() => setCustomSyntaxFrames(prev => ({ ...prev, [selectedSentence.id]: [...(prev[selectedSentence.id] || []), { key: `manual-${Date.now()}`, connector: 'but', sharedSubject: true }] }))} className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-sm font-black text-sky-800 hover:bg-sky-100">+ 手动增加一层</button>
+                                        </div>
                                         <div className="space-y-3">
                                           {groups.map(group => <div key={group.key} className={`rounded-2xl border p-4 ${group.kind === 'predicate-contrast' ? 'border-sky-200 bg-sky-50/50' : 'border-slate-200 bg-white'}`}>
-                                            {groups.length > 1 && <p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">{group.connectorBefore !== null && <span className="mr-2 rounded bg-sky-50 px-2 py-1 text-sky-700">{selectedSentence.segments[group.connectorBefore]?.text.trim()}</span>}{group.label}{group.sharedSubject && <span className="ml-2 font-medium normal-case tracking-normal text-slate-400">沿用上一主语</span>}</p>}
+                                            {groups.length > 1 && <div className="mb-3 flex items-center gap-2 text-xs font-black tracking-[0.16em] text-slate-400">{group.connectorBefore !== null && <span className="rounded bg-sky-50 px-2 py-1 text-sky-700">{selectedSentence.segments[group.connectorBefore]?.text.trim()}</span>}{group.manual && <select value={group.connector} onChange={event => setCustomSyntaxFrames(prev => ({ ...prev, [selectedSentence.id]: (prev[selectedSentence.id] || []).map(item => item.key === group.key ? { ...item, connector: event.target.value } : item) }))} className="rounded border border-sky-200 bg-sky-50 px-2 py-1 text-sky-700"><option>for</option><option>and</option><option>nor</option><option>but</option><option>or</option><option>yet</option><option>so</option></select>}{group.label}{group.sharedSubject && <span className="font-medium normal-case tracking-normal text-slate-400">沿用上一主语</span>}{group.manual && <button type="button" onClick={() => setCustomSyntaxFrames(prev => ({ ...prev, [selectedSentence.id]: (prev[selectedSentence.id] || []).filter(item => item.key !== group.key) }))} className="ml-auto font-bold normal-case tracking-normal text-rose-500">删除</button>}</div>}
                                             {group.kind === 'predicate-contrast' ? <div className="rounded-xl border border-dashed border-sky-300 bg-white/80 p-4"><p className="text-xs font-black text-sky-700">同一谓语的对比修饰</p><p className="mt-2 text-lg font-black text-slate-900">{group.contentIndexes.map(index => selectedSentence.segments[index]?.text.trim()).filter(Boolean).join(' ')}</p><p className="mt-2 text-sm text-sky-700">沿用上一层的主语和谓语；这一层用 <b>{selectedSentence.segments[group.connectorBefore]?.text.trim()}</b> 补充对比。</p></div> : <div className="grid gap-3 md:grid-cols-3">
                                               {slots.map(slot => <div key={slot.key} onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); place(group.key, slot.key, Number(event.dataTransfer.getData('text/plain'))); }} className="min-h-24 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3">
                                                 <p className="text-xs font-black text-slate-400">{slot.label}</p>
