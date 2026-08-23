@@ -61,6 +61,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     menu.addItem(withTitle: "拾取当前选词  \(currentShortcut.title)", action: #selector(captureSelectionAction), keyEquivalent: "")
     menu.addItem(withTitle: "截图 OCR 取词  ⌥⌘O", action: #selector(captureScreenTextAction), keyEquivalent: "")
     menu.addItem(withTitle: "查看最近加入的单词", action: #selector(showRecentEntries), keyEquivalent: "")
+    menu.addItem(withTitle: "打开上下文调试日志", action: #selector(openContextDebugLog), keyEquivalent: "")
     menu.addItem(withTitle: "同步到阅读达人…", action: #selector(syncToReader), keyEquivalent: "")
     menu.addItem(.separator())
     let mouseChordItem = menu.addItem(withTitle: "鼠标左右键同时按下拾词", action: #selector(toggleMouseChord), keyEquivalent: "")
@@ -418,7 +419,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   private func contextualSelection(for selection: SelectedText) throws -> SelectedText {
     let context = selection.context.trimmingCharacters(in: .whitespacesAndNewlines)
-    guard context.caseInsensitiveCompare(selection.word) == .orderedSame else { return selection }
+    guard context.caseInsensitiveCompare(selection.word) == .orderedSame else {
+      ContextDebugLog.write("准备查询：已取得完整语境", word: selection.word, context: context)
+      return selection
+    }
+    ContextDebugLog.write("查词取消：没有取得完整原句", word: selection.word, context: context)
     throw VocabularyError.missingSentenceContext
   }
 
@@ -487,6 +492,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         alert.runModal()
       }
     }
+  }
+
+  @objc private func openContextDebugLog() {
+    ContextDebugLog.open()
   }
 
   @objc private func syncToReader() {

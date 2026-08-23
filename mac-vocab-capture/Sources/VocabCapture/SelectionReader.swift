@@ -31,6 +31,7 @@ enum SelectionReader {
     guard AXUIElementCopyAttributeValue(element as! AXUIElement, kAXSelectedTextAttribute as CFString, &selectedText) == .success,
           let text = selectedText as? String else { return nil }
     guard let selection = sanitize(text) else { return nil }
+    ContextDebugLog.write("辅助功能读取到选区", word: selection.word, context: selection.context)
     let ancestors = accessibleAncestors(startingAt: element as! AXUIElement)
     let directContext = ancestors
       .lazy
@@ -40,6 +41,11 @@ enum SelectionReader {
     let context = isUsableSentence(directContext, containing: selection.word)
       ? directContext
       : selectionBounds.flatMap { nearbyTextSentence(in: Array(ancestors.prefix(5)), containing: selection.word, around: $0) } ?? selection.context
+    ContextDebugLog.write(
+      selectionBounds == nil ? "未取得选区位置，无法按上下左右定位" : "已按选区位置定位附近文本",
+      word: selection.word,
+      context: context
+    )
     return SelectedText(word: selection.word, context: context)
   }
 
