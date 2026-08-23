@@ -93,4 +93,21 @@
     document.documentElement.appendChild(frame);
     window.setTimeout(() => frame.remove(), 1500);
   });
+
+  let lastPublished = '';
+  let publishing = false;
+  const publishCurrentContext = () => {
+    if (publishing) return;
+    const payload = contextFromSelection();
+    if (!payload) return;
+    const key = `${payload.word}\n${payload.context}`;
+    if (key === lastPublished) return;
+    lastPublished = key;
+    fetch('http://127.0.0.1:38473/browser-context', {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+  };
+  document.addEventListener('selectionchange', () => window.setTimeout(publishCurrentContext, 0));
 })();

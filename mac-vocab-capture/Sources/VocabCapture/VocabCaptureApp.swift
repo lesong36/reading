@@ -51,6 +51,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     installHotKeyHandler()
     registerHotKey()
     installMouseChordIfNeeded()
+    BrowserContextBridge.shared.start()
   }
 
   func application(_ application: NSApplication, open urls: [URL]) {

@@ -32,6 +32,10 @@ enum SelectionReader {
           let text = selectedText as? String else { return nil }
     guard let selection = sanitize(text) else { return nil }
     ContextDebugLog.write("辅助功能读取到选区", word: selection.word, context: selection.context)
+    if isChromiumBrowserFrontmost(), let browserContext = BrowserContextBridge.shared.sentence(for: selection.word) {
+      ContextDebugLog.write("浏览器扩展缓存命中", word: selection.word, context: browserContext)
+      return SelectedText(word: selection.word, context: browserContext)
+    }
     let ancestors = accessibleAncestors(startingAt: element as! AXUIElement)
     let directContext = ancestors
       .lazy
@@ -56,6 +60,11 @@ enum SelectionReader {
 
   private static func clipboardFallback() -> SelectedText? {
     sanitize(NSPasteboard.general.string(forType: .string) ?? "")
+  }
+
+  private static func isChromiumBrowserFrontmost() -> Bool {
+    let identifier = NSWorkspace.shared.frontmostApplication?.bundleIdentifier ?? ""
+    return ["com.microsoft.edgemac", "com.google.Chrome", "com.brave.Browser", "com.vivaldi.Vivaldi", "org.chromium.Chromium"].contains(identifier)
   }
 
   private static func sanitize(_ input: String) -> SelectedText? {
