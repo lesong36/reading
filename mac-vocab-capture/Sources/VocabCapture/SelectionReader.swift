@@ -11,19 +11,25 @@ enum SelectionReader {
   /// Uses Accessibility only after an explicit user action (service/hot key).
   /// It never polls the foreground application or records keystrokes.
   static func read() -> SelectedText? {
+    readFocusedSelection() ?? clipboardFallback()
+  }
+
+  /// Reads only the active app's current selection. Used after the user drags
+  /// to select text, so a stale clipboard value never creates a floating UI.
+  static func readFocusedSelection() -> SelectedText? {
     let system = AXUIElementCreateSystemWide()
     var focusedApplication: CFTypeRef?
     guard AXUIElementCopyAttributeValue(system, kAXFocusedApplicationAttribute as CFString, &focusedApplication) == .success,
-          let app = focusedApplication else { return clipboardFallback() }
+          let app = focusedApplication else { return nil }
 
     let application = app as! AXUIElement
     var focusedElement: CFTypeRef?
     guard AXUIElementCopyAttributeValue(application, kAXFocusedUIElementAttribute as CFString, &focusedElement) == .success,
-          let element = focusedElement else { return clipboardFallback() }
+          let element = focusedElement else { return nil }
 
     var selectedText: CFTypeRef?
     guard AXUIElementCopyAttributeValue(element as! AXUIElement, kAXSelectedTextAttribute as CFString, &selectedText) == .success,
-          let text = selectedText as? String else { return clipboardFallback() }
+          let text = selectedText as? String else { return nil }
     guard let selection = sanitize(text) else { return nil }
     return SelectedText(word: selection.word, context: sentenceContext(in: element as! AXUIElement, fallback: selection.context))
   }

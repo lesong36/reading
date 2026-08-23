@@ -30,12 +30,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private var screenshotProcess: Process?
   private var lastLeftMouseDown: CFAbsoluteTime?
   private var lastRightMouseDown: CFAbsoluteTime?
+  private var selectionDragStart: CGPoint?
+  private var floatingSelectionPanel: NSPanel?
+  private var floatingSelection: SelectedText?
   private let configurationKey = "VocabCapture.aiConfiguration"
   private let shortcutKey = "VocabCapture.shortcut"
   private let customShortcutKey = "VocabCapture.customShortcut"
   private let mouseChordEnabledKey = "VocabCapture.mouseChordEnabled"
+  private let floatingButtonEnabledKey = "VocabCapture.floatingButtonEnabled"
   private let lastSyncedAtKey = "VocabCapture.lastSyncedAt"
   private let mouseChordInterval: CFAbsoluteTime = 0.22
+  private let minimumSelectionDragDistance: CGFloat = 4
 
   func applicationDidFinishLaunching(_ notification: Notification) {
     NSApp.setActivationPolicy(.accessory)
@@ -60,6 +65,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     menu.addItem(.separator())
     let mouseChordItem = menu.addItem(withTitle: "鼠标左右键同时按下拾词", action: #selector(toggleMouseChord), keyEquivalent: "")
     mouseChordItem.state = mouseChordEnabled ? .on : .off
+    let floatingButtonItem = menu.addItem(withTitle: "拖选英文后显示“拾词”按钮", action: #selector(toggleFloatingButton), keyEquivalent: "")
+    floatingButtonItem.state = floatingButtonEnabled ? .on : .off
     menu.addItem(withTitle: "设置拾词快捷键…", action: #selector(openShortcutSettings), keyEquivalent: "")
     menu.addItem(withTitle: "AI 设置…", action: #selector(openSettings), keyEquivalent: ",")
     menu.addItem(.separator())
@@ -213,11 +220,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   @objc private func toggleMouseChord() {
     UserDefaults.standard.set(!mouseChordEnabled, forKey: mouseChordEnabledKey)
-    if mouseChordEnabled {
+    if mouseChordEnabled || floatingButtonEnabled {
       installMouseChordIfNeeded()
     } else {
       stopMouseChord()
     }
+    statusItem.menu = makeMenu()
+  }
+
+  @objc private func toggleFloatingButton() {
+    UserDefaults.standard.set(!floatingButtonEnabled, forKey: floatingButtonEnabledKey)
+    if floatingButtonEnabled || mouseChordEnabled {
+      installMouseChordIfNeeded()
+    } else {
+      stopMouseChord()
+    }
+    if !floatingButtonEnabled { dismissFloatingSelectionButton() }
     statusItem.menu = makeMenu()
   }
 
@@ -226,14 +244,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     return UserDefaults.standard.bool(forKey: mouseChordEnabledKey)
   }
 
+  private var floatingButtonEnabled: Bool {
+    guard UserDefaults.standard.object(forKey: floatingButtonEnabledKey) != nil else { return true }
+    return UserDefaults.standard.bool(forKey: floatingButtonEnabledKey)
+  }
+
   private func installMouseChordIfNeeded() {
-    guard mouseChordEnabled, AXIsProcessTrusted(), mouseEventTap == nil else { return }
+    guard (mouseChordEnabled || floatingButtonEnabled), AXIsProcessTrusted(), mouseEventTap == nil else { return }
     let eventMask = (CGEventMask(1) << CGEventType.leftMouseDown.rawValue)
+      | (CGEventMask(1) << CGEventType.leftMouseUp.rawValue)
       | (CGEventMask(1) << CGEventType.rightMouseDown.rawValue)
     let callback: CGEventTapCallBack = { _, type, event, userInfo in
-      if let userInfo, type == .leftMouseDown || type == .rightMouseDown {
+      if let userInfo, type == .leftMouseDown || type == .leftMouseUp || type == .rightMouseDown {
         let delegate = Unmanaged<AppDelegate>.fromOpaque(userInfo).takeUnretainedValue()
-        delegate.handleMouseDown(type)
+        DispatchQueue.main.async {
+          delegate.handleMouseEvent(type, location: NSEvent.mouseLocation)
+        }
       }
       return Unmanaged.passUnretained(event)
     }
@@ -259,9 +285,26 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     mouseEventSource = nil
     lastLeftMouseDown = nil
     lastRightMouseDown = nil
+    selectionDragStart = nil
+    dismissFloatingSelectionButton()
   }
 
-  private func handleMouseDown(_ type: CGEventType) {
+  private func handleMouseEvent(_ type: CGEventType, location: CGPoint) {
+    if type == .leftMouseDown {
+      selectionDragStart = location
+    } else if type == .leftMouseUp {
+      defer { selectionDragStart = nil }
+      guard floatingButtonEnabled,
+            NSApp.modalWindow == nil,
+            let start = selectionDragStart,
+            hypot(location.x - start.x, location.y - start.y) >= minimumSelectionDragDistance else { return }
+      // The target app updates its accessibility selection after the mouse-up.
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) { [weak self] in
+        self?.showFloatingSelectionButtonIfNeeded()
+      }
+      return
+    }
+
     guard mouseChordEnabled, NSApp.modalWindow == nil else { return }
     let now = CFAbsoluteTimeGetCurrent()
     if type == .leftMouseDown {
@@ -276,6 +319,70 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     // The chord's first click can collapse a selection in the target app.
     // Read it before this passive event is delivered to that app.
     captureSelectionAction()
+  }
+
+  private func showFloatingSelectionButtonIfNeeded() {
+    guard floatingButtonEnabled,
+          NSApp.modalWindow == nil,
+          let selection = SelectionReader.readFocusedSelection() else { return }
+    floatingSelection = selection
+    dismissFloatingSelectionButton(keepingSelection: true)
+
+    let panel = NSPanel(
+      contentRect: NSRect(x: 0, y: 0, width: 72, height: 32),
+      styleMask: [.borderless, .nonactivatingPanel],
+      backing: .buffered,
+      defer: false
+    )
+    panel.isOpaque = false
+    panel.backgroundColor = .clear
+    panel.hasShadow = true
+    panel.level = .popUpMenu
+    panel.collectionBehavior = [.transient, .ignoresCycle]
+    panel.isReleasedWhenClosed = false
+
+    let background = NSVisualEffectView(frame: panel.contentView?.bounds ?? .zero)
+    background.autoresizingMask = [.width, .height]
+    background.material = .menu
+    background.blendingMode = .withinWindow
+    background.state = .active
+    background.wantsLayer = true
+    background.layer?.cornerRadius = 16
+    background.layer?.masksToBounds = true
+    let button = NSButton(title: "拾词", target: self, action: #selector(captureFloatingSelection))
+    button.bezelStyle = .texturedRounded
+    button.font = .systemFont(ofSize: 13, weight: .semibold)
+    button.frame = background.bounds.insetBy(dx: 4, dy: 3)
+    button.autoresizingMask = [.width, .height]
+    background.addSubview(button)
+    panel.contentView = background
+
+    let pointer = NSEvent.mouseLocation
+    let screen = NSScreen.screens.first(where: { $0.visibleFrame.contains(pointer) }) ?? NSScreen.main
+    let visibleFrame = screen?.visibleFrame ?? .zero
+    let origin = CGPoint(
+      x: min(max(pointer.x + 12, visibleFrame.minX + 8), visibleFrame.maxX - 80),
+      y: min(max(pointer.y - 42, visibleFrame.minY + 8), visibleFrame.maxY - 40)
+    )
+    panel.setFrameOrigin(origin)
+    panel.orderFrontRegardless()
+    floatingSelectionPanel = panel
+    DispatchQueue.main.asyncAfter(deadline: .now() + 6) { [weak self, weak panel] in
+      guard self?.floatingSelectionPanel === panel else { return }
+      self?.dismissFloatingSelectionButton()
+    }
+  }
+
+  @objc private func captureFloatingSelection() {
+    guard let selection = floatingSelection else { return }
+    dismissFloatingSelectionButton()
+    capture(selection)
+  }
+
+  private func dismissFloatingSelectionButton(keepingSelection: Bool = false) {
+    floatingSelectionPanel?.orderOut(nil)
+    floatingSelectionPanel = nil
+    if !keepingSelection { floatingSelection = nil }
   }
 
   private func capture(_ selection: SelectedText) {
