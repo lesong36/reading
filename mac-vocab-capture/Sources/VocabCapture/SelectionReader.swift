@@ -70,6 +70,15 @@ enum SelectionReader {
     sanitize(pasteboard.string(forType: .string) ?? "")
   }
 
+  static func fromBrowserExtension(word: String, context: String) -> SelectedText? {
+    guard let selection = sanitize(word) else { return nil }
+    let sentence = context.trimmingCharacters(in: .whitespacesAndNewlines)
+    guard sentence.count > selection.word.count,
+          sentence.count <= 800,
+          sentence.range(of: selection.word, options: [.caseInsensitive, .diacriticInsensitive]) != nil else { return nil }
+    return SelectedText(word: selection.word, context: sentence)
+  }
+
   /// OCR commonly wraps one sentence across multiple visual lines. Normalize
   /// those wraps first, then retain the full grammatical sentence containing
   /// the selected word or phrase instead of passing the whole screenshot.

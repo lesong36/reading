@@ -10,6 +10,10 @@
   <key>CFBundleVersion</key><string>1</string>
   <key>LSMinimumSystemVersion</key><string>13.0</string>
   <key>LSUIElement</key><true/>
+  <key>CFBundleURLTypes</key><array><dict>
+    <key>CFBundleURLName</key><string>com.coty.vocab-capture.capture</string>
+    <key>CFBundleURLSchemes</key><array><string>vocabcapture</string></array>
+  </dict></array>
   <key>NSServices</key><array><dict>
     <key>NSMessage</key><string>captureSelection</string>
     <key>NSMenuItem</key><dict><key>default</key><string>查词并加入生词本</string></dict>

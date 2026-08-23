@@ -53,6 +53,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     installMouseChordIfNeeded()
   }
 
+  func application(_ application: NSApplication, open urls: [URL]) {
+    for url in urls {
+      guard url.scheme == "vocabcapture", url.host == "capture",
+            let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+            let word = components.queryItems?.first(where: { $0.name == "word" })?.value,
+            let context = components.queryItems?.first(where: { $0.name == "context" })?.value,
+            let selection = SelectionReader.fromBrowserExtension(word: word, context: context) else { continue }
+      capture(selection)
+    }
+  }
+
   private func makeMenu() -> NSMenu {
     let menu = NSMenu()
     let hint = menu.addItem(withTitle: "选中英文后：\(currentShortcut.title) 或鼠标左右键一起按", action: nil, keyEquivalent: "")

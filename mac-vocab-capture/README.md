@@ -7,6 +7,7 @@
 - `⌥⌘D` 全局快捷键；
 - 鼠标左右键在 0.22 秒内同时按下即可拾词（默认开启，可在菜单关闭）；
 - `⌥⌘O` 截图 OCR 取词：框选图片或不可选文字后，在本机识别英文并确认目标词；
+- Edge / Chrome 网页扩展：右键“拾词助手：查词”可从网页 DOM 精确取得选词所在句；
 - 可在菜单中切换为 `⌃⌥D` 或 `⌃⌥W`；
 - 通过 macOS Accessibility 读取前台选区及其所在完整句子，读取失败时使用剪贴板；
 - 调用任何 OpenAI-compatible `/chat/completions` API；
@@ -46,6 +47,10 @@ open build/拾词助手.app
 首次使用时，在菜单栏图标中配置 API Base URL、模型与 Key（Key 保存到 macOS Keychain）；随后在「系统设置 → 隐私与安全性 → 辅助功能」授予“拾词助手”权限。
 
 截图 OCR 使用 macOS 自带的区域截图工具，再在本机通过 macOS Vision OCR 识别；仅确认后的单词和必要语境会发送给 AI。
+
+## Edge / Chrome 网页取句
+
+浏览器不会总是将选词前后的 DOM 文本提供给 macOS 辅助功能。安装 `browser-extension/` 后，在网页中选中英文词或短语，右键选择「拾词助手：查词」，扩展会按网页选区截取所在完整句并唤起本机 App。安装步骤见 [browser-extension/README.md](browser-extension/README.md)。
 
 ## 尚未完成的发布前工作
 
