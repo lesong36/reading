@@ -80,7 +80,10 @@
     const word = clean(selection.toString()).replace(/^[“”"'(（\[]+|[”"'’).,!?;:）\]]+$/g, '');
     if (!phrasePattern.test(word)) return null;
     const range = selection.getRangeAt(0);
-    const context = browserSentenceForRange(range) || domSentenceForRange(range);
+    // Chromium's Selection.modify("sentence") can treat an inline DOM split
+    // after a comma as a sentence start. Text offsets retain the actual page
+    // punctuation, so use them first for the full grammatical sentence.
+    const context = domSentenceForRange(range) || browserSentenceForRange(range);
     return context.length > word.length ? { word, context } : null;
   };
 
