@@ -857,14 +857,27 @@
           if (role === 'object' || role === 'predicative') roleIndexes.object.push(index);
           if (role === 'object-complement') roleIndexes.complement.push(index);
         });
-        if (roleIndexes.subject.length || roleIndexes.verb.length || roleIndexes.object.length) {
+        const contentIndexes = indexes.filter(index => /[A-Za-z]/.test(segments[index]?.text || ''));
+        if (roleIndexes.subject.length || roleIndexes.verb.length || roleIndexes.object.length || roleIndexes.complement.length) {
           groups.push({
             key: `frame-${groups.length}`,
             label: groups.length ? `并列主干 ${groups.length + 1}` : '主干 1',
             connectorBefore,
             connectorIndex,
             roleIndexes,
+            contentIndexes,
             sharedSubject: groups.length > 0 && roleIndexes.subject.length === 0 && roleIndexes.verb.length > 0
+          });
+        } else if (groups.length > 0 && connectorBefore !== null && contentIndexes.length) {
+          groups.push({
+            key: `frame-${groups.length}`,
+            label: '并列对比修饰层',
+            connectorBefore,
+            connectorIndex,
+            roleIndexes,
+            contentIndexes,
+            kind: 'predicate-contrast',
+            sharedSubject: true
           });
         }
         start = end + (connectorIndex === null ? 0 : 1);
@@ -7594,14 +7607,14 @@
                                           </div>
                                         </div>
                                         <div className="space-y-3">
-                                          {groups.map(group => <div key={group.key} className="rounded-2xl border border-slate-200 bg-white p-4">
+                                          {groups.map(group => <div key={group.key} className={`rounded-2xl border p-4 ${group.kind === 'predicate-contrast' ? 'border-sky-200 bg-sky-50/50' : 'border-slate-200 bg-white'}`}>
                                             {groups.length > 1 && <p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">{group.connectorBefore !== null && <span className="mr-2 rounded bg-sky-50 px-2 py-1 text-sky-700">{selectedSentence.segments[group.connectorBefore]?.text.trim()}</span>}{group.label}{group.sharedSubject && <span className="ml-2 font-medium normal-case tracking-normal text-slate-400">沿用上一主语</span>}</p>}
-                                            <div className="grid gap-3 md:grid-cols-3">
+                                            {group.kind === 'predicate-contrast' ? <div className="rounded-xl border border-dashed border-sky-300 bg-white/80 p-4"><p className="text-xs font-black text-sky-700">同一谓语的对比修饰</p><p className="mt-2 text-lg font-black text-slate-900">{group.contentIndexes.map(index => selectedSentence.segments[index]?.text.trim()).filter(Boolean).join(' ')}</p><p className="mt-2 text-sm text-sky-700">沿用上一层的主语和谓语；这一层用 <b>{selectedSentence.segments[group.connectorBefore]?.text.trim()}</b> 补充对比。</p></div> : <div className="grid gap-3 md:grid-cols-3">
                                               {slots.map(slot => <div key={slot.key} onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); place(group.key, slot.key, Number(event.dataTransfer.getData('text/plain'))); }} className="min-h-24 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3">
                                                 <p className="text-xs font-black text-slate-400">{slot.label}</p>
                                                 <p className="mt-2 text-lg font-bold text-slate-900">{slotText(group.key, slot.key) || <span className="font-medium text-slate-300">{slot.hint}</span>}</p>
                                               </div>)}
-                                            </div>
+                                            </div>}
                                           </div>)}
                                         </div>
                                         <p className="text-xs leading-5 text-slate-400">提示会在需要时再打开：谓语是句子的动作或状态；主语通常回答“谁/什么”；宾语或表语补全动作和状态。</p>
@@ -7688,7 +7701,7 @@
                                       const connectors = segments.map((seg, index) => ({ seg, index })).filter(({ seg }) => seg.type === 'conjunction' && /^(for|and|nor|but|or|yet|so)$/i.test(seg.text.trim()));
                                       const clauses = buildPracticeFrames(segments).map(frame => ({
                                         ...frame,
-                                        indexes: Object.values(frame.roleIndexes).flat(),
+                                        indexes: frame.contentIndexes?.length ? frame.contentIndexes : Object.values(frame.roleIndexes).flat(),
                                         label: frame.sharedSubject ? `${frame.label}（沿用上一主语）` : frame.label
                                       })).filter(item => item.indexes.length);
                                       const drops = logicPracticeDrops[selectedSentence.id] || {};
