@@ -92,6 +92,10 @@
     // Supabase uses a publishable key in the browser. The secret/service key
     // must never be added here, to local-config.js, or to GitHub Pages.
     const SUPABASE_CONFIG_STORAGE_KEY = 'reader_supabase_config';
+    // Keep sync reads explicit.  The state row can grow with a learner's
+    // history, so `select('*')` turns every reconnect into a full backup
+    // download (including fields this reader never consumes).
+    const READER_SYNC_STATE_FIELDS = 'vocabulary,favorites,reading_positions,quiz_progress,completion_records,preferences,encrypted_ai_key';
     const DEFAULT_SUPABASE_CONFIG = {
       url: 'https://faeixgpjhnwpfzfkgjsu.supabase.co',
       publishableKey: 'sb_publishable_vg-bfePJ4OSgoOOiMEJeCg_7YxdAdkx'
@@ -2951,6 +2955,7 @@
       const cloudSyncRetryAttemptRef = useRef(0);
       const cloudWriteInFlightRef = useRef(false);
       const lastCloudSnapshotRef = useRef("");
+      const cloudReadingPositionsRef = useRef({});
       const [localPersistenceStatus, setLocalPersistenceStatus] = useState(() => ({
         enabled: false,
         message: '正在准备本地数据文件...'
@@ -2961,10 +2966,20 @@
       const [localDataReady, setLocalDataReady] = useState(false);
       const [isLoadingBundledLibrary, setIsLoadingBundledLibrary] = useState(false);
 
-      const scheduleCloudSyncRetry = (message) => {
+      const scheduleCloudSyncRetry = (message, { retryable = true } = {}) => {
         cloudSyncNeedsMergeRef.current = true;
+        if (!retryable) {
+          cloudDataLoadedRef.current = false;
+          setCloudSyncStatus({ enabled: false, message: `${message}；已暂停自动重试，避免重复消耗流量。` });
+          return;
+        }
         if (cloudDataRetryTimerRef.current) return;
-        const delay = Math.min(30000, 1000 * (2 ** cloudSyncRetryAttemptRef.current));
+        if (cloudSyncRetryAttemptRef.current >= 5) {
+          cloudDataLoadedRef.current = false;
+          setCloudSyncStatus({ enabled: false, message: `${message}；已暂停自动重试，请检查云同步配置后重新登录。` });
+          return;
+        }
+        const delay = Math.min(60000, 5000 * (2 ** cloudSyncRetryAttemptRef.current));
         cloudSyncRetryAttemptRef.current += 1;
         setCloudSyncStatus({ enabled: false, message: `${message}；网络恢复后将自动合并并重写。` });
         cloudDataRetryTimerRef.current = setTimeout(() => {
@@ -3134,6 +3149,7 @@
           cloudDataLoadedRef.current = false;
           cloudDataInitializedRef.current = false;
           lastCloudSnapshotRef.current = "";
+          cloudReadingPositionsRef.current = {};
           cloudSyncNeedsMergeRef.current = false;
           cloudSyncRetryAttemptRef.current = 0;
           setCloudSyncStatus({ enabled: Boolean(supabase), message: supabase ? '登录后同步学习记录与 AI 偏好。' : '云同步未配置，当前仅保存到本机。' });
@@ -3141,7 +3157,7 @@
         }
         let cancelled = false;
         setCloudSyncStatus({ enabled: true, message: '正在读取 Supabase 学习记录...' });
-        supabase.from('reader_sync_state').select('*').eq('user_id', user.id).maybeSingle().then(({ data, error }) => {
+        supabase.from('reader_sync_state').select(READER_SYNC_STATE_FIELDS).eq('user_id', user.id).maybeSingle().then(({ data, error }) => {
           if (cancelled) return;
           if (error) {
             cloudDataLoadedRef.current = false;
@@ -3152,6 +3168,7 @@
           const cloudFavorites = Array.isArray(data?.favorites) ? data.favorites.filter(id => typeof id === 'string') : [];
           const cloudQuizProgress = data?.quiz_progress && typeof data.quiz_progress === 'object' ? data.quiz_progress : {};
           const cloudCompletionRecords = normalizeCompletionRecords(data?.completion_records || {});
+          const cloudReadingPositions = data?.reading_positions && typeof data.reading_positions === 'object' ? data.reading_positions : {};
           const cloudPreferences = data?.preferences && typeof data.preferences === 'object' ? data.preferences : {};
           const cloudDeletedVocabKeys = normalizeDeletedVocabKeys(cloudPreferences.deletedVocabKeys || []);
           const localQuizProgress = {};
@@ -3166,7 +3183,8 @@
           if (cloudPreferences.aiProvider) setAiProvider(cloudPreferences.aiProvider);
           if (cloudPreferences.cloudBaseUrl) setCloudBaseUrl(cloudPreferences.cloudBaseUrl);
           if (cloudPreferences.cloudModel) setCloudModel(cloudPreferences.cloudModel);
-          lastCloudSnapshotRef.current = JSON.stringify({ vocabulary: removeDeletedVocab(cloudVocab, cloudDeletedVocabKeys), favorites: cloudFavorites, quizProgress: cloudQuizProgress, completionRecords: cloudCompletionRecords, preferences: { ...cloudPreferences, deletedVocabKeys: cloudDeletedVocabKeys }, encryptedAiKey: data?.encrypted_ai_key || null });
+          cloudReadingPositionsRef.current = cloudReadingPositions;
+          lastCloudSnapshotRef.current = JSON.stringify({ vocabulary: removeDeletedVocab(cloudVocab, cloudDeletedVocabKeys), favorites: cloudFavorites, readingPositions: cloudReadingPositions, quizProgress: cloudQuizProgress, completionRecords: cloudCompletionRecords, preferences: { ...cloudPreferences, deletedVocabKeys: cloudDeletedVocabKeys }, encryptedAiKey: data?.encrypted_ai_key || null });
           cloudDataLoadedRef.current = true;
           cloudDataInitializedRef.current = true;
           cloudSyncRetryAttemptRef.current = 0;
@@ -3201,17 +3219,11 @@
         Object.keys(localStorage).filter(key => key.startsWith('reader_quiz_progress_')).forEach(key => {
           try { quizProgressByArticle[key.slice('reader_quiz_progress_'.length)] = normalizeQuizProgress(JSON.parse(localStorage.getItem(key))); } catch (error) {}
         });
-        const wrongAnswers = Object.entries(quizProgressByArticle).flatMap(([articleId, progress]) => {
-          const article = savedArticles.find(item => item.id === articleId);
-          return normalizeArticleQuestions(article || {}).flatMap(question => {
-            const selected = progress.answers?.[question.id];
-            return progress.submitted && isSupportedQuizQuestion(question) && Number.isInteger(selected) && selected !== question.answerIndex
-              ? [{ articleId, questionId: question.id, prompt: question.prompt, selectedIndex: selected, answerIndex: question.answerIndex, updatedAt: progress.submittedAt || new Date().toISOString() }]
-              : [];
-          });
-        });
         const preferences = { aiProvider, cloudBaseUrl: cloudBaseUrl.trim(), cloudModel: cloudModel.trim(), ollamaBaseUrl: ollamaBaseUrl.trim(), ollamaModel: ollamaModel.trim(), voiceProvider, deletedVocabKeys };
-        const readingPositions = currentArticleId ? { [currentArticleId]: { sentenceId: selectedSentence?.id || null, updatedAt: new Date().toISOString() } } : {};
+        const readingPositions = {
+          ...cloudReadingPositionsRef.current,
+          ...(currentArticleId ? { [currentArticleId]: { sentenceId: selectedSentence?.id || null, updatedAt: new Date().toISOString() } } : {})
+        };
         const writeCloudState = async () => {
           if (cloudWriteInFlightRef.current) return;
           cloudWriteInFlightRef.current = true;
@@ -3220,9 +3232,9 @@
             if (syncVaultUnlocked && syncPassphrase && cloudApiKey) {
               encryptedAiKey = await encryptForSyncVault(cloudApiKey, syncPassphrase);
             }
-            let payload = { user_id: user.id, vocabulary: vocabBook, favorites: favoriteArticleIds, reading_positions: readingPositions, quiz_progress: quizProgressByArticle, completion_records: completionRecords, wrong_answers: wrongAnswers, preferences, encrypted_ai_key: encryptedAiKey, updated_at: new Date().toISOString() };
+            let payload = { user_id: user.id, vocabulary: vocabBook, favorites: favoriteArticleIds, reading_positions: readingPositions, quiz_progress: quizProgressByArticle, completion_records: completionRecords, preferences, encrypted_ai_key: encryptedAiKey, updated_at: new Date().toISOString() };
             if (cloudSyncNeedsMergeRef.current) {
-              const { data, error } = await supabase.from('reader_sync_state').select('*').eq('user_id', user.id).maybeSingle();
+              const { data, error } = await supabase.from('reader_sync_state').select(READER_SYNC_STATE_FIELDS).eq('user_id', user.id).maybeSingle();
               if (error) throw error;
               const mergedQuizProgress = mergeQuizProgressByArticle(payload.quiz_progress, data?.quiz_progress || {});
               const mergedCompletionRecords = mergeCompletionRecords(payload.completion_records, data?.completion_records || {});
@@ -3245,22 +3257,25 @@
               setFavoriteArticleIds(prev => Array.from(new Set([...(data?.favorites || []), ...prev])));
               setCompletionRecords(prev => mergeCompletionRecords(prev, data?.completion_records || {}));
             }
-            const snapshotKey = JSON.stringify({ vocabulary: payload.vocabulary, favorites: payload.favorites, quizProgress: payload.quiz_progress, completionRecords: payload.completion_records, wrongAnswers: payload.wrong_answers, preferences: payload.preferences, encryptedAiKey: payload.encrypted_ai_key });
+            const snapshotKey = JSON.stringify({ vocabulary: payload.vocabulary, favorites: payload.favorites, readingPositions: payload.reading_positions, quizProgress: payload.quiz_progress, completionRecords: payload.completion_records, preferences: payload.preferences, encryptedAiKey: payload.encrypted_ai_key });
             if (snapshotKey === lastCloudSnapshotRef.current) return;
             const { error } = await supabase.from('reader_sync_state').upsert(payload, { onConflict: 'user_id' });
             if (error) throw error;
             encryptedAiKeyRef.current = payload.encrypted_ai_key;
+            cloudReadingPositionsRef.current = payload.reading_positions;
             lastCloudSnapshotRef.current = snapshotKey;
             cloudSyncNeedsMergeRef.current = false;
             cloudSyncRetryAttemptRef.current = 0;
             setCloudSyncStatus({ enabled: true, message: `Supabase 已保存：${payload.vocabulary.length} 个生词、进度与偏好。` });
           } catch (error) {
-            scheduleCloudSyncRetry(`云同步写入失败：${error.message || '网络连接中断'}`);
+            const permanentErrorCode = /^(PGRST|22|23|42)/.test(String(error?.code || ''));
+            const retryable = !permanentErrorCode && (!Number.isInteger(error?.status) || error.status >= 500);
+            scheduleCloudSyncRetry(`云同步写入失败：${error.message || '网络连接中断'}`, { retryable });
           } finally {
             cloudWriteInFlightRef.current = false;
           }
         };
-        const snapshotKey = JSON.stringify({ vocabulary: vocabBook, favorites: favoriteArticleIds, quizProgress: quizProgressByArticle, completionRecords, wrongAnswers, preferences, encryptedAiKey: encryptedAiKeyRef.current });
+        const snapshotKey = JSON.stringify({ vocabulary: vocabBook, favorites: favoriteArticleIds, readingPositions, quizProgress: quizProgressByArticle, completionRecords, preferences, encryptedAiKey: encryptedAiKeyRef.current });
         if (snapshotKey === lastCloudSnapshotRef.current) return;
         if (cloudDataWriteTimerRef.current) clearTimeout(cloudDataWriteTimerRef.current);
         cloudDataWriteTimerRef.current = setTimeout(async () => {
