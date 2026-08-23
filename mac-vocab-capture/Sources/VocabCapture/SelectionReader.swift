@@ -31,10 +31,14 @@ enum SelectionReader {
     guard AXUIElementCopyAttributeValue(element as! AXUIElement, kAXSelectedTextAttribute as CFString, &selectedText) == .success,
           let text = selectedText as? String else { return nil }
     guard let selection = sanitize(text) else { return nil }
-    let context = accessibleAncestors(startingAt: element as! AXUIElement)
+    let ancestors = accessibleAncestors(startingAt: element as! AXUIElement)
+    let directContext = ancestors
       .lazy
       .compactMap { sentenceContext(in: $0) ?? visibleSentenceContext(in: $0, containing: selection.word) }
       .first(where: { $0.count > selection.context.count }) ?? selection.context
+    let context = directContext.count > selection.context.count
+      ? directContext
+      : ancestors.prefix(5).lazy.compactMap { nearbyTextSentence(in: $0, containing: selection.word) }.first ?? selection.context
     return SelectedText(word: selection.word, context: context)
   }
 
@@ -140,6 +144,38 @@ enum SelectionReader {
     ) == .success, let text = textValue as? String,
       text.range(of: word, options: [.caseInsensitive, .diacriticInsensitive]) != nil else { return nil }
     return sentenceFromOCRText(text, containing: word)
+  }
+
+  /// Some browsers expose a selection through a small leaf node but represent
+  /// the actual sentence as a sibling AXStaticText. Search only the nearby
+  /// accessibility subtree, never the entire application or clipboard.
+  private static func nearbyTextSentence(in root: AXUIElement, containing word: String) -> String? {
+    var pending: [(element: AXUIElement, depth: Int)] = [(root, 0)]
+    var candidates: [String] = []
+    var visited = 0
+    while let next = pending.popLast(), visited < 420 {
+      visited += 1
+      if let text = readableText(in: next.element), text.count > word.count,
+         text.range(of: word, options: [.caseInsensitive, .diacriticInsensitive]) != nil {
+        let sentence = sentenceFromOCRText(text, containing: word)
+        if sentence.count > word.count { candidates.append(sentence) }
+      }
+      guard next.depth < 3 else { continue }
+      var childrenValue: CFTypeRef?
+      if AXUIElementCopyAttributeValue(next.element, kAXChildrenAttribute as CFString, &childrenValue) == .success,
+         let children = childrenValue as? [AXUIElement] {
+        pending.append(contentsOf: children.map { ($0, next.depth + 1) })
+      }
+    }
+    return candidates.min(by: { $0.count < $1.count })
+  }
+
+  private static func readableText(in element: AXUIElement) -> String? {
+    var value: CFTypeRef?
+    guard AXUIElementCopyAttributeValue(element, kAXValueAttribute as CFString, &value) == .success,
+          let text = value as? String else { return nil }
+    let normalized = text.trimmingCharacters(in: .whitespacesAndNewlines)
+    return normalized.isEmpty || normalized.count > 8_000 ? nil : normalized
   }
 
   private static func sentence(in text: String, selectedRange: CFRange) -> String? {
