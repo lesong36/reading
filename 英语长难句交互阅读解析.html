@@ -836,6 +836,72 @@
     const normalizeArticleData = (articleData = []) =>
       Array.isArray(articleData) ? articleData.map(normalizeSentenceSegments) : [];
 
+    // Build practice frames from the sentence order, rather than assuming a
+    // sentence has only one main clause and one coordinated clause.  FANBOYS
+    // at the top level split independent frames; a following frame without a
+    // subject is deliberately marked as sharing the preceding subject.
+    const FANBOYS = /^(for|and|nor|but|or|yet|so)$/i;
+    const practiceRole = (type = '') => String(type).replace(/^(?:coord|clause)-/, '').replace('object-complement', 'object');
+    const buildPracticeFrames = (segments = []) => {
+      const groups = [];
+      let start = 0;
+      let depth = 0;
+      let connectorBefore = null;
+      const addFrame = (end, connectorIndex = null) => {
+        const indexes = Array.from({ length: Math.max(0, end - start) }, (_, offset) => start + offset)
+          .filter(index => !/^clause-/.test(segments[index]?.type || ''));
+        const roleIndexes = { subject: [], verb: [], object: [] };
+        indexes.forEach(index => {
+          const role = practiceRole(segments[index]?.type);
+          if (role === 'subject' || role === 'verb') roleIndexes[role].push(index);
+          if (role === 'object' || role === 'predicative') roleIndexes.object.push(index);
+        });
+        if (roleIndexes.subject.length || roleIndexes.verb.length || roleIndexes.object.length) {
+          groups.push({
+            key: `frame-${groups.length}`,
+            label: groups.length ? `并列主干 ${groups.length + 1}` : '主干 1',
+            connectorBefore,
+            connectorIndex,
+            roleIndexes,
+            sharedSubject: groups.length > 0 && roleIndexes.subject.length === 0 && roleIndexes.verb.length > 0
+          });
+        }
+        start = end + (connectorIndex === null ? 0 : 1);
+        connectorBefore = connectorIndex;
+      };
+      segments.forEach((segment, index) => {
+        const text = String(segment?.text || '');
+        const opened = (text.match(/\(/g) || []).length;
+        const closed = (text.match(/\)/g) || []).length;
+        const isDivider = depth === 0 && segment?.type === 'conjunction' && FANBOYS.test(text.trim());
+        if (isDivider) addFrame(index, index);
+        depth += opened - closed;
+      });
+      addFrame(segments.length, null);
+      return groups;
+    };
+
+    const buildModifierClauseFrames = (segments = []) => {
+      const clauseIndexes = segments.map((segment, index) => /^clause-/.test(segment?.type || '') ? index : -1).filter(index => index >= 0);
+      const runs = clauseIndexes.reduce((all, index) => {
+        const last = all[all.length - 1];
+        if (last && index === last.indexes[last.indexes.length - 1] + 1) last.indexes.push(index);
+        else all.push({ indexes: [index] });
+        return all;
+      }, []);
+      return runs.map((run, number) => {
+        const first = run.indexes[0];
+        const lead = first > 0 && segments[first - 1]?.type === 'conjunction' && !FANBOYS.test(String(segments[first - 1]?.text || '').trim()) ? first - 1 : null;
+        const roleIndexes = { subject: [], verb: [], object: [] };
+        run.indexes.forEach(index => {
+          const role = practiceRole(segments[index]?.type);
+          if (role === 'subject' || role === 'verb') roleIndexes[role].push(index);
+          if (role === 'object' || role === 'predicative') roleIndexes.object.push(index);
+        });
+        return { key: `clause-${number}`, label: `修饰从句 ${number + 1}`, indexes: lead === null ? run.indexes : [lead, ...run.indexes], roleIndexes };
+      });
+    };
+
     const collectArticleGlossary = (article = {}, articleData = []) => {
       const fromArticle = normalizeGlossary(article.glossary || []);
       const fromSentences = normalizeArticleData(articleData || article.data || [])
@@ -7492,11 +7558,7 @@
                                   <React.Fragment>
                                     {/* ── Step 1: 主谓宾/主系表 ── */}
                                     {voiceLessonStepIndex === 0 && (() => {
-                                      const groups = [
-                                        { key: 'clause', label: '修饰从句', types: ['clause-subject', 'clause-verb', 'clause-object', 'clause-predicative'] },
-                                        { key: 'main', label: '主句', types: ['subject', 'verb', 'object', 'predicative'] },
-                                        { key: 'coord', label: '并列主句', types: ['coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'] }
-                                      ].filter(group => selectedSentence.segments?.some(seg => group.types.includes(seg.type)));
+                                      const groups = buildPracticeFrames(selectedSentence.segments || []);
                                       const drops = mainPracticeDrops[selectedSentence.id] || {};
                                       const droppedIndexes = Object.values(drops).flat();
                                       const place = (groupKey, role, index) => setMainPracticeDrops(prev => ({
@@ -7530,7 +7592,7 @@
                                         </div>
                                         <div className="space-y-3">
                                           {groups.map(group => <div key={group.key} className="rounded-2xl border border-slate-200 bg-white p-4">
-                                            {groups.length > 1 && <p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">{group.label}</p>}
+                                            {groups.length > 1 && <p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">{group.connectorBefore !== null && <span className="mr-2 rounded bg-sky-50 px-2 py-1 text-sky-700">{selectedSentence.segments[group.connectorBefore]?.text.trim()}</span>}{group.label}{group.sharedSubject && <span className="ml-2 font-medium normal-case tracking-normal text-slate-400">沿用上一主语</span>}</p>}
                                             <div className="grid gap-3 md:grid-cols-3">
                                               {slots.map(slot => <div key={slot.key} onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); place(group.key, slot.key, Number(event.dataTransfer.getData('text/plain'))); }} className="min-h-24 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3">
                                                 <p className="text-xs font-black text-slate-400">{slot.label}</p>
@@ -7603,24 +7665,16 @@
                                       const modifierIndexes = segments.map((seg, index) => ['modifier', 'adverbial'].includes(seg.type) && /[A-Za-z]/.test(seg.text || '') ? index : -1).filter(index => index >= 0);
                                       const modifiers = modifierIndexes.map(index => ({ seg: segments[index], index }));
                                       const mainDrops = mainPracticeDrops[selectedSentence.id] || {};
-                                      const groups = [
-                                        { key: 'clause', label: '修饰从句', roleTypes: { subject: ['clause-subject'], verb: ['clause-verb'], object: ['clause-object', 'clause-predicative'] } },
-                                        { key: 'main', label: '主句', roleTypes: { subject: ['subject'], verb: ['verb'], object: ['object', 'predicative'] } },
-                                        { key: 'coord', label: '并列主句', roleTypes: { subject: ['coord-subject'], verb: ['coord-verb'], object: ['coord-object', 'coord-predicative'] } }
-                                      ].filter(group => Object.values(group.roleTypes).flat().some(type => segments.some(seg => seg.type === type)));
-                                      const clauseIndexes = segments.map((seg, index) => /^clause-/.test(seg.type) ? index : -1).filter(index => index >= 0);
-                                      const firstClauseIndex = clauseIndexes[0] ?? -1;
-                                      const clauseLeadIndex = firstClauseIndex > 0
-                                        ? segments.slice(0, firstClauseIndex).map((seg, index) => ({ seg, index })).filter(({ seg }) => seg.type === 'conjunction' && !/^(for|and|nor|but|or|yet|so)$/i.test(seg.text.trim())).at(-1)?.index
-                                        : undefined;
-                                      const clauseUnitText = [clauseLeadIndex, ...clauseIndexes].filter(Number.isInteger).map(index => segments[index]?.text.trim()).filter(Boolean).join(' ');
+                                      const clauseGroups = buildModifierClauseFrames(segments);
+                                      const groups = [...clauseGroups, ...buildPracticeFrames(segments)];
+                                      const clauseUnitText = clauseGroups[0]?.indexes.map(index => segments[index]?.text.trim()).filter(Boolean).join(' ') || '';
                                       const drops = modifierPracticeDrops[selectedSentence.id] || {};
                                       const dropped = Object.values(drops).flat();
                                       const put = (targetKey, sourceIndex) => setModifierPracticeDrops(prev => ({ ...prev, [selectedSentence.id]: { ...(prev[selectedSentence.id] || {}), [targetKey]: [...((prev[selectedSentence.id] || {})[targetKey] || []), sourceIndex] }}));
                                       return <div className="animate-in fade-in duration-300 space-y-5">
                                         <div><h4 className="text-xl font-black text-slate-900">挂修饰语</h4><p className="mt-1 text-sm text-slate-500">名词修饰语拖到名词上；整套修饰从句拖到主句的谓语上。</p></div>
                                         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4"><p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">可用词块（第 1 步未使用）</p><div className="flex flex-wrap gap-2">{modifierIndexes.map(index => <button type="button" key={index} draggable={!dropped.includes(index)} onDragStart={event => event.dataTransfer.setData('text/plain', String(index))} onClick={() => setPracticeSelectedToken({ step: 'modifier', value: index })} className={`rounded-xl border px-3 py-2 text-base font-semibold ${dropped.includes(index) ? 'border-slate-100 bg-slate-100 text-slate-300' : practiceSelectedToken?.step === 'modifier' && practiceSelectedToken.value === index ? 'border-indigo-500 bg-indigo-50 text-indigo-950 ring-2 ring-indigo-200' : 'cursor-grab border-slate-300 bg-white text-slate-800'}`}>{segments[index].text.trim()}</button>)}{modifierIndexes.length === 0 && <span className="text-sm text-slate-400">这一步没有剩余独立修饰语。</span>}</div><p className="mt-3 text-xs text-slate-500">整套修饰从句直接从下方的“修饰从句”卡片拖到主句谓语；在 iPad 上可先点从句卡，再点谓语格。</p></div>
-                                        <div className="space-y-3">{groups.map(group => { const isClause = group.key === 'clause'; return <div key={group.key} draggable={isClause && !dropped.includes('clause-unit')} onDragStart={event => { if (isClause) event.dataTransfer.setData('text/plain', 'clause-unit'); }} onClick={() => { if (isClause) setPracticeSelectedToken({ step: 'modifier', value: 'clause-unit' }); }} className={`rounded-2xl border p-4 ${isClause ? 'cursor-grab border-violet-300 bg-violet-50/60 ring-1 ring-violet-100' : 'border-slate-200 bg-white'}`}><p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">{isClause ? `⠿ 可拖动修饰从句：${clauseUnitText || group.label}` : groups.length > 1 ? group.label : '第 1 步的主干'}</p><div className="grid gap-3 md:grid-cols-3">{[{ key: 'subject', label: '主语' }, { key: 'verb', label: '谓语' }, { key: 'object', label: '宾语 / 表语' }].map(role => { const targetKey = `${group.key}-${role.key}`; const baseIndexes = mainDrops[targetKey] || segments.map((seg, index) => group.roleTypes[role.key].includes(seg.type) ? index : -1).filter(index => index >= 0); const acceptsClause = role.key === 'verb' && group.key !== 'clause' && groups.some(item => item.key === 'clause'); const selectDrop = () => { if (practiceSelectedToken?.step !== 'modifier' || (practiceSelectedToken.value === 'clause-unit' && !acceptsClause)) return; put(targetKey, practiceSelectedToken.value); setPracticeSelectedToken(null); }; return <div key={targetKey} onClick={event => { event.stopPropagation(); selectDrop(); }} onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); event.stopPropagation(); const value = event.dataTransfer.getData('text/plain'); if (value === 'clause-unit' && !acceptsClause) return; put(targetKey, value === 'clause-unit' ? value : Number(value)); setPracticeSelectedToken(null); }} className="min-h-28 rounded-xl border border-dashed border-amber-300 bg-amber-50/50 p-3"><p className="text-xs font-black text-amber-700">{role.label}</p><p className="mt-1 text-lg font-black text-slate-900">{baseIndexes.map(index => segments[index]?.text.trim()).filter(Boolean).join(' ') || '—'}</p><div className="mt-3 flex min-h-7 flex-wrap gap-2">{(drops[targetKey] || []).map(sourceIndex => <span key={sourceIndex} className="rounded-lg bg-amber-200 px-2 py-1 text-sm font-bold text-amber-950">{sourceIndex === 'clause-unit' ? clauseUnitText : segments[sourceIndex]?.text.trim()}</span>)}{!(drops[targetKey] || []).length && <span className="text-sm text-amber-500">{acceptsClause ? '把上方整套修饰从句拖到这个谓语上' : '拖修饰语到这里'}</span>}</div></div>; })}</div></div>; })}</div>
+                                        <div className="space-y-3">{groups.map(group => { const isClause = group.key.startsWith('clause-'); const unitText = isClause ? group.indexes.map(index => segments[index]?.text.trim()).filter(Boolean).join(' ') : ''; return <div key={group.key} draggable={isClause && !dropped.includes(group.key)} onDragStart={event => { if (isClause) event.dataTransfer.setData('text/plain', group.key); }} onClick={() => { if (isClause) setPracticeSelectedToken({ step: 'modifier', value: group.key }); }} className={`rounded-2xl border p-4 ${isClause ? 'cursor-grab border-violet-300 bg-violet-50/60 ring-1 ring-violet-100' : 'border-slate-200 bg-white'}`}><p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">{isClause ? `⠿ 可拖动修饰从句：${unitText || group.label}` : groups.length > 1 ? group.label : '第 1 步的主干'}</p><div className="grid gap-3 md:grid-cols-3">{[{ key: 'subject', label: '主语' }, { key: 'verb', label: '谓语' }, { key: 'object', label: '宾语 / 表语' }].map(role => { const targetKey = `${group.key}-${role.key}`; const baseIndexes = mainDrops[targetKey] || group.roleIndexes[role.key] || []; const acceptsClause = role.key === 'verb' && !isClause && clauseGroups.length > 0; const selectDrop = () => { const isClauseUnit = String(practiceSelectedToken?.value || '').startsWith('clause-'); if (practiceSelectedToken?.step !== 'modifier' || (isClauseUnit && !acceptsClause)) return; put(targetKey, practiceSelectedToken.value); setPracticeSelectedToken(null); }; return <div key={targetKey} onClick={event => { event.stopPropagation(); selectDrop(); }} onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); event.stopPropagation(); const value = event.dataTransfer.getData('text/plain'); if (String(value).startsWith('clause-') && !acceptsClause) return; put(targetKey, String(value).startsWith('clause-') ? value : Number(value)); setPracticeSelectedToken(null); }} className="min-h-28 rounded-xl border border-dashed border-amber-300 bg-amber-50/50 p-3"><p className="text-xs font-black text-amber-700">{role.label}</p><p className="mt-1 text-lg font-black text-slate-900">{baseIndexes.map(index => segments[index]?.text.trim()).filter(Boolean).join(' ') || '—'}</p><div className="mt-3 flex min-h-7 flex-wrap gap-2">{(drops[targetKey] || []).map(sourceIndex => <span key={sourceIndex} className="rounded-lg bg-amber-200 px-2 py-1 text-sm font-bold text-amber-950">{String(sourceIndex).startsWith('clause-') ? clauseGroups.find(item => item.key === sourceIndex)?.indexes.map(index => segments[index]?.text.trim()).filter(Boolean).join(' ') : segments[sourceIndex]?.text.trim()}</span>)}{!(drops[targetKey] || []).length && <span className="text-sm text-amber-500">{acceptsClause ? '把上方整套修饰从句拖到这个谓语上' : '拖修饰语到这里'}</span>}</div></div>; })}</div></div>; })}</div>
                                         {modifiers.length === 0 && <p className="text-sm text-slate-500">这句没有明显修饰语；仍可观察每个词块在主干中的位置。</p>}
                                       </div>;
                                     })()}
@@ -7629,17 +7683,18 @@
                                     {voiceLessonStepIndex === 2 && (() => {
                                       const segments = selectedSentence.segments || [];
                                       const connectors = segments.map((seg, index) => ({ seg, index })).filter(({ seg }) => seg.type === 'conjunction' && /^(for|and|nor|but|or|yet|so)$/i.test(seg.text.trim()));
-                                      const clauses = [
-                                        { key: 'main', label: '主句', indexes: segments.map((seg, index) => ['subject', 'verb', 'object', 'predicative'].includes(seg.type) ? index : -1).filter(index => index >= 0) },
-                                        { key: 'coord', label: '并列主句', indexes: segments.map((seg, index) => /^coord-/.test(seg.type) ? index : -1).filter(index => index >= 0) }
-                                      ].filter(item => item.indexes.length);
+                                      const clauses = buildPracticeFrames(segments).map(frame => ({
+                                        ...frame,
+                                        indexes: Object.values(frame.roleIndexes).flat(),
+                                        label: frame.sharedSubject ? `${frame.label}（沿用上一主语）` : frame.label
+                                      })).filter(item => item.indexes.length);
                                       const drops = logicPracticeDrops[selectedSentence.id] || {};
                                       const dropped = Object.values(drops).flat();
                                       const put = (target, index) => setLogicPracticeDrops(prev => ({ ...prev, [selectedSentence.id]: { ...(prev[selectedSentence.id] || {}), [target]: [...((prev[selectedSentence.id] || {})[target] || []), index] }}));
                                       return <div className="animate-in fade-in duration-300 space-y-5">
                                         <div><h4 className="text-xl font-black text-slate-900">连起逻辑</h4><p className="mt-1 text-sm text-slate-500">这里只处理 FANBOYS 并列：把连接词拖到两套并列主干之间。</p></div>
                                         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4"><p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">可用词块（前两步未使用）</p><div className="flex flex-wrap gap-2">{connectors.map(({ seg, index }) => <span key={index} draggable={!dropped.includes(index)} onDragStart={event => event.dataTransfer.setData('text/plain', String(index))} className={`rounded-xl border px-3 py-2 text-base font-semibold ${dropped.includes(index) ? 'border-slate-100 bg-slate-100 text-slate-300' : 'cursor-grab border-slate-300 bg-white text-slate-800'}`}>{seg.text.trim()}</span>)}{connectors.length === 0 && <span className="text-sm text-slate-400">这句没有需要单独连接的词块。</span>}</div></div>
-                                        <div className="space-y-3">{clauses.map((clause, index) => <React.Fragment key={clause.key}><div className="rounded-2xl border border-slate-200 bg-white p-4"><p className="text-xs font-black text-slate-400">{clause.label}</p><p className="mt-1 text-lg font-bold text-slate-900">{clause.indexes.map(i => segments[i].text.trim()).join(' ')}</p></div>{index < clauses.length - 1 && <div onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); put('between', Number(event.dataTransfer.getData('text/plain'))); }} className="rounded-xl border border-dashed border-sky-300 bg-sky-50 p-3 text-center"><span className="text-sm font-bold text-sky-700">{(drops.between || []).map(i => segments[i]?.text.trim()).join(' ') || '把连接词拖到两套主干之间'}</span></div>}</React.Fragment>)}</div>
+                                        <div className="space-y-3">{clauses.map((clause, index) => <React.Fragment key={clause.key}><div className="rounded-2xl border border-slate-200 bg-white p-4"><p className="text-xs font-black text-slate-400">{clause.label}</p><p className="mt-1 text-lg font-bold text-slate-900">{clause.indexes.map(i => segments[i].text.trim()).join(' ')}</p></div>{index < clauses.length - 1 && <div onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); put(`between-${index}`, Number(event.dataTransfer.getData('text/plain'))); }} className="rounded-xl border border-dashed border-sky-300 bg-sky-50 p-3 text-center"><span className="text-sm font-bold text-sky-700">{(drops[`between-${index}`] || []).map(i => segments[i]?.text.trim()).join(' ') || '把连接词拖到两套主干之间'}</span></div>}</React.Fragment>)}</div>
                                         {connectors.length === 0 && <p className="text-sm text-slate-500">这句没有 FANBOYS 并列结构；从句和其他修饰关系已在第 2 步完成。</p>}
                                       </div>;
                                     })()}
