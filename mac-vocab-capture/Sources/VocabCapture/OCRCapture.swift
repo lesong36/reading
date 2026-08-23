@@ -16,9 +16,9 @@ enum OCRCaptureError: LocalizedError {
 }
 
 enum ScreenContextCapture {
-  /// A full-screen capture is intentionally taken only after the user invokes
-  /// capture. Vision then extracts the sentence containing the selected term.
-  static func capture() async throws -> CGImage {
+  /// Captures only the area around the pointer. This excludes unrelated panes
+  /// that often repeat the same word elsewhere on a large desktop window.
+  static func capture(around pointer: CGPoint) async throws -> CGImage {
     guard CGPreflightScreenCaptureAccess() else {
       CGRequestScreenCaptureAccess()
       throw OCRCaptureError.screenRecordingPermissionRequired
@@ -27,7 +27,16 @@ enum ScreenContextCapture {
     defer { try? FileManager.default.removeItem(at: fileURL) }
     let process = Process()
     process.executableURL = URL(fileURLWithPath: "/usr/sbin/screencapture")
-    process.arguments = ["-x", "-t", "png", fileURL.path]
+    let screen = NSScreen.screens.first(where: { $0.frame.contains(pointer) }) ?? NSScreen.main
+    guard let screen else { throw OCRCaptureError.screenCaptureFailed }
+    let size = CGSize(width: min(1_080, screen.frame.width), height: min(720, screen.frame.height))
+    let localPointer = CGPoint(x: pointer.x - screen.frame.minX, y: screen.frame.maxY - pointer.y)
+    let origin = CGPoint(
+      x: min(max(0, localPointer.x - size.width / 2), max(0, screen.frame.width - size.width)),
+      y: min(max(0, localPointer.y - size.height / 2), max(0, screen.frame.height - size.height))
+    )
+    let rectangle = "\(Int(origin.x)),\(Int(origin.y)),\(Int(size.width)),\(Int(size.height))"
+    process.arguments = ["-x", "-R", rectangle, "-t", "png", fileURL.path]
     try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
       process.terminationHandler = { finished in
         finished.terminationStatus == 0

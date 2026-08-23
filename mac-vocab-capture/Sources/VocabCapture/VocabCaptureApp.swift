@@ -419,7 +419,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private func contextualSelection(for selection: SelectedText) async throws -> SelectedText {
     let context = selection.context.trimmingCharacters(in: .whitespacesAndNewlines)
     guard context.caseInsensitiveCompare(selection.word) == .orderedSame else { return selection }
-    let image = try await ScreenContextCapture.capture()
+    let image = try await ScreenContextCapture.capture(around: NSEvent.mouseLocation)
     let screenText = try await OCRClient.recognize(image)
     let sentence = SelectionReader.sentenceFromOCRText(screenText, containing: selection.word)
     guard sentence.count > selection.word.count else { throw OCRCaptureError.noTextFound }
