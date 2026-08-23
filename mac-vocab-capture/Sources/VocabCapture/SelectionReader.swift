@@ -35,8 +35,8 @@ enum SelectionReader {
     let directContext = ancestors
       .lazy
       .compactMap { sentenceContext(in: $0) ?? visibleSentenceContext(in: $0, containing: selection.word) }
-      .first(where: { $0.count > selection.context.count }) ?? selection.context
-    let context = directContext.count > selection.context.count
+      .first(where: { isUsableSentence($0, containing: selection.word) }) ?? selection.context
+    let context = isUsableSentence(directContext, containing: selection.word)
       ? directContext
       : ancestors.prefix(5).lazy.compactMap { nearbyTextSentence(in: $0, containing: selection.word) }.first ?? selection.context
     return SelectedText(word: selection.word, context: context)
@@ -146,7 +146,7 @@ enum SelectionReader {
       if let text = readableText(in: next.element), text.count > word.count,
          text.range(of: word, options: [.caseInsensitive, .diacriticInsensitive]) != nil {
         let sentence = sentenceFromOCRText(text, containing: word)
-        if sentence.count > word.count { candidates.append(sentence) }
+        if isUsableSentence(sentence, containing: word) { candidates.append(sentence) }
       }
       guard next.depth < 6 else { continue }
       var childrenValue: CFTypeRef?
@@ -156,6 +156,13 @@ enum SelectionReader {
       }
     }
     return candidates.min(by: { $0.count < $1.count })
+  }
+
+  private static func isUsableSentence(_ text: String, containing word: String) -> Bool {
+    let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+    let wordCount = trimmed.split(whereSeparator: { $0.isWhitespace }).count
+    let hasTerminator = trimmed.contains { ".!?。！？".contains($0) }
+    return trimmed.count >= word.count + 12 && wordCount >= 4 && hasTerminator
   }
 
   private static func readableText(in element: AXUIElement) -> String? {
