@@ -31,7 +31,11 @@ enum SelectionReader {
     guard AXUIElementCopyAttributeValue(element as! AXUIElement, kAXSelectedTextAttribute as CFString, &selectedText) == .success,
           let text = selectedText as? String else { return nil }
     guard let selection = sanitize(text) else { return nil }
-    return SelectedText(word: selection.word, context: sentenceContext(in: element as! AXUIElement, fallback: selection.context))
+    let context = accessibleAncestors(startingAt: element as! AXUIElement)
+      .lazy
+      .compactMap { sentenceContext(in: $0) ?? visibleSentenceContext(in: $0, containing: selection.word) }
+      .first(where: { $0.count > selection.context.count }) ?? selection.context
+    return SelectedText(word: selection.word, context: context)
   }
 
   private static func clipboardFallback() -> SelectedText? {
@@ -69,40 +73,78 @@ enum SelectionReader {
     return String(sentence.prefix(600))
   }
 
-  private static func sentenceContext(in element: AXUIElement, fallback: String) -> String {
+  private static func accessibleAncestors(startingAt element: AXUIElement) -> [AXUIElement] {
+    var result = [element]
+    var current = element
+    for _ in 0..<10 {
+      var parentValue: CFTypeRef?
+      guard AXUIElementCopyAttributeValue(current, kAXParentAttribute as CFString, &parentValue) == .success,
+            let parentValue else { break }
+      let parent = parentValue as! AXUIElement
+      result.append(parent)
+      current = parent
+    }
+    return result
+  }
+
+  private static func sentenceContext(in element: AXUIElement) -> String? {
     var textValue: CFTypeRef?
     var rangeValue: CFTypeRef?
     guard AXUIElementCopyAttributeValue(element, kAXSelectedTextRangeAttribute as CFString, &rangeValue) == .success,
-          let rangeValue else { return fallback }
-    guard CFGetTypeID(rangeValue) == AXValueGetTypeID() else { return fallback }
+          let rangeValue else { return nil }
+    guard CFGetTypeID(rangeValue) == AXValueGetTypeID() else { return nil }
     let axRange = unsafeBitCast(rangeValue, to: AXValue.self)
 
     var range = CFRange()
-    guard AXValueGetValue(axRange, .cfRange, &range), range.location != kCFNotFound else { return fallback }
+    guard AXValueGetValue(axRange, .cfRange, &range), range.location != kCFNotFound else { return nil }
     if AXUIElementCopyAttributeValue(element, kAXValueAttribute as CFString, &textValue) == .success,
        let text = textValue as? String {
-      return sentence(in: text, selectedRange: range, fallback: fallback)
+      return sentence(in: text, selectedRange: range)
     }
 
     // Browsers and PDF readers often deliberately omit AXValue for large text,
     // but still implement the parameterized range request. Ask only for the
     // small neighborhood around the selection, never for the whole document.
     var neighborhood = CFRange(location: max(0, range.location - 360), length: range.length + 720)
-    guard let neighborhoodValue = AXValueCreate(.cfRange, &neighborhood) else { return fallback }
+    guard let neighborhoodValue = AXValueCreate(.cfRange, &neighborhood) else { return nil }
     var parameterizedText: CFTypeRef?
     guard AXUIElementCopyParameterizedAttributeValue(
       element,
       kAXStringForRangeParameterizedAttribute as CFString,
       neighborhoodValue,
       &parameterizedText
-    ) == .success, let text = parameterizedText as? String else { return fallback }
+    ) == .success, let text = parameterizedText as? String else { return nil }
     let relativeRange = CFRange(location: max(0, range.location - neighborhood.location), length: range.length)
-    return sentence(in: text, selectedRange: relativeRange, fallback: fallback)
+    return sentence(in: text, selectedRange: relativeRange)
   }
 
-  private static func sentence(in text: String, selectedRange: CFRange, fallback: String) -> String {
+  /// Chromium can expose the selected text on a leaf but only expose the page's
+  /// visible text on its AXWebArea ancestor. Use that visible text as a final
+  /// contextual source when its selected range is unavailable.
+  private static func visibleSentenceContext(in element: AXUIElement, containing word: String) -> String? {
+    var rangeValue: CFTypeRef?
+    guard AXUIElementCopyAttributeValue(element, kAXVisibleCharacterRangeAttribute as CFString, &rangeValue) == .success,
+          let rangeValue,
+          CFGetTypeID(rangeValue) == AXValueGetTypeID() else { return nil }
+    var range = CFRange()
+    let axRange = unsafeBitCast(rangeValue, to: AXValue.self)
+    guard AXValueGetValue(axRange, .cfRange, &range), range.location != kCFNotFound else { return nil }
+    range.length = min(range.length, 4_000)
+    guard let visibleRange = AXValueCreate(.cfRange, &range) else { return nil }
+    var textValue: CFTypeRef?
+    guard AXUIElementCopyParameterizedAttributeValue(
+      element,
+      kAXStringForRangeParameterizedAttribute as CFString,
+      visibleRange,
+      &textValue
+    ) == .success, let text = textValue as? String,
+      text.range(of: word, options: [.caseInsensitive, .diacriticInsensitive]) != nil else { return nil }
+    return sentenceFromOCRText(text, containing: word)
+  }
+
+  private static func sentence(in text: String, selectedRange: CFRange) -> String? {
     let nsText = text as NSString
-    guard selectedRange.location >= 0, selectedRange.location <= nsText.length else { return fallback }
+    guard selectedRange.location >= 0, selectedRange.location <= nsText.length else { return nil }
     let isSeparator: (unichar) -> Bool = { character in
       character == 46 || character == 33 || character == 63 || character == 12290 || character == 65281 || character == 65311 || character == 10
     }
@@ -112,6 +154,6 @@ enum SelectionReader {
     while end < nsText.length, !isSeparator(nsText.character(at: end)) { end += 1 }
     if end < nsText.length { end += 1 }
     let sentence = nsText.substring(with: NSRange(location: start, length: end - start)).trimmingCharacters(in: .whitespacesAndNewlines)
-    return sentence.isEmpty ? fallback : String(sentence.prefix(600))
+    return sentence.isEmpty ? nil : String(sentence.prefix(600))
   }
 }
