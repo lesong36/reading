@@ -308,19 +308,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   private func confirmAdd(selection: SelectedText, dictionary: DictionaryResult) -> Bool {
-    let alert = NSAlert()
-    alert.messageText = "原句中的 “\(selection.word)”"
-    let details = [
-      "含义：\(dictionary.meaning)",
-      dictionary.partOfSpeech.isEmpty ? nil : "词性：\(dictionary.partOfSpeech)",
-      dictionary.pronunciation.isEmpty ? nil : "发音：\(dictionary.pronunciation)",
-      dictionary.note.isEmpty ? nil : "说明：\(dictionary.note)",
-      "原句：\(selection.context)"
-    ].compactMap { $0 }.joined(separator: "\n")
-    alert.informativeText = details
-    alert.addButton(withTitle: "加入生词本")
-    alert.addButton(withTitle: "取消")
-    return alert.runModal() == .alertFirstButtonReturn
+    DefinitionPreviewPanel(selection: selection, dictionary: dictionary).present()
   }
 
   private func showFailure(title: String = "没有加入生词本", _ message: String) {
@@ -541,6 +529,143 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   func applicationWillTerminate(_ notification: Notification) { stopMouseChord() }
+}
+
+private final class DefinitionPreviewPanel: NSPanel, NSWindowDelegate {
+  private var shouldAdd = false
+
+  init(selection: SelectedText, dictionary: DictionaryResult) {
+    super.init(
+      contentRect: NSRect(x: 0, y: 0, width: 520, height: 520),
+      styleMask: [.titled, .closable],
+      backing: .buffered,
+      defer: false
+    )
+    title = "语境释义"
+    isReleasedWhenClosed = false
+    delegate = self
+
+    let background = NSVisualEffectView()
+    background.material = .underWindowBackground
+    background.blendingMode = .behindWindow
+    background.state = .active
+    contentView = background
+
+    let eyebrow = label("语境释义", font: .systemFont(ofSize: 12, weight: .semibold), color: .secondaryLabelColor)
+    let word = label(selection.word, font: .systemFont(ofSize: 27, weight: .bold), color: .labelColor)
+    let metadata = [dictionary.partOfSpeech, dictionary.pronunciation].filter { !$0.isEmpty }.joined(separator: "   ")
+    let metadataLabel = label(metadata, font: .systemFont(ofSize: 14, weight: .medium), color: .systemIndigo)
+    let meaningLabel = label("原句中的含义", font: .systemFont(ofSize: 12, weight: .semibold), color: .tertiaryLabelColor)
+    let meaning = label(dictionary.meaning, font: .systemFont(ofSize: 20, weight: .semibold), color: .labelColor)
+    let note = dictionary.note.isEmpty ? nil : label(dictionary.note, font: .systemFont(ofSize: 14), color: .secondaryLabelColor)
+    let sourceTitle = label("原句语境", font: .systemFont(ofSize: 12, weight: .semibold), color: .tertiaryLabelColor)
+    let source = sourceView(selection.context)
+
+    let content = NSStackView()
+    content.orientation = .vertical
+    content.alignment = .leading
+    content.spacing = 9
+    [eyebrow, word, metadataLabel, divider(), meaningLabel, meaning].forEach { content.addArrangedSubview($0) }
+    if let note {
+      content.setCustomSpacing(12, after: meaning)
+      content.addArrangedSubview(note)
+    }
+    content.setCustomSpacing(16, after: note ?? meaning)
+    content.addArrangedSubview(sourceTitle)
+    content.addArrangedSubview(source)
+
+    let cancel = NSButton(title: "稍后再说", target: self, action: #selector(cancel))
+    cancel.bezelStyle = .rounded
+    cancel.keyEquivalent = "\u{1b}"
+    let add = NSButton(title: "加入生词本", target: self, action: #selector(confirm))
+    add.bezelStyle = .rounded
+    add.keyEquivalent = "\r"
+    add.controlSize = .large
+    add.contentTintColor = .controlAccentColor
+    let footer = NSStackView(views: [cancel, NSView(), add])
+    footer.orientation = .horizontal
+    footer.alignment = .centerY
+    footer.distribution = .fill
+    footer.spacing = 12
+    cancel.widthAnchor.constraint(equalToConstant: 112).isActive = true
+    add.widthAnchor.constraint(equalToConstant: 136).isActive = true
+
+    for view in [content, footer] { view.translatesAutoresizingMaskIntoConstraints = false; background.addSubview(view) }
+    NSLayoutConstraint.activate([
+      content.topAnchor.constraint(equalTo: background.topAnchor, constant: 26),
+      content.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 30),
+      content.trailingAnchor.constraint(equalTo: background.trailingAnchor, constant: -30),
+      source.widthAnchor.constraint(equalTo: content.widthAnchor),
+      footer.leadingAnchor.constraint(equalTo: content.leadingAnchor),
+      footer.trailingAnchor.constraint(equalTo: content.trailingAnchor),
+      footer.bottomAnchor.constraint(equalTo: background.bottomAnchor, constant: -24),
+      footer.topAnchor.constraint(greaterThanOrEqualTo: content.bottomAnchor, constant: 20)
+    ])
+  }
+
+  func present() -> Bool {
+    center()
+    makeKeyAndOrderFront(nil)
+    NSApp.activate(ignoringOtherApps: true)
+    NSApp.runModal(for: self)
+    return shouldAdd
+  }
+
+  @objc private func confirm() {
+    shouldAdd = true
+    endModal()
+  }
+
+  @objc private func cancel() { endModal() }
+
+  func windowShouldClose(_ sender: NSWindow) -> Bool {
+    endModal()
+    return false
+  }
+
+  private func endModal() {
+    NSApp.stopModal()
+    orderOut(nil)
+  }
+
+  private func label(_ text: String, font: NSFont, color: NSColor) -> NSTextField {
+    let field = NSTextField(wrappingLabelWithString: text)
+    field.font = font
+    field.textColor = color
+    field.maximumNumberOfLines = 0
+    return field
+  }
+
+  private func divider() -> NSBox {
+    let line = NSBox()
+    line.boxType = .separator
+    line.translatesAutoresizingMaskIntoConstraints = false
+    line.widthAnchor.constraint(equalToConstant: 460).isActive = true
+    return line
+  }
+
+  private func sourceView(_ text: String) -> NSScrollView {
+    let scroll = NSScrollView()
+    scroll.hasVerticalScroller = true
+    scroll.borderType = .noBorder
+    scroll.drawsBackground = false
+    scroll.wantsLayer = true
+    scroll.layer?.cornerRadius = 10
+    scroll.layer?.backgroundColor = NSColor.controlBackgroundColor.withAlphaComponent(0.75).cgColor
+    let view = NSTextView()
+    view.isEditable = false
+    view.isSelectable = true
+    view.drawsBackground = false
+    view.textColor = .secondaryLabelColor
+    view.font = .systemFont(ofSize: 15)
+    view.textContainerInset = NSSize(width: 14, height: 12)
+    view.textContainer?.widthTracksTextView = true
+    view.isHorizontallyResizable = false
+    view.string = text
+    scroll.documentView = view
+    scroll.heightAnchor.constraint(equalToConstant: 128).isActive = true
+    return scroll
+  }
 }
 
 private final class OCRParagraphPickerView: NSView, NSTextViewDelegate {
