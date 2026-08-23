@@ -50,6 +50,25 @@ enum SelectionReader {
     sanitize(pasteboard.string(forType: .string) ?? "")
   }
 
+  /// OCR commonly wraps one sentence across multiple visual lines. Normalize
+  /// those wraps first, then retain the full grammatical sentence containing
+  /// the selected word or phrase instead of passing the whole screenshot.
+  static func sentenceFromOCRText(_ text: String, containing word: String) -> String {
+    let normalized = text
+      .components(separatedBy: .whitespacesAndNewlines)
+      .filter { !$0.isEmpty }
+      .joined(separator: " ")
+    guard let match = normalized.range(of: word, options: [.caseInsensitive, .diacriticInsensitive]) else {
+      return String(normalized.prefix(600))
+    }
+    let prefix = normalized[..<match.lowerBound]
+    let start = prefix.lastIndex(where: { ".!?。！？".contains($0) }).map { normalized.index(after: $0) } ?? normalized.startIndex
+    let suffix = normalized[match.upperBound...]
+    let end = suffix.firstIndex(where: { ".!?。！？".contains($0) }).map { normalized.index(after: $0) } ?? normalized.endIndex
+    let sentence = normalized[start..<end].trimmingCharacters(in: .whitespacesAndNewlines)
+    return String(sentence.prefix(600))
+  }
+
   private static func sentenceContext(in element: AXUIElement, fallback: String) -> String {
     var textValue: CFTypeRef?
     var rangeValue: CFTypeRef?

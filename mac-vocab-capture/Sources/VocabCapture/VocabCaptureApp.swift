@@ -180,14 +180,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       var cancelled = 0
       for word in words {
         do {
-          let selection = SelectedText(word: word, context: context)
+          let sentence = SelectionReader.sentenceFromOCRText(context, containing: word)
+          let selection = SelectedText(word: word, context: sentence)
           let result = try await dictionary.lookup(selection, configuration: configuration)
           let shouldAdd = await MainActor.run { self.confirmAdd(selection: selection, dictionary: result) }
           guard shouldAdd else {
             cancelled += 1
             continue
           }
-          added.append(try await store.add(word: word, dictionary: result, context: context))
+          added.append(try await store.add(word: word, dictionary: result, context: sentence))
         } catch {
           failures += 1
         }
