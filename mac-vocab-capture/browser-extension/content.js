@@ -1,4 +1,6 @@
 (() => {
+  if (globalThis.__vocabCaptureContentLoaded) return;
+  globalThis.__vocabCaptureContentLoaded = true;
   const token = "[A-Za-z]+(?:['’][A-Za-z]+)?";
   const phrasePattern = new RegExp(`^${token}(?:[\\s-]+${token}){0,11}$`);
 
@@ -107,4 +109,5 @@
     chrome.runtime.sendMessage({ type: 'cache-context', payload });
   };
   document.addEventListener('selectionchange', () => window.setTimeout(publishCurrentContext, 0));
+  chrome.runtime.sendMessage({ type: 'content-ready' });
 })();
