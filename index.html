@@ -785,6 +785,25 @@
       return type;
     };
 
+    // Legacy packs sometimes store an entire noun phrase as the object.  A
+    // low-risk split makes the centre noun available as the main clause part
+    // and leaves its determiner/adjective and of/with/... phrase available to
+    // the modifier exercise, without changing the source sentence text.
+    const splitLegacyNounPhraseForPractice = (segment = {}) => {
+      const type = normalizeSegmentType(segment);
+      const text = String(segment.text || '');
+      if (!['subject', 'object', 'predicative', 'coord-subject', 'coord-object', 'coord-predicative', 'clause-subject', 'clause-object', 'clause-predicative'].includes(type)) return [segment];
+      const match = text.match(/^(\s*)((?:(?:the|a|an|this|that|these|those|my|your|his|her|our|their|some|many|several)\s+)?(?:[A-Za-z][A-Za-z'-]*\s+)+)([A-Za-z][A-Za-z'-]*)(\s+(?:of|with|from|in|on|for|at|by|about)\b[\s\S]*)$/i);
+      if (!match) return [segment];
+      const [, leading, beforeHead, head, tail] = match;
+      const prefix = `${leading}${beforeHead}`;
+      return [
+        { ...segment, text: prefix, type: 'modifier', label: '前置定语' },
+        { ...segment, text: head, type, label: normalizeSegmentLabel({ ...segment, type }) },
+        { ...segment, text: tail, type: 'modifier', label: '后置定语' }
+      ];
+    };
+
     const normalizeSentenceSegments = (sentence = {}) => ({
       ...sentence,
       teachingFocus: sentence.teachingFocus && typeof sentence.teachingFocus === 'object'
@@ -802,11 +821,15 @@
         : null,
       keyTerms: normalizeGlossary(sentence.keyTerms || sentence.glossary || []),
       segments: Array.isArray(sentence.segments)
-        ? sentence.segments.map(seg => ({
+        ? sentence.segments.flatMap(seg => splitLegacyNounPhraseForPractice({
             ...seg,
             type: normalizeSegmentType(seg),
             label: normalizeSegmentLabel(seg)
-          }))
+          }).map(part => ({
+            ...part,
+            type: normalizeSegmentType(part),
+            label: normalizeSegmentLabel(part)
+          })))
         : []
     });
 
@@ -7500,7 +7523,7 @@
                                         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
                                           <p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">可用词块</p>
                                           <div className="flex flex-wrap gap-2">
-                                            {(selectedSentence.segments || []).map((segment, index) => !droppedIndexes.includes(index) && (
+                                            {(selectedSentence.segments || []).map((segment, index) => !droppedIndexes.includes(index) && /[A-Za-z]/.test(segment.text || '') && (
                                               <button key={index} type="button" draggable onDragStart={event => event.dataTransfer.setData('text/plain', String(index))} className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-base font-semibold text-slate-800 shadow-sm hover:border-indigo-400 cursor-grab active:cursor-grabbing">{segment.text.trim()}</button>
                                             ))}
                                           </div>
