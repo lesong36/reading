@@ -3531,6 +3531,7 @@
       const [guidedWordGuess, setGuidedWordGuess] = useState({});
       const [guidedTranslationDraft, setGuidedTranslationDraft] = useState({});
       const [guidedShowTranslation, setGuidedShowTranslation] = useState({});
+      const [mainPracticeDrops, setMainPracticeDrops] = useState({});
       
       // Sentence workbench tabs.  Keep quiz mode separate because it also
       // changes how the passage supports locating evidence for an answer.
@@ -3592,6 +3593,7 @@
         setGuidedWordGuess({});
         setGuidedTranslationDraft({});
         setGuidedShowTranslation({});
+        setMainPracticeDrops({});
         setRightPanelTab('analysis');
       }, [selectedSentence]);
 
@@ -7398,22 +7400,24 @@
                               )}
 
                               {/* 步骤导航选项卡 — 始终可见 */}
-                              <div className="flex gap-2 mb-6 overflow-x-auto">
+                              <div className="flex items-center gap-2 mb-6" aria-label="句子学习步骤">
                                 {voiceLessonPlan.map((step, idx) => (
                                   <button
                                     key={step.key}
                                     type="button"
                                     onClick={() => setVoiceLessonStepIndex(idx)}
-                                    className={`flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-bold transition-all shadow-sm ${
+                                    title={step.title}
+                                    aria-label={`${idx + 1}. ${step.title}`}
+                                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-black transition-all ${
                                       voiceLessonStepIndex === idx
-                                        ? 'bg-sky-600 text-white hover:bg-sky-700 ring-2 ring-sky-300 ring-offset-2'
-                                        : 'bg-white text-slate-700 border border-sky-100 hover:bg-sky-50'
+                                        ? 'bg-slate-900 text-white ring-2 ring-slate-300 ring-offset-2'
+                                        : 'border border-slate-200 bg-white text-slate-500 hover:border-slate-400 hover:text-slate-900'
                                     }`}
                                   >
-                                    <span className="text-xl">{['🚂', '🏷️', '🌉', '🔍', '📚'][idx] || '•'}</span>
-                                    第 {idx + 1} 步：{voiceLessonPlan[idx]?.title}
+                                    {idx + 1}
                                   </button>
                                 ))}
+                                <span className="ml-2 text-sm font-semibold text-slate-500">{voiceLessonPlan[voiceLessonStepIndex]?.title}</span>
                               </div>
 
                               {/* Step 内容 — 始终可见 */}
@@ -7458,152 +7462,56 @@
                                 return (
                                   <React.Fragment>
                                     {/* ── Step 1: 主谓宾/主系表 ── */}
-                                    {voiceLessonStepIndex === 0 && (
-                                      <div className="animate-in fade-in duration-300 space-y-5">
-                                        {/* 模板框架：三步找骨架（谓→主→宾/表） */}
-                                        <div className="rounded-3xl border border-slate-100 bg-white/80 p-5">
-                                          <p className="text-sm font-extrabold uppercase tracking-wider text-slate-500 mb-4">怎么找句子骨架？三步走</p>
-                                          <div className="flex items-start gap-3">
-                                            {[
-                                              {step:'①',color:'bg-blue-600',light:'bg-blue-50',border:'border-blue-200',text:'text-blue-700',name:'先找动词（谓语）',desc:'动词是发动机——有了它，句子才转得起来。动词往往是"做了什么"的那个词，可以是动作词（run/see/build）或系动词（is/was/seems）。'},
-                                              {step:'②',color:'bg-rose-500',light:'bg-rose-50',border:'border-rose-200',text:'text-rose-700',name:'再找主语',desc:'谁在发动？通常在动词前面。名词或代词（人/物/抽象概念）。'},
-                                              {step:'③',color:'bg-emerald-600',light:'bg-emerald-50',border:'border-emerald-200',text:'text-emerald-700',name:'最后找宾语/表语',desc:'动作落在哪里（宾语）？或主语是什么状态/特征（表语）？'},
-                                            ].map(({step,color,light,border,text,name,desc}) => (
-                                              <div key={step} className={`flex-1 rounded-2xl ${light} border ${border} px-4 py-3`}>
-                                                <div className="flex items-center gap-2 mb-2">
-                                                  <span className={`${color} text-white text-xs font-black w-6 h-6 rounded-full flex items-center justify-center shrink-0`}>{step}</span>
-                                                  <span className={`text-sm font-extrabold ${text}`}>{name}</span>
-                                                </div>
-                                                <p className="text-sm text-slate-600 leading-relaxed font-medium">{desc}</p>
-                                              </div>
+                                    {voiceLessonStepIndex === 0 && (() => {
+                                      const groups = [
+                                        { key: 'main', label: '主干 1', types: ['subject', 'verb', 'object', 'predicative'] },
+                                        { key: 'coord', label: '主干 2', types: ['coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'] }
+                                      ].filter(group => selectedSentence.segments?.some(seg => group.types.includes(seg.type)));
+                                      const drops = mainPracticeDrops[selectedSentence.id] || {};
+                                      const droppedIndexes = Object.values(drops).flat();
+                                      const place = (groupKey, role, index) => setMainPracticeDrops(prev => ({
+                                        ...prev,
+                                        [selectedSentence.id]: {
+                                          ...(prev[selectedSentence.id] || {}),
+                                          [`${groupKey}-${role}`]: [...((prev[selectedSentence.id] || {})[`${groupKey}-${role}`] || []).filter(item => item !== index), index]
+                                        }
+                                      }));
+                                      const slotText = (groupKey, role) => (drops[`${groupKey}-${role}`] || []).map(index => selectedSentence.segments[index]?.text?.trim()).filter(Boolean).join(' ');
+                                      const slots = [
+                                        { key: 'subject', label: '主语', hint: '谁 / 什么' },
+                                        { key: 'verb', label: '谓语', hint: '做什么' },
+                                        { key: 'object', label: '宾语 / 表语', hint: '什么 / 怎么样' }
+                                      ];
+                                      return <div className="animate-in fade-in duration-300 space-y-5">
+                                        <div className="flex items-center justify-between">
+                                          <div>
+                                            <h4 className="text-xl font-black text-slate-900">找主干</h4>
+                                            <p className="mt-1 text-sm text-slate-500">先找谓语，再找主语和宾语/表语；框图仍按英语顺序排。</p>
+                                          </div>
+                                          <span className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-500">拖动词块到框中</span>
+                                        </div>
+                                        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                                          <p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">可用词块</p>
+                                          <div className="flex flex-wrap gap-2">
+                                            {(selectedSentence.segments || []).map((segment, index) => !droppedIndexes.includes(index) && segment.type !== 'conjunction' && (
+                                              <button key={index} type="button" draggable onDragStart={event => event.dataTransfer.setData('text/plain', String(index))} className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-base font-semibold text-slate-800 shadow-sm hover:border-indigo-400 cursor-grab active:cursor-grabbing">{segment.text.trim()}</button>
                                             ))}
                                           </div>
                                         </div>
-
-                                        {/* 应用：这句的骨架（verb first，支持复合句） */}
-                                        {(() => {
-                                          const clauseSubjectSegs = (selectedSentence.segments || []).filter(s => s.type === 'clause-subject');
-                                          const clauseVerbSegs = (selectedSentence.segments || []).filter(s => s.type === 'clause-verb');
-                                          const clauseObjectSegs = (selectedSentence.segments || []).filter(s => ['clause-object','clause-predicative'].includes(s.type));
-                                          const coordSubjectSegs = (selectedSentence.segments || []).filter(s => s.type === 'coord-subject');
-                                          const coordVerbSegs = (selectedSentence.segments || []).filter(s => s.type === 'coord-verb');
-                                          const coordObjectSegs = (selectedSentence.segments || []).filter(s => ['coord-object','coord-predicative'].includes(s.type));
-                                          const hasSecondClause = clauseSubjectSegs.length > 0 || clauseVerbSegs.length > 0;
-                                          const hasCoordClause = coordSubjectSegs.length > 0 || coordVerbSegs.length > 0;
-                                          const conjunctionSegs = (selectedSentence.segments || []).filter(s => s.type === 'conjunction');
-                                          const conjunctionSeg = conjunctionSegs[0];
-                                          const conjunctionSeg2 = conjunctionSegs[1];
-
-                                          const SvoCard = ({subj, verb, obj, label, accent}) => {
-                                            const colors = {
-                                              blue: {bg:'from-blue-50 to-indigo-50',border:'border-blue-300',badge:'bg-blue-600 text-white',text:'text-blue-950',tag:'bg-white/70 text-indigo-700 border border-blue-100'},
-                                              violet: {bg:'from-violet-50 to-purple-50',border:'border-violet-300',badge:'bg-violet-600 text-white',text:'text-violet-950',tag:'bg-white/70 text-violet-700 border border-violet-100'},
-                                              orange: {bg:'from-orange-50 to-amber-50',border:'border-orange-300',badge:'bg-orange-500 text-white',text:'text-orange-950',tag:'bg-white/70 text-orange-700 border border-orange-100'},
-                                            };
-                                            const c = colors[accent] || colors.blue;
-                                            return (
-                                              <div className={`rounded-3xl bg-gradient-to-br ${c.bg} border-2 ${c.border} p-5 shadow-md space-y-4`}>
-                                                {label && <span className={`inline-block ${c.badge} text-[11px] font-extrabold px-3 py-1 rounded-full`}>{label}</span>}
-                                                <div className="grid grid-cols-3 gap-3">
-                                                  {/* verb first */}
-                                                  <div className="col-span-1 bg-blue-600 rounded-2xl p-3 text-white text-center shadow-sm">
-                                                    <p className="text-xs font-extrabold opacity-80 mb-1 uppercase tracking-wide">① 谓语</p>
-                                                    <p className="text-2xl font-black leading-tight">{verb || '—'}</p>
-                                                    {verb && <span className="mt-2 inline-block text-xs bg-white/20 rounded-full px-2.5 py-0.5 font-bold">{describeVerbFormForChild(verb).label}</span>}
-                                                  </div>
-                                                  <div className="bg-rose-500 rounded-2xl p-3 text-white text-center shadow-sm">
-                                                    <p className="text-xs font-extrabold opacity-80 mb-1 uppercase tracking-wide">② 主语</p>
-                                                    <p className="text-2xl font-black leading-tight">{subj || '—'}</p>
-                                                  </div>
-                                                  <div className="bg-emerald-600 rounded-2xl p-3 text-white text-center shadow-sm">
-                                                    <p className="text-xs font-extrabold opacity-80 mb-1 uppercase tracking-wide">③ 宾/表</p>
-                                                    <p className="text-2xl font-black leading-tight">{obj || '—'}</p>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            );
-                                          };
-
-                                          const ConjDivider = ({seg}) => seg ? (
-                                            <div className="flex items-center gap-3 px-4">
-                                              <div className="h-px flex-1 bg-slate-200" />
-                                              <span className="text-xs font-black text-slate-500 bg-slate-100 border border-slate-200 rounded-full px-3 py-1">{seg.text.trim()} ({seg.label || '连接词'})</span>
-                                              <div className="h-px flex-1 bg-slate-200" />
+                                        <div className="space-y-3">
+                                          {groups.map(group => <div key={group.key} className="rounded-2xl border border-slate-200 bg-white p-4">
+                                            {groups.length > 1 && <p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">{group.label}</p>}
+                                            <div className="grid gap-3 md:grid-cols-3">
+                                              {slots.map(slot => <div key={slot.key} onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); place(group.key, slot.key, Number(event.dataTransfer.getData('text/plain'))); }} className="min-h-24 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3">
+                                                <p className="text-xs font-black text-slate-400">{slot.label}</p>
+                                                <p className="mt-2 text-lg font-bold text-slate-900">{slotText(group.key, slot.key) || <span className="font-medium text-slate-300">{slot.hint}</span>}</p>
+                                              </div>)}
                                             </div>
-                                          ) : null;
-
-                                          if (hasCoordClause) {
-                                            // 三套结构：主句1 + (when从句) + so并列主句2
-                                            return (
-                                              <div className="space-y-3">
-                                                <p className="text-sm font-bold text-slate-500 uppercase tracking-wider">这是一个复合并列句，有三套主谓结构：</p>
-                                                <SvoCard
-                                                  label="主句 1"
-                                                  subj={subjectSegs.map(s=>s.text).join(' ')}
-                                                  verb={verbSegs.map(s=>s.text).join(' ')}
-                                                  obj={objectSegs.map(s=>s.text).join(' ')}
-                                                  accent="blue"
-                                                />
-                                                {(hasSecondClause || conjunctionSeg) && (
-                                                  <>
-                                                    <ConjDivider seg={conjunctionSeg} />
-                                                    {hasSecondClause && (
-                                                      <SvoCard
-                                                        label="状语从句 (when/while…)"
-                                                        subj={clauseSubjectSegs.map(s=>s.text).join(' ')}
-                                                        verb={clauseVerbSegs.map(s=>s.text).join(' ')}
-                                                        obj={clauseObjectSegs.map(s=>s.text).join(' ')}
-                                                        accent="violet"
-                                                      />
-                                                    )}
-                                                  </>
-                                                )}
-                                                <ConjDivider seg={conjunctionSeg2 || conjunctionSegs.find(s => /\bso\b/i.test(s.text))} />
-                                                <SvoCard
-                                                  label="并列主句 2 (so/and/but…)"
-                                                  subj={coordSubjectSegs.map(s=>s.text).join(' ')}
-                                                  verb={coordVerbSegs.map(s=>s.text).join(' ')}
-                                                  obj={coordObjectSegs.map(s=>s.text).join(' ')}
-                                                  accent="orange"
-                                                />
-                                              </div>
-                                            );
-                                          }
-
-                                          if (hasSecondClause) {
-                                            return (
-                                              <div className="space-y-3">
-                                                <p className="text-sm font-bold text-slate-500 uppercase tracking-wider">这是一个复合句，有两套主谓结构：</p>
-                                                <SvoCard
-                                                  label="主句"
-                                                  subj={subjectSegs.map(s=>s.text).join(' ')}
-                                                  verb={verbSegs.map(s=>s.text).join(' ')}
-                                                  obj={objectSegs.map(s=>s.text).join(' ')}
-                                                  accent="blue"
-                                                />
-                                                <ConjDivider seg={conjunctionSeg} />
-                                                <SvoCard
-                                                  label="从句 / 并列句"
-                                                  subj={clauseSubjectSegs.map(s=>s.text).join(' ')}
-                                                  verb={clauseVerbSegs.map(s=>s.text).join(' ')}
-                                                  obj={clauseObjectSegs.map(s=>s.text).join(' ')}
-                                                  accent="violet"
-                                                />
-                                              </div>
-                                            );
-                                          }
-                                          return (
-                                            <SvoCard
-                                              subj={subjectSegs.map(s=>s.text).join(' ')}
-                                              verb={verbSegs.map(s=>s.text).join(' ')}
-                                              obj={objectSegs.map(s=>s.text).join(' ')}
-                                              accent="blue"
-                                            />
-                                          );
-                                        })()}
-                                        <AiPoints />
-                                      </div>
-                                    )}
+                                          </div>)}
+                                        </div>
+                                        <p className="text-xs leading-5 text-slate-400">提示会在需要时再打开：谓语是句子的动作或状态；主语通常回答“谁/什么”；宾语或表语补全动作和状态。</p>
+                                      </div>;
+                                    })()}
 
                                     {/* ── Step 2: 语法放大镜 ── */}
                                     {voiceLessonStepIndex === 3 && (
