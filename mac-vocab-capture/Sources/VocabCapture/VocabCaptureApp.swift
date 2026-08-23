@@ -101,6 +101,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private func makeSupportMenu() -> NSMenuItem {
     let item = NSMenuItem(title: "帮助与诊断", action: nil, keyEquivalent: "")
     let submenu = NSMenu(title: "帮助与诊断")
+    let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "未知"
+    let versionItem = submenu.addItem(withTitle: "拾词助手 版本 \(version)", action: nil, keyEquivalent: "")
+    versionItem.isEnabled = false
+    submenu.addItem(.separator())
     submenu.addItem(withTitle: "打开上下文调试日志", action: #selector(openContextDebugLog), keyEquivalent: "")
     item.submenu = submenu
     return item

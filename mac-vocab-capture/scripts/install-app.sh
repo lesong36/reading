@@ -6,6 +6,14 @@ SOURCE_APP="$PROJECT_DIR/build/拾词助手.app"
 TARGET_DIR="$HOME/Applications"
 TARGET_APP="$TARGET_DIR/拾词助手.app"
 
+# LaunchServices activates an already-running menu-bar app instead of replacing
+# it, so explicitly close the old process before replacing its bundle.
+osascript -e 'tell application id "com.coty.vocab-capture" to quit' >/dev/null 2>&1 || true
+for _ in {1..20}; do
+  pgrep -f "$TARGET_APP/Contents/MacOS/VocabCapture" >/dev/null || break
+  sleep 0.1
+done
+
 "$PROJECT_DIR/scripts/package-app.sh"
 mkdir -p "$TARGET_DIR"
 if [[ -e "$TARGET_APP" ]]; then
