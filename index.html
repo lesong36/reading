@@ -5362,7 +5362,21 @@
           if (!result || !['supported', 'questionable', 'insufficient'].includes(result.referenceAnswerVerdict) || !['valid', 'partial', 'invalid', 'missing'].includes(result.locatorVerdict) || (result.evidenceSentenceIds || []).some(id => !allowed.has(id))) throw new Error('模型返回的评测格式或定位证据不合规。');
           const evaluation = { ...result, generatedAt: new Date().toISOString(), locatorSentenceId: locatorId, disputed: result.referenceAnswerVerdict !== 'supported' || (Number.isInteger(result.modelAnswerIndex) && result.modelAnswerIndex !== currentQuizQuestion.answerIndex) };
           setQuizEvaluations(previous => ({ ...previous, [key]: evaluation }));
-          recordLearningEvent({ eventType: 'quiz_evaluated', eventKey: `evaluation:${currentArticleId}:${currentQuizQuestion.id}:${evaluation.generatedAt}`, articleId: currentArticleId, articleTitle: currentArticleTitle, questionId: currentQuizQuestion.id, payload: { disputed: evaluation.disputed, locatorVerdict: evaluation.locatorVerdict, referenceAnswerVerdict: evaluation.referenceAnswerVerdict } });
+          recordLearningEvent({ eventType: 'quiz_evaluated', eventKey: `evaluation:${currentArticleId}:${currentQuizQuestion.id}:${evaluation.generatedAt}`, articleId: currentArticleId, articleTitle: currentArticleTitle, questionId: currentQuizQuestion.id, payload: {
+            disputed: evaluation.disputed,
+            locatorVerdict: evaluation.locatorVerdict,
+            referenceAnswerVerdict: evaluation.referenceAnswerVerdict,
+            learnerAnswerVerdict: evaluation.learnerAnswerVerdict || null,
+            modelAnswerIndex: Number.isInteger(evaluation.modelAnswerIndex) ? evaluation.modelAnswerIndex : null,
+            reasoning: evaluation.reasoning || evaluation.nextStep || null,
+            questionPrompt: currentQuizQuestion.prompt,
+            options: currentQuizQuestion.options,
+            learnerAnswerIndex: currentQuizAnswer,
+            referenceAnswerIndex: currentQuizQuestion.answerIndex,
+            locatorSentenceId: locatorId,
+            locatorWindow: windowSentences,
+            evidenceSentenceIds: evaluation.evidenceSentenceIds || []
+          } });
           setToastMessage(evaluation.disputed ? '⚠️ AI 发现答案争议，可发起人工校验。' : '✅ AI 评测完成。');
         } catch (error) { setToastMessage(`评测失败：${error.message || '请检查 AI 设置后重试'}`); } finally { setEvaluatingQuestionKey(null); }
       };
