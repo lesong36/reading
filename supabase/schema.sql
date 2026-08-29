@@ -77,11 +77,46 @@ create table if not exists public.quiz_answer_corrections (
   unique (article_id, question_id)
 );
 
+-- Immutable events make daily reports reliable even when a later completion
+-- replaces an article's current progress snapshot.
+create table if not exists public.learning_events (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  event_key text not null unique,
+  event_type text not null check (event_type in ('article_completed', 'quiz_submitted', 'vocab_added', 'quiz_evaluated', 'answer_review_requested')),
+  occurred_at timestamptz not null default now(),
+  article_id text,
+  article_title text,
+  question_id text,
+  payload jsonb not null default '{}'::jsonb
+);
+alter table public.quiz_answer_reports add column if not exists ai_evaluation jsonb;
+alter table public.quiz_answer_reports add column if not exists reference_answer_index integer;
+alter table public.quiz_answer_reports add column if not exists locator_window_sentence_ids jsonb;
+alter table public.quiz_answer_reports add column if not exists evaluation_input_hash text;
+create index if not exists learning_events_user_time_idx on public.learning_events (user_id, occurred_at desc);
+
+create table if not exists public.daily_report_deliveries (
+  id bigint generated always as identity primary key,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  local_date date not null,
+  timezone text not null,
+  status text not null check (status in ('sending', 'sent', 'failed', 'skipped')),
+  provider_message_id text,
+  error_message text,
+  sent_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  unique (user_id, local_date)
+);
+
 alter table public.profiles enable row level security;
 alter table public.reader_sync_state enable row level security;
 alter table public.quiz_answer_reports enable row level security;
 alter table public.quiz_answer_corrections enable row level security;
 alter table public.teacher_accounts enable row level security;
+alter table public.learning_events enable row level security;
+alter table public.daily_report_deliveries enable row level security;
 
 drop policy if exists "profiles are readable by their owner" on public.profiles;
 drop policy if exists "profiles are writable by their owner" on public.profiles;
@@ -122,6 +157,13 @@ create policy "teachers can manage answer corrections"
   on public.quiz_answer_corrections for all to authenticated using (exists (select 1 from public.teacher_accounts where user_id = auth.uid())) with check (exists (select 1 from public.teacher_accounts where user_id = auth.uid()));
 create policy "teachers can see their own teacher status"
   on public.teacher_accounts for select to authenticated using (auth.uid() = user_id);
+
+create policy "learners can read their own learning events"
+  on public.learning_events for select to authenticated using (auth.uid() = user_id);
+create policy "learners can write their own learning events"
+  on public.learning_events for insert to authenticated with check (auth.uid() = user_id);
+create policy "learners can read their own report deliveries"
+  on public.daily_report_deliveries for select to authenticated using (auth.uid() = user_id);
 
 create or replace function public.handle_new_user()
 returns trigger

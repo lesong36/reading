@@ -84,7 +84,7 @@
   <script type="text/babel" data-type="module">
     import React, { useState, useEffect, useRef, useMemo, Fragment } from 'https://esm.sh/react@18.2.0?target=es2022';
     import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client?bundle';
-    import { BookOpen, Search, Info, MousePointerClick, Zap, AlignLeft, Underline, Link as LinkIcon, Tag, Sparkles, Send, Loader2, UploadCloud, FileText, ArrowLeft, BookMarked, Printer, Plus, Trash2, CheckCircle2, Download, Upload, MessageSquare, Library, Save, FolderOpen, User, LogOut, X, Bot, RefreshCw, KeyRound, ZoomIn, ZoomOut, Clock3 } from 'https://esm.sh/lucide-react@0.292.0?bundle&deps=react@18.2.0';
+    import { BookOpen, Search, Info, MousePointerClick, Zap, AlignLeft, Underline, Link as LinkIcon, Tag, Sparkles, Send, Loader2, UploadCloud, FileText, ArrowLeft, BookMarked, Printer, Plus, Trash2, CheckCircle2, Download, Upload, MessageSquare, Library, Save, FolderOpen, User, LogOut, X, Bot, RefreshCw, KeyRound, ZoomIn, ZoomOut, Clock3, CalendarDays, ChevronLeft, ChevronRight, Mail, AlertTriangle, ClipboardCheck } from 'https://esm.sh/lucide-react@0.292.0?bundle&deps=react@18.2.0';
     import readability from 'https://esm.sh/text-readability@1.1.1?bundle';
     
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2?bundle';
@@ -2153,6 +2153,19 @@
 
     const QUIZ_PROGRESS_STORAGE_KEY_PREFIX = 'reader_quiz_progress_';
     const COMPLETION_RECORDS_STORAGE_KEY = 'reader_article_completion_records_v1';
+    const DAILY_REPORT_PREFERENCES_STORAGE_KEY = 'reader_daily_report_preferences_v1';
+    const localDayKey = (value) => {
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return '';
+      const offset = date.getTimezoneOffset() * 60000;
+      return new Date(date.getTime() - offset).toISOString().slice(0, 10);
+    };
+    const readDailyReportPreferences = () => {
+      try {
+        const stored = JSON.parse(localStorage.getItem(DAILY_REPORT_PREFERENCES_STORAGE_KEY) || '{}');
+        return { enabled: Boolean(stored.enabled), time: /^\d{2}:\d{2}$/.test(stored.time || '') ? stored.time : '20:30', timezone: stored.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Shanghai' };
+      } catch { return { enabled: false, time: '20:30', timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Shanghai' }; }
+    };
     // Shared by the two GitHub Pages apps under https://lesong36.github.io.
     // It is intentionally an inbox rather than VocabMaster's whole app state,
     // so the receiving app can let its active learner accept the new words.
@@ -3159,6 +3172,15 @@
       const [completionRecords, setCompletionRecords] = useState(() => {
         try { return normalizeCompletionRecords(JSON.parse(localStorage.getItem(COMPLETION_RECORDS_STORAGE_KEY) || '{}')); } catch { return {}; }
       });
+      const [selectedRecordDate, setSelectedRecordDate] = useState(() => localDayKey(new Date()));
+      const [recordMonthCursor, setRecordMonthCursor] = useState(() => {
+        const date = new Date();
+        return new Date(date.getFullYear(), date.getMonth(), 1);
+      });
+      const [dailyReportPreferences, setDailyReportPreferences] = useState(readDailyReportPreferences);
+      const [dailyReportDelivery, setDailyReportDelivery] = useState(null);
+      const [quizEvaluations, setQuizEvaluations] = useState(() => { try { return JSON.parse(localStorage.getItem('reader_quiz_evaluations_v1') || '{}'); } catch { return {}; } });
+      const [evaluatingQuestionKey, setEvaluatingQuestionKey] = useState(null);
       const restoreVocabKeys = (keys = []) => {
         const restored = new Set(normalizeDeletedVocabKeys(keys));
         if (restored.size) setDeletedVocabKeys(previous => previous.filter(key => !restored.has(key)));
@@ -3182,6 +3204,45 @@
           : savedArticles.filter(article => getArticleFilterKey(article) === libraryFilter);
         return sortArticlesByTitle(filtered);
       }, [savedArticles, libraryFilter]);
+      const articlesById = useMemo(() => new Map(savedArticles.map(article => [article.id, article])), [savedArticles]);
+      const dailyLearningRecords = useMemo(() => {
+        const days = {};
+        const ensure = (day) => days[day] || (days[day] = { day, completions: [], quizzes: [], vocab: [], totalDurationMs: 0, pendingReviews: 0 });
+        Object.entries(completionRecords).forEach(([articleId, record]) => {
+          const day = localDayKey(record.completedAt); if (!day) return;
+          const article = articlesById.get(articleId);
+          const item = { articleId, title: article?.title || articleId, ...record };
+          ensure(day).completions.push(item); ensure(day).totalDurationMs += Number(record.durationMs || 0);
+        });
+        vocabBook.forEach(word => { const day = localDayKey(word.addedAt || word.timestamp); if (day) ensure(day).vocab.push(word); });
+        savedArticles.forEach(article => {
+          try {
+            const progress = normalizeQuizProgress(JSON.parse(localStorage.getItem(getQuizProgressStorageKey(article.id)) || '{}'));
+            if (!progress.submitted || !progress.submittedAt) return;
+            const day = localDayKey(progress.submittedAt); if (!day) return;
+            const questions = normalizeArticleQuestions(article).filter(isSupportedQuizQuestion);
+            const correct = questions.filter(question => progress.answers?.[question.id] === question.answerIndex).length;
+            ensure(day).quizzes.push({ articleId: article.id, title: article.title, submittedAt: progress.submittedAt, correct, total: questions.length, progress });
+          } catch (error) {}
+        });
+        return days;
+      }, [completionRecords, vocabBook, savedArticles, articlesById]);
+      const todayReport = dailyLearningRecords[localDayKey(new Date())] || { completions: [], quizzes: [], vocab: [], totalDurationMs: 0, pendingReviews: 0 };
+      const recordCalendarDays = useMemo(() => {
+        const year = recordMonthCursor.getFullYear(), month = recordMonthCursor.getMonth();
+        const firstWeekday = new Date(year, month, 1).getDay();
+        const count = new Date(year, month + 1, 0).getDate();
+        return Array.from({ length: firstWeekday + count }, (_, index) => index < firstWeekday ? null : new Date(year, month, index - firstWeekday + 1));
+      }, [recordMonthCursor]);
+
+      useEffect(() => { localStorage.setItem(DAILY_REPORT_PREFERENCES_STORAGE_KEY, JSON.stringify(dailyReportPreferences)); }, [dailyReportPreferences]);
+      useEffect(() => { localStorage.setItem('reader_quiz_evaluations_v1', JSON.stringify(quizEvaluations)); }, [quizEvaluations]);
+      useEffect(() => {
+        if (!supabase || !user) { setDailyReportDelivery(null); return; }
+        let cancelled = false;
+        supabase.from('daily_report_deliveries').select('status,sent_at,error_message,local_date').eq('user_id', user.id).order('created_at', { ascending: false }).limit(1).maybeSingle().then(({ data }) => { if (!cancelled) setDailyReportDelivery(data || null); }).catch(() => {});
+        return () => { cancelled = true; };
+      }, [user, dailyReportPreferences.enabled]);
 
       useEffect(() => {
         let cancelled = false;
@@ -3323,6 +3384,12 @@
           if (cloudPreferences.aiProvider) setAiProvider(cloudPreferences.aiProvider);
           if (cloudPreferences.cloudBaseUrl) setCloudBaseUrl(cloudPreferences.cloudBaseUrl);
           if (cloudPreferences.cloudModel) setCloudModel(cloudPreferences.cloudModel);
+          if (cloudPreferences.dailyReport && typeof cloudPreferences.dailyReport === 'object') {
+            setDailyReportPreferences(current => ({ ...current, ...cloudPreferences.dailyReport }));
+          }
+          if (cloudPreferences.quizEvaluations && typeof cloudPreferences.quizEvaluations === 'object') {
+            setQuizEvaluations(current => ({ ...cloudPreferences.quizEvaluations, ...current }));
+          }
           cloudReadingPositionsRef.current = cloudReadingPositions;
           lastCloudSnapshotRef.current = JSON.stringify({ vocabulary: removeDeletedVocab(cloudVocab, cloudDeletedVocabKeys), favorites: cloudFavorites, readingPositions: cloudReadingPositions, quizProgress: cloudQuizProgress, completionRecords: cloudCompletionRecords, preferences: { ...cloudPreferences, deletedVocabKeys: cloudDeletedVocabKeys }, encryptedAiKey: data?.encrypted_ai_key || null });
           cloudDataLoadedRef.current = true;
@@ -3359,7 +3426,7 @@
         Object.keys(localStorage).filter(key => key.startsWith('reader_quiz_progress_')).forEach(key => {
           try { quizProgressByArticle[key.slice('reader_quiz_progress_'.length)] = normalizeQuizProgress(JSON.parse(localStorage.getItem(key))); } catch (error) {}
         });
-        const preferences = { aiProvider, cloudBaseUrl: cloudBaseUrl.trim(), cloudModel: cloudModel.trim(), ollamaBaseUrl: ollamaBaseUrl.trim(), ollamaModel: ollamaModel.trim(), voiceProvider, deletedVocabKeys };
+        const preferences = { aiProvider, cloudBaseUrl: cloudBaseUrl.trim(), cloudModel: cloudModel.trim(), ollamaBaseUrl: ollamaBaseUrl.trim(), ollamaModel: ollamaModel.trim(), voiceProvider, deletedVocabKeys, dailyReport: dailyReportPreferences, quizEvaluations };
         const readingPositions = {
           ...cloudReadingPositionsRef.current,
           ...(currentArticleId ? { [currentArticleId]: { sentenceId: selectedSentence?.id || null, updatedAt: new Date().toISOString() } } : {})
@@ -3421,7 +3488,7 @@
         cloudDataWriteTimerRef.current = setTimeout(async () => {
           await writeCloudState();
         }, 800);
-      }, [vocabBook, deletedVocabKeys, favoriteArticleIds, completionRecords, cloudSyncRevision, user]);
+      }, [vocabBook, deletedVocabKeys, favoriteArticleIds, completionRecords, dailyReportPreferences, quizEvaluations, cloudSyncRevision, user]);
 
       useEffect(() => {
         if (!supabase || !currentArticleId) return;
@@ -4991,6 +5058,7 @@
           };
 
           setVocabBook(prev => normalizeVocabBook([newWordEntry, ...prev]));
+          recordLearningEvent({ eventType: 'vocab_added', eventKey: `vocab:${newWordEntry.id || `${word}:${newWordEntry.timestamp}`}`, articleId: newWordEntry.sourceArticleId || null, articleTitle: newWordEntry.sourceArticleTitle || null, payload: { word: newWordEntry.word } });
           setToastMessage(`✅ 成功添加生词: ${word}`);
         } catch (error) {
           console.error(error);
@@ -5270,13 +5338,44 @@
         setQuizProgress(prev => ({ ...prev, answers: { ...prev.answers, [question.id]: value } }));
       };
 
+      const recordLearningEvent = async ({ eventType, eventKey, articleId = null, articleTitle = null, questionId = null, payload = {} }) => {
+        if (!supabase || !user) return;
+        const { error } = await supabase.from('learning_events').insert({ user_id: user.id, event_type: eventType, event_key: eventKey, article_id: articleId, article_title: articleTitle, question_id: questionId, payload });
+        if (error && error.code !== '23505') console.warn('Learning event was not recorded:', error.message);
+      };
+
+      const handleEvaluateCurrentQuiz = async () => {
+        if (!currentQuizQuestion || !currentArticleId || !quizProgress.submitted) return;
+        const key = `${currentArticleId}::${currentQuizQuestion.id}`;
+        const locatorId = quizProgress.locatorSentenceIds?.[currentQuizQuestion.id] || null;
+        const locatorIndex = locatorId ? currentArticleData.findIndex(sentence => sentence.id === locatorId) : -1;
+        const windowSentences = locatorIndex < 0 ? [] : currentArticleData.slice(Math.max(0, locatorIndex - 2), locatorIndex + 3).map(sentence => ({ id: sentence.id, text: sentence.text, para: sentence.para }));
+        setEvaluatingQuestionKey(key);
+        try {
+          const result = await fetchAiResponse({
+            ...aiConfig,
+            expectJson: true,
+            systemPrompt: '你是严谨的英语阅读题证据审核助手。独立判断选项，不可把给定参考答案当真。定位结论只能依据给定定位窗口，必须返回合法 JSON。',
+            userPrompt: JSON.stringify({ task: '评估参考答案候选、学生选择与定位句。referenceAnswerVerdict 只能为 supported/questionable/insufficient；learnerAnswerVerdict 为 supported/unsupported/uncertain；locatorVerdict 为 valid/partial/invalid/missing；evidenceSentenceIds 必须只来自 locatorWindow；modelAnswerIndex 为 0 起始选项编号或 null。', question: { prompt: currentQuizQuestion.prompt, options: currentQuizQuestion.options, referenceAnswerIndex: currentQuizQuestion.answerIndex, learnerAnswerIndex: currentQuizAnswer }, locatorWindow: windowSentences, fullPassage: currentArticleData.map(sentence => ({ id: sentence.id, text: sentence.text, para: sentence.para })) })
+          });
+          const allowed = new Set(windowSentences.map(sentence => sentence.id));
+          if (!result || !['supported', 'questionable', 'insufficient'].includes(result.referenceAnswerVerdict) || !['valid', 'partial', 'invalid', 'missing'].includes(result.locatorVerdict) || (result.evidenceSentenceIds || []).some(id => !allowed.has(id))) throw new Error('模型返回的评测格式或定位证据不合规。');
+          const evaluation = { ...result, generatedAt: new Date().toISOString(), locatorSentenceId: locatorId, disputed: result.referenceAnswerVerdict !== 'supported' || (Number.isInteger(result.modelAnswerIndex) && result.modelAnswerIndex !== currentQuizQuestion.answerIndex) };
+          setQuizEvaluations(previous => ({ ...previous, [key]: evaluation }));
+          recordLearningEvent({ eventType: 'quiz_evaluated', eventKey: `evaluation:${currentArticleId}:${currentQuizQuestion.id}:${evaluation.generatedAt}`, articleId: currentArticleId, articleTitle: currentArticleTitle, questionId: currentQuizQuestion.id, payload: { disputed: evaluation.disputed, locatorVerdict: evaluation.locatorVerdict, referenceAnswerVerdict: evaluation.referenceAnswerVerdict } });
+          setToastMessage(evaluation.disputed ? '⚠️ AI 发现答案争议，可发起人工校验。' : '✅ AI 评测完成。');
+        } catch (error) { setToastMessage(`评测失败：${error.message || '请检查 AI 设置后重试'}`); } finally { setEvaluatingQuestionKey(null); }
+      };
+
       const handleQuizSubmit = () => {
         if (!quizCanSubmit || quizProgress.submitted) return;
+        const submittedAt = new Date().toISOString();
         setQuizProgress(prev => ({
           ...prev,
           submitted: true,
-          submittedAt: new Date().toISOString()
+          submittedAt
         }));
+        recordLearningEvent({ eventType: 'quiz_submitted', eventKey: `quiz:${currentArticleId}:${submittedAt}`, articleId: currentArticleId, articleTitle: currentArticleTitle, payload: { correct: quizCorrectCount, total: supportedQuizQuestions.length } });
         setToastMessage(`📝 已交卷：得分 ${quizCorrectCount}/${supportedQuizQuestions.length}`);
       };
 
@@ -5297,10 +5396,11 @@
         const progress = normalizeQuizProgress(JSON.parse(localStorage.getItem(getQuizProgressStorageKey(article.id)) || '{}'));
         const correctCount = totalCount ? questions.filter(question => isSupportedQuizQuestion(question) && progress.answers?.[question.id] === question.answerIndex).length : null;
         const accuracy = totalCount && progress.submitted ? Math.round((correctCount / totalCount) * 100) : null;
+        const completedAt = new Date().toISOString();
         setCompletionRecords(prev => ({
           ...prev,
           [article.id]: {
-            completedAt: new Date().toISOString(),
+            completedAt,
             durationMs: Math.max(0, Number(existing?.durationMs || 0) + sessionDuration),
             accuracy,
             correctCount: totalCount && progress.submitted ? correctCount : null,
@@ -5308,6 +5408,7 @@
             tags: existing?.tags || []
           }
         }));
+        recordLearningEvent({ eventType: 'article_completed', eventKey: `complete:${article.id}:${completedAt}`, articleId: article.id, articleTitle: article.title, payload: { durationMs: Math.max(0, Number(existing?.durationMs || 0) + sessionDuration), accuracy } });
         setToastMessage(accuracy == null ? '✅ 已完成本篇阅读' : `✅ 已完成本篇阅读：正确率 ${accuracy}%`);
       };
 
@@ -5318,6 +5419,9 @@
         if (!currentQuizLocatorSentence) { setToastMessage('请先在左侧原文长按一句，设为本题定位句。'); return; }
         setIsSubmittingAnswerReport(true);
         try {
+          const evaluation = quizEvaluations[`${currentArticleId}::${currentQuizQuestion.id}`] || null;
+          const locatorIndex = currentArticleData.findIndex(sentence => sentence.id === currentQuizLocatorSentence.id);
+          const locatorWindowSentenceIds = locatorIndex < 0 ? [] : currentArticleData.slice(Math.max(0, locatorIndex - 2), locatorIndex + 3).map(sentence => sentence.id);
           const { error } = await supabase.from('quiz_answer_reports').insert({
             reporter_id: user.id,
             article_id: currentArticleId,
@@ -5329,9 +5433,14 @@
             proposed_answer_index: proposedAnswerIndex,
             locator_sentence_id: currentQuizLocatorSentence.id,
             locator_sentence_text: currentQuizLocatorSentence.text,
-            note: answerReportNote.trim() || null
+            note: answerReportNote.trim() || null,
+            ai_evaluation: evaluation,
+            reference_answer_index: currentQuizQuestion.answerIndex,
+            locator_window_sentence_ids: locatorWindowSentenceIds,
+            evaluation_input_hash: evaluation ? `${currentArticleId}:${currentQuizQuestion.id}:${evaluation.generatedAt}` : null
           });
           if (error) throw error;
+          recordLearningEvent({ eventType: 'answer_review_requested', eventKey: `review:${currentArticleId}:${currentQuizQuestion.id}:${Date.now()}`, articleId: currentArticleId, articleTitle: currentArticleTitle, questionId: currentQuizQuestion.id, payload: { referenceAnswerIndex: currentQuizQuestion.answerIndex, learnerAnswerIndex: currentQuizAnswer, proposedAnswerIndex } });
           setAnswerReportNote('');
           setProposedAnswerIndex(null);
           setToastMessage('📨 已上报老师审核；确认后会自动采用更正答案。');
@@ -6041,6 +6150,12 @@
                   <BookMarked className="w-4 h-4" /> 我的生词本
                   {vocabBook.length > 0 && <span className={`text-xs px-2 py-0.5 rounded-full ${viewMode === 'vocab' ? 'bg-white text-indigo-600' : 'bg-indigo-100 text-indigo-700'}`}>{vocabBook.length}</span>}
                 </button>
+                <button
+                  onClick={() => { setSelectedRecordDate(localDayKey(new Date())); setViewMode('daily-records'); }}
+                  className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-colors shadow-sm ${viewMode === 'daily-records' ? 'bg-indigo-600 text-white' : 'bg-white border border-indigo-200 text-indigo-600 hover:bg-indigo-50'}`}
+                >
+                  <CalendarDays className="w-4 h-4" /> 每日记录
+                </button>
                 <button 
                   onClick={() => setViewMode('upload')}
                   className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-colors shadow-sm ${viewMode === 'upload' ? 'bg-indigo-600 text-white' : 'bg-white border border-indigo-200 text-indigo-600 hover:bg-indigo-50'}`}
@@ -6121,6 +6236,7 @@
                     <div className="mt-5 space-y-3 rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4 text-sm leading-7 text-emerald-900">
                       <p>云同步已配置。点击顶部“登录同步”，用邮箱密码注册或登录；用户名是账号展示身份，登录使用邮箱。</p>
                       {user && <div className="flex flex-col sm:flex-row gap-2"><input type="password" value={syncPassphrase} onChange={(e) => setSyncPassphrase(e.target.value)} placeholder="同步加密口令（不上传、不保存）" className="flex-1 rounded-xl border border-emerald-200 bg-white px-3 py-2 text-slate-800" /><button onClick={handleUnlockSyncVault} className="rounded-xl bg-emerald-700 px-4 py-2 font-semibold text-white">{syncVaultUnlocked ? '已解锁' : '解锁 AI 密钥'}</button></div>}
+                      {user && <div className="mt-3 rounded-xl border border-sky-200 bg-white p-3 text-slate-800"><div className="flex flex-wrap items-center justify-between gap-3"><div><p className="font-black">每日学习报告邮件</p><p className="text-xs text-slate-500">发送至已验证账号邮箱：{user.email || '未取得邮箱'}</p></div><label className="flex items-center gap-2 text-sm font-bold"><input type="checkbox" checked={dailyReportPreferences.enabled} onChange={(e) => setDailyReportPreferences(prev => ({ ...prev, enabled: e.target.checked }))} />启用</label></div><div className="mt-3 grid gap-2 sm:grid-cols-2"><label className="text-xs font-bold">发送时间<input type="time" value={dailyReportPreferences.time} onChange={(e) => setDailyReportPreferences(prev => ({ ...prev, time: e.target.value }))} className="mt-1 block w-full rounded-lg border px-2 py-2" /></label><label className="text-xs font-bold">时区<input value={dailyReportPreferences.timezone} onChange={(e) => setDailyReportPreferences(prev => ({ ...prev, timezone: e.target.value }))} className="mt-1 block w-full rounded-lg border px-2 py-2" /></label></div></div>}
                     </div>
                   )}
                 </div>
@@ -6456,6 +6572,20 @@
             {/* =========================================
                 ARTICLE LIBRARY VIEW
                 ========================================= */}
+            {viewMode === 'daily-records' && (() => {
+              const selected = dailyLearningRecords[selectedRecordDate] || { completions: [], quizzes: [], vocab: [], totalDurationMs: 0, pendingReviews: 0 };
+              const monthLabel = recordMonthCursor.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long' });
+              return <div className="animate-in fade-in slide-in-from-bottom-4 space-y-6">
+                <div className="rounded-3xl border border-indigo-100 bg-indigo-50 p-5 md:p-6">
+                  <div className="flex flex-wrap items-center justify-between gap-3"><div><h2 className="flex items-center gap-2 text-xl font-black text-slate-900"><CalendarDays className="h-6 w-6 text-indigo-600" />每日学习记录</h2><p className="mt-1 text-sm text-slate-600">阅读、做题、生词与待人工校验会按本地日期汇总。</p></div><button onClick={() => { setSelectedRecordDate(localDayKey(new Date())); setRecordMonthCursor(new Date(new Date().getFullYear(), new Date().getMonth(), 1)); }} className="rounded-xl bg-white px-3 py-2 text-sm font-bold text-indigo-700">回到今天</button></div>
+                  <div className="mt-5 flex items-center justify-between"><button onClick={() => setRecordMonthCursor(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))} className="rounded-xl bg-white p-2 text-slate-600"><ChevronLeft className="h-5 w-5" /></button><h3 className="font-black text-slate-800">{monthLabel}</h3><button onClick={() => setRecordMonthCursor(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))} className="rounded-xl bg-white p-2 text-slate-600"><ChevronRight className="h-5 w-5" /></button></div>
+                  <div className="mt-3 grid grid-cols-7 gap-1 text-center text-xs text-slate-500">{['日','一','二','三','四','五','六'].map(day => <span key={day}>{day}</span>)}</div>
+                  <div className="mt-2 grid grid-cols-7 gap-1">{recordCalendarDays.map((date, index) => !date ? <div key={`blank-${index}`} /> : (() => { const key = localDayKey(date), report = dailyLearningRecords[key], active = key === selectedRecordDate, score = (report?.completions.length || 0) + (report?.quizzes.length || 0) + (report?.vocab.length || 0); return <button key={key} onClick={() => setSelectedRecordDate(key)} className={`min-h-14 rounded-xl p-1 text-sm font-bold ${active ? 'ring-2 ring-indigo-600' : ''} ${score ? 'bg-indigo-600 text-white' : 'bg-white text-slate-500'}`}><span>{date.getDate()}</span>{score ? <span className="mt-1 block text-[10px] opacity-90">{report.completions.length}篇 · {report.vocab.length}词</span> : null}</button>; })())}</div>
+                </div>
+                <div className="grid grid-cols-2 gap-3 md:grid-cols-4"><div className="rounded-2xl border bg-white p-4"><p className="text-xs text-slate-500">完成阅读</p><p className="mt-1 text-2xl font-black">{selected.completions.length} 篇</p></div><div className="rounded-2xl border bg-white p-4"><p className="text-xs text-slate-500">学习时长</p><p className="mt-1 text-2xl font-black">{formatReadingDuration(selected.totalDurationMs)}</p></div><div className="rounded-2xl border bg-white p-4"><p className="text-xs text-slate-500">已交卷</p><p className="mt-1 text-2xl font-black">{selected.quizzes.length} 次</p></div><div className="rounded-2xl border bg-white p-4"><p className="text-xs text-slate-500">新增生词</p><p className="mt-1 text-2xl font-black">{selected.vocab.length} 个</p></div></div>
+                <div className="rounded-3xl border bg-white p-5"><h3 className="font-black text-slate-900">{selectedRecordDate} 的学习明细</h3>{!selected.completions.length && !selected.quizzes.length && !selected.vocab.length ? <p className="mt-4 text-sm text-slate-500">这一天还没有学习记录。去书架开始学习吧。</p> : <div className="mt-4 space-y-3">{selected.completions.map(item => <button key={`c-${item.articleId}`} onClick={() => item.articleId && articlesById.get(item.articleId) && handleLoadArticle(articlesById.get(item.articleId))} className="block w-full rounded-2xl bg-emerald-50 p-4 text-left text-sm text-emerald-900"><b>完成阅读：</b>{item.title} · {formatReadingDuration(item.durationMs)}</button>)}{selected.quizzes.map(item => <button key={`q-${item.articleId}`} onClick={() => articlesById.get(item.articleId) && handleLoadArticle(articlesById.get(item.articleId))} className="block w-full rounded-2xl bg-indigo-50 p-4 text-left text-sm text-indigo-900"><b>交卷：</b>{item.title} · 暂定得分 {item.correct}/{item.total}（参考答案候选）</button>)}{selected.vocab.length ? <button onClick={() => setViewMode('vocab')} className="block w-full rounded-2xl bg-amber-50 p-4 text-left text-sm text-amber-900"><b>新增生词：</b>{selected.vocab.slice(0, 8).map(word => word.word).join('、')}{selected.vocab.length > 8 ? '…' : ''}</button> : null}</div>}</div>
+              </div>;
+            })()}
             {viewMode === 'library' && (
               <div className="animate-in fade-in slide-in-from-bottom-4">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 print:hidden bg-indigo-50 p-4 rounded-2xl border border-indigo-100">
@@ -6497,6 +6627,10 @@
                       </button>
                     )}
                   </div>
+                </div>
+
+                <div className="mb-6 rounded-3xl border border-indigo-100 bg-gradient-to-r from-indigo-50 to-sky-50 p-5">
+                  <div className="flex flex-wrap items-start justify-between gap-3"><div><h3 className="flex items-center gap-2 font-black text-slate-900"><CalendarDays className="h-5 w-5 text-indigo-600" />今日学习报告</h3><p className="mt-1 text-sm text-slate-600">完成 {todayReport.completions.length} 篇 · {formatReadingDuration(todayReport.totalDurationMs)} · 新增 {todayReport.vocab.length} 词 · 交卷 {todayReport.quizzes.length} 次</p>{todayReport.quizzes.length > 0 && <p className="mt-1 text-xs text-amber-700">做题分数以参考答案候选计算，存在争议时将进入人工校验。</p>}<p className="mt-2 text-xs text-slate-500">每日邮件：{dailyReportPreferences.enabled ? (dailyReportDelivery?.status === 'sent' ? '已发送' : '将在设置时间发送') : '未开启'}</p></div><div className="flex gap-2"><button onClick={() => { setSelectedRecordDate(localDayKey(new Date())); setViewMode('daily-records'); }} className="rounded-xl bg-indigo-600 px-3 py-2 text-sm font-bold text-white">查看完整记录</button><button onClick={() => setShowCloudSettings(true)} className="rounded-xl border border-indigo-200 bg-white px-3 py-2 text-sm font-bold text-indigo-700"><Mail className="mr-1 inline h-4 w-4" />{dailyReportPreferences.enabled ? '邮件设置' : '开启日报'}</button></div></div>
                 </div>
 
                 {savedArticles.length === 0 ? (
@@ -8070,6 +8204,11 @@
                                       {quizProgress.submitted ? `已交卷 · ${quizScoreLabel}` : '交卷'}
                                     </button>
                                   </div>
+                                  {quizProgress.submitted && currentQuizIsSupported && (
+                                    <div className="mt-4 rounded-2xl border border-violet-200 bg-violet-50 p-4">
+                                      {(() => { const evaluationKey = `${currentArticleId}::${currentQuizQuestion.id}`; const evaluation = quizEvaluations[evaluationKey]; const evaluating = evaluatingQuestionKey === evaluationKey; return <><div className="flex flex-wrap items-center justify-between gap-3"><div><p className="font-black text-violet-950">AI 证据评测</p><p className="mt-1 text-xs text-violet-800">参考答案仅为候选；AI 分歧不会自动改分，可发起人工校验。</p></div><button type="button" onClick={handleEvaluateCurrentQuiz} disabled={evaluating} className="rounded-xl bg-violet-600 px-3 py-2 text-sm font-bold text-white disabled:opacity-60">{evaluating ? '正在评测…' : evaluation ? '重新评测' : '开始 AI 评测'}</button></div>{evaluation && <div className="mt-3 space-y-2 rounded-xl bg-white/80 p-3 text-sm text-slate-700"><p>参考答案候选：<b>{evaluation.referenceAnswerVerdict}</b> · 定位：<b>{evaluation.locatorVerdict}</b>{evaluation.disputed && <span className="ml-2 font-bold text-rose-700">待人工校验</span>}</p><p>{evaluation.reasoning || evaluation.nextStep || '模型未提供文字说明。'}</p>{evaluation.evidenceSentenceIds?.length ? <p className="text-xs text-slate-500">定位证据：{evaluation.evidenceSentenceIds.join('、')}</p> : null}</div>}</>; })()}
+                                    </div>
+                                  )}
                                   {quizProgress.submitted && currentQuizIsSupported && (
                                     <div className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 p-4">
                                       <p className="text-sm font-bold text-rose-900">觉得正确答案有误？把你的答案与原文依据一并交给老师</p>

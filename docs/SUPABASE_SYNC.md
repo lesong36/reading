@@ -21,3 +21,14 @@ Article bundles and sentence analyses never sync through Supabase. They are publ
 ## Security model
 
 RLS limits `profiles` and `reader_sync_state` to `auth.uid() = user_id`. The browser uses Supabase's publishable key only; it is safe to distribute when RLS is enabled. The client encrypts AI credentials before writing them to `encrypted_ai_key`.
+
+## Daily report email
+
+Daily email is opt-in from the cloud-sync settings. It is sent to the verified Supabase Auth email, not an email entered in the browser. The client records minimal learning events; a scheduled Edge Function composes and sends the report when the user-selected local time arrives.
+
+1. Run the latest [`supabase/schema.sql`](../supabase/schema.sql).
+2. Deploy `supabase/functions/send-daily-reports` (its `config.toml` intentionally disables JWT verification because Cron is the caller; the function rejects every request without `DAILY_REPORT_CRON_SECRET`).
+3. Set Edge Function secrets: `RESEND_API_KEY`, `DAILY_REPORT_FROM`, `DAILY_REPORT_CRON_SECRET`, and optionally `DAILY_REPORT_APP_URL`. Do not place these values in `local-config.js`.
+4. Run [`supabase/daily-report-cron.sql`](../supabase/daily-report-cron.sql) after replacing its two placeholders. It invokes the function every 10 minutes with `x-daily-report-secret` from Vault. The function uses each learner's configured timezone and delivery time, and `daily_report_deliveries` prevents duplicate reports per local date.
+
+The function intentionally skips a day with no learning events. Delivery status is stored server-side and can be surfaced in the app without exposing email-provider credentials.
