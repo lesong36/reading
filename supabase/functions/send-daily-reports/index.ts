@@ -22,6 +22,7 @@ const answerLabel = (options: unknown, index: unknown) => {
 };
 const locatorStatusLabel = (value: unknown) => ({ valid: '定位有效', partial: '定位部分有效', invalid: '定位不成立', missing: '未提供定位句' }[String(value)] || '未评测');
 const referenceStatusLabel = (value: unknown) => ({ supported: '参考答案可被支持', questionable: '参考答案存在疑点', insufficient: '证据不足以确认参考答案' }[String(value)] || '未评测');
+const deviceLabel = (payload: Record<string, any>) => String(payload?.device?.label || '未标记设备');
 const renderQuizEvaluation = (event: Record<string, any>) => {
   const payload = event.payload || {};
   const locatorWindow = Array.isArray(payload.locatorWindow) ? payload.locatorWindow : [];
@@ -32,7 +33,7 @@ const renderQuizEvaluation = (event: Record<string, any>) => {
     : '<li>本题未点选定位句。</li>';
   const question = payload.questionPrompt ? `<p style="margin:8px 0"><b>题目：</b>${escapeHtml(payload.questionPrompt)}</p>` : '<p style="margin:8px 0"><b>题目：</b>旧记录未保存题干；请在应用内查看本题。</p>';
   const locatorSummary = locator ? escapeHtml(locator.text) : '未点选定位句';
-  return `<section style="margin:18px 0;padding:16px;border:1px solid #dbeafe;border-radius:12px;background:#f8fbff"><h2 style="font-size:16px;margin:0">${escapeHtml(event.article_title || '阅读文章')} · 第 ${escapeHtml(String(event.question_id || '—'))} 题</h2>${question}<p style="margin:8px 0"><b>你的选择：</b>${escapeHtml(answerLabel(payload.options, payload.learnerAnswerIndex))}</p><p style="margin:8px 0"><b>参考答案（候选）：</b>${escapeHtml(answerLabel(payload.options, payload.referenceAnswerIndex))}</p><p style="margin:8px 0"><b>你点选的定位句：</b>${locatorSummary}</p><details style="margin:8px 0"><summary>查看定位句上下文（前后两句）</summary><ol style="padding-left:20px">${locatorLines}</ol></details><p style="margin:8px 0"><b>AI 判断：</b>${escapeHtml(referenceStatusLabel(payload.referenceAnswerVerdict))}；${escapeHtml(locatorStatusLabel(payload.locatorVerdict))}</p><p style="margin:8px 0"><b>理由：</b>${escapeHtml(payload.reasoning || '模型未提供文字理由。')}</p>${payload.disputed ? '<p style="margin:8px 0;color:#be123c;font-weight:700">已标记为待人工校验；系统不会自动改写官方答案。</p>' : ''}</section>`;
+  return `<section style="margin:18px 0;padding:16px;border:1px solid #dbeafe;border-radius:12px;background:#f8fbff"><h2 style="font-size:16px;margin:0">${escapeHtml(event.article_title || '阅读文章')} · 第 ${escapeHtml(String(event.question_id || '—'))} 题</h2><p style="margin:8px 0;color:#475569"><b>作答设备：</b>${escapeHtml(deviceLabel(payload))}</p>${question}<p style="margin:8px 0"><b>你的选择：</b>${escapeHtml(answerLabel(payload.options, payload.learnerAnswerIndex))}</p><p style="margin:8px 0"><b>参考答案（候选）：</b>${escapeHtml(answerLabel(payload.options, payload.referenceAnswerIndex))}</p><p style="margin:8px 0"><b>你点选的定位句：</b>${locatorSummary}</p><details style="margin:8px 0"><summary>查看定位句上下文（前后两句）</summary><ol style="padding-left:20px">${locatorLines}</ol></details><p style="margin:8px 0"><b>AI 判断：</b>${escapeHtml(referenceStatusLabel(payload.referenceAnswerVerdict))}；${escapeHtml(locatorStatusLabel(payload.locatorVerdict))}</p><p style="margin:8px 0"><b>理由：</b>${escapeHtml(payload.reasoning || '模型未提供文字理由。')}</p>${payload.disputed ? '<p style="margin:8px 0;color:#be123c;font-weight:700">已标记为待人工校验；系统不会自动改写官方答案。</p>' : ''}</section>`;
 };
 
 Deno.serve(async (request) => {
@@ -58,10 +59,12 @@ Deno.serve(async (request) => {
     if (!email) { await admin.from('daily_report_deliveries').update({ status: 'failed', error_message: 'No verified Auth email', updated_at: new Date().toISOString() }).eq('id', claimed.id); continue; }
     const counts = events.reduce((result: Record<string, number>, event) => ({ ...result, [event.event_type]: (result[event.event_type] || 0) + 1 }), {});
     const evaluations = events.filter(event => event.event_type === 'quiz_evaluated');
+    const quizByDevice = events.filter(event => ['quiz_answered', 'quiz_submitted', 'quiz_evaluated'].includes(event.event_type)).reduce((result: Record<string, number>, event) => ({ ...result, [deviceLabel(event.payload || {})]: (result[deviceLabel(event.payload || {})] || 0) + 1 }), {});
+    const deviceSummary = Object.keys(quizByDevice).length ? `<p style="color:#475569">做题设备：${Object.entries(quizByDevice).map(([label, total]) => `${escapeHtml(label)}（${total} 项记录）`).join('；')}</p>` : '';
     const quizDetails = evaluations.length
       ? `<h2 style="font-size:18px;margin-top:28px">做题与 AI 评测</h2>${evaluations.map(renderQuizEvaluation).join('')}`
       : '<p style="color:#64748b">今天没有完成 AI 证据评测的题目；交卷记录仍会在应用的每日记录页保留。</p>';
-    const html = `<main style="max-width:680px;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#172033"><h1>今日学习报告 · ${localDate}</h1><ul><li>完成阅读：${counts.article_completed || 0} 篇</li><li>作答：${counts.quiz_answered || 0} 题（已交卷 ${counts.quiz_submitted || 0} 次）</li><li>新增生词：${counts.vocab_added || 0} 个</li><li>AI 证据评测：${counts.quiz_evaluated || 0} 次</li><li>待人工校验：${counts.answer_review_requested || 0} 个</li></ul>${quizDetails}<p style="margin-top:24px"><a href="${escapeHtml(appUrl)}">查看完整每日记录</a></p></main>`;
+    const html = `<main style="max-width:680px;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#172033"><h1>今日学习报告 · ${localDate}</h1><ul><li>完成阅读：${counts.article_completed || 0} 篇</li><li>作答：${counts.quiz_answered || 0} 题（已交卷 ${counts.quiz_submitted || 0} 次）</li><li>新增生词：${counts.vocab_added || 0} 个</li><li>AI 证据评测：${counts.quiz_evaluated || 0} 次</li><li>待人工校验：${counts.answer_review_requested || 0} 个</li></ul>${deviceSummary}${quizDetails}<p style="margin-top:24px"><a href="${escapeHtml(appUrl)}">查看完整每日记录</a></p></main>`;
     const resend = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: `Bearer ${resendKey}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ from: reportFrom, to: [email], subject: `每日学习报告 · ${localDate}`, html }) });
     if (!resend.ok) { await admin.from('daily_report_deliveries').update({ status: 'failed', error_message: (await resend.text()).slice(0, 500), updated_at: new Date().toISOString() }).eq('id', claimed.id); continue; }
     const body = await resend.json();

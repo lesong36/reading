@@ -2154,6 +2154,7 @@
     const QUIZ_PROGRESS_STORAGE_KEY_PREFIX = 'reader_quiz_progress_';
     const COMPLETION_RECORDS_STORAGE_KEY = 'reader_article_completion_records_v1';
     const DAILY_REPORT_PREFERENCES_STORAGE_KEY = 'reader_daily_report_preferences_v1';
+    const DEVICE_IDENTITY_STORAGE_KEY = 'reader_device_identity_v1';
     const localDayKey = (value) => {
       const date = new Date(value);
       if (Number.isNaN(date.getTime())) return '';
@@ -2165,6 +2166,24 @@
         const stored = JSON.parse(localStorage.getItem(DAILY_REPORT_PREFERENCES_STORAGE_KEY) || '{}');
         return { enabled: Boolean(stored.enabled), time: /^\d{2}:\d{2}$/.test(stored.time || '') ? stored.time : '20:30', timezone: stored.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Shanghai' };
       } catch { return { enabled: false, time: '20:30', timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Shanghai' }; }
+    };
+    const detectDeviceKind = () => {
+      const agent = navigator.userAgent || '';
+      if (/iPad/i.test(agent)) return 'iPad';
+      if (/iPhone/i.test(agent)) return 'iPhone';
+      if (/Android/i.test(agent)) return 'Android';
+      if (/Macintosh|Mac OS X/i.test(agent)) return 'Mac';
+      if (/Windows/i.test(agent)) return 'Windows PC';
+      return '此设备';
+    };
+    const readDeviceIdentity = () => {
+      try {
+        const stored = JSON.parse(localStorage.getItem(DEVICE_IDENTITY_STORAGE_KEY) || '{}');
+        if (stored.id && stored.label) return { id: String(stored.id), label: String(stored.label).slice(0, 40), kind: String(stored.kind || detectDeviceKind()) };
+      } catch (_) {}
+      const id = typeof crypto?.randomUUID === 'function' ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      const kind = detectDeviceKind();
+      return { id, kind, label: `${kind} · ${id.slice(-4).toUpperCase()}` };
     };
     // Shared by the two GitHub Pages apps under https://lesong36.github.io.
     // It is intentionally an inbox rather than VocabMaster's whole app state,
@@ -3183,6 +3202,7 @@
         return new Date(date.getFullYear(), date.getMonth(), 1);
       });
       const [dailyReportPreferences, setDailyReportPreferences] = useState(readDailyReportPreferences);
+      const [deviceIdentity, setDeviceIdentity] = useState(readDeviceIdentity);
       const [dailyReportDelivery, setDailyReportDelivery] = useState(null);
       const [quizEvaluations, setQuizEvaluations] = useState(() => { try { return JSON.parse(localStorage.getItem('reader_quiz_evaluations_v1') || '{}'); } catch { return {}; } });
       const [evaluatingQuestionKey, setEvaluatingQuestionKey] = useState(null);
@@ -3244,6 +3264,7 @@
 
       useEffect(() => { localStorage.setItem(DAILY_REPORT_PREFERENCES_STORAGE_KEY, JSON.stringify(dailyReportPreferences)); }, [dailyReportPreferences]);
       useEffect(() => { localStorage.setItem('reader_quiz_evaluations_v1', JSON.stringify(quizEvaluations)); }, [quizEvaluations]);
+      useEffect(() => { localStorage.setItem(DEVICE_IDENTITY_STORAGE_KEY, JSON.stringify(deviceIdentity)); }, [deviceIdentity]);
       useEffect(() => {
         if (!supabase || !user) { setDailyReportDelivery(null); return; }
         let cancelled = false;
@@ -5351,7 +5372,7 @@
 
       const recordLearningEvent = async ({ eventType, eventKey, articleId = null, articleTitle = null, questionId = null, payload = {} }) => {
         if (!supabase || !user) return;
-        const { error } = await supabase.from('learning_events').insert({ user_id: user.id, event_type: eventType, event_key: eventKey, article_id: articleId, article_title: articleTitle, question_id: questionId, payload });
+        const { error } = await supabase.from('learning_events').insert({ user_id: user.id, event_type: eventType, event_key: eventKey, article_id: articleId, article_title: articleTitle, question_id: questionId, payload: { ...payload, device: deviceIdentity } });
         if (error && error.code !== '23505') console.warn('Learning event was not recorded:', error.message);
       };
 
@@ -6255,6 +6276,7 @@
                     <div className="mt-5 space-y-3 rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4 text-sm leading-7 text-emerald-900">
                       <p>云同步已配置。点击顶部“登录同步”，用邮箱密码注册或登录；用户名是账号展示身份，登录使用邮箱。</p>
                       {user && <div className="flex flex-col sm:flex-row gap-2"><input type="password" value={syncPassphrase} onChange={(e) => setSyncPassphrase(e.target.value)} placeholder="同步加密口令（不上传、不保存）" className="flex-1 rounded-xl border border-emerald-200 bg-white px-3 py-2 text-slate-800" /><button onClick={handleUnlockSyncVault} className="rounded-xl bg-emerald-700 px-4 py-2 font-semibold text-white">{syncVaultUnlocked ? '已解锁' : '解锁 AI 密钥'}</button></div>}
+                      {user && <div className="mt-3 rounded-xl border border-violet-200 bg-white p-3 text-slate-800"><p className="font-black">本设备名称</p><p className="mt-1 text-xs text-slate-500">每台 iPad 会自动生成不同编号。可改为“客厅 iPad”等名称，做题记录与日报会据此区分设备。</p><input value={deviceIdentity.label} onChange={(e) => setDeviceIdentity(prev => ({ ...prev, label: e.target.value.slice(0, 40) || prev.kind }))} className="mt-2 block w-full rounded-lg border border-violet-200 px-2 py-2 text-sm" /><p className="mt-1 text-[11px] text-slate-400">设备编号：{deviceIdentity.id.slice(-8).toUpperCase()}</p></div>}
                       {user && <div className="mt-3 rounded-xl border border-sky-200 bg-white p-3 text-slate-800"><div className="flex flex-wrap items-center justify-between gap-3"><div><p className="font-black">每日学习报告邮件</p><p className="text-xs text-slate-500">发送至已验证账号邮箱：{user.email || '未取得邮箱'}</p></div><label className="flex items-center gap-2 text-sm font-bold"><input type="checkbox" checked={dailyReportPreferences.enabled} onChange={(e) => setDailyReportPreferences(prev => ({ ...prev, enabled: e.target.checked }))} />启用</label></div><div className="mt-3 grid gap-2 sm:grid-cols-2"><label className="text-xs font-bold">发送时间<input type="time" value={dailyReportPreferences.time} onChange={(e) => setDailyReportPreferences(prev => ({ ...prev, time: e.target.value }))} className="mt-1 block w-full rounded-lg border px-2 py-2" /></label><label className="text-xs font-bold">时区<input value={dailyReportPreferences.timezone} onChange={(e) => setDailyReportPreferences(prev => ({ ...prev, timezone: e.target.value }))} className="mt-1 block w-full rounded-lg border px-2 py-2" /></label></div></div>}
                     </div>
                   )}
