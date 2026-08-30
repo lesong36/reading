@@ -83,13 +83,15 @@ create table if not exists public.learning_events (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users(id) on delete cascade,
   event_key text not null unique,
-  event_type text not null check (event_type in ('article_completed', 'quiz_submitted', 'vocab_added', 'quiz_evaluated', 'answer_review_requested')),
+  event_type text not null check (event_type in ('article_completed', 'quiz_answered', 'quiz_submitted', 'vocab_added', 'quiz_evaluated', 'answer_review_requested')),
   occurred_at timestamptz not null default now(),
   article_id text,
   article_title text,
   question_id text,
   payload jsonb not null default '{}'::jsonb
 );
+alter table public.learning_events drop constraint if exists learning_events_event_type_check;
+alter table public.learning_events add constraint learning_events_event_type_check check (event_type in ('article_completed', 'quiz_answered', 'quiz_submitted', 'vocab_added', 'quiz_evaluated', 'answer_review_requested'));
 alter table public.quiz_answer_reports add column if not exists ai_evaluation jsonb;
 alter table public.quiz_answer_reports add column if not exists reference_answer_index integer;
 alter table public.quiz_answer_reports add column if not exists locator_window_sentence_ids jsonb;

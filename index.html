@@ -2221,7 +2221,8 @@
       answers: {},
       locatorSentenceIds: {},
       submitted: false,
-      submittedAt: null
+      submittedAt: null,
+      lastAnsweredAt: null
     });
 
     const normalizeQuizProgress = (progress = {}) => {
@@ -2237,7 +2238,8 @@
         answers: normalizedAnswers,
         locatorSentenceIds,
         submitted: Boolean(progress?.submitted),
-        submittedAt: progress?.submittedAt || null
+        submittedAt: progress?.submittedAt || null,
+        lastAnsweredAt: progress?.lastAnsweredAt || null
       };
     };
 
@@ -2247,11 +2249,14 @@
       const localSubmittedAt = Date.parse(localProgress.submittedAt || '') || 0;
       const cloudSubmittedAt = Date.parse(cloudProgress.submittedAt || '') || 0;
       const latestSubmission = localSubmittedAt >= cloudSubmittedAt ? localProgress : cloudProgress;
+      const localAnsweredAt = Date.parse(localProgress.lastAnsweredAt || '') || 0;
+      const cloudAnsweredAt = Date.parse(cloudProgress.lastAnsweredAt || '') || 0;
       return {
         answers: { ...cloudProgress.answers, ...localProgress.answers },
         locatorSentenceIds: { ...cloudProgress.locatorSentenceIds, ...localProgress.locatorSentenceIds },
         submitted: localProgress.submitted || cloudProgress.submitted,
-        submittedAt: latestSubmission.submittedAt || null
+        submittedAt: latestSubmission.submittedAt || null,
+        lastAnsweredAt: localAnsweredAt >= cloudAnsweredAt ? localProgress.lastAnsweredAt : cloudProgress.lastAnsweredAt
       };
     };
 
@@ -3218,11 +3223,13 @@
         savedArticles.forEach(article => {
           try {
             const progress = normalizeQuizProgress(JSON.parse(localStorage.getItem(getQuizProgressStorageKey(article.id)) || '{}'));
-            if (!progress.submitted || !progress.submittedAt) return;
-            const day = localDayKey(progress.submittedAt); if (!day) return;
+            const answered = Object.keys(progress.answers || {}).length;
+            const activityAt = progress.submittedAt || progress.lastAnsweredAt;
+            if (!answered || !activityAt) return;
+            const day = localDayKey(activityAt); if (!day) return;
             const questions = normalizeArticleQuestions(article).filter(isSupportedQuizQuestion);
             const correct = questions.filter(question => progress.answers?.[question.id] === question.answerIndex).length;
-            ensure(day).quizzes.push({ articleId: article.id, title: article.title, submittedAt: progress.submittedAt, correct, total: questions.length, progress });
+            ensure(day).quizzes.push({ articleId: article.id, title: article.title, submittedAt: progress.submittedAt, lastAnsweredAt: progress.lastAnsweredAt, answered, correct, total: questions.length, submitted: progress.submitted, progress });
           } catch (error) {}
         });
         return days;
@@ -5324,13 +5331,17 @@
 
       const handleQuizAnswerSelect = (question, answerIndex) => {
         if (!question || !isSupportedQuizQuestion(question) || quizProgress.submitted) return;
+        const answeredAt = new Date().toISOString();
+        const wasAlreadyAnswered = Number.isInteger(quizProgress.answers?.[question.id]);
         setQuizProgress(prev => ({
           ...prev,
           answers: {
             ...prev.answers,
             [question.id]: answerIndex
-          }
+          },
+          lastAnsweredAt: answeredAt
         }));
+        if (!wasAlreadyAnswered) recordLearningEvent({ eventType: 'quiz_answered', eventKey: `answer:${currentArticleId}:${question.id}:${localDayKey(answeredAt)}`, articleId: currentArticleId, articleTitle: currentArticleTitle, questionId: question.id, payload: { questionIndex: question.index, questionPrompt: question.prompt, learnerAnswerIndex: answerIndex } });
       };
 
       const handleQuizTextAnswerChange = (question, value) => {
@@ -6582,6 +6593,8 @@
                 ========================================= */}
             {viewMode === 'daily-records' && (() => {
               const selected = dailyLearningRecords[selectedRecordDate] || { completions: [], quizzes: [], vocab: [], totalDurationMs: 0, pendingReviews: 0 };
+              const selectedAnswered = selected.quizzes.reduce((total, item) => total + (item.answered || 0), 0);
+              const selectedSubmissions = selected.quizzes.filter(item => item.submitted).length;
               const monthLabel = recordMonthCursor.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long' });
               return <div className="animate-in fade-in slide-in-from-bottom-4 space-y-6">
                 <div className="rounded-3xl border border-indigo-100 bg-indigo-50 p-5 md:p-6">
@@ -6590,8 +6603,8 @@
                   <div className="mt-3 grid grid-cols-7 gap-1 text-center text-xs text-slate-500">{['日','一','二','三','四','五','六'].map(day => <span key={day}>{day}</span>)}</div>
                   <div className="mt-2 grid grid-cols-7 gap-1">{recordCalendarDays.map((date, index) => !date ? <div key={`blank-${index}`} /> : (() => { const key = localDayKey(date), report = dailyLearningRecords[key], active = key === selectedRecordDate, completed = report?.completions.length || 0, quizzes = report?.quizzes.length || 0, vocab = report?.vocab.length || 0, score = completed + quizzes + vocab; return <button key={key} onClick={() => setSelectedRecordDate(key)} className={`min-h-14 rounded-xl p-1 text-sm font-bold ${active ? 'ring-2 ring-indigo-600' : ''} ${score ? 'bg-indigo-600 text-white' : 'bg-white text-slate-500'}`}><span>{date.getDate()}</span>{score ? <span className="mt-1 block text-[10px] opacity-90">阅{completed} · 题{quizzes} · 词{vocab}</span> : null}</button>; })())}</div>
                 </div>
-                <div className="grid grid-cols-2 gap-3 md:grid-cols-4"><div className="rounded-2xl border bg-white p-4"><p className="text-xs text-slate-500">完成阅读</p><p className="mt-1 text-2xl font-black">{selected.completions.length} 篇</p></div><div className="rounded-2xl border bg-white p-4"><p className="text-xs text-slate-500">学习时长</p><p className="mt-1 text-2xl font-black">{formatReadingDuration(selected.totalDurationMs)}</p></div><div className="rounded-2xl border bg-white p-4"><p className="text-xs text-slate-500">已交卷</p><p className="mt-1 text-2xl font-black">{selected.quizzes.length} 次</p></div><div className="rounded-2xl border bg-white p-4"><p className="text-xs text-slate-500">新增生词</p><p className="mt-1 text-2xl font-black">{selected.vocab.length} 个</p></div></div>
-                <div className="rounded-3xl border bg-white p-5"><h3 className="font-black text-slate-900">{selectedRecordDate} 的学习明细</h3>{!selected.completions.length && !selected.quizzes.length && !selected.vocab.length ? <p className="mt-4 text-sm text-slate-500">这一天还没有学习记录。去书架开始学习吧。</p> : <div className="mt-4 space-y-3">{selected.completions.map(item => <button key={`c-${item.articleId}`} onClick={() => item.articleId && articlesById.get(item.articleId) && handleLoadArticle(articlesById.get(item.articleId))} className="block w-full rounded-2xl bg-emerald-50 p-4 text-left text-sm text-emerald-900"><b>完成阅读：</b>{item.title} · {formatReadingDuration(item.durationMs)}</button>)}{selected.quizzes.map(item => <button key={`q-${item.articleId}`} onClick={() => articlesById.get(item.articleId) && handleLoadArticle(articlesById.get(item.articleId))} className="block w-full rounded-2xl bg-indigo-50 p-4 text-left text-sm text-indigo-900"><b>交卷：</b>{item.title} · 暂定得分 {item.correct}/{item.total}（参考答案候选）</button>)}{selected.vocab.length ? <button onClick={() => setViewMode('vocab')} className="block w-full rounded-2xl bg-amber-50 p-4 text-left text-sm text-amber-900"><b>新增生词：</b>{selected.vocab.slice(0, 8).map(word => word.word).join('、')}{selected.vocab.length > 8 ? '…' : ''}</button> : null}</div>}</div>
+                <div className="grid grid-cols-2 gap-3 md:grid-cols-4"><div className="rounded-2xl border bg-white p-4"><p className="text-xs text-slate-500">完成阅读</p><p className="mt-1 text-2xl font-black">{selected.completions.length} 篇</p></div><div className="rounded-2xl border bg-white p-4"><p className="text-xs text-slate-500">学习时长</p><p className="mt-1 text-2xl font-black">{formatReadingDuration(selected.totalDurationMs)}</p></div><div className="rounded-2xl border bg-white p-4"><p className="text-xs text-slate-500">做题</p><p className="mt-1 text-2xl font-black">{selectedAnswered} 题</p><p className="text-xs text-slate-500">已交卷 {selectedSubmissions} 次</p></div><div className="rounded-2xl border bg-white p-4"><p className="text-xs text-slate-500">新增生词</p><p className="mt-1 text-2xl font-black">{selected.vocab.length} 个</p></div></div>
+                <div className="rounded-3xl border bg-white p-5"><h3 className="font-black text-slate-900">{selectedRecordDate} 的学习明细</h3>{!selected.completions.length && !selected.quizzes.length && !selected.vocab.length ? <p className="mt-4 text-sm text-slate-500">这一天还没有学习记录。去书架开始学习吧。</p> : <div className="mt-4 space-y-3">{selected.completions.map(item => <button key={`c-${item.articleId}`} onClick={() => item.articleId && articlesById.get(item.articleId) && handleLoadArticle(articlesById.get(item.articleId))} className="block w-full rounded-2xl bg-emerald-50 p-4 text-left text-sm text-emerald-900"><b>完成阅读：</b>{item.title} · {formatReadingDuration(item.durationMs)}</button>)}{selected.quizzes.map(item => <button key={`q-${item.articleId}`} onClick={() => articlesById.get(item.articleId) && handleLoadArticle(articlesById.get(item.articleId))} className="block w-full rounded-2xl bg-indigo-50 p-4 text-left text-sm text-indigo-900"><b>{item.submitted ? '交卷' : '作答'}：</b>{item.title} · {item.submitted ? `暂定得分 ${item.correct}/${item.total}（参考答案候选）` : `已作答 ${item.answered} 题，尚未交卷`}</button>)}{selected.vocab.length ? <button onClick={() => setViewMode('vocab')} className="block w-full rounded-2xl bg-amber-50 p-4 text-left text-sm text-amber-900"><b>新增生词：</b>{selected.vocab.slice(0, 8).map(word => word.word).join('、')}{selected.vocab.length > 8 ? '…' : ''}</button> : null}</div>}</div>
               </div>;
             })()}
             {viewMode === 'library' && (
@@ -6638,7 +6651,7 @@
                 </div>
 
                 <div className="mb-6 rounded-3xl border border-indigo-100 bg-gradient-to-r from-indigo-50 to-sky-50 p-5">
-                  <div className="flex flex-wrap items-start justify-between gap-3"><div><h3 className="flex items-center gap-2 font-black text-slate-900"><CalendarDays className="h-5 w-5 text-indigo-600" />今日学习报告</h3><p className="mt-1 text-sm text-slate-600">完成 {todayReport.completions.length} 篇 · {formatReadingDuration(todayReport.totalDurationMs)} · 新增 {todayReport.vocab.length} 词 · 交卷 {todayReport.quizzes.length} 次</p>{todayReport.quizzes.length > 0 && <p className="mt-1 text-xs text-amber-700">做题分数以参考答案候选计算，存在争议时将进入人工校验。</p>}<p className="mt-2 text-xs text-slate-500">每日邮件：{dailyReportPreferences.enabled ? (dailyReportDelivery?.status === 'sent' ? '已发送' : '将在设置时间发送') : '未开启'}</p></div><div className="flex gap-2"><button onClick={() => { setSelectedRecordDate(localDayKey(new Date())); setViewMode('daily-records'); }} className="rounded-xl bg-indigo-600 px-3 py-2 text-sm font-bold text-white">查看完整记录</button><button onClick={() => setShowCloudSettings(true)} className="rounded-xl border border-indigo-200 bg-white px-3 py-2 text-sm font-bold text-indigo-700"><Mail className="mr-1 inline h-4 w-4" />{dailyReportPreferences.enabled ? '邮件设置' : '开启日报'}</button></div></div>
+                  <div className="flex flex-wrap items-start justify-between gap-3"><div><h3 className="flex items-center gap-2 font-black text-slate-900"><CalendarDays className="h-5 w-5 text-indigo-600" />今日学习报告</h3><p className="mt-1 text-sm text-slate-600">完成 {todayReport.completions.length} 篇 · {formatReadingDuration(todayReport.totalDurationMs)} · 新增 {todayReport.vocab.length} 词 · 作答 {todayReport.quizzes.reduce((total, item) => total + (item.answered || 0), 0)} 题 · 交卷 {todayReport.quizzes.filter(item => item.submitted).length} 次</p>{todayReport.quizzes.length > 0 && <p className="mt-1 text-xs text-amber-700">做题分数以参考答案候选计算，存在争议时将进入人工校验。</p>}<p className="mt-2 text-xs text-slate-500">每日邮件：{dailyReportPreferences.enabled ? (dailyReportDelivery?.status === 'sent' ? '已发送' : '将在设置时间发送') : '未开启'}</p></div><div className="flex gap-2"><button onClick={() => { setSelectedRecordDate(localDayKey(new Date())); setViewMode('daily-records'); }} className="rounded-xl bg-indigo-600 px-3 py-2 text-sm font-bold text-white">查看完整记录</button><button onClick={() => setShowCloudSettings(true)} className="rounded-xl border border-indigo-200 bg-white px-3 py-2 text-sm font-bold text-indigo-700"><Mail className="mr-1 inline h-4 w-4" />{dailyReportPreferences.enabled ? '邮件设置' : '开启日报'}</button></div></div>
                 </div>
 
                 {savedArticles.length === 0 ? (
