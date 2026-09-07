@@ -32,3 +32,14 @@ Daily email is opt-in from the cloud-sync settings. It is sent to the verified S
 4. Run [`supabase/daily-report-cron.sql`](../supabase/daily-report-cron.sql) after replacing its two placeholders. It invokes the function every 10 minutes with `x-daily-report-secret` from Vault. The function uses each learner's configured timezone and delivery time, and `daily_report_deliveries` prevents duplicate reports per local date.
 
 The function intentionally skips a day with no learning events. Delivery status is stored server-side and can be surfaced in the app without exposing email-provider credentials.
+
+## Teacher review console
+
+Teachers review answer-key disputes in the app, not in the Supabase table editor. A project administrator only needs to grant the teacher account once after it has registered:
+
+```sql
+insert into public.teacher_accounts (user_id)
+select id from auth.users where email = 'teacher@example.com';
+```
+
+After signing in, that account sees **教师审核** in the top navigation. The workbench lists only pending reports and shows the question, learner choice, proposed answer, locator sentence, learner note, and AI evidence. **批准并更新答案** creates or updates the approved correction; **驳回** keeps the current official answer. RLS prevents non-teacher accounts from viewing or changing any report or correction.

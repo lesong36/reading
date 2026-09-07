@@ -3204,6 +3204,11 @@
       const [dailyReportPreferences, setDailyReportPreferences] = useState(readDailyReportPreferences);
       const [deviceIdentity, setDeviceIdentity] = useState(readDeviceIdentity);
       const [dailyReportDelivery, setDailyReportDelivery] = useState(null);
+      const [isTeacher, setIsTeacher] = useState(false);
+      const [teacherReviewQueue, setTeacherReviewQueue] = useState([]);
+      const [isLoadingTeacherReviews, setIsLoadingTeacherReviews] = useState(false);
+      const [teacherReviewEdits, setTeacherReviewEdits] = useState({});
+      const [reviewingReportId, setReviewingReportId] = useState(null);
       const [quizEvaluations, setQuizEvaluations] = useState(() => { try { return JSON.parse(localStorage.getItem('reader_quiz_evaluations_v1') || '{}'); } catch { return {}; } });
       const [evaluatingQuestionKey, setEvaluatingQuestionKey] = useState(null);
       const restoreVocabKeys = (keys = []) => {
@@ -3271,6 +3276,47 @@
         supabase.from('daily_report_deliveries').select('status,sent_at,error_message,local_date').eq('user_id', user.id).order('created_at', { ascending: false }).limit(1).maybeSingle().then(({ data }) => { if (!cancelled) setDailyReportDelivery(data || null); }).catch(() => {});
         return () => { cancelled = true; };
       }, [user, dailyReportPreferences.enabled]);
+
+      useEffect(() => {
+        if (!supabase || !user) {
+          setIsTeacher(false);
+          setTeacherReviewQueue([]);
+          return;
+        }
+        let cancelled = false;
+        supabase.from('teacher_accounts').select('user_id').eq('user_id', user.id).maybeSingle()
+          .then(({ data, error }) => { if (!cancelled) setIsTeacher(Boolean(data) && !error); })
+          .catch(() => { if (!cancelled) setIsTeacher(false); });
+        return () => { cancelled = true; };
+      }, [user]);
+
+      // A submitted quiz is evidence that the learner finished that article.
+      // Backfill the older quiz-only records once, preserving their original
+      // submission date so historical daily reports remain accurate.
+      useEffect(() => {
+        if (!savedArticles.length) return;
+        setCompletionRecords(previous => {
+          const inferred = {};
+          savedArticles.forEach(article => {
+            if (!article?.id || previous[article.id]) return;
+            try {
+              const progress = normalizeQuizProgress(JSON.parse(localStorage.getItem(getQuizProgressStorageKey(article.id)) || '{}'));
+              if (!progress.submitted || !progress.submittedAt) return;
+              const questions = normalizeArticleQuestions(article).filter(isSupportedQuizQuestion);
+              const correctCount = questions.filter(question => progress.answers?.[question.id] === question.answerIndex).length;
+              inferred[article.id] = {
+                completedAt: progress.submittedAt,
+                durationMs: 0,
+                accuracy: questions.length ? Math.round((correctCount / questions.length) * 100) : null,
+                correctCount: questions.length ? correctCount : null,
+                totalCount: questions.length || null,
+                tags: []
+              };
+            } catch (_) {}
+          });
+          return Object.keys(inferred).length ? { ...previous, ...inferred } : previous;
+        });
+      }, [savedArticles]);
 
       useEffect(() => {
         let cancelled = false;
@@ -5031,7 +5077,7 @@
         try {
           if (dictionary?.meaning) {
             const generateId = () => window.crypto?.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15);
-            setVocabBook(prev => normalizeVocabBook([{
+            const newWordEntry = {
               id: generateId(),
               word,
               meaning: dictionary.meaning,
@@ -5045,7 +5091,9 @@
               sourceArticleTitle: currentArticleTitle || '',
               addedAt: new Date().toLocaleDateString(),
               timestamp: Date.now()
-            }, ...prev]));
+            };
+            setVocabBook(prev => normalizeVocabBook([newWordEntry, ...prev]));
+            recordLearningEvent({ eventType: 'vocab_added', eventKey: `vocab:${newWordEntry.id}`, articleId: newWordEntry.sourceArticleId, articleTitle: newWordEntry.sourceArticleTitle, payload: { word: newWordEntry.word } });
             setToastMessage(`✅ 已加入生词本: ${word}`);
             return;
           }
@@ -5416,13 +5464,30 @@
       const handleQuizSubmit = () => {
         if (!quizCanSubmit || quizProgress.submitted) return;
         const submittedAt = new Date().toISOString();
+        const article = articlesById.get(currentArticleId) || { id: currentArticleId, title: currentArticleTitle, questions: currentArticleQuestions };
+        const alreadyCompleted = Boolean(completionRecords[currentArticleId]);
         setQuizProgress(prev => ({
           ...prev,
           submitted: true,
           submittedAt
         }));
         recordLearningEvent({ eventType: 'quiz_submitted', eventKey: `quiz:${currentArticleId}:${submittedAt}`, articleId: currentArticleId, articleTitle: currentArticleTitle, payload: { correct: quizCorrectCount, total: supportedQuizQuestions.length } });
-        setToastMessage(`📝 已交卷：得分 ${quizCorrectCount}/${supportedQuizQuestions.length}`);
+        if (!alreadyCompleted && article?.id) {
+          const accuracy = supportedQuizQuestions.length ? Math.round((quizCorrectCount / supportedQuizQuestions.length) * 100) : null;
+          setCompletionRecords(previous => ({
+            ...previous,
+            [article.id]: {
+              completedAt: submittedAt,
+              durationMs: 0,
+              accuracy,
+              correctCount: supportedQuizQuestions.length ? quizCorrectCount : null,
+              totalCount: supportedQuizQuestions.length || null,
+              tags: []
+            }
+          }));
+          recordLearningEvent({ eventType: 'article_completed', eventKey: `complete:${article.id}:${submittedAt}`, articleId: article.id, articleTitle: article.title, payload: { durationMs: 0, accuracy, source: 'quiz_submission' } });
+        }
+        setToastMessage(alreadyCompleted ? `📝 已交卷：得分 ${quizCorrectCount}/${supportedQuizQuestions.length}` : `✅ 已交卷并完成本篇阅读：${quizCorrectCount}/${supportedQuizQuestions.length}`);
       };
 
       const handleReturnToLibrary = () => {
@@ -5456,6 +5521,63 @@
         }));
         recordLearningEvent({ eventType: 'article_completed', eventKey: `complete:${article.id}:${completedAt}`, articleId: article.id, articleTitle: article.title, payload: { durationMs: Math.max(0, Number(existing?.durationMs || 0) + sessionDuration), accuracy } });
         setToastMessage(accuracy == null ? '✅ 已完成本篇阅读' : `✅ 已完成本篇阅读：正确率 ${accuracy}%`);
+      };
+
+      const loadTeacherReviewQueue = async () => {
+        if (!supabase || !user || !isTeacher) return;
+        setIsLoadingTeacherReviews(true);
+        try {
+          const { data, error } = await supabase.from('quiz_answer_reports')
+            .select('id,article_id,article_title,question_id,question_prompt,reported_answer_index,learner_answer_index,proposed_answer_index,locator_sentence_id,locator_sentence_text,locator_window_sentence_ids,note,ai_evaluation,created_at')
+            .eq('status', 'pending')
+            .order('created_at', { ascending: true });
+          if (error) throw error;
+          const reports = data || [];
+          setTeacherReviewQueue(reports);
+          setTeacherReviewEdits(previous => reports.reduce((edits, report) => ({
+            ...edits,
+            [report.id]: previous[report.id] || { answerIndex: Number.isInteger(report.proposed_answer_index) ? report.proposed_answer_index : null, note: '' }
+          }), {}));
+        } catch (error) {
+          setToastMessage(`加载待审核题目失败：${error.message || '请稍后重试'}`);
+        } finally { setIsLoadingTeacherReviews(false); }
+      };
+
+      const handleTeacherReview = async (report, status) => {
+        if (!supabase || !user || !isTeacher || !report?.id) return;
+        const edit = teacherReviewEdits[report.id] || {};
+        if (status === 'approved' && !Number.isInteger(edit.answerIndex)) {
+          setToastMessage('请先确认本题应采用的答案。');
+          return;
+        }
+        setReviewingReportId(report.id);
+        try {
+          const reviewedAt = new Date().toISOString();
+          const reviewNote = String(edit.note || '').trim() || null;
+          if (status === 'approved') {
+            const { error: correctionError } = await supabase.from('quiz_answer_corrections').upsert({
+              article_id: report.article_id,
+              question_id: report.question_id,
+              corrected_answer_index: edit.answerIndex,
+              teacher_note: reviewNote,
+              status: 'approved',
+              reviewed_at: reviewedAt
+            }, { onConflict: 'article_id,question_id' });
+            if (correctionError) throw correctionError;
+          }
+          const { data: updated, error: reportError } = await supabase.from('quiz_answer_reports')
+            .update({ status, reviewer_id: user.id, reviewed_at: reviewedAt, review_note: reviewNote })
+            .eq('id', report.id)
+            .eq('status', 'pending')
+            .select('id')
+            .maybeSingle();
+          if (reportError) throw reportError;
+          if (!updated) throw new Error('这条上报刚刚已被其他老师处理，请刷新队列。');
+          setTeacherReviewQueue(previous => previous.filter(item => item.id !== report.id));
+          setToastMessage(status === 'approved' ? '✅ 已确认更正答案，学生下次打开文章会自动采用。' : '已驳回该上报，原答案保持不变。');
+        } catch (error) {
+          setToastMessage(`审核未保存：${error.message || '请稍后重试'}`);
+        } finally { setReviewingReportId(null); }
       };
 
       const handleReportAnswer = async () => {
@@ -6202,6 +6324,15 @@
                 >
                   <UploadCloud className="w-4 h-4" /> 分析新文章
                 </button>
+                {user && isTeacher && (
+                  <button
+                    onClick={() => { setViewMode('teacher-reviews'); loadTeacherReviewQueue(); }}
+                    className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-colors shadow-sm ${viewMode === 'teacher-reviews' ? 'bg-rose-700 text-white' : 'bg-white border border-rose-200 text-rose-700 hover:bg-rose-50'}`}
+                  >
+                    <ClipboardCheck className="w-4 h-4" /> 教师审核
+                    {teacherReviewQueue.length > 0 && <span className={`text-xs px-2 py-0.5 rounded-full ${viewMode === 'teacher-reviews' ? 'bg-white text-rose-700' : 'bg-rose-100 text-rose-700'}`}>{teacherReviewQueue.length}</span>}
+                  </button>
+                )}
                 <button
                   onClick={() => setShowAiSettings(prev => !prev)}
                   className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-colors shadow-sm ${showAiSettings ? 'bg-slate-800 text-white' : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'}`}
@@ -6613,6 +6744,35 @@
             {/* =========================================
                 ARTICLE LIBRARY VIEW
                 ========================================= */}
+            {viewMode === 'teacher-reviews' && (
+              <div className="animate-in fade-in slide-in-from-bottom-4 space-y-5">
+                <div className="rounded-3xl border border-rose-200 bg-gradient-to-br from-rose-50 via-white to-amber-50 p-5 md:p-7 shadow-sm">
+                  <div className="flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-[0.2em] text-rose-700">Teacher desk</p>
+                      <h2 className="mt-2 flex items-center gap-2 text-2xl font-black text-slate-900"><ClipboardCheck className="h-6 w-6 text-rose-700" />人工校验工作台</h2>
+                      <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">逐题核对学生选择、定位句和 AI 证据。批准会更新这道题的正式答案；驳回则保留当前答案。</p>
+                    </div>
+                    <button type="button" onClick={loadTeacherReviewQueue} disabled={isLoadingTeacherReviews} className="inline-flex items-center gap-2 rounded-xl border border-rose-200 bg-white px-4 py-2.5 text-sm font-black text-rose-700 shadow-sm hover:bg-rose-50 disabled:opacity-60"><RefreshCw className={`h-4 w-4 ${isLoadingTeacherReviews ? 'animate-spin' : ''}`} />刷新队列</button>
+                  </div>
+                  <div className="mt-5 flex items-center gap-3 border-t border-rose-100 pt-4"><span className="flex h-10 min-w-10 items-center justify-center rounded-xl bg-rose-700 px-3 text-lg font-black text-white">{teacherReviewQueue.length}</span><p className="text-sm font-semibold text-rose-950">待处理题目。只有已在 <code className="rounded bg-white px-1.5 py-0.5 text-xs">teacher_accounts</code> 登记的账号才能看到并操作此页面。</p></div>
+                </div>
+
+                {isLoadingTeacherReviews ? <div className="rounded-3xl border bg-white p-10 text-center text-slate-500"><Loader2 className="mx-auto h-6 w-6 animate-spin text-rose-600" /> <p className="mt-3">正在读取待审核题目…</p></div> : teacherReviewQueue.length === 0 ? <div className="rounded-3xl border border-emerald-200 bg-emerald-50 p-10 text-center text-emerald-900"><CheckCircle2 className="mx-auto h-10 w-10" /><h3 className="mt-3 text-lg font-black">审核队列已清空</h3><p className="mt-1 text-sm">当前没有等待人工裁定的题目。</p></div> : <div className="space-y-5">{teacherReviewQueue.map(report => {
+                  const article = articlesById.get(report.article_id);
+                  const question = normalizeArticleQuestions(article || {}).find(item => item.id === report.question_id);
+                  const options = Array.isArray(question?.options) ? question.options : [];
+                  const edit = teacherReviewEdits[report.id] || { answerIndex: Number.isInteger(report.proposed_answer_index) ? report.proposed_answer_index : null, note: '' };
+                  const evaluation = report.ai_evaluation && typeof report.ai_evaluation === 'object' ? report.ai_evaluation : null;
+                  const saving = reviewingReportId === report.id;
+                  return <article key={report.id} className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+                    <header className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-100 bg-slate-50 px-5 py-4"><div><p className="text-xs font-black uppercase tracking-[0.16em] text-rose-700">待裁定 #{report.id}</p><h3 className="mt-1 text-lg font-black text-slate-900">{report.article_title || report.article_id} · 第 {report.question_id} 题</h3><p className="mt-1 text-xs text-slate-500">学生于 {completionTimeLabel(report.created_at)} 提交</p></div><span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-black text-amber-800">等待审核</span></header>
+                    <div className="grid gap-5 p-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"><section className="space-y-4"><div><p className="text-xs font-black uppercase tracking-[0.14em] text-slate-400">题目</p><p className="mt-2 whitespace-pre-line text-base font-semibold leading-7 text-slate-900">{report.question_prompt || '题干未保存'}</p></div><div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950"><p><b>学生选择：</b>{Number.isInteger(report.learner_answer_index) ? String.fromCharCode(65 + report.learner_answer_index) : '未作答'}　<b>原参考答案：</b>{Number.isInteger(report.reported_answer_index) ? String.fromCharCode(65 + report.reported_answer_index) : '未保存'}　<b>学生建议：</b>{Number.isInteger(report.proposed_answer_index) ? String.fromCharCode(65 + report.proposed_answer_index) : '未保存'}</p>{report.locator_sentence_text && <p className="mt-3 border-t border-amber-200 pt-3 leading-6"><b>定位句：</b>{report.locator_sentence_text}</p>}{report.note && <p className="mt-3 border-t border-amber-200 pt-3 leading-6"><b>学生说明：</b>{report.note}</p>}</div>{evaluation && <div className="rounded-2xl border border-violet-200 bg-violet-50 p-4 text-sm text-violet-950"><p className="font-black">AI 证据评测</p><p className="mt-2">参考答案：{evaluation.referenceAnswerVerdict || '未评测'} · 定位：{evaluation.locatorVerdict || '未评测'}</p><p className="mt-2 leading-6">{evaluation.reasoning || evaluation.nextStep || '模型未提供文字理由。'}</p></div>}</section>
+                    <section className="rounded-2xl border border-rose-200 bg-rose-50/60 p-4"><p className="text-xs font-black uppercase tracking-[0.14em] text-rose-700">老师裁定</p><p className="mt-2 text-sm font-semibold text-slate-800">确认应采用的答案</p>{options.length ? <div className="mt-3 space-y-2">{options.map((option, index) => <button type="button" key={`${report.id}-${index}`} onClick={() => setTeacherReviewEdits(previous => ({ ...previous, [report.id]: { ...edit, answerIndex: index } }))} className={`block w-full rounded-xl border px-3 py-2.5 text-left text-sm transition-colors ${edit.answerIndex === index ? 'border-rose-600 bg-rose-700 font-bold text-white' : 'border-rose-200 bg-white text-slate-700 hover:border-rose-400'}`}><span className="mr-2 font-black">{String.fromCharCode(65 + index)}.</span>{option}</button>)}</div> : <p className="mt-3 rounded-xl bg-white p-3 text-sm text-rose-700">当前设备未加载这篇文章，无法安全批准答案；请先加载对应教材后刷新此页。</p>}<label className="mt-4 block text-sm font-semibold text-slate-800">审核说明（会显示给学生）<textarea value={edit.note} onChange={event => setTeacherReviewEdits(previous => ({ ...previous, [report.id]: { ...edit, note: event.target.value } }))} rows="3" placeholder="例如：定位句直接支持 B，已将官方答案更正。" className="mt-2 block w-full rounded-xl border border-rose-200 bg-white px-3 py-2 text-sm outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-100" /></label><div className="mt-4 flex flex-wrap gap-2"><button type="button" onClick={() => handleTeacherReview(report, 'approved')} disabled={saving || !options.length || !Number.isInteger(edit.answerIndex)} className="rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-black text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50">{saving ? '正在保存…' : '批准并更新答案'}</button><button type="button" onClick={() => handleTeacherReview(report, 'rejected')} disabled={saving} className="rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-black text-slate-700 hover:bg-slate-50 disabled:opacity-50">驳回，保留原答案</button></div></section></div>
+                  </article>;
+                })}</div>}
+              </div>
+            )}
             {viewMode === 'daily-records' && (() => {
               const selected = dailyLearningRecords[selectedRecordDate] || { completions: [], quizzes: [], vocab: [], totalDurationMs: 0, pendingReviews: 0 };
               const selectedAnswered = selected.quizzes.reduce((total, item) => total + (item.answered || 0), 0);
@@ -8421,6 +8581,7 @@
                           <label className="text-xs font-bold text-sky-900">时区<input value={dailyReportPreferences.timezone} onChange={(e) => setDailyReportPreferences(prev => ({ ...prev, timezone: e.target.value }))} className="mt-1 block w-full rounded-xl border border-sky-200 bg-white px-3 py-2 text-sm text-slate-800" /></label>
                         </div>
                         <p className="mt-2 text-xs text-sky-800">{dailyReportDelivery?.status === 'sent' ? `最近一次已发送：${completionTimeLabel(dailyReportDelivery.sent_at)}` : dailyReportDelivery?.status === 'failed' ? `最近一次发送失败：${dailyReportDelivery.error_message || '请稍后重试'}` : '开启后会在设定时间发送当天有学习活动的报告。'}</p>
+                        <p className={`mt-2 rounded-lg px-3 py-2 text-xs font-bold ${isTeacher ? 'bg-rose-100 text-rose-800' : 'bg-slate-100 text-slate-600'}`}>{isTeacher ? '教师权限已开通：顶部可进入“教师审核”。' : '当前账号不是教师：若刚完成授权，请退出后重新登录此账号。'}</p>
                       </div>
                       {authError && <p className="text-sm text-red-600">{authError}</p>}
                       <button
