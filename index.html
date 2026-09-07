@@ -2294,7 +2294,7 @@
       if (!articleId || !record?.completedAt) return acc;
       acc[articleId] = {
         completedAt: record.completedAt,
-        durationMs: Number.isFinite(Number(record.durationMs)) ? Math.max(0, Number(record.durationMs)) : null,
+        durationMs: record.durationMs == null || record.durationMs === '' ? null : (Number.isFinite(Number(record.durationMs)) ? Math.max(0, Number(record.durationMs)) : null),
         accuracy: Number.isFinite(Number(record.accuracy)) ? Number(record.accuracy) : null,
         correctCount: Number.isFinite(Number(record.correctCount)) ? Number(record.correctCount) : null,
         totalCount: Number.isFinite(Number(record.totalCount)) ? Number(record.totalCount) : null,
@@ -2326,8 +2326,8 @@
       });
     };
 
-    const formatReadingDuration = (durationMs) => {
-      if (!Number.isFinite(Number(durationMs))) return '未记录';
+      const formatReadingDuration = (durationMs) => {
+        if (durationMs == null || durationMs === '' || !Number.isFinite(Number(durationMs))) return '未记录';
       const totalMinutes = Math.max(0, Math.round(Number(durationMs || 0) / 60000));
       if (!totalMinutes) return '不足 1 分钟';
       const hours = Math.floor(totalMinutes / 60);
@@ -3215,7 +3215,7 @@
         const restored = new Set(normalizeDeletedVocabKeys(keys));
         if (restored.size) setDeletedVocabKeys(previous => previous.filter(key => !restored.has(key)));
       };
-      const readingStartedAtRef = useRef(null);
+      const readingSessionRef = useRef({ articleId: null, activeStartedAt: null, elapsedMs: 0 });
       const [lastReadingSession, setLastReadingSession] = useState(null);
       const [answerReportNote, setAnswerReportNote] = useState('');
       const [proposedAnswerIndex, setProposedAnswerIndex] = useState(null);
@@ -3228,6 +3228,21 @@
       const autoAddedVocabKeysRef = useRef(new Set());
       const p920DictionaryModelRef = useRef(null);
       const fileInputRef = useRef(null);
+      const getActiveReadingDuration = (articleId) => {
+        const session = readingSessionRef.current;
+        if (!articleId || session.articleId !== articleId) return 0;
+        return Math.max(0, session.elapsedMs + (session.activeStartedAt ? Date.now() - session.activeStartedAt : 0));
+      };
+      const pauseReadingSession = () => {
+        const session = readingSessionRef.current;
+        if (!session.activeStartedAt) return;
+        session.elapsedMs += Math.max(0, Date.now() - session.activeStartedAt);
+        session.activeStartedAt = null;
+      };
+      const resumeReadingSession = () => {
+        const session = readingSessionRef.current;
+        if (session.articleId && !session.activeStartedAt && document.visibilityState !== 'hidden') session.activeStartedAt = Date.now();
+      };
       const filteredLibraryArticles = useMemo(() => {
         const filtered = libraryFilter === 'all'
           ? savedArticles
@@ -3271,6 +3286,14 @@
       useEffect(() => { localStorage.setItem('reader_quiz_evaluations_v1', JSON.stringify(quizEvaluations)); }, [quizEvaluations]);
       useEffect(() => { localStorage.setItem(DEVICE_IDENTITY_STORAGE_KEY, JSON.stringify(deviceIdentity)); }, [deviceIdentity]);
       useEffect(() => {
+        const handleVisibilityChange = () => {
+          if (document.visibilityState === 'hidden') pauseReadingSession();
+          else if (viewMode === 'reading' && currentArticleId) resumeReadingSession();
+        };
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+      }, [viewMode, currentArticleId]);
+      useEffect(() => {
         if (!supabase || !user) { setDailyReportDelivery(null); return; }
         let cancelled = false;
         supabase.from('daily_report_deliveries').select('status,sent_at,error_message,local_date').eq('user_id', user.id).order('created_at', { ascending: false }).limit(1).maybeSingle().then(({ data }) => { if (!cancelled) setDailyReportDelivery(data || null); }).catch(() => {});
@@ -3298,15 +3321,24 @@
         setCompletionRecords(previous => {
           const inferred = {};
           savedArticles.forEach(article => {
-            if (!article?.id || previous[article.id]) return;
+            if (!article?.id) return;
             try {
               const progress = normalizeQuizProgress(JSON.parse(localStorage.getItem(getQuizProgressStorageKey(article.id)) || '{}'));
               if (!progress.submitted || !progress.submittedAt) return;
+              const existing = previous[article.id];
+              // Earlier backfills stored 0 for an unknowable historic duration.
+              // Preserve genuine timed records, but migrate that sentinel to null.
+              if (existing) {
+                if (existing.durationMs === 0 && existing.completedAt === progress.submittedAt) {
+                  inferred[article.id] = { ...existing, durationMs: null };
+                }
+                return;
+              }
               const questions = normalizeArticleQuestions(article).filter(isSupportedQuizQuestion);
               const correctCount = questions.filter(question => progress.answers?.[question.id] === question.answerIndex).length;
               inferred[article.id] = {
                 completedAt: progress.submittedAt,
-                durationMs: 0,
+                durationMs: null,
                 accuracy: questions.length ? Math.round((correctCount / questions.length) * 100) : null,
                 correctCount: questions.length ? correctCount : null,
                 totalCount: questions.length || null,
@@ -3316,7 +3348,7 @@
           });
           return Object.keys(inferred).length ? { ...previous, ...inferred } : previous;
         });
-      }, [savedArticles]);
+      }, [savedArticles, completionRecords]);
 
       useEffect(() => {
         let cancelled = false;
@@ -5354,7 +5386,7 @@
         setCurrentArticleGlossary(glossary);
         setCurrentArticleReadability(article.readability || computeArticleReadability(normalizedData));
         setSelectedSentence(normalizedData[0]);
-        readingStartedAtRef.current = Date.now();
+        readingSessionRef.current = { articleId: article.id || null, activeStartedAt: document.visibilityState === 'hidden' ? null : Date.now(), elapsedMs: 0 };
         setLastReadingSession(null);
         setViewMode('reading');
         setToastMessage(`📖 正在阅读：${article.title}`);
@@ -5466,6 +5498,7 @@
         const submittedAt = new Date().toISOString();
         const article = articlesById.get(currentArticleId) || { id: currentArticleId, title: currentArticleTitle, questions: currentArticleQuestions };
         const alreadyCompleted = Boolean(completionRecords[currentArticleId]);
+        const sessionDuration = currentArticleId ? getActiveReadingDuration(currentArticleId) : null;
         setQuizProgress(prev => ({
           ...prev,
           submitted: true,
@@ -5478,22 +5511,24 @@
             ...previous,
             [article.id]: {
               completedAt: submittedAt,
-              durationMs: 0,
+              durationMs: sessionDuration,
               accuracy,
               correctCount: supportedQuizQuestions.length ? quizCorrectCount : null,
               totalCount: supportedQuizQuestions.length || null,
               tags: []
             }
           }));
-          recordLearningEvent({ eventType: 'article_completed', eventKey: `complete:${article.id}:${submittedAt}`, articleId: article.id, articleTitle: article.title, payload: { durationMs: 0, accuracy, source: 'quiz_submission' } });
+          recordLearningEvent({ eventType: 'article_completed', eventKey: `complete:${article.id}:${submittedAt}`, articleId: article.id, articleTitle: article.title, payload: { durationMs: sessionDuration, accuracy, source: 'quiz_submission' } });
+          readingSessionRef.current = { articleId: currentArticleId, activeStartedAt: document.visibilityState === 'hidden' ? null : Date.now(), elapsedMs: 0 };
         }
         setToastMessage(alreadyCompleted ? `📝 已交卷：得分 ${quizCorrectCount}/${supportedQuizQuestions.length}` : `✅ 已交卷并完成本篇阅读：${quizCorrectCount}/${supportedQuizQuestions.length}`);
       };
 
       const handleReturnToLibrary = () => {
-        if (currentArticleId && readingStartedAtRef.current) {
-          setLastReadingSession({ articleId: currentArticleId, durationMs: Math.max(0, Date.now() - readingStartedAtRef.current) });
-          readingStartedAtRef.current = null;
+        if (currentArticleId && readingSessionRef.current.articleId === currentArticleId) {
+          pauseReadingSession();
+          setLastReadingSession({ articleId: currentArticleId, durationMs: readingSessionRef.current.elapsedMs });
+          readingSessionRef.current = { articleId: null, activeStartedAt: null, elapsedMs: 0 };
         }
         setViewMode('library');
       };
