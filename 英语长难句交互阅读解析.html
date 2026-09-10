@@ -3730,6 +3730,10 @@
       }, [voiceSpeed]);
 
       useEffect(() => {
+        localStorage.setItem('reader_sentence_parse_versions', JSON.stringify(parseVersions));
+      }, [parseVersions]);
+
+      useEffect(() => {
         const normalizedVoiceType = normalizeDoubaoVoiceType(doubaoVoiceType);
         if (normalizedVoiceType !== doubaoVoiceType) {
           setDoubaoVoiceType(normalizedVoiceType);
@@ -3810,6 +3814,10 @@
       const [guidedShowTranslation, setGuidedShowTranslation] = useState({});
       const [mainPracticeDrops, setMainPracticeDrops] = useState({});
       const [customSyntaxFrames, setCustomSyntaxFrames] = useState({});
+      const [parseVersions, setParseVersions] = useState(() => {
+        try { return JSON.parse(localStorage.getItem('reader_sentence_parse_versions') || '{}'); } catch { return {}; }
+      });
+      const [activeParseVersion, setActiveParseVersion] = useState({});
       const [modifierPracticeDrops, setModifierPracticeDrops] = useState({});
       const [logicPracticeDrops, setLogicPracticeDrops] = useState({});
       const [practiceSelectedToken, setPracticeSelectedToken] = useState(null);
@@ -7961,6 +7969,28 @@
                                       const groups = [...automaticGroups, ...manualGroups];
                                       const drops = mainPracticeDrops[selectedSentence.id] || {};
                                       const droppedIndexes = Object.values(drops).flat();
+                                      const versions = parseVersions[selectedSentence.id] || [];
+                                      const restoreVersion = (version) => {
+                                        const snapshot = version.snapshot;
+                                        setMainPracticeDrops(prev => ({ ...prev, [selectedSentence.id]: snapshot.mainDrops || {} }));
+                                        setModifierPracticeDrops(prev => ({ ...prev, [selectedSentence.id]: snapshot.modifierDrops || {} }));
+                                        setLogicPracticeDrops(prev => ({ ...prev, [selectedSentence.id]: snapshot.logicDrops || {} }));
+                                        setCustomSyntaxFrames(prev => ({ ...prev, [selectedSentence.id]: snapshot.customFrames || [] }));
+                                        setActiveParseVersion(prev => ({ ...prev, [selectedSentence.id]: version.id }));
+                                      };
+                                      const restoreBaseline = () => {
+                                        setMainPracticeDrops(prev => ({ ...prev, [selectedSentence.id]: {} }));
+                                        setModifierPracticeDrops(prev => ({ ...prev, [selectedSentence.id]: {} }));
+                                        setLogicPracticeDrops(prev => ({ ...prev, [selectedSentence.id]: {} }));
+                                        setCustomSyntaxFrames(prev => ({ ...prev, [selectedSentence.id]: [] }));
+                                        setActiveParseVersion(prev => ({ ...prev, [selectedSentence.id]: 'baseline' }));
+                                      };
+                                      const saveVersion = () => {
+                                        const id = `parse-${Date.now()}`;
+                                        const version = { id, name: `调整版 ${versions.length + 1}`, createdAt: new Date().toLocaleString('zh-CN', { hour: '2-digit', minute: '2-digit' }), snapshot: { mainDrops: drops, modifierDrops: modifierPracticeDrops[selectedSentence.id] || {}, logicDrops: logicPracticeDrops[selectedSentence.id] || {}, customFrames: customSyntaxFrames[selectedSentence.id] || [] } };
+                                        setParseVersions(prev => ({ ...prev, [selectedSentence.id]: [...(prev[selectedSentence.id] || []), version] }));
+                                        setActiveParseVersion(prev => ({ ...prev, [selectedSentence.id]: id }));
+                                      };
                                       const place = (groupKey, role, index) => setMainPracticeDrops(prev => ({
                                         ...prev,
                                         [selectedSentence.id]: {
@@ -7982,6 +8012,10 @@
                                             <p className="mt-1 text-sm text-slate-500">先找谓语，再找主语和宾语/表语；框图仍按英语顺序排。</p>
                                           </div>
                                           <span className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-500">拖动词块到框中</span>
+                                        </div>
+                                        <div className="rounded-2xl border border-indigo-100 bg-gradient-to-r from-indigo-50/70 to-white p-4">
+                                          <div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-sm font-black text-indigo-950">解析版本</p><p className="mt-1 text-xs text-slate-500">自动初稿保留不动；把你的拖拽结果另存为可回退版本。</p></div><button type="button" onClick={saveVersion} className="rounded-xl bg-indigo-600 px-3 py-2 text-sm font-black text-white hover:bg-indigo-700">保存当前版本</button></div>
+                                          <div className="mt-3 flex flex-wrap gap-2"><button type="button" onClick={restoreBaseline} className={`rounded-xl border px-3 py-2 text-sm font-bold ${(!activeParseVersion[selectedSentence.id] || activeParseVersion[selectedSentence.id] === 'baseline') ? 'border-indigo-500 bg-white text-indigo-800 ring-2 ring-indigo-100' : 'border-slate-200 bg-white text-slate-600'}`}>自动初稿</button>{versions.map(version => <div key={version.id} className={`inline-flex items-center rounded-xl border bg-white ${activeParseVersion[selectedSentence.id] === version.id ? 'border-indigo-500 ring-2 ring-indigo-100' : 'border-slate-200'}`}><button type="button" onClick={() => restoreVersion(version)} className="px-3 py-2 text-left text-sm font-bold text-slate-700"><span>{version.name}</span><span className="ml-2 text-xs font-medium text-slate-400">{version.createdAt}</span></button><button type="button" title="删除这个版本" onClick={() => setParseVersions(prev => ({ ...prev, [selectedSentence.id]: (prev[selectedSentence.id] || []).filter(item => item.id !== version.id) }))} className="border-l border-slate-100 px-2 py-2 text-slate-400 hover:text-rose-500">×</button></div>)}{versions.length === 0 && <span className="self-center text-xs text-slate-400">尚未保存调整稿</span>}</div>
                                         </div>
                                         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
                                           <p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">可用词块</p>
