@@ -8104,34 +8104,27 @@
                                       </div>;
                                     })()}
 
-                                    {/* ── Step 5: 词组积累 ── */}
+                                    {/* ── Step 5: 完整解析 ── */}
                                     {voiceLessonStepIndex === 4 && (
-                                      <div className="animate-in fade-in duration-300 space-y-5">
-                                        <div className="rounded-3xl border border-emerald-100 bg-emerald-50/50 p-5">
-                                          <p className="text-sm font-extrabold uppercase tracking-wider text-emerald-700">只收下值得再遇见的搭配</p>
-                                          <p className="mt-2 text-sm leading-6 text-slate-600">优先选“动词 + 介词 / 宾语”、固定表达和影响理解的关键词组；不需要把每个陌生词都塞进生词本。</p>
-                                        </div>
-                                        {(() => {
-                                          const terms = normalizeGlossary(selectedSentence.keyTerms || selectedSentence.glossary || []).filter(term => term?.term).slice(0, 6);
-                                          return terms.length ? (
-                                            <div className="grid gap-3 sm:grid-cols-2">
-                                              {terms.map((term, index) => (
-                                                <div key={`${term.term}-${index}`} className="rounded-2xl border border-emerald-100 bg-white p-4 shadow-sm">
-                                                  <p className="text-lg font-black text-slate-900">{term.term}</p>
-                                                  <p className="mt-1 text-sm leading-6 text-slate-600">{term.translation || term.note || '结合原句记住它的用法。'}</p>
-                                                  <button type="button" onClick={() => handleAddWordToVocab(term.term, selectedSentence.text, { meaning: term.translation, note: term.note })} className="mt-3 rounded-xl bg-emerald-600 px-3 py-2 text-xs font-black text-white hover:bg-emerald-700">
-                                                    加入生词本
-                                                  </button>
-                                                </div>
-                                              ))}
-                                            </div>
-                                          ) : (
-                                            <div className="rounded-3xl border border-dashed border-emerald-200 bg-white p-6 text-center text-sm leading-7 text-slate-600">
-                                              双击原句里的词，或选中一个词组后按方向键，即可查释义并决定是否加入生词本。
-                                            </div>
-                                          );
-                                        })()}
-                                      </div>
+                                      (() => {
+                                        const segments = selectedSentence.segments || [];
+                                        const frames = buildPracticeFrames(segments);
+                                        const modifiers = segments.filter(segment => ['modifier', 'adverbial'].includes(segment.type) && /[A-Za-z]/.test(segment.text || ''));
+                                        const connectors = segments.filter(segment => segment.type === 'conjunction' && FANBOYS.test(segment.text.trim()));
+                                        const terms = normalizeGlossary(selectedSentence.keyTerms || selectedSentence.glossary || []).filter(term => term?.term).slice(0, 6);
+                                        const roleText = (frame, role) => (frame.roleIndexes[role] || []).map(index => segments[index]?.text.trim()).filter(Boolean).join(' ');
+                                        return <div className="animate-in fade-in duration-300 space-y-5">
+                                          <div className="rounded-3xl border border-emerald-200 bg-emerald-50/60 p-5">
+                                            <p className="text-sm font-extrabold uppercase tracking-wider text-emerald-700">第 5 步 · 完整读懂这一句</p>
+                                            <p className="mt-2 text-xl font-black leading-8 text-slate-900">{selectedSentence.text}</p>
+                                            {selectedSentence.translation && <p className="mt-3 text-sm leading-7 text-emerald-900">{selectedSentence.translation}</p>}
+                                          </div>
+                                          <section className="rounded-2xl border border-slate-200 bg-white p-5"><p className="text-sm font-black text-slate-900">1. 句子骨架</p><div className="mt-3 space-y-3">{frames.map((frame, index) => <div key={frame.key} className="rounded-xl bg-slate-50 p-3"><p className="text-xs font-black text-slate-400">{frame.connectorBefore !== null && <span className="mr-2 rounded bg-sky-100 px-2 py-1 text-sky-700">{segments[frame.connectorBefore]?.text.trim()}</span>}{frame.label}{frame.sharedSubject && ' · 沿用上一主语'}</p>{frame.kind === 'predicate-contrast' ? <p className="mt-2 font-bold text-slate-800">{frame.contentIndexes.map(i => segments[i]?.text.trim()).filter(Boolean).join(' ')}</p> : <div className="mt-2 flex flex-wrap gap-2 text-sm font-bold"><span className="rounded bg-rose-50 px-2 py-1 text-rose-800">{roleText(frame, 'subject') || '（共享主语）'}</span><span className="rounded bg-blue-50 px-2 py-1 text-blue-800">{roleText(frame, 'verb')}</span><span className="rounded bg-emerald-50 px-2 py-1 text-emerald-800">{roleText(frame, 'object')}</span>{roleText(frame, 'complement') && <span className="rounded bg-violet-50 px-2 py-1 text-violet-800">{roleText(frame, 'complement')}</span>}</div>}</div>)}</div></section>
+                                          <div className="grid gap-4 md:grid-cols-2"><section className="rounded-2xl border border-amber-100 bg-amber-50/40 p-5"><p className="text-sm font-black text-amber-900">2. 挂回修饰信息</p><div className="mt-3 flex flex-wrap gap-2">{modifiers.length ? modifiers.map((segment, index) => <span key={`${segment.text}-${index}`} className="rounded-lg border border-amber-200 bg-white px-2 py-1 text-sm font-semibold text-amber-900">{segment.text.trim()}</span>) : <span className="text-sm text-slate-500">没有额外修饰语。</span>}</div></section><section className="rounded-2xl border border-sky-100 bg-sky-50/40 p-5"><p className="text-sm font-black text-sky-900">3. 并列逻辑</p><p className="mt-3 text-sm leading-6 text-slate-700">{connectors.length ? connectors.map(segment => segment.text.trim()).join(' → ') : '没有 FANBOYS 并列关系。'}</p></section></div>
+                                          <section className="rounded-2xl border border-indigo-100 bg-indigo-50/40 p-5"><p className="text-sm font-black text-indigo-900">4. 语法提醒</p><p className="mt-2 text-sm leading-7 text-slate-700">{selectedSentence.grammarFocus || '按主干核对动词形式、主谓一致与语态。'}</p></section>
+                                          <section className="rounded-2xl border border-emerald-100 bg-white p-5"><p className="text-sm font-black text-emerald-900">5. 值得积累的搭配</p>{terms.length ? <div className="mt-3 grid gap-3 sm:grid-cols-2">{terms.map((term, index) => <div key={`${term.term}-${index}`} className="rounded-xl border border-emerald-100 bg-emerald-50/40 p-3"><p className="font-black text-slate-900">{term.term}</p><p className="mt-1 text-sm text-slate-600">{term.translation || term.note || '结合原句记住它的用法。'}</p><button type="button" onClick={() => handleAddWordToVocab(term.term, selectedSentence.text, { meaning: term.translation, note: term.note })} className="mt-3 rounded-lg bg-emerald-600 px-3 py-2 text-xs font-black text-white hover:bg-emerald-700">加入生词本</button></div>)}</div> : <p className="mt-3 text-sm text-slate-500">这句没有必须单独积累的搭配。</p>}</section>
+                                        </div>;
+                                      })()
                                     )}
                                   </React.Fragment>
                                 );
