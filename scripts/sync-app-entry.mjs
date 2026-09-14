@@ -15,6 +15,7 @@ const vendorDir = path.resolve(cwd, 'vendor');
 // TPO import pack. A historical “final” directory may exist but is not a
 // complete deployment source and can silently omit newly generated bundles.
 const generatedReaderJsonDir = path.resolve(cwd, 'data/generated-reader-json');
+const generatedReaderJsonRemoteG4Dir = path.resolve(cwd, 'data/generated-reader-json-remote-G4');
 const installedAppIndex = path.resolve(
   os.homedir(),
   'Applications/英语长难句阅读器.app/Contents/Resources/index.html'
@@ -50,6 +51,10 @@ const installedAppVendorDir = path.resolve(
 const installedGeneratedReaderJsonDir = path.resolve(
   os.homedir(),
   'Applications/英语长难句阅读器.app/Contents/Resources/data/generated-reader-json'
+);
+const installedGeneratedReaderJsonRemoteG4Dir = path.resolve(
+  os.homedir(),
+  'Applications/英语长难句阅读器.app/Contents/Resources/data/generated-reader-json-remote-G4'
 );
 
 const syncTargets = [
@@ -123,6 +128,19 @@ if (fs.existsSync(generatedReaderJsonDir)) {
     target: installedGeneratedReaderJsonDir,
     required: false,
     source: generatedReaderJsonDir,
+    status: 'synced'
+  });
+}
+
+if (fs.existsSync(generatedReaderJsonRemoteG4Dir)) {
+  fs.rmSync(installedGeneratedReaderJsonRemoteG4Dir, { recursive: true, force: true });
+  fs.mkdirSync(path.dirname(installedGeneratedReaderJsonRemoteG4Dir), { recursive: true });
+  fs.cpSync(generatedReaderJsonRemoteG4Dir, installedGeneratedReaderJsonRemoteG4Dir, { recursive: true });
+  results.push({
+    label: '已安装 App generated-reader-json-remote-G4',
+    target: installedGeneratedReaderJsonRemoteG4Dir,
+    required: false,
+    source: generatedReaderJsonRemoteG4Dir,
     status: 'synced'
   });
 }

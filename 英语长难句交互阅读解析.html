@@ -2062,17 +2062,18 @@
     const LOCAL_DATA_FILE_NAME = 'reading-local-data.json';
     const BUNDLED_LIBRARY_URLS = [
       './data/generated-reader-json/reader-articles.import.json',
+      './data/generated-reader-json-remote-G4/reader-articles.import.json',
       './data/generated-reader-json/reader-articles-tpo.import.json',
       './data/generated-reader-json/reader-articles-re-foundations.import.json',
       './data/generated-reader-json/reader-articles-shiwen.import.json'
     ];
-    // v33 restores the verified RFD1–3 classroom quiz bank after a bundle
-    // rebuild omitted it. A new seed version makes existing clients reload it.
+    // v34 adds the 四上 curriculum pack and its supplementary reading. A new
+    // seed version makes existing clients reload the canonical bundle.
     // library. A marker alone is not proof that all curriculum bundles
     // reached the device.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v33';
-    const BUNDLED_LIBRARY_SEED_VERSION = '33';
-    const EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT = 323;
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v34';
+    const BUNDLED_LIBRARY_SEED_VERSION = '34';
+    const EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT = 324;
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
     const normalizeLookupWord = (value = '') =>
@@ -4227,6 +4228,11 @@
         () => currentArticleQuestions.filter(question => !isSupportedQuizQuestion(question)),
         [currentArticleQuestions]
       );
+      const currentArticleWritingTask = currentArticle?.writingTask &&
+        Array.isArray(currentArticle.writingTask.prompts) &&
+        currentArticle.writingTask.prompts.length > 0
+        ? currentArticle.writingTask
+        : null;
       const currentQuizQuestion = useMemo(
         () => currentArticleQuestions.find(question => question.id === quizActiveQuestionId) || currentArticleQuestions[0] || null,
         [currentArticleQuestions, quizActiveQuestionId]
@@ -8496,6 +8502,28 @@
                                     </div>
                                   )}
                                 </div>
+                              )}
+                              {currentArticleWritingTask && (
+                                <section className="rounded-[28px] border border-sky-200 bg-sky-50/70 p-6 shadow-sm md:p-7">
+                                  <p className="text-xs font-black uppercase tracking-[0.16em] text-sky-700">{currentArticleWritingTask.title || '仿写练习'}</p>
+                                  <p className="mt-3 text-base font-semibold leading-7 text-slate-800">{currentArticleWritingTask.instruction}</p>
+                                  {currentArticleWritingTask.example && (
+                                    <p className="mt-4 rounded-2xl border border-sky-100 bg-white/90 px-4 py-3 font-bold text-sky-950">例：{currentArticleWritingTask.example}</p>
+                                  )}
+                                  <div className="mt-4 space-y-4">
+                                    {currentArticleWritingTask.prompts.map((prompt, index) => (
+                                      <label key={`${currentArticleId}-writing-${index}`} className="block">
+                                        <span className="text-sm font-black text-slate-700">{index + 1}. {prompt}</span>
+                                        <textarea
+                                          rows="2"
+                                          aria-label={`仿写练习第 ${index + 1} 题`}
+                                          placeholder="在这里写下你的句子。"
+                                          className="mt-2 w-full rounded-2xl border border-sky-200 bg-white px-4 py-3 text-base text-slate-800 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                                        />
+                                      </label>
+                                    ))}
+                                  </div>
+                                </section>
                               )}
                             </React.Fragment>
                           ) : (

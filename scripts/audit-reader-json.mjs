@@ -45,7 +45,7 @@ const expectedCounts = {
   rfd4: 16,
   rfd5: 16,
   rfd6: 16,
-  '四上英语课文_英文': 24
+  '四上英语课文_英文': 25
 };
 
 const tpoPackPath = path.resolve(cwd, 'data/generated-reader-json/reader-articles-tpo.import.json');
