@@ -8,6 +8,7 @@ const simpleReaderHtml = path.resolve(cwd, 'simple-reader.html');
 const standaloneHtml = path.resolve(cwd, '英语长难句交互阅读解析.html');
 const localConfig = path.resolve(cwd, 'local-config.js');
 const appServer = path.resolve(cwd, 'scripts/reader_app_server.py');
+const requirements = path.resolve(cwd, 'requirements.txt');
 const cosyvoiceServer = path.resolve(cwd, 'scripts/cosyvoice_server.py');
 const macAppLauncher = path.resolve(cwd, 'scripts/mac-app-launcher.sh');
 const vendorDir = path.resolve(cwd, 'vendor');
@@ -35,6 +36,10 @@ const installedAppLocalConfig = path.resolve(
 const installedAppServer = path.resolve(
   os.homedir(),
   'Applications/英语长难句阅读器.app/Contents/Resources/reader_app_server.py'
+);
+const installedRequirements = path.resolve(
+  os.homedir(),
+  'Applications/英语长难句阅读器.app/Contents/Resources/requirements.txt'
 );
 const installedCosyvoiceServer = path.resolve(
   os.homedir(),
@@ -64,6 +69,7 @@ const syncTargets = [
   { label: '已安装 App 简化阅读器', target: installedSimpleReaderHtml, required: false, source: simpleReaderHtml },
   { label: '已安装 App 私有配置', target: installedAppLocalConfig, required: false, source: localConfig },
   { label: '已安装 App 本地服务', target: installedAppServer, required: false, source: appServer },
+  { label: '已安装 App Python 依赖', target: installedRequirements, required: false, source: requirements },
   { label: '已安装 App CosyVoice 服务', target: installedCosyvoiceServer, required: false, source: cosyvoiceServer },
   { label: '已安装 App 启动器', target: installedAppLauncher, required: false, source: macAppLauncher }
 ];

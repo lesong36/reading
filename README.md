@@ -10,7 +10,7 @@ https://lesong36.github.io/reading/
 
 ## 本版说明（GitHub Pages）
 
-- **无需语音**：线上版已关闭 TTS / 听老师讲按钮。
+- **段落朗读**：桌面 App 可使用本地 Edge TTS（Aria / Guy）朗读每一段；首次打开会自动创建隔离语音环境。GitHub Pages 版会请求 P920 的私有 Tailscale 语音服务，设备需登录同一 tailnet；部署见 [P920 Edge TTS](deploy/p920/README.md)。
 - **无需本地 Ollama**：默认使用 OpenAI-compatible 云端接口；阅读内置示例与已导入文章的解析时，不需要配置任何模型。
 - **预置书架**：首次打开会自动加载 RFD1/2/3、四上预置教材；若书架为空，也可点「加载预置教材」。
 - **分析新文章 / AI 助教**：在「AI 设置」中自行填写兼容接口的 API Key、Base URL、Model。

@@ -84,7 +84,7 @@
   <script type="text/babel" data-type="module">
     import React, { useState, useEffect, useRef, useMemo, Fragment } from 'https://esm.sh/react@18.2.0?target=es2022';
     import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client?bundle';
-    import { BookOpen, Search, Info, MousePointerClick, Zap, AlignLeft, Underline, Link as LinkIcon, Tag, Sparkles, Send, Loader2, UploadCloud, FileText, ArrowLeft, BookMarked, Printer, Plus, Trash2, CheckCircle2, Download, Upload, MessageSquare, Library, Save, FolderOpen, User, LogOut, X, Bot, RefreshCw, KeyRound, ZoomIn, ZoomOut, Clock3, CalendarDays, ChevronLeft, ChevronRight, Mail, AlertTriangle, ClipboardCheck } from 'https://esm.sh/lucide-react@0.292.0?bundle&deps=react@18.2.0';
+    import { BookOpen, Search, Info, MousePointerClick, Zap, AlignLeft, Underline, Link as LinkIcon, Tag, Sparkles, Send, Loader2, UploadCloud, FileText, ArrowLeft, BookMarked, Printer, Plus, Trash2, CheckCircle2, Download, Upload, MessageSquare, Library, Save, FolderOpen, User, LogOut, X, Bot, RefreshCw, KeyRound, ZoomIn, ZoomOut, Clock3, CalendarDays, ChevronLeft, ChevronRight, Mail, AlertTriangle, ClipboardCheck, Volume2, Square, Gauge } from 'https://esm.sh/lucide-react@0.292.0?bundle&deps=react@18.2.0';
     import readability from 'https://esm.sh/text-readability@1.1.1?bundle';
     
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2?bundle';
@@ -101,6 +101,17 @@
       publishableKey: 'sb_publishable_vg-bfePJ4OSgoOOiMEJeCg_7YxdAdkx'
     };
     const LOCAL_PRIVATE_CONFIG = typeof window !== 'undefined' ? (window.__reader_local_config || {}) : {};
+    // GitHub Pages 是静态站点；段落朗读经由 P920 的 Tailscale HTTPS 服务。
+    // 桌面 App 仍使用同源的本地 Python 服务。local-config.js 可覆盖此地址。
+    const P920_EDGE_TTS_ORIGIN = String(
+      LOCAL_PRIVATE_CONFIG.p920EdgeTtsOrigin || 'https://p920.tail1462ad.ts.net:8443'
+    ).replace(/\/$/, '');
+    const getParagraphTtsEndpoint = () => {
+      const hostname = window.location.hostname;
+      return hostname === '127.0.0.1' || hostname === 'localhost'
+        ? '/api/tts/edge'
+        : `${P920_EDGE_TTS_ORIGIN}/api/tts/edge`;
+    };
     // GitHub Pages / iPad 静态部署：不依赖语音与本地 Ollama
     const ENABLE_VOICE_FEATURES = false;
     const ENABLE_LOCAL_OLLAMA = false;
@@ -3651,6 +3662,17 @@
       const lessonAudioRef = useRef(null);
       const lessonAudioRejectRef = useRef(null);
       const voiceNarrationRunIdRef = useRef(0);
+      const [paragraphVoiceSpeed, setParagraphVoiceSpeed] = useState(() => {
+        const saved = Number(localStorage.getItem('reader_paragraph_voice_speed') || '1');
+        return Number.isFinite(saved) ? Math.min(1.8, Math.max(0.6, saved)) : 1;
+      });
+      const [paragraphVoiceName, setParagraphVoiceName] = useState(() => {
+        const saved = localStorage.getItem('reader_paragraph_voice_name');
+        return saved === 'en-US-GuyNeural' ? saved : 'en-US-AriaNeural';
+      });
+      const [activeParagraphVoice, setActiveParagraphVoice] = useState(null);
+      const paragraphAudioRef = useRef(null);
+      const paragraphVoiceRunIdRef = useRef(0);
       const [isCheckingOllama, setIsCheckingOllama] = useState(false);
       const [ollamaStatus, setOllamaStatus] = useState(() => ({
         ok: false,
@@ -3729,6 +3751,14 @@
       useEffect(() => {
         localStorage.setItem('reader_voice_speed', String(voiceSpeed));
       }, [voiceSpeed]);
+
+      useEffect(() => {
+        localStorage.setItem('reader_paragraph_voice_speed', String(paragraphVoiceSpeed));
+      }, [paragraphVoiceSpeed]);
+
+      useEffect(() => {
+        localStorage.setItem('reader_paragraph_voice_name', paragraphVoiceName);
+      }, [paragraphVoiceName]);
 
       useEffect(() => {
         localStorage.setItem('reader_sentence_parse_versions', JSON.stringify(parseVersions));
@@ -4127,6 +4157,81 @@
           });
         }
       };
+
+      const stopParagraphNarration = () => {
+        paragraphVoiceRunIdRef.current += 1;
+        const audio = paragraphAudioRef.current;
+        if (audio) {
+          audio.pause();
+          if (audio.dataset.objectUrl) URL.revokeObjectURL(audio.dataset.objectUrl);
+        }
+        paragraphAudioRef.current = null;
+        setActiveParagraphVoice(null);
+      };
+
+      const handlePlayParagraphNarration = async (paragraph, paragraphIndex) => {
+        const paragraphKey = `${paragraph?.[0]?.para ?? paragraphIndex}`;
+        const text = paragraph.map(sentence => sentence.text).join(' ').replace(/\s+/g, ' ').trim();
+        if (!text) return;
+
+        if (activeParagraphVoice?.key === paragraphKey) {
+          stopParagraphNarration();
+          return;
+        }
+
+        stopParagraphNarration();
+        const runId = paragraphVoiceRunIdRef.current;
+        setActiveParagraphVoice({ key: paragraphKey, status: 'loading' });
+
+        try {
+          const response = await fetch(getParagraphTtsEndpoint(), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              text,
+              voice: paragraphVoiceName,
+              speed: paragraphVoiceSpeed
+            })
+          });
+          const payload = await response.json().catch(() => ({}));
+          if (!response.ok || !payload.audioBase64) {
+            throw new Error(payload.error || `HTTP ${response.status}`);
+          }
+          if (paragraphVoiceRunIdRef.current !== runId) return;
+
+          const binary = atob(payload.audioBase64);
+          const bytes = Uint8Array.from(binary, char => char.charCodeAt(0));
+          const objectUrl = URL.createObjectURL(new Blob([bytes], { type: payload.mimeType || 'audio/mpeg' }));
+          const audio = new Audio(objectUrl);
+          audio.dataset.objectUrl = objectUrl;
+          paragraphAudioRef.current = audio;
+          setActiveParagraphVoice({ key: paragraphKey, status: 'playing' });
+          audio.onended = () => {
+            URL.revokeObjectURL(objectUrl);
+            if (paragraphAudioRef.current === audio) paragraphAudioRef.current = null;
+            if (paragraphVoiceRunIdRef.current === runId) setActiveParagraphVoice(null);
+          };
+          audio.onerror = () => {
+            URL.revokeObjectURL(objectUrl);
+            if (paragraphAudioRef.current === audio) paragraphAudioRef.current = null;
+            if (paragraphVoiceRunIdRef.current === runId) {
+              setActiveParagraphVoice(null);
+              setToastMessage('段落音频播放失败，请重试。');
+            }
+          };
+          await audio.play();
+        } catch (error) {
+          if (paragraphVoiceRunIdRef.current === runId) {
+            setActiveParagraphVoice(null);
+            const message = error instanceof TypeError
+              ? '未能连接 P920 语音服务；请确认设备已连接 Tailscale。'
+              : `段落朗读不可用：${error.message}`;
+            setToastMessage(message);
+          }
+        }
+      };
+
+      useEffect(() => () => stopParagraphNarration(), []);
 
       const activeAiTaskMessage = useMemo(() => {
         if (!activeAiTask) return "";
@@ -7319,10 +7424,13 @@
                         <ZoomIn className="h-4 w-4" /> 查看伴读资料与配图（{currentArticle.companions.length}）
                       </button>
                     )}
-                    {paragraphs.map((para, idx) => (
-                      <p
+                    {paragraphs.map((para, idx) => {
+                      const paragraphKey = `${para[0]?.para ?? idx}`;
+                      const paragraphIsNarrating = activeParagraphVoice?.key === paragraphKey;
+                      return (
+                      <div
                         key={idx}
-                        className={`mb-6 md:mb-8 rounded-3xl px-3 py-2 transition-all ${
+                        className={`mb-6 md:mb-8 flex items-start rounded-3xl px-3 py-2 transition-all ${
                           articleStudyMode === 'quiz' && (
                             (currentQuizParagraphNumber && Number(para[0]?.para) === currentQuizParagraphNumber) ||
                             para.some(sentence => sentence.id === currentQuizLocatorSentenceId)
@@ -7331,12 +7439,69 @@
                             : ''
                         }`}
                       >
-                        {currentArticle?.paragraphLabels?.[Number(para[0]?.para) - 1] && (
-                          <span className="mr-3 inline-flex h-8 min-w-8 items-center justify-center rounded-full bg-indigo-700 px-2 align-middle text-sm font-black tracking-wide text-white shadow-sm">
-                            {currentArticle.paragraphLabels[Number(para[0]?.para) - 1]}
-                          </span>
-                        )}
-                        {para.map((sentence, sIdx) => {
+                        <span className="group relative mr-2 mt-1 inline-flex shrink-0 self-start">
+                          <button
+                            type="button"
+                            onClick={() => handlePlayParagraphNarration(para, idx)}
+                            className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+                              paragraphIsNarrating
+                                ? 'border-indigo-600 bg-indigo-600 text-white'
+                                : 'border-slate-200 bg-white text-slate-500 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700'
+                            }`}
+                            aria-label={paragraphIsNarrating ? `停止第 ${idx + 1} 段朗读` : `朗读第 ${idx + 1} 段`}
+                            title="朗读本段；悬停可调语速"
+                          >
+                            {activeParagraphVoice?.key === paragraphKey && activeParagraphVoice.status === 'loading'
+                              ? <Loader2 className="h-4 w-4 animate-spin" />
+                              : paragraphIsNarrating
+                                ? <Square className="h-3.5 w-3.5 fill-current" />
+                                : <Volume2 className="h-4 w-4" />}
+                          </button>
+                          <div className="pointer-events-none invisible absolute left-0 top-full z-30 mt-2 w-52 rounded-2xl border border-slate-200 bg-white p-3 text-sm opacity-0 shadow-xl transition-all duration-150 group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:visible group-focus-within:opacity-100">
+                            <div className="mb-2 flex items-center justify-between gap-2 text-xs font-bold text-slate-600">
+                              <span className="inline-flex items-center gap-1"><Gauge className="h-3.5 w-3.5 text-indigo-600" /> 朗读速度</span>
+                              <span className="font-mono text-indigo-700">{paragraphVoiceSpeed.toFixed(1)}×</span>
+                            </div>
+                            <input
+                              type="range"
+                              min="0.6"
+                              max="1.8"
+                              step="0.1"
+                              value={paragraphVoiceSpeed}
+                              onChange={(event) => setParagraphVoiceSpeed(Number(event.target.value))}
+                              className="h-2 w-full cursor-pointer accent-indigo-600"
+                              aria-label="段落朗读速度"
+                            />
+                            <div className="mt-3 border-t border-slate-100 pt-2">
+                              <p className="mb-1.5 text-[11px] font-bold text-slate-500">声音</p>
+                              <div className="grid grid-cols-2 gap-1.5">
+                                {[
+                                  ['en-US-AriaNeural', 'Aria'],
+                                  ['en-US-GuyNeural', 'Guy']
+                                ].map(([voice, label]) => (
+                                  <button
+                                    key={voice}
+                                    type="button"
+                                    onClick={() => setParagraphVoiceName(voice)}
+                                    className={`rounded-lg px-2 py-1.5 text-xs font-bold transition-colors ${
+                                      paragraphVoiceName === voice
+                                        ? 'bg-indigo-600 text-white'
+                                        : 'bg-slate-100 text-slate-600 hover:bg-indigo-50 hover:text-indigo-700'
+                                    }`}
+                                    aria-pressed={paragraphVoiceName === voice}
+                                  >{label}</button>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          {currentArticle?.paragraphLabels?.[Number(para[0]?.para) - 1] && (
+                            <span className="mr-3 inline-flex h-8 min-w-8 items-center justify-center rounded-full bg-indigo-700 px-2 align-middle text-sm font-black tracking-wide text-white shadow-sm">
+                              {currentArticle.paragraphLabels[Number(para[0]?.para) - 1]}
+                            </span>
+                          )}
+                          {para.map((sentence, sIdx) => {
                           const isSelected = selectedSentence.id === sentence.id;
                           return (
                             <React.Fragment key={sentence.id || sIdx}>
@@ -7402,9 +7567,10 @@
                               {sIdx < para.length - 1 && ' '}
                             </React.Fragment>
                           );
-                        })}
-                      </p>
-                    ))}
+                          })}
+                        </span>
+                      </div>
+                    )})}
                     {Array.isArray(currentArticle?.footnotes) && currentArticle.footnotes.length > 0 && (
                       <aside className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-600">
                         <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-slate-500">课文脚注</p>
