@@ -4503,7 +4503,9 @@
       const readingRoutineEvidenceParagraph = readingRoutineStage === 'first_pass'
         && readingRoutineActiveParagraph
         && readingRoutineProgress.notes?.[readingRoutineActiveParagraph.id]?.mainIdeaChecked
-        && !readingRoutineProgress.notes?.[readingRoutineActiveParagraph.id]?.evidenceChecked
+        // A wrong evidence choice must stay editable.  Only lock this step
+        // after the child has found a supporting sentence successfully.
+        && !readingRoutineProgress.notes?.[readingRoutineActiveParagraph.id]?.evidenceCorrect
         ? readingRoutineActiveParagraph
         : null;
 
@@ -8106,8 +8108,8 @@
                                 {note.mainIdeaCorrect && <div className="mt-7 border-t border-slate-100 pt-6"><p className="text-sm font-black text-slate-800">3. 去原文找一句支持它的话</p>
                                   <p className="mt-2 text-sm leading-6 text-slate-500">现在左边第 {paragraph.index + 1} 段的句子可以点选。选一句最能证明你的段落便签的话。</p>
                                   <div className="mt-3 flex flex-wrap gap-2">{(note.sourceIds || []).length ? note.sourceIds.map(id => <span key={id} className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-900">已选 {id.toUpperCase()}</span>) : <span className="text-sm text-slate-400">还没有选句子</span>}</div>
-                                  <button type="button" disabled={!(note.sourceIds || []).length} onClick={() => checkRoutineEvidence(paragraph)} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:cursor-not-allowed disabled:bg-slate-300">检查我的依据</button>
-                                  {note.evidenceChecked && <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${note.evidenceCorrect ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>{note.evidenceCorrect ? '找到了。你的便签有原文作依据。' : '再找一找：哪句最直接说明了这段的重点？'}</p>}
+                                  <button type="button" disabled={!(note.sourceIds || []).length} onClick={() => checkRoutineEvidence(paragraph)} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:cursor-not-allowed disabled:bg-slate-300">{note.evidenceChecked && !note.evidenceCorrect ? '重新检查我的依据' : '检查我的依据'}</button>
+                                  {note.evidenceChecked && <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${note.evidenceCorrect ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>{note.evidenceCorrect ? '找到了。你的便签有原文作依据。' : '还可以继续点左边这段的句子：点错的可再点一次取消，再换一句试试。'}</p>}
                                 </div>}
 
                                 {note.complete && <div className="mt-7 rounded-2xl border border-emerald-200 bg-emerald-50 p-4"><p className="text-xs font-black uppercase tracking-[0.16em] text-emerald-700">我的第 {paragraph.index + 1} 段便签</p><p className="mt-2 font-black text-emerald-950">{note.topic}：{note.mainIdea}</p>
