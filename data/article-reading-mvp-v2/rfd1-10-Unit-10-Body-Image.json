@@ -1,0 +1,104 @@
+{
+  "schema_version": "2.0-mvp",
+  "article": {
+    "id": "rfd1-10-Unit-10-Body-Image",
+    "title": "Unit 10 Body Image",
+    "genre": "argumentative",
+    "genre_label": "观点 / 劝导文"
+  },
+  "analysis": {
+    "semantic": {
+      "model_kind": "claim_reason_graph",
+      "central_idea": "Do not judge yourself against edited images; focus on what helps you feel good rather than on appearance.",
+      "claims": [
+        { "id": "problem", "role": "problem", "source_ids": ["s1", "s2", "s3", "s4"], "text": "Comparing ourselves with magazine images can make us feel bad." },
+        { "id": "reason", "role": "reason", "source_ids": ["s5", "s6"], "text": "Those pictures are changed by computers and are not real." },
+        { "id": "advice", "role": "claim", "source_ids": ["s7", "s8", "s9"], "text": "Focus on feelings and activities that make you feel good, not on appearance." }
+      ]
+    },
+    "discourse": {
+      "relations": [
+        { "type": "problem_to_reason", "from": "p1", "to": "p2" },
+        { "type": "reason_to_advice", "from": "p2", "to": "p3" }
+      ]
+    },
+    "organization": {
+      "structures": [
+        { "id": "body-image-route", "type": "problem_reason_advice", "paragraph_numbers": [1, 2, 3] }
+      ]
+    },
+    "rhetoric": {
+      "functions": [
+        { "paragraph_number": 1, "type": "names_problem" },
+        { "paragraph_number": 2, "type": "challenges_assumption" },
+        { "paragraph_number": 3, "type": "gives_advice" }
+      ]
+    }
+  },
+  "pedagogy": {
+    "entry": {
+      "prompt": "看标题和第一段。这篇文章可能想和我们聊什么？",
+      "options": [
+        { "id": "feelings", "text": "看到别人外表时，我们会怎样看待自己，以及怎样照顾自己的感受" },
+        { "id": "fashion", "text": "怎样穿得和杂志里的人一模一样" },
+        { "id": "sports", "text": "怎样让身体在运动中跑得更快" }
+      ]
+    },
+    "checkpoints": [
+      {
+        "id": "problem",
+        "paragraph_numbers": [1],
+        "source_ids": ["s1", "s2", "s3", "s4", "s5", "s6"],
+        "accepted_source_ids": ["s1", "s2", "s3", "s4", "s5", "s6"],
+        "label": "先看到困扰",
+        "prompt": "这一段让你先看见了什么困扰？",
+        "options": [
+          { "id": "problem", "text": "人们把自己和杂志里的“完美”外表比较，常常会因此难过。" },
+          { "id": "clothes", "text": "人们都很喜欢买杂志。" },
+          { "id": "exercise", "text": "人们不喜欢运动。" }
+        ],
+        "accepted_option_ids": ["problem"],
+        "map_label": "困扰"
+      },
+      {
+        "id": "reason",
+        "paragraph_numbers": [2],
+        "source_ids": ["s7", "s8", "s9"],
+        "accepted_source_ids": ["s7", "s8", "s9"],
+        "label": "理解改变",
+        "prompt": "第二段怎样改变了你对前面“完美外表”的理解？",
+        "options": [
+          { "id": "reason", "text": "那些图片被电脑修改过，不是真实的人本来的样子。" },
+          { "id": "agree", "text": "那些图片证明每个人都应该长成一样。" },
+          { "id": "unrelated", "text": "第二段开始介绍一种新的运动。" }
+        ],
+        "accepted_option_ids": ["reason"],
+        "map_label": "为什么别比较"
+      },
+      {
+        "id": "advice",
+        "paragraph_numbers": [3],
+        "source_ids": ["s10", "s11", "s12", "s13"],
+        "accepted_source_ids": ["s10", "s11", "s12", "s13"],
+        "label": "带走什么",
+        "prompt": "读到结尾，文章把前面的理解带向了什么？",
+        "options": [
+          { "id": "advice", "text": "外表不是最重要的；多做让自己感觉好的事。" },
+          { "id": "appearance", "text": "外表是唯一重要的事。" },
+          { "id": "magazine", "text": "应该每天多看杂志。" }
+        ],
+        "accepted_option_ids": ["advice"],
+        "map_label": "带走的想法"
+      }
+    ],
+    "final": {
+      "prompt": "把三次理解连起来。现在，哪句话最像这篇文章想让你记住的意思？",
+      "options": [
+        { "id": "central", "text": "Magazine images are not real, so do not judge yourself by them; focus on what helps you feel good." },
+        { "id": "detail", "text": "Computers can change pictures." },
+        { "id": "wrong", "text": "Everyone should look like people in magazines." }
+      ],
+      "accepted_option_ids": ["central"]
+    }
+  }
+}

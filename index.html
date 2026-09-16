@@ -2141,6 +2141,14 @@
       './data/generated-reader-json/reader-articles-re-foundations.import.json',
       './data/generated-reader-json/reader-articles-shiwen.import.json'
     ];
+    // V2 is deliberately a small, reviewed multi-genre pilot.  These paths
+    // are kept outside the imported library records so a reader can try the
+    // new model without rewriting or reattaching any existing bookshelf pack.
+    const ARTICLE_READING_MVP_V2_MODEL_PATHS = Object.freeze({
+      're-foundations-10a-wild-weather': './data/article-reading-mvp-v2/re-foundations-10a-wild-weather.json',
+      're-foundations-5a-the-disease-detective': './data/article-reading-mvp-v2/re-foundations-5a-the-disease-detective.json',
+      'rfd1-10-Unit-10-Body-Image': './data/article-reading-mvp-v2/rfd1-10-Unit-10-Body-Image.json'
+    });
     // v34 adds the 四上 curriculum pack and its supplementary reading. A new
     // seed version makes existing clients reload the canonical bundle.
     // library. A marker alone is not proof that all curriculum bundles
@@ -2400,9 +2408,30 @@
       wholeText: value?.wholeText && typeof value.wholeText === 'object' ? value.wholeText : {}
     });
     const normalizeReadingModel = (model = {}) => {
+      if (model?.schema_version === '2.0-mvp'
+        && model?.article?.id
+        && Array.isArray(model?.pedagogy?.checkpoints)
+        && Array.isArray(model?.pedagogy?.entry?.options)
+        && Array.isArray(model?.pedagogy?.final?.options)) return model;
       if (model?.schema_version !== '1.0' || !model?.article?.id || !Array.isArray(model?.pedagogy?.activities)) return null;
       return model;
     };
+    const isArticleReadingMvpV2 = (model) => model?.schema_version === '2.0-mvp';
+    const READING_MVP_V2_PROGRESS_STORAGE_KEY_PREFIX = 'reader_article_reading_mvp_v2_';
+    const getReadingMvpV2ProgressStorageKey = (articleId) =>
+      articleId ? `${READING_MVP_V2_PROGRESS_STORAGE_KEY_PREFIX}${articleId}` : null;
+    const createEmptyReadingMvpV2Progress = () => ({
+      entryChoiceId: null,
+      entryStarted: false,
+      checkpoints: {},
+      final: {}
+    });
+    const normalizeReadingMvpV2Progress = (value = {}) => ({
+      ...createEmptyReadingMvpV2Progress(),
+      ...(value && typeof value === 'object' ? value : {}),
+      checkpoints: value?.checkpoints && typeof value.checkpoints === 'object' ? value.checkpoints : {},
+      final: value?.final && typeof value.final === 'object' ? value.final : {}
+    });
     const sameIdSelection = (left = [], right = []) => {
       const normalized = (values) => [...new Set(values || [])].map(String).sort();
       const a = normalized(left), b = normalized(right);
@@ -3959,6 +3988,7 @@
       const [readingActiveActivityId, setReadingActiveActivityId] = useState(null);
       const [readingActivityResponses, setReadingActivityResponses] = useState({});
       const [readingRoutineProgress, setReadingRoutineProgress] = useState(createEmptyReadingRoutineProgress);
+      const [readingMvpV2Progress, setReadingMvpV2Progress] = useState(createEmptyReadingMvpV2Progress);
 
       // AI Feature States
       const [simplifiedSentence, setSimplifiedSentence] = useState("");
@@ -4410,7 +4440,7 @@
       useEffect(() => {
         let cancelled = false;
         setCurrentArticleReadingModel(null);
-        const modelPath = currentArticle?.readingModelPath;
+        const modelPath = ARTICLE_READING_MVP_V2_MODEL_PATHS[currentArticle?.id] || currentArticle?.readingModelPath;
         if (!modelPath) return () => { cancelled = true; };
         fetch(modelPath, { cache: 'no-store' })
           .then(response => {
@@ -4429,6 +4459,20 @@
       }, [currentArticle?.id, currentArticle?.readingModelPath]);
 
       const currentReadingActivities = currentArticleReadingModel?.pedagogy?.activities || [];
+      const readingMvpV2Model = isArticleReadingMvpV2(currentArticleReadingModel) ? currentArticleReadingModel : null;
+      const readingMvpV2Checkpoints = readingMvpV2Model?.pedagogy?.checkpoints || [];
+      const readingMvpV2ActiveCheckpoint = readingMvpV2Model && readingMvpV2Progress.entryStarted
+        ? readingMvpV2Checkpoints.find(checkpoint => !readingMvpV2Progress.checkpoints?.[checkpoint.id]?.complete) || null
+        : null;
+      const readingMvpV2ActiveResponse = readingMvpV2ActiveCheckpoint
+        ? readingMvpV2Progress.checkpoints?.[readingMvpV2ActiveCheckpoint.id] || {}
+        : {};
+      const readingMvpV2EvidenceCheckpoint = readingMvpV2ActiveCheckpoint
+        && readingMvpV2ActiveResponse.choiceChecked
+        && readingMvpV2ActiveResponse.choiceCorrect
+        && !readingMvpV2ActiveResponse.complete
+        ? readingMvpV2ActiveCheckpoint
+        : null;
       const currentReadingActivity = currentReadingActivities.find(activity => activity.id === readingActiveActivityId) || currentReadingActivities[0] || null;
       const readingParagraphModels = currentArticleReadingModel?.analysis?.paragraphs || [];
       const readingRoutineParagraphs = useMemo(() => readingParagraphModels.map((model, index) => ({
@@ -4576,6 +4620,24 @@
         if (key && currentArticleReadingModel) localStorage.setItem(key, JSON.stringify(readingRoutineProgress));
       }, [currentArticleId, currentArticleReadingModel, readingRoutineProgress]);
 
+      useEffect(() => {
+        if (!readingMvpV2Model) {
+          setReadingMvpV2Progress(createEmptyReadingMvpV2Progress());
+          return;
+        }
+        const key = getReadingMvpV2ProgressStorageKey(currentArticleId);
+        let restored = createEmptyReadingMvpV2Progress();
+        if (key) {
+          try { restored = normalizeReadingMvpV2Progress(JSON.parse(localStorage.getItem(key) || '{}')); } catch (_) {}
+        }
+        setReadingMvpV2Progress(restored);
+      }, [currentArticleId, readingMvpV2Model?.article?.id]);
+
+      useEffect(() => {
+        const key = getReadingMvpV2ProgressStorageKey(currentArticleId);
+        if (key && readingMvpV2Model) localStorage.setItem(key, JSON.stringify(readingMvpV2Progress));
+      }, [currentArticleId, readingMvpV2Model, readingMvpV2Progress]);
+
       // A bundle refresh can replace an article while it is open.  Keep the
       // active reader on the corrected curriculum version instead of waiting
       // for the learner to leave the page and open the card again.
@@ -4674,7 +4736,113 @@
         return sameIdSelection(response.sourceIds, activity.answer?.source_ids);
       };
 
+      const startReadingMvpV2 = (entryChoiceId) => {
+        setReadingMvpV2Progress(previous => ({
+          ...previous,
+          entryChoiceId,
+          entryStarted: true
+        }));
+      };
+
+      const selectReadingMvpV2Choice = (checkpoint, choiceId) => {
+        if (!checkpoint) return;
+        setReadingMvpV2Progress(previous => ({
+          ...previous,
+          checkpoints: {
+            ...previous.checkpoints,
+            [checkpoint.id]: {
+              ...(previous.checkpoints?.[checkpoint.id] || {}),
+              choiceId,
+              choiceChecked: false,
+              choiceCorrect: false,
+              evidenceIds: [],
+              evidenceChecked: false,
+              evidenceCorrect: false
+            }
+          }
+        }));
+      };
+
+      const checkReadingMvpV2Choice = (checkpoint) => {
+        if (!checkpoint) return;
+        setReadingMvpV2Progress(previous => {
+          const response = previous.checkpoints?.[checkpoint.id] || {};
+          const choiceCorrect = checkpoint.accepted_option_ids?.includes(response.choiceId);
+          return {
+            ...previous,
+            checkpoints: {
+              ...previous.checkpoints,
+              [checkpoint.id]: { ...response, choiceChecked: true, choiceCorrect }
+            }
+          };
+        });
+      };
+
+      const checkReadingMvpV2Evidence = (checkpoint) => {
+        if (!checkpoint) return;
+        setReadingMvpV2Progress(previous => {
+          const response = previous.checkpoints?.[checkpoint.id] || {};
+          const evidenceCorrect = (response.evidenceIds || []).some(id => checkpoint.accepted_source_ids?.includes(id));
+          return {
+            ...previous,
+            checkpoints: {
+              ...previous.checkpoints,
+              [checkpoint.id]: { ...response, evidenceChecked: true, evidenceCorrect }
+            }
+          };
+        });
+      };
+
+      const completeReadingMvpV2Checkpoint = (checkpoint) => {
+        if (!checkpoint) return;
+        setReadingMvpV2Progress(previous => ({
+          ...previous,
+          checkpoints: {
+            ...previous.checkpoints,
+            [checkpoint.id]: { ...(previous.checkpoints?.[checkpoint.id] || {}), complete: true }
+          }
+        }));
+      };
+
+      const selectReadingMvpV2Final = (choiceId) => {
+        setReadingMvpV2Progress(previous => ({
+          ...previous,
+          final: { ...previous.final, choiceId, checked: false }
+        }));
+      };
+
+      const checkReadingMvpV2Final = () => {
+        const final = readingMvpV2Model?.pedagogy?.final;
+        if (!final) return;
+        setReadingMvpV2Progress(previous => ({
+          ...previous,
+          final: {
+            ...previous.final,
+            checked: true,
+            correct: final.accepted_option_ids?.includes(previous.final?.choiceId)
+          }
+        }));
+      };
+
       const handleReadingSentenceClick = (sentence) => {
+        if (articleStudyMode === 'read' && rightPanelTab === 'reading' && readingMvpV2EvidenceCheckpoint) {
+          if (!readingMvpV2EvidenceCheckpoint.source_ids?.includes(sentence.id)) return;
+          const checkpointId = readingMvpV2EvidenceCheckpoint.id;
+          setReadingMvpV2Progress(previous => {
+            const response = previous.checkpoints?.[checkpointId] || {};
+            const evidenceIds = response.evidenceIds?.includes(sentence.id)
+              ? response.evidenceIds.filter(id => id !== sentence.id)
+              : [...(response.evidenceIds || []), sentence.id];
+            return {
+              ...previous,
+              checkpoints: {
+                ...previous.checkpoints,
+                [checkpointId]: { ...response, evidenceIds, evidenceChecked: false, evidenceCorrect: false }
+              }
+            };
+          });
+          return;
+        }
         if (articleStudyMode === 'read' && rightPanelTab === 'reading' && readingRoutineEvidenceParagraph) {
           const paragraphId = readingRoutineEvidenceParagraph.id;
           if (!getParagraphCandidateSentenceIds(readingRoutineEvidenceParagraph).includes(sentence.id)) return;
@@ -7897,13 +8065,20 @@
                           )}
                           {para.map((sentence, sIdx) => {
                           const isSelected = selectedSentence.id === sentence.id;
-                          const readingSourceCandidate = articleStudyMode === 'read' && rightPanelTab === 'reading' && (
-                            getParagraphCandidateSentenceIds(readingRoutineEvidenceParagraph).includes(sentence.id)
-                            || currentReadingActivity?.candidate_source_ids?.includes(sentence.id)
+                          const readingMvpV2SourceCandidate = articleStudyMode === 'read'
+                            && rightPanelTab === 'reading'
+                            && readingMvpV2EvidenceCheckpoint?.source_ids?.includes(sentence.id);
+                          const readingSourceCandidate = readingMvpV2SourceCandidate || (
+                            articleStudyMode === 'read' && rightPanelTab === 'reading' && (
+                              getParagraphCandidateSentenceIds(readingRoutineEvidenceParagraph).includes(sentence.id)
+                              || currentReadingActivity?.candidate_source_ids?.includes(sentence.id)
+                            )
                           );
-                          const readingSourceSelected = readingRoutineEvidenceParagraph
-                            ? readingRoutineProgress.notes?.[readingRoutineEvidenceParagraph.id]?.sourceIds?.includes(sentence.id)
-                            : readingActivityResponses[currentReadingActivity?.id]?.sourceIds?.includes(sentence.id);
+                          const readingSourceSelected = readingMvpV2EvidenceCheckpoint
+                            ? readingMvpV2Progress.checkpoints?.[readingMvpV2EvidenceCheckpoint.id]?.evidenceIds?.includes(sentence.id)
+                            : readingRoutineEvidenceParagraph
+                              ? readingRoutineProgress.notes?.[readingRoutineEvidenceParagraph.id]?.sourceIds?.includes(sentence.id)
+                              : readingActivityResponses[currentReadingActivity?.id]?.sourceIds?.includes(sentence.id);
                           return (
                             <React.Fragment key={sentence.id || sIdx}>
                               <span 
@@ -8052,7 +8227,7 @@
                         <div className="flex rounded-2xl bg-slate-100 p-1.5" role="tablist" aria-label="阅读工作区">
                           {[
                             { key: 'analysis', label: '句子解析', icon: Search },
-                            ...(currentArticleReadingModel ? [{ key: 'reading', label: '篇章阅读', icon: MapIcon }] : []),
+                            ...(currentArticleReadingModel ? [{ key: 'reading', label: isArticleReadingMvpV2(currentArticleReadingModel) ? '篇章阅读' : '篇章试验', icon: MapIcon }] : []),
                             { key: 'quiz', label: '做题', icon: MousePointerClick },
                             { key: 'ai', label: '问 AI', icon: MessageSquare }
                           ].map(({ key, label, icon: Icon }) => {
@@ -8093,7 +8268,61 @@
                       <div className="max-w-[880px] mx-auto">
                       {articleStudyMode === 'read' ? (
                       <React.Fragment>
-                      {rightPanelTab === 'reading' && currentArticleReadingModel && (() => {
+                      {rightPanelTab === 'reading' && readingMvpV2Model && (() => {
+                        const entry = readingMvpV2Model.pedagogy.entry;
+                        const final = readingMvpV2Model.pedagogy.final;
+                        const checkpoint = readingMvpV2ActiveCheckpoint;
+                        const response = readingMvpV2ActiveResponse;
+                        const completedCheckpoints = readingMvpV2Checkpoints.filter(item => readingMvpV2Progress.checkpoints?.[item.id]?.complete);
+                        const entryChoice = entry.options.find(option => option.id === readingMvpV2Progress.entryChoiceId);
+                        const choiceClass = (chosen, checked, correct) => `rounded-2xl border px-4 py-3 text-left text-sm font-semibold leading-6 transition-colors ${checked && chosen && correct ? 'border-emerald-300 bg-emerald-50 text-emerald-950' : checked && chosen ? 'border-amber-300 bg-amber-50 text-amber-950' : chosen ? 'border-indigo-500 bg-indigo-50 text-indigo-950' : 'border-slate-200 bg-white text-slate-700 hover:border-indigo-300 hover:bg-indigo-50'}`;
+                        const selectedOption = checkpoint?.options?.find(option => option.id === response.choiceId);
+                        const finalChoice = final.options.find(option => option.id === readingMvpV2Progress.final?.choiceId);
+                        const finalDone = readingMvpV2Progress.final?.checked && readingMvpV2Progress.final?.correct;
+                        return (
+                          <div className="animate-in fade-in duration-500 space-y-5">
+                            <section className="overflow-hidden rounded-3xl border border-indigo-100 bg-gradient-to-br from-indigo-50 via-white to-sky-50 p-5 md:p-6">
+                              <div className="flex items-start gap-3">
+                                <div className="rounded-2xl bg-indigo-700 p-2.5 text-white"><MapIcon className="h-5 w-5" /></div>
+                                <div className="min-w-0">
+                                  <div className="flex flex-wrap items-center gap-2"><p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-600">篇章阅读 · MVP</p><span className="rounded-full bg-white px-2.5 py-1 text-xs font-bold text-slate-500 ring-1 ring-indigo-100">{readingMvpV2Model.article.genre_label}</span></div>
+                                  <h3 className="mt-1 text-xl font-black text-slate-900">读着读着，把自己的理解更新出来</h3>
+                                  <p className="mt-2 text-sm leading-6 text-slate-600">先有一个大概，再用原文不断修正它。左边只有当前要回看的句子会发亮；答案不会提前显示。</p>
+                                </div>
+                              </div>
+                              {readingMvpV2Progress.entryStarted && <div className="mt-5 rounded-2xl border border-white bg-white/80 p-4"><p className="text-xs font-black uppercase tracking-[0.16em] text-slate-400">我一开始的猜想</p><p className="mt-1 text-sm font-bold leading-6 text-slate-800">{entryChoice?.text}</p></div>}
+                              {readingMvpV2Progress.entryStarted && <div className="mt-4 flex gap-2">{readingMvpV2Checkpoints.map((item, index) => <div key={item.id} className={`h-2 flex-1 rounded-full ${readingMvpV2Progress.checkpoints?.[item.id]?.complete ? 'bg-emerald-500' : checkpoint?.id === item.id ? 'bg-indigo-600' : 'bg-white ring-1 ring-indigo-100'}`} title={`第 ${index + 1} 次更新`} />)}</div>}
+                            </section>
+
+                            {!readingMvpV2Progress.entryStarted && <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+                              <p className="text-xs font-black uppercase tracking-[0.18em] text-sky-600">先有一个大概</p>
+                              <h3 className="mt-2 text-xl font-black text-slate-900">{entry.prompt}</h3>
+                              <p className="mt-2 text-sm leading-6 text-slate-500">这不是对错题。选一个你现在最想带着去读的方向，读下去再更新。</p>
+                              <div className="mt-5 grid gap-2">{entry.options.map(option => <button key={option.id} type="button" onClick={() => startReadingMvpV2(option.id)} className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-left text-sm font-semibold leading-6 text-slate-700 transition-colors hover:border-indigo-300 hover:bg-indigo-50">{option.text}</button>)}</div>
+                            </section>}
+
+                            {readingMvpV2Progress.entryStarted && checkpoint && <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+                              <div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-xs font-black uppercase tracking-[0.18em] text-sky-600">{checkpoint.label}</p><h3 className="mt-2 text-xl font-black text-slate-900">{checkpoint.prompt}</h3></div><span className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-black text-slate-600">读第 {checkpoint.paragraph_numbers.join('、')} 段</span></div>
+                              <div className="mt-5 grid gap-2">{checkpoint.options.map(option => <button key={option.id} type="button" onClick={() => selectReadingMvpV2Choice(checkpoint, option.id)} className={choiceClass(response.choiceId === option.id, response.choiceChecked, response.choiceCorrect)}>{option.text}</button>)}</div>
+                              <button type="button" disabled={!response.choiceId} onClick={() => checkReadingMvpV2Choice(checkpoint)} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:cursor-not-allowed disabled:bg-slate-300">看看这个更新站得住吗</button>
+                              {response.choiceChecked && !response.choiceCorrect && <p className="mt-3 rounded-xl bg-amber-50 px-3 py-2 text-sm leading-6 text-amber-900">先别急着往下走。再回到这部分，想想它怎样改变你对文章的理解；你可以直接重新选。</p>}
+                              {response.choiceChecked && response.choiceCorrect && <div className="mt-6 border-t border-slate-100 pt-6"><p className="text-sm font-black text-slate-800">回原文找一句支撑你的理解</p><p className="mt-2 text-sm leading-6 text-slate-500">现在左边第 {checkpoint.paragraph_numbers.join('、')} 段中能用的句子已经发亮。点一句最能站住脚的话；点错了可再点一次取消。</p><div className="mt-3 flex flex-wrap gap-2">{(response.evidenceIds || []).length ? response.evidenceIds.map(id => <span key={id} className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-900">已选 {id.toUpperCase()}</span>) : <span className="text-sm text-slate-400">还没有选句子</span>}</div><button type="button" disabled={!(response.evidenceIds || []).length} onClick={() => checkReadingMvpV2Evidence(checkpoint)} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:cursor-not-allowed disabled:bg-slate-300">检查我的依据</button>{response.evidenceChecked && !response.evidenceCorrect && <p className="mt-3 rounded-xl bg-amber-50 px-3 py-2 text-sm leading-6 text-amber-900">这句话还没有直接支撑刚才的理解。可以在左边重新点选。</p>}{response.evidenceChecked && response.evidenceCorrect && <div className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-4"><p className="text-sm font-black text-emerald-950">这次更新有原文依据。</p><button type="button" onClick={() => completeReadingMvpV2Checkpoint(checkpoint)} className="mt-3 rounded-xl bg-emerald-700 px-4 py-2.5 text-sm font-black text-white">放进我的文章地图</button></div>}</div>}
+                            </section>}
+
+                            {readingMvpV2Progress.entryStarted && !checkpoint && <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+                              <p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-600">把理解合在一起</p>
+                              <h3 className="mt-2 text-xl font-black text-slate-900">{final.prompt}</h3>
+                              <div className="mt-5 space-y-2">{completedCheckpoints.map(item => { const option = item.options.find(candidate => candidate.id === readingMvpV2Progress.checkpoints?.[item.id]?.choiceId); return <div key={item.id} className="rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3"><p className="text-xs font-black text-emerald-700">{item.map_label}</p><p className="mt-1 text-sm font-semibold leading-6 text-emerald-950">{option?.text}</p></div>; })}</div>
+                              <div className="mt-5 grid gap-2">{final.options.map(option => <button key={option.id} type="button" onClick={() => selectReadingMvpV2Final(option.id)} className={choiceClass(readingMvpV2Progress.final?.choiceId === option.id, readingMvpV2Progress.final?.checked, readingMvpV2Progress.final?.correct)}>{option.text}</button>)}</div>
+                              {!finalDone && <button type="button" disabled={!readingMvpV2Progress.final?.choiceId} onClick={checkReadingMvpV2Final} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:cursor-not-allowed disabled:bg-slate-300">检查我的全文理解</button>}
+                              {readingMvpV2Progress.final?.checked && !readingMvpV2Progress.final?.correct && <p className="mt-3 rounded-xl bg-amber-50 px-3 py-2 text-sm leading-6 text-amber-900">再回看刚才三次更新：哪句话既能装下它们，又没有把文章说得太大或太小？你可以重新选。</p>}
+                              {finalDone && <div className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-4"><div className="flex items-center gap-2 text-emerald-950"><CheckCircle2 className="h-5 w-5" /><p className="font-black">你把一开始的猜想读成了一幅更完整的文章地图。</p></div><p className="mt-2 text-sm leading-6 text-emerald-900">{finalChoice?.text}</p></div>}
+                            </section>}
+                          </div>
+                        );
+                      })()}
+
+                      {rightPanelTab === 'reading' && currentArticleReadingModel && !readingMvpV2Model && (() => {
                         if (!readingRoutineIsInformational) return (
                           <section className="rounded-3xl border border-amber-200 bg-amber-50 p-6 text-amber-950">
                             <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-700">篇章阅读 · 即将支持</p>

@@ -1,0 +1,107 @@
+{
+  "schema_version": "2.0-mvp",
+  "article": {
+    "id": "re-foundations-5a-the-disease-detective",
+    "title": "RE Foundations / 5A / The Disease Detective",
+    "genre": "narrative",
+    "genre_label": "故事 / 叙事文"
+  },
+  "analysis": {
+    "semantic": {
+      "model_kind": "goal_event_graph",
+      "central_idea": "By following clues and comparing evidence, Dr. Besser discovers that unwashed, unheated apple juice made children sick and helps prevent future illness.",
+      "events": [
+        { "id": "problem", "role": "problem", "source_ids": ["s1", "s2"], "text": "Six very sick children need an answer." },
+        { "id": "goal", "role": "goal", "source_ids": ["s3", "s4", "s5"], "text": "Dr. Besser searches for the cause." },
+        { "id": "turn", "role": "turning_point", "source_ids": ["s9", "s10", "s11"], "text": "Comparing what sick and healthy children ate points to apple juice." },
+        { "id": "outcome", "role": "outcome", "source_ids": ["s12", "s13", "s14", "s15", "s16"], "text": "Dirty, unwashed apples and unheated juice explain the illness; the discovery protects others." }
+      ]
+    },
+    "discourse": {
+      "relations": [
+        { "type": "problem_to_investigation", "from": "p1", "to": "p2" },
+        { "type": "clue_to_new_test", "from": "p3", "to": "p4" },
+        { "type": "discovery_to_outcome", "from": "p5", "to": "p6" }
+      ]
+    },
+    "organization": {
+      "structures": [
+        { "id": "detective-route", "type": "problem_investigation_discovery_outcome", "paragraph_numbers": [1, 2, 3, 4, 5, 6] }
+      ]
+    },
+    "rhetoric": {
+      "functions": [
+        { "paragraph_number": 1, "type": "sets_problem" },
+        { "paragraph_number": 4, "type": "shows_method" },
+        { "paragraph_number": 5, "type": "reveals_solution" },
+        { "paragraph_number": 6, "type": "shows_outcome" }
+      ]
+    }
+  },
+  "pedagogy": {
+    "entry": {
+      "prompt": "从标题和第一段开始。你觉得接下来最值得追住的是什么？",
+      "options": [
+        { "id": "cause", "text": "孩子们为什么突然生病，以及医生会怎样找出原因" },
+        { "id": "doctor-job", "text": "医生每天在医院做的所有工作" },
+        { "id": "apple-recipe", "text": "怎样做一杯最好喝的苹果汁" }
+      ]
+    },
+    "checkpoints": [
+      {
+        "id": "investigation",
+        "paragraph_numbers": [1, 2],
+        "source_ids": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9"],
+        "accepted_source_ids": ["s4", "s5", "s6", "s7", "s8"],
+        "label": "线索出现",
+        "prompt": "故事读到这里，你现在知道 Dr. Besser 正在做什么了吗？",
+        "options": [
+          { "id": "investigation", "text": "他发现孩子们都有危险的 E. coli，正在寻找它从哪里来。" },
+          { "id": "cure", "text": "他已经马上治好了所有孩子。" },
+          { "id": "holiday", "text": "他带孩子们去旅行。" }
+        ],
+        "accepted_option_ids": ["investigation"],
+        "map_label": "问题与目标"
+      },
+      {
+        "id": "comparison",
+        "paragraph_numbers": [3, 4],
+        "source_ids": ["s10", "s11", "s12", "s13", "s14", "s15", "s16", "s17"],
+        "accepted_source_ids": ["s14", "s15", "s16", "s17"],
+        "label": "方法改变",
+        "prompt": "这一次，医生没有只看细菌。他怎样让自己的理解往前走？",
+        "options": [
+          { "id": "comparison", "text": "他比较生病和健康孩子吃过的东西，发现 apple juice 是关键差别。" },
+          { "id": "guess", "text": "他没有证据，只是随便猜是 apple juice。" },
+          { "id": "animals", "text": "他决定不再调查食物。" }
+        ],
+        "accepted_option_ids": ["comparison"],
+        "map_label": "比较线索"
+      },
+      {
+        "id": "discovery",
+        "paragraph_numbers": [5, 6],
+        "source_ids": ["s18", "s19", "s20", "s21", "s22", "s23", "s24", "s25", "s26"],
+        "accepted_source_ids": ["s20", "s21", "s22", "s23", "s24", "s25", "s26"],
+        "label": "答案与结果",
+        "prompt": "最后，什么让医生把零散线索连成了一个答案？",
+        "options": [
+          { "id": "discovery", "text": "落地的脏苹果没被清洗，果汁也没加热；这让细菌进入果汁并让孩子生病。" },
+          { "id": "magic", "text": "医生突然用魔法让细菌消失。" },
+          { "id": "unknown", "text": "故事最后仍然完全不知道原因。" }
+        ],
+        "accepted_option_ids": ["discovery"],
+        "map_label": "发现与结果"
+      }
+    ],
+    "final": {
+      "prompt": "回看你的故事地图。哪句话最能说清这个故事怎样展开？",
+      "options": [
+        { "id": "central", "text": "Dr. Besser follows and compares clues until he finds that unsafe apple juice caused the illness, and what he learns helps protect others." },
+        { "id": "detail", "text": "Dr. Besser looked at bacteria under a microscope." },
+        { "id": "wrong", "text": "The children became sick because they all ate cheese." }
+      ],
+      "accepted_option_ids": ["central"]
+    }
+  }
+}

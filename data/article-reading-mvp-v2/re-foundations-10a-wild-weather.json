@@ -1,0 +1,106 @@
+{
+  "schema_version": "2.0-mvp",
+  "article": {
+    "id": "re-foundations-10a-wild-weather",
+    "title": "RE Foundations / 10A / Wild Weather",
+    "genre": "informational",
+    "genre_label": "说明文"
+  },
+  "analysis": {
+    "semantic": {
+      "model_kind": "idea_graph",
+      "central_idea": "Wild weather is becoming more damaging, partly because human activity warms the Earth, so people need both prevention and preparation.",
+      "ideas": [
+        { "id": "impact", "role": "major", "source_ids": ["s1", "s2"], "text": "Wild weather can cause devastating human and financial losses." },
+        { "id": "cause", "role": "major", "source_ids": ["s3", "s4"], "text": "Natural weather is intensified by human-caused warming." },
+        { "id": "response", "role": "major", "source_ids": ["s5"], "text": "People can reduce warming and prepare to save lives." }
+      ]
+    },
+    "discourse": {
+      "relations": [
+        { "type": "case_to_pattern", "from": "p1", "to": "p2" },
+        { "type": "problem_to_explanation", "from": "p3", "to": "p4" },
+        { "type": "cause_to_response", "from": "p4", "to": "p5" }
+      ]
+    },
+    "organization": {
+      "structures": [
+        { "id": "weather-route", "type": "problem_cause_response", "paragraph_numbers": [1, 2, 3, 4, 5] }
+      ]
+    },
+    "rhetoric": {
+      "functions": [
+        { "paragraph_number": 1, "type": "concrete_case" },
+        { "paragraph_number": 3, "type": "question" },
+        { "paragraph_number": 4, "type": "explanation" },
+        { "paragraph_number": 5, "type": "response" }
+      ]
+    }
+  },
+  "pedagogy": {
+    "entry": {
+      "prompt": "先看标题和开头。你觉得这篇文章大概会带我们看什么？",
+      "options": [
+        { "id": "weather-change", "text": "越来越特别、越来越强的天气，以及它可能带来的影响" },
+        { "id": "japan-travel", "text": "去日本旅行时怎样看天气预报" },
+        { "id": "weather-job", "text": "气象员每天怎样工作" }
+      ]
+    },
+    "checkpoints": [
+      {
+        "id": "impact",
+        "paragraph_numbers": [1, 2],
+        "source_ids": ["s1", "s2", "s3", "s4", "s5", "s6", "s8", "s9", "s10", "s11", "s12", "s13"],
+        "accepted_source_ids": ["s5", "s6", "s9", "s10", "s11", "s12", "s13"],
+        "label": "第一次更新",
+        "prompt": "读到这里，这篇文章让你对“wild weather”多知道了什么？",
+        "options": [
+          { "id": "impact", "text": "它不只是罕见现象，也会造成严重的伤害和损失。" },
+          { "id": "fun", "text": "它让汽车和卡车在街上玩得更快。" },
+          { "id": "only-japan", "text": "它只会影响日本。" }
+        ],
+        "accepted_option_ids": ["impact"],
+        "map_label": "影响"
+      },
+      {
+        "id": "cause",
+        "paragraph_numbers": [3, 4],
+        "source_ids": ["s15", "s16", "s17", "s18", "s19", "s20", "s21", "s22", "s23", "s24", "s25"],
+        "accepted_source_ids": ["s21", "s22", "s23", "s24", "s25"],
+        "label": "第二次更新",
+        "prompt": "文章没有只停在“天气很可怕”。它接着把你的理解带向哪里？",
+        "options": [
+          { "id": "cause", "text": "它在解释：自然天气之外，人类造成的变暖也会让极端天气更常见、更强。" },
+          { "id": "forecast", "text": "它在教我们怎样准确预报每一场暴雨。" },
+          { "id": "past", "text": "它在说明过去从来没有极端天气。" }
+        ],
+        "accepted_option_ids": ["cause"],
+        "map_label": "原因"
+      },
+      {
+        "id": "response",
+        "paragraph_numbers": [5],
+        "source_ids": ["s26", "s27", "s28", "s29"],
+        "accepted_source_ids": ["s26", "s27", "s28", "s29"],
+        "label": "第三次更新",
+        "prompt": "最后这一部分让整篇文章多了哪一层意思？",
+        "options": [
+          { "id": "response", "text": "面对更多 wild weather，人们可以减缓变暖，也可以提前准备来保护生命。" },
+          { "id": "giveup", "text": "面对天气，人们只能什么也不做。" },
+          { "id": "repeat", "text": "它只是再讲一次日本发生了洪水。" }
+        ],
+        "accepted_option_ids": ["response"],
+        "map_label": "可以怎样做"
+      }
+    ],
+    "final": {
+      "prompt": "回看你的理解地图。现在，哪句话最能装下整篇文章？",
+      "options": [
+        { "id": "central", "text": "Wild weather is becoming more damaging; human-caused warming plays a part, so people need to prevent further warming and prepare for its effects." },
+        { "id": "detail", "text": "In 2018, floods happened in western Japan." },
+        { "id": "too-broad", "text": "All weather is dangerous and cannot be understood." }
+      ],
+      "accepted_option_ids": ["central"]
+    }
+  }
+}
