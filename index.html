@@ -4471,8 +4471,17 @@
           ...readingRoutineParagraphs.filter(item => item.id !== paragraph?.id).map(item => item.main_idea?.text)
         ]
       );
-      const getParagraphEvidenceIds = (paragraph) => [...new Set((paragraph?.key_details || [])
-        .flatMap(detail => detail.source_ids || []))].slice(0, 2);
+      const getParagraphEvidenceIds = (paragraph) => {
+        // A direct topic/main-idea signal is just as valid as a supporting
+        // detail.  Earlier we kept only key-detail IDs, which incorrectly
+        // rejected a child's strongest evidence sentence (for example S5,
+        // “And some are very important.” in Important Jobs).
+        const signalIds = (paragraph?.signals || [])
+          .filter(signal => /main|topic|summary|claim/.test(String(signal.role || '').toLowerCase()))
+          .flatMap(signal => signal.source_ids || [signal.source_id]);
+        const detailIds = (paragraph?.key_details || []).flatMap(detail => detail.source_ids || []);
+        return [...new Set([...signalIds, ...detailIds].filter(Boolean))];
+      };
       const getParagraphCandidateSentenceIds = (paragraph) => paragraph?.sentences?.map(sentence => sentence.id) || [];
       const getChildFunction = (type = '') => {
         const value = String(type).toLowerCase();
