@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
-  <title>Readmaster 阅读达人</title>
+  <title>ReadMaster 阅读达人</title>
   
   <!-- 本地 vendor：避免 cdn.tailwindcss.com / 在线 Babel 的 production 警告依赖 -->
   <script src="./vendor/tailwindcss.js"></script>
@@ -71,7 +71,7 @@
   <div id="root">
     <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#f8fafc;color:#0f172a;">
       <div style="width:min(560px,100%);background:rgba(255,255,255,0.92);border:1px solid #e2e8f0;border-radius:28px;padding:32px;box-shadow:0 20px 50px rgba(15,23,42,0.08);text-align:center;">
-        <div style="font-size:28px;font-weight:800;letter-spacing:-0.02em;">Readmaster 阅读达人</div>
+        <div style="font-size:28px;font-weight:800;letter-spacing:-0.02em;">ReadMaster 阅读达人</div>
         <div style="margin-top:12px;font-size:16px;line-height:1.75;color:#475569;">
           正在启动阅读器并加载页面资源。首次打开或更新后，可能需要等待几秒。
         </div>
@@ -84,7 +84,7 @@
   <script type="text/babel" data-type="module">
     import React, { useState, useEffect, useRef, useMemo, Fragment } from 'https://esm.sh/react@18.2.0?target=es2022';
     import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client?bundle';
-    import { BookOpen, Search, Info, MousePointerClick, Zap, AlignLeft, Underline, Link as LinkIcon, Tag, Sparkles, Send, Loader2, UploadCloud, FileText, ArrowLeft, BookMarked, Printer, Plus, Trash2, CheckCircle2, Download, Upload, MessageSquare, Library, Save, FolderOpen, User, LogOut, X, Bot, RefreshCw, KeyRound, ZoomIn, ZoomOut, Clock3, CalendarDays, ChevronLeft, ChevronRight, Mail, AlertTriangle, ClipboardCheck, Volume2, Square, Gauge } from 'https://esm.sh/lucide-react@0.292.0?bundle&deps=react@18.2.0';
+    import { BookOpen, Search, Info, MousePointerClick, Zap, AlignLeft, Underline, Link as LinkIcon, Tag, Sparkles, Send, Loader2, UploadCloud, FileText, ArrowLeft, BookMarked, Printer, Plus, Trash2, CheckCircle2, Download, Upload, MessageSquare, Library, Save, FolderOpen, User, LogOut, X, Bot, RefreshCw, KeyRound, ZoomIn, ZoomOut, Clock3, CalendarDays, ChevronLeft, ChevronRight, Mail, AlertTriangle, ClipboardCheck, Volume2, Square, Gauge, Map as MapIcon } from 'https://esm.sh/lucide-react@0.292.0?bundle&deps=react@18.2.0';
     import readability from 'https://esm.sh/text-readability@1.1.1?bundle';
     
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2?bundle';
@@ -718,6 +718,7 @@
       if (type === 'subject') return '主语';
       if (type === 'verb') return /系动词/.test(label) ? '系动词' : '谓语';
       if (type === 'object') return '宾语';
+      if (type === 'object-complement') return '宾语补足语';
       if (type === 'predicative') return '表语';
       if (['clause-subject', 'clause-verb', 'clause-object', 'clause-predicative', 'clause'].includes(type)) return '从句核心';
       if (type === 'coord-subject') return '并列主语';
@@ -815,8 +816,29 @@
       ];
     };
 
+    const repairMisclassifiedObjectComplements = (segments = []) => {
+      const complementVerbs = /^(make|let|keep|find|consider|call|name|elect|paint|think|believe|want|expect|get|have)\b/i;
+      return segments.map((segment, index, all) => {
+        if (!['modifier', 'adverbial'].includes(segment.type) || all[index - 1]?.type !== 'object') return segment;
+        const preceding = all.slice(0, index).reverse().find(item => ['verb', 'coord-verb'].includes(item.type));
+        const text = String(segment.text || '').trim();
+        if (!preceding || !complementVerbs.test(String(preceding.text || '').trim()) || !/^[A-Za-z][A-Za-z' -]*[.!?,;:]*$/.test(text)) return segment;
+        return { ...segment, type: 'object-complement', label: '宾语补足语' };
+      });
+    };
+
     const normalizeSentenceSegments = (sentence = {}) => ({
       ...sentence,
+      syntaxHints: sentence.syntaxHints && typeof sentence.syntaxHints === 'object'
+        ? {
+            mainClause: sentence.syntaxHints.mainClause && typeof sentence.syntaxHints.mainClause === 'object'
+              ? {
+                  subjectMode: subjectHintModes.has(sentence.syntaxHints.mainClause.subjectMode) ? sentence.syntaxHints.mainClause.subjectMode : '',
+                  note: String(sentence.syntaxHints.mainClause.note || '').trim()
+                }
+              : null
+          }
+        : null,
       teachingFocus: sentence.teachingFocus && typeof sentence.teachingFocus === 'object'
         ? {
             mainQuestion: sentence.teachingFocus.mainQuestion || '',
@@ -832,14 +854,16 @@
         : null,
       keyTerms: normalizeGlossary(sentence.keyTerms || sentence.glossary || []),
       segments: Array.isArray(sentence.segments)
-        ? sentence.segments.flatMap(seg => splitLegacyNounPhraseForPractice({
+        ? repairMisclassifiedObjectComplements(sentence.segments).flatMap(seg => splitLegacyNounPhraseForPractice({
             ...seg,
             type: normalizeSegmentType(seg),
-            label: normalizeSegmentLabel(seg)
+            label: normalizeSegmentLabel(seg),
+            clauseDepth: Number.isInteger(seg.clauseDepth) && seg.clauseDepth > 0 ? seg.clauseDepth : undefined
           }).map(part => ({
             ...part,
             type: normalizeSegmentType(part),
-            label: normalizeSegmentLabel(part)
+            label: normalizeSegmentLabel(part),
+            clauseDepth: Number.isInteger(part.clauseDepth) && part.clauseDepth > 0 ? part.clauseDepth : undefined
           })))
         : []
     });
@@ -848,12 +872,49 @@
       Array.isArray(articleData) ? articleData.map(normalizeSentenceSegments) : [];
 
     // Build practice frames from the sentence order, rather than assuming a
-    // sentence has only one main clause and one coordinated clause.  FANBOYS
-    // at the top level split independent frames; a following frame without a
-    // subject is deliberately marked as sharing the preceding subject.
+    // sentence has only one main clause and one coordinated clause. FANBOYS
+    // at the top level split independent frames. A frame can also have a
+    // subject that is structurally present but not printed (for example the
+    // implicit "you" of an imperative), so an empty subject slot is never
+    // automatically treated as a parsing failure.
     const FANBOYS = /^(for|and|nor|but|or|yet|so)$/i;
     const practiceRole = (type = '') => String(type).replace(/^(?:coord|clause)-/, '');
-    const buildPracticeFrames = (segments = []) => {
+    const subjectHintModes = new Set(['explicit', 'implicit-you', 'shared-previous', 'existential-there', 'unknown']);
+    const getMainClauseSubjectHint = (syntaxHints = {}) => {
+      const hint = syntaxHints?.mainClause;
+      if (!hint || typeof hint !== 'object' || !subjectHintModes.has(hint.subjectMode)) return null;
+      return { subjectMode: hint.subjectMode, note: String(hint.note || '').trim() };
+    };
+    const inferFrameSubjectState = ({ roleIndexes = {}, segments = [], isFirstFrame = false, syntaxHints = {} }) => {
+      const explicitIndexes = roleIndexes.subject || [];
+      if (explicitIndexes.length) {
+        const hint = isFirstFrame ? getMainClauseSubjectHint(syntaxHints) : null;
+        return {
+          mode: hint?.subjectMode === 'existential-there' ? 'existential-there' : 'explicit',
+          displayText: '',
+          note: hint?.note || ''
+        };
+      }
+
+      const verbText = (roleIndexes.verb || []).map(index => segments[index]?.text?.trim()).filter(Boolean).join(' ');
+      if (!verbText) return { mode: 'unknown', displayText: '', note: '' };
+
+      const hinted = isFirstFrame ? getMainClauseSubjectHint(syntaxHints) : null;
+      if (hinted?.subjectMode === 'implicit-you') return { mode: 'implicit-you', displayText: 'you（祈使句中省略）', note: hinted.note };
+      if (hinted?.subjectMode === 'shared-previous') return { mode: 'shared-previous', displayText: '沿用上一分句的主语', note: hinted.note };
+      if (hinted?.subjectMode === 'existential-there') return { mode: 'existential-there', displayText: 'there（形式主语）', note: hinted.note };
+      if (hinted?.subjectMode === 'unknown') return { mode: 'unknown', displayText: '主语未显式出现，需核对倒装、省略或上下文', note: hinted.note };
+
+      if (!isFirstFrame) return { mode: 'shared-previous', displayText: '沿用上一分句的主语', note: '' };
+      // A top-level finite verb with no printed subject is normally an imperative.
+      // Do not make this guess for non-finite forms such as "to do" or "doing".
+      if (!/^(to\s+|\w+ing\b)/i.test(verbText)) {
+        return { mode: 'implicit-you', displayText: 'you（祈使句中省略）', note: '主句以动词原形开头，按祈使句处理。' };
+      }
+      return { mode: 'unknown', displayText: '主语未显式出现，需核对倒装、省略或上下文', note: '' };
+    };
+    const frameSubjectDisplay = (frame = {}) => frame.subjectState?.displayText || '';
+    const buildPracticeFrames = (segments = [], syntaxHints = {}) => {
       const groups = [];
       let start = 0;
       let depth = 0;
@@ -870,6 +931,7 @@
         });
         const contentIndexes = indexes.filter(index => /[A-Za-z]/.test(segments[index]?.text || ''));
         if (roleIndexes.subject.length || roleIndexes.verb.length || roleIndexes.object.length || roleIndexes.complement.length) {
+          const subjectState = inferFrameSubjectState({ roleIndexes, segments, isFirstFrame: groups.length === 0, syntaxHints });
           groups.push({
             key: `frame-${groups.length}`,
             label: groups.length ? `并列主干 ${groups.length + 1}` : '主干 1',
@@ -877,7 +939,8 @@
             connectorIndex,
             roleIndexes,
             contentIndexes,
-            sharedSubject: groups.length > 0 && roleIndexes.subject.length === 0 && roleIndexes.verb.length > 0
+            sharedSubject: subjectState.mode === 'shared-previous',
+            subjectState
           });
         } else if (groups.length > 0 && connectorBefore !== null && contentIndexes.length) {
           groups.push({
@@ -914,17 +977,46 @@
         else all.push({ indexes: [index] });
         return all;
       }, []);
-      return runs.map((run, number) => {
-        const first = run.indexes[0];
-        const lead = first > 0 && segments[first - 1]?.type === 'conjunction' && !FANBOYS.test(String(segments[first - 1]?.text || '').trim()) ? first - 1 : null;
-        const roleIndexes = { subject: [], verb: [], object: [], complement: [] };
+      const frames = [];
+      runs.forEach(run => {
+        let inferredDepth = 1;
+        let hasVerbAtCurrentDepth = false;
+        let current = null;
         run.indexes.forEach(index => {
-          const role = practiceRole(segments[index]?.type);
-          if (role === 'subject' || role === 'verb') roleIndexes[role].push(index);
-          if (role === 'object' || role === 'predicative') roleIndexes.object.push(index);
-          if (role === 'object-complement') roleIndexes.complement.push(index);
+          const segment = segments[index];
+          const role = practiceRole(segment?.type);
+          const declaredDepth = Number.isInteger(segment?.clauseDepth) && segment.clauseDepth > 0 ? segment.clauseDepth : 0;
+          // Old data has no depth. When another clause-subject appears after
+          // a clause verb, it normally starts an embedded clause: "they say
+          // [something has ...]". New data supplies clauseDepth directly.
+          if (declaredDepth) inferredDepth = declaredDepth;
+          else if (role === 'subject' && hasVerbAtCurrentDepth) {
+            inferredDepth += 1;
+            hasVerbAtCurrentDepth = false;
+          }
+          const depth = inferredDepth;
+          if (!current || current.depth !== depth) {
+            current = {
+              key: `clause-${frames.length}`,
+              label: `从句 ${frames.length + 1}`,
+              depth,
+              indexes: [],
+              roleIndexes: { subject: [], verb: [], object: [], complement: [] }
+            };
+            frames.push(current);
+          }
+          current.indexes.push(index);
+          if (role === 'subject' || role === 'verb') current.roleIndexes[role].push(index);
+          if (role === 'object' || role === 'predicative') current.roleIndexes.object.push(index);
+          if (role === 'object-complement') current.roleIndexes.complement.push(index);
+          if (role === 'verb') hasVerbAtCurrentDepth = true;
         });
-        return { key: `clause-${number}`, label: `修饰从句 ${number + 1}`, indexes: lead === null ? run.indexes : [lead, ...run.indexes], roleIndexes };
+      });
+      return frames.map((frame, number) => {
+        const first = frame.indexes[0];
+        const lead = frame.depth === 1 && first > 0 && segments[first - 1]?.type === 'conjunction' && !FANBOYS.test(String(segments[first - 1]?.text || '').trim()) ? first - 1 : null;
+        const parent = frame.depth > 1 ? [...frames].slice(0, number).reverse().find(item => item.depth < frame.depth) : null;
+        return { ...frame, indexes: lead === null ? frame.indexes : [lead, ...frame.indexes], parentKey: parent?.key || null };
       });
     };
 
@@ -1213,7 +1305,7 @@
 
     const getExcludedMainPartsExplanation = (segments = []) => {
       const extras = segments
-        .filter(seg => !['subject', 'verb', 'object', 'predicative', 'clause-subject', 'clause-verb', 'clause-object', 'clause-predicative', 'coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'].includes(seg.type))
+        .filter(seg => !['subject', 'verb', 'object', 'predicative', 'object-complement', 'clause-subject', 'clause-verb', 'clause-object', 'clause-predicative', 'coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'].includes(seg.type))
         .map(seg => {
           const text = (seg.text || '').trim();
           if (!text) return '';
@@ -1325,9 +1417,11 @@
     };
 
     const buildMainStepTeaching = (sentence = {}, mainSegments = []) => {
-      const subjectText = formatTeachingList(segmentTextList(mainSegments.filter(seg => seg.type === 'subject')));
+      const firstMainFrame = buildPracticeFrames(sentence.segments || [], sentence.syntaxHints || {})[0];
+      const inferredSubject = frameSubjectDisplay(firstMainFrame);
+      const subjectText = formatTeachingList(segmentTextList(mainSegments.filter(seg => seg.type === 'subject'))) || inferredSubject;
       const verbText = formatTeachingList(segmentTextList(mainSegments.filter(seg => seg.type === 'verb')));
-      const objectText = formatTeachingList(segmentTextList(mainSegments.filter(seg => ['object', 'predicative'].includes(seg.type))));
+      const objectText = formatTeachingList(segmentTextList(mainSegments.filter(seg => ['object', 'predicative', 'object-complement'].includes(seg.type))));
       const answerParts = [subjectText, verbText, objectText].filter(Boolean);
       const answerText = answerParts.length ? answerParts.join(' | ') : (sentence.text || '先从核心动作开始。');
       const teachingFocus = sentence.teachingFocus || {};
@@ -1342,7 +1436,7 @@
       const verbForm = describeVerbFormForChild(verbText);
       return {
         prompt: `这一小步只做一件事：把句子的骨架找出来。先看动作 ${verbText || '核心动作'}，再看是谁在做，最后看动作落到谁或什么上面。`,
-        explanation: `这句的主干可以先收成：${answerText}。其中 ${subjectText || '主语'} 是“谁在做”，${verbText || '谓语'} 是“在做什么”，${objectText || '宾语/表语'} 是“动作落到哪里”或“最后变成什么”。${excludedExplanation}`,
+        explanation: `这句的主干可以先收成：${answerText}。其中 ${subjectText || '主语'} 是“谁在做”，${verbText || '谓语'} 是“在做什么”，${objectText || '宾语/表语'} 是“动作落到哪里”或“最后变成什么”。${firstMainFrame?.subjectState?.note ? ` ${firstMainFrame.subjectState.note}` : ''}${excludedExplanation}`,
         coachLine: `${encouragement} 这一步只要先把骨架站稳，后面的补充信息就不会把你绕晕。`,
         focusLabel: '先把主线找出来',
         screenTitle: '先找谁在做什么',
@@ -1471,21 +1565,22 @@
 
     const buildDeepDiveLessonPlan = (sentence = {}) => {
       const segments = Array.isArray(sentence.segments) ? sentence.segments : [];
-      const mainSegments = segments.filter(seg => ['subject', 'verb', 'object', 'predicative', 'coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'].includes(seg.type));
+      const mainSegments = segments.filter(seg => ['subject', 'verb', 'object', 'predicative', 'object-complement', 'coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'].includes(seg.type));
       const modifierSegments = segments.filter(seg => ['modifier', 'adverbial'].includes(seg.type));
       const clauseSegments = segments.filter(seg => String(seg.type || '').startsWith('clause') || seg.type === 'conjunction' || String(seg.type || '').startsWith('coord'));
+      const firstMainFrame = buildPracticeFrames(segments, sentence.syntaxHints || {})[0];
       const subjectText = mainSegments
         .filter(seg => seg.type === 'subject')
         .map(seg => seg.text?.trim())
         .filter(Boolean)
-        .join(' ');
+        .join(' ') || frameSubjectDisplay(firstMainFrame);
       const verbText = mainSegments
         .filter(seg => seg.type === 'verb')
         .map(seg => seg.text?.trim())
         .filter(Boolean)
         .join(' ');
       const objectText = mainSegments
-        .filter(seg => ['object', 'predicative'].includes(seg.type))
+        .filter(seg => ['object', 'predicative', 'object-complement'].includes(seg.type))
         .map(seg => seg.text?.trim())
         .filter(Boolean)
         .join(' ');
@@ -1543,50 +1638,18 @@
         },
         {
           key: 'relationship',
-          title: '加入逻辑关系',
-          prompt: relationshipStep.prompt,
-          explanation: relationshipStep.explanation,
-          coachLine: relationshipStep.coachLine,
-          voiceSegments: relationshipStep.voiceSegments,
-          focusLabel: relationshipStep.focusLabel,
-          screenTitle: relationshipStep.screenTitle,
-          screenPrompt: relationshipStep.screenPrompt,
-          sentenceCardTitle: relationshipStep.sentenceCardTitle,
-          sentenceCardLines: relationshipStep.sentenceCardLines,
-          displayKeywords: makeKeywordList(`${sentence.logicConnector || ''} ${sentence.pronounRef || ''} ${clauseText}`, ['主干', '补充', '连接']),
-          displaySummary: sentence.logicConnector ? `小桥：${sentence.logicConnector}` : '主干 + 补充 + 连接'
-        },
-        {
-          key: 'grammar',
-          title: '检查语法信号',
-          prompt: grammarStep.prompt,
-          explanation: grammarStep.explanation,
-          coachLine: grammarStep.coachLine,
-          voiceSegments: grammarStep.voiceSegments,
-          focusLabel: grammarStep.focusLabel,
-          screenTitle: grammarStep.screenTitle,
-          screenPrompt: grammarStep.screenPrompt,
-          sentenceCardTitle: grammarStep.sentenceCardTitle,
-          sentenceCardLines: grammarStep.sentenceCardLines,
-          displayKeywords: makeKeywordList(`${verbText} ${subjectText} ${grammarPoints.join(' ')}`, ['谓语', '时间', '搭配']),
-          displaySummary: `谓语：${verbText || '核心动作'}`
-        },
-        {
-          key: 'vocabulary',
-          title: '积累重要搭配',
-          prompt: '最后只带走真正值得反复遇见的动词搭配、介词搭配或关键词组。',
-          explanation: vocabularyTerms.length
-            ? `这句优先积累：${vocabularyTerms.map(term => term.term).join('、')}。`
-            : '双击原句里的词，或选中一个词组后按方向键，查看释义并决定是否加入生词本。',
-          coachLine: '不要每个词都收藏；只留下会妨碍理解，或值得在别处再次认出的搭配。',
-          voiceSegments: [],
-          focusLabel: '把值得记住的内容带走',
-          screenTitle: '把词组收进生词本',
-          screenPrompt: '优先记搭配，不只记孤立单词。',
-          sentenceCardTitle: '本句积累',
+          title: '读懂结果',
+          prompt: '现在不用再拖词块：核对关系和语法信号，然后把主干与补充信息重新串成完整意思。',
+          explanation: `${relationshipStep.explanation} ${grammarStep.explanation} ${sentence.translation || ''}`.trim(),
+          coachLine: grammarStep.coachLine || relationshipStep.coachLine,
+          voiceSegments: [...relationshipStep.voiceSegments, ...grammarStep.voiceSegments],
+          focusLabel: '看清关系与信号，再说清整句',
+          screenTitle: '读懂结果',
+          screenPrompt: '关系、语法信号和整句意思都在这里核对；不再需要操作。',
+          sentenceCardTitle: '读懂结果',
           sentenceCardLines: vocabularyTerms.length ? vocabularyTerms.map(term => `${term.term}${term.translation ? `：${term.translation}` : ''}`) : ['选中一个重要词或词组，再决定是否加入生词本。'],
-          displayKeywords: vocabularyTerms.map(term => term.term),
-          displaySummary: vocabularyTerms.length ? `积累：${vocabularyTerms.map(term => term.term).join(' · ')}` : '选出值得记住的搭配'
+          displayKeywords: makeKeywordList(`${sentence.logicConnector || ''} ${sentence.pronounRef || ''} ${clauseText} ${grammarPoints.join(' ')} ${vocabularyTerms.map(term => term.term).join(' ')}`, ['连接', '谓语', '信号']),
+          displaySummary: sentence.translation || (vocabularyTerms.length ? `带走：${vocabularyTerms.map(term => term.term).join(' · ')}` : '把整句顺着说出来')
         }
       ];
     };
@@ -2301,6 +2364,22 @@
 
     const getQuizProgressStorageKey = (articleId) =>
       articleId ? `${QUIZ_PROGRESS_STORAGE_KEY_PREFIX}${articleId}` : null;
+
+    // Paragraph-to-text models are optional content-sidecar files.  They are
+    // generated and validated before shipping, so the reader only normalizes
+    // the small surface it needs and never asks an AI to reconstruct structure.
+    const READING_ACTIVITY_PROGRESS_STORAGE_KEY_PREFIX = 'reader_article_reading_activity_progress_';
+    const getReadingActivityProgressStorageKey = (articleId) =>
+      articleId ? `${READING_ACTIVITY_PROGRESS_STORAGE_KEY_PREFIX}${articleId}` : null;
+    const normalizeReadingModel = (model = {}) => {
+      if (model?.schema_version !== '1.0' || !model?.article?.id || !Array.isArray(model?.pedagogy?.activities)) return null;
+      return model;
+    };
+    const sameIdSelection = (left = [], right = []) => {
+      const normalized = (values) => [...new Set(values || [])].map(String).sort();
+      const a = normalized(left), b = normalized(right);
+      return a.length === b.length && a.every((value, index) => value === b[index]);
+    };
 
     const normalizeCompletionRecords = (records = {}) => Object.entries(records || {}).reduce((acc, [articleId, record]) => {
       if (!articleId || !record?.completedAt) return acc;
@@ -3761,10 +3840,6 @@
       }, [paragraphVoiceName]);
 
       useEffect(() => {
-        localStorage.setItem('reader_sentence_parse_versions', JSON.stringify(parseVersions));
-      }, [parseVersions]);
-
-      useEffect(() => {
         const normalizedVoiceType = normalizeDoubaoVoiceType(doubaoVoiceType);
         if (normalizedVoiceType !== doubaoVoiceType) {
           setDoubaoVoiceType(normalizedVoiceType);
@@ -3845,10 +3920,6 @@
       const [guidedShowTranslation, setGuidedShowTranslation] = useState({});
       const [mainPracticeDrops, setMainPracticeDrops] = useState({});
       const [customSyntaxFrames, setCustomSyntaxFrames] = useState({});
-      const [parseVersions, setParseVersions] = useState(() => {
-        try { return JSON.parse(localStorage.getItem('reader_sentence_parse_versions') || '{}'); } catch { return {}; }
-      });
-      const [activeParseVersion, setActiveParseVersion] = useState({});
       const [modifierPracticeDrops, setModifierPracticeDrops] = useState({});
       const [logicPracticeDrops, setLogicPracticeDrops] = useState({});
       const [practiceSelectedToken, setPracticeSelectedToken] = useState(null);
@@ -3856,6 +3927,9 @@
       // Sentence workbench tabs.  Keep quiz mode separate because it also
       // changes how the passage supports locating evidence for an answer.
       const [rightPanelTab, setRightPanelTab] = useState('analysis');
+      const [currentArticleReadingModel, setCurrentArticleReadingModel] = useState(null);
+      const [readingActiveActivityId, setReadingActiveActivityId] = useState(null);
+      const [readingActivityResponses, setReadingActivityResponses] = useState({});
 
       // AI Feature States
       const [simplifiedSentence, setSimplifiedSentence] = useState("");
@@ -3893,7 +3967,7 @@
         return () => subscription.unsubscribe();
       }, []);
 
-      // 当切换选中句子时，自动重置 AI 状态，并将右侧面板切回“解析总览”
+      // 每句都是一轮新的四步学习：切句后回到第一步，避免把上一句的进度带过来。
       useEffect(() => {
         setSimplifiedSentence("");
         setAiQuestion("");
@@ -4302,6 +4376,47 @@
         [savedArticles, currentArticleId]
       );
 
+      // Reading models are optional, precomputed companion files.  A missing
+      // or failed sidecar leaves every existing article on its current path.
+      useEffect(() => {
+        let cancelled = false;
+        setCurrentArticleReadingModel(null);
+        const modelPath = currentArticle?.readingModelPath;
+        if (!modelPath) return () => { cancelled = true; };
+        fetch(modelPath, { cache: 'no-store' })
+          .then(response => {
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return response.json();
+          })
+          .then(model => {
+            const normalized = normalizeReadingModel(model);
+            if (!normalized || normalized.article.id !== currentArticle.id) throw new Error('阅读模型与文章不匹配');
+            if (!cancelled) setCurrentArticleReadingModel(normalized);
+          })
+          .catch(error => {
+            if (!cancelled) console.warn('Article reading model unavailable:', error);
+          });
+        return () => { cancelled = true; };
+      }, [currentArticle?.id, currentArticle?.readingModelPath]);
+
+      const currentReadingActivities = currentArticleReadingModel?.pedagogy?.activities || [];
+      const currentReadingActivity = currentReadingActivities.find(activity => activity.id === readingActiveActivityId) || currentReadingActivities[0] || null;
+
+      useEffect(() => {
+        const key = getReadingActivityProgressStorageKey(currentArticleId);
+        let restored = {};
+        if (key) {
+          try { restored = JSON.parse(localStorage.getItem(key) || '{}') || {}; } catch (_) {}
+        }
+        setReadingActivityResponses(restored);
+        setReadingActiveActivityId(currentReadingActivities[0]?.id || null);
+      }, [currentArticleId, currentArticleReadingModel?.article?.id]);
+
+      useEffect(() => {
+        const key = getReadingActivityProgressStorageKey(currentArticleId);
+        if (key && currentArticleReadingModel) localStorage.setItem(key, JSON.stringify(readingActivityResponses));
+      }, [currentArticleId, currentArticleReadingModel, readingActivityResponses]);
+
       // A bundle refresh can replace an article while it is open.  Keep the
       // active reader on the corrected curriculum version instead of waiting
       // for the learner to leave the page and open the card again.
@@ -4366,6 +4481,45 @@
         ? `${quizCorrectCount} / ${supportedQuizQuestions.length}`
         : '无可自动评分题';
 
+      const setReadingActivityOption = (activity, optionId) => {
+        if (!activity) return;
+        setReadingActivityResponses(previous => ({
+          ...previous,
+          [activity.id]: { optionIds: [optionId], sourceIds: [], checked: true }
+        }));
+      };
+
+      const toggleReadingActivitySource = (activity, sentenceId) => {
+        if (!activity?.candidate_source_ids?.includes(sentenceId)) return false;
+        setReadingActivityResponses(previous => {
+          const response = previous[activity.id] || { optionIds: [], sourceIds: [], checked: false };
+          const sourceIds = response.sourceIds?.includes(sentenceId)
+            ? response.sourceIds.filter(id => id !== sentenceId)
+            : [...(response.sourceIds || []), sentenceId];
+          return { ...previous, [activity.id]: { ...response, sourceIds, checked: false } };
+        });
+        return true;
+      };
+
+      const checkReadingActivitySources = (activity) => {
+        if (!activity) return;
+        setReadingActivityResponses(previous => ({
+          ...previous,
+          [activity.id]: { ...(previous[activity.id] || {}), checked: true }
+        }));
+      };
+
+      const readingActivityIsCorrect = (activity, response = {}) => {
+        if (!activity) return false;
+        if (activity.answer?.option_ids?.length) return sameIdSelection(response.optionIds, activity.answer.option_ids);
+        return sameIdSelection(response.sourceIds, activity.answer?.source_ids);
+      };
+
+      const handleReadingSentenceClick = (sentence) => {
+        if (articleStudyMode === 'read' && rightPanelTab === 'reading' && toggleReadingActivitySource(currentReadingActivity, sentence.id)) return;
+        setSelectedSentence(sentence);
+      };
+
       useEffect(() => {
         const questionIds = new Set(currentArticleQuestions.map(question => question.id));
         const key = getQuizProgressStorageKey(currentArticleId);
@@ -4418,7 +4572,7 @@
         if (articleStudyMode !== 'quiz' || !currentQuizParagraphNumber) return;
         const paragraphSentence = currentArticleData.find(sentence => Number(sentence.para) === currentQuizParagraphNumber);
         if (paragraphSentence) setSelectedSentence(paragraphSentence);
-      }, [articleStudyMode, currentQuizParagraphNumber, currentArticleData]);
+      }, [selectedSentence?.id, articleStudyMode, currentQuizParagraphNumber, currentArticleData]);
 
       useEffect(() => {
         setProposedAnswerIndex(null);
@@ -4431,13 +4585,11 @@
 
       const isSegmentFocusedInStep = (type, stepIndex) => {
         if (stepIndex === 0) {
-          return ['subject', 'verb', 'object', 'predicative', 'coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'].includes(type);
+          return ['subject', 'verb', 'object', 'predicative', 'object-complement', 'coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'].includes(type);
         } else if (stepIndex === 1) {
-          return ['subject', 'verb', 'clause-subject', 'clause-verb', 'coord-subject', 'coord-verb'].includes(type);
-        } else if (stepIndex === 2) {
           return ['modifier', 'adverbial', 'clause-subject', 'clause-verb', 'clause-object', 'clause-predicative', 'clause'].includes(type);
-        } else if (stepIndex === 3) {
-          return ['conjunction', 'clause', 'coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'].includes(type);
+        } else if (stepIndex === 2) {
+          return ['verb', 'conjunction', 'clause', 'coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'].includes(type);
         }
         return false;
       };
@@ -4449,6 +4601,7 @@
           case 'verb': return "bg-blue-100 text-blue-900 border-b-2 border-blue-500 font-bold rounded-sm px-1";
           case 'object': 
           case 'predicative': return "bg-green-100 text-green-900 border-b-2 border-green-500 font-bold rounded-sm px-1";
+          case 'object-complement': return "bg-violet-100 text-violet-900 border-b-2 border-violet-500 font-bold rounded-sm px-1";
           case 'clause-subject': return "bg-red-50 text-red-800 border-b-2 border-red-300 border-dashed font-bold rounded-sm px-1";
           case 'clause-verb': return "bg-blue-50 text-blue-800 border-b-2 border-blue-300 border-dashed font-bold rounded-sm px-1";
           case 'clause-object': 
@@ -6442,7 +6595,7 @@
               <div className="flex items-center justify-center gap-3 w-full mb-2">
                 <BookOpen className="text-indigo-600 w-8 h-8" />
                 <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
-                  Readmaster 阅读达人
+                  ReadMaster 阅读达人
                 </h1>
               </div>
               {viewMode === 'upload' && (
@@ -7503,13 +7656,15 @@
                           )}
                           {para.map((sentence, sIdx) => {
                           const isSelected = selectedSentence.id === sentence.id;
+                          const readingSourceCandidate = articleStudyMode === 'read' && rightPanelTab === 'reading' && currentReadingActivity?.candidate_source_ids?.includes(sentence.id);
+                          const readingSourceSelected = readingActivityResponses[currentReadingActivity?.id]?.sourceIds?.includes(sentence.id);
                           return (
                             <React.Fragment key={sentence.id || sIdx}>
                               <span 
                                 data-lookup-context={sentence.text}
                                 onClick={(e) => {
                                   if (window.getSelection().toString().length > 0) return;
-                                  setSelectedSentence(sentence);
+                                  handleReadingSentenceClick(sentence);
                                 }}
                                 onDoubleClick={(e) => handleSentenceDoubleClick(e, sentence.text)}
                                 onMouseDown={(e) => startQuizLocatorPress(e, sentence)}
@@ -7530,6 +7685,10 @@
                                   : handleWordPressEnd()}
                                 className={`cursor-pointer transition-colors duration-150 select-text reader-word-target ${
                                   isSelected ? 'bg-indigo-100/60' : ''
+                                } ${
+                                  readingSourceCandidate ? 'rounded-md bg-sky-50 px-1 ring-1 ring-sky-200 hover:bg-sky-100' : ''
+                                } ${
+                                  readingSourceSelected ? 'bg-emerald-100 text-emerald-950 ring-2 ring-emerald-400 ring-offset-1' : ''
                                 } ${
                                   articleStudyMode === 'quiz' && sentence.id === currentQuizLocatorSentenceId
                                     ? 'rounded-md bg-amber-100 px-1 text-slate-950 ring-2 ring-amber-400 ring-offset-2'
@@ -7647,6 +7806,7 @@
                         <div className="flex rounded-2xl bg-slate-100 p-1.5" role="tablist" aria-label="阅读工作区">
                           {[
                             { key: 'analysis', label: '句子解析', icon: Search },
+                            ...(currentArticleReadingModel ? [{ key: 'reading', label: '篇章阅读', icon: MapIcon }] : []),
                             { key: 'quiz', label: '做题', icon: MousePointerClick },
                             { key: 'ai', label: '问 AI', icon: MessageSquare }
                           ].map(({ key, label, icon: Icon }) => {
@@ -7687,6 +7847,82 @@
                       <div className="max-w-[880px] mx-auto">
                       {articleStudyMode === 'read' ? (
                       <React.Fragment>
+                      {rightPanelTab === 'reading' && currentArticleReadingModel && (() => {
+                        const activity = currentReadingActivity;
+                        const response = activity ? (readingActivityResponses[activity.id] || { optionIds: [], sourceIds: [], checked: false }) : null;
+                        const isSourceActivity = activity?.interaction === 'select_sentence';
+                        const isCorrect = activity && response?.checked && readingActivityIsCorrect(activity, response);
+                        const selectedOption = activity?.options?.find(option => response?.optionIds?.includes(option.id));
+                        const sourceText = (id) => currentArticleData.find(sentence => sentence.id === id)?.text || id;
+                        return (
+                          <div className="animate-in fade-in duration-500 space-y-6">
+                            <section className="rounded-3xl border border-sky-100 bg-gradient-to-br from-sky-50 via-white to-indigo-50 p-5 md:p-6">
+                              <div className="flex items-start gap-3">
+                                <div className="rounded-2xl bg-sky-600 p-2.5 text-white"><MapIcon className="h-5 w-5" /></div>
+                                <div>
+                                  <p className="text-xs font-black uppercase tracking-[0.18em] text-sky-600">文章地图</p>
+                                  <h3 className="mt-1 text-xl font-black text-slate-900">这篇文章是怎样展开的？</h3>
+                                  <p className="mt-2 text-sm leading-6 text-slate-600">先看作者把故事分成了哪几步，再用下面的小任务自己发现重点。</p>
+                                </div>
+                              </div>
+                              <div className="mt-5 grid gap-3 md:grid-cols-3">
+                                {currentArticleReadingModel.analysis.text.sections.map((section, index) => (
+                                  <div key={section.id} className="rounded-2xl border border-white bg-white/90 p-4 shadow-sm">
+                                    <p className="text-xs font-bold text-sky-600">第 {index + 1} 步 · {section.paragraph_ids.join('、').toUpperCase()}</p>
+                                    <p className="mt-1 font-black text-slate-900">{section.label}</p>
+                                  </div>
+                                ))}
+                              </div>
+                              <div className="mt-4 rounded-2xl border border-indigo-100 bg-white/80 p-4">
+                                <p className="text-xs font-bold text-indigo-600">整篇想说什么</p>
+                                <p className="mt-1 text-sm leading-6 text-slate-700">{currentArticleReadingModel.analysis.text.central_idea.text}</p>
+                              </div>
+                            </section>
+
+                            {!activity ? (
+                              <p className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-slate-600">这篇文章还没有可用的篇章阅读活动。</p>
+                            ) : (
+                              <section className="rounded-3xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
+                                <div className="flex flex-wrap gap-2">
+                                  {currentReadingActivities.map((item, index) => (
+                                    <button key={item.id} type="button" onClick={() => setReadingActiveActivityId(item.id)} className={`h-9 min-w-9 rounded-full px-3 text-sm font-black transition-colors ${item.id === activity.id ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-500 hover:bg-indigo-50 hover:text-indigo-700'}`}>{index + 1}</button>
+                                  ))}
+                                </div>
+                                <div className="mt-5">
+                                  <p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-500">想一想</p>
+                                  <h3 className="mt-2 text-xl font-black leading-8 text-slate-900">{activity.prompt}</h3>
+                                  {isSourceActivity && <p className="mt-3 rounded-xl bg-sky-50 px-3 py-2 text-sm leading-6 text-sky-800">左边浅蓝色的句子可以点选；再回来检查。没有运行 AI，也不用打字。</p>}
+                                </div>
+
+                                {activity.options?.length > 0 && (
+                                  <div className="mt-5 grid gap-3">
+                                    {activity.options.map(option => {
+                                      const chosen = response?.optionIds?.includes(option.id);
+                                      const showCorrect = response?.checked && activity.answer.option_ids?.includes(option.id);
+                                      return <button key={option.id} type="button" onClick={() => setReadingActivityOption(activity, option.id)} className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold leading-6 transition-colors ${showCorrect ? 'border-emerald-300 bg-emerald-50 text-emerald-900' : chosen && response?.checked ? 'border-amber-300 bg-amber-50 text-amber-900' : 'border-slate-200 bg-white text-slate-700 hover:border-indigo-300 hover:bg-indigo-50'}`}>{option.text}</button>;
+                                    })}
+                                  </div>
+                                )}
+
+                                {isSourceActivity && (
+                                  <div className="mt-5">
+                                    <p className="text-sm font-bold text-slate-700">你点了这些句子：</p>
+                                    <div className="mt-2 space-y-2">
+                                      {(response?.sourceIds || []).length ? response.sourceIds.map(id => <p key={id} className="rounded-xl bg-emerald-50 px-3 py-2 text-sm leading-6 text-emerald-900"><span className="mr-2 font-black">{id.toUpperCase()}</span>{sourceText(id)}</p>) : <p className="text-sm text-slate-400">还没有选择。去左侧找一找。</p>}
+                                    </div>
+                                    <button type="button" onClick={() => checkReadingActivitySources(activity)} className="mt-4 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-black text-white hover:bg-indigo-700">检查我的证据</button>
+                                  </div>
+                                )}
+
+                                {response?.checked && <div className={`mt-5 rounded-2xl p-4 text-sm leading-6 ${isCorrect ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>
+                                  {isCorrect ? '找得很准。你不是在猜，而是在根据文章的线索作判断。' : (selectedOption?.role === 'supporting_detail' || selectedOption?.role === 'minor_detail' ? '这句话很重要，但它是支持重点的一个细节。再想想：整段所有信息合起来最想告诉你什么？' : '再读一次相关段落，找能同时解释更多句子的那个想法。')}
+                                </div>}
+                              </section>
+                            )}
+                          </div>
+                        );
+                      })()}
+
                       {rightPanelTab === 'ai' && (
                         <blockquote className="mb-7 border-l-[4px] border-indigo-500 py-1 pl-4 md:pl-6">
                           <p className="mb-3 text-xl leading-relaxed text-slate-800 md:text-2xl font-serif">{selectedSentence.text}</p>
@@ -8062,26 +8298,42 @@
                                 </div>
                               )}
 
-                              {/* 步骤导航选项卡 — 始终可见 */}
-                              <div className="flex items-center gap-2 mb-6" aria-label="句子学习步骤">
-                                {voiceLessonPlan.map((step, idx) => (
-                                  <button
-                                    key={step.key}
-                                    type="button"
-                                    onClick={() => setVoiceLessonStepIndex(idx)}
-                                    title={step.title}
-                                    aria-label={`${idx + 1}. ${step.title}`}
-                                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-black transition-all ${
-                                      voiceLessonStepIndex === idx
-                                        ? 'bg-slate-900 text-white ring-2 ring-slate-300 ring-offset-2'
-                                        : 'border border-slate-200 bg-white text-slate-500 hover:border-slate-400 hover:text-slate-900'
-                                    }`}
-                                  >
-                                    {idx + 1}
-                                  </button>
-                                ))}
-                                <span className="ml-2 text-sm font-semibold text-slate-500">{voiceLessonPlan[voiceLessonStepIndex]?.title}</span>
-                              </div>
+                              {/* Two learner actions followed by one read-only result. */}
+                              <section className="mb-6" aria-label="三步读懂这句话">
+                                <div className="grid grid-cols-3 gap-2" role="tablist" aria-label="句子学习步骤">
+                                  {voiceLessonPlan.map((step, idx) => {
+                                    const active = voiceLessonStepIndex === idx;
+                                    return (
+                                      <button
+                                        key={step.key}
+                                        type="button"
+                                        role="tab"
+                                        aria-selected={active}
+                                        onClick={() => setVoiceLessonStepIndex(idx)}
+                                        className={`min-h-16 rounded-2xl border px-3 py-2.5 text-left transition-all ${
+                                          active
+                                            ? 'border-slate-900 bg-slate-900 text-white shadow-md shadow-slate-200'
+                                            : 'border-slate-200 bg-white text-slate-600 hover:border-slate-400 hover:bg-slate-50'
+                                        }`}
+                                      >
+                                        <span className={`block text-[11px] font-black tracking-[0.12em] ${active ? 'text-indigo-200' : 'text-slate-400'}`}>第 {idx + 1} 步</span>
+                                        <span className="mt-0.5 block text-sm font-black leading-5">{step.title}</span>
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                                <div className="mt-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm" aria-label="当前句">
+                                  <p className="text-[11px] font-black tracking-[0.16em] text-slate-400">当前句</p>
+                                  <p className="mt-1 font-serif text-lg font-bold leading-7 text-slate-900">{selectedSentence.text}</p>
+                                </div>
+                                <div className="mt-3 flex items-start gap-3 rounded-2xl border border-indigo-100 bg-indigo-50/70 px-4 py-3">
+                                  <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-xs font-black text-white">{voiceLessonStepIndex + 1}</span>
+                                  <div>
+                                    <p className="text-sm font-black text-indigo-950">现在只做一件事：{activeVoiceLessonStep?.title}</p>
+                                    <p className="mt-1 text-sm leading-6 text-indigo-800">{activeVoiceLessonStep?.screenPrompt || activeVoiceLessonStep?.prompt}</p>
+                                  </div>
+                                </div>
+                              </section>
 
                               {/* Step 内容 — 始终可见 */}
                               {(() => {
@@ -8126,43 +8378,25 @@
                                   <React.Fragment>
                                     {/* ── Step 1: 主谓宾/主系表 ── */}
                                     {voiceLessonStepIndex === 0 && (() => {
-                                      const automaticGroups = buildPracticeFrames(selectedSentence.segments || []);
+                                      const automaticGroups = buildPracticeFrames(selectedSentence.segments || [], selectedSentence.syntaxHints || {});
                                       const manualGroups = (customSyntaxFrames[selectedSentence.id] || []).map((frame, index) => ({
                                         key: frame.key,
-                                        label: '手动补充层',
+                                        label: '手动并列分句',
                                         connectorBefore: null,
                                         connector: frame.connector,
                                         roleIndexes: { subject: [], verb: [], object: [], complement: [] },
                                         contentIndexes: [],
                                         kind: 'manual-core',
                                         manual: true,
-                                        sharedSubject: frame.sharedSubject
+                                        sharedSubject: frame.sharedSubject,
+                                        subjectState: frame.sharedSubject ? { mode: 'shared-previous', displayText: '沿用上一分句的主语', note: '' } : { mode: 'unknown', displayText: '', note: '' }
                                       }));
                                       const groups = [...automaticGroups, ...manualGroups];
                                       const drops = mainPracticeDrops[selectedSentence.id] || {};
                                       const droppedIndexes = Object.values(drops).flat();
-                                      const versions = parseVersions[selectedSentence.id] || [];
-                                      const restoreVersion = (version) => {
-                                        const snapshot = version.snapshot;
-                                        setMainPracticeDrops(prev => ({ ...prev, [selectedSentence.id]: snapshot.mainDrops || {} }));
-                                        setModifierPracticeDrops(prev => ({ ...prev, [selectedSentence.id]: snapshot.modifierDrops || {} }));
-                                        setLogicPracticeDrops(prev => ({ ...prev, [selectedSentence.id]: snapshot.logicDrops || {} }));
-                                        setCustomSyntaxFrames(prev => ({ ...prev, [selectedSentence.id]: snapshot.customFrames || [] }));
-                                        setActiveParseVersion(prev => ({ ...prev, [selectedSentence.id]: version.id }));
-                                      };
-                                      const restoreBaseline = () => {
-                                        setMainPracticeDrops(prev => ({ ...prev, [selectedSentence.id]: {} }));
-                                        setModifierPracticeDrops(prev => ({ ...prev, [selectedSentence.id]: {} }));
-                                        setLogicPracticeDrops(prev => ({ ...prev, [selectedSentence.id]: {} }));
-                                        setCustomSyntaxFrames(prev => ({ ...prev, [selectedSentence.id]: [] }));
-                                        setActiveParseVersion(prev => ({ ...prev, [selectedSentence.id]: 'baseline' }));
-                                      };
-                                      const saveVersion = () => {
-                                        const id = `parse-${Date.now()}`;
-                                        const version = { id, name: `调整版 ${versions.length + 1}`, createdAt: new Date().toLocaleString('zh-CN', { hour: '2-digit', minute: '2-digit' }), snapshot: { mainDrops: drops, modifierDrops: modifierPracticeDrops[selectedSentence.id] || {}, logicDrops: logicPracticeDrops[selectedSentence.id] || {}, customFrames: customSyntaxFrames[selectedSentence.id] || [] } };
-                                        setParseVersions(prev => ({ ...prev, [selectedSentence.id]: [...(prev[selectedSentence.id] || []), version] }));
-                                        setActiveParseVersion(prev => ({ ...prev, [selectedSentence.id]: id }));
-                                      };
+                                      const mainTokenIndexes = (selectedSentence.segments || [])
+                                        .map((segment, index) => ['subject', 'verb', 'object', 'predicative', 'object-complement', 'coord-subject', 'coord-verb', 'coord-object', 'coord-predicative'].includes(segment.type) ? index : -1)
+                                        .filter(index => index >= 0);
                                       const place = (groupKey, role, index) => setMainPracticeDrops(prev => ({
                                         ...prev,
                                         [selectedSentence.id]: {
@@ -8180,35 +8414,44 @@
                                       return <div className="animate-in fade-in duration-300 space-y-5">
                                         <div className="flex items-center justify-between">
                                           <div>
-                                            <h4 className="text-xl font-black text-slate-900">找主干</h4>
-                                            <p className="mt-1 text-sm text-slate-500">先找谓语，再找主语和宾语/表语；框图仍按英语顺序排。</p>
+                                            <h4 className="text-xl font-black text-slate-900">只画主干</h4>
+                                            <p className="mt-1 text-sm text-slate-500">本步只找主句（和并列主句）的谓语、主语、宾语/表语；主语不一定在谓语前，也可能在祈使句中省略。从句和修饰语下一步再处理。</p>
                                           </div>
                                           <span className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-500">拖动词块到框中</span>
                                         </div>
                                         <div className="rounded-2xl border border-indigo-100 bg-gradient-to-r from-indigo-50/70 to-white p-4">
-                                          <div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-sm font-black text-indigo-950">解析版本</p><p className="mt-1 text-xs text-slate-500">自动初稿保留不动；把你的拖拽结果另存为可回退版本。</p></div><button type="button" onClick={saveVersion} className="rounded-xl bg-indigo-600 px-3 py-2 text-sm font-black text-white hover:bg-indigo-700">保存当前版本</button></div>
-                                          <div className="mt-3 flex flex-wrap gap-2"><button type="button" onClick={restoreBaseline} className={`rounded-xl border px-3 py-2 text-sm font-bold ${(!activeParseVersion[selectedSentence.id] || activeParseVersion[selectedSentence.id] === 'baseline') ? 'border-indigo-500 bg-white text-indigo-800 ring-2 ring-indigo-100' : 'border-slate-200 bg-white text-slate-600'}`}>自动初稿</button>{versions.map(version => <div key={version.id} className={`inline-flex items-center rounded-xl border bg-white ${activeParseVersion[selectedSentence.id] === version.id ? 'border-indigo-500 ring-2 ring-indigo-100' : 'border-slate-200'}`}><button type="button" onClick={() => restoreVersion(version)} className="px-3 py-2 text-left text-sm font-bold text-slate-700"><span>{version.name}</span><span className="ml-2 text-xs font-medium text-slate-400">{version.createdAt}</span></button><button type="button" title="删除这个版本" onClick={() => setParseVersions(prev => ({ ...prev, [selectedSentence.id]: (prev[selectedSentence.id] || []).filter(item => item.id !== version.id) }))} className="border-l border-slate-100 px-2 py-2 text-slate-400 hover:text-rose-500">×</button></div>)}{versions.length === 0 && <span className="self-center text-xs text-slate-400">尚未保存调整稿</span>}</div>
+                                          <p className="text-sm font-black text-indigo-950">先让主句站稳</p>
+                                          <p className="mt-1 text-sm leading-6 text-slate-600">看到 that、which、when、if 等从句，先整块放在一旁；看到长定语或介词短语，也暂时不拆。先定位顶层谓语，再找和它同层的主语，不要把从句主语借给主句。</p>
                                         </div>
                                         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                                          <p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">可用词块</p>
+                                          <p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">主句核心词块</p>
                                           <div className="flex flex-wrap gap-2">
-                                            {(selectedSentence.segments || []).map((segment, index) => !droppedIndexes.includes(index) && /[A-Za-z]/.test(segment.text || '') && (
-                                              <button key={index} type="button" draggable onDragStart={event => event.dataTransfer.setData('text/plain', String(index))} className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-base font-semibold text-slate-800 shadow-sm hover:border-indigo-400 cursor-grab active:cursor-grabbing">{segment.text.trim()}</button>
-                                            ))}
+                                            {mainTokenIndexes.map(index => {
+                                              const segment = selectedSentence.segments[index];
+                                              return !droppedIndexes.includes(index) && /[A-Za-z]/.test(segment.text || '') && (
+                                                <button key={index} type="button" draggable onDragStart={event => event.dataTransfer.setData('text/plain', String(index))} className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-base font-semibold text-slate-800 shadow-sm hover:border-indigo-400 cursor-grab active:cursor-grabbing">{segment.text.trim()}</button>
+                                              );
+                                            })}
                                           </div>
                                         </div>
                                         <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3">
-                                          <p className="text-sm text-slate-600">自动结构只是初稿；发现缺层时可以手动补充。</p>
-                                          <button type="button" onClick={() => setCustomSyntaxFrames(prev => ({ ...prev, [selectedSentence.id]: [...(prev[selectedSentence.id] || []), { key: `manual-${Date.now()}`, connector: 'but', sharedSubject: true }] }))} className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-sm font-black text-sky-800 hover:bg-sky-100">+ 手动增加一层</button>
+                                          <p className="text-sm text-slate-600">若原句有遗漏的并列主句，再补一套主语—谓语—宾语/表语。</p>
+                                          <button type="button" onClick={() => setCustomSyntaxFrames(prev => ({ ...prev, [selectedSentence.id]: [...(prev[selectedSentence.id] || []), { key: `manual-${Date.now()}`, connector: 'but', sharedSubject: true }] }))} className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-sm font-black text-sky-800 hover:bg-sky-100">+ 添加并列分句</button>
                                         </div>
                                         <div className="space-y-3">
-                                          {groups.map(group => <div key={group.key} className={`rounded-2xl border p-4 ${group.kind === 'predicate-contrast' ? 'border-sky-200 bg-sky-50/50' : 'border-slate-200 bg-white'}`}>
-                                            {groups.length > 1 && <div className="mb-3 flex items-center gap-2 text-xs font-black tracking-[0.16em] text-slate-400">{group.connectorBefore !== null && <span className="rounded bg-sky-50 px-2 py-1 text-sky-700">{selectedSentence.segments[group.connectorBefore]?.text.trim()}</span>}{group.manual && <select value={group.connector} onChange={event => setCustomSyntaxFrames(prev => ({ ...prev, [selectedSentence.id]: (prev[selectedSentence.id] || []).map(item => item.key === group.key ? { ...item, connector: event.target.value } : item) }))} className="rounded border border-sky-200 bg-sky-50 px-2 py-1 text-sky-700"><option>for</option><option>and</option><option>nor</option><option>but</option><option>or</option><option>yet</option><option>so</option></select>}{group.label}{group.sharedSubject && <span className="font-medium normal-case tracking-normal text-slate-400">沿用上一主语</span>}{group.manual && <button type="button" onClick={() => setCustomSyntaxFrames(prev => ({ ...prev, [selectedSentence.id]: (prev[selectedSentence.id] || []).filter(item => item.key !== group.key) }))} className="ml-auto font-bold normal-case tracking-normal text-rose-500">删除</button>}</div>}
-                                            {group.kind === 'predicate-contrast' ? <div onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); place(group.key, 'contrast', Number(event.dataTransfer.getData('text/plain'))); }} className="min-h-28 rounded-xl border border-dashed border-sky-300 bg-white/80 p-4"><p className="text-xs font-black text-sky-700">同一谓语的对比修饰</p><p className="mt-2 text-lg font-black text-slate-900">{slotText(group.key, 'contrast') || <span className="font-medium text-sky-300">把对比成分拖到这里</span>}</p><p className="mt-2 text-sm text-sky-700">沿用上一层的主语和谓语；这一层用 <b>{selectedSentence.segments[group.connectorBefore]?.text.trim()}</b> 补充对比。</p></div> : <div className="grid gap-3 md:grid-cols-3">
-                                              {slots.map(slot => <div key={slot.key} onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); place(group.key, slot.key, Number(event.dataTransfer.getData('text/plain'))); }} className="min-h-24 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3">
-                                                <p className="text-xs font-black text-slate-400">{slot.label}</p>
-                                                <p className="mt-2 text-lg font-bold text-slate-900">{slotText(group.key, slot.key) || <span className="font-medium text-slate-300">{slot.hint}</span>}</p>
-                                              </div>)}
+                                            {groups.map(group => <div key={group.key} className={`rounded-2xl border p-4 ${group.kind === 'predicate-contrast' ? 'border-sky-200 bg-sky-50/50' : 'border-slate-200 bg-white'}`}>
+                                              {groups.length > 1 && <div className="mb-3 flex items-center gap-2 text-xs font-black tracking-[0.16em] text-slate-400">{group.connectorBefore !== null && <span className="rounded bg-sky-50 px-2 py-1 text-sky-700">{selectedSentence.segments[group.connectorBefore]?.text.trim()}</span>}{group.manual && <select value={group.connector} onChange={event => setCustomSyntaxFrames(prev => ({ ...prev, [selectedSentence.id]: (prev[selectedSentence.id] || []).map(item => item.key === group.key ? { ...item, connector: event.target.value } : item) }))} className="rounded border border-sky-200 bg-sky-50 px-2 py-1 text-sky-700"><option>for</option><option>and</option><option>nor</option><option>but</option><option>or</option><option>yet</option><option>so</option></select>}{group.label}{group.manual && <label className="ml-1 inline-flex items-center gap-1 font-medium normal-case tracking-normal text-slate-500"><input type="checkbox" checked={group.sharedSubject} onChange={event => setCustomSyntaxFrames(prev => ({ ...prev, [selectedSentence.id]: (prev[selectedSentence.id] || []).map(item => item.key === group.key ? { ...item, sharedSubject: event.target.checked } : item) }))} />沿用上一主语</label>}{group.manual && <button type="button" onClick={() => setCustomSyntaxFrames(prev => ({ ...prev, [selectedSentence.id]: (prev[selectedSentence.id] || []).filter(item => item.key !== group.key) }))} className="ml-auto font-bold normal-case tracking-normal text-rose-500">删除</button>}</div>}
+                                              {group.kind === 'predicate-contrast' ? <div onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); place(group.key, 'contrast', Number(event.dataTransfer.getData('text/plain'))); }} className="min-h-28 rounded-xl border border-dashed border-sky-300 bg-white/80 p-4"><p className="text-xs font-black text-sky-700">同一谓语的对比修饰</p><p className="mt-2 text-lg font-black text-slate-900">{slotText(group.key, 'contrast') || <span className="font-medium text-sky-300">把对比成分拖到这里</span>}</p><p className="mt-2 text-sm text-sky-700">沿用上一层的主语和谓语；这一层用 <b>{selectedSentence.segments[group.connectorBefore]?.text.trim()}</b> 补充对比。</p></div> : <div className="grid gap-3 md:grid-cols-3">
+                                              {slots.filter(slot => !(group.manual && group.sharedSubject && slot.key === 'subject')).map(slot => {
+                                                const droppedText = slotText(group.key, slot.key);
+                                                const structuralSubject = slot.key === 'subject' && !droppedText ? frameSubjectDisplay(group) : '';
+                                                const shownText = droppedText || structuralSubject;
+                                                return <div key={slot.key} onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); place(group.key, slot.key, Number(event.dataTransfer.getData('text/plain'))); }} className={`min-h-24 rounded-xl border border-dashed p-3 ${structuralSubject ? 'border-amber-300 bg-amber-50/70' : 'border-slate-300 bg-slate-50'}`}>
+                                                  <p className={`text-xs font-black ${structuralSubject ? 'text-amber-700' : 'text-slate-400'}`}>{slot.label}{structuralSubject && '（结构上存在）'}</p>
+                                                  <p className="mt-2 text-lg font-bold text-slate-900">{shownText || <span className="font-medium text-slate-300">{slot.hint}</span>}</p>
+                                                  {structuralSubject && group.subjectState?.note && <p className="mt-2 text-xs leading-5 text-amber-800">{group.subjectState.note}</p>}
+                                                </div>;
+                                              })}
                                             </div>}
                                           </div>)}
                                         </div>
@@ -8216,8 +8459,8 @@
                                       </div>;
                                     })()}
 
-                                    {/* ── Step 2: 语法放大镜 ── */}
-                                    {voiceLessonStepIndex === 3 && (
+                                    {/* ── Step 3: 读懂结果 · 关系与语法信号 ── */}
+                                    {false && (
                                       <div className="animate-in fade-in duration-300 space-y-5">
                                         {/* 模板框架：通用概念 */}
                                         <div className="rounded-3xl border border-slate-100 bg-white/80 p-5">
@@ -8270,31 +8513,147 @@
                                       </div>
                                     )}
 
-                                    {/* ── Step 3: 修饰小贴纸 ── */}
+                                    {/* ── Step 2: sentence tree ── */}
                                     {voiceLessonStepIndex === 1 && (() => {
                                       const segments = selectedSentence.segments || [];
-                                      const modifierIndexes = segments.map((seg, index) => ['modifier', 'adverbial'].includes(seg.type) && /[A-Za-z]/.test(seg.text || '') ? index : -1).filter(index => index >= 0);
-                                      const modifiers = modifierIndexes.map(index => ({ seg: segments[index], index }));
-                                      const mainDrops = mainPracticeDrops[selectedSentence.id] || {};
+                                      const mainFrame = buildPracticeFrames(segments, selectedSentence.syntaxHints || {})[0];
                                       const clauseGroups = buildModifierClauseFrames(segments);
-                                      const groups = [...clauseGroups, ...buildPracticeFrames(segments)];
-                                      const clauseUnitText = clauseGroups[0]?.indexes.map(index => segments[index]?.text.trim()).filter(Boolean).join(' ') || '';
+                                      const modifierIndexes = segments.map((seg, index) => ['modifier', 'adverbial'].includes(seg.type) && /[A-Za-z]/.test(seg.text || '') ? index : -1).filter(index => index >= 0);
+                                      const roleText = (frame, role) => (frame?.roleIndexes?.[role] || []).map(index => segments[index]?.text.trim()).filter(Boolean).join(' ') || (role === 'subject' ? frameSubjectDisplay(frame) : '');
+                                      const roleLabel = { subject: '主语', verb: '谓语', object: '宾语', predicative: '表语', 'object-complement': '宾补' };
+                                      const coreNodes = (mainFrame?.contentIndexes || []).map(index => {
+                                        const role = practiceRole(segments[index]?.type);
+                                        return roleLabel[role] ? { index, text: segments[index]?.text?.trim(), label: roleLabel[role], role } : null;
+                                      }).filter(item => item?.text);
+                                      if (frameSubjectDisplay(mainFrame) && !coreNodes.some(item => item.label === '主语')) coreNodes.unshift({ index: 'implicit-subject', text: frameSubjectDisplay(mainFrame), label: '隐含主语', role: 'subject' });
+                                      const targetKey = index => `tree-target-${index}`;
+                                      const mainVerb = coreNodes.find(node => node.role === 'verb') || coreNodes[0];
+                                      const mainObject = coreNodes.find(node => ['object', 'predicative'].includes(node.role)) || mainVerb;
+                                      const clauseNodesByKey = Object.fromEntries(clauseGroups.map(frame => {
+                                        const rawNodes = frame.indexes.map(index => {
+                                          const role = practiceRole(segments[index]?.type);
+                                          return roleLabel[role] ? { index, text: segments[index]?.text?.trim(), label: roleLabel[role], role } : null;
+                                        }).filter(item => item?.text);
+                                        const mergedNodes = [];
+                                        for (let index = 0; index < rawNodes.length; index += 1) {
+                                          const node = rawNodes[index];
+                                          const next = rawNodes[index + 1];
+                                          if (node.role === 'verb' && next?.role === 'predicative') {
+                                            mergedNodes.push({ ...node, text: `${node.text} ${next.text}`, label: '谓语 + 表语', role: 'predicate' });
+                                            index += 1;
+                                          } else mergedNodes.push(node);
+                                        }
+                                        return [frame.key, mergedNodes];
+                                      }));
+                                      const allAnchorNodes = [...coreNodes, ...Object.values(clauseNodesByKey).flat()];
+                                      const connectorFor = frame => frame.indexes.map(index => segments[index]?.text?.trim()).find(text => /^(when|while|before|after|if|unless|because|since|although|though|that|which|who|whose|where|why)\b/i.test(text || '')) || '';
+                                      const relationFor = word => {
+                                        if (/^(when|while|before|after)$/i.test(word)) return '时间从句';
+                                        if (/^(if|unless)$/i.test(word)) return '条件从句';
+                                        if (/^(because|since)$/i.test(word)) return '原因从句';
+                                        if (/^(although|though)$/i.test(word)) return '让步从句';
+                                        if (/^(that|which|who|whose|where|why)$/i.test(word)) return '关系 / 内容从句';
+                                        return '从句';
+                                      };
+                                      const clauseAnchor = frame => {
+                                        const declaredTarget = frame.indexes.map(index => declaredAttachmentTarget(index)).find(Boolean);
+                                        if (declaredTarget) return declaredTarget;
+                                        const connector = connectorFor(frame);
+                                        return /^(that|which|who|whose|where|why)$/i.test(connector) ? mainObject : mainVerb;
+                                      };
+                                      const declaredAttachmentTarget = index => {
+                                        const segment = segments[index] || {};
+                                        const hint = segment.attachesTo || segment.attachment || null;
+                                        if (!hint || typeof hint !== 'object') return null;
+                                        const targetText = String(hint.text || hint.targetText || '').trim();
+                                        const targetRole = String(hint.role || hint.targetRole || '');
+                                        return allAnchorNodes.find(node => (
+                                          (targetText && String(segments[node.index]?.text || '').trim() === targetText) ||
+                                          (!targetText && targetRole && node.role === practiceRole(targetRole))
+                                        )) || null;
+                                      };
+                                      const isDeclaredNounModifier = index => /(?:名词.*修饰|修饰名词|定语)/.test(segments[index]?.label || '');
+                                      const isPreVerbalNounModifier = index => {
+                                        const text = segments[index]?.text?.trim() || '';
+                                        if (!/^(in|on|at|of|with|from|for|by)\b/i.test(text)) return false;
+                                        const earlier = allAnchorNodes.filter(node => typeof node.index === 'number' && node.index < index);
+                                        const precedingNoun = [...earlier].reverse().find(node => ['subject', 'object', 'predicative'].includes(node.role));
+                                        const followingVerb = allAnchorNodes.find(node => typeof node.index === 'number' && node.index > index && (node.role === 'verb' || node.role === 'predicate'));
+                                        const precedingVerb = [...earlier].reverse().find(node => node.role === 'verb' || node.role === 'predicate');
+                                        return Boolean(precedingNoun && followingVerb && (!precedingVerb || precedingVerb.index < precedingNoun.index));
+                                      };
+                                      const nearestAnchor = index => {
+                                        const isVerbDetail = segments[index]?.type === 'adverbial' || segments[index]?.label === '动词修饰语';
+                                        const earlierNodes = allAnchorNodes.filter(node => typeof node.index === 'number' && node.index < index);
+                                        const declaredTarget = declaredAttachmentTarget(index);
+                                        if (declaredTarget) return declaredTarget;
+                                        if (isDeclaredNounModifier(index)) return [...earlierNodes].reverse().find(node => ['subject', 'object', 'predicative'].includes(node.role)) || mainObject;
+                                        if (isPreVerbalNounModifier(index)) return [...earlierNodes].reverse().find(node => ['subject', 'object', 'predicative'].includes(node.role)) || mainObject;
+                                        if (isVerbDetail) return [...earlierNodes].reverse().find(node => node.role === 'verb' || node.role === 'predicate') || mainVerb;
+                                        return allAnchorNodes.find(node => typeof node.index === 'number' && node.index > index && ['subject', 'object', 'predicative'].includes(node.role)) || [...earlierNodes].reverse().find(node => ['subject', 'object', 'predicative'].includes(node.role)) || mainObject;
+                                      };
+                                      const sources = [
+                                        ...clauseGroups.map(frame => {
+                                          const connector = connectorFor(frame);
+                                          const anchor = clauseAnchor(frame);
+                                          return { key: `clause-${frame.key}`, text: frame.indexes.map(index => segments[index]?.text?.trim()).filter(Boolean).join(' '), kind: relationFor(connector), expectedTarget: targetKey(anchor?.index) };
+                                        }),
+                                        ...modifierIndexes.map(index => {
+                                          const anchor = nearestAnchor(index);
+                                          const earlierModifier = [...modifierIndexes].reverse().find(previousIndex => previousIndex < index && /^(for|by|through|without)\s+.+ing\b/i.test(segments[previousIndex]?.text?.trim() || ''));
+                                          const isNestedTimeDetail = /^(in|on|at|during|before|after)\s+(?:the\s+)?(?:\d{4}|\d{1,2}(?:st|nd|rd|th)?\b)/i.test(segments[index]?.text?.trim() || '');
+                                          return {
+                                            key: `modifier-${index}`,
+                                            text: segments[index]?.text?.trim(),
+                                            kind: !isDeclaredNounModifier(index) && !isPreVerbalNounModifier(index) && (segments[index]?.type === 'adverbial' || segments[index]?.label === '动词修饰语') ? '补充动作' : '修饰名词',
+                                            expectedTarget: isNestedTimeDetail && earlierModifier !== undefined ? `source-target-modifier-${earlierModifier}` : targetKey(anchor?.index),
+                                            targetHint: isNestedTimeDetail && earlierModifier !== undefined ? `挂到「${segments[earlierModifier]?.text?.trim()}」下方` : anchor?.text ? `挂到「${anchor.text}」下方` : ''
+                                          };
+                                        }),
+                                      ].filter(source => source.text);
+                                      const sourcesByKey = Object.fromEntries(sources.map(source => [source.key, source]));
                                       const drops = modifierPracticeDrops[selectedSentence.id] || {};
-                                      const dropped = Object.values(drops).flat();
-                                      const put = (targetKey, sourceIndex) => setModifierPracticeDrops(prev => ({ ...prev, [selectedSentence.id]: { ...(prev[selectedSentence.id] || {}), [targetKey]: [...((prev[selectedSentence.id] || {})[targetKey] || []), sourceIndex] }}));
+                                      const placedKeys = Object.values(drops).flat();
+                                      const moveSource = (destination, sourceKey) => setModifierPracticeDrops(prev => {
+                                        const existing = prev[selectedSentence.id] || {};
+                                        const cleared = Object.fromEntries(Object.entries(existing).map(([key, keys]) => [key, (keys || []).filter(key => key !== sourceKey)]));
+                                        return { ...prev, [selectedSentence.id]: { ...cleared, [destination]: [...(cleared[destination] || []), sourceKey] } };
+                                      });
+                                      const restoreSource = sourceKey => setModifierPracticeDrops(prev => {
+                                        const existing = prev[selectedSentence.id] || {};
+                                        return { ...prev, [selectedSentence.id]: Object.fromEntries(Object.entries(existing).map(([key, keys]) => [key, (keys || []).filter(key => key !== sourceKey)])) };
+                                      });
+                                      const isClausePlaced = frame => (drops[targetKey(clauseAnchor(frame)?.index)] || []).includes(`clause-${frame.key}`);
+                                      const DropZone = ({ node, zoneKey = targetKey(node.index), emptyText = '把上方词块拖到这里' }) => {
+                                        const placed = (drops[zoneKey] || []).map(key => sourcesByKey[key]).filter(Boolean);
+                                        return <div onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); const sourceKey = event.dataTransfer.getData('text/plain'); if (sourcesByKey[sourceKey]?.expectedTarget === zoneKey) moveSource(zoneKey, sourceKey); }} className="mt-4 min-h-24 border-t-2 border-dashed border-[#78958a] pt-3">
+                                          {placed.map(source => { const nestedSources = sources.filter(item => item.expectedTarget === `source-target-${source.key}`); return <div key={source.key} className="mb-2 rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-2 font-sans text-left text-sm text-emerald-950"><div className="flex items-start justify-between gap-3"><p className="font-mono font-bold">{source.text}</p><button type="button" onClick={() => restoreSource(source.key)} className="shrink-0 rounded border border-current/30 px-2 py-1 text-xs font-bold hover:bg-white/60">撤回</button></div><p className="mt-1 text-xs">已挂到这里</p>{nestedSources.length > 0 && <DropZone node={{ index: source.key }} zoneKey={`source-target-${source.key}`} emptyText={`再把「${nestedSources.map(item => item.text).join('、')}」拖到这条短语下方`} />}</div>; })}
+                                          {!placed.length && <p className="font-sans text-xs text-[#7f927a]">{emptyText}</p>}
+                                        </div>;
+                                      };
+                                      const ClauseBranch = ({ frame }) => {
+                                        const connector = connectorFor(frame);
+                                        const nodes = clauseNodesByKey[frame.key] || [];
+                                        return <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50/70 p-3"><p className="font-sans text-xs font-black tracking-[0.12em] text-emerald-800">从句内部预览 · {relationFor(connector)} <span className="ml-1 rounded bg-[#e0ead4] px-1.5 py-0.5 font-mono normal-case tracking-normal">{connector || '从句'}</span></p><div className="mt-3 space-y-3 border-l-2 border-dashed border-emerald-300 pl-3">{nodes.map(clauseNode => <div key={clauseNode.index} className="border-t border-emerald-200 pt-3"><p className="font-mono text-base font-bold">{clauseNode.text}</p><p className="mt-1 font-sans text-xs text-emerald-800">{clauseNode.label}</p><DropZone node={clauseNode} /></div>)}</div></div>;
+                                      };
                                       return <div className="animate-in fade-in duration-300 space-y-5">
-                                        <div><h4 className="text-xl font-black text-slate-900">挂修饰语</h4><p className="mt-1 text-sm text-slate-500">名词修饰语拖到名词上；整套修饰从句拖到主句的谓语上。</p></div>
-                                        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4"><p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">可用词块（第 1 步未使用）</p><div className="flex flex-wrap gap-2">{modifierIndexes.map(index => <button type="button" key={index} draggable={!dropped.includes(index)} onDragStart={event => event.dataTransfer.setData('text/plain', String(index))} onClick={() => setPracticeSelectedToken({ step: 'modifier', value: index })} className={`rounded-xl border px-3 py-2 text-base font-semibold ${dropped.includes(index) ? 'border-slate-100 bg-slate-100 text-slate-300' : practiceSelectedToken?.step === 'modifier' && practiceSelectedToken.value === index ? 'border-indigo-500 bg-indigo-50 text-indigo-950 ring-2 ring-indigo-200' : 'cursor-grab border-slate-300 bg-white text-slate-800'}`}>{segments[index].text.trim()}</button>)}{modifierIndexes.length === 0 && <span className="text-sm text-slate-400">这一步没有剩余独立修饰语。</span>}</div><p className="mt-3 text-xs text-slate-500">整套修饰从句直接从下方的“修饰从句”卡片拖到主句谓语；在 iPad 上可先点从句卡，再点谓语格。</p></div>
-                                        <div className="space-y-3">{groups.map(group => { const isClause = group.key.startsWith('clause-'); const unitText = isClause ? group.indexes.map(index => segments[index]?.text.trim()).filter(Boolean).join(' ') : ''; const roles = [{ key: 'subject', label: '主语' }, { key: 'verb', label: '谓语' }, { key: 'object', label: '宾语 / 表语' }, { key: 'complement', label: '宾语补足语' }].filter(role => role.key !== 'complement' || (group.roleIndexes.complement || []).length); return <div key={group.key} draggable={isClause && !dropped.includes(group.key)} onDragStart={event => { if (isClause) event.dataTransfer.setData('text/plain', group.key); }} onClick={() => { if (isClause) setPracticeSelectedToken({ step: 'modifier', value: group.key }); }} className={`rounded-2xl border p-4 ${isClause ? 'cursor-grab border-violet-300 bg-violet-50/60 ring-1 ring-violet-100' : 'border-slate-200 bg-white'}`}><p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">{isClause ? `⠿ 可拖动修饰从句：${unitText || group.label}` : groups.length > 1 ? group.label : '第 1 步的主干'}</p><div className="grid gap-3 md:grid-cols-3">{roles.map(role => { const targetKey = `${group.key}-${role.key}`; const baseIndexes = mainDrops[targetKey] || group.roleIndexes[role.key] || []; const acceptsClause = role.key === 'verb' && !isClause && clauseGroups.length > 0; const selectDrop = () => { const isClauseUnit = String(practiceSelectedToken?.value || '').startsWith('clause-'); if (practiceSelectedToken?.step !== 'modifier' || (isClauseUnit && !acceptsClause)) return; put(targetKey, practiceSelectedToken.value); setPracticeSelectedToken(null); }; return <div key={targetKey} onClick={event => { event.stopPropagation(); selectDrop(); }} onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); event.stopPropagation(); const value = event.dataTransfer.getData('text/plain'); if (String(value).startsWith('clause-') && !acceptsClause) return; put(targetKey, String(value).startsWith('clause-') ? value : Number(value)); setPracticeSelectedToken(null); }} className="min-h-28 rounded-xl border border-dashed border-amber-300 bg-amber-50/50 p-3"><p className="text-xs font-black text-amber-700">{role.label}</p><p className="mt-1 text-lg font-black text-slate-900">{baseIndexes.map(index => segments[index]?.text.trim()).filter(Boolean).join(' ') || '—'}</p><div className="mt-3 flex min-h-7 flex-wrap gap-2">{(drops[targetKey] || []).map(sourceIndex => <span key={sourceIndex} className="rounded-lg bg-amber-200 px-2 py-1 text-sm font-bold text-amber-950">{String(sourceIndex).startsWith('clause-') ? clauseGroups.find(item => item.key === sourceIndex)?.indexes.map(index => segments[index]?.text.trim()).filter(Boolean).join(' ') : segments[sourceIndex]?.text.trim()}</span>)}{!(drops[targetKey] || []).length && <span className="text-sm text-amber-500">{acceptsClause ? '把上方整套修饰从句拖到这个谓语上' : '拖修饰语到这里'}</span>}</div></div>; })}</div></div>; })}</div>
-                                        {modifiers.length === 0 && <p className="text-sm text-slate-500">这句没有明显修饰语；仍可观察每个词块在主干中的位置。</p>}
+                                        <div><h4 className="text-xl font-black text-slate-900">把词块挂回它修饰的位置</h4><p className="mt-1 text-sm text-slate-500">先拖关系词引导的从句；放对后才展开它的内部结构，再继续挂短语修饰语。虚线区域就是唯一有效的落点，错误位置不会再收下词块。</p></div>
+                                        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4"><p className="mb-3 text-xs font-black tracking-[0.16em] text-slate-400">待挂接词块</p><div className="flex flex-wrap gap-2">{sources.filter(source => !placedKeys.includes(source.key)).map(source => <div key={source.key} draggable onDragStart={event => event.dataTransfer.setData('text/plain', source.key)} className="cursor-grab rounded-xl border border-[#aac09f] bg-white px-3 py-2 shadow-sm active:cursor-grabbing"><p className="font-mono text-base font-bold text-[#173d37]">{source.connector && <span className="mr-2 rounded bg-[#e0ead4] px-1.5 py-0.5 text-xs tracking-wider">{source.connector}</span>}{source.text}</p><p className="mt-1 text-xs font-bold text-[#6d7d55]">{source.kind}</p></div>)}{sources.length === 0 && <span className="text-sm text-slate-400">这句没有需要额外挂接的词块。</span>}</div></div>
+                                        <section className="overflow-x-auto rounded-3xl border border-[#dbe5c9] bg-[#fbfdf4] p-5 shadow-[inset_0_0_40px_rgba(221,233,199,0.22)]">
+                                          <p className="mb-4 text-xs font-black tracking-[0.16em] text-[#6d7d55]">句法挂接图</p>
+                                          <div className="w-full min-w-0 font-mono text-[#173d37]">
+                                            <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${Math.max(coreNodes.length, 1)}, minmax(150px, 1fr))` }}>{coreNodes.length ? coreNodes.map(node => <div key={node.index} className="min-w-0"><p className="text-2xl font-bold leading-tight">{node.text}</p><p className="mt-1 font-sans text-sm font-bold text-[#58705d]">{node.label}</p><DropZone node={node} />{clauseGroups.filter(frame => clauseAnchor(frame)?.index === node.index && isClausePlaced(frame)).map(frame => <ClauseBranch key={frame.key} frame={frame} />)}</div>) : <p className="text-2xl font-bold">先回到第 1 步确定主干</p>}</div>
+                                          </div>
+                                        </section>
+                                        <p className="text-xs leading-5 text-slate-400">读法：主干从左到右不动；每个分支只挂在一个词下面。先挂 when / if / that 等关系词带领的从句，再挂短语修饰语。</p>
                                       </div>;
                                     })()}
 
-                                    {/* ── Step 4: 句子关系连接桥 ── */}
-                                    {voiceLessonStepIndex === 2 && (() => {
+                                    {/* 已整合进结果展示：不再要求为关系线索额外拖拽。 */}
+                                    {false && (() => {
                                       const segments = selectedSentence.segments || [];
                                       const connectors = segments.map((seg, index) => ({ seg, index })).filter(({ seg }) => seg.type === 'conjunction' && /^(for|and|nor|but|or|yet|so)$/i.test(seg.text.trim()));
-                                      const clauses = buildPracticeFrames(segments).map(frame => ({
+                                      const clauses = buildPracticeFrames(segments, selectedSentence.syntaxHints || {}).map(frame => ({
                                         ...frame,
                                         indexes: frame.contentIndexes?.length ? frame.contentIndexes : Object.values(frame.roleIndexes).flat(),
                                         label: frame.sharedSubject ? `${frame.label}（沿用上一主语）` : frame.label
@@ -8310,31 +8669,76 @@
                                       </div>;
                                     })()}
 
-                                    {/* ── Step 5: 完整解析 ── */}
-                                    {voiceLessonStepIndex === 4 && (
+                                    {/* ── Step 3: 读懂结果 · 整句理解 ── */}
+                                    {voiceLessonStepIndex === 2 && (
                                       (() => {
                                         const segments = selectedSentence.segments || [];
-                                        const frames = buildPracticeFrames(segments);
+                                        const frames = buildPracticeFrames(segments, selectedSentence.syntaxHints || {});
                                         const modifiers = segments.filter(segment => ['modifier', 'adverbial'].includes(segment.type) && /[A-Za-z]/.test(segment.text || ''));
                                         const connectors = segments.filter(segment => segment.type === 'conjunction' && FANBOYS.test(segment.text.trim()));
+                                        const clauseSignals = segments.map(segment => segment.text?.trim()).filter(text => /^(when|while|before|after|if|unless|because|since|although|though|that|which|who|whose|where|why)\b/i.test(text || ''));
                                         const terms = normalizeGlossary(selectedSentence.keyTerms || selectedSentence.glossary || []).filter(term => term?.term).slice(0, 6);
-                                        const roleText = (frame, role) => (frame.roleIndexes[role] || []).map(index => segments[index]?.text.trim()).filter(Boolean).join(' ');
+                                        const roleText = (frame, role) => {
+                                          const explicitText = (frame.roleIndexes[role] || []).map(index => segments[index]?.text.trim()).filter(Boolean).join(' ');
+                                          return explicitText || (role === 'subject' ? frameSubjectDisplay(frame) : '');
+                                        };
+                                        const mainFrame = frames[0];
+                                        const mainSubject = roleText(mainFrame, 'subject') || 'it';
+                                        const mainObject = roleText(mainFrame, 'object') || roleText(mainFrame, 'predicative');
+                                        const althoughSignal = clauseSignals.find(text => /^(although|though)\b/i.test(text || ''));
+                                        const reducedAlthough = althoughSignal ? althoughSignal.replace(/^(although|though)\s+/i, '').replace(/[,.]$/, '').trim() : '';
+                                        const onModifier = modifiers.find(segment => /^on\b/i.test(segment.text?.trim() || ''))?.text?.trim();
+                                        const relationReading = althoughSignal
+                                          ? `“${althoughSignal.split(/\s+/)[0]}” 表示“尽管/虽然”。前半句是省略结构，可还原为 “Although ${mainSubject} is ${reducedAlthough}”。`
+                                          : clauseSignals.length ? `关系信号是 “${clauseSignals.join(' / ')}”，它告诉你这部分不是主干，而是在补充主句。` : '';
+                                        const attachmentReading = onModifier && mainObject
+                                          ? `“${onModifier}” 修饰 “${mainObject}”，回答“这些细节是关于什么的”。`
+                                          : '';
                                         return <div className="animate-in fade-in duration-300 space-y-5">
                                           <div className="rounded-3xl border border-emerald-200 bg-emerald-50/60 p-5">
-                                            <p className="text-sm font-extrabold uppercase tracking-wider text-emerald-700">第 5 步 · 完整读懂这一句</p>
+                                            <p className="text-sm font-extrabold uppercase tracking-wider text-emerald-700">读懂结果 · 把这一句说清楚</p>
                                             <p className="mt-2 text-xl font-black leading-8 text-slate-900">{selectedSentence.text}</p>
                                             {selectedSentence.translation && <p className="mt-3 text-sm leading-7 text-emerald-900">{selectedSentence.translation}</p>}
                                           </div>
-                                          <section className="rounded-2xl border border-slate-200 bg-white p-5"><p className="text-sm font-black text-slate-900">1. 句子骨架</p><div className="mt-3 space-y-3">{frames.map((frame, index) => <div key={frame.key} className="rounded-xl bg-slate-50 p-3"><p className="text-xs font-black text-slate-400">{frame.connectorBefore !== null && <span className="mr-2 rounded bg-sky-100 px-2 py-1 text-sky-700">{segments[frame.connectorBefore]?.text.trim()}</span>}{frame.label}{frame.sharedSubject && ' · 沿用上一主语'}</p>{frame.kind === 'predicate-contrast' ? <p className="mt-2 font-bold text-slate-800">{frame.contentIndexes.map(i => segments[i]?.text.trim()).filter(Boolean).join(' ')}</p> : <div className="mt-2 flex flex-wrap gap-2 text-sm font-bold"><span className="rounded bg-rose-50 px-2 py-1 text-rose-800">{roleText(frame, 'subject') || '（共享主语）'}</span><span className="rounded bg-blue-50 px-2 py-1 text-blue-800">{roleText(frame, 'verb')}</span><span className="rounded bg-emerald-50 px-2 py-1 text-emerald-800">{roleText(frame, 'object')}</span>{roleText(frame, 'complement') && <span className="rounded bg-violet-50 px-2 py-1 text-violet-800">{roleText(frame, 'complement')}</span>}</div>}</div>)}</div></section>
-                                          <div className="grid gap-4 md:grid-cols-2"><section className="rounded-2xl border border-amber-100 bg-amber-50/40 p-5"><p className="text-sm font-black text-amber-900">2. 挂回修饰信息</p><div className="mt-3 flex flex-wrap gap-2">{modifiers.length ? modifiers.map((segment, index) => <span key={`${segment.text}-${index}`} className="rounded-lg border border-amber-200 bg-white px-2 py-1 text-sm font-semibold text-amber-900">{segment.text.trim()}</span>) : <span className="text-sm text-slate-500">没有额外修饰语。</span>}</div></section><section className="rounded-2xl border border-sky-100 bg-sky-50/40 p-5"><p className="text-sm font-black text-sky-900">3. 并列逻辑</p><p className="mt-3 text-sm leading-6 text-slate-700">{connectors.length ? connectors.map(segment => segment.text.trim()).join(' → ') : '没有 FANBOYS 并列关系。'}</p></section></div>
-                                          <section className="rounded-2xl border border-indigo-100 bg-indigo-50/40 p-5"><p className="text-sm font-black text-indigo-900">4. 语法提醒</p><p className="mt-2 text-sm leading-7 text-slate-700">{selectedSentence.grammarFocus || '按主干核对动词形式、主谓一致与语态。'}</p></section>
-                                          <section className="rounded-2xl border border-emerald-100 bg-white p-5"><p className="text-sm font-black text-emerald-900">5. 值得积累的搭配</p>{terms.length ? <div className="mt-3 grid gap-3 sm:grid-cols-2">{terms.map((term, index) => <div key={`${term.term}-${index}`} className="rounded-xl border border-emerald-100 bg-emerald-50/40 p-3"><p className="font-black text-slate-900">{term.term}</p><p className="mt-1 text-sm text-slate-600">{term.translation || term.note || '结合原句记住它的用法。'}</p><button type="button" onClick={() => handleAddWordToVocab(term.term, selectedSentence.text, { meaning: term.translation, note: term.note })} className="mt-3 rounded-lg bg-emerald-600 px-3 py-2 text-xs font-black text-white hover:bg-emerald-700">加入生词本</button></div>)}</div> : <p className="mt-3 text-sm text-slate-500">这句没有必须单独积累的搭配。</p>}</section>
+                                          <section className="rounded-2xl border border-violet-100 bg-violet-50/50 p-5"><p className="text-sm font-black text-violet-900">这句真正要读出的关系</p><div className="mt-3 space-y-3 text-sm leading-7 text-slate-700">{relationReading && <p><b className="text-violet-900">让步怎么读：</b>{relationReading}</p>}{attachmentReading && <p><b className="text-violet-900">修饰挂在哪：</b>{attachmentReading}</p>}{selectedSentence.grammarFocus && <p><b className="text-violet-900">本句关键：</b>{selectedSentence.grammarFocus}</p>}{!relationReading && !attachmentReading && !selectedSentence.grammarFocus && <p>先按主干读，再把第 2 步挂回的修饰信息顺序加回来。</p>}</div></section>
+                                          <section className="rounded-2xl border border-slate-200 bg-white p-5"><p className="text-sm font-black text-slate-900">句子骨架</p><div className="mt-3 space-y-3">{frames.map((frame, index) => <div key={frame.key} className="rounded-xl bg-slate-50 p-3"><p className="text-xs font-black text-slate-400">{frame.connectorBefore !== null && <span className="mr-2 rounded bg-sky-100 px-2 py-1 text-sky-700">{segments[frame.connectorBefore]?.text.trim()}</span>}{frame.label}{frame.sharedSubject && ' · 沿用上一主语'}</p>{frame.kind === 'predicate-contrast' ? <p className="mt-2 font-bold text-slate-800">{frame.contentIndexes.map(i => segments[i]?.text.trim()).filter(Boolean).join(' ')}</p> : <div className="mt-2 flex flex-wrap gap-2 text-sm font-bold"><span className="rounded bg-rose-50 px-2 py-1 text-rose-800">{roleText(frame, 'subject') || '（主语待核对）'}</span><span className="rounded bg-blue-50 px-2 py-1 text-blue-800">{roleText(frame, 'verb')}</span><span className="rounded bg-emerald-50 px-2 py-1 text-emerald-800">{roleText(frame, 'object')}</span>{roleText(frame, 'complement') && <span className="rounded bg-violet-50 px-2 py-1 text-violet-800">{roleText(frame, 'complement')}</span>}</div>}</div>)}</div></section>
+                                          <div className="grid gap-4 md:grid-cols-2"><section className="rounded-2xl border border-amber-100 bg-amber-50/40 p-5"><p className="text-sm font-black text-amber-900">修饰信息</p><div className="mt-3 flex flex-wrap gap-2">{modifiers.length ? modifiers.map((segment, index) => <span key={`${segment.text}-${index}`} className="rounded-lg border border-amber-200 bg-white px-2 py-1 text-sm font-semibold text-amber-900">{segment.text.trim()}</span>) : <span className="text-sm text-slate-500">没有额外修饰语。</span>}</div></section><section className="rounded-2xl border border-sky-100 bg-sky-50/40 p-5"><p className="text-sm font-black text-sky-900">关系线索</p><p className="mt-3 text-sm leading-6 text-slate-700">{[...clauseSignals, ...connectors.map(segment => segment.text.trim())].length ? [...clauseSignals, ...connectors.map(segment => segment.text.trim())].join(' → ') : '没有明显连接词；按主干和修饰层级理解即可。'}</p></section></div>
+                                          <section className="rounded-2xl border border-indigo-100 bg-indigo-50/40 p-5"><p className="text-sm font-black text-indigo-900">语法提醒</p><p className="mt-2 text-sm leading-7 text-slate-700">{selectedSentence.grammarFocus || '按主干核对动词形式、主谓一致与语态。'}</p></section>
+                                          {terms.length > 0 && <section className="rounded-2xl border border-emerald-100 bg-white p-5"><p className="text-sm font-black text-emerald-900">值得积累的搭配</p><div className="mt-3 grid gap-3 sm:grid-cols-2">{terms.map((term, index) => <div key={`${term.term}-${index}`} className="rounded-xl border border-emerald-100 bg-emerald-50/40 p-3"><p className="font-black text-slate-900">{term.term}</p><p className="mt-1 text-sm text-slate-600">{term.translation || term.note || '结合原句记住它的用法。'}</p><button type="button" onClick={() => handleAddWordToVocab(term.term, selectedSentence.text, { meaning: term.translation, note: term.note })} className="mt-3 rounded-lg bg-emerald-600 px-3 py-2 text-xs font-black text-white hover:bg-emerald-700">加入生词本</button></div>)}</div></section>}
                                         </div>;
                                       })()
                                     )}
                                   </React.Fragment>
                                 );
                               })()}
+
+                              <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-5">
+                                <button
+                                  type="button"
+                                  onClick={() => setVoiceLessonStepIndex(index => Math.max(0, index - 1))}
+                                  disabled={voiceLessonStepIndex === 0}
+                                  className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-600 transition-colors hover:border-slate-400 disabled:cursor-not-allowed disabled:opacity-40"
+                                >
+                                  上一步
+                                </button>
+                                {voiceLessonStepIndex < voiceLessonPlan.length - 1 ? (
+                                  <button
+                                    type="button"
+                                    onClick={() => setVoiceLessonStepIndex(index => Math.min(voiceLessonPlan.length - 1, index + 1))}
+                                    className="rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-black text-white shadow-sm transition-colors hover:bg-indigo-700"
+                                  >
+                                    继续：{voiceLessonPlan[voiceLessonStepIndex + 1]?.title}
+                                  </button>
+                                ) : (
+                                  <button
+                                    type="button"
+                                    onClick={() => setVoiceLessonStepIndex(0)}
+                                    className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2.5 text-sm font-black text-emerald-800 transition-colors hover:bg-emerald-100"
+                                  >
+                                    再读一遍
+                                  </button>
+                                )}
+                              </div>
 
                             </div>
                           </div>

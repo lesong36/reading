@@ -25,10 +25,12 @@ const ANALYSIS_SYSTEM_PROMPT = `你是一款专业的英文长难句解析工具
    - coord-* -> 并列主句，专门用于并列连词 for/and/nor/but/or/yet/so 引导的第二个独立主句。
    不要输出像“同位语/定语”“修饰语”“附加成分”这类混合或过泛标签。
 2.2 【结构正确性硬约束】绝不允许输出裸类型 clause、main clause、other、空 type 或未列出的 type。
-   - 不能把完整主句或分句整体塞进一个 segment；每个独立分句都必须至少拆出主语和谓语。
+   - 不能把完整主句或分句整体塞进一个 segment；每个独立分句都必须至少拆出主语和谓语。祈使句是例外：主句的 you 可以省略，此时不要错误地把从句主语拿来充当主句主语。
    - 例如：“Most people consider the landscape to be unchanging, but Earth is a dynamic body.” 必须拆为
      “Most people” subject，“consider” verb，“the landscape” object，“to be unchanging” 补足语，“but” conjunction，
      “Earth” coord-subject，“is” coord-verb，“a dynamic body” coord-predicative。
+   - 从句嵌套时，每个 clause-* segment 都要给出 clauseDepth（直属从句为 1，嵌在其中的从句为 2，依此类推）。绝不能将不同层的主语、谓语合并进同一层。
+   - 例如：“If they say something has never been done, make it happen.” 中，If 引出的部分使用 clause-*：they clause-subject, clauseDepth 1；say clause-verb, clauseDepth 1；something clause-subject, clauseDepth 2；has never been done clause-verb, clauseDepth 2。主句只拆 “make” verb，“it” object，“happen” object-complement，并在 syntaxHints.mainClause 标记 "subjectMode": "implicit-you"。绝不能把 they 当作 make 的主语，也不能把 something / has never been done 并进 they / say 那一层。
    - clause-* 只能用于确有从属关系的从句内部成分，不能用于主句、并列句、主语片段或谓语片段。
    - 定语从句/状语从句可分别使用 clause-*；非谓语、同位语、补足语和状语不得伪装成从句。
 2.3 【互动切分硬约束】segments 要服务“先搭最简主干，再把修饰语挂回去”的拖拽练习：
@@ -36,6 +38,12 @@ const ANALYSIS_SYSTEM_PROMPT = `你是一款专业的英文长难句解析工具
    - 谓语中若带有时间、地点、方式、程度、原因等附加信息，核心动词单独为 verb；附加信息另拆为 adverbial。
    - 从属子句内部也执行相同规则：先保留最简 clause-subject + clause-verb + clause-object/predicative，再拆 clause 内的 modifier/adverbial。
    - 例如 "it engages in the most obvious example of aggressive behavior" 应将 it / engages in / example 分别作为主语、谓语、宾语；the most obvious 与 of aggressive behavior 作为 modifier。绝不能把带修饰的长名词短语整体放进 object。
+2.4 【挂接关系硬约束】不要让前端根据词序猜修饰关系。每个 type 为 modifier 或 adverbial 的 segment，都必须输出 attachesTo：
+   - attachesTo.text：它直接修饰的核心 segment 的 text（去除首尾空格后必须与同一句的某个核心 segment 完全一致）。
+   - attachesTo.role：该目标的 type（subject / verb / object / predicative / clause-subject / clause-verb 等）。
+   - attachesTo.reason：极短中文说明，如“地点限定 presidency”或“补充 began 的时间”。
+   - 定语从句、状语从句的第一个 clause-* segment 也必须给 attachesTo，指向它整体挂接的主句核心词。
+   - 例如 “The development of the modern presidency in the United States began …” 中，"in the United States" 必须为 modifier，且 attachesTo 为 {"text":"presidency","role":"subject","reason":"地点限定 presidency"}；绝不能把它标为修饰 began。
 3. analysis 字段必须使用中文 Markdown 深度剖析，至少包含：
    ### 【主干结构】
    ### 【主谓一致】
@@ -78,6 +86,12 @@ const ANALYSIS_SYSTEM_PROMPT = `你是一款专业的英文长难句解析工具
       "grammarFocus": "核心语法点",
       "pronounRef": "代词指代简要解释",
       "logicConnector": "逻辑连词解释",
+      "syntaxHints": {
+        "mainClause": {
+          "subjectMode": "explicit | implicit-you | shared-previous | existential-there | unknown",
+          "note": "可选：只在主句主语不是普通显式主语时，简要说明原因"
+        }
+      },
       "sentenceCoach": {
         "summary": "可选：一句像老师带读的简短提示",
         "keyHint": "可选：最值得孩子先注意的一个提醒"
@@ -96,7 +110,9 @@ const ANALYSIS_SYSTEM_PROMPT = `你是一款专业的英文长难句解析工具
         {
           "text": "切分后的片段，必须包含周围标点及空格",
           "type": "subject | verb | object | predicative | object-complement | clause-subject | clause-verb | clause-object | clause-predicative | coord-subject | coord-verb | coord-object | coord-predicative | conjunction | modifier | adverbial",
-          "label": "中文语法标签"
+          "clauseDepth": "可选整数；仅 clause-* 使用，直属从句为 1、嵌套从句递增",
+          "label": "中文语法标签",
+          "attachesTo": {"text":"被修饰的核心 segment 文本", "role":"被修饰核心的 type", "reason":"极短中文关系说明；modifier/adverbial 和从句首段必填"}
         }
       ]
     }
@@ -541,7 +557,7 @@ const repairGrammarRoles = async ({ provider, baseUrl, model, parsed, qualityErr
       temperature: 0,
       maxTokens: 8000,
       messages: [
-        { role: 'system', content: `You are an English syntax JSON corrector. Return valid JSON only in this exact shape: {"sentenceRepairs":[{"id":"...","segments":[{"text":"...","type":"..."}]}]}. Return exactly one repair for every supplied id. Preserve every segment.text unless changing a boundary is essential; segments must concatenate exactly to the supplied sentence text. Repair only segment types and necessary boundaries. Allowed types only: ${allowed}. Never output clause, main clause, other, empty types, or unlisted types. Split every independent clause into subject and verb; use coord-* for coordinated independent clauses; use clause-* only for subordinate clauses.` },
+        { role: 'system', content: `You are an English syntax JSON corrector. Return valid JSON only in this exact shape: {"sentenceRepairs":[{"id":"...","segments":[{"text":"...","type":"..."}]}]}. Return exactly one repair for every supplied id. Preserve every segment.text unless changing a boundary is essential; segments must concatenate exactly to the supplied sentence text. Repair only segment types and necessary boundaries. Allowed types only: ${allowed}. Never output clause, main clause, other, empty types, or unlisted types. Split every independent clause into subject and verb, except an imperative main clause whose implicit "you" has no source text to segment; use coord-* for coordinated independent clauses; use clause-* only for subordinate clauses.` },
         { role: 'user', content: `Fix these invalid segment roles: ${qualityErrors.map(item => `${item.sentenceId}:${item.type || '(empty)'}`).join(', ')}.\n${JSON.stringify(sentenceRepairs)}` }
       ]
     })
