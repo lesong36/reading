@@ -166,16 +166,17 @@ Locate → Connect → Organize → Generalize
 Hypothesize → Read → Verify / Revise → Hypothesize again
 ```
 
-### 阅读与写作的方向相反，但共享同一条路线
+### 文本由作者写成，但阅读不是写作的逆运算
 
-作者常从“为什么写 / 想让读者理解什么”出发，经由标题或开头建立期待，再安排信息、关系、结构和局部功能服务这个目的。读者则从标题、开头和体裁推测这个目的，在阅读中持续用局部 meaning、function 和 relation 反向验证或修正它。
+作者意图、标题、信息安排和局部功能是 Text Model 中可被标注的属性；读者并不需要反向复刻作者的编码过程。读者以文本线索和已有知识为输入，持续建立并修正自己的 meaning model。
 
 ```text
-writer intent → entry promise → sections / paragraph moves → reader takeaway
-reader hypothesis ← title / lead ← local evidence and route updates ← final reconstruction
+标题 / 开头 / 已读材料 → 粗略 gist hypothesis
+新信息、关系与局部功能 → 连接或修改已有理解
+持续更新 → 连贯的全文 mental model
 ```
 
-这意味着 `rhetorical function` 不是只在全文读完后补问的高级标签。它是儿童理解“作者为什么此处这样写、文章要带我去哪里”的中间桥梁；但它只能建立在孩子已理解该段实际说了什么之上。
+这意味着 `rhetorical function` 不是篇章阅读的入口或终点。它是在孩子已理解该段实际说了什么之后，可用来解释“这一部分怎样推动了当前理解”的一个文本线索。
 
 对小学说明文，V2 不应先承诺“第一遍完成所有段落、第二遍再看全文”的固定界面流程。孩子的阅读过程应允许在任何有意义的段落或 section 后，立刻形成、更新或推翻一个整体预期；段落压缩、功能、关系、section 组织与全文概括作为不同检查点的操作出现。
 
@@ -189,7 +190,7 @@ reader hypothesis ← title / lead ← local evidence and route updates ← fina
 粗略整体预期 → 读局部材料 → 压缩 / 连接 → 更新整体预期 → 继续阅读 → 修订全文 gist
 ```
 
-`sentence → paragraph → section → whole text` 的三次压缩仍是必须教会的能力，但不是 Runtime 的强制页面顺序。标题、图片、体裁和已读部分可产生不判对错的 `writer_purpose_hypothesis`；最后的 `central idea` 则是经过更新后的较稳定概括。段落功能必须在理解段意后讨论，段间关系必须在理解相邻意义后讨论。这一过程以
+`sentence → paragraph → section → whole text` 的三次压缩仍是必须教会的能力，但不是 Runtime 的强制页面顺序。标题、图片、体裁和已读部分可产生不判对错的 `gist_hypothesis`；最后的 `central idea` 则是经过更新后的较稳定概括。段落功能必须在理解段意后讨论，段间关系必须在理解相邻意义后讨论。这一过程以
 [`ARTICLE_READING_PRODUCT_PLAN.md`](./ARTICLE_READING_PRODUCT_PLAN.md) 的第 4 节为准。
 
 ## 7. D：MENTAL MODEL——产品最终要支持的结果
