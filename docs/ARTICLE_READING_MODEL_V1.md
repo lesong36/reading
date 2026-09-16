@@ -36,7 +36,7 @@ its story-map concepts must not be forced into this schema.
 article import
   └─ AI article parser (offline/development-time, deep structured output)
        └─ Article Reading Model JSON
-            ├─ deterministic reading runtime: map, prompts, answers, feedback
+            ├─ deterministic reading runtime: two-pass routine, prompts, answers, feedback
             └─ optional AI runtime: free voice/text response, a follow-up
                question, or a personalized explanation only
 ```
@@ -44,7 +44,8 @@ article import
 Anything knowable from the article—including distractors, paragraph links,
 prediction points, source sentences, and the article map—is computed before a
 child reads. The reader must not call an LLM just to decide an answer or draw
-the map.
+the map. The map is **not** a first screen or an answer key: it is rendered
+from the child's completed paragraph notes during the second pass.
 
 ## Three non-overlapping layers
 
@@ -119,6 +120,29 @@ shown to the child. Supported roles are `main_idea`, `supporting_detail`,
 summary). Production is opt-in in V1; a young child is never required to type
 a summary to proceed.
 
+## Child experience: the two-pass routine
+
+The six activities above are curriculum primitives, not a child-facing menu of
+six unrelated questions. Informational reading V1 always begins with the first
+pass; it never assumes that the learner has already understood each paragraph.
+
+```
+first pass: read → topic → main idea → tap evidence → paragraph note → predict
+second pass: paragraph function → paragraph connection → group notes
+             → text structure / central idea
+```
+
+The child sees concrete language such as “给这一段留一张小便签”, “下一段会写
+什么”, and “哪些段落可以放在同一部分”. Internal labels such as Compress,
+Connect, Predict, and Evidence are product-design vocabulary only. The first
+MVP uses tap/select/click interactions; voice summary remains optional and is
+never required for progress.
+
+The runtime persists only learner progress (`notes`, selected evidence,
+predictions, functions, connections, sections, whole-text answer) in a
+per-article local record. It never writes learner answers back into `analysis`
+or exposes an analysis answer before the child has acted.
+
 ## Current-project compatibility and migration
 
 The present reader stores a flat sentence array in `article.data` and groups
@@ -139,9 +163,12 @@ structure.
 5. Later, add teacher override provenance in this order: official answer,
    teacher revision, AI generation. V1 stores no learner diagnosis profile.
 
-The first implementation uses one embedded model for an existing informational
-article. This proves data, deterministic activity runtime, evidence click, and
-article-map rendering before changing batch generation.
+The first implementation uses existing informational sidecars for a deterministic
+two-pass MVP. `analysis` provides the correct structural answer; the UI derives
+high-scaffold topic/main-idea choices, paragraph evidence candidates, and
+child-friendly function/connection labels locally. This proves the experience
+before the batch parser is tightened to emit the finite child-facing labels
+directly.
 
 ### Offline pipeline commands
 
@@ -187,8 +214,14 @@ npm run generate:article-reading-model:batch -- \
   types, or answers not present in candidate options.
 - The sample model validates and every source ID points to a real sentence.
 - An article without `readingModel` retains the current three-tab reader.
-- The sample article gains a fourth “篇章阅读” tab with no network/AI request.
-- The evidence activities are completed by clicking original article sentences.
+- An informational article gains a fourth “篇章阅读” tab with no network/AI request.
+- The child starts with the first paragraph, rather than a revealed map or
+  whole-text answer.
+- A paragraph note is created only after topic, main idea, and original-text
+  evidence have been chosen.
+- The second pass consumes the child's notes for function, connection, grouping,
+  and the final whole-text decision.
+- Evidence is completed by clicking original article sentences.
 
 ## Deferred work
 

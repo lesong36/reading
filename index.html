@@ -2372,6 +2372,31 @@
     const READING_ACTIVITY_PROGRESS_STORAGE_KEY_PREFIX = 'reader_article_reading_activity_progress_';
     const getReadingActivityProgressStorageKey = (articleId) =>
       articleId ? `${READING_ACTIVITY_PROGRESS_STORAGE_KEY_PREFIX}${articleId}` : null;
+    // Unlike a quiz, the article routine stores the child's path through two
+    // reading passes.  It deliberately keeps choices separate from the model:
+    // the model is teaching material, while this is the learner's work.
+    const READING_ROUTINE_PROGRESS_STORAGE_KEY_PREFIX = 'reader_article_reading_routine_v1_';
+    const getReadingRoutineProgressStorageKey = (articleId) =>
+      articleId ? `${READING_ROUTINE_PROGRESS_STORAGE_KEY_PREFIX}${articleId}` : null;
+    const createEmptyReadingRoutineProgress = () => ({
+      firstPassIndex: 0,
+      notes: {},
+      predictions: {},
+      functions: {},
+      connections: {},
+      sections: {},
+      wholeText: {}
+    });
+    const normalizeReadingRoutineProgress = (value = {}) => ({
+      ...createEmptyReadingRoutineProgress(),
+      ...(value && typeof value === 'object' ? value : {}),
+      notes: value?.notes && typeof value.notes === 'object' ? value.notes : {},
+      predictions: value?.predictions && typeof value.predictions === 'object' ? value.predictions : {},
+      functions: value?.functions && typeof value.functions === 'object' ? value.functions : {},
+      connections: value?.connections && typeof value.connections === 'object' ? value.connections : {},
+      sections: value?.sections && typeof value.sections === 'object' ? value.sections : {},
+      wholeText: value?.wholeText && typeof value.wholeText === 'object' ? value.wholeText : {}
+    });
     const normalizeReadingModel = (model = {}) => {
       if (model?.schema_version !== '1.0' || !model?.article?.id || !Array.isArray(model?.pedagogy?.activities)) return null;
       return model;
@@ -3931,6 +3956,7 @@
       const [currentArticleReadingModel, setCurrentArticleReadingModel] = useState(null);
       const [readingActiveActivityId, setReadingActiveActivityId] = useState(null);
       const [readingActivityResponses, setReadingActivityResponses] = useState({});
+      const [readingRoutineProgress, setReadingRoutineProgress] = useState(createEmptyReadingRoutineProgress);
 
       // AI Feature States
       const [simplifiedSentence, setSimplifiedSentence] = useState("");
@@ -4402,6 +4428,84 @@
 
       const currentReadingActivities = currentArticleReadingModel?.pedagogy?.activities || [];
       const currentReadingActivity = currentReadingActivities.find(activity => activity.id === readingActiveActivityId) || currentReadingActivities[0] || null;
+      const readingParagraphModels = currentArticleReadingModel?.analysis?.paragraphs || [];
+      const readingRoutineParagraphs = useMemo(() => readingParagraphModels.map((model, index) => ({
+        ...model,
+        index,
+        sentences: paragraphs[index] || []
+      })).filter(item => item.sentences.length > 0), [readingParagraphModels, paragraphs]);
+      const readingRoutineIsInformational = currentArticleReadingModel?.article?.text_type === 'informational';
+      const readingRoutineNoteCount = readingRoutineParagraphs.filter(paragraph => readingRoutineProgress.notes?.[paragraph.id]?.complete).length;
+      const readingRoutineFirstPassDone = readingRoutineParagraphs.length > 0 && readingRoutineNoteCount === readingRoutineParagraphs.length;
+      const readingRoutineFunctionCount = readingRoutineParagraphs.filter(paragraph => readingRoutineProgress.functions?.[paragraph.id]?.correct).length;
+      const readingRoutineConnectionParagraphs = readingRoutineParagraphs.slice(1);
+      const readingRoutineConnectionCount = readingRoutineConnectionParagraphs.filter(paragraph => readingRoutineProgress.connections?.[paragraph.id]?.correct).length;
+      const readingRoutineSections = currentArticleReadingModel?.analysis?.text?.sections || [];
+      const readingRoutineSectionCount = readingRoutineSections.filter(section => readingRoutineProgress.sections?.[section.id]?.correct).length;
+
+      const readingRoutineStage = !readingRoutineFirstPassDone ? 'first_pass'
+        : readingRoutineFunctionCount < readingRoutineParagraphs.length ? 'functions'
+          : readingRoutineConnectionCount < readingRoutineConnectionParagraphs.length ? 'connections'
+            : readingRoutineSectionCount < readingRoutineSections.length ? 'sections'
+              : 'whole_text';
+      const readingRoutineActiveParagraph = readingRoutineStage === 'first_pass'
+        ? readingRoutineParagraphs[Math.min(readingRoutineProgress.firstPassIndex || 0, Math.max(readingRoutineParagraphs.length - 1, 0))]
+        : readingRoutineStage === 'functions'
+          ? readingRoutineParagraphs.find(paragraph => !readingRoutineProgress.functions?.[paragraph.id]?.correct)
+          : readingRoutineStage === 'connections'
+            ? readingRoutineConnectionParagraphs.find(paragraph => !readingRoutineProgress.connections?.[paragraph.id]?.correct)
+            : null;
+
+      const buildRoutineOptions = (correctText, distractors = []) => {
+        const unique = [...new Set([correctText, ...distractors].filter(Boolean))].slice(0, 4);
+        return unique.sort((a, b) => String(a).localeCompare(String(b), 'en'));
+      };
+      const getParagraphTopicOptions = (paragraph) => buildRoutineOptions(
+        paragraph?.topic?.label,
+        readingRoutineParagraphs.filter(item => item.id !== paragraph?.id).map(item => item.topic?.label)
+      );
+      const getParagraphMainIdeaOptions = (paragraph) => buildRoutineOptions(
+        paragraph?.main_idea?.text,
+        [
+          ...(paragraph?.key_details || []).map(detail => detail.meaning),
+          ...readingRoutineParagraphs.filter(item => item.id !== paragraph?.id).map(item => item.main_idea?.text)
+        ]
+      );
+      const getParagraphEvidenceIds = (paragraph) => [...new Set((paragraph?.key_details || [])
+        .flatMap(detail => detail.source_ids || []))].slice(0, 2);
+      const getParagraphCandidateSentenceIds = (paragraph) => paragraph?.sentences?.map(sentence => sentence.id) || [];
+      const getChildFunction = (type = '') => {
+        const value = String(type).toLowerCase();
+        if (/intro|background|hook|context|definition/.test(value)) return '带我们认识主题';
+        if (/example|evidence|historical/.test(value)) return '举一个例子来说明';
+        if (/compare|contrast|counter/.test(value)) return '拿两件事作比较';
+        if (/cause|effect|problem|solution/.test(value)) return '说明原因、结果或解决办法';
+        if (/conclu|summary|call_to_action/.test(value)) return '收一收，告诉我们要记住什么';
+        return '介绍或解释主题的一个方面';
+      };
+      const functionChoices = [
+        '带我们认识主题', '介绍或解释主题的一个方面', '举一个例子来说明',
+        '拿两件事作比较', '说明原因、结果或解决办法', '收一收，告诉我们要记住什么'
+      ];
+      const getChildConnection = (type = '') => {
+        const value = String(type).toLowerCase();
+        if (/example/.test(value)) return '后面举了一个例子';
+        if (/contrast|counter/.test(value)) return '后面换了一个不同的角度';
+        if (/cause|effect/.test(value)) return '后面接着说明原因或结果';
+        if (/compare/.test(value)) return '后面拿另一件事来比较';
+        if (/problem|solution/.test(value)) return '后面接着说问题或办法';
+        return '后面继续补充同一个主题';
+      };
+      const connectionChoices = [
+        '后面继续补充同一个主题', '后面举了一个例子', '后面换了一个不同的角度',
+        '后面接着说明原因或结果', '后面拿另一件事来比较', '后面接着说问题或办法'
+      ];
+      const readingRoutineEvidenceParagraph = readingRoutineStage === 'first_pass'
+        && readingRoutineActiveParagraph
+        && readingRoutineProgress.notes?.[readingRoutineActiveParagraph.id]?.mainIdeaChecked
+        && !readingRoutineProgress.notes?.[readingRoutineActiveParagraph.id]?.evidenceChecked
+        ? readingRoutineActiveParagraph
+        : null;
 
       useEffect(() => {
         const key = getReadingActivityProgressStorageKey(currentArticleId);
@@ -4417,6 +4521,20 @@
         const key = getReadingActivityProgressStorageKey(currentArticleId);
         if (key && currentArticleReadingModel) localStorage.setItem(key, JSON.stringify(readingActivityResponses));
       }, [currentArticleId, currentArticleReadingModel, readingActivityResponses]);
+
+      useEffect(() => {
+        const key = getReadingRoutineProgressStorageKey(currentArticleId);
+        let restored = createEmptyReadingRoutineProgress();
+        if (key) {
+          try { restored = normalizeReadingRoutineProgress(JSON.parse(localStorage.getItem(key) || '{}')); } catch (_) {}
+        }
+        setReadingRoutineProgress(restored);
+      }, [currentArticleId, currentArticleReadingModel?.article?.id]);
+
+      useEffect(() => {
+        const key = getReadingRoutineProgressStorageKey(currentArticleId);
+        if (key && currentArticleReadingModel) localStorage.setItem(key, JSON.stringify(readingRoutineProgress));
+      }, [currentArticleId, currentArticleReadingModel, readingRoutineProgress]);
 
       // A bundle refresh can replace an article while it is open.  Keep the
       // active reader on the corrected curriculum version instead of waiting
@@ -4517,8 +4635,82 @@
       };
 
       const handleReadingSentenceClick = (sentence) => {
+        if (articleStudyMode === 'read' && rightPanelTab === 'reading' && readingRoutineEvidenceParagraph) {
+          const paragraphId = readingRoutineEvidenceParagraph.id;
+          if (!getParagraphCandidateSentenceIds(readingRoutineEvidenceParagraph).includes(sentence.id)) return;
+          setReadingRoutineProgress(previous => {
+            const note = previous.notes?.[paragraphId] || {};
+            const sourceIds = note.sourceIds?.includes(sentence.id)
+              ? note.sourceIds.filter(id => id !== sentence.id)
+              : [...(note.sourceIds || []), sentence.id];
+            return { ...previous, notes: { ...previous.notes, [paragraphId]: { ...note, sourceIds, evidenceChecked: false } } };
+          });
+          return;
+        }
         if (articleStudyMode === 'read' && rightPanelTab === 'reading' && toggleReadingActivitySource(currentReadingActivity, sentence.id)) return;
         setSelectedSentence(sentence);
+      };
+
+      const updateRoutineNote = (paragraphId, changes) => {
+        setReadingRoutineProgress(previous => ({
+          ...previous,
+          notes: { ...previous.notes, [paragraphId]: { ...(previous.notes?.[paragraphId] || {}), ...changes } }
+        }));
+      };
+      const checkRoutineTopic = (paragraph) => {
+        const note = readingRoutineProgress.notes?.[paragraph.id] || {};
+        updateRoutineNote(paragraph.id, {
+          topicChecked: true,
+          topicCorrect: note.topic === paragraph.topic?.label
+        });
+      };
+      const checkRoutineMainIdea = (paragraph) => {
+        const note = readingRoutineProgress.notes?.[paragraph.id] || {};
+        updateRoutineNote(paragraph.id, {
+          mainIdeaChecked: true,
+          mainIdeaCorrect: note.mainIdea === paragraph.main_idea?.text
+        });
+      };
+      const checkRoutineEvidence = (paragraph) => {
+        const note = readingRoutineProgress.notes?.[paragraph.id] || {};
+        const expected = getParagraphEvidenceIds(paragraph);
+        const foundEvidence = (note.sourceIds || []).some(id => expected.includes(id));
+        updateRoutineNote(paragraph.id, {
+          evidenceChecked: true,
+          evidenceCorrect: foundEvidence,
+          complete: Boolean(note.topicCorrect && note.mainIdeaCorrect && foundEvidence)
+        });
+      };
+      const continueRoutineFirstPass = (paragraph) => {
+        const nextIndex = paragraph.index + 1;
+        setReadingRoutineProgress(previous => ({
+          ...previous,
+          firstPassIndex: Math.min(nextIndex, Math.max(readingRoutineParagraphs.length - 1, 0))
+        }));
+      };
+      const checkRoutineFunction = (paragraph) => {
+        const selected = readingRoutineProgress.functions?.[paragraph.id]?.selected;
+        const correct = selected === getChildFunction(paragraph.function?.type);
+        setReadingRoutineProgress(previous => ({
+          ...previous,
+          functions: { ...previous.functions, [paragraph.id]: { selected, checked: true, correct } }
+        }));
+      };
+      const checkRoutineConnection = (paragraph) => {
+        const selected = readingRoutineProgress.connections?.[paragraph.id]?.selected;
+        const correct = selected === getChildConnection(paragraph.relation_to_previous?.type);
+        setReadingRoutineProgress(previous => ({
+          ...previous,
+          connections: { ...previous.connections, [paragraph.id]: { selected, checked: true, correct } }
+        }));
+      };
+      const checkRoutineSection = (section) => {
+        const selected = readingRoutineProgress.sections?.[section.id]?.selectedParagraphIds || [];
+        const correct = sameIdSelection(selected, section.paragraph_ids || []);
+        setReadingRoutineProgress(previous => ({
+          ...previous,
+          sections: { ...previous.sections, [section.id]: { selectedParagraphIds: selected, checked: true, correct } }
+        }));
       };
 
       useEffect(() => {
@@ -7657,8 +7849,13 @@
                           )}
                           {para.map((sentence, sIdx) => {
                           const isSelected = selectedSentence.id === sentence.id;
-                          const readingSourceCandidate = articleStudyMode === 'read' && rightPanelTab === 'reading' && currentReadingActivity?.candidate_source_ids?.includes(sentence.id);
-                          const readingSourceSelected = readingActivityResponses[currentReadingActivity?.id]?.sourceIds?.includes(sentence.id);
+                          const readingSourceCandidate = articleStudyMode === 'read' && rightPanelTab === 'reading' && (
+                            getParagraphCandidateSentenceIds(readingRoutineEvidenceParagraph).includes(sentence.id)
+                            || currentReadingActivity?.candidate_source_ids?.includes(sentence.id)
+                          );
+                          const readingSourceSelected = readingRoutineEvidenceParagraph
+                            ? readingRoutineProgress.notes?.[readingRoutineEvidenceParagraph.id]?.sourceIds?.includes(sentence.id)
+                            : readingActivityResponses[currentReadingActivity?.id]?.sourceIds?.includes(sentence.id);
                           return (
                             <React.Fragment key={sentence.id || sIdx}>
                               <span 
@@ -7849,83 +8046,84 @@
                       {articleStudyMode === 'read' ? (
                       <React.Fragment>
                       {rightPanelTab === 'reading' && currentArticleReadingModel && (() => {
-                        const activity = currentReadingActivity;
-                        const response = activity ? (readingActivityResponses[activity.id] || { optionIds: [], sourceIds: [], checked: false }) : null;
-                        const isSourceActivity = activity?.interaction === 'select_sentence';
-                        const isCorrect = activity && response?.checked && readingActivityIsCorrect(activity, response);
-                        const selectedOption = activity?.options?.find(option => response?.optionIds?.includes(option.id));
-                        const sourceText = (id) => currentArticleData.find(sentence => sentence.id === id)?.text || id;
-                        const hasSolvedActivityType = (type) => currentReadingActivities.some(item => {
-                          const itemResponse = readingActivityResponses[item.id];
-                          return item.type === type && itemResponse?.checked && readingActivityIsCorrect(item, itemResponse);
-                        });
-                        const headingsUnlocked = hasSolvedActivityType('choose_heading');
-                        const centralIdeaUnlocked = hasSolvedActivityType('choose_main_idea');
+                        if (!readingRoutineIsInformational) return (
+                          <section className="rounded-3xl border border-amber-200 bg-amber-50 p-6 text-amber-950">
+                            <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-700">篇章阅读 · 即将支持</p>
+                            <h3 className="mt-2 text-xl font-black">这是一篇故事类文章</h3>
+                            <p className="mt-3 text-sm leading-7">说明文的“段落拼图”不该硬套到故事上。MVP 先把说明文阅读流程做好；这篇仍可使用原有的句子解析和练习。</p>
+                          </section>
+                        );
+                        const paragraph = readingRoutineActiveParagraph;
+                        const note = paragraph ? (readingRoutineProgress.notes?.[paragraph.id] || {}) : {};
+                        const predictionActivity = paragraph?.index === 0 ? currentReadingActivities.find(item => item.type === 'predict_direction') : null;
+                        const prediction = paragraph ? (readingRoutineProgress.predictions?.[paragraph.id] || {}) : {};
+                        // Feedback colours describe only the child's own choice.
+                        // Never colour unchosen options: that would leak the answer.
+                        const choiceClass = (chosen, checked, correct) => `rounded-2xl border px-4 py-3 text-left text-sm font-semibold leading-6 transition-colors ${checked && chosen && correct ? 'border-emerald-300 bg-emerald-50 text-emerald-950' : checked && chosen ? 'border-amber-300 bg-amber-50 text-amber-950' : chosen ? 'border-indigo-500 bg-indigo-50 text-indigo-950' : 'border-slate-200 bg-white text-slate-700 hover:border-indigo-300 hover:bg-indigo-50'}`;
+                        const progressLabel = readingRoutineStage === 'first_pass' ? `第一遍 · 已留下 ${readingRoutineNoteCount}/${readingRoutineParagraphs.length} 张段落便签`
+                          : readingRoutineStage === 'functions' ? '第二遍 · 看每段在文章里做什么'
+                            : readingRoutineStage === 'connections' ? '第二遍 · 把相邻段落连起来'
+                              : readingRoutineStage === 'sections' ? '第二遍 · 把段落便签归成几部分'
+                                : '第二遍 · 拼出整篇文章';
                         return (
-                          <div className="animate-in fade-in duration-500 space-y-6">
-                            <section className="rounded-3xl border border-sky-100 bg-gradient-to-br from-sky-50 via-white to-indigo-50 p-5 md:p-6">
+                          <div className="animate-in fade-in duration-500 space-y-5">
+                            <section className="overflow-hidden rounded-3xl border border-indigo-100 bg-gradient-to-br from-indigo-50 via-white to-sky-50 p-5 md:p-6">
                               <div className="flex items-start gap-3">
-                                <div className="rounded-2xl bg-sky-600 p-2.5 text-white"><MapIcon className="h-5 w-5" /></div>
-                                <div>
-                                  <p className="text-xs font-black uppercase tracking-[0.18em] text-sky-600">文章地图</p>
-                                  <h3 className="mt-1 text-xl font-black text-slate-900">这篇文章是怎样展开的？</h3>
-                                  <p className="mt-2 text-sm leading-6 text-slate-600">先完成下面的小任务，文章地图会一步步亮起来。</p>
+                                <div className="rounded-2xl bg-indigo-700 p-2.5 text-white"><MapIcon className="h-5 w-5" /></div>
+                                <div className="min-w-0">
+                                  <p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-600">篇章阅读</p>
+                                  <h3 className="mt-1 text-xl font-black text-slate-900">先读懂每一段，再拼出整篇</h3>
+                                  <p className="mt-2 text-sm leading-6 text-slate-600">{progressLabel}</p>
                                 </div>
                               </div>
-                              <div className="mt-5 grid gap-3 md:grid-cols-3">
-                                {currentArticleReadingModel.analysis.text.sections.map((section, index) => (
-                                  <div key={section.id} className="rounded-2xl border border-white bg-white/90 p-4 shadow-sm">
-                                    <p className="text-xs font-bold text-sky-600">第 {index + 1} 步 · {section.paragraph_ids.join('、').toUpperCase()}</p>
-                                    <p className={`mt-1 font-black ${headingsUnlocked ? 'text-slate-900' : 'text-slate-400'}`}>{headingsUnlocked ? section.label : '先给这一部分选个小标题'}</p>
-                                  </div>
-                                ))}
+                              <div className="mt-5 flex gap-2">
+                                <div className={`h-2 flex-1 rounded-full ${readingRoutineStage === 'first_pass' ? 'bg-indigo-600' : 'bg-emerald-500'}`} />
+                                <div className={`h-2 flex-1 rounded-full ${readingRoutineStage !== 'first_pass' ? 'bg-indigo-600' : 'bg-white ring-1 ring-indigo-100'}`} />
                               </div>
-                              <div className="mt-4 rounded-2xl border border-indigo-100 bg-white/80 p-4">
-                                <p className="text-xs font-bold text-indigo-600">整篇想说什么</p>
-                                <p className={`mt-1 text-sm leading-6 ${centralIdeaUnlocked ? 'text-slate-700' : 'text-slate-400'}`}>{centralIdeaUnlocked ? currentArticleReadingModel.analysis.text.central_idea.text : '完成“这篇文章主要讲什么？”后解锁'}</p>
-                              </div>
+                              <div className="mt-2 flex justify-between text-xs font-bold text-slate-500"><span>第一遍：读懂每段</span><span>第二遍：拼出文章</span></div>
                             </section>
 
-                            {!activity ? (
-                              <p className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-slate-600">这篇文章还没有可用的篇章阅读活动。</p>
-                            ) : (
-                              <section className="rounded-3xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
-                                <div className="flex flex-wrap gap-2">
-                                  {currentReadingActivities.map((item, index) => (
-                                    <button key={item.id} type="button" onClick={() => setReadingActiveActivityId(item.id)} className={`h-9 min-w-9 rounded-full px-3 text-sm font-black transition-colors ${item.id === activity.id ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-500 hover:bg-indigo-50 hover:text-indigo-700'}`}>{index + 1}</button>
-                                  ))}
+                            {readingRoutineStage === 'first_pass' && paragraph && (
+                              <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+                                <div className="flex items-center justify-between gap-3">
+                                  <div><p className="text-xs font-black uppercase tracking-[0.18em] text-sky-600">第 {paragraph.index + 1} 段</p><h3 className="mt-1 text-xl font-black text-slate-900">给这一段留一张小便签</h3></div>
+                                  <span className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-black text-slate-600">读原文，不用打字</span>
                                 </div>
-                                <div className="mt-5">
-                                  <p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-500">想一想</p>
-                                  <h3 className="mt-2 text-xl font-black leading-8 text-slate-900">{activity.prompt}</h3>
-                                  {isSourceActivity && <p className="mt-3 rounded-xl bg-sky-50 px-3 py-2 text-sm leading-6 text-sky-800">左边浅蓝色的句子可以点选；再回来检查。没有运行 AI，也不用打字。</p>}
+                                <div className="mt-5 rounded-2xl border border-sky-100 bg-sky-50 px-4 py-3 text-sm leading-6 text-sky-900">先读左边第 {paragraph.index + 1} 段。遇到不懂的词或句子，仍可点进“句子解析”。</div>
+
+                                <div className="mt-6"><p className="text-sm font-black text-slate-800">1. 这一段主要在说谁 / 什么？</p>
+                                  <div className="mt-3 grid gap-2">{getParagraphTopicOptions(paragraph).map(option => <button key={option} type="button" onClick={() => updateRoutineNote(paragraph.id, { topic: option, topicChecked: false })} className={choiceClass(note.topic === option, note.topicChecked, note.topicCorrect)}>{option}</button>)}</div>
+                                  <button type="button" disabled={!note.topic} onClick={() => checkRoutineTopic(paragraph)} className="mt-3 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:cursor-not-allowed disabled:bg-slate-300">看看我抓对了吗</button>
+                                  {note.topicChecked && <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${note.topicCorrect ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>{note.topicCorrect ? '抓得很准。现在想想：这段最重要的话是什么？' : '再看看整段，而不只盯着其中一个动作或细节。'}</p>}
                                 </div>
 
-                                {activity.options?.length > 0 && (
-                                  <div className="mt-5 grid gap-3">
-                                    {activity.options.map(option => {
-                                      const chosen = response?.optionIds?.includes(option.id);
-                                      const showCorrect = response?.checked && activity.answer.option_ids?.includes(option.id);
-                                      return <button key={option.id} type="button" onClick={() => setReadingActivityOption(activity, option.id)} className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold leading-6 transition-colors ${showCorrect ? 'border-emerald-300 bg-emerald-50 text-emerald-900' : chosen && response?.checked ? 'border-amber-300 bg-amber-50 text-amber-900' : 'border-slate-200 bg-white text-slate-700 hover:border-indigo-300 hover:bg-indigo-50'}`}>{option.text}</button>;
-                                    })}
-                                  </div>
-                                )}
+                                {note.topicCorrect && <div className="mt-7 border-t border-slate-100 pt-6"><p className="text-sm font-black text-slate-800">2. 这段最想告诉我们什么？</p>
+                                  <div className="mt-3 grid gap-2">{getParagraphMainIdeaOptions(paragraph).map(option => <button key={option} type="button" onClick={() => updateRoutineNote(paragraph.id, { mainIdea: option, mainIdeaChecked: false })} className={choiceClass(note.mainIdea === option, note.mainIdeaChecked, note.mainIdeaCorrect)}>{option}</button>)}</div>
+                                  <button type="button" disabled={!note.mainIdea} onClick={() => checkRoutineMainIdea(paragraph)} className="mt-3 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:cursor-not-allowed disabled:bg-slate-300">看看我选对了吗</button>
+                                  {note.mainIdeaChecked && <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${note.mainIdeaCorrect ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>{note.mainIdeaCorrect ? '对。这句话能把这一段的大部分内容装进去。' : '这句话可能只是一个细节。找找看哪一句能把整段更多内容装进去。'}</p>}
+                                </div>}
 
-                                {isSourceActivity && (
-                                  <div className="mt-5">
-                                    <p className="text-sm font-bold text-slate-700">你点了这些句子：</p>
-                                    <div className="mt-2 space-y-2">
-                                      {(response?.sourceIds || []).length ? response.sourceIds.map(id => <p key={id} className="rounded-xl bg-emerald-50 px-3 py-2 text-sm leading-6 text-emerald-900"><span className="mr-2 font-black">{id.toUpperCase()}</span>{sourceText(id)}</p>) : <p className="text-sm text-slate-400">还没有选择。去左侧找一找。</p>}
-                                    </div>
-                                    <button type="button" onClick={() => checkReadingActivitySources(activity)} className="mt-4 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-black text-white hover:bg-indigo-700">检查我的证据</button>
-                                  </div>
-                                )}
+                                {note.mainIdeaCorrect && <div className="mt-7 border-t border-slate-100 pt-6"><p className="text-sm font-black text-slate-800">3. 去原文找一句支持它的话</p>
+                                  <p className="mt-2 text-sm leading-6 text-slate-500">现在左边第 {paragraph.index + 1} 段的句子可以点选。选一句最能证明你的段落便签的话。</p>
+                                  <div className="mt-3 flex flex-wrap gap-2">{(note.sourceIds || []).length ? note.sourceIds.map(id => <span key={id} className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-900">已选 {id.toUpperCase()}</span>) : <span className="text-sm text-slate-400">还没有选句子</span>}</div>
+                                  <button type="button" disabled={!(note.sourceIds || []).length} onClick={() => checkRoutineEvidence(paragraph)} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:cursor-not-allowed disabled:bg-slate-300">检查我的依据</button>
+                                  {note.evidenceChecked && <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${note.evidenceCorrect ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>{note.evidenceCorrect ? '找到了。你的便签有原文作依据。' : '再找一找：哪句最直接说明了这段的重点？'}</p>}
+                                </div>}
 
-                                {response?.checked && <div className={`mt-5 rounded-2xl p-4 text-sm leading-6 ${isCorrect ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>
-                                  {isCorrect ? '找得很准。你不是在猜，而是在根据文章的线索作判断。' : (selectedOption?.role === 'supporting_detail' || selectedOption?.role === 'minor_detail' ? '这句话很重要，但它是支持重点的一个细节。再想想：整段所有信息合起来最想告诉你什么？' : '再读一次相关段落，找能同时解释更多句子的那个想法。')}
+                                {note.complete && <div className="mt-7 rounded-2xl border border-emerald-200 bg-emerald-50 p-4"><p className="text-xs font-black uppercase tracking-[0.16em] text-emerald-700">我的第 {paragraph.index + 1} 段便签</p><p className="mt-2 font-black text-emerald-950">{note.topic}：{note.mainIdea}</p>
+                                  {predictionActivity && !prediction.checked && <div className="mt-4 border-t border-emerald-200 pt-4"><p className="text-sm font-black text-emerald-950">读完这一段，你猜下一段会写什么？</p><div className="mt-3 grid gap-2">{predictionActivity.options.map(option => <button key={option.id} type="button" onClick={() => setReadingRoutineProgress(previous => ({ ...previous, predictions: { ...previous.predictions, [paragraph.id]: { selected: option.id, checked: false } } }))} className={choiceClass(prediction.selected === option.id, prediction.checked, predictionActivity.answer.option_ids?.includes(prediction.selected))}>{option.text}</button>)}</div><button type="button" disabled={!prediction.selected} onClick={() => setReadingRoutineProgress(previous => ({ ...previous, predictions: { ...previous.predictions, [paragraph.id]: { ...prediction, checked: true } } }))} className="mt-3 rounded-xl bg-emerald-700 px-4 py-2.5 text-sm font-black text-white disabled:bg-slate-300">带着猜想往下读</button></div>}
+                                  {(!predictionActivity || prediction.checked) && <button type="button" onClick={() => continueRoutineFirstPass(paragraph)} className="mt-4 rounded-xl bg-emerald-700 px-4 py-2.5 text-sm font-black text-white">{paragraph.index + 1 < readingRoutineParagraphs.length ? '读下一段' : '进入第二遍，把文章拼起来'}</button>}
                                 </div>}
                               </section>
                             )}
+
+                            {readingRoutineStage === 'functions' && paragraph && (() => { const response = readingRoutineProgress.functions?.[paragraph.id] || {}; const correct = getChildFunction(paragraph.function?.type); return <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6"><p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-600">第二遍 · 第 {paragraph.index + 1} 段</p><h3 className="mt-2 text-xl font-black text-slate-900">这一段在整篇文章里做什么？</h3><p className="mt-2 text-sm leading-6 text-slate-500">先看看你留下的便签，再选择它承担的工作。</p><div className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm font-bold text-slate-700">{readingRoutineProgress.notes?.[paragraph.id]?.topic}：{readingRoutineProgress.notes?.[paragraph.id]?.mainIdea}</div><div className="mt-5 grid gap-2">{functionChoices.map(option => <button key={option} type="button" onClick={() => setReadingRoutineProgress(previous => ({ ...previous, functions: { ...previous.functions, [paragraph.id]: { selected: option, checked: false, correct: false } } }))} className={choiceClass(response.selected === option, response.checked, response.correct)}>{option}</button>)}</div><button type="button" disabled={!response.selected} onClick={() => checkRoutineFunction(paragraph)} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:bg-slate-300">检查</button>{response.checked && <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${response.correct ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>{response.correct ? '对。现在这张便签有了它在文章中的位置。' : '再想想：作者为什么需要这一段？'}</p>}</section>; })()}
+
+                            {readingRoutineStage === 'connections' && paragraph && (() => { const response = readingRoutineProgress.connections?.[paragraph.id] || {}; const correct = getChildConnection(paragraph.relation_to_previous?.type); return <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6"><p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-600">第二遍 · 连两段</p><h3 className="mt-2 text-xl font-black text-slate-900">为什么第 {paragraph.index + 1} 段会接在上一段后面？</h3><div className="mt-4 grid gap-2 text-sm"><div className="rounded-2xl bg-slate-50 p-3"><b>上一段：</b>{readingRoutineProgress.notes?.[readingRoutineParagraphs[paragraph.index - 1]?.id]?.mainIdea}</div><div className="rounded-2xl bg-slate-50 p-3"><b>这一段：</b>{readingRoutineProgress.notes?.[paragraph.id]?.mainIdea}</div></div><div className="mt-5 grid gap-2">{connectionChoices.map(option => <button key={option} type="button" onClick={() => setReadingRoutineProgress(previous => ({ ...previous, connections: { ...previous.connections, [paragraph.id]: { selected: option, checked: false, correct: false } } }))} className={choiceClass(response.selected === option, response.checked, response.correct)}>{option}</button>)}</div><button type="button" disabled={!response.selected} onClick={() => checkRoutineConnection(paragraph)} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:bg-slate-300">检查</button>{response.checked && <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${response.correct ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>{response.correct ? '连得上。文章不是一段一段散着写的。' : '再对照两张便签，找找作者是怎样把话接下去的。'}</p>}</section>; })()}
+
+                            {readingRoutineStage === 'sections' && (() => { const section = readingRoutineSections.find(item => !readingRoutineProgress.sections?.[item.id]?.correct); const response = section ? (readingRoutineProgress.sections?.[section.id] || {}) : {}; return section && <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6"><p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-600">第二遍 · 整理便签</p><h3 className="mt-2 text-xl font-black text-slate-900">哪些段落可以放在同一部分？</h3><p className="mt-2 text-sm leading-6 text-slate-500">点选你觉得属于这一部分的段落便签。</p><div className="mt-5 grid gap-3">{readingRoutineParagraphs.map(item => { const chosen = response.selectedParagraphIds?.includes(item.id); return <button key={item.id} type="button" onClick={() => setReadingRoutineProgress(previous => { const current = previous.sections?.[section.id]?.selectedParagraphIds || []; const selectedParagraphIds = current.includes(item.id) ? current.filter(id => id !== item.id) : [...current, item.id]; return { ...previous, sections: { ...previous.sections, [section.id]: { selectedParagraphIds, checked: false, correct: false } } }; })} className={choiceClass(chosen, response.checked, response.correct)}><span className="mr-2 text-xs font-black text-indigo-600">第 {item.index + 1} 段</span>{readingRoutineProgress.notes?.[item.id]?.mainIdea}</button>; })}</div><button type="button" disabled={!(response.selectedParagraphIds || []).length} onClick={() => checkRoutineSection(section)} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:bg-slate-300">检查这一组</button>{response.checked && <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${response.correct ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>{response.correct ? `对。这一部分可以叫“${section.label}”。` : '再比较这些便签：它们是不是在做同一件事？'}</p>}</section>; })()}
+
+                            {readingRoutineStage === 'whole_text' && (() => { const activity = currentReadingActivities.find(item => item.type === 'choose_main_idea'); const response = readingRoutineProgress.wholeText || {}; const options = activity?.options || buildRoutineOptions(currentArticleReadingModel.analysis.text.central_idea?.text, readingRoutineParagraphs.map(item => item.main_idea?.text)).map((text, index) => ({ id: `whole-${index}`, text })); const answerIds = activity?.answer?.option_ids || [options.find(option => option.text === currentArticleReadingModel.analysis.text.central_idea?.text)?.id]; const correct = answerIds.includes(response.selected); return <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6"><p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-600">第二遍 · 全文</p><h3 className="mt-2 text-xl font-black text-slate-900">现在，整篇文章最想告诉我们什么？</h3><div className="mt-5 grid gap-2">{options.map(option => <button key={option.id} type="button" onClick={() => setReadingRoutineProgress(previous => ({ ...previous, wholeText: { selected: option.id, checked: false } }))} className={choiceClass(response.selected === option.id, response.checked, correct)}>{option.text}</button>)}</div><button type="button" disabled={!response.selected} onClick={() => setReadingRoutineProgress(previous => ({ ...previous, wholeText: { ...response, checked: true } }))} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:bg-slate-300">完成文章拼图</button>{response.checked && <div className={`mt-4 rounded-2xl p-4 text-sm leading-6 ${correct ? 'bg-emerald-50 text-emerald-950' : 'bg-amber-50 text-amber-950'}`}>{correct ? <><p className="font-black">你把整篇文章读出来了。</p><div className="mt-3 space-y-2">{readingRoutineParagraphs.map(item => <p key={item.id}><span className="mr-2 font-black text-emerald-700">第 {item.index + 1} 段</span>{readingRoutineProgress.notes?.[item.id]?.mainIdea}</p>)}</div></> : '再看看所有段落便签：哪一个说法能把它们都装进去？'}</div>}</section>; })()}
                           </div>
                         );
                       })()}
