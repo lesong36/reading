@@ -4477,7 +4477,7 @@
         // rejected a child's strongest evidence sentence (for example S5,
         // “And some are very important.” in Important Jobs).
         const signalIds = (paragraph?.signals || [])
-          .filter(signal => /main|topic|summary|claim/.test(String(signal.role || '').toLowerCase()))
+          .filter(signal => /main|summary|claim/.test(String(signal.role || '').toLowerCase()))
           .flatMap(signal => signal.source_ids || [signal.source_id]);
         const detailIds = (paragraph?.key_details || []).flatMap(detail => detail.source_ids || []);
         return [...new Set([...signalIds, ...detailIds].filter(Boolean))];
