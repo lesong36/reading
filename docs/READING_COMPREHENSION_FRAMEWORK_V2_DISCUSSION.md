@@ -166,29 +166,19 @@ Locate → Connect → Organize → Generalize
 Hypothesize → Read → Verify / Revise → Hypothesize again
 ```
 
-对小学说明文，V2 的 child-facing routine 可以仍然是两遍阅读，但其内部含义要更严格：
-
-```text
-First pass
-  locate a paragraph → form a meaning candidate → find support
-  → leave a light note → make a low-stakes prediction
-
-Second pass
-  revisit notes → identify function and connection → organize idea cards
-  → recognize structure → generalize a central idea → infer when warranted
-```
+对小学说明文，V2 不应先承诺“第一遍完成所有段落、第二遍再看全文”的固定界面流程。孩子的阅读过程应允许在任何有意义的段落或 section 后，立刻形成、更新或推翻一个整体预期；段落压缩、功能、关系、section 组织与全文概括作为不同检查点的操作出现。
 
 其中 `main_idea_candidate` 是孩子的暂时理解，不是系统一开始给出的“答案”。阅读后可由证据、组织和全文概括来确认或修正。
 
-### 顺序校正：说明文 MVP 的基线是局部到整体
+### 顺序校正：真实阅读是整体—局部—整体的更新循环
 
-这里的“猜想”不等于先要求孩子给出全文 gist，再回原文补 supporting ideas。对小学说明文，基线顺序应是三次压缩：
+这里的“猜想”不等于先要求孩子给出全文 gist，再回原文补 supporting ideas；也不等于必须读完全部段落、填写全部段意后，才允许有全文理解。对小学说明文，产品应运行一个可更新的循环：
 
 ```text
-sentence materials → paragraph meaning → section meaning → whole-text meaning
+粗略整体预期 → 读局部材料 → 压缩 / 连接 → 更新整体预期 → 继续阅读 → 修订全文 gist
 ```
 
-孩子可在读标题或一个 section 后作出不判对错的阅读预期；预测也可贯穿阅读。但全文 `central idea` 是最后的 Generalize 结果。段落功能必须在理解段意后讨论，段间关系必须在理解相邻段意后讨论。这一顺序以
+`sentence → paragraph → section → whole text` 的三次压缩仍是必须教会的能力，但不是 Runtime 的强制页面顺序。标题、图片、体裁和已读部分可产生不判对错的 `gist_hypothesis`；最后的 `central idea` 则是经过更新后的较稳定概括。段落功能必须在理解段意后讨论，段间关系必须在理解相邻意义后讨论。这一过程以
 [`ARTICLE_READING_PRODUCT_PLAN.md`](./ARTICLE_READING_PRODUCT_PLAN.md) 的第 4 节为准。
 
 ## 7. D：MENTAL MODEL——产品最终要支持的结果
