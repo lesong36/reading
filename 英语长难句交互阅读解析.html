@@ -8208,7 +8208,7 @@
                                 onClick={() => setRightPanelTab('analysis')}
                                 className="text-sm font-semibold text-slate-500 hover:text-indigo-600 transition-colors"
                               >
-                                查看四步讲解
+                                查看分步讲解
                               </button>
                             </div>
                           </div>
@@ -8222,7 +8222,7 @@
                             <div className="flex items-center justify-between mb-2 px-1">
                               <h3 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
                                 {isGeneratingTeachingScript && <Loader2 className="w-4 h-4 animate-spin text-sky-500" />}
-                                四步看懂长句
+                                三步看懂长句
                               </h3>
                               <div className="flex items-center gap-2">
                                 {isGeneratingTeachingScript && (
@@ -8516,16 +8516,31 @@
                                     {/* ── Step 2: sentence tree ── */}
                                     {voiceLessonStepIndex === 1 && (() => {
                                       const segments = selectedSentence.segments || [];
-                                      const mainFrame = buildPracticeFrames(segments, selectedSentence.syntaxHints || {})[0];
+                                      const allPracticeFrames = buildPracticeFrames(segments, selectedSentence.syntaxHints || {});
+                                      const mainFrames = allPracticeFrames.filter(frame => frame.kind !== 'predicate-contrast');
+                                      const contrastFramesByMainKey = (() => {
+                                        const mapped = {};
+                                        let latestMainKey = null;
+                                        allPracticeFrames.forEach(frame => {
+                                          if (frame.kind !== 'predicate-contrast') latestMainKey = frame.key;
+                                          else if (latestMainKey) (mapped[latestMainKey] ||= []).push(frame);
+                                        });
+                                        return mapped;
+                                      })();
+                                      const mainFrame = mainFrames[0];
                                       const clauseGroups = buildModifierClauseFrames(segments);
                                       const modifierIndexes = segments.map((seg, index) => ['modifier', 'adverbial'].includes(seg.type) && /[A-Za-z]/.test(seg.text || '') ? index : -1).filter(index => index >= 0);
                                       const roleText = (frame, role) => (frame?.roleIndexes?.[role] || []).map(index => segments[index]?.text.trim()).filter(Boolean).join(' ') || (role === 'subject' ? frameSubjectDisplay(frame) : '');
                                       const roleLabel = { subject: '主语', verb: '谓语', object: '宾语', predicative: '表语', 'object-complement': '宾补' };
-                                      const coreNodes = (mainFrame?.contentIndexes || []).map(index => {
-                                        const role = practiceRole(segments[index]?.type);
-                                        return roleLabel[role] ? { index, text: segments[index]?.text?.trim(), label: roleLabel[role], role } : null;
-                                      }).filter(item => item?.text);
-                                      if (frameSubjectDisplay(mainFrame) && !coreNodes.some(item => item.label === '主语')) coreNodes.unshift({ index: 'implicit-subject', text: frameSubjectDisplay(mainFrame), label: '隐含主语', role: 'subject' });
+                                      const nodesByFrame = Object.fromEntries(mainFrames.map(frame => {
+                                        const nodes = (frame?.contentIndexes || []).map(index => {
+                                          const role = practiceRole(segments[index]?.type);
+                                          return roleLabel[role] ? { index, text: segments[index]?.text?.trim(), label: roleLabel[role], role } : null;
+                                        }).filter(item => item?.text);
+                                        if (frameSubjectDisplay(frame) && !nodes.some(item => item.label === '主语')) nodes.unshift({ index: `implicit-${frame.key}`, text: frameSubjectDisplay(frame), label: '隐含主语', role: 'subject' });
+                                        return [frame.key, nodes];
+                                      }));
+                                      const coreNodes = Object.values(nodesByFrame).flat();
                                       const targetKey = index => `tree-target-${index}`;
                                       const mainVerb = coreNodes.find(node => node.role === 'verb') || coreNodes[0];
                                       const mainObject = coreNodes.find(node => ['object', 'predicative'].includes(node.role)) || mainVerb;
@@ -8642,7 +8657,7 @@
                                         <section className="overflow-x-auto rounded-3xl border border-[#dbe5c9] bg-[#fbfdf4] p-5 shadow-[inset_0_0_40px_rgba(221,233,199,0.22)]">
                                           <p className="mb-4 text-xs font-black tracking-[0.16em] text-[#6d7d55]">句法挂接图</p>
                                           <div className="w-full min-w-0 font-mono text-[#173d37]">
-                                            <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${Math.max(coreNodes.length, 1)}, minmax(150px, 1fr))` }}>{coreNodes.length ? coreNodes.map(node => <div key={node.index} className="min-w-0"><p className="text-2xl font-bold leading-tight">{node.text}</p><p className="mt-1 font-sans text-sm font-bold text-[#58705d]">{node.label}</p><DropZone node={node} />{clauseGroups.filter(frame => clauseAnchor(frame)?.index === node.index && isClausePlaced(frame)).map(frame => <ClauseBranch key={frame.key} frame={frame} />)}</div>) : <p className="text-2xl font-bold">先回到第 1 步确定主干</p>}</div>
+                                            <div className="space-y-4">{mainFrames.length ? mainFrames.map((frame, frameIndex) => { const nodes = nodesByFrame[frame.key] || []; const connector = frame.connectorBefore !== null ? segments[frame.connectorBefore]?.text?.trim() : ''; const contrasts = contrastFramesByMainKey[frame.key] || []; return <section key={frame.key} className="rounded-2xl border border-[#e0ead4] bg-white/70 p-4"><p className="mb-3 font-sans text-xs font-black tracking-[0.14em] text-[#6d7d55]">{connector && <span className="mr-2 rounded bg-sky-100 px-2 py-1 text-sky-700">{connector}</span>}{mainFrames.length > 1 ? `主干 ${frameIndex + 1}` : '主干'}</p><div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${Math.max(nodes.length, 1)}, minmax(150px, 1fr))` }}>{nodes.map(node => <div key={node.index} className="min-w-0"><p className="text-2xl font-bold leading-tight">{node.text}</p><p className="mt-1 font-sans text-sm font-bold text-[#58705d]">{node.label}</p><DropZone node={node} />{clauseGroups.filter(clause => clauseAnchor(clause)?.index === node.index && isClausePlaced(clause)).map(clause => <ClauseBranch key={clause.key} frame={clause} />)}</div>)}</div>{contrasts.map(contrast => <div key={contrast.key} className="mt-4 rounded-xl border border-sky-200 bg-sky-50/70 px-3 py-3 font-sans"><p className="text-xs font-black text-sky-800"><span className="mr-2 rounded bg-sky-100 px-1.5 py-0.5">{segments[contrast.connectorBefore]?.text.trim()}</span>同一主干内的对比修饰</p><p className="mt-2 font-mono text-sm font-bold text-slate-800">{contrast.contentIndexes.map(index => segments[index]?.text.trim()).filter(Boolean).join(' ')}</p><p className="mt-1 text-xs leading-5 text-sky-800">这一层沿用上方主干的主语和谓语；其中的修饰语仍挂到本主干的词下。</p></div>)}</section>; }) : <p className="text-2xl font-bold">先回到第 1 步确定主干</p>}</div>
                                           </div>
                                         </section>
                                         <p className="text-xs leading-5 text-slate-400">读法：主干从左到右不动；每个分支只挂在一个词下面。先挂 when / if / that 等关系词带领的从句，再挂短语修饰语。</p>
