@@ -180,6 +180,17 @@ Second pass
 
 其中 `main_idea_candidate` 是孩子的暂时理解，不是系统一开始给出的“答案”。阅读后可由证据、组织和全文概括来确认或修正。
 
+### 顺序校正：说明文 MVP 的基线是局部到整体
+
+这里的“猜想”不等于先要求孩子给出全文 gist，再回原文补 supporting ideas。对小学说明文，基线顺序应是三次压缩：
+
+```text
+sentence materials → paragraph meaning → section meaning → whole-text meaning
+```
+
+孩子可在读标题或一个 section 后作出不判对错的阅读预期；预测也可贯穿阅读。但全文 `central idea` 是最后的 Generalize 结果。段落功能必须在理解段意后讨论，段间关系必须在理解相邻段意后讨论。这一顺序以
+[`ARTICLE_READING_PRODUCT_PLAN.md`](./ARTICLE_READING_PRODUCT_PLAN.md) 的第 4 节为准。
+
 ## 7. D：MENTAL MODEL——产品最终要支持的结果
 
 Mental Model 不是另一份文章标注 JSON，而是 learner state 的结果。它可包括：
