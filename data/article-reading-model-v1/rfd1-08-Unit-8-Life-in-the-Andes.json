@@ -1,0 +1,487 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd1-08-Unit-8-Life-in-the-Andes",
+    "title": "Unit 8 Life in the Andes",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "The Andes Mountains are very high."
+          },
+          {
+            "id": "s2",
+            "text": "There is little water."
+          },
+          {
+            "id": "s3",
+            "text": "Days are hot."
+          },
+          {
+            "id": "s4",
+            "text": "Nights are cold."
+          },
+          {
+            "id": "s5",
+            "text": "Still, many people live there."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "The people grow strong plants."
+          },
+          {
+            "id": "s7",
+            "text": "Potatoes and corn come from the Andes."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "The people raise special animals."
+          },
+          {
+            "id": "s9",
+            "text": "Llamas live in the Andes."
+          },
+          {
+            "id": "s10",
+            "text": "They have long hair."
+          },
+          {
+            "id": "s11",
+            "text": "They give people meat and wool."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s12",
+            "text": "The people dry their food."
+          },
+          {
+            "id": "s13",
+            "text": "The food lasts a long time."
+          },
+          {
+            "id": "s14",
+            "text": "This helps people through hard times."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Challenging Environment"
+        },
+        "main_idea": {
+          "text": "The Andes Mountains have a harsh climate, but many people still live there."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "The mountains are high and dry."
+          },
+          {
+            "source_ids": [
+              "s3",
+              "s4"
+            ],
+            "meaning": "The temperature changes drastically between day and night."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Still",
+            "source_id": "s5",
+            "role": "contrast"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Agriculture"
+        },
+        "main_idea": {
+          "text": "People in the Andes grow strong plants like potatoes and corn."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "The plants are hardy and strong."
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "Potatoes and corn are native to this region."
+          }
+        ],
+        "function": {
+          "type": "detail"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "grow",
+            "source_id": "s6",
+            "role": "action"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Animals"
+        },
+        "main_idea": {
+          "text": "People raise special animals like llamas for meat and wool."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "Llamas are the specific animals mentioned, characterized by long hair."
+          },
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "Llamas provide essential resources: meat and wool."
+          }
+        ],
+        "function": {
+          "type": "detail"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "raise",
+            "source_id": "s8",
+            "role": "action"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "Food Preservation"
+        },
+        "main_idea": {
+          "text": "People dry their food to make it last longer during hard times."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "The method used is drying."
+          },
+          {
+            "source_ids": [
+              "s13",
+              "s14"
+            ],
+            "meaning": "Drying preserves food for long periods, helping survival."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "result",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "helps",
+            "source_id": "s14",
+            "role": "purpose"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces the setting and the main challenge."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3",
+            "p4"
+          ],
+          "label": "Adaptations",
+          "function": "Describes how people adapt to the environment through plants, animals, and food preservation."
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "People in the Andes Mountains survive in a harsh environment by growing strong plants, raising useful animals, and preserving food."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The climate in the Andes is difficult for farming and living.",
+          "evidence": [
+            {
+              "source_id": "s2",
+              "span": "There is little water."
+            },
+            {
+              "source_id": "s4",
+              "span": "Nights are cold."
+            }
+          ],
+          "knowledge_bridge": "Plants and animals need specific conditions to survive; extreme cold and dryness are challenging.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Drying food is a smart strategy for people who live in remote or harsh places.",
+          "evidence": [
+            {
+              "source_id": "s13",
+              "span": "The food lasts a long time."
+            },
+            {
+              "source_id": "s14",
+              "span": "This helps people through hard times."
+            }
+          ],
+          "knowledge_bridge": "Preserving food prevents waste and ensures a supply when fresh food is scarce.",
+          "difficulty": "medium"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "安第斯山脉的人们如何适应艰苦的环境。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "安第斯山脉很高，而且很冷。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "人们喜欢在山里吃土豆。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "世界上所有的山脉都很高。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第三段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "特殊的动物",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "干燥的食物",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt7",
+            "text": "寒冷的夜晚",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt8",
+            "text": "高大的山脉",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“人们种植强壮植物”这一观点的句子。",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s6",
+          "s7",
+          "s8",
+          "s9"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第四段（干燥食物）与前三段有什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "它是人们适应环境的另一种方法。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "它解释了为什么山脉很高。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "它介绍了新的动物。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt12",
+            "text": "它描述了山脉的天气。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你预测接下来文章会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "人们如何在这种环境中生存。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "如何建造高楼大厦。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt15",
+            "text": "为什么水很少。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt16",
+            "text": "如何测量山脉的高度。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "independent",
+        "interaction": "select_sentence",
+        "prompt": "选择证明“羊驼对人们很有用”的句子。",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s9",
+          "s10",
+          "s11",
+          "s12"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,535 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd1-03-Unit-3-Rain-Snow-and-Ice",
+    "title": "Unit 3 Rain, Snow, and Ice",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Clouds are made of water."
+          },
+          {
+            "id": "s2",
+            "text": "In the end, this water falls down to the earth as rain."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s3",
+            "text": "Rain happens when it’s warm or hot."
+          },
+          {
+            "id": "s4",
+            "text": "Rain falls as drops of water."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "Snow happens when it’s cold."
+          },
+          {
+            "id": "s6",
+            "text": "Snow falls as flakes of ice."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s7",
+            "text": "Hail happens when it’s cold or warm."
+          },
+          {
+            "id": "s8",
+            "text": "Water moves up and down inside the storm clouds."
+          },
+          {
+            "id": "s9",
+            "text": "It becomes ice."
+          },
+          {
+            "id": "s10",
+            "text": "Hail falls as balls of ice."
+          },
+          {
+            "id": "s11",
+            "text": "It can be dangerous."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "云的形成"
+        },
+        "main_idea": {
+          "text": "云是由水组成的，最终会降落到地面变成雨。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "云是由水构成的。"
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "云中的水最终会降落到地面变成雨。"
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Clouds are made of water.",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "In the end, this water falls down to the earth as rain.",
+            "source_id": "s2",
+            "role": "conclusion"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "雨"
+        },
+        "main_idea": {
+          "text": "雨在温暖或炎热时发生，以水滴的形式落下。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "雨在温暖或炎热时发生。"
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "雨以水滴的形式落下。"
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Rain happens when it’s warm or hot.",
+            "source_id": "s3",
+            "role": "condition"
+          },
+          {
+            "text": "Rain falls as drops of water.",
+            "source_id": "s4",
+            "role": "description"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "雪"
+        },
+        "main_idea": {
+          "text": "雪在寒冷时发生，以冰晶的形式落下。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "雪在寒冷时发生。"
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "雪以冰晶的形式落下。"
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Snow happens when it’s cold.",
+            "source_id": "s5",
+            "role": "condition"
+          },
+          {
+            "text": "Snow falls as flakes of ice.",
+            "source_id": "s6",
+            "role": "description"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "冰雹"
+        },
+        "main_idea": {
+          "text": "冰雹在寒冷或温暖时发生，以冰球的形式落下，可能很危险。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "冰雹在寒冷或温暖时发生。"
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "水在风暴云中上下移动。"
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "水变成冰。"
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "冰雹以冰球的形式落下。"
+          },
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "冰雹可能很危险。"
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "Hail happens when it’s cold or warm.",
+            "source_id": "s7",
+            "role": "condition"
+          },
+          {
+            "text": "Water moves up and down inside the storm clouds.",
+            "source_id": "s8",
+            "role": "process"
+          },
+          {
+            "text": "It becomes ice.",
+            "source_id": "s9",
+            "role": "transformation"
+          },
+          {
+            "text": "Hail falls as balls of ice.",
+            "source_id": "s10",
+            "role": "description"
+          },
+          {
+            "text": "It can be dangerous.",
+            "source_id": "s11",
+            "role": "consequence"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "云的形成",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "雨",
+          "function": "description"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "雪",
+          "function": "description"
+        },
+        {
+          "id": "sec4",
+          "paragraph_ids": [
+            "p4"
+          ],
+          "label": "冰雹",
+          "function": "description"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "云中的水可以以雨、雪或冰雹的形式降落到地面，每种形式发生的条件和形态不同。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "冰雹的形成过程比雨和雪更复杂。",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "Water moves up and down inside the storm clouds."
+            },
+            {
+              "source_id": "s9",
+              "span": "It becomes ice."
+            }
+          ],
+          "knowledge_bridge": "理解冰雹的形成需要水在云中多次上下移动并结冰，而雨和雪的形成过程相对简单。",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "冰雹可能比雨和雪更危险。",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "It can be dangerous."
+            }
+          ],
+          "knowledge_bridge": "冰雹以冰球的形式落下，可能对人体和物体造成伤害，而雨和雪通常不会。",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "云中的水可以以雨、雪或冰雹的形式降落到地面。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "云是由水组成的。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "冰雹可能很危险。",
+            "role": "minor_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "天气现象很有趣。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "为第三段选择一个合适的标题。",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "雪",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "雨",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt7",
+            "text": "冰雹",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt8",
+            "text": "云的形成",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持了“雪在寒冷时发生”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s5"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s5",
+          "s7",
+          "s10"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段和第四段之间的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "对比",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "举例",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "总结",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt12",
+            "text": "重复",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "根据第四段的内容，接下来可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "冰雹的危险性",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "云的形成",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt15",
+            "text": "雨的形成",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt16",
+            "text": "雪的形成",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明了冰雹的形成过程？",
+        "answer": {
+          "source_ids": [
+            "s8",
+            "s9"
+          ]
+        },
+        "candidate_source_ids": [
+          "s7",
+          "s8",
+          "s9",
+          "s10"
+        ]
+      }
+    ]
+  }
+}

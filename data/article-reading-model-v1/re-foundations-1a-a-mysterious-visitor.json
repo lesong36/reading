@@ -1,0 +1,558 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "re-foundations-1a-a-mysterious-visitor",
+    "title": "RE Foundations / 1A / A Mysterious Visitor",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "In October 2017, astronomers in Hawaii saw something surprising."
+          },
+          {
+            "id": "s2",
+            "text": "A strange object was moving through the solar system."
+          },
+          {
+            "id": "s3",
+            "text": "They had seen many asteroids before, but this was something different."
+          },
+          {
+            "id": "s4",
+            "text": "It was long and thin —like a cucumber."
+          },
+          {
+            "id": "s5",
+            "text": "The object’s speed and direction also showed something surprising."
+          },
+          {
+            "id": "s6",
+            "text": "This was an interstellar 1 object—the first ever seen."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s7",
+            "text": "The object was named ‘Oumuamua—Hawaiian for “visitor from afar.”"
+          },
+          {
+            "id": "s8",
+            "text": "Nobody is sure exactly what it is."
+          },
+          {
+            "id": "s9",
+            "text": "The simplest idea is that ‘Oumuamua is a strangely shaped piece of rock."
+          },
+          {
+            "id": "s10",
+            "text": "Perhaps it was knocked out of a far-off star system."
+          },
+          {
+            "id": "s11",
+            "text": "However, astronomers saw that its speed increased after passing the sun."
+          },
+          {
+            "id": "s12",
+            "text": "Some scientists therefore suggest a different theory."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s13",
+            "text": "“’Oumuamua could be a piece of alien technology,” says Professor Abraham Loeb from Harvard University."
+          },
+          {
+            "id": "s14",
+            "text": "Loeb believes this could explain the object’s long, thin shape, and also its change in speed."
+          },
+          {
+            "id": "s15",
+            "text": "Maybe ‘Oumuamua was a spaceship that came to explore our solar system."
+          },
+          {
+            "id": "s16",
+            "text": "“All possibilities should be considered,” says Loeb."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s17",
+            "text": "‘Oumuamua can no longer be seen from Earth."
+          },
+          {
+            "id": "s18",
+            "text": "But astronomers continue to study the information they got from it."
+          },
+          {
+            "id": "s19",
+            "text": "It is still not clear if the object was a large rock, or something else altogether."
+          },
+          {
+            "id": "s20",
+            "text": "‘Oumuamua will likely be a mystery for many years to come."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "发现神秘天体"
+        },
+        "main_idea": {
+          "text": "天文学家在夏威夷发现了一个形状和运动方式都很奇怪的星际物体。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "物体细长，像黄瓜一样。"
+          },
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "物体的速度和方向表现出令人惊讶的特征。"
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "这是人类首次发现的星际物体。"
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "something surprising",
+            "source_id": "s1",
+            "role": "hook"
+          },
+          {
+            "text": "something different",
+            "source_id": "s3",
+            "role": "contrast"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "命名与初步理论"
+        },
+        "main_idea": {
+          "text": "该物体被命名为“奥陌陌”，科学家对其本质有不同猜测，因为它的速度变化不符合普通岩石的特征。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "名字“奥陌陌”在夏威夷语中意为“来自远方的访客”。"
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "最简单的想法是它是一块形状奇怪的岩石。"
+          },
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "经过太阳后，它的速度增加了。"
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Nobody is sure",
+            "source_id": "s8",
+            "role": "uncertainty"
+          },
+          {
+            "text": "However",
+            "source_id": "s11",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "外星技术假说"
+        },
+        "main_idea": {
+          "text": "哈佛大学教授Loeb提出，奥陌陌可能是外星技术，这能解释其形状和速度变化。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "Loeb教授认为它可能是外星技术的一部分。"
+          },
+          {
+            "source_ids": [
+              "s14"
+            ],
+            "meaning": "这一理论解释了其细长形状和速度变化。"
+          },
+          {
+            "source_ids": [
+              "s15"
+            ],
+            "meaning": "它可能是一艘来探索我们太阳系的飞船。"
+          }
+        ],
+        "function": {
+          "type": "argument"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "says",
+            "source_id": "s13",
+            "role": "attribution"
+          },
+          {
+            "text": "believes",
+            "source_id": "s14",
+            "role": "opinion"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "持续研究与未解之谜"
+        },
+        "main_idea": {
+          "text": "虽然奥陌陌已不可见，但科学家仍在研究数据，其真实身份可能长期保持神秘。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s17"
+            ],
+            "meaning": "奥陌陌现在从地球上看不到。"
+          },
+          {
+            "source_ids": [
+              "s18"
+            ],
+            "meaning": "天文学家继续研究从它那里获得的信息。"
+          },
+          {
+            "source_ids": [
+              "s20"
+            ],
+            "meaning": "奥陌陌很可能在未来很多年里都是一个谜。"
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "summary",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "But",
+            "source_id": "s18",
+            "role": "transition"
+          },
+          {
+            "text": "still not clear",
+            "source_id": "s19",
+            "role": "uncertainty"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "发现",
+          "function": "引入话题"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3"
+          ],
+          "label": "理论探讨",
+          "function": "解释不同观点"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p4"
+          ],
+          "label": "结论",
+          "function": "总结现状"
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "天文学家发现了一个名为奥陌陌的神秘星际物体，对其是普通岩石还是外星技术存在不同理论，目前仍是一个未解之谜。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "奥陌陌的速度变化暗示它可能受到某种推力，而不仅仅是引力。",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "speed increased after passing the sun"
+            },
+            {
+              "source_id": "s14",
+              "span": "explain... its change in speed"
+            }
+          ],
+          "knowledge_bridge": "普通岩石在太阳系中主要受引力影响，速度变化通常遵循 predictable orbits; unexpected acceleration suggests other forces.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "科学家 are open to unconventional explanations because standard models don't fully fit the observations.",
+          "evidence": [
+            {
+              "source_id": "s16",
+              "span": "All possibilities should be considered"
+            },
+            {
+              "source_id": "s19",
+              "span": "still not clear"
+            }
+          ],
+          "knowledge_bridge": "Scientific inquiry involves testing multiple hypotheses when evidence is ambiguous.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "天文学家发现了一个神秘物体，对其身份有不同猜测。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "奥陌陌是一艘来自外星的飞船。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "夏威夷的天文学家喜欢观察星星。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "所有太空物体都是岩石。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪一个是第二段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "名字与初步猜测",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "外星飞船的真相",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "如何制造火箭",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "太阳系的行星",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "medium",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“奥陌陌速度变化异常”这一观点的句子。",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s4",
+          "s7",
+          "s11",
+          "s15"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第三段提到的“外星技术”理论是对第二段哪种观点的回应？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "它是普通岩石的简单解释",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "它来自地球",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "它被命名为奥陌陌",
+            "role": "minor_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "它在2017年被发现",
+            "role": "minor_detail"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完第三段，你预测第四段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "科学家仍在研究，谜团未解。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "奥陌陌撞上了地球。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "如何建造外星 ships。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "夏威夷的天气情况。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择说明奥陌陌名字含义的句子。",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s1",
+          "s7",
+          "s13",
+          "s20"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,470 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd4-11-Unit-11-Most-Wins-by-an-NBA-Team",
+    "title": "RFD 4 / Unit 11 Most Wins by an NBA Team",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "In 2016, the Golden State Warriors had a lot of success."
+          },
+          {
+            "id": "s2",
+            "text": "They set a new NBA record."
+          },
+          {
+            "id": "s3",
+            "text": "They won 73 games and lost only nine!"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "The Warriors set over 25 other records that season."
+          },
+          {
+            "id": "s5",
+            "text": "They had 34 away-game wins."
+          },
+          {
+            "id": "s6",
+            "text": "They also had the best start to a season."
+          },
+          {
+            "id": "s7",
+            "text": "They won their first 24 games!"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "Individual players did great jobs, too."
+          },
+          {
+            "id": "s9",
+            "text": "Stephen Curry scored the most three-point field goals."
+          },
+          {
+            "id": "s10",
+            "text": "He also scored the most points in overtime."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s11",
+            "text": "What an amazing team!"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Record-Breaking Season"
+        },
+        "main_idea": {
+          "text": "The Golden State Warriors set a new NBA record by winning 73 games in 2016."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "They won 73 games and lost only nine."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "In 2016",
+            "source_id": "s1",
+            "role": "time_marker"
+          },
+          {
+            "text": "new NBA record",
+            "source_id": "s2",
+            "role": "key_concept"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Additional Team Records"
+        },
+        "main_idea": {
+          "text": "The Warriors also set many other records, including the best start to a season."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "They had 34 away-game wins."
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "They won their first 24 games."
+          }
+        ],
+        "function": {
+          "type": "supporting_details"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "over 25 other records",
+            "source_id": "s4",
+            "role": "quantifier"
+          },
+          {
+            "text": "also",
+            "source_id": "s6",
+            "role": "additive_conjunction"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Individual Player Achievements"
+        },
+        "main_idea": {
+          "text": "Individual players, especially Stephen Curry, achieved personal records."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "Stephen Curry scored the most three-point field goals."
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "He scored the most points in overtime."
+          }
+        ],
+        "function": {
+          "type": "supporting_details"
+        },
+        "relation_to_previous": {
+          "type": "shift_focus",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Individual players",
+            "source_id": "s8",
+            "role": "topic_shift"
+          },
+          {
+            "text": "too",
+            "source_id": "s8",
+            "role": "additive_conjunction"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "Conclusion"
+        },
+        "main_idea": {
+          "text": "The team's performance was amazing."
+        },
+        "key_details": [],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "summary",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "What an amazing team!",
+            "source_id": "s11",
+            "role": "exclamation"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces the main topic: the Warriors' record-breaking season."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3"
+          ],
+          "label": "Body",
+          "function": "Provides specific details about team and individual records."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p4"
+          ],
+          "label": "Conclusion",
+          "function": "Summarizes the author's opinion on the team."
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "The 2016 Golden State Warriors had an incredible season, setting numerous team and individual records."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The Warriors were a very strong team that year.",
+          "evidence": [
+            {
+              "source_id": "s3",
+              "span": "won 73 games and lost only nine"
+            },
+            {
+              "source_id": "s7",
+              "span": "won their first 24 games"
+            }
+          ],
+          "knowledge_bridge": "Winning many games indicates a strong team.",
+          "difficulty": "low"
+        },
+        {
+          "id": "inf2",
+          "claim": "Stephen Curry was a key player for the team.",
+          "evidence": [
+            {
+              "source_id": "s9",
+              "span": "Stephen Curry scored the most three-point field goals"
+            }
+          ],
+          "knowledge_bridge": "Scoring the most points in a category suggests a player is important to the team's success.",
+          "difficulty": "medium"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "2016年金州勇士队创造了多项NBA纪录。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "斯蒂芬·库里投进了很多三分球。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "NBA球队通常打82场比赛。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "勇士队只赢了73场比赛。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第二段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "更多的团队纪录",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "库里的三分球",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "什么是NBA？",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "勇士队输了九场比赛",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“勇士队开局很好”的句子。",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s9"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段和前面段落的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "从团队表现转到个人表现。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "重复了第一段的内容。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "解释了为什么勇士队输了比赛。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "介绍了NBA的历史。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你预测接下来会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "更多关于他们如何打破纪录的细节。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "其他球队如何输掉比赛。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "篮球规则的变化。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "勇士队教练的生日。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择证明“库里在加时赛得分最多”的句子。",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s9",
+          "s10",
+          "s11"
+        ]
+      }
+    ]
+  }
+}

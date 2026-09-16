@@ -1,0 +1,543 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd4-14-Unit-14-Present-Home-Security",
+    "title": "RFD 4 / Unit 14 Present Home Security",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "There are many types of home security."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s2",
+            "text": "A digital door lock is simple."
+          },
+          {
+            "id": "s3",
+            "text": "It does not need keys or cards."
+          },
+          {
+            "id": "s4",
+            "text": "You push buttons to enter numbers."
+          },
+          {
+            "id": "s5",
+            "text": "These numbers are private."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "Biometric systems take pictures of the body."
+          },
+          {
+            "id": "s7",
+            "text": "This helps identify someone."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "Retina scanners see the back of the eye."
+          },
+          {
+            "id": "s9",
+            "text": "Everyone’s eyes look different."
+          }
+        ]
+      },
+      {
+        "id": "p5",
+        "order": 5,
+        "sentences": [
+          {
+            "id": "s10",
+            "text": "Fingerprint scanners are used a lot."
+          },
+          {
+            "id": "s11",
+            "text": "They are even used in cars."
+          },
+          {
+            "id": "s12",
+            "text": "Nobody has the same fingerprint."
+          },
+          {
+            "id": "s13",
+            "text": "It is hard to copy."
+          },
+          {
+            "id": "s14",
+            "text": "The scanner takes pictures of a person’s finger."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Home Security Types"
+        },
+        "main_idea": {
+          "text": "There are many different types of home security."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "The text introduces the broad topic of home security."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "There are many types of home security.",
+            "source_id": "s1",
+            "role": "topic_sentence"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Digital Door Locks"
+        },
+        "main_idea": {
+          "text": "Digital door locks use private numbers instead of keys."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "Digital door locks are described as simple."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "They do not require physical keys or cards."
+          },
+          {
+            "source_ids": [
+              "s4",
+              "s5"
+            ],
+            "meaning": "Users enter private numbers to unlock the door."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "A digital door lock is simple.",
+            "source_id": "s2",
+            "role": "topic_sentence"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Biometric Systems"
+        },
+        "main_idea": {
+          "text": "Biometric systems identify people by taking pictures of their bodies."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "Biometric systems capture images of body parts."
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "This process helps identify a person."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Biometric systems take pictures of the body.",
+            "source_id": "s6",
+            "role": "topic_sentence"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "Retina Scanners"
+        },
+        "main_idea": {
+          "text": "Retina scanners identify people by looking at the back of their eyes."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "Retina scanners examine the back of the eye."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "Every person's eyes are unique."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "Retina scanners see the back of the eye.",
+            "source_id": "s8",
+            "role": "topic_sentence"
+          }
+        ]
+      },
+      {
+        "id": "p5",
+        "topic": {
+          "label": "Fingerprint Scanners"
+        },
+        "main_idea": {
+          "text": "Fingerprint scanners are widely used because fingerprints are unique and hard to copy."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s10",
+              "s11"
+            ],
+            "meaning": "Fingerprint scanners are common, even in cars."
+          },
+          {
+            "source_ids": [
+              "s12",
+              "s13"
+            ],
+            "meaning": "Fingerprints are unique and difficult to duplicate."
+          },
+          {
+            "source_ids": [
+              "s14"
+            ],
+            "meaning": "The scanner takes a picture of the finger."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "Fingerprint scanners are used a lot.",
+            "source_id": "s10",
+            "role": "topic_sentence"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces the topic of home security."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Digital Door Locks",
+          "function": "Describes digital door locks."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3",
+            "p4",
+            "p5"
+          ],
+          "label": "Biometric Systems",
+          "function": "Describes biometric systems like retina and fingerprint scanners."
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "There are many types of home security, including digital door locks and biometric systems."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Biometric systems are more secure than digital door locks because they use unique body parts.",
+          "evidence": [
+            {
+              "source_id": "s9",
+              "span": "Everyone’s eyes look different."
+            },
+            {
+              "source_id": "s12",
+              "span": "Nobody has the same fingerprint."
+            }
+          ],
+          "knowledge_bridge": "Unique body parts are harder to fake than numbers.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Fingerprint scanners are popular because they are easy to use and secure.",
+          "evidence": [
+            {
+              "source_id": "s10",
+              "span": "Fingerprint scanners are used a lot."
+            },
+            {
+              "source_id": "s13",
+              "span": "It is hard to copy."
+            }
+          ],
+          "knowledge_bridge": "Popularity often comes from a mix of ease and security.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "家庭安全的不同类型",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何制作一把钥匙",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "眼睛的结构",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "所有的锁",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段最好的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "生物识别系统",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "数字门锁",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "汽车安全",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "家庭安全",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话支持“指纹很难被复制”？",
+        "answer": {
+          "source_ids": [
+            "s13"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s11",
+          "s12",
+          "s13"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第四段和第五段与第三段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "它们是生物识别系统的具体例子",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "它们解释了数字门锁",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "它们介绍了新的主题",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "它们总结了全文",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你觉得接下来会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "具体的家庭安全类型",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何 to build a house",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "The history of keys",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "All types of locks",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话说明数字门锁不需要钥匙？",
+        "answer": {
+          "source_ids": [
+            "s3"
+          ]
+        },
+        "candidate_source_ids": [
+          "s2",
+          "s3",
+          "s4",
+          "s5"
+        ]
+      }
+    ]
+  }
+}

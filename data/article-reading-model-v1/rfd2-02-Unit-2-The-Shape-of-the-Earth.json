@@ -1,0 +1,452 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd2-02-Unit-2-The-Shape-of-the-Earth",
+    "title": "Unit 2 The Shape of the Earth",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "It’s hard to see the shape of the earth."
+          },
+          {
+            "id": "s2",
+            "text": "The ground looks flat and it feels flat."
+          },
+          {
+            "id": "s3",
+            "text": "For a long time, people thought the earth really was flat."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "Around 500 BCE, Pythagoras looked at the moon."
+          },
+          {
+            "id": "s5",
+            "text": "He saw that it is round."
+          },
+          {
+            "id": "s6",
+            "text": "He thought the earth must be round, too."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s7",
+            "text": "In 350 BCE, Aristotle tracked the stars."
+          },
+          {
+            "id": "s8",
+            "text": "They showed that the earth is round."
+          },
+          {
+            "id": "s9",
+            "text": "Later, scientists proved this is true."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Earth's Appearance"
+        },
+        "main_idea": {
+          "text": "The Earth looks flat, which led people to believe it was flat."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "It is difficult to see the Earth's true shape."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "The ground appears and feels flat."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "People historically thought the Earth was flat."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "It's hard to see",
+            "source_id": "s1",
+            "role": "problem_statement"
+          },
+          {
+            "text": "For a long time",
+            "source_id": "s3",
+            "role": "time_marker"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Pythagoras's Observation"
+        },
+        "main_idea": {
+          "text": "Pythagoras suggested the Earth was round based on his observation of the moon."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "Pythagoras observed the moon around 500 BCE."
+          },
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "He noticed the moon is round."
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "He inferred the Earth must also be round."
+          }
+        ],
+        "function": {
+          "type": "evidence"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Around 500 BCE",
+            "source_id": "s4",
+            "role": "time_marker"
+          },
+          {
+            "text": "He thought",
+            "source_id": "s6",
+            "role": "inference_marker"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Aristotle's Proof"
+        },
+        "main_idea": {
+          "text": "Aristotle provided evidence that the Earth is round, which was later confirmed by scientists."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "Aristotle tracked the stars in 350 BCE."
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "The stars indicated the Earth is round."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "Scientists later proved the Earth is round."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "sequence",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "In 350 BCE",
+            "source_id": "s7",
+            "role": "time_marker"
+          },
+          {
+            "text": "Later",
+            "source_id": "s9",
+            "role": "time_marker"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "The Flat Earth Belief",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3"
+          ],
+          "label": "Discovering the Round Earth",
+          "function": "body"
+        }
+      ],
+      "structure": {
+        "type": "sequence"
+      },
+      "central_idea": {
+        "text": "People moved from believing the Earth was flat to knowing it is round through observations by Pythagoras and Aristotle."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Observing the moon and stars helped people understand the Earth's shape.",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "He saw that it is round."
+            },
+            {
+              "source_id": "s8",
+              "span": "They showed that the earth is round."
+            }
+          ],
+          "knowledge_bridge": "Astronomical observations can reveal the shape of our planet.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Scientific understanding of the Earth's shape developed over time.",
+          "evidence": [
+            {
+              "source_id": "s3",
+              "span": "For a long time, people thought the earth really was flat."
+            },
+            {
+              "source_id": "s9",
+              "span": "Later, scientists proved this is true."
+            }
+          ],
+          "knowledge_bridge": "Scientific knowledge evolves as new evidence is gathered.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "人们如何发现地球是圆的",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "月亮是圆的",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "地球看起来是平的",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "科学家喜欢星星",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最好的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "毕达哥拉斯的观察",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "星星的秘密",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt3",
+            "text": "平坦的地面",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "500年前的月亮",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“人们曾经认为地球是平的”？",
+        "answer": {
+          "source_ids": [
+            "s3"
+          ]
+        },
+        "candidate_source_ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第二段和第一段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段提供了反驳第一段观点的证据",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段重复了第一段的内容",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段与第一段无关",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段解释了为什么地面感觉是平的",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完第二段后，你觉得第三段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "更多关于地球是圆的证据",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "为什么月亮是圆的",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "人们为什么喜欢星星",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "地球是平的",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "independent",
+        "interaction": "select_sentence",
+        "prompt": "哪句话表明科学家最终证实了地球是圆的？",
+        "answer": {
+          "source_ids": [
+            "s9"
+          ]
+        },
+        "candidate_source_ids": [
+          "s6",
+          "s8",
+          "s9",
+          "s1"
+        ]
+      }
+    ]
+  }
+}

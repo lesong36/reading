@@ -1,0 +1,478 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd4-07-Unit-7-Animals-That-Clean",
+    "title": "RFD 4 / Unit 7 Animals That Clean!",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Sea cucumbers and earthworms do the same job."
+          },
+          {
+            "id": "s2",
+            "text": "They both keep their environment clean."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s3",
+            "text": "The sea cucumber eats dirty sand from the bottom of the ocean."
+          },
+          {
+            "id": "s4",
+            "text": "It poops out clean sand."
+          },
+          {
+            "id": "s5",
+            "text": "It stirs the sand and keeps it from getting hard."
+          },
+          {
+            "id": "s6",
+            "text": "This keeps the ocean clean."
+          },
+          {
+            "id": "s7",
+            "text": "It helps"
+          },
+          {
+            "id": "s8",
+            "text": "animals and plants grow."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "The earthworm eats the garbage of the earth."
+          },
+          {
+            "id": "s10",
+            "text": "It turns the garbage into healthy food."
+          },
+          {
+            "id": "s11",
+            "text": "It also digs paths in the dirt."
+          },
+          {
+            "id": "s12",
+            "text": "Water and air can enter more easily."
+          },
+          {
+            "id": "s13",
+            "text": "Plants can grow better."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction"
+        },
+        "main_idea": {
+          "text": "Sea cucumbers and earthworms both keep their environments clean."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "They do the same job."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "They clean their environments."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "do the same job",
+            "source_id": "s1",
+            "role": "comparison"
+          },
+          {
+            "text": "both",
+            "source_id": "s2",
+            "role": "comparison"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Sea Cucumber"
+        },
+        "main_idea": {
+          "text": "Sea cucumbers clean the ocean by eating dirty sand and helping plants and animals grow."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3",
+              "s4"
+            ],
+            "meaning": "They eat dirty sand and poop out clean sand."
+          },
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "They stir the sand to keep it from getting hard."
+          },
+          {
+            "source_ids": [
+              "s6",
+              "s7",
+              "s8"
+            ],
+            "meaning": "This keeps the ocean clean and helps life grow."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "eats dirty sand",
+            "source_id": "s3",
+            "role": "action"
+          },
+          {
+            "text": "keeps the ocean clean",
+            "source_id": "s6",
+            "role": "result"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Earthworm"
+        },
+        "main_idea": {
+          "text": "Earthworms clean the earth by eating garbage and digging paths that help plants grow."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "They eat garbage and turn it into healthy food."
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s12"
+            ],
+            "meaning": "They dig paths so water and air can enter the dirt."
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "This helps plants grow better."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "eats the garbage",
+            "source_id": "s9",
+            "role": "action"
+          },
+          {
+            "text": "Plants can grow better",
+            "source_id": "s13",
+            "role": "result"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Sea Cucumber",
+          "function": "description"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Earthworm",
+          "function": "description"
+        }
+      ],
+      "structure": {
+        "type": "compare_and_contrast"
+      },
+      "central_idea": {
+        "text": "Sea cucumbers and earthworms are animals that clean their environments in different ways."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Both animals are important for the health of their ecosystems.",
+          "evidence": [
+            {
+              "source_id": "s6",
+              "span": "keeps the ocean clean"
+            },
+            {
+              "source_id": "s13",
+              "span": "Plants can grow better"
+            }
+          ],
+          "knowledge_bridge": "Ecosystems need clean environments for plants and animals to survive.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The sea cucumber and earthworm have similar jobs but work in different places.",
+          "evidence": [
+            {
+              "source_id": "s1",
+              "span": "do the same job"
+            },
+            {
+              "source_id": "s3",
+              "span": "bottom of the ocean"
+            },
+            {
+              "source_id": "s9",
+              "span": "garbage of the earth"
+            }
+          ],
+          "knowledge_bridge": "Animals can have similar roles in different habitats.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "What is the main idea of the whole text?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Sea cucumbers and earthworms clean their environments.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Sea cucumbers eat dirty sand.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "Earthworms dig paths in the dirt.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "Animals are important.",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Which heading fits paragraph 2?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "The Sea Cucumber's Job",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "How Earthworms Dig",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "Why Sand Gets Hard",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "All Animals Clean",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "Select the sentence that shows how the sea cucumber cleans the ocean.",
+        "answer": {
+          "source_ids": [
+            "s3"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s5",
+          "s6",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "How does paragraph 3 connect to paragraph 1?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "It gives an example of an animal that cleans.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "It tells a story about a worm.",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "It explains why sand is dirty.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "It compares two types of dirt.",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "After reading paragraph 1, what will the text likely do next?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Describe how each animal cleans.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "List all ocean animals.",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt3",
+            "text": "Explain how to make sand.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "Tell a joke about worms.",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "Select the sentence that shows the result of the earthworm's work.",
+        "answer": {
+          "source_ids": [
+            "s13"
+          ]
+        },
+        "candidate_source_ids": [
+          "s9",
+          "s11",
+          "s12",
+          "s13"
+        ]
+      }
+    ]
+  }
+}

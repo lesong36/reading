@@ -1,0 +1,459 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd2-12-Unit-12-Penny-Pincher",
+    "title": "Unit 12 Penny Pincher",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "“Penny pinchers” count every penny."
+          },
+          {
+            "id": "s2",
+            "text": "They never spend more than they have to."
+          },
+          {
+            "id": "s3",
+            "text": "This doesn’t sound fun."
+          },
+          {
+            "id": "s4",
+            "text": "But it’s a good idea."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "Do you buy a snack every day?"
+          },
+          {
+            "id": "s6",
+            "text": "You may be spending too much."
+          },
+          {
+            "id": "s7",
+            "text": "A snack may cost a dollar."
+          },
+          {
+            "id": "s8",
+            "text": "That’s seven dollars a week!"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "Buy snacks in bulk."
+          },
+          {
+            "id": "s10",
+            "text": "This means “a lot at one time.”"
+          },
+          {
+            "id": "s11",
+            "text": "Buy a box of snacks."
+          },
+          {
+            "id": "s12",
+            "text": "You’ll save money."
+          },
+          {
+            "id": "s13",
+            "text": "Just be careful."
+          },
+          {
+            "id": "s14",
+            "text": "Don’t eat them all at once!"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction to Penny Pinching"
+        },
+        "main_idea": {
+          "text": "Penny pinchers are careful with their money, which is a good habit."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "Penny pinchers count every penny and avoid unnecessary spending."
+          },
+          {
+            "source_ids": [
+              "s3",
+              "s4"
+            ],
+            "meaning": "Although it might not seem fun, saving money is a good idea."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "But it’s a good idea.",
+            "source_id": "s4",
+            "role": "conclusion"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The Cost of Daily Snacks"
+        },
+        "main_idea": {
+          "text": "Buying a snack every day can lead to spending a lot of money over time."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5",
+              "s6"
+            ],
+            "meaning": "Daily snack purchases might mean spending too much."
+          },
+          {
+            "source_ids": [
+              "s7",
+              "s8"
+            ],
+            "meaning": "A one-dollar daily snack adds up to seven dollars a week."
+          }
+        ],
+        "function": {
+          "type": "problem"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "That’s seven dollars a week!",
+            "source_id": "s8",
+            "role": "evidence"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Saving by Buying in Bulk"
+        },
+        "main_idea": {
+          "text": "Buying snacks in bulk saves money, but you should be careful not to eat them all at once."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "Buying in bulk means purchasing a lot at one time."
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s12"
+            ],
+            "meaning": "Buying a box of snacks helps you save money."
+          },
+          {
+            "source_ids": [
+              "s13",
+              "s14"
+            ],
+            "meaning": "You should be careful not to eat all the snacks at once."
+          }
+        ],
+        "function": {
+          "type": "solution"
+        },
+        "relation_to_previous": {
+          "type": "solution",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "You’ll save money.",
+            "source_id": "s12",
+            "role": "result"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Problem",
+          "function": "problem"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Solution",
+          "function": "solution"
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "Being a penny pincher by saving money, such as buying snacks in bulk, is a good idea."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Buying snacks in bulk is cheaper than buying them one by one every day.",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "That’s seven dollars a week!"
+            },
+            {
+              "source_id": "s12",
+              "span": "You’ll save money."
+            }
+          ],
+          "knowledge_bridge": "Understanding that buying in bulk reduces the cost per item compared to daily purchases.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Penny pinchers make smart financial decisions.",
+          "evidence": [
+            {
+              "source_id": "s4",
+              "span": "But it’s a good idea."
+            },
+            {
+              "source_id": "s12",
+              "span": "You’ll save money."
+            }
+          ],
+          "knowledge_bridge": "Connecting the concept of saving money to making smart financial choices.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "做一个“省钱者”是个好主意。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "每天买零食要花很多钱。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "“省钱者”从不花钱。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "买零食要买很多。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "每天买零食的代价",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "如何省钱",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt7",
+            "text": "零食的味道",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt8",
+            "text": "什么是“省钱者”",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "哪句话支持了“每天买零食会花很多钱”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s8"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段是如何解决第二段提到的问题的？",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "通过批量购买零食来省钱。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "通过停止吃零食。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "通过每天买更便宜的零食。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt12",
+            "text": "通过解释什么是“省钱者”。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你觉得文章接下来会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "举一个关于花钱的例子。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "解释为什么花钱是有趣的。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt15",
+            "text": "列出所有种类的零食。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt16",
+            "text": "告诉读者如何成为“省钱者”。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "哪句话解释了“批量购买”的意思？",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s9",
+          "s10",
+          "s11",
+          "s12"
+        ]
+      }
+    ]
+  }
+}

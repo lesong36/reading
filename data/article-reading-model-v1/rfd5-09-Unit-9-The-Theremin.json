@@ -1,0 +1,519 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd5-09-Unit-9-The-Theremin",
+    "title": "RFD 5 / Unit 9 The Theremin",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "The theremin is one of the first electronic instruments."
+          },
+          {
+            "id": "s2",
+            "text": "And it is very unusual."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s3",
+            "text": "It doesn’t look like other musical instruments."
+          },
+          {
+            "id": "s4",
+            "text": "It is just a wooden box with two antennas."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "The way that you play the theremin is also strange."
+          },
+          {
+            "id": "s6",
+            "text": "You don’t touch it, like a piano or guitar."
+          },
+          {
+            "id": "s7",
+            "text": "You wave your hands in the air near the antennas."
+          },
+          {
+            "id": "s8",
+            "text": "Your hands change an electric"
+          },
+          {
+            "id": "s9",
+            "text": "current."
+          },
+          {
+            "id": "s10",
+            "text": "This changes the sound."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s11",
+            "text": "The theremin’s strange sound isn’t for everyone."
+          },
+          {
+            "id": "s12",
+            "text": "It can even sound spooky."
+          },
+          {
+            "id": "s13",
+            "text": "You often hear it in old sci-fi movies."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction to the Theremin"
+        },
+        "main_idea": {
+          "text": "The theremin is an early and unusual electronic instrument."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "It was one of the first electronic instruments."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "It is described as very unusual."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "one of the first",
+            "source_id": "s1",
+            "role": "historical context"
+          },
+          {
+            "text": "very unusual",
+            "source_id": "s2",
+            "role": "key descriptor"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Appearance"
+        },
+        "main_idea": {
+          "text": "The theremin looks different from other instruments."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "It doesn't look like typical musical instruments."
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "It consists of a wooden box and two antennas."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "doesn't look like",
+            "source_id": "s3",
+            "role": "contrast"
+          },
+          {
+            "text": "wooden box with two antennas",
+            "source_id": "s4",
+            "role": "visual detail"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "How to Play"
+        },
+        "main_idea": {
+          "text": "Playing the theremin involves moving hands in the air to change electric currents."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "You do not touch it like a piano or guitar."
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "You wave hands near the antennas."
+          },
+          {
+            "source_ids": [
+              "s8",
+              "s9",
+              "s10"
+            ],
+            "meaning": "Hand movements change an electric current, which changes the sound."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "also strange",
+            "source_id": "s5",
+            "role": "transition"
+          },
+          {
+            "text": "don't touch it",
+            "source_id": "s6",
+            "role": "contrast"
+          },
+          {
+            "text": "wave your hands",
+            "source_id": "s7",
+            "role": "action description"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "Sound and Usage"
+        },
+        "main_idea": {
+          "text": "The theremin has a spooky sound often used in sci-fi movies."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "The sound can be spooky."
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "It is frequently heard in old sci-fi movies."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "spooky",
+            "source_id": "s12",
+            "role": "descriptive word"
+          },
+          {
+            "text": "old sci-fi movies",
+            "source_id": "s13",
+            "role": "contextual example"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduce the theremin as an unusual early electronic instrument."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3"
+          ],
+          "label": "Description and Mechanics",
+          "function": "Describe the physical appearance and explain how it is played."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p4"
+          ],
+          "label": "Sound and Context",
+          "function": "Describe the unique sound and its common use in media."
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "The theremin is a unique electronic instrument that looks and sounds different from traditional instruments and is played by moving hands in the air."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The theremin is not a common instrument for everyday music.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "isn't for everyone"
+            },
+            {
+              "source_id": "s13",
+              "span": "old sci-fi movies"
+            }
+          ],
+          "knowledge_bridge": "Connecting the specific use in movies to its rarity in general music.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The theremin's design allows for a playing style that is physically different from string or keyboard instruments.",
+          "evidence": [
+            {
+              "source_id": "s6",
+              "span": "don't touch it"
+            },
+            {
+              "source_id": "s7",
+              "span": "wave your hands"
+            }
+          ],
+          "knowledge_bridge": "Understanding the relationship between physical interaction and sound production.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "特雷门琴是一种奇特且古老的电子乐器。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "特雷门琴看起来像一个木盒子。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "特雷门琴的声音听起来很吓人。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "所有的电子乐器都很奇怪。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段（p3）的最佳标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "如何演奏特雷门琴",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "特雷门琴的历史",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "特雷门琴的外观",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "电影中的音乐",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话支持了“特雷门琴看起来不像其他乐器”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s4"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s4",
+          "s5",
+          "s6"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段（p2）和第三段（p3）之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "从外观描述过渡到演奏方法的解释。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "两段都在讲特雷门琴的历史。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "第三段反驳了第二段的观点。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "两段都在讲特雷门琴的声音。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你预测第二段可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "特雷门琴的具体样子或特点。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何修理特雷门琴。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "特雷门琴的价格。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "其他电子乐器的历史。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "找出说明“特雷门琴的声音常用于科幻电影”的句子。",
+        "answer": {
+          "source_ids": [
+            "s13"
+          ]
+        },
+        "candidate_source_ids": [
+          "s11",
+          "s12",
+          "s13",
+          "s10"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,446 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd6-05-Unit-5-Sailing-Around-the-World",
+    "title": "RFD 6 / Unit 5 Sailing Around the World",
+    "text_type": "narrative",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "The 15th century is known as the Age of Exploration."
+          },
+          {
+            "id": "s2",
+            "text": "There were many brave explorers at the time."
+          },
+          {
+            "id": "s3",
+            "text": "One of the most successful was Ferdinand Magellan."
+          },
+          {
+            "id": "s4",
+            "text": "He came from Portugal."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "Magellan believed he could travel to India through the Americas."
+          },
+          {
+            "id": "s6",
+            "text": "He left Spain with five ships and a 300-man crew."
+          },
+          {
+            "id": "s7",
+            "text": "He sailed to South America."
+          },
+          {
+            "id": "s8",
+            "text": "He discovered a path through South America."
+          },
+          {
+            "id": "s9",
+            "text": "He called it the Straits of Magellan."
+          },
+          {
+            "id": "s10",
+            "text": "Then he sailed across the Pacific Ocean."
+          },
+          {
+            "id": "s11",
+            "text": "He lost two of his ships doing this."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s12",
+            "text": "Sadly, Magellan died in the Philippines."
+          },
+          {
+            "id": "s13",
+            "text": "But his crew continued and returned home."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction to Magellan"
+        },
+        "main_idea": {
+          "text": "Ferdinand Magellan was a successful Portuguese explorer during the Age of Exploration."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "The 15th century was a time of exploration."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Magellan was one of the most successful explorers."
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "He was from Portugal."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "One of the most successful",
+            "source_id": "s3",
+            "role": "focus"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The Journey"
+        },
+        "main_idea": {
+          "text": "Magellan led a crew on a difficult journey across the Pacific Ocean to reach India."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "His goal was to reach India through the Americas."
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "He found a path through South America."
+          },
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "He lost two ships during the crossing."
+          }
+        ],
+        "function": {
+          "type": "sequence"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Then",
+            "source_id": "s10",
+            "role": "sequence"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "The Outcome"
+        },
+        "main_idea": {
+          "text": "Magellan died, but his crew finished the journey and returned home."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "Magellan died in the Philippines."
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "The crew continued and returned home."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "consequence",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "But",
+            "source_id": "s13",
+            "role": "contrast"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces the main character and historical context."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "The Voyage",
+          "function": "Describes the sequence of events during the journey."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Conclusion",
+          "function": "States the final outcome of the expedition."
+        }
+      ],
+      "structure": {
+        "type": "narrative"
+      },
+      "central_idea": {
+        "text": "Ferdinand Magellan led a historic voyage around the world, though he died before completing it."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The journey was very dangerous and difficult.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "He lost two of his ships doing this."
+            }
+          ],
+          "knowledge_bridge": "Losing ships implies severe weather or conflict, indicating high risk.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The crew was determined to finish the mission.",
+          "evidence": [
+            {
+              "source_id": "s13",
+              "span": "But his crew continued and returned home."
+            }
+          ],
+          "knowledge_bridge": "Continuing after the leader's death shows strong commitment.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "麦哲伦带领船员进行了一次环航世界的航行。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "15世纪是探索时代。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt3",
+            "text": "麦哲伦来自葡萄牙。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "太平洋很大。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "第二段最好的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "艰难的航行",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "麦哲伦的出生",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "印度的美食",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "如何造船",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪句话支持“麦哲伦的航行很危险”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s6",
+          "s8",
+          "s11",
+          "s13"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第三段和前面的段落是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "它是前文故事的结果。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "它介绍了新的探索者。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "它解释了为什么麦哲伦出生。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "它描述了葡萄牙的风景。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完第二段，你觉得接下来会发生什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "麦哲伦可能会遇到危险或结束旅程。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "麦哲伦会回家睡觉。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "船员会放弃并游回家。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "他们会变成 pirates. ",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话告诉我们麦哲伦从哪里出发？",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s4",
+          "s6",
+          "s7",
+          "s12"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,498 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd5-08-Unit-8-Barcodes-and-QR-Codes",
+    "title": "RFD 5 / Unit 8 Barcodes and QR Codes",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Airlines put barcodes on your luggage."
+          },
+          {
+            "id": "s2",
+            "text": "Theaters put them on your movie tickets."
+          },
+          {
+            "id": "s3",
+            "text": "They are everywhere."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "A barcode looks like black stripes."
+          },
+          {
+            "id": "s5",
+            "text": "Some stripes are thin."
+          },
+          {
+            "id": "s6",
+            "text": "Others are thicker."
+          },
+          {
+            "id": "s7",
+            "text": "A machine uses a laser to scan them."
+          },
+          {
+            "id": "s8",
+            "text": "It reads the stripes as numbers."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "Barcodes are useful for some companies."
+          },
+          {
+            "id": "s10",
+            "text": "Supermarkets and shipping companies handle lots of items."
+          },
+          {
+            "id": "s11",
+            "text": "They need to scan them quickly."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s12",
+            "text": "Now there are better barcodes."
+          },
+          {
+            "id": "s13",
+            "text": "They are called QR codes."
+          },
+          {
+            "id": "s14",
+            "text": "You can scan them with your phone."
+          },
+          {
+            "id": "s15",
+            "text": "They use dots instead of bars."
+          },
+          {
+            "id": "s16",
+            "text": "And they hold more information."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Barcodes are common"
+        },
+        "main_idea": {
+          "text": "Barcodes are found in many everyday places."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "Airlines use them on luggage."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "Theaters use them on tickets."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "They are everywhere.",
+            "source_id": "s3",
+            "role": "summary"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "How barcodes work"
+        },
+        "main_idea": {
+          "text": "Barcodes are made of stripes that machines scan to read numbers."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4",
+              "s5",
+              "s6"
+            ],
+            "meaning": "Barcodes look like thin and thick black stripes."
+          },
+          {
+            "source_ids": [
+              "s7",
+              "s8"
+            ],
+            "meaning": "A laser scanner reads the stripes as numbers."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "explanation",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "A barcode looks like...",
+            "source_id": "s4",
+            "role": "definition"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Why barcodes are useful"
+        },
+        "main_idea": {
+          "text": "Companies use barcodes to scan many items quickly."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "Supermarkets and shipping companies handle many items."
+          },
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "They need speed in scanning."
+          }
+        ],
+        "function": {
+          "type": "reason"
+        },
+        "relation_to_previous": {
+          "type": "application",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Barcodes are useful for...",
+            "source_id": "s9",
+            "role": "topic_sentence"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "QR codes"
+        },
+        "main_idea": {
+          "text": "QR codes are a newer type of barcode that hold more information."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s14"
+            ],
+            "meaning": "You can scan them with a phone."
+          },
+          {
+            "source_ids": [
+              "s15",
+              "s16"
+            ],
+            "meaning": "They use dots and hold more data than barcodes."
+          }
+        ],
+        "function": {
+          "type": "comparison"
+        },
+        "relation_to_previous": {
+          "type": "progression",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "Now there are better barcodes.",
+            "source_id": "s12",
+            "role": "transition"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduce the topic of barcodes."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3"
+          ],
+          "label": "Barcodes",
+          "function": "Explain what barcodes are and why they are used."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p4"
+          ],
+          "label": "QR Codes",
+          "function": "Introduce QR codes as an improved version."
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Barcodes and QR codes are tools used to store and read information quickly."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "QR codes are more advanced than traditional barcodes.",
+          "evidence": [
+            {
+              "source_id": "s12",
+              "span": "Now there are better barcodes."
+            },
+            {
+              "source_id": "s16",
+              "span": "And they hold more information."
+            }
+          ],
+          "knowledge_bridge": "Understanding that 'better' and 'more information' imply advancement.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Phones are now common tools for reading codes.",
+          "evidence": [
+            {
+              "source_id": "s14",
+              "span": "You can scan them with your phone."
+            }
+          ],
+          "knowledge_bridge": "Connecting the ability to scan with the prevalence of smartphones.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "条形码和二维码的用途与特点",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何制作一个条形码",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "电影院票的设计",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "所有类型的数字代码",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第2段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "条形码的样子和工作原理",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "为什么超市喜欢条形码",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "激光器的发明",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "二维码的历史",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选出支持“条形码由条纹组成”的句子。",
+        "answer": {
+          "source_ids": [
+            "s4"
+          ]
+        },
+        "candidate_source_ids": [
+          "s4",
+          "s7",
+          "s10",
+          "s15"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第4段和第2段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第4段介绍了比第2段更先进的代码",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第4段重复了第2段的内容",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第4段反驳了第2段的观点",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "第4段与第2段没有联系",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完第3段，你预测第4段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "一种新的或更好的代码类型",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "条形码的缺点",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "如何 to draw a barcode",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "The history of airplanes",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "找出说明二维码比条形码能存储更多信息的句子。",
+        "answer": {
+          "source_ids": [
+            "s16"
+          ]
+        },
+        "candidate_source_ids": [
+          "s13",
+          "s15",
+          "s16",
+          "s8"
+        ]
+      }
+    ]
+  }
+}

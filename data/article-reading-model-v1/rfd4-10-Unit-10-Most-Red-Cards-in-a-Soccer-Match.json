@@ -1,0 +1,431 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd4-10-Unit-10-Most-Red-Cards-in-a-Soccer-Match",
+    "title": "RFD 4 / Unit 10 Most Red Cards in a Soccer Match",
+    "text_type": "narrative",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Yellow cards are common in soccer games."
+          },
+          {
+            "id": "s2",
+            "text": "But red cards are quite rare."
+          },
+          {
+            "id": "s3",
+            "text": "So, what is the record for most red cards in one game?"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "In 2011, there was a soccer game in Argentina."
+          },
+          {
+            "id": "s5",
+            "text": "In this game, the referee gave an incredible 36 red cards!"
+          },
+          {
+            "id": "s6",
+            "text": "Two players got red cards in the first half."
+          },
+          {
+            "id": "s7",
+            "text": "In the second half, a big"
+          },
+          {
+            "id": "s8",
+            "text": "fight started."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "Because of the fight, all the other players got red cards."
+          },
+          {
+            "id": "s10",
+            "text": "Even some other team members got red cards, too."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction to Red Cards"
+        },
+        "main_idea": {
+          "text": "Red cards are rare in soccer, leading to the question of the record for the most red cards in a single game."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "Yellow cards are frequently seen in soccer."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "Red cards are uncommon compared to yellow cards."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "So, what is the record for most red cards in one game?",
+            "source_id": "s3",
+            "role": "question"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The 2011 Record-Breaking Game"
+        },
+        "main_idea": {
+          "text": "In a 2011 soccer game in Argentina, a referee issued a record 36 red cards due to a massive fight."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "The game took place in Argentina in 2011."
+          },
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "The referee gave out 36 red cards in total."
+          },
+          {
+            "source_ids": [
+              "s7",
+              "s8"
+            ],
+            "meaning": "A large fight broke out in the second half."
+          }
+        ],
+        "function": {
+          "type": "body"
+        },
+        "relation_to_previous": {
+          "type": "answers_question",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "In 2011, there was a soccer game in Argentina.",
+            "source_id": "s4",
+            "role": "setting"
+          },
+          {
+            "text": "In this game, the referee gave an incredible 36 red cards!",
+            "source_id": "s5",
+            "role": "key_fact"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Consequences of the Fight"
+        },
+        "main_idea": {
+          "text": "The fight resulted in all remaining players and some team members receiving red cards."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "All other players were sent off due to the fight."
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "Even non-playing team members were given red cards."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "explains_consequence",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Because of the fight, all the other players got red cards.",
+            "source_id": "s9",
+            "role": "cause_and_effect"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3"
+          ],
+          "label": "The Record-Breaking Incident",
+          "function": "body"
+        }
+      ],
+      "structure": {
+        "type": "narrative"
+      },
+      "central_idea": {
+        "text": "A 2011 soccer match in Argentina set the record for the most red cards in a single game, with 36 players and team members sent off due to a massive fight."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The fight was so severe that it affected not just the players on the field but also the team staff.",
+          "evidence": [
+            {
+              "source_id": "s10",
+              "span": "Even some other team members got red cards, too."
+            }
+          ],
+          "knowledge_bridge": "Understanding that 'team members' can include coaches or substitutes who are not actively playing.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The referee's decision to give 36 red cards was highly unusual and likely a direct response to the chaotic nature of the fight.",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "the referee gave an incredible 36 red cards!"
+            },
+            {
+              "source_id": "s9",
+              "span": "Because of the fight, all the other players got red cards."
+            }
+          ],
+          "knowledge_bridge": "Recognizing that 'incredible' implies something surprising or out of the ordinary.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "What is the main idea of the whole article?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "A 2011 soccer game had a record number of red cards due to a big fight.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Yellow cards are more common than red cards in soccer.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "Soccer referees are very strict in Argentina.",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "Fights in soccer are always punished with red cards.",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "Which heading best fits paragraph 2?",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "The 36 Red Card Game",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "Why Yellow Cards Are Common",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt7",
+            "text": "How to Avoid Getting a Red Card",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt8",
+            "text": "The History of Soccer Referees",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "medium",
+        "interaction": "select_sentence",
+        "prompt": "Select the sentence that supports the idea that the fight was very big.",
+        "answer": {
+          "source_ids": [
+            "s9"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s9",
+          "s10",
+          "s2"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "How does paragraph 3 connect to paragraph 2?",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "It explains the result of the fight mentioned in paragraph 2.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "It introduces a new soccer game in a different country.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt11",
+            "text": "It gives the exact date of the 2011 game.",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt12",
+            "text": "It explains why yellow cards are common.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "After reading paragraph 1, what do you think the next paragraph will be about?",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "The specific game that had the most red cards.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "How to make a yellow card.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt15",
+            "text": "The rules for soccer players' uniforms.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt16",
+            "text": "Why soccer is the most popular sport.",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "Find the sentence that tells us where the record-breaking game happened.",
+        "answer": {
+          "source_ids": [
+            "s4"
+          ]
+        },
+        "candidate_source_ids": [
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,405 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd3-02-Unit-2-Talking-with-the-Deaf",
+    "title": "Unit 2 Talking with the Deaf",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Deaf people’s ears don’t work well."
+          },
+          {
+            "id": "s2",
+            "text": "They can’t hear sounds like others."
+          },
+          {
+            "id": "s3",
+            "text": "Some deaf people can talk with no problems."
+          },
+          {
+            "id": "s4",
+            "text": "But, some deaf people can’t speak well."
+          },
+          {
+            "id": "s5",
+            "text": "They use sign language."
+          },
+          {
+            "id": "s6",
+            "text": "They make signs with their hands."
+          },
+          {
+            "id": "s7",
+            "text": "The signs stand for words or letters."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "Sign language is useful for deaf people."
+          },
+          {
+            "id": "s9",
+            "text": "But, many people don’t know sign language."
+          },
+          {
+            "id": "s10",
+            "text": "This can make communication hard."
+          },
+          {
+            "id": "s11",
+            "text": "But computers can help."
+          },
+          {
+            "id": "s12",
+            "text": "Deaf people can write messages to anyone who doesn’t know sign language."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Deafness and Sign Language"
+        },
+        "main_idea": {
+          "text": "Deaf people have hearing difficulties and often use sign language to communicate."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "Deaf people cannot hear sounds like others."
+          },
+          {
+            "source_ids": [
+              "s3",
+              "s4"
+            ],
+            "meaning": "Some deaf people can speak, but others cannot."
+          },
+          {
+            "source_ids": [
+              "s5",
+              "s6",
+              "s7"
+            ],
+            "meaning": "Sign language uses hand signs to represent words or letters."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Deaf people’s ears don’t work well.",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "They use sign language.",
+            "source_id": "s5",
+            "role": "solution_introduction"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Communication Challenges and Solutions"
+        },
+        "main_idea": {
+          "text": "Computers help deaf people communicate with those who do not know sign language."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "Many people do not know sign language, making communication difficult."
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s12"
+            ],
+            "meaning": "Computers allow deaf people to write messages to non-signers."
+          }
+        ],
+        "function": {
+          "type": "problem_solution"
+        },
+        "relation_to_previous": {
+          "type": "expansion",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "But, many people don’t know sign language.",
+            "source_id": "s9",
+            "role": "problem_statement"
+          },
+          {
+            "text": "But computers can help.",
+            "source_id": "s11",
+            "role": "solution_statement"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction to Deafness and Sign Language",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Solving Communication Problems",
+          "function": "problem_solution"
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "Deaf people use sign language, but computers help them communicate with people who do not know sign language."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Computers are a bridge between deaf people and hearing people who do not know sign language.",
+          "evidence": [
+            {
+              "source_id": "s12",
+              "span": "Deaf people can write messages to anyone who doesn’t know sign language."
+            }
+          ],
+          "knowledge_bridge": "Understanding that technology can overcome language barriers.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Not all deaf people need sign language to speak, but it is still a useful tool for communication.",
+          "evidence": [
+            {
+              "source_id": "s3",
+              "span": "Some deaf people can talk with no problems."
+            },
+            {
+              "source_id": "s8",
+              "span": "Sign language is useful for deaf people."
+            }
+          ],
+          "knowledge_bridge": "Recognizing diversity within a group and the utility of multiple communication methods.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "聋人使用手语，电脑帮助他们与不懂手语的人交流。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "聋人的耳朵听不见声音。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "手语是用手指表示单词或字母。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "电脑可以发送消息给任何人。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "电脑如何帮助交流",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "什么是手语",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "聋人如何说话",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "耳朵的工作原理",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“手语用动作表示意思”？",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段有什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段解决了第一段提到的交流困难。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段重复了第一段的内容。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段介绍了新的动物。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段解释了为什么耳朵会坏。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段，你猜第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "手语交流可能遇到的问题和解决办法。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "聋人如何学习游泳。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "所有聋人都不能说话。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "手语的历史起源。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明电脑能帮助聋人？",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s11",
+          "s12",
+          "s9"
+        ]
+      }
+    ]
+  }
+}

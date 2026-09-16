@@ -1,0 +1,656 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "re-foundations-12b-how-will-we-live-in-2045",
+    "title": "RE Foundations / 12B / How Will We Live in 2045?",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Welcome to life in the future!"
+          },
+          {
+            "id": "s2",
+            "text": "You get up in the morning and look into the mirror."
+          },
+          {
+            "id": "s3",
+            "text": "You’ve recently had a new anti-aging treatment, so you look like a 30-year-old."
+          },
+          {
+            "id": "s4",
+            "text": "And many people your age could live to be 120 now, so—at 60—you’re not old at all."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "Science has also found amazing ways to keep people healthy."
+          },
+          {
+            "id": "s6",
+            "text": "Nanotechnology 1 can help cure many illnesses, including cancer."
+          },
+          {
+            "id": "s7",
+            "text": "And if any part of your body is unhealthy, you can “grow” a new one in a laboratory."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "As you get dressed, you say to your shirt, “Turn red.”"
+          },
+          {
+            "id": "s9",
+            "text": "It becomes red."
+          },
+          {
+            "id": "s10",
+            "text": "In 2045, “smart” clothes contain nanoparticles that carry electricity."
+          },
+          {
+            "id": "s11",
+            "text": "So you can program clothes to change colors or patterns."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s12",
+            "text": "On the way to the kitchen, you want to call a friend."
+          },
+          {
+            "id": "s13",
+            "text": "Your cell phone is by the window because it gets its energy from the sun."
+          },
+          {
+            "id": "s14",
+            "text": "But you don’t need to pick up the phone."
+          },
+          {
+            "id": "s15",
+            "text": "You can just touch your jacket sleeve to make the call."
+          }
+        ]
+      },
+      {
+        "id": "p5",
+        "order": 5,
+        "sentences": [
+          {
+            "id": "s16",
+            "text": "It’s breakfast time."
+          },
+          {
+            "id": "s17",
+            "text": "You reach for the milk, but a voice says, “Don’t drink that!”"
+          },
+          {
+            "id": "s18",
+            "text": "Your fridge knows the milk is old, and tells the supermarket to replace it."
+          }
+        ]
+      },
+      {
+        "id": "p6",
+        "order": 6,
+        "sentences": [
+          {
+            "id": "s20",
+            "text": "As you leave for work, the lights turn off by themselves."
+          },
+          {
+            "id": "s21",
+            "text": "Your home goes into “sleep” mode to save energy."
+          },
+          {
+            "id": "s22",
+            "text": "In 2045, cars drive themselves, so you just tell your driverless car where you want to go."
+          }
+        ]
+      },
+      {
+        "id": "p7",
+        "order": 7,
+        "sentences": [
+          {
+            "id": "s23",
+            "text": "Will all this come true?"
+          },
+          {
+            "id": "s24",
+            "text": "Perhaps the future is much closer than we think."
+          },
+          {
+            "id": "s25",
+            "text": "1 Nanotechnology is the science of very small things that are measured in nanometers (one billionth of a meter)."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "未来生活开场"
+        },
+        "main_idea": {
+          "text": "在2045年，人们可以保持年轻并活得更久。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "抗衰老治疗让人看起来像30岁。"
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "60岁的人不再被认为是老年人。"
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Welcome to life in the future!",
+            "source_id": "s1",
+            "role": "hook"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "健康与医疗"
+        },
+        "main_idea": {
+          "text": "科学帮助人们保持健康并治愈疾病。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "纳米技术可以治愈癌症等疾病。"
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "可以在实验室里“生长”出新的身体部位。"
+          }
+        ],
+        "function": {
+          "type": "detail"
+        },
+        "relation_to_previous": {
+          "type": "extension",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Science has also found amazing ways to keep people healthy.",
+            "source_id": "s5",
+            "role": "topic_sentence"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "智能服装"
+        },
+        "main_idea": {
+          "text": "未来的衣服可以通过编程改变颜色或图案。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "智能衣服含有携带电力的纳米颗粒。"
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "人们可以对衣服说“变红”来改变颜色。"
+          }
+        ],
+        "function": {
+          "type": "detail"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "In 2045, “smart” clothes contain nanoparticles that carry electricity.",
+            "source_id": "s10",
+            "role": "explanation"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "通讯方式"
+        },
+        "main_idea": {
+          "text": "未来的手机使用太阳能，并且可以通过触摸衣服来接听电话。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "手机从太阳获取能量。"
+          },
+          {
+            "source_ids": [
+              "s15"
+            ],
+            "meaning": "触摸夹克袖子就可以打电话。"
+          }
+        ],
+        "function": {
+          "type": "detail"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "On the way to the kitchen, you want to call a friend.",
+            "source_id": "s12",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p5",
+        "topic": {
+          "label": "智能厨房"
+        },
+        "main_idea": {
+          "text": "未来的冰箱可以识别过期食物并自动订购新的。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s17"
+            ],
+            "meaning": "冰箱会发出声音警告不要喝过期的牛奶。"
+          },
+          {
+            "source_ids": [
+              "s18"
+            ],
+            "meaning": "冰箱会告诉超市替换牛奶。"
+          }
+        ],
+        "function": {
+          "type": "detail"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p4"
+        },
+        "signals": [
+          {
+            "text": "It’s breakfast time.",
+            "source_id": "s16",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p6",
+        "topic": {
+          "label": "智能家居与交通"
+        },
+        "main_idea": {
+          "text": "未来的家可以自动节能，汽车可以自动驾驶。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s21"
+            ],
+            "meaning": "家会进入“睡眠”模式以节省能源。"
+          },
+          {
+            "source_ids": [
+              "s22"
+            ],
+            "meaning": "汽车可以自动驾驶，只需告诉它目的地。"
+          }
+        ],
+        "function": {
+          "type": "detail"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p5"
+        },
+        "signals": [
+          {
+            "text": "As you leave for work, the lights turn off by themselves.",
+            "source_id": "s20",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p7",
+        "topic": {
+          "label": "结尾与思考"
+        },
+        "main_idea": {
+          "text": "未来可能比我们想象的更近。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s24"
+            ],
+            "meaning": "未来可能比我们认为的更近。"
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "summary",
+          "target": "p6"
+        },
+        "signals": [
+          {
+            "text": "Will all this come true?",
+            "source_id": "s23",
+            "role": "rhetorical_question"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "引言",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3",
+            "p4",
+            "p5",
+            "p6"
+          ],
+          "label": "未来生活细节",
+          "function": "body"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p7"
+          ],
+          "label": "结论",
+          "function": "conclusion"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "2045年的生活将充满高科技，使人们更健康、更年轻，并拥有更智能的设备和环境。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "未来的科技将极大地改变人们的日常生活习惯。",
+          "evidence": [
+            {
+              "source_id": "s15",
+              "span": "You can just touch your jacket sleeve to make the call."
+            },
+            {
+              "source_id": "s22",
+              "span": "In 2045, cars drive themselves, so you just tell your driverless car where you want to go."
+            }
+          ],
+          "knowledge_bridge": "科技如何影响日常行为",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "未来的科技将更加注重健康和环保。",
+          "evidence": [
+            {
+              "source_id": "s6",
+              "span": "Nanotechnology 1 can help cure many illnesses, including cancer."
+            },
+            {
+              "source_id": "s21",
+              "span": "Your home goes into “sleep” mode to save energy."
+            }
+          ],
+          "knowledge_bridge": "科技与健康、环保的关系",
+          "difficulty": "medium"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "2045年的高科技生活",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何保持年轻",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "未来的汽车",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "纳米技术的定义",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "为第三段选择一个合适的标题。",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "智能服装",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "健康医疗",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt7",
+            "text": "自动驾驶汽车",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt8",
+            "text": "太阳能手机",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话支持“未来的衣服可以改变颜色”？",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s10",
+          "s11",
+          "s15"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "扩展了第一段关于保持年轻的内容",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "反驳了第一段的观点",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "与第一段无关",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt12",
+            "text": "重复了第一段的内容",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第五段后，你预测下一段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "离开家后的交通或工作",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "如何制作牛奶",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt15",
+            "text": "如何修理手机",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt16",
+            "text": "如何种植蔬菜",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "independent",
+        "interaction": "select-sentence",
+        "prompt": "找出支持“未来的家可以自动节能”的句子。",
+        "answer": {
+          "source_ids": [
+            "s21"
+          ]
+        },
+        "candidate_source_ids": [
+          "s20",
+          "s21",
+          "s22",
+          "s24"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,461 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd6-09-Unit-9-Oshibana",
+    "title": "RFD 6 / Unit 9 Oshibana",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Oshibana is a Japanese art style."
+          },
+          {
+            "id": "s2",
+            "text": "Oshibana artists use pressed flowers to create pictures."
+          },
+          {
+            "id": "s3",
+            "text": "They take live flowers and press them flat."
+          },
+          {
+            "id": "s4",
+            "text": "Then they dry them."
+          },
+          {
+            "id": "s5",
+            "text": "A common way to dry a flower is to press it between two pieces of paper."
+          },
+          {
+            "id": "s6",
+            "text": "This removes the water."
+          },
+          {
+            "id": "s7",
+            "text": "It also keeps the petals safe."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "Oshibana was first practiced in 16th-century Japan."
+          },
+          {
+            "id": "s9",
+            "text": "But pressed flowers have been popular for a long time."
+          },
+          {
+            "id": "s10",
+            "text": "Knights pressed flowers as souvenirs."
+          },
+          {
+            "id": "s11",
+            "text": "Scientists pressed flowers to study them."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s12",
+            "text": "Give it a try!"
+          },
+          {
+            "id": "s13",
+            "text": "All you need is paper, a heavy book, and flowers."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "What is Oshibana"
+        },
+        "main_idea": {
+          "text": "Oshibana is a Japanese art form that uses pressed and dried flowers to create pictures."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "Artists use pressed flowers to make pictures."
+          },
+          {
+            "source_ids": [
+              "s3",
+              "s4"
+            ],
+            "meaning": "Flowers are pressed flat and dried."
+          },
+          {
+            "source_ids": [
+              "s5",
+              "s6",
+              "s7"
+            ],
+            "meaning": "Pressing flowers between paper removes water and protects petals."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Oshibana is a Japanese art style.",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "They take live flowers and press them flat.",
+            "source_id": "s3",
+            "role": "process_description"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "History of Pressed Flowers"
+        },
+        "main_idea": {
+          "text": "While Oshibana started in 16th-century Japan, the practice of pressing flowers has a long history with various uses."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "Oshibana originated in 16th-century Japan."
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "Knights used pressed flowers as souvenirs."
+          },
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "Scientists used pressed flowers for study."
+          }
+        ],
+        "function": {
+          "type": "background_information"
+        },
+        "relation_to_previous": {
+          "type": "expansion",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Oshibana was first practiced in 16th-century Japan.",
+            "source_id": "s8",
+            "role": "historical_context"
+          },
+          {
+            "text": "But pressed flowers have been popular for a long time.",
+            "source_id": "s9",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Try It Yourself"
+        },
+        "main_idea": {
+          "text": "Readers can try making Oshibana using simple materials like paper, a book, and flowers."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "The necessary materials are paper, a heavy book, and flowers."
+          }
+        ],
+        "function": {
+          "type": "call_to_action"
+        },
+        "relation_to_previous": {
+          "type": "application",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Give it a try!",
+            "source_id": "s12",
+            "role": "invitation"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Definition and Process",
+          "function": "Introduces the art form and how it is made."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Historical Context",
+          "function": "Provides background on the history of pressed flowers."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Activity Suggestion",
+          "function": "Encourages the reader to try the activity."
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Oshibana is a Japanese art of creating pictures with pressed flowers, a practice with a long history that readers can easily try at home."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Pressing flowers between paper is a practical method because it serves two purposes: drying and protection.",
+          "evidence": [
+            {
+              "source_id": "s6",
+              "span": "This removes the water."
+            },
+            {
+              "source_id": "s7",
+              "span": "It also keeps the petals safe."
+            }
+          ],
+          "knowledge_bridge": "Understanding cause and effect in physical processes.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The use of pressed flowers is versatile, serving both artistic and scientific purposes across different cultures and times.",
+          "evidence": [
+            {
+              "source_id": "s10",
+              "span": "Knights pressed flowers as souvenirs."
+            },
+            {
+              "source_id": "s11",
+              "span": "Scientists pressed flowers to study them."
+            }
+          ],
+          "knowledge_bridge": "Connecting different uses of the same object to understand its value.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Oshibana是一种用压花制作画作的日本艺术。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "骑士们喜欢收集压花作为纪念品。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "科学家研究花朵的历史。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "如何制作一本厚重的书。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "压花的悠久历史",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何干燥花朵",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "日本的艺术风格",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "尝试自己动手",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明了压花可以保护花瓣？",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第二段与第一段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "扩展背景，介绍压花的历史。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "重复第一段的内容。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "反驳第一段的观点。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "总结全文的结论。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完“Give it a try!”后，接下来可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "制作压花所需的材料。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "日本的历史。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么花朵会枯萎。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "如何画一幅油画。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话告诉我们Oshibana起源于16世纪的日本？",
+        "answer": {
+          "source_ids": [
+            "s8"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s9",
+          "s10",
+          "s11"
+        ]
+      }
+    ]
+  }
+}

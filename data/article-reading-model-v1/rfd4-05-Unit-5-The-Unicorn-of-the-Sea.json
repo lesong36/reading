@@ -1,0 +1,454 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd4-05-Unit-5-The-Unicorn-of-the-Sea",
+    "title": "RFD 4 / Unit 5 The Unicorn of the Sea",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Narwhals are interesting creatures."
+          },
+          {
+            "id": "s2",
+            "text": "They live in the Arctic Ocean."
+          },
+          {
+            "id": "s3",
+            "text": "You can spot them by their unusual-looking tusk."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "A narwhal tusk is actually a tooth."
+          },
+          {
+            "id": "s5",
+            "text": "Both male and female narwhals can have one."
+          },
+          {
+            "id": "s6",
+            "text": "It can grow very long."
+          },
+          {
+            "id": "s7",
+            "text": "Some can grow up to 2.7 meters long."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "Many people believed narwhals use their tusks to hunt."
+          },
+          {
+            "id": "s9",
+            "text": "This is not true."
+          },
+          {
+            "id": "s10",
+            "text": "Actually, scientists are not sure what they’re for."
+          },
+          {
+            "id": "s11",
+            "text": "Some believe they are used to sense things."
+          },
+          {
+            "id": "s12",
+            "text": "A cat"
+          },
+          {
+            "id": "s13",
+            "text": "uses its whiskers in the same way."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Narwhal Introduction"
+        },
+        "main_idea": {
+          "text": "Narwhals are unique Arctic creatures known for their unusual tusks."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "They live in the Arctic Ocean."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "They can be identified by their unusual-looking tusk."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Narwhals are interesting creatures.",
+            "source_id": "s1",
+            "role": "topic_sentence"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The Tusk"
+        },
+        "main_idea": {
+          "text": "A narwhal's tusk is a tooth that can grow very long."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "The tusk is actually a tooth."
+          },
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "Both male and female narwhals can have one."
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "Some can grow up to 2.7 meters long."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "A narwhal tusk is actually a tooth.",
+            "source_id": "s4",
+            "role": "topic_sentence"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Purpose of the Tusk"
+        },
+        "main_idea": {
+          "text": "Scientists are unsure of the tusk's purpose, though some think it helps them sense things."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "Many people believed narwhals use their tusks to hunt."
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "Scientists are not sure what they're for."
+          },
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "Some believe they are used to sense things."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Actually, scientists are not sure what they’re for.",
+            "source_id": "s10",
+            "role": "topic_sentence"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Description of the Tusk",
+          "function": "description"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Purpose of the Tusk",
+          "function": "explanation"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Narwhals are Arctic creatures with a long tusk that is actually a tooth, and scientists are still figuring out its purpose."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The tusk is not a weapon used for hunting.",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "Many people believed narwhals use their tusks to hunt."
+            },
+            {
+              "source_id": "s9",
+              "span": "This is not true."
+            }
+          ],
+          "knowledge_bridge": "Understanding that a belief can be incorrect based on scientific evidence.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The tusk might function similarly to a cat's whiskers.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "Some believe they are used to sense things."
+            },
+            {
+              "source_id": "s13",
+              "span": "uses its whiskers in the same way."
+            }
+          ],
+          "knowledge_bridge": "Connecting the function of a narwhal's tusk to a familiar animal feature (cat whiskers).",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "独角鲸是一种生活在北极的海洋生物，它们有长长的獠牙。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "独角鲸的獠牙可以长到2.7米。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "科学家不确定独角鲸的獠牙是用来做什么的。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "独角鲸用它们的獠牙来捕猎。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "独角鲸的獠牙",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "北极的海洋",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt3",
+            "text": "猫胡须的秘密",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "如何捕猎独角鲸",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "哪句话支持了“独角鲸的獠牙其实是一颗牙齿”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s4"
+          ]
+        },
+        "candidate_source_ids": [
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段和第一段有什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第三段详细解释了第一段提到的“奇怪的獠牙”的用途。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第三段介绍了独角鲸的生活环境。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "第三段反驳了第一段关于独角鲸是有趣生物的说法。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "第三段讲述了独角鲸如何捕猎。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第三段，你觉得作者接下来可能会写什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "科学家是如何研究独角鲸的獠牙的。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "独角鲸的幼崽是如何出生的。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么独角鲸的獠牙 are used to hunt. ",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "独角鲸的獠牙 are made of bone. ",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "medium",
+        "interaction": "select-sentence",
+        "prompt": "哪句话表明科学家对独角鲸獠牙的用途并不确定？",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s9",
+          "s10",
+          "s11"
+        ]
+      }
+    ]
+  }
+}

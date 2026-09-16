@@ -1,0 +1,457 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd2-04-Unit-4-The-Earth-s-Blanket",
+    "title": "Unit 4 The Earth’s Blanket",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "The earth is in danger!"
+          },
+          {
+            "id": "s2",
+            "text": "There are huge rocks in space."
+          },
+          {
+            "id": "s3",
+            "text": "They are dangerous!"
+          },
+          {
+            "id": "s4",
+            "text": "The sun’s light is strong."
+          },
+          {
+            "id": "s5",
+            "text": "It could hurt us."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "But don’t worry."
+          },
+          {
+            "id": "s7",
+            "text": "The earth has an atmosphere."
+          },
+          {
+            "id": "s8",
+            "text": "The atmosphere is the air around the earth."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "The atmosphere is like a blanket."
+          },
+          {
+            "id": "s10",
+            "text": "It keeps the earth warm."
+          },
+          {
+            "id": "s11",
+            "text": "It stops rocks."
+          },
+          {
+            "id": "s12",
+            "text": "Rocks coming toward the earth burn in the atmosphere."
+          },
+          {
+            "id": "s13",
+            "text": "We call them “shooting stars.”"
+          },
+          {
+            "id": "s14",
+            "text": "The atmosphere also makes sunshine safer for us."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "地球面临的危险"
+        },
+        "main_idea": {
+          "text": "地球面临着来自太空的巨大岩石和强烈阳光的威胁。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2",
+              "s3"
+            ],
+            "meaning": "太空中有巨大的岩石，它们非常危险。"
+          },
+          {
+            "source_ids": [
+              "s4",
+              "s5"
+            ],
+            "meaning": "太阳光非常强烈，可能会伤害我们。"
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "The earth is in danger!",
+            "source_id": "s1",
+            "role": "topic_sentence"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "地球的保护层"
+        },
+        "main_idea": {
+          "text": "地球有一个大气层，它是包围在地球周围的空气。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "地球拥有大气层。"
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "大气层是地球周围的空气。"
+          }
+        ],
+        "function": {
+          "type": "transition"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "But don’t worry.",
+            "source_id": "s6",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "大气层的作用"
+        },
+        "main_idea": {
+          "text": "大气层像一条毯子，能保持地球温暖、阻挡岩石并让阳光更安全。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "大气层像毯子一样让地球保持温暖。"
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s12",
+              "s13"
+            ],
+            "meaning": "大气层让飞向地球的岩石燃烧，形成流星。"
+          },
+          {
+            "source_ids": [
+              "s14"
+            ],
+            "meaning": "大气层让阳光对我们更安全。"
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "The atmosphere is like a blanket.",
+            "source_id": "s9",
+            "role": "topic_sentence"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "问题引入",
+          "function": "提出问题"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "引出概念",
+          "function": "介绍大气层"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "解释作用",
+          "function": "详细说明大气层的功能"
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "地球的大气层像一条毯子，保护我们免受太空岩石和强烈阳光的伤害。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "如果没有大气层，地球上的生命可能会受到严重威胁。",
+          "evidence": [
+            {
+              "source_id": "s3",
+              "span": "They are dangerous!"
+            },
+            {
+              "source_id": "s5",
+              "span": "It could hurt us."
+            }
+          ],
+          "knowledge_bridge": "结合常识，理解危险事物对生命的威胁。",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "大气层不仅保护地球，还让地球环境更适宜居住。",
+          "evidence": [
+            {
+              "source_id": "s10",
+              "span": "It keeps the earth warm."
+            },
+            {
+              "source_id": "s14",
+              "span": "The atmosphere also makes sunshine safer for us."
+            }
+          ],
+          "knowledge_bridge": "理解“保护”和“适宜居住”之间的关系。",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "大气层像毯子一样保护地球。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "太空中有很多大石头。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "流星是燃烧的大石头。",
+            "role": "minor_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "地球很危险。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第三段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "大气层的作用",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "什么是流星",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "太阳光很强",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "地球很危险",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“大气层让地球保持温暖”？",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s11",
+          "s14",
+          "s9"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段解决了第一段提出的问题。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段重复了第一段的内容。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段和第一段没有关系。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段让问题变得更严重。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第二段，你觉得第三段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "大气层具体是怎么保护地球的。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "太空中还有更多危险的石头。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "地球上的动物是怎么生活的。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "为什么太阳光会变强。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明大气层能挡住岩石？",
+        "answer": {
+          "source_ids": [
+            "s12"
+          ]
+        },
+        "candidate_source_ids": [
+          "s12",
+          "s11",
+          "s13",
+          "s14"
+        ]
+      }
+    ]
+  }
+}

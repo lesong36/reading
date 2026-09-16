@@ -1,0 +1,469 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd5-11-Unit-11-Auto-Tune",
+    "title": "RFD 5 / Unit 11 Auto-Tune",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Singing is never perfect."
+          },
+          {
+            "id": "s2",
+            "text": "But fixing it used to take a long time."
+          },
+          {
+            "id": "s3",
+            "text": "Engineers recorded a song many times."
+          },
+          {
+            "id": "s4",
+            "text": "Then, they took the best parts and put them together."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "In 1997, Auto-Tune changed everything."
+          },
+          {
+            "id": "s6",
+            "text": "Engineers recorded a song once."
+          },
+          {
+            "id": "s7",
+            "text": "Then, the software could make it perfect."
+          },
+          {
+            "id": "s8",
+            "text": "The song still sounded natural."
+          },
+          {
+            "id": "s9",
+            "text": "Nearly every singer wanted to use Auto-Tune."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s10",
+            "text": "Engineers started using Auto-Tune in creative new ways."
+          },
+          {
+            "id": "s11",
+            "text": "They moved up and down a few tones very quickly."
+          },
+          {
+            "id": "s12",
+            "text": "The singer sounded like a robot."
+          },
+          {
+            "id": "s13",
+            "text": "Now Auto-Tune is used in almost every song."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Old Way of Recording"
+        },
+        "main_idea": {
+          "text": "Before modern technology, making a perfect recording took a lot of time and effort."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Engineers had to record the song many times."
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "They edited the best parts together to make it sound good."
+          }
+        ],
+        "function": {
+          "type": "background"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "But",
+            "source_id": "s2",
+            "role": "contrast"
+          },
+          {
+            "text": "used to",
+            "source_id": "s2",
+            "role": "time_marker"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The Invention of Auto-Tune"
+        },
+        "main_idea": {
+          "text": "Auto-Tune allowed singers to sound perfect after recording only once."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "Engineers only needed to record the song one time."
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "Software fixed the mistakes automatically."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "Singers loved the new technology."
+          }
+        ],
+        "function": {
+          "type": "introduction_of_solution"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "In 1997",
+            "source_id": "s5",
+            "role": "time_marker"
+          },
+          {
+            "text": "changed everything",
+            "source_id": "s5",
+            "role": "significance_marker"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Creative Uses of Auto-Tune"
+        },
+        "main_idea": {
+          "text": "Engineers began using Auto-Tune to create new, robotic sounds in music."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "They changed the pitch quickly to make a specific effect."
+          },
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "This made the singer sound like a robot."
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "The technology became very common in all songs."
+          }
+        ],
+        "function": {
+          "type": "development"
+        },
+        "relation_to_previous": {
+          "type": "progression",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "started using",
+            "source_id": "s10",
+            "role": "action_marker"
+          },
+          {
+            "text": "Now",
+            "source_id": "s13",
+            "role": "time_marker"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "The Past Process",
+          "function": "Establishes the problem of time-consuming recording."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "The Solution",
+          "function": "Introduces Auto-Tune as an efficient fix."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "New Applications",
+          "function": "Describes how the tool evolved into a creative style."
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "Auto-Tune technology changed music recording by making it faster and allowing for new creative sounds."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Auto-Tune made recording music much faster and cheaper than before.",
+          "evidence": [
+            {
+              "source_id": "s3",
+              "span": "recorded a song many times"
+            },
+            {
+              "source_id": "s6",
+              "span": "recorded a song once"
+            }
+          ],
+          "knowledge_bridge": "Recording many times takes more time and money than recording once.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The 'robot' sound is a specific artistic choice, not just a mistake.",
+          "evidence": [
+            {
+              "source_id": "s10",
+              "span": "creative new ways"
+            },
+            {
+              "source_id": "s11",
+              "span": "moved up and down a few tones very quickly"
+            }
+          ],
+          "knowledge_bridge": "Doing something 'creatively' implies an intentional design rather than an accident.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Auto-Tune技术如何改变了音乐录制方式。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "工程师喜欢唱歌。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "所有歌曲都是完美的。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "机器人声音很难听。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段（p2）的最佳标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Auto-Tune的诞生",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何修理机器人",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么唱歌很难",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "1997年的天气",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“以前录制歌曲很费时”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s3"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s6",
+          "s12",
+          "s13"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第二段（p2）和第一段（p1）之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "对比：新方法与旧方法的不同。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "重复：两段说了一样的事。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "举例：第二段是第一段的例子。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "无关：两段讲不同的话题。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完第二段后，你觉得第三段可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "人们如何以新的方式使用这项技术。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Auto-Tune技术被发明前的历史。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么工程师不喜欢唱歌。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "如何修理坏掉的麦克风。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "independent",
+        "interaction": "select_sentence",
+        "prompt": "哪句话证明了Auto-Tune可以让歌手听起来像机器人？",
+        "answer": {
+          "source_ids": [
+            "s12"
+          ]
+        },
+        "candidate_source_ids": [
+          "s7",
+          "s11",
+          "s12",
+          "s13"
+        ]
+      }
+    ]
+  }
+}

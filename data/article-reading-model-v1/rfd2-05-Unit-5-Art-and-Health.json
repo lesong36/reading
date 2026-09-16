@@ -1,0 +1,489 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd2-05-Unit-5-Art-and-Health",
+    "title": "Unit 5 Art and Health",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "How do you stay healthy?"
+          },
+          {
+            "id": "s2",
+            "text": "Do you exercise?"
+          },
+          {
+            "id": "s3",
+            "text": "Do you eat healthy food?"
+          },
+          {
+            "id": "s4",
+            "text": "Do you make art?"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "Making art is good for you."
+          },
+          {
+            "id": "s6",
+            "text": "It helps your brain."
+          },
+          {
+            "id": "s7",
+            "text": "It helps you relax."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "Doctors often use art to help people."
+          },
+          {
+            "id": "s9",
+            "text": "For example, people sometimes have bad dreams."
+          },
+          {
+            "id": "s10",
+            "text": "And they’re not sure why."
+          },
+          {
+            "id": "s11",
+            "text": "The doctor can ask them to draw the dreams."
+          },
+          {
+            "id": "s12",
+            "text": "Then they discuss the pictures."
+          },
+          {
+            "id": "s13",
+            "text": "This helps people understand their feelings."
+          },
+          {
+            "id": "s14",
+            "text": "Then they feel better."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "健康生活方式"
+        },
+        "main_idea": {
+          "text": "通过提问引出保持健康的不同方式，包括做艺术。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2",
+              "s3"
+            ],
+            "meaning": "列举了运动和健康饮食等常见的健康习惯。"
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "提出做艺术也是一种保持健康的方式。"
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "How do you stay healthy?",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "Do you make art?",
+            "source_id": "s4",
+            "role": "topic_focus"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "艺术的好处"
+        },
+        "main_idea": {
+          "text": "做艺术对身心健康有益，能锻炼大脑并帮助放松。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "指出做艺术对人有益。"
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "说明艺术对大脑有好处。"
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "说明艺术能帮助人放松。"
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Making art is good for you.",
+            "source_id": "s5",
+            "role": "topic_statement"
+          },
+          {
+            "text": "It helps your brain.",
+            "source_id": "s6",
+            "role": "supporting_detail"
+          },
+          {
+            "text": "It helps you relax.",
+            "source_id": "s7",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "艺术治疗"
+        },
+        "main_idea": {
+          "text": "医生利用艺术帮助人们理解情绪并改善心理健康。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "医生经常用艺术来帮助人们。"
+          },
+          {
+            "source_ids": [
+              "s9",
+              "s10",
+              "s11"
+            ],
+            "meaning": "举例说明医生让做噩梦的人画出梦境。"
+          },
+          {
+            "source_ids": [
+              "s12",
+              "s13",
+              "s14"
+            ],
+            "meaning": "通过讨论画作，人们能理解自己的感受并感觉更好。"
+          }
+        ],
+        "function": {
+          "type": "example"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Doctors often use art to help people.",
+            "source_id": "s8",
+            "role": "topic_statement"
+          },
+          {
+            "text": "For example, people sometimes have bad dreams.",
+            "source_id": "s9",
+            "role": "example_introduction"
+          },
+          {
+            "text": "This helps people understand their feelings.",
+            "source_id": "s13",
+            "role": "conclusion"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "引入话题",
+          "function": "提出问题，引出艺术与健康的联系。"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "阐述益处",
+          "function": "解释艺术对大脑和情绪的好处。"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "具体应用",
+          "function": "通过医生的例子展示艺术如何帮助人们。"
+        }
+      ],
+      "structure": {
+        "type": "cause_and_effect"
+      },
+      "central_idea": {
+        "text": "做艺术不仅有益身心健康，还能被医生用来帮助人们理解和改善情绪。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "艺术可以帮助人们表达难以用语言描述的感受。",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "The doctor can ask them to draw the dreams."
+            },
+            {
+              "source_id": "s13",
+              "span": "This helps people understand their feelings."
+            }
+          ],
+          "knowledge_bridge": "将“画画”与“表达感受”联系起来，理解艺术作为沟通工具的作用。",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "艺术治疗是一种有效的心理辅助方法。",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "Doctors often use art to help people."
+            },
+            {
+              "source_id": "s14",
+              "span": "Then they feel better."
+            }
+          ],
+          "knowledge_bridge": "结合医生使用艺术和人们感觉更好的结果，推断艺术在医疗中的有效性。",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "艺术对健康有益，医生可以用它帮助人们。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "人们应该多吃健康的食物。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "做噩梦的人需要看医生。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "如何保持健康。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪句话最适合做第三段的标题？",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "医生如何用艺术帮助人们",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "为什么人们会做噩梦",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt7",
+            "text": "如何画一幅好画",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt8",
+            "text": "艺术的好处",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“艺术能帮助人放松”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s6",
+          "s7",
+          "s8",
+          "s13"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段和第一段有什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "第三段用例子解释了第一段提出的问题。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "第三段反驳了第一段的观点。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "第三段和第一段没有联系。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt12",
+            "text": "第三段重复了第一段的内容。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第二段后，你觉得第三段可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "艺术在医疗中的具体应用。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "如何学习画画。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt15",
+            "text": "为什么人们不喜欢运动。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt16",
+            "text": "健康食物的种类。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "medium",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明医生用艺术帮助人们？",
+        "answer": {
+          "source_ids": [
+            "s8"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s8",
+          "s11",
+          "s14"
+        ]
+      }
+    ]
+  }
+}

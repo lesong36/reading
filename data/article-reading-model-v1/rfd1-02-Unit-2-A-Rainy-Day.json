@@ -1,0 +1,512 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd1-02-Unit-2-A-Rainy-Day",
+    "title": "Unit 2 A Rainy Day",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "It’s cloudy outside."
+          },
+          {
+            "id": "s2",
+            "text": "But will it rain?"
+          },
+          {
+            "id": "s3",
+            "text": "Not all clouds make rain."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "Some clouds are high."
+          },
+          {
+            "id": "s5",
+            "text": "They are thin and long."
+          },
+          {
+            "id": "s6",
+            "text": "They don’t make rain."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s7",
+            "text": "Other clouds are low."
+          },
+          {
+            "id": "s8",
+            "text": "They are white and fluffy."
+          },
+          {
+            "id": "s9",
+            "text": "They don’t make rain."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s10",
+            "text": "Storm clouds are dark and gray."
+          },
+          {
+            "id": "s11",
+            "text": "They are very big and tall."
+          },
+          {
+            "id": "s12",
+            "text": "Their bottoms are low in the sky, and their tops are high."
+          },
+          {
+            "id": "s13",
+            "text": "These clouds make rain!"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction to Clouds and Rain"
+        },
+        "main_idea": {
+          "text": "Cloudy weather does not always mean it will rain."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "The sky is cloudy, but rain is not guaranteed."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Different types of clouds have different effects on weather."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "But will it rain?",
+            "source_id": "s2",
+            "role": "question_hook"
+          },
+          {
+            "text": "Not all clouds make rain.",
+            "source_id": "s3",
+            "role": "topic_statement"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "High Clouds"
+        },
+        "main_idea": {
+          "text": "High, thin clouds do not produce rain."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4",
+              "s5"
+            ],
+            "meaning": "These clouds are located high in the sky and have a thin, long shape."
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "They are incapable of creating rain."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Some clouds are high.",
+            "source_id": "s4",
+            "role": "category_introduction"
+          },
+          {
+            "text": "They don’t make rain.",
+            "source_id": "s6",
+            "role": "conclusion"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Low Clouds"
+        },
+        "main_idea": {
+          "text": "Low, fluffy clouds also do not produce rain."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s7",
+              "s8"
+            ],
+            "meaning": "These clouds are low in the sky and appear white and fluffy."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "Like high clouds, they do not cause rain."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Other clouds are low.",
+            "source_id": "s7",
+            "role": "category_introduction"
+          },
+          {
+            "text": "They don’t make rain.",
+            "source_id": "s9",
+            "role": "conclusion"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "Storm Clouds"
+        },
+        "main_idea": {
+          "text": "Dark, tall storm clouds are the ones that make rain."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s10",
+              "s11",
+              "s12"
+            ],
+            "meaning": "Storm clouds are dark, gray, very large, and extend from low to high in the sky."
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "These specific clouds are responsible for rain."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "Storm clouds are dark and gray.",
+            "source_id": "s10",
+            "role": "category_introduction"
+          },
+          {
+            "text": "These clouds make rain!",
+            "source_id": "s13",
+            "role": "conclusion"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces the relationship between clouds and rain."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3"
+          ],
+          "label": "Clouds That Do Not Rain",
+          "function": "Describes high and low clouds that do not produce rain."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p4"
+          ],
+          "label": "Clouds That Do Rain",
+          "function": "Describes storm clouds that produce rain."
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Only specific types of clouds, known as storm clouds, produce rain, while high and low clouds do not."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "If you see dark, tall clouds, you should expect rain.",
+          "evidence": [
+            {
+              "source_id": "s10",
+              "span": "Storm clouds are dark and gray."
+            },
+            {
+              "source_id": "s13",
+              "span": "These clouds make rain!"
+            }
+          ],
+          "knowledge_bridge": "Connecting visual cloud characteristics to weather prediction.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Seeing white, fluffy clouds means it is unlikely to rain.",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "They are white and fluffy."
+            },
+            {
+              "source_id": "s9",
+              "span": "They don’t make rain."
+            }
+          ],
+          "knowledge_bridge": "Using cloud appearance to assess precipitation probability.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要想告诉我们什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "只有特定的云（如积雨云）才会下雨，其他云不会。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "所有的云都会变成雨。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "积雨云是黑色和灰色的。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "云在天空中很高。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "第四段（p4）最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "带来雨的云",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "高高的云",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt7",
+            "text": "云的颜色",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt8",
+            "text": "为什么天会黑",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪句话支持了“积雨云会下雨”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s13"
+          ]
+        },
+        "candidate_source_ids": [
+          "s6",
+          "s9",
+          "s13",
+          "s3"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第二段（p2）和第三段（p3）之间的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "它们都在描述不会下雨的云，是并列关系。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "第三段解释了第二段为什么是错的。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "第二段是结论，第三段是开头。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt12",
+            "text": "第三段描述了会下雨的云。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你觉得作者接下来会介绍什么？",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "不同类型的云以及它们是否下雨。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "如何制作人工降雨。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt15",
+            "text": "为什么天空是蓝色的。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt16",
+            "text": "雨伞的历史。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "找出描述积雨云形状的句子。",
+        "answer": {
+          "source_ids": [
+            "s11",
+            "s12"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s8",
+          "s11",
+          "s12"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,510 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "re-foundations-11a-the-mammoth-s-tale",
+    "title": "RE Foundations / 11A / The Mammoth’s Tale",
+    "text_type": "narrative",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "The strange animal in the ice looked like it was sleeping."
+          },
+          {
+            "id": "s2",
+            "text": "Ten-year-old Kostia Khudi and his brother had never seen anything like it."
+          },
+          {
+            "id": "s3",
+            "text": "Their father, a reindeer herder 1 named Yuri Khudi, went to ask a friend for advice."
+          },
+          {
+            "id": "s4",
+            "text": "But when he returned, the body had disappeared."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "Yuri soon found the animal’s body leaning against a store in a nearby town."
+          },
+          {
+            "id": "s6",
+            "text": "While he was away, his cousin had sold it to the store owner."
+          },
+          {
+            "id": "s7",
+            "text": "Dogs had eaten part of the tail and ear."
+          },
+          {
+            "id": "s8",
+            "text": "But it was still in almost “as close to perfect condition as you can imagine,” says scientist Daniel Fisher."
+          },
+          {
+            "id": "s9",
+            "text": "The police came to help."
+          },
+          {
+            "id": "s10",
+            "text": "The body was taken by helicopter to a museum."
+          },
+          {
+            "id": "s11",
+            "text": "The animal was a baby mammoth from the Ice Age."
+          },
+          {
+            "id": "s12",
+            "text": "It was female, so the scientists named it after Yuri’s wife."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s13",
+            "text": "From Siberia, the mammoth was sent to the Netherlands and Japan."
+          },
+          {
+            "id": "s14",
+            "text": "Scientists there studied it in detail."
+          },
+          {
+            "id": "s15",
+            "text": "Studies of her teeth and tusks showed she was just one month old when she died."
+          },
+          {
+            "id": "s16",
+            "text": "Research has also shown us the sequence of events that led to her death."
+          },
+          {
+            "id": "s17",
+            "text": "Lyuba fell and died near a muddy river."
+          },
+          {
+            "id": "s18",
+            "text": "The mud 2 helped keep her body frozen until she was found, 40,000 years later."
+          },
+          {
+            "id": "s19",
+            "text": "Scientists hope that further studies will help explain how mammoths like Lyuba lived."
+          },
+          {
+            "id": "s20",
+            "text": "They also want to know why mammoths became extinct."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Discovery"
+        },
+        "main_idea": {
+          "text": "A boy and his brother found a strange animal in the ice, but it disappeared before they could investigate."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "The animal looked like it was sleeping."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "The boys had never seen anything like it."
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "The body was gone when the father returned."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "The strange animal in the ice",
+            "source_id": "s1",
+            "role": "topic"
+          },
+          {
+            "text": "had never seen anything like it",
+            "source_id": "s2",
+            "role": "detail"
+          },
+          {
+            "text": "the body had disappeared",
+            "source_id": "s4",
+            "role": "detail"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The Rescue"
+        },
+        "main_idea": {
+          "text": "The animal's body was found in a town, identified as a baby mammoth, and taken to a museum."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "The body was found leaning against a store."
+          },
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "The animal was a baby mammoth from the Ice Age."
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "The body was taken by helicopter to a museum."
+          }
+        ],
+        "function": {
+          "type": "development"
+        },
+        "relation_to_previous": {
+          "type": "sequence",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Yuri soon found the animal's body",
+            "source_id": "s5",
+            "role": "topic"
+          },
+          {
+            "text": "The animal was a baby mammoth",
+            "source_id": "s11",
+            "role": "detail"
+          },
+          {
+            "text": "taken by helicopter to a museum",
+            "source_id": "s10",
+            "role": "detail"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "The Study"
+        },
+        "main_idea": {
+          "text": "Scientists studied the mammoth, learning about her age, cause of death, and hoping to understand mammoth extinction."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s15"
+            ],
+            "meaning": "She was one month old when she died."
+          },
+          {
+            "source_ids": [
+              "s17"
+            ],
+            "meaning": "She fell and died near a muddy river."
+          },
+          {
+            "source_ids": [
+              "s20"
+            ],
+            "meaning": "Scientists want to know why mammoths became extinct."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "sequence",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Scientists there studied it in detail",
+            "source_id": "s14",
+            "role": "topic"
+          },
+          {
+            "text": "just one month old when she died",
+            "source_id": "s15",
+            "role": "detail"
+          },
+          {
+            "text": "why mammoths became extinct",
+            "source_id": "s20",
+            "role": "detail"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "The Discovery",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "The Rescue",
+          "function": "development"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "The Study",
+          "function": "conclusion"
+        }
+      ],
+      "structure": {
+        "type": "narrative"
+      },
+      "central_idea": {
+        "text": "A baby mammoth was found in the ice, rescued, and studied by scientists to learn about its life and death."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The mud was important for preserving the mammoth's body.",
+          "evidence": [
+            {
+              "source_id": "s18",
+              "span": "The mud helped keep her body frozen until she was found"
+            }
+          ],
+          "knowledge_bridge": "Understanding how freezing preserves things.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Scientists are interested in the mammoth because it can help them learn about the past.",
+          "evidence": [
+            {
+              "source_id": "s19",
+              "span": "Scientists hope that further studies will help explain how mammoths like Lyuba lived."
+            }
+          ],
+          "knowledge_bridge": "Understanding the purpose of scientific research.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "科学家发现并研究了一只冰河时代的幼年猛犸象。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Yuri的妻子喜欢猛犸象。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "男孩们喜欢去冰里玩。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "狗喜欢吃猛犸象的尾巴。",
+            "role": "minor_detail"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最好的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "猛犸象被送往博物馆",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Yuri的朋友给了建议",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "警察喜欢直升机",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "商店老板卖了很多东西",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "哪句话支持“猛犸象是一只幼崽”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s11",
+          "s15",
+          "s17",
+          "s20"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段接着讲第一段发现猛犸象后的事情。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段解释了为什么男孩们没看到猛犸象。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段和第一段没有关系。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段讲了猛犸象是怎么死的。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段，你觉得接下来会发生什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "人们会找到猛犸象并研究它。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "男孩们会忘记这件事。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "Yuri会卖掉他的驯鹿。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "警察会抓男孩们。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "哪句话告诉我们猛犸象是怎么死的？",
+        "answer": {
+          "source_ids": [
+            "s17"
+          ]
+        },
+        "candidate_source_ids": [
+          "s17",
+          "s18",
+          "s15",
+          "s19"
+        ]
+      }
+    ]
+  }
+}

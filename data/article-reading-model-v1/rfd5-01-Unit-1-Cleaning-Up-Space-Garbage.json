@@ -1,0 +1,401 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd5-01-Unit-1-Cleaning-Up-Space-Garbage",
+    "title": "RFD 5 / Unit 1 Cleaning Up Space Garbage",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Waste is a problem all around the world."
+          },
+          {
+            "id": "s2",
+            "text": "It’s even a problem in space."
+          },
+          {
+            "id": "s3",
+            "text": "People have left 8,000 tonnes of trash there."
+          },
+          {
+            "id": "s4",
+            "text": "It’s called space debris."
+          },
+          {
+            "id": "s5",
+            "text": "It goes around the Earth dangerously fast."
+          },
+          {
+            "id": "s6",
+            "text": "It can hit spaceships and even Earth."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s7",
+            "text": "It’s time to clean it up."
+          },
+          {
+            "id": "s8",
+            "text": "One solution scientists have invented is a giant net to catch trash."
+          },
+          {
+            "id": "s9",
+            "text": "The scientists will use powerful cameras to find the trash."
+          },
+          {
+            "id": "s10",
+            "text": "They will catch it and slow"
+          },
+          {
+            "id": "s11",
+            "text": "it down."
+          },
+          {
+            "id": "s12",
+            "text": "Then they can bring it back to Earth."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Problem of Space Debris"
+        },
+        "main_idea": {
+          "text": "Space debris is a dangerous global problem."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "There is a massive amount of trash in space."
+          },
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "The debris moves at high speeds."
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "The debris poses a threat to spacecraft and Earth."
+          }
+        ],
+        "function": {
+          "type": "problem_statement"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Waste is a problem",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "It’s even a problem in space",
+            "source_id": "s2",
+            "role": "scope_expansion"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "A Solution for Space Debris"
+        },
+        "main_idea": {
+          "text": "Scientists are using a giant net to clean up space debris."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "The solution involves a giant net."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "Cameras are used to locate the trash."
+          },
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "The goal is to return the trash to Earth."
+          }
+        ],
+        "function": {
+          "type": "solution_description"
+        },
+        "relation_to_previous": {
+          "type": "problem_solution",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "It’s time to clean it up",
+            "source_id": "s7",
+            "role": "transition"
+          },
+          {
+            "text": "One solution",
+            "source_id": "s8",
+            "role": "solution_introduction"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "The Problem",
+          "function": "Introduces the issue of space debris."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "The Solution",
+          "function": "Describes the method to clean up space debris."
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "Space debris is a dangerous problem, and scientists are developing a giant net to clean it up."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The space debris is difficult to catch because it moves very fast.",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "It goes around the Earth dangerously fast."
+            }
+          ],
+          "knowledge_bridge": "High speed makes objects harder to intercept.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The giant net is a new invention by scientists.",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "One solution scientists have invented is a giant net to catch trash."
+            }
+          ],
+          "knowledge_bridge": "The word 'invented' implies a new creation.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "太空垃圾是一个问题，科学家正在想办法清理它。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "地球上有8000吨垃圾。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "科学家喜欢使用相机。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "太空垃圾很危险。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第二段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "清理太空垃圾的方法",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "太空垃圾的危险",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "地球上的垃圾",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "太空中的相机",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话支持“太空垃圾很危险”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s5",
+          "s6",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段提出了第一段问题的解决方案。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段重复了第一段的内容。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段介绍了另一个不相关的问题。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段解释了为什么太空垃圾存在。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你觉得第二段可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "如何解决太空垃圾的问题。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "更多种类的太空垃圾。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "How to make a spaceship.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "The history of space travel.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话告诉我们科学家用什么来寻找垃圾？",
+        "answer": {
+          "source_ids": [
+            "s9"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s9",
+          "s10",
+          "s12"
+        ]
+      }
+    ]
+  }
+}

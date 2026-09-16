@@ -1,0 +1,680 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "re-foundations-5a-the-disease-detective",
+    "title": "RE Foundations / 5A / The Disease Detective",
+    "text_type": "narrative",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Six children were in the hospital."
+          },
+          {
+            "id": "s2",
+            "text": "They were very sick, but the doctors didn’t know what to do."
+          },
+          {
+            "id": "s3",
+            "text": "They called Dr. Richard Besser, an expert on strange illnesses."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "First, Dr. Besser needed to find the cause of the illness."
+          },
+          {
+            "id": "s5",
+            "text": "He looked for germs in the children’s bodies."
+          },
+          {
+            "id": "s6",
+            "text": "In every child, Dr. Besser found the same type of the bacteria E. coli."
+          },
+          {
+            "id": "s7",
+            "text": "He then looked at the bacteria’s DNA."
+          },
+          {
+            "id": "s8",
+            "text": "2 It showed him that this type of E. coli was dangerous."
+          },
+          {
+            "id": "s9",
+            "text": "2 DNA is a chemical that contains information about a living thing’s characteristics."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s10",
+            "text": "Dr. Besser knew E. coli could move from animals to humans."
+          },
+          {
+            "id": "s11",
+            "text": "Had the children touched animals that carried the bacteria?"
+          },
+          {
+            "id": "s12",
+            "text": "Besser found other E. coli cases in the area where the children lived."
+          },
+          {
+            "id": "s13",
+            "text": "But it wasn’t enough."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s14",
+            "text": "Besser then made a list of what the sick children had eaten."
+          },
+          {
+            "id": "s15",
+            "text": "They had all eaten cheese, apple juice, and fish."
+          },
+          {
+            "id": "s16",
+            "text": "He then made a list of what healthy children in the area had eaten."
+          },
+          {
+            "id": "s17",
+            "text": "They had eaten the cheese and fish, but not the apple juice."
+          }
+        ]
+      },
+      {
+        "id": "p5",
+        "order": 5,
+        "sentences": [
+          {
+            "id": "s18",
+            "text": "Besser went to where the apple juice was made."
+          },
+          {
+            "id": "s19",
+            "text": "He saw animals around the apple trees."
+          },
+          {
+            "id": "s20",
+            "text": "He also saw the workers using dirty apples that had fallen on the ground."
+          },
+          {
+            "id": "s21",
+            "text": "More importantly, he saw that the apples were not washed before the juice was made, and that the juice was not heated."
+          },
+          {
+            "id": "s22",
+            "text": "Doing these things would kill the bacteria."
+          },
+          {
+            "id": "s23",
+            "text": "Besser then knew it was the apple juice that made the children sick."
+          }
+        ]
+      },
+      {
+        "id": "p6",
+        "order": 6,
+        "sentences": [
+          {
+            "id": "s24",
+            "text": "Besser’s E. coli case had a happy ending."
+          },
+          {
+            "id": "s25",
+            "text": "The children got better."
+          },
+          {
+            "id": "s26",
+            "text": "And what Besser learned that day now helps keep others safe."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Problem"
+        },
+        "main_idea": {
+          "text": "Six children were sick, and an expert was called to help."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "Six children were in the hospital."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "The doctors didn't know what to do."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Dr. Richard Besser was called to help."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Six children were in the hospital.",
+            "source_id": "s1",
+            "role": "topic"
+          },
+          {
+            "text": "They called Dr. Richard Besser, an expert on strange illnesses.",
+            "source_id": "s3",
+            "role": "introduction"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Finding the Germ"
+        },
+        "main_idea": {
+          "text": "Dr. Besser found a dangerous type of E. coli bacteria in the children."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "He found the same type of E. coli in every child."
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "The DNA showed the E. coli was dangerous."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "DNA contains information about a living thing."
+          }
+        ],
+        "function": {
+          "type": "detail"
+        },
+        "relation_to_previous": {
+          "type": "cause_and_effect",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "First, Dr. Besser needed to find the cause of the illness.",
+            "source_id": "s4",
+            "role": "transition"
+          },
+          {
+            "text": "In every child, Dr. Besser found the same type of the bacteria E. coli.",
+            "source_id": "s6",
+            "role": "detail"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Looking for the Source"
+        },
+        "main_idea": {
+          "text": "Dr. Besser looked for animals that might have spread the bacteria but couldn't find enough proof."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "E. coli can move from animals to humans."
+          },
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "He found other E. coli cases in the area."
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "This wasn't enough to solve the mystery."
+          }
+        ],
+        "function": {
+          "type": "detail"
+        },
+        "relation_to_previous": {
+          "type": "sequence",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Dr. Besser knew E. coli could move from animals to humans.",
+            "source_id": "s10",
+            "role": "topic"
+          },
+          {
+            "text": "But it wasn’t enough.",
+            "source_id": "s13",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "Comparing Diets"
+        },
+        "main_idea": {
+          "text": "Dr. Besser compared what the sick and healthy children ate to find a difference."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s15"
+            ],
+            "meaning": "Sick children ate cheese, apple juice, and fish."
+          },
+          {
+            "source_ids": [
+              "s17"
+            ],
+            "meaning": "Healthy children ate cheese and fish, but not apple juice."
+          }
+        ],
+        "function": {
+          "type": "detail"
+        },
+        "relation_to_previous": {
+          "type": "sequence",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "Besser then made a list of what the sick children had eaten.",
+            "source_id": "s14",
+            "role": "transition"
+          },
+          {
+            "text": "They had eaten the cheese and fish, but not the apple juice.",
+            "source_id": "s17",
+            "role": "detail"
+          }
+        ]
+      },
+      {
+        "id": "p5",
+        "topic": {
+          "label": "The Discovery"
+        },
+        "main_idea": {
+          "text": "Dr. Besser found that the apple juice was made with dirty apples and wasn't heated, which caused the sickness."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s20"
+            ],
+            "meaning": "Workers used dirty apples that fell on the ground."
+          },
+          {
+            "source_ids": [
+              "s21"
+            ],
+            "meaning": "The apples weren't washed and the juice wasn't heated."
+          },
+          {
+            "source_ids": [
+              "s23"
+            ],
+            "meaning": "Besser knew the apple juice made the children sick."
+          }
+        ],
+        "function": {
+          "type": "climax"
+        },
+        "relation_to_previous": {
+          "type": "cause_and_effect",
+          "target": "p4"
+        },
+        "signals": [
+          {
+            "text": "Besser went to where the apple juice was made.",
+            "source_id": "s18",
+            "role": "transition"
+          },
+          {
+            "text": "Besser then knew it was the apple juice that made the children sick.",
+            "source_id": "s23",
+            "role": "conclusion"
+          }
+        ]
+      },
+      {
+        "id": "p6",
+        "topic": {
+          "label": "The Ending"
+        },
+        "main_idea": {
+          "text": "The children got better, and Dr. Besser's discovery helps keep others safe."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s25"
+            ],
+            "meaning": "The children got better."
+          },
+          {
+            "source_ids": [
+              "s26"
+            ],
+            "meaning": "What Besser learned helps keep others safe."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "sequence",
+          "target": "p5"
+        },
+        "signals": [
+          {
+            "text": "Besser’s E. coli case had a happy ending.",
+            "source_id": "s24",
+            "role": "topic"
+          },
+          {
+            "text": "And what Besser learned that day now helps keep others safe.",
+            "source_id": "s26",
+            "role": "conclusion"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3",
+            "p4",
+            "p5"
+          ],
+          "label": "The Investigation",
+          "function": "body"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p6"
+          ],
+          "label": "Conclusion",
+          "function": "conclusion"
+        }
+      ],
+      "structure": {
+        "type": "narrative"
+      },
+      "central_idea": {
+        "text": "Dr. Besser solved the mystery of the sick children by finding that unheated apple juice made with dirty apples caused the E. coli infection."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Heating the juice would have prevented the children from getting sick.",
+          "evidence": [
+            {
+              "source_id": "s21",
+              "span": "the juice was not heated"
+            },
+            {
+              "source_id": "s22",
+              "span": "Doing these things would kill the bacteria."
+            }
+          ],
+          "knowledge_bridge": "Heat kills bacteria.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Dr. Besser is a very careful and logical thinker.",
+          "evidence": [
+            {
+              "source_id": "s14",
+              "span": "Besser then made a list of what the sick children had eaten."
+            },
+            {
+              "source_id": "s16",
+              "span": "He then made a list of what healthy children in the area had eaten."
+            }
+          ],
+          "knowledge_bridge": "Comparing lists helps find differences.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "What is the main idea of the whole story?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Dr. Besser found that bad apple juice made the children sick.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Six children were in the hospital.",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "Doctors don't know how to treat sick children.",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "E. coli is a type of bacteria.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Which heading best fits paragraph 4?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Comparing What the Children Ate",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "The Hospital Visit",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "The Happy Ending",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "Looking for Animals",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "Select the sentence that shows what the healthy children did NOT eat.",
+        "answer": {
+          "source_ids": [
+            "s17"
+          ]
+        },
+        "candidate_source_ids": [
+          "s15",
+          "s16",
+          "s17",
+          "s18"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Why did Dr. Besser make a list of what the children ate in paragraph 4?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "To find a difference between the sick and healthy children.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "To order more food for the hospital.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "To see if the children liked cheese.",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "To find out where the animals lived.",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "After reading paragraph 3, what do you think Dr. Besser will do next?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "He will look for other clues, like what the children ate.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "He will give up and go home.",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "He will tell the children to eat more fish.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "He will catch the animals.",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "Select the sentence that tells us why the apple juice was dangerous.",
+        "answer": {
+          "source_ids": [
+            "s21"
+          ]
+        },
+        "candidate_source_ids": [
+          "s19",
+          "s20",
+          "s21",
+          "s22"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,452 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd3-16-Unit-16-Designing-Websites",
+    "title": "Unit 16 Designing Websites",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Computers became popular in the 1990s."
+          },
+          {
+            "id": "s2",
+            "text": "They changed the world a lot."
+          },
+          {
+            "id": "s3",
+            "text": "Many of today’s jobs require computers."
+          },
+          {
+            "id": "s4",
+            "text": "One such job is a web designer."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "Web designers make websites."
+          },
+          {
+            "id": "s6",
+            "text": "Websites are important."
+          },
+          {
+            "id": "s7",
+            "text": "They’re how people talk on the internet."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "Most businesses have their own websites."
+          },
+          {
+            "id": "s9",
+            "text": "People visit the website."
+          },
+          {
+            "id": "s10",
+            "text": "They see what the business does."
+          },
+          {
+            "id": "s11",
+            "text": "They check prices."
+          },
+          {
+            "id": "s12",
+            "text": "They order things from the website, too."
+          },
+          {
+            "id": "s13",
+            "text": "Businesses want to have a nice website."
+          },
+          {
+            "id": "s14",
+            "text": "So they need a good web designer."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Computers and Jobs"
+        },
+        "main_idea": {
+          "text": "Computers are essential in modern jobs, such as web design."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "Computers became popular in the 1990s and significantly changed the world."
+          },
+          {
+            "source_ids": [
+              "s3",
+              "s4"
+            ],
+            "meaning": "Many current jobs require computers, with web design being a specific example."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "One such job is",
+            "source_id": "s4",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Role of Websites"
+        },
+        "main_idea": {
+          "text": "Web designers create websites, which are crucial for online communication."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "The primary task of web designers is making websites."
+          },
+          {
+            "source_ids": [
+              "s6",
+              "s7"
+            ],
+            "meaning": "Websites are important because they serve as a medium for people to communicate on the internet."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Web designers",
+            "source_id": "s5",
+            "role": "topic_reintroduction"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Business Needs"
+        },
+        "main_idea": {
+          "text": "Businesses rely on websites to showcase products and attract customers, necessitating skilled web designers."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8",
+              "s9",
+              "s10"
+            ],
+            "meaning": "Most businesses have websites where people can learn about their services."
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s12"
+            ],
+            "meaning": "Customers use websites to check prices and place orders."
+          },
+          {
+            "source_ids": [
+              "s13",
+              "s14"
+            ],
+            "meaning": "To maintain a good image, businesses need high-quality web designers."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "application",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "So they need",
+            "source_id": "s14",
+            "role": "conclusion_marker"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction to Web Design",
+          "function": "Introduces the context of computers and the specific job of web design."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3"
+          ],
+          "label": "Importance of Websites",
+          "function": "Explains what websites do and why businesses need them."
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Web designers are important because they create the websites that businesses and people use to communicate and conduct business online."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "A business with a poorly designed website might lose customers.",
+          "evidence": [
+            {
+              "source_id": "s13",
+              "span": "Businesses want to have a nice website."
+            },
+            {
+              "source_id": "s14",
+              "span": "So they need a good web designer."
+            }
+          ],
+          "knowledge_bridge": "Connecting the desire for a 'nice' website to the potential negative outcome of not having one.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Web design is a growing field because more businesses are moving online.",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "Most businesses have their own websites."
+            },
+            {
+              "source_id": "s12",
+              "span": "They order things from the website, too."
+            }
+          ],
+          "knowledge_bridge": "Inferring the scale of the industry from the prevalence of business websites.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "网页设计师的重要性以及网站的作用",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "计算机在1990年代变得流行",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "人们如何在互联网上聊天",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "所有现代工作都需要计算机",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第三段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "企业为什么需要网站",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "计算机的历史",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "如何学习编程",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "互联网的危险",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“网站很重要”这一观点的句子。",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第三段之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第三段解释了为什么企业需要第二段提到的网站",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第三段反驳了第二段关于网站重要性的说法",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第三段介绍了计算机的发明历史",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第三段讲述了如何成为一名程序员",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "根据第一段，接下来文章可能会讨论什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "具体的计算机相关工作，如网页设计",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何修理损坏的计算机",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "1990年代的电影",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "为什么计算机变得不受欢迎",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "找出说明人们可以在网站上购买东西的句子。",
+        "answer": {
+          "source_ids": [
+            "s12"
+          ]
+        },
+        "candidate_source_ids": [
+          "s9",
+          "s10",
+          "s11",
+          "s12"
+        ]
+      }
+    ]
+  }
+}

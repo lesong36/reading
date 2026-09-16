@@ -1,0 +1,478 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd6-12-Unit-12-Sand-Animation",
+    "title": "RFD 6 / Unit 12 Sand Animation",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Traditional animation is made with many pictures."
+          },
+          {
+            "id": "s2",
+            "text": "Each picture is drawn differently."
+          },
+          {
+            "id": "s3",
+            "text": "When shown quickly, these pictures appear to move."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "There are other kinds of animation."
+          },
+          {
+            "id": "s5",
+            "text": "Sand animation is a kind of performance art."
+          },
+          {
+            "id": "s6",
+            "text": "Artists use sand to make images."
+          },
+          {
+            "id": "s7",
+            "text": "They do this using a box with a light inside."
+          },
+          {
+            "id": "s8",
+            "text": "This creates an image with the shadows."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "Sand artists perform in front of an audience."
+          },
+          {
+            "id": "s10",
+            "text": "They use the sand to tell a story."
+          },
+          {
+            "id": "s11",
+            "text": "The first sand artist was a student at Harvard University."
+          },
+          {
+            "id": "s12",
+            "text": "She made a film in 1968."
+          },
+          {
+            "id": "s13",
+            "text": "It was called Sand, or Peter and the Wolf."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "传统动画原理"
+        },
+        "main_idea": {
+          "text": "传统动画通过快速展示许多不同的图片来产生运动效果。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "动画由许多不同的图片组成。"
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "快速展示这些图片会产生运动的错觉。"
+          }
+        ],
+        "function": {
+          "type": "background_information"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Traditional animation",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "appear to move",
+            "source_id": "s3",
+            "role": "explanation_of_effect"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "沙画艺术介绍"
+        },
+        "main_idea": {
+          "text": "沙画是一种利用沙子和灯光在盒子里创造阴影图像的表演艺术。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "沙画被归类为一种表演艺术。"
+          },
+          {
+            "source_ids": [
+              "s6",
+              "s7"
+            ],
+            "meaning": "艺术家使用带有内部灯光的盒子来操作沙子。"
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "最终呈现的图像是由阴影构成的。"
+          }
+        ],
+        "function": {
+          "type": "definition_and_description"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "other kinds of animation",
+            "source_id": "s4",
+            "role": "transition"
+          },
+          {
+            "text": "Sand animation",
+            "source_id": "s5",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "shadows",
+            "source_id": "s8",
+            "role": "key_mechanism"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "沙画表演与历史"
+        },
+        "main_idea": {
+          "text": "沙画艺术家在观众面前用沙子讲故事，其历史可追溯到1968年哈佛大学的一位学生。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "沙画是面向观众的现场表演，用于讲述故事。"
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s12"
+            ],
+            "meaning": "第一位沙画艺术家是1968年哈佛大学的一名学生。"
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "早期的沙画作品名为《沙，或彼得与狼》。"
+          }
+        ],
+        "function": {
+          "type": "historical_context"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "perform in front of an audience",
+            "source_id": "s9",
+            "role": "performance_context"
+          },
+          {
+            "text": "first sand artist",
+            "source_id": "s11",
+            "role": "historical_marker"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "传统动画基础",
+          "function": "引入动画的基本概念"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "沙画定义与原理",
+          "function": "解释沙画是什么以及如何制作"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "沙画表演与起源",
+          "function": "描述沙画的表演形式及历史起源"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "文章介绍了传统动画的原理，并重点描述了沙画这种独特的表演艺术及其历史起源。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "沙画与传统动画在制作材料上有显著不同。",
+          "evidence": [
+            {
+              "source_id": "s1",
+              "span": "made with many pictures"
+            },
+            {
+              "source_id": "s6",
+              "span": "use sand to make images"
+            }
+          ],
+          "knowledge_bridge": "对比不同艺术形式的媒介",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "沙画是一种结合了现场表演和视觉艺术的动态形式。",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "kind of performance art"
+            },
+            {
+              "source_id": "s10",
+              "span": "use the sand to tell a story"
+            }
+          ],
+          "knowledge_bridge": "理解艺术形式的复合性质",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "沙画是一种用沙子和灯光讲故事的艺术形式。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "哈佛大学的学生在1968年制作了一部电影。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "所有动画都是用沙子制作的。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "传统动画比沙画更受欢迎。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第二段最合适的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "沙画是如何制作的",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "传统动画的历史",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么沙子很便宜",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "哈佛大学的学生",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“沙画使用灯光”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s6",
+          "s7",
+          "s8",
+          "s9"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第二段和第一段之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段介绍了与第一段不同的另一种动画形式。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段重复了第一段的内容。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段解释了为什么传统动画很无聊。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段讲述了沙画的历史起源。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完第二段后，你觉得第三段可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "沙画是如何表演的以及它的历史。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何购买沙子用于艺术。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "传统动画的制作步骤。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "为什么灯光会损坏沙子。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话告诉我们第一位沙画艺术家是谁？",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s9",
+          "s10",
+          "s11",
+          "s12"
+        ]
+      }
+    ]
+  }
+}

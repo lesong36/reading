@@ -1,0 +1,514 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd1-07-Unit-7-The-Sami-People",
+    "title": "Unit 7 The Sami People",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "The Sami live in Europe."
+          },
+          {
+            "id": "s2",
+            "text": "They live in the north."
+          },
+          {
+            "id": "s3",
+            "text": "It is very cold there."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "The Sami have their own language."
+          },
+          {
+            "id": "s5",
+            "text": "It is different from any other language."
+          },
+          {
+            "id": "s6",
+            "text": "They have their own music."
+          },
+          {
+            "id": "s7",
+            "text": "They also have their own clothing."
+          },
+          {
+            "id": "s8",
+            "text": "It is very warm."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "Some Sami keep reindeer."
+          },
+          {
+            "id": "s10",
+            "text": "They drink reindeer milk."
+          },
+          {
+            "id": "s11",
+            "text": "They eat reindeer meat."
+          },
+          {
+            "id": "s12",
+            "text": "But others live modern lives."
+          },
+          {
+            "id": "s13",
+            "text": "They work in offices."
+          },
+          {
+            "id": "s14",
+            "text": "They live in apartments."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Where the Sami Live"
+        },
+        "main_idea": {
+          "text": "The Sami live in the cold northern part of Europe."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "The Sami live in the northern part of Europe."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "The climate in their area is very cold."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "The Sami live in Europe.",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "They live in the north.",
+            "source_id": "s2",
+            "role": "location_detail"
+          },
+          {
+            "text": "It is very cold there.",
+            "source_id": "s3",
+            "role": "environmental_detail"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Sami Culture"
+        },
+        "main_idea": {
+          "text": "The Sami have a unique culture with their own language, music, and warm clothing."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4",
+              "s5"
+            ],
+            "meaning": "The Sami speak a unique language that is different from others."
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "The Sami have their own traditional music."
+          },
+          {
+            "source_ids": [
+              "s7",
+              "s8"
+            ],
+            "meaning": "The Sami wear their own clothing, which is very warm."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "expansion",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "The Sami have their own language.",
+            "source_id": "s4",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "It is different from any other language.",
+            "source_id": "s5",
+            "role": "supporting_detail"
+          },
+          {
+            "text": "They have their own music.",
+            "source_id": "s6",
+            "role": "supporting_detail"
+          },
+          {
+            "text": "They also have their own clothing.",
+            "source_id": "s7",
+            "role": "supporting_detail"
+          },
+          {
+            "text": "It is very warm.",
+            "source_id": "s8",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Sami Lifestyles"
+        },
+        "main_idea": {
+          "text": "Some Sami keep reindeer and live traditionally, while others live modern lives in offices and apartments."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9",
+              "s10",
+              "s11"
+            ],
+            "meaning": "Some Sami keep reindeer, drink their milk, and eat their meat."
+          },
+          {
+            "source_ids": [
+              "s12",
+              "s13",
+              "s14"
+            ],
+            "meaning": "Other Sami live modern lives, working in offices and living in apartments."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "expansion",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Some Sami keep reindeer.",
+            "source_id": "s9",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "They drink reindeer milk.",
+            "source_id": "s10",
+            "role": "supporting_detail"
+          },
+          {
+            "text": "They eat reindeer meat.",
+            "source_id": "s11",
+            "role": "supporting_detail"
+          },
+          {
+            "text": "But others live modern lives.",
+            "source_id": "s12",
+            "role": "contrast_introduction"
+          },
+          {
+            "text": "They work in offices.",
+            "source_id": "s13",
+            "role": "supporting_detail"
+          },
+          {
+            "text": "They live in apartments.",
+            "source_id": "s14",
+            "role": "supporting_detail"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction to the Sami",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Sami Culture",
+          "function": "description"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Sami Lifestyles",
+          "function": "description"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "The Sami are a people living in the cold north of Europe with a unique culture and diverse lifestyles."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The Sami's warm clothing is useful because they live in a very cold place.",
+          "evidence": [
+            {
+              "source_id": "s3",
+              "span": "It is very cold there."
+            },
+            {
+              "source_id": "s8",
+              "span": "It is very warm."
+            }
+          ],
+          "knowledge_bridge": "Connecting the cold climate to the need for warm clothing.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The Sami have different ways of living, some traditional and some modern.",
+          "evidence": [
+            {
+              "source_id": "s9",
+              "span": "Some Sami keep reindeer."
+            },
+            {
+              "source_id": "s12",
+              "span": "But others live modern lives."
+            }
+          ],
+          "knowledge_bridge": "Understanding that a group of people can have varied lifestyles.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "What is the main idea of the whole article?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "The Sami live in the cold north of Europe and have a unique culture and different lifestyles.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "The Sami eat reindeer meat and drink reindeer milk.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "Europe is a very cold place.",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "The Sami have their own language.",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Which heading best fits the second paragraph?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Sami Culture",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Where the Sami Live",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "Modern Life",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "Reindeer",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "Select the sentence that supports the idea that the Sami have their own culture.",
+        "answer": {
+          "source_ids": [
+            "s4"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s4",
+          "s9",
+          "s12"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "How does the third paragraph connect to the second paragraph?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "It gives more details about how the Sami live, expanding on their culture.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "It repeats the exact same information as the second paragraph.",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "It talks about a completely different group of people.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "It explains why the Sami moved to Europe.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "After reading the first paragraph, what do you think the next paragraph will be about?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "More details about the Sami, such as their culture or lifestyle.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "A story about a specific Sami person's day.",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "Information about other countries in Europe.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "A list of all the animals in the world.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "medium",
+        "interaction": "select_sentence",
+        "prompt": "Select the sentence that shows some Sami live modern lives.",
+        "answer": {
+          "source_ids": [
+            "s13"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s11",
+          "s13",
+          "s14"
+        ]
+      }
+    ]
+  }
+}

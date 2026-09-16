@@ -1,0 +1,474 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd3-08-Unit-8-The-Shoe-That-Grows",
+    "title": "Unit 8 The Shoe That Grows",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Kids grow fast."
+          },
+          {
+            "id": "s2",
+            "text": "Their feet grow fast, too."
+          },
+          {
+            "id": "s3",
+            "text": "As their feet grow, they need new shoes, but shoes are expensive."
+          },
+          {
+            "id": "s4",
+            "text": "Many people can’t afford to buy them."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "Not wearing shoes is bad for people’s feet."
+          },
+          {
+            "id": "s6",
+            "text": "They can get cuts."
+          },
+          {
+            "id": "s7",
+            "text": "Dirt gets into the cuts."
+          },
+          {
+            "id": "s8",
+            "text": "There are many diseases in dirt."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "The Shoe That Grows can help."
+          },
+          {
+            "id": "s10",
+            "text": "The shoe is made with special straps."
+          },
+          {
+            "id": "s11",
+            "text": "The straps can get longer as children grow."
+          },
+          {
+            "id": "s12",
+            "text": "Now kids can have shoes that grow with them."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Problem of Growing Feet"
+        },
+        "main_idea": {
+          "text": "Children's feet grow quickly, making it difficult for many families to afford new shoes."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "Kids and their feet grow rapidly."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "New shoes are needed but are expensive."
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "Many people cannot afford to buy new shoes."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Kids grow fast.",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "shoes are expensive",
+            "source_id": "s3",
+            "role": "problem_statement"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Dangers of Not Wearing Shoes"
+        },
+        "main_idea": {
+          "text": "Going without shoes can lead to cuts and diseases from dirt."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "Not wearing shoes is harmful to feet."
+          },
+          {
+            "source_ids": [
+              "s6",
+              "s7"
+            ],
+            "meaning": "Feet get cuts and dirt enters them."
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "Dirt contains many diseases."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "cause_and_effect",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Not wearing shoes is bad",
+            "source_id": "s5",
+            "role": "consequence_statement"
+          },
+          {
+            "text": "There are many diseases in dirt.",
+            "source_id": "s8",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "The Solution: The Shoe That Grows"
+        },
+        "main_idea": {
+          "text": "The Shoe That Grows uses special straps to expand as children grow, providing a lasting solution."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "The Shoe That Grows offers help."
+          },
+          {
+            "source_ids": [
+              "s10",
+              "s11"
+            ],
+            "meaning": "Special straps allow the shoe to get longer."
+          },
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "Kids can have shoes that grow with them."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "solution",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "The Shoe That Grows can help.",
+            "source_id": "s9",
+            "role": "solution_introduction"
+          },
+          {
+            "text": "special straps",
+            "source_id": "s10",
+            "role": "key_feature"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "The Problem",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "The Consequences",
+          "function": "explanation"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "The Solution",
+          "function": "conclusion"
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "The Shoe That Grows is a helpful invention that solves the problem of children outgrowing expensive shoes and the health risks of going barefoot."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The Shoe That Grows is likely more cost-effective in the long run than buying multiple pairs of regular shoes.",
+          "evidence": [
+            {
+              "source_id": "s3",
+              "span": "shoes are expensive"
+            },
+            {
+              "source_id": "s12",
+              "span": "shoes that grow with them"
+            }
+          ],
+          "knowledge_bridge": "Understanding that one item lasting longer saves money compared to buying many items.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The special straps are a crucial design feature that makes the shoe's ability to grow possible.",
+          "evidence": [
+            {
+              "source_id": "s10",
+              "span": "made with special straps"
+            },
+            {
+              "source_id": "s11",
+              "span": "straps can get longer"
+            }
+          ],
+          "knowledge_bridge": "Connecting a specific part of an object to its overall function.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "一种能随着孩子长大的鞋子解决了买不起新鞋的问题。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "孩子们长得很快，他们的脚也长得很快。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "不穿鞋子会让脚受伤并生病。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "鞋子很贵，很多人买不起。",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第二段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "不穿鞋子的危险",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "昂贵的鞋子",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "神奇的鞋带",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "孩子们长得快",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持了“鞋子很贵”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s4"
+          ]
+        },
+        "candidate_source_ids": [
+          "s1",
+          "s3",
+          "s4",
+          "s5"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段解释了第一段中提到的问题（买不起鞋）带来的后果。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段介绍了鞋子的发明过程。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段反驳了第一段关于孩子长得快的说法。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段讲述了如何清洗鞋子。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你觉得文章接下来会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "不穿鞋子或买不起鞋子会带来什么不好的结果。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何制作一双昂贵的鞋子。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "孩子们为什么喜欢穿新鞋子。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "鞋子的历史。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明了鞋子是如何变大的？",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s9",
+          "s10",
+          "s11",
+          "s12"
+        ]
+      }
+    ]
+  }
+}

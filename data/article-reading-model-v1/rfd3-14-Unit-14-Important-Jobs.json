@@ -1,0 +1,507 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd3-14-Unit-14-Important-Jobs",
+    "title": "Unit 14 Important Jobs",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "There are many jobs."
+          },
+          {
+            "id": "s2",
+            "text": "Some are easy."
+          },
+          {
+            "id": "s3",
+            "text": "Some are hard."
+          },
+          {
+            "id": "s4",
+            "text": "Some are creative."
+          },
+          {
+            "id": "s5",
+            "text": "And some are very important."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "Police protect people in trouble."
+          },
+          {
+            "id": "s7",
+            "text": "They catch criminals."
+          },
+          {
+            "id": "s8",
+            "text": "And they make sure people follow the law."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "Paramedics help people who are very sick or hurt in an accident."
+          },
+          {
+            "id": "s10",
+            "text": "These people need help quickly."
+          },
+          {
+            "id": "s11",
+            "text": "Paramedics drive an ambulance to help them."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s12",
+            "text": "Firefighters put out fires."
+          },
+          {
+            "id": "s13",
+            "text": "They drive to the fire in a fire truck."
+          },
+          {
+            "id": "s14",
+            "text": "Then they use water to stop the fire."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction to Jobs"
+        },
+        "main_idea": {
+          "text": "There are many different types of jobs, and some are very important."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2",
+              "s3"
+            ],
+            "meaning": "Jobs can be easy or hard."
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "Some jobs are creative."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "There are many jobs.",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "And some are very important.",
+            "source_id": "s5",
+            "role": "main_idea"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Police"
+        },
+        "main_idea": {
+          "text": "Police protect people by catching criminals and enforcing the law."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "Police protect people in trouble."
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "Police catch criminals."
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "Police ensure people follow the law."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Police protect people in trouble.",
+            "source_id": "s6",
+            "role": "topic_introduction"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Paramedics"
+        },
+        "main_idea": {
+          "text": "Paramedics quickly help sick or injured people using an ambulance."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "Paramedics help sick or injured people."
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "These people need help quickly."
+          },
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "Paramedics drive an ambulance."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Paramedics help people who are very sick or hurt in an accident.",
+            "source_id": "s9",
+            "role": "topic_introduction"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "Firefighters"
+        },
+        "main_idea": {
+          "text": "Firefighters use water from a fire truck to put out fires."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "Firefighters put out fires."
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "They drive to the fire in a fire truck."
+          },
+          {
+            "source_ids": [
+              "s14"
+            ],
+            "meaning": "They use water to stop the fire."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "Firefighters put out fires.",
+            "source_id": "s12",
+            "role": "topic_introduction"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces the topic of jobs and highlights their importance."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3",
+            "p4"
+          ],
+          "label": "Specific Jobs",
+          "function": "Describes the roles of police, paramedics, and firefighters."
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "There are many important jobs, such as police, paramedics, and firefighters, that help and protect people."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "These jobs are important because they keep people safe and healthy.",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "And some are very important."
+            },
+            {
+              "source_id": "s6",
+              "span": "Police protect people in trouble."
+            }
+          ],
+          "knowledge_bridge": "Connecting the general statement about importance to the specific actions of the jobs described.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Paramedics and firefighters need to act quickly to be effective.",
+          "evidence": [
+            {
+              "source_id": "s10",
+              "span": "These people need help quickly."
+            },
+            {
+              "source_id": "s13",
+              "span": "They drive to the fire in a fire truck."
+            }
+          ],
+          "knowledge_bridge": "Understanding that speed is a critical factor in emergency response jobs.",
+          "difficulty": "medium"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "介绍了一些重要的工作，如警察、急救员和消防员。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "警察如何抓小偷。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "世界上有很多不同的工作。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "消防车是怎么工作的。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段（p3）最合适的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "急救员的工作",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "警察抓坏人",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "如何扑灭大火",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "工作有难有易",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话支持了“警察保护人们”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s6",
+          "s7",
+          "s8",
+          "s9"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段（p2）和第三段（p3）之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "并列关系，都在介绍不同的工作。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "因果关系，因为警察抓坏人，所以急救员出车。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "转折关系，急救员的工作比警察难。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "总结关系，第三段总结了第二段。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你觉得接下来文章会写什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "具体介绍几种重要的工作。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "讨论为什么有些工作很难。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "介绍如何成为一名警察。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "总结所有工作的共同点。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "找出说明消防员如何灭火的句子。",
+        "answer": {
+          "source_ids": [
+            "s14"
+          ]
+        },
+        "candidate_source_ids": [
+          "s12",
+          "s13",
+          "s14",
+          "s11"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,427 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd1-13-Unit-13-Archimedes-Bath",
+    "title": "Unit 13 Archimedes’ Bath",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Things take up space."
+          },
+          {
+            "id": "s2",
+            "text": "That space is its volume."
+          },
+          {
+            "id": "s3",
+            "text": "We can find a box’s volume."
+          },
+          {
+            "id": "s4",
+            "text": "We use math."
+          },
+          {
+            "id": "s5",
+            "text": "A box is simple."
+          },
+          {
+            "id": "s6",
+            "text": "Other shapes aren’t."
+          },
+          {
+            "id": "s7",
+            "text": "Finding their volume is hard."
+          },
+          {
+            "id": "s8",
+            "text": "But Archimedes learned a way."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "He filled a bath."
+          },
+          {
+            "id": "s10",
+            "text": "He sat in it."
+          },
+          {
+            "id": "s11",
+            "text": "Some water poured out."
+          },
+          {
+            "id": "s12",
+            "text": "How much water?"
+          },
+          {
+            "id": "s13",
+            "text": "His body’s volume."
+          },
+          {
+            "id": "s14",
+            "text": "Archimedes understood this."
+          },
+          {
+            "id": "s15",
+            "text": "He was excited."
+          },
+          {
+            "id": "s16",
+            "text": "He ran outside and shouted."
+          },
+          {
+            "id": "s17",
+            "text": "But he wasn’t wearing any clothes!"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Volume Challenge"
+        },
+        "main_idea": {
+          "text": "Calculating the volume of irregular shapes is difficult, but Archimedes found a solution."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "Objects occupy space, which is defined as volume."
+          },
+          {
+            "source_ids": [
+              "s6",
+              "s7"
+            ],
+            "meaning": "Unlike simple boxes, irregular shapes are hard to measure."
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "Archimedes discovered a method to solve this problem."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "But",
+            "source_id": "s8",
+            "role": "transition"
+          },
+          {
+            "text": "hard",
+            "source_id": "s7",
+            "role": "problem_indicator"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The Discovery"
+        },
+        "main_idea": {
+          "text": "Archimedes realized that the water displaced by his body in the bath equaled his body's volume."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9",
+              "s10",
+              "s11"
+            ],
+            "meaning": "Archimedes sat in a full bath, causing water to overflow."
+          },
+          {
+            "source_ids": [
+              "s12",
+              "s13"
+            ],
+            "meaning": "The amount of spilled water matched the volume of his body."
+          },
+          {
+            "source_ids": [
+              "s16",
+              "s17"
+            ],
+            "meaning": "He was so excited he ran outside naked."
+          }
+        ],
+        "function": {
+          "type": "narrative_event"
+        },
+        "relation_to_previous": {
+          "type": "solution",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "understood",
+            "source_id": "s14",
+            "role": "realization"
+          },
+          {
+            "text": "excited",
+            "source_id": "s15",
+            "role": "emotional_response"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "The Problem",
+          "function": "Introduces the concept of volume and the difficulty of measuring irregular objects."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "The Solution",
+          "function": "Describes Archimedes' experiment and realization in the bath."
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "Archimedes discovered a way to measure the volume of irregular objects by observing how much water they displace."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Archimedes was more interested in his discovery than in social norms.",
+          "evidence": [
+            {
+              "source_id": "s17",
+              "span": "But he wasn’t wearing any clothes!"
+            }
+          ],
+          "knowledge_bridge": "Understanding that running outside naked is unusual implies extreme excitement or distraction.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The volume of an object can be measured by the amount of liquid it pushes aside.",
+          "evidence": [
+            {
+              "source_id": "s13",
+              "span": "His body’s volume."
+            }
+          ],
+          "knowledge_bridge": "Connecting the spilled water to the body's size requires understanding displacement.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "阿基米德发现了一种测量不规则物体体积的方法。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "阿基米德喜欢洗澡。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "数学很难学。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "盒子很容易测量。",
+            "role": "minor_detail"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最好的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "浴缸里的发现",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何计算盒子的体积",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "阿基米德的衣服",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "水的颜色",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话解释了为什么测量不规则形状很难？",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段是如何回应第一段提出的问题的？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "它展示了阿基米德如何解决测量难题。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "它解释了为什么盒子是简单的。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "它描述了阿基米德小时候的生活。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "它批评了阿基米德的行为。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你预测第二段会发生什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "阿基米德会展示他学到的新方法。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "阿基米德会放弃数学。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "阿基米德会建造一个大盒子。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "阿基米德会去上学。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话证明阿基米德非常兴奋？",
+        "answer": {
+          "source_ids": [
+            "s16"
+          ]
+        },
+        "candidate_source_ids": [
+          "s14",
+          "s15",
+          "s16",
+          "s17"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,487 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd3-13-Unit-13-Work-Worries",
+    "title": "Unit 13 Work Worries",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "In the past, life was hard."
+          },
+          {
+            "id": "s2",
+            "text": "Everyone worked."
+          },
+          {
+            "id": "s3",
+            "text": "Men, women, and even children had jobs."
+          },
+          {
+            "id": "s4",
+            "text": "Some children lived in the country."
+          },
+          {
+            "id": "s5",
+            "text": "They worked on farms."
+          },
+          {
+            "id": "s6",
+            "text": "They fed animals."
+          },
+          {
+            "id": "s7",
+            "text": "They picked vegetables."
+          },
+          {
+            "id": "s8",
+            "text": "They collected eggs and milk."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "Other children lived in cities."
+          },
+          {
+            "id": "s10",
+            "text": "They polished shoes."
+          },
+          {
+            "id": "s11",
+            "text": "They cleaned houses."
+          },
+          {
+            "id": "s12",
+            "text": "They worked in factories with big machines."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s13",
+            "text": "Many jobs were dangerous."
+          },
+          {
+            "id": "s14",
+            "text": "Children could get hurt."
+          },
+          {
+            "id": "s15",
+            "text": "Children could even be killed."
+          },
+          {
+            "id": "s16",
+            "text": "Governments made laws to protect children."
+          },
+          {
+            "id": "s17",
+            "text": "Today, children cannot do most jobs."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "乡村儿童的工作"
+        },
+        "main_idea": {
+          "text": "过去，生活在乡村的儿童在农场做各种工作。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4",
+              "s5"
+            ],
+            "meaning": "一些儿童住在乡下，在农场工作。"
+          },
+          {
+            "source_ids": [
+              "s6",
+              "s7",
+              "s8"
+            ],
+            "meaning": "他们的工作包括喂动物、摘蔬菜和收集鸡蛋与牛奶。"
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Some children lived in the country.",
+            "source_id": "s4",
+            "role": "topic_introduction"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "城市儿童的工作"
+        },
+        "main_idea": {
+          "text": "生活在城市的儿童从事不同的工作，如擦鞋、打扫和工厂劳动。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "另一些儿童住在城市。"
+          },
+          {
+            "source_ids": [
+              "s10",
+              "s11"
+            ],
+            "meaning": "他们的工作包括擦鞋和打扫房子。"
+          },
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "他们还在有大机器的工厂里工作。"
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Other children lived in cities.",
+            "source_id": "s9",
+            "role": "topic_introduction"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "工作危险与法律保护"
+        },
+        "main_idea": {
+          "text": "过去的工作很危险，政府制定法律保护儿童，如今儿童不能做大多数工作。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s13",
+              "s14",
+              "s15"
+            ],
+            "meaning": "许多工作很危险，儿童可能会受伤甚至死亡。"
+          },
+          {
+            "source_ids": [
+              "s16"
+            ],
+            "meaning": "政府制定法律来保护儿童。"
+          },
+          {
+            "source_ids": [
+              "s17"
+            ],
+            "meaning": "今天，儿童不能做大多数工作。"
+          }
+        ],
+        "function": {
+          "type": "cause_and_effect"
+        },
+        "relation_to_previous": {
+          "type": "consequence",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Many jobs were dangerous.",
+            "source_id": "s13",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "Today, children cannot do most jobs.",
+            "source_id": "s17",
+            "role": "conclusion"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "乡村儿童的工作",
+          "function": "描述过去乡村儿童的工作内容"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "城市儿童的工作",
+          "function": "描述过去城市儿童的工作内容"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "工作危险与法律保护",
+          "function": "解释过去工作的危险性以及政府如何保护儿童"
+        }
+      ],
+      "structure": {
+        "type": "sequence"
+      },
+      "central_idea": {
+        "text": "过去，儿童在乡村和城市做各种危险的工作，后来政府制定法律保护他们，如今儿童不能做大多数工作。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "过去，儿童的工作可能比现在更危险。",
+          "evidence": [
+            {
+              "source_id": "s13",
+              "span": "Many jobs were dangerous."
+            },
+            {
+              "source_id": "s14",
+              "span": "Children could get hurt."
+            }
+          ],
+          "knowledge_bridge": "将过去的工作危险性与现代儿童劳动保护联系起来。",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "政府制定法律是因为过去儿童的工作很危险。",
+          "evidence": [
+            {
+              "source_id": "s15",
+              "span": "Children could even be killed."
+            },
+            {
+              "source_id": "s16",
+              "span": "Governments made laws to protect children."
+            }
+          ],
+          "knowledge_bridge": "理解因果关系：危险的工作导致政府采取行动保护儿童。",
+          "difficulty": "medium"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "过去儿童的工作很危险，政府后来保护了他们。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "儿童喜欢在农场喂动物。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "城市里的机器很大。",
+            "role": "minor_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "过去的生活很困难。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪句话最适合做第三段的标题？",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "危险的工作与法律保护",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "乡村儿童的工作",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt7",
+            "text": "城市里的工厂",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt8",
+            "text": "如何喂动物",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "选择支持“城市儿童做不同工作”的句子。",
+        "answer": {
+          "source_ids": [
+            "s10",
+            "s11",
+            "s12"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s11",
+          "s12",
+          "s5",
+          "s6"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "对比：乡村儿童和城市儿童的工作不同。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "重复：两段讲同样的工作。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "因果：乡村工作导致城市工作。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt12",
+            "text": "无关：两段讲不同的主题。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第三段，你觉得接下来可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "现代儿童如何被保护。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "如何制作大机器。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt15",
+            "text": "为什么儿童喜欢喂动物。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt16",
+            "text": "城市的历史。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "选择证明“过去儿童的工作很危险”的句子。",
+        "answer": {
+          "source_ids": [
+            "s13",
+            "s14",
+            "s15"
+          ]
+        },
+        "candidate_source_ids": [
+          "s13",
+          "s14",
+          "s15",
+          "s16",
+          "s17"
+        ]
+      }
+    ]
+  }
+}

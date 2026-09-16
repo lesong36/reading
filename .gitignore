@@ -32,6 +32,9 @@ data/**
 !data/generated-reader-json/reader-articles-shiwen.report.json
 !data/generated-reader-json-remote-G4/
 !data/generated-reader-json-remote-G4/reader-articles.import.json
+!data/article-reading-model-v1/
+!data/article-reading-model-v1/*.json
+data/article-reading-model-v1/.batch-progress.json
 scripts/
 !scripts/
 scripts/*
@@ -43,6 +46,10 @@ scripts/*
 !scripts/merge-shiwen-bundle.mjs
 !scripts/reader_app_server.py
 !scripts/mac-app-launcher.sh
+!scripts/validate-article-reading-model.mjs
+!scripts/generate-article-reading-model.mjs
+!scripts/generate-article-reading-model-batch.mjs
+!scripts/attach-article-reading-models.mjs
 package.json
 package-lock.json
 index.html.clean

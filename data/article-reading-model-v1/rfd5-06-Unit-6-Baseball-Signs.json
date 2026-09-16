@@ -1,0 +1,403 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd5-06-Unit-6-Baseball-Signs",
+    "title": "RFD 5 / Unit 6 Baseball Signs",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "When you watch baseball, you may notice something strange."
+          },
+          {
+            "id": "s2",
+            "text": "The players use a variety of hand signs."
+          },
+          {
+            "id": "s3",
+            "text": "Sometimes, a player holds up his fingers."
+          },
+          {
+            "id": "s4",
+            "text": "Sometimes, he touches his glove or head."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "There’s a good reason."
+          },
+          {
+            "id": "s6",
+            "text": "The pitcher and other players stand far apart."
+          },
+          {
+            "id": "s7",
+            "text": "But they need to communicate information about the game."
+          },
+          {
+            "id": "s8",
+            "text": "They can’t shout to each other."
+          },
+          {
+            "id": "s9",
+            "text": "They need to keep their plans secret."
+          },
+          {
+            "id": "s10",
+            "text": "So they make different signs with their hands."
+          },
+          {
+            "id": "s11",
+            "text": "Each team uses different signs."
+          },
+          {
+            "id": "s12",
+            "text": "And they change them often so other teams don’t learn them."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "观察棒球比赛中的手势"
+        },
+        "main_idea": {
+          "text": "棒球运动员在比赛中会使用各种各样的手势。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "球员有时会举起手指。"
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "球员有时会摸手套或头。"
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "When you watch baseball, you may notice something strange.",
+            "source_id": "s1",
+            "role": "hook"
+          },
+          {
+            "text": "The players use a variety of hand signs.",
+            "source_id": "s2",
+            "role": "topic_sentence"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "使用手势的原因"
+        },
+        "main_idea": {
+          "text": "棒球运动员使用手势是为了远距离沟通并隐藏战术。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "投手和其他球员站得很远。"
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "他们需要把计划保密。"
+          },
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "他们经常改变手势以防被对手识破。"
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "cause_and_effect",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "There’s a good reason.",
+            "source_id": "s5",
+            "role": "transition"
+          },
+          {
+            "text": "So they make different signs with their hands.",
+            "source_id": "s10",
+            "role": "conclusion"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "现象描述",
+          "function": "引出棒球比赛中使用手势的现象"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "原因解释",
+          "function": "解释为什么球员要使用手势"
+        }
+      ],
+      "structure": {
+        "type": "cause_and_effect"
+      },
+      "central_idea": {
+        "text": "棒球运动员使用手势来远距离沟通并隐藏战术。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "如果球员大声喊叫，对手可能会知道他们的计划。",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "They can’t shout to each other."
+            },
+            {
+              "source_id": "s9",
+              "span": "They need to keep their plans secret."
+            }
+          ],
+          "knowledge_bridge": "声音传播与保密",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "不同球队使用不同的手势是为了防止对手从 copying them. ",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "Each team uses different signs."
+            },
+            {
+              "source_id": "s12",
+              "span": "And they change them often so other teams don’t learn them."
+            }
+          ],
+          "knowledge_bridge": "策略与竞争",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "棒球运动员使用手势来远距离沟通并隐藏战术。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "棒球比赛中有很多奇怪的现象。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt3",
+            "text": "球员有时会举起手指。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "棒球是一项非常受欢迎的运动。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第二段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "为什么使用手势？",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "棒球比赛的规则",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "如何投球",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "手套的种类",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持了“球员需要把计划保密”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s12"
+          ]
+        },
+        "candidate_source_ids": [
+          "s6",
+          "s9",
+          "s12",
+          "s3"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段解释了第一段提到的现象的原因。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段反驳了第一段的内容。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段和第一段没有联系。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段重复了第一段的内容。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你觉得第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "解释为什么球员要使用手势。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "介绍棒球的历史。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "描述球员的外貌。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "比较棒球和足球。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "medium",
+        "interaction": "select_sentence",
+        "prompt": "哪句话证明了球员站得很远？",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s6",
+          "s7",
+          "s8",
+          "s10"
+        ]
+      }
+    ]
+  }
+}

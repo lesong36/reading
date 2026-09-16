@@ -1,0 +1,454 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd4-15-Unit-15-The-Future-of-Home-Security",
+    "title": "RFD 4 / Unit 15 The Future of Home Security",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "What is the future for home security?"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s2",
+            "text": "The system will connect to a computer in your home."
+          },
+          {
+            "id": "s3",
+            "text": "It will also connect to your TV and smartphone."
+          },
+          {
+            "id": "s4",
+            "text": "A very small robot will watch everything."
+          },
+          {
+            "id": "s5",
+            "text": "The security camera will see every room in the home."
+          },
+          {
+            "id": "s6",
+            "text": "You won’t need many cameras."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s7",
+            "text": "The system will know if something’s wrong."
+          },
+          {
+            "id": "s8",
+            "text": "It will fix the problem."
+          },
+          {
+            "id": "s9",
+            "text": "It will know if a new part is needed."
+          },
+          {
+            "id": "s10",
+            "text": "It might even order it."
+          },
+          {
+            "id": "s11",
+            "text": "The system will even sense poison gas or fire."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction"
+        },
+        "main_idea": {
+          "text": "The text introduces the topic of future home security."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "Asks a question to start the discussion."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "What is the future for home security?",
+            "source_id": "s1",
+            "role": "topic_question"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "System Design"
+        },
+        "main_idea": {
+          "text": "The future security system will be a small, connected robot that watches the whole home."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2",
+              "s3"
+            ],
+            "meaning": "It connects to home devices like computers, TVs, and phones."
+          },
+          {
+            "source_ids": [
+              "s4",
+              "s5"
+            ],
+            "meaning": "A tiny robot acts as a camera to see every room."
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "This design means you don't need many separate cameras."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "The system will connect to a computer in your home.",
+            "source_id": "s2",
+            "role": "detail"
+          },
+          {
+            "text": "A very small robot will watch everything.",
+            "source_id": "s4",
+            "role": "key_concept"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "System Functions"
+        },
+        "main_idea": {
+          "text": "The system will automatically detect, fix, and manage problems like broken parts or dangerous gases."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s7",
+              "s8"
+            ],
+            "meaning": "It identifies and fixes issues on its own."
+          },
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "It can order new parts when needed."
+          },
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "It can sense dangerous things like poison gas or fire."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "The system will know if something’s wrong.",
+            "source_id": "s7",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "It will fix the problem.",
+            "source_id": "s8",
+            "role": "detail"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces the topic of future home security."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "System Design",
+          "function": "Describes the physical form and connections of the security system."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "System Functions",
+          "function": "Explains what the system can do to keep the home safe."
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "The future of home security involves a small, connected robot system that watches the home and automatically handles problems."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The system is designed to be convenient and require less maintenance from the user.",
+          "evidence": [
+            {
+              "source_id": "s6",
+              "span": "You won’t need many cameras."
+            },
+            {
+              "source_id": "s10",
+              "span": "It might even order it."
+            }
+          ],
+          "knowledge_bridge": "Understanding that fewer cameras and automatic ordering reduce the user's workload.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The system is highly advanced and capable of handling a wide range of emergencies.",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "It will fix the problem."
+            },
+            {
+              "source_id": "s11",
+              "span": "The system will even sense poison gas or fire."
+            }
+          ],
+          "knowledge_bridge": "Recognizing that fixing problems and sensing dangerous gases are complex tasks.",
+          "difficulty": "medium"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "未来的家庭安全系统是一个能自动处理问题的小型机器人。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何在家里安装很多安全摄像头。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "智能手机和电视是如何连接的。",
+            "role": "minor_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "为什么人们喜欢住在安全的房子里。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "系统的设计",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何修理机器人",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "危险的火灾",
+            "role": "minor_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "未来的房子",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“系统可以自动订购零件”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s9",
+          "s10",
+          "s11"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第三段之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段介绍系统长什么样，第三段介绍它能做什么。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第三段解释了为什么第二段是错的。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "两段都在讲如何连接电视。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "第一段和第三段是重复的。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你觉得接下来文章会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "描述未来安全系统的具体样子和功能。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "讨论为什么过去的房子不安全。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "列出所有 types of poison gas. ",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "解释 how to build a robot. ",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明这个系统不需要很多摄像头？",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ]
+      }
+    ]
+  }
+}

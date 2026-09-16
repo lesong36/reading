@@ -2145,8 +2145,9 @@
     // seed version makes existing clients reload the canonical bundle.
     // library. A marker alone is not proof that all curriculum bundles
     // reached the device.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v34';
-    const BUNDLED_LIBRARY_SEED_VERSION = '34';
+    // v35 makes validated Article Reading Model sidecars available to the shelf.
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v35';
+    const BUNDLED_LIBRARY_SEED_VERSION = '35';
     const EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT = 324;
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
@@ -7854,6 +7855,12 @@
                         const isCorrect = activity && response?.checked && readingActivityIsCorrect(activity, response);
                         const selectedOption = activity?.options?.find(option => response?.optionIds?.includes(option.id));
                         const sourceText = (id) => currentArticleData.find(sentence => sentence.id === id)?.text || id;
+                        const hasSolvedActivityType = (type) => currentReadingActivities.some(item => {
+                          const itemResponse = readingActivityResponses[item.id];
+                          return item.type === type && itemResponse?.checked && readingActivityIsCorrect(item, itemResponse);
+                        });
+                        const headingsUnlocked = hasSolvedActivityType('choose_heading');
+                        const centralIdeaUnlocked = hasSolvedActivityType('choose_main_idea');
                         return (
                           <div className="animate-in fade-in duration-500 space-y-6">
                             <section className="rounded-3xl border border-sky-100 bg-gradient-to-br from-sky-50 via-white to-indigo-50 p-5 md:p-6">
@@ -7862,20 +7869,20 @@
                                 <div>
                                   <p className="text-xs font-black uppercase tracking-[0.18em] text-sky-600">文章地图</p>
                                   <h3 className="mt-1 text-xl font-black text-slate-900">这篇文章是怎样展开的？</h3>
-                                  <p className="mt-2 text-sm leading-6 text-slate-600">先看作者把故事分成了哪几步，再用下面的小任务自己发现重点。</p>
+                                  <p className="mt-2 text-sm leading-6 text-slate-600">先完成下面的小任务，文章地图会一步步亮起来。</p>
                                 </div>
                               </div>
                               <div className="mt-5 grid gap-3 md:grid-cols-3">
                                 {currentArticleReadingModel.analysis.text.sections.map((section, index) => (
                                   <div key={section.id} className="rounded-2xl border border-white bg-white/90 p-4 shadow-sm">
                                     <p className="text-xs font-bold text-sky-600">第 {index + 1} 步 · {section.paragraph_ids.join('、').toUpperCase()}</p>
-                                    <p className="mt-1 font-black text-slate-900">{section.label}</p>
+                                    <p className={`mt-1 font-black ${headingsUnlocked ? 'text-slate-900' : 'text-slate-400'}`}>{headingsUnlocked ? section.label : '先给这一部分选个小标题'}</p>
                                   </div>
                                 ))}
                               </div>
                               <div className="mt-4 rounded-2xl border border-indigo-100 bg-white/80 p-4">
                                 <p className="text-xs font-bold text-indigo-600">整篇想说什么</p>
-                                <p className="mt-1 text-sm leading-6 text-slate-700">{currentArticleReadingModel.analysis.text.central_idea.text}</p>
+                                <p className={`mt-1 text-sm leading-6 ${centralIdeaUnlocked ? 'text-slate-700' : 'text-slate-400'}`}>{centralIdeaUnlocked ? currentArticleReadingModel.analysis.text.central_idea.text : '完成“这篇文章主要讲什么？”后解锁'}</p>
                               </div>
                             </section>
 

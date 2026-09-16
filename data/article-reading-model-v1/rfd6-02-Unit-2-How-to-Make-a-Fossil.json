@@ -1,0 +1,413 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd6-02-Unit-2-How-to-Make-a-Fossil",
+    "title": "RFD 6 / Unit 2 How to Make a Fossil",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "How did we learn about the dinosaurs?"
+          },
+          {
+            "id": "s2",
+            "text": "We learned from fossils."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s3",
+            "text": "Fossils are the bodies of long-dead animals."
+          },
+          {
+            "id": "s4",
+            "text": "But making a fossil takes a lot of time and luck."
+          },
+          {
+            "id": "s5",
+            "text": "First, an animal needs to die."
+          },
+          {
+            "id": "s6",
+            "text": "Then, it must be covered in mud."
+          },
+          {
+            "id": "s7",
+            "text": "The mud should dry slowly."
+          },
+          {
+            "id": "s8",
+            "text": "If it dries too fast, this can destroy the fossil."
+          },
+          {
+            "id": "s9",
+            "text": "Also, nothing should touch the bones."
+          },
+          {
+            "id": "s10",
+            "text": "Finally, a fossil needs to age for 10,000 years to fully form."
+          },
+          {
+            "id": "s11",
+            "text": "This is why fossils are so rare."
+          },
+          {
+            "id": "s12",
+            "text": "Only about one bone in a million becomes a fossil."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction to Fossils"
+        },
+        "main_idea": {
+          "text": "Fossils are the source of our knowledge about dinosaurs."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "The text begins by asking how we learned about dinosaurs."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "It answers that we learned from fossils."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "How did we learn about the dinosaurs?",
+            "source_id": "s1",
+            "role": "hook"
+          },
+          {
+            "text": "We learned from fossils.",
+            "source_id": "s2",
+            "role": "topic_statement"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The Process of Fossilization"
+        },
+        "main_idea": {
+          "text": "Making a fossil requires a specific sequence of events and a lot of luck, which makes them rare."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5",
+              "s6",
+              "s7"
+            ],
+            "meaning": "The animal must die, be covered in mud, and the mud must dry slowly."
+          },
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "Nothing can touch the bones, and it must age for 10,000 years."
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s12"
+            ],
+            "meaning": "Because of these strict conditions, only one bone in a million becomes a fossil."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "But making a fossil takes a lot of time and luck.",
+            "source_id": "s4",
+            "role": "transition"
+          },
+          {
+            "text": "First, an animal needs to die.",
+            "source_id": "s5",
+            "role": "sequence_marker"
+          },
+          {
+            "text": "Finally, a fossil needs to age for 10,000 years to fully form.",
+            "source_id": "s10",
+            "role": "sequence_marker"
+          },
+          {
+            "text": "This is why fossils are so rare.",
+            "source_id": "s11",
+            "role": "conclusion"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces the topic of fossils and their connection to dinosaurs."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Fossilization Process",
+          "function": "Explains the steps and conditions required to make a fossil."
+        }
+      ],
+      "structure": {
+        "type": "sequence"
+      },
+      "central_idea": {
+        "text": "Fossils are rare because they require a specific sequence of events and a long time to form."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "If the mud dries too quickly, the fossil will be destroyed.",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "If it dries too fast, this can destroy the fossil."
+            }
+          ],
+          "knowledge_bridge": "Understanding cause and effect in the fossilization process.",
+          "difficulty": "low"
+        },
+        {
+          "id": "inf2",
+          "claim": "Fossils are rare because the conditions needed to make them are very difficult to meet.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "This is why fossils are so rare."
+            },
+            {
+              "source_id": "s12",
+              "span": "Only about one bone in a million becomes a fossil."
+            }
+          ],
+          "knowledge_bridge": "Connecting the detailed steps to the overall rarity of fossils.",
+          "difficulty": "medium"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "What is the main idea of the second paragraph?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Making a fossil takes a lot of time and luck.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Dinosaurs lived a long time ago.",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt3",
+            "text": "Mud should dry slowly.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "Fossils are the bodies of long-dead animals.",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Which heading best fits the second paragraph?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "How to Make a Fossil",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Dinosaurs and Fossils",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt3",
+            "text": "The Mud Dries Slowly",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "Why Fossils are Rare",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "Select the sentence that explains why fossils are rare.",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s11",
+          "s12",
+          "s10",
+          "s9"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "How does the second paragraph connect to the first paragraph?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "It explains how the fossils mentioned in the first paragraph are made.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "It gives a new question about dinosaurs.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "It repeats the first paragraph exactly.",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "It talks about a different topic entirely.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "After reading the first paragraph, what do you think the next paragraph will be about?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "How fossils are made.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "What dinosaurs ate.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "Where to find dinosaurs.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "The history of museums.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "Select the sentence that tells us how long a fossil needs to age.",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s11",
+          "s12",
+          "s9"
+        ]
+      }
+    ]
+  }
+}

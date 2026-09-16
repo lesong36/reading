@@ -1,0 +1,452 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd2-08-Unit-8-Points-of-Color",
+    "title": "Unit 8 Points of Color",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Today, we see many pictures made of pixels."
+          },
+          {
+            "id": "s2",
+            "text": "We see them on TV and computer screens."
+          },
+          {
+            "id": "s3",
+            "text": "Pixels are small dots of colored light."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "Using dots to make pictures is an old idea."
+          },
+          {
+            "id": "s5",
+            "text": "Artists have done it for a long time."
+          },
+          {
+            "id": "s6",
+            "text": "Georges Seurat was an artist in the 1800s."
+          },
+          {
+            "id": "s7",
+            "text": "He made paintings with dots."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "Look at his paintings from far away."
+          },
+          {
+            "id": "s9",
+            "text": "You see a beautiful picture."
+          },
+          {
+            "id": "s10",
+            "text": "Then come closer."
+          },
+          {
+            "id": "s11",
+            "text": "Look again."
+          },
+          {
+            "id": "s12",
+            "text": "You just see dots!"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "像素的定义"
+        },
+        "main_idea": {
+          "text": "像素是构成屏幕图像的小光点。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "我们在电视和电脑屏幕上经常看到由像素组成的图片。"
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "像素本质上是微小的彩色光点。"
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Today, we see many pictures made of pixels.",
+            "source_id": "s1",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "Pixels are small dots of colored light.",
+            "source_id": "s3",
+            "role": "definition"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "点彩画的历史"
+        },
+        "main_idea": {
+          "text": "用点来作画是一种古老的艺术形式，19世纪的艺术家乔治·修拉曾创作点彩画。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4",
+              "s5"
+            ],
+            "meaning": "用点作画的想法已经存在很久了。"
+          },
+          {
+            "source_ids": [
+              "s6",
+              "s7"
+            ],
+            "meaning": "19世纪的艺术家乔治·修拉用点来创作画作。"
+          }
+        ],
+        "function": {
+          "type": "background_information"
+        },
+        "relation_to_previous": {
+          "type": "connection",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Using dots to make pictures is an old idea.",
+            "source_id": "s4",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "Georges Seurat was an artist in the 1800s.",
+            "source_id": "s6",
+            "role": "example"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "点彩画的视觉效果"
+        },
+        "main_idea": {
+          "text": "修拉的画作从远处看是美丽的图像，但走近看只是由点组成的。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8",
+              "s9"
+            ],
+            "meaning": "从远处看，画作呈现出一幅美丽的图像。"
+          },
+          {
+            "source_ids": [
+              "s10",
+              "s11",
+              "s12"
+            ],
+            "meaning": "走近仔细看，只能看到一个个的点。"
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Look at his paintings from far away.",
+            "source_id": "s8",
+            "role": "instruction"
+          },
+          {
+            "text": "You just see dots!",
+            "source_id": "s12",
+            "role": "conclusion"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "现代像素",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3"
+          ],
+          "label": "历史上的点彩画",
+          "function": "development"
+        }
+      ],
+      "structure": {
+        "type": "compare_and_contrast"
+      },
+      "central_idea": {
+        "text": "现代屏幕上的像素和19世纪艺术家乔治·修拉创作的点彩画有着相似的视觉原理。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "像素和点彩画在视觉上具有相似性。",
+          "evidence": [
+            {
+              "source_id": "s3",
+              "span": "Pixels are small dots of colored light."
+            },
+            {
+              "source_id": "s7",
+              "span": "He made paintings with dots."
+            }
+          ],
+          "knowledge_bridge": "将现代科技概念与历史艺术形式进行类比。",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "观看距离会影响我们如何感知由点组成的图像。",
+          "evidence": [
+            {
+              "source_id": "s9",
+              "span": "You see a beautiful picture."
+            },
+            {
+              "source_id": "s12",
+              "span": "You just see dots!"
+            }
+          ],
+          "knowledge_bridge": "理解视觉感知与距离的关系。",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "像素和点彩画都是用点来构成图像的。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "电视和电脑屏幕是如何工作的。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt3",
+            "text": "乔治·修拉是一位著名的画家。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "彩色光点比黑白光点更好看。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第二段最合适的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "古老的点彩画",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "现代电视屏幕",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "如何画一幅美丽的画",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "19世纪的艺术家",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话支持了“像素是微小的彩色光点”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s3"
+          ]
+        },
+        "candidate_source_ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段介绍了第一段中提到的“点”的历史背景。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段反驳了第一段关于像素的观点。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段详细解释了电视屏幕的制造过程。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段与第一段完全没有关系。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你觉得第二段可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "用点来作画的历史或例子。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何修理损坏的电脑屏幕。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么电视屏幕会闪烁。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "如何成为一名优秀的画家。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话说明了从远处看修拉的画作会看到一幅美丽的图像？",
+        "answer": {
+          "source_ids": [
+            "s9"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s9",
+          "s10",
+          "s12"
+        ]
+      }
+    ]
+  }
+}

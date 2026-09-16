@@ -1,0 +1,412 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd1-14-Unit-14-Counting-Raindrops",
+    "title": "Unit 14 Counting Raindrops",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Where does it rain the most?"
+          },
+          {
+            "id": "s2",
+            "text": "Where does it rain the least?"
+          },
+          {
+            "id": "s3",
+            "text": "How can you know?"
+          },
+          {
+            "id": "s4",
+            "text": "You can’t count every raindrop."
+          },
+          {
+            "id": "s5",
+            "text": "What can you do?"
+          },
+          {
+            "id": "s6",
+            "text": "You can use a rain gauge!"
+          },
+          {
+            "id": "s7",
+            "text": "A rain gauge catches rain."
+          },
+          {
+            "id": "s8",
+            "text": "It measures rain, too."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "Mawsynram is in India."
+          },
+          {
+            "id": "s10",
+            "text": "It gets 11,873 millimeters (mm) of rain each year."
+          },
+          {
+            "id": "s11",
+            "text": "Arica is in Chile."
+          },
+          {
+            "id": "s12",
+            "text": "It only gets 0.76 mm."
+          },
+          {
+            "id": "s13",
+            "text": "How much rain does your hometown get?"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Measuring Rain"
+        },
+        "main_idea": {
+          "text": "A rain gauge is used to measure the amount of rain."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "People want to know where it rains the most and least."
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "It is impossible to count every single raindrop."
+          },
+          {
+            "source_ids": [
+              "s6",
+              "s7",
+              "s8"
+            ],
+            "meaning": "A rain gauge catches and measures rain."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Where does it rain the most?",
+            "source_id": "s1",
+            "role": "hook"
+          },
+          {
+            "text": "You can use a rain gauge!",
+            "source_id": "s6",
+            "role": "solution"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Rain Extremes"
+        },
+        "main_idea": {
+          "text": "Different places in the world receive vastly different amounts of rain."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "Mawsynram in India gets a lot of rain (11,873 mm)."
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s12"
+            ],
+            "meaning": "Arica in Chile gets very little rain (0.76 mm)."
+          }
+        ],
+        "function": {
+          "type": "supporting_details"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Mawsynram is in India.",
+            "source_id": "s9",
+            "role": "example"
+          },
+          {
+            "text": "Arica is in Chile.",
+            "source_id": "s11",
+            "role": "example"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "The Tool",
+          "function": "Introduces the rain gauge as a tool for measuring rain."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "The Data",
+          "function": "Provides examples of places with extreme amounts of rain."
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "Rain gauges are used to measure rain, and different places in the world receive different amounts of it."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Mawsynram is much wetter than Arica.",
+          "evidence": [
+            {
+              "source_id": "s10",
+              "span": "11,873 millimeters (mm)"
+            },
+            {
+              "source_id": "s12",
+              "span": "0.76 mm"
+            }
+          ],
+          "knowledge_bridge": "Comparing large and small numbers to understand scale.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "A rain gauge is necessary because counting drops is too hard.",
+          "evidence": [
+            {
+              "source_id": "s4",
+              "span": "You can’t count every raindrop."
+            },
+            {
+              "source_id": "s6",
+              "span": "You can use a rain gauge!"
+            }
+          ],
+          "knowledge_bridge": "Understanding cause and effect in problem-solving.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "雨量计可以用来测量降雨量。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "印度的Mawsynram下雨最多。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "我们不能数清每一滴雨。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "智利非常干燥。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第一段最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "测量雨的工具",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "世界上最潮湿的地方",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么下雨",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "如何制造雨",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明了雨量计的作用？",
+        "answer": {
+          "source_ids": [
+            "s8"
+          ]
+        },
+        "candidate_source_ids": [
+          "s6",
+          "s7",
+          "s8",
+          "s10"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段是如何支持第一段的？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "它提供了不同地方降雨量的具体例子。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "它解释了如何制造雨量计。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "它讲述了雨滴是如何形成的。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "它反驳了第一段关于降雨的观点。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你觉得第二段可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "不同地方的降雨量数据。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何修理一个坏掉的雨量计。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么人们喜欢下雨。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "如何预测地震。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话告诉我们Arica的降雨量很少？",
+        "answer": {
+          "source_ids": [
+            "s12"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s11",
+          "s12",
+          "s13"
+        ]
+      }
+    ]
+  }
+}

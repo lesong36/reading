@@ -1,0 +1,507 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd1-01-Unit-1-Animals-Weather",
+    "title": "Unit 1 Animals' Weather",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Farmers need to know about the weather."
+          },
+          {
+            "id": "s2",
+            "text": "Their farms need it!"
+          },
+          {
+            "id": "s3",
+            "text": "Animals can help."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "Cows and horses know when it will rain."
+          },
+          {
+            "id": "s5",
+            "text": "They stretch their necks."
+          },
+          {
+            "id": "s6",
+            "text": "They smell the air."
+          },
+          {
+            "id": "s7",
+            "text": "Then the farmer knows it will rain."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "Winter is coming."
+          },
+          {
+            "id": "s9",
+            "text": "The rabbits are eating a lot."
+          },
+          {
+            "id": "s10",
+            "text": "They are getting very fat."
+          },
+          {
+            "id": "s11",
+            "text": "Then the farmer knows it will be a long, cold winter."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s12",
+            "text": "How do the animals know?"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction"
+        },
+        "main_idea": {
+          "text": "Farmers rely on weather knowledge, and animals can assist them."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "Farmers need weather information for their farms."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Animals are capable of helping farmers with weather predictions."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Farmers need to know about the weather.",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "Animals can help.",
+            "source_id": "s3",
+            "role": "thesis_statement"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Rain Prediction"
+        },
+        "main_idea": {
+          "text": "Cows and horses signal upcoming rain by stretching their necks and smelling the air."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "Cows and horses can predict rain."
+          },
+          {
+            "source_ids": [
+              "s5",
+              "s6"
+            ],
+            "meaning": "The specific behaviors are stretching necks and smelling the air."
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "These behaviors allow the farmer to know it will rain."
+          }
+        ],
+        "function": {
+          "type": "example"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Cows and horses know when it will rain.",
+            "source_id": "s4",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "Then the farmer knows it will rain.",
+            "source_id": "s7",
+            "role": "conclusion"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Winter Prediction"
+        },
+        "main_idea": {
+          "text": "Rabbits eating a lot and getting fat indicate that a long, cold winter is approaching."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "The context is the approach of winter."
+          },
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "Rabbits eat a lot and become very fat."
+          },
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "This behavior tells the farmer about the coming long, cold winter."
+          }
+        ],
+        "function": {
+          "type": "example"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "The rabbits are eating a lot.",
+            "source_id": "s9",
+            "role": "evidence"
+          },
+          {
+            "text": "Then the farmer knows it will be a long, cold winter.",
+            "source_id": "s11",
+            "role": "conclusion"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "Conclusion"
+        },
+        "main_idea": {
+          "text": "The text ends with a question about how animals possess this knowledge."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "A rhetorical question prompts the reader to think about the mechanism behind animal weather prediction."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "reflection",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "How do the animals know?",
+            "source_id": "s12",
+            "role": "closing_question"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces the topic of farmers, weather, and animal help."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3"
+          ],
+          "label": "Examples of Animal Weather Signs",
+          "function": "Provides specific examples of how cows, horses, and rabbits predict weather changes."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p4"
+          ],
+          "label": "Conclusion",
+          "function": "Ends with a thought-provoking question."
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Animals exhibit specific behaviors that help farmers predict weather changes like rain and winter."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Animals may sense atmospheric changes before humans do.",
+          "evidence": [
+            {
+              "source_id": "s4",
+              "span": "Cows and horses know when it will rain."
+            },
+            {
+              "source_id": "s9",
+              "span": "The rabbits are eating a lot."
+            }
+          ],
+          "knowledge_bridge": "Animals have sensitive senses that detect subtle environmental shifts.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The farmer uses animal behavior as a practical tool for planning.",
+          "evidence": [
+            {
+              "source_id": "s7",
+              "span": "Then the farmer knows it will rain."
+            },
+            {
+              "source_id": "s11",
+              "span": "Then the farmer knows it will be a long, cold winter."
+            }
+          ],
+          "knowledge_bridge": "Observing nature is a traditional method for forecasting.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "动物可以通过行为帮助农民预测天气。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "农民非常喜欢养牛和马。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "冬天很冷，兔子需要吃很多食物。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "天气对所有的动物都很重要。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第二段（p2）最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "牛和马如何预示下雨",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "兔子为什么变胖",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt7",
+            "text": "农民如何种植庄稼",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt8",
+            "text": "动物如何知道天气",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "请选择支持“兔子预示冬天来临”这一观点的句子。",
+        "answer": {
+          "source_ids": [
+            "s9",
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s9",
+          "s10",
+          "s11"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段（p2）和第三段（p3）之间的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "它们提供了两个不同的例子来说明动物如何预测天气。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "第三段解释了第二段中提到的科学原理。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "第二段是结论，第三段是开头。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt12",
+            "text": "它们描述了同一种动物的不同行为。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完最后一段（p4）的问题后，你觉得下一篇文章可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "解释动物感知天气变化的科学原因。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "介绍更多种类的农场动物。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt15",
+            "text": "讲述农民如何建造房子。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt16",
+            "text": "重复兔子吃食物的故事。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话直接说明了农民从动物的行为中获得了信息？",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ]
+      }
+    ]
+  }
+}

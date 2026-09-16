@@ -1,0 +1,505 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd1-04-Unit-4-Fish-from-the-Sky",
+    "title": "Unit 4 Fish from the Sky",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Rain falls from the sky."
+          },
+          {
+            "id": "s2",
+            "text": "Snow falls from the sky."
+          },
+          {
+            "id": "s3",
+            "text": "In 2014, fish fell from the sky."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "It was in Sri Lanka."
+          },
+          {
+            "id": "s5",
+            "text": "People there were surprised."
+          },
+          {
+            "id": "s6",
+            "text": "Fish were falling on their homes."
+          },
+          {
+            "id": "s7",
+            "text": "How could this happen?"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "Tornadoes are strong winds."
+          },
+          {
+            "id": "s9",
+            "text": "They pick up things and move them into the sky."
+          },
+          {
+            "id": "s10",
+            "text": "A tornado can carry things far."
+          },
+          {
+            "id": "s11",
+            "text": "A tornado over water can pick up fish."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s12",
+            "text": "Is this what happened?"
+          },
+          {
+            "id": "s13",
+            "text": "Probably!"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Surprising Event"
+        },
+        "main_idea": {
+          "text": "In 2014, an unusual event occurred where fish fell from the sky."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "Establishes the normal expectation that rain and snow fall from the sky."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Introduces the surprising fact that fish fell from the sky in 2014."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "In 2014",
+            "source_id": "s3",
+            "role": "time_marker"
+          },
+          {
+            "text": "fish fell from the sky",
+            "source_id": "s3",
+            "role": "main_event"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Location and Reaction"
+        },
+        "main_idea": {
+          "text": "The event happened in Sri Lanka, surprising people as fish landed on their homes."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "Specifies the location of the event as Sri Lanka."
+          },
+          {
+            "source_ids": [
+              "s5",
+              "s6"
+            ],
+            "meaning": "Describes the reaction of the people and the specific impact on their homes."
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "Poses a question to transition into the explanation."
+          }
+        ],
+        "function": {
+          "type": "context"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "It was in Sri Lanka",
+            "source_id": "s4",
+            "role": "location_marker"
+          },
+          {
+            "text": "surprised",
+            "source_id": "s5",
+            "role": "reaction"
+          },
+          {
+            "text": "How could this happen?",
+            "source_id": "s7",
+            "role": "transition_question"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "The Scientific Explanation"
+        },
+        "main_idea": {
+          "text": "Tornadoes are strong winds that can pick up objects, including fish, from the water and carry them far away."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8",
+              "s9"
+            ],
+            "meaning": "Defines tornadoes as strong winds that lift and move objects into the sky."
+          },
+          {
+            "source_ids": [
+              "s10",
+              "s11"
+            ],
+            "meaning": "Explains that a tornado over water can specifically pick up fish."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "explanation",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Tornadoes are strong winds",
+            "source_id": "s8",
+            "role": "definition"
+          },
+          {
+            "text": "pick up things",
+            "source_id": "s9",
+            "role": "mechanism"
+          },
+          {
+            "text": "over water",
+            "source_id": "s11",
+            "role": "condition"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "Conclusion"
+        },
+        "main_idea": {
+          "text": "It is highly probable that a tornado caused the fish to fall from the sky."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s12",
+              "s13"
+            ],
+            "meaning": "Confirms the explanation as the likely cause of the event."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "conclusion",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "Probably!",
+            "source_id": "s13",
+            "role": "conclusion_marker"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1",
+            "p2"
+          ],
+          "label": "The Event",
+          "function": "Introduces the surprising event of fish falling from the sky in Sri Lanka."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p3",
+            "p4"
+          ],
+          "label": "The Explanation",
+          "function": "Explains how tornadoes can cause fish to fall from the sky and concludes that this is the likely cause."
+        }
+      ],
+      "structure": {
+        "type": "cause_and_effect"
+      },
+      "central_idea": {
+        "text": "In 2014, fish fell from the sky in Sri Lanka, likely caused by a tornado picking them up from the water."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The tornado must have been near a body of water.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "A tornado over water can pick up fish."
+            }
+          ],
+          "knowledge_bridge": "Understanding that fish live in water and tornadoes need to be over water to pick them up.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The people in Sri Lanka were likely near the ocean or a large lake.",
+          "evidence": [
+            {
+              "source_id": "s4",
+              "span": "It was in Sri Lanka."
+            },
+            {
+              "source_id": "s11",
+              "span": "A tornado over water can pick up fish."
+            }
+          ],
+          "knowledge_bridge": "Connecting the location (Sri Lanka, an island) with the need for a large body of water for the tornado to pick up fish.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "What is the main idea of the whole story?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "A tornado in Sri Lanka likely caused fish to fall from the sky.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Rain and snow fall from the sky.",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "Tornadoes are strong winds that pick up things.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "People in Sri Lanka were surprised by the weather.",
+            "role": "minor_detail"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Which heading best fits Paragraph 3?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "How Tornadoes Work",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "A Surprising Day in Sri Lanka",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt3",
+            "text": "Why Fish Are Special",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "The End of the Story",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "Select the sentence that explains how a tornado can pick up fish.",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s9",
+          "s10",
+          "s11"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Why does Paragraph 3 come after Paragraph 2?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "It answers the question asked in Paragraph 2.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "It tells a new, unrelated story.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "It repeats the same information as Paragraph 1.",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "It describes what happened before the fish fell.",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "After reading Paragraph 2, what do you think Paragraph 3 will be about?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "An explanation of how the fish got into the sky.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "A list of different types of fish.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "A story about a person who caught a fish.",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "A description of what rain looks like.",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "independent",
+        "interaction": "select_sentence",
+        "prompt": "Select the sentence that shows the people were surprised by the event.",
+        "answer": {
+          "source_ids": [
+            "s5"
+          ]
+        },
+        "candidate_source_ids": [
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ]
+      }
+    ]
+  }
+}

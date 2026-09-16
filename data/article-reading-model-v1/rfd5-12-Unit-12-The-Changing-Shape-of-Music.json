@@ -1,0 +1,482 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd5-12-Unit-12-The-Changing-Shape-of-Music",
+    "title": "RFD 5 / Unit 12 The Changing Shape of Music",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Listening to music has changed a lot."
+          },
+          {
+            "id": "s2",
+            "text": "Long ago, you could only listen to music at concert halls."
+          },
+          {
+            "id": "s3",
+            "text": "Starting in the 1850s, people could listen to music at home."
+          },
+          {
+            "id": "s4",
+            "text": "Machines played music on tubes or disks."
+          },
+          {
+            "id": "s5",
+            "text": "But these machines were too heavy to take around."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "That changed in 1983."
+          },
+          {
+            "id": "s7",
+            "text": "With the Sony Walkman, people could take music everywhere."
+          },
+          {
+            "id": "s8",
+            "text": "It played music on cassettes."
+          },
+          {
+            "id": "s9",
+            "text": "And it fit in a pocket."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s10",
+            "text": "Now listening to music is convenient."
+          },
+          {
+            "id": "s11",
+            "text": "Your computer and phone can play MP3 files."
+          },
+          {
+            "id": "s12",
+            "text": "You can also stream music over the internet."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "早期音乐聆听"
+        },
+        "main_idea": {
+          "text": "早期人们只能在特定场所听音乐，后来出现了笨重的家用机器。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "过去只能在音乐厅听音乐"
+          },
+          {
+            "source_ids": [
+              "s3",
+              "s4"
+            ],
+            "meaning": "19世纪50年代起，机器开始在家里播放音乐"
+          },
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "这些机器太重，不方便携带"
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Long ago",
+            "source_id": "s2",
+            "role": "time_marker"
+          },
+          {
+            "text": "Starting in the 1850s",
+            "source_id": "s3",
+            "role": "time_marker"
+          },
+          {
+            "text": "But",
+            "source_id": "s5",
+            "role": "contrast"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "随身听的出现"
+        },
+        "main_idea": {
+          "text": "1983年索尼随身听的发明让人们可以随时随地听音乐。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "1983年情况发生了改变"
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "索尼随身听让人们可以带着音乐到处走"
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "它很小，可以放进口袋"
+          }
+        ],
+        "function": {
+          "type": "development"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "That changed",
+            "source_id": "s6",
+            "role": "transition"
+          },
+          {
+            "text": "in 1983",
+            "source_id": "s6",
+            "role": "time_marker"
+          },
+          {
+            "text": "And",
+            "source_id": "s9",
+            "role": "addition"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "现代音乐聆听"
+        },
+        "main_idea": {
+          "text": "如今，通过电脑、手机和互联网，听音乐变得非常方便。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "现在听音乐很方便"
+          },
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "电脑和手机可以播放MP3文件"
+          },
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "还可以通过互联网流媒体听音乐"
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "progression",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Now",
+            "source_id": "s10",
+            "role": "time_marker"
+          },
+          {
+            "text": "also",
+            "source_id": "s12",
+            "role": "addition"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "过去",
+          "function": "介绍早期听音乐的方式及其局限性"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "转折",
+          "function": "描述随身听如何改变听音乐的方式"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "现在",
+          "function": "说明现代听音乐技术的便利性"
+        }
+      ],
+      "structure": {
+        "type": "sequence"
+      },
+      "central_idea": {
+        "text": "听音乐的方式随着时间推移变得越来越方便和多样化。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "随身听比早期的音乐机器更受欢迎，因为它更便携。",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "too heavy to take around"
+            },
+            {
+              "source_id": "s9",
+              "span": "fit in a pocket"
+            }
+          ],
+          "knowledge_bridge": "便携性是电子产品受欢迎的重要因素。",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "现代技术允许人们听音乐 without needing physical media like cassettes or disks. ",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "play MP3 files"
+            },
+            {
+              "source_id": "s12",
+              "span": "stream music over the internet"
+            }
+          ],
+          "knowledge_bridge": "数字音乐和流媒体技术取代了实体存储介质。",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "听音乐的方式如何随时间变化",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "索尼随身听的历史",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "音乐厅的建造过程",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "如何制作MP3文件",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第二段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "随身听的发明",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "早期的音乐机器",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt7",
+            "text": "互联网音乐",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt8",
+            "text": "音乐厅的衰落",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“早期机器不方便携带”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s5"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s4",
+          "s5",
+          "s7"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "对比：从笨重机器到便携设备",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "重复：都在讲音乐厅",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "无关：讲不同的主题",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt12",
+            "text": "因果：因为音乐厅，所以有随身听",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你猜第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "一种更便携的音乐设备",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "如何建造音乐厅",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt15",
+            "text": "为什么人们不喜欢音乐",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt16",
+            "text": "1850年的历史事件",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明现在听音乐很方便？",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s11",
+          "s12",
+          "s1"
+        ]
+      }
+    ]
+  }
+}

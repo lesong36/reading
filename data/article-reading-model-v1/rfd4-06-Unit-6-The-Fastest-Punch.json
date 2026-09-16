@@ -1,0 +1,433 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd4-06-Unit-6-The-Fastest-Punch",
+    "title": "RFD 4 / Unit 6 The Fastest Punch",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "The mantis shrimp is a tiny sea creature."
+          },
+          {
+            "id": "s2",
+            "text": "It’s only 10 cm long."
+          },
+          {
+            "id": "s3",
+            "text": "Don’t let its size fool you."
+          },
+          {
+            "id": "s4",
+            "text": "The mantis shrimp has a secret."
+          },
+          {
+            "id": "s5",
+            "text": "It has superhero strength."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "This shrimp’s punch has the same force as a gunshot."
+          },
+          {
+            "id": "s7",
+            "text": "It uses its super punch for hunting."
+          },
+          {
+            "id": "s8",
+            "text": "The mantis shrimp’s punch is also very quick."
+          },
+          {
+            "id": "s9",
+            "text": "In the blink of an eye, it can punch"
+          },
+          {
+            "id": "s10",
+            "text": "500 times!"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s11",
+            "text": "That’s not all."
+          },
+          {
+            "id": "s12",
+            "text": "The mantis shrimp’s eyes are also interesting."
+          },
+          {
+            "id": "s13",
+            "text": "Unlike humans, they can even see ultraviolet light."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction to the Mantis Shrimp"
+        },
+        "main_idea": {
+          "text": "The mantis shrimp is a small sea creature with surprising strength."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "It is a tiny sea creature, only 10 cm long."
+          },
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "It has superhero strength."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Don’t let its size fool you.",
+            "source_id": "s3",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The Power and Speed of the Punch"
+        },
+        "main_idea": {
+          "text": "The mantis shrimp's punch is incredibly powerful and fast."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "Its punch has the same force as a gunshot."
+          },
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "It can punch 500 times in the blink of an eye."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "This shrimp’s punch",
+            "source_id": "s6",
+            "role": "topic"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Unique Eyes"
+        },
+        "main_idea": {
+          "text": "The mantis shrimp has interesting eyes that can see ultraviolet light."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "Unlike humans, they can see ultraviolet light."
+          }
+        ],
+        "function": {
+          "type": "additional_information"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "That’s not all.",
+            "source_id": "s11",
+            "role": "transition"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces the mantis shrimp and its surprising strength."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "The Punch",
+          "function": "Describes the power and speed of the mantis shrimp's punch."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "The Eyes",
+          "function": "Describes the unique ability of the mantis shrimp's eyes."
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "The mantis shrimp is a small sea creature with surprising strength, a powerful and fast punch, and unique eyes."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The mantis shrimp is a dangerous predator.",
+          "evidence": [
+            {
+              "source_id": "s6",
+              "span": "same force as a gunshot"
+            },
+            {
+              "source_id": "s7",
+              "span": "uses its super punch for hunting"
+            }
+          ],
+          "knowledge_bridge": "Combining the power of the punch and its use for hunting suggests it is a dangerous predator.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The mantis shrimp has special adaptations for its environment.",
+          "evidence": [
+            {
+              "source_id": "s13",
+              "span": "can even see ultraviolet light"
+            }
+          ],
+          "knowledge_bridge": "Seeing ultraviolet light is a special adaptation that helps it in its environment.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "What is the main idea of the first paragraph?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "The mantis shrimp is a small sea creature with surprising strength.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "The mantis shrimp is 10 cm long.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "The mantis shrimp has a secret.",
+            "role": "minor_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "The mantis shrimp is a superhero.",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Which heading best fits the second paragraph?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "The Power and Speed of the Punch",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "The Mantis Shrimp's Eyes",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "A Tiny Sea Creature",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "How to Hunt Like a Shrimp",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "Select the sentence that supports the idea that the mantis shrimp's punch is powerful.",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s6",
+          "s7",
+          "s8",
+          "s9"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "How does the third paragraph connect to the second paragraph?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "It adds more interesting facts about the mantis shrimp.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "It repeats the information about the punch.",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "It explains why the mantis shrimp is small.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "It describes the mantis shrimp's habitat.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "What might the next paragraph be about?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "More unique features of the mantis shrimp.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "How to catch a mantis shrimp.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "The history of the mantis shrimp.",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "The mantis shrimp's favorite food.",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "Select the sentence that shows the mantis shrimp's eyes are different from humans.",
+        "answer": {
+          "source_ids": [
+            "s13"
+          ]
+        },
+        "candidate_source_ids": [
+          "s11",
+          "s12",
+          "s13"
+        ]
+      }
+    ]
+  }
+}

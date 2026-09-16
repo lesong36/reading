@@ -1,0 +1,477 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd5-10-Unit-10-Beat-Machines",
+    "title": "RFD 5 / Unit 10 Beat Machines",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Drum machines have recordings of instruments like drums and cymbals."
+          },
+          {
+            "id": "s2",
+            "text": "You program beats with these sounds."
+          },
+          {
+            "id": "s3",
+            "text": "Drum machines are great, but not everyone likes them."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "Drum machines are better than human drummers in some ways."
+          },
+          {
+            "id": "s5",
+            "text": "They play faster and longer."
+          },
+          {
+            "id": "s6",
+            "text": "They never get tired."
+          },
+          {
+            "id": "s7",
+            "text": "They don’t make mistakes."
+          },
+          {
+            "id": "s8",
+            "text": "And they play a wider variety of sounds."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "To some people, drum machines’ beats are too perfect."
+          },
+          {
+            "id": "s10",
+            "text": "Human drummers make small changes in the beat."
+          },
+          {
+            "id": "s11",
+            "text": "These add feeling to the music."
+          },
+          {
+            "id": "s12",
+            "text": "Drum machines don’t do this."
+          },
+          {
+            "id": "s13",
+            "text": "To some people, human drummers are always better."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction to Drum Machines"
+        },
+        "main_idea": {
+          "text": "Drum machines use recorded sounds to create beats, but opinions about them are mixed."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "Drum machines contain recordings of instruments like drums and cymbals."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "Users program beats using these recorded sounds."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Not everyone likes drum machines."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Drum machines",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "but not everyone likes them",
+            "source_id": "s3",
+            "role": "transition_to_conflict"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Advantages of Drum Machines"
+        },
+        "main_idea": {
+          "text": "Drum machines are superior to human drummers in speed, endurance, accuracy, and variety."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5",
+              "s6"
+            ],
+            "meaning": "They can play faster and longer without getting tired."
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "They do not make mistakes."
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "They offer a wider variety of sounds."
+          }
+        ],
+        "function": {
+          "type": "supporting_detail"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "better than human drummers",
+            "source_id": "s4",
+            "role": "comparison_marker"
+          },
+          {
+            "text": "And",
+            "source_id": "s8",
+            "role": "addition_marker"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Advantages of Human Drummers"
+        },
+        "main_idea": {
+          "text": "Human drummers are preferred by some because their small imperfections add feeling to the music."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "Some people find drum machine beats too perfect."
+          },
+          {
+            "source_ids": [
+              "s10",
+              "s11"
+            ],
+            "meaning": "Human drummers make small changes that add feeling."
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "Some people believe human drummers are always better."
+          }
+        ],
+        "function": {
+          "type": "counter_argument"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "To some people",
+            "source_id": "s9",
+            "role": "perspective_marker"
+          },
+          {
+            "text": "don’t do this",
+            "source_id": "s12",
+            "role": "contrast_marker"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces the topic of drum machines and the debate surrounding them."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Pros of Machines",
+          "function": "Lists the technical advantages of drum machines over humans."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Pros of Humans",
+          "function": "Explains why some prefer human drummers due to emotional expression."
+        }
+      ],
+      "structure": {
+        "type": "compare_and_contrast"
+      },
+      "central_idea": {
+        "text": "Drum machines and human drummers each have distinct advantages, with machines offering precision and variety while humans provide emotional nuance."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The author believes both drum machines and human drummers have value.",
+          "evidence": [
+            {
+              "source_id": "s4",
+              "span": "Drum machines are better than human drummers in some ways."
+            },
+            {
+              "source_id": "s13",
+              "span": "To some people, human drummers are always better."
+            }
+          ],
+          "knowledge_bridge": "Understanding that 'better' depends on the criteria (precision vs. feeling).",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Drum machines lack the ability to express emotion through subtle timing changes.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "These add feeling to the music."
+            },
+            {
+              "source_id": "s12",
+              "span": "Drum machines don’t do this."
+            }
+          ],
+          "knowledge_bridge": "Connecting 'small changes' to 'feeling' in music performance.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "鼓机和人类鼓手各有优缺点。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "鼓机比人类鼓手更好。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "如何制作音乐。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "鼓机不会感到疲倦。",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "鼓机的优势",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "人类鼓手的缺点",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "什么是鼓机",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "音乐的感觉",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“鼓机不会出错”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第三段和第二段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "对比：展示人类鼓手相对于鼓机的优势。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "总结：概括全文的主要观点。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "举例：提供鼓机使用的具体例子。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "重复：再次说明鼓机的好处。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你预测第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "鼓机比人类鼓手好的地方。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何修理鼓机。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "鼓机的历史。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "为什么人们不喜欢鼓机。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明人类鼓手能给音乐增添感情？",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s9",
+          "s10",
+          "s11",
+          "s12"
+        ]
+      }
+    ]
+  }
+}

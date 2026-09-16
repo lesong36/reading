@@ -1,0 +1,404 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd1-06-Unit-6-Home-on-the-Water",
+    "title": "Unit 6 Home on the Water",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Many people in Asia live on the water."
+          },
+          {
+            "id": "s2",
+            "text": "They don’t only live in houses near the water."
+          },
+          {
+            "id": "s3",
+            "text": "Many people live in houses built on boats!"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "People living on boats can use their homes to make money."
+          },
+          {
+            "id": "s5",
+            "text": "They keep fish in nets."
+          },
+          {
+            "id": "s6",
+            "text": "The nets are under their homes."
+          },
+          {
+            "id": "s7",
+            "text": "People sell the fish."
+          },
+          {
+            "id": "s8",
+            "text": "They eat the fish, too."
+          },
+          {
+            "id": "s9",
+            "text": "People lived this way for hundreds of years."
+          },
+          {
+            "id": "s10",
+            "text": "They still do."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "水上生活"
+        },
+        "main_idea": {
+          "text": "亚洲的许多人住在水上，甚至住在船上。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "亚洲的许多人住在水上。"
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "他们不仅住在水边的房子里。"
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "许多人住在建在船上的房子里。"
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Many people in Asia",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "live on the water",
+            "source_id": "s1",
+            "role": "main_idea"
+          },
+          {
+            "text": "houses built on boats",
+            "source_id": "s3",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "水上生活的好处"
+        },
+        "main_idea": {
+          "text": "住在船上的人可以用他们的家来赚钱，并且这种生活方式已经持续了数百年。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "住在船上的人可以用他们的家来赚钱。"
+          },
+          {
+            "source_ids": [
+              "s5",
+              "s6"
+            ],
+            "meaning": "他们在网里养鱼，网在他们的家下面。"
+          },
+          {
+            "source_ids": [
+              "s7",
+              "s8"
+            ],
+            "meaning": "人们卖鱼，也吃鱼。"
+          },
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "人们以这种方式生活了数百年，现在依然如此。"
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "make money",
+            "source_id": "s4",
+            "role": "main_idea"
+          },
+          {
+            "text": "keep fish in nets",
+            "source_id": "s5",
+            "role": "supporting_detail"
+          },
+          {
+            "text": "hundreds of years",
+            "source_id": "s9",
+            "role": "supporting_detail"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "介绍水上生活",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "水上生活的好处",
+          "function": "explanation"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "亚洲的许多人住在水上，特别是住在船上，他们利用这种生活方式来赚钱，并且这种生活方式已经持续了数百年。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "住在船上的人可能不需要去很远的地方买鱼。",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "They keep fish in nets."
+            },
+            {
+              "source_id": "s8",
+              "span": "They eat the fish, too."
+            }
+          ],
+          "knowledge_bridge": "如果人们在家里养鱼并吃它们，他们可能不需要去很远的地方买鱼。",
+          "difficulty": "medium"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "亚洲的许多人住在水上，特别是住在船上。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "人们喜欢在水边钓鱼。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "亚洲的许多人住在水上，特别是住在船上，他们利用这种生活方式来赚钱。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "人们住在房子里。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "为第一段选择一个合适的标题。",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "水上生活",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何赚钱",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "亚洲的地理",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "鱼的种类",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪句话支持了“住在船上的人可以用他们的家来赚钱”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段是如何扩展第一段的内容的？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "它解释了住在船上的人如何利用他们的家来赚钱。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "它介绍了亚洲的地理。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "它讲述了人们如何建造房子。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "它描述了鱼的种类。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "根据文章，接下来可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "水上生活面临的挑战。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何建造一艘船。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "亚洲的历史。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "鱼的烹饪方法。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪句话表明这种生活方式已经持续了很长时间？",
+        "answer": {
+          "source_ids": [
+            "s9"
+          ]
+        },
+        "candidate_source_ids": [
+          "s4",
+          "s5",
+          "s9",
+          "s10"
+        ]
+      }
+    ]
+  }
+}

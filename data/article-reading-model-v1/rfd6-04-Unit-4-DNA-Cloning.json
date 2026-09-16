@@ -1,0 +1,468 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd6-04-Unit-4-DNA-Cloning",
+    "title": "RFD 6 / Unit 4 DNA Cloning",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "In movies, scientists bring back the dinosaurs."
+          },
+          {
+            "id": "s2",
+            "text": "They find dinosaur DNA and use it to clone dinosaurs."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s3",
+            "text": "Unfortunately, this is only fiction."
+          },
+          {
+            "id": "s4",
+            "text": "Scientists cannot really do this."
+          },
+          {
+            "id": "s5",
+            "text": "DNA becomes damaged over time."
+          },
+          {
+            "id": "s6",
+            "text": "Dinosaurs went extinct millions of years ago."
+          },
+          {
+            "id": "s7",
+            "text": "So, their DNA is too damaged to use."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "However, we could clone other extinct animals."
+          },
+          {
+            "id": "s9",
+            "text": "Their DNA is not as old, so it is less damaged."
+          },
+          {
+            "id": "s10",
+            "text": "For example, the mammoth went extinct only 10,000 years ago."
+          },
+          {
+            "id": "s11",
+            "text": "We might be able to bring it back."
+          },
+          {
+            "id": "s12",
+            "text": "Do you want to see a mammoth?"
+          },
+          {
+            "id": "s13",
+            "text": "Someday, you just might!"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Movie Fiction"
+        },
+        "main_idea": {
+          "text": "Movies show scientists cloning dinosaurs using their DNA."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "Scientists in movies bring back dinosaurs."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "They use dinosaur DNA to clone them."
+          }
+        ],
+        "function": {
+          "type": "hook"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "In movies",
+            "source_id": "s1",
+            "role": "context_marker"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Scientific Reality"
+        },
+        "main_idea": {
+          "text": "Cloning dinosaurs is impossible because their DNA is too damaged."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3",
+              "s4"
+            ],
+            "meaning": "Cloning dinosaurs is only fiction, not real science."
+          },
+          {
+            "source_ids": [
+              "s5",
+              "s7"
+            ],
+            "meaning": "DNA gets damaged over time, making dinosaur DNA unusable."
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "Dinosaurs went extinct millions of years ago."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Unfortunately",
+            "source_id": "s3",
+            "role": "transition"
+          },
+          {
+            "text": "So",
+            "source_id": "s7",
+            "role": "conclusion_marker"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Possible Cloning"
+        },
+        "main_idea": {
+          "text": "We might be able to clone other extinct animals like mammoths because their DNA is less damaged."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8",
+              "s9"
+            ],
+            "meaning": "Other extinct animals can be cloned because their DNA is newer and less damaged."
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "Mammoths went extinct only 10,000 years ago."
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s13"
+            ],
+            "meaning": "It is possible that we will bring mammoths back someday."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "extension",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "However",
+            "source_id": "s8",
+            "role": "transition"
+          },
+          {
+            "text": "For example",
+            "source_id": "s10",
+            "role": "example_marker"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduce the topic of cloning dinosaurs in movies."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Problem",
+          "function": "Explain why cloning dinosaurs is not possible."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Solution",
+          "function": "Suggest that cloning other extinct animals is possible."
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "While cloning dinosaurs is impossible due to DNA damage, we might be able to clone other extinct animals like mammoths."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The age of an animal's DNA determines if it can be used for cloning.",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "DNA becomes damaged over time."
+            },
+            {
+              "source_id": "s9",
+              "span": "Their DNA is not as old, so it is less damaged."
+            }
+          ],
+          "knowledge_bridge": "Understanding that older DNA is more damaged and less useful for cloning.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Mammoths are a better candidate for cloning than dinosaurs.",
+          "evidence": [
+            {
+              "source_id": "s6",
+              "span": "Dinosaurs went extinct millions of years ago."
+            },
+            {
+              "source_id": "s10",
+              "span": "the mammoth went extinct only 10,000 years ago."
+            }
+          ],
+          "knowledge_bridge": "Comparing the extinction times of dinosaurs and mammoths to infer which is easier to clone.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "克隆恐龙不可能，但克隆其他灭绝动物可能。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "电影里的科学家很厉害。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "DNA会随时间损坏。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "所有动物都可以被克隆。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最好的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "为什么不能克隆恐龙",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "电影中的恐龙",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "猛犸象的生活",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "DNA的结构",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“恐龙DNA损坏太严重”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s9"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段反驳了第一段的内容。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段重复了第一段的内容。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段介绍了新的电影。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段解释了恐龙的饮食习惯。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第二段后，你觉得第三段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "可能可以克隆其他灭绝动物。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "恐龙其实没有灭绝。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "DNA永远不会损坏。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "科学家讨厌 movies. ",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明猛犸象灭绝的时间比恐龙晚？",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s6",
+          "s10",
+          "s11",
+          "s13"
+        ]
+      }
+    ]
+  }
+}

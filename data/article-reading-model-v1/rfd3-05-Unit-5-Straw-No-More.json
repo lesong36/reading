@@ -1,0 +1,443 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd3-05-Unit-5-Straw-No-More",
+    "title": "Unit 5 Straw No More",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "People use a lot of plastic."
+          },
+          {
+            "id": "s2",
+            "text": "Plastic is cheap and convenient."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s3",
+            "text": "You use a plastic straw once."
+          },
+          {
+            "id": "s4",
+            "text": "Then you throw it away."
+          },
+          {
+            "id": "s5",
+            "text": "This is a big problem."
+          },
+          {
+            "id": "s6",
+            "text": "A lot of straws go into the sea."
+          },
+          {
+            "id": "s7",
+            "text": "They hurt the plants and animals."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "Molly Steer is nine years old."
+          },
+          {
+            "id": "s9",
+            "text": "But she teaches people about not using plastic straws."
+          },
+          {
+            "id": "s10",
+            "text": "She says that millions of straws are used each day."
+          },
+          {
+            "id": "s11",
+            "text": "Because of her, several countries stopped using plastic straws."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "塑料的普遍使用"
+        },
+        "main_idea": {
+          "text": "人们广泛使用塑料，因为它便宜且方便。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "塑料使用量很大"
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "塑料便宜且方便"
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "People use a lot of plastic.",
+            "source_id": "s1",
+            "role": "topic_statement"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "吸管造成的环境问题"
+        },
+        "main_idea": {
+          "text": "一次性塑料吸管被丢弃后进入海洋，伤害了海洋生物。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3",
+              "s4"
+            ],
+            "meaning": "吸管是一次性使用的"
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "大量吸管流入大海"
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "吸管伤害植物和动物"
+          }
+        ],
+        "function": {
+          "type": "problem_description"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "This is a big problem.",
+            "source_id": "s5",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "莫莉·斯提尔的贡献"
+        },
+        "main_idea": {
+          "text": "九岁的莫莉·斯提尔通过宣传减少塑料吸管的使用，促使多个国家停止使用塑料吸管。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "莫莉只有九岁"
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "她教育人们不要使用塑料吸管"
+          },
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "多个国家因此停止使用塑料吸管"
+          }
+        ],
+        "function": {
+          "type": "solution_and_impact"
+        },
+        "relation_to_previous": {
+          "type": "solution",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Molly Steer is nine years old.",
+            "source_id": "s8",
+            "role": "introduction_of_character"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "背景介绍",
+          "function": "引入塑料使用的普遍性"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "问题阐述",
+          "function": "说明塑料吸管对环境的具体危害"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "解决方案与影响",
+          "function": "介绍个人行动带来的积极改变"
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "塑料吸管对环境造成严重危害，但通过个人努力（如莫莉·斯提尔的行动）可以推动改变并减少其使用。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "莫莉·斯提尔的行动对全球政策产生了显著影响。",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "several countries stopped using plastic straws"
+            }
+          ],
+          "knowledge_bridge": "个人行动可以影响社会政策",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "塑料吸管的问题源于其 convenience and disposability. ",
+          "evidence": [
+            {
+              "source_id": "s2",
+              "span": "cheap and convenient"
+            },
+            {
+              "source_id": "s3",
+              "span": "use a plastic straw once"
+            }
+          ],
+          "knowledge_bridge": "产品特性导致消费行为",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "塑料吸管对环境有害，但有人正在努力改变这一现状。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "塑料很便宜，所以人们喜欢用它。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "莫莉·斯提尔今年九岁。",
+            "role": "minor_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "所有国家都禁止了塑料。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话最适合做第二段的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "吸管伤害海洋生物",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "塑料很便宜",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "莫莉是个好孩子",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "人们每天用很多吸管",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "medium",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“吸管进入大海”这一观点的句子。",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s6",
+          "s7",
+          "s10"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第三段是如何回应第二段提到的问题的？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "通过介绍一个人的行动来解决吸管污染问题。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "通过解释为什么塑料很便宜。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "通过描述海洋动物的痛苦。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "通过建议人们少喝水。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你预测第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "塑料使用带来的具体问题或负面影响。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何制造塑料更 cheaply. ",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "A list of all plastic products. ",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "The history of the straw. ",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "找出说明莫莉·斯提尔年龄的句子。",
+        "answer": {
+          "source_ids": [
+            "s8"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s9",
+          "s10",
+          "s11"
+        ]
+      }
+    ]
+  }
+}

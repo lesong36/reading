@@ -1,0 +1,612 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "re-foundations-4a-i-ve-found-the-titanic",
+    "title": "RE Foundations / 4A / I’ve Found the Titanic!",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "As a boy, Robert Ballard liked to read about shipwrecks."
+          },
+          {
+            "id": "s2",
+            "text": "He read a lot about the Titanic."
+          },
+          {
+            "id": "s3",
+            "text": "“My lifelong dream was to find this great ship,” he says."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "On August 31, 1985, Ballard’s dream came true."
+          },
+          {
+            "id": "s5",
+            "text": "He found the wreck of the Titanic."
+          },
+          {
+            "id": "s6",
+            "text": "The ship was in two main parts, lying four kilometers under the sea."
+          },
+          {
+            "id": "s7",
+            "text": "Using video cameras and an undersea robot, 1 Ballard looked around the ship."
+          },
+          {
+            "id": "s8",
+            "text": "He found many items that told the sad story of the Titanic’s end."
+          },
+          {
+            "id": "s9",
+            "text": "For example, he found a child’s shoes, a reminder of the many deaths that happened that night in 1912."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s10",
+            "text": "In 1986, Ballard visited the Titanic again."
+          },
+          {
+            "id": "s11",
+            "text": "This time, he reached the ship in a small submarine."
+          },
+          {
+            "id": "s12",
+            "text": "A deep-sea robot took photos inside the ship."
+          },
+          {
+            "id": "s13",
+            "text": "When other people saw the photos, they wanted to visit the ship, too."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s14",
+            "text": "When Ballard returned in 2004, he found the Titanic in very bad condition."
+          },
+          {
+            "id": "s15",
+            "text": "Other explorers had taken away about 6,000 items, like clothes, dishes, and shoes."
+          },
+          {
+            "id": "s16",
+            "text": "Some even took pieces of the ship."
+          },
+          {
+            "id": "s17",
+            "text": "They think these things should be moved to a safer place, but Ballard doesn’t agree."
+          }
+        ]
+      },
+      {
+        "id": "p5",
+        "order": 5,
+        "sentences": [
+          {
+            "id": "s18",
+            "text": "Ballard believes that taking things from the Titanic is wrong."
+          },
+          {
+            "id": "s19",
+            "text": "Instead, he wants to put lights and cameras on and around the shipwreck."
+          },
+          {
+            "id": "s20",
+            "text": "This way, people can see the great ship and remember what happened to it."
+          },
+          {
+            "id": "s21",
+            "text": "“As long as she needs protection,” 3 says Ballard, “the Titanic will always be part of my life.”"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Ballard's Childhood Dream"
+        },
+        "main_idea": {
+          "text": "Robert Ballard had a lifelong dream to find the Titanic."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "He liked reading about shipwrecks as a boy."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "He read a lot specifically about the Titanic."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "As a boy",
+            "source_id": "s1",
+            "role": "time_marker"
+          },
+          {
+            "text": "lifelong dream",
+            "source_id": "s3",
+            "role": "key_phrase"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The Discovery"
+        },
+        "main_idea": {
+          "text": "In 1985, Ballard found the wreck of the Titanic deep under the sea."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4",
+              "s5"
+            ],
+            "meaning": "He found the wreck on August 31, 1985."
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "The ship was in two parts, four kilometers under the sea."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "He found a child's shoes, reminding people of the deaths."
+          }
+        ],
+        "function": {
+          "type": "event_description"
+        },
+        "relation_to_previous": {
+          "type": "fulfillment",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "dream came true",
+            "source_id": "s4",
+            "role": "transition"
+          },
+          {
+            "text": "For example",
+            "source_id": "s9",
+            "role": "example_marker"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Second Visit"
+        },
+        "main_idea": {
+          "text": "In 1986, Ballard visited the Titanic again in a submarine, and his photos inspired others."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "He reached the ship in a small submarine."
+          },
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "A robot took photos inside the ship."
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "People wanted to visit the ship after seeing the photos."
+          }
+        ],
+        "function": {
+          "type": "sequence"
+        },
+        "relation_to_previous": {
+          "type": "chronological_progression",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "In 1986",
+            "source_id": "s10",
+            "role": "time_marker"
+          },
+          {
+            "text": "This time",
+            "source_id": "s11",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "Damage and Removal"
+        },
+        "main_idea": {
+          "text": "By 2004, the Titanic was in bad condition because other explorers took many items from it."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s14"
+            ],
+            "meaning": "The Titanic was in very bad condition."
+          },
+          {
+            "source_ids": [
+              "s15"
+            ],
+            "meaning": "Other explorers took away about 6,000 items."
+          },
+          {
+            "source_ids": [
+              "s17"
+            ],
+            "meaning": "Some people think items should be moved to a safer place, but Ballard disagrees."
+          }
+        ],
+        "function": {
+          "type": "problem_identification"
+        },
+        "relation_to_previous": {
+          "type": "consequence",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "When Ballard returned in 2004",
+            "source_id": "s14",
+            "role": "time_marker"
+          },
+          {
+            "text": "but Ballard doesn't agree",
+            "source_id": "s17",
+            "role": "contrast"
+          }
+        ]
+      },
+      {
+        "id": "p5",
+        "topic": {
+          "label": "Ballard's Belief"
+        },
+        "main_idea": {
+          "text": "Ballard believes the Titanic should be protected in place, not stripped of its items."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s18"
+            ],
+            "meaning": "He thinks taking things from the Titanic is wrong."
+          },
+          {
+            "source_ids": [
+              "s19"
+            ],
+            "meaning": "He wants to use lights and cameras to show the ship."
+          },
+          {
+            "source_ids": [
+              "s21"
+            ],
+            "meaning": "He says the Titanic will always be part of his life as long as it needs protection."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "solution",
+          "target": "p4"
+        },
+        "signals": [
+          {
+            "text": "Instead",
+            "source_id": "s19",
+            "role": "contrast"
+          },
+          {
+            "text": "As long as she needs protection",
+            "source_id": "s21",
+            "role": "key_phrase"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces Ballard's dream."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3"
+          ],
+          "label": "Discovery and Exploration",
+          "function": "Describes the finding and subsequent visits to the Titanic."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p4",
+            "p5"
+          ],
+          "label": "Protection and Belief",
+          "function": "Discusses the damage to the ship and Ballard's stance on protecting it."
+        }
+      ],
+      "structure": {
+        "type": "sequence"
+      },
+      "central_idea": {
+        "text": "Robert Ballard found the Titanic and believes it should be protected in place rather than stripped of its items."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Ballard is passionate about preserving the Titanic's history.",
+          "evidence": [
+            {
+              "source_id": "s18",
+              "span": "taking things from the Titanic is wrong"
+            },
+            {
+              "source_id": "s21",
+              "span": "the Titanic will always be part of my life"
+            }
+          ],
+          "knowledge_bridge": "Understanding that Ballard's actions and words show his deep care for the ship.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The Titanic is fragile and needs protection.",
+          "evidence": [
+            {
+              "source_id": "s14",
+              "span": "found the Titanic in very bad condition"
+            },
+            {
+              "source_id": "s21",
+              "span": "As long as she needs protection"
+            }
+          ],
+          "knowledge_bridge": "Connecting the ship's bad condition to the need for protection.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "选出第一段的主要意思。",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Robert Ballard had a lifelong dream to find the Titanic.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Robert Ballard liked to read about shipwrecks.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "The Titanic was a great ship.",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "Ballard read a lot about the Titanic.",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "为第二段选一个合适的标题。",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "Finding the Titanic",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "A Child's Shoes",
+            "role": "minor_detail"
+          },
+          {
+            "id": "opt7",
+            "text": "Undersea Robots",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt8",
+            "text": "The End of the Titanic",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选出支持“泰坦尼克号在海底很深”的句子。",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段和第二段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "时间顺序上的推进",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "解释原因",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "对比不同观点",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt12",
+            "text": "总结全文",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "根据第四段，第五段可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "Ballard对保护泰坦尼克号的看法",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "泰坦尼克号的历史",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt15",
+            "text": "其他探险家的故事",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt16",
+            "text": "海底机器人的工作原理",
+            "role": "minor_detail"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选出证明“Ballard认为拿走泰坦尼克号的东西是错的”的句子。",
+        "answer": {
+          "source_ids": [
+            "s18"
+          ]
+        },
+        "candidate_source_ids": [
+          "s17",
+          "s18",
+          "s19",
+          "s20"
+        ]
+      }
+    ]
+  }
+}

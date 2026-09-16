@@ -1,0 +1,555 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "re-foundations-10b-when-weird-weather-strikes",
+    "title": "RE Foundations / 10B / When Weird Weather Strikes",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Most of us know about hurricanes, droughts, and floods."
+          },
+          {
+            "id": "s2",
+            "text": "But from time to time, nature delivers a weather event that is really unusual."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "One day in 2005, people in a small town in Serbia saw an unusual sight."
+          },
+          {
+            "id": "s5",
+            "text": "It was raining frogs!"
+          },
+          {
+            "id": "s6",
+            "text": "Without any warning, they found their streets filling with the little jumping creatures."
+          },
+          {
+            "id": "s7",
+            "text": "“There were thousands of them,” one person told a local newspaper."
+          },
+          {
+            "id": "s8",
+            "text": "“I thought perhaps a plane carrying frogs had exploded,” said another."
+          },
+          {
+            "id": "s9",
+            "text": "Scientists believe a tornado passed over a lake and sucked up the frogs."
+          },
+          {
+            "id": "s10",
+            "text": "It then dropped them on the town, far away."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s12",
+            "text": "As if tornadoes aren’t dangerous enough, some can actually be made of fire."
+          },
+          {
+            "id": "s13",
+            "text": "When a wildfire reaches very high temperatures, it causes the air to heat up and then rise."
+          },
+          {
+            "id": "s14",
+            "text": "Cooler air moves quickly to replace the hot air."
+          },
+          {
+            "id": "s15",
+            "text": "This creates strong winds, which suck up the fire."
+          },
+          {
+            "id": "s16",
+            "text": "When this happens—like it did in 2014, in Denver, United States—a fire tornado is created."
+          },
+          {
+            "id": "s17",
+            "text": "A tornado like this can become 15 meters wide and grow as tall as a 40-story building."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s19",
+            "text": "In 1942, hundreds of thousand-year-old skeletons were found under the ice of Lake Roopkund in the Himalayas."
+          },
+          {
+            "id": "s20",
+            "text": "Many had holes in their skulls—but they weren’t hurt in any other way."
+          },
+          {
+            "id": "s21",
+            "text": "For years, the cause of their deaths was a mystery."
+          },
+          {
+            "id": "s22",
+            "text": "Today, scientists think they were killed by giant hailstones."
+          },
+          {
+            "id": "s23",
+            "text": "Hailstones are balls of ice that form when raindrops turn into ice."
+          },
+          {
+            "id": "s24",
+            "text": "The ice pieces increase in size until the wind cannot hold them up."
+          },
+          {
+            "id": "s25",
+            "text": "This results in hailstones falling to the ground, often at speeds of over 160 kilometers an hour."
+          },
+          {
+            "id": "s26",
+            "text": "For the unlucky people at Lake Roopkund, there was nowhere to run."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction to Unusual Weather"
+        },
+        "main_idea": {
+          "text": "While common weather events are well-known, nature occasionally produces truly unusual weather phenomena."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "People are familiar with standard weather events like hurricanes and floods."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "Sometimes, nature creates weather events that are highly unusual."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "But from time to time",
+            "source_id": "s2",
+            "role": "contrast"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The Frog Rain in Serbia"
+        },
+        "main_idea": {
+          "text": "In 2005, a tornado in Serbia picked up frogs from a lake and dropped them on a town, causing a bizarre 'frog rain'."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5",
+              "s6"
+            ],
+            "meaning": "Thousands of frogs suddenly appeared on the streets of a small town."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "Scientists explain that a tornado sucked the frogs up from a nearby lake."
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "The tornado dropped the frogs far away from their original location."
+          }
+        ],
+        "function": {
+          "type": "example"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "One day in 2005",
+            "source_id": "s4",
+            "role": "time_marker"
+          },
+          {
+            "text": "Scientists believe",
+            "source_id": "s9",
+            "role": "explanation"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Fire Tornadoes"
+        },
+        "main_idea": {
+          "text": "Fire tornadoes are created when intense heat from wildfires causes strong winds to suck up the fire, forming massive, dangerous structures."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s13",
+              "s14"
+            ],
+            "meaning": "Wildfires heat the air, causing it to rise and be replaced by cooler air."
+          },
+          {
+            "source_ids": [
+              "s15"
+            ],
+            "meaning": "This movement of air creates strong winds that pull the fire upward."
+          },
+          {
+            "source_ids": [
+              "s17"
+            ],
+            "meaning": "These fire tornadoes can grow very large, up to 15 meters wide and 40 stories tall."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "As if tornadoes aren’t dangerous enough",
+            "source_id": "s12",
+            "role": "transition"
+          },
+          {
+            "text": "When this happens",
+            "source_id": "s16",
+            "role": "cause_and_effect"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "Giant Hailstones at Lake Roopkund"
+        },
+        "main_idea": {
+          "text": "Scientists now believe that giant, fast-falling hailstones caused the mysterious deaths of ancient people found under the ice at Lake Roopkund."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s19",
+              "s20"
+            ],
+            "meaning": "Ancient skeletons with skull injuries were discovered under the ice in the Himalayas."
+          },
+          {
+            "source_ids": [
+              "s22"
+            ],
+            "meaning": "Scientists attribute the deaths to giant hailstones."
+          },
+          {
+            "source_ids": [
+              "s25"
+            ],
+            "meaning": "Hailstones can fall at speeds over 160 kilometers per hour."
+          }
+        ],
+        "function": {
+          "type": "example"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "In 1942",
+            "source_id": "s19",
+            "role": "time_marker"
+          },
+          {
+            "text": "Today, scientists think",
+            "source_id": "s22",
+            "role": "explanation"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces the concept of unusual weather events."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3",
+            "p4"
+          ],
+          "label": "Examples of Weird Weather",
+          "function": "Provides specific examples and explanations of unusual weather phenomena."
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Nature occasionally produces bizarre and dangerous weather events, such as frog rain, fire tornadoes, and giant hailstorms, which have surprising causes and effects."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The people in the Serbian town were likely shocked and confused by the sudden appearance of thousands of frogs.",
+          "evidence": [
+            {
+              "source_id": "s7",
+              "span": "There were thousands of them"
+            },
+            {
+              "source_id": "s8",
+              "span": "I thought perhaps a plane carrying frogs had exploded"
+            }
+          ],
+          "knowledge_bridge": "Understanding human reactions to unexpected, large-scale events.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The ancient people at Lake Roopkund had no time to escape the hailstorm because it happened so quickly and the terrain was difficult.",
+          "evidence": [
+            {
+              "source_id": "s25",
+              "span": "speeds of over 160 kilometers an hour"
+            },
+            {
+              "source_id": "s26",
+              "span": "there was nowhere to run"
+            }
+          ],
+          "knowledge_bridge": "Connecting the speed of the hailstones to the lack of escape routes.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "自然界偶尔会发生一些非常奇特且危险的天气现象。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "龙卷风是如何形成的。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "人们如何预测天气。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "所有的天气都是危险的。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第二段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "下雨天",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt2",
+            "text": "青蛙雨",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt3",
+            "text": "飞机爆炸",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "塞尔维亚的历史",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话解释了青蛙雨是如何发生的？",
+        "answer": {
+          "source_ids": [
+            "s9"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s8",
+          "s9",
+          "s10"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第三段和第四段与第一段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "它们提供了第一段提到的奇特天气的具体例子。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "它们反驳了第一段关于常见天气的观点。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "它们解释了为什么人们害怕龙卷风。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "它们与第一段的内容无关。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完第三段关于火龙卷风的描述后，你预计下一段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "另一个奇特的天气事件及其原因。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何 to build a fireproof house.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "The history of Denver, United States.",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "Why tornadoes are always made of fire.",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "independent",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持了“冰雹可以非常致命”这一观点？",
+        "answer": {
+          "source_ids": [
+            "s25"
+          ]
+        },
+        "candidate_source_ids": [
+          "s23",
+          "s24",
+          "s25",
+          "s26"
+        ]
+      }
+    ]
+  }
+}

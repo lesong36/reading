@@ -1,0 +1,323 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd2-09-Unit-9-Put-It-in-the-Bank",
+    "title": "Unit 9 Put It in the Bank",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Is there something you want to buy?"
+          },
+          {
+            "id": "s2",
+            "text": "You should save your money."
+          },
+          {
+            "id": "s3",
+            "text": "You can buy what you want when you have enough."
+          },
+          {
+            "id": "s4",
+            "text": "Do you want something cheap?"
+          },
+          {
+            "id": "s5",
+            "text": "It’s fine to have a little money at home."
+          },
+          {
+            "id": "s6",
+            "text": "Soon, you will have enough."
+          },
+          {
+            "id": "s7",
+            "text": "Do you want something expensive?"
+          },
+          {
+            "id": "s8",
+            "text": "It’s dangerous to have a lot of money at home."
+          },
+          {
+            "id": "s9",
+            "text": "You will need to save for a while."
+          },
+          {
+            "id": "s10",
+            "text": "Put the money in a bank."
+          },
+          {
+            "id": "s11",
+            "text": "It will be safe there."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Saving Money"
+        },
+        "main_idea": {
+          "text": "You should save money in a bank to buy things you want safely."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2",
+              "s3"
+            ],
+            "meaning": "Saving allows you to buy things when you have enough money."
+          },
+          {
+            "source_ids": [
+              "s8",
+              "s10"
+            ],
+            "meaning": "Banks are safer than keeping a lot of money at home."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "You should save your money.",
+            "source_id": "s2",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "Put the money in a bank.",
+            "source_id": "s10",
+            "role": "conclusion"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Why and How to Save",
+          "function": "explains the benefits and methods of saving money"
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "Saving money in a bank is a safe way to afford the things you want."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Banks are considered a secure place to store large amounts of money.",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "It’s dangerous to have a lot of money at home."
+            },
+            {
+              "source_id": "s11",
+              "span": "It will be safe there."
+            }
+          ],
+          "knowledge_bridge": "Understanding the concept of financial security and risk.",
+          "difficulty": "medium"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "把钱存进银行是安全的",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "买便宜的东西很容易",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "家里有很多钱很危险",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "银行有很多钱",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "给这篇文章选一个合适的标题。",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "把钱存进银行",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何买昂贵的东西",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "家里的危险",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "关于金钱的故事",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话支持了“存钱可以买到你想要的东西”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s3"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s5",
+          "s8",
+          "s11"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "为什么作者建议把钱存进银行？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "因为家里放很多钱很危险",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "因为银行有很多钱",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "因为买便宜的东西很容易",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "因为存钱需要很长时间",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段，你觉得接下来作者会建议怎么做？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "把钱存进银行",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "把钱花光",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "把东西卖掉",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "买便宜的东西",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "找出说明“家里放很多钱很危险”的句子。",
+        "answer": {
+          "source_ids": [
+            "s8"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s10",
+          "s11",
+          "s2"
+        ]
+      }
+    ]
+  }
+}

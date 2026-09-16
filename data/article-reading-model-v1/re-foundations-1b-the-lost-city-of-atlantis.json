@@ -1,0 +1,595 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "re-foundations-1b-the-lost-city-of-atlantis",
+    "title": "RE Foundations / 1B / The Lost City of Atlantis",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Most people have heard the story of the lost city of Atlantis."
+          },
+          {
+            "id": "s2",
+            "text": "But is any part of the story true?"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s3",
+            "text": "Over two thousand years ago, the Greek writer Plato wrote about Atlantis, an island in the Atlantic Ocean."
+          },
+          {
+            "id": "s4",
+            "text": "The island’s people were very rich."
+          },
+          {
+            "id": "s5",
+            "text": "They built a big city with many great buildings."
+          },
+          {
+            "id": "s6",
+            "text": "But the people became greedy—they had many things, but they still wanted more."
+          },
+          {
+            "id": "s7",
+            "text": "So the gods became angry."
+          },
+          {
+            "id": "s8",
+            "text": "Earthquakes and large waves began to strike the island."
+          },
+          {
+            "id": "s9",
+            "text": "Finally, Atlantis sank into the sea."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s10",
+            "text": "Many explorers have looked for Atlantis."
+          },
+          {
+            "id": "s11",
+            "text": "In 2004, explorer Robert Sarmast reported finding the remains of a city under the sea near Cyprus."
+          },
+          {
+            "id": "s12",
+            "text": "However, Sarmast and other scientists later realized the structures he found under the sea were natural, not man-made."
+          },
+          {
+            "id": "s13",
+            "text": "Mark Adams, author of the 2016 book Meet Me in Atlantis believes the city was in Morocco."
+          },
+          {
+            "id": "s14",
+            "text": "Plato wrote about red and black stone circles around the city."
+          },
+          {
+            "id": "s15",
+            "text": "Adams found similar red and black stones in the desert there, very near the Atlantic Ocean."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s16",
+            "text": "Most people, however, think Atlantis is simply a story."
+          },
+          {
+            "id": "s17",
+            "text": "The purpose of the story may be to teach people not to be greedy."
+          },
+          {
+            "id": "s18",
+            "text": "Richard Ellis also wrote a book about Atlantis in 1999."
+          },
+          {
+            "id": "s19",
+            "text": "He says “there is not a piece of solid evidence” for a real Atlantis."
+          }
+        ]
+      },
+      {
+        "id": "p5",
+        "order": 5,
+        "sentences": [
+          {
+            "id": "s20",
+            "text": "So was the island real or not?"
+          },
+          {
+            "id": "s21",
+            "text": "We only know one thing: The mystery of Atlantis will be with us for a long time."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction"
+        },
+        "main_idea": {
+          "text": "The story of Atlantis is well-known, but its truth is questioned."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "Most people know the story of Atlantis."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "The article asks if the story is true."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "But is any part of the story true?",
+            "source_id": "s2",
+            "role": "question"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Plato's Story"
+        },
+        "main_idea": {
+          "text": "Plato wrote about Atlantis, a rich island that sank because its people were greedy."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Plato wrote about Atlantis over 2,000 years ago."
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "The people of Atlantis became greedy."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "Atlantis sank into the sea."
+          }
+        ],
+        "function": {
+          "type": "narrative"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "But the people became greedy",
+            "source_id": "s6",
+            "role": "cause"
+          },
+          {
+            "text": "Finally, Atlantis sank into the sea.",
+            "source_id": "s9",
+            "role": "conclusion"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Search for Atlantis"
+        },
+        "main_idea": {
+          "text": "Explorers have searched for Atlantis, finding clues but no definitive proof."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "Robert Sarmast found underwater structures near Cyprus."
+          },
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "The structures Sarmast found were natural, not man-made."
+          },
+          {
+            "source_ids": [
+              "s15"
+            ],
+            "meaning": "Mark Adams found red and black stones in Morocco."
+          }
+        ],
+        "function": {
+          "type": "informational"
+        },
+        "relation_to_previous": {
+          "type": "extension",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "However, Sarmast and other scientists later realized",
+            "source_id": "s12",
+            "role": "contrast"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "Skepticism"
+        },
+        "main_idea": {
+          "text": "Many people believe Atlantis is just a story meant to teach a lesson."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s16"
+            ],
+            "meaning": "Most people think Atlantis is a story."
+          },
+          {
+            "source_ids": [
+              "s17"
+            ],
+            "meaning": "The story might teach people not to be greedy."
+          },
+          {
+            "source_ids": [
+              "s19"
+            ],
+            "meaning": "Richard Ellis says there is no solid evidence for a real Atlantis."
+          }
+        ],
+        "function": {
+          "type": "informational"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "Most people, however, think",
+            "source_id": "s16",
+            "role": "contrast"
+          }
+        ]
+      },
+      {
+        "id": "p5",
+        "topic": {
+          "label": "Conclusion"
+        },
+        "main_idea": {
+          "text": "The mystery of Atlantis will continue to be a topic of interest."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s20"
+            ],
+            "meaning": "The question of whether Atlantis was real remains."
+          },
+          {
+            "source_ids": [
+              "s21"
+            ],
+            "meaning": "The mystery of Atlantis will last a long time."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "summary",
+          "target": "p4"
+        },
+        "signals": [
+          {
+            "text": "So was the island real or not?",
+            "source_id": "s20",
+            "role": "question"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Plato's Story",
+          "function": "narrative"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Search for Atlantis",
+          "function": "informational"
+        },
+        {
+          "id": "sec4",
+          "paragraph_ids": [
+            "p4"
+          ],
+          "label": "Skepticism",
+          "function": "informational"
+        },
+        {
+          "id": "sec5",
+          "paragraph_ids": [
+            "p5"
+          ],
+          "label": "Conclusion",
+          "function": "conclusion"
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "The story of Atlantis is a mystery that has been searched for and debated for centuries, with no definitive proof of its existence."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The story of Atlantis might be a moral lesson rather than a historical fact.",
+          "evidence": [
+            {
+              "source_id": "s17",
+              "span": "The purpose of the story may be to teach people not to be greedy."
+            }
+          ],
+          "knowledge_bridge": "Understanding the purpose of stories",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Scientists and explorers have not found conclusive evidence that Atlantis was a real place.",
+          "evidence": [
+            {
+              "source_id": "s12",
+              "span": "Sarmast and other scientists later realized the structures he found under the sea were natural, not man-made."
+            },
+            {
+              "source_id": "s19",
+              "span": "He says “there is not a piece of solid evidence” for a real Atlantis."
+            }
+          ],
+          "knowledge_bridge": "Evaluating evidence",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "What is the main idea of the article?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "The mystery of Atlantis has been searched for and debated for centuries.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Plato wrote a story about a rich island that sank.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "Explorers have found clues about Atlantis in the ocean.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "Atlantis is a real city in Morocco.",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Which heading best fits paragraph 3?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Search for Atlantis",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Plato's Story",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "Skepticism",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "Conclusion",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "Select the sentence that supports the idea that Atlantis sank because its people were greedy.",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s6",
+          "s9",
+          "s11"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "How does paragraph 4 connect to paragraph 3?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "It contrasts the search for Atlantis with the belief that it is just a story.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "It repeats the story of Plato's Atlantis.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "It introduces the explorers who searched for Atlantis.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "It concludes the article with a final question.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "After reading paragraph 2, what do you think will happen next in the article?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "The article will discuss people who have searched for Atlantis.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "The article will explain how to build a city like Atlantis.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "The article will tell a new story about a different lost city.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "The article will list the names of all the gods in the story.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "medium",
+        "interaction": "select-sentence",
+        "prompt": "Select the sentence that shows why most people think Atlantis is just a story.",
+        "answer": {
+          "source_ids": [
+            "s19"
+          ]
+        },
+        "candidate_source_ids": [
+          "s16",
+          "s17",
+          "s19",
+          "s21"
+        ]
+      }
+    ]
+  }
+}

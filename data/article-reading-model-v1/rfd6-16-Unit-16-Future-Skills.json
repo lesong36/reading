@@ -1,0 +1,638 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd6-16-Unit-16-Future-Skills",
+    "title": "RFD 6 / Unit 16 Future Skills",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "What skills do you need for the future?"
+          },
+          {
+            "id": "s2",
+            "text": "Businesses believe there are four:"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s3",
+            "text": "Businesses want smart social media users."
+          },
+          {
+            "id": "s4",
+            "text": "Social media is a great way to communicate."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "Mobile phones and computers are also good for communication."
+          },
+          {
+            "id": "s6",
+            "text": "We use them to shop and work."
+          },
+          {
+            "id": "s7",
+            "text": "Businesses want people who use these technologies well."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "Analytics is the study of information."
+          },
+          {
+            "id": "s9",
+            "text": "Businesses study what customers do."
+          },
+          {
+            "id": "s10",
+            "text": "This tells them about customers' needs."
+          }
+        ]
+      },
+      {
+        "id": "p5",
+        "order": 5,
+        "sentences": [
+          {
+            "id": "s11",
+            "text": "Cloud computing is useful for workers."
+          },
+          {
+            "id": "s12",
+            "text": "It helps them work together."
+          },
+          {
+            "id": "s13",
+            "text": "It also helps businesses."
+          },
+          {
+            "id": "s14",
+            "text": "They can make the necessary changes faster."
+          }
+        ]
+      },
+      {
+        "id": "p6",
+        "order": 6,
+        "sentences": [
+          {
+            "id": "s15",
+            "text": "Do you have any of these skills?"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction"
+        },
+        "main_idea": {
+          "text": "Businesses have identified four key skills needed for the future."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "The text introduces the topic of future skills."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "There are exactly four skills mentioned."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "What skills do you need for the future?",
+            "source_id": "s1",
+            "role": "hook"
+          },
+          {
+            "text": "Businesses believe there are four:",
+            "source_id": "s2",
+            "role": "preview"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Social Media"
+        },
+        "main_idea": {
+          "text": "Businesses value smart social media users because it is a great way to communicate."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Businesses want smart social media users."
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "Social media is a great way to communicate."
+          }
+        ],
+        "function": {
+          "type": "detail"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Businesses want smart social media users.",
+            "source_id": "s3",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "Social media is a great way to communicate.",
+            "source_id": "s4",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Technology"
+        },
+        "main_idea": {
+          "text": "Businesses want people who use mobile phones and computers well for communication, shopping, and work."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "Mobile phones and computers are good for communication."
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "We use them to shop and work."
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "Businesses want people who use these technologies well."
+          }
+        ],
+        "function": {
+          "type": "detail"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Mobile phones and computers are also good for communication.",
+            "source_id": "s5",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "We use them to shop and work.",
+            "source_id": "s6",
+            "role": "supporting_detail"
+          },
+          {
+            "text": "Businesses want people who use these technologies well.",
+            "source_id": "s7",
+            "role": "conclusion"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "Analytics"
+        },
+        "main_idea": {
+          "text": "Analytics helps businesses understand customer needs by studying what customers do."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "Analytics is the study of information."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "Businesses study what customers do."
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "This tells them about customers' needs."
+          }
+        ],
+        "function": {
+          "type": "detail"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "Analytics is the study of information.",
+            "source_id": "s8",
+            "role": "definition"
+          },
+          {
+            "text": "Businesses study what customers do.",
+            "source_id": "s9",
+            "role": "supporting_detail"
+          },
+          {
+            "text": "This tells them about customers' needs.",
+            "source_id": "s10",
+            "role": "conclusion"
+          }
+        ]
+      },
+      {
+        "id": "p5",
+        "topic": {
+          "label": "Cloud Computing"
+        },
+        "main_idea": {
+          "text": "Cloud computing helps workers work together and helps businesses make changes faster."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "Cloud computing is useful for workers."
+          },
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "It helps them work together."
+          },
+          {
+            "source_ids": [
+              "s14"
+            ],
+            "meaning": "Businesses can make the necessary changes faster."
+          }
+        ],
+        "function": {
+          "type": "detail"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p4"
+        },
+        "signals": [
+          {
+            "text": "Cloud computing is useful for workers.",
+            "source_id": "s11",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "It helps them work together.",
+            "source_id": "s12",
+            "role": "supporting_detail"
+          },
+          {
+            "text": "They can make the necessary changes faster.",
+            "source_id": "s14",
+            "role": "conclusion"
+          }
+        ]
+      },
+      {
+        "id": "p6",
+        "topic": {
+          "label": "Conclusion"
+        },
+        "main_idea": {
+          "text": "The text asks the reader to reflect on whether they have these future skills."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s15"
+            ],
+            "meaning": "The text asks the reader to reflect on their skills."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "summary",
+          "target": "p5"
+        },
+        "signals": [
+          {
+            "text": "Do you have any of these skills?",
+            "source_id": "s15",
+            "role": "call_to_action"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3",
+            "p4",
+            "p5"
+          ],
+          "label": "Four Future Skills",
+          "function": "body"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p6"
+          ],
+          "label": "Conclusion",
+          "function": "conclusion"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Businesses need four future skills: smart social media use, technology use, analytics, and cloud computing."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The four skills are important because they help businesses communicate, understand customers, and work faster.",
+          "evidence": [
+            {
+              "source_id": "s4",
+              "span": "Social media is a great way to communicate."
+            },
+            {
+              "source_id": "s10",
+              "span": "This tells them about customers' needs."
+            },
+            {
+              "source_id": "s14",
+              "span": "They can make the necessary changes faster."
+            }
+          ],
+          "knowledge_bridge": "Connecting the benefits of each skill to the overall goal of business success.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The text suggests that having these skills will make a person more valuable to businesses in the future.",
+          "evidence": [
+            {
+              "source_id": "s2",
+              "span": "Businesses believe there are four:"
+            },
+            {
+              "source_id": "s15",
+              "span": "Do you have any of these skills?"
+            }
+          ],
+          "knowledge_bridge": "Inferring the importance of the skills based on the businesses' perspective and the concluding question.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "企业认为未来需要的四种技能。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何使用社交媒体。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "未来的工作是什么样的。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "云计算的历史。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第四段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "分析客户数据",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "使用手机购物",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "未来的工作",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "社交媒体的好处",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "哪句话支持了“企业想要善用这些技术的人”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第三段之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第三段补充了第二段提到的沟通方式。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第三段反驳了第二段的观点。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第三段总结了第二段的内容。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "第三段与第二段无关。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你预测接下来文章会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "具体介绍这四种技能是什么。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "讨论为什么企业不喜欢这些技能。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "讲述作者的个人经历。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "比较过去和现在的技能。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "medium",
+        "interaction": "select-sentence",
+        "prompt": "哪句话说明了云计算如何帮助员工？",
+        "answer": {
+          "source_ids": [
+            "s12"
+          ]
+        },
+        "candidate_source_ids": [
+          "s11",
+          "s12",
+          "s13",
+          "s14"
+        ]
+      }
+    ]
+  }
+}

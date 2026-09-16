@@ -1,0 +1,501 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd2-16-Unit-16-Telling-Stories-with-Music",
+    "title": "Unit 16 Telling Stories with Music",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "People like plays."
+          },
+          {
+            "id": "s2",
+            "text": "They like music."
+          },
+          {
+            "id": "s3",
+            "text": "Musicals put the two together."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "Musicals are special."
+          },
+          {
+            "id": "s5",
+            "text": "Characters talk and sing."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "Musicals aren’t new."
+          },
+          {
+            "id": "s7",
+            "text": "They became popular in the 1940s."
+          },
+          {
+            "id": "s8",
+            "text": "Oklahoma was a big hit."
+          },
+          {
+            "id": "s9",
+            "text": "Everyone saw it."
+          },
+          {
+            "id": "s10",
+            "text": "It’s about life on a farm."
+          },
+          {
+            "id": "s11",
+            "text": "It’s a love story."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s12",
+            "text": "People still like musicals."
+          },
+          {
+            "id": "s13",
+            "text": "Wicked is a popular one."
+          },
+          {
+            "id": "s14",
+            "text": "Wicked tells the story of The Wizard of Oz."
+          },
+          {
+            "id": "s15",
+            "text": "It tells the story differently."
+          },
+          {
+            "id": "s16",
+            "text": "In it, the witch is the hero."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction to Musicals"
+        },
+        "main_idea": {
+          "text": "Musicals combine plays and music."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "People enjoy both plays and music."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Musicals are a mix of these two art forms."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Musicals put the two together.",
+            "source_id": "s3",
+            "role": "topic_sentence"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Characteristics of Musicals"
+        },
+        "main_idea": {
+          "text": "In musicals, characters both talk and sing."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "The main feature of a musical is that characters sing as well as speak."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Characters talk and sing.",
+            "source_id": "s5",
+            "role": "key_detail"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "History of Musicals"
+        },
+        "main_idea": {
+          "text": "Musicals became very popular in the 1940s with the show Oklahoma."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "Musicals gained popularity in the 1940s."
+          },
+          {
+            "source_ids": [
+              "s8",
+              "s9"
+            ],
+            "meaning": "Oklahoma was a highly successful and widely seen show."
+          },
+          {
+            "source_ids": [
+              "s10",
+              "s11"
+            ],
+            "meaning": "Oklahoma is a love story set on a farm."
+          }
+        ],
+        "function": {
+          "type": "historical_example"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "They became popular in the 1940s.",
+            "source_id": "s7",
+            "role": "topic_sentence"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "Modern Musicals"
+        },
+        "main_idea": {
+          "text": "Musicals are still popular today, like the show Wicked."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "Wicked is a currently popular musical."
+          },
+          {
+            "source_ids": [
+              "s14",
+              "s15"
+            ],
+            "meaning": "Wicked retells the story of The Wizard of Oz from a different perspective."
+          },
+          {
+            "source_ids": [
+              "s16"
+            ],
+            "meaning": "In Wicked, the witch is the main hero."
+          }
+        ],
+        "function": {
+          "type": "modern_example"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "People still like musicals.",
+            "source_id": "s12",
+            "role": "topic_sentence"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1",
+            "p2"
+          ],
+          "label": "What is a Musical?",
+          "function": "definition"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p3",
+            "p4"
+          ],
+          "label": "Musicals Through Time",
+          "function": "examples"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Musicals are a popular art form that combines plays and music, and they have been enjoyed by people for many years."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Musicals have a long history and continue to be popular today.",
+          "evidence": [
+            {
+              "source_id": "s7",
+              "span": "They became popular in the 1940s."
+            },
+            {
+              "source_id": "s12",
+              "span": "People still like musicals."
+            }
+          ],
+          "knowledge_bridge": "Connecting past popularity (1940s) with present popularity (still like) shows a long history.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Wicked is a different kind of story because it changes who the hero is.",
+          "evidence": [
+            {
+              "source_id": "s15",
+              "span": "It tells the story differently."
+            },
+            {
+              "source_id": "s16",
+              "span": "In it, the witch is the hero."
+            }
+          ],
+          "knowledge_bridge": "Understanding that changing the hero makes a story different.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "音乐剧结合了戏剧和音乐，并且一直很受欢迎。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "《绿野仙踪》是一部关于女巫的电影。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "人们喜欢听歌和看戏。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "农场生活很有趣。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段（p3）最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "音乐剧的历史",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "现代的音乐剧",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "什么是音乐剧",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "农场上的爱情故事",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持了“音乐剧在1940年代变得流行”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s7",
+          "s8",
+          "s12",
+          "s13"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第四段（p4）和第三段（p3）之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "对比：从过去的例子转到现在的例子。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "重复：两段讲的内容完全一样。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "因果：因为《绿野仙踪》火了，所以《俄克拉荷马》火了。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "无关：两段讲的话题完全不同。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你觉得第二段可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "音乐剧的具体特点，比如角色会唱歌。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "音乐剧演员的薪水很高。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么人们不喜欢音乐剧。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "如何自己写一首歌。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明了《Wicked》这部音乐剧的不同之处？",
+        "answer": {
+          "source_ids": [
+            "s16"
+          ]
+        },
+        "candidate_source_ids": [
+          "s13",
+          "s14",
+          "s15",
+          "s16"
+        ]
+      }
+    ]
+  }
+}

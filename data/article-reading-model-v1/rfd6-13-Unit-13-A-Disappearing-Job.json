@@ -1,0 +1,458 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd6-13-Unit-13-A-Disappearing-Job",
+    "title": "RFD 6 / Unit 13 A Disappearing Job",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Many people wake up to an alarm clock."
+          },
+          {
+            "id": "s2",
+            "text": "But how did people wake up before alarm clocks were invented?"
+          },
+          {
+            "id": "s3",
+            "text": "They used a knocker-up."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "Knocker-ups were people."
+          },
+          {
+            "id": "s5",
+            "text": "Factories hired them to wake up workers."
+          },
+          {
+            "id": "s6",
+            "text": "Knocker-ups were often elderly people or police officers."
+          },
+          {
+            "id": "s7",
+            "text": "They would knock on people's windows."
+          },
+          {
+            "id": "s8",
+            "text": "They had many tools."
+          },
+          {
+            "id": "s9",
+            "text": "They often used bamboo sticks, small stones, or peashooters."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s10",
+            "text": "In the 20th century, knocker-ups started disappearing."
+          },
+          {
+            "id": "s11",
+            "text": "They lost their jobs because of alarm clocks."
+          },
+          {
+            "id": "s12",
+            "text": "Alarm clocks were cheaper and more reliable."
+          },
+          {
+            "id": "s13",
+            "text": "What are some other jobs that have disappeared?"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Problem of Waking Up"
+        },
+        "main_idea": {
+          "text": "Before alarm clocks, people used a special job called a knocker-up to wake them up."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "Most people today use alarm clocks to wake up."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "The text asks how people woke up before alarm clocks existed."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "The answer is that they used a knocker-up."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "But how did people wake up before alarm clocks were invented?",
+            "source_id": "s2",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Who Were Knocker-Ups?"
+        },
+        "main_idea": {
+          "text": "Knocker-ups were hired by factories to wake workers using various tools."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4",
+              "s5"
+            ],
+            "meaning": "Knocker-ups were people hired by factories to wake up workers."
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "They were often elderly people or police officers."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "They used tools like bamboo sticks, small stones, or peashooters to knock on windows."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Knocker-ups were people.",
+            "source_id": "s4",
+            "role": "definition"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "The End of Knocker-Ups"
+        },
+        "main_idea": {
+          "text": "Knocker-ups disappeared in the 20th century because alarm clocks became cheaper and more reliable."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "The job of knocker-up started disappearing in the 20th century."
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s12"
+            ],
+            "meaning": "Alarm clocks took over because they were cheaper and more reliable."
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "The text asks the reader to think of other jobs that have disappeared."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "cause_and_effect",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "They lost their jobs because of alarm clocks.",
+            "source_id": "s11",
+            "role": "cause"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces the topic of how people woke up before alarm clocks."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Description of Knocker-Ups",
+          "function": "Describes who knocker-ups were and how they did their job."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Conclusion",
+          "function": "Explains why the job disappeared and asks a concluding question."
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Knocker-ups were a historical job that disappeared because alarm clocks became cheaper and more reliable."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Knocker-ups had to be very early risers to do their job.",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "wake up workers"
+            },
+            {
+              "source_id": "s7",
+              "span": "knock on people's windows"
+            }
+          ],
+          "knowledge_bridge": "To wake up workers, the knocker-up must arrive before the workers wake up.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Alarm clocks were a better solution for waking people up than knocker-ups.",
+          "evidence": [
+            {
+              "source_id": "s12",
+              "span": "cheaper and more reliable"
+            }
+          ],
+          "knowledge_bridge": "If something is cheaper and more reliable, it is generally considered a better solution.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "敲窗人是如何消失的",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "闹钟是如何发明的",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt3",
+            "text": "警察的工作",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "工厂的历史",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "敲窗人是谁？",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "为什么敲窗人消失了",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "闹钟的优点",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "如何发明新工具",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "哪句话支持了“敲窗人使用工具”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s9"
+          ]
+        },
+        "candidate_source_ids": [
+          "s4",
+          "s6",
+          "s9",
+          "s12"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段和第一段有什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "解释了第一段提出的问题",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "重复了第一段的内容",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "与第一段无关",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "反驳了第一段的观点",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你觉得第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "敲窗人的具体工作",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "闹钟的价格",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "如何发明闹钟",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "工厂的利润",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "哪句话说明了敲窗人消失的原因？",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s11",
+          "s12",
+          "s13"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,467 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd2-15-Unit-15-Mouth-Music",
+    "title": "Unit 15 Mouth Music",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "There are many ways to make music."
+          },
+          {
+            "id": "s2",
+            "text": "You can use musical instruments."
+          },
+          {
+            "id": "s3",
+            "text": "You can also use your mouth."
+          },
+          {
+            "id": "s4",
+            "text": "You can sing."
+          },
+          {
+            "id": "s5",
+            "text": "You can whistle."
+          },
+          {
+            "id": "s6",
+            "text": "Or you can beatbox."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s7",
+            "text": "Beatboxing became popular in the 1980s."
+          },
+          {
+            "id": "s8",
+            "text": "People use their mouths to make sounds."
+          },
+          {
+            "id": "s9",
+            "text": "They make beats."
+          },
+          {
+            "id": "s10",
+            "text": "They also use their hands and bodies to make sounds."
+          },
+          {
+            "id": "s11",
+            "text": "Sometimes they also sing or rap."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s12",
+            "text": "Today, beatboxing is still very popular."
+          },
+          {
+            "id": "s13",
+            "text": "It’s a big part of hip-hop music."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Ways to Make Music"
+        },
+        "main_idea": {
+          "text": "People can make music using instruments or their mouths."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "Musical instruments are one way to create music."
+          },
+          {
+            "source_ids": [
+              "s4",
+              "s5",
+              "s6"
+            ],
+            "meaning": "Singing, whistling, and beatboxing are ways to use the mouth for music."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "There are many ways",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "Or you can",
+            "source_id": "s6",
+            "role": "list_conclusion"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "What is Beatboxing?"
+        },
+        "main_idea": {
+          "text": "Beatboxing involves using the mouth, hands, and body to create beats and sounds."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "Beatboxing became popular in the 1980s."
+          },
+          {
+            "source_ids": [
+              "s8",
+              "s9"
+            ],
+            "meaning": "Performers use their mouths to make beats."
+          },
+          {
+            "source_ids": [
+              "s10",
+              "s11"
+            ],
+            "meaning": "Performers may also use hands, bodies, singing, or rapping."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Beatboxing became popular",
+            "source_id": "s7",
+            "role": "topic_shift"
+          },
+          {
+            "text": "They make",
+            "source_id": "s9",
+            "role": "detail_support"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Beatboxing Today"
+        },
+        "main_idea": {
+          "text": "Beatboxing remains popular and is a key part of hip-hop music."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "Beatboxing is still very popular today."
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "It is a significant component of hip-hop music."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "summary",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Today",
+            "source_id": "s12",
+            "role": "time_marker"
+          },
+          {
+            "text": "still very popular",
+            "source_id": "s12",
+            "role": "continuity_marker"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction to Mouth Music",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Defining Beatboxing",
+          "function": "body"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Modern Relevance",
+          "function": "conclusion"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Beatboxing is a popular form of mouth music that uses the body to create beats and is a major part of hip-hop culture."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Beatboxing is a versatile art form that combines vocal and physical movements.",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "use their mouths to make sounds"
+            },
+            {
+              "source_id": "s10",
+              "span": "use their hands and bodies to make sounds"
+            }
+          ],
+          "knowledge_bridge": "Combining vocal and physical elements creates a multi-sensory performance.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Beatboxing has a long history and continues to influence modern music genres.",
+          "evidence": [
+            {
+              "source_id": "s7",
+              "span": "became popular in the 1980s"
+            },
+            {
+              "source_id": "s13",
+              "span": "big part of hip-hop music"
+            }
+          ],
+          "knowledge_bridge": "Historical popularity and current integration into major genres indicate lasting cultural impact.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "口技（Beatboxing）是一种用嘴巴和身体制造音乐的方式，至今很流行。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何制作各种乐器。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt3",
+            "text": "Beatboxing在1980年代变得流行。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "人们可以用嘴巴唱歌或吹口哨。",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段（p2）的最佳标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "什么是Beatboxing？",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "Hip-hop音乐的历史",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt7",
+            "text": "如何吹口哨",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt8",
+            "text": "1980年代的流行文化",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“Beatboxing使用身体制造声音”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s9",
+          "s10",
+          "s11"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段（p3）与第二段（p2）的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "第三段总结了Beatboxing在今天的地位，延续了第二段的介绍。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "第三段反驳了第二段关于Beatboxing流行的说法。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "第三段介绍了另一种完全不同的音乐形式。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt12",
+            "text": "第三段详细解释了如何制作乐器。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你预测第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "具体解释其中一种口技（如Beatboxing）是如何工作的。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "列出所有世界上存在的乐器。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt15",
+            "text": "讨论为什么人们不喜欢唱歌。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt16",
+            "text": "介绍如何 to build a guitar. ",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话表明Beatboxing现在仍然很受欢迎？",
+        "answer": {
+          "source_ids": [
+            "s12"
+          ]
+        },
+        "candidate_source_ids": [
+          "s7",
+          "s12",
+          "s13",
+          "s6"
+        ]
+      }
+    ]
+  }
+}

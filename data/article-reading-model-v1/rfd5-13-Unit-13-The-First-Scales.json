@@ -1,0 +1,405 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd5-13-Unit-13-The-First-Scales",
+    "title": "RFD 5 / Unit 13 The First Scales",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Trade started long ago."
+          },
+          {
+            "id": "s2",
+            "text": "It was easy to find the value of some goods."
+          },
+          {
+            "id": "s3",
+            "text": "For example, one cow was worth three goats."
+          },
+          {
+            "id": "s4",
+            "text": "But it was hard to count other goods, like spices."
+          },
+          {
+            "id": "s5",
+            "text": "Merchants weighed these goods."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "The first weighing system was simple."
+          },
+          {
+            "id": "s7",
+            "text": "Two plates hung from either side of a bar."
+          },
+          {
+            "id": "s8",
+            "text": "One plate held the goods."
+          },
+          {
+            "id": "s9",
+            "text": "On the other, the merchant placed stones."
+          },
+          {
+            "id": "s10",
+            "text": "All merchants used stones of the same size and weight."
+          },
+          {
+            "id": "s11",
+            "text": "Stones were added until the two plates were equal."
+          },
+          {
+            "id": "s12",
+            "text": "Then, the goods weighed the same as the stones."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Need for Weighing"
+        },
+        "main_idea": {
+          "text": "Early trade required weighing goods that were difficult to count individually."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Some goods, like animals, had easy value comparisons."
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "Spices and similar items were hard to count."
+          },
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "Merchants solved this by weighing the goods."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "But",
+            "source_id": "s4",
+            "role": "contrast"
+          },
+          {
+            "text": "For example",
+            "source_id": "s3",
+            "role": "example"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The First Scale"
+        },
+        "main_idea": {
+          "text": "The first weighing system used a balanced bar with standardized stones to measure goods."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "The scale consisted of two plates on a bar."
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "Stones used for weighing were all the same size and weight."
+          },
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "Weight was determined when the plates balanced."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "explanation",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "The first",
+            "source_id": "s6",
+            "role": "sequence"
+          },
+          {
+            "text": "Then",
+            "source_id": "s12",
+            "role": "sequence"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Problem in Trade",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Solution: The Scale",
+          "function": "description"
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "Merchants developed a simple scale using standardized stones to accurately weigh goods that were difficult to count."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Standardized stones were necessary for fair trade between different merchants.",
+          "evidence": [
+            {
+              "source_id": "s10",
+              "span": "All merchants used stones of the same size and weight."
+            }
+          ],
+          "knowledge_bridge": "If stones varied in weight, the value of goods would be inconsistent, leading to unfair trades.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The balance scale works by comparing mass rather than counting items.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "Stones were added until the two plates were equal."
+            },
+            {
+              "source_id": "s12",
+              "span": "Then, the goods weighed the same as the stones."
+            }
+          ],
+          "knowledge_bridge": "When two sides of a lever are equal, the forces (weights) are balanced, allowing measurement of unknown mass.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "商人如何使用天平称量难以计数的商品。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "牛和山羊在早期贸易中的价值。",
+            "role": "minor_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么香料比动物更难交易。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "古代商人的日常生活。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第一个称重系统",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "难数的商品",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "石头的颜色",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "如何饲养山羊",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话支持“有些商品很难数”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s4"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s4",
+          "s5",
+          "s6"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段如何解释第一段提到的问题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "它描述了用于称量这些商品的具体工具。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "它解释了为什么牛比山羊更值钱。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "它讲述了商人如何种植香料。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "它批评了早期贸易的不公平。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你预测第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "商人用来称量商品的方法。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "更多关于牛和山羊的例子。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么商人不喜欢石头。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "现代货币的历史。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "medium",
+        "interaction": "select_sentence",
+        "prompt": "找出说明石头必须标准化的句子。",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s9",
+          "s10",
+          "s11",
+          "s12"
+        ]
+      }
+    ]
+  }
+}

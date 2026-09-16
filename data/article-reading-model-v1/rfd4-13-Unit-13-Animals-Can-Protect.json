@@ -1,0 +1,400 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd4-13-Unit-13-Animals-Can-Protect",
+    "title": "RFD 4 / Unit 13 Animals Can Protect!",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "How did people first protect their homes?"
+          },
+          {
+            "id": "s2",
+            "text": "Farm animals, dogs, and even geese did the job!"
+          },
+          {
+            "id": "s3",
+            "text": "They make noise when they hear things."
+          },
+          {
+            "id": "s4",
+            "text": "Dogs were kept as pets thousands of years ago for this reason."
+          },
+          {
+            "id": "s5",
+            "text": "Dogs have good hearing."
+          },
+          {
+            "id": "s6",
+            "text": "They have a strong sense of smell."
+          },
+          {
+            "id": "s7",
+            "text": "Food can take their attention."
+          },
+          {
+            "id": "s8",
+            "text": "They need to be trained."
+          },
+          {
+            "id": "s9",
+            "text": "Today, they still protect the home."
+          },
+          {
+            "id": "s10",
+            "text": "This is called an animal-based security system."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s11",
+            "text": "There were also non-animal-based security systems."
+          },
+          {
+            "id": "s12",
+            "text": "A man named Tildesley made the first door alarm."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "动物安保系统"
+        },
+        "main_idea": {
+          "text": "动物（如狗和鹅）通过发出噪音来保护人类家园，这种系统被称为基于动物的安保系统。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2",
+              "s3"
+            ],
+            "meaning": "农场动物、狗和鹅通过听到动静时发出噪音来执行保护任务。"
+          },
+          {
+            "source_ids": [
+              "s5",
+              "s6"
+            ],
+            "meaning": "狗拥有良好的听觉和强烈的嗅觉，使其适合担任守卫角色。"
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "这种利用动物保护家园的方法被称为基于动物的安保系统。"
+          }
+        ],
+        "function": {
+          "type": "introduction_and_explanation"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "How did people first protect their homes?",
+            "source_id": "s1",
+            "role": "hook_question"
+          },
+          {
+            "text": "This is called an animal-based security system.",
+            "source_id": "s10",
+            "role": "definition"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "非动物安保系统"
+        },
+        "main_idea": {
+          "text": "除了动物，人类还发明了非动物基础的安保系统，例如Tildesley发明的第一个门铃警报。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "历史上存在不依赖动物的安保系统。"
+          },
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "一位名叫Tildesley的人发明了第一个门铃警报。"
+          }
+        ],
+        "function": {
+          "type": "transition_and_extension"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "There were also non-animal-based security systems.",
+            "source_id": "s11",
+            "role": "transition_phrase"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "动物如何保护家园",
+          "function": "介绍基于动物的安保系统及其原理"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "非动物安保系统的出现",
+          "function": "引出非动物基础的安保技术"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "人类历史上使用了动物和非动物两种方式来保护家园，其中动物通过感官和噪音起到安保作用。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "狗之所以被选作 guards 是因为它们的感官 abilities 比 other animals 更适合 detecting intruders.",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "Dogs have good hearing."
+            },
+            {
+              "source_id": "s6",
+              "span": "They have a strong sense of smell."
+            }
+          ],
+          "knowledge_bridge": "结合常识：听觉和嗅觉敏锐的动物更容易发现危险。",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The invention of the door alarm by Tildesley suggests a shift from relying on living creatures to mechanical devices for security.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "There were also non-animal-based security systems."
+            },
+            {
+              "source_id": "s12",
+              "span": "A man named Tildesley made the first door alarm."
+            }
+          ],
+          "knowledge_bridge": "理解技术演进：从生物-based to mechanical-based solutions.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第一段的主要观点是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "动物通过发出噪音来保护人类家园。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "狗需要被训练才能成为好 pets。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "Tildesley 发明了第一个门铃警报。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "所有动物都能保护 homes。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪一个是第二段最合适的标题？",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "非动物安保系统",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "狗的优点",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt7",
+            "text": "如何训练 dogs",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt8",
+            "text": "历史人物介绍",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "medium",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“狗有良好听觉”这一细节的句子。",
+        "answer": {
+          "source_ids": [
+            "s5"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第二段与第一段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "对比：从动物安保转向非动物安保。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "重复：再次强调狗的重要性。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "举例：列举更多动物种类。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt12",
+            "text": "总结：回顾全文内容。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "根据第二段，接下来文章可能会讨论什么？",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "其他非动物安保技术的发展。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "如何 feed 农场 animals。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt15",
+            "text": "Dogs 的 history 作为 pets。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt16",
+            "text": "Why geese 发出噪音。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "找出说明“动物被称为基于动物的安保系统”的证据。",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s9",
+          "s1",
+          "s2"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,462 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd3-15-Unit-15-Acting-Children",
+    "title": "Unit 15 Acting Children",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Children aren’t allowed to do most jobs."
+          },
+          {
+            "id": "s2",
+            "text": "But they’re allowed to act."
+          },
+          {
+            "id": "s3",
+            "text": "Children act in movies."
+          },
+          {
+            "id": "s4",
+            "text": "They act in television shows."
+          },
+          {
+            "id": "s5",
+            "text": "They also act in online videos."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "Many children make online videos."
+          },
+          {
+            "id": "s7",
+            "text": "Some make stories with their families."
+          },
+          {
+            "id": "s8",
+            "text": "Some play games."
+          },
+          {
+            "id": "s9",
+            "text": "Others play with toys."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s10",
+            "text": "In a toy review, kids say what they like about a toy."
+          },
+          {
+            "id": "s11",
+            "text": "They also say what they don’t like."
+          },
+          {
+            "id": "s12",
+            "text": "Some child actors are very successful."
+          },
+          {
+            "id": "s13",
+            "text": "They’re famous."
+          },
+          {
+            "id": "s14",
+            "text": "They make a lot of money, too."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "儿童可以从事的表演工作"
+        },
+        "main_idea": {
+          "text": "虽然儿童不能做大多数工作，但他们被允许从事表演，包括电影、电视节目和在线视频。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "儿童不能做大多数工作，但可以做演员。"
+          },
+          {
+            "source_ids": [
+              "s3",
+              "s4",
+              "s5"
+            ],
+            "meaning": "儿童在电影、电视节目和在线视频中表演。"
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "But",
+            "source_id": "s2",
+            "role": "contrast"
+          },
+          {
+            "text": "also",
+            "source_id": "s5",
+            "role": "addition"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "在线视频的类型"
+        },
+        "main_idea": {
+          "text": "许多儿童制作在线视频，内容涉及家庭故事、游戏和玩具。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "许多儿童制作在线视频。"
+          },
+          {
+            "source_ids": [
+              "s7",
+              "s8",
+              "s9"
+            ],
+            "meaning": "视频内容包括家庭故事、玩游戏和玩玩具。"
+          }
+        ],
+        "function": {
+          "type": "elaboration"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Some",
+            "source_id": "s7",
+            "role": "example"
+          },
+          {
+            "text": "Others",
+            "source_id": "s9",
+            "role": "example"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "玩具评测与成功"
+        },
+        "main_idea": {
+          "text": "在玩具评测中，孩子们分享对玩具的看法，一些儿童演员因此变得非常成功和富有。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s10",
+              "s11"
+            ],
+            "meaning": "在玩具评测中，孩子们说他们喜欢和不喜欢的地方。"
+          },
+          {
+            "source_ids": [
+              "s12",
+              "s13",
+              "s14"
+            ],
+            "meaning": "一些儿童演员很成功，很有名，赚了很多钱。"
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "extension",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "In a toy review",
+            "source_id": "s10",
+            "role": "specific_example"
+          },
+          {
+            "text": "too",
+            "source_id": "s14",
+            "role": "addition"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "引言：儿童可以表演",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3"
+          ],
+          "label": "在线视频与成功",
+          "function": "elaboration_and_conclusion"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "儿童虽然不能做大多数工作，但可以通过在电影、电视节目和在线视频中表演来取得成功。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "在线视频是儿童演员获得成功的重要途径。",
+          "evidence": [
+            {
+              "source_id": "s6",
+              "span": "Many children make online videos."
+            },
+            {
+              "source_id": "s12",
+              "span": "Some child actors are very successful."
+            }
+          ],
+          "knowledge_bridge": "将在线视频的制作与儿童演员的成功联系起来。",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "玩具评测是儿童演员展示自己并可能获得财富的一种方式。",
+          "evidence": [
+            {
+              "source_id": "s10",
+              "span": "In a toy review, kids say what they like about a toy."
+            },
+            {
+              "source_id": "s14",
+              "span": "They make a lot of money, too."
+            }
+          ],
+          "knowledge_bridge": "理解玩具评测如何成为儿童演员赚钱的途径。",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "儿童可以通过表演在电影、电视节目和在线视频中取得成功。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "儿童不能做大多数工作。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "玩具评测是儿童演员赚钱的一种方式。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "所有儿童都很有名并赚很多钱。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第二段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "儿童制作的在线视频",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "儿童不能做大多数工作",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt7",
+            "text": "玩具评测",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt8",
+            "text": "儿童演员赚很多钱",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“儿童在在线视频中表演”的句子。",
+        "answer": {
+          "source_ids": [
+            "s5"
+          ]
+        },
+        "candidate_source_ids": [
+          "s1",
+          "s5",
+          "s10",
+          "s14"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "第二段举例说明第一段提到的在线视频表演。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "第二段反驳了第一段的内容。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "第二段与第一段无关。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt12",
+            "text": "第二段总结了第一段的内容。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "根据第三段，接下来可能会讨论什么？",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "儿童演员如何保持成功。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "儿童不能做大多数工作。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt15",
+            "text": "在线视频的制作过程。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt16",
+            "text": "玩具评测的历史。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“一些儿童演员赚很多钱”的句子。",
+        "answer": {
+          "source_ids": [
+            "s14"
+          ]
+        },
+        "candidate_source_ids": [
+          "s2",
+          "s11",
+          "s14",
+          "s9"
+        ]
+      }
+    ]
+  }
+}

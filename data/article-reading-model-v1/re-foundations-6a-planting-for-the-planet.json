@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "re-foundations-6a-planting-for-the-planet",
+    "title": "RE Foundations / 6A / Planting for the Planet",
+    "text_type": "informational",
+    "language": "en",
+    "audience": { "grade_band": "upper_elementary" }
+  },
+  "content": {
+    "paragraphs": [
+      { "id": "p1", "order": 1, "sentences": [
+        { "id": "s1", "text": "When he was nine years old, Felix Finkbeiner gave a class presentation on climate change." },
+        { "id": "s2", "text": "The young German spoke about deforestation and its effect on the planet." },
+        { "id": "s3", "text": "At the end of his talk, he challenged the people of his country to help by planting one million trees." },
+        { "id": "s4", "text": "Nobody thought much would come of a nine-year old’s school project." },
+        { "id": "s5", "text": "Before he was 20, however, Finkbeiner’s efforts had resulted in the planting of more than 14 billion trees around the world." }
+      ] },
+      { "id": "p2", "order": 2, "sentences": [
+        { "id": "s6", "text": "Finkbeiner and his classmates began the project—named “Plant-for-the Planet”—by planting the first tree outside their school." },
+        { "id": "s7", "text": "Other schools followed the example, and news of the one-million challenge spread." },
+        { "id": "s8", "text": "As a result, Finkbeiner was asked to speak at the European Parliament." },
+        { "id": "s9", "text": "Other invitations soon followed, and when he was just 13, he spoke at a United Nations conference in New York." },
+        { "id": "s10", "text": "“We cannot trust that adults alone will save our future,” he said in the speech." },
+        { "id": "s11", "text": "“We have to take our future in our own hands.”" }
+      ] },
+      { "id": "p3", "order": 3, "sentences": [
+        { "id": "s12", "text": "Finkbeiner is now in his twenties, and Plant-for-the-Planet is an organization with around 70,000 members." },
+        { "id": "s13", "text": "It works to teach people about climate change and to encourage the planting of more trees." },
+        { "id": "s14", "text": "Germany’s one millionth tree was planted long ago." },
+        { "id": "s15", "text": "The goal now is one trillion —150 for every person on Earth." }
+      ] },
+      { "id": "p4", "order": 4, "sentences": [
+        { "id": "s16", "text": "Finkbeiner continues to give talks on climate change to world leaders." },
+        { "id": "s17", "text": "“I don’t think we can give up on this generation of adults,” he says, “and wait 20 or 30 years for our generation to come to power." },
+        { "id": "s18", "text": "We don’t have that time." },
+        { "id": "s19", "text": "All we can do is push [current world leaders] in the right direction.”" }
+      ] }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      { "id": "p1", "topic": { "label": "Felix's first climate-change project" }, "main_idea": { "text": "Felix began a tree-planting challenge as a child, and it grew far beyond what people expected." }, "key_details": [{ "source_ids": ["s3"], "meaning": "He challenged people to plant one million trees." }, { "source_ids": ["s5"], "meaning": "His efforts later helped lead to more than 14 billion trees being planted." }], "function": { "type": "introduce_topic" }, "relation_to_previous": null, "signals": [{ "text": "however", "source_id": "s5", "role": "contrast" }] },
+      { "id": "p2", "topic": { "label": "the project spreads" }, "main_idea": { "text": "Plant-for-the-Planet spread from one school to many places and gave Felix a larger audience." }, "key_details": [{ "source_ids": ["s7"], "meaning": "Other schools copied the idea." }, { "source_ids": ["s8", "s9"], "meaning": "Felix was invited to speak to important groups." }], "function": { "type": "develop" }, "relation_to_previous": { "type": "result_and_development", "target": "p1" }, "signals": [{ "text": "As a result", "source_id": "s8", "role": "result" }] },
+      { "id": "p3", "topic": { "label": "the organization today" }, "main_idea": { "text": "The project is now a large organization with a much bigger goal." }, "key_details": [{ "source_ids": ["s12", "s13"], "meaning": "It has about 70,000 members and teaches people about climate change." }, { "source_ids": ["s15"], "meaning": "Its goal has grown to one trillion trees." }], "function": { "type": "develop" }, "relation_to_previous": { "type": "present_status", "target": "p2" }, "signals": [{ "text": "now", "source_id": "s12", "role": "time_shift" }] },
+      { "id": "p4", "topic": { "label": "why Felix still speaks out" }, "main_idea": { "text": "Felix believes people must push today's leaders to act on climate change now." }, "key_details": [{ "source_ids": ["s17", "s18"], "meaning": "He says young people cannot wait decades for change." }, { "source_ids": ["s19"], "meaning": "He wants leaders to move in the right direction." }], "function": { "type": "conclude" }, "relation_to_previous": { "type": "explain_purpose", "target": "p3" }, "signals": [{ "text": "continues", "source_id": "s16", "role": "continuation" }] }
+    ],
+    "text": {
+      "sections": [
+        { "id": "sec-start", "paragraph_ids": ["p1"], "label": "一个小小的开始", "function": "introduction" },
+        { "id": "sec-growth", "paragraph_ids": ["p2", "p3"], "label": "想法传得越来越远", "function": "development" },
+        { "id": "sec-now", "paragraph_ids": ["p4"], "label": "现在就行动", "function": "conclusion" }
+      ],
+      "structure": { "type": "sequence_and_cause_effect" },
+      "central_idea": { "text": "A young person's climate-action idea grew into a global tree-planting movement that still urges leaders to act now." },
+      "inferences": [{ "id": "inf-01", "claim": "Felix believes young people should act instead of simply waiting for adults to solve climate change.", "evidence": [{ "source_id": "s10", "span": "We cannot trust that adults alone will save our future" }, { "source_id": "s11", "span": "We have to take our future in our own hands" }], "knowledge_bridge": "If someone says people cannot wait for others and must take action themselves, they believe those people should act now.", "difficulty": "basic" }]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      { "id": "a-main-p1", "type": "choose_main_idea", "target": "p1", "scaffold_level": "high", "interaction": "choice", "prompt": "这一段最想让你知道什么？", "options": [{ "id": "a", "text": "Felix小时候发起的种树挑战，后来取得了惊人的成果。", "role": "main_idea" }, { "id": "b", "text": "Felix九岁时做过一次课堂展示。", "role": "supporting_detail" }, { "id": "c", "text": "所有孩子都应该在学校种树。", "role": "too_broad" }, { "id": "d", "text": "Felix想在二十岁前当一名老师。", "role": "irrelevant" }], "answer": { "option_ids": ["a"] } },
+      { "id": "a-heading-p2", "type": "choose_heading", "target": "p2", "scaffold_level": "low", "interaction": "choice", "prompt": "给这一段选一个最合适的小标题。", "options": [{ "id": "a", "text": "一个想法传得越来越远", "role": "main_idea" }, { "id": "b", "text": "学校门口的第一棵树", "role": "minor_detail" }, { "id": "c", "text": "树为什么需要水", "role": "irrelevant" }], "answer": { "option_ids": ["a"] } },
+      { "id": "a-support-p3", "type": "identify_support", "target": "p3", "scaffold_level": "medium", "interaction": "select_sentence", "prompt": "左边点出所有能支持这句话的句子：这个项目现在已经很大，而且目标更大胆了。", "candidate_source_ids": ["s12", "s13", "s14", "s15"], "answer": { "source_ids": ["s12", "s13", "s15"] } },
+      { "id": "a-connect-p3", "type": "paragraph_connection", "source": "p2", "target": "p3", "scaffold_level": "high", "interaction": "choice", "prompt": "作者为什么接着写第三段？", "options": [{ "id": "a", "text": "告诉我们这个项目后来发展成什么样", "role": "main_idea" }, { "id": "b", "text": "讲一个完全不同的环保问题", "role": "irrelevant" }, { "id": "c", "text": "重复Felix九岁时的展示内容", "role": "minor_detail" }], "answer": { "option_ids": ["a"] } },
+      { "id": "a-predict-p4", "type": "predict_direction", "trigger_source_id": "s16", "target": "p4", "scaffold_level": "high", "interaction": "choice", "prompt": "读到“Felix继续给世界领导人演讲”，你猜接下来最可能讲什么？", "options": [{ "id": "a", "text": "他为什么觉得现在就要推动领导人行动", "role": "main_idea" }, { "id": "b", "text": "他最喜欢在哪个学校种树", "role": "irrelevant" }, { "id": "c", "text": "再介绍一次第一棵树的位置", "role": "minor_detail" }], "answer": { "option_ids": ["a"] } },
+      { "id": "a-evidence-inf-01", "type": "find_evidence", "target": "inf-01", "scaffold_level": "medium", "interaction": "select_sentence", "prompt": "左边点出两句证据：你从哪里看出 Felix 觉得孩子不能只等大人来解决问题？", "candidate_source_ids": ["s10", "s11", "s17", "s18"], "answer": { "source_ids": ["s10", "s11"] } }
+    ]
+  }
+}

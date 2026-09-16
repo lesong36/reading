@@ -1,0 +1,464 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd6-06-Unit-6-The-Antarctic-Adventurer",
+    "title": "RFD 6 / Unit 6 The Antarctic Adventurer",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Roald Amundsen was an extraordinary adventurer."
+          },
+          {
+            "id": "s2",
+            "text": "He found the Northwest Passage."
+          },
+          {
+            "id": "s3",
+            "text": "The route connects the Atlantic Ocean to the Pacific Ocean."
+          },
+          {
+            "id": "s4",
+            "text": "He discovered it in 1903."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "In 1911, Amundsen went to Antarctica."
+          },
+          {
+            "id": "s6",
+            "text": "He became the first man to reach the South Pole."
+          },
+          {
+            "id": "s7",
+            "text": "He traveled with five others and eleven dogs."
+          },
+          {
+            "id": "s8",
+            "text": "They traveled for 99 days in the freezing cold."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "Amundsen wasn’t finished with his adventures."
+          },
+          {
+            "id": "s10",
+            "text": "In 1926, he traveled to the Arctic."
+          },
+          {
+            "id": "s11",
+            "text": "He was the first to fly over the North Pole."
+          },
+          {
+            "id": "s12",
+            "text": "In 1928, he tried to rescue a lost crewmate."
+          },
+          {
+            "id": "s13",
+            "text": "Sadly, Amundsen disappeared and never returned."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Early Achievement"
+        },
+        "main_idea": {
+          "text": "Roald Amundsen was an extraordinary adventurer who found the Northwest Passage in 1903."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "He discovered the Northwest Passage."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "The route connects the Atlantic and Pacific Oceans."
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "He discovered it in 1903."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "extraordinary adventurer",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "South Pole Expedition"
+        },
+        "main_idea": {
+          "text": "In 1911, Amundsen became the first man to reach the South Pole after a 99-day journey."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "He was the first to reach the South Pole."
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "He traveled with five others and eleven dogs."
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "They traveled for 99 days in the freezing cold."
+          }
+        ],
+        "function": {
+          "type": "body"
+        },
+        "relation_to_previous": {
+          "type": "sequence",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "In 1911",
+            "source_id": "s5",
+            "role": "time_marker"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Final Adventures"
+        },
+        "main_idea": {
+          "text": "Amundsen continued his adventures by flying over the North Pole and eventually disappeared while trying to rescue a crewmate."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "He was the first to fly over the North Pole."
+          },
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "He tried to rescue a lost crewmate in 1928."
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "He disappeared and never returned."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "sequence",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "wasn’t finished",
+            "source_id": "s9",
+            "role": "transition"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduce the main character and his first major achievement."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "South Pole",
+          "function": "Describe his journey to the South Pole."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Conclusion",
+          "function": "Describe his later adventures and disappearance."
+        }
+      ],
+      "structure": {
+        "type": "sequence"
+      },
+      "central_idea": {
+        "text": "Roald Amundsen was an extraordinary adventurer who made several historic firsts, including reaching the South Pole and flying over the North Pole, before disappearing in 1928."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Amundsen was very brave and determined.",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "99 days in the freezing cold"
+            },
+            {
+              "source_id": "s12",
+              "span": "tried to rescue a lost crewmate"
+            }
+          ],
+          "knowledge_bridge": "Traveling in extreme cold and risking one's life to save others requires bravery and determination.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Amundsen's adventures took place over a long period of time.",
+          "evidence": [
+            {
+              "source_id": "s4",
+              "span": "1903"
+            },
+            {
+              "source_id": "s5",
+              "span": "1911"
+            },
+            {
+              "source_id": "s10",
+              "span": "1926"
+            }
+          ],
+          "knowledge_bridge": "The dates show that his major achievements happened over more than 20 years.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "选出文章的中心思想。",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Roald Amundsen was an extraordinary adventurer who made several historic firsts.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Roald Amundsen found the Northwest Passage in 1903.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "Amundsen traveled with five others and eleven dogs.",
+            "role": "minor_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "The Northwest Passage connects the Atlantic and Pacific Oceans.",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "为第二段选择最合适的标题。",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Reaching the South Pole",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "The Northwest Passage",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "Flying Over the North Pole",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "A Lost Crewmate",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“Amundsen was the first to reach the South Pole”的句子。",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "按时间顺序讲述Amundsen的后续冒险。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "解释为什么Amundsen喜欢狗。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "比较Amundsen和其他探险家。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "描述Amundsen的童年。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第三段后，你认为Amundsen的故事会怎样结束？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "他可能会在冒险中失踪或 die.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "他会 return home and write a book.",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "He will become a famous scientist.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "He will stop all his adventures.",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择证明Amundsen disappeared的句子。",
+        "answer": {
+          "source_ids": [
+            "s13"
+          ]
+        },
+        "candidate_source_ids": [
+          "s9",
+          "s10",
+          "s11",
+          "s13"
+        ]
+      }
+    ]
+  }
+}

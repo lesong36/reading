@@ -1,0 +1,471 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd3-12-Unit-12-Inside-the-Picture",
+    "title": "Unit 12 Inside the Picture",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Photographs are images."
+          },
+          {
+            "id": "s2",
+            "text": "These images look real."
+          },
+          {
+            "id": "s3",
+            "text": "They can feel like looking in a window."
+          },
+          {
+            "id": "s4",
+            "text": "You can climb through a window."
+          },
+          {
+            "id": "s5",
+            "text": "Can you climb into a photo?"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "360-degree cameras have many lenses."
+          },
+          {
+            "id": "s7",
+            "text": "They take many pictures at once."
+          },
+          {
+            "id": "s8",
+            "text": "Each picture is from a different direction."
+          },
+          {
+            "id": "s9",
+            "text": "A computer puts the pictures together."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s10",
+            "text": "You can view the picture through a headset."
+          },
+          {
+            "id": "s11",
+            "text": "Turn left."
+          },
+          {
+            "id": "s12",
+            "text": "The picture turns left."
+          },
+          {
+            "id": "s13",
+            "text": "Turn right."
+          },
+          {
+            "id": "s14",
+            "text": "The picture turns right."
+          },
+          {
+            "id": "s15",
+            "text": "It feels like you’re inside the picture."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "照片的错觉"
+        },
+        "main_idea": {
+          "text": "照片看起来像真实的窗户，让人产生可以走进去的错觉。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "照片是图像，但看起来非常真实。"
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "看照片就像在看窗户。"
+          },
+          {
+            "source_ids": [
+              "s4",
+              "s5"
+            ],
+            "meaning": "窗户可以爬过去，引发读者思考是否能爬进照片。"
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Can you climb into a photo?",
+            "source_id": "s5",
+            "role": "rhetorical_question"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "360度相机的工作原理"
+        },
+        "main_idea": {
+          "text": "360度相机通过多个镜头同时拍摄不同方向的图片，并由电脑合成。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6",
+              "s7"
+            ],
+            "meaning": "360度相机有很多镜头，能同时拍很多照片。"
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "每张照片都是从不同方向拍的。"
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "电脑把这些照片拼在一起。"
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "explanation",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "360-degree cameras",
+            "source_id": "s6",
+            "role": "topic_introduction"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "沉浸式体验"
+        },
+        "main_idea": {
+          "text": "通过头戴设备观看合成的图片，转动头部时画面也会跟着转动，让人感觉置身于照片之中。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "你可以用头戴设备看照片。"
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s12",
+              "s13",
+              "s14"
+            ],
+            "meaning": "向左或向右转头，画面也会跟着向左或向右转。"
+          },
+          {
+            "source_ids": [
+              "s15"
+            ],
+            "meaning": "这种感觉就像你走进了照片里。"
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "result",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "It feels like you’re inside the picture.",
+            "source_id": "s15",
+            "role": "concluding_statement"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "引入话题",
+          "function": "提出问题，激发好奇心"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "技术原理",
+          "function": "解释360度相机如何工作"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "体验效果",
+          "function": "描述观看时的沉浸感"
+        }
+      ],
+      "structure": {
+        "type": "cause_and_effect"
+      },
+      "central_idea": {
+        "text": "360度相机通过多镜头拍摄和电脑合成，结合头戴设备，让人产生置身于照片中的感觉。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "360度相机比普通相机更复杂。",
+          "evidence": [
+            {
+              "source_id": "s6",
+              "span": "360-degree cameras have many lenses."
+            },
+            {
+              "source_id": "s9",
+              "span": "A computer puts the pictures together."
+            }
+          ],
+          "knowledge_bridge": "普通相机通常只有一个镜头，不需要电脑合成。",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "这种技术可以让人有身临其境的感觉。",
+          "evidence": [
+            {
+              "source_id": "s15",
+              "span": "It feels like you’re inside the picture."
+            }
+          ],
+          "knowledge_bridge": "身临其境是指感觉像真的在那个地方一样。",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "360度相机如何让人有走进照片的感觉",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "照片看起来像窗户",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "电脑可以拼图",
+            "role": "minor_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "相机有很多镜头",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "360度相机的工作原理",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何看照片",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt3",
+            "text": "电脑的作用",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "窗户的秘密",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“360度相机有很多镜头”？",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s6",
+          "s7",
+          "s8",
+          "s9"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "解释如何实现第一段提出的问题",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "重复第一段的内容",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "提出新的问题",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "总结全文",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第二段，你觉得第三段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "如何观看这些合成的照片",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "相机的历史",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "如何修理相机",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "照片的颜色",
+            "role": "minor_detail"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明画面会跟着头转动？",
+        "answer": {
+          "source_ids": [
+            "s12",
+            "s14"
+          ]
+        },
+        "candidate_source_ids": [
+          "s11",
+          "s12",
+          "s13",
+          "s14"
+        ]
+      }
+    ]
+  }
+}

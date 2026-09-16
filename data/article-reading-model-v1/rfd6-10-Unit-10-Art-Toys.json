@@ -1,0 +1,468 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd6-10-Unit-10-Art-Toys",
+    "title": "RFD 6 / Unit 10 Art Toys",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Designer toys or \"art toys\" are collectibles."
+          },
+          {
+            "id": "s2",
+            "text": "Unlike teddy bears and dolls, art toys are not for playing with."
+          },
+          {
+            "id": "s3",
+            "text": "They are for viewing."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "Artists make art toys."
+          },
+          {
+            "id": "s5",
+            "text": "Some are famous painters."
+          },
+          {
+            "id": "s6",
+            "text": "Some are comic book artists."
+          },
+          {
+            "id": "s7",
+            "text": "Some are even graffiti artists."
+          },
+          {
+            "id": "s8",
+            "text": "They make art toys with plastic and other more unusual materials."
+          },
+          {
+            "id": "s9",
+            "text": "They make them in limited numbers."
+          },
+          {
+            "id": "s10",
+            "text": "They can be very expensive."
+          },
+          {
+            "id": "s11",
+            "text": "Some sell for thousands of dollars."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s12",
+            "text": "Designer toys first appeared in the 1990s."
+          },
+          {
+            "id": "s13",
+            "text": "Now there are many kinds."
+          },
+          {
+            "id": "s14",
+            "text": "For example, Qees, Be@rbricks, and Dunnys."
+          },
+          {
+            "id": "s15",
+            "text": "Have you ever seen one of these?"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "What are art toys?"
+        },
+        "main_idea": {
+          "text": "Art toys are collectibles meant for viewing, not playing."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "They are different from regular toys like teddy bears."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Their main purpose is to be looked at."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Unlike",
+            "source_id": "s2",
+            "role": "contrast"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Who makes them and what are they like?"
+        },
+        "main_idea": {
+          "text": "Artists create limited, expensive art toys using various materials."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5",
+              "s6",
+              "s7"
+            ],
+            "meaning": "Different types of artists make them."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "They are made in small quantities."
+          },
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "They can cost a lot of money."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "expansion",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Some",
+            "source_id": "s5",
+            "role": "example"
+          },
+          {
+            "text": "even",
+            "source_id": "s7",
+            "role": "emphasis"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "History and examples"
+        },
+        "main_idea": {
+          "text": "Art toys started in the 1990s and now have many different types."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "They first appeared in the 1990s."
+          },
+          {
+            "source_ids": [
+              "s14"
+            ],
+            "meaning": "Examples include Qees, Be@rbricks, and Dunnys."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "sequence",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "first",
+            "source_id": "s12",
+            "role": "sequence"
+          },
+          {
+            "text": "For example",
+            "source_id": "s14",
+            "role": "example"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Definition",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Creators and Features",
+          "function": "description"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "History and Types",
+          "function": "conclusion"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Art toys are unique, expensive collectibles made by artists, which started in the 1990s and come in many types."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Art toys are valuable because there are not many of them.",
+          "evidence": [
+            {
+              "source_id": "s9",
+              "span": "limited numbers"
+            },
+            {
+              "source_id": "s10",
+              "span": "very expensive"
+            }
+          ],
+          "knowledge_bridge": "Scarcity often makes items more valuable.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Art toys are a modern form of art.",
+          "evidence": [
+            {
+              "source_id": "s12",
+              "span": "first appeared in the 1990s"
+            },
+            {
+              "source_id": "s4",
+              "span": "Artists make art toys"
+            }
+          ],
+          "knowledge_bridge": "New art forms often emerge in recent decades.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "What is the main idea of the first paragraph?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Art toys are for looking at, not playing with.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Teddy bears are better than art toys.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "Art toys are made of plastic.",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "Toys are fun to play with.",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Which heading fits the second paragraph best?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Who Makes Art Toys?",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "How to Play with Art Toys",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "The History of Plastic",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "Expensive Paintings",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "Select the sentence that shows art toys can be very expensive.",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s9",
+          "s10",
+          "s11"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "How does the third paragraph connect to the second?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "It gives examples of the art toys mentioned earlier.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "It explains why art toys are not for playing.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "It lists the materials used to make them.",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "It tells us how to buy them.",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "After reading about the history, what might the next paragraph talk about?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "How people collect and display art toys.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "The history of teddy bears.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "How to paint a comic book.",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "Why plastic is bad for the environment.",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "Find the sentence that tells us when art toys first appeared.",
+        "answer": {
+          "source_ids": [
+            "s12"
+          ]
+        },
+        "candidate_source_ids": [
+          "s12",
+          "s13",
+          "s14",
+          "s15"
+        ]
+      }
+    ]
+  }
+}

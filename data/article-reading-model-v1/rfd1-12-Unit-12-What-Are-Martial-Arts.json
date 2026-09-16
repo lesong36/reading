@@ -1,0 +1,489 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd1-12-Unit-12-What-Are-Martial-Arts",
+    "title": "Unit 12 What Are Martial Arts?",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Long ago, armies did not have guns."
+          },
+          {
+            "id": "s2",
+            "text": "Soldiers fought with their bodies."
+          },
+          {
+            "id": "s3",
+            "text": "They used their hands and feet."
+          },
+          {
+            "id": "s4",
+            "text": "Sometimes they had weapons."
+          },
+          {
+            "id": "s5",
+            "text": "Sometimes they did not."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "Soldiers had to be very fast."
+          },
+          {
+            "id": "s7",
+            "text": "They practiced moving their bodies."
+          },
+          {
+            "id": "s8",
+            "text": "They invented fighting styles."
+          },
+          {
+            "id": "s9",
+            "text": "These became martial arts."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s10",
+            "text": "Today, martial arts are still popular."
+          },
+          {
+            "id": "s11",
+            "text": "They are great for exercise."
+          },
+          {
+            "id": "s12",
+            "text": "They are good for your health."
+          },
+          {
+            "id": "s13",
+            "text": "They also help people protect themselves."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "古代士兵的武器"
+        },
+        "main_idea": {
+          "text": "古代士兵主要用身体和简单的武器战斗。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "古代军队没有枪，士兵用身体战斗。"
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "他们使用手和脚作为武器。"
+          },
+          {
+            "source_ids": [
+              "s4",
+              "s5"
+            ],
+            "meaning": "有时他们有武器，有时没有。"
+          }
+        ],
+        "function": {
+          "type": "background"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Long ago",
+            "source_id": "s1",
+            "role": "time_marker"
+          },
+          {
+            "text": "did not have guns",
+            "source_id": "s1",
+            "role": "contrast"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "武术的起源"
+        },
+        "main_idea": {
+          "text": "士兵通过练习身体动作发明了武术。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6",
+              "s7"
+            ],
+            "meaning": "士兵必须快速移动身体。"
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "他们发明了不同的战斗风格。"
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "这些风格最终变成了武术。"
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "cause_and_effect",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "had to be very fast",
+            "source_id": "s6",
+            "role": "requirement"
+          },
+          {
+            "text": "invented",
+            "source_id": "s8",
+            "role": "action"
+          },
+          {
+            "text": "became",
+            "source_id": "s9",
+            "role": "result"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "现代武术的好处"
+        },
+        "main_idea": {
+          "text": "现代武术对健康和自我保护很有帮助。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "武术今天仍然很受欢迎。"
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s12"
+            ],
+            "meaning": "武术是很好的锻炼，对健康有益。"
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "武术帮助人们保护自己。"
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "time_shift",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Today",
+            "source_id": "s10",
+            "role": "time_marker"
+          },
+          {
+            "text": "still popular",
+            "source_id": "s10",
+            "role": "continuation"
+          },
+          {
+            "text": "also",
+            "source_id": "s13",
+            "role": "addition"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "古代背景",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "武术起源",
+          "function": "development"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "现代价值",
+          "function": "conclusion"
+        }
+      ],
+      "structure": {
+        "type": "sequence"
+      },
+      "central_idea": {
+        "text": "武术起源于古代士兵的战斗方式，今天对健康和自我保护仍然很有价值。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "武术最初是为了实战, not just exercise.",
+          "evidence": [
+            {
+              "source_id": "s2",
+              "span": "Soldiers fought with their bodies."
+            },
+            {
+              "source_id": "s8",
+              "span": "They invented fighting styles."
+            }
+          ],
+          "knowledge_bridge": "古代士兵需要 effective fighting methods for survival.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Martial arts have changed from a military necessity to a popular hobby.",
+          "evidence": [
+            {
+              "source_id": "s1",
+              "span": "Long ago, armies did not have guns."
+            },
+            {
+              "source_id": "s10",
+              "span": "Today, martial arts are still popular."
+            }
+          ],
+          "knowledge_bridge": "Societies evolve, and practices adapt to new contexts.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "武术的起源和现代价值",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "古代士兵的武器",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "如何 to exercise",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "The history of guns",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "武术是如何发明的",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "古代士兵的武器",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt7",
+            "text": "现代武术的好处",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt8",
+            "text": "The history of guns",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“武术对健康有益”？",
+        "answer": {
+          "source_ids": [
+            "s12"
+          ]
+        },
+        "candidate_source_ids": [
+          "s11",
+          "s12",
+          "s13",
+          "s10"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "因果关系：古代战斗方式导致了武术的发明",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "对比关系：古代和现代完全不同",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "并列关系：两段讲不同的主题",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt12",
+            "text": "重复关系：第二段重复第一段",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第二段，你预测第三段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "武术在现代的作用",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "古代士兵的武器",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt15",
+            "text": "How to make a gun",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt16",
+            "text": "The history of exercise",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明古代士兵没有枪？",
+        "answer": {
+          "source_ids": [
+            "s1"
+          ]
+        },
+        "candidate_source_ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4"
+        ]
+      }
+    ]
+  }
+}

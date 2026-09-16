@@ -1,0 +1,479 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd2-07-Unit-7-Picasso-s-Famous-Painting",
+    "title": "Unit 7 Picasso’s Famous Painting",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Pablo Picasso was a famous painter."
+          },
+          {
+            "id": "s2",
+            "text": "He is famous for his art style."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s3",
+            "text": "In 1921, he painted two pictures."
+          },
+          {
+            "id": "s4",
+            "text": "They are both called The Three Musicians."
+          },
+          {
+            "id": "s5",
+            "text": "They show three men playing music."
+          },
+          {
+            "id": "s6",
+            "text": "Their bodies look like puzzles."
+          },
+          {
+            "id": "s7",
+            "text": "Their faces look strange."
+          },
+          {
+            "id": "s8",
+            "text": "The colors are unusual."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "People loved this new style."
+          },
+          {
+            "id": "s10",
+            "text": "This art was different."
+          },
+          {
+            "id": "s11",
+            "text": "It was new."
+          },
+          {
+            "id": "s12",
+            "text": "It was exciting."
+          },
+          {
+            "id": "s13",
+            "text": "Other artists started painting this way."
+          },
+          {
+            "id": "s14",
+            "text": "Picasso changed the art world."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction to Picasso"
+        },
+        "main_idea": {
+          "text": "Pablo Picasso was a famous painter known for his unique art style."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "Picasso was a well-known artist."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "His fame comes from his specific style of art."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "famous",
+            "source_id": "s1",
+            "role": "key_word"
+          },
+          {
+            "text": "art style",
+            "source_id": "s2",
+            "role": "topic_hint"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The Three Musicians"
+        },
+        "main_idea": {
+          "text": "In 1921, Picasso painted two versions of 'The Three Musicians' featuring strange, puzzle-like figures and unusual colors."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3",
+              "s4"
+            ],
+            "meaning": "The paintings were made in 1921 and share the same title."
+          },
+          {
+            "source_ids": [
+              "s5",
+              "s6",
+              "s7"
+            ],
+            "meaning": "The figures look like puzzles with strange faces."
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "The colors used in the paintings are not typical."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "In 1921",
+            "source_id": "s3",
+            "role": "time_marker"
+          },
+          {
+            "text": "puzzles",
+            "source_id": "s6",
+            "role": "descriptive_word"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Impact on Art"
+        },
+        "main_idea": {
+          "text": "Picasso's new and exciting style was loved by people and inspired other artists, changing the art world."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9",
+              "s10",
+              "s11",
+              "s12"
+            ],
+            "meaning": "People liked the art because it was different, new, and exciting."
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "Other artists began to copy his style."
+          },
+          {
+            "source_ids": [
+              "s14"
+            ],
+            "meaning": "Picasso had a major effect on the art world."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "effect",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "loved",
+            "source_id": "s9",
+            "role": "reaction_word"
+          },
+          {
+            "text": "changed",
+            "source_id": "s14",
+            "role": "impact_word"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces the subject and his fame."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Specific Example",
+          "function": "Describes a specific painting to show his style."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Conclusion",
+          "function": "Explains the impact of his style on the art world."
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Pablo Picasso was a famous painter whose unique and strange art style, seen in works like 'The Three Musicians', was loved by people and changed the art world."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Picasso's art style was very different from what people were used to seeing.",
+          "evidence": [
+            {
+              "source_id": "s6",
+              "span": "Their bodies look like puzzles."
+            },
+            {
+              "source_id": "s10",
+              "span": "This art was different."
+            }
+          ],
+          "knowledge_bridge": "Understanding that 'different' and 'strange' imply a departure from the norm.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Picasso's influence on other artists was significant because they started painting like him.",
+          "evidence": [
+            {
+              "source_id": "s13",
+              "span": "Other artists started painting this way."
+            },
+            {
+              "source_id": "s14",
+              "span": "Picasso changed the art world."
+            }
+          ],
+          "knowledge_bridge": "Connecting the action of copying a style to the concept of influence and change.",
+          "difficulty": "medium"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "毕加索是一位著名的画家，他的独特风格改变了艺术界。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "毕加索在1921年画了两幅画。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "人们喜欢听音乐。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "毕加索喜欢拼图。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "奇怪的《三个音乐家》",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "毕加索的童年",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "如何画拼图",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "艺术的历史",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持了“毕加索的画看起来很奇怪”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s1",
+          "s6",
+          "s9",
+          "s14"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段和第一段有什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第三段解释了第一段提到的“著名”是如何发生的。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第三段重复了第一段的内容。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第三段介绍了毕加索的家庭。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第三段反驳了第一段的观点。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第二段，你觉得第三段可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "人们对这种新风格的反应。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "毕加索小时候的生活。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "如何购买毕加索的画。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "其他画家的名字。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "independent",
+        "interaction": "select_sentence",
+        "prompt": "找出证明“毕加索改变了艺术界”的句子。",
+        "answer": {
+          "source_ids": [
+            "s14"
+          ]
+        },
+        "candidate_source_ids": [
+          "s2",
+          "s13",
+          "s14",
+          "s8"
+        ]
+      }
+    ]
+  }
+}

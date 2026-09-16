@@ -1,0 +1,432 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd4-08-Unit-8-The-Gecko-Lizard",
+    "title": "RFD 4 / Unit 8 The Gecko Lizard",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Geckos are amazing lizards."
+          },
+          {
+            "id": "s2",
+            "text": "They can climb walls like Spider-Man!"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s3",
+            "text": "How do geckos climb like Spider-Man?"
+          },
+          {
+            "id": "s4",
+            "text": "They have special feet."
+          },
+          {
+            "id": "s5",
+            "text": "A gecko foot has millions of tiny hairs on it."
+          },
+          {
+            "id": "s6",
+            "text": "These hairs stick to surfaces."
+          },
+          {
+            "id": "s7",
+            "text": "Geckos can control these hairs."
+          },
+          {
+            "id": "s8",
+            "text": "This lets it"
+          },
+          {
+            "id": "s9",
+            "text": "turn its stickiness on and off."
+          },
+          {
+            "id": "s10",
+            "text": "A gecko can even move quickly upside down!"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s11",
+            "text": "Scientists are studying geckos’ feet."
+          },
+          {
+            "id": "s12",
+            "text": "They want to make a tape that will let them stick to walls, just like a gecko."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction"
+        },
+        "main_idea": {
+          "text": "Geckos are amazing lizards that can climb walls."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "Geckos climb walls similarly to Spider-Man."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Geckos are amazing lizards.",
+            "source_id": "s1",
+            "role": "topic_sentence"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Explanation"
+        },
+        "main_idea": {
+          "text": "Geckos climb using special feet with tiny hairs that can stick and release."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "Gecko feet have millions of tiny hairs."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "Geckos can control the stickiness of their feet."
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "Geckos can move quickly while upside down."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "explanation",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "How do geckos climb like Spider-Man?",
+            "source_id": "s3",
+            "role": "transition_question"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Application"
+        },
+        "main_idea": {
+          "text": "Scientists study gecko feet to create wall-sticking tape."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "The goal is to make tape that sticks to walls like a gecko."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "application",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Scientists are studying geckos’ feet.",
+            "source_id": "s11",
+            "role": "topic_sentence"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduce the subject and its amazing ability."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "How It Works",
+          "function": "Explain the biological mechanism behind the ability."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Scientific Application",
+          "function": "Describe how humans use this knowledge."
+        }
+      ],
+      "structure": {
+        "type": "cause_and_effect"
+      },
+      "central_idea": {
+        "text": "Geckos have special feet that allow them to climb walls, and scientists are using this knowledge to create new technology."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The tiny hairs on gecko feet are essential for their climbing ability.",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "A gecko foot has millions of tiny hairs on it."
+            },
+            {
+              "source_id": "s6",
+              "span": "These hairs stick to surfaces."
+            }
+          ],
+          "knowledge_bridge": "Connecting the physical feature (hairs) to the function (climbing).",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Scientists are inspired by nature to solve engineering problems.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "Scientists are studying geckos’ feet."
+            },
+            {
+              "source_id": "s12",
+              "span": "They want to make a tape that will let them stick to walls, just like a gecko."
+            }
+          ],
+          "knowledge_bridge": "Understanding biomimicry or learning from nature.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "壁虎如何爬墙以及科学家如何利用这一特性。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "蜘蛛侠是如何爬墙的。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "壁虎脚上有数百万根细小的毛发。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "所有蜥蜴都能爬墙。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "壁虎脚的秘密",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "科学家的工作",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "蜘蛛侠的故事",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "如何制作胶带",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“壁虎能控制脚部的粘性”这一观点？",
+        "answer": {
+          "source_ids": [
+            "s9"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s9",
+          "s10"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段与第二段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "应用：科学家利用第二段提到的特性。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "对比：壁虎和蜘蛛侠的不同。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "重复：再次介绍壁虎是蜥蜴。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "转折：壁虎不能爬墙。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你预测第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "解释壁虎为什么能爬墙。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "介绍其他种类的蜥蜴。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "讲述蜘蛛侠的电影情节。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "描述壁虎的生活环境。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话证明了壁虎的脚上有特殊的结构？",
+        "answer": {
+          "source_ids": [
+            "s5"
+          ]
+        },
+        "candidate_source_ids": [
+          "s1",
+          "s4",
+          "s5",
+          "s11"
+        ]
+      }
+    ]
+  }
+}

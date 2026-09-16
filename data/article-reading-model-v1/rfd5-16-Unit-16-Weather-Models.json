@@ -1,0 +1,505 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd5-16-Unit-16-Weather-Models",
+    "title": "RFD 5 / Unit 16 Weather Models",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Big storms are dangerous."
+          },
+          {
+            "id": "s2",
+            "text": "Blizzards and hurricanes can even kill."
+          },
+          {
+            "id": "s3",
+            "text": "People need to know they are coming."
+          },
+          {
+            "id": "s4",
+            "text": "It’s the job of weather scientists to predict the weather."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "Weather scientists collect information about the weather."
+          },
+          {
+            "id": "s6",
+            "text": "They watch how the air moves."
+          },
+          {
+            "id": "s7",
+            "text": "They watch changes in temperature and moisture."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "This information goes to supercomputers."
+          },
+          {
+            "id": "s9",
+            "text": "They run complicated models of the weather."
+          },
+          {
+            "id": "s10",
+            "text": "This shows the weather forecast."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s11",
+            "text": "The system is not perfect."
+          },
+          {
+            "id": "s12",
+            "text": "Scientists can’t always get good information."
+          },
+          {
+            "id": "s13",
+            "text": "But weather models are getting better all the time."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Importance of Prediction"
+        },
+        "main_idea": {
+          "text": "Weather scientists predict dangerous storms to keep people safe."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "Storms like blizzards and hurricanes are dangerous and can be fatal."
+          },
+          {
+            "source_ids": [
+              "s3",
+              "s4"
+            ],
+            "meaning": "People need advance warning, which is the job of weather scientists."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Big storms are dangerous.",
+            "source_id": "s1",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "It’s the job of weather scientists to predict the weather.",
+            "source_id": "s4",
+            "role": "concluding_statement"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Data Collection"
+        },
+        "main_idea": {
+          "text": "Scientists gather data by observing air movement, temperature, and moisture."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "The process begins with collecting weather information."
+          },
+          {
+            "source_ids": [
+              "s6",
+              "s7"
+            ],
+            "meaning": "Specific observations include air movement, temperature, and moisture changes."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Weather scientists collect information about the weather.",
+            "source_id": "s5",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "They watch how the air moves.",
+            "source_id": "s6",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Processing Data"
+        },
+        "main_idea": {
+          "text": "Supercomputers use the collected data to run models and create forecasts."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "The information is sent to supercomputers."
+          },
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "Computers run complex models to generate the final weather forecast."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "sequence",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "This information goes to supercomputers.",
+            "source_id": "s8",
+            "role": "transition"
+          },
+          {
+            "text": "This shows the weather forecast.",
+            "source_id": "s10",
+            "role": "concluding_statement"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "Limitations and Progress"
+        },
+        "main_idea": {
+          "text": "Although weather models are not perfect, they are constantly improving."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s11",
+              "s12"
+            ],
+            "meaning": "The system has flaws because scientists cannot always obtain good information."
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "Despite these issues, the accuracy of models is increasing over time."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "The system is not perfect.",
+            "source_id": "s11",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "But weather models are getting better all the time.",
+            "source_id": "s13",
+            "role": "concluding_statement"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Establishes the need for weather prediction due to dangerous storms."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3"
+          ],
+          "label": "The Process",
+          "function": "Explains the step-by-step process of collecting data and using computers to make forecasts."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p4"
+          ],
+          "label": "Conclusion",
+          "function": "Acknowledges limitations while highlighting ongoing improvements in technology."
+        }
+      ],
+      "structure": {
+        "type": "sequence"
+      },
+      "central_idea": {
+        "text": "Weather scientists use data and supercomputers to predict dangerous storms, and these models are constantly improving."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Supercomputers are necessary because the math involved in weather models is too complex for humans to do by hand.",
+          "evidence": [
+            {
+              "source_id": "s9",
+              "span": "They run complicated models of the weather."
+            }
+          ],
+          "knowledge_bridge": "Understanding that 'complicated' tasks often require powerful tools.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "If scientists could get perfect information, weather forecasts would be 100% accurate.",
+          "evidence": [
+            {
+              "source_id": "s12",
+              "span": "Scientists can’t always get good information."
+            }
+          ],
+          "knowledge_bridge": "Connecting the cause (bad info) to the effect (imperfect system).",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "气象学家如何利用数据和电脑预测天气。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "龙卷风是最危险的天气现象。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "电脑可以运行复杂的模型。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "人们喜欢看天气预报。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第二段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "收集天气信息",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "超级计算机的工作",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么风暴很危险",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "模型正在变得更好",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话支持“科学家观察空气和温度”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s6",
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段中的“This information”指的是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段中科学家收集的数据。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "超级计算机本身。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "危险的暴风雪。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "未来的天气预报。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第三段后，你觉得第四段可能会讨论什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "预测系统的局限性或改进。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何建造超级计算机。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么人们害怕龙卷风。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "历史上的著名风暴。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "independent",
+        "interaction": "tap",
+        "prompt": "找出支持“天气模型并不完美”的句子。",
+        "answer": {
+          "source_ids": [
+            "s11",
+            "s12"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s11",
+          "s12",
+          "s13"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,416 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd1-15-Unit-15-Tallest-and-Shortest",
+    "title": "Unit 15 Tallest and Shortest",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "How tall are you?"
+          },
+          {
+            "id": "s2",
+            "text": "An average man is about 174 centimeters (cm) tall."
+          },
+          {
+            "id": "s3",
+            "text": "An average woman is about 160 cm."
+          },
+          {
+            "id": "s4",
+            "text": "Some people are taller."
+          },
+          {
+            "id": "s5",
+            "text": "Some people are shorter."
+          },
+          {
+            "id": "s6",
+            "text": "How tall or short can people be?"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s7",
+            "text": "Sultan Kösen is 251 cm tall."
+          },
+          {
+            "id": "s8",
+            "text": "He is gigantic next to most people."
+          },
+          {
+            "id": "s9",
+            "text": "Junrey Balawing is 60 cm tall."
+          },
+          {
+            "id": "s10",
+            "text": "He is tiny next to most people."
+          },
+          {
+            "id": "s11",
+            "text": "There’s a big difference between them!"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Average Human Height"
+        },
+        "main_idea": {
+          "text": "Average human heights vary by gender, and people can be taller or shorter than these averages."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "The average height for a man is about 174 cm."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "The average height for a woman is about 160 cm."
+          },
+          {
+            "source_ids": [
+              "s4",
+              "s5"
+            ],
+            "meaning": "Some individuals are taller or shorter than the average."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "How tall are you?",
+            "source_id": "s1",
+            "role": "hook"
+          },
+          {
+            "text": "An average man is about 174 centimeters (cm) tall.",
+            "source_id": "s2",
+            "role": "fact"
+          },
+          {
+            "text": "How tall or short can people be?",
+            "source_id": "s6",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Extreme Heights"
+        },
+        "main_idea": {
+          "text": "There are people who are exceptionally tall or short, showing a huge difference in human height."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "Sultan Kösen is 251 cm tall, making him gigantic."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "Junrey Balawing is 60 cm tall, making him tiny."
+          },
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "There is a significant difference between the tallest and shortest people."
+          }
+        ],
+        "function": {
+          "type": "supporting_detail"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Sultan Kösen is 251 cm tall.",
+            "source_id": "s7",
+            "role": "example"
+          },
+          {
+            "text": "Junrey Balawing is 60 cm tall.",
+            "source_id": "s9",
+            "role": "example"
+          },
+          {
+            "text": "There’s a big difference between them!",
+            "source_id": "s11",
+            "role": "conclusion"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction to Height",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Extreme Examples",
+          "function": "supporting_detail"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Human heights vary significantly, ranging from average heights to extreme tall and short individuals."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Sultan Kösen is much taller than the average man.",
+          "evidence": [
+            {
+              "source_id": "s2",
+              "span": "An average man is about 174 centimeters (cm) tall."
+            },
+            {
+              "source_id": "s7",
+              "span": "Sultan Kösen is 251 cm tall."
+            }
+          ],
+          "knowledge_bridge": "Comparing numerical values to understand relative size.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Junrey Balawing is much shorter than the average woman.",
+          "evidence": [
+            {
+              "source_id": "s3",
+              "span": "An average woman is about 160 cm."
+            },
+            {
+              "source_id": "s9",
+              "span": "Junrey Balawing is 60 cm tall."
+            }
+          ],
+          "knowledge_bridge": "Comparing numerical values to understand relative size.",
+          "difficulty": "medium"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "人类的身高差异很大，从平均身高到极端的高和矮。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Sultan Kösen 是世界上最高的人。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "如何测量人的身高。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "男人比女人高。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "极端的身高",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "平均身高",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt3",
+            "text": "如何变高",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "Sultan Kösen 的故事",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话支持了“有些人比平均身高高”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s2",
+          "s7",
+          "s9",
+          "s11"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段用例子支持了第一段关于身高差异的观点。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段反驳了第一段的内容。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段介绍了如何测量身高。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段重复了第一段的内容。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你猜第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "一些极端高或矮的人的例子。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何增加身高。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "不同国家的人的平均身高。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "为什么有些人是矮的。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话说明了 Junrey Balawing 比大多数人矮？",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s7",
+          "s9",
+          "s10",
+          "s11"
+        ]
+      }
+    ]
+  }
+}

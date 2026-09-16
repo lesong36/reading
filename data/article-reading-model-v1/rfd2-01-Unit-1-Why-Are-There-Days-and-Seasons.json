@@ -1,0 +1,444 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd2-01-Unit-1-Why-Are-There-Days-and-Seasons",
+    "title": "Unit 1 Why Are There Days and Seasons?",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "It’s light outside."
+          },
+          {
+            "id": "s2",
+            "text": "It’s dark outside."
+          },
+          {
+            "id": "s3",
+            "text": "Why does this happen?"
+          },
+          {
+            "id": "s4",
+            "text": "The earth is round."
+          },
+          {
+            "id": "s5",
+            "text": "It spins."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "We face the sun in the day."
+          },
+          {
+            "id": "s7",
+            "text": "We face away from the sun at night."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "The earth also moves around the sun."
+          },
+          {
+            "id": "s9",
+            "text": "This takes a year."
+          },
+          {
+            "id": "s10",
+            "text": "From April to September, the northern half of earth faces the sun."
+          },
+          {
+            "id": "s11",
+            "text": "So it’s warmer there."
+          },
+          {
+            "id": "s12",
+            "text": "From October to March, the southern half faces the sun."
+          },
+          {
+            "id": "s13",
+            "text": "Then it’s warmer there."
+          },
+          {
+            "id": "s14",
+            "text": "This is why we have seasons."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Mystery of Day and Night"
+        },
+        "main_idea": {
+          "text": "The earth is a spinning sphere, which causes the light and dark we see."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "The outside world alternates between being light and dark."
+          },
+          {
+            "source_ids": [
+              "s4",
+              "s5"
+            ],
+            "meaning": "The earth is round and constantly spinning."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Why does this happen?",
+            "source_id": "s3",
+            "role": "question"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Facing the Sun"
+        },
+        "main_idea": {
+          "text": "Day and night occur because different parts of the earth face or turn away from the sun."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "During the day, we are on the side of the earth facing the sun."
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "At night, we are on the side of the earth facing away from the sun."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": []
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "The Cause of Seasons"
+        },
+        "main_idea": {
+          "text": "Seasons happen because the earth's movement around the sun changes which half of the earth faces the sun."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8",
+              "s9"
+            ],
+            "meaning": "The earth travels around the sun in a year."
+          },
+          {
+            "source_ids": [
+              "s10",
+              "s11"
+            ],
+            "meaning": "In the first half of the year, the northern half faces the sun and is warmer."
+          },
+          {
+            "source_ids": [
+              "s12",
+              "s13"
+            ],
+            "meaning": "In the second half of the year, the southern half faces the sun and is warmer."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "extension",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "This is why we have seasons.",
+            "source_id": "s14",
+            "role": "conclusion"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1",
+            "p2"
+          ],
+          "label": "Why We Have Days and Nights",
+          "function": "explains the daily cycle"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Why We Have Seasons",
+          "function": "explains the yearly cycle"
+        }
+      ],
+      "structure": {
+        "type": "cause_and_effect"
+      },
+      "central_idea": {
+        "text": "The earth's spinning and its movement around the sun cause the cycles of day, night, and seasons."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The earth is tilted on its axis, which is why different halves face the sun at different times of the year.",
+          "evidence": [
+            {
+              "source_id": "s10",
+              "span": "the northern half of earth faces the sun"
+            },
+            {
+              "source_id": "s12",
+              "span": "the southern half faces the sun"
+            }
+          ],
+          "knowledge_bridge": "Understanding that a flat earth would always face the sun equally, so a tilt is necessary for seasons.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The earth's rotation is what creates the daily cycle of light and dark.",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "It spins."
+            },
+            {
+              "source_id": "s6",
+              "span": "We face the sun in the day."
+            }
+          ],
+          "knowledge_bridge": "Connecting the action of spinning to the result of facing or turning away from the sun.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "地球的运动如何产生白天、黑夜和四季。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "为什么我们在晚上会感到困倦。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "地球是圆的。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "太阳在天空中移动。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第三段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "四季是如何产生的",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "地球的形状",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "太阳的旅程",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "为什么我们睡觉",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "哪句话支持了“地球绕着太阳转”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s8"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s8",
+          "s10",
+          "s14"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段解释了第一段提出的问题。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段反驳了第一段。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段和第一段没有联系。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段重复了第一段。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你觉得第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "解释为什么地球自转会产生白天和黑夜。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "介绍太阳系的行星。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "描述地球上的天气。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "讲述人类如何测量时间。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "哪句话说明了为什么南半球在十月到三月会比较温暖？",
+        "answer": {
+          "source_ids": [
+            "s12"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s11",
+          "s12",
+          "s13"
+        ]
+      }
+    ]
+  }
+}

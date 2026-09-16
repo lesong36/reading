@@ -1,0 +1,447 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd4-03-Unit-3-A-Queen-s-Mystery",
+    "title": "RFD 4 / Unit 3 A Queen's Mystery",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Cleopatra is one of history’s most famous queens."
+          },
+          {
+            "id": "s2",
+            "text": "And she was the last queen of ancient Egypt."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s3",
+            "text": "The Romans attacked Egypt."
+          },
+          {
+            "id": "s4",
+            "text": "They wanted to take her country."
+          },
+          {
+            "id": "s5",
+            "text": "She would not give in to them."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "She killed herself in 30 BCE."
+          },
+          {
+            "id": "s7",
+            "text": "But we still don’t know how she died."
+          },
+          {
+            "id": "s8",
+            "text": "Some people think she let a snake bite and poison her."
+          },
+          {
+            "id": "s9",
+            "text": "Others think she used a pin with poison on it."
+          },
+          {
+            "id": "s10",
+            "text": "No"
+          },
+          {
+            "id": "s11",
+            "text": "one knows where she is buried."
+          },
+          {
+            "id": "s12",
+            "text": "So, we will probably never know for sure how she died."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Cleopatra's Identity"
+        },
+        "main_idea": {
+          "text": "Cleopatra was a famous and final queen of ancient Egypt."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "She is historically famous."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "She was the last queen of ancient Egypt."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Cleopatra is one of history’s most famous queens.",
+            "source_id": "s1",
+            "role": "topic_sentence"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Roman Conflict"
+        },
+        "main_idea": {
+          "text": "Cleopatra refused to surrender her country to the attacking Romans."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3",
+              "s4"
+            ],
+            "meaning": "The Romans attacked to take her country."
+          },
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "She resisted their demands."
+          }
+        ],
+        "function": {
+          "type": "context"
+        },
+        "relation_to_previous": {
+          "type": "cause",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "The Romans attacked Egypt.",
+            "source_id": "s3",
+            "role": "cause"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "The Mystery of Her Death"
+        },
+        "main_idea": {
+          "text": "The exact method of Cleopatra's death and her burial site remain unknown."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "She died in 30 BCE."
+          },
+          {
+            "source_ids": [
+              "s8",
+              "s9"
+            ],
+            "meaning": "Theories include snake poison or a poisoned pin."
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s12"
+            ],
+            "meaning": "Her burial location is unknown, making the mystery unsolvable."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "result",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "But we still don’t know how she died.",
+            "source_id": "s7",
+            "role": "topic_sentence"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduce the subject"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Historical Context",
+          "function": "Explain the conflict"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "The Mystery",
+          "function": "Present the unsolved question"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Cleopatra was the last queen of ancient Egypt who resisted the Romans, and the exact circumstances of her death remain a historical mystery."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Cleopatra's death was likely a deliberate act of suicide rather than an accident.",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "let a snake bite and poison her"
+            },
+            {
+              "source_id": "s9",
+              "span": "used a pin with poison on it"
+            }
+          ],
+          "knowledge_bridge": "Both theories involve intentional use of poison, suggesting a planned end to her life.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The Romans' victory over Egypt led to the loss of historical records about Cleopatra's final days.",
+          "evidence": [
+            {
+              "source_id": "s3",
+              "span": "The Romans attacked Egypt."
+            },
+            {
+              "source_id": "s11",
+              "span": "No one knows where she is buried."
+            }
+          ],
+          "knowledge_bridge": "Conquering powers often alter or lose records of the defeated, contributing to the mystery.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "埃及女王克娄巴特拉的死亡之谜",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "罗马军队如何攻击埃及",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "古代埃及的历史",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "蛇是如何毒死人的",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪句话最适合做第三段的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "她是怎么死的？",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "罗马人的攻击",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "埃及的最后一位女王",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "30 BCE 的历史",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“克娄巴特拉拒绝向罗马人投降”的句子。",
+        "answer": {
+          "source_ids": [
+            "s5"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s4",
+          "s5",
+          "s6"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第三段之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "因果关系：罗马人的攻击导致了她死亡之谜的产生",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "并列关系：两段讲不同的女王",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "对比关系：罗马人和埃及人的不同",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "重复关系：两段讲同样的事",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第二段，你预测第三段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "克娄巴特拉的结局和死亡",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "罗马人的日常生活",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "埃及的建筑",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "克娄巴特拉的童年",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "medium",
+        "interaction": "select_sentence",
+        "prompt": "选择说明“我们不知道她是怎么死的”的句子。",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s6",
+          "s7",
+          "s8",
+          "s12"
+        ]
+      }
+    ]
+  }
+}

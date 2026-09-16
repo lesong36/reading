@@ -1,0 +1,483 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd4-16-Unit-16-Surveillance-Cameras",
+    "title": "RFD 4 / Unit 16 Surveillance Cameras",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "South Korea has millions of surveillance cameras."
+          },
+          {
+            "id": "s2",
+            "text": "The cameras are in public places everywhere."
+          },
+          {
+            "id": "s3",
+            "text": "They are on street blocks and in subway stations."
+          },
+          {
+            "id": "s4",
+            "text": "They are even in farm areas too!"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "South Koreans call them “CCTVs”."
+          },
+          {
+            "id": "s6",
+            "text": "CCTVs can recognize cars."
+          },
+          {
+            "id": "s7",
+            "text": "They can find stolen cars."
+          },
+          {
+            "id": "s8",
+            "text": "Some CCTVS can even recognize people’s faces."
+          },
+          {
+            "id": "s9",
+            "text": "They can help find criminals."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s10",
+            "text": "South Korea wants less crime."
+          },
+          {
+            "id": "s11",
+            "text": "The cameras help control crime."
+          },
+          {
+            "id": "s12",
+            "text": "There are fewer people stealing."
+          },
+          {
+            "id": "s13",
+            "text": "CCTVs make people feel safe."
+          },
+          {
+            "id": "s14",
+            "text": "Are there CCTVs near you?"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "无处不在的摄像头"
+        },
+        "main_idea": {
+          "text": "韩国在公共和偏远地区安装了大量的监控摄像头。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "韩国拥有数百万个监控摄像头。"
+          },
+          {
+            "source_ids": [
+              "s2",
+              "s3"
+            ],
+            "meaning": "摄像头遍布街道、地铁站等公共场所。"
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "即使在偏远的农村地区也有摄像头。"
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "South Korea has millions of surveillance cameras.",
+            "source_id": "s1",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "even in farm areas too!",
+            "source_id": "s4",
+            "role": "emphasis"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "摄像头的功能"
+        },
+        "main_idea": {
+          "text": "监控摄像头能够识别车辆和人脸，从而帮助寻找失窃物品和罪犯。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "韩国人将监控摄像头称为“CCTV”。"
+          },
+          {
+            "source_ids": [
+              "s6",
+              "s7"
+            ],
+            "meaning": "摄像头可以识别汽车并找到被盗车辆。"
+          },
+          {
+            "source_ids": [
+              "s8",
+              "s9"
+            ],
+            "meaning": "部分摄像头能识别人脸，协助抓捕罪犯。"
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "CCTVs can recognize cars.",
+            "source_id": "s6",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "even recognize people's faces.",
+            "source_id": "s8",
+            "role": "emphasis"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "摄像头的好处"
+        },
+        "main_idea": {
+          "text": "监控摄像头有助于减少犯罪，让韩国人感到更安全。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s10",
+              "s11"
+            ],
+            "meaning": "韩国希望减少犯罪，摄像头起到了控制犯罪的作用。"
+          },
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "偷窃行为因此减少了。"
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "摄像头让民众感到安全。"
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "result",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "South Korea wants less crime.",
+            "source_id": "s10",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "Are there CCTVs near you?",
+            "source_id": "s14",
+            "role": "concluding_question"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "摄像头的普及",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "摄像头的功能",
+          "function": "explanation"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "摄像头的好处",
+          "function": "conclusion"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "韩国广泛使用监控摄像头来识别车辆和人脸，从而有效减少犯罪并提升民众的安全感。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "监控摄像头在韩国非常普遍，甚至偏远地区也有。",
+          "evidence": [
+            {
+              "source_id": "s1",
+              "span": "millions of surveillance cameras"
+            },
+            {
+              "source_id": "s4",
+              "span": "even in farm areas too!"
+            }
+          ],
+          "knowledge_bridge": "结合“数百万”和“甚至在农村”推断出普及程度极高。",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "监控摄像头通过识别功能帮助警方破案。",
+          "evidence": [
+            {
+              "source_id": "s7",
+              "span": "find stolen cars"
+            },
+            {
+              "source_id": "s9",
+              "span": "help find criminals"
+            }
+          ],
+          "knowledge_bridge": "将识别车辆/人脸的功能与寻找罪犯的目的联系起来。",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "韩国如何使用监控摄像头来减少犯罪。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何修理损坏的监控摄像头。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "韩国地铁的票价是多少。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "韩国农村的农作物种类。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪句话最适合做第二段的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "摄像头能做什么？",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "韩国有很多摄像头。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt3",
+            "text": "人们喜欢偷东西。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "如何安装摄像头。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“摄像头能识别人脸”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s8"
+          ]
+        },
+        "candidate_source_ids": [
+          "s6",
+          "s7",
+          "s8",
+          "s9"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第三段之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "因果关系：摄像头有功能，所以能减少犯罪。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "对比关系：摄像头和警察的区别。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "时间顺序：先有摄像头，后有地铁。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "并列关系：两者互不相关。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你觉得第二段可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "这些摄像头具体有什么功能。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "韩国历史的发展过程。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "如何自己制作一个摄像头。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "为什么韩国没有地铁。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明摄像头让韩国人感到安全？",
+        "answer": {
+          "source_ids": [
+            "s13"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s11",
+          "s12",
+          "s13"
+        ]
+      }
+    ]
+  }
+}

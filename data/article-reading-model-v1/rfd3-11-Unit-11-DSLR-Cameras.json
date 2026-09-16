@@ -1,0 +1,422 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd3-11-Unit-11-DSLR-Cameras",
+    "title": "Unit 11 DSLR Cameras",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Photographers take photos as art."
+          },
+          {
+            "id": "s2",
+            "text": "They use special cameras."
+          },
+          {
+            "id": "s3",
+            "text": "DSLR cameras are a favorite."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "DSLR cameras are digital."
+          },
+          {
+            "id": "s5",
+            "text": "They don’t use film."
+          },
+          {
+            "id": "s6",
+            "text": "They change pictures to a computer file."
+          },
+          {
+            "id": "s7",
+            "text": "Photographers can change the lens of a DSLR camera."
+          },
+          {
+            "id": "s8",
+            "text": "The lens is very important."
+          },
+          {
+            "id": "s9",
+            "text": "It focuses light."
+          },
+          {
+            "id": "s10",
+            "text": "This makes the picture clear."
+          },
+          {
+            "id": "s11",
+            "text": "Different lenses do different things."
+          },
+          {
+            "id": "s12",
+            "text": "Some can take pictures from far away."
+          },
+          {
+            "id": "s13",
+            "text": "Others are better close up."
+          },
+          {
+            "id": "s14",
+            "text": "Some lenses even stretch the pictures in creative ways."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction to DSLR Cameras"
+        },
+        "main_idea": {
+          "text": "Photographers use special cameras, and DSLR cameras are a popular choice."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "Photographers create art through photography."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "DSLR cameras are a favorite among photographers."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "DSLR cameras are a favorite.",
+            "source_id": "s3",
+            "role": "topic_sentence"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Features of DSLR Cameras"
+        },
+        "main_idea": {
+          "text": "DSLR cameras are digital, use interchangeable lenses, and offer various creative options."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4",
+              "s5",
+              "s6"
+            ],
+            "meaning": "DSLR cameras are digital and do not use film."
+          },
+          {
+            "source_ids": [
+              "s7",
+              "s8",
+              "s9",
+              "s10"
+            ],
+            "meaning": "The lens is important because it focuses light to make pictures clear."
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s12",
+              "s13",
+              "s14"
+            ],
+            "meaning": "Different lenses allow for various creative effects, such as taking pictures from far away or close up."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "DSLR cameras are digital.",
+            "source_id": "s4",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "Photographers can change the lens of a DSLR camera.",
+            "source_id": "s7",
+            "role": "transition"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Features of DSLR Cameras",
+          "function": "description"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "DSLR cameras are popular digital cameras used by photographers because they offer interchangeable lenses and various creative options."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "DSLR cameras are versatile and can be used for different types of photography.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "Different lenses do different things."
+            },
+            {
+              "source_id": "s12",
+              "span": "Some can take pictures from far away."
+            },
+            {
+              "source_id": "s13",
+              "span": "Others are better close up."
+            }
+          ],
+          "knowledge_bridge": "Understanding that different lenses serve different purposes implies versatility.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "DSLR cameras are more advanced than traditional film cameras.",
+          "evidence": [
+            {
+              "source_id": "s4",
+              "span": "DSLR cameras are digital."
+            },
+            {
+              "source_id": "s5",
+              "span": "They don’t use film."
+            },
+            {
+              "source_id": "s6",
+              "span": "They change pictures to a computer file."
+            }
+          ],
+          "knowledge_bridge": "Recognizing that digital cameras do not use film and convert pictures to computer files suggests they are more advanced.",
+          "difficulty": "medium"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "What is the main idea of the first paragraph?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Photographers use special cameras, and DSLR cameras are a popular choice.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Photographers take photos as art.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "DSLR cameras are digital.",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "Cameras are used to take pictures.",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Which heading best fits the second paragraph?",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "Features of DSLR Cameras",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "How to Use a Camera",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt7",
+            "text": "The History of Photography",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt8",
+            "text": "Why Photographers Like Art",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Which sentence supports the idea that DSLR cameras are digital?",
+        "answer": {
+          "source_ids": [
+            "s4"
+          ]
+        },
+        "candidate_source_ids": [
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "How does the second paragraph connect to the first paragraph?",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "It provides more details about DSLR cameras.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "It introduces a new topic about art.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt11",
+            "text": "It explains why photographers take photos.",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt12",
+            "text": "It describes the history of cameras.",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "What might the next paragraph be about?",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "How to choose the right lens for a DSLR camera.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "The history of film cameras.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt15",
+            "text": "Why art is important.",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt16",
+            "text": "How to edit photos on a computer.",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Which sentence shows that different lenses do different things?",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s11",
+          "s12",
+          "s13",
+          "s14"
+        ]
+      }
+    ]
+  }
+}

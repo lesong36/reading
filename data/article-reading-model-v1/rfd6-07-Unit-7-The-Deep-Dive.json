@@ -1,0 +1,401 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd6-07-Unit-7-The-Deep-Dive",
+    "title": "RFD 6 / Unit 7 The Deep Dive",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Most of the ocean is a mystery."
+          },
+          {
+            "id": "s2",
+            "text": "We have to use powerful cameras to see what it’s like."
+          },
+          {
+            "id": "s3",
+            "text": "We’ve found mountains, canyons, and even waterfalls under the sea."
+          },
+          {
+            "id": "s4",
+            "text": "But cameras cannot show us everything."
+          },
+          {
+            "id": "s5",
+            "text": "We have to see for ourselves."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "Jacques Piccard was a scientist who studied the oceans."
+          },
+          {
+            "id": "s7",
+            "text": "He wanted to reach the deepest part of the ocean."
+          },
+          {
+            "id": "s8",
+            "text": "So, he built a submarine."
+          },
+          {
+            "id": "s9",
+            "text": "He called the place he found “Challenger Deep” because it was so hard to get to."
+          },
+          {
+            "id": "s10",
+            "text": "There, he found something amazing: fish and shrimp."
+          },
+          {
+            "id": "s11",
+            "text": "Nobody thought any creature could live that deep."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Mystery of the Ocean"
+        },
+        "main_idea": {
+          "text": "The ocean is a mysterious place that requires special tools and human exploration to fully understand."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "Powerful cameras are used to observe the ocean."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Cameras have revealed underwater mountains, canyons, and waterfalls."
+          },
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "Humans must explore the ocean in person to see everything."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Most of the ocean is a mystery.",
+            "source_id": "s1",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "But cameras cannot show us everything.",
+            "source_id": "s4",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Jacques Piccard's Discovery"
+        },
+        "main_idea": {
+          "text": "Scientist Jacques Piccard built a submarine to reach the deepest part of the ocean, where he discovered living creatures."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "Piccard built a submarine to reach the ocean's deepest part."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "The location was named 'Challenger Deep' because it was difficult to access."
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "He found fish and shrimp living in the deep."
+          }
+        ],
+        "function": {
+          "type": "supporting_detail"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Jacques Piccard was a scientist who studied the oceans.",
+            "source_id": "s6",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "There, he found something amazing: fish and shrimp.",
+            "source_id": "s10",
+            "role": "key_detail"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction to Ocean Exploration",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Piccard's Deep Dive",
+          "function": "supporting_detail"
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "Exploring the deep ocean requires human ingenuity and reveals surprising life in extreme environments."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The deep ocean is a harsh environment for most life.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "Nobody thought any creature could live that deep."
+            }
+          ],
+          "knowledge_bridge": "Understanding extreme environments",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Cameras are useful but not sufficient for full ocean exploration.",
+          "evidence": [
+            {
+              "source_id": "s4",
+              "span": "But cameras cannot show us everything."
+            },
+            {
+              "source_id": "s5",
+              "span": "We have to see for ourselves."
+            }
+          ],
+          "knowledge_bridge": "Evaluating tools for exploration",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "选出第一段的主要思想。",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "海洋是一个神秘的地方，需要特殊工具来探索。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "水下有山脉和瀑布。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "相机可以拍到海洋里的一切。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "科学家喜欢潜水。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "为第二段选择一个合适的标题。",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "皮卡尔的深海发现",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "如何建造潜水艇",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt7",
+            "text": "海洋里的鱼和虾",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt8",
+            "text": "为什么海洋很神秘",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“皮卡尔发现了生物”的句子。",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s9",
+          "s10",
+          "s11"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段如何支持第一段？",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "它提供了一个人类探索海洋的例子。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "它解释了为什么相机不够用。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt11",
+            "text": "它介绍了海洋里的山脉。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt12",
+            "text": "它讲述了皮卡尔的童年。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段，你预测第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "一个人类探索海洋的故事。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "如何制作水下相机。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt15",
+            "text": "海洋里的所有动物。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt16",
+            "text": "为什么海洋是蓝色的。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择说明“相机不能展示一切”的句子。",
+        "answer": {
+          "source_ids": [
+            "s4"
+          ]
+        },
+        "candidate_source_ids": [
+          "s2",
+          "s3",
+          "s4",
+          "s5"
+        ]
+      }
+    ]
+  }
+}

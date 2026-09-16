@@ -1,0 +1,454 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd5-04-Unit-4-Intelligent-Machines",
+    "title": "RFD 5 / Unit 4 Intelligent Machines",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Do you have a robot friend?"
+          },
+          {
+            "id": "s2",
+            "text": "In the future, you might."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s3",
+            "text": "Computers and robots have developed a lot."
+          },
+          {
+            "id": "s4",
+            "text": "The first computers were created in the Second World War."
+          },
+          {
+            "id": "s5",
+            "text": "They could understand enemy messages."
+          },
+          {
+            "id": "s6",
+            "text": "By the 1950s, computers could solve difficult math problems."
+          },
+          {
+            "id": "s7",
+            "text": "The first intelligent robot was built in the"
+          },
+          {
+            "id": "s8",
+            "text": "1970s."
+          },
+          {
+            "id": "s9",
+            "text": "Now computers play games like chess and Go."
+          },
+          {
+            "id": "s10",
+            "text": "They can even beat human champions."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s11",
+            "text": "Many people think computers and robots will soon be more like us."
+          },
+          {
+            "id": "s12",
+            "text": "They may soon think and talk."
+          },
+          {
+            "id": "s13",
+            "text": "What will they talk about?"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction"
+        },
+        "main_idea": {
+          "text": "In the future, people might have robot friends."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "The text introduces the idea of having a robot friend in the future."
+          }
+        ],
+        "function": {
+          "type": "hook"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "In the future",
+            "source_id": "s2",
+            "role": "time_marker"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "History of Computers and Robots"
+        },
+        "main_idea": {
+          "text": "Computers and robots have developed significantly over time, from solving basic problems to beating human champions."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4",
+              "s5"
+            ],
+            "meaning": "Early computers were used during WWII to understand enemy messages."
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "By the 1950s, computers could solve difficult math problems."
+          },
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "Modern computers can play complex games like chess and Go, even beating human champions."
+          }
+        ],
+        "function": {
+          "type": "informational"
+        },
+        "relation_to_previous": {
+          "type": "expands_on",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "The first",
+            "source_id": "s4",
+            "role": "sequence_marker"
+          },
+          {
+            "text": "By the 1950s",
+            "source_id": "s6",
+            "role": "time_marker"
+          },
+          {
+            "text": "Now",
+            "source_id": "s9",
+            "role": "time_marker"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Future Possibilities"
+        },
+        "main_idea": {
+          "text": "Many people believe computers and robots will soon become more like humans, capable of thinking and talking."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s11",
+              "s12"
+            ],
+            "meaning": "Computers and robots may soon think and talk like humans."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "concludes",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "soon",
+            "source_id": "s11",
+            "role": "time_marker"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "hook"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "History of Computers and Robots",
+          "function": "informational"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Future Possibilities",
+          "function": "conclusion"
+        }
+      ],
+      "structure": {
+        "type": "sequence"
+      },
+      "central_idea": {
+        "text": "Computers and robots have evolved significantly over time and may soon become more like humans."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The development of computers and robots has been a gradual process.",
+          "evidence": [
+            {
+              "source_id": "s4",
+              "span": "The first computers were created in the Second World War."
+            },
+            {
+              "source_id": "s6",
+              "span": "By the 1950s, computers could solve difficult math problems."
+            },
+            {
+              "source_id": "s9",
+              "span": "Now computers play games like chess and Go."
+            }
+          ],
+          "knowledge_bridge": "Understanding historical progression",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Robots and computers are becoming more advanced and human-like.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "Many people think computers and robots will soon be more like us."
+            },
+            {
+              "source_id": "s12",
+              "span": "They may soon think and talk."
+            }
+          ],
+          "knowledge_bridge": "Predicting future trends",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "What is the main idea of the text?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Computers and robots have evolved significantly over time and may soon become more like humans.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Computers were first created during World War II.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "Robots can play chess and Go.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "Computers and robots are dangerous.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Which heading best fits paragraph 2?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "The History of Computers and Robots",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "How to Build a Robot",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "The Future of Space Travel",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "Why Robots Are Bad",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "Select the sentence that supports the idea that computers can now beat human champions.",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s6",
+          "s9",
+          "s10",
+          "s11"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "How does paragraph 3 connect to paragraph 2?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "It predicts what might happen next based on the development described in paragraph 2.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "It repeats the same information as paragraph 2.",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "It introduces a completely new topic.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "It contradicts the information in paragraph 2.",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "Based on the text, what might happen next with computers and robots?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "They will become more like humans, thinking and talking.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "They will stop working.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "They will only be used in schools.",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "They will become smaller.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "medium",
+        "interaction": "select_sentence",
+        "prompt": "Select the sentence that shows computers were first created during World War II.",
+        "answer": {
+          "source_ids": [
+            "s4"
+          ]
+        },
+        "candidate_source_ids": [
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ]
+      }
+    ]
+  }
+}

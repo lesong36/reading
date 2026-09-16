@@ -1,0 +1,417 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd6-15-Unit-15-Automation",
+    "title": "RFD 6 / Unit 15 Automation",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Automation means using a machine to do a job, instead of a person."
+          },
+          {
+            "id": "s2",
+            "text": "In the past, machines only did simple jobs."
+          },
+          {
+            "id": "s3",
+            "text": "But nowadays they can do complicated work, too."
+          },
+          {
+            "id": "s4",
+            "text": "This worries people."
+          },
+          {
+            "id": "s5",
+            "text": "They fear they'll be made unemployed."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "But is this true?"
+          },
+          {
+            "id": "s7",
+            "text": "It's complicated."
+          },
+          {
+            "id": "s8",
+            "text": "Automation does replace certain jobs."
+          },
+          {
+            "id": "s9",
+            "text": "But automation also creates jobs."
+          },
+          {
+            "id": "s10",
+            "text": "In the past, bank workers feared ATMs would steal their jobs."
+          },
+          {
+            "id": "s11",
+            "text": "But, in truth, more jobs were created."
+          },
+          {
+            "id": "s12",
+            "text": "Banks employed more salespeople and accountants."
+          },
+          {
+            "id": "s13",
+            "text": "What do you think?"
+          },
+          {
+            "id": "s14",
+            "text": "What future jobs will be made by automation?"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "自动化与担忧"
+        },
+        "main_idea": {
+          "text": "自动化现在能做复杂工作，这让人们担心失业。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "定义自动化为机器代替人工作。"
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "现代机器能处理复杂任务。"
+          },
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "人们害怕失去工作。"
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "But nowadays",
+            "source_id": "s3",
+            "role": "contrast"
+          },
+          {
+            "text": "This worries people",
+            "source_id": "s4",
+            "role": "reaction"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "就业影响分析"
+        },
+        "main_idea": {
+          "text": "自动化虽然取代某些工作，但也创造了新的就业机会。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "自动化创造新工作。"
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "银行职员曾担心ATM抢走工作。"
+          },
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "银行反而雇佣了更多销售人员。"
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "response",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "But is this true?",
+            "source_id": "s6",
+            "role": "question"
+          },
+          {
+            "text": "But, in truth",
+            "source_id": "s11",
+            "role": "clarification"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "现象与担忧",
+          "function": "引入话题"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "事实与反思",
+          "function": "分析影响"
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "自动化改变了工作性质，虽然取代了部分岗位，但也创造了新的就业机会。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "技术进步通常会带来新的职业类型，而不仅仅是消除旧 ones。",
+          "evidence": [
+            {
+              "source_id": "s9",
+              "span": "automation also creates jobs"
+            },
+            {
+              "source_id": "s12",
+              "span": "Banks employed more salespeople and accountants"
+            }
+          ],
+          "knowledge_bridge": "历史趋势：工业革命也创造了新 jobs。",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "人们对自动化的恐惧往往源于对未知变化的不确定性，而非必然 outcome。",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "They fear they'll be made unemployed"
+            },
+            {
+              "source_id": "s11",
+              "span": "But, in truth, more jobs were created"
+            }
+          ],
+          "knowledge_bridge": "心理学：对变化的焦虑。",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "自动化既取代工作也创造新工作。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "机器比人更聪明。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt3",
+            "text": "银行职员喜欢ATM。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "人们喜欢复杂的机器。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第二段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "工作的变化",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何修理机器",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "银行的历史",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "为什么人们害怕",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“自动化创造新工作”的句子。",
+        "answer": {
+          "source_ids": [
+            "s9"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s9",
+          "s10",
+          "s12"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段是如何回应第一段的？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "它质疑了人们的担忧并给出事实。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "它重复了人们害怕的内容。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "它介绍了机器的历史。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "它解释了如何制造机器。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完最后两句，作者接下来可能会做什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "邀请读者思考未来的新工作。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "告诉读者机器会毁灭人类。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "列出所有银行职位。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "解释什么是ATM。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明人们担心失业？",
+        "answer": {
+          "source_ids": [
+            "s5"
+          ]
+        },
+        "candidate_source_ids": [
+          "s1",
+          "s4",
+          "s5",
+          "s6"
+        ]
+      }
+    ]
+  }
+}

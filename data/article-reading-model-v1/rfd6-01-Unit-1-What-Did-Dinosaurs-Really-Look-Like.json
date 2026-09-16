@@ -1,0 +1,407 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd6-01-Unit-1-What-Did-Dinosaurs-Really-Look-Like",
+    "title": "RFD 6 / Unit 1 What Did Dinosaurs Really Look Like?",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Dinosaurs lived millions of years ago."
+          },
+          {
+            "id": "s2",
+            "text": "They ruled for 150 million years."
+          },
+          {
+            "id": "s3",
+            "text": "Movies often show dinosaurs as giant, scary lizards."
+          },
+          {
+            "id": "s4",
+            "text": "But real dinosaurs actually looked quite different."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "Many dinosaurs looked more like birds than lizards."
+          },
+          {
+            "id": "s6",
+            "text": "Take the velociraptor, for example."
+          },
+          {
+            "id": "s7",
+            "text": "In movies, this dinosaur looks bigger than a person."
+          },
+          {
+            "id": "s8",
+            "text": "Its claws and teeth look long and sharp."
+          },
+          {
+            "id": "s9",
+            "text": "But, in fact, velociraptors were not that big or that scary."
+          },
+          {
+            "id": "s10",
+            "text": "They were about the size of a turkey."
+          },
+          {
+            "id": "s11",
+            "text": "And they were also covered in feathers."
+          },
+          {
+            "id": "s12",
+            "text": "They didn’t look scary at all."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction to Dinosaurs"
+        },
+        "main_idea": {
+          "text": "Real dinosaurs looked different from the giant, scary lizards shown in movies."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "Dinosaurs lived for a very long time in the past."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Movies often depict dinosaurs as large and frightening."
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "The actual appearance of dinosaurs was quite different from movie portrayals."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "But",
+            "source_id": "s4",
+            "role": "contrast"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Velociraptor Example"
+        },
+        "main_idea": {
+          "text": "Velociraptors were small, feathered dinosaurs that looked more like birds than scary lizards."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "Many dinosaurs resembled birds."
+          },
+          {
+            "source_ids": [
+              "s7",
+              "s8"
+            ],
+            "meaning": "Movies show velociraptors as large with long, sharp claws and teeth."
+          },
+          {
+            "source_ids": [
+              "s10",
+              "s11"
+            ],
+            "meaning": "Real velociraptors were turkey-sized and covered in feathers."
+          }
+        ],
+        "function": {
+          "type": "supporting_example"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Take the velociraptor, for example",
+            "source_id": "s6",
+            "role": "example"
+          },
+          {
+            "text": "But, in fact",
+            "source_id": "s9",
+            "role": "contrast"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduce the topic and contrast movie portrayals with reality."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Example: Velociraptor",
+          "function": "Provide a specific example to support the main idea."
+        }
+      ],
+      "structure": {
+        "type": "compare_and_contrast"
+      },
+      "central_idea": {
+        "text": "Real dinosaurs, like the velociraptor, looked more like birds and were less scary than their movie portrayals."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Movies are not always accurate representations of real animals.",
+          "evidence": [
+            {
+              "source_id": "s3",
+              "span": "Movies often show dinosaurs as giant, scary lizards."
+            },
+            {
+              "source_id": "s4",
+              "span": "But real dinosaurs actually looked quite different."
+            }
+          ],
+          "knowledge_bridge": "Understanding the difference between fiction and reality.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Feathers might make dinosaurs look less intimidating.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "And they were also covered in feathers."
+            },
+            {
+              "source_id": "s12",
+              "span": "They didn’t look scary at all."
+            }
+          ],
+          "knowledge_bridge": "Connecting physical features to perceived characteristics.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "真实的恐龙和电影里的样子很不一样。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "恐龙在地球上生活了1.5亿年。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "电影里的恐龙总是很大。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "鸟类是从恐龙进化来的。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "迅猛龙：像鸟的恐龙",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "恐龙的爪子",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "电影里的恐龙",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "为什么恐龙灭绝了",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话支持了“真实的恐龙看起来像鸟”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s5"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s7",
+          "s10",
+          "s12"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段用例子支持了第一段的主旨。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段反驳了第一段的主旨。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段介绍了另一种完全不同的动物。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段解释了恐龙为什么灭绝。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段，你觉得第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "举一个具体的恐龙例子来说明真实的样子。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "介绍恐龙最喜欢的食物。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "解释为什么恐龙 are scary. ",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "列出 all the dinosaurs that lived. ",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话告诉我们真实的迅猛龙有多大？",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s7",
+          "s8",
+          "s10",
+          "s11"
+        ]
+      }
+    ]
+  }
+}

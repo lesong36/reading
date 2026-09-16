@@ -1,0 +1,400 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd4-09-Unit-9-The-Longest-Tennis-Match",
+    "title": "RFD 4 / Unit 9 The Longest Tennis Match",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "John Isner and Nicolas Mahut played a tennis match at a tournament in 2010."
+          },
+          {
+            "id": "s2",
+            "text": "To win a set, a player must win six games."
+          },
+          {
+            "id": "s3",
+            "text": "And the player must be two games ahead."
+          },
+          {
+            "id": "s4",
+            "text": "Isner and Mahut could not do this in the final set."
+          },
+          {
+            "id": "s5",
+            "text": "So the game went on and on."
+          },
+          {
+            "id": "s6",
+            "text": "The set lasted for 8 hours and 11 minutes!"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s7",
+            "text": "Eventually, Isner won the final set by 70 games to 68."
+          },
+          {
+            "id": "s8",
+            "text": "The match took a total of 11 hours and 5 minutes."
+          },
+          {
+            "id": "s9",
+            "text": "It was the longest tennis match ever!"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "比赛背景与规则"
+        },
+        "main_idea": {
+          "text": "2010年的一场网球比赛因双方无法按规则赢得最后一盘而持续了很长时间。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "比赛发生在2010年，由伊斯纳和马胡特参加。"
+          },
+          {
+            "source_ids": [
+              "s2",
+              "s3"
+            ],
+            "meaning": "赢得一盘需要赢6局且领先2局。"
+          },
+          {
+            "source_ids": [
+              "s4",
+              "s5",
+              "s6"
+            ],
+            "meaning": "由于无法达成获胜条件，最后一盘持续了8小时11分钟。"
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "So",
+            "source_id": "s5",
+            "role": "cause_and_effect"
+          },
+          {
+            "text": "could not do this",
+            "source_id": "s4",
+            "role": "problem_statement"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "比赛结果与纪录"
+        },
+        "main_idea": {
+          "text": "伊斯纳最终赢得了比赛，这场总时长超过11小时的比赛成为史上最长的网球赛。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "伊斯纳以70比68的比分赢得最后一盘。"
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "整场比赛总共耗时11小时5分钟。"
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "这是有史以来最长的网球比赛。"
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "result",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Eventually",
+            "source_id": "s7",
+            "role": "sequence_marker"
+          },
+          {
+            "text": "It was",
+            "source_id": "s9",
+            "role": "conclusion_marker"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "比赛起因",
+          "function": "介绍背景、规则及导致比赛延长的原因"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "比赛结果",
+          "function": "陈述最终比分、总时长及历史地位"
+        }
+      ],
+      "structure": {
+        "type": "cause_and_effect"
+      },
+      "central_idea": {
+        "text": "由于双方无法按规则结束最后一盘，2010年伊斯纳与马胡特的网球赛持续了超过11小时，成为史上最长的网球比赛。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "这场比赛对球员来说非常消耗体力。",
+          "evidence": [
+            {
+              "source_id": "s6",
+              "span": "8 hours and 11 minutes"
+            },
+            {
+              "source_id": "s8",
+              "span": "11 hours and 5 minutes"
+            }
+          ],
+          "knowledge_bridge": "长时间运动需要大量体力",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "观众可能感到惊讶或 bored because the match was so long. ",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "went on and on"
+            },
+            {
+              "source_id": "s9",
+              "span": "longest tennis match ever"
+            }
+          ],
+          "knowledge_bridge": "Unusual events often draw attention or surprise",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "一场因规则限制而持续极长的网球比赛",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何 to win a tennis set",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "John Isner's life story",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "Tennis tournaments in 2010",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪一个是第一段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Why the Match Lasted So Long",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "The Winner of the Match",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "Tennis Rules for Beginners",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "A Short Tennis Game",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "medium",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“最后一盘持续了8小时11分钟”这一细节的句子。",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第二段与第一段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段给出了第一段所述问题的结果",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段重复了第一段的内容",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段介绍了新的球员",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段解释了如何 to play tennis",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你预测接下来会发生什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "比赛最终结束了，并创造了纪录",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "球员决定放弃比赛",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "裁判 changed the rules",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "The match was cancelled due to rain",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "independent",
+        "interaction": "select_sentence",
+        "prompt": "选择证明“这是有史以来最长的网球比赛”的句子。",
+        "answer": {
+          "source_ids": [
+            "s9"
+          ]
+        },
+        "candidate_source_ids": [
+          "s7",
+          "s8",
+          "s9",
+          "s1"
+        ]
+      }
+    ]
+  }
+}

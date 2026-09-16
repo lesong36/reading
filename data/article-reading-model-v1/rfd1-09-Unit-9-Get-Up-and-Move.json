@@ -1,0 +1,368 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd1-09-Unit-9-Get-Up-and-Move",
+    "title": "Unit 9 Get Up and Move",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Did you know sitting can hurt you?"
+          },
+          {
+            "id": "s2",
+            "text": "Sitting is hard for your shoulders and back."
+          },
+          {
+            "id": "s3",
+            "text": "You might feel pain."
+          },
+          {
+            "id": "s4",
+            "text": "Your blood moves slow, too."
+          },
+          {
+            "id": "s5",
+            "text": "Your heart has to work harder."
+          },
+          {
+            "id": "s6",
+            "text": "The blood doesn’t move easily."
+          },
+          {
+            "id": "s7",
+            "text": "This can hurt your muscles."
+          },
+          {
+            "id": "s8",
+            "text": "It can hurt your brain, too."
+          },
+          {
+            "id": "s9",
+            "text": "So don’t sit for too long."
+          },
+          {
+            "id": "s10",
+            "text": "Take breaks."
+          },
+          {
+            "id": "s11",
+            "text": "Get up and move!"
+          },
+          {
+            "id": "s12",
+            "text": "Moving makes your body happy and healthy."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Dangers of Sitting"
+        },
+        "main_idea": {
+          "text": "Sitting for too long can cause physical pain and health problems, so it is important to take breaks and move."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2",
+              "s3"
+            ],
+            "meaning": "Sitting causes pain in the shoulders and back."
+          },
+          {
+            "source_ids": [
+              "s4",
+              "s5",
+              "s6"
+            ],
+            "meaning": "Sitting slows down blood flow, making the heart work harder."
+          },
+          {
+            "source_ids": [
+              "s7",
+              "s8"
+            ],
+            "meaning": "Poor blood flow can hurt muscles and the brain."
+          },
+          {
+            "source_ids": [
+              "s9",
+              "s10",
+              "s11",
+              "s12"
+            ],
+            "meaning": "To stay healthy, you should take breaks and move your body."
+          }
+        ],
+        "function": {
+          "type": "problem_solution"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Did you know",
+            "source_id": "s1",
+            "role": "hook"
+          },
+          {
+            "text": "So",
+            "source_id": "s9",
+            "role": "conclusion_marker"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "The Problem with Sitting",
+          "function": "Introduces the negative effects of sitting for long periods."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "The Solution",
+          "function": "Provides advice on how to avoid these health problems."
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "Sitting for too long is bad for your body, so you should get up and move to stay healthy."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Moving your body helps your blood flow better.",
+          "evidence": [
+            {
+              "source_id": "s4",
+              "span": "Your blood moves slow, too."
+            },
+            {
+              "source_id": "s11",
+              "span": "Get up and move!"
+            }
+          ],
+          "knowledge_bridge": "Connecting the problem (slow blood) with the solution (moving).",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The author wants to encourage readers to be more active.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "Get up and move!"
+            },
+            {
+              "source_id": "s12",
+              "span": "Moving makes your body happy and healthy."
+            }
+          ],
+          "knowledge_bridge": "Understanding the author's purpose through tone and direct commands.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "What is the main idea of this text?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Sitting for too long is bad for your health, so you should move.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Your heart works harder when you sit.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "Sitting can hurt your shoulders and back.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "Exercise is fun for everyone.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Which heading best fits this text?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Why You Should Get Up and Move",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "How to Fix a Broken Back",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "The History of Chairs",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "How Blood Flows in the Body",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "Which sentence supports the idea that sitting hurts your muscles?",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s5",
+          "s7",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "How does the sentence 'So don’t sit for too long' connect to the rest of the text?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "It introduces the solution to the problems mentioned earlier.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "It explains why blood moves slowly.",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "It gives an example of a muscle pain.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "It asks a question to start the story.",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "After reading 'Your blood moves slow, too,' what do you think the next sentence will explain?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "How this affects your heart or body.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "How to make blood move faster by eating.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "The color of blood.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "Why sitting is fun.",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "Find the sentence that tells you what to do to stay healthy.",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s1",
+          "s9",
+          "s11",
+          "s12"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,533 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd3-10-Unit-10-A-Changing-Hobby",
+    "title": "Unit 10 A Changing Hobby",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Photography was a new hobby in the 1880s."
+          },
+          {
+            "id": "s2",
+            "text": "People could take photographs with their own cameras."
+          },
+          {
+            "id": "s3",
+            "text": "With a camera, anyone could be an artist."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "People needed film."
+          },
+          {
+            "id": "s5",
+            "text": "The Kodak Company made it."
+          },
+          {
+            "id": "s6",
+            "text": "By the 1980s, Kodak sold most of the film in the world."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s7",
+            "text": "Photography changed in the 1990s."
+          },
+          {
+            "id": "s8",
+            "text": "People had computers."
+          },
+          {
+            "id": "s9",
+            "text": "They took digital pictures."
+          },
+          {
+            "id": "s10",
+            "text": "These pictures don’t need film."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s11",
+            "text": "Kodak lost many customers."
+          },
+          {
+            "id": "s12",
+            "text": "It also started losing money."
+          },
+          {
+            "id": "s13",
+            "text": "In 2012, it stopped selling film."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "摄影的兴起"
+        },
+        "main_idea": {
+          "text": "19世纪80年代，摄影成为一项新爱好，让普通人也能成为艺术家。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "摄影在19世纪80年代是一项新爱好。"
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "人们可以用自己的相机拍照。"
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "有了相机，任何人都可以成为艺术家。"
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Photography was a new hobby",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "柯达公司的崛起"
+        },
+        "main_idea": {
+          "text": "人们需要胶片，而柯达公司制造了大部分胶片，并在1980年代主导了市场。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "人们需要胶片来拍照。"
+          },
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "柯达公司制造胶片。"
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "到1980年代，柯达卖出了世界上大部分的胶片。"
+          }
+        ],
+        "function": {
+          "type": "supporting_detail"
+        },
+        "relation_to_previous": {
+          "type": "cause_and_effect",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "People needed film",
+            "source_id": "s4",
+            "role": "problem_statement"
+          },
+          {
+            "text": "The Kodak Company made it",
+            "source_id": "s5",
+            "role": "solution_introduction"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "数码摄影的出现"
+        },
+        "main_idea": {
+          "text": "1990年代，摄影发生了变化，人们开始使用不需要胶片的数码照片。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "摄影在1990年代发生了变化。"
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "人们有了电脑。"
+          },
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "他们拍摄数码照片，这些照片不需要胶片。"
+          }
+        ],
+        "function": {
+          "type": "transition"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Photography changed",
+            "source_id": "s7",
+            "role": "transition_marker"
+          },
+          {
+            "text": "don’t need film",
+            "source_id": "s10",
+            "role": "contrast_marker"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "柯达公司的衰落"
+        },
+        "main_idea": {
+          "text": "由于数码摄影的兴起，柯达失去了许多客户和利润，最终在2012年停止销售胶片。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "柯达失去了许多客户。"
+          },
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "它也开始亏损。"
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "2012年，它停止销售胶片。"
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "cause_and_effect",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "Kodak lost many customers",
+            "source_id": "s11",
+            "role": "consequence_marker"
+          },
+          {
+            "text": "stopped selling film",
+            "source_id": "s13",
+            "role": "final_outcome"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "摄影的兴起",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "柯达公司的崛起",
+          "function": "supporting_detail"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "数码摄影的出现",
+          "function": "transition"
+        },
+        {
+          "id": "sec4",
+          "paragraph_ids": [
+            "p4"
+          ],
+          "label": "柯达公司的衰落",
+          "function": "conclusion"
+        }
+      ],
+      "structure": {
+        "type": "sequence"
+      },
+      "central_idea": {
+        "text": "摄影从胶片时代发展到数码时代，导致柯达公司从市场领导者变为停止销售胶片。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "数码摄影的普及是柯达公司衰落的主要原因。",
+          "evidence": [
+            {
+              "source_id": "s10",
+              "span": "These pictures don’t need film."
+            },
+            {
+              "source_id": "s11",
+              "span": "Kodak lost many customers."
+            }
+          ],
+          "knowledge_bridge": "理解技术变革如何影响商业市场。",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "在1990年代之前，人们必须使用胶片来保存照片。",
+          "evidence": [
+            {
+              "source_id": "s4",
+              "span": "People needed film."
+            },
+            {
+              "source_id": "s10",
+              "span": "These pictures don’t need film."
+            }
+          ],
+          "knowledge_bridge": "对比不同时代的摄影技术需求。",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "摄影技术的发展如何影响了柯达公司。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何拍摄一张完美的数码照片。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "19世纪80年代的艺术形式。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "为什么人们喜欢用电脑。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第三段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "数码摄影的出现",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "柯达公司的历史",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt7",
+            "text": "胶片是如何制造的",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt8",
+            "text": "电脑的好处",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“数码照片不需要胶片”的句子。",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s4",
+          "s9",
+          "s10",
+          "s13"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第三段和第四段之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "因果关系：数码摄影导致柯达失去客户。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "对比关系：胶片比数码照片更好。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "并列关系：两段讲不同的公司。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt12",
+            "text": "重复关系：两段讲同样的事。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完第二段后，你预测第三段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "摄影技术可能会发生变化。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "柯达公司会破产。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt15",
+            "text": "人们会停止使用相机。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt16",
+            "text": "胶片会变得非常便宜。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择证明柯达在1980年代非常成功的句子。",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s11",
+          "s13"
+        ]
+      }
+    ]
+  }
+}

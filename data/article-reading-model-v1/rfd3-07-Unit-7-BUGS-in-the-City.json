@@ -1,0 +1,474 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd3-07-Unit-7-BUGS-in-the-City",
+    "title": "Unit 7 BUGS in the City",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Many people live in cities now."
+          },
+          {
+            "id": "s2",
+            "text": "Cities are full of buildings and streets."
+          },
+          {
+            "id": "s3",
+            "text": "Most people live in apartments."
+          },
+          {
+            "id": "s4",
+            "text": "They don’t have gardens."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "The people of Baltimore wanted gardens."
+          },
+          {
+            "id": "s6",
+            "text": "They looked for empty areas."
+          },
+          {
+            "id": "s7",
+            "text": "They worked with students."
+          },
+          {
+            "id": "s8",
+            "text": "Together, they started BUGS."
+          },
+          {
+            "id": "s9",
+            "text": "This means Baltimore Urban Gardening with Students."
+          },
+          {
+            "id": "s10",
+            "text": "They change empty spaces into gardens."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s11",
+            "text": "BUGS is going well."
+          },
+          {
+            "id": "s12",
+            "text": "The city is becoming greener."
+          },
+          {
+            "id": "s13",
+            "text": "Ugly empty spaces are going away."
+          },
+          {
+            "id": "s14",
+            "text": "And students are learning about plants."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "城市生活背景"
+        },
+        "main_idea": {
+          "text": "城市居民通常住在公寓里，没有花园。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "描述城市充满建筑和街道的现状。"
+          },
+          {
+            "source_ids": [
+              "s3",
+              "s4"
+            ],
+            "meaning": "指出大多数城市居民缺乏私人花园。"
+          }
+        ],
+        "function": {
+          "type": "background"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Many people live in cities now.",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "They don’t have gardens.",
+            "source_id": "s4",
+            "role": "problem_statement"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "BUGS项目的起源"
+        },
+        "main_idea": {
+          "text": "巴尔的摩市民与学生合作，将空地改造成花园，启动了BUGS项目。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5",
+              "s6"
+            ],
+            "meaning": "市民寻找空地以创建花园。"
+          },
+          {
+            "source_ids": [
+              "s7",
+              "s8"
+            ],
+            "meaning": "市民与学生共同启动了BUGS项目。"
+          },
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "解释BUGS的全称及其核心行动。"
+          }
+        ],
+        "function": {
+          "type": "solution"
+        },
+        "relation_to_previous": {
+          "type": "cause_and_effect",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "The people of Baltimore wanted gardens.",
+            "source_id": "s5",
+            "role": "motivation"
+          },
+          {
+            "text": "Together, they started BUGS.",
+            "source_id": "s8",
+            "role": "action"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "项目成果"
+        },
+        "main_idea": {
+          "text": "BUGS项目使城市变得更绿，并帮助学生了解植物。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s11",
+              "s12"
+            ],
+            "meaning": "项目进展顺利，城市环境改善。"
+          },
+          {
+            "source_ids": [
+              "s13",
+              "s14"
+            ],
+            "meaning": "空地消失，学生获得植物知识。"
+          }
+        ],
+        "function": {
+          "type": "result"
+        },
+        "relation_to_previous": {
+          "type": "result",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "BUGS is going well.",
+            "source_id": "s11",
+            "role": "status_update"
+          },
+          {
+            "text": "And students are learning about plants.",
+            "source_id": "s14",
+            "role": "benefit"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "问题背景",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "解决方案",
+          "function": "body"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "积极影响",
+          "function": "conclusion"
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "巴尔的摩通过BUGS项目将城市空地变为花园，改善了环境并教育了学生。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "BUGS项目不仅美化了城市，还具有教育意义。",
+          "evidence": [
+            {
+              "source_id": "s12",
+              "span": "The city is becoming greener."
+            },
+            {
+              "source_id": "s14",
+              "span": "And students are learning about plants."
+            }
+          ],
+          "knowledge_bridge": "结合环境改善和教育成果，推断项目的双重价值。",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "市民和学生合作是项目成功的关键因素。",
+          "evidence": [
+            {
+              "source_id": "s7",
+              "span": "They worked with students."
+            },
+            {
+              "source_id": "s8",
+              "span": "Together, they started BUGS."
+            }
+          ],
+          "knowledge_bridge": "从“一起工作”和“共同启动”推断合作的重要性。",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "巴尔的摩通过BUGS项目将空地变成花园，改善了城市环境。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "城市里有很多高楼大厦和街道。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "学生喜欢学习关于植物的知识。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "很多人现在住在城市里。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪一个是第二段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "BUGS项目的开始",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "城市生活的缺点",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "植物的生长过程",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "公寓的居住体验",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "medium",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“BUGS项目让城市变得更绿”的句子。",
+        "answer": {
+          "source_ids": [
+            "s12"
+          ]
+        },
+        "candidate_source_ids": [
+          "s12",
+          "s13",
+          "s14",
+          "s11"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第二段是如何回应第一段提到的问题的？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "它描述了人们如何采取行动解决没有花园的问题。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "它解释了为什么城市建筑很多。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "它列举了公寓生活的优点。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "它介绍了巴尔的摩的历史。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完第二段后，你预测第三段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "BUGS项目带来的积极变化。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "为什么人们不喜欢城市。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "如何建造更高的公寓楼。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "巴尔的摩的旅游景点。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择说明BUGS代表什么的句子。",
+        "answer": {
+          "source_ids": [
+            "s9"
+          ]
+        },
+        "candidate_source_ids": [
+          "s9",
+          "s8",
+          "s10",
+          "s5"
+        ]
+      }
+    ]
+  }
+}

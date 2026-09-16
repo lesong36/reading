@@ -1,0 +1,410 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd5-02-Unit-2-Robot-Firefighters",
+    "title": "RFD 5 / Unit 2 Robot Firefighters",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Fighting fires is a dangerous and dirty job."
+          },
+          {
+            "id": "s2",
+            "text": "Brave people battle fires every day."
+          },
+          {
+            "id": "s3",
+            "text": "In the future, we’ll have robots to protect us."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "There are different firefighting robots."
+          },
+          {
+            "id": "s5",
+            "text": "One is small and can fit through doors."
+          },
+          {
+            "id": "s6",
+            "text": "A human controls it with a joystick."
+          },
+          {
+            "id": "s7",
+            "text": "Another is much bigger."
+          },
+          {
+            "id": "s8",
+            "text": "It sprays water 90 meters and"
+          },
+          {
+            "id": "s9",
+            "text": "fights huge fires."
+          },
+          {
+            "id": "s10",
+            "text": "One firefighting robot even has hands and a face."
+          },
+          {
+            "id": "s11",
+            "text": "It walks and carries a hose."
+          },
+          {
+            "id": "s12",
+            "text": "Scientists are now teaching it to talk."
+          },
+          {
+            "id": "s13",
+            "text": "Soon firefighters will have lots of robot helpers."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Problem with Firefighting"
+        },
+        "main_idea": {
+          "text": "Firefighting is a dangerous job, but robots will soon help protect us."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "Fighting fires is dangerous and dirty."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Robots will be used to protect people in the future."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "In the future",
+            "source_id": "s3",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Types of Firefighting Robots"
+        },
+        "main_idea": {
+          "text": "There are different kinds of firefighting robots, each with unique features to help firefighters."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5",
+              "s6"
+            ],
+            "meaning": "One small robot fits through doors and is controlled by a human."
+          },
+          {
+            "source_ids": [
+              "s8",
+              "s9"
+            ],
+            "meaning": "A large robot sprays water 90 meters to fight huge fires."
+          },
+          {
+            "source_ids": [
+              "s10",
+              "s11"
+            ],
+            "meaning": "A humanoid robot has hands, a face, and can carry a hose."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "There are different",
+            "source_id": "s4",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "One",
+            "source_id": "s5",
+            "role": "listing"
+          },
+          {
+            "text": "Another",
+            "source_id": "s7",
+            "role": "listing"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces the danger of firefighting and the future solution of robots."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Robot Descriptions",
+          "function": "Describes the specific features and functions of different firefighting robots."
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Robots are being developed to help firefighters by performing dangerous tasks in various ways."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Robots are designed to reduce the risk to human firefighters.",
+          "evidence": [
+            {
+              "source_id": "s1",
+              "span": "Fighting fires is a dangerous and dirty job."
+            },
+            {
+              "source_id": "s3",
+              "span": "In the future, we’ll have robots to protect us."
+            }
+          ],
+          "knowledge_bridge": "Connecting the danger of the job to the purpose of the new technology.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The robots are not all the same; they are built for different specific tasks.",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "One is small and can fit through doors."
+            },
+            {
+              "source_id": "s8",
+              "span": "It sprays water 90 meters"
+            }
+          ],
+          "knowledge_bridge": "Comparing the different physical traits to understand their different functions.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "机器人将如何帮助消防员灭火。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "消防员的工作非常危险。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "科学家正在教机器人说话。",
+            "role": "minor_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "未来所有的机器人都会变成人。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最好的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "不同的灭火机器人",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "为什么火很危险",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "如何控制一个机器人",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "机器人的历史",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“大机器人能喷很远的水”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s8"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s8",
+          "s11",
+          "s12"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段有什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段详细解释了第一段提到的机器人。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段反驳了第一段关于危险工作的说法。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段介绍了与机器人无关的新话题。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段重复了第一段的所有句子。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段，你预测第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "介绍具体的灭火机器人。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "讲述消防员如何训练。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "解释为什么火 is dirty. ",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "讨论机器人的价格. ",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明小机器人需要人来控制？",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s12"
+        ]
+      }
+    ]
+  }
+}

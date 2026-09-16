@@ -1,0 +1,510 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd4-02-Unit-2-The-Tomb-of-Tutankhamun",
+    "title": "RFD 4 / Unit 2 The Tomb of Tutankhamun",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "In 1922, Howard Carter was digging in Egypt."
+          },
+          {
+            "id": "s2",
+            "text": "He found something amazing."
+          },
+          {
+            "id": "s3",
+            "text": "It was the tomb of King Tutankhamun."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "There were many other tombs in Egypt."
+          },
+          {
+            "id": "s5",
+            "text": "But most had been opened."
+          },
+          {
+            "id": "s6",
+            "text": "This one was hidden from thieves."
+          },
+          {
+            "id": "s7",
+            "text": "Nothing was missing."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "The rooms were full of beautiful objects from 1300 BCE."
+          },
+          {
+            "id": "s9",
+            "text": "There were statues and paintings."
+          },
+          {
+            "id": "s10",
+            "text": "There was furniture and jars."
+          },
+          {
+            "id": "s11",
+            "text": "In the middle was a gold box."
+          },
+          {
+            "id": "s12",
+            "text": "It contained the mummy of the king."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s13",
+            "text": "Experts now study these objects to learn about ancient Egypt."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Discovery"
+        },
+        "main_idea": {
+          "text": "Howard Carter discovered the tomb of King Tutankhamun in 1922."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "The discovery happened in 1922 in Egypt."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "The specific find was the tomb of King Tutankhamun."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "In 1922",
+            "source_id": "s1",
+            "role": "time_marker"
+          },
+          {
+            "text": "found something amazing",
+            "source_id": "s2",
+            "role": "hook"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Why It Was Special"
+        },
+        "main_idea": {
+          "text": "The tomb was unique because it was hidden from thieves and nothing was missing."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "Most other tombs had already been opened."
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "This specific tomb was hidden from thieves."
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "All the original items were still inside."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "But",
+            "source_id": "s5",
+            "role": "contrast"
+          },
+          {
+            "text": "Nothing was missing",
+            "source_id": "s7",
+            "role": "conclusion"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "What Was Inside"
+        },
+        "main_idea": {
+          "text": "The tomb contained many beautiful objects from 1300 BCE, including the king's mummy."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "The objects date back to 1300 BCE."
+          },
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "The items included statues, paintings, furniture, and jars."
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s12"
+            ],
+            "meaning": "A gold box in the middle held the king's mummy."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "detail",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "full of",
+            "source_id": "s8",
+            "role": "description"
+          },
+          {
+            "text": "In the middle",
+            "source_id": "s11",
+            "role": "spatial_marker"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "Modern Importance"
+        },
+        "main_idea": {
+          "text": "Experts study the objects to learn about ancient Egypt."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "The objects help experts understand the past."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "implication",
+          "target": "p3"
+        },
+        "signals": [
+          {
+            "text": "now",
+            "source_id": "s13",
+            "role": "time_marker"
+          },
+          {
+            "text": "to learn",
+            "source_id": "s13",
+            "role": "purpose"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "The Discovery",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3"
+          ],
+          "label": "The Tomb's Contents",
+          "function": "body"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p4"
+          ],
+          "label": "Why It Matters",
+          "function": "conclusion"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Howard Carter's discovery of King Tutankhamun's intact tomb provides valuable objects for studying ancient Egypt."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The tomb was likely hidden by the ancient Egyptians to protect it from robbers.",
+          "evidence": [
+            {
+              "source_id": "s6",
+              "span": "hidden from thieves"
+            }
+          ],
+          "knowledge_bridge": "Understanding that ancient Egyptians valued their tombs and took steps to secure them.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The objects found in the tomb are important because they are original and untouched.",
+          "evidence": [
+            {
+              "source_id": "s7",
+              "span": "Nothing was missing"
+            },
+            {
+              "source_id": "s13",
+              "span": "study these objects to learn"
+            }
+          ],
+          "knowledge_bridge": "Connecting the condition of the artifacts to their historical value for researchers.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Howard Carter发现了一座保存完好的法老墓。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "埃及有很多美丽的雕像和画。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "Howard Carter在1922年去埃及旅行。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "古代埃及人如何制作木乃伊。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第三段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "墓里有什么",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Howard Carter是谁",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么墓被偷了",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "埃及的历史",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“这个墓没有被小偷打开过”？",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "解释为什么这个发现很特别",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "重复第一段的内容",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "介绍Howard Carter的童年",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "总结整篇文章",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第三段，你觉得第四段可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "这些物品对现代研究有什么帮助",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Howard Carter如何回家",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "法老Tutankhamun的日常生活",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "如何建造金字塔",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话告诉我们墓里的物品来自1300 BCE？",
+        "answer": {
+          "source_ids": [
+            "s8"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s9",
+          "s10",
+          "s11"
+        ]
+      }
+    ]
+  }
+}

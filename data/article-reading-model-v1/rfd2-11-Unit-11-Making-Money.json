@@ -1,0 +1,367 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd2-11-Unit-11-Making-Money",
+    "title": "Unit 11 Making Money",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Long ago, money was coins."
+          },
+          {
+            "id": "s2",
+            "text": "The coins were made of gold and silver."
+          },
+          {
+            "id": "s3",
+            "text": "Gold and silver are valuable."
+          },
+          {
+            "id": "s4",
+            "text": "Today, money is made of paper, too."
+          },
+          {
+            "id": "s5",
+            "text": "Paper is not valuable."
+          },
+          {
+            "id": "s6",
+            "text": "But paper money works."
+          },
+          {
+            "id": "s7",
+            "text": "How?"
+          },
+          {
+            "id": "s8",
+            "text": "Governments print paper money."
+          },
+          {
+            "id": "s9",
+            "text": "They don’t want people to print fake money."
+          },
+          {
+            "id": "s10",
+            "text": "So they make money special."
+          },
+          {
+            "id": "s11",
+            "text": "It has art on it."
+          },
+          {
+            "id": "s12",
+            "text": "The art has many details."
+          },
+          {
+            "id": "s13",
+            "text": "It’s hard to print."
+          },
+          {
+            "id": "s14",
+            "text": "Some money has holograms."
+          },
+          {
+            "id": "s15",
+            "text": "These are very hard to make."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Money Evolution"
+        },
+        "main_idea": {
+          "text": "Money has changed from valuable metals to paper, which governments make hard to copy."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2"
+            ],
+            "meaning": "Ancient money was made of gold and silver."
+          },
+          {
+            "source_ids": [
+              "s4",
+              "s5"
+            ],
+            "meaning": "Modern paper money is not inherently valuable."
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s14"
+            ],
+            "meaning": "Paper money features complex art and holograms to prevent counterfeiting."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Long ago",
+            "source_id": "s1",
+            "role": "time_marker"
+          },
+          {
+            "text": "Today",
+            "source_id": "s4",
+            "role": "time_marker"
+          },
+          {
+            "text": "How?",
+            "source_id": "s7",
+            "role": "transition"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "History and Security of Money",
+          "function": "Explain the shift from metal to paper money and how paper money is secured."
+        }
+      ],
+      "structure": {
+        "type": "cause_and_effect"
+      },
+      "central_idea": {
+        "text": "Paper money works because governments add complex features to prevent fake copies."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "People trust paper money because it is difficult to fake, not because the paper itself is worth much.",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "Paper is not valuable."
+            },
+            {
+              "source_id": "s13",
+              "span": "It’s hard to print."
+            }
+          ],
+          "knowledge_bridge": "Understanding that value can come from trust and security rather than material worth.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Holograms are used on money because they are difficult for ordinary printers to reproduce.",
+          "evidence": [
+            {
+              "source_id": "s14",
+              "span": "Some money has holograms."
+            },
+            {
+              "source_id": "s15",
+              "span": "These are very hard to make."
+            }
+          ],
+          "knowledge_bridge": "Connecting technical difficulty to the purpose of preventing fraud.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "纸币为什么能代替金币使用",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "黄金和白银的历史",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "如何 to make holograms",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "The history of all currencies",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "给这段文字选一个最合适的标题。",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Why Paper Money Works",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Gold and Silver Coins",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "How to Print Fake Money",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "Art on Banknotes",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明了纸币本身没有价值？",
+        "answer": {
+          "source_ids": [
+            "s5"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s5",
+          "s6",
+          "s10"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "“How?” 这句话在文中起什么作用？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "引出下文对纸币防伪措施的解释",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "总结前文关于金币的内容",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "提出一个无法回答的问题",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "介绍政府的职责",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完“Paper is not valuable. But paper money works.”后，作者接下来最可能讨论什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Why people trust paper money",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "How to burn paper money",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "The price of gold today",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "Why coins are better than paper",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "找出说明全息图很难制作的句子。",
+        "answer": {
+          "source_ids": [
+            "s15"
+          ]
+        },
+        "candidate_source_ids": [
+          "s12",
+          "s13",
+          "s14",
+          "s15"
+        ]
+      }
+    ]
+  }
+}

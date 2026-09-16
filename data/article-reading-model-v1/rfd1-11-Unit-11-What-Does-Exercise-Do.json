@@ -1,0 +1,480 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd1-11-Unit-11-What-Does-Exercise-Do",
+    "title": "Unit 11 What Does Exercise Do?",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "It’s time to exercise."
+          },
+          {
+            "id": "s2",
+            "text": "What does your body do?"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s3",
+            "text": "Your muscles use the food you eat."
+          },
+          {
+            "id": "s4",
+            "text": "They use food and oxygen to move."
+          },
+          {
+            "id": "s5",
+            "text": "You move your muscles more."
+          },
+          {
+            "id": "s6",
+            "text": "You breathe harder."
+          },
+          {
+            "id": "s7",
+            "text": "Your body needs more oxygen."
+          },
+          {
+            "id": "s8",
+            "text": "Your heart moves faster."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "Blood carries oxygen around your body."
+          },
+          {
+            "id": "s10",
+            "text": "More blood helps your muscles."
+          },
+          {
+            "id": "s11",
+            "text": "It also helps your brain."
+          },
+          {
+            "id": "s12",
+            "text": "Exercise can improve your mood."
+          },
+          {
+            "id": "s13",
+            "text": "It helps your body and mind."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction to Exercise"
+        },
+        "main_idea": {
+          "text": "The text introduces the topic of exercise and asks what happens to the body during it."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "It is time to start exercising."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "The text poses a question about the body's reaction to exercise."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "It’s time to exercise.",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "What does your body do?",
+            "source_id": "s2",
+            "role": "question_hook"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Physical Changes in the Body"
+        },
+        "main_idea": {
+          "text": "During exercise, muscles use food and oxygen to move, causing the body to breathe harder and the heart to beat faster."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3",
+              "s4"
+            ],
+            "meaning": "Muscles require food and oxygen to function and move."
+          },
+          {
+            "source_ids": [
+              "s5",
+              "s6",
+              "s7"
+            ],
+            "meaning": "Increased muscle activity leads to harder breathing and a greater need for oxygen."
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "The heart beats faster to support the increased activity."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "answers_question",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Your muscles use the food you eat.",
+            "source_id": "s3",
+            "role": "cause"
+          },
+          {
+            "text": "You breathe harder.",
+            "source_id": "s6",
+            "role": "effect"
+          },
+          {
+            "text": "Your heart moves faster.",
+            "source_id": "s8",
+            "role": "effect"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Benefits of Exercise"
+        },
+        "main_idea": {
+          "text": "Exercise improves the body and mind by increasing blood flow, which helps muscles and the brain, and can improve mood."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9",
+              "s10"
+            ],
+            "meaning": "Blood carries oxygen, and more blood flow helps muscles."
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s12"
+            ],
+            "meaning": "Increased blood flow also helps the brain and can improve mood."
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "Exercise is beneficial for both the body and the mind."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "expands_on",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Blood carries oxygen around your body.",
+            "source_id": "s9",
+            "role": "explanation"
+          },
+          {
+            "text": "Exercise can improve your mood.",
+            "source_id": "s12",
+            "role": "benefit"
+          },
+          {
+            "text": "It helps your body and mind.",
+            "source_id": "s13",
+            "role": "summary"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces the topic of exercise and poses a question about the body's response."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Physical Changes",
+          "function": "Explains how muscles, breathing, and the heart change during exercise."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Benefits",
+          "function": "Describes the benefits of exercise for the body and mind."
+        }
+      ],
+      "structure": {
+        "type": "cause_and_effect"
+      },
+      "central_idea": {
+        "text": "Exercise causes physical changes in the body, such as faster breathing and heart rate, and provides benefits to both the body and mind."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Exercise is good for your brain because it increases blood flow.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "It also helps your brain."
+            }
+          ],
+          "knowledge_bridge": "Connecting blood flow to brain function.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Your heart beats faster during exercise to pump more oxygen to your muscles.",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "Your heart moves faster."
+            },
+            {
+              "source_id": "s10",
+              "span": "More blood helps your muscles."
+            }
+          ],
+          "knowledge_bridge": "Linking heart rate to oxygen delivery.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "What is the main idea of the whole text?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Exercise changes your body and helps your mind.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Your muscles use food to move.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "It is time to exercise.",
+            "role": "minor_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "Exercise is fun.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Which heading best fits paragraph 2?",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "How Your Body Changes",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "Why Exercise is Fun",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt7",
+            "text": "What to Eat Before Exercise",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt8",
+            "text": "The History of Exercise",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "Select the sentence that explains why you breathe harder during exercise.",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "How does paragraph 3 connect to paragraph 2?",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "It explains the benefits of the changes described in paragraph 2.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "It repeats the same information as paragraph 2.",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "It introduces a new topic about food.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt12",
+            "text": "It asks a question about exercise.",
+            "role": "minor_detail"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "After reading paragraph 1, what do you think the next paragraph will be about?",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "What happens to your body when you exercise.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "How to make a healthy snack.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt15",
+            "text": "The rules of a sports game.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt16",
+            "text": "Why you should sleep more.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "medium",
+        "interaction": "select_sentence",
+        "prompt": "Select the sentence that shows exercise helps your brain.",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s9",
+          "s10",
+          "s11",
+          "s12"
+        ]
+      }
+    ]
+  }
+}

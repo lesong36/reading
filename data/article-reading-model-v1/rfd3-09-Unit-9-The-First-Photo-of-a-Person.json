@@ -1,0 +1,409 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd3-09-Unit-9-The-First-Photo-of-a-Person",
+    "title": "Unit 9 The First Photo of a Person",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "In the past, taking a photograph took a long time."
+          },
+          {
+            "id": "s2",
+            "text": "In 1838, Louis Daguerre experimented with a new camera."
+          },
+          {
+            "id": "s3",
+            "text": "This camera was fast."
+          },
+          {
+            "id": "s4",
+            "text": "It took only 10 minutes to take a picture."
+          },
+          {
+            "id": "s5",
+            "text": "He took a picture of a street."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "The people on the street moved too fast."
+          },
+          {
+            "id": "s7",
+            "text": "They disappeared from the photograph."
+          },
+          {
+            "id": "s8",
+            "text": "Only one man stood still long enough."
+          },
+          {
+            "id": "s9",
+            "text": "He was having his shoes cleaned."
+          },
+          {
+            "id": "s10",
+            "text": "He was the first person ever photographed."
+          },
+          {
+            "id": "s11",
+            "text": "But no one knows who he was."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The New Camera"
+        },
+        "main_idea": {
+          "text": "Louis Daguerre used a new, fast camera to take a picture of a street in 1838."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2",
+              "s3"
+            ],
+            "meaning": "Daguerre experimented with a camera that was much faster than previous ones."
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "The new camera required only 10 minutes to capture an image."
+          },
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "The subject of the photograph was a street scene."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "In the past",
+            "source_id": "s1",
+            "role": "context_setting"
+          },
+          {
+            "text": "In 1838",
+            "source_id": "s2",
+            "role": "time_marker"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The First Person"
+        },
+        "main_idea": {
+          "text": "A man getting his shoes cleaned was the first person ever photographed because he stood still long enough."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6",
+              "s7"
+            ],
+            "meaning": "Most people on the street moved too quickly to appear in the photo."
+          },
+          {
+            "source_ids": [
+              "s8",
+              "s9"
+            ],
+            "meaning": "One man remained stationary while having his shoes cleaned."
+          },
+          {
+            "source_ids": [
+              "s10",
+              "s11"
+            ],
+            "meaning": "This man became the first photographed person, though his identity is unknown."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "cause_and_effect",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Only one man",
+            "source_id": "s8",
+            "role": "focus_marker"
+          },
+          {
+            "text": "But",
+            "source_id": "s11",
+            "role": "contrast_marker"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "The Experiment",
+          "function": "Introduces the context and the specific event of taking the photo."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "The Result",
+          "function": "Explains why only one person appeared and identifies him as the first."
+        }
+      ],
+      "structure": {
+        "type": "sequence"
+      },
+      "central_idea": {
+        "text": "The first photograph of a person was taken in 1838 by Louis Daguerre, featuring a man getting his shoes cleaned."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The camera technology in 1838 was not fast enough to capture moving people clearly.",
+          "evidence": [
+            {
+              "source_id": "s6",
+              "span": "moved too fast"
+            },
+            {
+              "source_id": "s7",
+              "span": "disappeared from the photograph"
+            }
+          ],
+          "knowledge_bridge": "Understanding that early cameras required long exposure times.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The man in the photo likely did not know he was being photographed or that it was a historic moment.",
+          "evidence": [
+            {
+              "source_id": "s9",
+              "span": "having his shoes cleaned"
+            },
+            {
+              "source_id": "s11",
+              "span": "no one knows who he was"
+            }
+          ],
+          "knowledge_bridge": "Inferring the casual nature of the event and the lack of historical record for the subject.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "1838年，路易·达盖尔拍下了第一张人物照片。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "过去拍照需要很长时间。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "没有人知道那个擦鞋的人是谁。",
+            "role": "minor_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "相机是如何发明的。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最合适的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第一个被拍照的人",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "达盖尔的相机",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "繁忙的街道",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "如何清洁鞋子",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明了为什么街上其他人没有出现在照片里？",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s4",
+          "s6",
+          "s8",
+          "s10"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段解释了第一段中照片的结果。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段介绍了达盖尔的生平。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段批评了达盖尔的相机。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段讲述了现代摄影技术。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你预测第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "照片里具体有什么人或物。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "达盖尔如何制造相机零件。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么人们不喜欢拍照。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "1838年的天气情况。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话证明那个男人是第一个被拍照的人？",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s8",
+          "s10",
+          "s11"
+        ]
+      }
+    ]
+  }
+}

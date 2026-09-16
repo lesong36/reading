@@ -1,0 +1,461 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd2-14-Unit-14-Eat-Your-Instruments",
+    "title": "Unit 14 Eat Your Instruments",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Do you like the piano?"
+          },
+          {
+            "id": "s2",
+            "text": "What about the guitar?"
+          },
+          {
+            "id": "s3",
+            "text": "Do you like the Drum?"
+          },
+          {
+            "id": "s4",
+            "text": "What about an onion?"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "A group in Austria makes special music."
+          },
+          {
+            "id": "s6",
+            "text": "They make music with vegetables."
+          },
+          {
+            "id": "s7",
+            "text": "First, they shop for vegetables."
+          },
+          {
+            "id": "s8",
+            "text": "Then they cut the vegetables."
+          },
+          {
+            "id": "s9",
+            "text": "They cut them into instruments."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s10",
+            "text": "Some of the instruments are easy to make."
+          },
+          {
+            "id": "s11",
+            "text": "Some of them are hard."
+          },
+          {
+            "id": "s12",
+            "text": "The group works hard to make them sound good."
+          },
+          {
+            "id": "s13",
+            "text": "Then they have a vegetable concert!"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction"
+        },
+        "main_idea": {
+          "text": "The author asks the reader about their preferences for musical instruments and food."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2",
+              "s3"
+            ],
+            "meaning": "The author lists common musical instruments like the piano, guitar, and drum."
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "The author introduces an onion, which is a vegetable, not an instrument."
+          }
+        ],
+        "function": {
+          "type": "hook"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Do you like",
+            "source_id": "s1",
+            "role": "engagement"
+          },
+          {
+            "text": "What about an onion?",
+            "source_id": "s4",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The Vegetable Band"
+        },
+        "main_idea": {
+          "text": "A group in Austria creates music by turning vegetables into instruments."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5",
+              "s6"
+            ],
+            "meaning": "The group is from Austria and uses vegetables to make music."
+          },
+          {
+            "source_ids": [
+              "s7",
+              "s8",
+              "s9"
+            ],
+            "meaning": "The process involves shopping for, cutting, and shaping vegetables into instruments."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "A group in Austria",
+            "source_id": "s5",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "First, they shop",
+            "source_id": "s7",
+            "role": "sequence_marker"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "The Concert"
+        },
+        "main_idea": {
+          "text": "The group works hard to make the vegetable instruments sound good and performs a concert."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s10",
+              "s11"
+            ],
+            "meaning": "Making the instruments is a mix of easy and difficult tasks."
+          },
+          {
+            "source_ids": [
+              "s12",
+              "s13"
+            ],
+            "meaning": "The group's hard work leads to a successful vegetable concert."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "consequence",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "The group works hard",
+            "source_id": "s12",
+            "role": "effort"
+          },
+          {
+            "text": "Then they have a vegetable concert!",
+            "source_id": "s13",
+            "role": "conclusion"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "hook"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "The Process",
+          "function": "explanation"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "The Result",
+          "function": "conclusion"
+        }
+      ],
+      "structure": {
+        "type": "sequence"
+      },
+      "central_idea": {
+        "text": "A group in Austria makes music by turning vegetables into instruments and performing a concert."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The group is creative and dedicated to their unique musical project.",
+          "evidence": [
+            {
+              "source_id": "s12",
+              "span": "The group works hard to make them sound good."
+            }
+          ],
+          "knowledge_bridge": "Understanding that 'working hard' implies dedication and effort.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The instruments are not standard, so they require special effort to produce good sound.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "Some of them are hard."
+            },
+            {
+              "source_id": "s12",
+              "span": "The group works hard to make them sound good."
+            }
+          ],
+          "knowledge_bridge": "Connecting the difficulty of the task to the need for effort to achieve a specific outcome.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "一个奥地利乐队用蔬菜制作乐器并举办音乐会。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何 to cut an onion into pieces.",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "Pianos and guitars are the best instruments.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "Vegetables are healthy to eat.",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段（p2）的最佳标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "制作蔬菜乐器",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "去超市购物",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么洋葱很美味",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "音乐会的观众",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话支持了“他们把蔬菜切成乐器”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s9"
+          ]
+        },
+        "candidate_source_ids": [
+          "s7",
+          "s8",
+          "s9",
+          "s10"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第一段（p1）和第二段（p2）之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第一段提出问题，第二段给出答案。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第一段是结论，第二段是开头。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "两段内容完全无关。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第一段描述蔬菜，第二段描述乐器。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第二段后，你觉得第三段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "他们如何演奏这些乐器以及结果如何。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "蔬菜的价格在超市里。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么 onions are bad for music.",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "How to cook a piano.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "找出说明“制作乐器有难有易”的句子。",
+        "answer": {
+          "source_ids": [
+            "s10",
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s11",
+          "s12",
+          "s13"
+        ]
+      }
+    ]
+  }
+}

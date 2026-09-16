@@ -1,0 +1,469 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd1-16-Unit-16-Faster-Faster",
+    "title": "Unit 16 Faster! Faster!",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Before cars, people rode horses."
+          },
+          {
+            "id": "s2",
+            "text": "Horses are fast."
+          },
+          {
+            "id": "s3",
+            "text": "A horse and rider can go 45 kilometers (km) an hour."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "But riding horses is difficult in cities."
+          },
+          {
+            "id": "s5",
+            "text": "It is dangerous, too."
+          },
+          {
+            "id": "s6",
+            "text": "And horses make a mess."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s7",
+            "text": "In 1885, people made the first gasoline car."
+          },
+          {
+            "id": "s8",
+            "text": "It went 16 km an hour."
+          },
+          {
+            "id": "s9",
+            "text": "Soon, cars were faster than horses."
+          },
+          {
+            "id": "s10",
+            "text": "They went 80 km an hour."
+          },
+          {
+            "id": "s11",
+            "text": "How fast can cars go today?"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Horse Speed"
+        },
+        "main_idea": {
+          "text": "Before cars, horses were the fast mode of transport, reaching speeds of 45 km/h."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "Horses were the primary transport before cars."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "A horse and rider can travel at 45 km/h."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Before cars",
+            "source_id": "s1",
+            "role": "temporal_marker"
+          },
+          {
+            "text": "45 kilometers (km) an hour",
+            "source_id": "s3",
+            "role": "specific_data"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Horse Problems"
+        },
+        "main_idea": {
+          "text": "Riding horses in cities was difficult, dangerous, and messy."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "Horse riding is hard in urban areas."
+          },
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "It poses safety risks."
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "Horses create waste/mess."
+          }
+        ],
+        "function": {
+          "type": "problem_statement"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "But",
+            "source_id": "s4",
+            "role": "contrast_marker"
+          },
+          {
+            "text": "too",
+            "source_id": "s5",
+            "role": "addition_marker"
+          },
+          {
+            "text": "And",
+            "source_id": "s6",
+            "role": "addition_marker"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Car Evolution"
+        },
+        "main_idea": {
+          "text": "Gasoline cars were invented in 1885 and quickly became faster than horses, leading to modern speeds."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "The first gasoline car was made in 1885."
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "Cars soon reached 80 km/h, surpassing horses."
+          }
+        ],
+        "function": {
+          "type": "solution_and_conclusion"
+        },
+        "relation_to_previous": {
+          "type": "solution",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "In 1885",
+            "source_id": "s7",
+            "role": "temporal_marker"
+          },
+          {
+            "text": "Soon",
+            "source_id": "s9",
+            "role": "temporal_marker"
+          },
+          {
+            "text": "faster than",
+            "source_id": "s9",
+            "role": "comparison_marker"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "The Age of Horses",
+          "function": "Introduce the previous standard of speed."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Problems with Horses",
+          "function": "Explain why a new transport was needed."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "The Rise of Cars",
+          "function": "Describe the invention and speed advantage of cars."
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "Cars replaced horses as the primary fast transport because they were safer, cleaner, and eventually much faster."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "People likely preferred cars over horses for city travel because cars solved the mess and danger issues.",
+          "evidence": [
+            {
+              "source_id": "s4",
+              "span": "difficult in cities"
+            },
+            {
+              "source_id": "s6",
+              "span": "make a mess"
+            },
+            {
+              "source_id": "s9",
+              "span": "cars were faster"
+            }
+          ],
+          "knowledge_bridge": "Connecting the problems listed in p2 with the solution in p3.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The first gasoline car was not immediately faster than a horse.",
+          "evidence": [
+            {
+              "source_id": "s3",
+              "span": "45 kilometers (km) an hour"
+            },
+            {
+              "source_id": "s8",
+              "span": "16 km an hour"
+            }
+          ],
+          "knowledge_bridge": "Comparing numerical data from p1 and p3.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "汽车如何取代马匹成为更快的交通工具",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "马匹跑得很快，每小时45公里",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "1885年发明了第一辆汽油车",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "城市里的交通历史",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段（p2）的最佳标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "马匹在城市中的问题",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "马匹的速度",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "汽车的发明",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "马匹很危险",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“马匹在城市里不好用”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s4"
+          ]
+        },
+        "candidate_source_ids": [
+          "s2",
+          "s4",
+          "s7",
+          "s10"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第二段（p2）和第三段（p3）之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "问题与解决方案",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "举例说明",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "时间顺序",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "对比不同动物",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完第一段（p1）后，你觉得第二段可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "马匹作为交通工具的缺点",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "汽车的具体制造过程",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "马匹的饮食习性",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "现代汽车的最高速度",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话证明了汽车比马匹快？",
+        "answer": {
+          "source_ids": [
+            "s9"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s8",
+          "s9",
+          "s10"
+        ]
+      }
+    ]
+  }
+}

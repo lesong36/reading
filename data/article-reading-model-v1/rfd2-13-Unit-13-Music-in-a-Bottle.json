@@ -1,0 +1,429 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd2-13-Unit-13-Music-in-a-Bottle",
+    "title": "Unit 13 Music in a Bottle",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Glass bottles can make music."
+          },
+          {
+            "id": "s2",
+            "text": "Blow across the top of a bottle."
+          },
+          {
+            "id": "s3",
+            "text": "The air inside moves, and it makes a note."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "A song is made from many notes."
+          },
+          {
+            "id": "s5",
+            "text": "So to play a song, you need many bottles."
+          },
+          {
+            "id": "s6",
+            "text": "Put different amounts of water in each bottle."
+          },
+          {
+            "id": "s7",
+            "text": "Each bottle has a different amount of air."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "Bottles with more air make lower notes."
+          },
+          {
+            "id": "s9",
+            "text": "Bottles with less air make higher notes."
+          },
+          {
+            "id": "s10",
+            "text": "Now you can play a song!"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "How bottles make sound"
+        },
+        "main_idea": {
+          "text": "Glass bottles can produce musical notes when air moves inside them."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "Blowing across the top initiates the sound."
+          },
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Moving air inside creates the note."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Glass bottles can make music.",
+            "source_id": "s1",
+            "role": "topic_sentence"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Creating a song"
+        },
+        "main_idea": {
+          "text": "Playing a song requires multiple bottles with varying air levels to produce different notes."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "Many bottles are needed for a full song."
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "Water levels are adjusted to change the air amount."
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "Different air amounts result in different pitches."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "expansion",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "So to play a song, you need many bottles.",
+            "source_id": "s5",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Pitch and air volume"
+        },
+        "main_idea": {
+          "text": "The amount of air in a bottle determines whether the note is high or low."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "More air creates lower notes."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "Less air creates higher notes."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "clarification",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Now you can play a song!",
+            "source_id": "s10",
+            "role": "concluding_statement"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction to Bottle Music",
+          "function": "Introduces the concept that bottles can make music."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3"
+          ],
+          "label": "How to Play a Song",
+          "function": "Explains the method of varying air levels to create different notes for a song."
+        }
+      ],
+      "structure": {
+        "type": "sequence"
+      },
+      "central_idea": {
+        "text": "By adjusting the amount of air in glass bottles, you can create different notes to play a song."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "To play a specific melody, one must carefully control the water level in each bottle.",
+          "evidence": [
+            {
+              "source_id": "s6",
+              "span": "Put different amounts of water in each bottle."
+            },
+            {
+              "source_id": "s8",
+              "span": "Bottles with more air make lower notes."
+            }
+          ],
+          "knowledge_bridge": "Connecting the physical setup (water/air) to the musical outcome (pitch).",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "A bottle with no water at all would produce the lowest possible note in this setup.",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "Bottles with more air make lower notes."
+            },
+            {
+              "source_id": "s7",
+              "span": "Each bottle has a different amount of air."
+            }
+          ],
+          "knowledge_bridge": "Applying the rule of air volume to an extreme case (maximum air).",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "如何用瓶子演奏音乐",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "玻璃瓶的历史",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "水的化学成分",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "吹口哨的技巧",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "第二段最适合的标题是？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "准备瓶子",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "瓶子的颜色",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "如何喝水",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "空气的重量",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "medium",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“瓶子需要不同量的空气”？",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s2",
+          "s7",
+          "s9",
+          "s10"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第三段解释了第二段中提到的什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "空气量如何影响音调",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何清洗瓶子",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "瓶子的形状",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "水的温度",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你预测接下来会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "如何制作不同的音符",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "瓶子的价格",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "玻璃的硬度",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "如何 break a bottle",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "找出说明“空气少音调高”的句子。",
+        "answer": {
+          "source_ids": [
+            "s9"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s9",
+          "s1",
+          "s4"
+        ]
+      }
+    ]
+  }
+}

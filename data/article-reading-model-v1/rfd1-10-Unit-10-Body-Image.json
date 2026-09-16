@@ -1,0 +1,454 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd1-10-Unit-10-Body-Image",
+    "title": "Unit 10 Body Image",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Do you like your body?"
+          },
+          {
+            "id": "s2",
+            "text": "Many people say no."
+          },
+          {
+            "id": "s3",
+            "text": "They compare themselves to others."
+          },
+          {
+            "id": "s4",
+            "text": "They see beautiful people in magazines."
+          },
+          {
+            "id": "s5",
+            "text": "Then they feel bad."
+          },
+          {
+            "id": "s6",
+            "text": "Most people don’t look like that."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s7",
+            "text": "These pictures aren’t real."
+          },
+          {
+            "id": "s8",
+            "text": "People change them with computers."
+          },
+          {
+            "id": "s9",
+            "text": "No one looks like that!"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s10",
+            "text": "How you look does not matter."
+          },
+          {
+            "id": "s11",
+            "text": "How you feel does."
+          },
+          {
+            "id": "s12",
+            "text": "Think about the things that can make you feel good."
+          },
+          {
+            "id": "s13",
+            "text": "Then do more of those things!"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Problem of Body Image"
+        },
+        "main_idea": {
+          "text": "Many people feel bad about their bodies because they compare themselves to unrealistic images in magazines."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3",
+              "s4"
+            ],
+            "meaning": "People compare themselves to beautiful people in magazines."
+          },
+          {
+            "source_ids": [
+              "s5",
+              "s6"
+            ],
+            "meaning": "This comparison makes them feel bad because most people don't look like the magazine models."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Do you like your body?",
+            "source_id": "s1",
+            "role": "hook"
+          },
+          {
+            "text": "Many people say no.",
+            "source_id": "s2",
+            "role": "topic_statement"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The Truth About Magazine Photos"
+        },
+        "main_idea": {
+          "text": "Magazine pictures are not real because they are changed with computers."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "People use computers to change the pictures."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "No one actually looks like the people in the pictures."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "explains",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "These pictures aren’t real.",
+            "source_id": "s7",
+            "role": "topic_statement"
+          },
+          {
+            "text": "No one looks like that!",
+            "source_id": "s9",
+            "role": "emphasis"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Focusing on Feelings"
+        },
+        "main_idea": {
+          "text": "How you feel is more important than how you look, so you should do things that make you feel good."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s10",
+              "s11"
+            ],
+            "meaning": "How you look doesn't matter as much as how you feel."
+          },
+          {
+            "source_ids": [
+              "s12",
+              "s13"
+            ],
+            "meaning": "You should think about and do things that make you feel good."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "solves",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "How you look does not matter.",
+            "source_id": "s10",
+            "role": "topic_statement"
+          },
+          {
+            "text": "Then do more of those things!",
+            "source_id": "s13",
+            "role": "call_to_action"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "The Problem",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "The Truth",
+          "function": "explanation"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "The Solution",
+          "function": "conclusion"
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "People shouldn't feel bad about their bodies because magazine pictures are fake, and they should focus on doing things that make them feel good."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Magazine models are not real people.",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "People change them with computers."
+            }
+          ],
+          "knowledge_bridge": "Understanding that digital editing can alter a person's appearance.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The author wants readers to be happy with themselves.",
+          "evidence": [
+            {
+              "source_id": "s13",
+              "span": "Then do more of those things!"
+            }
+          ],
+          "knowledge_bridge": "Recognizing the author's purpose in giving advice.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要想告诉我们什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "我们应该关注自己的感受，而不是杂志上虚假的图片。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "杂志上的图片都是用电脑修改过的。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "很多人不喜欢自己的身体。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "电脑可以改变人的外貌。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段（p2）最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "图片的秘密",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何变漂亮",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "电脑很厉害",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "人们不喜欢自己",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话支持了“杂志上的图片不是真实的”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s8"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s8",
+          "s10",
+          "s12"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段（p2）和第一段（p1）之间是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段解释了第一段中提到的“图片”为什么让人产生错觉。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段提出了一个新的问题。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段反驳了第一段的所有观点。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段重复了第一段的内容。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第二段后，你觉得第三段（p3）会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "作者会告诉读者应该怎么做来让自己感觉更好。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "作者会介绍更多电脑修图的技术。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "作者会批评杂志公司。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "作者会建议读者去整容。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话直接告诉读者“外表不重要，感受才重要”？",
+        "answer": {
+          "source_ids": [
+            "s10",
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s1",
+          "s10",
+          "s11",
+          "s13"
+        ]
+      }
+    ]
+  }
+}

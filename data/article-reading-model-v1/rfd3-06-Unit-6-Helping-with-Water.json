@@ -1,0 +1,493 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd3-06-Unit-6-Helping-with-Water",
+    "title": "Unit 6 Helping with Water",
+    "text_type": "narrative",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "People need fresh water to live."
+          },
+          {
+            "id": "s2",
+            "text": "Many people do not have fresh water."
+          },
+          {
+            "id": "s3",
+            "text": "They often get sick."
+          },
+          {
+            "id": "s4",
+            "text": "Sometimes they die."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s5",
+            "text": "Ryan Hreljac wanted to help."
+          },
+          {
+            "id": "s6",
+            "text": "He saved money to dig a well."
+          },
+          {
+            "id": "s7",
+            "text": "Wells help people get fresh water."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s8",
+            "text": "Ryan saved $70."
+          },
+          {
+            "id": "s9",
+            "text": "This was a lot of money for a six-year-old."
+          },
+          {
+            "id": "s10",
+            "text": "But it wasn’t enough."
+          },
+          {
+            "id": "s11",
+            "text": "Ryan didn’t give up."
+          },
+          {
+            "id": "s12",
+            "text": "He worked harder."
+          },
+          {
+            "id": "s13",
+            "text": "He asked other people to help."
+          },
+          {
+            "id": "s14",
+            "text": "Soon, he had over $800,000."
+          },
+          {
+            "id": "s15",
+            "text": "Now he could help many people!"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Water Problem"
+        },
+        "main_idea": {
+          "text": "Many people lack fresh water, which causes sickness and death."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "Fresh water is essential for survival."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "A large number of people do not have access to fresh water."
+          },
+          {
+            "source_ids": [
+              "s3",
+              "s4"
+            ],
+            "meaning": "Lack of fresh water leads to illness and sometimes death."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "People need fresh water to live.",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "Many people do not have fresh water.",
+            "source_id": "s2",
+            "role": "problem_statement"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Ryan's Goal"
+        },
+        "main_idea": {
+          "text": "Ryan Hreljac decided to help by saving money to dig a well."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "Ryan wanted to help people without fresh water."
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "He planned to save money to dig a well."
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "Wells provide fresh water to people."
+          }
+        ],
+        "function": {
+          "type": "development"
+        },
+        "relation_to_previous": {
+          "type": "response",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Ryan Hreljac wanted to help.",
+            "source_id": "s5",
+            "role": "character_introduction"
+          },
+          {
+            "text": "He saved money to dig a well.",
+            "source_id": "s6",
+            "role": "action_statement"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Overcoming Obstacles"
+        },
+        "main_idea": {
+          "text": "Ryan worked hard and asked for help to raise enough money to help many people."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s8",
+              "s9"
+            ],
+            "meaning": "Ryan saved $70, which was a lot for a six-year-old, but it wasn't enough."
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s12",
+              "s13"
+            ],
+            "meaning": "Ryan didn't give up; he worked harder and asked others to help."
+          },
+          {
+            "source_ids": [
+              "s14",
+              "s15"
+            ],
+            "meaning": "He raised over $800,000 and could help many people."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "continuation",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "But it wasn’t enough.",
+            "source_id": "s10",
+            "role": "obstacle"
+          },
+          {
+            "text": "Ryan didn’t give up.",
+            "source_id": "s11",
+            "role": "turning_point"
+          },
+          {
+            "text": "Now he could help many people!",
+            "source_id": "s15",
+            "role": "resolution"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "The Problem",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "The Plan",
+          "function": "development"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "The Solution",
+          "function": "conclusion"
+        }
+      ],
+      "structure": {
+        "type": "narrative"
+      },
+      "central_idea": {
+        "text": "Ryan Hreljac worked hard and asked for help to raise money to dig wells and provide fresh water to people in need."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Ryan was determined to help people.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "Ryan didn’t give up."
+            },
+            {
+              "source_id": "s12",
+              "span": "He worked harder."
+            }
+          ],
+          "knowledge_bridge": "Understanding that not giving up and working harder shows determination.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Asking for help was important for Ryan to reach his goal.",
+          "evidence": [
+            {
+              "source_id": "s13",
+              "span": "He asked other people to help."
+            },
+            {
+              "source_id": "s14",
+              "span": "Soon, he had over $800,000."
+            }
+          ],
+          "knowledge_bridge": "Recognizing that collaboration can lead to achieving large goals.",
+          "difficulty": "medium"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "What is the main idea of the first paragraph?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "Many people lack fresh water, which causes sickness and death.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "People need fresh water to live.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "Ryan wanted to help people.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "Wells help people get fresh water.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Which heading best fits the third paragraph?",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "Overcoming Obstacles",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "The Water Problem",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt7",
+            "text": "Ryan's Goal",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt8",
+            "text": "How to Dig a Well",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "Select the sentence that shows Ryan didn't give up.",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s11",
+          "s12",
+          "s13"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "How does the second paragraph connect to the first paragraph?",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "It shows Ryan's response to the problem in the first paragraph.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "It repeats the same information as the first paragraph.",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "It introduces a new, unrelated topic.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt12",
+            "text": "It explains why people get sick.",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "After reading the second paragraph, what do you think will happen next?",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "Ryan will face a challenge but find a way to help.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "Ryan will stop trying to help.",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt15",
+            "text": "People will stop needing fresh water.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt16",
+            "text": "Ryan will dig a well by himself.",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "independent",
+        "interaction": "select-sentence",
+        "prompt": "Select the sentence that shows Ryan raised a lot of money.",
+        "answer": {
+          "source_ids": [
+            "s14"
+          ]
+        },
+        "candidate_source_ids": [
+          "s8",
+          "s14",
+          "s15",
+          "s9"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,418 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd6-08-Unit-8-The-First-Female-Astronaut",
+    "title": "RFD 6 / Unit 8 The First Female Astronaut",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Valentina Tereshkova was the first woman in space."
+          },
+          {
+            "id": "s2",
+            "text": "Surprisingly, she was not a pilot; she was a skydiver."
+          },
+          {
+            "id": "s3",
+            "text": "She had done 126 jumps before entering the space program."
+          },
+          {
+            "id": "s4",
+            "text": "The program accepted her because of her special talents."
+          },
+          {
+            "id": "s5",
+            "text": "At the time, astronauts had to be good skydivers."
+          },
+          {
+            "id": "s6",
+            "text": "That’s because they had to jump from their spaceships before landing."
+          },
+          {
+            "id": "s7",
+            "text": "This was very dangerous."
+          },
+          {
+            "id": "s8",
+            "text": "It was also why Valentina was the best choice."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "In 1963, Valentina was launched into space."
+          },
+          {
+            "id": "s10",
+            "text": "She spent three days in space."
+          },
+          {
+            "id": "s11",
+            "text": "She went around the Earth 48 times."
+          },
+          {
+            "id": "s12",
+            "text": "After landing, she became world famous."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Valentina's Background"
+        },
+        "main_idea": {
+          "text": "Valentina Tereshkova was selected for the space program because her experience as a skydiver made her a perfect candidate for the dangerous landing procedures of that era."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2",
+              "s3"
+            ],
+            "meaning": "She was a professional skydiver with 126 jumps, not a pilot."
+          },
+          {
+            "source_ids": [
+              "s5",
+              "s6"
+            ],
+            "meaning": "Astronauts had to jump from their spaceships to land, which required skydiving skills."
+          },
+          {
+            "source_ids": [
+              "s4",
+              "s8"
+            ],
+            "meaning": "Her special talents made her the best choice for the program."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Surprisingly",
+            "source_id": "s2",
+            "role": "transition"
+          },
+          {
+            "text": "That’s because",
+            "source_id": "s6",
+            "role": "cause"
+          },
+          {
+            "text": "It was also why",
+            "source_id": "s8",
+            "role": "conclusion"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The Space Mission"
+        },
+        "main_idea": {
+          "text": "In 1963, Valentina completed a historic three-day mission orbiting Earth 48 times, which made her world famous."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "She was launched into space in 1963."
+          },
+          {
+            "source_ids": [
+              "s10",
+              "s11"
+            ],
+            "meaning": "She spent three days in space and orbited Earth 48 times."
+          },
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "She became world famous after landing."
+          }
+        ],
+        "function": {
+          "type": "narrative"
+        },
+        "relation_to_previous": {
+          "type": "sequence",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "In 1963",
+            "source_id": "s9",
+            "role": "time_marker"
+          },
+          {
+            "text": "After landing",
+            "source_id": "s12",
+            "role": "sequence"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Selection and Skills",
+          "function": "Explain why Valentina was chosen"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "The Historic Flight",
+          "function": "Describe the mission and its outcome"
+        }
+      ],
+      "structure": {
+        "type": "sequence"
+      },
+      "central_idea": {
+        "text": "Valentina Tereshkova became the first woman in space in 1963, leveraging her unique skydiving skills to complete a historic mission that made her world famous."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Skydiving was a critical safety requirement for early space missions.",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "astronauts had to be good skydivers"
+            },
+            {
+              "source_id": "s6",
+              "span": "jump from their spaceships before landing"
+            }
+          ],
+          "knowledge_bridge": "Connecting the specific skill (skydiving) to the general engineering limitation of early spacecraft (lack of soft landing capability).",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Valentina's fame was a direct result of being the first to achieve this specific milestone.",
+          "evidence": [
+            {
+              "source_id": "s1",
+              "span": "first woman in space"
+            },
+            {
+              "source_id": "s12",
+              "span": "became world famous"
+            }
+          ],
+          "knowledge_bridge": "Understanding the relationship between 'firsts' and historical recognition.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "选出第一段的主要观点。",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "瓦莲京娜因为擅长跳伞而被选入太空计划。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "瓦莲京娜在太空度过了三天。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "太空旅行非常危险。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "瓦莲京娜做了126次跳伞。",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "为第二段选择最合适的标题。",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "历史性的太空之旅",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何成为一名飞行员",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "跳伞的危险",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "地球的形状",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "medium",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“宇航员必须会跳伞”这一观点的句子。",
+        "answer": {
+          "source_ids": [
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s6",
+          "s7",
+          "s8"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第二段与第一段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "第二段描述了第一段中提到的候选人最终执行的任务。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "第二段反驳了第一段关于跳伞的观点。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "第二段介绍了另一位宇航员的故事。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "第二段解释了为什么跳伞很危险。",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你预测第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "瓦莲京娜的太空飞行经历。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何学习跳伞技巧。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "太空计划被取消的原因。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "其他女宇航员的故事。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "找出说明瓦莲京娜绕地球飞行次数的句子。",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s9",
+          "s10",
+          "s11",
+          "s12"
+        ]
+      }
+    ]
+  }
+}

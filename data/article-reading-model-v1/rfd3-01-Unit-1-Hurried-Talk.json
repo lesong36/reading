@@ -1,0 +1,461 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd3-01-Unit-1-Hurried-Talk",
+    "title": "Unit 1 Hurried Talk",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "People hurry a lot."
+          },
+          {
+            "id": "s2",
+            "text": "They don’t take time for phone calls."
+          },
+          {
+            "id": "s3",
+            "text": "They send texts."
+          },
+          {
+            "id": "s4",
+            "text": "Even then, people hurry."
+          },
+          {
+            "id": "s5",
+            "text": "They don’t spell whole words."
+          },
+          {
+            "id": "s6",
+            "text": "They only use a few letters."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s7",
+            "text": "LOL means “laughing out loud.”"
+          },
+          {
+            "id": "s8",
+            "text": "BRB means “be right back.”"
+          },
+          {
+            "id": "s9",
+            "text": "And SMH means “shaking my head.”"
+          },
+          {
+            "id": "s10",
+            "text": "People often use these letters in texts."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s11",
+            "text": "But this can be a problem."
+          },
+          {
+            "id": "s12",
+            "text": "Some people think LOL means “lots of love.”"
+          },
+          {
+            "id": "s13",
+            "text": "They read bad news and answer LOL."
+          },
+          {
+            "id": "s14",
+            "text": "Oops!"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Hurry in Communication"
+        },
+        "main_idea": {
+          "text": "People are in a hurry when they communicate, so they use short texts instead of phone calls and abbreviate words."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2",
+              "s3"
+            ],
+            "meaning": "People prefer sending texts over making phone calls to save time."
+          },
+          {
+            "source_ids": [
+              "s5",
+              "s6"
+            ],
+            "meaning": "Even in texts, people rush by using only a few letters instead of spelling out whole words."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "People hurry a lot.",
+            "source_id": "s1",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "Even then, people hurry.",
+            "source_id": "s4",
+            "role": "transition"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Text Abbreviations"
+        },
+        "main_idea": {
+          "text": "People use specific letter combinations, or abbreviations, to quickly express common phrases in texts."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s7",
+              "s8",
+              "s9"
+            ],
+            "meaning": "Examples of abbreviations include LOL (laughing out loud), BRB (be right back), and SMH (shaking my head)."
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "These abbreviations are frequently used in text messages."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "LOL means “laughing out loud.”",
+            "source_id": "s7",
+            "role": "example"
+          },
+          {
+            "text": "People often use these letters in texts.",
+            "source_id": "s10",
+            "role": "summary"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Misunderstandings"
+        },
+        "main_idea": {
+          "text": "Using abbreviations can cause problems because different people might interpret the same letters in different ways."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "Some people mistakenly think LOL means “lots of love.”"
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "This misunderstanding can lead to inappropriate responses, like answering bad news with LOL."
+          }
+        ],
+        "function": {
+          "type": "problem"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "But this can be a problem.",
+            "source_id": "s11",
+            "role": "transition"
+          },
+          {
+            "text": "Oops!",
+            "source_id": "s14",
+            "role": "conclusion"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "The Habit of Hurrying",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Common Abbreviations",
+          "function": "explanation"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "The Problem with Abbreviations",
+          "function": "problem"
+        }
+      ],
+      "structure": {
+        "type": "problem_solution"
+      },
+      "central_idea": {
+        "text": "While people use abbreviations to communicate quickly, this habit can lead to misunderstandings."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Abbreviations are not always clear to everyone.",
+          "evidence": [
+            {
+              "source_id": "s12",
+              "span": "Some people think LOL means “lots of love.”"
+            }
+          ],
+          "knowledge_bridge": "Different people might have different meanings for the same abbreviation.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Sending a text is faster than making a phone call.",
+          "evidence": [
+            {
+              "source_id": "s2",
+              "span": "They don’t take time for phone calls."
+            },
+            {
+              "source_id": "s3",
+              "span": "They send texts."
+            }
+          ],
+          "knowledge_bridge": "People choose the method that saves them the most time.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "人们为了赶时间使用缩写，但这可能会引起误会。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "LOL、BRB和SMH是三个常用的缩写。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "人们现在都不喜欢打电话了。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "人们发短信时喜欢用很多字母。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "常见的短信缩写",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "为什么人们喜欢打电话",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "如何避免误会",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "LOL代表“大笑”",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "哪句话支持了“人们发短信时也会赶时间”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s5"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s7",
+          "s11",
+          "s13"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段开头的“But”说明了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "使用缩写可能会带来问题。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "人们非常喜欢使用缩写。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "打电话比发短信更好。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "人们总是拼写完整的单词。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你觉得第二段可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "人们具体是怎么用几个字母来代替单词的。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "为什么人们不喜欢打电话。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "如何正确地拼写单词。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "人们为什么喜欢发短信。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "哪句话说明了缩写可能会引起误会？",
+        "answer": {
+          "source_ids": [
+            "s12"
+          ]
+        },
+        "candidate_source_ids": [
+          "s12",
+          "s10",
+          "s8",
+          "s14"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,436 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd5-15-Unit-15-Catching-Rain",
+    "title": "RFD 5 / Unit 15 Catching Rain",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Rain is important."
+          },
+          {
+            "id": "s2",
+            "text": "It gives us water to grow food."
+          },
+          {
+            "id": "s3",
+            "text": "But it can also be dangerous."
+          },
+          {
+            "id": "s4",
+            "text": "Floods can wipe out whole villages."
+          },
+          {
+            "id": "s5",
+            "text": "Luckily, scientists have good tools to study rain."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "One tool is called a disdrometer."
+          },
+          {
+            "id": "s7",
+            "text": "It uses light."
+          },
+          {
+            "id": "s8",
+            "text": "It tells scientists how fast rain is falling."
+          },
+          {
+            "id": "s9",
+            "text": "It measures the size and speed of raindrops."
+          },
+          {
+            "id": "s10",
+            "text": "Larger drops fall faster."
+          },
+          {
+            "id": "s11",
+            "text": "They also contain"
+          },
+          {
+            "id": "s12",
+            "text": "many times more water."
+          },
+          {
+            "id": "s13",
+            "text": "Scientists can tell how much rain is falling per hour."
+          },
+          {
+            "id": "s14",
+            "text": "This helps them plan how to best use water."
+          },
+          {
+            "id": "s15",
+            "text": "And how to defend us from it."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Rain's Importance and Danger"
+        },
+        "main_idea": {
+          "text": "Rain is essential for growing food but can also cause dangerous floods, which scientists study using special tools."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "Rain provides the water needed to grow food."
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "Floods caused by rain can destroy entire villages."
+          },
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "Scientists use tools to study rain."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Rain is important.",
+            "source_id": "s1",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "But it can also be dangerous.",
+            "source_id": "s3",
+            "role": "transition"
+          },
+          {
+            "text": "Luckily, scientists have good tools to study rain.",
+            "source_id": "s5",
+            "role": "conclusion"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "The Disdrometer"
+        },
+        "main_idea": {
+          "text": "A disdrometer is a tool that uses light to measure the size and speed of raindrops, helping scientists understand rainfall and manage water."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s7",
+              "s8"
+            ],
+            "meaning": "The disdrometer uses light to tell how fast rain is falling."
+          },
+          {
+            "source_ids": [
+              "s10",
+              "s11",
+              "s12"
+            ],
+            "meaning": "Larger raindrops fall faster and contain much more water."
+          },
+          {
+            "source_ids": [
+              "s14",
+              "s15"
+            ],
+            "meaning": "This information helps scientists plan water use and protect people from rain."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "One tool is called a disdrometer.",
+            "source_id": "s6",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "It uses light.",
+            "source_id": "s7",
+            "role": "supporting_detail"
+          },
+          {
+            "text": "This helps them plan how to best use water.",
+            "source_id": "s14",
+            "role": "conclusion"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction to Rain",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "The Disdrometer Tool",
+          "function": "explanation"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Scientists use a tool called a disdrometer to study rain, which helps them understand its importance and protect people from its dangers."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The disdrometer is important because it helps scientists predict and manage the effects of rain.",
+          "evidence": [
+            {
+              "source_id": "s14",
+              "span": "This helps them plan how to best use water."
+            },
+            {
+              "source_id": "s15",
+              "span": "And how to defend us from it."
+            }
+          ],
+          "knowledge_bridge": "Connecting the tool's function to its practical benefits for society.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Larger raindrops are more significant for measuring total rainfall because they carry more water.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "They also contain"
+            },
+            {
+              "source_id": "s12",
+              "span": "many times more water."
+            }
+          ],
+          "knowledge_bridge": "Understanding the relationship between raindrop size and water volume.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "选出第一段的主要意思。",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "雨对生长食物很重要，但也可能带来危险，科学家用工具研究它。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "洪水可以摧毁整个村庄。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "科学家有研究雨的好工具。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "雨是重要的。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "为第二段选择一个合适的标题。",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "测量雨的工具：雨量计",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "雨的危险",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "如何种植食物",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "光的用途",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "选择支持“雨量计使用光”的句子。",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s6",
+          "s7",
+          "s8",
+          "s9"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段如何连接第一段？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "它详细解释了第一段提到的科学家使用的工具。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "它介绍了另一种危险的自然现象。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "它反驳了第一段关于雨的观点。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "它重复了第一段的所有句子。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "根据第一段，接下来文章可能会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "科学家用来研究雨的工具。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何建造防洪墙。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "The history of rain. ",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "Why clouds form. ",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select-sentence",
+        "prompt": "选择说明大雨滴包含更多水的句子。",
+        "answer": {
+          "source_ids": [
+            "s11",
+            "s12"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s11",
+          "s12",
+          "s13"
+        ]
+      }
+    ]
+  }
+}

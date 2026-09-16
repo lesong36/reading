@@ -1,0 +1,461 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd5-03-Unit-3-Cars-That-Drive-Themselves",
+    "title": "RFD 5 / Unit 3 Cars That Drive Themselves",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Companies are making a new type of car."
+          },
+          {
+            "id": "s2",
+            "text": "These cars drive themselves."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s3",
+            "text": "In some ways, these cars will be great."
+          },
+          {
+            "id": "s4",
+            "text": "People won’t have to drive their cars."
+          },
+          {
+            "id": "s5",
+            "text": "So they can work or relax."
+          },
+          {
+            "id": "s6",
+            "text": "Also, this kind of vehicle will be safe."
+          },
+          {
+            "id": "s7",
+            "text": "A computer watches the road"
+          },
+          {
+            "id": "s8",
+            "text": "and prevents problems."
+          },
+          {
+            "id": "s9",
+            "text": "It senses other cars and keeps a safe distance."
+          },
+          {
+            "id": "s10",
+            "text": "This will mean fewer crashes."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s11",
+            "text": "Not everyone likes these cars, though."
+          },
+          {
+            "id": "s12",
+            "text": "Some people don’t trust a car with no driver."
+          },
+          {
+            "id": "s13",
+            "text": "They think computers can make mistakes."
+          },
+          {
+            "id": "s14",
+            "text": "And some people just enjoy driving."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction to Self-Driving Cars"
+        },
+        "main_idea": {
+          "text": "Companies are developing cars that can drive themselves."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "New car technology is being created."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "The cars operate without a human driver."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "new type",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Benefits of Self-Driving Cars"
+        },
+        "main_idea": {
+          "text": "Self-driving cars offer convenience and increased safety."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s4",
+              "s5"
+            ],
+            "meaning": "Passengers can work or relax instead of driving."
+          },
+          {
+            "source_ids": [
+              "s7",
+              "s8"
+            ],
+            "meaning": "Computers monitor the road to prevent accidents."
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "The technology leads to fewer car crashes."
+          }
+        ],
+        "function": {
+          "type": "supporting_details"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "great",
+            "source_id": "s3",
+            "role": "positive_evaluation"
+          },
+          {
+            "text": "Also",
+            "source_id": "s6",
+            "role": "addition"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Concerns About Self-Driving Cars"
+        },
+        "main_idea": {
+          "text": "Some people are skeptical of self-driving cars due to trust issues or personal preference."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s12",
+              "s13"
+            ],
+            "meaning": "People worry that computers might make errors."
+          },
+          {
+            "source_ids": [
+              "s14"
+            ],
+            "meaning": "Some individuals prefer the experience of driving themselves."
+          }
+        ],
+        "function": {
+          "type": "counterpoint"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Not everyone",
+            "source_id": "s11",
+            "role": "contrast_marker"
+          },
+          {
+            "text": "though",
+            "source_id": "s11",
+            "role": "contrast_marker"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduce the topic of self-driving cars."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Advantages",
+          "function": "Explain the benefits of self-driving technology."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Disadvantages/Concerns",
+          "function": "Present reasons why some people oppose self-driving cars."
+        }
+      ],
+      "structure": {
+        "type": "compare_and_contrast"
+      },
+      "central_idea": {
+        "text": "Self-driving cars are a new technology with significant benefits like safety and convenience, but they also face criticism from those who distrust computers or enjoy driving."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Self-driving cars could change how people spend their time during commutes.",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "So they can work or relax."
+            }
+          ],
+          "knowledge_bridge": "Connecting the ability to not drive with the opportunity to do other activities.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The debate about self-driving cars involves both technological reliability and personal preference.",
+          "evidence": [
+            {
+              "source_id": "s13",
+              "span": "They think computers can make mistakes."
+            },
+            {
+              "source_id": "s14",
+              "span": "And some people just enjoy driving."
+            }
+          ],
+          "knowledge_bridge": "Synthesizing the two distinct reasons given for opposition in the final paragraph.",
+          "difficulty": "high"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "自动驾驶汽车的好处和人们的担忧",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何修理自动驾驶汽车",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么人们喜欢开车",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "所有关于汽车的历史",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段最适合的标题是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "自动驾驶汽车的优势",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "人们不喜欢自动驾驶汽车",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "计算机如何工作",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "新的汽车公司",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话支持“自动驾驶汽车更安全”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s10",
+          "s14",
+          "s2"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段和第二段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "提出相反的观点",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "重复相同的信息",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "解释如何制造汽车",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "总结全文",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你预测第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "这种新汽车的具体特点或好处",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "汽车的历史发展",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "为什么人们讨厌开车",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "如何购买一辆新车",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "哪句话说明有些人不喜欢自动驾驶汽车？",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s11",
+          "s6",
+          "s1"
+        ]
+      }
+    ]
+  }
+}

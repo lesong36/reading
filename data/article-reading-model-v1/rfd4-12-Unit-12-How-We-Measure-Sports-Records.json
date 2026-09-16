@@ -1,0 +1,419 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd4-12-Unit-12-How-We-Measure-Sports-Records",
+    "title": "RFD 4 / Unit 12 How We Measure Sports Records",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "How do we measure time in sports?"
+          },
+          {
+            "id": "s2",
+            "text": "People used a stopwatch in the past."
+          },
+          {
+            "id": "s3",
+            "text": "It’s more advanced now."
+          },
+          {
+            "id": "s4",
+            "text": "Let’s look at the 100-meter race."
+          },
+          {
+            "id": "s5",
+            "text": "Judges use lasers to measure time."
+          },
+          {
+            "id": "s6",
+            "text": "They can also use a special camera."
+          },
+          {
+            "id": "s7",
+            "text": "This camera can take 2,000 pictures a second!"
+          },
+          {
+            "id": "s8",
+            "text": "These are very accurate tools."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s9",
+            "text": "Marathons are longer races."
+          },
+          {
+            "id": "s10",
+            "text": "They need a different tool."
+          },
+          {
+            "id": "s11",
+            "text": "Marathon runners use a device in their shoes."
+          },
+          {
+            "id": "s12",
+            "text": "This gives information about their speed."
+          },
+          {
+            "id": "s13",
+            "text": "It also tells the judges their"
+          },
+          {
+            "id": "s14",
+            "text": "time."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Measuring Time in Short Races"
+        },
+        "main_idea": {
+          "text": "Modern tools like lasers and high-speed cameras are used to accurately measure time in short races like the 100-meter dash."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "Judges use lasers to measure time."
+          },
+          {
+            "source_ids": [
+              "s6",
+              "s7"
+            ],
+            "meaning": "A special camera can take 2,000 pictures a second."
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "These tools are very accurate."
+          }
+        ],
+        "function": {
+          "type": "introduction_and_example"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "How do we measure time in sports?",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          },
+          {
+            "text": "Let’s look at the 100-meter race.",
+            "source_id": "s4",
+            "role": "example_transition"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Measuring Time in Marathons"
+        },
+        "main_idea": {
+          "text": "Marathon runners use a device in their shoes to provide judges with information about their speed and time."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "Marathon runners use a device in their shoes."
+          },
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "The device gives information about their speed."
+          },
+          {
+            "source_ids": [
+              "s13",
+              "s14"
+            ],
+            "meaning": "It tells the judges their time."
+          }
+        ],
+        "function": {
+          "type": "additional_example"
+        },
+        "relation_to_previous": {
+          "type": "contrast",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Marathons are longer races.",
+            "source_id": "s9",
+            "role": "topic_shift"
+          },
+          {
+            "text": "They need a different tool.",
+            "source_id": "s10",
+            "role": "contrast_marker"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Short Race Measurement",
+          "function": "Introduces the topic and provides an example of measuring time in a 100-meter race."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Marathon Measurement",
+          "function": "Provides a contrasting example of measuring time in a marathon."
+        }
+      ],
+      "structure": {
+        "type": "compare_and_contrast"
+      },
+      "central_idea": {
+        "text": "Different sports use different advanced tools to accurately measure time and speed."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The tools used for marathons are different from those used for short races because marathons are longer and require continuous tracking.",
+          "evidence": [
+            {
+              "source_id": "s9",
+              "span": "Marathons are longer races."
+            },
+            {
+              "source_id": "s10",
+              "span": "They need a different tool."
+            }
+          ],
+          "knowledge_bridge": "Understanding that longer distances require different measurement methods.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The high-speed camera is useful for short races because it can capture very fast movements accurately.",
+          "evidence": [
+            {
+              "source_id": "s7",
+              "span": "This camera can take 2,000 pictures a second!"
+            },
+            {
+              "source_id": "s8",
+              "span": "These are very accurate tools."
+            }
+          ],
+          "knowledge_bridge": "Connecting the speed of the camera to the need for accuracy in fast events.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "不同的运动使用不同的工具来准确测量时间和速度。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "人们过去使用秒表。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "马拉松比赛很长。",
+            "role": "minor_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "相机可以每秒拍2000张照片。",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是这篇文章最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "我们如何测量体育记录",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "100米赛跑的相机",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "马拉松鞋里的设备",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "过去的秒表",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话支持“现代工具更先进”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s7"
+          ]
+        },
+        "candidate_source_ids": [
+          "s2",
+          "s7",
+          "s11",
+          "s14"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "对比：马拉松使用不同的工具。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "重复：马拉松也使用激光。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "总结：所有比赛都用秒表。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "无关：讨论跑步鞋的颜色。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你猜第二段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "另一种比赛（如马拉松）的测量方法。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "100米赛跑的历史。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "如何制造激光。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "为什么人们喜欢跑步。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话说明马拉松选手使用鞋子里的设备？",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s11",
+          "s12",
+          "s14"
+        ]
+      }
+    ]
+  }
+}

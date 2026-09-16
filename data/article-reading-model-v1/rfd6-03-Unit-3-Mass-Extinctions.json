@@ -1,0 +1,463 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd6-03-Unit-3-Mass-Extinctions",
+    "title": "RFD 6 / Unit 3 Mass Extinctions",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "A plant or animal goes extinct when all of its kind die out."
+          },
+          {
+            "id": "s2",
+            "text": "Sometimes, many plants and animals go extinct at the same time."
+          },
+          {
+            "id": "s3",
+            "text": "This is a mass extinction."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s4",
+            "text": "There have been several mass extinctions."
+          },
+          {
+            "id": "s5",
+            "text": "Each time, the conditions changed on our planet."
+          },
+          {
+            "id": "s6",
+            "text": "The climate changed, or the air changed."
+          },
+          {
+            "id": "s7",
+            "text": "Sometimes, it was because of a volcano or an asteroid."
+          },
+          {
+            "id": "s8",
+            "text": "This last happened 66 million years ago."
+          },
+          {
+            "id": "s9",
+            "text": "Then, all the dinosaurs died out."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s10",
+            "text": "Now the temperature on Earth is rising."
+          },
+          {
+            "id": "s11",
+            "text": "This is because of pollution."
+          },
+          {
+            "id": "s12",
+            "text": "We should be careful."
+          },
+          {
+            "id": "s13",
+            "text": "We might cause the next mass extinction!"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "定义灭绝"
+        },
+        "main_idea": {
+          "text": "当所有同类生物都死亡时，就发生了灭绝，如果同时发生很多，就是大灭绝。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "灭绝意味着一个物种的所有个体都消失了。"
+          },
+          {
+            "source_ids": [
+              "s2",
+              "s3"
+            ],
+            "meaning": "大灭绝是指许多植物和动物在同一时间灭绝的现象。"
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "This is a mass extinction.",
+            "source_id": "s3",
+            "role": "definition"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "历史原因"
+        },
+        "main_idea": {
+          "text": "过去的大灭绝是由气候变化、空气变化或火山和陨石撞击等环境因素引起的。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5",
+              "s6"
+            ],
+            "meaning": "每次大灭绝发生时，地球的气候或空气条件都会发生变化。"
+          },
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "火山爆发或陨石撞击也是导致大灭绝的原因。"
+          },
+          {
+            "source_ids": [
+              "s8",
+              "s9"
+            ],
+            "meaning": "6600万年前，陨石撞击导致恐龙灭绝。"
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "Each time, the conditions changed on our planet.",
+            "source_id": "s5",
+            "role": "cause"
+          },
+          {
+            "text": "Sometimes, it was because of a volcano or an asteroid.",
+            "source_id": "s7",
+            "role": "example"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "当前威胁"
+        },
+        "main_idea": {
+          "text": "由于污染导致地球变暖，人类可能会引发下一次大灭绝。"
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s10",
+              "s11"
+            ],
+            "meaning": "地球温度正在上升，这是因为污染。"
+          },
+          {
+            "source_ids": [
+              "s12",
+              "s13"
+            ],
+            "meaning": "我们需要小心，否则可能会造成下一次大灭绝。"
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "application",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "Now the temperature on Earth is rising.",
+            "source_id": "s10",
+            "role": "current_situation"
+          },
+          {
+            "text": "We might cause the next mass extinction!",
+            "source_id": "s13",
+            "role": "warning"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "什么是大灭绝",
+          "function": "定义概念"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "过去的大灭绝",
+          "function": "解释历史原因"
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "未来的风险",
+          "function": "联系现实与警告"
+        }
+      ],
+      "structure": {
+        "type": "cause_and_effect"
+      },
+      "central_idea": {
+        "text": "大灭绝是由环境变化引起的，过去由自然因素导致，现在人类活动可能导致下一次大灭绝。"
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "人类活动正在改变 Earth's environment in ways similar to past mass extinction events.",
+          "evidence": [
+            {
+              "source_id": "s10",
+              "span": "Now the temperature on Earth is rising."
+            },
+            {
+              "source_id": "s11",
+              "span": "This is because of pollution."
+            }
+          ],
+          "knowledge_bridge": "将当前的全球变暖与过去的气候变化联系起来。",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The author believes humans have a responsibility to prevent future extinctions.",
+          "evidence": [
+            {
+              "source_id": "s12",
+              "span": "We should be careful."
+            },
+            {
+              "source_id": "s13",
+              "span": "We might cause the next mass extinction!"
+            }
+          ],
+          "knowledge_bridge": "理解作者的意图和态度。",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "大灭绝是由环境变化引起的，现在人类可能引发下一次。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "恐龙在6600万年前灭绝了。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "火山和陨石可以改变 the climate.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "所有 animals and plants will die out soon.",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪一个是第二段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "过去大灭绝的原因",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "什么是灭绝",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "如何保护地球",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "恐龙的生活",
+            "role": "too_narrow"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "medium",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“大灭绝由环境变化引起”的句子。",
+        "answer": {
+          "source_ids": [
+            "s5"
+          ]
+        },
+        "candidate_source_ids": [
+          "s5",
+          "s9",
+          "s12",
+          "s1"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "第三段与第二段的关系是什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "将过去的原因应用到现在的情况。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "重复第一段的内容。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "反驳第二段的事实。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "介绍新的动物种类。",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "读完第二段后，你预测第三段会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "现在的环境变化可能导致大灭绝。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何 to build a volcano.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "The history of dinosaurs in detail.",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "Why plants are green.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "找出说明“污染导致地球变暖”的证据。",
+        "answer": {
+          "source_ids": [
+            "s11"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s11",
+          "s13",
+          "s6"
+        ]
+      }
+    ]
+  }
+}

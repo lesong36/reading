@@ -1,0 +1,431 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd1-05-Unit-5-Nature-s-Building-materials",
+    "title": "Unit 5 Nature’s Building materials",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Gabon is a country in Africa."
+          },
+          {
+            "id": "s2",
+            "text": "It is hot."
+          },
+          {
+            "id": "s3",
+            "text": "There are rainforests."
+          },
+          {
+            "id": "s4",
+            "text": "The rainforests have many trees."
+          },
+          {
+            "id": "s5",
+            "text": "The rain makes a lot of mud."
+          },
+          {
+            "id": "s6",
+            "text": "Some people build their homes from wood and mud."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s7",
+            "text": "The Inuit live in North America."
+          },
+          {
+            "id": "s8",
+            "text": "They live far in the north."
+          },
+          {
+            "id": "s9",
+            "text": "It is cold."
+          },
+          {
+            "id": "s10",
+            "text": "Snow and ice cover the ground."
+          },
+          {
+            "id": "s11",
+            "text": "What did some Inuit use to build their homes?"
+          },
+          {
+            "id": "s12",
+            "text": "Snow and ice, of course!"
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Homes in Gabon"
+        },
+        "main_idea": {
+          "text": "In Gabon, people build their homes using wood and mud because of the hot, rainy climate."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1",
+              "s2",
+              "s3"
+            ],
+            "meaning": "Gabon is a hot country in Africa with rainforests."
+          },
+          {
+            "source_ids": [
+              "s4",
+              "s5"
+            ],
+            "meaning": "The rainforests have many trees, and the rain creates a lot of mud."
+          },
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "People use these natural materials (wood and mud) to build their houses."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Gabon is a country in Africa.",
+            "source_id": "s1",
+            "role": "setting"
+          },
+          {
+            "text": "It is hot.",
+            "source_id": "s2",
+            "role": "climate_condition"
+          },
+          {
+            "text": "The rain makes a lot of mud.",
+            "source_id": "s5",
+            "role": "material_source"
+          },
+          {
+            "text": "Some people build their homes from wood and mud.",
+            "source_id": "s6",
+            "role": "main_action"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Homes of the Inuit"
+        },
+        "main_idea": {
+          "text": "In the cold North, Inuit people build their homes using snow and ice."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s7",
+              "s8",
+              "s9"
+            ],
+            "meaning": "The Inuit live in the cold, northern part of North America."
+          },
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "The ground is covered in snow and ice."
+          },
+          {
+            "source_ids": [
+              "s11",
+              "s12"
+            ],
+            "meaning": "The Inuit use snow and ice to construct their dwellings."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": {
+          "type": "compare",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "The Inuit live in North America.",
+            "source_id": "s7",
+            "role": "setting"
+          },
+          {
+            "text": "It is cold.",
+            "source_id": "s9",
+            "role": "climate_condition"
+          },
+          {
+            "text": "Snow and ice cover the ground.",
+            "source_id": "s10",
+            "role": "material_source"
+          },
+          {
+            "text": "Snow and ice, of course!",
+            "source_id": "s12",
+            "role": "main_action"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Building in the Rainforest",
+          "function": "Describes how climate and available resources in Gabon influence building materials."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Building in the Arctic",
+          "function": "Describes how climate and available resources in the North influence building materials for the Inuit."
+        }
+      ],
+      "structure": {
+        "type": "compare_and_contrast"
+      },
+      "central_idea": {
+        "text": "People in different parts of the world use the natural materials available in their specific climates to build their homes."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The climate determines what materials are available for building.",
+          "evidence": [
+            {
+              "source_id": "s5",
+              "span": "The rain makes a lot of mud."
+            },
+            {
+              "source_id": "s10",
+              "span": "Snow and ice cover the ground."
+            }
+          ],
+          "knowledge_bridge": "Understanding that weather patterns create specific physical resources (mud vs. ice) that humans utilize.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Inuit homes are likely made of ice blocks rather than just loose snow.",
+          "evidence": [
+            {
+              "source_id": "s12",
+              "span": "Snow and ice, of course!"
+            }
+          ],
+          "knowledge_bridge": "Connecting the concept of 'building' with the structural properties of ice mentioned in the text.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "What is the main idea of the first paragraph?",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "People in Gabon use wood and mud to build their homes.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "Gabon is a hot country in Africa.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "Rainforests have many trees.",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "All people in Africa build with mud.",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "Which heading best fits the second paragraph?",
+        "answer": {
+          "option_ids": [
+            "opt5"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt5",
+            "text": "Homes Made of Ice",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt6",
+            "text": "A Trip to the Rainforest",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt7",
+            "text": "Why It Is Cold in the North",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt8",
+            "text": "The History of North America",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "Which sentence supports the idea that Gabon has a lot of mud?",
+        "answer": {
+          "source_ids": [
+            "s5"
+          ]
+        },
+        "candidate_source_ids": [
+          "s3",
+          "s4",
+          "s5",
+          "s6"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "How are the two paragraphs connected?",
+        "answer": {
+          "option_ids": [
+            "opt9"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt9",
+            "text": "They show how people in different climates use local materials to build.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt10",
+            "text": "They tell a story about two friends traveling to Africa and the North.",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt11",
+            "text": "They explain why it is hot in Gabon and cold in the North.",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt12",
+            "text": "They list all the animals that live in rainforests and the Arctic.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "After reading about Gabon and the Inuit, what might the next paragraph be about?",
+        "answer": {
+          "option_ids": [
+            "opt13"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt13",
+            "text": "Another place where people build homes using local natural materials.",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt14",
+            "text": "How to make a snowman in the city.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt15",
+            "text": "The history of the word 'mud'.",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt16",
+            "text": "Why wood is better than ice for building.",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "Select the sentence that tells us what the Inuit used to build their homes.",
+        "answer": {
+          "source_ids": [
+            "s12"
+          ]
+        },
+        "candidate_source_ids": [
+          "s9",
+          "s10",
+          "s11",
+          "s12"
+        ]
+      }
+    ]
+  }
+}

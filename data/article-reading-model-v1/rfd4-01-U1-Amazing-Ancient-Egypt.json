@@ -1,0 +1,360 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd4-01-U1-Amazing-Ancient-Egypt",
+    "title": "RFD 4 / U1 Amazing Ancient Egypt!",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Ancient Egypt was amazing."
+          },
+          {
+            "id": "s2",
+            "text": "It began in 3100 BCE around the Nile River."
+          },
+          {
+            "id": "s3",
+            "text": "From the river, Egyptians got water for farming."
+          },
+          {
+            "id": "s4",
+            "text": "Ancient Egyptian culture was advanced."
+          },
+          {
+            "id": "s5",
+            "text": "They were good at science and math."
+          },
+          {
+            "id": "s6",
+            "text": "They had a written language."
+          },
+          {
+            "id": "s7",
+            "text": "They also had their own calendar."
+          },
+          {
+            "id": "s8",
+            "text": "The ancient Egyptians were also good at building."
+          },
+          {
+            "id": "s9",
+            "text": "They used basic tools."
+          },
+          {
+            "id": "s10",
+            "text": "But they cut and moved huge stones."
+          },
+          {
+            "id": "s11",
+            "text": "With them, they made large buildings and tall monuments."
+          },
+          {
+            "id": "s12",
+            "text": "These were very well made."
+          },
+          {
+            "id": "s13",
+            "text": "Some are still standing thousands of years later."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Ancient Egypt's Achievements"
+        },
+        "main_idea": {
+          "text": "Ancient Egypt was an advanced civilization known for its culture, science, and impressive building skills."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s5",
+              "s6",
+              "s7"
+            ],
+            "meaning": "Egyptians excelled in science, math, writing, and created a calendar."
+          },
+          {
+            "source_ids": [
+              "s9",
+              "s10",
+              "s11"
+            ],
+            "meaning": "Using basic tools, they cut and moved huge stones to build large, well-made structures."
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "Many of these ancient buildings are still standing today."
+          }
+        ],
+        "function": {
+          "type": "description"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Ancient Egypt was amazing.",
+            "source_id": "s1",
+            "role": "topic_sentence"
+          },
+          {
+            "text": "Ancient Egyptian culture was advanced.",
+            "source_id": "s4",
+            "role": "supporting_detail"
+          },
+          {
+            "text": "The ancient Egyptians were also good at building.",
+            "source_id": "s8",
+            "role": "supporting_detail"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Overview of Ancient Egypt",
+          "function": "Introduces the location, culture, and architectural achievements of Ancient Egypt."
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Ancient Egypt was a highly advanced civilization with significant achievements in culture, science, and monumental architecture."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "The Egyptians had a strong understanding of engineering and planning.",
+          "evidence": [
+            {
+              "source_id": "s10",
+              "span": "cut and moved huge stones"
+            },
+            {
+              "source_id": "s12",
+              "span": "very well made"
+            }
+          ],
+          "knowledge_bridge": "Moving heavy objects and building lasting structures requires careful planning and knowledge of physics.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "The Nile River was essential for the survival and growth of Egyptian civilization.",
+          "evidence": [
+            {
+              "source_id": "s2",
+              "span": "began in 3100 BCE around the Nile River"
+            },
+            {
+              "source_id": "s3",
+              "span": "got water for farming"
+            }
+          ],
+          "knowledge_bridge": "Civilizations often develop near rivers to ensure a steady water supply for agriculture.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "选出这段话的中心思想。",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "古埃及是一个在文化、科学和建筑方面都非常先进的文明。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "古埃及人使用简单的工具来建造金字塔。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "尼罗河为古埃及人提供了灌溉水源。",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "古埃及的历史始于公元前3100年。",
+            "role": "minor_detail"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "为这篇文章选一个最合适的标题。",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "古埃及的辉煌成就",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "如何建造金字塔",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "尼罗河的水源",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "古代世界的历史",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话支持了“古埃及文化很先进”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s5"
+          ]
+        },
+        "candidate_source_ids": [
+          "s2",
+          "s5",
+          "s9",
+          "s13"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "文章开头说“古埃及很神奇”，后面主要讲了什么来证明这一点？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "列举了他们在科学、文字和建筑方面的具体成就。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "描述了尼罗河的美丽风景。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "讲述了古埃及人的日常生活。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "解释了为什么古埃及人喜欢数学。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "根据文章，古埃及的建筑为什么能保存几千年？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "因为它们是用巨大的石头精心建造的。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "因为古埃及人使用了现代水泥。",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "因为 they were made of wood. ",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "Because the Nile River protected them from rain.",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "找出说明古埃及人擅长建筑的那句话。",
+        "answer": {
+          "source_ids": [
+            "s8"
+          ]
+        },
+        "candidate_source_ids": [
+          "s4",
+          "s8",
+          "s11",
+          "s13"
+        ]
+      }
+    ]
+  }
+}

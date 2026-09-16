@@ -1,0 +1,465 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd5-14-Unit-14-Weighing-a-Planet",
+    "title": "RFD 5 / Unit 14 Weighing a Planet",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Scientists have a way to find the weight of a planet."
+          },
+          {
+            "id": "s2",
+            "text": "They look at a planet’s moons."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s3",
+            "text": "Scientists need to know two things."
+          },
+          {
+            "id": "s4",
+            "text": "They need to know the distance between the planet and the moon."
+          },
+          {
+            "id": "s5",
+            "text": "And they also need to know how long it takes the object to orbit the"
+          },
+          {
+            "id": "s6",
+            "text": "planet once."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s7",
+            "text": "This tells them about the gravity pulling on the moon."
+          },
+          {
+            "id": "s8",
+            "text": "The gravity comes from the weight of the planet."
+          },
+          {
+            "id": "s9",
+            "text": "A heavy planet pulls harder on its moons."
+          },
+          {
+            "id": "s10",
+            "text": "So they will orbit the planet"
+          },
+          {
+            "id": "s11",
+            "text": "quickly."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "The Method"
+        },
+        "main_idea": {
+          "text": "Scientists determine a planet's weight by observing its moons."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "Scientists have a specific method to find a planet's weight."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "The method involves looking at the planet's moons."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "Scientists have a way",
+            "source_id": "s1",
+            "role": "topic_introduction"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Required Data"
+        },
+        "main_idea": {
+          "text": "To calculate the weight, scientists need to know the distance to the moon and the time it takes to orbit."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Two specific pieces of information are required."
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "The first is the distance between the planet and the moon."
+          },
+          {
+            "source_ids": [
+              "s5",
+              "s6"
+            ],
+            "meaning": "The second is the time it takes for the moon to orbit the planet once."
+          }
+        ],
+        "function": {
+          "type": "explanation"
+        },
+        "relation_to_previous": {
+          "type": "elaboration",
+          "target": "p1"
+        },
+        "signals": [
+          {
+            "text": "need to know two things",
+            "source_id": "s3",
+            "role": "structural_marker"
+          },
+          {
+            "text": "And they also need",
+            "source_id": "s5",
+            "role": "addition"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "The Reason"
+        },
+        "main_idea": {
+          "text": "The speed of a moon's orbit reveals the planet's gravity, which is caused by its weight."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s7"
+            ],
+            "meaning": "The data tells scientists about the gravity pulling on the moon."
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "This gravity comes from the planet's weight."
+          },
+          {
+            "source_ids": [
+              "s9",
+              "s10",
+              "s11"
+            ],
+            "meaning": "Heavier planets pull harder, causing moons to orbit faster."
+          }
+        ],
+        "function": {
+          "type": "conclusion"
+        },
+        "relation_to_previous": {
+          "type": "cause_and_effect",
+          "target": "p2"
+        },
+        "signals": [
+          {
+            "text": "This tells them",
+            "source_id": "s7",
+            "role": "consequence"
+          },
+          {
+            "text": "So they will orbit",
+            "source_id": "s10",
+            "role": "conclusion"
+          }
+        ]
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "Introduces the topic of weighing planets using moons."
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2"
+          ],
+          "label": "Process",
+          "function": "Explains the specific data needed for the calculation."
+        },
+        {
+          "id": "sec3",
+          "paragraph_ids": [
+            "p3"
+          ],
+          "label": "Explanation",
+          "function": "Explains the scientific reason why the method works."
+        }
+      ],
+      "structure": {
+        "type": "cause_and_effect"
+      },
+      "central_idea": {
+        "text": "Scientists can find a planet's weight by measuring how its moons orbit it, because a planet's weight determines its gravity."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "A planet with a very light weight would have moons that orbit it slowly.",
+          "evidence": [
+            {
+              "source_id": "s9",
+              "span": "A heavy planet pulls harder on its moons."
+            },
+            {
+              "source_id": "s11",
+              "span": "quickly."
+            }
+          ],
+          "knowledge_bridge": "Understanding the inverse relationship between weight/gravity and orbital speed.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "If a moon orbits a planet very fast, the planet is likely very heavy.",
+          "evidence": [
+            {
+              "source_id": "s8",
+              "span": "The gravity comes from the weight of the planet."
+            },
+            {
+              "source_id": "s10",
+              "span": "So they will orbit the planet"
+            }
+          ],
+          "knowledge_bridge": "Applying the cause-and-effect relationship to a new scenario.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "科学家如何通过观察卫星来称量行星的重量。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "行星的卫星是如何围绕行星运行的。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "宇宙中所有的行星都有卫星。",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt4",
+            "text": "重力是如何在太空中工作的。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第二段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "科学家需要的数据",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "行星的重量",
+            "role": "too_broad"
+          },
+          {
+            "id": "opt3",
+            "text": "月亮的轨道",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "重力的力量",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择支持“科学家需要知道两件事”的句子。",
+        "answer": {
+          "source_ids": [
+            "s4",
+            "s5",
+            "s6"
+          ]
+        },
+        "candidate_source_ids": [
+          "s1",
+          "s2",
+          "s3",
+          "s4",
+          "s5",
+          "s6",
+          "s7"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第三段解释了第二段中提到的数据说明了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "行星的重力",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "月亮的颜色",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "太阳的温度",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "星星的数量",
+            "role": "irrelevant"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "如果一颗行星非常轻，它的卫星会怎样运行？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "运行得比较慢",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "运行得非常快",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "停止运行",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt4",
+            "text": "飞离行星",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "select_sentence",
+        "prompt": "选择说明“重行星对卫星的拉力更大”的句子。",
+        "answer": {
+          "source_ids": [
+            "s9"
+          ]
+        },
+        "candidate_source_ids": [
+          "s7",
+          "s8",
+          "s9",
+          "s10",
+          "s11"
+        ]
+      }
+    ]
+  }
+}

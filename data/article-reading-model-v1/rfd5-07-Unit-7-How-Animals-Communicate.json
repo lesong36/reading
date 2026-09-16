@@ -1,0 +1,557 @@
+{
+  "schema_version": "1.0",
+  "article": {
+    "id": "rfd5-07-Unit-7-How-Animals-Communicate",
+    "title": "RFD 5 / Unit 7 How Animals Communicate",
+    "text_type": "informational",
+    "audience": {
+      "grade_band": "upper_elementary"
+    },
+    "language": "en"
+  },
+  "content": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "order": 1,
+        "sentences": [
+          {
+            "id": "s1",
+            "text": "Human language seems unique."
+          },
+          {
+            "id": "s2",
+            "text": "But other animals also have ways to communicate."
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "order": 2,
+        "sentences": [
+          {
+            "id": "s3",
+            "text": "Ants use chemicals."
+          },
+          {
+            "id": "s4",
+            "text": "An ant leaves a chemical path."
+          },
+          {
+            "id": "s5",
+            "text": "Other ants follow it to the food."
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "order": 3,
+        "sentences": [
+          {
+            "id": "s6",
+            "text": "Bees do a special dance."
+          },
+          {
+            "id": "s7",
+            "text": "A bee moves around."
+          },
+          {
+            "id": "s8",
+            "text": "Its body and wings vibrate."
+          },
+          {
+            "id": "s9",
+            "text": "This shows where flowers are."
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "order": 4,
+        "sentences": [
+          {
+            "id": "s10",
+            "text": "Elephants use low sounds."
+          },
+          {
+            "id": "s11",
+            "text": "These sounds travel over long distances."
+          }
+        ]
+      },
+      {
+        "id": "p5",
+        "order": 5,
+        "sentences": [
+          {
+            "id": "s12",
+            "text": "Dolphins smack their tail on the water."
+          },
+          {
+            "id": "s13",
+            "text": "This warns other dolphins of danger."
+          }
+        ]
+      },
+      {
+        "id": "p6",
+        "order": 6,
+        "sentences": [
+          {
+            "id": "s14",
+            "text": "Animals like the firefly and the glow-worm have another way."
+          },
+          {
+            "id": "s15",
+            "text": "They produce flashes of light to communicate."
+          }
+        ]
+      }
+    ]
+  },
+  "analysis": {
+    "paragraphs": [
+      {
+        "id": "p1",
+        "topic": {
+          "label": "Introduction"
+        },
+        "main_idea": {
+          "text": "Animals have their own ways to communicate."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s1"
+            ],
+            "meaning": "Human language is special."
+          },
+          {
+            "source_ids": [
+              "s2"
+            ],
+            "meaning": "Animals also communicate."
+          }
+        ],
+        "function": {
+          "type": "introduction"
+        },
+        "relation_to_previous": null,
+        "signals": [
+          {
+            "text": "But",
+            "source_id": "s2",
+            "role": "contrast"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "topic": {
+          "label": "Ants"
+        },
+        "main_idea": {
+          "text": "Ants use chemicals to guide others to food."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s3"
+            ],
+            "meaning": "Ants use chemicals."
+          },
+          {
+            "source_ids": [
+              "s4"
+            ],
+            "meaning": "They leave a chemical path."
+          },
+          {
+            "source_ids": [
+              "s5"
+            ],
+            "meaning": "Other ants follow the path to food."
+          }
+        ],
+        "function": {
+          "type": "example"
+        },
+        "relation_to_previous": {
+          "type": "example",
+          "target": "p1"
+        },
+        "signals": []
+      },
+      {
+        "id": "p3",
+        "topic": {
+          "label": "Bees"
+        },
+        "main_idea": {
+          "text": "Bees use a special dance to show where flowers are."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s6"
+            ],
+            "meaning": "Bees do a special dance."
+          },
+          {
+            "source_ids": [
+              "s8"
+            ],
+            "meaning": "Their body and wings vibrate."
+          },
+          {
+            "source_ids": [
+              "s9"
+            ],
+            "meaning": "The dance shows the location of flowers."
+          }
+        ],
+        "function": {
+          "type": "example"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p2"
+        },
+        "signals": []
+      },
+      {
+        "id": "p4",
+        "topic": {
+          "label": "Elephants"
+        },
+        "main_idea": {
+          "text": "Elephants use low sounds to communicate over long distances."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s10"
+            ],
+            "meaning": "Elephants use low sounds."
+          },
+          {
+            "source_ids": [
+              "s11"
+            ],
+            "meaning": "These sounds travel far."
+          }
+        ],
+        "function": {
+          "type": "example"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p3"
+        },
+        "signals": []
+      },
+      {
+        "id": "p5",
+        "topic": {
+          "label": "Dolphins"
+        },
+        "main_idea": {
+          "text": "Dolphins use tail smacks to warn of danger."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s12"
+            ],
+            "meaning": "Dolphins smack their tail on the water."
+          },
+          {
+            "source_ids": [
+              "s13"
+            ],
+            "meaning": "This action warns others of danger."
+          }
+        ],
+        "function": {
+          "type": "example"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p4"
+        },
+        "signals": []
+      },
+      {
+        "id": "p6",
+        "topic": {
+          "label": "Fireflies and Glow-worms"
+        },
+        "main_idea": {
+          "text": "Fireflies and glow-worms use light to communicate."
+        },
+        "key_details": [
+          {
+            "source_ids": [
+              "s14"
+            ],
+            "meaning": "Fireflies and glow-worms have another way."
+          },
+          {
+            "source_ids": [
+              "s15"
+            ],
+            "meaning": "They produce flashes of light."
+          }
+        ],
+        "function": {
+          "type": "example"
+        },
+        "relation_to_previous": {
+          "type": "addition",
+          "target": "p5"
+        },
+        "signals": []
+      }
+    ],
+    "text": {
+      "sections": [
+        {
+          "id": "sec1",
+          "paragraph_ids": [
+            "p1"
+          ],
+          "label": "Introduction",
+          "function": "introduction"
+        },
+        {
+          "id": "sec2",
+          "paragraph_ids": [
+            "p2",
+            "p3",
+            "p4",
+            "p5",
+            "p6"
+          ],
+          "label": "Examples of Animal Communication",
+          "function": "body"
+        }
+      ],
+      "structure": {
+        "type": "description"
+      },
+      "central_idea": {
+        "text": "Different animals use various methods, such as chemicals, dances, sounds, and light, to communicate with each other."
+      },
+      "inferences": [
+        {
+          "id": "inf1",
+          "claim": "Animals use different communication methods based on their environment or needs.",
+          "evidence": [
+            {
+              "source_id": "s11",
+              "span": "These sounds travel over long distances."
+            },
+            {
+              "source_id": "s13",
+              "span": "This warns other dolphins of danger."
+            }
+          ],
+          "knowledge_bridge": "Understanding that different environments require different communication strategies.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "inf2",
+          "claim": "Animal communication is not just about making noise; it involves specific actions and signals.",
+          "evidence": [
+            {
+              "source_id": "s4",
+              "span": "An ant leaves a chemical path."
+            },
+            {
+              "source_id": "s8",
+              "span": "Its body and wings vibrate."
+            }
+          ],
+          "knowledge_bridge": "Recognizing that communication can be visual, chemical, or physical, not just auditory.",
+          "difficulty": "low"
+        }
+      ]
+    }
+  },
+  "pedagogy": {
+    "activities": [
+      {
+        "id": "act1",
+        "type": "choose_main_idea",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "这篇文章主要讲了什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "动物用不同的方式交流。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "人类语言是独一无二的。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt3",
+            "text": "蚂蚁如何找到食物。",
+            "role": "too_narrow"
+          },
+          {
+            "id": "opt4",
+            "text": "动物和人类的区别。",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act2",
+        "type": "choose_heading",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "哪一个是第三段最好的标题？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "蜜蜂的舞蹈",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "花朵的位置",
+            "role": "supporting_detail"
+          },
+          {
+            "id": "opt3",
+            "text": "翅膀的振动",
+            "role": "minor_detail"
+          },
+          {
+            "id": "opt4",
+            "text": "昆虫的生活",
+            "role": "too_broad"
+          }
+        ]
+      },
+      {
+        "id": "act3",
+        "type": "identify_support",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "哪句话支持了“大象用声音交流”这个观点？",
+        "answer": {
+          "source_ids": [
+            "s10"
+          ]
+        },
+        "candidate_source_ids": [
+          "s10",
+          "s11",
+          "s12",
+          "s13"
+        ]
+      },
+      {
+        "id": "act4",
+        "type": "paragraph_connection",
+        "scaffold_level": "medium",
+        "interaction": "tap",
+        "prompt": "第二段和第一段是什么关系？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "举例说明",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "提出相反观点",
+            "role": "misinterpretation"
+          },
+          {
+            "id": "opt3",
+            "text": "总结全文",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "解释原因",
+            "role": "supporting_detail"
+          }
+        ]
+      },
+      {
+        "id": "act5",
+        "type": "predict_direction",
+        "scaffold_level": "high",
+        "interaction": "tap",
+        "prompt": "读完第一段后，你觉得接下来文章会讲什么？",
+        "answer": {
+          "option_ids": [
+            "opt1"
+          ]
+        },
+        "options": [
+          {
+            "id": "opt1",
+            "text": "介绍几种动物交流的具体方式。",
+            "role": "main_idea"
+          },
+          {
+            "id": "opt2",
+            "text": "详细讨论人类语言的历史。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt3",
+            "text": "比较不同动物的体型大小。",
+            "role": "irrelevant"
+          },
+          {
+            "id": "opt4",
+            "text": "解释为什么动物不能说话。",
+            "role": "misinterpretation"
+          }
+        ]
+      },
+      {
+        "id": "act6",
+        "type": "find_evidence",
+        "scaffold_level": "low",
+        "interaction": "tap",
+        "prompt": "找出说明“萤火虫用光交流”的句子。",
+        "answer": {
+          "source_ids": [
+            "s15"
+          ]
+        },
+        "candidate_source_ids": [
+          "s14",
+          "s15",
+          "s12",
+          "s13"
+        ]
+      }
+    ]
+  }
+}
