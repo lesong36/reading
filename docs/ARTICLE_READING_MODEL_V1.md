@@ -2,10 +2,16 @@
 
 ## Status
 
-This is the project decision record and implementation contract for the first
-paragraph-to-text reading feature. It deliberately narrows the product to
-elementary informational reading. It does **not** turn the app into a full
-R0–R8 diagnostic platform.
+> **Rejected as a product and model direction (2026-09-16).** This document
+> remains as an archive of the V1 experiment only. Do not generate, attach,
+> or extend V1 sidecars for new product work. The V1 model mixed expert text
+> analysis, child answers, and Runtime heuristics; its six-activity routine
+> was rejected in user review.
+>
+> The replacement discussion is in
+> [`READING_COMPREHENSION_FRAMEWORK_V2_DISCUSSION.md`](./READING_COMPREHENSION_FRAMEWORK_V2_DISCUSSION.md),
+> and the product plan is in
+> [`ARTICLE_READING_PRODUCT_PLAN.md`](./ARTICLE_READING_PRODUCT_PLAN.md).
 
 ## Product decision
 
