@@ -4630,6 +4630,11 @@
         if (key) {
           try { restored = normalizeReadingMvpV2Progress(JSON.parse(localStorage.getItem(key) || '{}')); } catch (_) {}
         }
+        // A cached final choice is not valid until every preceding update has
+        // been completed with evidence.  This also prevents an old local
+        // state from revealing the expert whole-text summary on a new run.
+        const allCheckpointsComplete = readingMvpV2Checkpoints.every(checkpoint => restored.checkpoints?.[checkpoint.id]?.complete);
+        if (!allCheckpointsComplete) restored.final = {};
         setReadingMvpV2Progress(restored);
       }, [currentArticleId, readingMvpV2Model?.article?.id]);
 
@@ -8278,7 +8283,8 @@
                         const choiceClass = (chosen, checked, correct) => `rounded-2xl border px-4 py-3 text-left text-sm font-semibold leading-6 transition-colors ${checked && chosen && correct ? 'border-emerald-300 bg-emerald-50 text-emerald-950' : checked && chosen ? 'border-amber-300 bg-amber-50 text-amber-950' : chosen ? 'border-indigo-500 bg-indigo-50 text-indigo-950' : 'border-slate-200 bg-white text-slate-700 hover:border-indigo-300 hover:bg-indigo-50'}`;
                         const selectedOption = checkpoint?.options?.find(option => option.id === response.choiceId);
                         const finalChoice = final.options.find(option => option.id === readingMvpV2Progress.final?.choiceId);
-                        const finalDone = readingMvpV2Progress.final?.checked && readingMvpV2Progress.final?.correct;
+                        const allCheckpointsComplete = completedCheckpoints.length === readingMvpV2Checkpoints.length;
+                        const finalDone = allCheckpointsComplete && readingMvpV2Progress.final?.checked && readingMvpV2Progress.final?.correct;
                         const treeLeaves = readingMvpV2Checkpoints.map((item, index) => {
                           const itemResponse = readingMvpV2Progress.checkpoints?.[item.id] || {};
                           const itemChoice = item.options.find(option => option.id === itemResponse.choiceId);
@@ -8300,7 +8306,7 @@
                               <path d="M110 104 C164 49 238 38 300 34 M300 100 V34 M490 104 C436 49 362 38 300 34" fill="none" stroke="#a16207" strokeWidth="5" strokeLinecap="round" opacity="0.78" />
                               <path d="M270 266 C252 280 240 286 226 291 M300 266 V294 M330 266 C348 280 360 286 374 291" fill="none" stroke="#78350f" strokeWidth="6" strokeLinecap="round" />
                             </svg>
-                            <div className={`absolute left-1/2 top-3 z-10 w-[min(46%,250px)] -translate-x-1/2 rounded-[44%_56%_46%_54%] border px-4 py-2.5 text-center shadow-sm ${finalDone ? 'border-emerald-300 bg-emerald-50 text-emerald-950' : 'border-sky-200 bg-white/90 text-slate-600'}`}><p className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-400">树冠 · 全文概括</p><p className="mt-1 line-clamp-2 text-xs font-bold leading-5">{finalDone ? finalChoice?.text : '读完所有更新后，在这里概括整篇文章。'}</p></div>
+                            <div className={`absolute left-1/2 top-3 z-10 w-[min(46%,250px)] -translate-x-1/2 rounded-[44%_56%_46%_54%] border px-4 py-2.5 text-center shadow-sm ${finalDone ? 'border-emerald-300 bg-emerald-50 text-emerald-950' : 'border-sky-200 bg-white/90 text-slate-600'}`}><p className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-400">树冠 · 全文概括</p><p className="mt-1 line-clamp-2 text-xs font-bold leading-5">{finalDone ? finalChoice?.text : '完成全部证据叶子后，才在这里概括整篇文章。'}</p></div>
                             {treeLeaves.map(item => <div key={item.id} className={`absolute z-10 w-[30%] max-w-[174px] ${treeLeafPositions[item.index]}`}><div className={`min-h-[72px] rounded-[44%_56%_48%_52%] border px-3 py-2.5 text-center shadow-sm transition-all ${item.complete ? 'border-emerald-300 bg-emerald-50 text-emerald-950' : item.current ? 'border-indigo-300 bg-indigo-50 text-indigo-950 ring-2 ring-indigo-200 ring-offset-2' : 'border-slate-200 bg-white/85 text-slate-400'}`}><p className={`text-[10px] font-black uppercase tracking-[0.14em] ${item.complete ? 'text-emerald-700' : item.current ? 'text-indigo-600' : 'text-slate-400'}`}>{item.complete ? item.map_label : item.current ? '正在生长' : '还没读到'}</p><p className="mt-1 line-clamp-2 text-xs font-bold leading-5">{item.text}</p></div></div>)}
                             <div className="absolute bottom-3 left-1/2 z-10 w-[min(62%,330px)] -translate-x-1/2 rounded-full border border-amber-300 bg-[#fff7d6] px-4 py-3 text-center shadow-sm"><p className="text-[10px] font-black uppercase tracking-[0.16em] text-amber-800">根 · 我一开始的想法</p><p className="mt-1 line-clamp-2 text-xs font-bold leading-5 text-amber-950">{entryChoice?.text}</p></div>
                           </div>
