@@ -4,7 +4,8 @@
     "id": "re-foundations-5a-the-disease-detective",
     "title": "RE Foundations / 5A / The Disease Detective",
     "genre": "narrative",
-    "genre_label": "故事 / 叙事文"
+    "genre_label": "故事 / 叙事文",
+    "genre_profile": { "primary": "narrative", "confidence": 0.94, "child_label": "讲一个寻找答案的故事" }
   },
   "analysis": {
     "semantic": {
@@ -39,6 +40,7 @@
     }
   },
   "pedagogy": {
+    "map_plan": { "renderer": "event_path", "title": "我的故事路径", "max_visible_nodes": 3 },
     "entry": {
       "prompt": "从标题和第一段开始。你觉得接下来最值得追住的是什么？",
       "options": [
@@ -56,11 +58,12 @@
         "label": "线索出现",
         "prompt": "故事读到这里，你现在知道 Dr. Besser 正在做什么了吗？",
         "options": [
-          { "id": "investigation", "text": "他发现孩子们都有危险的 E. coli，正在寻找它从哪里来。" },
-          { "id": "cure", "text": "他已经马上治好了所有孩子。" },
-          { "id": "holiday", "text": "他带孩子们去旅行。" }
+          { "id": "investigation", "text": "他发现孩子们都有危险的 E. coli，正在寻找它从哪里来。", "semantic_role": "supported_hypothesis" },
+          { "id": "diagnosis", "text": "他已经知道孩子们感染了同一种细菌，正在确认这种细菌怎样进入他们的身体。", "semantic_role": "too_specific" },
+          { "id": "individual", "text": "他准备分别治疗每个孩子，而不是先寻找共同原因。", "semantic_role": "wrong_goal" }
         ],
         "accepted_option_ids": ["investigation"],
+        "evidence_links": [{ "hypothesis_id": "investigation", "source_ids": ["s4", "s5", "s6", "s7", "s8"] }],
         "map_label": "问题与目标"
       },
       {
@@ -71,11 +74,12 @@
         "label": "方法改变",
         "prompt": "这一次，医生没有只看细菌。他怎样让自己的理解往前走？",
         "options": [
-          { "id": "comparison", "text": "他比较生病和健康孩子吃过的东西，发现 apple juice 是关键差别。" },
-          { "id": "guess", "text": "他没有证据，只是随便猜是 apple juice。" },
-          { "id": "animals", "text": "他决定不再调查食物。" }
+          { "id": "comparison", "text": "他比较生病和健康孩子吃过的东西，发现 apple juice 是关键差别。", "semantic_role": "supported_hypothesis" },
+          { "id": "food-list", "text": "他把孩子吃过的食物列出来，想找到所有人都吃过的东西。", "semantic_role": "too_narrow" },
+          { "id": "animals", "text": "他先怀疑动物，但还没有比较健康孩子和生病孩子的食物。", "semantic_role": "wrong_stage" }
         ],
         "accepted_option_ids": ["comparison"],
+        "evidence_links": [{ "hypothesis_id": "comparison", "source_ids": ["s14", "s15", "s16", "s17"] }],
         "map_label": "比较线索"
       },
       {
@@ -86,11 +90,12 @@
         "label": "答案与结果",
         "prompt": "最后，什么让医生把零散线索连成了一个答案？",
         "options": [
-          { "id": "discovery", "text": "落地的脏苹果没被清洗，果汁也没加热；这让细菌进入果汁并让孩子生病。" },
-          { "id": "magic", "text": "医生突然用魔法让细菌消失。" },
-          { "id": "unknown", "text": "故事最后仍然完全不知道原因。" }
+          { "id": "discovery", "text": "落地的脏苹果没被清洗，果汁也没加热；这让细菌进入果汁并让孩子生病。", "semantic_role": "supported_hypothesis" },
+          { "id": "apple-juice", "text": "他发现 apple juice 和生病有关，但还需要知道果汁为什么会有细菌。", "semantic_role": "too_narrow" },
+          { "id": "cure", "text": "他找到一种能立刻治好所有孩子的方法。", "semantic_role": "wrong_outcome" }
         ],
         "accepted_option_ids": ["discovery"],
+        "evidence_links": [{ "hypothesis_id": "discovery", "source_ids": ["s20", "s21", "s22", "s23", "s24", "s25", "s26"] }],
         "map_label": "发现与结果"
       }
     ],

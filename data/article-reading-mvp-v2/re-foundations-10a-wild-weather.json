@@ -4,7 +4,8 @@
     "id": "re-foundations-10a-wild-weather",
     "title": "RE Foundations / 10A / Wild Weather",
     "genre": "informational",
-    "genre_label": "说明文"
+    "genre_label": "说明文",
+    "genre_profile": { "primary": "informational", "confidence": 0.91, "child_label": "解释一件事的文章" }
   },
   "analysis": {
     "semantic": {
@@ -38,6 +39,7 @@
     }
   },
   "pedagogy": {
+    "map_plan": { "renderer": "idea_tree", "title": "我的主题树", "max_visible_nodes": 3 },
     "entry": {
       "prompt": "先看标题和开头。你觉得这篇文章大概会带我们看什么？",
       "options": [
@@ -55,11 +57,12 @@
         "label": "第一次更新",
         "prompt": "读到这里，这篇文章让你对“wild weather”多知道了什么？",
         "options": [
-          { "id": "impact", "text": "它不只是罕见现象，也会造成严重的伤害和损失。" },
-          { "id": "fun", "text": "它让汽车和卡车在街上玩得更快。" },
-          { "id": "only-japan", "text": "它只会影响日本。" }
+          { "id": "impact", "text": "它不只是罕见现象，也会造成严重的伤害和损失。", "semantic_role": "supported_hypothesis" },
+          { "id": "japan-detail", "text": "这一部分主要在讲 2018 年日本西部那场洪水发生的经过。", "semantic_role": "too_narrow" },
+          { "id": "weather-more-common", "text": "它只是说天气变化更多，并没有说明它会给人们带来什么后果。", "semantic_role": "too_narrow" }
         ],
         "accepted_option_ids": ["impact"],
+        "evidence_links": [{ "hypothesis_id": "impact", "source_ids": ["s5", "s6", "s9", "s10", "s11", "s12", "s13"] }],
         "map_label": "影响"
       },
       {
@@ -70,11 +73,12 @@
         "label": "第二次更新",
         "prompt": "文章没有只停在“天气很可怕”。它接着把你的理解带向哪里？",
         "options": [
-          { "id": "cause", "text": "它在解释：自然天气之外，人类造成的变暖也会让极端天气更常见、更强。" },
-          { "id": "forecast", "text": "它在教我们怎样准确预报每一场暴雨。" },
-          { "id": "past", "text": "它在说明过去从来没有极端天气。" }
+          { "id": "cause", "text": "它在解释：自然天气之外，人类造成的变暖也会让极端天气更常见、更强。", "semantic_role": "supported_hypothesis" },
+          { "id": "natural-only", "text": "它在说明极端天气本来就是自然现象，所以不需要再追问别的原因。", "semantic_role": "misinterpretation" },
+          { "id": "forecast", "text": "它把重点放在怎样更准确地预报每一场风暴。", "semantic_role": "wrong_focus" }
         ],
         "accepted_option_ids": ["cause"],
+        "evidence_links": [{ "hypothesis_id": "cause", "source_ids": ["s21", "s22", "s23", "s24", "s25"] }],
         "map_label": "原因"
       },
       {
@@ -85,11 +89,12 @@
         "label": "第三次更新",
         "prompt": "最后这一部分让整篇文章多了哪一层意思？",
         "options": [
-          { "id": "response", "text": "面对更多 wild weather，人们可以减缓变暖，也可以提前准备来保护生命。" },
-          { "id": "giveup", "text": "面对天气，人们只能什么也不做。" },
-          { "id": "repeat", "text": "它只是再讲一次日本发生了洪水。" }
+          { "id": "response", "text": "面对更多 wild weather，人们可以减缓变暖，也可以提前准备来保护生命。", "semantic_role": "supported_hypothesis" },
+          { "id": "respond-after", "text": "它建议等灾害发生后，再想办法帮助受影响的人。", "semantic_role": "wrong_relation" },
+          { "id": "case", "text": "它又回到 2018 年日本洪水的具体情况。", "semantic_role": "wrong_focus" }
         ],
         "accepted_option_ids": ["response"],
+        "evidence_links": [{ "hypothesis_id": "response", "source_ids": ["s26", "s27", "s28", "s29"] }],
         "map_label": "可以怎样做"
       }
     ],

@@ -4,7 +4,8 @@
     "id": "rfd1-10-Unit-10-Body-Image",
     "title": "Unit 10 Body Image",
     "genre": "argumentative",
-    "genre_label": "观点 / 劝导文"
+    "genre_label": "观点 / 劝导文",
+    "genre_profile": { "primary": "argumentative", "confidence": 0.9, "child_label": "提出看法并说明理由的文章" }
   },
   "analysis": {
     "semantic": {
@@ -36,6 +37,7 @@
     }
   },
   "pedagogy": {
+    "map_plan": { "renderer": "claim_board", "title": "我的论证板", "max_visible_nodes": 3 },
     "entry": {
       "prompt": "看标题和第一段。这篇文章可能想和我们聊什么？",
       "options": [
@@ -53,11 +55,12 @@
         "label": "先看到困扰",
         "prompt": "这一段让你先看见了什么困扰？",
         "options": [
-          { "id": "problem", "text": "人们把自己和杂志里的“完美”外表比较，常常会因此难过。" },
-          { "id": "clothes", "text": "人们都很喜欢买杂志。" },
-          { "id": "exercise", "text": "人们不喜欢运动。" }
+          { "id": "problem", "text": "人们把自己和杂志里的“完美”外表比较，常常会因此难过。", "semantic_role": "supported_hypothesis" },
+          { "id": "expectation", "text": "杂志图片会让人觉得自己也该拥有同样的外表。", "semantic_role": "too_narrow" },
+          { "id": "magazine", "text": "文章主要提醒我们，杂志里常常出现漂亮的照片。", "semantic_role": "too_narrow" }
         ],
         "accepted_option_ids": ["problem"],
+        "evidence_links": [{ "hypothesis_id": "problem", "source_ids": ["s1", "s2", "s3", "s4", "s5", "s6"] }],
         "map_label": "困扰"
       },
       {
@@ -68,11 +71,12 @@
         "label": "理解改变",
         "prompt": "第二段怎样改变了你对前面“完美外表”的理解？",
         "options": [
-          { "id": "reason", "text": "那些图片被电脑修改过，不是真实的人本来的样子。" },
-          { "id": "agree", "text": "那些图片证明每个人都应该长成一样。" },
-          { "id": "unrelated", "text": "第二段开始介绍一种新的运动。" }
+          { "id": "reason", "text": "那些图片被电脑修改过，不是真实的人本来的样子。", "semantic_role": "supported_hypothesis" },
+          { "id": "different", "text": "这些图片和真实生活不同，但文章没有说明它们为什么不同。", "semantic_role": "too_narrow" },
+          { "id": "goal", "text": "第二段在鼓励人们通过电脑把自己变得更漂亮。", "semantic_role": "misinterpretation" }
         ],
         "accepted_option_ids": ["reason"],
+        "evidence_links": [{ "hypothesis_id": "reason", "source_ids": ["s7", "s8", "s9"] }],
         "map_label": "为什么别比较"
       },
       {
@@ -83,11 +87,12 @@
         "label": "带走什么",
         "prompt": "读到结尾，文章把前面的理解带向了什么？",
         "options": [
-          { "id": "advice", "text": "外表不是最重要的；多做让自己感觉好的事。" },
-          { "id": "appearance", "text": "外表是唯一重要的事。" },
-          { "id": "magazine", "text": "应该每天多看杂志。" }
+          { "id": "advice", "text": "外表不是最重要的；多做让自己感觉好的事。", "semantic_role": "supported_hypothesis" },
+          { "id": "confidence", "text": "只要告诉自己外表不重要，就不必再关注感受或做喜欢的事。", "semantic_role": "too_narrow" },
+          { "id": "change", "text": "如果对外表不满意，最好的办法是不断改变自己的样子。", "semantic_role": "misinterpretation" }
         ],
         "accepted_option_ids": ["advice"],
+        "evidence_links": [{ "hypothesis_id": "advice", "source_ids": ["s10", "s11", "s12", "s13"] }],
         "map_label": "带走的想法"
       }
     ],
