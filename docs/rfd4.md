@@ -6,7 +6,7 @@ Ancient Egypt was amazing. It began in 3100 BCE around the Nile River. From the 
 Ancient Egyptian culture was advanced. They were good at science and math. They had a written language. They also had their own calendar. 
 The ancient Egyptians were also good at building. They used basic tools. But they cut and moved huge stones. With them, they made large buildings and tall monuments. These were very well made. Some are still standing thousands of years later.
 
-1. Whick word is the opposite of advanced?
+1. Which word is the opposite of advanced?
 a. old
 b. developed
 c. basic
@@ -22,7 +22,7 @@ a. amazing
 b. advanced
 c. old
 
-4. What did the ancient Egyptions do well?
+4. What did the ancient Egyptians do well?
 (select 2)
 a. They were good at science and math.
 b. They are good at music and art.

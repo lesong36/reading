@@ -2141,12 +2141,21 @@
       './data/generated-reader-json/reader-articles-re-foundations.import.json',
       './data/generated-reader-json/reader-articles-shiwen.import.json'
     ];
+    // V2 is deliberately a small, reviewed multi-genre pilot.  These paths
+    // are kept outside the imported library records so a reader can try the
+    // new model without rewriting or reattaching any existing bookshelf pack.
+    const ARTICLE_READING_MVP_V2_MODEL_PATHS = Object.freeze({
+      're-foundations-10a-wild-weather': './data/article-reading-mvp-v2/re-foundations-10a-wild-weather.json',
+      're-foundations-5a-the-disease-detective': './data/article-reading-mvp-v2/re-foundations-5a-the-disease-detective.json',
+      'rfd1-10-Unit-10-Body-Image': './data/article-reading-mvp-v2/rfd1-10-Unit-10-Body-Image.json'
+    });
     // v34 adds the 四上 curriculum pack and its supplementary reading. A new
     // seed version makes existing clients reload the canonical bundle.
     // library. A marker alone is not proof that all curriculum bundles
     // reached the device.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v34';
-    const BUNDLED_LIBRARY_SEED_VERSION = '34';
+    // v35 makes validated Article Reading Model sidecars available to the shelf.
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v35';
+    const BUNDLED_LIBRARY_SEED_VERSION = '35';
     const EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT = 324;
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
@@ -2305,6 +2314,101 @@
         .sort((left, right) => left.index - right.index);
     };
 
+    const isRfdFourOrLater = (articleId = '') => /^rfd(?:[4-9]|[1-9]\d)-/i.test(String(articleId));
+
+    // RFD 4+ uses a repeated "Main idea → Sub-idea → Detail" chart format.
+    // Keep the source prompt as the single source of truth, but render those
+    // explicit labels as a hierarchy instead of an indented text paragraph.
+    const parseQuizIdeaTree = (prompt = '', articleId = '') => {
+      if (!isRfdFourOrLater(articleId)) return null;
+      const lines = String(prompt)
+        .replace(/\r/g, '')
+        .split('\n')
+        .map(line => line.trim())
+        .filter(Boolean);
+      const mainIdeaIndex = lines.findIndex(line => /^main\s*idea\s*\d*\s*:/i.test(line));
+      if (mainIdeaIndex < 0) return null;
+
+      const parseLabeledLine = (line, pattern) => {
+        const match = line.match(pattern);
+        return match ? { label: match[1].trim(), text: match[2].trim() } : null;
+      };
+      const mainIdea = parseLabeledLine(lines[mainIdeaIndex], /^(main\s*idea\s*\d*)\s*:\s*(.+)$/i);
+      if (!mainIdea) return null;
+
+      const instruction = lines
+        .slice(0, mainIdeaIndex)
+        .filter(line => !/^(?:words?\s*:|[a-z]\.)/i.test(line))
+        .join(' ');
+      const details = [];
+      const branches = [];
+      let activeBranch = null;
+
+      for (const line of lines.slice(mainIdeaIndex + 1)) {
+        if (/^请完成第\s*\d+\s*空。?$/u.test(line)) break;
+        const branch = parseLabeledLine(line, /^(sub[-\s]*idea\s*\d*)\s*:\s*(.+)$/i);
+        if (branch) {
+          activeBranch = { ...branch, details: [] };
+          branches.push(activeBranch);
+          continue;
+        }
+        const detail = parseLabeledLine(line.replace(/^(?:[-•]\s*)/, ''), /^(detail\s*\d*)\s*:\s*(.+)$/i);
+        if (detail) {
+          (activeBranch ? activeBranch.details : details).push(detail);
+        }
+      }
+
+      return details.length || branches.length
+        ? { instruction, mainIdea, details, branches }
+        : null;
+    };
+
+    const QuizIdeaTree = ({ tree }) => (
+      <section className="mt-4" aria-label="主旨与细节结构图">
+        {tree.instruction && <p className="mb-4 text-xl font-black leading-relaxed text-slate-900">{tree.instruction}</p>}
+        <div className="rounded-3xl border border-indigo-100 bg-gradient-to-br from-indigo-50/80 via-white to-sky-50/70 p-4 shadow-sm sm:p-5">
+          <div className="flex items-start gap-3">
+            <span className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-xs font-black text-white shadow-sm">★</span>
+            <div className="min-w-0 flex-1 rounded-2xl border border-indigo-200 bg-white px-4 py-3 shadow-sm">
+              <p className="text-[11px] font-black uppercase tracking-[0.16em] text-indigo-600">{tree.mainIdea.label}</p>
+              <p className="mt-1 text-base font-black leading-7 text-slate-900 sm:text-lg">{tree.mainIdea.text}</p>
+            </div>
+          </div>
+
+          <div className="relative ml-4 mt-1 border-l-2 border-indigo-200 pb-1 pl-6 pt-4 sm:ml-5 sm:pl-7">
+            {tree.details.map((detail, index) => (
+              <div key={`${detail.label}-${index}`} className="relative pb-3 before:absolute before:-left-6 before:top-5 before:h-0.5 before:w-5 before:bg-indigo-200 sm:before:-left-7 sm:before:w-6">
+                <div className="rounded-2xl border border-sky-100 bg-white/90 px-4 py-3">
+                  <p className="text-[11px] font-black uppercase tracking-[0.14em] text-sky-700">{detail.label}</p>
+                  <p className="mt-1 text-sm font-semibold leading-6 text-slate-800 sm:text-base">{detail.text}</p>
+                </div>
+              </div>
+            ))}
+            {tree.branches.map((branch, branchIndex) => (
+              <div key={`${branch.label}-${branchIndex}`} className="relative pb-4 before:absolute before:-left-6 before:top-5 before:h-0.5 before:w-5 before:bg-indigo-200 sm:before:-left-7 sm:before:w-6">
+                <div className="rounded-2xl border border-violet-200 bg-violet-50/80 px-4 py-3">
+                  <p className="text-[11px] font-black uppercase tracking-[0.14em] text-violet-700">{branch.label}</p>
+                  <p className="mt-1 text-sm font-black leading-6 text-slate-900 sm:text-base">{branch.text}</p>
+                </div>
+                {branch.details.length > 0 && (
+                  <div className="relative ml-4 mt-2 border-l-2 border-sky-100 pl-5 sm:ml-5 sm:pl-6">
+                    {branch.details.map((detail, detailIndex) => (
+                      <div key={`${detail.label}-${detailIndex}`} className="relative pb-2 before:absolute before:-left-5 before:top-5 before:h-0.5 before:w-4 before:bg-sky-100 sm:before:-left-6 sm:before:w-5">
+                        <div className="rounded-xl border border-sky-100 bg-white/90 px-3 py-2.5">
+                          <p className="text-[10px] font-black uppercase tracking-[0.14em] text-sky-700">{detail.label}</p>
+                          <p className="mt-0.5 text-sm font-medium leading-6 text-slate-700">{detail.text}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+
     const isSupportedQuizQuestion = (question = {}) =>
       question.type === 'single' &&
       Number.isInteger(question.answerIndex) &&
@@ -2371,10 +2475,58 @@
     const READING_ACTIVITY_PROGRESS_STORAGE_KEY_PREFIX = 'reader_article_reading_activity_progress_';
     const getReadingActivityProgressStorageKey = (articleId) =>
       articleId ? `${READING_ACTIVITY_PROGRESS_STORAGE_KEY_PREFIX}${articleId}` : null;
+    // Unlike a quiz, the article routine stores the child's path through two
+    // reading passes.  It deliberately keeps choices separate from the model:
+    // the model is teaching material, while this is the learner's work.
+    const READING_ROUTINE_PROGRESS_STORAGE_KEY_PREFIX = 'reader_article_reading_routine_v1_';
+    const getReadingRoutineProgressStorageKey = (articleId) =>
+      articleId ? `${READING_ROUTINE_PROGRESS_STORAGE_KEY_PREFIX}${articleId}` : null;
+    const createEmptyReadingRoutineProgress = () => ({
+      firstPassIndex: 0,
+      notes: {},
+      predictions: {},
+      functions: {},
+      connections: {},
+      sections: {},
+      structure: {},
+      wholeText: {}
+    });
+    const normalizeReadingRoutineProgress = (value = {}) => ({
+      ...createEmptyReadingRoutineProgress(),
+      ...(value && typeof value === 'object' ? value : {}),
+      notes: value?.notes && typeof value.notes === 'object' ? value.notes : {},
+      predictions: value?.predictions && typeof value.predictions === 'object' ? value.predictions : {},
+      functions: value?.functions && typeof value.functions === 'object' ? value.functions : {},
+      connections: value?.connections && typeof value.connections === 'object' ? value.connections : {},
+      sections: value?.sections && typeof value.sections === 'object' ? value.sections : {},
+      structure: value?.structure && typeof value.structure === 'object' ? value.structure : {},
+      wholeText: value?.wholeText && typeof value.wholeText === 'object' ? value.wholeText : {}
+    });
     const normalizeReadingModel = (model = {}) => {
+      if (model?.schema_version === '2.0-mvp'
+        && model?.article?.id
+        && Array.isArray(model?.pedagogy?.checkpoints)
+        && Array.isArray(model?.pedagogy?.entry?.options)
+        && Array.isArray(model?.pedagogy?.final?.options)) return model;
       if (model?.schema_version !== '1.0' || !model?.article?.id || !Array.isArray(model?.pedagogy?.activities)) return null;
       return model;
     };
+    const isArticleReadingMvpV2 = (model) => model?.schema_version === '2.0-mvp';
+    const READING_MVP_V2_PROGRESS_STORAGE_KEY_PREFIX = 'reader_article_reading_mvp_v2_';
+    const getReadingMvpV2ProgressStorageKey = (articleId) =>
+      articleId ? `${READING_MVP_V2_PROGRESS_STORAGE_KEY_PREFIX}${articleId}` : null;
+    const createEmptyReadingMvpV2Progress = () => ({
+      entryChoiceId: null,
+      entryStarted: false,
+      checkpoints: {},
+      final: {}
+    });
+    const normalizeReadingMvpV2Progress = (value = {}) => ({
+      ...createEmptyReadingMvpV2Progress(),
+      ...(value && typeof value === 'object' ? value : {}),
+      checkpoints: value?.checkpoints && typeof value.checkpoints === 'object' ? value.checkpoints : {},
+      final: value?.final && typeof value.final === 'object' ? value.final : {}
+    });
     const sameIdSelection = (left = [], right = []) => {
       const normalized = (values) => [...new Set(values || [])].map(String).sort();
       const a = normalized(left), b = normalized(right);
@@ -3930,6 +4082,8 @@
       const [currentArticleReadingModel, setCurrentArticleReadingModel] = useState(null);
       const [readingActiveActivityId, setReadingActiveActivityId] = useState(null);
       const [readingActivityResponses, setReadingActivityResponses] = useState({});
+      const [readingRoutineProgress, setReadingRoutineProgress] = useState(createEmptyReadingRoutineProgress);
+      const [readingMvpV2Progress, setReadingMvpV2Progress] = useState(createEmptyReadingMvpV2Progress);
 
       // AI Feature States
       const [simplifiedSentence, setSimplifiedSentence] = useState("");
@@ -4381,7 +4535,7 @@
       useEffect(() => {
         let cancelled = false;
         setCurrentArticleReadingModel(null);
-        const modelPath = currentArticle?.readingModelPath;
+        const modelPath = ARTICLE_READING_MVP_V2_MODEL_PATHS[currentArticle?.id] || currentArticle?.readingModelPath;
         if (!modelPath) return () => { cancelled = true; };
         fetch(modelPath, { cache: 'no-store' })
           .then(response => {
@@ -4400,7 +4554,136 @@
       }, [currentArticle?.id, currentArticle?.readingModelPath]);
 
       const currentReadingActivities = currentArticleReadingModel?.pedagogy?.activities || [];
+      const readingMvpV2Model = isArticleReadingMvpV2(currentArticleReadingModel) ? currentArticleReadingModel : null;
+      const readingMvpV2Checkpoints = readingMvpV2Model?.pedagogy?.checkpoints || [];
+      const readingMvpV2ActiveCheckpoint = readingMvpV2Model && readingMvpV2Progress.entryStarted
+        ? readingMvpV2Checkpoints.find(checkpoint => !readingMvpV2Progress.checkpoints?.[checkpoint.id]?.complete) || null
+        : null;
+      const readingMvpV2ActiveResponse = readingMvpV2ActiveCheckpoint
+        ? readingMvpV2Progress.checkpoints?.[readingMvpV2ActiveCheckpoint.id] || {}
+        : {};
+      const readingMvpV2EvidenceCheckpoint = readingMvpV2ActiveCheckpoint
+        && readingMvpV2ActiveResponse.choiceId
+        && !readingMvpV2ActiveResponse.complete
+        ? readingMvpV2ActiveCheckpoint
+        : null;
       const currentReadingActivity = currentReadingActivities.find(activity => activity.id === readingActiveActivityId) || currentReadingActivities[0] || null;
+      const readingParagraphModels = currentArticleReadingModel?.analysis?.paragraphs || [];
+      const readingRoutineParagraphs = useMemo(() => readingParagraphModels.map((model, index) => ({
+        ...model,
+        index,
+        sentences: paragraphs[index] || []
+      })).filter(item => item.sentences.length > 0), [readingParagraphModels, paragraphs]);
+      const readingRoutineIsInformational = currentArticleReadingModel?.article?.text_type === 'informational';
+      const readingRoutineNoteCount = readingRoutineParagraphs.filter(paragraph => readingRoutineProgress.notes?.[paragraph.id]?.complete).length;
+      const readingRoutineFirstPassDone = readingRoutineParagraphs.length > 0 && readingRoutineNoteCount === readingRoutineParagraphs.length;
+      const readingRoutineFunctionCount = readingRoutineParagraphs.filter(paragraph => readingRoutineProgress.functions?.[paragraph.id]?.correct).length;
+      const readingRoutineConnectionParagraphs = readingRoutineParagraphs.slice(1);
+      const readingRoutineConnectionCount = readingRoutineConnectionParagraphs.filter(paragraph => readingRoutineProgress.connections?.[paragraph.id]?.correct).length;
+      const readingRoutineSections = currentArticleReadingModel?.analysis?.text?.sections || [];
+      const readingRoutineSectionCount = readingRoutineSections.filter(section => readingRoutineProgress.sections?.[section.id]?.correct).length;
+      const readingRoutineStructureDone = readingRoutineProgress.structure?.correct === true;
+
+      const readingRoutineStage = !readingRoutineFirstPassDone ? 'first_pass'
+        : readingRoutineFunctionCount < readingRoutineParagraphs.length ? 'functions'
+            : readingRoutineConnectionCount < readingRoutineConnectionParagraphs.length ? 'connections'
+              : readingRoutineSectionCount < readingRoutineSections.length ? 'sections'
+                : !readingRoutineStructureDone ? 'structure'
+                  : 'whole_text';
+      const readingRoutineActiveParagraph = readingRoutineStage === 'first_pass'
+        ? readingRoutineParagraphs[Math.min(readingRoutineProgress.firstPassIndex || 0, Math.max(readingRoutineParagraphs.length - 1, 0))]
+        : readingRoutineStage === 'functions'
+          ? readingRoutineParagraphs.find(paragraph => !readingRoutineProgress.functions?.[paragraph.id]?.correct)
+          : readingRoutineStage === 'connections'
+            ? readingRoutineConnectionParagraphs.find(paragraph => !readingRoutineProgress.connections?.[paragraph.id]?.correct)
+            : null;
+
+      const buildRoutineOptions = (correctText, distractors = []) => {
+        const unique = [...new Set([correctText, ...distractors].filter(Boolean))].slice(0, 4);
+        return unique.sort((a, b) => String(a).localeCompare(String(b), 'en'));
+      };
+      const getParagraphTopicOptions = (paragraph) => buildRoutineOptions(
+        paragraph?.topic?.label,
+        readingRoutineParagraphs.filter(item => item.id !== paragraph?.id).map(item => item.topic?.label)
+      );
+      const getParagraphMainIdeaOptions = (paragraph) => buildRoutineOptions(
+        paragraph?.main_idea?.text,
+        [
+          ...(paragraph?.key_details || []).map(detail => detail.meaning),
+          ...readingRoutineParagraphs.filter(item => item.id !== paragraph?.id).map(item => item.main_idea?.text)
+        ]
+      );
+      const getParagraphEvidenceIds = (paragraph) => {
+        // A direct topic/main-idea signal is just as valid as a supporting
+        // detail.  Earlier we kept only key-detail IDs, which incorrectly
+        // rejected a child's strongest evidence sentence (for example S5,
+        // “And some are very important.” in Important Jobs).
+        const directIdeaRoles = new Set([
+          'main_idea', 'summary', 'claim', 'thesis_statement',
+          'topic_sentence', 'topic_statement', 'concluding_statement', 'conclusion'
+        ]);
+        const signalIds = (paragraph?.signals || [])
+          .filter(signal => directIdeaRoles.has(String(signal.role || '').toLowerCase().replace(/[\s-]+/g, '_')))
+          .flatMap(signal => signal.source_ids || [signal.source_id]);
+        const detailIds = (paragraph?.key_details || []).flatMap(detail => detail.source_ids || []);
+        const evidenceIds = [...new Set([...signalIds, ...detailIds].filter(Boolean))];
+        // A malformed sidecar must never create an unwinnable learner step.
+        return evidenceIds.length ? evidenceIds : getParagraphCandidateSentenceIds(paragraph);
+      };
+      const getParagraphCandidateSentenceIds = (paragraph) => paragraph?.sentences?.map(sentence => sentence.id) || [];
+      const getChildFunction = (type = '') => {
+        const value = String(type).toLowerCase();
+        if (/intro|background|hook|context|definition/.test(value)) return '带我们认识主题';
+        if (/example|evidence|historical/.test(value)) return '举一个例子来说明';
+        if (/compare|contrast|counter/.test(value)) return '拿两件事作比较';
+        if (/cause|effect|problem|solution/.test(value)) return '说明原因、结果或解决办法';
+        if (/sequence|chronological|process/.test(value)) return '按顺序讲事情怎样发生';
+        if (/conclu|summary|call_to_action/.test(value)) return '收一收，告诉我们要记住什么';
+        return '介绍或解释主题的一个方面';
+      };
+      const functionChoices = [
+        '带我们认识主题', '介绍或解释主题的一个方面', '举一个例子来说明',
+        '拿两件事作比较', '说明原因、结果或解决办法', '按顺序讲事情怎样发生',
+        '收一收，告诉我们要记住什么'
+      ];
+      const getChildConnection = (type = '') => {
+        const value = String(type).toLowerCase();
+        if (/example/.test(value)) return '后面举了一个例子';
+        if (/contrast|counter/.test(value)) return '后面换了一个不同的角度';
+        if (/cause|effect/.test(value)) return '后面接着说明原因或结果';
+        if (/compare/.test(value)) return '后面拿另一件事来比较';
+        if (/problem|solution/.test(value)) return '后面接着说问题或办法';
+        if (/sequence|chronological|time_shift|progression/.test(value)) return '后面按时间或步骤接着讲';
+        if (/summary|conclusion|concludes|resolution/.test(value)) return '后面收一收，回到要点';
+        return '后面继续补充同一个主题';
+      };
+      const connectionChoices = [
+        '后面继续补充同一个主题', '后面举了一个例子', '后面换了一个不同的角度',
+        '后面接着说明原因或结果', '后面拿另一件事来比较', '后面接着说问题或办法',
+        '后面按时间或步骤接着讲', '后面收一收，回到要点'
+      ];
+      const getChildTextStructure = (type = '') => {
+        const value = String(type).toLowerCase();
+        if (/compare/.test(value)) return '比较两类事物有什么相同和不同';
+        if (/sequence.*cause|cause.*sequence/.test(value)) return '按顺序讲事情，顺带说明原因或结果';
+        if (/cause.*effect|effect.*cause/.test(value)) return '说明原因会带来什么结果';
+        if (/problem.*solution|solution.*problem/.test(value)) return '先提出问题，再给出办法';
+        if (/sequence|chronological/.test(value)) return '按时间或步骤展开';
+        return '围绕一个主题，分几个方面介绍';
+      };
+      const textStructureChoices = [
+        '围绕一个主题，分几个方面介绍', '按时间或步骤展开',
+        '按顺序讲事情，顺带说明原因或结果', '比较两类事物有什么相同和不同',
+        '说明原因会带来什么结果', '先提出问题，再给出办法'
+      ];
+      const readingRoutineEvidenceParagraph = readingRoutineStage === 'first_pass'
+        && readingRoutineActiveParagraph
+        && readingRoutineProgress.notes?.[readingRoutineActiveParagraph.id]?.mainIdeaChecked
+        // A wrong evidence choice must stay editable.  Only lock this step
+        // after the child has found a supporting sentence successfully.
+        && !readingRoutineProgress.notes?.[readingRoutineActiveParagraph.id]?.evidenceCorrect
+        ? readingRoutineActiveParagraph
+        : null;
 
       useEffect(() => {
         const key = getReadingActivityProgressStorageKey(currentArticleId);
@@ -4416,6 +4699,43 @@
         const key = getReadingActivityProgressStorageKey(currentArticleId);
         if (key && currentArticleReadingModel) localStorage.setItem(key, JSON.stringify(readingActivityResponses));
       }, [currentArticleId, currentArticleReadingModel, readingActivityResponses]);
+
+      useEffect(() => {
+        const key = getReadingRoutineProgressStorageKey(currentArticleId);
+        let restored = createEmptyReadingRoutineProgress();
+        if (key) {
+          try { restored = normalizeReadingRoutineProgress(JSON.parse(localStorage.getItem(key) || '{}')); } catch (_) {}
+        }
+        setReadingRoutineProgress(restored);
+      }, [currentArticleId, currentArticleReadingModel?.article?.id]);
+
+      useEffect(() => {
+        const key = getReadingRoutineProgressStorageKey(currentArticleId);
+        if (key && currentArticleReadingModel) localStorage.setItem(key, JSON.stringify(readingRoutineProgress));
+      }, [currentArticleId, currentArticleReadingModel, readingRoutineProgress]);
+
+      useEffect(() => {
+        if (!readingMvpV2Model) {
+          setReadingMvpV2Progress(createEmptyReadingMvpV2Progress());
+          return;
+        }
+        const key = getReadingMvpV2ProgressStorageKey(currentArticleId);
+        let restored = createEmptyReadingMvpV2Progress();
+        if (key) {
+          try { restored = normalizeReadingMvpV2Progress(JSON.parse(localStorage.getItem(key) || '{}')); } catch (_) {}
+        }
+        // A cached final choice is not valid until every preceding update has
+        // been completed with evidence.  This also prevents an old local
+        // state from revealing the expert whole-text summary on a new run.
+        const allCheckpointsComplete = readingMvpV2Checkpoints.every(checkpoint => restored.checkpoints?.[checkpoint.id]?.complete);
+        if (!allCheckpointsComplete) restored.final = {};
+        setReadingMvpV2Progress(restored);
+      }, [currentArticleId, readingMvpV2Model?.article?.id]);
+
+      useEffect(() => {
+        const key = getReadingMvpV2ProgressStorageKey(currentArticleId);
+        if (key && readingMvpV2Model) localStorage.setItem(key, JSON.stringify(readingMvpV2Progress));
+      }, [currentArticleId, readingMvpV2Model, readingMvpV2Progress]);
 
       // A bundle refresh can replace an article while it is open.  Keep the
       // active reader on the corrected curriculum version instead of waiting
@@ -4456,6 +4776,10 @@
       const currentQuizQuestion = useMemo(
         () => currentArticleQuestions.find(question => question.id === quizActiveQuestionId) || currentArticleQuestions[0] || null,
         [currentArticleQuestions, quizActiveQuestionId]
+      );
+      const currentQuizIdeaTree = useMemo(
+        () => parseQuizIdeaTree(currentQuizQuestion?.prompt, currentArticleId),
+        [currentQuizQuestion?.prompt, currentArticleId]
       );
       const currentQuizQuestionNumber = currentQuizQuestion?.index || 0;
       const currentQuizLocatorSentenceId = currentQuizQuestion ? quizProgress.locatorSentenceIds?.[currentQuizQuestion.id] || null : null;
@@ -4515,9 +4839,183 @@
         return sameIdSelection(response.sourceIds, activity.answer?.source_ids);
       };
 
+      const startReadingMvpV2 = (entryChoiceId) => {
+        setReadingMvpV2Progress(previous => ({
+          ...previous,
+          entryChoiceId,
+          entryStarted: true
+        }));
+      };
+
+      const selectReadingMvpV2Choice = (checkpoint, choiceId) => {
+        if (!checkpoint) return;
+        setReadingMvpV2Progress(previous => ({
+          ...previous,
+          checkpoints: {
+            ...previous.checkpoints,
+            [checkpoint.id]: {
+              ...(previous.checkpoints?.[checkpoint.id] || {}),
+              choiceId,
+              choiceChecked: false,
+              choiceCorrect: false,
+              evidenceIds: [],
+              evidenceChecked: false,
+              evidenceCorrect: false
+            }
+          }
+        }));
+      };
+
+      const checkReadingMvpV2Evidence = (checkpoint) => {
+        if (!checkpoint) return;
+        setReadingMvpV2Progress(previous => {
+          const response = previous.checkpoints?.[checkpoint.id] || {};
+          const evidenceLink = checkpoint.evidence_links?.find(link => link.hypothesis_id === response.choiceId);
+          const evidenceCorrect = Boolean(evidenceLink) && (response.evidenceIds || []).some(id => evidenceLink.source_ids?.includes(id));
+          return {
+            ...previous,
+            checkpoints: {
+              ...previous.checkpoints,
+              [checkpoint.id]: { ...response, evidenceChecked: true, evidenceCorrect, choiceChecked: true, choiceCorrect: evidenceCorrect }
+            }
+          };
+        });
+      };
+
+      const completeReadingMvpV2Checkpoint = (checkpoint) => {
+        if (!checkpoint) return;
+        setReadingMvpV2Progress(previous => ({
+          ...previous,
+          checkpoints: {
+            ...previous.checkpoints,
+            [checkpoint.id]: { ...(previous.checkpoints?.[checkpoint.id] || {}), complete: true }
+          }
+        }));
+      };
+
+      const selectReadingMvpV2Final = (choiceId) => {
+        setReadingMvpV2Progress(previous => ({
+          ...previous,
+          final: { ...previous.final, choiceId, checked: false }
+        }));
+      };
+
+      const checkReadingMvpV2Final = () => {
+        const final = readingMvpV2Model?.pedagogy?.final;
+        if (!final) return;
+        setReadingMvpV2Progress(previous => ({
+          ...previous,
+          final: {
+            ...previous.final,
+            checked: true,
+            correct: final.accepted_option_ids?.includes(previous.final?.choiceId)
+          }
+        }));
+      };
+
       const handleReadingSentenceClick = (sentence) => {
+        if (articleStudyMode === 'read' && rightPanelTab === 'reading' && readingMvpV2EvidenceCheckpoint) {
+          if (!readingMvpV2EvidenceCheckpoint.source_ids?.includes(sentence.id)) return;
+          const checkpointId = readingMvpV2EvidenceCheckpoint.id;
+          setReadingMvpV2Progress(previous => {
+            const response = previous.checkpoints?.[checkpointId] || {};
+            const evidenceIds = response.evidenceIds?.includes(sentence.id)
+              ? response.evidenceIds.filter(id => id !== sentence.id)
+              : [...(response.evidenceIds || []), sentence.id];
+            return {
+              ...previous,
+              checkpoints: {
+                ...previous.checkpoints,
+                [checkpointId]: { ...response, evidenceIds, evidenceChecked: false, evidenceCorrect: false }
+              }
+            };
+          });
+          return;
+        }
+        if (articleStudyMode === 'read' && rightPanelTab === 'reading' && readingRoutineEvidenceParagraph) {
+          const paragraphId = readingRoutineEvidenceParagraph.id;
+          if (!getParagraphCandidateSentenceIds(readingRoutineEvidenceParagraph).includes(sentence.id)) return;
+          setReadingRoutineProgress(previous => {
+            const note = previous.notes?.[paragraphId] || {};
+            const sourceIds = note.sourceIds?.includes(sentence.id)
+              ? note.sourceIds.filter(id => id !== sentence.id)
+              : [...(note.sourceIds || []), sentence.id];
+            return { ...previous, notes: { ...previous.notes, [paragraphId]: { ...note, sourceIds, evidenceChecked: false } } };
+          });
+          return;
+        }
         if (articleStudyMode === 'read' && rightPanelTab === 'reading' && toggleReadingActivitySource(currentReadingActivity, sentence.id)) return;
         setSelectedSentence(sentence);
+      };
+
+      const updateRoutineNote = (paragraphId, changes) => {
+        setReadingRoutineProgress(previous => ({
+          ...previous,
+          notes: { ...previous.notes, [paragraphId]: { ...(previous.notes?.[paragraphId] || {}), ...changes } }
+        }));
+      };
+      const checkRoutineTopic = (paragraph) => {
+        const note = readingRoutineProgress.notes?.[paragraph.id] || {};
+        updateRoutineNote(paragraph.id, {
+          topicChecked: true,
+          topicCorrect: note.topic === paragraph.topic?.label
+        });
+      };
+      const checkRoutineMainIdea = (paragraph) => {
+        const note = readingRoutineProgress.notes?.[paragraph.id] || {};
+        updateRoutineNote(paragraph.id, {
+          mainIdeaChecked: true,
+          mainIdeaCorrect: note.mainIdea === paragraph.main_idea?.text
+        });
+      };
+      const checkRoutineEvidence = (paragraph) => {
+        const note = readingRoutineProgress.notes?.[paragraph.id] || {};
+        const expected = getParagraphEvidenceIds(paragraph);
+        const foundEvidence = (note.sourceIds || []).some(id => expected.includes(id));
+        updateRoutineNote(paragraph.id, {
+          evidenceChecked: true,
+          evidenceCorrect: foundEvidence,
+          complete: Boolean(note.topicCorrect && note.mainIdeaCorrect && foundEvidence)
+        });
+      };
+      const continueRoutineFirstPass = (paragraph) => {
+        const nextIndex = paragraph.index + 1;
+        setReadingRoutineProgress(previous => ({
+          ...previous,
+          firstPassIndex: Math.min(nextIndex, Math.max(readingRoutineParagraphs.length - 1, 0))
+        }));
+      };
+      const checkRoutineFunction = (paragraph) => {
+        const selected = readingRoutineProgress.functions?.[paragraph.id]?.selected;
+        const correct = selected === getChildFunction(paragraph.function?.type);
+        setReadingRoutineProgress(previous => ({
+          ...previous,
+          functions: { ...previous.functions, [paragraph.id]: { selected, checked: true, correct } }
+        }));
+      };
+      const checkRoutineConnection = (paragraph) => {
+        const selected = readingRoutineProgress.connections?.[paragraph.id]?.selected;
+        const correct = selected === getChildConnection(paragraph.relation_to_previous?.type);
+        setReadingRoutineProgress(previous => ({
+          ...previous,
+          connections: { ...previous.connections, [paragraph.id]: { selected, checked: true, correct } }
+        }));
+      };
+      const checkRoutineSection = (section) => {
+        const selected = readingRoutineProgress.sections?.[section.id]?.selectedParagraphIds || [];
+        const correct = sameIdSelection(selected, section.paragraph_ids || []);
+        setReadingRoutineProgress(previous => ({
+          ...previous,
+          sections: { ...previous.sections, [section.id]: { selectedParagraphIds: selected, checked: true, correct } }
+        }));
+      };
+      const checkRoutineStructure = () => {
+        const selected = readingRoutineProgress.structure?.selected;
+        const correct = selected === getChildTextStructure(currentArticleReadingModel?.analysis?.text?.structure?.type);
+        setReadingRoutineProgress(previous => ({
+          ...previous,
+          structure: { selected, checked: true, correct }
+        }));
       };
 
       useEffect(() => {
@@ -7656,8 +8154,20 @@
                           )}
                           {para.map((sentence, sIdx) => {
                           const isSelected = selectedSentence.id === sentence.id;
-                          const readingSourceCandidate = articleStudyMode === 'read' && rightPanelTab === 'reading' && currentReadingActivity?.candidate_source_ids?.includes(sentence.id);
-                          const readingSourceSelected = readingActivityResponses[currentReadingActivity?.id]?.sourceIds?.includes(sentence.id);
+                          const readingMvpV2SourceCandidate = articleStudyMode === 'read'
+                            && rightPanelTab === 'reading'
+                            && readingMvpV2EvidenceCheckpoint?.source_ids?.includes(sentence.id);
+                          const readingSourceCandidate = readingMvpV2SourceCandidate || (
+                            articleStudyMode === 'read' && rightPanelTab === 'reading' && (
+                              getParagraphCandidateSentenceIds(readingRoutineEvidenceParagraph).includes(sentence.id)
+                              || currentReadingActivity?.candidate_source_ids?.includes(sentence.id)
+                            )
+                          );
+                          const readingSourceSelected = readingMvpV2EvidenceCheckpoint
+                            ? readingMvpV2Progress.checkpoints?.[readingMvpV2EvidenceCheckpoint.id]?.evidenceIds?.includes(sentence.id)
+                            : readingRoutineEvidenceParagraph
+                              ? readingRoutineProgress.notes?.[readingRoutineEvidenceParagraph.id]?.sourceIds?.includes(sentence.id)
+                              : readingActivityResponses[currentReadingActivity?.id]?.sourceIds?.includes(sentence.id);
                           return (
                             <React.Fragment key={sentence.id || sIdx}>
                               <span 
@@ -7806,7 +8316,7 @@
                         <div className="flex rounded-2xl bg-slate-100 p-1.5" role="tablist" aria-label="阅读工作区">
                           {[
                             { key: 'analysis', label: '句子解析', icon: Search },
-                            ...(currentArticleReadingModel ? [{ key: 'reading', label: '篇章阅读', icon: MapIcon }] : []),
+                            ...(currentArticleReadingModel ? [{ key: 'reading', label: isArticleReadingMvpV2(currentArticleReadingModel) ? '篇章阅读' : '篇章试验', icon: MapIcon }] : []),
                             { key: 'quiz', label: '做题', icon: MousePointerClick },
                             { key: 'ai', label: '问 AI', icon: MessageSquare }
                           ].map(({ key, label, icon: Icon }) => {
@@ -7847,78 +8357,188 @@
                       <div className="max-w-[880px] mx-auto">
                       {articleStudyMode === 'read' ? (
                       <React.Fragment>
-                      {rightPanelTab === 'reading' && currentArticleReadingModel && (() => {
-                        const activity = currentReadingActivity;
-                        const response = activity ? (readingActivityResponses[activity.id] || { optionIds: [], sourceIds: [], checked: false }) : null;
-                        const isSourceActivity = activity?.interaction === 'select_sentence';
-                        const isCorrect = activity && response?.checked && readingActivityIsCorrect(activity, response);
-                        const selectedOption = activity?.options?.find(option => response?.optionIds?.includes(option.id));
-                        const sourceText = (id) => currentArticleData.find(sentence => sentence.id === id)?.text || id;
+                      {rightPanelTab === 'reading' && readingMvpV2Model && (() => {
+                        const entry = readingMvpV2Model.pedagogy.entry;
+                        const final = readingMvpV2Model.pedagogy.final;
+                        const checkpoint = readingMvpV2ActiveCheckpoint;
+                        const response = readingMvpV2ActiveResponse;
+                        const completedCheckpoints = readingMvpV2Checkpoints.filter(item => readingMvpV2Progress.checkpoints?.[item.id]?.complete);
+                        const entryChoice = entry.options.find(option => option.id === readingMvpV2Progress.entryChoiceId);
+                        const choiceClass = (chosen, checked, correct) => `rounded-2xl border px-4 py-3 text-left text-sm font-semibold leading-6 transition-colors ${checked && chosen && correct ? 'border-emerald-300 bg-emerald-50 text-emerald-950' : checked && chosen ? 'border-amber-300 bg-amber-50 text-amber-950' : chosen ? 'border-indigo-500 bg-indigo-50 text-indigo-950' : 'border-slate-200 bg-white text-slate-700 hover:border-indigo-300 hover:bg-indigo-50'}`;
+                        const selectedOption = checkpoint?.options?.find(option => option.id === response.choiceId);
+                        const finalChoice = final.options.find(option => option.id === readingMvpV2Progress.final?.choiceId);
+                        const allCheckpointsComplete = completedCheckpoints.length === readingMvpV2Checkpoints.length;
+                        const finalDone = allCheckpointsComplete && readingMvpV2Progress.final?.checked && readingMvpV2Progress.final?.correct;
+                        const mapRenderer = readingMvpV2Model.pedagogy.map_plan?.renderer || 'idea_tree';
+                        const mapTitle = readingMvpV2Model.pedagogy.map_plan?.title || '我的阅读地图';
+                        const treeLeaves = readingMvpV2Checkpoints.map((item, index) => {
+                          const itemResponse = readingMvpV2Progress.checkpoints?.[item.id] || {};
+                          const itemChoice = item.options.find(option => option.id === itemResponse.choiceId);
+                          return {
+                            ...item,
+                            index,
+                            complete: Boolean(itemResponse.complete),
+                            current: checkpoint?.id === item.id,
+                            text: itemResponse.complete ? itemChoice?.text : itemResponse.choiceId ? '正在找原文证据' : index === 0 ? '从这里开始读' : '下一次理解更新'
+                          };
+                        });
+                        const treeLeafPositions = ['left-[2%] top-[84px]', 'left-1/2 top-[104px] -translate-x-1/2', 'right-[2%] top-[84px]'];
+                        const articleMapTree = readingMvpV2Progress.entryStarted && <section className="mt-5 overflow-hidden rounded-3xl border border-amber-100 bg-[#fffdf7] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] md:p-5">
+                          <div className="flex items-center justify-between gap-3"><div><p className="text-xs font-black uppercase tracking-[0.18em] text-amber-700">{mapTitle}</p><p className="mt-1 text-sm font-semibold text-slate-700">每读出一个有证据的理解，它就长出一片叶子。</p></div><span className="rounded-full bg-amber-100 px-3 py-1.5 text-xs font-black text-amber-900">{completedCheckpoints.length} / {readingMvpV2Checkpoints.length} 片叶子</span></div>
+                          <div className="relative mt-3 h-[300px] overflow-hidden rounded-2xl border border-amber-100/80 bg-[radial-gradient(ellipse_at_50%_100%,#fef3c7_0%,transparent_55%),linear-gradient(180deg,#eff6ff_0%,#fffdf7_58%,#fff7ed_100%)]">
+                            <svg aria-hidden="true" viewBox="0 0 600 300" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full">
+                              <defs><linearGradient id="article-tree-trunk" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor="#a16207"/><stop offset="100%" stopColor="#78350f"/></linearGradient></defs>
+                              <path d="M300 266 V156 M300 198 C246 158 185 130 110 104 M300 180 V100 M300 198 C354 158 415 130 490 104" fill="none" stroke="url(#article-tree-trunk)" strokeWidth="9" strokeLinecap="round" />
+                              <path d="M110 104 C164 49 238 38 300 34 M300 100 V34 M490 104 C436 49 362 38 300 34" fill="none" stroke="#a16207" strokeWidth="5" strokeLinecap="round" opacity="0.78" />
+                              <path d="M270 266 C252 280 240 286 226 291 M300 266 V294 M330 266 C348 280 360 286 374 291" fill="none" stroke="#78350f" strokeWidth="6" strokeLinecap="round" />
+                            </svg>
+                            <div className={`absolute left-1/2 top-3 z-10 w-[min(46%,250px)] -translate-x-1/2 rounded-[44%_56%_46%_54%] border px-4 py-2.5 text-center shadow-sm ${finalDone ? 'border-emerald-300 bg-emerald-50 text-emerald-950' : 'border-sky-200 bg-white/90 text-slate-600'}`}><p className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-400">树冠 · 全文概括</p><p className="mt-1 line-clamp-2 text-xs font-bold leading-5">{finalDone ? finalChoice?.text : '完成全部证据叶子后，才在这里概括整篇文章。'}</p></div>
+                            {treeLeaves.map(item => <div key={item.id} className={`absolute z-10 w-[30%] max-w-[174px] ${treeLeafPositions[item.index]}`}><div className={`min-h-[72px] rounded-[44%_56%_48%_52%] border px-3 py-2.5 text-center shadow-sm transition-all ${item.complete ? 'border-emerald-300 bg-emerald-50 text-emerald-950' : item.current ? 'border-indigo-300 bg-indigo-50 text-indigo-950 ring-2 ring-indigo-200 ring-offset-2' : 'border-slate-200 bg-white/85 text-slate-400'}`}><p className={`text-[10px] font-black uppercase tracking-[0.14em] ${item.complete ? 'text-emerald-700' : item.current ? 'text-indigo-600' : 'text-slate-400'}`}>{item.complete ? item.map_label : item.current ? '正在生长' : '还没读到'}</p><p className="mt-1 line-clamp-2 text-xs font-bold leading-5">{item.text}</p></div></div>)}
+                            <div className="absolute bottom-3 left-1/2 z-10 w-[min(62%,330px)] -translate-x-1/2 rounded-full border border-amber-300 bg-[#fff7d6] px-4 py-3 text-center shadow-sm"><p className="text-[10px] font-black uppercase tracking-[0.16em] text-amber-800">根 · 我一开始的想法</p><p className="mt-1 line-clamp-2 text-xs font-bold leading-5 text-amber-950">{entryChoice?.text}</p></div>
+                          </div>
+                        </section>;
+                        const articleEventPath = readingMvpV2Progress.entryStarted && <section className="mt-5 overflow-hidden rounded-3xl border border-sky-100 bg-[#f8fcff] p-4 md:p-5">
+                          <div className="flex items-center justify-between gap-3"><div><p className="text-xs font-black uppercase tracking-[0.18em] text-sky-700">{mapTitle}</p><p className="mt-1 text-sm font-semibold text-slate-700">故事不是长出分枝，而是沿着线索一步步往前走。</p></div><span className="rounded-full bg-sky-100 px-3 py-1.5 text-xs font-black text-sky-900">{completedCheckpoints.length} / {readingMvpV2Checkpoints.length} 段路径</span></div>
+                          <div className="relative mt-5 grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-4"><div aria-hidden="true" className="absolute left-[12%] right-[12%] top-8 hidden h-1 rounded-full bg-sky-200 sm:block" />
+                            {[{ id: 'start', label: '故事起点', text: entryChoice?.text, complete: true }, ...treeLeaves].map((item, index) => <div key={item.id} className="relative z-10 text-center"><div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-full border-4 text-lg font-black shadow-sm ${item.complete ? 'border-emerald-300 bg-emerald-50 text-emerald-700' : item.current ? 'border-indigo-300 bg-indigo-50 text-indigo-700 ring-4 ring-indigo-100' : 'border-slate-200 bg-white text-slate-300'}`}>{index + 1}</div><p className={`mt-2 text-xs font-black ${item.complete ? 'text-emerald-700' : item.current ? 'text-indigo-700' : 'text-slate-400'}`}>{item.complete && item.map_label ? item.map_label : item.current ? '正在追线索' : item.label || '下一段'}</p><p className="mx-auto mt-1 max-w-[150px] text-xs font-semibold leading-5 text-slate-600">{item.text}</p></div>)}
+                          </div>
+                          {finalDone && <div className="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-3 text-sm font-bold leading-6 text-emerald-950">故事路径完成：{finalChoice?.text}</div>}
+                        </section>;
+                        const articleClaimBoard = readingMvpV2Progress.entryStarted && <section className="mt-5 overflow-hidden rounded-3xl border border-violet-100 bg-[#fbfaff] p-4 md:p-5">
+                          <div className="flex items-center justify-between gap-3"><div><p className="text-xs font-black uppercase tracking-[0.18em] text-violet-700">{mapTitle}</p><p className="mt-1 text-sm font-semibold text-slate-700">把文章里的理由和依据接到正在形成的看法上。</p></div><span className="rounded-full bg-violet-100 px-3 py-1.5 text-xs font-black text-violet-900">{completedCheckpoints.length} / {readingMvpV2Checkpoints.length} 张卡</span></div>
+                          <div className="mt-4 rounded-2xl border border-violet-200 bg-white px-4 py-3 text-center shadow-sm"><p className="text-[10px] font-black uppercase tracking-[0.16em] text-violet-500">我一开始关注的事</p><p className="mt-1 text-sm font-bold leading-6 text-slate-800">{entryChoice?.text}</p></div>
+                          <div className="mt-3 grid gap-3 md:grid-cols-3">{treeLeaves.map(item => <div key={item.id} className={`relative rounded-2xl border p-3 text-center shadow-sm ${item.complete ? 'border-emerald-300 bg-emerald-50 text-emerald-950' : item.current ? 'border-violet-300 bg-violet-50 text-violet-950 ring-2 ring-violet-100' : 'border-slate-200 bg-white text-slate-400'}`}><div aria-hidden="true" className="absolute -top-3 left-1/2 h-3 w-px -translate-x-1/2 bg-violet-200" /><p className={`text-[10px] font-black uppercase tracking-[0.14em] ${item.complete ? 'text-emerald-700' : item.current ? 'text-violet-700' : 'text-slate-400'}`}>{item.complete ? item.map_label : item.current ? '正在找依据' : '下一张理由卡'}</p><p className="mt-1 text-xs font-bold leading-5">{item.text}</p></div>)}</div>
+                          {finalDone && <div className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-3 text-sm font-bold leading-6 text-emerald-950">现在可以概括文章的看法：{finalChoice?.text}</div>}
+                        </section>;
+                        const articleMap = mapRenderer === 'event_path' ? articleEventPath : mapRenderer === 'claim_board' ? articleClaimBoard : articleMapTree;
                         return (
-                          <div className="animate-in fade-in duration-500 space-y-6">
-                            <section className="rounded-3xl border border-sky-100 bg-gradient-to-br from-sky-50 via-white to-indigo-50 p-5 md:p-6">
+                          <div className="animate-in fade-in duration-500 space-y-5">
+                            <section className="overflow-hidden rounded-3xl border border-indigo-100 bg-gradient-to-br from-indigo-50 via-white to-sky-50 p-5 md:p-6">
                               <div className="flex items-start gap-3">
-                                <div className="rounded-2xl bg-sky-600 p-2.5 text-white"><MapIcon className="h-5 w-5" /></div>
-                                <div>
-                                  <p className="text-xs font-black uppercase tracking-[0.18em] text-sky-600">文章地图</p>
-                                  <h3 className="mt-1 text-xl font-black text-slate-900">这篇文章是怎样展开的？</h3>
-                                  <p className="mt-2 text-sm leading-6 text-slate-600">先看作者把故事分成了哪几步，再用下面的小任务自己发现重点。</p>
+                                <div className="rounded-2xl bg-indigo-700 p-2.5 text-white"><MapIcon className="h-5 w-5" /></div>
+                                <div className="min-w-0">
+                                  <div className="flex flex-wrap items-center gap-2"><p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-600">篇章阅读 · MVP</p><span className="rounded-full bg-white px-2.5 py-1 text-xs font-bold text-slate-500 ring-1 ring-indigo-100">{readingMvpV2Model.article.genre_label}</span></div>
+                                  <h3 className="mt-1 text-xl font-black text-slate-900">读着读着，把自己的理解更新出来</h3>
+                                  <p className="mt-2 text-sm leading-6 text-slate-600">先有一个大概，再用原文不断修正它。左边只有当前要回看的句子会发亮；答案不会提前显示。</p>
                                 </div>
                               </div>
-                              <div className="mt-5 grid gap-3 md:grid-cols-3">
-                                {currentArticleReadingModel.analysis.text.sections.map((section, index) => (
-                                  <div key={section.id} className="rounded-2xl border border-white bg-white/90 p-4 shadow-sm">
-                                    <p className="text-xs font-bold text-sky-600">第 {index + 1} 步 · {section.paragraph_ids.join('、').toUpperCase()}</p>
-                                    <p className="mt-1 font-black text-slate-900">{section.label}</p>
-                                  </div>
-                                ))}
-                              </div>
-                              <div className="mt-4 rounded-2xl border border-indigo-100 bg-white/80 p-4">
-                                <p className="text-xs font-bold text-indigo-600">整篇想说什么</p>
-                                <p className="mt-1 text-sm leading-6 text-slate-700">{currentArticleReadingModel.analysis.text.central_idea.text}</p>
-                              </div>
+                              {articleMap}
                             </section>
 
-                            {!activity ? (
-                              <p className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-slate-600">这篇文章还没有可用的篇章阅读活动。</p>
-                            ) : (
-                              <section className="rounded-3xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
-                                <div className="flex flex-wrap gap-2">
-                                  {currentReadingActivities.map((item, index) => (
-                                    <button key={item.id} type="button" onClick={() => setReadingActiveActivityId(item.id)} className={`h-9 min-w-9 rounded-full px-3 text-sm font-black transition-colors ${item.id === activity.id ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-500 hover:bg-indigo-50 hover:text-indigo-700'}`}>{index + 1}</button>
-                                  ))}
+                            {!readingMvpV2Progress.entryStarted && <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+                              <p className="text-xs font-black uppercase tracking-[0.18em] text-sky-600">先有一个大概</p>
+                              <h3 className="mt-2 text-xl font-black text-slate-900">{entry.prompt}</h3>
+                              <p className="mt-2 text-sm leading-6 text-slate-500">这不是对错题。选一个你现在最想带着去读的方向，读下去再更新。</p>
+                              <div className="mt-5 grid gap-2">{entry.options.map(option => <button key={option.id} type="button" onClick={() => startReadingMvpV2(option.id)} className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-left text-sm font-semibold leading-6 text-slate-700 transition-colors hover:border-indigo-300 hover:bg-indigo-50">{option.text}</button>)}</div>
+                            </section>}
+
+                            {readingMvpV2Progress.entryStarted && checkpoint && <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+                              <div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-xs font-black uppercase tracking-[0.18em] text-sky-600">{checkpoint.label}</p><h3 className="mt-2 text-xl font-black text-slate-900">{checkpoint.prompt}</h3></div><span className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-black text-slate-600">读第 {checkpoint.paragraph_numbers.join('、')} 段</span></div>
+                              <div className="mt-5 grid gap-2">{checkpoint.options.map(option => <button key={option.id} type="button" onClick={() => selectReadingMvpV2Choice(checkpoint, option.id)} className={choiceClass(response.choiceId === option.id, response.evidenceChecked, response.evidenceCorrect)}>{option.text}</button>)}</div>
+                              {!response.choiceId && <p className="mt-3 text-sm leading-6 text-slate-500">先留下你现在的理解；它还不用马上是最终答案。</p>}
+                              {response.choiceId && <div className="mt-6 border-t border-slate-100 pt-6"><p className="text-sm font-black text-slate-800">让原文来检验这个理解</p><p className="mt-2 text-sm leading-6 text-slate-500">左边第 {checkpoint.paragraph_numbers.join('、')} 段现在可以点选。选一句你认为能作为证据支持这张理解卡的话；点错了可再点一次取消。</p><div className="mt-3 rounded-2xl border border-indigo-100 bg-indigo-50/70 px-4 py-3"><p className="text-xs font-black uppercase tracking-[0.15em] text-indigo-600">我现在的理解</p><p className="mt-1 text-sm font-bold leading-6 text-indigo-950">{selectedOption?.text}</p></div><div className="mt-3 flex flex-wrap gap-2">{(response.evidenceIds || []).length ? response.evidenceIds.map(id => <span key={id} className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-900">已连 {id.toUpperCase()}</span>) : <span className="text-sm text-slate-400">还没有连上原文</span>}</div><button type="button" disabled={!(response.evidenceIds || []).length} onClick={() => checkReadingMvpV2Evidence(checkpoint)} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:cursor-not-allowed disabled:bg-slate-300">检验这条证据和我的理解</button>{response.evidenceChecked && !response.evidenceCorrect && <p className="mt-3 rounded-xl bg-amber-50 px-3 py-2 text-sm leading-6 text-amber-900">这句话主要在说别的内容，还没有支持这张理解卡。你可以换一句原文，或换一个理解后再试。</p>}{response.evidenceChecked && response.evidenceCorrect && <div className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-4"><p className="text-sm font-black text-emerald-950">原文和这张理解卡连上了。</p><p className="mt-1 text-sm leading-6 text-emerald-900">现在可以把这次有证据的理解留在地图里。</p><button type="button" onClick={() => completeReadingMvpV2Checkpoint(checkpoint)} className="mt-3 rounded-xl bg-emerald-700 px-4 py-2.5 text-sm font-black text-white">放进我的文章地图</button></div>}</div>}
+                            </section>}
+
+                            {readingMvpV2Progress.entryStarted && !checkpoint && <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+                              <p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-600">把理解合在一起</p>
+                              <h3 className="mt-2 text-xl font-black text-slate-900">{final.prompt}</h3>
+                              <div className="mt-5 rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm leading-6 text-slate-600">回看上方已经形成的“{mapTitle}”：把这些有证据的理解合起来，再试着概括全文。</div>
+                              <div className="mt-5 grid gap-2">{final.options.map(option => <button key={option.id} type="button" onClick={() => selectReadingMvpV2Final(option.id)} className={choiceClass(readingMvpV2Progress.final?.choiceId === option.id, readingMvpV2Progress.final?.checked, readingMvpV2Progress.final?.correct)}>{option.text}</button>)}</div>
+                              {!finalDone && <button type="button" disabled={!readingMvpV2Progress.final?.choiceId} onClick={checkReadingMvpV2Final} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:cursor-not-allowed disabled:bg-slate-300">检查我的全文理解</button>}
+                              {readingMvpV2Progress.final?.checked && !readingMvpV2Progress.final?.correct && <p className="mt-3 rounded-xl bg-amber-50 px-3 py-2 text-sm leading-6 text-amber-900">再回看刚才三次更新：哪句话既能概括它们，又没有把文章说得太大或太小？你可以重新选。</p>}
+                              {finalDone && <div className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-4"><div className="flex items-center gap-2 text-emerald-950"><CheckCircle2 className="h-5 w-5" /><p className="font-black">你把一开始的猜想读成了一幅更完整的文章地图。</p></div><p className="mt-2 text-sm leading-6 text-emerald-900">{finalChoice?.text}</p></div>}
+                            </section>}
+                          </div>
+                        );
+                      })()}
+
+                      {rightPanelTab === 'reading' && currentArticleReadingModel && !readingMvpV2Model && (() => {
+                        if (!readingRoutineIsInformational) return (
+                          <section className="rounded-3xl border border-amber-200 bg-amber-50 p-6 text-amber-950">
+                            <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-700">篇章阅读 · 即将支持</p>
+                            <h3 className="mt-2 text-xl font-black">这是一篇故事类文章</h3>
+                            <p className="mt-3 text-sm leading-7">说明文的“段落拼图”不该硬套到故事上。MVP 先把说明文阅读流程做好；这篇仍可使用原有的句子解析和练习。</p>
+                          </section>
+                        );
+                        const paragraph = readingRoutineActiveParagraph;
+                        const note = paragraph ? (readingRoutineProgress.notes?.[paragraph.id] || {}) : {};
+                        const predictionActivity = paragraph?.index === 0 ? currentReadingActivities.find(item => item.type === 'predict_direction') : null;
+                        const prediction = paragraph ? (readingRoutineProgress.predictions?.[paragraph.id] || {}) : {};
+                        const previousParagraph = paragraph?.index > 0 ? readingRoutineParagraphs[paragraph.index - 1] : null;
+                        const previousPredictionActivity = previousParagraph?.index === 0 ? currentReadingActivities.find(item => item.type === 'predict_direction') : null;
+                        const previousPrediction = previousParagraph ? (readingRoutineProgress.predictions?.[previousParagraph.id] || {}) : {};
+                        const previousPredictionOption = previousPredictionActivity?.options?.find(option => option.id === previousPrediction.selected);
+                        const previousPredictionCorrect = previousPredictionActivity?.answer?.option_ids?.includes(previousPrediction.selected);
+                        // Feedback colours describe only the child's own choice.
+                        // Never colour unchosen options: that would leak the answer.
+                        const choiceClass = (chosen, checked, correct) => `rounded-2xl border px-4 py-3 text-left text-sm font-semibold leading-6 transition-colors ${checked && chosen && correct ? 'border-emerald-300 bg-emerald-50 text-emerald-950' : checked && chosen ? 'border-amber-300 bg-amber-50 text-amber-950' : chosen ? 'border-indigo-500 bg-indigo-50 text-indigo-950' : 'border-slate-200 bg-white text-slate-700 hover:border-indigo-300 hover:bg-indigo-50'}`;
+                        const progressLabel = readingRoutineStage === 'first_pass' ? `第一遍 · 已留下 ${readingRoutineNoteCount}/${readingRoutineParagraphs.length} 张段落便签`
+                          : readingRoutineStage === 'functions' ? '第二遍 · 看每段在文章里做什么'
+                            : readingRoutineStage === 'connections' ? '第二遍 · 把相邻段落连起来'
+                              : readingRoutineStage === 'sections' ? '第二遍 · 把段落便签归成几部分'
+                                : '第二遍 · 拼出整篇文章';
+                        return (
+                          <div className="animate-in fade-in duration-500 space-y-5">
+                            <section className="overflow-hidden rounded-3xl border border-indigo-100 bg-gradient-to-br from-indigo-50 via-white to-sky-50 p-5 md:p-6">
+                              <div className="flex items-start gap-3">
+                                <div className="rounded-2xl bg-indigo-700 p-2.5 text-white"><MapIcon className="h-5 w-5" /></div>
+                                <div className="min-w-0">
+                                  <p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-600">篇章阅读</p>
+                                  <h3 className="mt-1 text-xl font-black text-slate-900">先读懂每一段，再拼出整篇</h3>
+                                  <p className="mt-2 text-sm leading-6 text-slate-600">{progressLabel}</p>
                                 </div>
-                                <div className="mt-5">
-                                  <p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-500">想一想</p>
-                                  <h3 className="mt-2 text-xl font-black leading-8 text-slate-900">{activity.prompt}</h3>
-                                  {isSourceActivity && <p className="mt-3 rounded-xl bg-sky-50 px-3 py-2 text-sm leading-6 text-sky-800">左边浅蓝色的句子可以点选；再回来检查。没有运行 AI，也不用打字。</p>}
+                              </div>
+                              <div className="mt-5 flex gap-2">
+                                <div className={`h-2 flex-1 rounded-full ${readingRoutineStage === 'first_pass' ? 'bg-indigo-600' : 'bg-emerald-500'}`} />
+                                <div className={`h-2 flex-1 rounded-full ${readingRoutineStage !== 'first_pass' ? 'bg-indigo-600' : 'bg-white ring-1 ring-indigo-100'}`} />
+                              </div>
+                              <div className="mt-2 flex justify-between text-xs font-bold text-slate-500"><span>第一遍：读懂每段</span><span>第二遍：拼出文章</span></div>
+                            </section>
+
+                            {readingRoutineStage === 'first_pass' && paragraph && (
+                              <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+                                <div className="flex items-center justify-between gap-3">
+                                  <div><p className="text-xs font-black uppercase tracking-[0.18em] text-sky-600">第 {paragraph.index + 1} 段</p><h3 className="mt-1 text-xl font-black text-slate-900">给这一段留一张小便签</h3></div>
+                                  <span className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-black text-slate-600">读原文，不用打字</span>
+                                </div>
+                                <div className="mt-5 rounded-2xl border border-sky-100 bg-sky-50 px-4 py-3 text-sm leading-6 text-sky-900">先读左边第 {paragraph.index + 1} 段。遇到不懂的词或句子，仍可点进“句子解析”。</div>
+                                {previousPrediction.checked && <div className="mt-4 rounded-2xl border border-indigo-100 bg-indigo-50 px-4 py-3 text-sm leading-6 text-indigo-950"><p className="font-black">回看刚才的猜想</p><p className="mt-1">你猜的是：{previousPredictionOption?.text}</p>{note.complete ? <p className="mt-2">{previousPredictionCorrect ? '读完这一段，你的猜想得到了印证。' : '读完这一段，你可以修正这个猜想：文章实际往另一个方向展开了。'}</p> : <p className="mt-2 text-indigo-700">先完成这一段的小便签，再回来确认或修正。</p>}</div>}
+
+                                <div className="mt-6"><p className="text-sm font-black text-slate-800">1. 这一段主要在说谁 / 什么？</p>
+                                  <div className="mt-3 grid gap-2">{getParagraphTopicOptions(paragraph).map(option => <button key={option} type="button" onClick={() => updateRoutineNote(paragraph.id, { topic: option, topicChecked: false })} className={choiceClass(note.topic === option, note.topicChecked, note.topicCorrect)}>{option}</button>)}</div>
+                                  <button type="button" disabled={!note.topic} onClick={() => checkRoutineTopic(paragraph)} className="mt-3 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:cursor-not-allowed disabled:bg-slate-300">看看我抓对了吗</button>
+                                  {note.topicChecked && <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${note.topicCorrect ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>{note.topicCorrect ? '抓得很准。现在想想：这段最重要的话是什么？' : '再看看整段，而不只盯着其中一个动作或细节。'}</p>}
                                 </div>
 
-                                {activity.options?.length > 0 && (
-                                  <div className="mt-5 grid gap-3">
-                                    {activity.options.map(option => {
-                                      const chosen = response?.optionIds?.includes(option.id);
-                                      const showCorrect = response?.checked && activity.answer.option_ids?.includes(option.id);
-                                      return <button key={option.id} type="button" onClick={() => setReadingActivityOption(activity, option.id)} className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold leading-6 transition-colors ${showCorrect ? 'border-emerald-300 bg-emerald-50 text-emerald-900' : chosen && response?.checked ? 'border-amber-300 bg-amber-50 text-amber-900' : 'border-slate-200 bg-white text-slate-700 hover:border-indigo-300 hover:bg-indigo-50'}`}>{option.text}</button>;
-                                    })}
-                                  </div>
-                                )}
+                                {note.topicCorrect && <div className="mt-7 border-t border-slate-100 pt-6"><p className="text-sm font-black text-slate-800">2. 这段最想告诉我们什么？</p>
+                                  <div className="mt-3 grid gap-2">{getParagraphMainIdeaOptions(paragraph).map(option => <button key={option} type="button" onClick={() => updateRoutineNote(paragraph.id, { mainIdea: option, mainIdeaChecked: false })} className={choiceClass(note.mainIdea === option, note.mainIdeaChecked, note.mainIdeaCorrect)}>{option}</button>)}</div>
+                                  <button type="button" disabled={!note.mainIdea} onClick={() => checkRoutineMainIdea(paragraph)} className="mt-3 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:cursor-not-allowed disabled:bg-slate-300">看看我选对了吗</button>
+                                  {note.mainIdeaChecked && <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${note.mainIdeaCorrect ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>{note.mainIdeaCorrect ? '对。这句话能把这一段的大部分内容装进去。' : '这句话可能只是一个细节。找找看哪一句能把整段更多内容装进去。'}</p>}
+                                </div>}
 
-                                {isSourceActivity && (
-                                  <div className="mt-5">
-                                    <p className="text-sm font-bold text-slate-700">你点了这些句子：</p>
-                                    <div className="mt-2 space-y-2">
-                                      {(response?.sourceIds || []).length ? response.sourceIds.map(id => <p key={id} className="rounded-xl bg-emerald-50 px-3 py-2 text-sm leading-6 text-emerald-900"><span className="mr-2 font-black">{id.toUpperCase()}</span>{sourceText(id)}</p>) : <p className="text-sm text-slate-400">还没有选择。去左侧找一找。</p>}
-                                    </div>
-                                    <button type="button" onClick={() => checkReadingActivitySources(activity)} className="mt-4 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-black text-white hover:bg-indigo-700">检查我的证据</button>
-                                  </div>
-                                )}
+                                {note.mainIdeaCorrect && <div className="mt-7 border-t border-slate-100 pt-6"><p className="text-sm font-black text-slate-800">3. 去原文找一句支持它的话</p>
+                                  <p className="mt-2 text-sm leading-6 text-slate-500">现在左边第 {paragraph.index + 1} 段的句子可以点选。选一句最能证明你的段落便签的话。</p>
+                                  <div className="mt-3 flex flex-wrap gap-2">{(note.sourceIds || []).length ? note.sourceIds.map(id => <span key={id} className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-900">已选 {id.toUpperCase()}</span>) : <span className="text-sm text-slate-400">还没有选句子</span>}</div>
+                                  <button type="button" disabled={!(note.sourceIds || []).length} onClick={() => checkRoutineEvidence(paragraph)} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:cursor-not-allowed disabled:bg-slate-300">{note.evidenceChecked && !note.evidenceCorrect ? '重新检查我的依据' : '检查我的依据'}</button>
+                                  {note.evidenceChecked && <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${note.evidenceCorrect ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>{note.evidenceCorrect ? '找到了。你的便签有原文作依据。' : '还可以继续点左边这段的句子：点错的可再点一次取消，再换一句试试。'}</p>}
+                                </div>}
 
-                                {response?.checked && <div className={`mt-5 rounded-2xl p-4 text-sm leading-6 ${isCorrect ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>
-                                  {isCorrect ? '找得很准。你不是在猜，而是在根据文章的线索作判断。' : (selectedOption?.role === 'supporting_detail' || selectedOption?.role === 'minor_detail' ? '这句话很重要，但它是支持重点的一个细节。再想想：整段所有信息合起来最想告诉你什么？' : '再读一次相关段落，找能同时解释更多句子的那个想法。')}
+                                {note.complete && <div className="mt-7 rounded-2xl border border-emerald-200 bg-emerald-50 p-4"><p className="text-xs font-black uppercase tracking-[0.16em] text-emerald-700">我的第 {paragraph.index + 1} 段便签</p><p className="mt-2 font-black text-emerald-950">{note.topic}：{note.mainIdea}</p>
+                                  {predictionActivity && !prediction.checked && <div className="mt-4 border-t border-emerald-200 pt-4"><p className="text-sm font-black text-emerald-950">读完这一段，你猜下一段会写什么？</p><p className="mt-1 text-sm text-emerald-800">这一步先不用急着判对错；读完下一段，再回来确认或修正。</p><div className="mt-3 grid gap-2">{predictionActivity.options.map(option => <button key={option.id} type="button" onClick={() => setReadingRoutineProgress(previous => ({ ...previous, predictions: { ...previous.predictions, [paragraph.id]: { selected: option.id, checked: false } } }))} className={choiceClass(prediction.selected === option.id, false, false)}>{option.text}</button>)}</div><button type="button" disabled={!prediction.selected} onClick={() => setReadingRoutineProgress(previous => ({ ...previous, predictions: { ...previous.predictions, [paragraph.id]: { ...prediction, checked: true } } }))} className="mt-3 rounded-xl bg-emerald-700 px-4 py-2.5 text-sm font-black text-white disabled:bg-slate-300">带着猜想往下读</button></div>}
+                                  {(!predictionActivity || prediction.checked) && <button type="button" onClick={() => continueRoutineFirstPass(paragraph)} className="mt-4 rounded-xl bg-emerald-700 px-4 py-2.5 text-sm font-black text-white">{paragraph.index + 1 < readingRoutineParagraphs.length ? '读下一段' : '进入第二遍，把文章拼起来'}</button>}
                                 </div>}
                               </section>
                             )}
+
+                            {readingRoutineStage === 'functions' && paragraph && (() => { const response = readingRoutineProgress.functions?.[paragraph.id] || {}; const correct = getChildFunction(paragraph.function?.type); return <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6"><p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-600">第二遍 · 第 {paragraph.index + 1} 段</p><h3 className="mt-2 text-xl font-black text-slate-900">这一段在整篇文章里做什么？</h3><p className="mt-2 text-sm leading-6 text-slate-500">先看看你留下的便签，再选择它承担的工作。</p><div className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm font-bold text-slate-700">{readingRoutineProgress.notes?.[paragraph.id]?.topic}：{readingRoutineProgress.notes?.[paragraph.id]?.mainIdea}</div><div className="mt-5 grid gap-2">{functionChoices.map(option => <button key={option} type="button" onClick={() => setReadingRoutineProgress(previous => ({ ...previous, functions: { ...previous.functions, [paragraph.id]: { selected: option, checked: false, correct: false } } }))} className={choiceClass(response.selected === option, response.checked, response.correct)}>{option}</button>)}</div><button type="button" disabled={!response.selected} onClick={() => checkRoutineFunction(paragraph)} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:bg-slate-300">检查</button>{response.checked && <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${response.correct ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>{response.correct ? '对。现在这张便签有了它在文章中的位置。' : '再想想：作者为什么需要这一段？'}</p>}</section>; })()}
+
+                            {readingRoutineStage === 'connections' && paragraph && (() => { const response = readingRoutineProgress.connections?.[paragraph.id] || {}; const correct = getChildConnection(paragraph.relation_to_previous?.type); return <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6"><p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-600">第二遍 · 连两段</p><h3 className="mt-2 text-xl font-black text-slate-900">为什么第 {paragraph.index + 1} 段会接在上一段后面？</h3><div className="mt-4 grid gap-2 text-sm"><div className="rounded-2xl bg-slate-50 p-3"><b>上一段：</b>{readingRoutineProgress.notes?.[readingRoutineParagraphs[paragraph.index - 1]?.id]?.mainIdea}</div><div className="rounded-2xl bg-slate-50 p-3"><b>这一段：</b>{readingRoutineProgress.notes?.[paragraph.id]?.mainIdea}</div></div><div className="mt-5 grid gap-2">{connectionChoices.map(option => <button key={option} type="button" onClick={() => setReadingRoutineProgress(previous => ({ ...previous, connections: { ...previous.connections, [paragraph.id]: { selected: option, checked: false, correct: false } } }))} className={choiceClass(response.selected === option, response.checked, response.correct)}>{option}</button>)}</div><button type="button" disabled={!response.selected} onClick={() => checkRoutineConnection(paragraph)} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:bg-slate-300">检查</button>{response.checked && <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${response.correct ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>{response.correct ? '连得上。文章不是一段一段散着写的。' : '再对照两张便签，找找作者是怎样把话接下去的。'}</p>}</section>; })()}
+
+                            {readingRoutineStage === 'sections' && (() => { const section = readingRoutineSections.find(item => !readingRoutineProgress.sections?.[item.id]?.correct); const response = section ? (readingRoutineProgress.sections?.[section.id] || {}) : {}; return section && <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6"><p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-600">第二遍 · 整理便签</p><h3 className="mt-2 text-xl font-black text-slate-900">哪些段落可以放在同一部分？</h3><p className="mt-2 text-sm leading-6 text-slate-500">点选你觉得属于这一部分的段落便签。</p><div className="mt-5 grid gap-3">{readingRoutineParagraphs.map(item => { const chosen = response.selectedParagraphIds?.includes(item.id); return <button key={item.id} type="button" onClick={() => setReadingRoutineProgress(previous => { const current = previous.sections?.[section.id]?.selectedParagraphIds || []; const selectedParagraphIds = current.includes(item.id) ? current.filter(id => id !== item.id) : [...current, item.id]; return { ...previous, sections: { ...previous.sections, [section.id]: { selectedParagraphIds, checked: false, correct: false } } }; })} className={choiceClass(chosen, response.checked, response.correct)}><span className="mr-2 text-xs font-black text-indigo-600">第 {item.index + 1} 段</span>{readingRoutineProgress.notes?.[item.id]?.mainIdea}</button>; })}</div><button type="button" disabled={!(response.selectedParagraphIds || []).length} onClick={() => checkRoutineSection(section)} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:bg-slate-300">检查这一组</button>{response.checked && <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${response.correct ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>{response.correct ? `对。这一部分可以叫“${section.label}”。` : '再比较这些便签：它们是不是在做同一件事？'}</p>}</section>; })()}
+
+                            {readingRoutineStage === 'structure' && (() => { const response = readingRoutineProgress.structure || {}; const structure = getChildTextStructure(currentArticleReadingModel.analysis.text.structure?.type); return <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6"><p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-600">第二遍 · 看全文的骨架</p><h3 className="mt-2 text-xl font-black text-slate-900">作者是怎样把这些部分安排成一篇文章的？</h3><p className="mt-2 text-sm leading-6 text-slate-500">回看你刚分好的几组便签，选最像这篇文章展开方式的一项。</p><div className="mt-5 grid gap-2">{textStructureChoices.map(option => <button key={option} type="button" onClick={() => setReadingRoutineProgress(previous => ({ ...previous, structure: { selected: option, checked: false, correct: false } }))} className={choiceClass(response.selected === option, response.checked, response.correct)}>{option}</button>)}</div><button type="button" disabled={!response.selected} onClick={checkRoutineStructure} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:bg-slate-300">检查文章骨架</button>{response.checked && <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${response.correct ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>{response.correct ? '对。现在你看见了作者安排信息的方式。' : '再看看各组便签：它们是按时间、比较、因果，还是分方面介绍？'}</p>}</section>; })()}
+
+                            {readingRoutineStage === 'whole_text' && (() => { const activity = currentReadingActivities.find(item => item.type === 'choose_main_idea'); const response = readingRoutineProgress.wholeText || {}; const options = activity?.options || buildRoutineOptions(currentArticleReadingModel.analysis.text.central_idea?.text, readingRoutineParagraphs.map(item => item.main_idea?.text)).map((text, index) => ({ id: `whole-${index}`, text })); const answerIds = activity?.answer?.option_ids || [options.find(option => option.text === currentArticleReadingModel.analysis.text.central_idea?.text)?.id]; const correct = answerIds.includes(response.selected); return <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6"><p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-600">第二遍 · 全文</p><h3 className="mt-2 text-xl font-black text-slate-900">现在，整篇文章最想告诉我们什么？</h3><div className="mt-5 grid gap-2">{options.map(option => <button key={option.id} type="button" onClick={() => setReadingRoutineProgress(previous => ({ ...previous, wholeText: { selected: option.id, checked: false } }))} className={choiceClass(response.selected === option.id, response.checked, correct)}>{option.text}</button>)}</div><button type="button" disabled={!response.selected} onClick={() => setReadingRoutineProgress(previous => ({ ...previous, wholeText: { ...response, checked: true } }))} className="mt-4 rounded-xl bg-indigo-700 px-4 py-2.5 text-sm font-black text-white disabled:bg-slate-300">完成文章拼图</button>{response.checked && <div className={`mt-4 rounded-2xl p-4 text-sm leading-6 ${correct ? 'bg-emerald-50 text-emerald-950' : 'bg-amber-50 text-amber-950'}`}>{correct ? <><p className="font-black">你把整篇文章读出来了。</p><div className="mt-3 space-y-2">{readingRoutineParagraphs.map(item => <p key={item.id}><span className="mr-2 font-black text-emerald-700">第 {item.index + 1} 段</span>{readingRoutineProgress.notes?.[item.id]?.mainIdea}</p>)}</div></> : '再看看所有段落便签：哪一个说法能把它们都装进去？'}</div>}</section>; })()}
                           </div>
                         );
                       })()}
@@ -8921,9 +9541,13 @@
                                           </span>
                                         )}
                                       </div>
-                                      <h3 className="mt-4 text-xl md:text-2xl font-black text-slate-900 leading-relaxed whitespace-pre-line">
-                                        {currentQuizQuestion.prompt}
-                                      </h3>
+                                      {currentQuizIdeaTree ? (
+                                        <QuizIdeaTree tree={currentQuizIdeaTree} />
+                                      ) : (
+                                        <h3 className="mt-4 text-xl md:text-2xl font-black text-slate-900 leading-relaxed whitespace-pre-line">
+                                          {currentQuizQuestion.prompt}
+                                        </h3>
+                                      )}
                                       <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
                                         <div className="flex flex-wrap items-center justify-between gap-3">
                                           <p className="font-bold">

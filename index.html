@@ -2314,6 +2314,101 @@
         .sort((left, right) => left.index - right.index);
     };
 
+    const isRfdFourOrLater = (articleId = '') => /^rfd(?:[4-9]|[1-9]\d)-/i.test(String(articleId));
+
+    // RFD 4+ uses a repeated "Main idea → Sub-idea → Detail" chart format.
+    // Keep the source prompt as the single source of truth, but render those
+    // explicit labels as a hierarchy instead of an indented text paragraph.
+    const parseQuizIdeaTree = (prompt = '', articleId = '') => {
+      if (!isRfdFourOrLater(articleId)) return null;
+      const lines = String(prompt)
+        .replace(/\r/g, '')
+        .split('\n')
+        .map(line => line.trim())
+        .filter(Boolean);
+      const mainIdeaIndex = lines.findIndex(line => /^main\s*idea\s*\d*\s*:/i.test(line));
+      if (mainIdeaIndex < 0) return null;
+
+      const parseLabeledLine = (line, pattern) => {
+        const match = line.match(pattern);
+        return match ? { label: match[1].trim(), text: match[2].trim() } : null;
+      };
+      const mainIdea = parseLabeledLine(lines[mainIdeaIndex], /^(main\s*idea\s*\d*)\s*:\s*(.+)$/i);
+      if (!mainIdea) return null;
+
+      const instruction = lines
+        .slice(0, mainIdeaIndex)
+        .filter(line => !/^(?:words?\s*:|[a-z]\.)/i.test(line))
+        .join(' ');
+      const details = [];
+      const branches = [];
+      let activeBranch = null;
+
+      for (const line of lines.slice(mainIdeaIndex + 1)) {
+        if (/^请完成第\s*\d+\s*空。?$/u.test(line)) break;
+        const branch = parseLabeledLine(line, /^(sub[-\s]*idea\s*\d*)\s*:\s*(.+)$/i);
+        if (branch) {
+          activeBranch = { ...branch, details: [] };
+          branches.push(activeBranch);
+          continue;
+        }
+        const detail = parseLabeledLine(line.replace(/^(?:[-•]\s*)/, ''), /^(detail\s*\d*)\s*:\s*(.+)$/i);
+        if (detail) {
+          (activeBranch ? activeBranch.details : details).push(detail);
+        }
+      }
+
+      return details.length || branches.length
+        ? { instruction, mainIdea, details, branches }
+        : null;
+    };
+
+    const QuizIdeaTree = ({ tree }) => (
+      <section className="mt-4" aria-label="主旨与细节结构图">
+        {tree.instruction && <p className="mb-4 text-xl font-black leading-relaxed text-slate-900">{tree.instruction}</p>}
+        <div className="rounded-3xl border border-indigo-100 bg-gradient-to-br from-indigo-50/80 via-white to-sky-50/70 p-4 shadow-sm sm:p-5">
+          <div className="flex items-start gap-3">
+            <span className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-xs font-black text-white shadow-sm">★</span>
+            <div className="min-w-0 flex-1 rounded-2xl border border-indigo-200 bg-white px-4 py-3 shadow-sm">
+              <p className="text-[11px] font-black uppercase tracking-[0.16em] text-indigo-600">{tree.mainIdea.label}</p>
+              <p className="mt-1 text-base font-black leading-7 text-slate-900 sm:text-lg">{tree.mainIdea.text}</p>
+            </div>
+          </div>
+
+          <div className="relative ml-4 mt-1 border-l-2 border-indigo-200 pb-1 pl-6 pt-4 sm:ml-5 sm:pl-7">
+            {tree.details.map((detail, index) => (
+              <div key={`${detail.label}-${index}`} className="relative pb-3 before:absolute before:-left-6 before:top-5 before:h-0.5 before:w-5 before:bg-indigo-200 sm:before:-left-7 sm:before:w-6">
+                <div className="rounded-2xl border border-sky-100 bg-white/90 px-4 py-3">
+                  <p className="text-[11px] font-black uppercase tracking-[0.14em] text-sky-700">{detail.label}</p>
+                  <p className="mt-1 text-sm font-semibold leading-6 text-slate-800 sm:text-base">{detail.text}</p>
+                </div>
+              </div>
+            ))}
+            {tree.branches.map((branch, branchIndex) => (
+              <div key={`${branch.label}-${branchIndex}`} className="relative pb-4 before:absolute before:-left-6 before:top-5 before:h-0.5 before:w-5 before:bg-indigo-200 sm:before:-left-7 sm:before:w-6">
+                <div className="rounded-2xl border border-violet-200 bg-violet-50/80 px-4 py-3">
+                  <p className="text-[11px] font-black uppercase tracking-[0.14em] text-violet-700">{branch.label}</p>
+                  <p className="mt-1 text-sm font-black leading-6 text-slate-900 sm:text-base">{branch.text}</p>
+                </div>
+                {branch.details.length > 0 && (
+                  <div className="relative ml-4 mt-2 border-l-2 border-sky-100 pl-5 sm:ml-5 sm:pl-6">
+                    {branch.details.map((detail, detailIndex) => (
+                      <div key={`${detail.label}-${detailIndex}`} className="relative pb-2 before:absolute before:-left-5 before:top-5 before:h-0.5 before:w-4 before:bg-sky-100 sm:before:-left-6 sm:before:w-5">
+                        <div className="rounded-xl border border-sky-100 bg-white/90 px-3 py-2.5">
+                          <p className="text-[10px] font-black uppercase tracking-[0.14em] text-sky-700">{detail.label}</p>
+                          <p className="mt-0.5 text-sm font-medium leading-6 text-slate-700">{detail.text}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+
     const isSupportedQuizQuestion = (question = {}) =>
       question.type === 'single' &&
       Number.isInteger(question.answerIndex) &&
@@ -4681,6 +4776,10 @@
       const currentQuizQuestion = useMemo(
         () => currentArticleQuestions.find(question => question.id === quizActiveQuestionId) || currentArticleQuestions[0] || null,
         [currentArticleQuestions, quizActiveQuestionId]
+      );
+      const currentQuizIdeaTree = useMemo(
+        () => parseQuizIdeaTree(currentQuizQuestion?.prompt, currentArticleId),
+        [currentQuizQuestion?.prompt, currentArticleId]
       );
       const currentQuizQuestionNumber = currentQuizQuestion?.index || 0;
       const currentQuizLocatorSentenceId = currentQuizQuestion ? quizProgress.locatorSentenceIds?.[currentQuizQuestion.id] || null : null;
@@ -9442,9 +9541,13 @@
                                           </span>
                                         )}
                                       </div>
-                                      <h3 className="mt-4 text-xl md:text-2xl font-black text-slate-900 leading-relaxed whitespace-pre-line">
-                                        {currentQuizQuestion.prompt}
-                                      </h3>
+                                      {currentQuizIdeaTree ? (
+                                        <QuizIdeaTree tree={currentQuizIdeaTree} />
+                                      ) : (
+                                        <h3 className="mt-4 text-xl md:text-2xl font-black text-slate-900 leading-relaxed whitespace-pre-line">
+                                          {currentQuizQuestion.prompt}
+                                        </h3>
+                                      )}
                                       <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
                                         <div className="flex flex-wrap items-center justify-between gap-3">
                                           <p className="font-bold">
