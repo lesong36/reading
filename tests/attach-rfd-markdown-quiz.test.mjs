@@ -13,3 +13,21 @@ test('preserves the target sentence for each RFD word-bank blank', () => {
   assert.doesNotMatch(blanks[3].prompt, /Words:\s*请完成/);
   assert.deepEqual(blanks[3].options, ['digging', 'beautiful', 'tomb', 'study', 'gold']);
 });
+
+test('keeps a visible target prompt for every RFD4–6 word-bank blank', () => {
+  const books = ['rfd4', 'rfd5', 'rfd6'];
+
+  for (const book of books) {
+    const blanks = parseBook(book)
+      .flatMap(unit => unit.questions)
+      .filter(question => question.id.includes('-blank-'));
+
+    for (const question of blanks) {
+      const sections = question.prompt.split(/\n\n/).map(section => section.trim()).filter(Boolean);
+      const target = sections.at(-2);
+
+      assert.ok(target, `${book} ${question.id} is missing its target prompt`);
+      assert.doesNotMatch(target, /^请完成第\s*\d+\s*空。?$/);
+    }
+  }
+});
