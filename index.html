@@ -2282,13 +2282,19 @@
         : [];
       const parsedIndex = Number(question.index);
       const answerIndex = Number.isInteger(question.answerIndex) ? question.answerIndex : null;
+      const answerIndexes = Array.isArray(question.answerIndexes)
+        ? [...new Set(question.answerIndexes.filter(index => Number.isInteger(index) && index >= 0 && index < options.length))]
+            .sort((left, right) => left - right)
+        : [];
       const explicitType = String(question.type || '').trim().toLowerCase();
       const inferredType = explicitType || (
         Number.isInteger(answerIndex) && options.length >= 2 ? 'single' : 'unsupported'
       );
       const normalizedType = inferredType === 'single' && Number.isInteger(answerIndex) && options.length >= 2
         ? 'single'
-        : 'unsupported';
+        : inferredType === 'multiple' && answerIndexes.length >= 2 && options.length >= 2
+          ? 'multiple'
+          : 'unsupported';
       return {
         ...question,
         id: String(question.id || `q${parsedIndex || fallbackIndex + 1}`),
@@ -2296,6 +2302,7 @@
         prompt: String(question.prompt || '').trim(),
         options,
         answerIndex,
+        answerIndexes,
         paragraphHint: question.paragraphHint == null || question.paragraphHint === ''
           ? null
           : String(question.paragraphHint).trim(),
@@ -2409,11 +2416,29 @@
       </section>
     );
 
-    const isSupportedQuizQuestion = (question = {}) =>
-      question.type === 'single' &&
-      Number.isInteger(question.answerIndex) &&
-      Array.isArray(question.options) &&
-      question.options.length >= 2;
+    const isSupportedQuizQuestion = (question = {}) => (
+      question.type === 'single' && Number.isInteger(question.answerIndex)
+      || question.type === 'multiple' && Array.isArray(question.answerIndexes) && question.answerIndexes.length >= 2
+    ) && Array.isArray(question.options) && question.options.length >= 2;
+
+    const normalizeQuizAnswer = (value) => {
+      if (Number.isInteger(value)) return value;
+      if (Array.isArray(value)) return [...new Set(value.filter(Number.isInteger))].sort((left, right) => left - right);
+      return typeof value === 'string' && value.trim() ? value : null;
+    };
+    const isQuizAnswerComplete = (question, answer) => question?.type === 'multiple'
+      ? Array.isArray(answer)
+        && answer.length === question.answerIndexes.length
+        && answer.every(index => Number.isInteger(index) && index >= 0 && index < question.options.length)
+      : Number.isInteger(answer);
+    const isQuizAnswerCorrect = (question, answer) => question?.type === 'multiple'
+      ? Array.isArray(answer)
+        && answer.length === question.answerIndexes.length
+        && answer.every((index, position) => index === question.answerIndexes[position])
+      : answer === question?.answerIndex;
+    const isQuizOptionSelected = (answer, optionIndex) => Array.isArray(answer)
+      ? answer.includes(optionIndex)
+      : answer === optionIndex;
 
     const createEmptyQuizProgress = () => ({
       answers: {},
@@ -2425,7 +2450,8 @@
 
     const normalizeQuizProgress = (progress = {}) => {
       const normalizedAnswers = Object.entries(progress?.answers || {}).reduce((acc, [questionId, value]) => {
-        if (Number.isInteger(value) || (typeof value === 'string' && value.trim())) acc[questionId] = value;
+        const normalized = normalizeQuizAnswer(value);
+        if (normalized !== null && (!Array.isArray(normalized) || normalized.length)) acc[questionId] = normalized;
         return acc;
       }, {});
       const locatorSentenceIds = Object.entries(progress?.locatorSentenceIds || {}).reduce((acc, [questionId, sentenceId]) => {
@@ -3511,7 +3537,7 @@
             if (!answered || !activityAt) return;
             const day = localDayKey(activityAt); if (!day) return;
             const questions = normalizeArticleQuestions(article).filter(isSupportedQuizQuestion);
-            const correct = questions.filter(question => progress.answers?.[question.id] === question.answerIndex).length;
+            const correct = questions.filter(question => isQuizAnswerCorrect(question, progress.answers?.[question.id])).length;
             ensure(day).quizzes.push({ articleId: article.id, title: article.title, submittedAt: progress.submittedAt, lastAnsweredAt: progress.lastAnsweredAt, answered, correct, total: questions.length, submitted: progress.submitted, progress });
           } catch (error) {}
         });
@@ -3578,7 +3604,7 @@
                 return;
               }
               const questions = normalizeArticleQuestions(article).filter(isSupportedQuizQuestion);
-              const correctCount = questions.filter(question => progress.answers?.[question.id] === question.answerIndex).length;
+              const correctCount = questions.filter(question => isQuizAnswerCorrect(question, progress.answers?.[question.id])).length;
               inferred[article.id] = {
                 completedAt: progress.submittedAt,
                 durationMs: null,
@@ -4791,13 +4817,13 @@
         ? Number(currentQuizParagraphHint)
         : null;
       const quizAnsweredSupportedCount = supportedQuizQuestions.filter(question =>
-        Number.isInteger(quizProgress.answers?.[question.id])
+        isQuizAnswerComplete(question, quizProgress.answers?.[question.id])
       ).length;
       const quizCanSubmit = supportedQuizQuestions.length > 0 && supportedQuizQuestions.every(question =>
-        Number.isInteger(quizProgress.answers?.[question.id])
+        isQuizAnswerComplete(question, quizProgress.answers?.[question.id])
       );
       const quizCorrectCount = supportedQuizQuestions.filter(question =>
-        quizProgress.answers?.[question.id] === question.answerIndex
+        isQuizAnswerCorrect(question, quizProgress.answers?.[question.id])
       ).length;
       const currentQuizAnswer = currentQuizQuestion ? quizProgress.answers?.[currentQuizQuestion.id] : null;
       const currentQuizIsSupported = isSupportedQuizQuestion(currentQuizQuestion || {});
@@ -5035,7 +5061,8 @@
         nextProgress = {
           ...nextProgress,
           answers: Object.entries(nextProgress.answers || {}).reduce((acc, [questionId, value]) => {
-            if (questionIds.has(questionId) && Number.isInteger(value)) acc[questionId] = value;
+            const normalized = normalizeQuizAnswer(value);
+            if (questionIds.has(questionId) && normalized !== null && (!Array.isArray(normalized) || normalized.length)) acc[questionId] = normalized;
             return acc;
           }, {}),
           locatorSentenceIds: Object.entries(nextProgress.locatorSentenceIds || {}).reduce((acc, [questionId, sentenceId]) => {
@@ -5044,7 +5071,7 @@
           }, {})
         };
 
-        if (nextProgress.submitted && !supportedQuizQuestions.every(question => Number.isInteger(nextProgress.answers?.[question.id]))) {
+        if (nextProgress.submitted && !supportedQuizQuestions.every(question => isQuizAnswerComplete(question, nextProgress.answers?.[question.id]))) {
           nextProgress = {
             ...nextProgress,
             submitted: false,
@@ -5054,7 +5081,7 @@
 
         setQuizProgress(nextProgress);
 
-        const firstUnansweredSupported = supportedQuizQuestions.find(question => !Number.isInteger(nextProgress.answers?.[question.id]));
+        const firstUnansweredSupported = supportedQuizQuestions.find(question => !isQuizAnswerComplete(question, nextProgress.answers?.[question.id]));
         const fallbackQuestion = firstUnansweredSupported || currentArticleQuestions[0] || null;
         setQuizActiveQuestionId(fallbackQuestion?.id || null);
         setArticleStudyMode('read');
@@ -6203,16 +6230,28 @@
       const handleQuizAnswerSelect = (question, answerIndex) => {
         if (!question || !isSupportedQuizQuestion(question) || quizProgress.submitted) return;
         const answeredAt = new Date().toISOString();
-        const wasAlreadyAnswered = Number.isInteger(quizProgress.answers?.[question.id]);
+        const existingAnswer = quizProgress.answers?.[question.id];
+        const wasAlreadyAnswered = isQuizAnswerComplete(question, existingAnswer);
+        const nextAnswer = question.type === 'multiple'
+          ? (() => {
+              const selected = Array.isArray(existingAnswer) ? existingAnswer : [];
+              if (selected.includes(answerIndex)) return selected.filter(index => index !== answerIndex);
+              if (selected.length >= question.answerIndexes.length) {
+                setToastMessage(`本题请选择 ${question.answerIndexes.length} 项；请先取消一个已选项。`);
+                return selected;
+              }
+              return [...selected, answerIndex].sort((left, right) => left - right);
+            })()
+          : answerIndex;
         setQuizProgress(prev => ({
           ...prev,
           answers: {
             ...prev.answers,
-            [question.id]: answerIndex
+            [question.id]: nextAnswer
           },
           lastAnsweredAt: answeredAt
         }));
-        if (!wasAlreadyAnswered) recordLearningEvent({ eventType: 'quiz_answered', eventKey: `answer:${currentArticleId}:${question.id}:${localDayKey(answeredAt)}`, articleId: currentArticleId, articleTitle: currentArticleTitle, questionId: question.id, payload: { questionIndex: question.index, questionPrompt: question.prompt, learnerAnswerIndex: answerIndex } });
+        if (!wasAlreadyAnswered && isQuizAnswerComplete(question, nextAnswer)) recordLearningEvent({ eventType: 'quiz_answered', eventKey: `answer:${currentArticleId}:${question.id}:${localDayKey(answeredAt)}`, articleId: currentArticleId, articleTitle: currentArticleTitle, questionId: question.id, payload: { questionIndex: question.index, questionPrompt: question.prompt, learnerAnswerIndex: nextAnswer } });
       };
 
       const handleQuizTextAnswerChange = (question, value) => {
@@ -6310,7 +6349,7 @@
         const questions = normalizeArticleQuestions(article);
         const totalCount = questions.filter(isSupportedQuizQuestion).length;
         const progress = normalizeQuizProgress(JSON.parse(localStorage.getItem(getQuizProgressStorageKey(article.id)) || '{}'));
-        const correctCount = totalCount ? questions.filter(question => isSupportedQuizQuestion(question) && progress.answers?.[question.id] === question.answerIndex).length : null;
+        const correctCount = totalCount ? questions.filter(question => isSupportedQuizQuestion(question) && isQuizAnswerCorrect(question, progress.answers?.[question.id])).length : null;
         const accuracy = totalCount && progress.submitted ? Math.round((correctCount / totalCount) * 100) : null;
         const completedAt = new Date().toISOString();
         setCompletionRecords(prev => ({
@@ -7712,7 +7751,7 @@
                         if (progress.submitted) {
                           const questions = normalizeArticleQuestions(article);
                           const supported = questions.filter(isSupportedQuizQuestion);
-                          const correct = supported.filter(question => progress.answers?.[question.id] === question.answerIndex).length;
+                          const correct = supported.filter(question => isQuizAnswerCorrect(question, progress.answers?.[question.id])).length;
                           quizRecord = { submittedAt: progress.submittedAt, correct, total: supported.length };
                         }
                       } catch (error) {}
@@ -9483,8 +9522,10 @@
                                     const isActive = question.id === currentQuizQuestion?.id;
                                     const isSupported = isSupportedQuizQuestion(question);
                                     const answer = quizProgress.answers?.[question.id];
-                                    const answered = Number.isInteger(answer) || (typeof answer === 'string' && answer.trim().length > 0);
-                                    const isCorrect = quizProgress.submitted && isSupported && quizProgress.answers?.[question.id] === question.answerIndex;
+                                    const answered = isSupported
+                                      ? isQuizAnswerComplete(question, answer)
+                                      : Number.isInteger(answer) || (typeof answer === 'string' && answer.trim().length > 0);
+                                    const isCorrect = quizProgress.submitted && isSupported && isQuizAnswerCorrect(question, answer);
                                     const isWrong = quizProgress.submitted && isSupported && answered && !isCorrect;
                                     const stateClass = quizProgress.submitted
                                       ? isCorrect
@@ -9535,11 +9576,16 @@
                                             非自动评分
                                           </span>
                                         )}
-                                        {currentQuizQuestion.answerSource === 'inferred-from-passage' && (
-                                          <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800">
-                                            答案依据原文推断
-                                          </span>
-                                        )}
+                                      {currentQuizQuestion.answerSource === 'inferred-from-passage' && (
+                                        <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800">
+                                          答案依据原文推断
+                                        </span>
+                                      )}
+                                      {currentQuizQuestion.type === 'multiple' && (
+                                        <span className="rounded-full bg-violet-100 px-3 py-1 text-xs font-bold text-violet-700">
+                                          请选择 {currentQuizQuestion.answerIndexes.length} 项
+                                        </span>
+                                      )}
                                       </div>
                                       {currentQuizIdeaTree ? (
                                         <QuizIdeaTree tree={currentQuizIdeaTree} />
@@ -9573,8 +9619,10 @@
                                   {currentQuizIsSupported ? (
                                     <div className="mt-6 space-y-3">
                                       {currentQuizQuestion.options.map((option, optionIndex) => {
-                                        const isSelected = currentQuizAnswer === optionIndex;
-                                        const isCorrectAnswer = currentQuizQuestion.answerIndex === optionIndex;
+                                        const isSelected = isQuizOptionSelected(currentQuizAnswer, optionIndex);
+                                        const isCorrectAnswer = currentQuizQuestion.type === 'multiple'
+                                          ? currentQuizQuestion.answerIndexes.includes(optionIndex)
+                                          : currentQuizQuestion.answerIndex === optionIndex;
                                         const showCorrect = quizProgress.submitted && isCorrectAnswer;
                                         const showWrong = quizProgress.submitted && isSelected && !isCorrectAnswer;
                                         return (

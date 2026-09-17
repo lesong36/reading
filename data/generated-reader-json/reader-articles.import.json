@@ -37511,7 +37511,11 @@
           "old"
         ],
         "answerIndex": null,
-        "type": "unsupported",
+        "answerIndexes": [
+          0,
+          1
+        ],
+        "type": "multiple",
         "rawAnswer": "AB",
         "answerSource": "audited-rfd-markdown"
       },
@@ -37525,7 +37529,11 @@
           "The ancient Egyptians were also good at building."
         ],
         "answerIndex": null,
-        "type": "unsupported",
+        "answerIndexes": [
+          0,
+          2
+        ],
+        "type": "multiple",
         "rawAnswer": "AC",
         "answerSource": "audited-rfd-markdown"
       },
@@ -37728,8 +37736,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd4-01-U1-Amazing-Ancient-Egypt.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd4-02-Unit-2-The-Tomb-of-Tutankhamun",
@@ -38562,8 +38569,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd4-02-Unit-2-The-Tomb-of-Tutankhamun.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd4-03-Unit-3-A-Queen-s-Mystery",
@@ -39285,7 +39291,11 @@
           "She died from an illness."
         ],
         "answerIndex": null,
-        "type": "unsupported",
+        "answerIndexes": [
+          1,
+          2
+        ],
+        "type": "multiple",
         "rawAnswer": "BC",
         "answerSource": "audited-rfd-markdown"
       },
@@ -39407,8 +39417,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd4-03-Unit-3-A-Queen-s-Mystery.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd4-04-Unit-4-The-Gods-of-Ancient-Egypt",
@@ -40148,8 +40157,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd4-04-Unit-4-The-Gods-of-Ancient-Egypt.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd4-05-Unit-5-The-Unicorn-of-the-Sea",
@@ -40970,8 +40978,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd4-05-Unit-5-The-Unicorn-of-the-Sea.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd4-06-Unit-6-The-Fastest-Punch",
@@ -41796,8 +41803,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd4-06-Unit-6-The-Fastest-Punch.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd4-07-Unit-7-Animals-That-Clean",
@@ -42572,23 +42578,49 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8",
-        "index": 8,
-        "prompt": "完成下面的表格选择题，每题选出最合适的单词填空。",
+        "id": "q8-blank-1",
+        "index": 8.01,
+        "prompt": "完成下面的表格选择题，每题选出最合适的单词填空。\n\nIt makes __1____ clean.\n\n请完成第 1 空。",
         "options": [
           "plants,",
           "environment,",
           "dirt,",
           "dirty sand"
         ],
-        "answerIndex": null,
-        "type": "unsupported",
-        "rawAnswer": "DCA",
+        "answerIndex": 3,
+        "type": "single",
+        "answerSource": "audited-rfd-markdown"
+      },
+      {
+        "id": "q8-blank-2",
+        "index": 8.02,
+        "prompt": "完成下面的表格选择题，每题选出最合适的单词填空。\n\nIt eats the garbage of the earth. It digs paths in the ___2___.\n\n请完成第 2 空。",
+        "options": [
+          "plants,",
+          "environment,",
+          "dirt,",
+          "dirty sand"
+        ],
+        "answerIndex": 2,
+        "type": "single",
+        "answerSource": "audited-rfd-markdown"
+      },
+      {
+        "id": "q8-blank-3",
+        "index": 8.03,
+        "prompt": "完成下面的表格选择题，每题选出最合适的单词填空。\n\nThey help __3____ grow.\n\n请完成第 3 空。",
+        "options": [
+          "plants,",
+          "environment,",
+          "dirt,",
+          "dirty sand"
+        ],
+        "answerIndex": 0,
+        "type": "single",
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd4-07-Unit-7-Animals-That-Clean.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd4-08-Unit-8-The-Gecko-Lizard",
@@ -43373,8 +43405,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd4-08-Unit-8-The-Gecko-Lizard.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd4-09-Unit-9-The-Longest-Tennis-Match",
@@ -44025,8 +44056,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd4-09-Unit-9-The-Longest-Tennis-Match.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd4-10-Unit-10-Most-Red-Cards-in-a-Soccer-Match",
@@ -44718,8 +44748,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd4-10-Unit-10-Most-Red-Cards-in-a-Soccer-Match.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd4-11-Unit-11-Most-Wins-by-an-NBA-Team",
@@ -45461,8 +45490,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd4-11-Unit-11-Most-Wins-by-an-NBA-Team.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd4-12-Unit-12-How-We-Measure-Sports-Records",
@@ -46348,8 +46376,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd4-12-Unit-12-How-We-Measure-Sports-Records.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd4-13-Unit-13-Animals-Can-Protect",
@@ -47130,8 +47157,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd4-13-Unit-13-Animals-Can-Protect.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd4-14-Unit-14-Present-Home-Security",
@@ -47864,7 +47890,11 @@
           "buttons"
         ],
         "answerIndex": null,
-        "type": "unsupported",
+        "answerIndexes": [
+          0,
+          1
+        ],
+        "type": "multiple",
         "rawAnswer": "AB",
         "answerSource": "audited-rfd-markdown"
       },
@@ -47985,8 +48015,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd4-14-Unit-14-Present-Home-Security.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd4-15-Unit-15-The-Future-of-Home-Security",
@@ -48737,8 +48766,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd4-15-Unit-15-The-Future-of-Home-Security.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd4-16-Unit-16-Surveillance-Cameras",
@@ -49635,8 +49663,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd4-16-Unit-16-Surveillance-Cameras.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd5-01-Unit-1-Cleaning-Up-Space-Garbage",
@@ -50414,8 +50441,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd5-01-Unit-1-Cleaning-Up-Space-Garbage.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd5-02-Unit-2-Robot-Firefighters",
@@ -51250,8 +51276,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd5-02-Unit-2-Robot-Firefighters.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd5-03-Unit-3-Cars-That-Drive-Themselves",
@@ -52054,23 +52079,49 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8",
-        "index": 8,
-        "prompt": "Choose the correct word for each blank.",
+        "id": "q8-blank-1",
+        "index": 8.01,
+        "prompt": "Choose the correct word for each blank.\n\nMain Idea: Companies are making cars which drive __________.\n\n请完成第 1 空。",
         "options": [
           "themselves,",
           "trust,",
           "senses,",
           "prevents"
         ],
-        "answerIndex": null,
-        "type": "unsupported",
-        "rawAnswer": "ADB",
+        "answerIndex": 0,
+        "type": "single",
+        "answerSource": "audited-rfd-markdown"
+      },
+      {
+        "id": "q8-blank-2",
+        "index": 8.02,
+        "prompt": "Choose the correct word for each blank.\n\nDetail 1: A computer in the car watches the road and __________ problems.\n\n请完成第 2 空。",
+        "options": [
+          "themselves,",
+          "trust,",
+          "senses,",
+          "prevents"
+        ],
+        "answerIndex": 3,
+        "type": "single",
+        "answerSource": "audited-rfd-markdown"
+      },
+      {
+        "id": "q8-blank-3",
+        "index": 8.03,
+        "prompt": "Choose the correct word for each blank.\n\nDetail 2: Some people don’t __________ a car with no driver.\n\n请完成第 3 空。",
+        "options": [
+          "themselves,",
+          "trust,",
+          "senses,",
+          "prevents"
+        ],
+        "answerIndex": 1,
+        "type": "single",
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd5-03-Unit-3-Cars-That-Drive-Themselves.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd5-04-Unit-4-Intelligent-Machines",
@@ -52901,8 +52952,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd5-04-Unit-4-Intelligent-Machines.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd5-05-Unit-5-Hieroglyphics",
@@ -53655,23 +53705,49 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8",
-        "index": 8,
-        "prompt": "Choose the correct answer for each blank. (One word is not needed.)",
+        "id": "q8-blank-1",
+        "index": 8.01,
+        "prompt": "Choose the correct answer for each blank. (One word is not needed.)\n\n- They are __________. There are hundreds of pictures that can be written in any direction.\n\n请完成第 1 空。",
         "options": [
           "translate",
           "1799",
           "complicated",
           "soldier"
         ],
-        "answerIndex": null,
-        "type": "unsupported",
-        "rawAnswer": "CBA",
+        "answerIndex": 2,
+        "type": "single",
+        "answerSource": "audited-rfd-markdown"
+      },
+      {
+        "id": "q8-blank-2",
+        "index": 8.02,
+        "prompt": "Choose the correct answer for each blank. (One word is not needed.)\n\n- No one could read them until __________, when a French soldier discovered the Rosetta Stone.\n\n请完成第 2 空。",
+        "options": [
+          "translate",
+          "1799",
+          "complicated",
+          "soldier"
+        ],
+        "answerIndex": 1,
+        "type": "single",
+        "answerSource": "audited-rfd-markdown"
+      },
+      {
+        "id": "q8-blank-3",
+        "index": 8.03,
+        "prompt": "Choose the correct answer for each blank. (One word is not needed.)\n\n- Experts could then use the stone to __________ them.\n\n请完成第 3 空。",
+        "options": [
+          "translate",
+          "1799",
+          "complicated",
+          "soldier"
+        ],
+        "answerIndex": 0,
+        "type": "single",
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd5-05-Unit-5-Hieroglyphics.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd5-06-Unit-6-Baseball-Signs",
@@ -54357,7 +54433,11 @@
           "shout to each other"
         ],
         "answerIndex": null,
-        "type": "unsupported",
+        "answerIndexes": [
+          0,
+          1
+        ],
+        "type": "multiple",
         "rawAnswer": "AB",
         "answerSource": "audited-rfd-markdown"
       },
@@ -54446,8 +54526,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd5-06-Unit-6-Baseball-Signs.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd5-07-Unit-7-How-Animals-Communicate",
@@ -55232,7 +55311,13 @@
           "By eating food"
         ],
         "answerIndex": null,
-        "type": "unsupported",
+        "answerIndexes": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "type": "multiple",
         "rawAnswer": "ABCD",
         "answerSource": "audited-rfd-markdown"
       },
@@ -55293,9 +55378,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8",
-        "index": 8,
-        "prompt": "Choose the correct word for each blank. (One word will not be used.)",
+        "id": "q8-blank-1",
+        "index": 8.01,
+        "prompt": "Choose the correct word for each blank. (One word will not be used.)\n\n1. Humans use ___________.\n\n请完成第 1 空。",
         "options": [
           "dance",
           "language",
@@ -55305,14 +55390,97 @@
           "dance and vibrate",
           "low sounds"
         ],
-        "answerIndex": null,
-        "type": "unsupported",
-        "rawAnswer": "BCEFGD",
+        "answerIndex": 1,
+        "type": "single",
+        "answerSource": "audited-rfd-markdown"
+      },
+      {
+        "id": "q8-blank-2",
+        "index": 8.02,
+        "prompt": "Choose the correct word for each blank. (One word will not be used.)\n\n2. Dolphins __________ the water.\n\n请完成第 2 空。",
+        "options": [
+          "dance",
+          "language",
+          "smack",
+          "light",
+          "chemical",
+          "dance and vibrate",
+          "low sounds"
+        ],
+        "answerIndex": 2,
+        "type": "single",
+        "answerSource": "audited-rfd-markdown"
+      },
+      {
+        "id": "q8-blank-3",
+        "index": 8.03,
+        "prompt": "Choose the correct word for each blank. (One word will not be used.)\n\n3. Ant make _______ path\n\n请完成第 3 空。",
+        "options": [
+          "dance",
+          "language",
+          "smack",
+          "light",
+          "chemical",
+          "dance and vibrate",
+          "low sounds"
+        ],
+        "answerIndex": 4,
+        "type": "single",
+        "answerSource": "audited-rfd-markdown"
+      },
+      {
+        "id": "q8-blank-4",
+        "index": 8.04,
+        "prompt": "Choose the correct word for each blank. (One word will not be used.)\n\n4. Bee _________\n\n请完成第 4 空。",
+        "options": [
+          "dance",
+          "language",
+          "smack",
+          "light",
+          "chemical",
+          "dance and vibrate",
+          "low sounds"
+        ],
+        "answerIndex": 5,
+        "type": "single",
+        "answerSource": "audited-rfd-markdown"
+      },
+      {
+        "id": "q8-blank-5",
+        "index": 8.05,
+        "prompt": "Choose the correct word for each blank. (One word will not be used.)\n\n5. Elephants make ______\n\n请完成第 5 空。",
+        "options": [
+          "dance",
+          "language",
+          "smack",
+          "light",
+          "chemical",
+          "dance and vibrate",
+          "low sounds"
+        ],
+        "answerIndex": 6,
+        "type": "single",
+        "answerSource": "audited-rfd-markdown"
+      },
+      {
+        "id": "q8-blank-6",
+        "index": 8.06,
+        "prompt": "Choose the correct word for each blank. (One word will not be used.)\n\n6. Fireflies and glow-worms produce __________.\n\n请完成第 6 空。",
+        "options": [
+          "dance",
+          "language",
+          "smack",
+          "light",
+          "chemical",
+          "dance and vibrate",
+          "low sounds"
+        ],
+        "answerIndex": 3,
+        "type": "single",
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd5-07-Unit-7-How-Animals-Communicate.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd5-08-Unit-8-Barcodes-and-QR-Codes",
@@ -56209,9 +56377,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q1",
-        "index": 1,
-        "prompt": "Choose the correct word for each blank.",
+        "id": "q1-blank-1",
+        "index": 1.01,
+        "prompt": "Choose the correct word for each blank.\n\n1. Barcodes: They have thin and thick ________.\n\n请完成第 1 空。",
         "options": [
           "scan",
           "information",
@@ -56219,14 +56387,57 @@
           "airline",
           "stripes"
         ],
-        "answerIndex": null,
-        "type": "unsupported",
-        "rawAnswer": "EBAC",
+        "answerIndex": 4,
+        "type": "single",
+        "answerSource": "audited-rfd-markdown"
+      },
+      {
+        "id": "q1-blank-2",
+        "index": 1.02,
+        "prompt": "Choose the correct word for each blank.\n\n2. Both: Companies use them to hold ________ about items.\n\n请完成第 2 空。",
+        "options": [
+          "scan",
+          "information",
+          "dots",
+          "airline",
+          "stripes"
+        ],
+        "answerIndex": 1,
+        "type": "single",
+        "answerSource": "audited-rfd-markdown"
+      },
+      {
+        "id": "q1-blank-3",
+        "index": 1.03,
+        "prompt": "Choose the correct word for each blank.\n\n3. Both: You ________ them to read them.\n\n请完成第 3 空。",
+        "options": [
+          "scan",
+          "information",
+          "dots",
+          "airline",
+          "stripes"
+        ],
+        "answerIndex": 0,
+        "type": "single",
+        "answerSource": "audited-rfd-markdown"
+      },
+      {
+        "id": "q1-blank-4",
+        "index": 1.04,
+        "prompt": "Choose the correct word for each blank.\n\n4. QR Codes: They use ________ instead of bars.\n\n请完成第 4 空。",
+        "options": [
+          "scan",
+          "information",
+          "dots",
+          "airline",
+          "stripes"
+        ],
+        "answerIndex": 2,
+        "type": "single",
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd5-08-Unit-8-Barcodes-and-QR-Codes.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd5-09-Unit-9-The-Theremin",
@@ -57042,8 +57253,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd5-09-Unit-9-The-Theremin.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd5-10-Unit-10-Beat-Machines",
@@ -57869,8 +58079,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd5-10-Unit-10-Beat-Machines.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd5-11-Unit-11-Auto-Tune",
@@ -58711,8 +58920,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd5-11-Unit-11-Auto-Tune.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd5-12-Unit-12-The-Changing-Shape-of-Music",
@@ -59506,8 +59714,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd5-12-Unit-12-The-Changing-Shape-of-Music.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd5-13-Unit-13-The-First-Scales",
@@ -60296,8 +60503,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd5-13-Unit-13-The-First-Scales.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd5-14-Unit-14-Weighing-a-Planet",
@@ -60994,8 +61200,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd5-14-Unit-14-Weighing-a-Planet.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd5-15-Unit-15-Catching-Rain",
@@ -61904,8 +62109,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd5-15-Unit-15-Catching-Rain.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd5-16-Unit-16-Weather-Models",
@@ -62592,7 +62796,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "audited-rfd-key-repair"
       },
       {
         "id": "q2",
@@ -62606,7 +62810,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "audited-rfd-key-repair"
       },
       {
         "id": "q3",
@@ -62620,7 +62824,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "audited-rfd-key-repair"
       },
       {
         "id": "q4",
@@ -62635,7 +62839,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "audited-rfd-key-repair"
       },
       {
         "id": "q5",
@@ -62649,7 +62853,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "audited-rfd-key-repair"
       },
       {
         "id": "q6",
@@ -62660,10 +62864,10 @@
           "complicated",
           "simple"
         ],
-        "answerIndex": 0,
+        "answerIndex": 1,
         "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "B",
+        "answerSource": "audited-rfd-key-repair"
       },
       {
         "id": "q7",
@@ -62672,20 +62876,57 @@
         "options": [
           "They watch how the air moves.",
           "They can always accurately predict the weather.",
-          "They use robots to help them make weather forecasts.",
+          "They use robots to help them make weather forecasts."
+        ],
+        "answerIndex": 0,
+        "type": "single",
+        "rawAnswer": "A",
+        "answerSource": "audited-rfd-key-repair"
+      },
+      {
+        "id": "q8-blank-1",
+        "index": 8.01,
+        "prompt": "Complete the chart. One word is extra.\n\nWhat I Know: Weather scientists ______ the weather.\n\n请完成第 1 空。",
+        "options": [
           "complicated",
           "predict",
           "information",
           "moisture"
         ],
-        "answerIndex": null,
-        "type": "unsupported",
-        "rawAnswer": "BCA",
-        "answerSource": "audited-rfd-markdown"
+        "answerIndex": 1,
+        "type": "single",
+        "answerSource": "audited-rfd-key-repair"
+      },
+      {
+        "id": "q8-blank-2",
+        "index": 8.02,
+        "prompt": "Complete the chart. One word is extra.\n\nWhat I Learned: They collect ______ about the weather. They make ______ models of the weather.\n\n请完成第 2 空。",
+        "options": [
+          "complicated",
+          "predict",
+          "information",
+          "moisture"
+        ],
+        "answerIndex": 2,
+        "type": "single",
+        "answerSource": "audited-rfd-key-repair"
+      },
+      {
+        "id": "q8-blank-3",
+        "index": 8.03,
+        "prompt": "Complete the chart. One word is extra.\n\nWhat I Learned: They collect ______ about the weather. They make ______ models of the weather.\n\n请完成第 3 空。",
+        "options": [
+          "complicated",
+          "predict",
+          "information",
+          "moisture"
+        ],
+        "answerIndex": 0,
+        "type": "single",
+        "answerSource": "audited-rfd-key-repair"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd5-16-Unit-16-Weather-Models.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd6-01-Unit-1-What-Did-Dinosaurs-Really-Look-Like",
@@ -63457,8 +63698,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd6-01-Unit-1-What-Did-Dinosaurs-Really-Look-Like.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd6-02-Unit-2-How-to-Make-a-Fossil",
@@ -64259,8 +64499,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd6-02-Unit-2-How-to-Make-a-Fossil.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd6-03-Unit-3-Mass-Extinctions",
@@ -65059,8 +65298,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd6-03-Unit-3-Mass-Extinctions.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd6-04-Unit-4-DNA-Cloning",
@@ -65942,8 +66180,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd6-04-Unit-4-DNA-Cloning.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd6-05-Unit-5-Sailing-Around-the-World",
@@ -66826,8 +67063,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd6-05-Unit-5-Sailing-Around-the-World.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd6-06-Unit-6-The-Antarctic-Adventurer",
@@ -67685,8 +67921,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd6-06-Unit-6-The-Antarctic-Adventurer.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd6-07-Unit-7-The-Deep-Dive",
@@ -68460,8 +68695,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd6-07-Unit-7-The-Deep-Dive.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd6-08-Unit-8-The-First-Female-Astronaut",
@@ -69311,8 +69545,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd6-08-Unit-8-The-First-Female-Astronaut.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd6-09-Unit-9-Oshibana",
@@ -70144,8 +70377,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd6-09-Unit-9-Oshibana.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd6-10-Unit-10-Art-Toys",
@@ -71070,8 +71302,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd6-10-Unit-10-Art-Toys.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd6-11-Unit-11-Optical-Illusions",
@@ -71892,8 +72123,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd6-11-Unit-11-Optical-Illusions.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd6-12-Unit-12-Sand-Animation",
@@ -72705,8 +72935,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd6-12-Unit-12-Sand-Animation.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd6-13-Unit-13-A-Disappearing-Job",
@@ -73501,8 +73730,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd6-13-Unit-13-A-Disappearing-Job.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd6-14-Unit-14-Dangerous-Jobs",
@@ -74353,8 +74581,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd6-14-Unit-14-Dangerous-Jobs.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd6-15-Unit-15-Automation",
@@ -75218,8 +75445,7 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd6-15-Unit-15-Automation.json"
+    "unsupportedQuestions": []
   },
   {
     "id": "rfd6-16-Unit-16-Future-Skills",
@@ -76166,7 +76392,6 @@
         "answerSource": "audited-rfd-markdown"
       }
     ],
-    "unsupportedQuestions": [],
-    "readingModelPath": "./data/article-reading-model-v1/rfd6-16-Unit-16-Future-Skills.json"
+    "unsupportedQuestions": []
   }
 ]

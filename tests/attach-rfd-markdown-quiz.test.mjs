@@ -14,6 +14,25 @@ test('preserves the target sentence for each RFD word-bank blank', () => {
   assert.deepEqual(blanks[3].options, ['digging', 'beautiful', 'tomb', 'study', 'gold']);
 });
 
+test('turns RFD multi-select and word-bank activities into auto-gradable questions', () => {
+  const rfd4Unit1 = parseBook('rfd4').find(({ unit }) => unit === 1);
+  assert.deepEqual(rfd4Unit1.questions.find(question => question.id === 'q3'), {
+    id: 'q3', index: 3, prompt: 'How does the writer describe ancient Egypt? （select 2）',
+    options: ['amazing', 'advanced', 'old'], answerIndex: null, answerIndexes: [0, 1], type: 'multiple', rawAnswer: 'AB', answerSource: 'audited-rfd-markdown'
+  });
+
+  const rfd4Unit7 = parseBook('rfd4').find(({ unit }) => unit === 7);
+  const animalBlankIds = rfd4Unit7.questions.filter(question => question.id.startsWith('q8-blank-')).map(question => question.id);
+  assert.deepEqual(animalBlankIds, ['q8-blank-1', 'q8-blank-2', 'q8-blank-3']);
+
+  const rfd5Unit16 = parseBook('rfd5').find(({ unit }) => unit === 16);
+  assert.equal(rfd5Unit16.questions.find(question => question.id === 'q7').answerIndex, 0);
+  assert.deepEqual(
+    rfd5Unit16.questions.filter(question => question.id.startsWith('q8-blank-')).map(question => question.answerIndex),
+    [1, 2, 0]
+  );
+});
+
 test('keeps a visible target prompt for every RFD4–6 word-bank blank', () => {
   const books = ['rfd4', 'rfd5', 'rfd6'];
 

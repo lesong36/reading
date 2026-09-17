@@ -8,17 +8,36 @@ const cwd = process.cwd();
 const root = path.join(cwd, 'data/generated-reader-json');
 const books = ['rfd4', 'rfd5', 'rfd6'];
 const clean = (value = '') => value.replace(/\r/g, '').trim();
+// RFD5 Unit 16's published answer line omits the sixth `b` token. The
+// repaired sequence is still audited against the printed question/word bank:
+// Q6 = complicated (B), Q7 = air moves (A), Q8 = predict/information/
+// complicated (BCA).
+const ANSWER_KEY_REPAIRS = {
+  rfd5: {
+    16: ['b', 'b', 'b', 'b', 'b', 'b', 'a', 'bca']
+  }
+};
+
+const parseArgs = (argv) => {
+  const args = { baseLibrary: path.join(root, 'reader-articles.import.json') };
+  for (let index = 0; index < argv.length; index += 1) {
+    if (argv[index] === '--base-library') args.baseLibrary = path.resolve(argv[++index]);
+    else throw new Error(`Unknown argument: ${argv[index]}`);
+  }
+  return args;
+};
 
 export const parseBook = (stem, { baseDir = cwd } = {}) => {
   const text = fs.readFileSync(path.join(baseDir, 'docs', `${stem}.md`), 'utf8');
   return [...text.matchAll(/^##\s+(?:Unit\s+|U)(\d+)\s+(.+?)\n\n([\s\S]*?)(?=^##\s+(?:Unit\s+|U)\d+\s+|(?![\s\S]))/gm)].map(([, unit, title, body]) => {
     const answerMatch = body.match(/^ans\s*[:：]\s*(.+)$/mi);
     if (!answerMatch) throw new Error(`${stem} Unit ${unit}: missing ans line`);
-    const answers = answerMatch[1].trim().split(/\s+/);
+    const sourceAnswers = answerMatch[1].trim().split(/\s+/);
     // Source tables can contain numbered blanks (for example, "Detail: 1.").
     // Actual questions always start a new paragraph, so only those boundaries
     // are considered question starts.
     const rawBlocks = [...body.matchAll(/(?:^|\n\n)(\d+)\.\s+([\s\S]*?)(?=\n\n\d+\.\s+|^ans:|(?![\s\S]))/gm)];
+    const answers = ANSWER_KEY_REPAIRS[stem]?.[Number(unit)] || sourceAnswers;
     if (rawBlocks.length < answers.length) throw new Error(`${stem} Unit ${unit}: ${rawBlocks.length} questions, ${answers.length} answers`);
     // Some chart questions repeat `1.`, `2.` for their blanks after the real
     // numbered question list.  The answer key defines the actual question
@@ -42,9 +61,8 @@ export const parseBook = (stem, { baseDir = cwd } = {}) => {
       if (!prompt || options.length < 2 || answerIndexes.some(answerIndex => answerIndex < 0 || answerIndex >= options.length)) {
         throw new Error(`${stem} Unit ${unit} Q${index}: invalid prompt/options/key`);
       }
-      const isMultiSelect = /(?:select|choose)\s+(?:2|two)/i.test(prompt);
-      const hasMultipleBlanks = answerIndexes.length > 1 && /(?:_|\bcomplete\b|\bchart\b|\btable\b|each sentence)/i.test(prompt);
-      if (hasMultipleBlanks && !isMultiSelect) {
+      const hasMultipleBlanks = answerIndexes.length > 1 && /(?:_|\bblank\b|\bcomplete\b|\bchart\b|\btable\b|\bfill\b|填空)/i.test(prompt);
+      if (hasMultipleBlanks) {
         const finalOption = optionMatches.at(-1);
         const beforeOptions = block.slice(0, firstOption?.index ?? 0).split('\n');
         const afterOptions = block
@@ -78,7 +96,7 @@ export const parseBook = (stem, { baseDir = cwd } = {}) => {
           options,
           answerIndex,
           type: 'single',
-          answerSource: 'audited-rfd-markdown'
+          answerSource: ANSWER_KEY_REPAIRS[stem]?.[Number(unit)] ? 'audited-rfd-key-repair' : 'audited-rfd-markdown'
         }));
       }
       return {
@@ -87,9 +105,10 @@ export const parseBook = (stem, { baseDir = cwd } = {}) => {
         prompt,
         options,
         answerIndex: answerIndexes.length === 1 ? answerIndexes[0] : null,
-        type: answerIndexes.length === 1 ? 'single' : 'unsupported',
+        answerIndexes: answerIndexes.length > 1 ? answerIndexes : undefined,
+        type: answerIndexes.length === 1 ? 'single' : 'multiple',
         rawAnswer: answerKey.toUpperCase(),
-        answerSource: 'audited-rfd-markdown'
+        answerSource: ANSWER_KEY_REPAIRS[stem]?.[Number(unit)] ? 'audited-rfd-key-repair' : 'audited-rfd-markdown'
       };
     });
     return { unit: Number(unit), title: clean(title), questions };
@@ -97,8 +116,10 @@ export const parseBook = (stem, { baseDir = cwd } = {}) => {
 };
 
 const main = () => {
+  const { baseLibrary } = parseArgs(process.argv.slice(2));
   let articleCount = 0;
   let questionCount = 0;
+  const updatedArticles = new Map();
   for (const stem of books) {
     const byUnit = new Map(parseBook(stem).map(item => [item.unit, item]));
     const sectionDir = path.join(root, stem, 'sections');
@@ -113,10 +134,18 @@ const main = () => {
       payload.article.questions = quiz.questions;
       payload.article.unsupportedQuestions = [];
       fs.writeFileSync(payloadPath, `${JSON.stringify(payload, null, 2)}\n`);
+      updatedArticles.set(payload.article.id, payload.article);
       articleCount += 1;
       questionCount += quiz.questions.length;
     }
   }
+  const existingLibrary = JSON.parse(fs.readFileSync(baseLibrary, 'utf8'));
+  if (!Array.isArray(existingLibrary)) throw new Error(`Expected an article array in ${baseLibrary}`);
+  const mergedLibrary = existingLibrary.map(article => updatedArticles.get(article.id) || article);
+  for (const article of updatedArticles.values()) {
+    if (!existingLibrary.some(existing => existing.id === article.id)) mergedLibrary.push(article);
+  }
+  fs.writeFileSync(path.join(root, 'reader-articles.import.json'), `${JSON.stringify(mergedLibrary, null, 2)}\n`);
   console.log(`Attached ${questionCount} questions to ${articleCount} RFD4–6 articles.`);
 }
 
