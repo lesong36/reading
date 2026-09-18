@@ -2162,11 +2162,10 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     // seed version makes existing clients reload the canonical bundle.
     // library. A marker alone is not proof that all curriculum bundles
     // reached the device.
-    // v41 verifies the structured quiz layouts themselves before accepting a
-    // cached curriculum bundle, so a complete-but-old library cannot hide a
-    // tree or timeline chart.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v41';
-    const BUNDLED_LIBRARY_SEED_VERSION = '41';
+    // v42 safely normalizes null chart-layout fields, then verifies the
+    // structured layouts before accepting a cached curriculum bundle.
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v42';
+    const BUNDLED_LIBRARY_SEED_VERSION = '42';
     const EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT = 324;
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
@@ -2285,7 +2284,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     // so the receiving app can let its active learner accept the new words.
     const VOCAB_MASTER_READING_INBOX_KEY = 'vocabmaster_reader_inbox_v1';
 
-    const normalizeQuizIdeaTree = (ideaTree = {}) => {
+    const normalizeQuizIdeaTree = (ideaTree) => {
+      if (!ideaTree || typeof ideaTree !== 'object') return null;
       const normalizeNode = (node = {}) => ({
         label: String(node.label || '').trim(),
         text: String(node.text || '').trim(),
@@ -2305,7 +2305,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       };
     };
 
-    const normalizeQuizCompareChart = (compareChart = {}) => {
+    const normalizeQuizCompareChart = (compareChart) => {
+      if (!compareChart || typeof compareChart !== 'object') return null;
       const groups = Array.isArray(compareChart.groups) ? compareChart.groups
         .map(group => ({
           label: String(group?.label || '').trim(),
@@ -2319,7 +2320,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       return groups.length >= 2 ? { groups } : null;
     };
 
-    const normalizeQuizTimeline = (timeline = {}) => {
+    const normalizeQuizTimeline = (timeline) => {
+      if (!timeline || typeof timeline !== 'object') return null;
       const events = Array.isArray(timeline.events) ? timeline.events
         .map(event => ({
           text: String(event?.text || '').trim(),
@@ -2330,7 +2332,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       return events.length >= 2 ? { events } : null;
     };
 
-    const normalizeQuizKnowledgeChart = (knowledgeChart = {}) => {
+    const normalizeQuizKnowledgeChart = (knowledgeChart) => {
+      if (!knowledgeChart || typeof knowledgeChart !== 'object') return null;
       const groups = Array.isArray(knowledgeChart.groups) ? knowledgeChart.groups
         .map(group => ({
           label: String(group?.label || '').trim(),
