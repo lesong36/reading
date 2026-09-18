@@ -640,6 +640,9 @@ Drum Machines:
 - Come with __________ of instruments like drums and __________ that you can program.  
 - Can play faster, longer, and have a wider variety of sounds.
 
+Both:
+- Play beats.
+
 Human Drummers:  
 - Often make small changes in the beat that add __________ to the music.  
 - Are more likely to make mistakes.

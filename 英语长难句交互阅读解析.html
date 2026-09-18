@@ -2162,9 +2162,9 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     // seed version makes existing clients reload the canonical bundle.
     // library. A marker alone is not proof that all curriculum bundles
     // reached the device.
-    // v38 refreshes corrected RFD4–6 quiz identities after source numbering restarts.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v38';
-    const BUNDLED_LIBRARY_SEED_VERSION = '38';
+    // v39 refreshes corrected RFD4–6 word-bank chart structures and labels.
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v39';
+    const BUNDLED_LIBRARY_SEED_VERSION = '39';
     const EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT = 324;
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
@@ -2283,6 +2283,40 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     // so the receiving app can let its active learner accept the new words.
     const VOCAB_MASTER_READING_INBOX_KEY = 'vocabmaster_reader_inbox_v1';
 
+    const normalizeQuizIdeaTree = (ideaTree = {}) => {
+      const normalizeNode = (node = {}) => ({
+        label: String(node.label || '').trim(),
+        text: String(node.text || '').trim(),
+        blankId: node.blankId == null || node.blankId === '' ? null : String(node.blankId)
+      });
+      const mainIdea = normalizeNode(ideaTree.mainIdea);
+      if (!mainIdea.label || !mainIdea.text) return null;
+      const normalizeDetails = (details = []) => (Array.isArray(details) ? details : [])
+        .map(normalizeNode)
+        .filter(detail => detail.label && detail.text);
+      return {
+        mainIdea,
+        branches: (Array.isArray(ideaTree.branches) ? ideaTree.branches : [])
+          .map(branch => ({ ...normalizeNode(branch), details: normalizeDetails(branch.details) }))
+          .filter(branch => branch.label && branch.text),
+        details: normalizeDetails(ideaTree.details)
+      };
+    };
+
+    const normalizeQuizCompareChart = (compareChart = {}) => {
+      const groups = Array.isArray(compareChart.groups) ? compareChart.groups
+        .map(group => ({
+          label: String(group?.label || '').trim(),
+          items: (Array.isArray(group?.items) ? group.items : []).map(item => ({
+            text: String(item?.text || '').trim(),
+            blankIds: Array.isArray(item?.blankIds) ? item.blankIds.map(blankId => String(blankId)).filter(Boolean) : []
+          })).filter(item => item.text)
+        }))
+        .filter(group => group.label && group.items.length > 0)
+        : [];
+      return groups.length >= 2 ? { groups } : null;
+    };
+
     const normalizeQuizQuestion = (question = {}, fallbackIndex = 0) => {
       const options = Array.isArray(question.options)
         ? question.options
@@ -2304,6 +2338,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
               : null
           })).filter(blank => blank.prompt && Number.isInteger(blank.answerIndex))
         : [];
+      const ideaTree = normalizeQuizIdeaTree(question.ideaTree);
+      const compareChart = normalizeQuizCompareChart(question.compareChart);
       const explicitType = String(question.type || '').trim().toLowerCase();
       const inferredType = explicitType || (
         Number.isInteger(answerIndex) && options.length >= 2 ? 'single' : 'unsupported'
@@ -2321,6 +2357,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         index: Number.isFinite(parsedIndex) ? parsedIndex : fallbackIndex + 1,
         prompt: String(question.prompt || '').trim(),
         options,
+        ideaTree,
+        compareChart,
         answerIndex,
         answerIndexes,
         blanks,
@@ -4848,6 +4886,12 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         () => parseQuizIdeaTree(currentQuizQuestion?.prompt, currentArticleId),
         [currentQuizQuestion?.prompt, currentArticleId]
       );
+      const currentWordBankIdeaTree = currentQuizQuestion?.type === 'word-bank'
+        ? currentQuizQuestion.ideaTree
+        : null;
+      const currentWordBankCompareChart = currentQuizQuestion?.type === 'word-bank'
+        ? currentQuizQuestion.compareChart
+        : null;
       const currentQuizQuestionNumber = currentQuizQuestion?.index || 0;
       const currentWordBankAnswers = currentQuizQuestion?.type === 'word-bank'
         ? getWordBankAnswers(quizProgress.answers?.[currentQuizQuestion.id])
@@ -6335,6 +6379,126 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           return { ...prev, answers: { ...prev.answers, [question.id]: answers } };
         });
         setActiveWordBankBlankId(blankId);
+      };
+
+      const renderWordBankBlank = (blank, blankIndex, label = `空格 ${blankIndex + 1}`) => {
+        const selectedAnswerIndex = currentWordBankAnswers[blank.id];
+        const hasAnswer = Number.isInteger(selectedAnswerIndex);
+        const isActiveBlank = currentWordBankActiveBlank?.id === blank.id;
+        const locatorSentenceId = quizProgress.locatorSentenceIds?.[getQuizLocatorKey(currentQuizQuestion, blank.id)] || null;
+        const locatorSentence = locatorSentenceId ? currentArticleData.find(sentence => sentence.id === locatorSentenceId) || null : null;
+        const isCorrect = quizProgress.submitted && selectedAnswerIndex === blank.answerIndex;
+        const isWrong = quizProgress.submitted && hasAnswer && !isCorrect;
+        const activate = () => {
+          setActiveWordBankBlankId(blank.id);
+          if (Number.isInteger(wordBankSelectedOptionIndex)) handleWordBankAnswerSelect(currentQuizQuestion, blank.id, wordBankSelectedOptionIndex);
+        };
+        return (
+          <div
+            key={blank.id}
+            role="button"
+            tabIndex="0"
+            onClick={activate}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                activate();
+              }
+            }}
+            onDragOver={event => { if (!quizProgress.submitted) event.preventDefault(); }}
+            onDrop={event => {
+              event.preventDefault();
+              const answerIndex = Number(event.dataTransfer.getData('text/plain'));
+              if (Number.isInteger(answerIndex)) handleWordBankAnswerSelect(currentQuizQuestion, blank.id, answerIndex);
+            }}
+            className={`rounded-2xl border p-4 transition-all ${
+              isCorrect ? 'border-emerald-300 bg-emerald-50'
+                : isWrong ? 'border-rose-300 bg-rose-50'
+                : isActiveBlank ? 'border-teal-400 bg-teal-50 shadow-sm ring-2 ring-teal-100'
+                : 'border-slate-200 bg-white hover:border-teal-200'
+            } ${quizProgress.submitted ? 'cursor-default' : 'cursor-pointer'}`}
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-teal-700">{label}{isActiveBlank ? ' · 当前定位' : ''}</p>
+                <p className="mt-2 text-base font-semibold leading-7 text-slate-800">{blank.prompt.replace(/^\s*(?:main\s*idea|sub[-\s]*idea\s*\d*|detail\s*\d*)\s*:\s*/i, '')}</p>
+              </div>
+              {hasAnswer && !quizProgress.submitted && (
+                <button type="button" onClick={event => { event.stopPropagation(); handleClearWordBankBlank(currentQuizQuestion, blank.id); }} className="shrink-0 rounded-lg px-2 py-1 text-xs font-black text-slate-400 hover:bg-white hover:text-rose-600" aria-label={`清除第 ${blankIndex + 1} 空`}>×</button>
+              )}
+            </div>
+            <div className={`mt-3 rounded-2xl border border-dashed px-4 py-3 text-sm font-black ${hasAnswer ? 'border-teal-300 bg-white text-teal-800' : 'border-slate-300 bg-slate-50 text-slate-400'}`}>
+              {hasAnswer ? currentQuizQuestion.options[selectedAnswerIndex] : '将词卡拖到这里，或先点选词卡'}
+            </div>
+            <p className={`mt-3 text-xs leading-5 ${locatorSentence ? 'font-semibold text-amber-800' : 'text-slate-500'}`}>
+              {locatorSentence ? `📍 定位句：${locatorSentence.text}` : isActiveBlank ? '📍 当前空：长按左侧原文可设置定位句' : '点击此空后可单独设置定位句'}
+            </p>
+          </div>
+        );
+      };
+
+      const renderWordBankIdeaNode = (node) => {
+        const blankIndex = currentQuizQuestion.blanks.findIndex(blank => blank.id === node.blankId);
+        if (blankIndex >= 0) return renderWordBankBlank(currentQuizQuestion.blanks[blankIndex], blankIndex, node.label);
+        return (
+          <div className="rounded-2xl border border-rose-100 bg-white p-4 shadow-sm">
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-rose-700">{node.label}</p>
+            <p className="mt-2 text-base font-semibold leading-7 text-slate-800">{node.text}</p>
+          </div>
+        );
+      };
+
+      const renderWordBankInlineBlank = (blankId) => {
+        const blankIndex = currentQuizQuestion.blanks.findIndex(blank => blank.id === blankId);
+        const blank = currentQuizQuestion.blanks[blankIndex];
+        if (!blank) return null;
+        const selectedAnswerIndex = currentWordBankAnswers[blank.id];
+        const hasAnswer = Number.isInteger(selectedAnswerIndex);
+        const isActiveBlank = currentWordBankActiveBlank?.id === blank.id;
+        const isCorrect = quizProgress.submitted && selectedAnswerIndex === blank.answerIndex;
+        const isWrong = quizProgress.submitted && hasAnswer && !isCorrect;
+        const activate = () => {
+          setActiveWordBankBlankId(blank.id);
+          if (Number.isInteger(wordBankSelectedOptionIndex)) handleWordBankAnswerSelect(currentQuizQuestion, blank.id, wordBankSelectedOptionIndex);
+        };
+        return (
+          <button
+            key={blank.id}
+            type="button"
+            onClick={activate}
+            onDragOver={event => { if (!quizProgress.submitted) event.preventDefault(); }}
+            onDrop={event => {
+              event.preventDefault();
+              const answerIndex = Number(event.dataTransfer.getData('text/plain'));
+              if (Number.isInteger(answerIndex)) handleWordBankAnswerSelect(currentQuizQuestion, blank.id, answerIndex);
+            }}
+            className={`mx-1 inline-flex min-w-24 items-center justify-center rounded-lg border-b-2 px-2 py-0.5 align-baseline text-sm font-black transition-all sm:min-w-28 ${
+              isCorrect ? 'border-emerald-500 bg-emerald-50 text-emerald-800'
+                : isWrong ? 'border-rose-500 bg-rose-50 text-rose-800'
+                : hasAnswer ? 'border-teal-500 bg-teal-50 text-teal-800'
+                  : isActiveBlank ? 'border-teal-600 bg-teal-100 text-teal-900 ring-2 ring-teal-200'
+                    : 'border-slate-400 bg-slate-50 text-slate-500 hover:border-teal-500 hover:bg-teal-50'
+            } ${quizProgress.submitted ? 'cursor-default' : 'cursor-pointer'}`}
+            aria-label={`空格 ${blankIndex + 1}${isActiveBlank ? '，当前定位' : ''}`}
+            title={hasAnswer ? `空格 ${blankIndex + 1}：${currentQuizQuestion.options[selectedAnswerIndex]}` : `空格 ${blankIndex + 1}：拖入词卡，或点选词卡后点击`}
+          >
+            {hasAnswer ? currentQuizQuestion.options[selectedAnswerIndex] : `空格 ${blankIndex + 1}`}
+          </button>
+        );
+      };
+
+      const renderWordBankCompareItem = (item, itemIndex) => {
+        const pieces = item.text.split(/(\(\s*\)|_{2,}(?:\d+_{2,})?)/g);
+        let blankOffset = 0;
+        return (
+          <div key={`${item.text}-${itemIndex}`} className="rounded-xl border border-emerald-100 bg-white/90 px-3 py-3 text-base font-semibold leading-8 text-slate-800 shadow-sm">
+            {pieces.map((piece, pieceIndex) => {
+              if (!/(?:\(\s*\)|_{2,}(?:\d+_{2,})?)/.test(piece)) return <span key={pieceIndex}>{piece}</span>;
+              const blankId = item.blankIds[blankOffset++];
+              return renderWordBankInlineBlank(blankId);
+            })}
+          </div>
+        );
       };
 
       const handleQuizTextAnswerChange = (question, value) => {
@@ -9733,7 +9897,56 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                           </div>
                                         </div>
                                         <div className="grid gap-3">
-                                          {currentQuizQuestion.blanks.map((blank, blankIndex) => {
+                                          {currentWordBankCompareChart ? (() => {
+                                            const compareBlankIds = new Set(currentWordBankCompareChart.groups.flatMap(group => group.items.flatMap(item => item.blankIds)));
+                                            const unplacedBlanks = currentQuizQuestion.blanks.filter(blank => !compareBlankIds.has(blank.id));
+                                            const sharedGroup = currentWordBankCompareChart.groups.find(group => /^both$/i.test(group.label));
+                                            const sideGroups = currentWordBankCompareChart.groups.filter(group => group !== sharedGroup);
+                                            const renderCompareGroup = (group, className = '') => (
+                                              <section key={group.label} className={`rounded-[28px] border-2 border-emerald-200 bg-emerald-50/60 p-3 shadow-sm ${className}`}>
+                                                <h4 className="rounded-2xl bg-emerald-500 px-4 py-2 text-center text-base font-black text-white shadow-sm">{group.label}</h4>
+                                                <div className="space-y-3 p-3">{group.items.map(renderWordBankCompareItem)}</div>
+                                              </section>
+                                            );
+                                            return (
+                                              <div className="space-y-5">
+                                                <div className={`relative grid gap-5 ${sharedGroup && sideGroups.length === 2 ? 'md:grid-cols-2 md:pb-24' : 'md:grid-cols-2'}`}>
+                                                  {sideGroups.map(group => renderCompareGroup(group))}
+                                                  {sharedGroup && renderCompareGroup(sharedGroup, sideGroups.length === 2 ? 'md:absolute md:left-1/2 md:top-10 md:z-10 md:w-[42%] md:-translate-x-1/2 md:shadow-xl' : 'md:col-span-2')}
+                                                </div>
+                                                {unplacedBlanks.length > 0 && <div className="grid gap-3">{unplacedBlanks.map(blank => renderWordBankBlank(blank, currentQuizQuestion.blanks.indexOf(blank)))}</div>}
+                                              </div>
+                                            );
+                                          })() : currentWordBankIdeaTree ? (() => {
+                                            const treeBlankIds = new Set([
+                                              currentWordBankIdeaTree.mainIdea.blankId,
+                                              ...currentWordBankIdeaTree.details.map(detail => detail.blankId),
+                                              ...currentWordBankIdeaTree.branches.flatMap(branch => [branch.blankId, ...branch.details.map(detail => detail.blankId)])
+                                            ].filter(Boolean));
+                                            const unplacedBlanks = currentQuizQuestion.blanks.filter(blank => !treeBlankIds.has(blank.id));
+                                            return (
+                                              <div className="space-y-5">
+                                                <div className="rounded-[28px] border-2 border-rose-200 bg-rose-50/60 p-3 shadow-sm">
+                                                  <div className="rounded-t-2xl bg-rose-500 px-4 py-2 text-center text-xs font-black uppercase tracking-[0.18em] text-white">{currentWordBankIdeaTree.mainIdea.label}</div>
+                                                  <div className="rounded-b-2xl bg-white p-3">{renderWordBankIdeaNode(currentWordBankIdeaTree.mainIdea)}</div>
+                                                </div>
+                                                {(currentWordBankIdeaTree.branches.length > 0 || currentWordBankIdeaTree.details.length > 0) && (
+                                                  <div className="relative grid gap-5 pt-6 md:grid-cols-2 before:absolute before:left-1/2 before:top-0 before:h-6 before:w-1 before:-translate-x-1/2 before:bg-rose-300">
+                                                    {currentWordBankIdeaTree.branches.map((branch, branchIndex) => (
+                                                      <div key={`${branch.label}-${branchIndex}`} className="relative rounded-[28px] border-2 border-rose-200 bg-rose-50/50 p-3 before:absolute before:-top-6 before:left-1/2 before:h-6 before:w-1 before:-translate-x-1/2 before:bg-rose-300">
+                                                        <div className="rounded-t-2xl bg-rose-400 px-4 py-2 text-center text-xs font-black uppercase tracking-[0.18em] text-white">{branch.label}</div>
+                                                        <div className="rounded-b-2xl bg-white p-3">{renderWordBankIdeaNode(branch)}</div>
+                                                        {branch.details.length > 0 && <div className="mt-3 grid gap-3 sm:grid-cols-2">{branch.details.map((detail, detailIndex) => <div key={`${detail.label}-${detailIndex}`} className="rounded-2xl border border-rose-100 bg-white/90 p-2">{renderWordBankIdeaNode(detail)}</div>)}</div>}
+                                                      </div>
+                                                    ))}
+                                                    {currentWordBankIdeaTree.details.length > 0 && <div className="rounded-[28px] border-2 border-rose-200 bg-rose-50/50 p-3 md:col-span-2"><div className="grid gap-3 sm:grid-cols-2">{currentWordBankIdeaTree.details.map((detail, detailIndex) => <div key={`${detail.label}-${detailIndex}`} className="rounded-2xl border border-rose-100 bg-white/90 p-2">{renderWordBankIdeaNode(detail)}</div>)}</div></div>}
+                                                  </div>
+                                                )}
+                                                {unplacedBlanks.length > 0 && <div className="grid gap-3">{unplacedBlanks.map(blank => renderWordBankBlank(blank, currentQuizQuestion.blanks.indexOf(blank)))}</div>}
+                                              </div>
+                                            );
+                                          })() : (
+                                          currentQuizQuestion.blanks.map((blank, blankIndex) => {
                                             const selectedAnswerIndex = currentWordBankAnswers[blank.id];
                                             const hasAnswer = Number.isInteger(selectedAnswerIndex);
                                             const isActiveBlank = currentWordBankActiveBlank?.id === blank.id;
@@ -9787,7 +10000,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                                 </p>
                                               </div>
                                             );
-                                          })}
+                                          }))}
                                         </div>
                                       </div>
                                     ) : (

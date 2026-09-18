@@ -27,6 +27,97 @@ const parseArgs = (argv) => {
   return args;
 };
 
+const normalizeTreeText = (value = '') => clean(value).replace(/\s+/g, ' ').toLowerCase();
+
+const parseIdeaTree = (lines, blanks) => {
+  const blankIdsByPrompt = new Map();
+  blanks.forEach(blank => {
+    const key = normalizeTreeText(blank.prompt);
+    blankIdsByPrompt.set(key, [...(blankIdsByPrompt.get(key) || []), blank.id]);
+  });
+  const nodeFor = (rawLine, label, text) => ({
+    label: clean(label),
+    text: clean(text),
+    blankId: blankIdsByPrompt.get(normalizeTreeText(rawLine))?.[0] || null
+  });
+  let mainIdea = null;
+  const branches = [];
+  const details = [];
+  let activeBranch = null;
+
+  lines.forEach(rawLine => {
+    const line = clean(rawLine);
+    const content = line.replace(/^(?:[-•]\s*)/, '');
+    const mainMatch = content.match(/^(main\s*idea\s*\d*)\s*:\s*(.+)$/i);
+    if (mainMatch) {
+      mainIdea = nodeFor(line, mainMatch[1], mainMatch[2]);
+      return;
+    }
+    const branchMatch = content.match(/^(sub[-\s]*idea\s*\d*)\s*:\s*(.+)$/i);
+    if (branchMatch) {
+      activeBranch = { ...nodeFor(line, branchMatch[1], branchMatch[2]), details: [] };
+      branches.push(activeBranch);
+      return;
+    }
+    const detailMatch = content.match(/^(detail\s*\d*)\s*(?::|\.)\s*(.+)$/i);
+    if (detailMatch) {
+      const detail = nodeFor(line, detailMatch[1], detailMatch[2]);
+      (activeBranch ? activeBranch.details : details).push(detail);
+      return;
+    }
+    const isNumberedDetail = /^(?:[-•]\s*)?\d+\.\s+/.test(line);
+    const isBlankLine = blankIdsByPrompt.has(normalizeTreeText(line));
+    if (mainIdea && (isNumberedDetail || isBlankLine || /^[-•]\s+/.test(line))) {
+      const targetDetails = activeBranch ? activeBranch.details : details;
+      targetDetails.push(nodeFor(line, `Detail ${targetDetails.length + 1}`, content));
+    }
+  });
+
+  return mainIdea ? { mainIdea, branches, details } : null;
+};
+
+const parseCompareChart = (lines, blanks) => {
+  const blankIdsByPrompt = new Map();
+  blanks.forEach(blank => {
+    const key = normalizeTreeText(blank.prompt);
+    blankIdsByPrompt.set(key, [...(blankIdsByPrompt.get(key) || []), blank.id]);
+  });
+  const groups = [];
+  let activeGroup = null;
+
+  lines.forEach(rawLine => {
+    const line = clean(rawLine);
+    if (!line) return;
+    const content = line.replace(/^(?:[-•]\s*)/, '');
+    const groupMatch = content.match(/^(?:\d+\.\s*)?([^:]+):\s*(.*)$/);
+    if (groupMatch && !/^(?:main\s*idea|sub[-\s]*idea|detail|words)\b/i.test(groupMatch[1].trim())) {
+      const label = clean(groupMatch[1]);
+      activeGroup = groups.find(group => normalizeTreeText(group.label) === normalizeTreeText(label));
+      if (!activeGroup) {
+        activeGroup = { label, items: [] };
+        groups.push(activeGroup);
+      }
+      if (groupMatch[2]) {
+        activeGroup.items.push({
+          text: clean(groupMatch[2]),
+          blankIds: blankIdsByPrompt.get(normalizeTreeText(line)) || []
+        });
+      }
+      return;
+    }
+    if (activeGroup && (/^[-•]\s+/.test(line) || blankIdsByPrompt.has(normalizeTreeText(line)))) {
+      activeGroup.items.push({
+        text: content,
+        blankIds: blankIdsByPrompt.get(normalizeTreeText(line)) || []
+      });
+    }
+  });
+
+  const placedBlankIds = new Set(groups.flatMap(group => group.items.flatMap(item => item.blankIds)));
+  const hasSharedGroup = groups.some(group => /^both$/i.test(group.label));
+  return groups.length >= 2 && hasSharedGroup && placedBlankIds.size > 0 ? { groups } : null;
+};
+
 export const parseBook = (stem, { baseDir = cwd } = {}) => {
   const text = fs.readFileSync(path.join(baseDir, 'docs', `${stem}.md`), 'utf8');
   return [...text.matchAll(/^##\s+(?:Unit\s+|U)(\d+)\s+(.+?)\n\n([\s\S]*?)(?=^##\s+(?:Unit\s+|U)\d+\s+|(?![\s\S]))/gm)].map(([, unit, title, body]) => {
@@ -92,16 +183,19 @@ export const parseBook = (stem, { baseDir = cwd } = {}) => {
         const blankPrompt = clean(
           (firstBlankLineIndex >= 0 ? beforeOptions.slice(0, firstBlankLineIndex) : beforeOptions).join('\n')
         ).replace(/\bWords:\s*$/i, '').trim();
+        const blanks = answerIndexes.map((answerIndex, blankOffset) => ({
+          id: `blank-${blankOffset + 1}`,
+          prompt: blankLines[blankOffset],
+          answerIndex
+        }));
         return {
           id: `q${index}`,
-          index: Number(index),
+          index,
           prompt: blankPrompt,
           options,
-          blanks: answerIndexes.map((answerIndex, blankOffset) => ({
-            id: `blank-${blankOffset + 1}`,
-            prompt: blankLines[blankOffset],
-            answerIndex
-          })),
+          blanks,
+          ideaTree: parseIdeaTree(allPromptLines, blanks),
+          compareChart: parseCompareChart(allPromptLines, blanks),
           type: 'word-bank',
           rawAnswer: answerKey.toUpperCase(),
           answerSource: ANSWER_KEY_REPAIRS[stem]?.[Number(unit)] ? 'audited-rfd-key-repair' : 'audited-rfd-markdown'
@@ -109,7 +203,7 @@ export const parseBook = (stem, { baseDir = cwd } = {}) => {
       }
       return {
         id: `q${index}`,
-        index: Number(index),
+        index,
         prompt,
         options,
         answerIndex: answerIndexes.length === 1 ? answerIndexes[0] : null,
