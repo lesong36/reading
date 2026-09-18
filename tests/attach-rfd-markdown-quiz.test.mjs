@@ -76,8 +76,9 @@ test('keeps a visible target prompt for every RFD4–6 word-bank blank', () => {
 test('refreshes cached RFD quizzes after their grading model changes', () => {
   for (const entrypoint of ['index.html', '英语长难句交互阅读解析.html']) {
     const source = fs.readFileSync(path.join(process.cwd(), entrypoint), 'utf8');
-    assert.match(source, /BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v40'/);
-    assert.match(source, /BUNDLED_LIBRARY_SEED_VERSION = '40'/);
+    assert.match(source, /BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v41'/);
+    assert.match(source, /BUNDLED_LIBRARY_SEED_VERSION = '41'/);
+    assert.match(source, /hasRequiredBundledQuizLayouts/);
   }
 });
 

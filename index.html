@@ -2162,9 +2162,11 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     // seed version makes existing clients reload the canonical bundle.
     // library. A marker alone is not proof that all curriculum bundles
     // reached the device.
-    // v40 refreshes RFD5 sequencing and KWL charts with their visual layouts.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v40';
-    const BUNDLED_LIBRARY_SEED_VERSION = '40';
+    // v41 verifies the structured quiz layouts themselves before accepting a
+    // cached curriculum bundle, so a complete-but-old library cannot hide a
+    // tree or timeline chart.
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v41';
+    const BUNDLED_LIBRARY_SEED_VERSION = '41';
     const EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT = 324;
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
@@ -2861,6 +2863,23 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       normalizeSavedArticles(articles)
         .filter(isBundledCurriculumArticle)
         .length;
+
+    const hasRequiredBundledQuizLayouts = (articles = []) => {
+      const normalized = normalizeSavedArticles(articles);
+      const rfdQuestions = normalized
+        .filter(article => /^rfd[456]-/i.test(String(article.id || '')))
+        .flatMap(article => Array.isArray(article.questions) ? article.questions : []);
+      const mainIdeaTreeCount = rfdQuestions.filter(question => question?.type === 'word-bank' && question?.ideaTree?.mainIdea).length;
+      const requiredLayouts = [
+        ['rfd5-04-Unit-4-Intelligent-Machines', 'timeline'],
+        ['rfd5-11-Unit-11-Auto-Tune', 'timeline'],
+        ['rfd5-12-Unit-12-The-Changing-Shape-of-Music', 'timeline'],
+        ['rfd5-16-Unit-16-Weather-Models', 'knowledgeChart']
+      ];
+      return mainIdeaTreeCount >= 10 && requiredLayouts.every(([articleId, field]) =>
+        normalized.find(article => article.id === articleId)?.questions?.find(question => question.id === 'q8')?.[field]
+      );
+    };
 
     const getReFoundationsArticleCount = (articles = []) =>
       normalizeSavedArticles(articles)
@@ -3763,7 +3782,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         if (bundledSeedInFlightRef.current) return;
         const seedIsCurrent = localStorage.getItem(BUNDLED_LIBRARY_SEED_KEY) === BUNDLED_LIBRARY_SEED_VERSION;
         const libraryIsComplete = getBundledCurriculumArticleCount(savedArticles) >= EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT;
-        if (seedIsCurrent && libraryIsComplete) return;
+        const quizLayoutsAreComplete = hasRequiredBundledQuizLayouts(savedArticles);
+        if (seedIsCurrent && libraryIsComplete && quizLayoutsAreComplete) return;
 
         let cancelled = false;
         const seedBundledLibrary = async () => {
