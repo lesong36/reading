@@ -37580,9 +37580,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. One word is extra.\n\nMain idea: Ancient Egypt was a(n) ____1_____ culture.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
           "standing",
           "math",
@@ -37590,59 +37590,36 @@
           "began",
           "amazing"
         ],
-        "answerIndex": 4,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. One word is extra.\n\nSub-idea 1: It __2__ in 3100BCE\n\n请完成第 2 空。",
-        "options": [
-          "standing",
-          "math",
-          "buildings",
-          "began",
-          "amazing"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Main idea: Ancient Egypt was a(n) ____1_____ culture.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Sub-idea 1: It __2__ in 3100BCE",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Sub-idea 2: The people were good at science and ___3___",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-4",
+            "prompt": "- Detail 4: They build large ____4_______",
+            "answerIndex": 2
+          }
         ],
-        "answerIndex": 3,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "EDBC",
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. One word is extra.\n\nSub-idea 2: The people were good at science and ___3___\n\n请完成第 3 空。",
-        "options": [
-          "standing",
-          "math",
-          "buildings",
-          "began",
-          "amazing"
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-4",
-        "index": 8.04,
-        "prompt": "Complete the chart. One word is extra.\n\n- Detail 4: They build large ____4_______\n\n请完成第 4 空。",
-        "options": [
-          "standing",
-          "math",
-          "buildings",
-          "began",
-          "amazing"
-        ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q9-blank-1",
-        "index": 9.01,
-        "prompt": "Choose the correct word to complete each sentence.\n\nAncient Egyptians got water for _________ from the Nile River.\n\n请完成第 1 空。",
+        "id": "q9",
+        "index": 9,
+        "prompt": "Choose the correct word to complete each sentence.",
         "options": [
           "basic,",
           "monuments,",
@@ -37651,88 +37628,40 @@
           "farming,",
           "calendar"
         ],
-        "answerIndex": 4,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q9-blank-2",
-        "index": 9.02,
-        "prompt": "Choose the correct word to complete each sentence.\n\nThey were good at __________, math, and building.\n\n请完成第 2 空。",
-        "options": [
-          "basic,",
-          "monuments,",
-          "stones,",
-          "science,",
-          "farming,",
-          "calendar"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Ancient Egyptians got water for _________ from the Nile River.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-2",
+            "prompt": "They were good at __________, math, and building.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "They used _______ tools.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-4",
+            "prompt": "They moved huge stones to make tall ___________.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-5",
+            "prompt": "They cut and moved huge __________.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-6",
+            "prompt": "They also had their own __________.",
+            "answerIndex": 5
+          }
         ],
-        "answerIndex": 3,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q9-blank-3",
-        "index": 9.03,
-        "prompt": "Choose the correct word to complete each sentence.\n\nThey used _______ tools.\n\n请完成第 3 空。",
-        "options": [
-          "basic,",
-          "monuments,",
-          "stones,",
-          "science,",
-          "farming,",
-          "calendar"
-        ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q9-blank-4",
-        "index": 9.04,
-        "prompt": "Choose the correct word to complete each sentence.\n\nThey moved huge stones to make tall ___________.\n\n请完成第 4 空。",
-        "options": [
-          "basic,",
-          "monuments,",
-          "stones,",
-          "science,",
-          "farming,",
-          "calendar"
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q9-blank-5",
-        "index": 9.05,
-        "prompt": "Choose the correct word to complete each sentence.\n\nThey cut and moved huge __________.\n\n请完成第 5 空。",
-        "options": [
-          "basic,",
-          "monuments,",
-          "stones,",
-          "science,",
-          "farming,",
-          "calendar"
-        ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q9-blank-6",
-        "index": 9.06,
-        "prompt": "Choose the correct word to complete each sentence.\n\nThey also had their own __________.\n\n请完成第 6 空。",
-        "options": [
-          "basic,",
-          "monuments,",
-          "stones,",
-          "science,",
-          "farming,",
-          "calendar"
-        ],
-        "answerIndex": 5,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "EDABCF",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -38509,9 +38438,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the sentences below using the provided words. One word will not be used. Choose the correct option (a-e) for each blank.\n\nWHAT: The 1. (  ) of King Tutankhamun was found.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the sentences below using the provided words. One word will not be used. Choose the correct option (a-e) for each blank.",
         "options": [
           "digging",
           "beautiful",
@@ -38519,53 +38448,30 @@
           "study",
           "gold"
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the sentences below using the provided words. One word will not be used. Choose the correct option (a-e) for each blank.\n\nWHEN:The 2. (  ) objects were from 1300 BCE.\n\n请完成第 2 空。",
-        "options": [
-          "digging",
-          "beautiful",
-          "tomb",
-          "study",
-          "gold"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "WHAT: The 1. (  ) of King Tutankhamun was found.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "WHEN:The 2. (  ) objects were from 1300 BCE.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-3",
+            "prompt": "HOW: Howard Carter was 3. (  ) in Egypt.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-4",
+            "prompt": "WHY: Experts now 4. (  ) these objects to learn about ancient Egypt.",
+            "answerIndex": 3
+          }
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the sentences below using the provided words. One word will not be used. Choose the correct option (a-e) for each blank.\n\nHOW: Howard Carter was 3. (  ) in Egypt.\n\n请完成第 3 空。",
-        "options": [
-          "digging",
-          "beautiful",
-          "tomb",
-          "study",
-          "gold"
-        ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-4",
-        "index": 8.04,
-        "prompt": "Complete the sentences below using the provided words. One word will not be used. Choose the correct option (a-e) for each blank.\n\nWHY: Experts now 4. (  ) these objects to learn about ancient Egypt.\n\n请完成第 4 空。",
-        "options": [
-          "digging",
-          "beautiful",
-          "tomb",
-          "study",
-          "gold"
-        ],
-        "answerIndex": 3,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "CBAD",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -39357,9 +39263,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the following multiple-choice questions based on the chart.\n\nMain idea: Cleopatra was the last ________ of ancient Egypt.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the following multiple-choice questions based on the chart.",
         "options": [
           "gave in",
           "snake",
@@ -39367,53 +39273,30 @@
           "burried",
           "queen"
         ],
-        "answerIndex": 4,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the following multiple-choice questions based on the chart.\n\nDetail 1: The Romans ________ Egypt and wanted to take it.\n\n请完成第 2 空。",
-        "options": [
-          "gave in",
-          "snake",
-          "attacked",
-          "burried",
-          "queen"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Main idea: Cleopatra was the last ________ of ancient Egypt.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Detail 1: The Romans ________ Egypt and wanted to take it.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Cleopatra would not ________.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-4",
+            "prompt": "Detail 2: She killed herself. She might have used a(n) ________ or a poison pin. We will probably never know for sure how she died.",
+            "answerIndex": 1
+          }
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the following multiple-choice questions based on the chart.\n\nCleopatra would not ________.\n\n请完成第 3 空。",
-        "options": [
-          "gave in",
-          "snake",
-          "attacked",
-          "burried",
-          "queen"
-        ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-4",
-        "index": 8.04,
-        "prompt": "Complete the following multiple-choice questions based on the chart.\n\nDetail 2: She killed herself. She might have used a(n) ________ or a poison pin. We will probably never know for sure how she died.\n\n请完成第 4 空。",
-        "options": [
-          "gave in",
-          "snake",
-          "attacked",
-          "burried",
-          "queen"
-        ],
-        "answerIndex": 1,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "ECAB",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -40115,45 +39998,34 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. One word is extra.\n\nMain Idea: Ancient Egyptians had over 2,000 gods. Religion was ________ to them.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
           "goddess",
           "skin",
           "sun",
           "essential"
         ],
-        "answerIndex": 3,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. One word is extra.\n\nDetail 2: One of the oldest was Sekhmet. She was a powerful ________.\n\n请完成第 2 空。",
-        "options": [
-          "goddess",
-          "skin",
-          "sun",
-          "essential"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Main Idea: Ancient Egyptians had over 2,000 gods. Religion was ________ to them.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Detail 2: One of the oldest was Sekhmet. She was a powerful ________.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Detail 3: The god of death had green ________, the color of rebirth.",
+            "answerIndex": 1
+          }
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. One word is extra.\n\nDetail 3: The god of death had green ________, the color of rebirth.\n\n请完成第 3 空。",
-        "options": [
-          "goddess",
-          "skin",
-          "sun",
-          "essential"
-        ],
-        "answerIndex": 1,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "DAB",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -40936,45 +40808,34 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. Choose the correct word.\n\nWho: Narwhals are interesting __________.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. Choose the correct word.",
         "options": [
           "tooth",
           "creatures",
           "hunt",
           "sense"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. Choose the correct word.\n\nWhat: They have a long __________ that can grow up to 2.7 meters long.\n\n请完成第 2 空。",
-        "options": [
-          "tooth",
-          "creatures",
-          "hunt",
-          "sense"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Who: Narwhals are interesting __________.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "What: They have a long __________ that can grow up to 2.7 meters long.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "How: Scientists are not sure what narwhals' tusks are for. They may be used to __________ things.",
+            "answerIndex": 3
+          }
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. Choose the correct word.\n\nHow: Scientists are not sure what narwhals' tusks are for. They may be used to __________ things.\n\n请完成第 3 空。",
-        "options": [
-          "tooth",
-          "creatures",
-          "hunt",
-          "sense"
-        ],
-        "answerIndex": 3,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "BAD",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -41743,9 +41604,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q9-blank-1",
-        "index": 9.01,
-        "prompt": "Complete following blank\n\nMain idea: The mantis shrimp has __________ strength and amazing eyes.\n\n请完成第 1 空。",
+        "id": "q9",
+        "index": 9,
+        "prompt": "Complete following blank",
         "options": [
           "gunshot",
           "interesting,",
@@ -41753,53 +41614,30 @@
           "hunt,",
           "superhero"
         ],
-        "answerIndex": 4,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q9-blank-2",
-        "index": 9.02,
-        "prompt": "Complete following blank\n\nDetail 1: Its punch has the same power as a(n) __________.\n\n请完成第 2 空。",
-        "options": [
-          "gunshot",
-          "interesting,",
-          "quick,",
-          "hunt,",
-          "superhero"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Main idea: The mantis shrimp has __________ strength and amazing eyes.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Detail 1: Its punch has the same power as a(n) __________.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "It uses its powerful punch to __________.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-4",
+            "prompt": "Detail 2: Its eyes are __________. It can see ultraviolet light.",
+            "answerIndex": 1
+          }
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q9-blank-3",
-        "index": 9.03,
-        "prompt": "Complete following blank\n\nIt uses its powerful punch to __________.\n\n请完成第 3 空。",
-        "options": [
-          "gunshot",
-          "interesting,",
-          "quick,",
-          "hunt,",
-          "superhero"
-        ],
-        "answerIndex": 3,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q9-blank-4",
-        "index": 9.04,
-        "prompt": "Complete following blank\n\nDetail 2: Its eyes are __________. It can see ultraviolet light.\n\n请完成第 4 空。",
-        "options": [
-          "gunshot",
-          "interesting,",
-          "quick,",
-          "hunt,",
-          "superhero"
-        ],
-        "answerIndex": 1,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "EADB",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -42578,45 +42416,34 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "完成下面的表格选择题，每题选出最合适的单词填空。\n\nIt makes __1____ clean.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "完成下面的表格选择题，每题选出最合适的单词填空。",
         "options": [
           "plants,",
           "environment,",
           "dirt,",
           "dirty sand"
         ],
-        "answerIndex": 3,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "完成下面的表格选择题，每题选出最合适的单词填空。\n\nIt eats the garbage of the earth. It digs paths in the ___2___.\n\n请完成第 2 空。",
-        "options": [
-          "plants,",
-          "environment,",
-          "dirt,",
-          "dirty sand"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "It makes __1____ clean.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-2",
+            "prompt": "It eats the garbage of the earth. It digs paths in the ___2___.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-3",
+            "prompt": "They help __3____ grow.",
+            "answerIndex": 0
+          }
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "完成下面的表格选择题，每题选出最合适的单词填空。\n\nThey help __3____ grow.\n\n请完成第 3 空。",
-        "options": [
-          "plants,",
-          "environment,",
-          "dirt,",
-          "dirty sand"
-        ],
-        "answerIndex": 0,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "DCA",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -43363,45 +43190,34 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. Choose the correct word for each blank. One word is extra.\n\nMain idea: Geckos can _____1____ walls like Spider-Man.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. Choose the correct word for each blank. One word is extra.",
         "options": [
           "upside down",
           "tape",
           "climb",
           "surfaces"
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. Choose the correct word for each blank. One word is extra.\n\nDetail: 1. The hairs stick to ____2_____.\n\n请完成第 2 空。",
-        "options": [
-          "upside down",
-          "tape",
-          "climb",
-          "surfaces"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Main idea: Geckos can _____1____ walls like Spider-Man.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Detail: 1. The hairs stick to ____2_____.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "2. A gecko can move quickly ____3_____.",
+            "answerIndex": 0
+          }
         ],
-        "answerIndex": 3,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. Choose the correct word for each blank. One word is extra.\n\n2. A gecko can move quickly ____3_____.\n\n请完成第 3 空。",
-        "options": [
-          "upside down",
-          "tape",
-          "climb",
-          "surfaces"
-        ],
-        "answerIndex": 0,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "CDA",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -43996,9 +43812,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. One word is extra. Choose the best answer for each blank.\n\nWho: In 2010, John Isner and Nicolas Mahut played a ____1_____ match.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. One word is extra. Choose the best answer for each blank.",
         "options": [
           "total",
           "match",
@@ -44006,53 +43822,30 @@
           "games",
           "tournament"
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. One word is extra. Choose the best answer for each blank.\n\nHow: A player must be two ____2_____ ahead to win a set.\n\n请完成第 2 空。",
-        "options": [
-          "total",
-          "match",
-          "tennis",
-          "games",
-          "tournament"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Who: In 2010, John Isner and Nicolas Mahut played a ____1_____ match.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "How: A player must be two ____2_____ ahead to win a set.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "What: The ______3___ time of the match was 11 hours and 5 minutes.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-4",
+            "prompt": "It was the longest tennis _____4____ ever.",
+            "answerIndex": 1
+          }
         ],
-        "answerIndex": 3,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. One word is extra. Choose the best answer for each blank.\n\nWhat: The ______3___ time of the match was 11 hours and 5 minutes.\n\n请完成第 3 空。",
-        "options": [
-          "total",
-          "match",
-          "tennis",
-          "games",
-          "tournament"
-        ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-4",
-        "index": 8.04,
-        "prompt": "Complete the chart. One word is extra. Choose the best answer for each blank.\n\nIt was the longest tennis _____4____ ever.\n\n请完成第 4 空。",
-        "options": [
-          "total",
-          "match",
-          "tennis",
-          "games",
-          "tournament"
-        ],
-        "answerIndex": 1,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "CDAB",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -44688,9 +44481,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. Choose the correct word for each blank. One word is extra.\n\n1. There was a soccer match in ________.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. Choose the correct word for each blank. One word is extra.",
         "options": [
           "red cards",
           "yellow cards",
@@ -44698,53 +44491,30 @@
           "members",
           "Argentina"
         ],
-        "answerIndex": 4,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. Choose the correct word for each blank. One word is extra.\n\n2. The referee gave two ________.\n\n请完成第 2 空。",
-        "options": [
-          "red cards",
-          "yellow cards",
-          "fight",
-          "members",
-          "Argentina"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. There was a soccer match in ________.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. The referee gave two ________.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. A big ________ started.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. All the other players and some other team ________ got red cards.",
+            "answerIndex": 3
+          }
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. Choose the correct word for each blank. One word is extra.\n\n3. A big ________ started.\n\n请完成第 3 空。",
-        "options": [
-          "red cards",
-          "yellow cards",
-          "fight",
-          "members",
-          "Argentina"
-        ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-4",
-        "index": 8.04,
-        "prompt": "Complete the chart. Choose the correct word for each blank. One word is extra.\n\n4. All the other players and some other team ________ got red cards.\n\n请完成第 4 空。",
-        "options": [
-          "red cards",
-          "yellow cards",
-          "fight",
-          "members",
-          "Argentina"
-        ],
-        "answerIndex": 3,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "EACD",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -45430,9 +45200,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. One word is extra.\n\nMain idea: The Golden State Warriors had a very successful __1____ in 2016.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
           "team",
           "players",
@@ -45440,53 +45210,30 @@
           "points",
           "season"
         ],
-        "answerIndex": 4,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. One word is extra.\n\nSub-idea 1: The ____2__ set many new records.\n\n请完成第 2 空。",
-        "options": [
-          "team",
-          "players",
-          "overtime",
-          "points",
-          "season"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Main idea: The Golden State Warriors had a very successful __1____ in 2016.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Sub-idea 1: The ____2__ set many new records.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Sub-idea 2: Individual ___3___ set new records.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-4",
+            "prompt": "- detail 4: Curry scored the most points in ___4___.",
+            "answerIndex": 2
+          }
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. One word is extra.\n\nSub-idea 2: Individual ___3___ set new records.\n\n请完成第 3 空。",
-        "options": [
-          "team",
-          "players",
-          "overtime",
-          "points",
-          "season"
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-4",
-        "index": 8.04,
-        "prompt": "Complete the chart. One word is extra.\n\n- detail 4: Curry scored the most points in ___4___.\n\n请完成第 4 空。",
-        "options": [
-          "team",
-          "players",
-          "overtime",
-          "points",
-          "season"
-        ],
-        "answerIndex": 2,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "EABC",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -46316,9 +46063,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "**Complete the chart. Choose the correct word for each blank. One word is extra.**\n\nMeasuring time and speed is very __1_____ now.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "**Complete the chart. Choose the correct word for each blank. One word is extra.**",
         "options": [
           "lasers,",
           "race,",
@@ -46326,53 +46073,30 @@
           "shoes,",
           "pictures"
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "**Complete the chart. Choose the correct word for each blank. One word is extra.**\n\n- Judges use __2_____ to measure time.\n\n请完成第 2 空。",
-        "options": [
-          "lasers,",
-          "race,",
-          "advanced,",
-          "shoes,",
-          "pictures"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Measuring time and speed is very __1_____ now.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "- Judges use __2_____ to measure time.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "- They can also use a special camera to take ___3____.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-4",
+            "prompt": "- People put it in their ___4____.",
+            "answerIndex": 3
+          }
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "**Complete the chart. Choose the correct word for each blank. One word is extra.**\n\n- They can also use a special camera to take ___3____.\n\n请完成第 3 空。",
-        "options": [
-          "lasers,",
-          "race,",
-          "advanced,",
-          "shoes,",
-          "pictures"
-        ],
-        "answerIndex": 4,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-4",
-        "index": 8.04,
-        "prompt": "**Complete the chart. Choose the correct word for each blank. One word is extra.**\n\n- People put it in their ___4____.\n\n请完成第 4 空。",
-        "options": [
-          "lasers,",
-          "race,",
-          "advanced,",
-          "shoes,",
-          "pictures"
-        ],
-        "answerIndex": 3,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "CAED",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -47115,45 +46839,34 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. One word is extra.\n\n- What I know: What do people use dogs for?\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
           "smell",
           "alarm",
           "protect",
           "noise"
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. One word is extra.\n\n- What I want to know:  Why are dogs a good security system?\n\n请完成第 2 空。",
-        "options": [
-          "smell",
-          "alarm",
-          "protect",
-          "noise"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "- What I know: What do people use dogs for?",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "- What I want to know:  Why are dogs a good security system?",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "- What I learned:  What do dogs have a strong sense of?",
+            "answerIndex": 0
+          }
         ],
-        "answerIndex": 3,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. One word is extra.\n\n- What I learned:  What do dogs have a strong sense of?\n\n请完成第 3 空。",
-        "options": [
-          "smell",
-          "alarm",
-          "protect",
-          "noise"
-        ],
-        "answerIndex": 0,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "CDA",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -47955,9 +47668,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. One word is extra.\n\nDigital Door Lock: You push ________ to enter numbers.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
           "private",
           "buttons",
@@ -47965,53 +47678,30 @@
           "body",
           "eye"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. One word is extra.\n\nBiometric System: This takes pictures of the ________.\n\n请完成第 2 空。",
-        "options": [
-          "private",
-          "buttons",
-          "finger",
-          "body",
-          "eye"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Digital Door Lock: You push ________ to enter numbers.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Biometric System: This takes pictures of the ________.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Fingerprint Scanner: The scanner takes pictures of a person’s ________.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-4",
+            "prompt": "Retina Scanner: This machine sees the back of the ________.",
+            "answerIndex": 4
+          }
         ],
-        "answerIndex": 3,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. One word is extra.\n\nFingerprint Scanner: The scanner takes pictures of a person’s ________.\n\n请完成第 3 空。",
-        "options": [
-          "private",
-          "buttons",
-          "finger",
-          "body",
-          "eye"
-        ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-4",
-        "index": 8.04,
-        "prompt": "Complete the chart. One word is extra.\n\nRetina Scanner: This machine sees the back of the ________.\n\n请完成第 4 空。",
-        "options": [
-          "private",
-          "buttons",
-          "finger",
-          "body",
-          "eye"
-        ],
-        "answerIndex": 4,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "BDCE",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -48724,45 +48414,34 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. One word is extra.\n\nWhat I know: Future home security systems will ______ to your computer, TV, and smartphone.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
           "connect",
           "camera",
           "know",
           "need"
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. One word is extra.\n\nWhat I want to Know: How will the system ______ if something is wrong?\n\n请完成第 2 空。",
-        "options": [
-          "connect",
-          "camera",
-          "know",
-          "need"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "What I know: Future home security systems will ______ to your computer, TV, and smartphone.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-2",
+            "prompt": "What I want to Know: How will the system ______ if something is wrong?",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-3",
+            "prompt": "What I Learned: The system will use a small robot and a security ______ to see everything.",
+            "answerIndex": 1
+          }
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. One word is extra.\n\nWhat I Learned: The system will use a small robot and a security ______ to see everything.\n\n请完成第 3 空。",
-        "options": [
-          "connect",
-          "camera",
-          "know",
-          "need"
-        ],
-        "answerIndex": 1,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "ACB",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -49603,9 +49282,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. Choose the best answer for each blank. (One word is extra.)\n\nMain idea: South Korea has surveillance cameras everywhere in _______ places.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. Choose the best answer for each blank. (One word is extra.)",
         "options": [
           "find",
           "public",
@@ -49613,53 +49292,30 @@
           "recognize",
           "block"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. Choose the best answer for each blank. (One word is extra.)\n\nDetail 1: The cameras _______ cars.\n\n请完成第 2 空。",
-        "options": [
-          "find",
-          "public",
-          "control",
-          "recognize",
-          "block"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Main idea: South Korea has surveillance cameras everywhere in _______ places.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Detail 1: The cameras _______ cars.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Detail 2: They help _______ stolen cars.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-4",
+            "prompt": "Detail 3: The cameras help _______ crime.",
+            "answerIndex": 2
+          }
         ],
-        "answerIndex": 3,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. Choose the best answer for each blank. (One word is extra.)\n\nDetail 2: They help _______ stolen cars.\n\n请完成第 3 空。",
-        "options": [
-          "find",
-          "public",
-          "control",
-          "recognize",
-          "block"
-        ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-4",
-        "index": 8.04,
-        "prompt": "Complete the chart. Choose the best answer for each blank. (One word is extra.)\n\nDetail 3: The cameras help _______ crime.\n\n请完成第 4 空。",
-        "options": [
-          "find",
-          "public",
-          "control",
-          "recognize",
-          "block"
-        ],
-        "answerIndex": 2,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "BDAC",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -50399,45 +50055,34 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. Choose the correct answer for each blank. (One word is extra.)\n\nMain Idea:  Trash is a big problem in __________.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. Choose the correct answer for each blank. (One word is extra.)",
         "options": [
           "catch",
           "leave",
           "tonnes",
           "space"
         ],
-        "answerIndex": 3,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. Choose the correct answer for each blank. (One word is extra.)\n\nDetail 1:  There are 8,000 __________ of it up there.\n\n请完成第 2 空。",
-        "options": [
-          "catch",
-          "leave",
-          "tonnes",
-          "space"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Main Idea:  Trash is a big problem in __________.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Detail 1:  There are 8,000 __________ of it up there.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Detail 2:  Scientists hope to __________ it with a huge net and bring",
+            "answerIndex": 0
+          }
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. Choose the correct answer for each blank. (One word is extra.)\n\nDetail 2:  Scientists hope to __________ it with a huge net and bring\n\n请完成第 3 空。",
-        "options": [
-          "catch",
-          "leave",
-          "tonnes",
-          "space"
-        ],
-        "answerIndex": 0,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "DCA",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -51216,9 +50861,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. One word is extra.\n\nWhat: Firefighters will have ______ helpers in the near future.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
           "firefighters",
           "dangerous",
@@ -51226,53 +50871,30 @@
           "water",
           "fire"
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. One word is extra.\n\nWho: Brave ______ battle fires every day.\n\n请完成第 2 空。",
-        "options": [
-          "firefighters",
-          "dangerous",
-          "robot",
-          "water",
-          "fire"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "What: Firefighters will have ______ helpers in the near future.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Who: Brave ______ battle fires every day.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Why: Firefighting is a ______ and dirty job.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-4",
+            "prompt": "How: A small robot that fit throught doors. A bigger robot that sprays ______ very far. A robot with a face and hands that walks and carries a hose.",
+            "answerIndex": 3
+          }
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. One word is extra.\n\nWhy: Firefighting is a ______ and dirty job.\n\n请完成第 3 空。",
-        "options": [
-          "firefighters",
-          "dangerous",
-          "robot",
-          "water",
-          "fire"
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-4",
-        "index": 8.04,
-        "prompt": "Complete the chart. One word is extra.\n\nHow: A small robot that fit throught doors. A bigger robot that sprays ______ very far. A robot with a face and hands that walks and carries a hose.\n\n请完成第 4 空。",
-        "options": [
-          "firefighters",
-          "dangerous",
-          "robot",
-          "water",
-          "fire"
-        ],
-        "answerIndex": 3,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "CABD",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -52079,45 +51701,34 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Choose the correct word for each blank.\n\nMain Idea: Companies are making cars which drive __________.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Choose the correct word for each blank.",
         "options": [
           "themselves,",
           "trust,",
           "senses,",
           "prevents"
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Choose the correct word for each blank.\n\nDetail 1: A computer in the car watches the road and __________ problems.\n\n请完成第 2 空。",
-        "options": [
-          "themselves,",
-          "trust,",
-          "senses,",
-          "prevents"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Main Idea: Companies are making cars which drive __________.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Detail 1: A computer in the car watches the road and __________ problems.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Detail 2: Some people don’t __________ a car with no driver.",
+            "answerIndex": 1
+          }
         ],
-        "answerIndex": 3,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Choose the correct word for each blank.\n\nDetail 2: Some people don’t __________ a car with no driver.\n\n请完成第 3 空。",
-        "options": [
-          "themselves,",
-          "trust,",
-          "senses,",
-          "prevents"
-        ],
-        "answerIndex": 1,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "ADB",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -52910,45 +52521,34 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. One word is extra.\n\n- By the 1950s, computers could ______ difficult math problems.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
           "champions",
           "solve",
           "intelligent",
           "chess"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. One word is extra.\n\n- The first ______ robot was built.\n\n请完成第 2 空。",
-        "options": [
-          "champions",
-          "solve",
-          "intelligent",
-          "chess"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "- By the 1950s, computers could ______ difficult math problems.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "- The first ______ robot was built.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-3",
+            "prompt": "- Now, computers can play ______ and Go very well.",
+            "answerIndex": 3
+          }
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. One word is extra.\n\n- Now, computers can play ______ and Go very well.\n\n请完成第 3 空。",
-        "options": [
-          "champions",
-          "solve",
-          "intelligent",
-          "chess"
-        ],
-        "answerIndex": 3,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "BCD",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -53705,45 +53305,34 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Choose the correct answer for each blank. (One word is not needed.)\n\n- They are __________. There are hundreds of pictures that can be written in any direction.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Choose the correct answer for each blank. (One word is not needed.)",
         "options": [
           "translate",
           "1799",
           "complicated",
           "soldier"
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Choose the correct answer for each blank. (One word is not needed.)\n\n- No one could read them until __________, when a French soldier discovered the Rosetta Stone.\n\n请完成第 2 空。",
-        "options": [
-          "translate",
-          "1799",
-          "complicated",
-          "soldier"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "- They are __________. There are hundreds of pictures that can be written in any direction.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "- No one could read them until __________, when a French soldier discovered the Rosetta Stone.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-3",
+            "prompt": "- Experts could then use the stone to __________ them.",
+            "answerIndex": 0
+          }
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Choose the correct answer for each blank. (One word is not needed.)\n\n- Experts could then use the stone to __________ them.\n\n请完成第 3 空。",
-        "options": [
-          "translate",
-          "1799",
-          "complicated",
-          "soldier"
-        ],
-        "answerIndex": 0,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "CBA",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -54484,45 +54073,34 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q7-blank-1",
-        "index": 7.01,
-        "prompt": "Complete the chart. One word is extra. Which word completes each blank?\n\n1. What: Baseball players make ______ with their hands.\n\n请完成第 1 空。",
+        "id": "q7",
+        "index": 7,
+        "prompt": "Complete the chart. One word is extra. Which word completes each blank?",
         "options": [
           "glove",
           "signs",
           "communicate",
           "variety"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q7-blank-2",
-        "index": 7.02,
-        "prompt": "Complete the chart. One word is extra. Which word completes each blank?\n\n2. Who: The pitcher and other players need to ______ information.\n\n请完成第 2 空。",
-        "options": [
-          "glove",
-          "signs",
-          "communicate",
-          "variety"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. What: Baseball players make ______ with their hands.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. Who: The pitcher and other players need to ______ information.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. How: They may hold up their fingers or touch their ______ or head.",
+            "answerIndex": 0
+          }
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q7-blank-3",
-        "index": 7.03,
-        "prompt": "Complete the chart. One word is extra. Which word completes each blank?\n\n3. How: They may hold up their fingers or touch their ______ or head.\n\n请完成第 3 空。",
-        "options": [
-          "glove",
-          "signs",
-          "communicate",
-          "variety"
-        ],
-        "answerIndex": 0,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "BCA",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -55378,9 +54956,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Choose the correct word for each blank. (One word will not be used.)\n\n1. Humans use ___________.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Choose the correct word for each blank. (One word will not be used.)",
         "options": [
           "dance",
           "language",
@@ -55390,93 +54968,40 @@
           "dance and vibrate",
           "low sounds"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Choose the correct word for each blank. (One word will not be used.)\n\n2. Dolphins __________ the water.\n\n请完成第 2 空。",
-        "options": [
-          "dance",
-          "language",
-          "smack",
-          "light",
-          "chemical",
-          "dance and vibrate",
-          "low sounds"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. Humans use ___________.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. Dolphins __________ the water.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. Ant make _______ path",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. Bee _________",
+            "answerIndex": 5
+          },
+          {
+            "id": "blank-5",
+            "prompt": "5. Elephants make ______",
+            "answerIndex": 6
+          },
+          {
+            "id": "blank-6",
+            "prompt": "6. Fireflies and glow-worms produce __________.",
+            "answerIndex": 3
+          }
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Choose the correct word for each blank. (One word will not be used.)\n\n3. Ant make _______ path\n\n请完成第 3 空。",
-        "options": [
-          "dance",
-          "language",
-          "smack",
-          "light",
-          "chemical",
-          "dance and vibrate",
-          "low sounds"
-        ],
-        "answerIndex": 4,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-4",
-        "index": 8.04,
-        "prompt": "Choose the correct word for each blank. (One word will not be used.)\n\n4. Bee _________\n\n请完成第 4 空。",
-        "options": [
-          "dance",
-          "language",
-          "smack",
-          "light",
-          "chemical",
-          "dance and vibrate",
-          "low sounds"
-        ],
-        "answerIndex": 5,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-5",
-        "index": 8.05,
-        "prompt": "Choose the correct word for each blank. (One word will not be used.)\n\n5. Elephants make ______\n\n请完成第 5 空。",
-        "options": [
-          "dance",
-          "language",
-          "smack",
-          "light",
-          "chemical",
-          "dance and vibrate",
-          "low sounds"
-        ],
-        "answerIndex": 6,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-6",
-        "index": 8.06,
-        "prompt": "Choose the correct word for each blank. (One word will not be used.)\n\n6. Fireflies and glow-worms produce __________.\n\n请完成第 6 空。",
-        "options": [
-          "dance",
-          "language",
-          "smack",
-          "light",
-          "chemical",
-          "dance and vibrate",
-          "low sounds"
-        ],
-        "answerIndex": 3,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "BCEFGD",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -56377,9 +55902,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q1-blank-1",
-        "index": 1.01,
-        "prompt": "Choose the correct word for each blank.\n\n1. Barcodes: They have thin and thick ________.\n\n请完成第 1 空。",
+        "id": "q1",
+        "index": 1,
+        "prompt": "Choose the correct word for each blank.",
         "options": [
           "scan",
           "information",
@@ -56387,53 +55912,30 @@
           "airline",
           "stripes"
         ],
-        "answerIndex": 4,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q1-blank-2",
-        "index": 1.02,
-        "prompt": "Choose the correct word for each blank.\n\n2. Both: Companies use them to hold ________ about items.\n\n请完成第 2 空。",
-        "options": [
-          "scan",
-          "information",
-          "dots",
-          "airline",
-          "stripes"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. Barcodes: They have thin and thick ________.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. Both: Companies use them to hold ________ about items.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. Both: You ________ them to read them.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. QR Codes: They use ________ instead of bars.",
+            "answerIndex": 2
+          }
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q1-blank-3",
-        "index": 1.03,
-        "prompt": "Choose the correct word for each blank.\n\n3. Both: You ________ them to read them.\n\n请完成第 3 空。",
-        "options": [
-          "scan",
-          "information",
-          "dots",
-          "airline",
-          "stripes"
-        ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q1-blank-4",
-        "index": 1.04,
-        "prompt": "Choose the correct word for each blank.\n\n4. QR Codes: They use ________ instead of bars.\n\n请完成第 4 空。",
-        "options": [
-          "scan",
-          "information",
-          "dots",
-          "airline",
-          "stripes"
-        ],
-        "answerIndex": 2,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "EBAC",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -57193,9 +56695,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. One word is extra.\n\n- detail 1: It is a(n) _______ box with two antennas.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
           "current",
           "antennas",
@@ -57203,53 +56705,30 @@
           "wooden",
           "strange"
         ],
-        "answerIndex": 3,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. One word is extra.\n\n- detail 2: It makes _______ and even spooky sounds.\n\n请完成第 2 空。",
-        "options": [
-          "current",
-          "antennas",
-          "sounds",
-          "wooden",
-          "strange"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "- detail 1: It is a(n) _______ box with two antennas.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-2",
+            "prompt": "- detail 2: It makes _______ and even spooky sounds.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-3",
+            "prompt": "- Detail 3. You don’t touch it but wave your hands near the _______.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-4",
+            "prompt": "- Detail 4. This changes the electric _______ and the sound changes.",
+            "answerIndex": 0
+          }
         ],
-        "answerIndex": 4,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. One word is extra.\n\n- Detail 3. You don’t touch it but wave your hands near the _______.\n\n请完成第 3 空。",
-        "options": [
-          "current",
-          "antennas",
-          "sounds",
-          "wooden",
-          "strange"
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-4",
-        "index": 8.04,
-        "prompt": "Complete the chart. One word is extra.\n\n- Detail 4. This changes the electric _______ and the sound changes.\n\n请完成第 4 空。",
-        "options": [
-          "current",
-          "antennas",
-          "sounds",
-          "wooden",
-          "strange"
-        ],
-        "answerIndex": 0,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "DEBA",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -58037,45 +57516,34 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. One word is extra.\n\n- Come with __________ of instruments like drums and __________ that you can program.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
           "recordings",
           "feeling",
           "cymbals",
           "drummers"
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. One word is extra.\n\n- Come with __________ of instruments like drums and __________ that you can program.\n\n请完成第 2 空。",
-        "options": [
-          "recordings",
-          "feeling",
-          "cymbals",
-          "drummers"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "- Come with __________ of instruments like drums and __________ that you can program.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-2",
+            "prompt": "- Come with __________ of instruments like drums and __________ that you can program.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-3",
+            "prompt": "- Often make small changes in the beat that add __________ to the music.",
+            "answerIndex": 1
+          }
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. One word is extra.\n\n- Often make small changes in the beat that add __________ to the music.\n\n请完成第 3 空。",
-        "options": [
-          "recordings",
-          "feeling",
-          "cymbals",
-          "drummers"
-        ],
-        "answerIndex": 1,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "ACB",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -58878,45 +58346,34 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the sentences by choosing the correct word. (One word is extra.)\n\n1. __________ recorded songs many times and used the best parts.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the sentences by choosing the correct word. (One word is extra.)",
         "options": [
           "perfect",
           "nearly",
           "engineers",
           "natural"
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the sentences by choosing the correct word. (One word is extra.)\n\n2. Engineers recorded songs once and used Auto-Tune to make them __________.\n\n请完成第 2 空。",
-        "options": [
-          "perfect",
-          "nearly",
-          "engineers",
-          "natural"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. __________ recorded songs many times and used the best parts.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. Engineers recorded songs once and used Auto-Tune to make them __________.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. __________ every song uses Auto-Tune.",
+            "answerIndex": 1
+          }
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the sentences by choosing the correct word. (One word is extra.)\n\n3. __________ every song uses Auto-Tune.\n\n请完成第 3 空。",
-        "options": [
-          "perfect",
-          "nearly",
-          "engineers",
-          "natural"
-        ],
-        "answerIndex": 1,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "CAB",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -59672,45 +59129,34 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. Choose the correct word for each blank. (One word is extra.)\n\nPeople listened to music on __________ or tubes at home.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. Choose the correct word for each blank. (One word is extra.)",
         "options": [
           "cassettes",
           "MP3 files",
           "disks",
           "pocket"
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. Choose the correct word for each blank. (One word is extra.)\n\nPeople could listen to music on pocket-size __________ .\n\n请完成第 2 空。",
-        "options": [
-          "cassettes",
-          "MP3 files",
-          "disks",
-          "pocket"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "People listened to music on __________ or tubes at home.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "People could listen to music on pocket-size __________ .",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "People listen to music from __________ on phones, computers, and the internet.",
+            "answerIndex": 1
+          }
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. Choose the correct word for each blank. (One word is extra.)\n\nPeople listen to music from __________ on phones, computers, and the internet.\n\n请完成第 3 空。",
-        "options": [
-          "cassettes",
-          "MP3 files",
-          "disks",
-          "pocket"
-        ],
-        "answerIndex": 1,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "CAB",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -60443,9 +59889,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Choose the correct word to complete each sentence. One word is extra.\n\n**Words:**\n\nMain Idea: The first weighing system used for __________ was simple.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Choose the correct word to complete each sentence. One word is extra.\n\n**Words:**",
         "options": [
           "weigh",
           "trade",
@@ -60453,53 +59899,30 @@
           "worth",
           "goods"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Choose the correct word to complete each sentence. One word is extra.\n\n**Words:**\n\n- Merchants used it to __________ goods that could not be counted.\n\n请完成第 2 空。",
-        "options": [
-          "weigh",
-          "trade",
-          "value",
-          "worth",
-          "goods"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Main Idea: The first weighing system used for __________ was simple.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "- Merchants used it to __________ goods that could not be counted.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "- It had two plates: one for __________; the other for stones.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-4",
+            "prompt": "- The stones were used to measure how much the goods were __________.",
+            "answerIndex": 3
+          }
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Choose the correct word to complete each sentence. One word is extra.\n\n**Words:**\n\n- It had two plates: one for __________; the other for stones.\n\n请完成第 3 空。",
-        "options": [
-          "weigh",
-          "trade",
-          "value",
-          "worth",
-          "goods"
-        ],
-        "answerIndex": 4,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-4",
-        "index": 8.04,
-        "prompt": "Choose the correct word to complete each sentence. One word is extra.\n\n**Words:**\n\n- The stones were used to measure how much the goods were __________.\n\n请完成第 4 空。",
-        "options": [
-          "weigh",
-          "trade",
-          "value",
-          "worth",
-          "goods"
-        ],
-        "answerIndex": 3,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "BAED",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -61158,45 +60581,34 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. One word is extra.\n\nLook at a planet’s ___1___.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
           "orbit",
           "moons",
           "planet",
           "scientist"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. One word is extra.\n\nSee how long it takes the moon to ___2___ the planet.\n\n请完成第 2 空。",
-        "options": [
-          "orbit",
-          "moons",
-          "planet",
-          "scientist"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Look at a planet’s ___1___.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "See how long it takes the moon to ___2___ the planet.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "A moon orbits more quickly around a heavy ___3___.",
+            "answerIndex": 2
+          }
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. One word is extra.\n\nA moon orbits more quickly around a heavy ___3___.\n\n请完成第 3 空。",
-        "options": [
-          "orbit",
-          "moons",
-          "planet",
-          "scientist"
-        ],
-        "answerIndex": 2,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "BAC",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -62029,9 +61441,9 @@
         "answerSource": "audited-rfd-markdown"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart (one word is extra) - Choose the correct answer for each blank.\n\n- Detail: A ________ can wipe out a whole village.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart (one word is extra) - Choose the correct answer for each blank.",
         "options": [
           "flood",
           "speed",
@@ -62040,72 +61452,35 @@
           "measures",
           "defend"
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart (one word is extra) - Choose the correct answer for each blank.\n\n- Detail 1: It ________ the size and ________ of raindrops.\n\n请完成第 2 空。",
-        "options": [
-          "flood",
-          "speed",
-          "drop",
-          "times",
-          "measures",
-          "defend"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "- Detail: A ________ can wipe out a whole village.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-2",
+            "prompt": "- Detail 1: It ________ the size and ________ of raindrops.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-3",
+            "prompt": "- Detail 1: It ________ the size and ________ of raindrops.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-4",
+            "prompt": "- Detail 2: A large ________ of rain falls faster and contains many ________ more water.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-5",
+            "prompt": "- Detail 2: A large ________ of rain falls faster and contains many ________ more water.",
+            "answerIndex": 3
+          }
         ],
-        "answerIndex": 4,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart (one word is extra) - Choose the correct answer for each blank.\n\n- Detail 1: It ________ the size and ________ of raindrops.\n\n请完成第 3 空。",
-        "options": [
-          "flood",
-          "speed",
-          "drop",
-          "times",
-          "measures",
-          "defend"
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-4",
-        "index": 8.04,
-        "prompt": "Complete the chart (one word is extra) - Choose the correct answer for each blank.\n\n- Detail 2: A large ________ of rain falls faster and contains many ________ more water.\n\n请完成第 4 空。",
-        "options": [
-          "flood",
-          "speed",
-          "drop",
-          "times",
-          "measures",
-          "defend"
-        ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8-blank-5",
-        "index": 8.05,
-        "prompt": "Complete the chart (one word is extra) - Choose the correct answer for each blank.\n\n- Detail 2: A large ________ of rain falls faster and contains many ________ more water.\n\n请完成第 5 空。",
-        "options": [
-          "flood",
-          "speed",
-          "drop",
-          "times",
-          "measures",
-          "defend"
-        ],
-        "answerIndex": 3,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "AEBCD",
         "answerSource": "audited-rfd-markdown"
       }
     ],
@@ -62884,45 +62259,34 @@
         "answerSource": "audited-rfd-key-repair"
       },
       {
-        "id": "q8-blank-1",
-        "index": 8.01,
-        "prompt": "Complete the chart. One word is extra.\n\nWhat I Know: Weather scientists ______ the weather.\n\n请完成第 1 空。",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
           "complicated",
           "predict",
           "information",
           "moisture"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "answerSource": "audited-rfd-key-repair"
-      },
-      {
-        "id": "q8-blank-2",
-        "index": 8.02,
-        "prompt": "Complete the chart. One word is extra.\n\nWhat I Learned: They collect ______ about the weather. They make ______ models of the weather.\n\n请完成第 2 空。",
-        "options": [
-          "complicated",
-          "predict",
-          "information",
-          "moisture"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "What I Know: Weather scientists ______ the weather.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "What I Learned: They collect ______ about the weather. They make ______ models of the weather.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-3",
+            "prompt": "What I Learned: They collect ______ about the weather. They make ______ models of the weather.",
+            "answerIndex": 0
+          }
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "answerSource": "audited-rfd-key-repair"
-      },
-      {
-        "id": "q8-blank-3",
-        "index": 8.03,
-        "prompt": "Complete the chart. One word is extra.\n\nWhat I Learned: They collect ______ about the weather. They make ______ models of the weather.\n\n请完成第 3 空。",
-        "options": [
-          "complicated",
-          "predict",
-          "information",
-          "moisture"
-        ],
-        "answerIndex": 0,
-        "type": "single",
+        "type": "word-bank",
+        "rawAnswer": "BCA",
         "answerSource": "audited-rfd-key-repair"
       }
     ],

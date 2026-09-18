@@ -758,6 +758,15 @@
       return Array.from(byKey.values()).sort((a, b) => b.term.length - a.term.length || a.term.localeCompare(b.term));
     };
 
+    const buildGlossarySelectionRules = () => `【术语与难词 glossary】
+只识别需要中文释义的专业术语、难词/偏词和外来词；不把文章核心概念、关键动作、普通表达或阅读提示当作词条。
+每条须至少符合一项：
+- 专业术语、学科概念、行业用语、必要缩写，或具有特定语境义的术语。
+- 对目标读者有实际学习价值的低频难词、偏词、罕见词形或不常见词义。
+- 源自其他语言、保留外来语形式或需要文化/语源背景才能理解的外来词。
+不限制数量；只要满足标准就收录，并按重要性排序。排除普通高频词、按字面即可理解的常见搭配、一般人名地名、核心情节词和普通动作/描述词。
+term 必须是文中实际出现的英文写法；translation 给最符合本文的简洁中文释义；note 仅在术语语境、外来语背景或罕见义确有必要时填写；kind 只能是 rare_word / context_term / proper_noun / acronym。`;
+
     const escapeRegExp = (value = '') => String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
     const buildGlossaryMatchList = (glossary = []) => {
@@ -2286,6 +2295,15 @@
         ? [...new Set(question.answerIndexes.filter(index => Number.isInteger(index) && index >= 0 && index < options.length))]
             .sort((left, right) => left - right)
         : [];
+      const blanks = Array.isArray(question.blanks)
+        ? question.blanks.map((blank, index) => ({
+            id: String(blank?.id || `blank-${index + 1}`),
+            prompt: String(blank?.prompt || '').trim(),
+            answerIndex: Number.isInteger(blank?.answerIndex) && blank.answerIndex >= 0 && blank.answerIndex < options.length
+              ? blank.answerIndex
+              : null
+          })).filter(blank => blank.prompt && Number.isInteger(blank.answerIndex))
+        : [];
       const explicitType = String(question.type || '').trim().toLowerCase();
       const inferredType = explicitType || (
         Number.isInteger(answerIndex) && options.length >= 2 ? 'single' : 'unsupported'
@@ -2294,6 +2312,8 @@
         ? 'single'
         : inferredType === 'multiple' && answerIndexes.length >= 2 && options.length >= 2
           ? 'multiple'
+          : inferredType === 'word-bank' && blanks.length >= 2 && options.length >= 2
+            ? 'word-bank'
           : 'unsupported';
       return {
         ...question,
@@ -2303,6 +2323,7 @@
         options,
         answerIndex,
         answerIndexes,
+        blanks,
         paragraphHint: question.paragraphHint == null || question.paragraphHint === ''
           ? null
           : String(question.paragraphHint).trim(),
@@ -2419,26 +2440,44 @@
     const isSupportedQuizQuestion = (question = {}) => (
       question.type === 'single' && Number.isInteger(question.answerIndex)
       || question.type === 'multiple' && Array.isArray(question.answerIndexes) && question.answerIndexes.length >= 2
+      || question.type === 'word-bank' && Array.isArray(question.blanks) && question.blanks.length >= 2 && question.blanks.every(blank => Number.isInteger(blank.answerIndex))
     ) && Array.isArray(question.options) && question.options.length >= 2;
 
     const normalizeQuizAnswer = (value) => {
       if (Number.isInteger(value)) return value;
       if (Array.isArray(value)) return [...new Set(value.filter(Number.isInteger))].sort((left, right) => left - right);
+      if (value && typeof value === 'object') {
+        return Object.fromEntries(Object.entries(value).filter(([blankId, index]) => String(blankId).trim() && Number.isInteger(index)));
+      }
       return typeof value === 'string' && value.trim() ? value : null;
     };
+    const getWordBankAnswers = (answer) => answer && typeof answer === 'object' && !Array.isArray(answer) ? answer : {};
     const isQuizAnswerComplete = (question, answer) => question?.type === 'multiple'
       ? Array.isArray(answer)
         && answer.length === question.answerIndexes.length
         && answer.every(index => Number.isInteger(index) && index >= 0 && index < question.options.length)
+      : question?.type === 'word-bank'
+        ? question.blanks.every(blank => {
+            const answerIndex = getWordBankAnswers(answer)[blank.id];
+            return Number.isInteger(answerIndex) && answerIndex >= 0 && answerIndex < question.options.length;
+          })
       : Number.isInteger(answer);
     const isQuizAnswerCorrect = (question, answer) => question?.type === 'multiple'
       ? Array.isArray(answer)
         && answer.length === question.answerIndexes.length
         && answer.every((index, position) => index === question.answerIndexes[position])
+      : question?.type === 'word-bank'
+        ? question.blanks.every(blank => getWordBankAnswers(answer)[blank.id] === blank.answerIndex)
       : answer === question?.answerIndex;
     const isQuizOptionSelected = (answer, optionIndex) => Array.isArray(answer)
       ? answer.includes(optionIndex)
       : answer === optionIndex;
+    const getQuizLocatorKey = (question, blankId = null) => question?.type === 'word-bank' && blankId
+      ? `${question.id}::${blankId}`
+      : question?.id || null;
+    const getQuizLocatorKeys = (question) => question?.type === 'word-bank'
+      ? question.blanks.map(blank => getQuizLocatorKey(question, blank.id))
+      : [getQuizLocatorKey(question)].filter(Boolean);
 
     const createEmptyQuizProgress = () => ({
       answers: {},
@@ -4083,6 +4122,8 @@
       const [articleStudyMode, setArticleStudyMode] = useState('read');
       const [quizActiveQuestionId, setQuizActiveQuestionId] = useState(null);
       const [quizProgress, setQuizProgress] = useState(createEmptyQuizProgress);
+      const [wordBankSelectedOptionIndex, setWordBankSelectedOptionIndex] = useState(null);
+      const [activeWordBankBlankId, setActiveWordBankBlankId] = useState(null);
       const [highlightMode, setHighlightMode] = useState(false);
       const [underlineMain, setUnderlineMain] = useState(false);
       const [guidedStepIndex, setGuidedStepIndex] = useState(0);
@@ -4512,8 +4553,8 @@
         }
         if (activeAiTask === 'glossary') {
           return aiProvider === 'ollama'
-            ? `Ollama 正在谨慎识别术语、生僻词与专有名词并生成中文释义。已运行 ${elapsed}。`
-            : `AI 正在谨慎识别术语、生僻词与专有名词并生成中文释义。已运行 ${elapsed}。`;
+            ? `Ollama 正在识别专业术语、难词与外来词并生成中文释义。已运行 ${elapsed}。`
+            : `AI 正在识别专业术语、难词与外来词并生成中文释义。已运行 ${elapsed}。`;
         }
         if (activeAiTask === 'simplify') {
           return `AI 正在改写句子。已运行 ${elapsed}。`;
@@ -4808,7 +4849,16 @@
         [currentQuizQuestion?.prompt, currentArticleId]
       );
       const currentQuizQuestionNumber = currentQuizQuestion?.index || 0;
-      const currentQuizLocatorSentenceId = currentQuizQuestion ? quizProgress.locatorSentenceIds?.[currentQuizQuestion.id] || null : null;
+      const currentWordBankAnswers = currentQuizQuestion?.type === 'word-bank'
+        ? getWordBankAnswers(quizProgress.answers?.[currentQuizQuestion.id])
+        : {};
+      const currentWordBankActiveBlank = currentQuizQuestion?.type === 'word-bank'
+        ? currentQuizQuestion.blanks.find(blank => blank.id === activeWordBankBlankId) || currentQuizQuestion.blanks[0] || null
+        : null;
+      const currentQuizLocatorKey = currentQuizQuestion
+        ? getQuizLocatorKey(currentQuizQuestion, currentWordBankActiveBlank?.id)
+        : null;
+      const currentQuizLocatorSentenceId = currentQuizLocatorKey ? quizProgress.locatorSentenceIds?.[currentQuizLocatorKey] || null : null;
       const currentQuizLocatorSentence = currentQuizLocatorSentenceId
         ? currentArticleData.find(sentence => sentence.id === currentQuizLocatorSentenceId) || null
         : null;
@@ -5046,6 +5096,7 @@
 
       useEffect(() => {
         const questionIds = new Set(currentArticleQuestions.map(question => question.id));
+        const locatorKeys = new Set(currentArticleQuestions.flatMap(getQuizLocatorKeys));
         const key = getQuizProgressStorageKey(currentArticleId);
         let nextProgress = createEmptyQuizProgress();
 
@@ -5065,8 +5116,8 @@
             if (questionIds.has(questionId) && normalized !== null && (!Array.isArray(normalized) || normalized.length)) acc[questionId] = normalized;
             return acc;
           }, {}),
-          locatorSentenceIds: Object.entries(nextProgress.locatorSentenceIds || {}).reduce((acc, [questionId, sentenceId]) => {
-            if (questionIds.has(questionId) && currentArticleData.some(sentence => sentence.id === sentenceId)) acc[questionId] = sentenceId;
+          locatorSentenceIds: Object.entries(nextProgress.locatorSentenceIds || {}).reduce((acc, [locatorKey, sentenceId]) => {
+            if (locatorKeys.has(locatorKey) && currentArticleData.some(sentence => sentence.id === sentenceId)) acc[locatorKey] = sentenceId;
             return acc;
           }, {})
         };
@@ -5102,6 +5153,8 @@
       useEffect(() => {
         setProposedAnswerIndex(null);
         setAnswerReportNote('');
+        setWordBankSelectedOptionIndex(null);
+        setActiveWordBankBlankId(currentQuizQuestion?.type === 'word-bank' ? currentQuizQuestion.blanks[0]?.id || null : null);
       }, [currentQuizQuestion?.id]);
 
       useEffect(() => {
@@ -6203,32 +6256,32 @@
       };
 
       const handleSetQuizLocatorSentence = (sentence) => {
-        if (!sentence || !currentQuizQuestion) return;
+        if (!sentence || !currentQuizQuestion || !currentQuizLocatorKey) return;
         setQuizProgress(prev => ({
           ...prev,
           locatorSentenceIds: {
             ...prev.locatorSentenceIds,
-            [currentQuizQuestion.id]: sentence.id
+            [currentQuizLocatorKey]: sentence.id
           }
         }));
         setSelectedSentence(sentence);
         if (navigator.vibrate) {
           try { navigator.vibrate(12); } catch (_) {}
         }
-        setToastMessage(`📍 已将第 ${currentQuizQuestion.index} 题定位到这句话`);
+        setToastMessage(`📍 已将第 ${currentQuizQuestion.index} 题${currentWordBankActiveBlank ? `第 ${currentQuizQuestion.blanks.indexOf(currentWordBankActiveBlank) + 1} 空` : ''}定位到这句话`);
       };
 
       const handleClearQuizLocatorSentence = () => {
-        if (!currentQuizQuestion) return;
+        if (!currentQuizQuestion || !currentQuizLocatorKey) return;
         setQuizProgress(prev => {
-          const { [currentQuizQuestion.id]: _removed, ...locatorSentenceIds } = prev.locatorSentenceIds || {};
+          const { [currentQuizLocatorKey]: _removed, ...locatorSentenceIds } = prev.locatorSentenceIds || {};
           return { ...prev, locatorSentenceIds };
         });
-        setToastMessage(`已清除第 ${currentQuizQuestion.index} 题的定位句`);
+        setToastMessage(`已清除第 ${currentQuizQuestion.index} 题${currentWordBankActiveBlank ? `第 ${currentQuizQuestion.blanks.indexOf(currentWordBankActiveBlank) + 1} 空` : ''}的定位句`);
       };
 
       const handleQuizAnswerSelect = (question, answerIndex) => {
-        if (!question || !isSupportedQuizQuestion(question) || quizProgress.submitted) return;
+        if (!question || question.type === 'word-bank' || !isSupportedQuizQuestion(question) || quizProgress.submitted) return;
         const answeredAt = new Date().toISOString();
         const existingAnswer = quizProgress.answers?.[question.id];
         const wasAlreadyAnswered = isQuizAnswerComplete(question, existingAnswer);
@@ -6252,6 +6305,32 @@
           lastAnsweredAt: answeredAt
         }));
         if (!wasAlreadyAnswered && isQuizAnswerComplete(question, nextAnswer)) recordLearningEvent({ eventType: 'quiz_answered', eventKey: `answer:${currentArticleId}:${question.id}:${localDayKey(answeredAt)}`, articleId: currentArticleId, articleTitle: currentArticleTitle, questionId: question.id, payload: { questionIndex: question.index, questionPrompt: question.prompt, learnerAnswerIndex: nextAnswer } });
+      };
+
+      const handleWordBankAnswerSelect = (question, blankId, answerIndex) => {
+        if (!question || question.type !== 'word-bank' || !question.blanks.some(blank => blank.id === blankId) || !Number.isInteger(answerIndex) || quizProgress.submitted) return;
+        const answeredAt = new Date().toISOString();
+        const existingAnswer = getWordBankAnswers(quizProgress.answers?.[question.id]);
+        const wasAlreadyAnswered = isQuizAnswerComplete(question, existingAnswer);
+        const nextAnswer = { ...existingAnswer, [blankId]: answerIndex };
+        setQuizProgress(prev => ({
+          ...prev,
+          answers: { ...prev.answers, [question.id]: nextAnswer },
+          lastAnsweredAt: answeredAt
+        }));
+        const nextBlank = question.blanks.find(blank => !Number.isInteger(nextAnswer[blank.id]));
+        setActiveWordBankBlankId(nextBlank?.id || blankId);
+        setWordBankSelectedOptionIndex(null);
+        if (!wasAlreadyAnswered && isQuizAnswerComplete(question, nextAnswer)) recordLearningEvent({ eventType: 'quiz_answered', eventKey: `answer:${currentArticleId}:${question.id}:${localDayKey(answeredAt)}`, articleId: currentArticleId, articleTitle: currentArticleTitle, questionId: question.id, payload: { questionIndex: question.index, questionPrompt: question.prompt, learnerAnswerIndex: nextAnswer } });
+      };
+
+      const handleClearWordBankBlank = (question, blankId) => {
+        if (!question || question.type !== 'word-bank' || quizProgress.submitted) return;
+        setQuizProgress(prev => {
+          const { [blankId]: _removed, ...answers } = getWordBankAnswers(prev.answers?.[question.id]);
+          return { ...prev, answers: { ...prev.answers, [question.id]: answers } };
+        });
+        setActiveWordBankBlankId(blankId);
       };
 
       const handleQuizTextAnswerChange = (question, value) => {
@@ -6495,18 +6574,10 @@
         setAiLastProgressAt(Date.now());
         try {
           const articleText = joinArticleText(currentArticleData);
-          const sysPrompt = `你是英语阅读术语、生僻词与专有名词助手。请从用户提供的英文文章中谨慎识别需要中文释义的词条，并严格输出 JSON。
-要求：
-1. 只有满足以下至少一项才可收录：
-   - 生僻词：对读者确有学习价值的低频词；不能只因词长、显得正式或属于普通学术词而收录。
-   - 语境特殊义：在本文中有不同于常见字面义的特定含义，包括真正的专业术语、学科概念和必要缩写。
-   - 专有名词：人名、地名、组织、作品名、物种名，以及其他必须识别的特定名称。
-2. 不收录普通高频词、常见学术词、按字面就能理解的普通搭配，或仅因出现在本文而被误判为“语境短语”的普通表达。
-3. 宁缺毋滥：可以返回空数组；不得为了凑数量补充词条。
-4. term 必须是文中实际出现的英文写法；若有常见别名可放 aliases。
-5. translation 只给出最符合本文语境的简洁中文释义，不要机械直译、泛化释义或百科式扩写；note 仅在语境特殊义或名称背景确有必要时填写。
-6. kind 只能是：rare_word / context_term / proper_noun / acronym。
-7. 按重要性排序；只输出 JSON，不要 Markdown 代码块，不要解释。
+          const sysPrompt = `你是英语阅读术语、难词与外来词助手。请从用户提供的英文文章中选择需要中文释义的词条，并严格输出 JSON。
+${buildGlossarySelectionRules()}
+
+term 必须是文中实际出现的英文写法；若有常见别名可放 aliases。只输出 JSON，不要 Markdown 代码块，不要解释。
 
 输出格式：
 {
@@ -6531,11 +6602,11 @@
           const glossary = normalizeGlossary(parsed.glossary || []);
           if (glossary.length === 0) {
             persistGlossaryToCurrentArticle([]);
-            setToastMessage('这篇文章没有需要标注的术语、生僻词或专有名词。');
+            setToastMessage('这篇文章没有需要标注的术语、难词或外来词。');
             return;
           }
           persistGlossaryToCurrentArticle(glossary);
-          setToastMessage(`✅ 已识别 ${glossary.length} 个术语、生僻词或专有名词`);
+          setToastMessage(`✅ 已识别 ${glossary.length} 个术语、难词或外来词`);
         } catch (error) {
           console.error(error);
           setToastMessage(`❌ 术语识别失败：${error.message || '请稍后重试'}`);
@@ -7032,12 +7103,7 @@
    - 语气要温暖、有情绪价值：告诉孩子“这一步你能学会”“慢一点没关系”“我们一起拆”。
    - 避免考研、托福老师式长篇术语堆叠；不要写“详见”“综上”“本句考查”。
    - 给孩子看的话里不要直接说“动词修饰语、名词修饰语、状语、定语”等术语；要说成“动作旁边的小贴纸”“名词旁边的小标签”“补时间/地点的小卡片”“句子里的小房间”等。
-6. **【术语、生僻词与专有名词 glossary】**：在文章级额外输出 glossary 数组，但必须宁缺毋滥。只有满足以下至少一项的词条才能收录：
-   - 生僻词：对目标读者确有学习价值的低频词；不能只因词长、显得正式或属于普通学术词而收录。
-   - 语境特殊义：在本文中有不同于常见字面义的特定含义，包括真正的专业术语、学科概念和必要缩写。
-   - 专有名词：人名、地名、组织、作品名、物种名，以及其他必须识别的特定名称。
-   - 普通高频词、常见学术词、按字面就能理解的普通搭配，以及被误判为“语境短语”的普通表达，一律不要收录；可以输出空数组，不得凑数。
-   - term 必须是文中实际出现的英文写法；translation 只能给最符合本文语境的简洁中文释义，不能机械直译或百科式扩写；note 仅在语境特殊义或名称背景确有必要时填写；kind 为 rare_word / context_term / proper_noun / acronym。
+6. ${buildGlossarySelectionRules()}
 
 输出必须符合以下 JSON 格式：
 {
@@ -7045,7 +7111,7 @@
     {
       "term": "英文词条",
       "translation": "中文翻译",
-      "kind": "term",
+      "kind": "rare_word | context_term | proper_noun | acronym",
       "note": "本文语境说明",
       "aliases": ["可选别名"]
     }
@@ -7095,7 +7161,7 @@
           
           if (parsedData.articleData && parsedData.articleData.length > 0) {
             const normalizedData = normalizeArticleData(parsedData.articleData);
-            const glossary = collectArticleGlossary({ glossary: parsedData.glossary }, normalizedData);
+            const glossary = normalizeGlossary(collectArticleGlossary({ glossary: parsedData.glossary }, normalizedData));
             setCurrentArticleId(null);
             setCurrentArticleTitle('未保存文章');
             setCurrentArticleQuestions([]);
@@ -7106,7 +7172,7 @@
             setViewMode('reading');
             setInputText("");
             setToastMessage(glossary.length > 0
-              ? `✅ 全新文章已成功解析！并识别 ${glossary.length} 个术语/专有名词`
+              ? `✅ 全新文章已成功解析！并识别 ${glossary.length} 个术语、难词或外来词`
               : "✅ 全新文章已成功解析！");
           } else {
             throw new Error("解析结果为空");
@@ -8018,7 +8084,7 @@
                     <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 各类代词 (人称/物主/指示/不定) 溯源</li>
                     <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 被动语态与非谓语结构解析</li>
                     <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 逐句词法/句法高亮拆解</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 专业术语 / 小说专有名词识别与中文翻译</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 专业术语 / 难词 / 外来词识别与中文翻译</li>
                     <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> 双击单词，或选中词组后按 ← / →，先看文中释义再加入生词本</li>
                   </ul>
                 </div>
@@ -8045,12 +8111,12 @@
                           </p>
                         </div>
                         <div className="flex shrink-0 items-center gap-1.5">
-                          <HoverTip text={currentArticleGlossary.length ? '更新文中术语' : '识别文中术语'}>
+                          <HoverTip text={currentArticleGlossary.length ? '更新术语与难词' : '识别术语与难词'}>
                             <button
                               onClick={handleExtractGlossary}
                               disabled={isExtractingGlossary || isParsingText || !currentArticleData.length}
                               className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-amber-300/30 bg-amber-500/20 text-amber-100 transition-colors hover:bg-amber-500/40 disabled:opacity-60"
-                              aria-label={currentArticleGlossary.length ? '更新文中术语' : '识别文中术语'}
+                              aria-label={currentArticleGlossary.length ? '更新术语与难词' : '识别术语与难词'}
                             >
                               {isExtractingGlossary ? <Loader2 className="w-4 h-4 animate-spin" /> : <Tag className="w-4 h-4" />}
                             </button>
@@ -9586,6 +9652,11 @@
                                           请选择 {currentQuizQuestion.answerIndexes.length} 项
                                         </span>
                                       )}
+                                      {currentQuizQuestion.type === 'word-bank' && (
+                                        <span className="rounded-full bg-teal-100 px-3 py-1 text-xs font-bold text-teal-700">
+                                          词库填空 · {currentQuizQuestion.blanks.length} 空
+                                        </span>
+                                      )}
                                       </div>
                                       {currentQuizIdeaTree ? (
                                         <QuizIdeaTree tree={currentQuizIdeaTree} />
@@ -9597,7 +9668,11 @@
                                       <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
                                         <div className="flex flex-wrap items-center justify-between gap-3">
                                           <p className="font-bold">
-                                            {currentQuizLocatorSentence
+                                            {currentQuizQuestion.type === 'word-bank'
+                                              ? currentQuizLocatorSentence
+                                                ? <>📍 第 {currentQuizQuestion.blanks.indexOf(currentWordBankActiveBlank) + 1} 空定位句：{currentQuizLocatorSentence.text}</>
+                                                : <>📍 当前为第 {currentQuizQuestion.blanks.indexOf(currentWordBankActiveBlank) + 1} 空设置定位句：在左侧原文中选中一句后长按。</>
+                                              : currentQuizLocatorSentence
                                               ? <>📍 定位句：{currentQuizLocatorSentence.text}</>
                                               : '📍 在左侧原文中选中一句，再用鼠标或 iPad 长按，即可设为本题定位句。'}
                                           </p>
@@ -9617,6 +9692,98 @@
                                   </div>
 
                                   {currentQuizIsSupported ? (
+                                    currentQuizQuestion.type === 'word-bank' ? (
+                                      <div className="mt-6 space-y-5">
+                                        <div className="rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm text-teal-950">
+                                          <p className="font-black">把词卡拖到对应空格</p>
+                                          <p className="mt-1 font-medium">iPad 上也可以先点一个词卡，再点对应空格。点击某个空格后，再长按左侧原文，即可为该空单独保存定位句。</p>
+                                        </div>
+                                        <div className="sticky top-3 z-20 rounded-2xl border border-teal-200 bg-white/95 p-3 shadow-lg shadow-teal-950/10 backdrop-blur" aria-label="词卡区">
+                                          <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+                                            <p className="text-xs font-black uppercase tracking-[0.16em] text-teal-800">词卡区</p>
+                                            <p className="text-xs font-semibold text-slate-500">拖到空格，或点词卡再点空格</p>
+                                          </div>
+                                          <div className="mt-2 flex flex-wrap gap-2">
+                                            {currentQuizQuestion.options.map((option, optionIndex) => {
+                                              const isSelected = wordBankSelectedOptionIndex === optionIndex;
+                                              return (
+                                                <button
+                                                  key={`${currentQuizQuestion.id}-word-bank-${optionIndex}`}
+                                                  type="button"
+                                                  draggable={!quizProgress.submitted}
+                                                  disabled={quizProgress.submitted}
+                                                  onDragStart={event => { event.dataTransfer.setData('text/plain', String(optionIndex)); event.dataTransfer.effectAllowed = 'move'; setWordBankSelectedOptionIndex(optionIndex); }}
+                                                  onClick={() => setWordBankSelectedOptionIndex(isSelected ? null : optionIndex)}
+                                                  className={`rounded-xl border px-3 py-2 text-sm font-black shadow-sm transition-all ${
+                                                    isSelected ? 'border-teal-600 bg-teal-600 text-white ring-2 ring-teal-200'
+                                                      : 'cursor-grab border-slate-300 bg-white text-slate-700 hover:border-teal-400 active:cursor-grabbing'
+                                                  } disabled:cursor-default disabled:opacity-70`}
+                                                >
+                                                  {option}
+                                                </button>
+                                              );
+                                            })}
+                                          </div>
+                                        </div>
+                                        <div className="grid gap-3">
+                                          {currentQuizQuestion.blanks.map((blank, blankIndex) => {
+                                            const selectedAnswerIndex = currentWordBankAnswers[blank.id];
+                                            const hasAnswer = Number.isInteger(selectedAnswerIndex);
+                                            const isActiveBlank = currentWordBankActiveBlank?.id === blank.id;
+                                            const locatorSentenceId = quizProgress.locatorSentenceIds?.[getQuizLocatorKey(currentQuizQuestion, blank.id)] || null;
+                                            const locatorSentence = locatorSentenceId ? currentArticleData.find(sentence => sentence.id === locatorSentenceId) || null : null;
+                                            const isCorrect = quizProgress.submitted && selectedAnswerIndex === blank.answerIndex;
+                                            const isWrong = quizProgress.submitted && hasAnswer && !isCorrect;
+                                            return (
+                                              <div
+                                                key={blank.id}
+                                                role="button"
+                                                tabIndex="0"
+                                                onClick={() => {
+                                                  setActiveWordBankBlankId(blank.id);
+                                                  if (Number.isInteger(wordBankSelectedOptionIndex)) handleWordBankAnswerSelect(currentQuizQuestion, blank.id, wordBankSelectedOptionIndex);
+                                                }}
+                                                onKeyDown={(event) => {
+                                                  if (event.key === 'Enter' || event.key === ' ') {
+                                                    event.preventDefault();
+                                                    setActiveWordBankBlankId(blank.id);
+                                                    if (Number.isInteger(wordBankSelectedOptionIndex)) handleWordBankAnswerSelect(currentQuizQuestion, blank.id, wordBankSelectedOptionIndex);
+                                                  }
+                                                }}
+                                                onDragOver={event => { if (!quizProgress.submitted) event.preventDefault(); }}
+                                                onDrop={event => {
+                                                  event.preventDefault();
+                                                  const answerIndex = Number(event.dataTransfer.getData('text/plain'));
+                                                  if (Number.isInteger(answerIndex)) handleWordBankAnswerSelect(currentQuizQuestion, blank.id, answerIndex);
+                                                }}
+                                                className={`rounded-3xl border p-4 transition-all ${
+                                                  isCorrect ? 'border-emerald-300 bg-emerald-50'
+                                                    : isWrong ? 'border-rose-300 bg-rose-50'
+                                                    : isActiveBlank ? 'border-teal-400 bg-teal-50 shadow-sm ring-2 ring-teal-100'
+                                                    : 'border-slate-200 bg-white hover:border-teal-200'
+                                                } ${quizProgress.submitted ? 'cursor-default' : 'cursor-pointer'}`}
+                                              >
+                                                <div className="flex items-start justify-between gap-3">
+                                                  <div className="min-w-0 flex-1">
+                                                    <p className="text-xs font-black uppercase tracking-[0.14em] text-teal-700">空格 {blankIndex + 1}{isActiveBlank ? ' · 当前定位' : ''}</p>
+                                                    <p className="mt-2 text-base font-semibold leading-7 text-slate-800">{blank.prompt}</p>
+                                                  </div>
+                                                  {hasAnswer && !quizProgress.submitted && (
+                                                    <button type="button" onClick={event => { event.stopPropagation(); handleClearWordBankBlank(currentQuizQuestion, blank.id); }} className="shrink-0 rounded-lg px-2 py-1 text-xs font-black text-slate-400 hover:bg-white hover:text-rose-600" aria-label={`清除第 ${blankIndex + 1} 空`}>×</button>
+                                                  )}
+                                                </div>
+                                                <div className={`mt-3 rounded-2xl border border-dashed px-4 py-3 text-sm font-black ${hasAnswer ? 'border-teal-300 bg-white text-teal-800' : 'border-slate-300 bg-slate-50 text-slate-400'}`}>
+                                                  {hasAnswer ? currentQuizQuestion.options[selectedAnswerIndex] : '将词卡拖到这里，或先点选词卡'}
+                                                </div>
+                                                <p className={`mt-3 text-xs leading-5 ${locatorSentence ? 'font-semibold text-amber-800' : 'text-slate-500'}`}>
+                                                  {locatorSentence ? `📍 定位句：${locatorSentence.text}` : isActiveBlank ? '📍 当前空：长按左侧原文可设置定位句' : '点击此空后可单独设置定位句'}
+                                                </p>
+                                              </div>
+                                            );
+                                          })}
+                                        </div>
+                                      </div>
+                                    ) : (
                                     <div className="mt-6 space-y-3">
                                       {currentQuizQuestion.options.map((option, optionIndex) => {
                                         const isSelected = isQuizOptionSelected(currentQuizAnswer, optionIndex);
@@ -9667,6 +9834,7 @@
                                         );
                                       })}
                                     </div>
+                                    )
                                   ) : (
                                     <div className="mt-6 rounded-3xl border border-amber-200 bg-amber-50 p-5">
                                       {currentQuizQuestion.kind === 'correction' ? (

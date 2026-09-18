@@ -34,12 +34,24 @@
       "answerIndex": null,
       "type": "unsupported",
       "rawAnswer": "Sediments that hold water…"
+    },
+    {
+      "id": "q8",
+      "prompt": "Complete the chart using the provided words.",
+      "options": ["tomb", "study", "gold", "digging"],
+      "blanks": [
+        { "id": "blank-1", "prompt": "WHAT: The 1. ( ) was found.", "answerIndex": 0 },
+        { "id": "blank-2", "prompt": "WHY: Experts 2. ( ) these objects.", "answerIndex": 1 }
+      ],
+      "type": "word-bank"
     }
   ]
 }
 ```
 
 - `type: "single"` — classic 4-choice; auto-gradable.
+- `type: "multiple"` — select every correct option; auto-gradable.
+- `type: "word-bank"` — one multi-blank activity. Learners drag a word to a blank (or tap a word, then a blank on iPad); every blank has its own answer key and is graded together as one question.
 - `type: "unsupported"` — insert-text / multi-select etc.; shown in nav but excluded from auto score.
 
 ## Progress storage
@@ -48,14 +60,14 @@
 
 ```json
 {
-  "answers": { "q1": 2, "q3": 0 },
-  "locatorSentenceIds": { "q1": "sentence-4" },
+  "answers": { "q1": 2, "q3": 0, "q8": { "blank-1": 0, "blank-2": 1 } },
+  "locatorSentenceIds": { "q1": "sentence-4", "q8::blank-1": "sentence-6", "q8::blank-2": "sentence-8" },
   "submitted": false,
   "submittedAt": null
 }
 ```
 
-`locatorSentenceIds` is an optional, per-question mapping. In quiz mode, learners can long-press a passage sentence with a mouse or iPad to save it as the active question's locator sentence. It is retained in the same local and cloud-synced progress record.
+`locatorSentenceIds` is an optional mapping. In quiz mode, learners can long-press a passage sentence with a mouse or iPad to save it as the active question's locator sentence. For `word-bank`, the key includes the blank ID (`q8::blank-1`), so each blank retains its own locator sentence in the same local and cloud-synced progress record.
 
 ## Answer source
 

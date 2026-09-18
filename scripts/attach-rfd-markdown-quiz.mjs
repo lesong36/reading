@@ -89,15 +89,20 @@ export const parseBook = (stem, { baseDir = cwd } = {}) => {
         const blankPrompt = clean(
           (firstBlankLineIndex >= 0 ? beforeOptions.slice(0, firstBlankLineIndex) : beforeOptions).join('\n')
         ).replace(/\bWords:\s*$/i, '').trim();
-        return answerIndexes.map((answerIndex, blankOffset) => ({
-          id: `q${index}-blank-${blankOffset + 1}`,
-          index: Number(index) + (blankOffset + 1) / 100,
-          prompt: `${blankPrompt}\n\n${blankLines[blankOffset]}\n\n请完成第 ${blankOffset + 1} 空。`,
+        return {
+          id: `q${index}`,
+          index: Number(index),
+          prompt: blankPrompt,
           options,
-          answerIndex,
-          type: 'single',
+          blanks: answerIndexes.map((answerIndex, blankOffset) => ({
+            id: `blank-${blankOffset + 1}`,
+            prompt: blankLines[blankOffset],
+            answerIndex
+          })),
+          type: 'word-bank',
+          rawAnswer: answerKey.toUpperCase(),
           answerSource: ANSWER_KEY_REPAIRS[stem]?.[Number(unit)] ? 'audited-rfd-key-repair' : 'audited-rfd-markdown'
-        }));
+        };
       }
       return {
         id: `q${index}`,
