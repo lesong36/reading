@@ -58,6 +58,16 @@ test('keeps a visible target prompt for every RFD4–6 word-bank blank', () => {
   }
 });
 
+test('shows labels for informational main-idea-tree details without making them blanks', () => {
+  for (const entrypoint of ['index.html', '英语长难句交互阅读解析.html']) {
+    const source = fs.readFileSync(path.join(process.cwd(), entrypoint), 'utf8');
+    const ideaNodeRenderer = source.slice(source.indexOf('const renderWordBankIdeaNode = (node) => {'));
+    const informationalNode = ideaNodeRenderer.slice(0, ideaNodeRenderer.indexOf('const renderWordBankInlineBlank'));
+    assert.match(informationalNode, /<p className="text-xs font-black uppercase tracking-\[0\.14em\] text-rose-700">\{node\.label\}<\/p>\s*<p className="mt-2">\{entry\.text\}<\/p>/);
+    assert.doesNotMatch(informationalNode, /renderWordBankBlank\([^\n]*node\.label[^\n]*\)\s*;\s*return \(<\s*div[^>]*>\s*<p[^>]*>\{node\.label\}<\/p>\s*<div[^>]*role="button"/);
+  }
+});
+
 test('refreshes cached RFD quizzes after their grading model changes', () => {
   for (const entrypoint of ['index.html', '英语长难句交互阅读解析.html']) {
     const source = fs.readFileSync(path.join(process.cwd(), entrypoint), 'utf8');

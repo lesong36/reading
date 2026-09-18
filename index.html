@@ -6559,7 +6559,12 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           );
           const blankIndex = currentQuizQuestion.blanks.findIndex(blank => blank.id === blankIds[0]);
           if (blankIndex >= 0) return <div key={`${node.label}-${entryIndex}`}>{renderWordBankBlank(currentQuizQuestion.blanks[blankIndex], blankIndex, showLabel ? node.label : '')}</div>;
-          return <div key={`${node.label}-${entryIndex}`} className="rounded-xl bg-rose-50/60 px-3 py-2 text-sm font-semibold leading-6 text-slate-700">{entry.text}</div>;
+          return (
+            <div key={`${node.label}-${entryIndex}`} className="rounded-xl bg-rose-50/60 px-3 py-2 text-sm font-semibold leading-6 text-slate-700">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-rose-700">{node.label}</p>
+              <p className="mt-2">{entry.text}</p>
+            </div>
+          );
         };
         if (entries.length > 1) {
           return (
