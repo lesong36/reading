@@ -2162,9 +2162,9 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     // seed version makes existing clients reload the canonical bundle.
     // library. A marker alone is not proof that all curriculum bundles
     // reached the device.
-    // v39 refreshes corrected RFD4–6 word-bank chart structures and labels.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v39';
-    const BUNDLED_LIBRARY_SEED_VERSION = '39';
+    // v40 refreshes RFD5 sequencing and KWL charts with their visual layouts.
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v40';
+    const BUNDLED_LIBRARY_SEED_VERSION = '40';
     const EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT = 324;
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
@@ -2317,6 +2317,31 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       return groups.length >= 2 ? { groups } : null;
     };
 
+    const normalizeQuizTimeline = (timeline = {}) => {
+      const events = Array.isArray(timeline.events) ? timeline.events
+        .map(event => ({
+          text: String(event?.text || '').trim(),
+          blankIds: Array.isArray(event?.blankIds) ? event.blankIds.map(blankId => String(blankId)).filter(Boolean) : []
+        }))
+        .filter(event => event.text)
+        : [];
+      return events.length >= 2 ? { events } : null;
+    };
+
+    const normalizeQuizKnowledgeChart = (knowledgeChart = {}) => {
+      const groups = Array.isArray(knowledgeChart.groups) ? knowledgeChart.groups
+        .map(group => ({
+          label: String(group?.label || '').trim(),
+          items: (Array.isArray(group?.items) ? group.items : []).map(item => ({
+            text: String(item?.text || '').trim(),
+            blankIds: Array.isArray(item?.blankIds) ? item.blankIds.map(blankId => String(blankId)).filter(Boolean) : []
+          })).filter(item => item.text)
+        }))
+        .filter(group => group.label && group.items.length > 0)
+        : [];
+      return groups.length === 3 ? { groups } : null;
+    };
+
     const normalizeQuizQuestion = (question = {}, fallbackIndex = 0) => {
       const options = Array.isArray(question.options)
         ? question.options
@@ -2340,6 +2365,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         : [];
       const ideaTree = normalizeQuizIdeaTree(question.ideaTree);
       const compareChart = normalizeQuizCompareChart(question.compareChart);
+      const timeline = normalizeQuizTimeline(question.timeline);
+      const knowledgeChart = normalizeQuizKnowledgeChart(question.knowledgeChart);
       const explicitType = String(question.type || '').trim().toLowerCase();
       const inferredType = explicitType || (
         Number.isInteger(answerIndex) && options.length >= 2 ? 'single' : 'unsupported'
@@ -2359,6 +2386,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         options,
         ideaTree,
         compareChart,
+        timeline,
+        knowledgeChart,
         answerIndex,
         answerIndexes,
         blanks,
@@ -4891,6 +4920,12 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         : null;
       const currentWordBankCompareChart = currentQuizQuestion?.type === 'word-bank'
         ? currentQuizQuestion.compareChart
+        : null;
+      const currentWordBankTimeline = currentQuizQuestion?.type === 'word-bank'
+        ? currentQuizQuestion.timeline
+        : null;
+      const currentWordBankKnowledgeChart = currentQuizQuestion?.type === 'word-bank'
+        ? currentQuizQuestion.knowledgeChart
         : null;
       const currentQuizQuestionNumber = currentQuizQuestion?.index || 0;
       const currentWordBankAnswers = currentQuizQuestion?.type === 'word-bank'
@@ -9897,7 +9932,42 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                           </div>
                                         </div>
                                         <div className="grid gap-3">
-                                          {currentWordBankCompareChart ? (() => {
+                                          {currentWordBankTimeline ? (() => {
+                                            const timelineBlankIds = new Set(currentWordBankTimeline.events.flatMap(event => event.blankIds));
+                                            const unplacedBlanks = currentQuizQuestion.blanks.filter(blank => !timelineBlankIds.has(blank.id));
+                                            return (
+                                              <div className="rounded-[30px] border-2 border-cyan-200 bg-cyan-50/50 p-4 shadow-sm">
+                                                <div className="flex items-center gap-3 text-cyan-800">
+                                                  <span className="grid h-8 w-8 place-items-center rounded-full bg-cyan-600 text-sm font-black text-white">→</span>
+                                                  <div><p className="text-xs font-black uppercase tracking-[0.18em]">时间轴排序</p><p className="text-xs font-semibold text-cyan-700">按事件发生的先后完成图表</p></div>
+                                                </div>
+                                                <div className={`relative mt-5 grid gap-4 md:gap-5 md:pt-8 ${currentWordBankTimeline.events.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-4'}`}>
+                                                  <div className="pointer-events-none absolute left-[8%] right-[8%] top-[2.7rem] hidden h-1 bg-cyan-400 md:block" aria-hidden="true"><span className="absolute -right-1 -top-1.5 h-0 w-0 border-y-[8px] border-l-[12px] border-y-transparent border-l-cyan-500"></span></div>
+                                                  {currentWordBankTimeline.events.map((event, eventIndex) => (
+                                                    <section key={`${event.text}-${eventIndex}`} className={`relative rounded-2xl border-2 border-cyan-200 bg-white p-3 shadow-sm ${eventIndex % 2 === 1 ? 'md:translate-y-8' : ''}`}>
+                                                      <span className="relative z-10 mb-2 grid h-7 w-7 place-items-center rounded-full bg-cyan-600 text-xs font-black text-white md:absolute md:-top-12 md:left-1/2 md:-translate-x-1/2">{eventIndex + 1}</span>
+                                                      {renderWordBankCompareItem(event, eventIndex)}
+                                                    </section>
+                                                  ))}
+                                                </div>
+                                                {unplacedBlanks.length > 0 && <div className="mt-4 grid gap-3">{unplacedBlanks.map(blank => renderWordBankBlank(blank, currentQuizQuestion.blanks.indexOf(blank)))}</div>}
+                                              </div>
+                                            );
+                                          })() : currentWordBankKnowledgeChart ? (() => {
+                                            const knowledgeBlankIds = new Set(currentWordBankKnowledgeChart.groups.flatMap(group => group.items.flatMap(item => item.blankIds)));
+                                            const unplacedBlanks = currentQuizQuestion.blanks.filter(blank => !knowledgeBlankIds.has(blank.id));
+                                            return (
+                                              <div className="grid gap-4 lg:grid-cols-3">
+                                                {currentWordBankKnowledgeChart.groups.map((group, groupIndex) => (
+                                                  <section key={group.label} className="overflow-hidden rounded-[26px] border-2 border-orange-200 bg-orange-50/50 shadow-sm">
+                                                    <h4 className="bg-orange-400 px-4 py-3 text-center text-sm font-black text-white">{group.label}</h4>
+                                                    <div className="space-y-3 p-3">{group.items.map(renderWordBankCompareItem)}</div>
+                                                  </section>
+                                                ))}
+                                                {unplacedBlanks.length > 0 && <div className="grid gap-3 lg:col-span-3">{unplacedBlanks.map(blank => renderWordBankBlank(blank, currentQuizQuestion.blanks.indexOf(blank)))}</div>}
+                                              </div>
+                                            );
+                                          })() : currentWordBankCompareChart ? (() => {
                                             const compareBlankIds = new Set(currentWordBankCompareChart.groups.flatMap(group => group.items.flatMap(item => item.blankIds)));
                                             const unplacedBlanks = currentQuizQuestion.blanks.filter(blank => !compareBlankIds.has(blank.id));
                                             const sharedGroup = currentWordBankCompareChart.groups.find(group => /^both$/i.test(group.label));

@@ -18,6 +18,18 @@ const ANSWER_KEY_REPAIRS = {
   }
 };
 
+// The source chart artwork conveys these layouts but not always with text
+// headings. Keep the interpretation beside the audited Markdown so new
+// generated libraries retain the intended reading skill, not flat blanks.
+const CHART_LAYOUT_OVERRIDES = {
+  rfd5: {
+    4: { 8: 'timeline' },
+    11: { 8: 'timeline' },
+    12: { 8: 'timeline' },
+    16: { 8: 'knowledge-chart' }
+  }
+};
+
 const parseArgs = (argv) => {
   const args = { baseLibrary: path.join(root, 'reader-articles.import.json') };
   for (let index = 0; index < argv.length; index += 1) {
@@ -118,6 +130,41 @@ const parseCompareChart = (lines, blanks) => {
   return groups.length >= 2 && hasSharedGroup && placedBlankIds.size > 0 ? { groups } : null;
 };
 
+const blankIdsForLine = (blankIdsByPrompt, line) => blankIdsByPrompt.get(normalizeTreeText(line)) || [];
+
+const parseTimeline = (lines, blanks) => {
+  const blankIdsByPrompt = new Map();
+  blanks.forEach(blank => {
+    const key = normalizeTreeText(blank.prompt);
+    blankIdsByPrompt.set(key, [...(blankIdsByPrompt.get(key) || []), blank.id]);
+  });
+  const events = lines
+    .map(clean)
+    .filter(line => /^[-•]\s+/.test(line) || blankIdsByPrompt.has(normalizeTreeText(line)))
+    .map(line => ({ text: line.replace(/^(?:[-•]\s*)/, ''), blankIds: blankIdsForLine(blankIdsByPrompt, line) }));
+  const placedBlankIds = new Set(events.flatMap(event => event.blankIds));
+  return events.length >= 2 && placedBlankIds.size > 0 ? { events } : null;
+};
+
+const parseKnowledgeChart = (lines, blanks) => {
+  const blankIdsByPrompt = new Map();
+  blanks.forEach(blank => {
+    const key = normalizeTreeText(blank.prompt);
+    blankIdsByPrompt.set(key, [...(blankIdsByPrompt.get(key) || []), blank.id]);
+  });
+  const groups = [];
+  lines.forEach(rawLine => {
+    const line = clean(rawLine);
+    const match = line.match(/^(What I (?:Know|Want to Know|Learned)):\s*(.+)$/i);
+    if (!match) return;
+    const label = clean(match[1]);
+    const text = clean(match[2]);
+    groups.push({ label, items: [{ text, blankIds: blankIdsForLine(blankIdsByPrompt, line) }] });
+  });
+  const placedBlankIds = new Set(groups.flatMap(group => group.items.flatMap(item => item.blankIds)));
+  return groups.length === 3 && placedBlankIds.size > 0 ? { groups } : null;
+};
+
 export const parseBook = (stem, { baseDir = cwd } = {}) => {
   const text = fs.readFileSync(path.join(baseDir, 'docs', `${stem}.md`), 'utf8');
   return [...text.matchAll(/^##\s+(?:Unit\s+|U)(\d+)\s+(.+?)\n\n([\s\S]*?)(?=^##\s+(?:Unit\s+|U)\d+\s+|(?![\s\S]))/gm)].map(([, unit, title, body]) => {
@@ -188,6 +235,7 @@ export const parseBook = (stem, { baseDir = cwd } = {}) => {
           prompt: blankLines[blankOffset],
           answerIndex
         }));
+        const chartLayout = CHART_LAYOUT_OVERRIDES[stem]?.[Number(unit)]?.[index] || null;
         return {
           id: `q${index}`,
           index,
@@ -196,6 +244,8 @@ export const parseBook = (stem, { baseDir = cwd } = {}) => {
           blanks,
           ideaTree: parseIdeaTree(allPromptLines, blanks),
           compareChart: parseCompareChart(allPromptLines, blanks),
+          timeline: chartLayout === 'timeline' ? parseTimeline(allPromptLines, blanks) : null,
+          knowledgeChart: chartLayout === 'knowledge-chart' ? parseKnowledgeChart(allPromptLines, blanks) : null,
           type: 'word-bank',
           rawAnswer: answerKey.toUpperCase(),
           answerSource: ANSWER_KEY_REPAIRS[stem]?.[Number(unit)] ? 'audited-rfd-key-repair' : 'audited-rfd-markdown'

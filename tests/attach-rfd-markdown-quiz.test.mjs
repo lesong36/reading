@@ -76,8 +76,8 @@ test('keeps a visible target prompt for every RFD4–6 word-bank blank', () => {
 test('refreshes cached RFD quizzes after their grading model changes', () => {
   for (const entrypoint of ['index.html', '英语长难句交互阅读解析.html']) {
     const source = fs.readFileSync(path.join(process.cwd(), entrypoint), 'utf8');
-    assert.match(source, /BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v39'/);
-    assert.match(source, /BUNDLED_LIBRARY_SEED_VERSION = '39'/);
+    assert.match(source, /BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v40'/);
+    assert.match(source, /BUNDLED_LIBRARY_SEED_VERSION = '40'/);
   }
 });
 
@@ -124,4 +124,22 @@ test('keeps RFD5 comparison charts grouped with every answerable blank', () => {
   assert.deepEqual(unit10.compareChart.groups[0].items[0].blankIds, ['blank-1', 'blank-2']);
   assert.deepEqual(unit10.compareChart.groups[1].items, [{ text: 'Play beats.', blankIds: [] }]);
   assert.deepEqual(unit10.compareChart.groups[2].items[0].blankIds, ['blank-3']);
+});
+
+test('preserves RFD5 sequencing and prior-knowledge chart layouts', () => {
+  const rfd5 = parseBook('rfd5');
+  for (const unitNumber of [4, 11, 12]) {
+    const question = rfd5.find(({ unit }) => unit === unitNumber).questions.at(-1);
+    assert.ok(question.timeline, `Unit ${unitNumber} should retain its timeline`);
+    const placedBlankIds = question.timeline.events.flatMap(event => event.blankIds);
+    assert.deepEqual(placedBlankIds.sort(), question.blanks.map(blank => blank.id).sort());
+  }
+
+  const unit4 = rfd5.find(({ unit }) => unit === 4).questions.at(-1);
+  assert.match(unit4.timeline.events[0].text, /first created to read enermy messages/i);
+  assert.match(unit4.timeline.events.at(-1).text, /play ______ and Go/i);
+
+  const unit16 = rfd5.find(({ unit }) => unit === 16).questions.at(-1);
+  assert.deepEqual(unit16.knowledgeChart.groups.map(group => group.label), ['What I Know', 'What I Want to Know', 'What I Learned']);
+  assert.deepEqual(unit16.knowledgeChart.groups[2].items[0].blankIds, ['blank-2', 'blank-3']);
 });
