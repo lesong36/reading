@@ -61,8 +61,8 @@ test('keeps a visible target prompt for every RFD4–6 word-bank blank', () => {
 test('refreshes cached RFD quizzes after their grading model changes', () => {
   for (const entrypoint of ['index.html', '英语长难句交互阅读解析.html']) {
     const source = fs.readFileSync(path.join(process.cwd(), entrypoint), 'utf8');
-    assert.match(source, /BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v43'/);
-    assert.match(source, /BUNDLED_LIBRARY_SEED_VERSION = '43'/);
+    assert.match(source, /BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v44'/);
+    assert.match(source, /BUNDLED_LIBRARY_SEED_VERSION = '44'/);
     assert.match(source, /hasRequiredBundledQuizLayouts/);
     assert.match(source, /const normalizeQuizIdeaTree = \(ideaTree\) => \{\s*if \(!ideaTree \|\| typeof ideaTree !== 'object'\) return null;/);
     assert.match(source, /const normalizeQuizTimeline = \(timeline\) => \{\s*if \(!timeline \|\| typeof timeline !== 'object'\) return null;/);
@@ -155,6 +155,16 @@ test('keeps source-faithful reading-skill metadata and every blank in its layout
         assert.deepEqual([...new Set(placedBlankIds)].sort(), question.blanks.map(blank => blank.id).sort(), `${book} Unit ${unitNumber} Q${questionNumber} must place every blank`);
       }
     }
+  }
+});
+
+test('merges RFD6 source activities without splitting the two word banks', () => {
+  for (const unit of parseBook('rfd6')) {
+    assert.equal(unit.questions.length, 9, `RFD6 Unit ${unit.unit} should have a MECE nine-question set`);
+    assert.equal(unit.questions[7].type, 'word-bank');
+    assert.ok(unit.questions[7].chartLayout, `RFD6 Unit ${unit.unit} Q8 should retain its Reading Skills layout`);
+    assert.equal(unit.questions[8].type, 'word-bank');
+    assert.equal(unit.questions[8].blanks.length, 4, `RFD6 Unit ${unit.unit} Q9 should keep Vocabulary Review together`);
   }
 });
 

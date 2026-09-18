@@ -64875,152 +64875,251 @@
       {
         "id": "q1",
         "index": 1,
-        "prompt": "What is the reading mainly about?",
+        "prompt": "Which word is similar to often?",
         "options": [
-          "The biggest and scariest dinosaurs",
-          "How dinosaurs actually looked",
-          "How to make a dinosaur movie",
-          "Why dinosaurs disappeared"
+          "always",
+          "usually",
+          "never"
         ],
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q2",
         "index": 2,
-        "prompt": "Actually, many dinosaurs looked quite like ______.",
+        "prompt": "What does quite mean in the reading?",
         "options": [
-          "giants",
-          "birds",
-          "lizards",
-          "turkeys"
+          "a little",
+          "very",
+          "not"
         ],
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q3",
         "index": 3,
-        "prompt": "How big was a velociraptor?",
+        "prompt": "How do dinosaurs often look in movies?",
         "options": [
-          "Bigger than a giant lizard",
-          "Smaller than most birds",
-          "Similar in size to a turkey",
-          "As big as a person"
+          "giant, scary lizards",
+          "small birds",
+          "feathered turkeys"
         ],
-        "answerIndex": 2,
+        "answerIndex": 0,
         "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "A",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q4",
         "index": 4,
-        "prompt": "Which statement is true according to the reading?",
+        "prompt": "What do we know about the appearance of the velociraptor?",
         "options": [
-          "Movies often show dinosaurs as birds.",
-          "Real dinosaurs looked exactly like lizards.",
-          "Velociraptors were about the size of a person.",
-          "Velociraptors were not actually big or scary."
+          "It was about the size of a turkey and covered in feathers.",
+          "It was bigger than a person.",
+          "It looked exactly like a movie monster."
         ],
-        "answerIndex": 3,
+        "answerIndex": 0,
         "type": "single",
-        "rawAnswer": "D",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "A",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q5",
         "index": 5,
-        "prompt": "Which sentence is false?",
+        "prompt": "What is the reading mainly about?",
         "options": [
-          "Movies often show dinosaurs as giant lizards.",
-          "Many dinosaurs looked more like birds than lizards.",
-          "Velociraptors were covered in feathers.",
-          "Real dinosaurs always looked the same as in movies."
+          "The biggest and scariest dinosaurs",
+          "How dinosaurs actually looked",
+          "How to make a dinosaur movie"
         ],
-        "answerIndex": 3,
+        "answerIndex": 1,
         "type": "single",
-        "rawAnswer": "D",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "B",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q6",
         "index": 6,
-        "prompt": "Which statement is false according to the reading?",
+        "prompt": "Actually, many dinosaurs looked quite like ______.",
         "options": [
-          "Movies often show dinosaurs as birds.",
-          "Velociraptors were covered in feathers.",
-          "Velociraptors were about the size of a turkey.",
-          "Many dinosaurs looked more like birds than lizards."
+          "giants",
+          "birds",
+          "lizards"
         ],
-        "answerIndex": 0,
+        "answerIndex": 1,
         "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "B",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q7",
         "index": 7,
-        "prompt": "In movies, the velociraptor is shown to have sharp ______ and teeth.",
+        "prompt": "How big was a velociraptor?",
         "options": [
-          "feathers",
-          "claws",
-          "wings",
-          "bones"
+          "Bigger than a giant lizard",
+          "Smaller than most birds",
+          "Similar in size to a turkey"
         ],
-        "answerIndex": 1,
+        "answerIndex": 2,
         "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "C",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q8",
         "index": 8,
-        "prompt": "In real life, dinosaurs often looked different from how they looked in ______.",
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
-          "caves",
+          "giant",
+          "fact",
           "movies",
-          "museums",
-          "dreams"
+          "covered"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Main Idea: In real life, dinosaurs often looked different from how they looked in 1. ______.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Detail 1: Movies often show them as 2. ______, scary lizards.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Detail 3: The velociraptor was only as big as a turkey and was 3. ______ in feathers.",
+            "answerIndex": 3
+          }
+        ],
+        "ideaTree": {
+          "mainIdea": {
+            "label": "Main Idea",
+            "text": "In real life, dinosaurs often looked different from how they looked in 1. ______.",
+            "blankId": "blank-1",
+            "blankIds": [
+              "blank-1"
+            ],
+            "entries": [
+              {
+                "text": "In real life, dinosaurs often looked different from how they looked in 1. ______.",
+                "blankId": "blank-1",
+                "blankIds": [
+                  "blank-1"
+                ]
+              }
+            ]
+          },
+          "branches": [],
+          "details": [
+            {
+              "label": "Detail 1",
+              "text": "Movies often show them as 2. ______, scary lizards.",
+              "blankId": "blank-2",
+              "blankIds": [
+                "blank-2"
+              ],
+              "entries": [
+                {
+                  "text": "Movies often show them as 2. ______, scary lizards.",
+                  "blankId": "blank-2",
+                  "blankIds": [
+                    "blank-2"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Detail 2",
+              "text": "In movies, the velociraptor often looks bigger than a person and has long, sharp teeth and claws.",
+              "blankId": null,
+              "blankIds": [],
+              "entries": [
+                {
+                  "text": "In movies, the velociraptor often looks bigger than a person and has long, sharp teeth and claws.",
+                  "blankId": null,
+                  "blankIds": []
+                }
+              ]
+            },
+            {
+              "label": "Detail 3",
+              "text": "The velociraptor was only as big as a turkey and was 3. ______ in feathers.",
+              "blankId": "blank-3",
+              "blankIds": [
+                "blank-3"
+              ],
+              "entries": [
+                {
+                  "text": "The velociraptor was only as big as a turkey and was 3. ______ in feathers.",
+                  "blankId": "blank-3",
+                  "blankIds": [
+                    "blank-3"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": "main-idea-tree",
+        "type": "word-bank",
+        "rawAnswer": "CAD",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q9",
         "index": 9,
-        "prompt": "Movies often show dinosaurs as ______ scary lizards.",
+        "prompt": "Choose the correct word to complete each sentence.",
         "options": [
-          "giant",
-          "gentle",
-          "tiny",
-          "feathered"
+          "scary",
+          "claws",
+          "dinosaurs",
+          "lizards"
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q10",
-        "index": 10,
-        "prompt": "The velociraptor was about the size of a turkey and was ______ in feathers.",
-        "options": [
-          "hidden",
-          "covered",
-          "trapped",
-          "painted"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. ______ actually looked quite different in real life.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. Most dinosaurs looked like birds, not ______.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. In movies, the velociraptor is shown to have sharp ______ and teeth.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. In truth, velociraptors were not that big or ______.",
+            "answerIndex": 0
+          }
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": null,
+        "type": "word-bank",
+        "rawAnswer": "CDBA",
+        "answerSource": "official-rfd-student-book-answer-key"
       }
     ],
     "unsupportedQuestions": []
@@ -65661,167 +65760,217 @@
       {
         "id": "q1",
         "index": 1,
-        "prompt": "What is the reading mainly about?",
+        "prompt": "Which word is similar to rare?",
         "options": [
-          "Why dinosaurs died out",
-          "How to make a fossil at home",
-          "How fossils are formed",
-          "Why fossils are expensive"
+          "normal",
+          "common",
+          "unusual"
         ],
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q2",
         "index": 2,
-        "prompt": "For a fossil to form, the mud covering the bones needs to dry ______.",
+        "prompt": "Which word or phrase is the opposite of long-dead?",
         "options": [
-          "quickly",
-          "cleanly",
-          "slowly",
-          "naturally"
+          "dying",
+          "still alive",
+          "buried"
         ],
-        "answerIndex": 2,
+        "answerIndex": 1,
         "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "B",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q3",
         "index": 3,
-        "prompt": "How long does a fossil need to age for?",
+        "prompt": "What are fossils?",
         "options": [
-          "Ten thousand years",
-          "Ten billion years",
-          "One thousand years",
-          "A hundred years"
+          "The bodies of long-dead animals.",
+          "Very old rocks.",
+          "The bones of living animals."
         ],
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q4",
         "index": 4,
-        "prompt": "Which statement is true?",
+        "prompt": "How can fossils be destroyed?",
         "options": [
-          "Fossils are made quickly, in just a few days.",
-          "An animal must be covered in mud to become a fossil.",
-          "Most bones become fossils after animals die.",
-          "Scientists learn about dinosaurs only from books."
+          "If mud dries too fast or something touches the bones.",
+          "If an animal is covered in mud.",
+          "If a fossil ages for 10,000 years."
         ],
-        "answerIndex": 1,
+        "answerIndex": 0,
         "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "A",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q5",
         "index": 5,
-        "prompt": "Which statement is false?",
+        "prompt": "What is the reading mainly about?",
         "options": [
-          "We learned about dinosaurs by studying fossils.",
-          "Fossils are the bodies of long-dead animals.",
-          "Mud should dry slowly for a fossil to form.",
-          "Every dead animal becomes a fossil."
+          "Why dinosaurs died out",
+          "How to make a fossil at home",
+          "How fossils are formed"
         ],
-        "answerIndex": 3,
+        "answerIndex": 2,
         "type": "single",
-        "rawAnswer": "D",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "C",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q6",
         "index": 6,
-        "prompt": "Which event comes first in the process of forming a fossil?",
+        "prompt": "For a fossil to form, the mud covering the bones needs to dry ______.",
         "options": [
-          "The fossil ages for 10,000 years.",
-          "The mud dries very slowly.",
-          "An animal dies.",
-          "The fossil is displayed in a museum."
+          "quickly",
+          "cleanly",
+          "slowly"
         ],
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q7",
         "index": 7,
-        "prompt": "If the mud dries too fast, it can ______ the fossil.",
+        "prompt": "How long does a fossil need to age for?",
         "options": [
-          "age",
-          "form",
-          "destroy",
-          "cover"
+          "Ten thousand years",
+          "Ten billion years",
+          "One thousand years"
         ],
-        "answerIndex": 2,
+        "answerIndex": 0,
         "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "A",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q8",
         "index": 8,
-        "prompt": "In the fossil-forming process, an animal first ______.",
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
-          "flies",
-          "dies",
-          "runs",
-          "hides"
+          "dries",
+          "mud",
+          "fast",
+          "ages",
+          "dies"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. An animal ______.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. ______ covers the body.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. The mud ______ very slowly.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. The fossil ______ for 10,000 years to fully form.",
+            "answerIndex": 3
+          }
+        ],
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": {
+          "events": [
+            {
+              "text": "1. An animal ______.",
+              "blankIds": [
+                "blank-1"
+              ]
+            },
+            {
+              "text": "2. ______ covers the body.",
+              "blankIds": [
+                "blank-2"
+              ]
+            },
+            {
+              "text": "3. The mud ______ very slowly.",
+              "blankIds": [
+                "blank-3"
+              ]
+            },
+            {
+              "text": "4. The fossil ______ for 10,000 years to fully form.",
+              "blankIds": [
+                "blank-4"
+              ]
+            }
+          ]
+        },
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": "timeline",
+        "type": "word-bank",
+        "rawAnswer": "EBAD",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q9",
         "index": 9,
-        "prompt": "Then, ______ covers the body.",
+        "prompt": "Choose the correct word to complete each sentence.",
         "options": [
-          "mud",
-          "smoke",
-          "glass",
-          "oil"
+          "form",
+          "bone",
+          "dry",
+          "destroy",
+          "age"
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q10",
-        "index": 10,
-        "prompt": "To form a fossil, the mud ______ very slowly.",
-        "options": [
-          "dries",
-          "breaks",
-          "falls",
-          "freezes"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. Only one ______ in every million turns into a fossil.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. The mud should not ______ too fast.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. If the mud dries too fast, it can ______ the fossil.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. A fossil needs to age for 10,000 years to fully ______.",
+            "answerIndex": 0
+          }
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q11",
-        "index": 11,
-        "prompt": "A fossil ______ for 10,000 years to fully form.",
-        "options": [
-          "grows",
-          "shines",
-          "ages",
-          "moves"
-        ],
-        "answerIndex": 2,
-        "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": null,
+        "type": "word-bank",
+        "rawAnswer": "BCDA",
+        "answerSource": "official-rfd-student-book-answer-key"
       }
     ],
     "unsupportedQuestions": []
@@ -66475,152 +66624,228 @@
       {
         "id": "q1",
         "index": 1,
-        "prompt": "What is the reading mainly about?",
+        "prompt": "Which word or phrase is similar to happened?",
         "options": [
-          "How the dinosaurs died out",
-          "Pollution and climate change on Earth",
-          "Mass extinctions and why they happen",
-          "The history of volcanoes"
-        ],
-        "answerIndex": 2,
-        "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q2",
-        "index": 2,
-        "prompt": "Sixty-six million years ago, ______.",
-        "options": [
-          "there was too much pollution",
-          "all the plants died out",
-          "all the dinosaurs died out",
-          "humans caused a mass extinction"
-        ],
-        "answerIndex": 2,
-        "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q3",
-        "index": 3,
-        "prompt": "Which word in the reading means “more than two, but not a specific number”?",
-        "options": [
-          "all",
-          "several",
-          "last",
-          "same"
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q4",
-        "index": 4,
-        "prompt": "Which statement is true?",
-        "options": [
-          "A mass extinction means only one animal disappears.",
-          "The last mass extinction happened 66 million years ago.",
-          "Dinosaurs survived the last mass extinction.",
-          "Pollution cannot affect extinction."
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q5",
-        "index": 5,
-        "prompt": "Which statement is false?",
-        "options": [
-          "Conditions on Earth changed during past mass extinctions.",
-          "A volcano or an asteroid can cause major changes.",
-          "Pollution today might cause another mass extinction.",
-          "Climate never changed during past extinctions."
-        ],
-        "answerIndex": 3,
-        "type": "single",
-        "rawAnswer": "D",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q6",
-        "index": 6,
-        "prompt": "In the reading, the rising ______ on Earth is linked to pollution.",
-        "options": [
-          "ocean",
-          "population",
-          "temperature",
-          "pressure"
-        ],
-        "answerIndex": 2,
-        "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q7",
-        "index": 7,
-        "prompt": "Which word best completes the sentence? “Human actions might ______ the next mass extinction.”",
-        "options": [
-          "discover",
-          "cause",
-          "stop",
-          "hide"
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8",
-        "index": 8,
-        "prompt": "A mass ______ is when many plants and animals go extinct at the same time.",
-        "options": [
-          "climate",
-          "condition",
-          "extinction",
-          "volcano"
-        ],
-        "answerIndex": 2,
-        "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q9",
-        "index": 9,
-        "prompt": "It happens when ______ change on our planet.",
-        "options": [
-          "conditions",
-          "feathers",
-          "dinosaurs",
-          "cameras"
+          "took place",
+          "changed",
+          "finished"
         ],
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
-        "id": "q10",
-        "index": 10,
-        "prompt": "Pollution is causing Earth’s ______ to rise.",
+        "id": "q2",
+        "index": 2,
+        "prompt": "Which word is the opposite of rising?",
         "options": [
-          "ocean",
-          "temperature",
-          "cave",
-          "population"
+          "increasing",
+          "falling",
+          "happening"
         ],
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
+      },
+      {
+        "id": "q3",
+        "index": 3,
+        "prompt": "What are some causes of mass extinctions?",
+        "options": [
+          "Climate or air changes, volcanoes, and asteroids.",
+          "Only the growth of plants.",
+          "Only humans building cities."
+        ],
+        "answerIndex": 0,
+        "type": "single",
+        "rawAnswer": "A",
+        "answerSource": "official-rfd-student-book-answer-key"
+      },
+      {
+        "id": "q4",
+        "index": 4,
+        "prompt": "What is happening now that might cause the next mass extinction?",
+        "options": [
+          "The temperature on Earth is rising because of pollution.",
+          "The dinosaurs are returning.",
+          "The oceans are disappearing overnight."
+        ],
+        "answerIndex": 0,
+        "type": "single",
+        "rawAnswer": "A",
+        "answerSource": "official-rfd-student-book-answer-key"
+      },
+      {
+        "id": "q5",
+        "index": 5,
+        "prompt": "What is the reading mainly about?",
+        "options": [
+          "How the dinosaurs died out",
+          "Pollution and climate change on Earth",
+          "Mass extinctions and why they happen"
+        ],
+        "answerIndex": 2,
+        "type": "single",
+        "rawAnswer": "C",
+        "answerSource": "official-rfd-student-book-answer-key"
+      },
+      {
+        "id": "q6",
+        "index": 6,
+        "prompt": "Sixty-six million years ago, ______.",
+        "options": [
+          "there was too much pollution",
+          "all the plants died out",
+          "all the dinosaurs died out"
+        ],
+        "answerIndex": 2,
+        "type": "single",
+        "rawAnswer": "C",
+        "answerSource": "official-rfd-student-book-answer-key"
+      },
+      {
+        "id": "q7",
+        "index": 7,
+        "prompt": "How many mass extinctions have happened on Earth?",
+        "options": [
+          "One",
+          "More than two",
+          "Many"
+        ],
+        "answerIndex": 1,
+        "type": "single",
+        "rawAnswer": "B",
+        "answerSource": "official-rfd-student-book-answer-key"
+      },
+      {
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. One word is extra.",
+        "options": [
+          "temperature",
+          "extinction",
+          "dinosaurs",
+          "conditions"
+        ],
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "What: A mass 1. ______ is when many plants and animals go extinct at the same time.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Why: 2. ______ change on our planet.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "How: Pollution is causing Earth's 3. ______ to rise.",
+            "answerIndex": 0
+          }
+        ],
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": {
+          "groups": [
+            {
+              "label": "What",
+              "items": [
+                {
+                  "text": "A mass 1. ______ is when many plants and animals go extinct at the same time.",
+                  "blankIds": [
+                    "blank-1"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Why",
+              "items": [
+                {
+                  "text": "2. ______ change on our planet.",
+                  "blankIds": [
+                    "blank-2"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "When",
+              "items": [
+                {
+                  "text": "The last mass extinction happened 66 million years ago.",
+                  "blankIds": []
+                }
+              ]
+            },
+            {
+              "label": "How",
+              "items": [
+                {
+                  "text": "Pollution is causing Earth's 3. ______ to rise.",
+                  "blankIds": [
+                    "blank-3"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": "five-w-one-h",
+        "type": "word-bank",
+        "rawAnswer": "BDA",
+        "answerSource": "official-rfd-student-book-answer-key"
+      },
+      {
+        "id": "q9",
+        "index": 9,
+        "prompt": "Choose the correct word to complete each sentence.",
+        "options": [
+          "cause",
+          "asteroid",
+          "climate",
+          "conditions"
+        ],
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. During each mass extinction, ______ changed on our planet.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. The ______ changed or the air changed.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. Sometimes it was because of a volcano or a(n) ______.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. We might ______ the next mass extinction!",
+            "answerIndex": 0
+          }
+        ],
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": null,
+        "type": "word-bank",
+        "rawAnswer": "DCBA",
+        "answerSource": "official-rfd-student-book-answer-key"
       }
     ],
     "unsupportedQuestions": []
@@ -67342,167 +67567,264 @@
       {
         "id": "q1",
         "index": 1,
-        "prompt": "What is the reading mainly about?",
+        "prompt": "What is a mammoth?",
         "options": [
-          "Science and cloning in movies",
-          "Bringing back dinosaurs",
-          "DNA cloning of extinct animals",
-          "How mammoths lived"
+          "a cloned dinosaur",
+          "a kind of dinosaur",
+          "an extinct animal"
         ],
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q2",
         "index": 2,
-        "prompt": "Mammoth DNA is ______ damaged than dinosaur DNA.",
+        "prompt": "Which word is similar to however?",
         "options": [
-          "less",
-          "more",
-          "so",
-          "equally"
+          "also",
+          "but",
+          "and"
         ],
-        "answerIndex": 0,
+        "answerIndex": 1,
         "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "B",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q3",
         "index": 3,
-        "prompt": "Which extinct animals can scientists clone?",
+        "prompt": "Why can't scientists use dinosaur DNA?",
         "options": [
-          "Only dinosaurs",
-          "Only mammoths",
-          "Mammoths and some other animals",
-          "No extinct animals at all"
+          "It is too damaged to use.",
+          "It is too new.",
+          "It belongs to mammoths."
         ],
-        "answerIndex": 2,
+        "answerIndex": 0,
         "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "A",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q4",
         "index": 4,
-        "prompt": "Which statement is true?",
+        "prompt": "When did mammoths die out?",
         "options": [
-          "Dinosaur DNA is too damaged to use for cloning.",
-          "The mammoth went extinct millions of years ago.",
-          "Scientists can already clone dinosaurs.",
-          "DNA gets stronger over time."
+          "10,000 years ago",
+          "66 million years ago",
+          "in 1903"
         ],
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q5",
         "index": 5,
-        "prompt": "Which statement is false?",
+        "prompt": "What is the reading mainly about?",
         "options": [
-          "In movies, scientists bring back dinosaurs.",
-          "Scientists cannot really clone dinosaurs now.",
-          "DNA becomes damaged over time.",
-          "Mammoth DNA is older than dinosaur DNA."
-        ],
-        "answerIndex": 3,
-        "type": "single",
-        "rawAnswer": "D",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q6",
-        "index": 6,
-        "prompt": "The reading says cloning dinosaurs is only ______.",
-        "options": [
-          "practice",
-          "fiction",
-          "science",
-          "history"
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q7",
-        "index": 7,
-        "prompt": "Why might mammoths be easier to clone than dinosaurs?",
-        "options": [
-          "They were larger animals.",
-          "Their DNA is not as old.",
-          "They lived in warm places.",
-          "Scientists already have living mammoths."
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8",
-        "index": 8,
-        "prompt": "______ try to clone extinct animals from old DNA.",
-        "options": [
-          "Farmers",
-          "Scientists",
-          "Sailors",
-          "Artists"
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q9",
-        "index": 9,
-        "prompt": "In movies, people use dinosaur ______ to make clones.",
-        "options": [
-          "skin",
-          "DNA",
-          "teeth",
-          "feathers"
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q10",
-        "index": 10,
-        "prompt": "Dinosaur DNA is too old and ______ to use.",
-        "options": [
-          "damaged",
-          "fresh",
-          "bright",
-          "useful"
-        ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q11",
-        "index": 11,
-        "prompt": "The ______ went extinct 10,000 years ago, so it may be possible to bring it back.",
-        "options": [
-          "lizard",
-          "turkey",
-          "mammoth",
-          "volcano"
+          "Science and cloning in movies",
+          "Bringing back dinosaurs",
+          "DNA cloning of extinct animals"
         ],
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
+      },
+      {
+        "id": "q6",
+        "index": 6,
+        "prompt": "Mammoth DNA is ______ damaged than dinosaur DNA.",
+        "options": [
+          "less",
+          "more",
+          "so"
+        ],
+        "answerIndex": 0,
+        "type": "single",
+        "rawAnswer": "A",
+        "answerSource": "official-rfd-student-book-answer-key"
+      },
+      {
+        "id": "q7",
+        "index": 7,
+        "prompt": "Which extinct animals can scientists clone?",
+        "options": [
+          "Only dinosaurs",
+          "Only mammoths",
+          "Mammoths and some other animals"
+        ],
+        "answerIndex": 2,
+        "type": "single",
+        "rawAnswer": "C",
+        "answerSource": "official-rfd-student-book-answer-key"
+      },
+      {
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. One word is extra.",
+        "options": [
+          "mammoth",
+          "DNA",
+          "scientists",
+          "cloning",
+          "damaged"
+        ],
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Main Idea: 1. ______ try to clone extinct animals from old DNA.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Detail 1: In movies, people use dinosaur 2. ______ to make clones.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Detail 2: Dinosaur DNA is too old and 3. ______ to use.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-4",
+            "prompt": "Detail 3: The 4. ______ went extinct 10,000 years ago, and we might be able to bring it back.",
+            "answerIndex": 0
+          }
+        ],
+        "ideaTree": {
+          "mainIdea": {
+            "label": "Main Idea",
+            "text": "1. ______ try to clone extinct animals from old DNA.",
+            "blankId": "blank-1",
+            "blankIds": [
+              "blank-1"
+            ],
+            "entries": [
+              {
+                "text": "1. ______ try to clone extinct animals from old DNA.",
+                "blankId": "blank-1",
+                "blankIds": [
+                  "blank-1"
+                ]
+              }
+            ]
+          },
+          "branches": [],
+          "details": [
+            {
+              "label": "Detail 1",
+              "text": "In movies, people use dinosaur 2. ______ to make clones.",
+              "blankId": "blank-2",
+              "blankIds": [
+                "blank-2"
+              ],
+              "entries": [
+                {
+                  "text": "In movies, people use dinosaur 2. ______ to make clones.",
+                  "blankId": "blank-2",
+                  "blankIds": [
+                    "blank-2"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Detail 2",
+              "text": "Dinosaur DNA is too old and 3. ______ to use.",
+              "blankId": "blank-3",
+              "blankIds": [
+                "blank-3"
+              ],
+              "entries": [
+                {
+                  "text": "Dinosaur DNA is too old and 3. ______ to use.",
+                  "blankId": "blank-3",
+                  "blankIds": [
+                    "blank-3"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Detail 3",
+              "text": "The 4. ______ went extinct 10,000 years ago, and we might be able to bring it back.",
+              "blankId": "blank-4",
+              "blankIds": [
+                "blank-4"
+              ],
+              "entries": [
+                {
+                  "text": "The 4. ______ went extinct 10,000 years ago, and we might be able to bring it back.",
+                  "blankId": "blank-4",
+                  "blankIds": [
+                    "blank-4"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": "main-idea-tree",
+        "type": "word-bank",
+        "rawAnswer": "CBEA",
+        "answerSource": "official-rfd-student-book-answer-key"
+      },
+      {
+        "id": "q9",
+        "index": 9,
+        "prompt": "Choose the correct word to complete each sentence.",
+        "options": [
+          "clone",
+          "damaged",
+          "fiction",
+          "DNA",
+          "Someday",
+          "damage",
+          "Unfortunately"
+        ],
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. In movies, scientists use dinosaur DNA to ______ dinosaurs.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. Unfortunately, this is only ______ because it cannot be done.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. Other animals' ______ is not as old, so it is less damaged.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. ______, you just might see a mammoth!",
+            "answerIndex": 4
+          }
+        ],
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": null,
+        "type": "word-bank",
+        "rawAnswer": "ACDE",
+        "answerSource": "official-rfd-student-book-answer-key"
       }
     ],
     "unsupportedQuestions": []
@@ -68240,152 +68562,251 @@
       {
         "id": "q1",
         "index": 1,
-        "prompt": "What is the reading mainly about?",
+        "prompt": "What does called mean in the reading?",
         "options": [
-          "The Pacific Ocean",
-          "The history of explorers",
-          "An explorer",
-          "A war in Europe"
+          "named",
+          "shouted",
+          "explored"
         ],
-        "answerIndex": 2,
+        "answerIndex": 0,
         "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "A",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q2",
         "index": 2,
-        "prompt": "Magellan lost two of his ______ in the ocean.",
+        "prompt": "Which word or phrase is the opposite of left?",
         "options": [
-          "crew",
-          "ships",
-          "explorers",
-          "maps"
+          "went from",
+          "returned",
+          "gave back"
         ],
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q3",
         "index": 3,
-        "prompt": "What happened to Magellan’s crew after he died?",
+        "prompt": "How big was Magellan's crew?",
         "options": [
-          "They died in the Philippines.",
-          "They continued and went home.",
-          "They stayed in South America.",
-          "They lost all five ships."
+          "300 men",
+          "five men",
+          "two men"
         ],
-        "answerIndex": 1,
+        "answerIndex": 0,
         "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "A",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q4",
         "index": 4,
-        "prompt": "Which statement is true?",
+        "prompt": "What happened to Magellan?",
         "options": [
-          "Magellan came from Spain.",
-          "Magellan sailed with five ships and 300 men.",
-          "Magellan’s crew stopped the trip after he died.",
-          "The Straits of Magellan are in the Pacific Ocean only."
+          "He died in the Philippines.",
+          "He returned safely to Spain.",
+          "He found India."
         ],
-        "answerIndex": 1,
+        "answerIndex": 0,
         "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "A",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q5",
         "index": 5,
-        "prompt": "Which statement is false?",
+        "prompt": "What is the reading mainly about?",
         "options": [
-          "Magellan discovered a path through South America.",
-          "The Straits of Magellan were named after Magellan.",
-          "Magellan returned home with his crew.",
-          "Magellan wanted to reach India through the Americas."
+          "The Pacific Ocean",
+          "The history of explorers",
+          "An explorer"
         ],
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q6",
         "index": 6,
-        "prompt": "The Age of Exploration is known as a period with many brave ______.",
-        "options": [
-          "sailors",
-          "kings",
-          "explorers",
-          "workers"
-        ],
-        "answerIndex": 2,
-        "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q7",
-        "index": 7,
-        "prompt": "Magellan left Spain with five ships and a 300-man ______.",
+        "prompt": "Magellan lost two of his ______ in the ocean.",
         "options": [
           "crew",
-          "army",
-          "family",
-          "team of scientists"
-        ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8",
-        "index": 8,
-        "prompt": "There were many ______ explorers in the 15th century.",
-        "options": [
-          "brave",
-          "tired",
-          "modern",
-          "secret"
-        ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q9",
-        "index": 9,
-        "prompt": "Magellan ______ the Straits of Magellan in South America.",
-        "options": [
-          "borrowed",
-          "discovered",
-          "painted",
-          "closed"
+          "ships",
+          "explorers"
         ],
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
-        "id": "q10",
-        "index": 10,
-        "prompt": "Magellan ______ in the Philippines.",
+        "id": "q7",
+        "index": 7,
+        "prompt": "Where did Magellan's crew die?",
         "options": [
-          "rested",
-          "returned",
-          "died",
-          "hid"
+          "They died in the Philippines.",
+          "They didn't, and they went home.",
+          "They died in the Straits of Magellan."
         ],
-        "answerIndex": 2,
+        "answerIndex": 1,
         "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "B",
+        "answerSource": "official-rfd-student-book-answer-key"
+      },
+      {
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. One word is extra.",
+        "options": [
+          "died",
+          "believed",
+          "brave",
+          "discovered"
+        ],
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Main Idea: There were many 1. ______ explorers in the 15th century, including Ferdinand Magellan.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Detail 2: He 2. ______ the Straits of Magellan in South America.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Detail 3: He never returned home. He 3. ______ in the Philippines.",
+            "answerIndex": 0
+          }
+        ],
+        "ideaTree": {
+          "mainIdea": {
+            "label": "Main Idea",
+            "text": "There were many 1. ______ explorers in the 15th century, including Ferdinand Magellan.",
+            "blankId": "blank-1",
+            "blankIds": [
+              "blank-1"
+            ],
+            "entries": [
+              {
+                "text": "There were many 1. ______ explorers in the 15th century, including Ferdinand Magellan.",
+                "blankId": "blank-1",
+                "blankIds": [
+                  "blank-1"
+                ]
+              }
+            ]
+          },
+          "branches": [],
+          "details": [
+            {
+              "label": "Detail 1",
+              "text": "He sailed from Europe to South America.",
+              "blankId": null,
+              "blankIds": [],
+              "entries": [
+                {
+                  "text": "He sailed from Europe to South America.",
+                  "blankId": null,
+                  "blankIds": []
+                }
+              ]
+            },
+            {
+              "label": "Detail 2",
+              "text": "He 2. ______ the Straits of Magellan in South America.",
+              "blankId": "blank-2",
+              "blankIds": [
+                "blank-2"
+              ],
+              "entries": [
+                {
+                  "text": "He 2. ______ the Straits of Magellan in South America.",
+                  "blankId": "blank-2",
+                  "blankIds": [
+                    "blank-2"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Detail 3",
+              "text": "He never returned home. He 3. ______ in the Philippines.",
+              "blankId": "blank-3",
+              "blankIds": [
+                "blank-3"
+              ],
+              "entries": [
+                {
+                  "text": "He never returned home. He 3. ______ in the Philippines.",
+                  "blankId": "blank-3",
+                  "blankIds": [
+                    "blank-3"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": "main-idea-tree",
+        "type": "word-bank",
+        "rawAnswer": "CDA",
+        "answerSource": "official-rfd-student-book-answer-key"
+      },
+      {
+        "id": "q9",
+        "index": 9,
+        "prompt": "Choose the correct word to complete each sentence.",
+        "options": [
+          "century",
+          "sailed",
+          "returned",
+          "crew"
+        ],
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. The 15th ______ is known as the Age of Exploration.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. Magellan's crew continued and ______ home.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. He ______ his ships through a path in South America.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. He had a ______ of 300 men.",
+            "answerIndex": 3
+          }
+        ],
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": null,
+        "type": "word-bank",
+        "rawAnswer": "ACBD",
+        "answerSource": "official-rfd-student-book-answer-key"
       }
     ],
     "unsupportedQuestions": []
@@ -69098,152 +69519,208 @@
       {
         "id": "q1",
         "index": 1,
-        "prompt": "What is the reading mainly about?",
+        "prompt": "Which word is similar to found?",
         "options": [
-          "How to travel in the freezing cold",
-          "Amundsen’s polar adventures",
-          "How Amundsen disappeared",
-          "The history of Antarctica"
+          "named",
+          "discovered",
+          "searched"
         ],
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q2",
         "index": 2,
-        "prompt": "Amundsen went to Antarctica with five crewmates and eleven ______.",
+        "prompt": "What does connects mean in the reading?",
         "options": [
-          "rescues",
-          "oceans",
-          "dogs",
-          "planes"
+          "travels",
+          "divides",
+          "joins"
         ],
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q3",
         "index": 3,
-        "prompt": "Which is NOT true about Roald Amundsen?",
+        "prompt": "Which route did Roald Amundsen discover in 1903?",
         "options": [
-          "He traveled 99 days in the freezing cold.",
-          "He disappeared in the Northwest Passage.",
-          "He discovered the Northwest Passage.",
-          "He tried to rescue a lost crewmate."
+          "the Northwest Passage",
+          "the South Pole",
+          "the Arctic route"
         ],
-        "answerIndex": 1,
+        "answerIndex": 0,
         "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "A",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q4",
         "index": 4,
-        "prompt": "Which statement is true?",
+        "prompt": "What was Amundsen doing when he disappeared?",
         "options": [
-          "Amundsen discovered the Northwest Passage in 1903.",
-          "Amundsen reached the South Pole with eleven people and five dogs.",
-          "Amundsen’s journey to the South Pole lasted 9 days.",
-          "Amundsen returned safely in 1928."
+          "He was trying to rescue a lost crewmate.",
+          "He was crossing the Northwest Passage.",
+          "He was flying over the North Pole."
         ],
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q5",
         "index": 5,
-        "prompt": "Which statement is false?",
+        "prompt": "What is the reading mainly about?",
         "options": [
-          "The Northwest Passage connects the Atlantic and Pacific Oceans.",
-          "Amundsen was the first man to reach the South Pole.",
-          "He later traveled to the Arctic.",
-          "He never went on adventures after 1911."
+          "How to travel in the freezing cold",
+          "Amundsen’s polar adventures",
+          "How Amundsen disappeared"
         ],
-        "answerIndex": 3,
+        "answerIndex": 1,
         "type": "single",
-        "rawAnswer": "D",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "B",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q6",
         "index": 6,
-        "prompt": "The passage says the journey to the South Pole took 99 days in the ______ cold.",
+        "prompt": "Amundsen went to Antarctica with five crewmates and eleven ______.",
         "options": [
-          "deep",
-          "freezing",
-          "dry",
-          "summer"
+          "rescues",
+          "oceans",
+          "dogs"
         ],
-        "answerIndex": 1,
+        "answerIndex": 2,
         "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "C",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q7",
         "index": 7,
-        "prompt": "In 1928, Amundsen tried to ______ a lost crewmate.",
+        "prompt": "Which is NOT true about Roald Amundsen?",
         "options": [
-          "rescue",
-          "visit",
-          "follow",
-          "replace"
+          "He traveled 99 days in the freezing cold.",
+          "He disappeared in the Northwest Passage.",
+          "He discovered the Northwest Passage."
         ],
-        "answerIndex": 0,
+        "answerIndex": 1,
         "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "B",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q8",
         "index": 8,
-        "prompt": "In 1903, Amundsen ______ the Northwest Passage.",
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
+          "traveled",
+          "returned",
           "discovered",
-          "forgot",
-          "crossed out",
-          "lost"
+          "disappeared"
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. Roald Amundsen ______ the Northwest Passage in 1903.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. In 1911, he ______ with crewmates and dogs to Antarctica.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. In 1928, he ______ trying to rescue his crewmate.",
+            "answerIndex": 3
+          }
+        ],
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": {
+          "events": [
+            {
+              "text": "1. Roald Amundsen ______ the Northwest Passage in 1903.",
+              "blankIds": [
+                "blank-1"
+              ]
+            },
+            {
+              "text": "2. In 1911, he ______ with crewmates and dogs to Antarctica.",
+              "blankIds": [
+                "blank-2"
+              ]
+            },
+            {
+              "text": "3. In 1928, he ______ trying to rescue his crewmate.",
+              "blankIds": [
+                "blank-3"
+              ]
+            }
+          ]
+        },
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": "timeline",
+        "type": "word-bank",
+        "rawAnswer": "CAD",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q9",
         "index": 9,
-        "prompt": "In 1911, he ______ to Antarctica with crewmates and dogs.",
+        "prompt": "Choose the correct word to complete each sentence.",
         "options": [
-          "sailed back",
-          "traveled",
-          "pointed",
-          "listened"
+          "oceans",
+          "routes",
+          "route",
+          "adventure",
+          "finished",
+          "freezing",
+          "finish",
+          "rescue"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q10",
-        "index": 10,
-        "prompt": "In 1928, he ______ while trying to rescue a crewmate.",
-        "options": [
-          "smiled",
-          "disappeared",
-          "celebrated",
-          "landed"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. The Northwest Passage connects two ______.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. Roald Amundsen discovered the ______ connecting the oceans.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. Amundsen was not ______ with his adventures.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. He tried to ______ a lost crewmate.",
+            "answerIndex": 7
+          }
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": null,
+        "type": "word-bank",
+        "rawAnswer": "ACEH",
+        "answerSource": "official-rfd-student-book-answer-key"
       }
     ],
     "unsupportedQuestions": []
@@ -69872,152 +70349,251 @@
       {
         "id": "q1",
         "index": 1,
-        "prompt": "What is the reading mainly about?",
+        "prompt": "Which word is the opposite of part?",
         "options": [
-          "Fishing for deep-sea fish and shrimp",
-          "Taking underwater pictures in the ocean",
-          "How a scientist found Challenger Deep",
-          "Why cameras are better than people"
+          "piece",
+          "whole",
+          "section"
         ],
-        "answerIndex": 2,
+        "answerIndex": 1,
         "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "B",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q2",
         "index": 2,
-        "prompt": "It is hard to ______ the deepest part of the ocean.",
+        "prompt": "What does amazing mean in the reading?",
         "options": [
-          "place",
-          "find",
-          "reach",
-          "study"
+          "hard to believe",
+          "normal",
+          "swimming"
         ],
-        "answerIndex": 2,
+        "answerIndex": 0,
         "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "A",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q3",
         "index": 3,
-        "prompt": "How was Challenger Deep reached?",
+        "prompt": "What did Jacques Piccard want to do?",
         "options": [
-          "With a submarine",
-          "With a camera",
-          "With a special robot",
-          "By swimming"
+          "Reach the deepest part of the ocean.",
+          "Photograph every ocean animal.",
+          "Build a powerful camera."
         ],
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q4",
         "index": 4,
-        "prompt": "Which statement is true?",
+        "prompt": "What was found in Challenger Deep?",
         "options": [
-          "Most of the ocean is still a mystery to scientists.",
-          "There are no mountains under the sea.",
-          "Scientists already knew fish and shrimp could live that deep.",
-          "Cameras can show us everything in the ocean."
+          "fish and shrimp",
+          "a waterfall",
+          "a city"
         ],
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q5",
         "index": 5,
-        "prompt": "Which statement is false?",
+        "prompt": "What is the reading mainly about?",
         "options": [
-          "Jacques Piccard studied the oceans.",
-          "He built a submarine.",
-          "Challenger Deep was easy to get to.",
-          "Some amazing creatures were found there."
+          "Fishing for deep-sea fish and shrimp",
+          "Taking underwater pictures in the ocean",
+          "How a scientist found Challenger Deep"
         ],
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q6",
         "index": 6,
-        "prompt": "Most of the ocean is a ______.",
+        "prompt": "It is hard to ______ the deepest part of the ocean.",
         "options": [
-          "cave",
-          "mystery",
-          "laboratory",
-          "country"
+          "place",
+          "find",
+          "reach"
         ],
-        "answerIndex": 1,
+        "answerIndex": 2,
         "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "C",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q7",
         "index": 7,
-        "prompt": "We’ve found mountains, ______, and even waterfalls under the sea.",
+        "prompt": "How was Challenger Deep reached?",
         "options": [
-          "canyons",
-          "forests",
-          "roads",
-          "volcanoes only"
+          "With a submarine",
+          "With a camera",
+          "With a special robot"
         ],
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q8",
         "index": 8,
-        "prompt": "Challenger Deep was very ______ to get to.",
+        "prompt": "Complete the chart. One word is extra.\nMain Idea: Much of the ocean is very deep and mysterious.",
         "options": [
+          "something",
           "hard",
-          "cheap",
-          "warm",
-          "empty"
+          "amazing",
+          "scientist"
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Detail 1: The deep ocean is 1. ______ to get to.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Detail 2: A(n) 2. ______ named Jacques Piccard built a submarine to reach the deepest part.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Detail 3: It was 3. ______ to find creatures living deep under the sea.",
+            "answerIndex": 2
+          }
+        ],
+        "ideaTree": {
+          "mainIdea": {
+            "label": "Main Idea",
+            "text": "Much of the ocean is very deep and mysterious.",
+            "blankId": null,
+            "blankIds": [],
+            "entries": [
+              {
+                "text": "Much of the ocean is very deep and mysterious.",
+                "blankId": null,
+                "blankIds": []
+              }
+            ]
+          },
+          "branches": [],
+          "details": [
+            {
+              "label": "Detail 1",
+              "text": "The deep ocean is 1. ______ to get to.",
+              "blankId": "blank-1",
+              "blankIds": [
+                "blank-1"
+              ],
+              "entries": [
+                {
+                  "text": "The deep ocean is 1. ______ to get to.",
+                  "blankId": "blank-1",
+                  "blankIds": [
+                    "blank-1"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Detail 2",
+              "text": "A(n) 2. ______ named Jacques Piccard built a submarine to reach the deepest part.",
+              "blankId": "blank-2",
+              "blankIds": [
+                "blank-2"
+              ],
+              "entries": [
+                {
+                  "text": "A(n) 2. ______ named Jacques Piccard built a submarine to reach the deepest part.",
+                  "blankId": "blank-2",
+                  "blankIds": [
+                    "blank-2"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Detail 3",
+              "text": "It was 3. ______ to find creatures living deep under the sea.",
+              "blankId": "blank-3",
+              "blankIds": [
+                "blank-3"
+              ],
+              "entries": [
+                {
+                  "text": "It was 3. ______ to find creatures living deep under the sea.",
+                  "blankId": "blank-3",
+                  "blankIds": [
+                    "blank-3"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": "main-idea-tree",
+        "type": "word-bank",
+        "rawAnswer": "BDC",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q9",
         "index": 9,
-        "prompt": "Jacques Piccard was a(n) ______ who studied the oceans.",
+        "prompt": "Choose the correct word to complete each sentence.",
         "options": [
-          "pilot",
-          "scientist",
-          "tourist",
-          "actor"
+          "waterfalls",
+          "reach",
+          "submarine",
+          "deep"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q10",
-        "index": 10,
-        "prompt": "It was ______ to find creatures living so deep under the sea.",
-        "options": [
-          "amazing",
-          "common",
-          "boring",
-          "noisy"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. Jacques Piccard wanted to ______ the deepest part of the ocean.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. Nobody thought fish and shrimp could live that ______.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. We have even found canyons and ______ under the sea!",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. Piccard built a ______ to get down to the deep sea.",
+            "answerIndex": 2
+          }
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": null,
+        "type": "word-bank",
+        "rawAnswer": "BDAC",
+        "answerSource": "official-rfd-student-book-answer-key"
       }
     ],
     "unsupportedQuestions": []
@@ -70707,167 +71283,240 @@
       {
         "id": "q1",
         "index": 1,
-        "prompt": "What is the reading mainly about?",
+        "prompt": "Which phrase is similar to accepted?",
         "options": [
-          "The first female astronaut",
-          "Why skydivers make good astronauts",
-          "The first space program",
-          "Life on the moon"
+          "let in",
+          "kept out",
+          "talked to"
         ],
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q2",
         "index": 2,
-        "prompt": "In 1963, Valentina was ______ into space.",
+        "prompt": "What does famous mean in the reading?",
         "options": [
-          "accepted",
-          "launched",
-          "landed",
-          "dropped"
+          "special",
+          "surprised",
+          "well known"
         ],
-        "answerIndex": 1,
+        "answerIndex": 2,
         "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "C",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q3",
         "index": 3,
-        "prompt": "Which is true about Valentina Tereshkova?",
+        "prompt": "How many times did Tereshkova go around the Earth?",
         "options": [
-          "She was a pilot.",
-          "She went around the Earth 126 times.",
-          "She was a very good skydiver.",
-          "She stayed in space for one week."
+          "48 times",
+          "126 times",
+          "three times"
         ],
-        "answerIndex": 2,
+        "answerIndex": 0,
         "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "rawAnswer": "A",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q4",
         "index": 4,
-        "prompt": "Which statement is true?",
+        "prompt": "Why did the space program need special skydivers?",
         "options": [
-          "Valentina Tereshkova was the first woman to go into space.",
-          "Before becoming an astronaut, Valentina was a pilot.",
-          "Astronauts in her time stayed in the spaceship until landing.",
-          "Valentina spent one day in space."
+          "They had to jump from their spaceships before landing.",
+          "They had to build spaceships.",
+          "They had to teach other astronauts to fly."
         ],
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q5",
         "index": 5,
-        "prompt": "Which statement is false?",
+        "prompt": "What is the reading mainly about?",
         "options": [
-          "Astronauts at that time had to be good skydivers.",
-          "Valentina spent three days in space.",
-          "She went around the Earth 48 times.",
-          "She was accepted because she was already a pilot."
-        ],
-        "answerIndex": 3,
-        "type": "single",
-        "rawAnswer": "D",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q6",
-        "index": 6,
-        "prompt": "At the time, ______ had to be good skydivers.",
-        "options": [
-          "pilots",
-          "astronauts",
-          "engineers",
-          "teachers"
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q7",
-        "index": 7,
-        "prompt": "They had to jump from their spaceships before ______.",
-        "options": [
-          "launching",
-          "training",
-          "landing",
-          "sleeping"
-        ],
-        "answerIndex": 2,
-        "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q8",
-        "index": 8,
-        "prompt": "The space program ______ people with special talents.",
-        "options": [
-          "wanted",
-          "avoided",
-          "copied",
-          "followed"
+          "The first female astronaut",
+          "Why skydivers make good astronauts",
+          "The first space program"
         ],
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
-        "id": "q9",
-        "index": 9,
-        "prompt": "Valentina Tereshkova was the ______ woman in space.",
+        "id": "q6",
+        "index": 6,
+        "prompt": "In 1963, Valentina was ______ into space.",
         "options": [
-          "last",
-          "only",
-          "first",
-          "tallest"
+          "accepted",
+          "launched",
+          "landed"
+        ],
+        "answerIndex": 1,
+        "type": "single",
+        "rawAnswer": "B",
+        "answerSource": "official-rfd-student-book-answer-key"
+      },
+      {
+        "id": "q7",
+        "index": 7,
+        "prompt": "Which is true about Valentina Tereshkova?",
+        "options": [
+          "She was a pilot.",
+          "She went around the Earth 126 times.",
+          "She was a very good skydiver."
         ],
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
-        "id": "q10",
-        "index": 10,
-        "prompt": "She was chosen because she was a good ______.",
+        "id": "q8",
+        "index": 8,
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
-          "pilot",
-          "skydiver",
-          "teacher",
-          "singer"
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q11",
-        "index": 11,
-        "prompt": "Astronauts had to ______ from their spaceships before landing.",
-        "options": [
-          "wave",
+          "first",
           "jump",
-          "hide",
-          "drive"
+          "wanted",
+          "skydiver",
+          "dangerous"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Who: Valentina Tereshkova was the 2. ______ woman in space.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "What: The space program 1. ______ people with special talents.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "How: She was chosen because she was a good 3. ______.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-4",
+            "prompt": "Why: Astronauts had to 4. ______ from their spaceships before landing.",
+            "answerIndex": 1
+          }
+        ],
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": {
+          "groups": [
+            {
+              "label": "Who",
+              "items": [
+                {
+                  "text": "Valentina Tereshkova was the 2. ______ woman in space.",
+                  "blankIds": [
+                    "blank-1"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "What",
+              "items": [
+                {
+                  "text": "The space program 1. ______ people with special talents.",
+                  "blankIds": [
+                    "blank-2"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "How",
+              "items": [
+                {
+                  "text": "She was chosen because she was a good 3. ______.",
+                  "blankIds": [
+                    "blank-3"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Why",
+              "items": [
+                {
+                  "text": "Astronauts had to 4. ______ from their spaceships before landing.",
+                  "blankIds": [
+                    "blank-4"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": "five-w-one-h",
+        "type": "word-bank",
+        "rawAnswer": "CADB",
+        "answerSource": "official-rfd-student-book-answer-key"
+      },
+      {
+        "id": "q9",
+        "index": 9,
+        "prompt": "Choose the correct word to complete each sentence.",
+        "options": [
+          "launched",
+          "landed",
+          "Talented",
+          "Surprisingly",
+          "landing",
+          "launching",
+          "astronauts",
+          "talents"
+        ],
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. In 1963, Valentina was ______ into space.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. ______, she was not a pilot before she became an astronaut.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. She became world famous after ______ back on Earth.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. She was accepted because she had special ______.",
+            "answerIndex": 7
+          }
+        ],
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": null,
+        "type": "word-bank",
+        "rawAnswer": "ADEH",
+        "answerSource": "official-rfd-student-book-answer-key"
       }
     ],
     "unsupportedQuestions": []
@@ -71570,7 +72219,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q2",
@@ -71584,7 +72233,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q3",
@@ -71598,7 +72247,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q4",
@@ -71612,7 +72261,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q5",
@@ -71626,7 +72275,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q6",
@@ -71640,7 +72289,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q7",
@@ -71654,52 +72303,145 @@
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q8",
         "index": 8,
-        "prompt": "Oshibana is the Japanese art of making pictures from _____ flowers.",
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
-          "live",
-          "pressed",
-          "heavy",
-          "common"
+          "souvenirs",
+          "common",
+          "remove",
+          "pressed"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Main Idea: Oshibana is the art of making pictures from 1. ______ flowers.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Detail 1: Flowers are pressed between two pieces of paper to 2. ______ water.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Detail 2: People have pressed flowers for a long time for 3. ______ and for scientific study.",
+            "answerIndex": 0
+          }
+        ],
+        "ideaTree": {
+          "mainIdea": {
+            "label": "Main Idea",
+            "text": "Oshibana is the art of making pictures from 1. ______ flowers.",
+            "blankId": "blank-1",
+            "blankIds": [
+              "blank-1"
+            ],
+            "entries": [
+              {
+                "text": "Oshibana is the art of making pictures from 1. ______ flowers.",
+                "blankId": "blank-1",
+                "blankIds": [
+                  "blank-1"
+                ]
+              }
+            ]
+          },
+          "branches": [],
+          "details": [
+            {
+              "label": "Detail 1",
+              "text": "Flowers are pressed between two pieces of paper to 2. ______ water.",
+              "blankId": "blank-2",
+              "blankIds": [
+                "blank-2"
+              ],
+              "entries": [
+                {
+                  "text": "Flowers are pressed between two pieces of paper to 2. ______ water.",
+                  "blankId": "blank-2",
+                  "blankIds": [
+                    "blank-2"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Detail 2",
+              "text": "People have pressed flowers for a long time for 3. ______ and for scientific study.",
+              "blankId": "blank-3",
+              "blankIds": [
+                "blank-3"
+              ],
+              "entries": [
+                {
+                  "text": "People have pressed flowers for a long time for 3. ______ and for scientific study.",
+                  "blankId": "blank-3",
+                  "blankIds": [
+                    "blank-3"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": "main-idea-tree",
+        "type": "word-bank",
+        "rawAnswer": "DCA",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q9",
         "index": 9,
-        "prompt": "Flowers are pressed between two pieces of paper to _____ the water.",
+        "prompt": "Choose the correct word to complete each sentence.",
         "options": [
-          "remove",
-          "collect",
-          "color",
-          "cover"
+          "pieces",
+          "petals",
+          "knights",
+          "heavy"
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q10",
-        "index": 10,
-        "prompt": "People have pressed flowers for a long time for _____ and for scientific study.",
-        "options": [
-          "gardens",
-          "souvenirs",
-          "cooking",
-          "trade"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. ______ pressed flowers as souvenirs.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. Dry the flowers between two ______ of paper.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. Pressing the flower keeps the ______ safe.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. They used ______ books to flatten the flowers.",
+            "answerIndex": 3
+          }
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": null,
+        "type": "word-bank",
+        "rawAnswer": "CABD",
+        "answerSource": "official-rfd-student-book-answer-key"
       }
     ],
     "unsupportedQuestions": []
@@ -72480,7 +73222,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q2",
@@ -72494,7 +73236,7 @@
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q3",
@@ -72508,7 +73250,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q4",
@@ -72522,7 +73264,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q5",
@@ -72536,7 +73278,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q6",
@@ -72550,7 +73292,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q7",
@@ -72564,67 +73306,146 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q8",
         "index": 8,
-        "prompt": "Famous painters and comic book _____ make designer toys.",
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
+          "appeared",
+          "kinds",
           "artists",
-          "drivers",
-          "students",
-          "farmers"
+          "plastic",
+          "limited"
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Who: Famous painters, comic book 1. ______, and other artists make art toys.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "When: They first 2. ______ in the 1990s.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "What: They are made from 3. ______ and other unusual materials.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-4",
+            "prompt": "Why: They are expensive because they come in 4. ______ numbers.",
+            "answerIndex": 4
+          }
+        ],
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": {
+          "groups": [
+            {
+              "label": "Who",
+              "items": [
+                {
+                  "text": "Famous painters, comic book 1. ______, and other artists make art toys.",
+                  "blankIds": [
+                    "blank-1"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "When",
+              "items": [
+                {
+                  "text": "They first 2. ______ in the 1990s.",
+                  "blankIds": [
+                    "blank-2"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "What",
+              "items": [
+                {
+                  "text": "They are made from 3. ______ and other unusual materials.",
+                  "blankIds": [
+                    "blank-3"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Why",
+              "items": [
+                {
+                  "text": "They are expensive because they come in 4. ______ numbers.",
+                  "blankIds": [
+                    "blank-4"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": "five-w-one-h",
+        "type": "word-bank",
+        "rawAnswer": "CADE",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q9",
         "index": 9,
-        "prompt": "Designer toys first _____ in the 1990s.",
+        "prompt": "Choose the correct word to complete each sentence.",
         "options": [
-          "changed",
-          "appeared",
-          "melted",
-          "disappeared"
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q10",
-        "index": 10,
-        "prompt": "Designer toys are made from _____ and other materials.",
-        "options": [
-          "cotton",
-          "plastic",
-          "stone",
-          "paper"
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q11",
-        "index": 11,
-        "prompt": "Designer toys can be expensive because they come in _____ numbers.",
-        "options": [
-          "equal",
-          "growing",
+          "Collectibles",
+          "Painters",
+          "painters",
+          "graffiti",
           "limited",
-          "odd"
+          "collectible",
+          "dolls"
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. ______ are usually expensive.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. Some ______ artists make art toys.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. Art toys are made in ______ numbers.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. Unlike teddy bears and ______, art toys are not for playing with.",
+            "answerIndex": 6
+          }
+        ],
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": null,
+        "type": "word-bank",
+        "rawAnswer": "ADEG",
+        "answerSource": "official-rfd-student-book-answer-key"
       }
     ],
     "unsupportedQuestions": []
@@ -73316,7 +74137,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q2",
@@ -73330,7 +74151,7 @@
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q3",
@@ -73344,7 +74165,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q4",
@@ -73358,7 +74179,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q5",
@@ -73372,7 +74193,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q6",
@@ -73386,7 +74207,7 @@
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q7",
@@ -73400,52 +74221,145 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q8",
         "index": 8,
-        "prompt": "Our brain creates images using information that our eyes see, but it also ______ shortcuts.",
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
-          "paints",
-          "takes",
-          "avoids",
-          "studies"
+          "see",
+          "details",
+          "happens",
+          "takes"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Main Idea: Our brain creates images from information that our eyes see, but it also 1. ______ shortcuts.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Detail 1: It fills in 2. ______ that are not always real.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Detail 2: When this happens, we 3. ______ an optical illusion, like the Ponzo illusion.",
+            "answerIndex": 0
+          }
+        ],
+        "ideaTree": {
+          "mainIdea": {
+            "label": "Main Idea",
+            "text": "Our brain creates images from information that our eyes see, but it also 1. ______ shortcuts.",
+            "blankId": "blank-1",
+            "blankIds": [
+              "blank-1"
+            ],
+            "entries": [
+              {
+                "text": "Our brain creates images from information that our eyes see, but it also 1. ______ shortcuts.",
+                "blankId": "blank-1",
+                "blankIds": [
+                  "blank-1"
+                ]
+              }
+            ]
+          },
+          "branches": [],
+          "details": [
+            {
+              "label": "Detail 1",
+              "text": "It fills in 2. ______ that are not always real.",
+              "blankId": "blank-2",
+              "blankIds": [
+                "blank-2"
+              ],
+              "entries": [
+                {
+                  "text": "It fills in 2. ______ that are not always real.",
+                  "blankId": "blank-2",
+                  "blankIds": [
+                    "blank-2"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Detail 2",
+              "text": "When this happens, we 3. ______ an optical illusion, like the Ponzo illusion.",
+              "blankId": "blank-3",
+              "blankIds": [
+                "blank-3"
+              ],
+              "entries": [
+                {
+                  "text": "When this happens, we 3. ______ an optical illusion, like the Ponzo illusion.",
+                  "blankId": "blank-3",
+                  "blankIds": [
+                    "blank-3"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": "main-idea-tree",
+        "type": "word-bank",
+        "rawAnswer": "DBA",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q9",
         "index": 9,
-        "prompt": "Our brain fills in ______ that are not always real.",
+        "prompt": "Choose the correct word to complete each sentence.",
         "options": [
-          "colors",
-          "pictures",
-          "details",
-          "questions"
+          "shortcuts",
+          "track",
+          "equal",
+          "further"
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q10",
-        "index": 10,
-        "prompt": "When this happens, we ______ an optical illusion.",
-        "options": [
-          "see",
-          "build",
-          "explain",
-          "lose"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. The lines are of ______ length.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. The drawing is of a train ______.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. Your brain thinks the top line is ______ away.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. Our brain also takes ______.",
+            "answerIndex": 0
+          }
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": null,
+        "type": "word-bank",
+        "rawAnswer": "CBDA",
+        "answerSource": "official-rfd-student-book-answer-key"
       }
     ],
     "unsupportedQuestions": []
@@ -74113,7 +75027,7 @@
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q2",
@@ -74127,7 +75041,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q3",
@@ -74141,7 +75055,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q4",
@@ -74155,7 +75069,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q5",
@@ -74169,7 +75083,7 @@
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q6",
@@ -74183,7 +75097,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q7",
@@ -74197,67 +75111,146 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q8",
         "index": 8,
-        "prompt": "Sand animation is a(n) ______ of performance art.",
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
-          "light",
+          "film",
           "kind",
-          "box",
-          "picture"
+          "story",
+          "light",
+          "images"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "What: Sand animation is a(n) 1. ______ of performance art.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "How: The artist uses sand and 2. ______ to make images with shadows.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-3",
+            "prompt": "When: The first sand animation was a 3. ______ made in 1968.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-4",
+            "prompt": "Why: Artists make sand animation to tell a(n) 4. ______.",
+            "answerIndex": 2
+          }
+        ],
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": {
+          "groups": [
+            {
+              "label": "What",
+              "items": [
+                {
+                  "text": "Sand animation is a(n) 1. ______ of performance art.",
+                  "blankIds": [
+                    "blank-1"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "How",
+              "items": [
+                {
+                  "text": "The artist uses sand and 2. ______ to make images with shadows.",
+                  "blankIds": [
+                    "blank-2"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "When",
+              "items": [
+                {
+                  "text": "The first sand animation was a 3. ______ made in 1968.",
+                  "blankIds": [
+                    "blank-3"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Why",
+              "items": [
+                {
+                  "text": "Artists make sand animation to tell a(n) 4. ______.",
+                  "blankIds": [
+                    "blank-4"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": "five-w-one-h",
+        "type": "word-bank",
+        "rawAnswer": "BEAC",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q9",
         "index": 9,
-        "prompt": "The artist uses sand and light to make ______ with shadows.",
+        "prompt": "Choose the correct word to complete each sentence.",
         "options": [
-          "images",
-          "films",
-          "toys",
-          "windows"
+          "shadow",
+          "audience",
+          "animation",
+          "sand",
+          "Traditional",
+          "performances",
+          "shadows"
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q10",
-        "index": 10,
-        "prompt": "The first sand animation work mentioned in the reading was a ______.",
-        "options": [
-          "story",
-          "performance",
-          "film",
-          "drawing"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. Sand artists perform in front of a(n) ______.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. There are other kinds of ______ not made with drawings.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. ______ animation is made with many pictures.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. Sand artists use ______ to create images.",
+            "answerIndex": 6
+          }
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q11",
-        "index": 11,
-        "prompt": "Artists make sand animation to tell a(n) ______.",
-        "options": [
-          "joke",
-          "story",
-          "answer",
-          "lesson"
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": null,
+        "type": "word-bank",
+        "rawAnswer": "BCEG",
+        "answerSource": "official-rfd-student-book-answer-key"
       }
     ],
     "unsupportedQuestions": []
@@ -74923,7 +75916,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q2",
@@ -74937,7 +75930,7 @@
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q3",
@@ -74951,7 +75944,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q4",
@@ -74965,7 +75958,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q5",
@@ -74979,7 +75972,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q6",
@@ -74993,7 +75986,7 @@
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q7",
@@ -75007,52 +76000,158 @@
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q8",
         "index": 8,
-        "prompt": "Before alarm clocks were invented, people used a ______ to wake them up.",
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
-          "peashooter",
-          "factory",
+          "alarm clock",
           "knocker-up",
-          "machine"
+          "elderly",
+          "tools"
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Main Idea: Before the invention of the alarm clock, 1. ______ people and policemen would wake people up.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Detail 2: They used 2. ______ such as bamboo sticks and peashooters to knock on windows.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Detail 3: They lost their jobs to the more reliable 3. ______.",
+            "answerIndex": 0
+          }
+        ],
+        "ideaTree": {
+          "mainIdea": {
+            "label": "Main Idea",
+            "text": "Before the invention of the alarm clock, 1. ______ people and policemen would wake people up.",
+            "blankId": "blank-1",
+            "blankIds": [
+              "blank-1"
+            ],
+            "entries": [
+              {
+                "text": "Before the invention of the alarm clock, 1. ______ people and policemen would wake people up.",
+                "blankId": "blank-1",
+                "blankIds": [
+                  "blank-1"
+                ]
+              }
+            ]
+          },
+          "branches": [],
+          "details": [
+            {
+              "label": "Detail 1",
+              "text": "Factories hired them to wake up workers.",
+              "blankId": null,
+              "blankIds": [],
+              "entries": [
+                {
+                  "text": "Factories hired them to wake up workers.",
+                  "blankId": null,
+                  "blankIds": []
+                }
+              ]
+            },
+            {
+              "label": "Detail 2",
+              "text": "They used 2. ______ such as bamboo sticks and peashooters to knock on windows.",
+              "blankId": "blank-2",
+              "blankIds": [
+                "blank-2"
+              ],
+              "entries": [
+                {
+                  "text": "They used 2. ______ such as bamboo sticks and peashooters to knock on windows.",
+                  "blankId": "blank-2",
+                  "blankIds": [
+                    "blank-2"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Detail 3",
+              "text": "They lost their jobs to the more reliable 3. ______.",
+              "blankId": "blank-3",
+              "blankIds": [
+                "blank-3"
+              ],
+              "entries": [
+                {
+                  "text": "They lost their jobs to the more reliable 3. ______.",
+                  "blankId": "blank-3",
+                  "blankIds": [
+                    "blank-3"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": "main-idea-tree",
+        "type": "word-bank",
+        "rawAnswer": "BDA",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q9",
         "index": 9,
-        "prompt": "Knocker-ups used ______ such as bamboo sticks and peashooters.",
+        "prompt": "Choose the correct word to complete each sentence.",
         "options": [
-          "tools",
-          "windows",
+          "reliable",
+          "knock",
           "clocks",
-          "factories"
+          "hired"
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q10",
-        "index": 10,
-        "prompt": "Knocker-ups lost their jobs to the more reliable ______.",
-        "options": [
-          "bamboo stick",
-          "police officer",
-          "alarm clock",
-          "stone"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. Nowadays, many people use alarm ______ to wake up.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. Factories ______ knocker-ups to wake up workers.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. Alarm clocks were cheaper and more ______ than knocker-ups.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. Some knocker-ups would use bamboo sticks to ______ on people's windows.",
+            "answerIndex": 1
+          }
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": null,
+        "type": "word-bank",
+        "rawAnswer": "CDAB",
+        "answerSource": "official-rfd-student-book-answer-key"
       }
     ],
     "unsupportedQuestions": []
@@ -75759,7 +76858,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q2",
@@ -75773,7 +76872,7 @@
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q3",
@@ -75787,7 +76886,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q4",
@@ -75801,7 +76900,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q5",
@@ -75815,7 +76914,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q6",
@@ -75829,7 +76928,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q7",
@@ -75843,67 +76942,171 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q8",
         "index": 8,
-        "prompt": "Some people believe ______ is the most dangerous job.",
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
-          "driving",
+          "ambulances",
+          "dangerous",
+          "jobs",
           "logging",
-          "painting",
-          "teaching"
+          "cut"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Main Idea: Some people believe 1. ______ is the most dangerous job.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Detail 1: Loggers use 2. ______ tools, such as chainsaws and big machines.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Detail 2: They 3. ______ down heavy trees.",
+            "answerIndex": 4
+          },
+          {
+            "id": "blank-4",
+            "prompt": "Detail 3: They work in places that are hard for 4. ______ to reach.",
+            "answerIndex": 0
+          }
+        ],
+        "ideaTree": {
+          "mainIdea": {
+            "label": "Main Idea",
+            "text": "Some people believe 1. ______ is the most dangerous job.",
+            "blankId": "blank-1",
+            "blankIds": [
+              "blank-1"
+            ],
+            "entries": [
+              {
+                "text": "Some people believe 1. ______ is the most dangerous job.",
+                "blankId": "blank-1",
+                "blankIds": [
+                  "blank-1"
+                ]
+              }
+            ]
+          },
+          "branches": [],
+          "details": [
+            {
+              "label": "Detail 1",
+              "text": "Loggers use 2. ______ tools, such as chainsaws and big machines.",
+              "blankId": "blank-2",
+              "blankIds": [
+                "blank-2"
+              ],
+              "entries": [
+                {
+                  "text": "Loggers use 2. ______ tools, such as chainsaws and big machines.",
+                  "blankId": "blank-2",
+                  "blankIds": [
+                    "blank-2"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Detail 2",
+              "text": "They 3. ______ down heavy trees.",
+              "blankId": "blank-3",
+              "blankIds": [
+                "blank-3"
+              ],
+              "entries": [
+                {
+                  "text": "They 3. ______ down heavy trees.",
+                  "blankId": "blank-3",
+                  "blankIds": [
+                    "blank-3"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Detail 3",
+              "text": "They work in places that are hard for 4. ______ to reach.",
+              "blankId": "blank-4",
+              "blankIds": [
+                "blank-4"
+              ],
+              "entries": [
+                {
+                  "text": "They work in places that are hard for 4. ______ to reach.",
+                  "blankId": "blank-4",
+                  "blankIds": [
+                    "blank-4"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": "main-idea-tree",
+        "type": "word-bank",
+        "rawAnswer": "DBEA",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q9",
         "index": 9,
-        "prompt": "Loggers use ______ tools, such as chainsaws and big machines.",
+        "prompt": "Choose the correct word to complete each sentence.",
         "options": [
-          "expensive",
-          "dangerous",
-          "simple",
-          "modern"
+          "logging",
+          "chainsaws",
+          "tools",
+          "reasons",
+          "places",
+          "believe",
+          "reason"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q10",
-        "index": 10,
-        "prompt": "Loggers ______ down heavy trees.",
-        "options": [
-          "cut",
-          "carry",
-          "watch",
-          "plant"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. Some people think the most dangerous job is ______.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. There are many ______ why people think so.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. Loggers use dangerous ______ to cut down heavy trees.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. Some people ______ that only machines should do the job of logging.",
+            "answerIndex": 5
+          }
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q11",
-        "index": 11,
-        "prompt": "Loggers work in places that are hard for ______ to reach.",
-        "options": [
-          "tourists",
-          "ambulances",
-          "workers",
-          "police officers"
-        ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": null,
+        "type": "word-bank",
+        "rawAnswer": "ADCF",
+        "answerSource": "official-rfd-student-book-answer-key"
       }
     ],
     "unsupportedQuestions": []
@@ -76638,7 +77841,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q2",
@@ -76652,7 +77855,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q3",
@@ -76666,7 +77869,7 @@
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q4",
@@ -76680,7 +77883,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q5",
@@ -76694,7 +77897,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q6",
@@ -76708,7 +77911,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q7",
@@ -76722,52 +77925,125 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q8",
         "index": 8,
-        "prompt": "Automation is when a ______ does a job instead of a person.",
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
-          "machine",
-          "manager",
-          "customer",
-          "painter"
+          "replace",
+          "create",
+          "salespeople",
+          "machine"
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "What I Know: Automation is when a 1. ______ does a job instead of a person.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-2",
+            "prompt": "What I Learned: Automation can also 2. ______ jobs. ATMs created more bank jobs for 3. ______ and accountants.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-3",
+            "prompt": "What I Learned: Automation can also 2. ______ jobs. ATMs created more bank jobs for 3. ______ and accountants.",
+            "answerIndex": 2
+          }
+        ],
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": {
+          "groups": [
+            {
+              "label": "What I Know",
+              "items": [
+                {
+                  "text": "Automation is when a 1. ______ does a job instead of a person.",
+                  "blankIds": [
+                    "blank-1"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "What I Want to Know",
+              "items": [
+                {
+                  "text": "Will automation make people unemployed?",
+                  "blankIds": []
+                }
+              ]
+            },
+            {
+              "label": "What I Learned",
+              "items": [
+                {
+                  "text": "Automation can also 2. ______ jobs. ATMs created more bank jobs for 3. ______ and accountants.",
+                  "blankIds": [
+                    "blank-2",
+                    "blank-3"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "chartLayout": "knowledge-chart",
+        "type": "word-bank",
+        "rawAnswer": "DBC",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q9",
         "index": 9,
-        "prompt": "Automation can also ______ jobs.",
+        "prompt": "Choose the correct word to complete each sentence.",
         "options": [
-          "lose",
-          "create",
-          "hide",
-          "test"
+          "replace",
+          "accountants",
+          "unemployed",
+          "future"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q10",
-        "index": 10,
-        "prompt": "ATMs created more bank jobs for ______ and accountants.",
-        "options": [
-          "salespeople",
-          "workers",
-          "loggers",
-          "artists"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. People fear that machines will make them ______.",
+            "answerIndex": 2
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. More ______ were employed because of ATMs.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. Some people believe that machines will ______ them.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. Many jobs will be created because of automation in the ______.",
+            "answerIndex": 3
+          }
         ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": null,
+        "type": "word-bank",
+        "rawAnswer": "CBAD",
+        "answerSource": "official-rfd-student-book-answer-key"
       }
     ],
     "unsupportedQuestions": []
@@ -77570,7 +78846,7 @@
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q2",
@@ -77584,7 +78860,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q3",
@@ -77598,7 +78874,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q4",
@@ -77612,7 +78888,7 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q5",
@@ -77626,7 +78902,7 @@
         "answerIndex": 1,
         "type": "single",
         "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q6",
@@ -77640,7 +78916,7 @@
         "answerIndex": 2,
         "type": "single",
         "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q7",
@@ -77654,67 +78930,145 @@
         "answerIndex": 0,
         "type": "single",
         "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q8",
         "index": 8,
-        "prompt": "Cloud ______ is one of the future job skills in the reading.",
+        "prompt": "Complete the chart. One word is extra.",
         "options": [
-          "media",
+          "communicating",
           "computing",
-          "shopping",
-          "analysis"
+          "useful",
+          "customers",
+          "work"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "Cloud Computing: Useful in helping people 1. ______ together and helping businesses make changes faster.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "Social Media: Useful for 2. ______ with people at work.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "Analytics: Needed for understanding 3. ______ needs.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-4",
+            "prompt": "Mobile Phone and Computer: Useful in 4. ______, shopping, and work.",
+            "answerIndex": 1
+          }
+        ],
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": {
+          "groups": [
+            {
+              "label": "Cloud Computing",
+              "items": [
+                {
+                  "text": "Useful in helping people 1. ______ together and helping businesses make changes faster.",
+                  "blankIds": [
+                    "blank-1"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Social Media",
+              "items": [
+                {
+                  "text": "Useful for 2. ______ with people at work.",
+                  "blankIds": [
+                    "blank-2"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Analytics",
+              "items": [
+                {
+                  "text": "Needed for understanding 3. ______ needs.",
+                  "blankIds": [
+                    "blank-3"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Mobile Phone and Computer",
+              "items": [
+                {
+                  "text": "Useful in 4. ______, shopping, and work.",
+                  "blankIds": [
+                    "blank-4"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": "classification",
+        "type": "word-bank",
+        "rawAnswer": "BADB",
+        "answerSource": "official-rfd-student-book-answer-key"
       },
       {
         "id": "q9",
         "index": 9,
-        "prompt": "Social media is useful for ______ with people.",
+        "prompt": "Choose the correct word to complete each sentence.",
         "options": [
-          "competing",
-          "communicating",
-          "arguing",
-          "traveling"
+          "social media",
+          "skills",
+          "Technology",
+          "Mobile",
+          "useful",
+          "mobile"
         ],
-        "answerIndex": 1,
-        "type": "single",
-        "rawAnswer": "B",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q10",
-        "index": 10,
-        "prompt": "Analytics is needed for studying ______ needs.",
-        "options": [
-          "teachers'",
-          "workers'",
-          "customers'",
-          "artists'"
+        "blanks": [
+          {
+            "id": "blank-1",
+            "prompt": "1. Businesses believe there are four ______ people need for the future.",
+            "answerIndex": 1
+          },
+          {
+            "id": "blank-2",
+            "prompt": "2. People communicate through ______.",
+            "answerIndex": 0
+          },
+          {
+            "id": "blank-3",
+            "prompt": "3. ______ phones are used to shop and work.",
+            "answerIndex": 3
+          },
+          {
+            "id": "blank-4",
+            "prompt": "4. Cloud computing is ______ for workers.",
+            "answerIndex": 4
+          }
         ],
-        "answerIndex": 2,
-        "type": "single",
-        "rawAnswer": "C",
-        "answerSource": "audited-rfd-markdown"
-      },
-      {
-        "id": "q11",
-        "index": 11,
-        "prompt": "Cloud computing helps people ______ together.",
-        "options": [
-          "work",
-          "shop",
-          "eat",
-          "relax"
-        ],
-        "answerIndex": 0,
-        "type": "single",
-        "rawAnswer": "A",
-        "answerSource": "audited-rfd-markdown"
+        "ideaTree": null,
+        "compareChart": null,
+        "fiveWOneH": null,
+        "classification": null,
+        "timeline": null,
+        "retelling": null,
+        "knowledgeChart": null,
+        "chartLayout": null,
+        "type": "word-bank",
+        "rawAnswer": "BADE",
+        "answerSource": "official-rfd-student-book-answer-key"
       }
     ],
     "unsupportedQuestions": []

@@ -33,6 +33,12 @@ export const READING_SKILL_LAYOUTS = {
     5: { 8: 'main-idea-tree' }, 6: { 7: 'five-w-one-h' }, 7: { 8: 'classification' }, 8: { 8: 'compare-chart' },
     9: { 8: 'main-idea-tree' }, 10: { 8: 'compare-chart' }, 11: { 8: 'timeline' }, 12: { 8: 'timeline' },
     13: { 8: 'main-idea-tree' }, 14: { 8: 'timeline' }, 15: { 8: 'main-idea-tree' }, 16: { 8: 'knowledge-chart' }
+  },
+  rfd6: {
+    1: { 8: 'main-idea-tree' }, 2: { 8: 'timeline' }, 3: { 8: 'five-w-one-h' }, 4: { 8: 'main-idea-tree' },
+    5: { 8: 'main-idea-tree' }, 6: { 8: 'timeline' }, 7: { 8: 'main-idea-tree' }, 8: { 8: 'five-w-one-h' },
+    9: { 8: 'main-idea-tree' }, 10: { 8: 'five-w-one-h' }, 11: { 8: 'main-idea-tree' }, 12: { 8: 'five-w-one-h' },
+    13: { 8: 'main-idea-tree' }, 14: { 8: 'main-idea-tree' }, 15: { 8: 'knowledge-chart' }, 16: { 8: 'classification' }
   }
 };
 
@@ -46,6 +52,10 @@ const parseArgs = (argv) => {
 };
 
 const normalizeTreeText = (value = '') => clean(value).replace(/\s+/g, ' ').toLowerCase();
+const answerSourceFor = (stem, unit) => {
+  if (stem === 'rfd6') return 'official-rfd-student-book-answer-key';
+  return ANSWER_KEY_REPAIRS[stem]?.[Number(unit)] ? 'audited-rfd-key-repair' : 'audited-rfd-markdown';
+};
 
 const parseIdeaTree = (lines, blanks) => {
   const blankIdsByPrompt = new Map();
@@ -325,7 +335,7 @@ export const parseBook = (stem, { baseDir = cwd } = {}) => {
           chartLayout,
           type: 'word-bank',
           rawAnswer: answerKey.toUpperCase(),
-          answerSource: ANSWER_KEY_REPAIRS[stem]?.[Number(unit)] ? 'audited-rfd-key-repair' : 'audited-rfd-markdown'
+          answerSource: answerSourceFor(stem, unit)
         };
       }
       return {
@@ -337,7 +347,7 @@ export const parseBook = (stem, { baseDir = cwd } = {}) => {
         answerIndexes: answerIndexes.length > 1 ? answerIndexes : undefined,
         type: answerIndexes.length === 1 ? 'single' : 'multiple',
         rawAnswer: answerKey.toUpperCase(),
-        answerSource: ANSWER_KEY_REPAIRS[stem]?.[Number(unit)] ? 'audited-rfd-key-repair' : 'audited-rfd-markdown'
+        answerSource: answerSourceFor(stem, unit)
       };
     });
     return { unit: Number(unit), title: clean(title), questions };

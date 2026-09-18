@@ -6,67 +6,62 @@ Dinosaurs lived millions of years ago. They ruled for 150 million years. Movies 
 
 Many dinosaurs looked more like birds than lizards. Take the velociraptor, for example. In movies, this dinosaur looks bigger than a person. Its claws and teeth look long and sharp. But, in fact, velociraptors were not that big or that scary. They were about the size of a turkey. And they were also covered in feathers. They didn’t look scary at all.
 
-1. What is the reading mainly about?
+1. Which word is similar to often?
+a. always
+b. usually
+c. never
+
+2. What does quite mean in the reading?
+a. a little
+b. very
+c. not
+
+3. How do dinosaurs often look in movies?
+a. giant, scary lizards
+b. small birds
+c. feathered turkeys
+
+4. What do we know about the appearance of the velociraptor?
+a. It was about the size of a turkey and covered in feathers.
+b. It was bigger than a person.
+c. It looked exactly like a movie monster.
+
+5. What is the reading mainly about?
 a. The biggest and scariest dinosaurs
 b. How dinosaurs actually looked
 c. How to make a dinosaur movie
-d. Why dinosaurs disappeared
 
-2. Actually, many dinosaurs looked quite like ______.
+6. Actually, many dinosaurs looked quite like ______.
 a. giants
 b. birds
 c. lizards
-d. turkeys
 
-3. How big was a velociraptor?
+7. How big was a velociraptor?
 a. Bigger than a giant lizard
 b. Smaller than most birds
 c. Similar in size to a turkey
-d. As big as a person
 
-4. Which statement is true according to the reading?
-a. Movies often show dinosaurs as birds.
-b. Real dinosaurs looked exactly like lizards.
-c. Velociraptors were about the size of a person.
-d. Velociraptors were not actually big or scary.
-
-5. Which sentence is false?
-a. Movies often show dinosaurs as giant lizards.
-b. Many dinosaurs looked more like birds than lizards.
-c. Velociraptors were covered in feathers.
-d. Real dinosaurs always looked the same as in movies.
-
-6. Which statement is false according to the reading?
-a. Movies often show dinosaurs as birds.
-b. Velociraptors were covered in feathers.
-c. Velociraptors were about the size of a turkey.
-d. Many dinosaurs looked more like birds than lizards.
-
-7. In movies, the velociraptor is shown to have sharp ______ and teeth.
-a. feathers
-b. claws
-c. wings
-d. bones
-
-8. In real life, dinosaurs often looked different from how they looked in ______.
-a. caves
-b. movies
-c. museums
-d. dreams
-
-9. Movies often show dinosaurs as ______ scary lizards.
+8. Complete the chart. One word is extra.
+Main Idea: In real life, dinosaurs often looked different from how they looked in 1. ______.
+Detail 1: Movies often show them as 2. ______, scary lizards.
+Detail 2: In movies, the velociraptor often looks bigger than a person and has long, sharp teeth and claws.
+Detail 3: The velociraptor was only as big as a turkey and was 3. ______ in feathers.
 a. giant
-b. gentle
-c. tiny
-d. feathered
+b. fact
+c. movies
+d. covered
 
-10. The velociraptor was about the size of a turkey and was ______ in feathers.
-a. hidden
-b. covered
-c. trapped
-d. painted
+9. Choose the correct word to complete each sentence.
+1. ______ actually looked quite different in real life.
+2. Most dinosaurs looked like birds, not ______.
+3. In movies, the velociraptor is shown to have sharp ______ and teeth.
+4. In truth, velociraptors were not that big or ______.
+a. scary
+b. claws
+c. dinosaurs
+d. lizards
 
-ans: b b c d d a b b a b
+ans: b b a a b b c cad cdba
 
 ## Unit 2 How to Make a Fossil
 
@@ -74,73 +69,64 @@ How did we learn about the dinosaurs? We learned from fossils.
 
 Fossils are the bodies of long-dead animals. But making a fossil takes a lot of time and luck. First, an animal needs to die. Then, it must be covered in mud. The mud should dry slowly. If it dries too fast, this can destroy the fossil. Also, nothing should touch the bones. Finally, a fossil needs to age for 10,000 years to fully form. This is why fossils are so rare. Only about one bone in a million becomes a fossil.
 
-1. What is the reading mainly about?
+1. Which word is similar to rare?
+a. normal
+b. common
+c. unusual
+
+2. Which word or phrase is the opposite of long-dead?
+a. dying
+b. still alive
+c. buried
+
+3. What are fossils?
+a. The bodies of long-dead animals.
+b. Very old rocks.
+c. The bones of living animals.
+
+4. How can fossils be destroyed?
+a. If mud dries too fast or something touches the bones.
+b. If an animal is covered in mud.
+c. If a fossil ages for 10,000 years.
+
+5. What is the reading mainly about?
 a. Why dinosaurs died out
 b. How to make a fossil at home
 c. How fossils are formed
-d. Why fossils are expensive
 
-2. For a fossil to form, the mud covering the bones needs to dry ______.
+6. For a fossil to form, the mud covering the bones needs to dry ______.
 a. quickly
 b. cleanly
 c. slowly
-d. naturally
 
-3. How long does a fossil need to age for?
+7. How long does a fossil need to age for?
 a. Ten thousand years
 b. Ten billion years
 c. One thousand years
-d. A hundred years
 
-4. Which statement is true?
-a. Fossils are made quickly, in just a few days.
-b. An animal must be covered in mud to become a fossil.
-c. Most bones become fossils after animals die.
-d. Scientists learn about dinosaurs only from books.
-
-5. Which statement is false?
-a. We learned about dinosaurs by studying fossils.
-b. Fossils are the bodies of long-dead animals.
-c. Mud should dry slowly for a fossil to form.
-d. Every dead animal becomes a fossil.
-
-6. Which event comes first in the process of forming a fossil?
-a. The fossil ages for 10,000 years.
-b. The mud dries very slowly.
-c. An animal dies.
-d. The fossil is displayed in a museum.
-
-7. If the mud dries too fast, it can ______ the fossil.
-a. age
-b. form
-c. destroy
-d. cover
-
-8. In the fossil-forming process, an animal first ______.
-a. flies
-b. dies
-c. runs
-d. hides
-
-9. Then, ______ covers the body.
-a. mud
-b. smoke
-c. glass
-d. oil
-
-10. To form a fossil, the mud ______ very slowly.
+8. Complete the chart. One word is extra.
+1. An animal ______.
+2. ______ covers the body.
+3. The mud ______ very slowly.
+4. The fossil ______ for 10,000 years to fully form.
 a. dries
-b. breaks
-c. falls
-d. freezes
+b. mud
+c. fast
+d. ages
+e. dies
 
-11. A fossil ______ for 10,000 years to fully form.
-a. grows
-b. shines
-c. ages
-d. moves
+9. Choose the correct word to complete each sentence.
+1. Only one ______ in every million turns into a fossil.
+2. The mud should not ______ too fast.
+3. If the mud dries too fast, it can ______ the fossil.
+4. A fossil needs to age for 10,000 years to fully ______.
+a. form
+b. bone
+c. dry
+d. destroy
+e. age
 
-ans: c c a b d c c b a a c
+ans: c b a a c c a ebad bcda
 
 ## Unit 3 Mass Extinctions
 
@@ -150,67 +136,62 @@ There have been several mass extinctions. Each time, the conditions changed on o
 
 Now the temperature on Earth is rising. This is because of pollution. We should be careful. We might cause the next mass extinction!
 
-1. What is the reading mainly about?
+1. Which word or phrase is similar to happened?
+a. took place
+b. changed
+c. finished
+
+2. Which word is the opposite of rising?
+a. increasing
+b. falling
+c. happening
+
+3. What are some causes of mass extinctions?
+a. Climate or air changes, volcanoes, and asteroids.
+b. Only the growth of plants.
+c. Only humans building cities.
+
+4. What is happening now that might cause the next mass extinction?
+a. The temperature on Earth is rising because of pollution.
+b. The dinosaurs are returning.
+c. The oceans are disappearing overnight.
+
+5. What is the reading mainly about?
 a. How the dinosaurs died out
 b. Pollution and climate change on Earth
 c. Mass extinctions and why they happen
-d. The history of volcanoes
 
-2. Sixty-six million years ago, ______.
+6. Sixty-six million years ago, ______.
 a. there was too much pollution
 b. all the plants died out
 c. all the dinosaurs died out
-d. humans caused a mass extinction
 
-3. Which word in the reading means “more than two, but not a specific number”?
-a. all
-b. several
-c. last
-d. same
+7. How many mass extinctions have happened on Earth?
+a. One
+b. More than two
+c. Many
 
-4. Which statement is true?
-a. A mass extinction means only one animal disappears.
-b. The last mass extinction happened 66 million years ago.
-c. Dinosaurs survived the last mass extinction.
-d. Pollution cannot affect extinction.
-
-5. Which statement is false?
-a. Conditions on Earth changed during past mass extinctions.
-b. A volcano or an asteroid can cause major changes.
-c. Pollution today might cause another mass extinction.
-d. Climate never changed during past extinctions.
-
-6. In the reading, the rising ______ on Earth is linked to pollution.
-a. ocean
-b. population
-c. temperature
-d. pressure
-
-7. Which word best completes the sentence? “Human actions might ______ the next mass extinction.”
-a. discover
-b. cause
-c. stop
-d. hide
-
-8. A mass ______ is when many plants and animals go extinct at the same time.
-a. climate
-b. condition
-c. extinction
-d. volcano
-
-9. It happens when ______ change on our planet.
-a. conditions
-b. feathers
+8. Complete the chart. One word is extra.
+What: A mass 1. ______ is when many plants and animals go extinct at the same time.
+Why: 2. ______ change on our planet.
+When: The last mass extinction happened 66 million years ago.
+How: Pollution is causing Earth's 3. ______ to rise.
+a. temperature
+b. extinction
 c. dinosaurs
-d. cameras
+d. conditions
 
-10. Pollution is causing Earth’s ______ to rise.
-a. ocean
-b. temperature
-c. cave
-d. population
+9. Choose the correct word to complete each sentence.
+1. During each mass extinction, ______ changed on our planet.
+2. The ______ changed or the air changed.
+3. Sometimes it was because of a volcano or a(n) ______.
+4. We might ______ the next mass extinction!
+a. cause
+b. asteroid
+c. climate
+d. conditions
 
-ans: c c b b d c b c a b
+ans: a b a a c c b bda dcba
 
 ## Unit 4 DNA Cloning
 
@@ -220,73 +201,66 @@ Unfortunately, this is only fiction. Scientists cannot really do this. DNA becom
 
 However, we could clone other extinct animals. Their DNA is not as old, so it is less damaged. For example, the mammoth went extinct only 10,000 years ago. We might be able to bring it back. Do you want to see a mammoth? Someday, you just might!
 
-1. What is the reading mainly about?
+1. What is a mammoth?
+a. a cloned dinosaur
+b. a kind of dinosaur
+c. an extinct animal
+
+2. Which word is similar to however?
+a. also
+b. but
+c. and
+
+3. Why can't scientists use dinosaur DNA?
+a. It is too damaged to use.
+b. It is too new.
+c. It belongs to mammoths.
+
+4. When did mammoths die out?
+a. 10,000 years ago
+b. 66 million years ago
+c. in 1903
+
+5. What is the reading mainly about?
 a. Science and cloning in movies
 b. Bringing back dinosaurs
 c. DNA cloning of extinct animals
-d. How mammoths lived
 
-2. Mammoth DNA is ______ damaged than dinosaur DNA.
+6. Mammoth DNA is ______ damaged than dinosaur DNA.
 a. less
 b. more
 c. so
-d. equally
 
-3. Which extinct animals can scientists clone?
+7. Which extinct animals can scientists clone?
 a. Only dinosaurs
 b. Only mammoths
 c. Mammoths and some other animals
-d. No extinct animals at all
 
-4. Which statement is true?
-a. Dinosaur DNA is too damaged to use for cloning.
-b. The mammoth went extinct millions of years ago.
-c. Scientists can already clone dinosaurs.
-d. DNA gets stronger over time.
-
-5. Which statement is false?
-a. In movies, scientists bring back dinosaurs.
-b. Scientists cannot really clone dinosaurs now.
-c. DNA becomes damaged over time.
-d. Mammoth DNA is older than dinosaur DNA.
-
-6. The reading says cloning dinosaurs is only ______.
-a. practice
-b. fiction
-c. science
-d. history
-
-7. Why might mammoths be easier to clone than dinosaurs?
-a. They were larger animals.
-b. Their DNA is not as old.
-c. They lived in warm places.
-d. Scientists already have living mammoths.
-
-8. ______ try to clone extinct animals from old DNA.
-a. Farmers
-b. Scientists
-c. Sailors
-d. Artists
-
-9. In movies, people use dinosaur ______ to make clones.
-a. skin
+8. Complete the chart. One word is extra.
+Main Idea: 1. ______ try to clone extinct animals from old DNA.
+Detail 1: In movies, people use dinosaur 2. ______ to make clones.
+Detail 2: Dinosaur DNA is too old and 3. ______ to use.
+Detail 3: The 4. ______ went extinct 10,000 years ago, and we might be able to bring it back.
+a. mammoth
 b. DNA
-c. teeth
-d. feathers
+c. scientists
+d. cloning
+e. damaged
 
-10. Dinosaur DNA is too old and ______ to use.
-a. damaged
-b. fresh
-c. bright
-d. useful
+9. Choose the correct word to complete each sentence.
+1. In movies, scientists use dinosaur DNA to ______ dinosaurs.
+2. Unfortunately, this is only ______ because it cannot be done.
+3. Other animals' ______ is not as old, so it is less damaged.
+4. ______, you just might see a mammoth!
+a. clone
+b. damaged
+c. fiction
+d. DNA
+e. Someday
+f. damage
+g. Unfortunately
 
-11. The ______ went extinct 10,000 years ago, so it may be possible to bring it back.
-a. lizard
-b. turkey
-c. mammoth
-d. volcano
-
-ans: c a c a d b b b b a c
+ans: c b a a c a c cbea acde
 
 ## Unit 5 Sailing Around the World
 
@@ -296,67 +270,62 @@ Magellan believed he could travel to India through the Americas. He left Spain w
 
 Sadly, Magellan died in the Philippines. But his crew continued and returned home.
 
-1. What is the reading mainly about?
+1. What does called mean in the reading?
+a. named
+b. shouted
+c. explored
+
+2. Which word or phrase is the opposite of left?
+a. went from
+b. returned
+c. gave back
+
+3. How big was Magellan's crew?
+a. 300 men
+b. five men
+c. two men
+
+4. What happened to Magellan?
+a. He died in the Philippines.
+b. He returned safely to Spain.
+c. He found India.
+
+5. What is the reading mainly about?
 a. The Pacific Ocean
 b. The history of explorers
 c. An explorer
-d. A war in Europe
 
-2. Magellan lost two of his ______ in the ocean.
+6. Magellan lost two of his ______ in the ocean.
 a. crew
 b. ships
 c. explorers
-d. maps
 
-3. What happened to Magellan’s crew after he died?
+7. Where did Magellan's crew die?
 a. They died in the Philippines.
-b. They continued and went home.
-c. They stayed in South America.
-d. They lost all five ships.
+b. They didn't, and they went home.
+c. They died in the Straits of Magellan.
 
-4. Which statement is true?
-a. Magellan came from Spain.
-b. Magellan sailed with five ships and 300 men.
-c. Magellan’s crew stopped the trip after he died.
-d. The Straits of Magellan are in the Pacific Ocean only.
+8. Complete the chart. One word is extra.
+Main Idea: There were many 1. ______ explorers in the 15th century, including Ferdinand Magellan.
+Detail 1: He sailed from Europe to South America.
+Detail 2: He 2. ______ the Straits of Magellan in South America.
+Detail 3: He never returned home. He 3. ______ in the Philippines.
+a. died
+b. believed
+c. brave
+d. discovered
 
-5. Which statement is false?
-a. Magellan discovered a path through South America.
-b. The Straits of Magellan were named after Magellan.
-c. Magellan returned home with his crew.
-d. Magellan wanted to reach India through the Americas.
+9. Choose the correct word to complete each sentence.
+1. The 15th ______ is known as the Age of Exploration.
+2. Magellan's crew continued and ______ home.
+3. He ______ his ships through a path in South America.
+4. He had a ______ of 300 men.
+a. century
+b. sailed
+c. returned
+d. crew
 
-6. The Age of Exploration is known as a period with many brave ______.
-a. sailors
-b. kings
-c. explorers
-d. workers
-
-7. Magellan left Spain with five ships and a 300-man ______.
-a. crew
-b. army
-c. family
-d. team of scientists
-
-8. There were many ______ explorers in the 15th century.
-a. brave
-b. tired
-c. modern
-d. secret
-
-9. Magellan ______ the Straits of Magellan in South America.
-a. borrowed
-b. discovered
-c. painted
-d. closed
-
-10. Magellan ______ in the Philippines.
-a. rested
-b. returned
-c. died
-d. hid
-
-ans: c b b b c c a a b c
+ans: a b a a c b b cda acbd
 
 ## Unit 6 The Antarctic Adventurer
 
@@ -366,67 +335,66 @@ In 1911, Amundsen went to Antarctica. He became the first man to reach the South
 
 Amundsen wasn’t finished with his adventures. In 1926, he traveled to the Arctic. He was the first to fly over the North Pole. In 1928, he tried to rescue a lost crewmate. Sadly, Amundsen disappeared and never returned.
 
-1. What is the reading mainly about?
+1. Which word is similar to found?
+a. named
+b. discovered
+c. searched
+
+2. What does connects mean in the reading?
+a. travels
+b. divides
+c. joins
+
+3. Which route did Roald Amundsen discover in 1903?
+a. the Northwest Passage
+b. the South Pole
+c. the Arctic route
+
+4. What was Amundsen doing when he disappeared?
+a. He was trying to rescue a lost crewmate.
+b. He was crossing the Northwest Passage.
+c. He was flying over the North Pole.
+
+5. What is the reading mainly about?
 a. How to travel in the freezing cold
 b. Amundsen’s polar adventures
 c. How Amundsen disappeared
-d. The history of Antarctica
 
-2. Amundsen went to Antarctica with five crewmates and eleven ______.
+6. Amundsen went to Antarctica with five crewmates and eleven ______.
 a. rescues
 b. oceans
 c. dogs
-d. planes
 
-3. Which is NOT true about Roald Amundsen?
+7. Which is NOT true about Roald Amundsen?
 a. He traveled 99 days in the freezing cold.
 b. He disappeared in the Northwest Passage.
 c. He discovered the Northwest Passage.
-d. He tried to rescue a lost crewmate.
 
-4. Which statement is true?
-a. Amundsen discovered the Northwest Passage in 1903.
-b. Amundsen reached the South Pole with eleven people and five dogs.
-c. Amundsen’s journey to the South Pole lasted 9 days.
-d. Amundsen returned safely in 1928.
+8. Complete the chart. One word is extra.
+1. Roald Amundsen ______ the Northwest Passage in 1903.
+2. In 1911, he ______ with crewmates and dogs to Antarctica.
+3. In 1928, he ______ trying to rescue his crewmate.
+He flew over the North Pole in 1926.
+a. traveled
+b. returned
+c. discovered
+d. disappeared
 
-5. Which statement is false?
-a. The Northwest Passage connects the Atlantic and Pacific Oceans.
-b. Amundsen was the first man to reach the South Pole.
-c. He later traveled to the Arctic.
-d. He never went on adventures after 1911.
+9. Choose the correct word to complete each sentence.
+1. The Northwest Passage connects two ______.
+2. Roald Amundsen discovered the ______ connecting the oceans.
+3. Amundsen was not ______ with his adventures.
+4. He tried to ______ a lost crewmate.
+a. oceans
+b. routes
+c. route
+d. adventure
+e. finished
+f. freezing
+g. finish
+h. rescue
 
-6. The passage says the journey to the South Pole took 99 days in the ______ cold.
-a. deep
-b. freezing
-c. dry
-d. summer
-
-7. In 1928, Amundsen tried to ______ a lost crewmate.
-a. rescue
-b. visit
-c. follow
-d. replace
-
-8. In 1903, Amundsen ______ the Northwest Passage.
-a. discovered
-b. forgot
-c. crossed out
-d. lost
-
-9. In 1911, he ______ to Antarctica with crewmates and dogs.
-a. sailed back
-b. traveled
-c. pointed
-d. listened
-
-10. In 1928, he ______ while trying to rescue a crewmate.
-a. smiled
-b. disappeared
-c. celebrated
-d. landed
-
-ans: b c b a d b a a b b
+ans: b c a a b c b cad aceh
 
 ## Unit 7 The Deep Dive
 
@@ -434,67 +402,62 @@ Most of the ocean is a mystery. We have to use powerful cameras to see what it�
 
 Jacques Piccard was a scientist who studied the oceans. He wanted to reach the deepest part of the ocean. So, he built a submarine. He called the place he found “Challenger Deep” because it was so hard to get to. There, he found something amazing: fish and shrimp. Nobody thought any creature could live that deep.
 
-1. What is the reading mainly about?
+1. Which word is the opposite of part?
+a. piece
+b. whole
+c. section
+
+2. What does amazing mean in the reading?
+a. hard to believe
+b. normal
+c. swimming
+
+3. What did Jacques Piccard want to do?
+a. Reach the deepest part of the ocean.
+b. Photograph every ocean animal.
+c. Build a powerful camera.
+
+4. What was found in Challenger Deep?
+a. fish and shrimp
+b. a waterfall
+c. a city
+
+5. What is the reading mainly about?
 a. Fishing for deep-sea fish and shrimp
 b. Taking underwater pictures in the ocean
 c. How a scientist found Challenger Deep
-d. Why cameras are better than people
 
-2. It is hard to ______ the deepest part of the ocean.
+6. It is hard to ______ the deepest part of the ocean.
 a. place
 b. find
 c. reach
-d. study
 
-3. How was Challenger Deep reached?
+7. How was Challenger Deep reached?
 a. With a submarine
 b. With a camera
 c. With a special robot
-d. By swimming
 
-4. Which statement is true?
-a. Most of the ocean is still a mystery to scientists.
-b. There are no mountains under the sea.
-c. Scientists already knew fish and shrimp could live that deep.
-d. Cameras can show us everything in the ocean.
+8. Complete the chart. One word is extra.
+Main Idea: Much of the ocean is very deep and mysterious.
+Detail 1: The deep ocean is 1. ______ to get to.
+Detail 2: A(n) 2. ______ named Jacques Piccard built a submarine to reach the deepest part.
+Detail 3: It was 3. ______ to find creatures living deep under the sea.
+a. something
+b. hard
+c. amazing
+d. scientist
 
-5. Which statement is false?
-a. Jacques Piccard studied the oceans.
-b. He built a submarine.
-c. Challenger Deep was easy to get to.
-d. Some amazing creatures were found there.
+9. Choose the correct word to complete each sentence.
+1. Jacques Piccard wanted to ______ the deepest part of the ocean.
+2. Nobody thought fish and shrimp could live that ______.
+3. We have even found canyons and ______ under the sea!
+4. Piccard built a ______ to get down to the deep sea.
+a. waterfalls
+b. reach
+c. submarine
+d. deep
 
-6. Most of the ocean is a ______.
-a. cave
-b. mystery
-c. laboratory
-d. country
-
-7. We’ve found mountains, ______, and even waterfalls under the sea.
-a. canyons
-b. forests
-c. roads
-d. volcanoes only
-
-8. Challenger Deep was very ______ to get to.
-a. hard
-b. cheap
-c. warm
-d. empty
-
-9. Jacques Piccard was a(n) ______ who studied the oceans.
-a. pilot
-b. scientist
-c. tourist
-d. actor
-
-10. It was ______ to find creatures living so deep under the sea.
-a. amazing
-b. common
-c. boring
-d. noisy
-
-ans: c c a a c b a a b a
+ans: b a a a c c a bdc bdac
 
 ## Unit 8 The First Female Astronaut
 
@@ -502,73 +465,67 @@ Valentina Tereshkova was the first woman in space. Surprisingly, she was not a p
 
 In 1963, Valentina was launched into space. She spent three days in space. She went around the Earth 48 times. After landing, she became world famous.
 
-1. What is the reading mainly about?
+1. Which phrase is similar to accepted?
+a. let in
+b. kept out
+c. talked to
+
+2. What does famous mean in the reading?
+a. special
+b. surprised
+c. well known
+
+3. How many times did Tereshkova go around the Earth?
+a. 48 times
+b. 126 times
+c. three times
+
+4. Why did the space program need special skydivers?
+a. They had to jump from their spaceships before landing.
+b. They had to build spaceships.
+c. They had to teach other astronauts to fly.
+
+5. What is the reading mainly about?
 a. The first female astronaut
 b. Why skydivers make good astronauts
 c. The first space program
-d. Life on the moon
 
-2. In 1963, Valentina was ______ into space.
+6. In 1963, Valentina was ______ into space.
 a. accepted
 b. launched
 c. landed
-d. dropped
 
-3. Which is true about Valentina Tereshkova?
+7. Which is true about Valentina Tereshkova?
 a. She was a pilot.
 b. She went around the Earth 126 times.
 c. She was a very good skydiver.
-d. She stayed in space for one week.
 
-4. Which statement is true?
-a. Valentina Tereshkova was the first woman to go into space.
-b. Before becoming an astronaut, Valentina was a pilot.
-c. Astronauts in her time stayed in the spaceship until landing.
-d. Valentina spent one day in space.
-
-5. Which statement is false?
-a. Astronauts at that time had to be good skydivers.
-b. Valentina spent three days in space.
-c. She went around the Earth 48 times.
-d. She was accepted because she was already a pilot.
-
-6. At the time, ______ had to be good skydivers.
-a. pilots
-b. astronauts
-c. engineers
-d. teachers
-
-7. They had to jump from their spaceships before ______.
-a. launching
-b. training
-c. landing
-d. sleeping
-
-8. The space program ______ people with special talents.
-a. wanted
-b. avoided
-c. copied
-d. followed
-
-9. Valentina Tereshkova was the ______ woman in space.
-a. last
-b. only
-c. first
-d. tallest
-
-10. She was chosen because she was a good ______.
-a. pilot
-b. skydiver
-c. teacher
-d. singer
-
-11. Astronauts had to ______ from their spaceships before landing.
-a. wave
+8. Complete the chart. One word is extra.
+Who: Valentina Tereshkova was the 2. ______ woman in space.
+What: The space program 1. ______ people with special talents.
+How: She was chosen because she was a good 3. ______.
+Why: Astronauts had to 4. ______ from their spaceships before landing.
+a. first
 b. jump
-c. hide
-d. drive
+c. wanted
+d. skydiver
+e. dangerous
 
-ans: a b c a d b c a c b b
+9. Choose the correct word to complete each sentence.
+1. In 1963, Valentina was ______ into space.
+2. ______, she was not a pilot before she became an astronaut.
+3. She became world famous after ______ back on Earth.
+4. She was accepted because she had special ______.
+a. launched
+b. landed
+c. Talented
+d. Surprisingly
+e. landing
+f. launching
+g. astronauts
+h. talents
+
+ans: a c a a a b c cadb adeh
 
 ## Unit 9 Oshibana
 
@@ -613,25 +570,26 @@ a. Oshibana is a type of Chinese art.
 b. Oshibana artists only paint flowers.
 c. A flower can be dried between two pieces of paper.
 
-8. Oshibana is the Japanese art of making pictures from _____ flowers.
-a. live
-b. pressed
-c. heavy
-d. common
+8. Complete the chart. One word is extra.
+Main Idea: Oshibana is the art of making pictures from 1. ______ flowers.
+Detail 1: Flowers are pressed between two pieces of paper to 2. ______ water.
+Detail 2: People have pressed flowers for a long time for 3. ______ and for scientific study.
+a. souvenirs
+b. common
+c. remove
+d. pressed
 
-9. Flowers are pressed between two pieces of paper to _____ the water.
-a. remove
-b. collect
-c. color
-d. cover
+9. Choose the correct word to complete each sentence.
+1. ______ pressed flowers as souvenirs.
+2. Dry the flowers between two ______ of paper.
+3. Pressing the flower keeps the ______ safe.
+4. They used ______ books to flatten the flowers.
+a. pieces
+b. petals
+c. knights
+d. heavy
 
-10. People have pressed flowers for a long time for _____ and for scientific study.
-a. gardens
-b. souvenirs
-c. cooking
-d. trade
-
-ans: b a a b b b c b a b
+ans: b a a b b b c dca cabd
 
 ## Unit 10 Art Toys
 
@@ -676,31 +634,31 @@ a. Designer toys are usually made in large numbers.
 b. Some designer toys can cost thousands of dollars.
 c. Designer toys first appeared in the 1970s.
 
-8. Famous painters and comic book _____ make designer toys.
-a. artists
-b. drivers
-c. students
-d. farmers
+8. Complete the chart. One word is extra.
+Who: Famous painters, comic book 1. ______, and other artists make art toys.
+When: They first 2. ______ in the 1990s.
+What: They are made from 3. ______ and other unusual materials.
+Why: They are expensive because they come in 4. ______ numbers.
+a. appeared
+b. kinds
+c. artists
+d. plastic
+e. limited
 
-9. Designer toys first _____ in the 1990s.
-a. changed
-b. appeared
-c. melted
-d. disappeared
+9. Choose the correct word to complete each sentence.
+1. ______ are usually expensive.
+2. Some ______ artists make art toys.
+3. Art toys are made in ______ numbers.
+4. Unlike teddy bears and ______, art toys are not for playing with.
+a. Collectibles
+b. Painters
+c. painters
+d. graffiti
+e. limited
+f. collectible
+g. dolls
 
-10. Designer toys are made from _____ and other materials.
-a. cotton
-b. plastic
-c. stone
-d. paper
-
-11. Designer toys can be expensive because they come in _____ numbers.
-a. equal
-b. growing
-c. limited
-d. odd
-
-ans: a c b a b a b a b b c
+ans: a c b a b a b cade adeg
 
 ## Unit 11 Optical Illusions
 
@@ -743,25 +701,26 @@ a. Your eyes make images for you.
 b. Your brain can take shortcuts when creating images.
 c. In the Ponzo illusion, the two yellow lines are different lengths.
 
-8. Our brain creates images using information that our eyes see, but it also ______ shortcuts.
-a. paints
-b. takes
-c. avoids
-d. studies
-
-9. Our brain fills in ______ that are not always real.
-a. colors
-b. pictures
-c. details
-d. questions
-
-10. When this happens, we ______ an optical illusion.
+8. Complete the chart. One word is extra.
+Main Idea: Our brain creates images from information that our eyes see, but it also 1. ______ shortcuts.
+Detail 1: It fills in 2. ______ that are not always real.
+Detail 2: When this happens, we 3. ______ an optical illusion, like the Ponzo illusion.
 a. see
-b. build
-c. explain
-d. lose
+b. details
+c. happens
+d. takes
 
-ans: a c a b a c b b c a
+9. Choose the correct word to complete each sentence.
+1. The lines are of ______ length.
+2. The drawing is of a train ______.
+3. Your brain thinks the top line is ______ away.
+4. Our brain also takes ______.
+a. shortcuts
+b. track
+c. equal
+d. further
+
+ans: a c a b a c b dba cbda
 
 ## Unit 12 Sand Animation
 
@@ -806,31 +765,31 @@ a. Sand artists usually perform with no audience.
 b. The first sand animation film was made by a student.
 c. Sand animation is not a kind of art.
 
-8. Sand animation is a(n) ______ of performance art.
-a. light
+8. Complete the chart. One word is extra.
+What: Sand animation is a(n) 1. ______ of performance art.
+How: The artist uses sand and 2. ______ to make images with shadows.
+When: The first sand animation was a 3. ______ made in 1968.
+Why: Artists make sand animation to tell a(n) 4. ______.
+a. film
 b. kind
-c. box
-d. picture
+c. story
+d. light
+e. images
 
-9. The artist uses sand and light to make ______ with shadows.
-a. images
-b. films
-c. toys
-d. windows
+9. Choose the correct word to complete each sentence.
+1. Sand artists perform in front of a(n) ______.
+2. There are other kinds of ______ not made with drawings.
+3. ______ animation is made with many pictures.
+4. Sand artists use ______ to create images.
+a. shadow
+b. audience
+c. animation
+d. sand
+e. Traditional
+f. performances
+g. shadows
 
-10. The first sand animation work mentioned in the reading was a ______.
-a. story
-b. performance
-c. film
-d. drawing
-
-11. Artists make sand animation to tell a(n) ______.
-a. joke
-b. story
-c. answer
-d. lesson
-
-ans: c a a b c b b b a c b
+ans: c a a b c b b beac bceg
 
 ## Unit 13 A Disappearing Job
 
@@ -875,25 +834,27 @@ a. Knocker-ups were machines.
 b. Knocker-ups often used alarm clocks to wake people.
 c. Knocker-ups were often elderly people.
 
-8. Before alarm clocks were invented, people used a ______ to wake them up.
-a. peashooter
-b. factory
-c. knocker-up
-d. machine
+8. Complete the chart. One word is extra.
+Main Idea: Before the invention of the alarm clock, 1. ______ people and policemen would wake people up.
+Detail 1: Factories hired them to wake up workers.
+Detail 2: They used 2. ______ such as bamboo sticks and peashooters to knock on windows.
+Detail 3: They lost their jobs to the more reliable 3. ______.
+a. alarm clock
+b. knocker-up
+c. elderly
+d. tools
 
-9. Knocker-ups used ______ such as bamboo sticks and peashooters.
-a. tools
-b. windows
+9. Choose the correct word to complete each sentence.
+1. Nowadays, many people use alarm ______ to wake up.
+2. Factories ______ knocker-ups to wake up workers.
+3. Alarm clocks were cheaper and more ______ than knocker-ups.
+4. Some knocker-ups would use bamboo sticks to ______ on people's windows.
+a. reliable
+b. knock
 c. clocks
-d. factories
+d. hired
 
-10. Knocker-ups lost their jobs to the more reliable ______.
-a. bamboo stick
-b. police officer
-c. alarm clock
-d. stone
-
-ans: a c b a b c c c a c
+ans: a c b a b c c bda cdab
 
 ## Unit 14 Dangerous Jobs
 
@@ -938,31 +899,31 @@ a. Logging is one of the most dangerous jobs in the world.
 b. Ambulances can easily reach hurt loggers everywhere.
 c. Using machines could never affect human jobs.
 
-8. Some people believe ______ is the most dangerous job.
-a. driving
-b. logging
-c. painting
-d. teaching
-
-9. Loggers use ______ tools, such as chainsaws and big machines.
-a. expensive
+8. Complete the chart. One word is extra.
+Main Idea: Some people believe 1. ______ is the most dangerous job.
+Detail 1: Loggers use 2. ______ tools, such as chainsaws and big machines.
+Detail 2: They 3. ______ down heavy trees.
+Detail 3: They work in places that are hard for 4. ______ to reach.
+a. ambulances
 b. dangerous
-c. simple
-d. modern
+c. jobs
+d. logging
+e. cut
 
-10. Loggers ______ down heavy trees.
-a. cut
-b. carry
-c. watch
-d. plant
+9. Choose the correct word to complete each sentence.
+1. Some people think the most dangerous job is ______.
+2. There are many ______ why people think so.
+3. Loggers use dangerous ______ to cut down heavy trees.
+4. Some people ______ that only machines should do the job of logging.
+a. logging
+b. chainsaws
+c. tools
+d. reasons
+e. places
+f. believe
+g. reason
 
-11. Loggers work in places that are hard for ______ to reach.
-a. tourists
-b. ambulances
-c. workers
-d. police officers
-
-ans: b c b b a b a b b a b
+ans: b c b b a b a dbea adcf
 
 ## Unit 15 Automation
 
@@ -1005,25 +966,26 @@ a. Machines in the past could only do simple jobs.
 b. Automation only takes away jobs.
 c. ATMs caused banks to hire fewer people.
 
-8. Automation is when a ______ does a job instead of a person.
-a. machine
-b. manager
-c. customer
-d. painter
-
-9. Automation can also ______ jobs.
-a. lose
+8. Complete the chart. One word is extra.
+What I Know: Automation is when a 1. ______ does a job instead of a person.
+What I Want to Know: Will automation make people unemployed?
+What I Learned: Automation can also 2. ______ jobs. ATMs created more bank jobs for 3. ______ and accountants.
+a. replace
 b. create
-c. hide
-d. test
+c. salespeople
+d. machine
 
-10. ATMs created more bank jobs for ______ and accountants.
-a. salespeople
-b. workers
-c. loggers
-d. artists
+9. Choose the correct word to complete each sentence.
+1. People fear that machines will make them ______.
+2. More ______ were employed because of ATMs.
+3. Some people believe that machines will ______ them.
+4. Many jobs will be created because of automation in the ______.
+a. replace
+b. accountants
+c. unemployed
+d. future
 
-ans: a b c a b b a a b a
+ans: a b c a b b a dbc cbad
 
 ## Unit 16 Future Skills
 
@@ -1074,28 +1036,27 @@ a. Analytics helps businesses understand what customers want.
 b. Social media is considered a valuable communication tool by businesses.
 c. Cloud computing slows down how quickly businesses can make changes.
 
-8. Cloud ______ is one of the future job skills in the reading.
-a. media
+8. Complete the chart. One word is extra.
+Cloud Computing: Useful in helping people 1. ______ together and helping businesses make changes faster.
+Social Media: Useful for 2. ______ with people at work.
+Analytics: Needed for understanding 3. ______ needs.
+Mobile Phone and Computer: Useful in 4. ______, shopping, and work.
+a. communicating
 b. computing
-c. shopping
-d. analysis
+c. useful
+d. customers
+e. work
 
-9. Social media is useful for ______ with people.
-a. competing
-b. communicating
-c. arguing
-d. traveling
+9. Choose the correct word to complete each sentence.
+1. Businesses believe there are four ______ people need for the future.
+2. People communicate through ______.
+3. ______ phones are used to shop and work.
+4. Cloud computing is ______ for workers.
+a. social media
+b. skills
+c. Technology
+d. Mobile
+e. useful
+f. mobile
 
-10. Analytics is needed for studying ______ needs.
-a. teachers'
-b. workers'
-c. customers'
-d. artists'
-
-11. Cloud computing helps people ______ together.
-a. work
-b. shop
-c. eat
-d. relax
-
-ans: c a a a b c a b b c a
+ans: c a a a b c a badb bade
