@@ -2164,8 +2164,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     // reached the device.
     // v42 safely normalizes null chart-layout fields, then verifies the
     // structured layouts before accepting a cached curriculum bundle.
-    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v42';
-    const BUNDLED_LIBRARY_SEED_VERSION = '42';
+    const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v43';
+    const BUNDLED_LIBRARY_SEED_VERSION = '43';
     const EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT = 324;
     const EXPECTED_RE_FOUNDATIONS_ARTICLE_COUNT = 24;
 
@@ -2289,7 +2289,15 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const normalizeNode = (node = {}) => ({
         label: String(node.label || '').trim(),
         text: String(node.text || '').trim(),
-        blankId: node.blankId == null || node.blankId === '' ? null : String(node.blankId)
+        blankId: node.blankId == null || node.blankId === '' ? null : String(node.blankId),
+        blankIds: Array.isArray(node.blankIds) ? node.blankIds.map(blankId => String(blankId)).filter(Boolean) : [],
+        entries: (Array.isArray(node.entries) ? node.entries : [{ text: node.text, blankId: node.blankId }])
+          .map(entry => ({
+            text: String(entry?.text || '').trim(),
+            blankId: entry?.blankId == null || entry.blankId === '' ? null : String(entry.blankId),
+            blankIds: Array.isArray(entry?.blankIds) ? entry.blankIds.map(blankId => String(blankId)).filter(Boolean) : []
+          }))
+          .filter(entry => entry.text)
       });
       const mainIdea = normalizeNode(ideaTree.mainIdea);
       if (!mainIdea.label || !mainIdea.text) return null;
@@ -2347,6 +2355,21 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       return groups.length === 3 ? { groups } : null;
     };
 
+    const normalizeQuizGroupedChart = (chart) => {
+      if (!chart || typeof chart !== 'object') return null;
+      const groups = Array.isArray(chart.groups) ? chart.groups
+        .map(group => ({
+          label: String(group?.label || '').trim(),
+          items: (Array.isArray(group?.items) ? group.items : []).map(item => ({
+            text: String(item?.text || '').trim(),
+            blankIds: Array.isArray(item?.blankIds) ? item.blankIds.map(blankId => String(blankId)).filter(Boolean) : []
+          })).filter(item => item.text)
+        }))
+        .filter(group => group.label && group.items.length > 0)
+        : [];
+      return groups.length >= 2 ? { groups } : null;
+    };
+
     const normalizeQuizQuestion = (question = {}, fallbackIndex = 0) => {
       const options = Array.isArray(question.options)
         ? question.options
@@ -2371,7 +2394,10 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const ideaTree = normalizeQuizIdeaTree(question.ideaTree);
       const compareChart = normalizeQuizCompareChart(question.compareChart);
       const timeline = normalizeQuizTimeline(question.timeline);
+      const retelling = normalizeQuizTimeline(question.retelling);
       const knowledgeChart = normalizeQuizKnowledgeChart(question.knowledgeChart);
+      const fiveWOneH = normalizeQuizGroupedChart(question.fiveWOneH);
+      const classification = normalizeQuizGroupedChart(question.classification);
       const explicitType = String(question.type || '').trim().toLowerCase();
       const inferredType = explicitType || (
         Number.isInteger(answerIndex) && options.length >= 2 ? 'single' : 'unsupported'
@@ -2392,7 +2418,11 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         ideaTree,
         compareChart,
         timeline,
+        retelling,
         knowledgeChart,
+        fiveWOneH,
+        classification,
+        chartLayout: String(question.chartLayout || '').trim(),
         answerIndex,
         answerIndexes,
         blanks,
@@ -2869,19 +2899,28 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
 
     const hasRequiredBundledQuizLayouts = (articles = []) => {
       const normalized = normalizeSavedArticles(articles);
-      const rfdQuestions = normalized
-        .filter(article => /^rfd[456]-/i.test(String(article.id || '')))
-        .flatMap(article => Array.isArray(article.questions) ? article.questions : []);
-      const mainIdeaTreeCount = rfdQuestions.filter(question => question?.type === 'word-bank' && question?.ideaTree?.mainIdea).length;
       const requiredLayouts = [
-        ['rfd5-04-Unit-4-Intelligent-Machines', 'timeline'],
-        ['rfd5-11-Unit-11-Auto-Tune', 'timeline'],
-        ['rfd5-12-Unit-12-The-Changing-Shape-of-Music', 'timeline'],
-        ['rfd5-16-Unit-16-Weather-Models', 'knowledgeChart']
+        ['rfd4-01-U1-Amazing-Ancient-Egypt', 'q8', 'main-idea-tree', 'ideaTree'], ['rfd4-02-Unit-2-The-Tomb-of-Tutankhamun', 'q8', 'five-w-one-h', 'fiveWOneH'],
+        ['rfd4-03-Unit-3-A-Queen-s-Mystery', 'q8', 'main-idea-tree', 'ideaTree'], ['rfd4-04-Unit-4-The-Gods-of-Ancient-Egypt', 'q8', 'main-idea-tree', 'ideaTree'],
+        ['rfd4-05-Unit-5-The-Unicorn-of-the-Sea', 'q8', 'five-w-one-h', 'fiveWOneH'], ['rfd4-06-Unit-6-The-Fastest-Punch', 'q9', 'main-idea-tree', 'ideaTree'],
+        ['rfd4-07-Unit-7-Animals-That-Clean', 'q8', 'compare-chart', 'compareChart'], ['rfd4-08-Unit-8-The-Gecko-Lizard', 'q8', 'main-idea-tree', 'ideaTree'],
+        ['rfd4-09-Unit-9-The-Longest-Tennis-Match', 'q8', 'five-w-one-h', 'fiveWOneH'], ['rfd4-10-Unit-10-Most-Red-Cards-in-a-Soccer-Match', 'q8', 'retelling', 'retelling'],
+        ['rfd4-11-Unit-11-Most-Wins-by-an-NBA-Team', 'q8', 'main-idea-tree', 'ideaTree'], ['rfd4-12-Unit-12-How-We-Measure-Sports-Records', 'q8', 'classification', 'classification'],
+        ['rfd4-13-Unit-13-Animals-Can-Protect', 'q8', 'knowledge-chart', 'knowledgeChart'], ['rfd4-14-Unit-14-Present-Home-Security', 'q8', 'classification', 'classification'],
+        ['rfd4-15-Unit-15-The-Future-of-Home-Security', 'q8', 'knowledge-chart', 'knowledgeChart'], ['rfd4-16-Unit-16-Surveillance-Cameras', 'q8', 'main-idea-tree', 'ideaTree'],
+        ['rfd5-01-Unit-1-Cleaning-Up-Space-Garbage', 'q8', 'main-idea-tree', 'ideaTree'], ['rfd5-02-Unit-2-Robot-Firefighters', 'q8', 'five-w-one-h', 'fiveWOneH'],
+        ['rfd5-03-Unit-3-Cars-That-Drive-Themselves', 'q8', 'main-idea-tree', 'ideaTree'], ['rfd5-04-Unit-4-Intelligent-Machines', 'q8', 'timeline', 'timeline'],
+        ['rfd5-05-Unit-5-Hieroglyphics', 'q8', 'main-idea-tree', 'ideaTree'], ['rfd5-06-Unit-6-Baseball-Signs', 'q7', 'five-w-one-h', 'fiveWOneH'],
+        ['rfd5-07-Unit-7-How-Animals-Communicate', 'q8', 'classification', 'classification'], ['rfd5-08-Unit-8-Barcodes-and-QR-Codes', 'q8', 'compare-chart', 'compareChart'],
+        ['rfd5-09-Unit-9-The-Theremin', 'q8', 'main-idea-tree', 'ideaTree'], ['rfd5-10-Unit-10-Beat-Machines', 'q8', 'compare-chart', 'compareChart'],
+        ['rfd5-11-Unit-11-Auto-Tune', 'q8', 'timeline', 'timeline'], ['rfd5-12-Unit-12-The-Changing-Shape-of-Music', 'q8', 'timeline', 'timeline'],
+        ['rfd5-13-Unit-13-The-First-Scales', 'q8', 'main-idea-tree', 'ideaTree'], ['rfd5-14-Unit-14-Weighing-a-Planet', 'q8', 'timeline', 'timeline'],
+        ['rfd5-15-Unit-15-Catching-Rain', 'q8', 'main-idea-tree', 'ideaTree'], ['rfd5-16-Unit-16-Weather-Models', 'q8', 'knowledge-chart', 'knowledgeChart']
       ];
-      return mainIdeaTreeCount >= 10 && requiredLayouts.every(([articleId, field]) =>
-        normalized.find(article => article.id === articleId)?.questions?.find(question => question.id === 'q8')?.[field]
-      );
+      return requiredLayouts.every(([articleId, questionId, layout, field]) => {
+        const question = normalized.find(article => article.id === articleId)?.questions?.find(item => item.id === questionId);
+        return question?.chartLayout === layout && question?.[field];
+      });
     };
 
     const getReFoundationsArticleCount = (articles = []) =>
@@ -4947,8 +4986,17 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const currentWordBankTimeline = currentQuizQuestion?.type === 'word-bank'
         ? currentQuizQuestion.timeline
         : null;
+      const currentWordBankRetelling = currentQuizQuestion?.type === 'word-bank'
+        ? currentQuizQuestion.retelling
+        : null;
       const currentWordBankKnowledgeChart = currentQuizQuestion?.type === 'word-bank'
         ? currentQuizQuestion.knowledgeChart
+        : null;
+      const currentWordBankFiveWOneH = currentQuizQuestion?.type === 'word-bank'
+        ? currentQuizQuestion.fiveWOneH
+        : null;
+      const currentWordBankClassification = currentQuizQuestion?.type === 'word-bank'
+        ? currentQuizQuestion.classification
         : null;
       const currentQuizQuestionNumber = currentQuizQuestion?.index || 0;
       const currentWordBankAnswers = currentQuizQuestion?.type === 'word-bank'
@@ -6496,14 +6544,32 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       };
 
       const renderWordBankIdeaNode = (node) => {
-        const blankIndex = currentQuizQuestion.blanks.findIndex(blank => blank.id === node.blankId);
-        if (blankIndex >= 0) return renderWordBankBlank(currentQuizQuestion.blanks[blankIndex], blankIndex, node.label);
-        return (
-          <div className="rounded-2xl border border-rose-100 bg-white p-4 shadow-sm">
-            <p className="text-xs font-black uppercase tracking-[0.14em] text-rose-700">{node.label}</p>
-            <p className="mt-2 text-base font-semibold leading-7 text-slate-800">{node.text}</p>
-          </div>
-        );
+        const entries = Array.isArray(node.entries) && node.entries.length > 0
+          ? node.entries
+          : [{ text: node.text, blankId: node.blankId }];
+        const renderEntry = (entry, entryIndex, showLabel = false) => {
+          const blankIds = Array.isArray(entry.blankIds) && entry.blankIds.length > 0
+            ? entry.blankIds
+            : [entry.blankId].filter(Boolean);
+          if (blankIds.length > 1) return (
+            <div key={`${node.label}-${entryIndex}`} className="rounded-xl border border-rose-100 bg-white px-3 py-3 shadow-sm">
+              {showLabel && <p className="mb-2 text-xs font-black uppercase tracking-[0.14em] text-rose-700">{node.label}</p>}
+              {renderWordBankCompareItem({ text: entry.text, blankIds }, entryIndex)}
+            </div>
+          );
+          const blankIndex = currentQuizQuestion.blanks.findIndex(blank => blank.id === blankIds[0]);
+          if (blankIndex >= 0) return <div key={`${node.label}-${entryIndex}`}>{renderWordBankBlank(currentQuizQuestion.blanks[blankIndex], blankIndex, showLabel ? node.label : '')}</div>;
+          return <div key={`${node.label}-${entryIndex}`} className="rounded-xl bg-rose-50/60 px-3 py-2 text-sm font-semibold leading-6 text-slate-700">{entry.text}</div>;
+        };
+        if (entries.length > 1) {
+          return (
+            <div className="rounded-2xl border border-rose-100 bg-white p-3 shadow-sm">
+              <p className="px-1 text-xs font-black uppercase tracking-[0.14em] text-rose-700">{node.label}</p>
+              <div className="mt-2 grid gap-3">{entries.map((entry, entryIndex) => renderEntry(entry, entryIndex))}</div>
+            </div>
+          );
+        }
+        return renderEntry(entries[0], 0, true);
       };
 
       const renderWordBankInlineBlank = (blankId) => {
@@ -6555,6 +6621,35 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
               const blankId = item.blankIds[blankOffset++];
               return renderWordBankInlineBlank(blankId);
             })}
+          </div>
+        );
+      };
+
+      const renderWordBankGroupedChart = (chart, { title, subtitle, tone = 'indigo' }) => {
+        const toneClasses = tone === 'amber'
+          ? 'border-amber-200 bg-amber-50/60 text-amber-800 bg-amber-500'
+          : tone === 'violet'
+            ? 'border-violet-200 bg-violet-50/60 text-violet-800 bg-violet-500'
+            : 'border-indigo-200 bg-indigo-50/60 text-indigo-800 bg-indigo-500';
+        const blankIds = new Set(chart.groups.flatMap(group => group.items.flatMap(item => item.blankIds)));
+        const unplacedBlanks = currentQuizQuestion.blanks.filter(blank => !blankIds.has(blank.id));
+        return (
+          <div className="space-y-4">
+            <div className={`rounded-[28px] border-2 p-4 shadow-sm ${toneClasses.split(' ').slice(0, 3).join(' ')}`}>
+              <div className="flex items-center gap-3">
+                <span className={`grid h-8 w-8 place-items-center rounded-full text-sm font-black text-white ${toneClasses.split(' ').at(-1)}`}>↳</span>
+                <div><p className="text-xs font-black uppercase tracking-[0.18em]">{title}</p><p className="text-xs font-semibold opacity-80">{subtitle}</p></div>
+              </div>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {chart.groups.map((group, groupIndex) => (
+                <section key={`${group.label}-${groupIndex}`} className={`overflow-hidden rounded-[26px] border-2 bg-white shadow-sm ${toneClasses.split(' ').slice(0, 1).join(' ')}`}>
+                  <h4 className={`px-4 py-3 text-center text-sm font-black uppercase tracking-[0.13em] text-white ${toneClasses.split(' ').at(-1)}`}>{group.label}</h4>
+                  <div className="space-y-3 p-3">{group.items.map(renderWordBankCompareItem)}</div>
+                </section>
+              ))}
+            </div>
+            {unplacedBlanks.length > 0 && <div className="grid gap-3">{unplacedBlanks.map(blank => renderWordBankBlank(blank, currentQuizQuestion.blanks.indexOf(blank)))}</div>}
           </div>
         );
       };
@@ -9955,7 +10050,27 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                           </div>
                                         </div>
                                         <div className="grid gap-3">
-                                          {currentWordBankTimeline ? (() => {
+                                          {currentWordBankRetelling ? (() => {
+                                            const timelineBlankIds = new Set(currentWordBankRetelling.events.flatMap(event => event.blankIds));
+                                            const unplacedBlanks = currentQuizQuestion.blanks.filter(blank => !timelineBlankIds.has(blank.id));
+                                            return (
+                                              <div className="rounded-[30px] border-2 border-violet-200 bg-violet-50/50 p-4 shadow-sm">
+                                                <div className="flex items-center gap-3 text-violet-800">
+                                                  <span className="grid h-8 w-8 place-items-center rounded-full bg-violet-600 text-sm font-black text-white">↳</span>
+                                                  <div><p className="text-xs font-black uppercase tracking-[0.18em]">复述顺序</p><p className="text-xs font-semibold text-violet-700">按故事发展依次完成信息卡</p></div>
+                                                </div>
+                                                <div className="relative mt-5 space-y-3 border-l-4 border-violet-300 pl-5">
+                                                  {currentWordBankRetelling.events.map((event, eventIndex) => (
+                                                    <section key={`${event.text}-${eventIndex}`} className="relative rounded-2xl border-2 border-violet-200 bg-white p-3 shadow-sm before:absolute before:-left-[1.85rem] before:top-5 before:h-4 before:w-4 before:rounded-full before:border-4 before:border-violet-100 before:bg-violet-500">
+                                                      <span className="mb-2 inline-grid h-7 min-w-7 place-items-center rounded-full bg-violet-600 px-2 text-xs font-black text-white">{eventIndex + 1}</span>
+                                                      {renderWordBankCompareItem(event, eventIndex)}
+                                                    </section>
+                                                  ))}
+                                                </div>
+                                                {unplacedBlanks.length > 0 && <div className="mt-4 grid gap-3">{unplacedBlanks.map(blank => renderWordBankBlank(blank, currentQuizQuestion.blanks.indexOf(blank)))}</div>}
+                                              </div>
+                                            );
+                                          })() : currentWordBankTimeline ? (() => {
                                             const timelineBlankIds = new Set(currentWordBankTimeline.events.flatMap(event => event.blankIds));
                                             const unplacedBlanks = currentQuizQuestion.blanks.filter(blank => !timelineBlankIds.has(blank.id));
                                             return (
@@ -9976,7 +10091,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                                 {unplacedBlanks.length > 0 && <div className="mt-4 grid gap-3">{unplacedBlanks.map(blank => renderWordBankBlank(blank, currentQuizQuestion.blanks.indexOf(blank)))}</div>}
                                               </div>
                                             );
-                                          })() : currentWordBankKnowledgeChart ? (() => {
+                                          })() : currentWordBankFiveWOneH ? renderWordBankGroupedChart(currentWordBankFiveWOneH, { title: '5W1H 总结', subtitle: '用人物、事件、时间、原因和方法组织要点', tone: 'indigo' }) : currentWordBankClassification ? renderWordBankGroupedChart(currentWordBankClassification, { title: '分类整理', subtitle: '把不同类别的信息放在各自的知识卡中', tone: 'amber' }) : currentWordBankKnowledgeChart ? (() => {
                                             const knowledgeBlankIds = new Set(currentWordBankKnowledgeChart.groups.flatMap(group => group.items.flatMap(item => item.blankIds)));
                                             const unplacedBlanks = currentQuizQuestion.blanks.filter(blank => !knowledgeBlankIds.has(blank.id));
                                             return (
@@ -10011,11 +10126,17 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                               </div>
                                             );
                                           })() : currentWordBankIdeaTree ? (() => {
+                                            const getTreeNodeBlankIds = (node) => (Array.isArray(node?.entries) && node.entries.length > 0
+                                              ? node.entries.flatMap(entry => Array.isArray(entry.blankIds) && entry.blankIds.length > 0 ? entry.blankIds : [entry.blankId])
+                                              : Array.isArray(node?.blankIds) && node.blankIds.length > 0 ? node.blankIds : [node?.blankId]).filter(Boolean);
                                             const treeBlankIds = new Set([
-                                              currentWordBankIdeaTree.mainIdea.blankId,
-                                              ...currentWordBankIdeaTree.details.map(detail => detail.blankId),
-                                              ...currentWordBankIdeaTree.branches.flatMap(branch => [branch.blankId, ...branch.details.map(detail => detail.blankId)])
-                                            ].filter(Boolean));
+                                              ...getTreeNodeBlankIds(currentWordBankIdeaTree.mainIdea),
+                                              ...currentWordBankIdeaTree.details.flatMap(getTreeNodeBlankIds),
+                                              ...currentWordBankIdeaTree.branches.flatMap(branch => [
+                                                ...getTreeNodeBlankIds(branch),
+                                                ...branch.details.flatMap(getTreeNodeBlankIds)
+                                              ])
+                                            ]);
                                             const unplacedBlanks = currentQuizQuestion.blanks.filter(blank => !treeBlankIds.has(blank.id));
                                             return (
                                               <div className="space-y-5">
@@ -10032,7 +10153,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                                         {branch.details.length > 0 && <div className="mt-3 grid gap-3 sm:grid-cols-2">{branch.details.map((detail, detailIndex) => <div key={`${detail.label}-${detailIndex}`} className="rounded-2xl border border-rose-100 bg-white/90 p-2">{renderWordBankIdeaNode(detail)}</div>)}</div>}
                                                       </div>
                                                     ))}
-                                                    {currentWordBankIdeaTree.details.length > 0 && <div className="rounded-[28px] border-2 border-rose-200 bg-rose-50/50 p-3 md:col-span-2"><div className="grid gap-3 sm:grid-cols-2">{currentWordBankIdeaTree.details.map((detail, detailIndex) => <div key={`${detail.label}-${detailIndex}`} className="rounded-2xl border border-rose-100 bg-white/90 p-2">{renderWordBankIdeaNode(detail)}</div>)}</div></div>}
+                                                    {currentWordBankIdeaTree.details.length > 0 && <div className="rounded-[28px] border-2 border-rose-200 bg-rose-50/50 p-3 md:col-span-2"><div className="space-y-3">{currentWordBankIdeaTree.details.map((detail, detailIndex) => <div key={`${detail.label}-${detailIndex}`} className="rounded-2xl border border-rose-100 bg-white/90 p-2">{renderWordBankIdeaNode(detail)}</div>)}</div></div>}
                                                   </div>
                                                 )}
                                                 {unplacedBlanks.length > 0 && <div className="grid gap-3">{unplacedBlanks.map(blank => renderWordBankBlank(blank, currentQuizQuestion.blanks.indexOf(blank)))}</div>}

@@ -21,12 +21,18 @@ const ANSWER_KEY_REPAIRS = {
 // The source chart artwork conveys these layouts but not always with text
 // headings. Keep the interpretation beside the audited Markdown so new
 // generated libraries retain the intended reading skill, not flat blanks.
-const CHART_LAYOUT_OVERRIDES = {
+export const READING_SKILL_LAYOUTS = {
+  rfd4: {
+    1: { 8: 'main-idea-tree' }, 2: { 8: 'five-w-one-h' }, 3: { 8: 'main-idea-tree' }, 4: { 8: 'main-idea-tree' },
+    5: { 8: 'five-w-one-h' }, 6: { 9: 'main-idea-tree' }, 7: { 8: 'compare-chart' }, 8: { 8: 'main-idea-tree' },
+    9: { 8: 'five-w-one-h' }, 10: { 8: 'retelling' }, 11: { 8: 'main-idea-tree' }, 12: { 8: 'classification' },
+    13: { 8: 'knowledge-chart' }, 14: { 8: 'classification' }, 15: { 8: 'knowledge-chart' }, 16: { 8: 'main-idea-tree' }
+  },
   rfd5: {
-    4: { 8: 'timeline' },
-    11: { 8: 'timeline' },
-    12: { 8: 'timeline' },
-    16: { 8: 'knowledge-chart' }
+    1: { 8: 'main-idea-tree' }, 2: { 8: 'five-w-one-h' }, 3: { 8: 'main-idea-tree' }, 4: { 8: 'timeline' },
+    5: { 8: 'main-idea-tree' }, 6: { 7: 'five-w-one-h' }, 7: { 8: 'classification' }, 8: { 8: 'compare-chart' },
+    9: { 8: 'main-idea-tree' }, 10: { 8: 'compare-chart' }, 11: { 8: 'timeline' }, 12: { 8: 'timeline' },
+    13: { 8: 'main-idea-tree' }, 14: { 8: 'timeline' }, 15: { 8: 'main-idea-tree' }, 16: { 8: 'knowledge-chart' }
   }
 };
 
@@ -47,15 +53,21 @@ const parseIdeaTree = (lines, blanks) => {
     const key = normalizeTreeText(blank.prompt);
     blankIdsByPrompt.set(key, [...(blankIdsByPrompt.get(key) || []), blank.id]);
   });
-  const nodeFor = (rawLine, label, text) => ({
-    label: clean(label),
-    text: clean(text),
-    blankId: blankIdsByPrompt.get(normalizeTreeText(rawLine))?.[0] || null
-  });
+  const nodeFor = (rawLine, label, text) => {
+    const blankIds = blankIdsByPrompt.get(normalizeTreeText(rawLine)) || [];
+    return {
+      label: clean(label),
+      text: clean(text),
+      blankId: blankIds[0] || null,
+      blankIds,
+      entries: [{ text: clean(text), blankId: blankIds[0] || null, blankIds }]
+    };
+  };
   let mainIdea = null;
   const branches = [];
   const details = [];
   let activeBranch = null;
+  let activeDetail = null;
 
   lines.forEach(rawLine => {
     const line = clean(rawLine);
@@ -63,25 +75,38 @@ const parseIdeaTree = (lines, blanks) => {
     const mainMatch = content.match(/^(main\s*idea\s*\d*)\s*:\s*(.+)$/i);
     if (mainMatch) {
       mainIdea = nodeFor(line, mainMatch[1], mainMatch[2]);
+      activeDetail = null;
       return;
     }
     const branchMatch = content.match(/^(sub[-\s]*idea\s*\d*)\s*:\s*(.+)$/i);
     if (branchMatch) {
       activeBranch = { ...nodeFor(line, branchMatch[1], branchMatch[2]), details: [] };
       branches.push(activeBranch);
+      activeDetail = null;
       return;
     }
     const detailMatch = content.match(/^(detail\s*\d*)\s*(?::|\.)\s*(.+)$/i);
     if (detailMatch) {
       const detail = nodeFor(line, detailMatch[1], detailMatch[2]);
       (activeBranch ? activeBranch.details : details).push(detail);
+      activeDetail = detail;
       return;
     }
     const isNumberedDetail = /^(?:[-•]\s*)?\d+\.\s+/.test(line);
     const isBlankLine = blankIdsByPrompt.has(normalizeTreeText(line));
     if (mainIdea && (isNumberedDetail || isBlankLine || /^[-•]\s+/.test(line))) {
       const targetDetails = activeBranch ? activeBranch.details : details;
-      targetDetails.push(nodeFor(line, `Detail ${targetDetails.length + 1}`, content));
+      const blankIds = blankIdsByPrompt.get(normalizeTreeText(line)) || [];
+      const entry = { text: content, blankId: blankIds[0] || null, blankIds };
+      // The printed chart often puts several lines under a single Detail
+      // label. Keep those lines together instead of inventing another number.
+      if (activeDetail && targetDetails.includes(activeDetail)) {
+        activeDetail.entries.push(entry);
+      } else {
+        const detail = nodeFor(line, `Detail ${targetDetails.length + 1}`, content);
+        targetDetails.push(detail);
+        activeDetail = detail;
+      }
     }
   });
 
@@ -155,7 +180,7 @@ const parseKnowledgeChart = (lines, blanks) => {
   const groups = [];
   lines.forEach(rawLine => {
     const line = clean(rawLine);
-    const match = line.match(/^(What I (?:Know|Want to Know|Learned)):\s*(.+)$/i);
+    const match = line.match(/^(?:[-•]\s*)?(What I (?:Know|Want to Know|Learned)):\s*(.+)$/i);
     if (!match) return;
     const label = clean(match[1]);
     const text = clean(match[2]);
@@ -163,6 +188,54 @@ const parseKnowledgeChart = (lines, blanks) => {
   });
   const placedBlankIds = new Set(groups.flatMap(group => group.items.flatMap(item => item.blankIds)));
   return groups.length === 3 && placedBlankIds.size > 0 ? { groups } : null;
+};
+
+const parseLabeledGroups = (lines, blanks, { mode } = {}) => {
+  const blankIdsByPrompt = new Map();
+  blanks.forEach(blank => {
+    const key = normalizeTreeText(blank.prompt);
+    blankIdsByPrompt.set(key, [...(blankIdsByPrompt.get(key) || []), blank.id]);
+  });
+  const groups = [];
+  let activeGroup = null;
+  const addGroup = (label, rawLine, text) => {
+    activeGroup = { label: clean(label), items: [] };
+    groups.push(activeGroup);
+    if (clean(text)) activeGroup.items.push({ text: clean(text), blankIds: blankIdsForLine(blankIdsByPrompt, rawLine) });
+  };
+  lines.forEach(rawLine => {
+    const line = clean(rawLine);
+    if (!line) return;
+    const content = line.replace(/^(?:[-•]\s*)/, '');
+    const labeled = content.match(/^(?:\d+\.\s*)?((?:what|who|when|where|why|how)|[^:]+):\s*(.*)$/i);
+    const heading = content.match(/^\*\*(.+?)\*\*$/);
+    if (labeled && !/^(?:words|main\s*idea|sub[-\s]*idea|detail)\b/i.test(labeled[1])) {
+      addGroup(labeled[1], line, labeled[2]);
+      return;
+    }
+    if (heading) {
+      addGroup(heading[1], line, '');
+      return;
+    }
+    if (activeGroup && (/^[-•]\s+/.test(line) || blankIdsByPrompt.has(normalizeTreeText(line)))) {
+      activeGroup.items.push({ text: content, blankIds: blankIdsForLine(blankIdsByPrompt, line) });
+      return;
+    }
+    if (mode === 'classification' && /^\d+\.\s+/.test(line) && blankIdsByPrompt.has(normalizeTreeText(line))) {
+      const label = content.match(/^(.+?)\s+(?:use|smack|make|produce|do|are|is)\b/i)?.[1] || `Group ${groups.length + 1}`;
+      addGroup(label, line, content);
+    }
+  });
+  const placedBlankIds = new Set(groups.flatMap(group => group.items.flatMap(item => item.blankIds)));
+  if (mode === 'classification' && groups.length < 2) {
+    const fallbackGroups = blanks.map((blank, index) => {
+      const text = clean(blank.prompt).replace(/^\d+\.\s*/, '');
+      const label = text.match(/^(.+?)(?:\s+_{2,}|\s+(?:use|smack|make|produce|do|are|is)\b)/i)?.[1] || `Group ${index + 1}`;
+      return { label, items: [{ text, blankIds: [blank.id] }] };
+    });
+    return fallbackGroups.length >= 2 ? { groups: fallbackGroups } : null;
+  }
+  return groups.length >= 2 && placedBlankIds.size > 0 ? { groups } : null;
 };
 
 export const parseBook = (stem, { baseDir = cwd } = {}) => {
@@ -235,7 +308,7 @@ export const parseBook = (stem, { baseDir = cwd } = {}) => {
           prompt: blankLines[blankOffset],
           answerIndex
         }));
-        const chartLayout = CHART_LAYOUT_OVERRIDES[stem]?.[Number(unit)]?.[index] || null;
+        const chartLayout = READING_SKILL_LAYOUTS[stem]?.[Number(unit)]?.[index] || null;
         return {
           id: `q${index}`,
           index,
@@ -244,8 +317,12 @@ export const parseBook = (stem, { baseDir = cwd } = {}) => {
           blanks,
           ideaTree: parseIdeaTree(allPromptLines, blanks),
           compareChart: parseCompareChart(allPromptLines, blanks),
+          fiveWOneH: chartLayout === 'five-w-one-h' ? parseLabeledGroups(allPromptLines, blanks, { mode: 'five-w-one-h' }) : null,
+          classification: chartLayout === 'classification' ? parseLabeledGroups(allPromptLines, blanks, { mode: 'classification' }) : null,
           timeline: chartLayout === 'timeline' ? parseTimeline(allPromptLines, blanks) : null,
+          retelling: chartLayout === 'retelling' ? parseTimeline(allPromptLines, blanks) : null,
           knowledgeChart: chartLayout === 'knowledge-chart' ? parseKnowledgeChart(allPromptLines, blanks) : null,
+          chartLayout,
           type: 'word-bank',
           rawAnswer: answerKey.toUpperCase(),
           answerSource: ANSWER_KEY_REPAIRS[stem]?.[Number(unit)] ? 'audited-rfd-key-repair' : 'audited-rfd-markdown'
