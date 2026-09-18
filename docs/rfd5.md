@@ -323,7 +323,7 @@ a. say loudly
 b. speak  
 c. sing
 
-3. Which of the following is not a way to make hand signs?
+3. Which of the following are ways to make hand signs? (Select 2)
 
 a. hold up fingers 
 b. touch glove or hand

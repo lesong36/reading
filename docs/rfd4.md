@@ -859,7 +859,7 @@ a. overlook
 b. be able to recognize  
 c. not be able to recognize
 
-3. A digital door lock is simple. What does it not need?  
+3. A digital door lock is simple. What does it not need? (Select 2)
 
 a. keys  
 b. cards  
