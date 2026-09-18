@@ -42,7 +42,10 @@ export const parseBook = (stem, { baseDir = cwd } = {}) => {
     // Some chart questions repeat `1.`, `2.` for their blanks after the real
     // numbered question list.  The answer key defines the actual question
     // count, so ignore those nested labels.
-    const questions = rawBlocks.slice(0, answers.length).flatMap(([, index, initialBlock], position) => {
+    const questions = rawBlocks.slice(0, answers.length).flatMap(([, , initialBlock], position) => {
+      // The source occasionally restarts numbering for the final word-bank
+      // activity. The answer-key position is the stable question identity.
+      const index = position + 1;
       // The final chart question sometimes numbers its individual blanks as
       // `2.`, `3.`, etc. after a blank line. The boundary matcher sees those
       // labels as questions, so stitch them back onto the final source item.

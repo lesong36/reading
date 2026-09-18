@@ -55,8 +55,8 @@ test('keeps a visible target prompt for every RFD4–6 word-bank blank', () => {
 test('refreshes cached RFD quizzes after their grading model changes', () => {
   for (const entrypoint of ['index.html', '英语长难句交互阅读解析.html']) {
     const source = fs.readFileSync(path.join(process.cwd(), entrypoint), 'utf8');
-    assert.match(source, /BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v37'/);
-    assert.match(source, /BUNDLED_LIBRARY_SEED_VERSION = '37'/);
+    assert.match(source, /BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v38'/);
+    assert.match(source, /BUNDLED_LIBRARY_SEED_VERSION = '38'/);
   }
 });
 
@@ -71,4 +71,12 @@ test('keeps official multi-answer prompts and keys aligned', () => {
   assert.deepEqual(rfd5Unit6.answerIndexes, [0, 1]);
   assert.match(rfd5Unit7.prompt, /select 4/i);
   assert.deepEqual(rfd5Unit7.answerIndexes, [0, 1, 2, 3]);
+});
+
+test('uses answer-key order when source numbering restarts inside a word bank', () => {
+  const questions = parseBook('rfd5').find(({ unit }) => unit === 8).questions;
+
+  assert.deepEqual(questions.map(question => question.id), ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8']);
+  assert.deepEqual(questions.map(question => question.index), [1, 2, 3, 4, 5, 6, 7, 8]);
+  assert.equal(questions.at(-1).type, 'word-bank');
 });
