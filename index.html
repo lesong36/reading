@@ -6311,6 +6311,10 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         if (!question || question.type !== 'word-bank' || !question.blanks.some(blank => blank.id === blankId) || !Number.isInteger(answerIndex) || quizProgress.submitted) return;
         const answeredAt = new Date().toISOString();
         const existingAnswer = getWordBankAnswers(quizProgress.answers?.[question.id]);
+        if (Object.entries(existingAnswer).some(([existingBlankId, existingAnswerIndex]) => existingBlankId !== blankId && existingAnswerIndex === answerIndex)) {
+          setToastMessage('这个词已填入其他空格；如需调整，请先清除原空格。');
+          return;
+        }
         const wasAlreadyAnswered = isQuizAnswerComplete(question, existingAnswer);
         const nextAnswer = { ...existingAnswer, [blankId]: answerIndex };
         setQuizProgress(prev => ({
@@ -9706,18 +9710,21 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                           <div className="mt-2 flex flex-wrap gap-2">
                                             {currentQuizQuestion.options.map((option, optionIndex) => {
                                               const isSelected = wordBankSelectedOptionIndex === optionIndex;
+                                              const isUsed = Object.values(currentWordBankAnswers).includes(optionIndex);
                                               return (
                                                 <button
                                                   key={`${currentQuizQuestion.id}-word-bank-${optionIndex}`}
                                                   type="button"
-                                                  draggable={!quizProgress.submitted}
-                                                  disabled={quizProgress.submitted}
+                                                  draggable={!quizProgress.submitted && !isUsed}
+                                                  disabled={quizProgress.submitted || isUsed}
                                                   onDragStart={event => { event.dataTransfer.setData('text/plain', String(optionIndex)); event.dataTransfer.effectAllowed = 'move'; setWordBankSelectedOptionIndex(optionIndex); }}
                                                   onClick={() => setWordBankSelectedOptionIndex(isSelected ? null : optionIndex)}
                                                   className={`rounded-xl border px-3 py-2 text-sm font-black shadow-sm transition-all ${
-                                                    isSelected ? 'border-teal-600 bg-teal-600 text-white ring-2 ring-teal-200'
+                                                    isUsed ? 'cursor-not-allowed border-slate-200 bg-slate-100 text-slate-400 shadow-none line-through'
+                                                    : isSelected ? 'border-teal-600 bg-teal-600 text-white ring-2 ring-teal-200'
                                                       : 'cursor-grab border-slate-300 bg-white text-slate-700 hover:border-teal-400 active:cursor-grabbing'
                                                   } disabled:cursor-default disabled:opacity-70`}
+                                                  title={isUsed ? '已填入空格；清除该空后可再次使用' : option}
                                                 >
                                                   {option}
                                                 </button>
