@@ -182,3 +182,13 @@ test('ships every declared Reading Skills layout in the generated quiz library',
     }
   }
 });
+
+test('places the shared comparison group below the two side groups', () => {
+  for (const entrypoint of ['index.html', '英语长难句交互阅读解析.html']) {
+    const source = fs.readFileSync(path.join(process.cwd(), entrypoint), 'utf8');
+    const compareRenderer = source.slice(source.indexOf('const sharedGroup = currentWordBankCompareChart.groups.find'));
+    const compareBlock = compareRenderer.slice(0, compareRenderer.indexOf('})() : currentWordBankIdeaTree'));
+    assert.match(compareBlock, /sharedGroup && <div className="mx-auto w-full pt-1 md:max-w-\[62%\]">/);
+    assert.doesNotMatch(compareBlock, /md:absolute/);
+  }
+});
