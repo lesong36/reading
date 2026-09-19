@@ -764,15 +764,16 @@
       .filter(entry => GENERATED_GLOSSARY_KINDS.has(entry.kind));
 
     const buildGlossarySelectionRules = () => `【术语与难词 glossary】
-只识别需要中文释义的专业术语、难词/偏词和外来词；不把文章核心概念、关键动作、普通表达或阅读提示当作词条。
+只识别需要中文释义的专业术语、难词/偏词和外来词；判断难度时以正在阅读本文的中国学生为准，而不是只看词在英语母语者眼中是否罕见。
 每条须至少符合一项：
 - 专业术语、学科概念、行业用语、必要缩写，或具有特定语境义的术语。
-- 对目标读者有实际学习价值的低频难词、偏词、罕见词形或不常见词义。
+- 对目标读者有实际学习价值、明显超出其日常基础词汇的难词/偏词、主题词汇、罕见词形或不常见词义。
 - 源自其他语言、保留外来语形式或需要文化/语源背景才能理解的外来词。
 不限制数量；只要满足标准就收录，并按重要性排序。
-必须排除：文章标题或主题名称、一般人名地名、核心人物/事物、关键动作、普通描述词、普通高频词、按字面即可理解的常见搭配、题目答案词和阅读提示词。即使这些词对理解文章很重要，也不能因此收录。
-例如 Ancient Egypt、Nile River、farming、science、math、written language、calendar、basic tools 都不是本任务中的术语或难词；不要收录，也不要为了绕过规则把它们改标成其他 kind。
-输出前逐条自检：若删除该词条不会妨碍读者理解专业含义、罕见词义或外来语背景，就删除它。
+必须排除：仅仅因为是文章标题、核心概念、关键动作、题目答案或阅读提示而被选中的普通词；一般人名地名；普通高频词；按字面即可理解的常见搭配。词条若本身独立符合“专业、难词/偏词、外来词”标准，即使也是主题词或题目答案，仍然必须保留。
+正例：tomb、thieves、statues、furniture、jars、mummy 对中国小学生属于有学习价值的难词，应收录为 rare_word；BCE 应收录为 acronym。
+反例：Howard Carter、Egypt、king、rooms、objects、opened、hidden、study、learn、beautiful、gold box 仅是名称或普通表达，不应收录。
+输出前逐条自检：目标学生是否可能因不认识该词而读不懂句子，或者是否需要专业/文化背景才能准确理解？是则保留；否则删除。不要为了绕过规则把普通词改标成其他 kind。
 term 必须是文中实际出现的英文写法；translation 给最符合本文的简洁中文释义；note 仅在术语语境、外来语背景或罕见义确有必要时填写；kind 只能是 technical_term / rare_word / loanword / acronym。`;
 
     const escapeRegExp = (value = '') => String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
