@@ -60,12 +60,15 @@ const ANALYSIS_SYSTEM_PROMPT = `你是一款专业的英文长难句解析工具
    - thinkingPath：长度 2-4 的字符串数组
    - encouragement
 5. teachingFocus 语气要温暖、清晰、适合低龄孩子；可以使用火车、积木、侦探、地图、衣服、骨架等类比。
-6. 额外输出文章级 glossary 数组，但只识别专业术语、文化/历史/地理专名、难词/偏词和外来词，不做“阅读重点词”或逐词翻译。判断难度时以正在阅读本文的中国学生为准，而不是只看词在英语母语者眼中是否罕见：
-   - 专业术语、学科概念、行业用语、必要缩写，或具有特定语境义的术语。
-   - 文明、民族、历史时期或重要地理实体的专名，以及由它们派生且需要中文对应关系的形容词或族群称谓。
-   - 对目标读者有实际学习价值、明显超出其日常基础词汇的难词/偏词、主题词汇、罕见词形或不常见词义。
-   - 源自其他语言、保留外来语形式或需要文化/语源背景才能理解的外来词。
-   不限制数量；只要满足标准就收录，并按重要性排序。必须排除仅仅因为是文章标题、核心概念、关键动作、题目答案或阅读提示而被选中的普通词，以及无需背景即可理解的一般人名和普通地点、普通高频词、按字面即可理解的常见搭配。词条若本身独立符合上述任一标准，即使也是主题词或题目答案，仍然必须保留。文明、民族、历史时期、重要地理实体及其派生称谓使用 cultural_term；不同英文形态的中文含义不同就分别输出，只有含义相同的拼写或屈折变化才放入 aliases。输出前逐条自检：目标学生是否可能因不认识该词而读不懂句子，或者是否需要专业/文化背景才能准确理解？是则保留；否则删除。不要为了绕过规则把普通词改标成其他 kind。translation 只给出最符合本文语境的简洁中文释义；note 仅在术语语境、文化背景、外来语背景或罕见义确有必要时填写。
+6. 额外输出文章级 glossary 数组，不做“阅读重点词”或逐词翻译。目标读者是正在阅读本文的中国学生；不要用固定词表或只按英语母语者的词频判断，而要结合文章难度与儿童英语学习场景逐条判断。
+   每个候选词须通过四项检查，任一项明确成立就应收录：
+   - 领域性：学科、行业、历史、文化、地理、科技或社会主题中的稳定概念、实体、称谓或专门表达，需要固定中文对应或背景知识。
+   - 学习难度：明显超出目标读者的日常基础词汇，孩子可能因不认识它而无法准确理解句意。
+   - 语义特殊性：本文使用了非字面义、低频义、特定语境义，或不能靠组成词逐字推出整体含义。
+   - 语言来源：外来词、缩写、文化负载词，或词形、派生形式与中文含义的对应关系需要专门说明。
+   kind 按首要原因选择：领域概念/实体用 domain_term；文明、民族、历史时期、重要地理实体及其派生称谓用 cultural_term；学习难词或低频义用 rare_word；外来词用 loanword；缩写用 acronym。
+   不得因词条是文章标题、核心概念、主题词、题目答案或关键动作就自动收录或排除；这些身份不参与判定。排除仅起普通叙事作用的基础高频词、普通动作和描述、无需背景知识的一般姓名或地点，以及按字面即可理解且没有独立教学价值的临时短语。不同英文形态若中文含义或语法身份不同，应分别输出；只有含义相同的拼写或屈折变化才放入 aliases。
+   不设数量上限。先完整列出所有合格词条，再删除任何无法指出上述明确依据的条目；不得为了减少数量漏掉合格词，也不得为了增加数量放入普通词。translation 只给出最符合本文语境的简洁中文释义；note 仅在领域、文化、语境、语源或罕见义确有必要时填写。
 
 输出必须符合以下 JSON 格式，只输出 JSON，不要 Markdown 代码块，不要解释：
 {
@@ -73,7 +76,7 @@ const ANALYSIS_SYSTEM_PROMPT = `你是一款专业的英文长难句解析工具
     {
       "term": "英文词条",
       "translation": "中文翻译",
-      "kind": "technical_term | cultural_term | rare_word | loanword | acronym",
+      "kind": "domain_term | cultural_term | rare_word | loanword | acronym",
       "note": "本文语境说明",
       "aliases": ["可选别名"]
     }
@@ -654,12 +657,13 @@ const normalizeSentenceShape = (sentence) => {
 
 const normalizeGlossary = (glossary = []) => {
   if (!Array.isArray(glossary)) return [];
-  const allowedKinds = new Set(['technical_term', 'cultural_term', 'rare_word', 'loanword', 'acronym']);
+  const allowedKinds = new Set(['domain_term', 'cultural_term', 'rare_word', 'loanword', 'acronym']);
   const byKey = new Map();
   glossary.forEach((raw) => {
     const term = String(raw?.term || raw?.word || '').trim();
     if (!term) return;
-    const kind = String(raw?.kind || raw?.type || '').trim();
+    const rawKind = String(raw?.kind || raw?.type || '').trim();
+    const kind = rawKind === 'technical_term' ? 'domain_term' : rawKind;
     if (!allowedKinds.has(kind)) return;
     const key = term.toLowerCase();
     const entry = {
