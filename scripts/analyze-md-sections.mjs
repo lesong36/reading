@@ -60,11 +60,11 @@ const ANALYSIS_SYSTEM_PROMPT = `你是一款专业的英文长难句解析工具
    - thinkingPath：长度 2-4 的字符串数组
    - encouragement
 5. teachingFocus 语气要温暖、清晰、适合低龄孩子；可以使用火车、积木、侦探、地图、衣服、骨架等类比。
-6. 额外输出文章级 glossary 数组，但必须宁缺毋滥：只有满足以下至少一项的词条才能收录：
-   - 生僻词：对目标读者确有学习价值的低频词；不能只因词长、看起来正式或属于普通学术词就收录。
-   - 语境特殊义：在本文中具有不同于常见字面义的特定含义，包括真正的专业术语、学科概念和必要缩写。
-   - 专有名词：人名、地名、组织、作品名、物种名，以及其他必须识别的特定名称。
-   普通高频词、常见学术词、按字面即可理解的普通搭配，以及只因“放在本文中”才出现的普通短语，一律不要收录。词条可以为 0 条，不得为了凑数补充。translation 必须只给出最符合本文语境的简洁中文释义，不能机械直译或延伸成百科说明；note 仅在语境特殊义或名称背景确有必要时填写。
+6. 额外输出文章级 glossary 数组，但只识别专业术语、难词/偏词和外来词，不做“阅读重点词”或逐词翻译：
+   - 专业术语、学科概念、行业用语、必要缩写，或具有特定语境义的术语。
+   - 对目标读者有实际学习价值的低频难词、偏词、罕见词形或不常见词义。
+   - 源自其他语言、保留外来语形式或需要文化/语源背景才能理解的外来词。
+   不限制数量；只要满足标准就收录，并按重要性排序。必须排除文章标题或主题名称、一般人名地名、核心人物/事物、关键动作、普通描述词、普通高频词、按字面即可理解的常见搭配、题目答案词和阅读提示词；即使它们对理解文章很重要，也不能因此收录。不要为了绕过规则把不合格词条改标成其他 kind。输出前逐条自检：若删除该词条不会妨碍读者理解专业含义、罕见词义或外来语背景，就删除它。translation 只给出最符合本文语境的简洁中文释义；note 仅在术语语境、外来语背景或罕见义确有必要时填写。
 
 输出必须符合以下 JSON 格式，只输出 JSON，不要 Markdown 代码块，不要解释：
 {
@@ -72,7 +72,7 @@ const ANALYSIS_SYSTEM_PROMPT = `你是一款专业的英文长难句解析工具
     {
       "term": "英文词条",
       "translation": "中文翻译",
-      "kind": "rare_word | context_term | proper_noun | acronym",
+      "kind": "technical_term | rare_word | loanword | acronym",
       "note": "本文语境说明",
       "aliases": ["可选别名"]
     }
@@ -653,15 +653,18 @@ const normalizeSentenceShape = (sentence) => {
 
 const normalizeGlossary = (glossary = []) => {
   if (!Array.isArray(glossary)) return [];
+  const allowedKinds = new Set(['technical_term', 'rare_word', 'loanword', 'acronym']);
   const byKey = new Map();
   glossary.forEach((raw) => {
     const term = String(raw?.term || raw?.word || '').trim();
     if (!term) return;
+    const kind = String(raw?.kind || raw?.type || '').trim();
+    if (!allowedKinds.has(kind)) return;
     const key = term.toLowerCase();
     const entry = {
       term,
       translation: String(raw?.translation || raw?.meaning || '').trim(),
-      kind: String(raw?.kind || raw?.type || 'term').trim() || 'term',
+      kind,
       note: String(raw?.note || raw?.context || '').trim(),
       aliases: Array.isArray(raw?.aliases)
         ? raw.aliases.map(alias => String(alias || '').trim()).filter(Boolean)

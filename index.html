@@ -758,14 +758,22 @@
       return Array.from(byKey.values()).sort((a, b) => b.term.length - a.term.length || a.term.localeCompare(b.term));
     };
 
+    const GENERATED_GLOSSARY_KINDS = new Set(['technical_term', 'rare_word', 'loanword', 'acronym']);
+
+    const normalizeGeneratedGlossary = (glossary = []) => normalizeGlossary(glossary)
+      .filter(entry => GENERATED_GLOSSARY_KINDS.has(entry.kind));
+
     const buildGlossarySelectionRules = () => `【术语与难词 glossary】
 只识别需要中文释义的专业术语、难词/偏词和外来词；不把文章核心概念、关键动作、普通表达或阅读提示当作词条。
 每条须至少符合一项：
 - 专业术语、学科概念、行业用语、必要缩写，或具有特定语境义的术语。
 - 对目标读者有实际学习价值的低频难词、偏词、罕见词形或不常见词义。
 - 源自其他语言、保留外来语形式或需要文化/语源背景才能理解的外来词。
-不限制数量；只要满足标准就收录，并按重要性排序。排除普通高频词、按字面即可理解的常见搭配、一般人名地名、核心情节词和普通动作/描述词。
-term 必须是文中实际出现的英文写法；translation 给最符合本文的简洁中文释义；note 仅在术语语境、外来语背景或罕见义确有必要时填写；kind 只能是 rare_word / context_term / proper_noun / acronym。`;
+不限制数量；只要满足标准就收录，并按重要性排序。
+必须排除：文章标题或主题名称、一般人名地名、核心人物/事物、关键动作、普通描述词、普通高频词、按字面即可理解的常见搭配、题目答案词和阅读提示词。即使这些词对理解文章很重要，也不能因此收录。
+例如 Ancient Egypt、Nile River、farming、science、math、written language、calendar、basic tools 都不是本任务中的术语或难词；不要收录，也不要为了绕过规则把它们改标成其他 kind。
+输出前逐条自检：若删除该词条不会妨碍读者理解专业含义、罕见词义或外来语背景，就删除它。
+term 必须是文中实际出现的英文写法；translation 给最符合本文的简洁中文释义；note 仅在术语语境、外来语背景或罕见义确有必要时填写；kind 只能是 technical_term / rare_word / loanword / acronym。`;
 
     const escapeRegExp = (value = '') => String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -6911,7 +6919,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
     {
       "term": "英文词条",
       "translation": "中文翻译",
-      "kind": "rare_word",
+      "kind": "technical_term | rare_word | loanword | acronym",
       "note": "本文语境说明",
       "aliases": ["可选别名"]
     }
@@ -6925,7 +6933,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
             onProgress: reportAiProgress
           });
           const parsed = parseAiJsonOrThrow(response, 'Ollama');
-          const glossary = normalizeGlossary(parsed.glossary || []);
+          const glossary = normalizeGeneratedGlossary(parsed.glossary || []);
           if (glossary.length === 0) {
             persistGlossaryToCurrentArticle([]);
             setToastMessage('这篇文章没有需要标注的术语、难词或外来词。');
@@ -7437,7 +7445,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
     {
       "term": "英文词条",
       "translation": "中文翻译",
-      "kind": "rare_word | context_term | proper_noun | acronym",
+      "kind": "technical_term | rare_word | loanword | acronym",
       "note": "本文语境说明",
       "aliases": ["可选别名"]
     }
@@ -7487,7 +7495,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
           
           if (parsedData.articleData && parsedData.articleData.length > 0) {
             const normalizedData = normalizeArticleData(parsedData.articleData);
-            const glossary = normalizeGlossary(collectArticleGlossary({ glossary: parsedData.glossary }, normalizedData));
+            const glossary = normalizeGeneratedGlossary(collectArticleGlossary({ glossary: parsedData.glossary }, normalizedData));
             setCurrentArticleId(null);
             setCurrentArticleTitle('未保存文章');
             setCurrentArticleQuestions([]);
