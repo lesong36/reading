@@ -758,23 +758,25 @@
       return Array.from(byKey.values()).sort((a, b) => b.term.length - a.term.length || a.term.localeCompare(b.term));
     };
 
-    const GENERATED_GLOSSARY_KINDS = new Set(['technical_term', 'rare_word', 'loanword', 'acronym']);
+    const GENERATED_GLOSSARY_KINDS = new Set(['technical_term', 'cultural_term', 'rare_word', 'loanword', 'acronym']);
 
     const normalizeGeneratedGlossary = (glossary = []) => normalizeGlossary(glossary)
       .filter(entry => GENERATED_GLOSSARY_KINDS.has(entry.kind));
 
     const buildGlossarySelectionRules = () => `【术语与难词 glossary】
-只识别需要中文释义的专业术语、难词/偏词和外来词；判断难度时以正在阅读本文的中国学生为准，而不是只看词在英语母语者眼中是否罕见。
+只识别需要中文释义的专业术语、文化/历史/地理专名、难词/偏词和外来词；判断难度时以正在阅读本文的中国学生为准，而不是只看词在英语母语者眼中是否罕见。
 每条须至少符合一项：
 - 专业术语、学科概念、行业用语、必要缩写，或具有特定语境义的术语。
+- 文明、民族、历史时期或重要地理实体的专名，以及由它们派生且需要中文对应关系的形容词或族群称谓。
 - 对目标读者有实际学习价值、明显超出其日常基础词汇的难词/偏词、主题词汇、罕见词形或不常见词义。
 - 源自其他语言、保留外来语形式或需要文化/语源背景才能理解的外来词。
 不限制数量；只要满足标准就收录，并按重要性排序。
-必须排除：仅仅因为是文章标题、核心概念、关键动作、题目答案或阅读提示而被选中的普通词；一般人名地名；普通高频词；按字面即可理解的常见搭配。词条若本身独立符合“专业、难词/偏词、外来词”标准，即使也是主题词或题目答案，仍然必须保留。
-正例：tomb、thieves、statues、furniture、jars、mummy 对中国小学生属于有学习价值的难词，应收录为 rare_word；BCE 应收录为 acronym。
-反例：Howard Carter、Egypt、king、rooms、objects、opened、hidden、study、learn、beautiful、gold box 仅是名称或普通表达，不应收录。
+必须排除：仅仅因为是文章标题、核心概念、关键动作、题目答案或阅读提示而被选中的普通词；无需背景即可理解的一般人名和普通地点；普通高频词；按字面即可理解的常见搭配。词条若本身独立符合上述任一标准，即使也是主题词或题目答案，仍然必须保留。
+文化专名正例：Ancient Egypt（古埃及）、Ancient Egyptian（古埃及的）、ancient Egyptians（古埃及人）、Nile River（尼罗河）应分别收录为 cultural_term。不同英文形态的中文含义不同就分别输出；只有含义相同的拼写或屈折变化才放入 aliases。
+难词正例：tomb、thieves、statues、furniture、jars、mummy 对中国小学生属于有学习价值的难词，应收录为 rare_word；BCE 应收录为 acronym。
+反例：Howard Carter、king、rooms、objects、opened、hidden、study、learn、beautiful、gold box 仅是一般名称或普通表达，不应收录。
 输出前逐条自检：目标学生是否可能因不认识该词而读不懂句子，或者是否需要专业/文化背景才能准确理解？是则保留；否则删除。不要为了绕过规则把普通词改标成其他 kind。
-term 必须是文中实际出现的英文写法；translation 给最符合本文的简洁中文释义；note 仅在术语语境、外来语背景或罕见义确有必要时填写；kind 只能是 technical_term / rare_word / loanword / acronym。`;
+term 必须是文中实际出现的英文写法；translation 给最符合本文的简洁中文释义；note 仅在术语语境、文化背景、外来语背景或罕见义确有必要时填写；kind 只能是 technical_term / cultural_term / rare_word / loanword / acronym。`;
 
     const escapeRegExp = (value = '') => String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -6920,7 +6922,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
     {
       "term": "英文词条",
       "translation": "中文翻译",
-      "kind": "technical_term | rare_word | loanword | acronym",
+      "kind": "technical_term | cultural_term | rare_word | loanword | acronym",
       "note": "本文语境说明",
       "aliases": ["可选别名"]
     }
@@ -7446,7 +7448,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
     {
       "term": "英文词条",
       "translation": "中文翻译",
-      "kind": "technical_term | rare_word | loanword | acronym",
+      "kind": "technical_term | cultural_term | rare_word | loanword | acronym",
       "note": "本文语境说明",
       "aliases": ["可选别名"]
     }
