@@ -764,6 +764,20 @@
       .map(entry => entry.kind === 'technical_term' ? { ...entry, kind: 'domain_term' } : entry)
       .filter(entry => GENERATED_GLOSSARY_KINDS.has(entry.kind));
 
+    const quizTextForGlossary = (question = {}) => [
+      question.prompt, question.rawAnswer, ...(question.options || []),
+      ...(question.blanks || []).flatMap(blank => [blank.prompt, blank.rawAnswer])
+    ].filter(Boolean).join(' ');
+
+    const removeQuizTestedGlossary = (glossary = [], questions = []) => {
+      const quizText = (questions || []).map(quizTextForGlossary).join(' ').toLowerCase();
+      if (!quizText) return glossary;
+      return glossary.filter(entry => {
+        const terms = [entry.term, ...(entry.aliases || [])].filter(Boolean);
+        return !terms.some(term => new RegExp(`(^|[^a-z])${escapeRegExp(term.toLowerCase())}(?=$|[^a-z])`, 'i').test(quizText));
+      });
+    };
+
     const buildGlossarySelectionRules = () => `【术语与难词 glossary】
 目标读者是正在阅读本文的中国学生。不要用固定词表或只按英语母语者的词频判断，而要结合文章难度与儿童英语学习场景逐条判断。
 每个候选词须通过以下四项检查；任一项明确成立就应收录：
@@ -772,6 +786,7 @@
 3. 语义特殊性：它在本文中使用了非字面义、低频义、特定语境义，或不能靠组成词逐字推出整体含义。
 4. 语言来源：它是外来词、缩写、文化负载词，或其词形、派生形式与中文含义的对应关系需要专门说明。
 kind 按首要原因选择：领域概念/实体用 domain_term；文明、民族、历史时期、重要地理实体及其派生称谓用 cultural_term；学习难词或低频义用 rare_word；外来词用 loanword；缩写用 acronym。
+如果文章附带阅读题，题干、选项、填空目标或官方答案中直接考查的单词不得输出 glossary，也不得提供该词的 translation 或 note；这是为了保留题目的独立测试价值。
 不得因词条是文章标题、核心概念、主题词、题目答案或关键动作就自动收录或排除；这些身份不参与判定，只检查词条本身是否满足上述标准。
 排除仅起普通叙事作用的基础高频词、普通动作和描述、无需背景知识的一般姓名或地点，以及按字面即可理解且没有独立教学价值的临时短语。
 不同英文形态若中文含义或语法身份不同，应分别输出；只有含义相同的拼写或屈折变化才放入 aliases。
@@ -4819,9 +4834,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         }
         return levels;
       }, [articleOutlineChildren]);
-      const articleOutlineCanvasWidth = useMemo(() => {
-        const widestLevel = Math.max(1, ...articleOutlineLevels.map(level => level.length));
-        return Math.max(520, widestLevel * 252 + Math.max(0, widestLevel - 1) * 12 + 32);
+      const articleOutlineMaxColumns = useMemo(() => {
+        return Math.max(1, ...articleOutlineLevels.map(level => level.length));
       }, [articleOutlineLevels]);
 
       const renderArticleOutlineNode = (paragraphKey, depth = 0) => {
@@ -4830,7 +4844,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         const topic = articleOutlineTopics[paragraphKey]?.trim();
         const parent = articleOutlineParagraphs.find(item => item.key === articleOutlineParents[paragraphKey]);
         return (
-          <li key={paragraphKey} className="w-60 shrink-0">
+          <li key={paragraphKey} className="min-w-0">
             <div
               draggable
               data-outline-key={paragraphKey}
@@ -7078,7 +7092,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
             onProgress: reportAiProgress
           });
           const parsed = parseAiJsonOrThrow(response, 'Ollama');
-          const glossary = normalizeGeneratedGlossary(parsed.glossary || []);
+          const glossary = removeQuizTestedGlossary(normalizeGeneratedGlossary(parsed.glossary || []), currentArticleQuestions);
           if (glossary.length === 0) {
             persistGlossaryToCurrentArticle([]);
             setToastMessage('这篇文章没有需要标注的术语、难词或外来词。');
@@ -7640,7 +7654,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
           
           if (parsedData.articleData && parsedData.articleData.length > 0) {
             const normalizedData = normalizeArticleData(parsedData.articleData);
-            const glossary = normalizeGeneratedGlossary(collectArticleGlossary({ glossary: parsedData.glossary }, normalizedData));
+            const glossary = removeQuizTestedGlossary(normalizeGeneratedGlossary(collectArticleGlossary({ glossary: parsedData.glossary }, normalizedData), currentArticleQuestions));
             setCurrentArticleId(null);
             setCurrentArticleTitle('未保存文章');
             setCurrentArticleQuestions([]);
@@ -8574,10 +8588,10 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                  INTERACTIVE READING VIEW
                  ========================================= */}
             {viewMode === 'reading' && (
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 xl:gap-6 animate-in fade-in">
+              <div className={`grid grid-cols-1 gap-5 xl:gap-6 animate-in fade-in ${articleStudyMode === 'read' && rightPanelTab === 'outline' ? 'lg:grid-cols-1' : 'lg:grid-cols-12'}`}>
                 
                 {/* Left Column: Article Text */}
-                <div className="lg:col-span-5 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col">
+                <div className={`${articleStudyMode === 'read' && rightPanelTab === 'outline' ? 'hidden' : 'lg:col-span-5'} bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col`}>
                   <div className="bg-slate-800 px-5 py-4 text-white">
                     <div className="flex flex-col gap-3">
                       <div className="flex items-center justify-between gap-3">
@@ -8865,7 +8879,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                 </div>
 
                 {/* Right Column: 新版优雅沉浸式阅读面板 */}
-                <div className="lg:col-span-7 flex flex-col gap-5 xl:gap-6">
+                <div className={`${articleStudyMode === 'read' && rightPanelTab === 'outline' ? 'lg:col-span-1' : 'lg:col-span-7'} flex flex-col gap-5 xl:gap-6`}>
                   
                   {/* Guide/Legend Panel */}
                   {articleStudyMode === 'read' && effectiveHighlightMode && (
@@ -8888,7 +8902,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                   )}
 
                   {/* Main Analysis Panel (去除底色框，采用纯白画板) */}
-                  <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex-grow sticky top-6 flex flex-col" style={{ maxHeight: 'calc(100vh - 48px)' }}>
+                  <div className={`bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex-grow flex flex-col ${articleStudyMode === 'read' && rightPanelTab === 'outline' ? '' : 'sticky top-6'}`} style={articleStudyMode === 'read' && rightPanelTab === 'outline' ? undefined : { maxHeight: 'calc(100vh - 48px)' }}>
                     
                     {/* The right side is a stable workbench, not a set of scattered actions. */}
                     <div className="bg-white px-5 md:px-6 py-4 border-b border-slate-100 shrink-0">
@@ -8939,7 +8953,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                     </div>
                     
                     <div className="p-6 md:p-8 xl:p-9 overflow-y-auto flex-grow bg-white">
-                      <div className="max-w-[880px] mx-auto">
+                      <div className={`${rightPanelTab === 'outline' ? 'max-w-none' : 'max-w-[880px]'} mx-auto`}>
                       {articleStudyMode === 'read' ? (
                       <React.Fragment>
                       {rightPanelTab === 'outline' && (
@@ -9000,8 +9014,8 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                 onDrop={(event) => { event.preventDefault(); moveArticleOutlineNode(event.dataTransfer.getData('text/plain') || articleOutlineDragKey, null); }}
                                 className={`mt-5 min-h-72 rounded-2xl border-2 border-dashed p-4 transition-colors ${articleOutlineDragKey ? 'border-amber-400 bg-amber-100/60' : 'border-amber-200 bg-white/70'}`}
                               >
-                                <div className="overflow-x-auto overscroll-x-contain pb-3" aria-label="可横向滚动的文章结构图">
-                                  <div className="space-y-5 px-1" style={{ minWidth: `${articleOutlineCanvasWidth}px` }}>
+                                <div aria-label="文章结构图">
+                                  <div className="space-y-5 px-1">
                                     <div className="flex items-center gap-3 rounded-xl bg-amber-900 px-4 py-3 text-white shadow-sm">
                                       <MapIcon className="h-5 w-5 shrink-0" />
                                       <div><p className="text-xs font-black uppercase tracking-[0.16em] text-amber-200">Root</p><p className="font-black">文章主线</p></div>
@@ -9014,7 +9028,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                           <span className="rounded-full bg-amber-100 px-3 py-1 text-[11px] font-black tracking-[0.12em] text-amber-800">第 {depth + 1} 层 · {paragraphKeys.length} 段</span>
                                           <span className="h-px flex-1 bg-amber-100" />
                                         </div>
-                                        <ol className="flex justify-center gap-3 px-1">{paragraphKeys.map(paragraphKey => renderArticleOutlineNode(paragraphKey, depth))}</ol>
+                                        <ol className="grid gap-3 px-1" style={{ gridTemplateColumns: `repeat(${articleOutlineMaxColumns}, minmax(0, 1fr))` }}>{paragraphKeys.map(paragraphKey => renderArticleOutlineNode(paragraphKey, depth))}</ol>
                                       </section>
                                     )) : <p className="py-12 text-center text-sm font-semibold text-amber-700">把段落拖到这里，恢复为文章主线。</p>}
                                   </div>
