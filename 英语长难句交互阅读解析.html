@@ -4330,29 +4330,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
 
       // 每句都是一轮新的四步学习：切句后回到第一步，避免把上一句的进度带过来。
       useEffect(() => {
-        setSimplifiedSentence("");
-        setAiQuestion("");
-        setAiAnswer("");
-        setTeachingScriptError("");
-        setGuidedStepIndex(0);
-        setVoiceLessonStepIndex(0);
-        setVoiceNarrationStatus('未开始');
-        setVoiceNarrationPartIndex(0);
-        setGuidedActiveRole('subject');
-        setGuidedSelections({});
-        setGuidedCheckState({});
-        setGuidedDragRole(null);
-        setGuidedFocusSelection({});
-        setGuidedClauseSelection({});
-        setGuidedWordInput({});
-        setGuidedWordGuess({});
-        setGuidedTranslationDraft({});
-        setGuidedShowTranslation({});
-        setMainPracticeDrops({});
-        setModifierPracticeDrops({});
-        setLogicPracticeDrops({});
-        setPracticeSelectedToken(null);
-        setRightPanelTab('analysis');
+        resetSentenceAnalysis({ announce: false });
       }, [selectedSentence]);
 
       useEffect(() => {
@@ -4428,6 +4406,37 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         }
         setIsVoiceNarrating(false);
         setVoiceNarrationStatus('播放已停止');
+      };
+
+      // Keep the reset scoped to the learner's work for this sentence.  The
+      // imported analysis and any generated teaching script remain available.
+      const resetSentenceAnalysis = ({ announce = true } = {}) => {
+        handleStopLessonNarration();
+        setSimplifiedSentence("");
+        setAiQuestion("");
+        setAiAnswer("");
+        setTeachingScriptError("");
+        setGuidedStepIndex(0);
+        setVoiceLessonStepIndex(0);
+        setVoiceNarrationStatus('未开始');
+        setVoiceNarrationPartIndex(0);
+        setGuidedActiveRole('subject');
+        setGuidedSelections({});
+        setGuidedCheckState({});
+        setGuidedDragRole(null);
+        setGuidedFocusSelection({});
+        setGuidedClauseSelection({});
+        setGuidedWordInput({});
+        setGuidedWordGuess({});
+        setGuidedTranslationDraft({});
+        setGuidedShowTranslation({});
+        setMainPracticeDrops({});
+        setCustomSyntaxFrames({});
+        setModifierPracticeDrops({});
+        setLogicPracticeDrops({});
+        setPracticeSelectedToken(null);
+        setRightPanelTab('analysis');
+        if (announce) setToastMessage('已重置本句练习，可以重新开始。');
       };
 
       const handlePlayLessonNarration = async () => {
@@ -9260,10 +9269,10 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                   下一步
                                 </button>
                                 <button
-                                  onClick={() => setGuidedStepIndex(0)}
+                                  onClick={resetSentenceAnalysis}
                                   className="px-4 py-2.5 rounded-xl border border-indigo-200 bg-indigo-50 text-indigo-700 font-semibold"
                                 >
-                                  本句重来
+                                  重置本句
                                 </button>
                               </div>
                               <button
@@ -9287,6 +9296,15 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                 三步看懂长句
                               </h3>
                               <div className="flex items-center gap-2">
+                                <button
+                                  type="button"
+                                  onClick={resetSentenceAnalysis}
+                                  className="inline-flex items-center gap-1.5 rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-600 transition-colors hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700"
+                                  title="清除本句的练习、改写和问答，保留解析内容"
+                                >
+                                  <RefreshCw className="h-4 w-4" />
+                                  重置本句
+                                </button>
                                 {isGeneratingTeachingScript && (
                                   <span className="text-xs text-sky-500 font-semibold animate-pulse">AI 讲解生成中…</span>
                                 )}
