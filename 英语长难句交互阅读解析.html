@@ -4819,6 +4819,10 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         }
         return levels;
       }, [articleOutlineChildren]);
+      const articleOutlineCanvasWidth = useMemo(() => {
+        const widestLevel = Math.max(1, ...articleOutlineLevels.map(level => level.length));
+        return Math.max(520, widestLevel * 252 + Math.max(0, widestLevel - 1) * 12 + 32);
+      }, [articleOutlineLevels]);
 
       const renderArticleOutlineNode = (paragraphKey, depth = 0) => {
         const paragraph = articleOutlineParagraphs.find(item => item.key === paragraphKey);
@@ -8996,13 +9000,13 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                 onDrop={(event) => { event.preventDefault(); moveArticleOutlineNode(event.dataTransfer.getData('text/plain') || articleOutlineDragKey, null); }}
                                 className={`mt-5 min-h-72 rounded-2xl border-2 border-dashed p-4 transition-colors ${articleOutlineDragKey ? 'border-amber-400 bg-amber-100/60' : 'border-amber-200 bg-white/70'}`}
                               >
-                                <div className="mb-4 flex items-center gap-3 rounded-xl bg-amber-900 px-4 py-3 text-white shadow-sm">
-                                  <MapIcon className="h-5 w-5 shrink-0" />
-                                  <div><p className="text-xs font-black uppercase tracking-[0.16em] text-amber-200">Root</p><p className="font-black">文章主线</p></div>
-                                </div>
-                                {articleOutlineLevels.length > 0 ? (
-                                  <div className="space-y-5">
-                                    {articleOutlineLevels.map((paragraphKeys, depth) => (
+                                <div className="overflow-x-auto overscroll-x-contain pb-3" aria-label="可横向滚动的文章结构图">
+                                  <div className="space-y-5 px-1" style={{ minWidth: `${articleOutlineCanvasWidth}px` }}>
+                                    <div className="flex items-center gap-3 rounded-xl bg-amber-900 px-4 py-3 text-white shadow-sm">
+                                      <MapIcon className="h-5 w-5 shrink-0" />
+                                      <div><p className="text-xs font-black uppercase tracking-[0.16em] text-amber-200">Root</p><p className="font-black">文章主线</p></div>
+                                    </div>
+                                    {articleOutlineLevels.length > 0 ? articleOutlineLevels.map((paragraphKeys, depth) => (
                                       <section key={`outline-level-${depth}`} className="relative pt-5 first:pt-0">
                                         {depth > 0 && <div className="absolute left-1/2 top-0 h-5 w-0.5 -translate-x-1/2 bg-amber-300" aria-hidden="true" />}
                                         <div className="mb-3 flex items-center justify-center gap-2">
@@ -9010,11 +9014,11 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                           <span className="rounded-full bg-amber-100 px-3 py-1 text-[11px] font-black tracking-[0.12em] text-amber-800">第 {depth + 1} 层 · {paragraphKeys.length} 段</span>
                                           <span className="h-px flex-1 bg-amber-100" />
                                         </div>
-                                        <ol className="flex gap-3 overflow-x-auto px-1 pb-3">{paragraphKeys.map(paragraphKey => renderArticleOutlineNode(paragraphKey, depth))}</ol>
+                                        <ol className="flex justify-center gap-3 px-1">{paragraphKeys.map(paragraphKey => renderArticleOutlineNode(paragraphKey, depth))}</ol>
                                       </section>
-                                    ))}
+                                    )) : <p className="py-12 text-center text-sm font-semibold text-amber-700">把段落拖到这里，恢复为文章主线。</p>}
                                   </div>
-                                ) : <p className="py-12 text-center text-sm font-semibold text-amber-700">把段落拖到这里，恢复为文章主线。</p>}
+                                </div>
                               </div>
                             </section>
                           </div>
