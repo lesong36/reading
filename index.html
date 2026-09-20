@@ -2257,6 +2257,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     });
 
     const QUIZ_PROGRESS_STORAGE_KEY_PREFIX = 'reader_quiz_progress_';
+    const ARTICLE_OUTLINE_STORAGE_KEY_PREFIX = 'reader_article_outline_v1_';
+    const getArticleOutlineStorageKey = (articleId) => articleId ? `${ARTICLE_OUTLINE_STORAGE_KEY_PREFIX}${articleId}` : null;
     const COMPLETION_RECORDS_STORAGE_KEY = 'reader_article_completion_records_v1';
     const DAILY_REPORT_PREFERENCES_STORAGE_KEY = 'reader_daily_report_preferences_v1';
     const DEVICE_IDENTITY_STORAGE_KEY = 'reader_device_identity_v1';
@@ -4286,6 +4288,9 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       // Sentence workbench tabs.  Keep quiz mode separate because it also
       // changes how the passage supports locating evidence for an answer.
       const [rightPanelTab, setRightPanelTab] = useState('analysis');
+      const [articleOutlineTopics, setArticleOutlineTopics] = useState({});
+      const [articleOutlineParents, setArticleOutlineParents] = useState({});
+      const [articleOutlineDragKey, setArticleOutlineDragKey] = useState(null);
       const [currentArticleReadingModel, setCurrentArticleReadingModel] = useState(null);
       const [readingActiveActivityId, setReadingActiveActivityId] = useState(null);
       const [readingActivityResponses, setReadingActivityResponses] = useState({});
@@ -4745,6 +4750,121 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         () => savedArticles.find(article => article.id === currentArticleId) || null,
         [savedArticles, currentArticleId]
       );
+      const articleOutlineParagraphs = useMemo(() => paragraphs.map((paragraph, index) => ({
+        key: String(paragraph[0]?.para ?? index + 1),
+        index,
+        sentences: paragraph,
+        preview: paragraph.map(sentence => sentence.text).join(' ')
+      })), [paragraphs]);
+      const articleOutlineChildren = useMemo(() => {
+        const children = { root: [] };
+        articleOutlineParagraphs.forEach(paragraph => { children[paragraph.key] = []; });
+        articleOutlineParagraphs.forEach(paragraph => {
+          const parentKey = articleOutlineParents[paragraph.key];
+          (children[parentKey] || children.root).push(paragraph.key);
+        });
+        return children;
+      }, [articleOutlineParagraphs, articleOutlineParents]);
+
+      useEffect(() => {
+        const storageKey = getArticleOutlineStorageKey(currentArticleId);
+        if (!storageKey) {
+          setArticleOutlineTopics({});
+          setArticleOutlineParents({});
+          setArticleOutlineDragKey(null);
+          return;
+        }
+        try {
+          const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+          setArticleOutlineTopics(saved?.topics && typeof saved.topics === 'object' ? saved.topics : {});
+          setArticleOutlineParents(saved?.parents && typeof saved.parents === 'object' ? saved.parents : {});
+        } catch (_) {
+          setArticleOutlineTopics({});
+          setArticleOutlineParents({});
+        }
+        setArticleOutlineDragKey(null);
+      }, [currentArticleId]);
+
+      useEffect(() => {
+        const storageKey = getArticleOutlineStorageKey(currentArticleId);
+        if (!storageKey) return;
+        try {
+          localStorage.setItem(storageKey, JSON.stringify({ topics: articleOutlineTopics, parents: articleOutlineParents }));
+        } catch (error) {
+          console.warn('Unable to save article outline:', error);
+        }
+      }, [currentArticleId, articleOutlineTopics, articleOutlineParents]);
+
+      const isArticleOutlineDescendant = (candidateKey, ancestorKey) => {
+        let parentKey = articleOutlineParents[candidateKey];
+        while (parentKey) {
+          if (parentKey === ancestorKey) return true;
+          parentKey = articleOutlineParents[parentKey];
+        }
+        return false;
+      };
+
+      const moveArticleOutlineNode = (nodeKey, parentKey = null) => {
+        if (!nodeKey || nodeKey === parentKey || isArticleOutlineDescendant(parentKey, nodeKey)) return;
+        setArticleOutlineParents(previous => ({ ...previous, [nodeKey]: parentKey || null }));
+        setArticleOutlineDragKey(null);
+      };
+
+      const renderArticleOutlineNode = (paragraphKey, depth = 0) => {
+        const paragraph = articleOutlineParagraphs.find(item => item.key === paragraphKey);
+        if (!paragraph) return null;
+        const childKeys = articleOutlineChildren[paragraphKey] || [];
+        const topic = articleOutlineTopics[paragraphKey]?.trim();
+        return (
+          <li key={paragraphKey} className="relative">
+            {depth > 0 && <span className="absolute -left-5 top-0 h-7 w-5 border-b-2 border-l-2 border-amber-200 rounded-bl-xl" aria-hidden="true" />}
+            <div
+              draggable
+              onDragStart={(event) => {
+                event.dataTransfer.effectAllowed = 'move';
+                event.dataTransfer.setData('text/plain', paragraphKey);
+                setArticleOutlineDragKey(paragraphKey);
+              }}
+              onDragEnd={() => setArticleOutlineDragKey(null)}
+              onDragOver={(event) => event.preventDefault()}
+              onDrop={(event) => {
+                event.preventDefault();
+                moveArticleOutlineNode(event.dataTransfer.getData('text/plain') || articleOutlineDragKey, paragraphKey);
+              }}
+              className={`group rounded-2xl border bg-white p-3 shadow-sm transition-all ${
+                articleOutlineDragKey === paragraphKey ? 'border-indigo-400 opacity-50' : 'border-amber-100 hover:border-amber-300 hover:shadow-md'
+              }`}
+            >
+              <div className="flex items-start gap-2">
+                <button
+                  type="button"
+                  onClick={() => setSelectedSentence(paragraph.sentences[0])}
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-xs font-black text-amber-800 hover:bg-amber-200"
+                  title={`定位第 ${paragraph.index + 1} 段`}
+                >
+                  {paragraph.index + 1}
+                </button>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-black uppercase tracking-[0.14em] text-amber-700">{depth === 0 ? '一级结构' : `第 ${depth + 1} 层`}</p>
+                  <p className="mt-1 text-sm font-bold leading-5 text-slate-800">{topic || '尚未填写本段主题'}</p>
+                </div>
+                <select
+                  value={articleOutlineParents[paragraphKey] || ''}
+                  onChange={(event) => moveArticleOutlineNode(paragraphKey, event.target.value || null)}
+                  className="max-w-28 rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 text-[11px] font-bold text-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-300"
+                  aria-label={`设置第 ${paragraph.index + 1} 段的上级`}
+                >
+                  <option value="">文章主线</option>
+                  {articleOutlineParagraphs.filter(item => item.key !== paragraphKey && !isArticleOutlineDescendant(item.key, paragraphKey)).map(item => (
+                    <option key={item.key} value={item.key}>归到第 {item.index + 1} 段</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            {childKeys.length > 0 && <ol className="ml-5 mt-3 space-y-3 border-l-2 border-amber-100 pl-5">{childKeys.map(childKey => renderArticleOutlineNode(childKey, depth + 1))}</ol>}
+          </li>
+        );
+      };
 
       // Reading models are optional, precomputed companion files.  A missing
       // or failed sidecar leaves every existing article on its current path.
@@ -8767,6 +8887,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                         <div className="flex rounded-2xl bg-slate-100 p-1.5" role="tablist" aria-label="阅读工作区">
                           {[
                             { key: 'analysis', label: '句子解析', icon: Search },
+                            { key: 'outline', label: '文章结构', icon: MapIcon },
                             ...(currentArticleReadingModel ? [{ key: 'reading', label: isArticleReadingMvpV2(currentArticleReadingModel) ? '篇章阅读' : '篇章试验', icon: MapIcon }] : []),
                             { key: 'quiz', label: '做题', icon: MousePointerClick },
                             { key: 'ai', label: '问 AI', icon: MessageSquare }
@@ -8808,6 +8929,75 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                       <div className="max-w-[880px] mx-auto">
                       {articleStudyMode === 'read' ? (
                       <React.Fragment>
+                      {rightPanelTab === 'outline' && (
+                        <div className="animate-in fade-in duration-500 space-y-6">
+                          <section className="overflow-hidden rounded-[28px] border border-amber-200 bg-amber-50/70 shadow-sm">
+                            <div className="relative overflow-hidden px-6 py-6 md:px-7">
+                              <div className="absolute -right-10 -top-12 h-40 w-40 rounded-full bg-amber-200/50 blur-2xl" aria-hidden="true" />
+                              <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                                <div>
+                                  <p className="text-xs font-black uppercase tracking-[0.2em] text-amber-700">Article map</p>
+                                  <h3 className="mt-2 text-2xl font-black tracking-tight text-slate-900">把段落连成一张文章地图</h3>
+                                  <p className="mt-2 max-w-xl text-sm leading-6 text-slate-600">先写每段在说什么，再把段落卡片拖到它所支撑的上级主题上。右侧树会即时展示文章的论述结构。</p>
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={() => { setArticleOutlineTopics({}); setArticleOutlineParents({}); setArticleOutlineDragKey(null); }}
+                                  className="inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-amber-300 bg-white/90 px-3 py-2 text-sm font-bold text-amber-800 shadow-sm transition-colors hover:bg-amber-100"
+                                >
+                                  <RefreshCw className="h-4 w-4" /> 重置结构
+                                </button>
+                              </div>
+                              <div className="relative mt-5 flex flex-wrap gap-2 text-xs font-bold">
+                                <span className="rounded-full bg-white px-3 py-1.5 text-slate-600 shadow-sm">{articleOutlineParagraphs.length} 个段落</span>
+                                <span className="rounded-full bg-white px-3 py-1.5 text-amber-800 shadow-sm">已概括 {articleOutlineParagraphs.filter(item => articleOutlineTopics[item.key]?.trim()).length} 段</span>
+                              </div>
+                            </div>
+                          </section>
+
+                          <div className="grid gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+                            <section className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+                              <div className="flex items-start gap-3">
+                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-indigo-100 font-black text-indigo-700">1</div>
+                                <div><h4 className="font-black text-slate-900">给每段贴主题标签</h4><p className="mt-1 text-sm leading-6 text-slate-500">用自己的话写短语即可，例如“提出问题”“第一个原因”或“研究结论”。</p></div>
+                              </div>
+                              <div className="mt-5 space-y-3">
+                                {articleOutlineParagraphs.map(paragraph => (
+                                  <label key={paragraph.key} className="block rounded-2xl border border-slate-200 bg-slate-50/70 p-3 transition-colors focus-within:border-indigo-300 focus-within:bg-indigo-50/50">
+                                    <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.14em] text-slate-500"><span className="flex h-6 w-6 items-center justify-center rounded-lg bg-white text-indigo-700 shadow-sm">{paragraph.index + 1}</span> 第 {paragraph.index + 1} 段</span>
+                                    <input
+                                      value={articleOutlineTopics[paragraph.key] || ''}
+                                      onChange={(event) => setArticleOutlineTopics(previous => ({ ...previous, [paragraph.key]: event.target.value }))}
+                                      placeholder="这段主要在说什么？"
+                                      className="mt-3 w-full border-0 bg-transparent p-0 text-base font-bold text-slate-800 placeholder:font-medium placeholder:text-slate-400 focus:outline-none"
+                                    />
+                                    <span className="mt-2 block line-clamp-2 text-xs leading-5 text-slate-500">{paragraph.preview}</span>
+                                  </label>
+                                ))}
+                              </div>
+                            </section>
+
+                            <section className="rounded-[28px] border border-amber-200 bg-[#fffdf7] p-5 shadow-sm md:p-6">
+                              <div className="flex items-start gap-3">
+                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-amber-200 font-black text-amber-900">2</div>
+                                <div><h4 className="font-black text-slate-900">组织文章树</h4><p className="mt-1 text-sm leading-6 text-slate-500">拖动一张段落卡到另一张卡上，表示它是后者的下级内容；也可以用卡片右侧菜单调整层级。</p></div>
+                              </div>
+                              <div
+                                onDragOver={(event) => event.preventDefault()}
+                                onDrop={(event) => { event.preventDefault(); moveArticleOutlineNode(event.dataTransfer.getData('text/plain') || articleOutlineDragKey, null); }}
+                                className={`mt-5 min-h-72 rounded-2xl border-2 border-dashed p-4 transition-colors ${articleOutlineDragKey ? 'border-amber-400 bg-amber-100/60' : 'border-amber-200 bg-white/70'}`}
+                              >
+                                <div className="mb-4 flex items-center gap-3 rounded-xl bg-amber-900 px-4 py-3 text-white shadow-sm">
+                                  <MapIcon className="h-5 w-5 shrink-0" />
+                                  <div><p className="text-xs font-black uppercase tracking-[0.16em] text-amber-200">Root</p><p className="font-black">文章主线</p></div>
+                                </div>
+                                {articleOutlineChildren.root.length > 0 ? <ol className="space-y-3">{articleOutlineChildren.root.map(paragraphKey => renderArticleOutlineNode(paragraphKey))}</ol> : <p className="py-12 text-center text-sm font-semibold text-amber-700">把段落拖到这里，恢复为文章主线。</p>}
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      )}
+
                       {rightPanelTab === 'reading' && readingMvpV2Model && (() => {
                         const entry = readingMvpV2Model.pedagogy.entry;
                         const final = readingMvpV2Model.pedagogy.final;
