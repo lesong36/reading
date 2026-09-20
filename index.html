@@ -4810,16 +4810,26 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         setArticleOutlineDragKey(null);
       };
 
+      const articleOutlineLevels = useMemo(() => {
+        const levels = [];
+        let currentLevel = articleOutlineChildren.root || [];
+        while (currentLevel.length) {
+          levels.push(currentLevel);
+          currentLevel = currentLevel.flatMap(paragraphKey => articleOutlineChildren[paragraphKey] || []);
+        }
+        return levels;
+      }, [articleOutlineChildren]);
+
       const renderArticleOutlineNode = (paragraphKey, depth = 0) => {
         const paragraph = articleOutlineParagraphs.find(item => item.key === paragraphKey);
         if (!paragraph) return null;
-        const childKeys = articleOutlineChildren[paragraphKey] || [];
         const topic = articleOutlineTopics[paragraphKey]?.trim();
+        const parent = articleOutlineParagraphs.find(item => item.key === articleOutlineParents[paragraphKey]);
         return (
-          <li key={paragraphKey} className="relative">
-            {depth > 0 && <span className="absolute -left-5 top-0 h-7 w-5 border-b-2 border-l-2 border-amber-200 rounded-bl-xl" aria-hidden="true" />}
+          <li key={paragraphKey} className="w-60 shrink-0">
             <div
               draggable
+              data-outline-key={paragraphKey}
               onDragStart={(event) => {
                 event.dataTransfer.effectAllowed = 'move';
                 event.dataTransfer.setData('text/plain', paragraphKey);
@@ -4831,7 +4841,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
                 event.preventDefault();
                 moveArticleOutlineNode(event.dataTransfer.getData('text/plain') || articleOutlineDragKey, paragraphKey);
               }}
-              className={`group rounded-2xl border bg-white p-3 shadow-sm transition-all ${
+              className={`group h-full rounded-2xl border bg-white p-3 shadow-sm transition-all ${
                 articleOutlineDragKey === paragraphKey ? 'border-indigo-400 opacity-50' : 'border-amber-100 hover:border-amber-300 hover:shadow-md'
               }`}
             >
@@ -4845,7 +4855,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
                   {paragraph.index + 1}
                 </button>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-black uppercase tracking-[0.14em] text-amber-700">{depth === 0 ? '一级结构' : `第 ${depth + 1} 层`}</p>
+                  <p className="text-xs font-black uppercase tracking-[0.14em] text-amber-700">第 {depth + 1} 层{parent ? ` · 归属第 ${parent.index + 1} 段` : ' · 文章主线'}</p>
                   <p className="mt-1 text-sm font-bold leading-5 text-slate-800">{topic || '尚未填写本段主题'}</p>
                 </div>
                 <select
@@ -4861,7 +4871,6 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
                 </select>
               </div>
             </div>
-            {childKeys.length > 0 && <ol className="ml-5 mt-3 space-y-3 border-l-2 border-amber-100 pl-5">{childKeys.map(childKey => renderArticleOutlineNode(childKey, depth + 1))}</ol>}
           </li>
         );
       };
@@ -8938,7 +8947,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                 <div>
                                   <p className="text-xs font-black uppercase tracking-[0.2em] text-amber-700">Article map</p>
                                   <h3 className="mt-2 text-2xl font-black tracking-tight text-slate-900">把段落连成一张文章地图</h3>
-                                  <p className="mt-2 max-w-xl text-sm leading-6 text-slate-600">先写每段在说什么，再把段落卡片拖到它所支撑的上级主题上。右侧树会即时展示文章的论述结构。</p>
+                                  <p className="mt-2 max-w-xl text-sm leading-6 text-slate-600">先写每段在说什么，再把段落卡片拖到它所支撑的上级主题上。同层内容会横向并列，右侧树会即时展示文章的论述结构。</p>
                                 </div>
                                 <button
                                   type="button"
@@ -8991,7 +9000,21 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                   <MapIcon className="h-5 w-5 shrink-0" />
                                   <div><p className="text-xs font-black uppercase tracking-[0.16em] text-amber-200">Root</p><p className="font-black">文章主线</p></div>
                                 </div>
-                                {articleOutlineChildren.root.length > 0 ? <ol className="space-y-3">{articleOutlineChildren.root.map(paragraphKey => renderArticleOutlineNode(paragraphKey))}</ol> : <p className="py-12 text-center text-sm font-semibold text-amber-700">把段落拖到这里，恢复为文章主线。</p>}
+                                {articleOutlineLevels.length > 0 ? (
+                                  <div className="space-y-5">
+                                    {articleOutlineLevels.map((paragraphKeys, depth) => (
+                                      <section key={`outline-level-${depth}`} className="relative pt-5 first:pt-0">
+                                        {depth > 0 && <div className="absolute left-1/2 top-0 h-5 w-0.5 -translate-x-1/2 bg-amber-300" aria-hidden="true" />}
+                                        <div className="mb-3 flex items-center justify-center gap-2">
+                                          <span className="h-px flex-1 bg-amber-100" />
+                                          <span className="rounded-full bg-amber-100 px-3 py-1 text-[11px] font-black tracking-[0.12em] text-amber-800">第 {depth + 1} 层 · {paragraphKeys.length} 段</span>
+                                          <span className="h-px flex-1 bg-amber-100" />
+                                        </div>
+                                        <ol className="flex gap-3 overflow-x-auto px-1 pb-3">{paragraphKeys.map(paragraphKey => renderArticleOutlineNode(paragraphKey, depth))}</ol>
+                                      </section>
+                                    ))}
+                                  </div>
+                                ) : <p className="py-12 text-center text-sm font-semibold text-amber-700">把段落拖到这里，恢复为文章主线。</p>}
                               </div>
                             </section>
                           </div>
