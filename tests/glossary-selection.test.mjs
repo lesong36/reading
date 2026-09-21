@@ -12,7 +12,9 @@ test('limits newly generated glossary entries to the requested categories', () =
   assert.match(source, /领域性：.*学习难度：.*语义特殊性：.*语言来源：/s);
   assert.match(source, /不得因词条是文章标题、核心概念、主题词、题目答案或关键动作就自动收录或排除/);
   assert.match(source, /removeQuizTestedGlossary/);
-  assert.match(source, /题干、选项、填空目标或官方答案中直接考查的单词不得输出 glossary/);
+  assert.match(source, /directlyTestedQuizTerms/);
+  assert.match(source, /question\.type === 'word-bank'/);
+  assert.match(source, /不要因为某词仅在主旨题、细节题、事实判断题、题干叙述、干扰项或定位材料中出现就排除它/);
   assert.doesNotMatch(source, /Ancient Egypt（古埃及）|tomb、thieves/);
   assert.doesNotMatch(source.slice(source.indexOf('const buildGlossarySelectionRules'), source.indexOf('const escapeRegExp')), /proper_noun|context_term/);
 });

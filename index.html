@@ -764,17 +764,49 @@
       .map(entry => entry.kind === 'technical_term' ? { ...entry, kind: 'domain_term' } : entry)
       .filter(entry => GENERATED_GLOSSARY_KINDS.has(entry.kind));
 
-    const quizTextForGlossary = (question = {}) => [
-      question.prompt, question.rawAnswer, ...(question.options || []),
-      ...(question.blanks || []).flatMap(blank => [blank.prompt, blank.rawAnswer])
-    ].filter(Boolean).join(' ');
+    const quizCorrectOptionTexts = (question = {}) => {
+      const options = Array.isArray(question.options) ? question.options : [];
+      const indexes = Number.isInteger(question.answerIndex)
+        ? [question.answerIndex]
+        : Array.isArray(question.answerIndexes) ? question.answerIndexes : [];
+      return indexes.map(index => options[index]).filter(Boolean);
+    };
+
+    const directlyTestedQuizTerms = (question = {}) => {
+      const prompt = String(question.prompt || '').trim();
+      const tested = [];
+      const targetPatterns = [
+        /which word is (?:the )?opposite of\s+([^?]+)\??/i,
+        /what does\s+([^?]+?)\s+mean\??/i,
+        /what is the meaning of\s+([^?]+)\??/i,
+        /^([^?.]+?)\s+(?:is|are)\s+(?:a person|people|someone|something)\s+(?:who|that|which)\b/i
+      ];
+      for (const pattern of targetPatterns) {
+        const match = prompt.match(pattern);
+        if (match?.[1]) tested.push(match[1].trim());
+      }
+      if (/\b(?:which word|opposite|meaning|mean)\b/i.test(prompt)) {
+        tested.push(...quizCorrectOptionTexts(question));
+      }
+      if (question.type === 'word-bank') {
+        const options = Array.isArray(question.options) ? question.options : [];
+        for (const blank of question.blanks || []) {
+          if (Number.isInteger(blank.answerIndex) && options[blank.answerIndex]) tested.push(options[blank.answerIndex]);
+        }
+      }
+      return tested.map(term => String(term).replace(/^[^a-z]+|[^a-z]+$/gi, '').trim()).filter(Boolean);
+    };
 
     const removeQuizTestedGlossary = (glossary = [], questions = []) => {
-      const quizText = (questions || []).map(quizTextForGlossary).join(' ').toLowerCase();
-      if (!quizText) return glossary;
+      const testedTerms = (questions || []).flatMap(directlyTestedQuizTerms);
+      if (!testedTerms.length) return glossary;
       return glossary.filter(entry => {
         const terms = [entry.term, ...(entry.aliases || [])].filter(Boolean);
-        return !terms.some(term => new RegExp(`(^|[^a-z])${escapeRegExp(term.toLowerCase())}(?=$|[^a-z])`, 'i').test(quizText));
+        return !terms.some(term => testedTerms.some(tested => {
+          const normalizedTerm = term.toLowerCase().replace(/^[^a-z]+|[^a-z]+$/g, '').trim();
+          const normalizedTested = tested.toLowerCase();
+          return normalizedTerm === normalizedTested;
+        }));
       });
     };
 
@@ -786,7 +818,7 @@
 3. 语义特殊性：它在本文中使用了非字面义、低频义、特定语境义，或不能靠组成词逐字推出整体含义。
 4. 语言来源：它是外来词、缩写、文化负载词，或其词形、派生形式与中文含义的对应关系需要专门说明。
 kind 按首要原因选择：领域概念/实体用 domain_term；文明、民族、历史时期、重要地理实体及其派生称谓用 cultural_term；学习难词或低频义用 rare_word；外来词用 loanword；缩写用 acronym。
-如果文章附带阅读题，题干、选项、填空目标或官方答案中直接考查的单词不得输出 glossary，也不得提供该词的 translation 或 note；这是为了保留题目的独立测试价值。
+如果文章附带阅读题，只排除题目直接测试词义的目标词、会直接泄露词义答案的正确选项，以及词库填空中实际作为正确答案的词。不要因为某词仅在主旨题、细节题、事实判断题、题干叙述、干扰项或定位材料中出现就排除它。
 不得因词条是文章标题、核心概念、主题词、题目答案或关键动作就自动收录或排除；这些身份不参与判定，只检查词条本身是否满足上述标准。
 排除仅起普通叙事作用的基础高频词、普通动作和描述、无需背景知识的一般姓名或地点，以及按字面即可理解且没有独立教学价值的临时短语。
 不同英文形态若中文含义或语法身份不同，应分别输出；只有含义相同的拼写或屈折变化才放入 aliases。
@@ -8591,7 +8623,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
               <div className={`grid grid-cols-1 gap-5 xl:gap-6 animate-in fade-in ${articleStudyMode === 'read' && rightPanelTab === 'outline' ? 'lg:grid-cols-1' : 'lg:grid-cols-12'}`}>
                 
                 {/* Left Column: Article Text */}
-                <div className={`${articleStudyMode === 'read' && rightPanelTab === 'outline' ? 'hidden' : 'lg:col-span-5'} bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col`}>
+                <div className={`${articleStudyMode === 'read' && rightPanelTab === 'outline' ? 'hidden' : 'lg:col-span-5 flex flex-col'} bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden`}>
                   <div className="bg-slate-800 px-5 py-4 text-white">
                     <div className="flex flex-col gap-3">
                       <div className="flex items-center justify-between gap-3">
