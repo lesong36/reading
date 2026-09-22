@@ -1097,74 +1097,59 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     // The imported curriculum already tells us the grammar focus for every
     // sentence.  Turn those small, reliable labels into a child-friendly
     // article notebook instead of asking a model to guess it again.
-    const CORPUS_GRAMMAR_RULES = [
-      { key: 'question', match: /疑问句|一般疑问|特殊疑问|问句/, title: '提问小火车', note: '把 be 动词或助动词开到句首，句子就会举手提问；what、how 等疑问词负责告诉我们要问哪一件事。' },
-      { key: 'imperative', match: /祈使句|建议|命令/, title: '指令小喇叭', note: '让别人做事时，动词原形直接上场；Don’t 后面也跟原形，千万别给它偷偷加 s。' },
-      { key: 'tense', match: /现在进行时|过去进行时|一般现在时|一般过去时|将来时|完成时|时态/, title: '时间小闹钟', note: '动词会根据时间换衣服：习惯、过去、正在发生，各有自己的制服。先找时间线，别让动词穿越。' },
-      { key: 'be', match: /系表结构|主系表|be \+|系动词/, title: 'be 动词变身秀', note: 'be 动词像变装高手：I 配 am，you/we/they 配 are，he/she/it 配 is。后面常跟状态、地点或身份。' },
-      { key: 'modal', match: /情态动词|can|should|would|could|must/, title: '超能力助动词', note: 'can、should、would 这些小帮手后面要牵动词原形的手，不能再带着 s 或 ing 去开派对。' },
-      { key: 'pattern', match: /使役|搭配|短语|用法|结构/, title: '句型积木', note: '有些词天生爱组队：make 后面可以接“谁 + 怎么样”，would like 后面常接想要的东西。整块记，比单词各自乱跑牢靠。' },
-      { key: 'clause', match: /从句|that|which|who|where|because|if/, title: '句子套娃', note: '一个句子里住着另一个小句子。先找到连接词，再把“大句子”和“小句子”分开看。' },
-      { key: 'number', match: /主谓一致|单复数|复数|数量/, title: '单复数搭档', note: '先数清主角有几个，再决定 be 动词和名词要穿单数还是复数的衣服。' },
-      { key: 'other', match: /.*/, title: '句子小机关', note: '这句有一个值得收藏的小机关：先看例句，再模仿着说一遍，语感就会悄悄长出来。' }
+    // A grammar label is only shown when its own rule finds an example in the
+    // article.  This prevents a single "tense" card from quietly claiming
+    // unrelated things such as a connector or a noun phrase.
+    const CORPUS_GRAMMAR_PHENOMENA = [
+      { key: 'past-progressive', category: '时态', title: '过去进行时', note: 'was / were + 动词 ing：说过去某个时刻“正在做”的事。', match: text => /\b(?:was|were)\s+\w+ing\b/i.test(text) },
+      { key: 'present-progressive', category: '时态', title: '现在进行时', note: 'am / is / are + 动词 ing：说现在正在发生的动作。', match: text => /\b(?:am|is|are)\s+\w+ing\b/i.test(text) },
+      { key: 'past-perfect', category: '时态', title: '过去完成时', note: 'had + 过去分词：在过去的某件事之前，它已经先发生了。', match: text => /\bhad\s+(?:been\s+)?\w+(?:ed|en)\b/i.test(text) },
+      { key: 'passive', category: '语态', title: '被动语态', note: 'be + 过去分词：主语是“被怎么样”，动作的执行者可以不说。', match: text => /\b(?:am|is|are|was|were|been|being)\s+(?:\w+ed|hidden|found|made|seen|known|written|taken|given|built|opened)\b/i.test(text) },
+      { key: 'be-pattern', category: '句型', title: 'be 动词句', note: 'be 动词后面可以接身份、状态或地点，像给主语贴一张说明卡。', match: text => /\b(?:am|is|are|was|were)\s+(?:a|an|the)\b|\b(?:am|is|are|was|were)\s+(?:full|good|late|worried|happy|strong|beautiful|ready)\b/i.test(text) },
+      { key: 'there-be', category: '句型', title: 'There be 句型', note: 'There is / are / was / were 用来介绍“有……”。后面名词决定 be 动词单复数。', match: text => /\bthere\s+(?:is|are|was|were)\b/i.test(text) },
+      { key: 'imperative', category: '句型', title: '祈使句', note: '动词原形开头是在发出建议或指令；Don’t 后面也要跟动词原形。', match: text => /^(?:don'?t\s+)?(?:be|come|go|look|listen|take|please|let|stop|keep|open|close|read|write|help)\b/i.test(text.trim()) },
+      { key: 'modal', category: '句型', title: '情态动词 + 动词原形', note: 'can、should、would 等后面请动词原形出场，不能再加 s 或 ing。', match: text => /\b(?:can|could|should|would|must|will)\s+\w+\b/i.test(text) },
+      { key: 'question', category: '句型', title: '疑问句', note: '把 be 动词或助动词放到前面，或者用 what / how 等疑问词开头，就能发问。', match: text => /^(?:(?:what|where|when|why|how|who)\b|(?:am|is|are|was|were|do|does|did|can|could|would|should)\b)/i.test(text.trim()) },
+      { key: 'post-adjective', category: '句型', title: '不定代词后接形容词', note: 'something、anything、nothing 后面的形容词要站到后面，像排队时换了位置。', match: text => /\b(?:something|anything|nothing|someone|anyone)\s+\w+(?:ing|ed|ful|ous|ive|able|less)\b/i.test(text) },
+      { key: 'but', category: '连接', title: 'but 表转折', note: 'but 像“不过”的小路牌：后面的话和前面有转折。', match: text => /\bbut\b/i.test(text) },
+      { key: 'because', category: '连接', title: 'because 表原因', note: 'because 后面说原因：为什么会这样？答案跟在它后面。', match: text => /\bbecause\b/i.test(text) }
     ];
-    const getCorpusGrammarKey = (focus = '') => CORPUS_GRAMMAR_RULES.find(rule => rule.match.test(String(focus)))?.key || 'other';
-    const CORPUS_STOP_WORDS = new Set('a an the am is are was were be been being i you he she it we they me him her us them my your his its our their this that these those what where when why how do does did can could would should will shall to of in on at for from with by and or but so because if as than very just not no yes please today there here have has had some any many much more most one two first'.split(' '));
+    const FIXED_PHRASE_RULES = [
+      ['be good at', /\b(?:am|is|are|was|were|be)\s+good\s+at\b/i], ['learn about', /\blearn(?:s|ed|ing)?\s+about\b/i],
+      ['be about', /\b(?:am|is|are|was|were|be)\s+about\b/i], ['would like', /\bwould\s+like\b/i],
+      ['look after', /\blook(?:s|ed|ing)?\s+after\b/i], ['look at', /\blook(?:s|ed|ing)?\s+at\b/i],
+      ['listen to', /\blisten(?:s|ed|ing)?\s+to\b/i], ['play with', /\bplay(?:s|ed|ing)?\s+with\b/i],
+      ['take a walk', /\btake(?:s|took)?\s+a\s+walk\b/i], ['have a rest', /\b(?:have|has|had)\s+a\s+rest\b/i],
+      ['be interested in', /\b(?:am|is|are|was|were|be)\s+interested\s+in\b/i], ['come from', /\bcome(?:s|came|ing)?\s+from\b/i],
+      ['turn into', /\bturn(?:s|ed|ing)?\s+into\b/i], ['get up', /\bget(?:s|got|ting)?\s+up\b/i], ['a little', /\ba\s+little\b/i], ['in time', /\bin\s+time\b/i]
+    ];
+    const CORE_WORD_LEXICON = [
+      ['dig', 'v.', '挖；挖掘', 'dig, digs, digging, dug'], ['open', 'v.', '打开', 'open, opens, opening, opened'], ['hide', 'v.', '藏；隐藏', 'hide, hides, hiding, hid, hidden'], ['find', 'v.', '找到；发现', 'find, finds, finding, found'], ['learn', 'v.', '学习；了解', 'learn, learns, learning, learned, learnt'], ['study', 'v.', '学习；研究', 'study, studies, studying, studied'], ['contain', 'v.', '包含；装有', 'contain, contains, containing, contained'], ['read', 'v.', '阅读', 'read, reads, reading'], ['worry', 'v.', '担心', 'worry, worries, worrying'], ['feel', 'v.', '感觉；觉得', 'feel, feels, feeling, felt'], ['help', 'v.', '帮助', 'help, helps, helping, helped'], ['make', 'v.', '使；制作', 'make, makes, making, made'], ['love', 'v.', '喜爱', 'love, loves, loving, loved'], ['want', 'v.', '想要', 'want, wants, wanting, wanted'], ['need', 'v.', '需要', 'need, needs, needing, needed'], ['keep', 'v.', '保持；保存', 'keep, keeps, keeping, kept'], ['show', 'v.', '展示；表明', 'show, shows, showing, showed, shown'], ['object', 'n.', '物品；物体', 'object, objects'], ['thief', 'n.', '小偷', 'thief, thieves'], ['tomb', 'n.', '坟墓；陵墓', 'tomb, tombs'], ['mummy', 'n.', '木乃伊', 'mummy, mummies'], ['statue', 'n.', '雕像', 'statue, statues'], ['painting', 'n.', '绘画；画作', 'painting, paintings'], ['furniture', 'n.', '家具', 'furniture'], ['science', 'n.', '科学', 'science'], ['worry', 'adj.', '担心的', 'worried'], ['amaze', 'adj.', '令人惊奇的', 'amazing'], ['beautiful', 'adj.', '美丽的', 'beautiful'], ['strong', 'adj.', '强壮的', 'strong'], ['late', 'adj.', '迟到的；晚的', 'late'], ['miss', 'adj.', '不见的；缺少的', 'missing'], ['ancient', 'adj.', '古代的', 'ancient'], ['together', 'adv.', '一起', 'together']
+    ];
     const corpusWords = text => String(text || '').match(/[A-Za-z]+(?:'[A-Za-z]+)?/g) || [];
-    const addCorpusPhrase = (map, phrase, sentence) => {
-      const cleaned = String(phrase || '').replace(/^[,.;:!?\s]+|[,.;:!?\s]+$/g, '').replace(/\s+/g, ' ').trim();
-      if (!cleaned || corpusWords(cleaned).length < 2 || cleaned.length > 42) return;
-      const key = cleaned.toLowerCase();
-      if (!map.has(key)) map.set(key, { phrase: cleaned, example: sentence.text, translation: sentence.translation });
-    };
+    const CORE_WORD_FORMS = new Map(CORE_WORD_LEXICON.flatMap(([base, pos, meaning, forms]) => forms.split(/,\s*/).map(form => [form.toLowerCase(), { base, pos, meaning }])));
     const buildArticleCorpus = (article = {}, articleData = []) => {
       const data = normalizeArticleData(articleData || article.data || []);
-      const grouped = new Map();
-      data.forEach(sentence => {
-        const focus = String(sentence.grammarFocus || '').trim();
-        if (!focus) return;
-        const key = getCorpusGrammarKey(focus);
-        const rule = CORPUS_GRAMMAR_RULES.find(item => item.key === key) || CORPUS_GRAMMAR_RULES[CORPUS_GRAMMAR_RULES.length - 1];
-        const group = grouped.get(key) || { ...rule, focuses: [], examples: [] };
-        const focusParts = focus.replace(/\([^)]*\)/g, '').split(/[；;]/).map(item => item.trim()).filter(Boolean);
-        focusParts.forEach(part => { if (!group.focuses.includes(part)) group.focuses.push(part); });
-        if (group.examples.length < 3) group.examples.push({ text: sentence.text, translation: sentence.translation });
-        grouped.set(key, group);
+      const grammarByCategory = new Map();
+      CORPUS_GRAMMAR_PHENOMENA.forEach(item => {
+        const examples = data.filter(sentence => item.match(sentence.text || '')).slice(0, 3).map(sentence => ({ text: sentence.text, translation: sentence.translation }));
+        if (!examples.length) return;
+        const category = grammarByCategory.get(item.category) || { title: item.category, phenomena: [] };
+        category.phenomena.push({ ...item, examples }); grammarByCategory.set(item.category, category);
       });
       const phraseMap = new Map();
-      const phrasePatterns = [
-        /\b(?:would like|be about|be good at|be interested in|take care of|look after|look at|listen to|play with|come from|turn into|grow up|get up|have a rest|take a walk|a little|in time|at home|on the way|in the middle of|one of the)\b(?:\s+[A-Za-z]+){0,3}/ig,
-        /\b(?:make|let|help|want|need|like|love|have|has|read|write|open|close|find|see|visit|wear|share|wash|eat|drink|play|watch|tell|give|get|keep|call|use|learn)\s+(?:me|him|her|us|them|it|a|an|the|some|any|my|your|his|her|our|their)?\s*[A-Za-z]+(?:\s+[A-Za-z]+)?/ig,
-        /\b(?:am|is|are|was|were|be|been)\s+(?:[A-Za-z]+\s+){0,2}(?:in|on|at|from|with|for|to)\s+[A-Za-z]+/ig
-      ];
       data.forEach(sentence => {
-        phrasePatterns.forEach(pattern => (String(sentence.text || '').match(pattern) || []).forEach(value => addCorpusPhrase(phraseMap, value, sentence)));
-        if (/短语|搭配|用法|结构/.test(sentence.grammarFocus || '')) {
-          const text = String(sentence.text || '').replace(/^["“]|["”。！!?]+$/g, '').trim();
-          const words = corpusWords(text);
-          if (words.length >= 2 && words.length <= 8) addCorpusPhrase(phraseMap, text, sentence);
-        }
+        FIXED_PHRASE_RULES.forEach(([phrase, pattern]) => { if (pattern.test(sentence.text || '') && !phraseMap.has(phrase)) phraseMap.set(phrase, { phrase, example: sentence.text, translation: sentence.translation }); });
       });
-      const glossary = collectArticleGlossary(article, data);
-      const vocabMap = new Map(glossary.map(item => [item.term.toLowerCase(), { term: item.term, meaning: item.translation || item.note, example: item.note || '', kind: item.kind || '词语' }]));
-      const vocabScores = new Map();
+      const vocabMap = new Map();
       data.forEach(sentence => {
-        const segments = sentence.segments || [];
-        segments.forEach(segment => {
-          const type = String(segment.type || '');
-          if (!/subject|verb|object|predicative|adverbial/.test(type)) return;
-          corpusWords(segment.text).forEach(word => {
-          const normalized = word.toLowerCase();
-          if (normalized.length < 4 || CORPUS_STOP_WORDS.has(normalized) || vocabMap.has(normalized)) return;
-          if (/^[A-Z][a-z]+$/.test(word) && String(segment.text).indexOf(word) > 0) return;
-          const existing = vocabScores.get(normalized) || { term: word, score: 0, sentence };
-          existing.score += type.includes('verb') ? 4 : /object|subject|predicative/.test(type) ? 3 : 2;
-          vocabScores.set(normalized, existing);
-          });
+        corpusWords(sentence.text).forEach(word => {
+          const entry = CORE_WORD_FORMS.get(word.toLowerCase());
+          if (!entry || vocabMap.has(`${word.toLowerCase()}::${entry.base}`)) return;
+          vocabMap.set(`${word.toLowerCase()}::${entry.base}`, { term: word, ...entry, example: sentence.text, translation: sentence.translation });
         });
       });
-      [...vocabScores.values()].sort((a, b) => b.score - a.score).slice(0, 24).forEach(item => vocabMap.set(item.term.toLowerCase(), { term: item.term, meaning: '结合这句的中文理解，不背孤零零的词。', example: item.sentence.text, kind: '核心词' }));
-      return { grammar: [...grouped.values()].sort((a, b) => b.examples.length - a.examples.length), phrases: [...phraseMap.values()].slice(0, 18), vocab: [...vocabMap.values()].slice(0, 24) };
+      return { grammar: [...grammarByCategory.values()], phrases: [...phraseMap.values()], vocab: [...vocabMap.values()].slice(0, 24) };
     };
 
     const joinArticleText = (articleData = []) =>
@@ -10201,11 +10186,10 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                             <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-2xl bg-indigo-600 font-black text-white">1</span><div><h4 className="font-black text-slate-900">语法现象，按家族站队</h4><p className="text-sm text-slate-600">同一种机关放在一起看，脑袋就不用反复换频道。</p></div></div>
                             <div className="mt-5 grid gap-4">
                               {articleCorpus.grammar.map(group => (
-                                <article key={group.key} className="rounded-2xl border border-indigo-100 bg-white p-4 shadow-sm">
-                                  <div className="flex flex-wrap items-center gap-2"><h5 className="text-lg font-black text-indigo-950">{group.title}</h5>{group.focuses.map(focus => <span key={focus} className="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-bold text-indigo-700">{focus}</span>)}</div>
-                                  <p className="mt-2 text-sm leading-6 text-slate-700">{group.note}</p>
-                                  <div className="mt-3 grid gap-2 md:grid-cols-2">{group.examples.map((example, index) => <div key={`${example.text}-${index}`} className="rounded-xl bg-indigo-50/70 px-3 py-2.5"><p className="font-serif font-bold text-slate-900">“{example.text}”</p>{example.translation && <p className="mt-1 text-xs text-slate-600">{example.translation}</p>}</div>)}</div>
-                                </article>
+                                <section key={group.title} className="rounded-2xl border border-indigo-100 bg-white p-4 shadow-sm">
+                                  <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-500">{group.title}</p>
+                                  <div className="mt-3 space-y-4">{group.phenomena.map(item => <article key={item.key} className="border-l-4 border-indigo-400 pl-4"><h5 className="text-lg font-black text-indigo-950">{item.title}</h5><p className="mt-1 text-sm leading-6 text-slate-700">{item.note}</p><div className="mt-3 grid gap-2 md:grid-cols-2">{item.examples.map((example, index) => <div key={`${example.text}-${index}`} className="rounded-xl bg-indigo-50/70 px-3 py-2.5"><p className="font-serif font-bold text-slate-900">“{example.text}”</p>{example.translation && <p className="mt-1 text-xs text-slate-600">{example.translation}</p>}</div>)}</div></article>)}</div>
+                                </section>
                               ))}
                               {!articleCorpus.grammar.length && <p className="rounded-2xl bg-white p-4 text-sm text-slate-500">这篇还没有标注语法点。先从左边点一句，看看它的句子解析吧。</p>}
                             </div>
@@ -10213,7 +10197,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
 
                           <div className="grid gap-6 lg:grid-cols-2">
                             <section className="rounded-[28px] border border-emerald-200 bg-emerald-50/50 p-5 md:p-6"><div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-2xl bg-emerald-600 font-black text-white">2</span><div><h4 className="font-black text-slate-900">固定搭配</h4><p className="text-sm text-slate-600">这些词喜欢组队出场，拆开就会闹小脾气。</p></div></div><div className="mt-5 space-y-3">{articleCorpus.phrases.map(item => <article key={item.phrase} className="rounded-2xl border border-emerald-100 bg-white p-3"><p className="font-mono text-base font-black text-emerald-800">{item.phrase}</p><p className="mt-1 text-sm text-slate-700">例：{item.example}</p>{item.translation && <p className="mt-1 text-xs text-slate-500">{item.translation}</p>}</article>)}{!articleCorpus.phrases.length && <p className="rounded-2xl bg-white p-4 text-sm text-slate-500">这篇暂时没抓到常见搭配，继续读下一篇来收集吧。</p>}</div></section>
-                            <section className="rounded-[28px] border border-sky-200 bg-sky-50/55 p-5 md:p-6"><div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-2xl bg-sky-600 font-black text-white">3</span><div><h4 className="font-black text-slate-900">生词口袋</h4><p className="text-sm text-slate-600">先用原句和中文线索猜意思，再回头检查。词典小侦探，出发！</p></div></div><div className="mt-5 grid gap-3">{articleCorpus.vocab.map(item => <article key={item.term.toLowerCase()} className="rounded-2xl border border-sky-100 bg-white px-3 py-3"><p className="font-mono text-base font-black text-sky-900">{item.term}</p><p className="mt-1 text-sm leading-6 text-slate-700">{item.meaning || '先结合原句猜猜它的意思。'}</p>{item.example && <p className="mt-1 text-xs leading-5 text-slate-500">原句：{item.example}</p>}</article>)}{!articleCorpus.vocab.length && <p className="rounded-2xl bg-white p-4 text-sm text-slate-500">这一篇没有单独词表，先把左边标出的词加入生词本吧。</p>}</div></section>
+                            <section className="rounded-[28px] border border-sky-200 bg-sky-50/55 p-5 md:p-6"><div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-2xl bg-sky-600 font-black text-white">3</span><div><h4 className="font-black text-slate-900">生词口袋</h4><p className="text-sm text-slate-600">每张卡都有原词、原型、词性、词义和原句；只收核心实词。</p></div></div><div className="mt-5 grid gap-3">{articleCorpus.vocab.map(item => <article key={`${item.term}-${item.base}`} className="rounded-2xl border border-sky-100 bg-white px-3 py-3"><div className="flex flex-wrap items-baseline gap-x-2"><p className="font-mono text-base font-black text-sky-900">{item.term}</p><span className="text-xs font-bold text-sky-600">原型：{item.base} · {item.pos}</span></div><p className="mt-1 text-sm leading-6 text-slate-700">{item.meaning}</p>{item.example && <p className="mt-1 text-xs leading-5 text-slate-500">例句：{item.example}</p>}{item.translation && <p className="mt-1 text-xs leading-5 text-slate-500">{item.translation}</p>}</article>)}{!articleCorpus.vocab.length && <p className="rounded-2xl bg-white p-4 text-sm text-slate-500">这篇没有命中已收录的核心词。可在后续补充词典后再显示。</p>}</div></section>
                           </div>
                         </div>
                       )}
