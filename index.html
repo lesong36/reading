@@ -1098,16 +1098,25 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     // sentence.  Turn those small, reliable labels into a child-friendly
     // article notebook instead of asking a model to guess it again.
     const CORPUS_GRAMMAR_RULES = [
-      { key: 'question', match: /疑问句|wh-?问句/, title: '提问小火车', note: '把 be 动词或助动词开到句首，句子就会举手提问：不是乱跑，是去当领队。' },
-      { key: 'imperative', match: /祈使句/, title: '指令小喇叭', note: '让别人做事时，动词原形直接上场；Don’t 后面也跟原形，千万别给它偷偷加 s。' },
-      { key: 'be', match: /系表结构|主系表|be \+|系动词/, title: 'be 动词变身秀', note: 'be 动词像变装高手：I 配 am，you/we/they 配 are，he/she/it 配 is。后面常跟“状态说明书”。' },
-      { key: 'modal', match: /情态动词|can|should|would|could/, title: '超能力助动词', note: 'can、should 这些小帮手后面要牵动词原形的手，后面不能再带着 s 或 ing 去开派对。' },
-      { key: 'tense', match: /一般现在时|一般过去时|现在进行时|过去进行时|完成时|时态/, title: '时间小闹钟', note: '动词会根据时间换衣服：现在、过去、正在发生，各有自己的制服。先找时间线，别让动词穿越。' },
-      { key: 'plural', match: /主谓一致|单复数|复数/, title: '单复数搭档', note: '一个主语和一群主语，带的动词小伙伴不一样。先数清主角有几个，英语就不会迷路。' },
-      { key: 'clause', match: /从句|that|which|who/, title: '句子套娃', note: '一个句子里住着另一个小句子。先找到连接词，再把“大句子”和“小句子”分开看。' },
+      { key: 'question', match: /疑问句|一般疑问|特殊疑问|问句/, title: '提问小火车', note: '把 be 动词或助动词开到句首，句子就会举手提问；what、how 等疑问词负责告诉我们要问哪一件事。' },
+      { key: 'imperative', match: /祈使句|建议|命令/, title: '指令小喇叭', note: '让别人做事时，动词原形直接上场；Don’t 后面也跟原形，千万别给它偷偷加 s。' },
+      { key: 'tense', match: /现在进行时|过去进行时|一般现在时|一般过去时|将来时|完成时|时态/, title: '时间小闹钟', note: '动词会根据时间换衣服：习惯、过去、正在发生，各有自己的制服。先找时间线，别让动词穿越。' },
+      { key: 'be', match: /系表结构|主系表|be \+|系动词/, title: 'be 动词变身秀', note: 'be 动词像变装高手：I 配 am，you/we/they 配 are，he/she/it 配 is。后面常跟状态、地点或身份。' },
+      { key: 'modal', match: /情态动词|can|should|would|could|must/, title: '超能力助动词', note: 'can、should、would 这些小帮手后面要牵动词原形的手，不能再带着 s 或 ing 去开派对。' },
+      { key: 'pattern', match: /使役|搭配|短语|用法|结构/, title: '句型积木', note: '有些词天生爱组队：make 后面可以接“谁 + 怎么样”，would like 后面常接想要的东西。整块记，比单词各自乱跑牢靠。' },
+      { key: 'clause', match: /从句|that|which|who|where|because|if/, title: '句子套娃', note: '一个句子里住着另一个小句子。先找到连接词，再把“大句子”和“小句子”分开看。' },
+      { key: 'number', match: /主谓一致|单复数|复数|数量/, title: '单复数搭档', note: '先数清主角有几个，再决定 be 动词和名词要穿单数还是复数的衣服。' },
       { key: 'other', match: /.*/, title: '句子小机关', note: '这句有一个值得收藏的小机关：先看例句，再模仿着说一遍，语感就会悄悄长出来。' }
     ];
     const getCorpusGrammarKey = (focus = '') => CORPUS_GRAMMAR_RULES.find(rule => rule.match.test(String(focus)))?.key || 'other';
+    const CORPUS_STOP_WORDS = new Set('a an the am is are was were be been being i you he she it we they me him her us them my your his its our their this that these those what where when why how do does did can could would should will shall to of in on at for from with by and or but so because if as than very just not no yes please today there here have has had some any many much more most one two first'.split(' '));
+    const corpusWords = text => String(text || '').match(/[A-Za-z]+(?:'[A-Za-z]+)?/g) || [];
+    const addCorpusPhrase = (map, phrase, sentence) => {
+      const cleaned = String(phrase || '').replace(/^[,.;:!?\s]+|[,.;:!?\s]+$/g, '').replace(/\s+/g, ' ').trim();
+      if (!cleaned || corpusWords(cleaned).length < 2 || cleaned.length > 42) return;
+      const key = cleaned.toLowerCase();
+      if (!map.has(key)) map.set(key, { phrase: cleaned, example: sentence.text, translation: sentence.translation });
+    };
     const buildArticleCorpus = (article = {}, articleData = []) => {
       const data = normalizeArticleData(articleData || article.data || []);
       const grouped = new Map();
@@ -1117,36 +1126,45 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         const key = getCorpusGrammarKey(focus);
         const rule = CORPUS_GRAMMAR_RULES.find(item => item.key === key) || CORPUS_GRAMMAR_RULES[CORPUS_GRAMMAR_RULES.length - 1];
         const group = grouped.get(key) || { ...rule, focuses: [], examples: [] };
-        if (!group.focuses.includes(focus)) group.focuses.push(focus);
+        const focusParts = focus.replace(/\([^)]*\)/g, '').split(/[；;]/).map(item => item.trim()).filter(Boolean);
+        focusParts.forEach(part => { if (!group.focuses.includes(part)) group.focuses.push(part); });
         if (group.examples.length < 3) group.examples.push({ text: sentence.text, translation: sentence.translation });
         grouped.set(key, group);
       });
-      const knownPhrases = [
-        /\bhow do you feel\b/ig, /\bwhat(?:'s| is) the matter\b/ig, /\btake a walk\b/ig,
-        /\ba little\b/ig, /\bdon'?t worry\b/ig, /\bwould like\b/ig, /\bhelp me\b/ig,
-        /\bplay with\b/ig, /\blook after\b/ig, /\bget up\b/ig, /\bhave a rest\b/ig
-      ];
       const phraseMap = new Map();
-      data.forEach(sentence => knownPhrases.forEach(pattern => {
-        const found = String(sentence.text || '').match(pattern);
-        found?.forEach(value => {
-          const phrase = value.toLowerCase();
-          if (!phraseMap.has(phrase)) phraseMap.set(phrase, { phrase, example: sentence.text, translation: sentence.translation });
-        });
-      }));
-      const glossary = collectArticleGlossary(article, data);
-      const vocabMap = new Map(glossary.map(item => [item.term.toLowerCase(), { term: item.term, meaning: item.translation || item.note, example: item.note || '' }]));
-      // When a school-text import has no explicit glossary, retain useful
-      // content words with their Chinese sentence clue rather than inventing a translation.
+      const phrasePatterns = [
+        /\b(?:would like|be about|be good at|be interested in|take care of|look after|look at|listen to|play with|come from|turn into|grow up|get up|have a rest|take a walk|a little|in time|at home|on the way|in the middle of|one of the)\b(?:\s+[A-Za-z]+){0,3}/ig,
+        /\b(?:make|let|help|want|need|like|love|have|has|read|write|open|close|find|see|visit|wear|share|wash|eat|drink|play|watch|tell|give|get|keep|call|use|learn)\s+(?:me|him|her|us|them|it|a|an|the|some|any|my|your|his|her|our|their)?\s*[A-Za-z]+(?:\s+[A-Za-z]+)?/ig,
+        /\b(?:am|is|are|was|were|be|been)\s+(?:[A-Za-z]+\s+){0,2}(?:in|on|at|from|with|for|to)\s+[A-Za-z]+/ig
+      ];
       data.forEach(sentence => {
-        const words = String(sentence.text || '').match(/[A-Za-z]+(?:'[A-Za-z]+)?/g) || [];
-        words.forEach(word => {
+        phrasePatterns.forEach(pattern => (String(sentence.text || '').match(pattern) || []).forEach(value => addCorpusPhrase(phraseMap, value, sentence)));
+        if (/短语|搭配|用法|结构/.test(sentence.grammarFocus || '')) {
+          const text = String(sentence.text || '').replace(/^["“]|["”。！!?]+$/g, '').trim();
+          const words = corpusWords(text);
+          if (words.length >= 2 && words.length <= 8) addCorpusPhrase(phraseMap, text, sentence);
+        }
+      });
+      const glossary = collectArticleGlossary(article, data);
+      const vocabMap = new Map(glossary.map(item => [item.term.toLowerCase(), { term: item.term, meaning: item.translation || item.note, example: item.note || '', kind: item.kind || '词语' }]));
+      const vocabScores = new Map();
+      data.forEach(sentence => {
+        const segments = sentence.segments || [];
+        segments.forEach(segment => {
+          const type = String(segment.type || '');
+          if (!/subject|verb|object|predicative|adverbial/.test(type)) return;
+          corpusWords(segment.text).forEach(word => {
           const normalized = word.toLowerCase();
-          if (normalized.length < 5 || /^(would|could|there|where|which|their|about|because|please|today|thank)$/i.test(normalized) || vocabMap.has(normalized)) return;
-          if (vocabMap.size < 18) vocabMap.set(normalized, { term: word, meaning: '看原句猜一猜：' + (sentence.translation || '它在这句里有重要任务。'), example: sentence.text });
+          if (normalized.length < 4 || CORPUS_STOP_WORDS.has(normalized) || vocabMap.has(normalized)) return;
+          if (/^[A-Z][a-z]+$/.test(word) && String(segment.text).indexOf(word) > 0) return;
+          const existing = vocabScores.get(normalized) || { term: word, score: 0, sentence };
+          existing.score += type.includes('verb') ? 4 : /object|subject|predicative/.test(type) ? 3 : 2;
+          vocabScores.set(normalized, existing);
+          });
         });
       });
-      return { grammar: [...grouped.values()], phrases: [...phraseMap.values()].slice(0, 12), vocab: [...vocabMap.values()].slice(0, 18) };
+      [...vocabScores.values()].sort((a, b) => b.score - a.score).slice(0, 24).forEach(item => vocabMap.set(item.term.toLowerCase(), { term: item.term, meaning: '结合这句的中文理解，不背孤零零的词。', example: item.sentence.text, kind: '核心词' }));
+      return { grammar: [...grouped.values()].sort((a, b) => b.examples.length - a.examples.length), phrases: [...phraseMap.values()].slice(0, 18), vocab: [...vocabMap.values()].slice(0, 24) };
     };
 
     const joinArticleText = (articleData = []) =>
