@@ -1111,9 +1111,32 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       { key: 'modal', category: '句型', title: '情态动词 + 动词原形', note: 'can、should、would 等后面请动词原形出场，不能再加 s 或 ing。', match: text => /\b(?:can|could|should|would|must|will)\s+\w+\b/i.test(text) },
       { key: 'question', category: '句型', title: '疑问句', note: '把 be 动词或助动词放到前面，或者用 what / how 等疑问词开头，就能发问。', match: text => /^(?:(?:what|where|when|why|how|who)\b|(?:am|is|are|was|were|do|does|did|can|could|would|should)\b)/i.test(text.trim()) },
       { key: 'post-adjective', category: '句型', title: '不定代词后接形容词', note: 'something、anything、nothing 后面的形容词要站到后面，像排队时换了位置。', match: text => /\b(?:something|anything|nothing|someone|anyone)\s+\w+(?:ing|ed|ful|ous|ive|able|less)\b/i.test(text) },
-      { key: 'but', category: '连接', title: 'but 表转折', note: 'but 像“不过”的小路牌：后面的话和前面有转折。', match: text => /\bbut\b/i.test(text) },
-      { key: 'because', category: '连接', title: 'because 表原因', note: 'because 后面说原因：为什么会这样？答案跟在它后面。', match: text => /\bbecause\b/i.test(text) }
+      { key: 'to-infinitive', category: '非谓语', title: 'to do 结构', note: 'to 后面跟动词原形，常表示“去做某事”或“为了做某事”。', match: text => /\bto\s+(?:be|learn|read|write|make|help|see|go|do|have|play|find|keep)\b/i.test(text) },
+      { key: 'verb-ing', category: '非谓语', title: '动词 ing 形式', note: '动词加 ing 可以表示正在做，也可以像名词一样表示“做这件事”。要看它前面的搭档。', match: text => /\b(?:like|love|enjoy|keep|go)\s+\w+ing\b/i.test(text) },
+      { key: 'comparative', category: '形容词', title: '比较级', note: '形容词比较级常和 than 一起出现，用来比一比谁更怎样。', match: text => /\b\w+(?:er|ier)\s+than\b|\bmore\s+\w+\s+than\b/i.test(text) },
+      { key: 'possessive', category: '名词', title: '名词所有格', note: '名词后面加 ’s，表示“……的”。它像给东西贴上主人标签。', match: text => /\b\w+'s\b/.test(text) },
+      { key: 'plural', category: '名词', title: '可数名词复数', note: '不止一个时，名词常要加 s 或 es；先数数有几个小伙伴。', match: text => /\b(?:many|some|these|those|two|three|four|five)\s+\w+(?:s|es)\b/i.test(text) }
     ];
+    const getArticleFocusHints = (focus = '') => String(focus || '')
+      // The producer sometimes writes two facts without a separator, such as
+      // “过去完成时被动语态”.  Split the common boundary before showing it.
+      .replace(/(进行时|完成时|一般现在时|一般过去时|将来时|被动语态|主动语态|祈使句|疑问句)(?=(?:被动|主动|连词|介词|不定|名词|形容|副词|从句|非谓语|主谓|系表))/g, '$1；')
+      .split(/[；;。]/).map(item => item.trim()).filter(item => item.length >= 3 && item.length <= 42);
+    const getDynamicGrammarPhenomena = (data = []) => {
+      const found = new Map();
+      const connectorNotes = { and: 'and 把相近的信息连在一起。', but: 'but 像“不过”的小路牌，后面有转折。', or: 'or 表示“或者”，给出选择。', so: 'so 表示“所以”，后面常说结果。', because: 'because 后面说明原因。', if: 'if 表示“如果”，后面给出条件。', when: 'when 表示“当……时”，交代时间。', while: 'while 表示“当……时”或“与此同时”。', before: 'before 表示“在……之前”。', after: 'after 表示“在……之后”。' };
+      data.forEach(sentence => {
+        const text = sentence.text || '';
+        Object.entries(connectorNotes).forEach(([word, note]) => {
+          if (!new RegExp(`\\b${word}\\b`, 'i').test(text)) return;
+          const key = `connector-${word}`;
+          const item = found.get(key) || { key, category: '连接', title: `连接词 ${word}`, note, examples: [] };
+          if (item.examples.length < 3) item.examples.push({ text, translation: sentence.translation });
+          found.set(key, item);
+        });
+      });
+      return [...found.values()];
+    };
     const FIXED_PHRASE_RULES = [
       ['be good at', /\b(?:am|is|are|was|were|be)\s+good\s+at\b/i], ['learn about', /\blearn(?:s|ed|ing)?\s+about\b/i],
       ['be about', /\b(?:am|is|are|was|were|be)\s+about\b/i], ['would like', /\bwould\s+like\b/i],
@@ -1136,6 +1159,27 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         if (!examples.length) return;
         const category = grammarByCategory.get(item.category) || { title: item.category, phenomena: [] };
         category.phenomena.push({ ...item, examples }); grammarByCategory.set(item.category, category);
+      });
+      getDynamicGrammarPhenomena(data).forEach(item => {
+        const category = grammarByCategory.get(item.category) || { title: item.category, phenomena: [] };
+        if (!category.phenomena.some(existing => existing.key === item.key)) category.phenomena.push(item);
+        grammarByCategory.set(item.category, category);
+      });
+      // Imported grammarFocus is not discarded.  Any lesson-specific point
+      // that lexical rules do not yet know is shown with its own source
+      // sentence, so new curricula can surface new phenomena immediately.
+      const hints = new Map();
+      const coveredByAutomaticRule = /进行时|完成时|被动语态|疑问句|祈使句|系表|情态动词|不定代词.*形容词|连词\s*(?:and|but|or|so|because|if|when|while|before|after)/i;
+      data.forEach(sentence => getArticleFocusHints(sentence.grammarFocus).forEach(title => {
+        if (coveredByAutomaticRule.test(title)) return;
+        const key = title.toLowerCase();
+        const item = hints.get(key) || { key: `hint-${key}`, category: '课文特别提示', title, note: '这是本句教材解析标出的语法点；例句就在下方，不借别句凑数。', examples: [] };
+        if (item.examples.length < 3) item.examples.push({ text: sentence.text, translation: sentence.translation });
+        hints.set(key, item);
+      }));
+      [...hints.values()].forEach(item => {
+        const category = grammarByCategory.get(item.category) || { title: item.category, phenomena: [] };
+        category.phenomena.push(item); grammarByCategory.set(item.category, category);
       });
       const phraseMap = new Map();
       data.forEach(sentence => {
