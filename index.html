@@ -409,12 +409,13 @@
     const DEFAULT_OLLAMA_MODEL = 'qwen3.6:35b-a3b-mxfp8';
     const REMOTE_NV_OLLAMA_BASE_URL = '';
     const REMOTE_NV_OLLAMA_MODEL = 'qwen3.6:35b-a3b-q8_0';
-    const DEFAULT_OPENAI_COMPAT_BASE_URL = '';
-    const DEFAULT_OPENAI_COMPAT_MODEL = '';
+    const DEEPSEEK_BASE_URL = 'https://api.deepseek.com';
+    const DEEPSEEK_MODEL = 'deepseek-flash';
+    const isDeepSeekEndpoint = (baseUrl = '') => /^https:\/\/api\.deepseek\.com(?:\/|$)/i.test(String(baseUrl).trim());
+    const normalizeCloudModel = (model, baseUrl) => isDeepSeekEndpoint(baseUrl) ? DEEPSEEK_MODEL : model;
+    const DEFAULT_OPENAI_COMPAT_BASE_URL = DEEPSEEK_BASE_URL;
+    const DEFAULT_OPENAI_COMPAT_MODEL = DEEPSEEK_MODEL;
     const DEFAULT_OPENAI_COMPAT_API_KEY = '';
-    const P920_DICTIONARY_BASE_URL = 'http://100.121.25.47:8090/v1';
-    const DEEPSEEK_DICTIONARY_BASE_URL = 'https://api.deepseek.com';
-    const DEEPSEEK_DICTIONARY_MODEL = 'deepseek-v4-flash';
     const OLLAMA_PRESETS = {
       local: {
         key: 'local',
@@ -3325,7 +3326,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       baseUrl = DEFAULT_OPENAI_COMPAT_BASE_URL,
       onProgress
     }) => {
-      const trimmedApiKey = sanitizeApiCredential(apiKey);
+      const trimmedApiKey = sanitizeApiCredential(apiKey || (isDeepSeekEndpoint(baseUrl) ? LOCAL_PRIVATE_CONFIG.deepseekApiKey : ''));
       if (!trimmedApiKey) {
         throw new Error('请先填写云端模型 API Key。');
       }
@@ -3341,7 +3342,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         throw new Error('请先填写云端模型名称。');
       }
       const payload = {
-        model,
+        model: normalizeCloudModel(model, baseUrl),
+        ...(isDeepSeekEndpoint(baseUrl) ? { thinking: { type: 'disabled' } } : {}),
         stream: true,
         temperature: 0.6,
         max_tokens: 32000,
@@ -3635,7 +3637,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       });
     };
 
-    const fetchDictionaryJson = async ({ baseUrl, apiKey = '', model, systemPrompt, userPrompt, disableThinking = false }) => {
+    const fetchDictionaryJson = async ({ baseUrl, apiKey = '', model, systemPrompt, userPrompt }) => {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 15000);
       try {
@@ -3650,7 +3652,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
             stream: false,
             temperature: 0.1,
             max_tokens: 180,
-            ...(disableThinking ? { chat_template_kwargs: { enable_thinking: false } } : {}),
+            thinking: { type: 'disabled' },
+            response_format: { type: 'json_object' },
             messages: [
               { role: 'system', content: systemPrompt },
               { role: 'user', content: userPrompt }
@@ -3824,7 +3827,6 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const [refreshingVocabId, setRefreshingVocabId] = useState(null);
       const contextualDictionaryCacheRef = useRef(new Map());
       const autoAddedVocabKeysRef = useRef(new Set());
-      const p920DictionaryModelRef = useRef(null);
       const fileInputRef = useRef(null);
       const getActiveReadingDuration = (articleId) => {
         const session = readingSessionRef.current;
@@ -4088,7 +4090,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           encryptedAiKeyRef.current = data?.encrypted_ai_key || null;
           if (cloudPreferences.aiProvider) setAiProvider(cloudPreferences.aiProvider);
           if (cloudPreferences.cloudBaseUrl) setCloudBaseUrl(cloudPreferences.cloudBaseUrl);
-          if (cloudPreferences.cloudModel) setCloudModel(cloudPreferences.cloudModel);
+          if (cloudPreferences.cloudModel) setCloudModel(normalizeCloudModel(cloudPreferences.cloudModel, cloudPreferences.cloudBaseUrl || cloudBaseUrl));
           if (cloudPreferences.dailyReport && typeof cloudPreferences.dailyReport === 'object') {
             setDailyReportPreferences(current => ({ ...current, ...cloudPreferences.dailyReport }));
           }
@@ -4227,7 +4229,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       });
       const [cloudApiKey, setCloudApiKey] = useState(() => localStorage.getItem('reader_openai_compat_api_key') || DEFAULT_OPENAI_COMPAT_API_KEY);
       const [cloudBaseUrl, setCloudBaseUrl] = useState(() => localStorage.getItem('reader_openai_compat_base_url') || DEFAULT_OPENAI_COMPAT_BASE_URL);
-      const [cloudModel, setCloudModel] = useState(() => localStorage.getItem('reader_openai_compat_model') || DEFAULT_OPENAI_COMPAT_MODEL);
+      const [cloudModel, setCloudModel] = useState(() => normalizeCloudModel(localStorage.getItem('reader_openai_compat_model') || DEFAULT_OPENAI_COMPAT_MODEL, localStorage.getItem('reader_openai_compat_base_url') || DEFAULT_OPENAI_COMPAT_BASE_URL));
       const [ollamaPreset, setOllamaPreset] = useState(() => localStorage.getItem('reader_ollama_preset') || 'local');
       const [ollamaBaseUrl, setOllamaBaseUrl] = useState(() => localStorage.getItem('reader_ollama_base_url') || DEFAULT_OLLAMA_BASE_URL);
       const [ollamaModel, setOllamaModel] = useState(() => localStorage.getItem('reader_ollama_model') || DEFAULT_OLLAMA_MODEL);
@@ -5930,21 +5932,6 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         setToastMessage(`✅ 已查词并加入生词本: ${word}`);
       };
 
-      const resolveP920DictionaryModel = async () => {
-        if (p920DictionaryModelRef.current) return p920DictionaryModelRef.current;
-        const response = await fetch(`${P920_DICTIONARY_BASE_URL}/models`);
-        if (!response.ok) throw new Error(`P920 模型列表请求失败（HTTP ${response.status}）`);
-        const payload = await response.json();
-        const models = [
-          ...(payload?.data || []).map(item => item?.id || item?.name),
-          ...(payload?.models || []).map(item => item?.id || item?.name || item?.model)
-        ].filter(Boolean);
-        const model = models.find(id => /qwen/i.test(String(id))) || models[0];
-        if (!model) throw new Error('P920 未找到可用模型。');
-        p920DictionaryModelRef.current = model;
-        return model;
-      };
-
       const lookupContextualDictionary = async (word, contextSentenceText) => {
         const systemPrompt = `你是面向英语阅读学习者的英汉语境词典。只解释目标词在给定句子中的实际用法，不列举其他词义。只输出一个合法 JSON 对象，不要 Markdown：\n{\n  "lemma": "词典原形；短语保留完整短语",\n  "partOfSpeech": "名词|动词|形容词|副词|代词|介词|连词|限定词|短语",\n  "meaning": "不超过 16 个汉字的准确中文释义，不要写‘此处意为’等前缀",\n  "pronunciation": "IPA 音标；可为空字符串",\n  "note": "仅在需要时说明词形变化、支配介词或固定搭配；否则为空字符串"\n}\n\n规则：meaning 必须是这个句子中成立的具体义项；不得给词典式多义列表、泛泛解释、英文释义或占位词。`;
         const userPrompt = `【单词】${word}\n【原文句子】${contextSentenceText}`;
@@ -5962,39 +5949,25 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           };
         };
 
+        const deepseekApiKey = LOCAL_PRIVATE_CONFIG.deepseekApiKey || (
+          isDeepSeekEndpoint(cloudBaseUrl) ? cloudApiKey : ''
+        );
+        if (!deepseekApiKey) {
+          throw new Error('DeepSeek 查词未配置 API Key，请在 AI 设置中填写 DeepSeek API Key。');
+        }
         try {
-          const model = await resolveP920DictionaryModel();
           return toDictionary({
             ...(await fetchDictionaryJson({
-              baseUrl: P920_DICTIONARY_BASE_URL,
-              model,
-              disableThinking: true,
+              baseUrl: DEEPSEEK_BASE_URL,
+              apiKey: deepseekApiKey,
+              model: DEEPSEEK_MODEL,
               systemPrompt,
               userPrompt
             })),
-            provider: 'Qwen 特供服务（P920）'
+            provider: 'DeepSeek（deepseek-flash）'
           });
-        } catch (qwenError) {
-          const deepseekApiKey = LOCAL_PRIVATE_CONFIG.deepseekApiKey || (
-            /api\.deepseek\.com/i.test(cloudBaseUrl) ? cloudApiKey : ''
-          );
-          if (!deepseekApiKey) {
-            throw new Error(`Qwen 特供服务不可用：${qwenError.message}；DeepSeek 特供服务未配置 API Key。`);
-          }
-          try {
-            return toDictionary({
-              ...(await fetchDictionaryJson({
-                baseUrl: DEEPSEEK_DICTIONARY_BASE_URL,
-                apiKey: deepseekApiKey,
-                model: DEEPSEEK_DICTIONARY_MODEL,
-                systemPrompt,
-                userPrompt
-              })),
-              provider: 'DeepSeek Flash V4 特供服务'
-            });
-          } catch (deepseekError) {
-            throw new Error(`Qwen 特供服务失败：${qwenError.message}；DeepSeek Flash V4 特供服务失败：${deepseekError.message}`);
-          }
+        } catch (error) {
+          throw new Error(`DeepSeek（deepseek-flash）查词失败：${error.name === 'AbortError' ? '请求超时，请稍后重试。' : error.message}`);
         }
       };
 
@@ -6011,7 +5984,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           context: contextSentenceText,
           dictionary,
           lookupState: dictionary ? 'ready' : 'loading',
-          lookupProvider: dictionary?.provider || 'Qwen 特供服务（P920）'
+          lookupProvider: dictionary?.provider || 'DeepSeek（deepseek-flash）'
         });
         if (dictionary) {
           saveDictionaryLookupToVocab(hit.word, contextSentenceText, dictionary);
@@ -8107,7 +8080,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                             value={cloudModel}
                             onChange={(e) => setCloudModel(e.target.value)}
                             className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-                            placeholder="gpt-4.1 / kimi-k2.5 / deepseek-chat"
+                            placeholder="deepseek-flash"
                             autoComplete="off"
                             spellCheck="false"
                           />

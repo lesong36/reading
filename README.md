@@ -13,7 +13,8 @@ https://lesong36.github.io/reading/
 - **段落朗读**：桌面 App 可使用本地 Edge TTS（Aria / Guy）朗读每一段；首次打开会自动创建隔离语音环境。GitHub Pages 版会请求 P920 的私有 Tailscale 语音服务，设备需登录同一 tailnet；部署见 [P920 Edge TTS](deploy/p920/README.md)。
 - **无需本地 Ollama**：默认使用 OpenAI-compatible 云端接口；阅读内置示例与已导入文章的解析时，不需要配置任何模型。
 - **预置书架**：首次打开会自动加载 RFD1/2/3、四上预置教材；若书架为空，也可点「加载预置教材」。
-- **分析新文章 / AI 助教**：在「AI 设置」中自行填写兼容接口的 API Key、Base URL、Model。
+- **阅读查词**：直接使用 `deepseek-flash`，关闭思考模式；在「AI 设置」中填写 DeepSeek API Key，或在不提交的 `local-config.js` 中设置 `deepseekApiKey`。
+- **分析新文章 / AI 助教**：默认使用 DeepSeek（`https://api.deepseek.com`、`deepseek-flash`），也可在「AI 设置」中填写其他兼容接口。使用 DeepSeek 接口时，历史模型配置自动统一为 `deepseek-flash`。
 - **跨设备同步**（可选）：通过 Supabase 同步学习记录；AI Key 仅以客户端加密密文保存。
 
 ## 本地打开

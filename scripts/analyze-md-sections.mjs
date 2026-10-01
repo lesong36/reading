@@ -230,6 +230,7 @@ const loadDeepSeekApiKey = () => {
 const isQwenModelName = (name = '') => /qwen/i.test(name);
 
 const resolveModelName = async ({ provider, baseUrl, model, apiKey }) => {
+  if (provider === 'openai' && isDeepSeekEndpoint(baseUrl)) return 'deepseek-flash';
   if (model) return model;
   const root = normalizeBaseUrl(baseUrl);
   if (provider === 'openai') {
