@@ -4,13 +4,13 @@ actor VocabularyStore {
   private let fileURL: URL
   private var entries: [VocabularyEntry]
 
-  init(fileManager: FileManager = .default) {
-    let appSupport = try! fileManager.url(
+  init(fileManager: FileManager = .default, directory: URL? = nil) {
+    let appSupport = directory ?? (try! fileManager.url(
       for: .applicationSupportDirectory,
       in: .userDomainMask,
       appropriateFor: nil,
       create: true
-    ).appendingPathComponent("VocabCapture", isDirectory: true)
+    ).appendingPathComponent("VocabCapture", isDirectory: true))
     try? fileManager.createDirectory(at: appSupport, withIntermediateDirectories: true)
     fileURL = appSupport.appendingPathComponent("vocabulary.json")
     let loaded = (try? JSONDecoder().decode([VocabularyEntry].self, from: Data(contentsOf: fileURL))) ?? []
@@ -33,7 +33,7 @@ actor VocabularyStore {
     if let existing = entries.first(where: { $0.word.lowercased() == normalized }) { return existing }
     let entry = VocabularyEntry(word: word, dictionary: dictionary, context: context)
     entries.insert(entry, at: 0)
-    try persist()
+    do { try persist() } catch { entries.removeFirst(); throw error }
     return entry
   }
 
@@ -42,6 +42,25 @@ actor VocabularyStore {
   func replace(with updated: [VocabularyEntry]) throws {
     entries = updated.sorted { $0.timestamp > $1.timestamp }
     try persist()
+  }
+
+  /// A lookup can be saved while a cloud request is in flight. Preserve only
+  /// those subsequent local changes; cloud deletions of the snapshot still win.
+  func applySync(_ updated: [VocabularyEntry], basedOn snapshot: [VocabularyEntry]) throws {
+    let changes = entries.filter { entry in
+      !snapshot.contains(where: { $0 == entry })
+    }
+    var merged = updated
+    for entry in changes {
+      if let index = merged.firstIndex(where: { $0.word.lowercased() == entry.word.lowercased() }) {
+        if merged[index].timestamp < entry.timestamp { merged[index] = entry }
+      } else {
+        merged.append(entry)
+      }
+    }
+    let previous = entries
+    entries = merged.sorted { $0.timestamp > $1.timestamp }
+    do { try persist() } catch { entries = previous; throw error }
   }
 
   private func persist() throws {

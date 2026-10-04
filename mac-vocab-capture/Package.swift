@@ -5,5 +5,8 @@ let package = Package(
   name: "VocabCapture",
   platforms: [.macOS(.v13)],
   products: [.executable(name: "VocabCapture", targets: ["VocabCapture"])],
-  targets: [.executableTarget(name: "VocabCapture")]
+  targets: [
+    .executableTarget(name: "VocabCapture"),
+    .testTarget(name: "VocabCaptureTests", dependencies: ["VocabCapture"])
+  ]
 )

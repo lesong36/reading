@@ -13,23 +13,28 @@ enum OCRCaptureError: LocalizedError {
 
 enum OCRClient {
   static func recognize(_ image: CGImage) async throws -> String {
-    try await withCheckedThrowingContinuation { continuation in
+    try Task.checkCancellation()
+    let text: String = try await withCheckedThrowingContinuation { continuation in
       DispatchQueue.global(qos: .userInitiated).async {
-        let request = VNRecognizeTextRequest { request, error in
-          if let error { continuation.resume(throwing: error); return }
-          let text = (request.results as? [VNRecognizedTextObservation])?
-            .compactMap { $0.topCandidates(1).first?.string }
-            .joined(separator: "\n")
-            .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-          text.isEmpty ? continuation.resume(throwing: OCRCaptureError.noTextFound) : continuation.resume(returning: text)
-        }
+        let request = VNRecognizeTextRequest()
         request.recognitionLevel = .accurate
         request.recognitionLanguages = ["en-US"]
         request.usesLanguageCorrection = true
         do {
           try VNImageRequestHandler(cgImage: image).perform([request])
-        } catch { continuation.resume(throwing: error) }
+          let text =
+            request.results?
+            .compactMap { $0.topCandidates(1).first?.string }
+            .joined(separator: "\n")
+            .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+          guard !text.isEmpty else { throw OCRCaptureError.noTextFound }
+          continuation.resume(returning: text)
+        } catch {
+          continuation.resume(throwing: error)
+        }
       }
     }
+    try Task.checkCancellation()
+    return text
   }
 }
