@@ -14,6 +14,18 @@ struct CaptureShortcut: Codable, Equatable {
   static let defaultScreenshot = CaptureShortcut(
     id: "option-command-o", title: "⌥⌘O", keyCode: UInt32(kVK_ANSI_O),
     modifiers: UInt32(optionKey | cmdKey))
+  static let defaultQuestionScreenshot = CaptureShortcut(
+    id: "option-command-a", title: "⌥⌘A", keyCode: UInt32(kVK_ANSI_A),
+    modifiers: UInt32(optionKey | cmdKey))
+  static let questionScreenshotFallbacks = [
+    defaultQuestionScreenshot,
+    CaptureShortcut(
+      id: "option-command-q", title: "⌥⌘Q", keyCode: UInt32(kVK_ANSI_Q),
+      modifiers: UInt32(optionKey | cmdKey)),
+    CaptureShortcut(
+      id: "control-option-a", title: "⌃⌥A", keyCode: UInt32(kVK_ANSI_A),
+      modifiers: UInt32(controlKey | optionKey)),
+  ]
   static let simpleScreenshot = CaptureShortcut(
     id: "option-d", title: "⌥D", keyCode: UInt32(kVK_ANSI_D), modifiers: UInt32(optionKey))
   static let alternateScreenshot = CaptureShortcut(
@@ -48,6 +60,17 @@ struct CaptureShortcut: Codable, Equatable {
     if let error = selection.validationError { return "选词快捷键：" + error }
     if let error = screenshot.validationError { return "截图快捷键：" + error }
     if selection.matches(screenshot) { return "选词和截图需要使用不同的快捷键。" }
+    return nil
+  }
+
+  static func validationError(
+    selection: CaptureShortcut, screenshot: CaptureShortcut, questionScreenshot: CaptureShortcut
+  ) -> String? {
+    if let error = validationError(selection: selection, screenshot: screenshot) { return error }
+    if let error = questionScreenshot.validationError { return "截图问一问快捷键：" + error }
+    if questionScreenshot.matches(selection) || questionScreenshot.matches(screenshot) {
+      return "截图问一问需要使用与选词、截图取词不同的快捷键。"
+    }
     return nil
   }
 
@@ -92,6 +115,7 @@ final class ShortcutPreferences {
   private let selectionKey = "VocabCapture.customShortcut"
   private let legacySelectionKey = "VocabCapture.shortcut"
   private let screenshotKey = "VocabCapture.screenshotShortcut"
+  private let questionScreenshotKey = "VocabCapture.questionScreenshotShortcut"
 
   init(defaults: UserDefaults = .standard) { self.defaults = defaults }
 
@@ -108,14 +132,45 @@ final class ShortcutPreferences {
     } ?? .defaultScreenshot
   }
 
+  var currentQuestionScreenshot: CaptureShortcut {
+    questionShortcut(selection: currentSelection, screenshot: currentScreenshot)
+  }
+
+  private func questionShortcut(
+    selection: CaptureShortcut, screenshot: CaptureShortcut
+  ) -> CaptureShortcut {
+    if let shortcut = read(questionScreenshotKey),
+      !shortcut.matches(selection), !shortcut.matches(screenshot)
+    {
+      return shortcut
+    }
+    // Two existing shortcuts cannot exhaust all three fallback combinations.
+    return CaptureShortcut.questionScreenshotFallbacks.first {
+      !$0.matches(selection) && !$0.matches(screenshot)
+    }!
+  }
+
   func save(selection: CaptureShortcut, screenshot: CaptureShortcut) {
-    guard CaptureShortcut.validationError(selection: selection, screenshot: screenshot) == nil,
+    save(
+      selection: selection, screenshot: screenshot,
+      questionScreenshot: questionShortcut(selection: selection, screenshot: screenshot))
+  }
+
+  func save(
+    selection: CaptureShortcut, screenshot: CaptureShortcut, questionScreenshot: CaptureShortcut
+  ) {
+    guard
+      CaptureShortcut.validationError(
+        selection: selection, screenshot: screenshot, questionScreenshot: questionScreenshot)
+        == nil,
       let selectionData = try? JSONEncoder().encode(selection),
-      let screenshotData = try? JSONEncoder().encode(screenshot)
+      let screenshotData = try? JSONEncoder().encode(screenshot),
+      let questionData = try? JSONEncoder().encode(questionScreenshot)
     else { return }
     defaults.set(selectionData, forKey: selectionKey)
     defaults.set(selection.id, forKey: legacySelectionKey)
     defaults.set(screenshotData, forKey: screenshotKey)
+    defaults.set(questionData, forKey: questionScreenshotKey)
   }
 
   private func read(_ key: String) -> CaptureShortcut? {
@@ -129,17 +184,22 @@ final class ShortcutPreferences {
 
 final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
   let panel = NSPanel(
-    contentRect: NSRect(x: 0, y: 0, width: 470, height: 340), styleMask: [.titled, .closable],
+    contentRect: NSRect(x: 0, y: 0, width: 470, height: 420), styleMask: [.titled, .closable],
     backing: .buffered, defer: false)
   private let selectionRecorder: CaptureShortcutRecorder
   private let screenshotRecorder: CaptureShortcutRecorder
+  private let questionScreenshotRecorder: CaptureShortcutRecorder
   private let errorLabel = NSTextField(wrappingLabelWithString: "")
-  private var validateAndSave: ((CaptureShortcut, CaptureShortcut) -> String?)?
+  private var validateAndSave: ((CaptureShortcut, CaptureShortcut, CaptureShortcut) -> String?)?
   private var onClose: (() -> Void)?
 
-  init(selection: CaptureShortcut, screenshot: CaptureShortcut) {
+  init(
+    selection: CaptureShortcut, screenshot: CaptureShortcut,
+    questionScreenshot: CaptureShortcut = .defaultQuestionScreenshot
+  ) {
     selectionRecorder = CaptureShortcutRecorder(initial: selection)
     screenshotRecorder = CaptureShortcutRecorder(initial: screenshot)
+    questionScreenshotRecorder = CaptureShortcutRecorder(initial: questionScreenshot)
     super.init()
     panel.title = "拾词快捷键"
     panel.isReleasedWhenClosed = false
@@ -158,9 +218,13 @@ final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
       stack.topAnchor.constraint(equalTo: content.topAnchor, constant: 20),
     ])
     stack.addArrangedSubview(NSTextField(wrappingLabelWithString: "点输入框后按组合键。按 Esc 取消，按回车保存。"))
-    for (label, recorder) in [("选中文字查词", selectionRecorder), ("截图取词", screenshotRecorder)] {
+    for (label, recorder) in [
+      ("选中文字查词", selectionRecorder), ("截图取词", screenshotRecorder),
+      ("截图问一问", questionScreenshotRecorder),
+    ] {
       stack.addArrangedSubview(NSTextField(labelWithString: label))
       stack.addArrangedSubview(recorder)
+      recorder.setAccessibilityLabel(label)
       recorder.widthAnchor.constraint(equalTo: stack.widthAnchor).isActive = true
       recorder.heightAnchor.constraint(equalToConstant: 34).isActive = true
       recorder.onCancel = { [weak self] in self?.cancel(nil) }
@@ -197,7 +261,7 @@ final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
   }
 
   func present(
-    validateAndSave: @escaping (CaptureShortcut, CaptureShortcut) -> String?,
+    validateAndSave: @escaping (CaptureShortcut, CaptureShortcut, CaptureShortcut) -> String?,
     onClose: @escaping () -> Void = {}
   ) {
     self.validateAndSave = validateAndSave
@@ -225,6 +289,7 @@ final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
   @objc private func restoreDefaults(_ sender: Any?) {
     selectionRecorder.shortcut = .defaultSelection
     screenshotRecorder.shortcut = .defaultScreenshot
+    questionScreenshotRecorder.shortcut = .defaultQuestionScreenshot
     errorLabel.stringValue = ""
   }
 
@@ -241,8 +306,10 @@ final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
   @objc private func save(_ sender: Any?) {
     let selection = selectionRecorder.shortcut
     let screenshot = screenshotRecorder.shortcut
-    if let error = CaptureShortcut.validationError(selection: selection, screenshot: screenshot)
-      ?? validateAndSave?(selection, screenshot)
+    let questionScreenshot = questionScreenshotRecorder.shortcut
+    if let error = CaptureShortcut.validationError(
+      selection: selection, screenshot: screenshot, questionScreenshot: questionScreenshot)
+      ?? validateAndSave?(selection, screenshot, questionScreenshot)
     {
       errorLabel.stringValue = error
       return
@@ -252,7 +319,13 @@ final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
 }
 
 private final class CaptureShortcutRecorder: NSView {
-  var shortcut: CaptureShortcut { didSet { needsDisplay = true } }
+  var shortcut: CaptureShortcut {
+    didSet {
+      needsDisplay = true
+      setAccessibilityValue(shortcut.title)
+      NSAccessibility.post(element: self, notification: .valueChanged)
+    }
+  }
   var onSave: (() -> Void)?
   var onCancel: (() -> Void)?
   var onError: ((String) -> Void)?
@@ -262,8 +335,14 @@ private final class CaptureShortcutRecorder: NSView {
   init(initial: CaptureShortcut) {
     shortcut = initial
     super.init(frame: .zero)
+    setAccessibilityElement(true)
+    setAccessibilityRole(.textField)
+    setAccessibilityValue(initial.title)
   }
   required init?(coder: NSCoder) { nil }
+  override func accessibilityPerformPress() -> Bool {
+    window?.makeFirstResponder(self) ?? false
+  }
   override func becomeFirstResponder() -> Bool {
     needsDisplay = true
     return true

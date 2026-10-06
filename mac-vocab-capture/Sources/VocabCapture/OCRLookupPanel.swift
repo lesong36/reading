@@ -24,6 +24,12 @@ final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTex
   private let lookup:
     (SelectedText, @escaping @MainActor @Sendable (String) -> Void) async throws -> DictionaryResult
   private let save: (SelectedText, DictionaryResult) async throws -> String
+  private let measuredAsk: ScreenshotQuestionMeasuredAnswer?
+  private let ask: ScreenshotQuestionAnswer?
+  private let screenshotImageData: Data?
+  private let onQuestionSettings: (() -> Void)?
+  private let questionPreferences: ScreenshotQuestionPreferences?
+  private var questionPanel: ScreenshotQuestionPanel?
   var onRetake: (() -> Void)?
 
   init(
@@ -31,10 +37,20 @@ final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTex
     lookup:
       @escaping (SelectedText, @escaping @MainActor @Sendable (String) -> Void) async throws ->
       DictionaryResult,
-    save: @escaping (SelectedText, DictionaryResult) async throws -> String
+    save: @escaping (SelectedText, DictionaryResult) async throws -> String,
+    imageData: Data? = nil,
+    ask: ScreenshotQuestionAnswer? = nil,
+    onQuestionSettings: (() -> Void)? = nil,
+    questionPreferences: ScreenshotQuestionPreferences? = nil,
+    measuredAsk: ScreenshotQuestionMeasuredAnswer? = nil
   ) {
     self.lookup = lookup
     self.save = save
+    self.screenshotImageData = imageData
+    self.measuredAsk = measuredAsk
+    self.ask = ask
+    self.onQuestionSettings = onQuestionSettings
+    self.questionPreferences = questionPreferences
     super.init(
       contentRect: NSRect(x: 0, y: 0, width: 600, height: 650),
       styleMask: [.titled, .closable, .resizable], backing: .buffered, defer: false)
@@ -56,6 +72,8 @@ final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTex
   func windowWillClose(_ notification: Notification) {
     revision = UUID()
     lookupTask?.cancel()
+    questionPanel?.close()
+    questionPanel = nil
     // An explicitly requested save finishes even if the user closes the window.
   }
 
@@ -130,7 +148,9 @@ final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTex
       label("识别原文", size: 12, color: .secondaryLabelColor), NSView(), editButton,
     ])
     let statusRow = NSStackView(views: [spinner, feedback])
-    let footer = NSStackView(views: [retake, done, NSView(), saveButton])
+    let askButton = NSButton(title: "问一问…", target: self, action: #selector(openQuestions))
+    askButton.isHidden = ask == nil
+    let footer = NSStackView(views: [retake, done, askButton, NSView(), saveButton])
     for row in [headerRow, statusRow, footer] {
       row.orientation = .horizontal
       row.spacing = 10
@@ -157,6 +177,9 @@ final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTex
     }
     original.onCommitSelection = { [weak self] in self?.readSelection() }
     original.onConfirm = { [weak self] in self?.commitTargetWord() }
+    if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+      feedback.stringValue = "未识别到文字，点击“问一问”可根据截图提问。"
+    }
   }
 
   private func label(
@@ -190,11 +213,15 @@ final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTex
 
   func controlTextDidChange(_ notification: Notification) {
     invalidateResult()
+    updateQuestions()
     feedback.stringValue = "选词已修改，按回车或点击“重新查询”。"
     retryButton.isHidden = false
   }
 
-  func textDidChange(_ notification: Notification) { invalidateResult() }
+  func textDidChange(_ notification: Notification) {
+    invalidateResult()
+    updateQuestions()
+  }
 
   private func invalidateResult() {
     revision = UUID()
@@ -223,6 +250,7 @@ final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTex
       feedback.stringValue = "原文已修正，请重新点选单词。"
       original.setSelectedRange(NSRange(location: 0, length: 0))
     }
+    updateQuestions()
   }
 
   @objc private func queryCorrectedWord() { beginLookup() }
@@ -242,6 +270,7 @@ final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTex
       return
     }
     let selection = SelectedText(word: word, context: selected.context)
+    updateQuestions()
     if pendingSelection?.word == selection.word, pendingSelection?.context == selection.context {
       return
     }
@@ -326,10 +355,48 @@ final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTex
 
   @objc private func retakeScreenshot() {
     guard !isSaving else { return }
+    questionPanel?.orderOut(nil)
     onRetake?()
   }
 
   @objc private func finish() { close() }
+
+  func hideForScreenshot() -> () -> Void {
+    let wordWasVisible = isVisible
+    let question = questionPanel
+    let questionWasVisible = question?.isVisible == true
+    orderOut(nil)
+    question?.orderOut(nil)
+    return { [weak self] in
+      if wordWasVisible { self?.present() }
+      if questionWasVisible { question?.present() }
+    }
+  }
+
+  func questionModelConfigurationChanged() { questionPanel?.modelConfigurationChanged() }
+
+  private var questionContext: ScreenshotQuestionContext {
+    let word = targetWord.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+    return ScreenshotQuestionContext(
+      text: original.string, selectedWord: word.isEmpty ? nil : word,
+      imageData: screenshotImageData)
+  }
+
+  private func updateQuestions() { questionPanel?.updateContext(questionContext) }
+
+  @objc private func openQuestions() {
+    guard let ask else { return }
+    if let questionPanel {
+      questionPanel.updateContext(questionContext)
+      questionPanel.present()
+      return
+    }
+    let panel = ScreenshotQuestionPanel(
+      context: questionContext, answer: ask, onModelSettings: onQuestionSettings,
+      modelPreferences: questionPreferences, measuredAnswer: measuredAsk)
+    questionPanel = panel
+    panel.present()
+  }
 }
 
 /// Let AppKit perform ordinary drag/double-click selection, then expand a

@@ -34,7 +34,7 @@ final class CaptureShortcutSettingsTests: XCTestCase {
     var saves = 0
     var closes = 0
     settings.present(
-      validateAndSave: { _, _ in
+      validateAndSave: { _, _, _ in
         saves += 1
         return nil
       }, onClose: { closes += 1 })
@@ -58,7 +58,7 @@ final class CaptureShortcutSettingsTests: XCTestCase {
     var closes = 0
     var screenshot: CaptureShortcut?
     settings.present(
-      validateAndSave: { _, value in
+      validateAndSave: { _, value, _ in
         attempts += 1
         screenshot = value
         return attempts == 1 ? "已被其他应用占用" : nil

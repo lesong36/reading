@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-06",
+  "version": "0.2.73",
+  "baselineDiagnostic": [
+    {
+      "model": "kimi-k2.6",
+      "errorType": "invalid_request_error",
+      "message": "invalid temperature: only 1 is allowed for this model",
+      "status": 400
+    }
+  ],
+  "packagedKimiRequest": [
+    {
+      "firstVisibleSeconds": 1.9883764166734181,
+      "status": "success",
+      "model": "kimi-k2.6",
+      "totalSeconds": 4.563673666678369,
+      "answer": "应该用 **me**。\n\n这句话中 \"my sister and I/me\" 是介词 **of** 的宾语，不是主语。介词后面的人称代词要用宾格，所以是 **me**。\n\n结构分析：\n- 介词短语：in front of **my sister and me**\n- 拆开检验：in front of my sister / in front of **me**（不能说 in front of I）\n\n原句用 **I** 是常见口语错误，标准书面和考试英语中应改为 **me**。完整正确句子：\n\n> There's a new car in front of my sister and **me**."
+    }
+  ],
+  "installedKimiRequest": [
+    {
+      "totalSeconds": 2.725485041679349,
+      "firstVisibleSeconds": 1.3516747916582972,
+      "status": "success",
+      "answer": "这句话应该用 **me**。\n\n修改后：There's a new car in front of my sister and **me**.\n\n原因：介词 **of** 后面需要宾格。my sister and me 整体作介词宾语，其中 me 是 I 的宾格形式。\n\n检验方法：把并列项拆开，单独看 in front of I → 明显错误，应为 in front of me。并列结构不改变格的规则。in front of my sister and me 才是正确的。",
+      "model": "kimi-k2.6"
+    }
+  ],
+  "verification": {
+    "swiftTests": 197,
+    "sourcePythonTests": 43,
+    "frozenPythonTests": 43,
+    "installedProcessTests": 5,
+    "signatureDeepStrict": true,
+    "preferencesAndVocabularyPreserved": true,
+    "profileCount": 4,
+    "selectedModel": "deepseek-flash",
+    "finderIconAndVersionVerified": true
+  },
+  "sources": [
+    "https://platform.kimi.com/docs/get-api-key",
+    "https://platform.kimi.com/docs/api/models-overview",
+    "https://platform.kimi.com/docs/guide/use-thinking-models"
+  ],
+  "scope": "Official Kimi K2.6 Chat Completions only; unknown models and gateways retain existing parameter policy."
+}

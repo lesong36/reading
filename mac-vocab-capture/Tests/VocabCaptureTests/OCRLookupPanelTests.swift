@@ -187,4 +187,49 @@ final class OCRLookupPanelTests: XCTestCase {
     XCTAssertTrue(save.isEnabled)
     panel.close()
   }
+
+  func testQuestionsReceiveWholeScreenshotWithoutSavingVocabulary() async throws {
+    _ = NSApplication.shared
+    var saves = 0
+    var received: [ScreenshotQuestionContext] = []
+    let panel = OCRLookupPanel(
+      text: "First second. Another sentence.",
+      lookup: { selection, _ in self.dictionary(selection.word) },
+      save: { _, _ in
+        saves += 1
+        return "已保存"
+      },
+      imageData: Data([1, 2, 3]),
+      ask: { _, context, _, partial in
+        received.append(context)
+        partial("这是回答")
+        return "这是回答"
+      })
+    defer { panel.close() }
+    let open = try XCTUnwrap(
+      views(panel.contentView!).compactMap { $0 as? NSButton }.first { $0.title == "问一问…" })
+    open.performClick(nil)
+    let questions = try XCTUnwrap(
+      NSApp.windows.compactMap { $0 as? ScreenshotQuestionPanel }.first { $0.isVisible })
+    let fields = views(questions.contentView!)
+    let input = try XCTUnwrap(
+      fields.compactMap { $0 as? NSTextField }.first { $0.accessibilityLabel() == "提问内容" })
+    let submit = try XCTUnwrap(fields.compactMap { $0 as? NSButton }.first { $0.title == "提问" })
+    input.stringValue = "总结整段话"
+    submit.performClick(nil)
+    try await Task.sleep(nanoseconds: 50_000_000)
+    XCTAssertEqual(received.first?.text, "First second. Another sentence.")
+    XCTAssertNil(received.first?.selectedWord)
+    XCTAssertNil(received.first?.imageData, "Original image should be opt-in for text screenshots")
+    XCTAssertEqual(saves, 0)
+    let original = try XCTUnwrap(views(panel.contentView!).compactMap { $0 as? NSTextView }.first)
+    original.setSelectedRange(NSRange(location: 0, length: 5))
+    input.stringValue = "这里是什么意思？"
+    submit.performClick(nil)
+    try await Task.sleep(nanoseconds: 50_000_000)
+    XCTAssertEqual(received.last?.selectedWord, "First")
+    XCTAssertEqual(saves, 0)
+    panel.close()
+    XCTAssertFalse(questions.isVisible)
+  }
 }

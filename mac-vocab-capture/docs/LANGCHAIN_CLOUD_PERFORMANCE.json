@@ -1,0 +1,671 @@
+{
+  "date": "2026-10-06",
+  "version": "0.2.68",
+  "langchainVersion": "1.4.3",
+  "scope": "public synthetic text questions; actual saved services through production Swift clients and installed frozen LangChain runtime; no screenshots or credentials in records",
+  "thinkingSettingsChanged": false,
+  "timing": "monotonic request-to-first-nonempty-MainActor-callback and validated full completion; excludes screenshot/OCR/window layout; engine warmup recorded separately",
+  "preFix": {
+    "phase": "0.2.67 aborted after routing mismatch",
+    "started": 12,
+    "successes": 8,
+    "failures": 3,
+    "cancelledInFlight": 1,
+    "note": "HTTP500 text may have been synthesized from a missing HTTP status; these failures are not proven actual HTTP500 responses",
+    "records": [
+      {
+        "engineWarmupSeconds": 0.635170333320275,
+        "event": "ready",
+        "installedVersion": "0.2.67",
+        "models": [
+          "gpt-6.1-sol",
+          "claude-sonnet-5-5",
+          "deepseek-flash"
+        ],
+        "requestsPlanned": 18
+      },
+      {
+        "api": "responses",
+        "backend": "langchain",
+        "case": "framework",
+        "event": "starting",
+        "model": "gpt-6.1-sol"
+      },
+      {
+        "backend": "langchain",
+        "case": "framework",
+        "error": "模型服务暂时无法回答（HTTP 500），请稍后重试。",
+        "errorCode": 0,
+        "errorDomain": "Benchmark.ScreenshotQuestionError",
+        "model": "gpt-6.1-sol",
+        "status": "failed",
+        "totalSeconds": 75.58353425003588
+      },
+      {
+        "api": "responses",
+        "backend": "native",
+        "case": "framework",
+        "event": "starting",
+        "model": "gpt-6.1-sol"
+      },
+      {
+        "answer": "结论：LangChain 不是一种模型，而是一个用于开发大语言模型应用和智能体（agents）的开源框架/工具库。\n\n简要解释：原文中的 “model-agnostic” 表示它不依赖某一个特定模型，可以连接和调用不同公司的语言模型，并提供组织提示词、调用工具、管理流程和构建智能体等功能。",
+        "answerCharacters": 145,
+        "backend": "native",
+        "case": "framework",
+        "firstTextSeconds": 4.930111374997068,
+        "model": "gpt-6.1-sol",
+        "status": "success",
+        "totalSeconds": 10.309456791670527,
+        "updates": 83
+      },
+      {
+        "api": "anthropicMessages",
+        "backend": "native",
+        "case": "framework",
+        "event": "starting",
+        "model": "claude-sonnet-5-5"
+      },
+      {
+        "answer": "结论：LangChain 不是一个模型，而是一个开源的开发框架（工具集），用来构建基于大语言模型的智能体（agent）。\n\n解释：原文说 \"LangChain provides open source, model-agnostic harnesses for building agents\"。其中 open source 指开源，model-agnostic 指不绑定某个具体模型，可以接入不同厂商或不同类型的模型。harnesses 在这里可理解为支撑智能体运行的框架或工程组件，这是我对词义的解释，原文没有展开说明具体包含什么。\n\n补充：截图后两句与 LangChain 无关，是语法例句，而且按标准英语都有格的错误。in front of 是介词，宾语要用宾格，所以应改为 \"in front of his sister and him\" 和 \"in front of my sister and me\"。",
+        "answerCharacters": 408,
+        "backend": "native",
+        "case": "framework",
+        "firstTextSeconds": 4.913752583321184,
+        "model": "claude-sonnet-5-5",
+        "status": "success",
+        "totalSeconds": 5.879075041681062,
+        "updates": 78
+      },
+      {
+        "api": "anthropicMessages",
+        "backend": "langchain",
+        "case": "framework",
+        "event": "starting",
+        "model": "claude-sonnet-5-5"
+      },
+      {
+        "backend": "langchain",
+        "case": "framework",
+        "error": "模型服务暂时无法回答（HTTP 500），请稍后重试。",
+        "errorCode": 0,
+        "errorDomain": "Benchmark.ScreenshotQuestionError",
+        "model": "claude-sonnet-5-5",
+        "status": "failed",
+        "totalSeconds": 75.0127350416733
+      },
+      {
+        "api": "chatCompletions",
+        "backend": "langchain",
+        "case": "framework",
+        "event": "starting",
+        "model": "deepseek-flash"
+      },
+      {
+        "answer": "结论：LangChain 不是模型，而是一个开源、与具体模型无关的框架（原文用 harnesses，可理解为工具套件/脚手架），用于构建 agents 和 LLM 应用。\n\n依据截图原句：\"LangChain provides open source, model-agnostic harnesses for building agents.\" 其中 model-agnostic 意为“不绑定特定模型”，即它可以对接多种大语言模型（如 OpenAI、Anthropic 等），本身不提供模型权重，也不是某个具体模型的名字。原文只说明它的用途和定位，没有提到它支持哪些具体模型，也没有说明它自身是什么模型。\n\n顺带提醒：截图里 \"in front of his sister and he\" 和 \"in front of my sister and I\" 中的 he / I 不合标准语法。in front of 是介词，后接宾格，应改为 his sister and him、my sister and me。",
+        "answerCharacters": 457,
+        "backend": "langchain",
+        "case": "framework",
+        "firstTextSeconds": 3.2397448333795182,
+        "model": "deepseek-flash",
+        "status": "success",
+        "totalSeconds": 4.161358791694511,
+        "updates": 189
+      },
+      {
+        "api": "chatCompletions",
+        "backend": "native",
+        "case": "framework",
+        "event": "starting",
+        "model": "deepseek-flash"
+      },
+      {
+        "answer": "结论：原文没有说 LangChain 是模型，反而明确说它不是某一种模型，而是“开源的、与模型无关（model-agnostic）的工具框架”，用来构建 agent。\n\n解释：截图第一句是 “LangChain provides open source, model-agnostic harnesses for building agents.” 其中 harnesses 指一整套脚手架/工具集，model-agnostic 表示它不绑定某一个具体模型，可以搭配不同的大模型使用。因此不能说“LangChain 是什么模型”，它不是模型本身，而是构建智能体应用的开源框架。\n\n原文未提及它支持哪些具体模型，也未给出任何模型名称或参数信息。另外，截图后两句 “There's a new car in front of his sister and he.” 和 “There's a new car in front of my sister and I.” 是代词格的例句，与 LangChain 无关；如果你要问的是这两句的语法问题，请告诉我，我再单独分析。",
+        "answerCharacters": 483,
+        "backend": "native",
+        "case": "framework",
+        "firstTextSeconds": 3.306668458331842,
+        "model": "deepseek-flash",
+        "status": "success",
+        "totalSeconds": 3.9707084166584536,
+        "updates": 200
+      },
+      {
+        "api": "anthropicMessages",
+        "backend": "native",
+        "case": "him",
+        "event": "starting",
+        "model": "claude-sonnet-5-5"
+      },
+      {
+        "answer": "不正确。应改为:There's a new car in front of his sister and him.\n\n原因:in front of 是复合介词,其中的 of 后面需要宾语,所以 his sister and he 是介词宾语的并列结构,代词要用宾格 him,不能用主格 he。可以拆开检验:in front of him 正确,in front of he 错误。并列不改变格的规则,his sister 和 him 同属 of 的宾语。人称和数保持不变,仍是第三人称单数男性,所以只把 he 换成 him。\n\n截图中的另一句 There's a new car in front of my sister and I 也是同样的错误,标准写法是 my sister and me。口语里常有人说 \"and I\",是想显得正式而矫枉过正(hypercorrection),但在标准书面英语和考试中按错误处理。\n\n截图第一句 LangChain provides open source, model-agnostic harnesses for building agents 与这个语法问题无关,原文也没有对它做语法说明。",
+        "answerCharacters": 520,
+        "backend": "native",
+        "case": "him",
+        "firstTextSeconds": 6.239374291675631,
+        "model": "claude-sonnet-5-5",
+        "status": "success",
+        "totalSeconds": 6.506235833337996,
+        "updates": 97
+      },
+      {
+        "api": "anthropicMessages",
+        "backend": "langchain",
+        "case": "him",
+        "event": "starting",
+        "model": "claude-sonnet-5-5"
+      },
+      {
+        "backend": "langchain",
+        "case": "him",
+        "error": "模型服务暂时无法回答（HTTP 500），请稍后重试。",
+        "errorCode": 0,
+        "errorDomain": "Benchmark.ScreenshotQuestionError",
+        "model": "claude-sonnet-5-5",
+        "status": "failed",
+        "totalSeconds": 75.01232387498021
+      },
+      {
+        "api": "chatCompletions",
+        "backend": "langchain",
+        "case": "him",
+        "event": "starting",
+        "model": "deepseek-flash"
+      },
+      {
+        "answer": "这句话在标准书面英语中不正确。最直接的改正是：\n\nThere's a new car in front of his sister and him.\n\n更正式一点可写：\n\nThere is a new car in front of his sister and him.\n\n原因：in front of 是复合介词，后面需要接宾格代词作宾语。这里的“his sister and he/him”整体是介词 in front of 的宾语，不是主语，所以不能用主格 he，而要用宾格 him。\n\n检验方法：把并列项拆开看：\nin front of his sister —— 可以；\nin front of him —— 可以；\nin front of he —— 不可以。\n\n因此并列后应为 his sister and him。原句中的 his 是修饰 sister 的物主限定词，不需要改。There's 在口语中常见，正式写作可写成 There is，但与 he/him 这个错误无关。",
+        "answerCharacters": 447,
+        "backend": "langchain",
+        "case": "him",
+        "firstTextSeconds": 4.283441583334934,
+        "model": "deepseek-flash",
+        "status": "success",
+        "totalSeconds": 5.080434583302122,
+        "updates": 184
+      },
+      {
+        "api": "chatCompletions",
+        "backend": "native",
+        "case": "him",
+        "event": "starting",
+        "model": "deepseek-flash"
+      },
+      {
+        "answer": "不正确。标准英语应改为：\n\nThere's a new car in front of his sister and him.\n\n原因：in front of 是介词短语，后面接的代词要作介词宾语，必须用宾格 him，不能用主格 he。并列结构不会改变格的要求。可以拆开检验：in front of his sister 正确；in front of him 正确；in front of he 错误。所以并列宾语应为 his sister and him。\n\n另外，截图第二句 There's a new car in front of my sister and I. 也不标准，同样因为 in front of 后要用宾格，应改为 in front of my sister and me。口语中可能听到“and I”，但标准书面和考试英语不接受。",
+        "answerCharacters": 377,
+        "backend": "native",
+        "case": "him",
+        "firstTextSeconds": 4.370028208300937,
+        "model": "deepseek-flash",
+        "status": "success",
+        "totalSeconds": 4.935029541666154,
+        "updates": 152
+      },
+      {
+        "api": "responses",
+        "backend": "native",
+        "case": "him",
+        "event": "starting",
+        "model": "gpt-6.1-sol"
+      },
+      {
+        "answer": "不正确。“his sister”和“he”并列作介词 in front of 的宾语。介词后的并列宾语都必须用宾格，因此“he”应改为“him”：\n\nThere's a new car in front of his sister and him.\n\n结构是：in front of + his sister and him。\n\n如果不想让“him”看起来像修饰 sister，也可写成：\n\nThere's a new car in front of his sister and in front of him.\n\n同理，“in front of my sister and I”中并列宾语应写成“in front of my sister and me”。",
+        "answerCharacters": 330,
+        "backend": "native",
+        "case": "him",
+        "firstTextSeconds": 4.086743874999229,
+        "model": "gpt-6.1-sol",
+        "status": "success",
+        "totalSeconds": 6.468097166682128,
+        "updates": 40
+      },
+      {
+        "api": "responses",
+        "backend": "langchain",
+        "case": "him",
+        "event": "starting",
+        "model": "gpt-6.1-sol"
+      }
+    ]
+  },
+  "postFix": {
+    "engineWarmupSeconds": 1.6414612083462998,
+    "attempts": 18,
+    "successes": 17,
+    "failures": 1,
+    "records": [
+      {
+        "engineWarmupSeconds": 1.6414612083462998,
+        "event": "ready",
+        "installedVersion": "0.2.68",
+        "models": [
+          "gpt-6.1-sol",
+          "claude-sonnet-5-5",
+          "deepseek-flash"
+        ],
+        "requestsPlanned": 18
+      },
+      {
+        "api": "responses",
+        "backend": "langchain",
+        "case": "framework",
+        "event": "starting",
+        "model": "gpt-6.1-sol"
+      },
+      {
+        "answer": "结论：LangChain 不是一种模型，而是一个开源的软件框架（或工具库）。\n\n它提供与具体模型无关的工具和接口，用来构建智能代理（agents）、调用大语言模型、连接外部数据和工具等。“model-agnostic”表示它不局限于某一个特定模型。",
+        "answerCharacters": 124,
+        "backend": "langchain",
+        "case": "framework",
+        "firstTextSeconds": 4.869935250026174,
+        "model": "gpt-6.1-sol",
+        "status": "success",
+        "totalSeconds": 7.803013333352283,
+        "updates": 72
+      },
+      {
+        "api": "responses",
+        "backend": "native",
+        "case": "framework",
+        "event": "starting",
+        "model": "gpt-6.1-sol"
+      },
+      {
+        "answer": "结论：LangChain 不是一种模型，而是一个用于开发大语言模型应用的开源框架（工具库）。\n\n简要解释：原文中的 “model-agnostic” 表示它不绑定某一种模型，可以连接和调用 GPT、Claude 等不同模型，用来构建智能体（agents）、对话应用、检索增强生成（RAG）等系统。“harnesses” 在这里可理解为帮助开发和组织这些功能的框架或工具。",
+        "answerCharacters": 185,
+        "backend": "native",
+        "case": "framework",
+        "firstTextSeconds": 5.9268085833173245,
+        "model": "gpt-6.1-sol",
+        "status": "success",
+        "totalSeconds": 10.398954833333846,
+        "updates": 103
+      },
+      {
+        "api": "anthropicMessages",
+        "backend": "native",
+        "case": "framework",
+        "event": "starting",
+        "model": "claude-sonnet-5-5"
+      },
+      {
+        "answer": "结论：LangChain 不是一个模型，而是一套开源的开发框架（工具集），用来构建 agent（智能体）应用。\n\n依据原文 \"LangChain provides open source, model-agnostic harnesses for building agents\"：\n- open source：开源。\n- model-agnostic：与模型无关，不绑定某个具体大模型，可以接入不同厂商的模型。\n- harnesses for building agents：用于构建 agent 的支撑框架或工具。这里 harness 是我对语境的理解，原文没有进一步解释它的具体含义。\n\n所以 LangChain 的角色是把模型、工具、流程串起来，而不是自己提供模型。原文没有列出它支持哪些具体模型。\n\n截图里另外两句与 LangChain 无关，但有语法问题：in front of 是介词，后面要用宾格，所以 \"his sister and he\" 应改为 \"his sister and him\"，\"my sister and I\" 应改为 \"my sister and me\"。",
+        "answerCharacters": 496,
+        "backend": "native",
+        "case": "framework",
+        "firstTextSeconds": 4.860472625005059,
+        "model": "claude-sonnet-5-5",
+        "status": "success",
+        "totalSeconds": 5.862514125008602,
+        "updates": 77
+      },
+      {
+        "api": "anthropicMessages",
+        "backend": "langchain",
+        "case": "framework",
+        "event": "starting",
+        "model": "claude-sonnet-5-5"
+      },
+      {
+        "answer": "结论：LangChain 不是一个模型，而是一个开源的开发框架（原文称 harnesses，即\"工具套件/运行框架\"），用来搭建基于大语言模型的智能体（agents）。\n\n解释：\n1. 原文说 \"LangChain provides open source, model-agnostic harnesses for building agents\"。open source 表示开源，building agents 表示它的用途是构建智能体。\n2. model-agnostic 的意思是\"与具体模型无关\"。LangChain 本身不提供也不绑定某个模型，你可以接入不同厂商的模型，再用它来组织提示词、工具调用、流程等。\n3. 所以它是在模型之上的一层，负责把模型和外部工具、数据连接起来，而不是模型本身。\n\n补充：截图里另外两句 \"in front of his sister and he\" 和 \"in front of my sister and I\" 与 LangChain 无关，它们是语法例句。按标准英语，介词 in front of 后面要用宾格，应改为 \"his sister and him\" 和 \"my sister and me\"。如果你想了解这两句，我可以再展开讲。",
+        "answerCharacters": 546,
+        "backend": "langchain",
+        "case": "framework",
+        "firstTextSeconds": 6.447365916683339,
+        "model": "claude-sonnet-5-5",
+        "status": "success",
+        "totalSeconds": 6.456959250033833,
+        "updates": 79
+      },
+      {
+        "api": "chatCompletions",
+        "backend": "langchain",
+        "case": "framework",
+        "event": "starting",
+        "model": "deepseek-flash"
+      },
+      {
+        "answer": "结论：LangChain 不是某个具体模型，而是一个开源、模型无关的框架/工具集，用于构建 agents（智能体）。\n\n解释：截图原文说 “LangChain provides open source, model-agnostic harnesses for building agents.” 其中 model-agnostic 表示“与具体模型无关”，也就是不绑定某一个大模型，可以搭配不同模型来使用；harnesses 在这里可理解为脚手架、框架或工具集合。原文只说明它用于构建 agents，并没有说 LangChain 本身是模型，也没有列出它支持哪些具体模型。因此，把 LangChain 称为“模型”不准确；它更像是开发和编排智能体的工具层。",
+        "answerCharacters": 329,
+        "backend": "langchain",
+        "case": "framework",
+        "firstTextSeconds": 4.044639291707426,
+        "model": "deepseek-flash",
+        "status": "success",
+        "totalSeconds": 4.370845333382022,
+        "updates": 139
+      },
+      {
+        "api": "chatCompletions",
+        "backend": "native",
+        "case": "framework",
+        "event": "starting",
+        "model": "deepseek-flash"
+      },
+      {
+        "answer": "结论：LangChain 不是模型，而是一个开源的、与具体模型无关（model-agnostic）的框架／工具集，用来构建 agent。\n\n解释：截图原文只说 “LangChain provides open source, model-agnostic harnesses for building agents”，意思是它提供开源的“harness”（可理解为运行、编排 agent 的支架或框架），并不限定某一家或某一个模型。所谓 model-agnostic，就是可以搭配不同的语言模型使用，因此它本身属于软件框架层面，而不是像 GPT、Claude 那样的模型本身。\n\n截图里没有提到任何具体模型名称，也没有说明它“基于哪个模型”，所以“LangChain 是什么模型”这一问法本身不成立。截图另外两句（There's a new car in front of his sister and he. / …my sister and I.）是代词格的例句，与本问题无关。",
+        "answerCharacters": 441,
+        "backend": "native",
+        "case": "framework",
+        "firstTextSeconds": 2.6179007083410397,
+        "model": "deepseek-flash",
+        "status": "success",
+        "totalSeconds": 3.8792708333348855,
+        "updates": 183
+      },
+      {
+        "api": "anthropicMessages",
+        "backend": "native",
+        "case": "him",
+        "event": "starting",
+        "model": "claude-sonnet-5-5"
+      },
+      {
+        "answer": "不正确。\n\n这句话里 in front of 是介词短语，his sister and he 是介词 of 的宾语，并列项也要用宾格。所以 he 应改成 him：\n\nThere's a new car in front of his sister and him.\n\n依据：把并列项拆开检验，\"in front of his sister\" 没问题，\"in front of he\" 显然错误，应为 \"in front of him\"。并列不会改变格的规则，介词后面的代词一律用宾格（him, her, me, us, them）。人称和数保持不变，仍然是第三人称单数男性 he，只是格从主格变为宾格。\n\n顺带说明截图中的另一句：There's a new car in front of my sister and I. 同样有问题，I 应改为 me，即 \"in front of my sister and me\"。口语中 \"my sister and I\" 很常见，是一种过度纠正的现象，但按标准书面和考试英语，介词宾语必须用宾格。\n\n第一句 LangChain provides open source, model-agnostic harnesses for building agents. 与语法问题无关，看起来是另一段无关的文字，原文未显示它与后两句有联系。",
+        "answerCharacters": 588,
+        "backend": "native",
+        "case": "him",
+        "firstTextSeconds": 1.1915002499590628,
+        "model": "claude-sonnet-5-5",
+        "status": "success",
+        "totalSeconds": 3.989652833319269,
+        "updates": 91
+      },
+      {
+        "api": "anthropicMessages",
+        "backend": "langchain",
+        "case": "him",
+        "event": "starting",
+        "model": "claude-sonnet-5-5"
+      },
+      {
+        "answer": "不正确。\n\n原句：There's a new car in front of his sister and he.\n\n改正：There's a new car in front of his sister and him.\n\n原因：in front of 是复合介词，后面的 his sister and he 是它的宾语，宾语要用宾格。并列不改变格的规则，可以拆开检验：in front of his sister 没问题；in front of he 不成立，应为 in front of him。所以并列项里的 he 要改成 him。人称和数不变，仍指同一个男性 he。\n\n同一截图里的另一句 There's a new car in front of my sister and I 也有同样的问题，标准写法是 in front of my sister and me。I 和 he 都是主格，只能作主语，不能放在介词之后。\n\n口语里 and I 有时被误当作更礼貌或更正式的说法，但在标准书面英语和考试中都算错误。\n\n另外，There's a new car 本身没有问题。there's 后面的 a new car 是单数，主谓一致。\n\n截图开头那句 LangChain provides open source, model-agnostic harnesses for building agents 与这个语法问题无关，这里不作分析。",
+        "answerCharacters": 626,
+        "backend": "langchain",
+        "case": "him",
+        "firstTextSeconds": 5.79272162495181,
+        "model": "claude-sonnet-5-5",
+        "status": "success",
+        "totalSeconds": 7.762595874955878,
+        "updates": 97
+      },
+      {
+        "api": "chatCompletions",
+        "backend": "langchain",
+        "case": "him",
+        "event": "starting",
+        "model": "deepseek-flash"
+      },
+      {
+        "answer": "不正确，至少在标准书面英语和考试英语中不正确。应改为：\n\nThere's a new car in front of his sister and him.\n\n更正式也可写：There is a new car in front of his sister and him.\n\n原因是：in front of 是介词短语，后面要接宾语；代词作介词宾语时要用宾格。he 是主格，不能作 in front of 的宾语，him 才是宾格。把并列拆开检验：in front of him 正确，in front of he 错误；并列不会改变代词的格，所以 his sister and he 应改为 his sister and him。\n\n类似地，截图下一句 in front of my sister and I 也不符合标准，应改为 in front of my sister and me。There's 在口语中常见，正式写作可用 There is。",
+        "answerCharacters": 428,
+        "backend": "langchain",
+        "case": "him",
+        "firstTextSeconds": 5.646901958331,
+        "model": "deepseek-flash",
+        "status": "success",
+        "totalSeconds": 6.055843374982942,
+        "updates": 173
+      },
+      {
+        "api": "chatCompletions",
+        "backend": "native",
+        "case": "him",
+        "event": "starting",
+        "model": "deepseek-flash"
+      },
+      {
+        "answer": "不正确。标准英语应改为：\n\nThere's a new car in front of his sister and him.\n\n原因：这里的 \"his sister and he/him\" 整体是介词短语 in front of 的宾语，介词宾语必须用宾格，所以用 him，不用 he。检验方法：把并列项拆开分别代入，得到 \"in front of his sister\" 和 \"in front of him\"，都成立；若说 \"in front of he\" 则明显错误。并列结构不改变各成分的格，不能因为前面有 his sister 就忽略 him 的句法位置。\n\n截图第二句 \"There's a new car in front of my sister and I.\" 也是同类错误，标准形式是 \"in front of my sister and me\"。\"...and I\" 在主语位置才正确（如 My sister and I saw a car），放在介词后属于矫枉过正。\n\n补充说明：口语中偶尔能听到 \"...and he\" 这种用法，但不属于标准书面或考试认可的规范。",
+        "answerCharacters": 496,
+        "backend": "native",
+        "case": "him",
+        "firstTextSeconds": 1.7617869167006575,
+        "model": "deepseek-flash",
+        "status": "success",
+        "totalSeconds": 2.7650732083711773,
+        "updates": 214
+      },
+      {
+        "api": "responses",
+        "backend": "native",
+        "case": "him",
+        "event": "starting",
+        "model": "gpt-6.1-sol"
+      },
+      {
+        "answer": "不正确。标准英语应改为：\n\nThere's a new car in front of his sister and him.\n\n原因是介词短语“in front of”后面接宾语，因此并列成分都要用宾格。拆开看：\n\n- in front of his sister\n- in front of him\n\n“he”是主格，只能作主语；“him”是宾格，适合放在介词“of”后面。并列不会改变格的要求，所以不能写成“his sister and he”。%timeout",
+        "answerCharacters": 234,
+        "backend": "native",
+        "case": "him",
+        "firstTextSeconds": 5.42203650000738,
+        "model": "gpt-6.1-sol",
+        "status": "success",
+        "totalSeconds": 7.888710958359297,
+        "updates": 114
+      },
+      {
+        "api": "responses",
+        "backend": "langchain",
+        "case": "him",
+        "event": "starting",
+        "model": "gpt-6.1-sol"
+      },
+      {
+        "answer": "不正确。标准英语应改为：\n\n“There’s a new car in front of his sister and him.”\n\n原因是介词短语 “in front of” 中，介词 “of” 后面的并列成分作宾语，应使用宾格。拆开看：\n\n- in front of his sister\n- in front of him\n\n因此应为 “his sister and him”，不能用主格 “he”。\n\n类似地，原文中的 “There’s a new car in front of my sister and I.” 也不符合标准书面英语，应改为 “in front of my sister and me”。“my sister and I” 只有在作主语时才使用。",
+        "answerCharacters": 338,
+        "backend": "langchain",
+        "case": "him",
+        "firstTextSeconds": 8.350494666665327,
+        "model": "gpt-6.1-sol",
+        "status": "success",
+        "totalSeconds": 14.21922870830167,
+        "updates": 143
+      },
+      {
+        "api": "chatCompletions",
+        "backend": "langchain",
+        "case": "me",
+        "event": "starting",
+        "model": "deepseek-flash"
+      },
+      {
+        "answer": "标准书面英语应该用 me，不是 I。之前说“I 完全正确”是错的，这里更正。\n\n判断依据是句法位置：in front of 是介词短语，介词后面的代词作宾语，必须用宾格。把并列项拆开检验：\n\nin front of me（正确）\nin front of I（错误）\n\n所以合并后应为：\n\nThere's a new car in front of my sister and me.\n\nI 是主格，通常作主语，例如 I am here；但这里 There's 的主语是 a new car，I 不在主语位置。口语中有人因为“过度纠正”会用 my sister and I，但标准书面英语不这样用。截图里另一句 in front of his sister and he 同样应改为 in front of his sister and him。",
+        "answerCharacters": 372,
+        "backend": "langchain",
+        "case": "me",
+        "firstTextSeconds": 3.264117916696705,
+        "model": "deepseek-flash",
+        "status": "success",
+        "totalSeconds": 4.085596708348021,
+        "updates": 167
+      },
+      {
+        "api": "chatCompletions",
+        "backend": "native",
+        "case": "me",
+        "event": "starting",
+        "model": "deepseek-flash"
+      },
+      {
+        "backend": "native",
+        "case": "me",
+        "error": "回答未完整返回，请重试或缩小问题范围。",
+        "errorCode": 7,
+        "errorDomain": "Benchmark.ScreenshotQuestionError",
+        "firstTextSeconds": 5.126438499952201,
+        "model": "deepseek-flash",
+        "status": "failed",
+        "totalSeconds": 5.291778708284255
+      },
+      {
+        "api": "responses",
+        "backend": "native",
+        "case": "me",
+        "event": "starting",
+        "model": "gpt-6.1-sol"
+      },
+      {
+        "answer": "标准书面英语中应使用 me：\n\nThere’s a new car in front of my sister and me.\n\n原因是 “in front of” 是介词短语，介词 of 后面需要宾格；并列拆开检验就是 “in front of me”，不能用主格 I。\n\n因此，原句中的 “my sister and I” 不标准；前一句 “in front of his sister and he” 也应改为 “in front of his sister and him”。",
+        "answerCharacters": 242,
+        "backend": "native",
+        "case": "me",
+        "firstTextSeconds": 3.6006639583501965,
+        "model": "gpt-6.1-sol",
+        "status": "success",
+        "totalSeconds": 6.4834931250079535,
+        "updates": 102
+      },
+      {
+        "api": "responses",
+        "backend": "langchain",
+        "case": "me",
+        "event": "starting",
+        "model": "gpt-6.1-sol"
+      },
+      {
+        "answer": "标准书面英语中应使用 me：\n\nThere’s a new car in front of my sister and me.\n\n原因是 “in front of” 是介词短语，介词 of 后面要接宾格代词，因此用 me，而不是主格 I。可拆开检验：\n\n- in front of my sister\n- in front of me\n\n所以 “my sister and I” 在此处不符合标准语法。原句中的 “his sister and he” 也应改为 “his sister and him”。",
+        "answerCharacters": 252,
+        "backend": "langchain",
+        "case": "me",
+        "firstTextSeconds": 4.721044541685842,
+        "model": "gpt-6.1-sol",
+        "status": "success",
+        "totalSeconds": 7.646834875049535,
+        "updates": 110
+      },
+      {
+        "api": "anthropicMessages",
+        "backend": "langchain",
+        "case": "me",
+        "event": "starting",
+        "model": "claude-sonnet-5-5"
+      },
+      {
+        "answer": "应该用 me，不是 I。我上一轮说 \"my sister and I\" 完全正确，这个判断是错的，在此更正。\n\n结构依据：in front of 是介词短语，my sister and me 是它的宾语，宾语要用宾格。并列项可以拆开检验：\n- There's a new car in front of my sister. \n- There's a new car in front of me.（不能说 in front of I）\n\n拆开后 I 明显不成立，并列后规则不变，所以应为：\n\nThere's a new car in front of my sister and me.\n\n补充：口语中常有人把 \"X and I\" 用在宾语位置，这是一种过度纠正（hypercorrection），但标准书面英语和考试里都算错误。\n\n同一截图里的另一句也是同类问题：in front of his sister and he 应改为 in front of his sister and him，理由相同，介词 of 后面要用宾格 him。",
+        "answerCharacters": 471,
+        "backend": "langchain",
+        "case": "me",
+        "firstTextSeconds": 5.065234166686423,
+        "model": "claude-sonnet-5-5",
+        "status": "success",
+        "totalSeconds": 5.072937916673254,
+        "updates": 71
+      },
+      {
+        "api": "anthropicMessages",
+        "backend": "native",
+        "case": "me",
+        "event": "starting",
+        "model": "claude-sonnet-5-5"
+      },
+      {
+        "answer": "应该用 me，上一轮我说 I 完全正确是错的，在此更正。\n\n正确写法：There's a new car in front of my sister and me.\n\n结构依据：in front of 是介词短语，my sister and me 是介词 of 的宾语，宾语要用宾格。并列项可以拆开检验：in front of my sister，in front of me，可以说；in front of I 不行。并列不改变格的规则。\n\nI 在口语中常见，多因为人们把 and I 当作更正式的说法而过度纠正，但在标准书面英语和考试中，这里判为错误。\n\n顺带一提，截图里前一句 in front of his sister and he 也是同样的问题，应改为 his sister and him。修改时只换格，人称和数保持不变。",
+        "answerCharacters": 369,
+        "backend": "native",
+        "case": "me",
+        "firstTextSeconds": 5.060667708341498,
+        "model": "claude-sonnet-5-5",
+        "status": "success",
+        "totalSeconds": 5.111870541702956,
+        "updates": 60
+      },
+      {
+        "event": "finished"
+      }
+    ],
+    "summary": [
+      {
+        "model": "gpt-6.1-sol",
+        "backend": "langchain",
+        "attempts": 3,
+        "successes": 3,
+        "firstTextMedianSeconds": 4.869935250026174,
+        "totalMedianSeconds": 7.803013333352283,
+        "firstTextRangeSeconds": [
+          4.721044541685842,
+          8.350494666665327
+        ],
+        "answerCharactersMedian": 252
+      },
+      {
+        "model": "gpt-6.1-sol",
+        "backend": "native",
+        "attempts": 3,
+        "successes": 3,
+        "firstTextMedianSeconds": 5.42203650000738,
+        "totalMedianSeconds": 7.888710958359297,
+        "firstTextRangeSeconds": [
+          3.6006639583501965,
+          5.9268085833173245
+        ],
+        "answerCharactersMedian": 234
+      },
+      {
+        "model": "claude-sonnet-5-5",
+        "backend": "langchain",
+        "attempts": 3,
+        "successes": 3,
+        "firstTextMedianSeconds": 5.79272162495181,
+        "totalMedianSeconds": 6.456959250033833,
+        "firstTextRangeSeconds": [
+          5.065234166686423,
+          6.447365916683339
+        ],
+        "answerCharactersMedian": 546
+      },
+      {
+        "model": "claude-sonnet-5-5",
+        "backend": "native",
+        "attempts": 3,
+        "successes": 3,
+        "firstTextMedianSeconds": 4.860472625005059,
+        "totalMedianSeconds": 5.111870541702956,
+        "firstTextRangeSeconds": [
+          1.1915002499590628,
+          5.060667708341498
+        ],
+        "answerCharactersMedian": 496
+      },
+      {
+        "model": "deepseek-flash",
+        "backend": "langchain",
+        "attempts": 3,
+        "successes": 3,
+        "firstTextMedianSeconds": 4.044639291707426,
+        "totalMedianSeconds": 4.370845333382022,
+        "firstTextRangeSeconds": [
+          3.264117916696705,
+          5.646901958331
+        ],
+        "answerCharactersMedian": 372
+      },
+      {
+        "model": "deepseek-flash",
+        "backend": "native",
+        "attempts": 3,
+        "successes": 2,
+        "firstTextMedianSeconds": 2.1898438125208486,
+        "totalMedianSeconds": 3.3221720208530314,
+        "firstTextRangeSeconds": [
+          1.7617869167006575,
+          2.6179007083410397
+        ],
+        "answerCharactersMedian": 468.5
+      }
+    ]
+  },
+  "quality": {
+    "corePassCompleteAnswers": 17,
+    "completeAnswers": 17,
+    "langchainCorePass": 9,
+    "langchainCompleteAnswers": 9,
+    "explicitHistoryCorrectionPass": 3,
+    "completeHistoryAnswers": 5,
+    "limitations": [
+      "GPT both history answers provide correct me but do not explicitly acknowledge previous mistake",
+      "GPT native him output includes literal %timeout",
+      "Claude framework answers expand irrelevant grammar examples",
+      "Core checks do not establish broad accuracy"
+    ]
+  }
+}

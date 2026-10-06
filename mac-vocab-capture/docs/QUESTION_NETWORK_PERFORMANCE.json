@@ -1,0 +1,474 @@
+{
+  "date": "2026-10-06",
+  "installedVersion": "0.2.72",
+  "measurement": "warm LangChain transport request start to first non-empty visible partial in Swift; excludes screenshot/OCR and helper startup",
+  "question": "这句话按标准英语应使用 I 还是 me？请简要说明理由。",
+  "context": "There's a new car in front of my sister and I.",
+  "thinking": "off",
+  "diagnosticTimeoutSeconds": {
+    "connect": 4,
+    "read": 15,
+    "write": 15,
+    "pool": 15
+  },
+  "productionTimeoutChanged": false,
+  "automaticRetries": 0,
+  "initialAllModelComparison": [
+    {
+      "model": "gpt-6.1-sol",
+      "mode": "baseline",
+      "round": 0,
+      "outputTokens": 69,
+      "status": "success",
+      "answer": "应使用 me：\n\nThere's a new car in front of my sister and me.\n\n理由：“in front of”是介词短语，介词后接宾语，因此用宾格 me；“my sister and I”在这里不能作介词宾语。拆开看就是：in front of me。",
+      "total": 3.985504291660618,
+      "reasoningTokens": 0,
+      "ttft": 3.0877727916813456
+    },
+    {
+      "answer": "应使用 me。原句应改为：There's a new car in front of my sister and me.\n\n理由：in front of 是介词短语，介词的宾语要用宾格。\"my sister and me\" 是并列结构，共同作 of 的宾语，所以人称代词要用宾格 me，不能用主格 I。\n\n可以把并列项拆开检验：in front of my sister（对）、in front of me（对）、*in front of I（错）。拆开后 me 才合乎语法，并列不会改变这条规则。\n\n补充：口语里 \"my sister and I\" 很常见，很多人觉得 I 听起来更\"正式\"，这是一种过度矫正。但在标准书面英语和考试中，介词后面应使用 me。\n\n另外，原句中 There's a new car 的单数主语 car 与 's（is）一致，这一点没有问题。",
+      "ttft": 1.5341775833512656,
+      "status": "success",
+      "total": 3.923380125022959,
+      "round": 0,
+      "mode": "baseline",
+      "outputTokens": 204,
+      "model": "claude-sonnet-5-5"
+    },
+    {
+      "ttft": 1.0021578333689831,
+      "outputTokens": 135,
+      "mode": "baseline",
+      "status": "success",
+      "model": "deepseek-flash",
+      "round": 0,
+      "total": 1.8442139166872948,
+      "answer": "标准英语应改为 me：There's a new car in front of my sister and me.\n\n理由：这里“my sister and I/me”整体作介词 in front of 的宾语，介词宾语要用宾格。把并列项拆开检验更清楚：in front of me 正确，in front of I 错误；my sister 本身主格宾格同形，所以关键是 me。\n\nI 是主格，通常作主语，如 I am here；不能因为前面有 my sister and 就改变格。口语中偶尔能听到“between you and I”之类，但标准书面和考试英语仍判为错误。"
+    },
+    {
+      "status": "failed",
+      "total": 4.007832916686311,
+      "round": 0,
+      "error": "回答超时，请稍后重试。",
+      "mode": "direct",
+      "model": "gpt-6.1-sol"
+    },
+    {
+      "status": "failed",
+      "total": 4.006726374966092,
+      "round": 0,
+      "error": "回答超时，请稍后重试。",
+      "mode": "direct",
+      "model": "claude-sonnet-5-5"
+    },
+    {
+      "ttft": 1.8689955416484736,
+      "outputTokens": 101,
+      "mode": "direct",
+      "status": "success",
+      "model": "deepseek-flash",
+      "round": 0,
+      "total": 2.4518412916222587,
+      "answer": "标准英语应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and me 是介词 in front of 的宾语，介词宾语要用宾格 me，不能用主格 I。可以拆开检验：in front of me 正确，in front of I 错误；并列结构不改变格的要求。\n\n补充：口语中偶尔能听到 …my sister and I，但标准书面和考试英语不接受。原句其余部分没有问题。"
+    },
+    {
+      "ttft": 0.5429241249803454,
+      "outputTokens": 126,
+      "mode": "direct",
+      "status": "success",
+      "model": "deepseek-flash",
+      "round": 1,
+      "total": 1.3096229583024979,
+      "answer": "标准英语应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and me 是介词 in front of 的宾语，介词宾语要用宾格。可以拆开检验：in front of me 正确，in front of I 错误；并列结构不改变格的要求，所以并列后仍用 me。\n\nI 是主格，通常作主语，如 I am here；不能因为和 my sister 并列就换成 I。口语中偶尔能听到“between you and I”之类说法，但标准书面和考试英语仍判为错误。"
+    },
+    {
+      "status": "failed",
+      "total": 4.003520625003148,
+      "round": 1,
+      "error": "回答超时，请稍后重试。",
+      "mode": "direct",
+      "model": "claude-sonnet-5-5"
+    },
+    {
+      "status": "failed",
+      "total": 4.007991000020411,
+      "round": 1,
+      "error": "回答超时，请稍后重试。",
+      "mode": "direct",
+      "model": "gpt-6.1-sol"
+    },
+    {
+      "ttft": 1.2994894167059101,
+      "outputTokens": 125,
+      "mode": "baseline",
+      "status": "success",
+      "model": "deepseek-flash",
+      "round": 1,
+      "total": 2.1243468333850615,
+      "answer": "应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and I/me 是介词 in front of 的宾语，介词宾语要用宾格，所以用 me。可以拆开检验：in front of me 正确，in front of I 错误；并列结构不改变格的要求。\n\nI 是主格，通常作主语，如 I am here；me 是宾格，作动词或介词的宾语。口语中偶尔能听到“between you and I”之类说法，但标准书面和考试英语仍应使用 me。"
+    },
+    {
+      "ttft": 1.5585900417063385,
+      "outputTokens": 224,
+      "mode": "baseline",
+      "status": "success",
+      "model": "claude-sonnet-5-5",
+      "round": 1,
+      "total": 3.7525926250382327,
+      "answer": "应使用 me。原句应改为：There's a new car in front of my sister and me.\n\n理由：in front of 是介词短语，介词的宾语要用宾格。\"my sister and me\" 是并列的介词宾语，并列不改变格的规则。\n\n可以拆开检验：去掉 my sister，就是 There's a new car in front of me，这里显然不能说 in front of I。所以并列后也应保持 me。\n\n人称和数不变，仍然指说话人自己，只是把主格 I 改为宾格 me。\n\n补充说明：口语中常有人说 my sister and I，这是一种过度纠正（hypercorrection），因为人们记住了 \"X and I\" 听起来更正式。但在标准书面英语和考试中，这里判为错误。\n\n另外，there's 后面是单数名词 a new car，所以 is 的单数形式没有问题，原句这一点无需修改。"
+    },
+    {
+      "status": "failed",
+      "total": 15.006451416702475,
+      "round": 1,
+      "error": "回答超时，请稍后重试。",
+      "mode": "baseline",
+      "model": "gpt-6.1-sol"
+    }
+  ],
+  "focusedDeepSeekComparison": [
+    {
+      "total": 2.2040985000203364,
+      "ttft": 1.3551783750299364,
+      "round": 0,
+      "model": "deepseek-flash",
+      "answer": "标准英语应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and me 是介词 in front of 的宾语，介词宾语要用宾格 me。可以拆开检验：in front of me 正确，in front of I 错误；并列结构不改变格的要求，所以 my sister and me 正确。\n\nI 是主格，通常作主语，如 I am here；不能因为和 my sister 并列就改用主格。口语中偶尔能听到 ...my sister and I，但标准书面和考试英语应判为不规范。",
+      "outputTokens": 126,
+      "status": "success",
+      "mode": "baseline"
+    },
+    {
+      "status": "success",
+      "round": 0,
+      "total": 1.9556533333379775,
+      "outputTokens": 130,
+      "answer": "标准英语应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and I/me 是介词 in front of 的宾语，介词宾语要用宾格 me。可以拆开检验：in front of me 正确，in front of I 错误；并列结构不改变格的要求，所以 my sister and me 正确。\n\nI 是主格，通常作主语，例如 I am here；不能因为和 my sister 并列就改用 I。口语中偶尔能听到“between you and I”之类说法，但标准书面和考试英语仍判为错误。",
+      "mode": "direct",
+      "model": "deepseek-flash",
+      "ttft": 1.1953916249913163
+    },
+    {
+      "status": "success",
+      "round": 1,
+      "total": 1.0840517083415762,
+      "outputTokens": 133,
+      "answer": "应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and I/me 是介词 in front of 的宾语，介词宾语要用宾格，所以用 me。可把并列项拆开检验：in front of me 正确，in front of I 错误；因此并列后也应是 in front of my sister and me。\n\nI 是主格，通常作主语，如 I am here；不能因为和 my sister 并列就改用主格。口语中偶尔能听到“between you and I”之类说法，但标准书面和考试英语仍判为错误。",
+      "mode": "direct",
+      "model": "deepseek-flash",
+      "ttft": 0.23804445832502097
+    },
+    {
+      "status": "success",
+      "round": 1,
+      "total": 2.030536458361894,
+      "outputTokens": 125,
+      "answer": "应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and I/me 是介词 in front of 的宾语，介词宾语要用宾格，所以用 me。可以拆开检验：in front of me 正确，in front of I 错误；并列结构不改变格的要求。\n\nI 是主格，通常作主语，如 I am here；me 是宾格，作动词或介词的宾语。口语中偶尔能听到“between you and I”之类说法，但标准书面和考试英语仍应使用 me。",
+      "mode": "baseline",
+      "model": "deepseek-flash",
+      "ttft": 1.6932318333419971
+    },
+    {
+      "round": 2,
+      "total": 1.1973309167078696,
+      "ttft": 0.5071582917007618,
+      "answer": "标准英语应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and me 是介词 in front of 的宾语，介词宾语要用宾格。可以拆开检验：in front of me 正确，in front of I 错误。并列结构不改变格的要求，所以不能因为前面有 my sister 就用 I。\n\n补充：口语中偶尔能听到 …my sister and I 这种说法，但标准书面和考试英语判为错误。修改只改格，不改变人称、数或指代。",
+      "mode": "direct",
+      "status": "success",
+      "outputTokens": 119,
+      "model": "deepseek-flash"
+    },
+    {
+      "round": 2,
+      "total": 1.5638494582963176,
+      "ttft": 0.9966745832934976,
+      "answer": "标准英语应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and me 是介词 in front of 的宾语，介词宾语要用宾格 me，不能用主格 I。可以拆开检验：in front of me 正确，in front of I 错误；并列结构不改变格的要求。\n\n口语中偶尔能听到 ...my sister and I，但标准书面和考试英语应判为错误。",
+      "mode": "baseline",
+      "status": "success",
+      "outputTokens": 96,
+      "model": "deepseek-flash"
+    }
+  ],
+  "focusedSummary": {
+    "baseline": {
+      "count": 3,
+      "successCount": 3,
+      "medianFirstVisibleSeconds": 1.3551783750299364,
+      "medianTotalSeconds": 2.030536458361894,
+      "firstVisibleRangeSeconds": [
+        0.9966745832934976,
+        1.6932318333419971
+      ]
+    },
+    "direct": {
+      "count": 3,
+      "successCount": 3,
+      "medianFirstVisibleSeconds": 0.5071582917007618,
+      "medianTotalSeconds": 1.1973309167078696,
+      "firstVisibleRangeSeconds": [
+        0.23804445832502097,
+        1.1953916249913163
+      ]
+    }
+  },
+  "focusedFirstVisibleReductionFraction": 0.625762703238562,
+  "stageDiagnostics": [
+    {
+      "model": "gpt-6.1-sol",
+      "promptBytes": 1525,
+      "deltas": 65,
+      "total": 3.9850201660301536,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "baseline",
+      "handshakes": 2,
+      "sentSeconds": 0.1255107499891892,
+      "headersSeconds": 2.8588972500292584,
+      "firstSeconds": 3.0873445000033826
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "promptBytes": 1525,
+      "deltas": 65,
+      "total": 3.922845833003521,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "baseline",
+      "handshakes": 2,
+      "sentSeconds": 0.003468415990937501,
+      "headersSeconds": 1.518576375034172,
+      "firstSeconds": 1.533780416008085
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 1525,
+      "deltas": 135,
+      "total": 1.8420409169630148,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "baseline",
+      "handshakes": 2,
+      "sentSeconds": 0.006246417004149407,
+      "headersSeconds": 0.7089838749961928,
+      "firstSeconds": 1.001212959003169
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "promptBytes": 1525,
+      "deltas": 0,
+      "total": 4.007254707976244,
+      "wire": null,
+      "status": null,
+      "experiment": "direct",
+      "handshakes": 1,
+      "sentSeconds": 0.0045363749959506094
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "promptBytes": 1525,
+      "deltas": 0,
+      "total": 4.006000333989505,
+      "wire": null,
+      "status": null,
+      "experiment": "direct",
+      "handshakes": 1,
+      "sentSeconds": 0.003712125006131828
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 1525,
+      "deltas": 101,
+      "total": 2.450815124961082,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "direct",
+      "handshakes": 2,
+      "sentSeconds": 0.004712124995421618,
+      "headersSeconds": 1.3257251670002006,
+      "firstSeconds": 1.868030124984216
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 1525,
+      "deltas": 126,
+      "total": 1.308997750049457,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "direct",
+      "handshakes": 2,
+      "sentSeconds": 0.0023295420105569065,
+      "headersSeconds": 0.14117225003428757,
+      "firstSeconds": 0.5423802500008605
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "promptBytes": 1525,
+      "deltas": 0,
+      "total": 4.003032332984731,
+      "wire": null,
+      "status": null,
+      "experiment": "direct",
+      "handshakes": 1,
+      "sentSeconds": 0.0018563750199973583
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "promptBytes": 1525,
+      "deltas": 0,
+      "total": 4.007156750012655,
+      "wire": null,
+      "status": null,
+      "experiment": "direct",
+      "handshakes": 1,
+      "sentSeconds": 0.0054442089749500155
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 1525,
+      "deltas": 125,
+      "total": 2.123732999956701,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "baseline",
+      "handshakes": 2,
+      "sentSeconds": 0.001807624998036772,
+      "headersSeconds": 0.710802124987822,
+      "firstSeconds": 1.2954597499920055
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "promptBytes": 1525,
+      "deltas": 82,
+      "total": 3.75177812500624,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "baseline",
+      "handshakes": 0,
+      "sentSeconds": 0.001692499965429306,
+      "headersSeconds": 1.4669140829937533,
+      "firstSeconds": 1.5579611249850132
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "promptBytes": 1525,
+      "deltas": 0,
+      "total": 15.005815709009767,
+      "wire": null,
+      "status": null,
+      "experiment": "baseline",
+      "handshakes": 0,
+      "sentSeconds": 0.003143209032714367
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 1525,
+      "deltas": 126,
+      "total": 2.203161458019167,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "baseline",
+      "handshakes": 2,
+      "sentSeconds": 0.08843654103111476,
+      "headersSeconds": 0.7975171250291169,
+      "firstSeconds": 1.35440050001489
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 1525,
+      "deltas": 130,
+      "total": 1.954206415975932,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "direct",
+      "handshakes": 2,
+      "sentSeconds": 0.007622250006534159,
+      "headersSeconds": 0.68088150001131,
+      "firstSeconds": 1.1942997080041096
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 1525,
+      "deltas": 133,
+      "total": 1.0833334580529481,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "direct",
+      "handshakes": 2,
+      "sentSeconds": 0.00284266599919647,
+      "headersSeconds": 0.10795620799763128,
+      "firstSeconds": 0.23724429099820554
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 1525,
+      "deltas": 125,
+      "total": 2.029593790997751,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "baseline",
+      "handshakes": 2,
+      "sentSeconds": 0.002845457987859845,
+      "headersSeconds": 0.6824636249803007,
+      "firstSeconds": 1.6922789579839446
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 1525,
+      "deltas": 119,
+      "total": 1.1966110829962417,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "direct",
+      "handshakes": 2,
+      "sentSeconds": 0.002037541999015957,
+      "headersSeconds": 0.16594929195707664,
+      "firstSeconds": 0.5065550419967622
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 1525,
+      "deltas": 96,
+      "total": 1.5629091669688933,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "baseline",
+      "handshakes": 2,
+      "sentSeconds": 0.00802766700508073,
+      "headersSeconds": 0.7263015419594012,
+      "firstSeconds": 0.9957764580030926
+    }
+  ],
+  "installedFacadeRequest": [
+    {
+      "model": "deepseek-flash",
+      "directConnection": true,
+      "firstVisibleSeconds": 1.1127597083104774,
+      "totalSeconds": 1.6484843749785796,
+      "status": "success",
+      "answer": "标准英语应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and me 是介词 in front of 的宾语，介词宾语要用宾格。可以拆开检验：in front of me 正确，in front of I 错误；并列结构不改变格的要求，所以并列后仍用 me。\n\n补充：口语中偶尔能听到 ...and I，但标准书面和考试英语不接受。"
+    }
+  ],
+  "metadataUpdate": {
+    "changedModels": [
+      "deepseek-flash"
+    ],
+    "activeModelPreserved": true,
+    "modelAndThinkingSettingsPreserved": true,
+    "credentialsUntouched": true
+  },
+  "verification": {
+    "swiftTests": 193,
+    "pythonSourceTests": 41,
+    "frozenPythonTests": 41,
+    "installedProcessTests": 5,
+    "deepStrictSignatureVerified": true,
+    "formalAppRunning": true,
+    "vocabularyPreserved": true,
+    "postConfigurationPreferencesPreservedAfterLaunch": true
+  },
+  "limitations": [
+    "Three samples per route in focused comparison; initial direct DeepSeek cold request was 1.87 s.",
+    "Not a stable latency guarantee: installed direct facade request first visible partial was 1.11 s.",
+    "Direct GPT/Claude attempts timed out at diagnostic 4 s connect limit; no claim of permanent unavailability.",
+    "Direct means skipping configured macOS HTTP proxy; VPN/TUN routing is unchanged."
+  ]
+}

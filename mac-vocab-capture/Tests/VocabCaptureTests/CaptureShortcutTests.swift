@@ -22,6 +22,7 @@ final class CaptureShortcutTests: XCTestCase {
     let preferences = ShortcutPreferences(defaults: defaults)
     XCTAssertEqual(preferences.currentSelection, .defaultSelection)
     XCTAssertEqual(preferences.currentScreenshot, .defaultScreenshot)
+    XCTAssertEqual(preferences.currentQuestionScreenshot, .defaultQuestionScreenshot)
   }
 
   func testLegacySelectionPresetMigrates() {
@@ -91,5 +92,105 @@ final class CaptureShortcutTests: XCTestCase {
     XCTAssertEqual(shortcut?.modifiers, UInt32(optionKey))
     XCTAssertNil(
       CaptureShortcut.validationError(selection: .defaultSelection, screenshot: .simpleScreenshot))
+  }
+
+  func testOldTwoShortcutConfigurationAddsDerivedQuestionWithoutWriting() throws {
+    let selectionData = try JSONEncoder().encode(CaptureShortcut.selectionPresets[1])
+    let screenshotData = try JSONEncoder().encode(CaptureShortcut.simpleScreenshot)
+    defaults.set(selectionData, forKey: "VocabCapture.customShortcut")
+    defaults.set(screenshotData, forKey: "VocabCapture.screenshotShortcut")
+    let preferences = ShortcutPreferences(defaults: defaults)
+    XCTAssertEqual(preferences.currentSelection, CaptureShortcut.selectionPresets[1])
+    XCTAssertEqual(preferences.currentScreenshot, .simpleScreenshot)
+    XCTAssertEqual(preferences.currentQuestionScreenshot, .defaultQuestionScreenshot)
+    XCTAssertEqual(defaults.data(forKey: "VocabCapture.customShortcut"), selectionData)
+    XCTAssertEqual(defaults.data(forKey: "VocabCapture.screenshotShortcut"), screenshotData)
+    XCTAssertNil(defaults.object(forKey: "VocabCapture.questionScreenshotShortcut"))
+    XCTAssertNil(defaults.object(forKey: "VocabCapture.shortcut"))
+  }
+
+  func testDerivedQuestionDefaultAvoidsEitherExistingShortcut() throws {
+    for (selection, screenshot) in [
+      (CaptureShortcut.defaultQuestionScreenshot, CaptureShortcut.defaultScreenshot),
+      (CaptureShortcut.defaultSelection, CaptureShortcut.defaultQuestionScreenshot),
+      (CaptureShortcut.defaultQuestionScreenshot, CaptureShortcut.questionScreenshotFallbacks[1]),
+    ] {
+      defaults.set(try JSONEncoder().encode(selection), forKey: "VocabCapture.customShortcut")
+      defaults.set(try JSONEncoder().encode(screenshot), forKey: "VocabCapture.screenshotShortcut")
+      let question = ShortcutPreferences(defaults: defaults).currentQuestionScreenshot
+      XCTAssertFalse(question.matches(selection))
+      XCTAssertFalse(question.matches(screenshot))
+      XCTAssertNil(defaults.object(forKey: "VocabCapture.questionScreenshotShortcut"))
+      if screenshot == CaptureShortcut.questionScreenshotFallbacks[1] {
+        XCTAssertEqual(question, CaptureShortcut.questionScreenshotFallbacks[2])
+      }
+    }
+  }
+
+  func testThreeWayValidationRejectsEveryPairAndUnsafeQuestion() {
+    XCTAssertNil(
+      CaptureShortcut.validationError(
+        selection: .defaultSelection, screenshot: .defaultScreenshot,
+        questionScreenshot: .defaultQuestionScreenshot))
+    XCTAssertNotNil(
+      CaptureShortcut.validationError(
+        selection: .defaultSelection, screenshot: .defaultSelection,
+        questionScreenshot: .defaultQuestionScreenshot))
+    for duplicate in [CaptureShortcut.defaultSelection, .defaultScreenshot] {
+      XCTAssertNotNil(
+        CaptureShortcut.validationError(
+          selection: .defaultSelection, screenshot: .defaultScreenshot,
+          questionScreenshot: duplicate))
+    }
+    let unsafe = CaptureShortcut(id: "unsafe", title: "A", keyCode: 0, modifiers: 0)
+    XCTAssertNotNil(
+      CaptureShortcut.validationError(
+        selection: .defaultSelection, screenshot: .defaultScreenshot, questionScreenshot: unsafe))
+  }
+
+  func testThreeShortcutsPersistAcrossRestart() {
+    let question = CaptureShortcut.questionScreenshotFallbacks[2]
+    ShortcutPreferences(defaults: defaults).save(
+      selection: .defaultSelection, screenshot: .simpleScreenshot, questionScreenshot: question)
+    let reloaded = ShortcutPreferences(defaults: UserDefaults(suiteName: suite)!)
+    XCTAssertEqual(reloaded.currentSelection, .defaultSelection)
+    XCTAssertEqual(reloaded.currentScreenshot, .simpleScreenshot)
+    XCTAssertEqual(reloaded.currentQuestionScreenshot, question)
+  }
+
+  func testInvalidThreeShortcutSaveDoesNotMutateExistingValues() {
+    let preferences = ShortcutPreferences(defaults: defaults)
+    preferences.save(
+      selection: .defaultSelection, screenshot: .defaultScreenshot,
+      questionScreenshot: .defaultQuestionScreenshot)
+    let keys = [
+      "VocabCapture.customShortcut", "VocabCapture.screenshotShortcut",
+      "VocabCapture.questionScreenshotShortcut",
+    ]
+    let before = keys.map { defaults.data(forKey: $0) }
+    preferences.save(
+      selection: .selectionPresets[1], screenshot: .simpleScreenshot,
+      questionScreenshot: .simpleScreenshot)
+    XCTAssertEqual(keys.map { defaults.data(forKey: $0) }, before)
+    XCTAssertEqual(
+      defaults.string(forKey: "VocabCapture.shortcut"), CaptureShortcut.defaultSelection.id)
+  }
+
+  func testInvalidOrConflictingStoredQuestionUsesSafeDerivedDefault() throws {
+    for data in [Data("broken".utf8), try JSONEncoder().encode(CaptureShortcut.defaultSelection)] {
+      defaults.set(data, forKey: "VocabCapture.questionScreenshotShortcut")
+      let preferences = ShortcutPreferences(defaults: defaults)
+      XCTAssertEqual(preferences.currentQuestionScreenshot, .defaultQuestionScreenshot)
+      XCTAssertEqual(defaults.data(forKey: "VocabCapture.questionScreenshotShortcut"), data)
+    }
+  }
+
+  func testTwoShortcutSavePreservesExistingQuestionWhenStillDistinct() {
+    let preferences = ShortcutPreferences(defaults: defaults)
+    let question = CaptureShortcut.questionScreenshotFallbacks[2]
+    preferences.save(
+      selection: .defaultSelection, screenshot: .defaultScreenshot, questionScreenshot: question)
+    preferences.save(selection: .defaultSelection, screenshot: .simpleScreenshot)
+    XCTAssertEqual(preferences.currentQuestionScreenshot, question)
   }
 }

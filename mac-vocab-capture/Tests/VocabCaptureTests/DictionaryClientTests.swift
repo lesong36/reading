@@ -46,9 +46,13 @@ final class DictionaryClientTests: XCTestCase {
           with: request.httpBody ?? request.httpBodyStream!.readAll()) as! [String: Any]
       XCTAssertEqual(body["stream"] as? Bool, true)
       activeTransport = transport
+      // Keep the remainder behind the preview callback, rather than a wall-clock delay.
+      // Padding flushes URLSession's small-chunk buffering without completing the response.
+      let padding = Data((": " + String(repeating: "x", count: 16_384) + "\n\n").utf8)
       transport.respond(
         mime: "text/event-stream",
-        chunks: fragments.map(self.event) + [Data("data: [DONE]\n\n".utf8)], interval: 0.1)
+        chunks: [self.event(fragments[0]), self.event(fragments[1]) + padding],
+        finish: false)
     }
     let resultTask = Task {
       try await client().lookup(
@@ -59,6 +63,7 @@ final class DictionaryClientTests: XCTestCase {
             activeTransport?.deliveredChunkCount, 2,
             "Preview must arrive before lemma or final frame")
           preview.fulfill()
+          activeTransport?.finish(chunks: [self.event(suffix), Data("data: [DONE]\n\n".utf8)])
         })
     }
     await fulfillment(of: [preview], timeout: 2)
@@ -232,7 +237,10 @@ private final class DictionaryURLProtocol: URLProtocol {
     onStop = nil
   }
 
-  func respond(mime: String, chunks: [Data], interval: Double = 0, status: Int = 200) {
+  func respond(
+    mime: String, chunks: [Data], interval: Double = 0, status: Int = 200,
+    finish: Bool = true
+  ) {
     client?.urlProtocol(
       self,
       didReceive: HTTPURLResponse(
@@ -244,11 +252,19 @@ private final class DictionaryURLProtocol: URLProtocol {
         guard let self else { return }
         self.deliveredChunkCount += 1
         self.client?.urlProtocol(self, didLoad: chunk)
-        if index == chunks.count - 1 { self.client?.urlProtocolDidFinishLoading(self) }
+        if finish, index == chunks.count - 1 { self.client?.urlProtocolDidFinishLoading(self) }
       }
       work.append(item)
       DispatchQueue.main.asyncAfter(deadline: .now() + interval * Double(index + 1), execute: item)
     }
+  }
+
+  func finish(chunks: [Data]) {
+    for chunk in chunks {
+      deliveredChunkCount += 1
+      client?.urlProtocol(self, didLoad: chunk)
+    }
+    client?.urlProtocolDidFinishLoading(self)
   }
 }
 

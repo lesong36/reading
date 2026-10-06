@@ -1,0 +1,190 @@
+{
+  "date": "2026-10-06",
+  "baselineVersion": "0.2.69",
+  "candidateVersion": "0.2.70",
+  "baselineMode": "automatic",
+  "candidateMode": "off",
+  "scope": "same public grammar question; two rounds per configured model; startup prewarmed; request-to-first-visible-text; no image or history",
+  "summary": [
+    {
+      "model": "deepseek-flash",
+      "before": {
+        "samples": 2,
+        "medianFirstVisibleTextSeconds": 3.7591324583336245,
+        "medianTotalSeconds": 4.514667374984128
+      },
+      "after": {
+        "samples": 2,
+        "medianFirstVisibleTextSeconds": 1.0400641458109021,
+        "medianTotalSeconds": 1.725872499984689
+      }
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "before": {
+        "samples": 2,
+        "medianFirstVisibleTextSeconds": 2.1982206875109114,
+        "medianTotalSeconds": 3.4272995625215117
+      },
+      "after": {
+        "samples": 2,
+        "medianFirstVisibleTextSeconds": 2.9296953749726526,
+        "medianTotalSeconds": 4.679862208315171
+      }
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "before": {
+        "samples": 2,
+        "medianFirstVisibleTextSeconds": 1.543004875013139,
+        "medianTotalSeconds": 4.94308052083943
+      },
+      "after": {
+        "samples": 2,
+        "medianFirstVisibleTextSeconds": 1.6547972499975003,
+        "medianTotalSeconds": 4.177127770817606
+      }
+    }
+  ],
+  "samples": {
+    "before": [
+      {
+        "answer": "标准英语应使用 me：\n\nThere's a new car in front of my sister and me.\n\n理由是：in front of 是介词短语，介词后接宾格；并列成分可拆开检验：a new car is in front of me，而不是 in front of I。句首 There's 表示 “There is”，不影响后面的格。",
+        "outputTokens": 81,
+        "round": 0,
+        "model": "gpt-6.1-sol",
+        "status": "success",
+        "total": 4.725650625012349,
+        "ttft": 2.814877874974627,
+        "reasoningTokens": 0,
+        "mode": "automatic"
+      },
+      {
+        "model": "claude-sonnet-5-5",
+        "answer": "应使用 me。原句应改为:There's a new car in front of my sister and me.\n\n理由:in front of 是介词短语,介词的宾语要用宾格。\"my sister and me\" 是并列的介词宾语,并列不改变格的要求。\n\n可以拆开检验:去掉 my sister,句子变成 \"There's a new car in front of me.\",显然正确;而 \"in front of I\" 是错误的。所以并列后也应是 me。\n\n补充说明:口语中 \"my sister and I\" 很常见,这多半是把 \"X and I\" 当作更\"正式\"的说法而过度纠正(hypercorrection)。但在标准书面英语和考试中,介词后面应使用宾格 me。\n\n另外,原句其余部分没有问题,\"There's a new car\" 中 There's 搭配单数名词 car 也是正确的。修改时只换格,不改变人称和指代:仍然是指说话人\"我\"和\"我的姐妹\"。",
+        "status": "success",
+        "ttft": 1.5209572083549574,
+        "round": 0,
+        "mode": "automatic",
+        "total": 4.527382708329242,
+        "outputTokens": 245
+      },
+      {
+        "model": "deepseek-flash",
+        "answer": "标准英语应使用 me，不是 I。\n\n原句中的 my sister and I 位于介词短语 in front of 之后，作介词宾语；介词宾语要用宾格。把并列部分拆开检验就很清楚：in front of me 正确，in front of I 错误。因此标准写法是：\n\nThere's a new car in front of my sister and me.\n\n这里 I 是主格，通常作主语，如 I am here；但它在 in front of 后不是主语。有人会因为“my sister and I”常作主语而误用，这属于过度纠正；标准书面和考试英语不认可。",
+        "status": "success",
+        "ttft": 3.792592333338689,
+        "reasoningTokens": 331,
+        "round": 0,
+        "mode": "automatic",
+        "total": 4.376228833338246,
+        "outputTokens": 463
+      },
+      {
+        "model": "deepseek-flash",
+        "answer": "按标准英语应使用 me，即：\n\nThere's a new car in front of my sister and me.\n\n理由：in front of 是介词短语，后面需要接宾语，代词作介词宾语时必须用宾格 me。把并列部分拆开检验更清楚：in front of me 正确，in front of I 错误。整个 my sister and me 只是并列宾语，所以两项分别都按宾格要求处理。\n\nI 是主格，通常作主语，例如 My sister and I are here. 这里的 my sister and I 是主语，所以用 I；但在“in front of ...”后面不是主语位置，不能用 I。\n\n口语中确实可能听到“... my sister and I”，但标准书面英语和考试英语应判为不规范。",
+        "mode": "automatic",
+        "round": 1,
+        "ttft": 3.72567258332856,
+        "reasoningTokens": 481,
+        "outputTokens": 642,
+        "status": "success",
+        "total": 4.653105916630011
+      },
+      {
+        "model": "claude-sonnet-5-5",
+        "answer": "应使用 me。原句应改为：There's a new car in front of my sister and me.\n\n理由：in front of 是介词短语，my sister and me 是介词 of 的并列宾语，宾语要用宾格。把并列项拆开检验就清楚了：in front of my sister（正确），in front of me（正确），in front of I（错误）。并列不会改变格的规则，所以 and 后面同样要用 me。\n\n原句用 I 是常见的过度纠正（hypercorrection）：人们记住了 \"My sister and I\" 作主语时要用 I，就误以为带 and 的结构里 I 都更礼貌、更正确。口语里偶尔能听到，但按标准书面英语和考试标准，这是错误的。\n\n另外补充一点：there's 后面的 a new car 是单数，所以 there's 本身没有问题。人称和数也没变，只是把 I 换成 me，原意不变，仍是“我和姐姐（妹妹）前面有一辆新车”。原文没有说明 sister 是姐姐还是妹妹。",
+        "mode": "automatic",
+        "round": 1,
+        "ttft": 1.5650525416713208,
+        "outputTokens": 253,
+        "status": "success",
+        "total": 5.358778333349619
+      },
+      {
+        "model": "gpt-6.1-sol",
+        "answer": "标准英语应使用 me：\n\nThere's a new car in front of my sister and me.\n\n理由：in front of 是介词短语，介词后面作宾语，应使用宾格。并列成分可拆开检验：a new car is in front of me，而不是 in front of I。",
+        "mode": "automatic",
+        "round": 1,
+        "ttft": 1.5815635000471957,
+        "reasoningTokens": 0,
+        "outputTokens": 70,
+        "status": "success",
+        "total": 2.128948500030674
+      }
+    ],
+    "after": [
+      {
+        "ttft": 2.248120874981396,
+        "mode": "off",
+        "reasoningTokens": 0,
+        "total": 4.635318999993615,
+        "answer": "标准英语应使用 me：\n\nThere's a new car in front of my sister and me.\n\n理由：介词 in front of 后面接宾语，因此使用宾格 me；my sister and I 中的 I 是主格，不能作介词宾语。可拆开检验：in front of me，而不是 in front of I。",
+        "status": "success",
+        "round": 0,
+        "outputTokens": 75,
+        "model": "gpt-6.1-sol"
+      },
+      {
+        "total": 4.043617249990348,
+        "mode": "off",
+        "outputTokens": 234,
+        "answer": "应使用 me。原句应改为:There's a new car in front of my sister and me.\n\n理由:in front of 是介词短语,介词的宾语要用宾格。\"my sister and me\" 是并列的介词宾语,并列不改变格的规则。\n\n可以拆开检验:去掉 my sister 后,说 \"There's a new car in front of I\" 显然不对,正确的是 \"in front of me\",所以并列时也应是 \"my sister and me\"。人称和数都没变,只是把主格 I 改成宾格 me。\n\n补充一点:口语中很多人会说 \"my sister and I\",是因为把 I 当成更\"礼貌\"或更正式的形式,这属于过度矫正(hypercorrection)。它在日常口语里常见,但按标准书面英语和考试英语,这里是错误的。\n\n原文事实:原句用的是 I。解释:它处在介词 of 之后,属于宾语位置。所以结论是改为 me。",
+        "ttft": 1.76634941669181,
+        "model": "claude-sonnet-5-5",
+        "status": "success",
+        "round": 0
+      },
+      {
+        "total": 1.7013554999721237,
+        "mode": "off",
+        "outputTokens": 111,
+        "answer": "标准英语应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and me 是介词 in front of 的宾语，介词宾语要用宾格，所以用 me，不能用主格 I。可以拆开检验：in front of me 正确，in front of I 错误；并列结构不改变格的要求。\n\n口语中偶尔能听到“between you and I”这类说法，但标准书面和考试英语不接受。原句唯一需要改的就是把 I 改成 me。",
+        "ttft": 1.0623286666232161,
+        "model": "deepseek-flash",
+        "status": "success",
+        "round": 0
+      },
+      {
+        "outputTokens": 125,
+        "ttft": 1.0177996249985881,
+        "status": "success",
+        "total": 1.7503894999972545,
+        "answer": "应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and I/me 是介词 in front of 的宾语，介词宾语要用宾格，所以用 me。可以拆开检验：in front of me 正确，in front of I 错误；并列结构不改变格的要求。\n\nI 是主格，通常作主语，如 I am here；me 是宾格，作动词或介词的宾语。口语中偶尔能听到“between you and I”之类说法，但标准书面和考试英语应判为错误。",
+        "mode": "off",
+        "round": 1,
+        "model": "deepseek-flash"
+      },
+      {
+        "total": 4.310638291644864,
+        "mode": "off",
+        "ttft": 1.5432450833031908,
+        "round": 1,
+        "outputTokens": 189,
+        "answer": "应使用 me：There's a new car in front of my sister and me.\n\n理由：in front of 是介词短语，介词的宾语要用宾格。\"my sister and I\" 是并列宾语，并列不改变格的规则。拆开检验：in front of my sister（成立），in front of me（成立），而 in front of I 不成立。所以并列后也应是 my sister and me。\n\n补充说明：原句用 I 在口语中很常见，常被认为是\"过度纠正\"（hypercorrection），即担心 \"me and my sister\" 不规范，就把 me 一律换成 I。但按标准书面和考试英语，这里的 I 是错误的。\n\n另外，原句没有改变人称、数和指代，只是把 I 改为 me，意思不变。",
+        "status": "success",
+        "model": "claude-sonnet-5-5"
+      },
+      {
+        "total": 4.724405416636728,
+        "mode": "off",
+        "ttft": 3.6112698749639094,
+        "round": 1,
+        "outputTokens": 73,
+        "answer": "应使用 me：\n\nThere's a new car in front of my sister and me.\n\n理由：“in front of”是介词短语，介词后的人称代词作宾语，因此用宾格 me。并列成分可拆开检验：a new car is in front of me，而不是 in front of I。",
+        "status": "success",
+        "model": "gpt-6.1-sol",
+        "reasoningTokens": 0
+      }
+    ]
+  },
+  "installation": {
+    "version": "0.2.70",
+    "installed": "/Users/coty/Applications/拾词助手.app",
+    "dataUnchanged": true,
+    "signatureVerified": true,
+    "running": true,
+    "helperPrewarmed": true,
+    "dataUnchangedAfterLaunch": true
+  }
+}

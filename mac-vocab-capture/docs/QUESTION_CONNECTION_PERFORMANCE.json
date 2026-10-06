@@ -1,0 +1,591 @@
+{
+  "date": "2026-10-06",
+  "baselineVersion": "0.2.70",
+  "candidateVersion": "0.2.71",
+  "scope": "public grammar question; thinking off/minimum; no image/history; two samples per condition per model; diagnostic logs contain timings only, no keys or provider headers",
+  "summary": {
+    "deepseek-flash": {
+      "prompt": {
+        "baseline": 1.31,
+        "compact": 2.065
+      },
+      "connection": {
+        "keepalive": 1.294,
+        "baseline": 1.011
+      }
+    },
+    "gpt-6.1-sol": {
+      "prompt": {
+        "baseline": 2.176,
+        "compact": 4.477
+      },
+      "connection": {
+        "keepalive": 5.188,
+        "baseline": 2.378
+      }
+    },
+    "claude-sonnet-5-5": {
+      "prompt": {
+        "baseline": 1.523,
+        "compact": 3.047
+      },
+      "connection": {
+        "keepalive": 1.669,
+        "baseline": 1.637
+      }
+    }
+  },
+  "promptSamples": [
+    {
+      "mode": "baseline",
+      "status": "success",
+      "model": "gpt-6.1-sol",
+      "ttft": 2.3707399166887626,
+      "reasoningTokens": 0,
+      "round": 0,
+      "total": 4.388718708360102,
+      "answer": "按标准英语应使用 “me”：\n\nThere's a new car in front of my sister and me.\n\n理由：“in front of”是介词短语，介词后接宾格，因此用 me；“my sister and I”中的 I 是主格，不能作介词宾语。可拆开检验：in front of me，而不是 in front of I。",
+      "outputTokens": 83
+    },
+    {
+      "round": 0,
+      "answer": "应使用 me。原句应改为：There's a new car in front of my sister and me.\n\n理由：in front of 是介词短语，介词的宾语要用宾格。my sister and me 是 of 的并列宾语，并列不改变格的规则。把并列项拆开检验：in front of my sister 没问题，in front of me 正确，而 in front of I 不成立。所以第二项必须是 me。\n\n原句用 I 是一种常见的口语误用，往往出于“my sister and I 听起来更礼貌或更正式”的直觉（即过度纠正）。但在标准书面和考试英语里，判断依据是句法位置，不是听感。\n\n补充：如果 my sister and I 作主语，则用 I，例如 My sister and I saw a new car。这里它不是主语，而是介词 of 的宾语，所以用 me。人称、数和指代都没变，只是把 I 换成同一个人称的宾格形式 me。",
+      "ttft": 1.5660392083227634,
+      "mode": "baseline",
+      "status": "success",
+      "total": 3.9649549166788347,
+      "outputTokens": 236,
+      "model": "claude-sonnet-5-5"
+    },
+    {
+      "round": 0,
+      "answer": "标准英语应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and I/me 是介词 in front of 的宾语，介词宾语要用宾格，所以用 me。可以拆开检验：in front of me 正确，in front of I 错误；并列结构不改变格的要求。\n\nI 是主格，通常作主语，如 I am here；me 是宾格，作动词或介词的宾语。口语中偶尔能听到“between you and I”这类说法，但标准书面和考试英语仍应使用 me。",
+      "ttft": 1.289983624999877,
+      "mode": "baseline",
+      "status": "success",
+      "total": 1.9819099999731407,
+      "outputTokens": 127,
+      "model": "deepseek-flash"
+    },
+    {
+      "round": 0,
+      "answer": "标准英语应使用 me：\n\nThere's a new car in front of my sister and me.\n\n理由：介词 in front of 后面接宾语，因此并列成分都用宾格：my sister and me。可拆开检验为 in front of my sister 和 in front of me。my sister and I 在口语中有时会出现，但按标准语法这里不正确。",
+      "ttft": 3.6853767500142567,
+      "mode": "compact",
+      "status": "success",
+      "total": 6.138557458354626,
+      "outputTokens": 87,
+      "reasoningTokens": 0,
+      "model": "gpt-6.1-sol"
+    },
+    {
+      "total": 6.510036125022452,
+      "ttft": 3.3244595416472293,
+      "answer": "结论：应改为 me。\n\n修改后：There's a new car in front of my sister and me.\n\n依据：in front of 是介词短语，介词后面要接宾语，所以要用宾格 me，不能用主格 I。并列结构里，my sister and me 整体是介词的宾语，两个成分格要一致。\n\n检验方法是拆开并列项：in front of my sister 没问题；in front of I 不成立，必须是 in front of me。所以合在一起就是 in front of my sister and me。\n\n口语里很多人会说 my sister and I，这是一种过度纠正：因为小时候常被纠正 Me and my sister went..., 就误以为带 and 的结构都该用 I。但在标准书面英语和考试里，这里的 I 算错误。\n\n另外，There's a new car 本身没问题，a new car 是单数，与 There's 一致。原句只有 I 需要改，其余不用动。OCR 识别的句子看起来完整，没有明显疑点。",
+      "outputTokens": 255,
+      "model": "claude-sonnet-5-5",
+      "mode": "compact",
+      "round": 0,
+      "status": "success"
+    },
+    {
+      "total": 1.9961226250161417,
+      "ttft": 1.2286154166795313,
+      "answer": "应改为 me：There's a new car in front of my sister and me.\n\n理由是介词 in front of 后面要接宾格，而 my sister and me 是它的并列宾语。拆开检验就是 in front of my sister 和 in front of me，后者显然不能用主格 I。I 只能作主语，如 I am here；这里它不是主语。\n\n口语中确实常听到“between you and I”之类说法，但标准书面英语和考试英语都判为错误。这里不涉及人称、数或指代变化，只把并列项中的主格 I 改为宾格 me。",
+      "outputTokens": 129,
+      "model": "deepseek-flash",
+      "mode": "compact",
+      "round": 0,
+      "status": "success"
+    },
+    {
+      "total": 3.6990045833517797,
+      "ttft": 2.901689999969676,
+      "answer": "结论：标准英语应改为 me，即 There's a new car in front of my sister and me.\n\n理由：这里“my sister and I/me”作介词 in front of 的宾语，介词宾语要用宾格。拆开检验：in front of me 正确，in front of I 错误；并列项 my sister and me 中，my sister 本身无格变化，me 保持宾格。I 是主格，只能作主语，如 My sister and I are here。\n\n口语中偶尔能听到“between you and I”之类说法，但标准书面和考试英语不接受。这里不涉及人称、数或指代改变，只把主格 I 改为宾格 me。",
+      "outputTokens": 151,
+      "model": "deepseek-flash",
+      "mode": "compact",
+      "round": 1,
+      "status": "success"
+    },
+    {
+      "total": 4.968881416658405,
+      "ttft": 2.769191833329387,
+      "answer": "结论：标准英语应用 me，即 There's a new car in front of my sister and me.\n\n理由：in front of 是介词短语，介词后面要用宾格，所以 my sister and I 中的 I 要改成 me。并列项拆开检验：in front of my sister 成立，in front of me 成立，而 in front of I 不成立。因此并列后也应是 my sister and me。\n\n说明：my sister and I 在口语中很常见，常被误认为更礼貌、更正式，这是一种过度纠正。但在考试和正式书面语中，这里属于格的错误。I 只适用于主语位置，例如 My sister and I saw a new car.\n\n补充：There's a new car 本身没有问题。这里 car 是单数，用 There's（There is）符合标准用法，改格不影响人称、数和指代。",
+      "outputTokens": 212,
+      "model": "claude-sonnet-5-5",
+      "mode": "compact",
+      "round": 1,
+      "status": "success"
+    },
+    {
+      "total": 6.675030416692607,
+      "ttft": 5.268718541658018,
+      "answer": "标准英语应使用 me：\n\nThere's a new car in front of my sister and me.\n\n理由：介词 in front of 后面接宾语，因此用宾格 me；my sister 和 me 是并列宾语。I 是主格，通常作主语。口语中有人说 “my sister and I”，但在此处按标准语法不正确。",
+      "outputTokens": 82,
+      "model": "gpt-6.1-sol",
+      "reasoningTokens": 0,
+      "mode": "compact",
+      "round": 1,
+      "status": "success"
+    },
+    {
+      "total": 2.043935583322309,
+      "ttft": 1.3307076249620877,
+      "answer": "标准英语应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and me 是介词 in front of 的宾语，介词宾语要用宾格。可以拆开检验：in front of me 正确，in front of I 错误；并列结构不改变格的要求，所以并列后仍用 me。\n\nI 是主格，通常作主语，如 I am here；不能因为前面有 my sister and 就改用 I。口语中偶尔能听到 …my sister and I，但标准书面和考试英语应判为错误。",
+      "outputTokens": 124,
+      "model": "deepseek-flash",
+      "mode": "baseline",
+      "round": 1,
+      "status": "success"
+    },
+    {
+      "total": 3.6152122083003633,
+      "ttft": 1.4804782082792372,
+      "answer": "应使用 me。原句应改为：There's a new car in front of my sister and me.\n\n理由：in front of 是介词短语，介词的宾语要用宾格。\"my sister and me\" 是并列的介词宾语，并列不改变格的要求。\n\n可以拆开检验：去掉 my sister，句子变成 There's a new car in front of me，这是对的；说 in front of I 则是错误的。所以并列时也应保持 me。\n\n说明：原句中的 I 在口语里很常见，常被认为是想显得更正式而产生的\"矫枉过正\"，但按标准书面和考试英语，这是错误的。人称和数没有变，仍是第一人称单数，只是把主格 I 改为宾格 me。\n\n补充一点：原句中的 There's 后面接单数名词 a new car，这一点是正确的。",
+      "outputTokens": 204,
+      "model": "claude-sonnet-5-5",
+      "mode": "baseline",
+      "round": 1,
+      "status": "success"
+    },
+    {
+      "total": 3.9322505416930653,
+      "ttft": 1.9812130416976288,
+      "answer": "按标准英语应使用 “me”：\n\nThere's a new car in front of my sister and me.\n\n理由是 “in front of” 是介词短语，介词后面的并列成分作宾语，应使用宾格。因此是 “my sister and me”，不是 “my sister and I”。",
+      "outputTokens": 68,
+      "model": "gpt-6.1-sol",
+      "reasoningTokens": 0,
+      "mode": "baseline",
+      "round": 1,
+      "status": "success"
+    }
+  ],
+  "promptStages": [
+    {
+      "model": "gpt-6.1-sol",
+      "promptBytes": 1525,
+      "deltas": 79,
+      "total": 4.388223625021055,
+      "wire": "text/event-stream",
+      "status": 200,
+      "sentSeconds": 0.13476545899175107,
+      "headersSeconds": 2.318933875008952,
+      "firstSeconds": 2.3703087090398185
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "promptBytes": 1525,
+      "deltas": 79,
+      "total": 3.9644625000073574,
+      "wire": "text/event-stream",
+      "status": 200,
+      "sentSeconds": 0.0031408750219270587,
+      "headersSeconds": 1.5478236670023762,
+      "firstSeconds": 1.56555825000396
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 1525,
+      "deltas": 127,
+      "total": 1.9809276669984683,
+      "wire": "text/event-stream",
+      "status": 200,
+      "sentSeconds": 0.006382833002135158,
+      "headersSeconds": 0.7133631249889731,
+      "firstSeconds": 1.2892479579895735
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "promptBytes": 795,
+      "deltas": 83,
+      "total": 6.137662124994677,
+      "wire": "text/event-stream",
+      "status": 200,
+      "sentSeconds": 0.004117958014830947,
+      "headersSeconds": 3.677261125005316,
+      "firstSeconds": 3.6847899580025114
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "promptBytes": 795,
+      "deltas": 97,
+      "total": 6.508962292049546,
+      "wire": "text/event-stream",
+      "status": 200,
+      "sentSeconds": 0.0015191250131465495,
+      "headersSeconds": 1.7734923330135643,
+      "firstSeconds": 3.3237910420284607
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 795,
+      "deltas": 129,
+      "total": 1.9953075829544105,
+      "wire": "text/event-stream",
+      "status": 200,
+      "sentSeconds": 0.0031484579667448997,
+      "headersSeconds": 0.7074578329920769,
+      "firstSeconds": 1.2277179579832591
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 795,
+      "deltas": 151,
+      "total": 3.698080707981717,
+      "wire": "text/event-stream",
+      "status": 200,
+      "sentSeconds": 0.004268791992217302,
+      "headersSeconds": 2.392330333008431,
+      "firstSeconds": 2.900623625027947
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "promptBytes": 795,
+      "deltas": 70,
+      "total": 4.968079707992729,
+      "wire": "text/event-stream",
+      "status": 200,
+      "sentSeconds": 0.004681832971982658,
+      "headersSeconds": 1.8664862499572337,
+      "firstSeconds": 2.7680137919960544
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "promptBytes": 795,
+      "deltas": 78,
+      "total": 6.674333666975144,
+      "wire": "text/event-stream",
+      "status": 200,
+      "sentSeconds": 0.002421499986667186,
+      "headersSeconds": 5.261910041968804,
+      "firstSeconds": 5.268117250001524
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 1525,
+      "deltas": 124,
+      "total": 2.0430096670170315,
+      "wire": "text/event-stream",
+      "status": 200,
+      "sentSeconds": 0.0011643749894574285,
+      "headersSeconds": 0.7140461669769138,
+      "firstSeconds": 1.3297036250005476
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "promptBytes": 1525,
+      "deltas": 68,
+      "total": 3.614444666018244,
+      "wire": "text/event-stream",
+      "status": 200,
+      "sentSeconds": 0.002302790991961956,
+      "headersSeconds": 1.4781570000341162,
+      "firstSeconds": 1.4795906250365078
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "promptBytes": 1525,
+      "deltas": 64,
+      "total": 3.9313194160349667,
+      "wire": "text/event-stream",
+      "status": 200,
+      "sentSeconds": 0.0038267080090008676,
+      "headersSeconds": 1.9660660829977132,
+      "firstSeconds": 1.9801456659915857
+    }
+  ],
+  "connectionSamples": [
+    {
+      "model": "gpt-6.1-sol",
+      "total": 3.6653033749898896,
+      "answer": "按标准英语应使用 me：\n\nThere's a new car in front of my sister and me.\n\n理由：介词 in front of 后面接宾语，my sister 和 me 都是介词的宾语，因此用宾格 me，而不是主格 I。判断并列结构时可拆开看：a new car is in front of me。",
+      "round": 0,
+      "outputTokens": 77,
+      "ttft": 2.8474362083361484,
+      "reasoningTokens": 0,
+      "mode": "baseline",
+      "status": "success"
+    },
+    {
+      "round": 1,
+      "reasoningTokens": 0,
+      "mode": "baseline",
+      "status": "success",
+      "ttft": 1.907913458358962,
+      "outputTokens": 79,
+      "total": 2.9647596666472964,
+      "model": "gpt-6.1-sol",
+      "answer": "标准英语应使用 me：\n\nThere's a new car in front of my sister and me.\n\n理由：介词 in front of 后面接宾语，因此用宾格 me；my sister and I 中的 I 是主格，只能作主语。可以拆开检验：a car is in front of me，而不是 a car is in front of I。"
+    },
+    {
+      "reasoningTokens": 0,
+      "outputTokens": 77,
+      "round": 0,
+      "status": "success",
+      "answer": "按标准英语应使用 me：\n\n“There's a new car in front of my sister and me.”\n\n理由：in front of 是介词短语，介词 of 后面接宾语，作宾语时用宾格 me，而不是主格 I。可拆开检验：in front of my sister and me → in front of me。",
+      "model": "gpt-6.1-sol",
+      "mode": "keepalive",
+      "ttft": 2.1740782916895114,
+      "total": 3.659772499988321
+    },
+    {
+      "reasoningTokens": 0,
+      "outputTokens": 92,
+      "round": 1,
+      "status": "success",
+      "answer": "标准英语应使用 me：\n\nThere's a new car in front of my sister and me.\n\n理由：“in front of”是介词短语，介词后接宾语，应使用宾格；并列拆开看是“in front of me”，所以用 me。原句中的 “my sister and I” 属于口语中常见的“过度纠正”，按标准书面英语不正确。",
+      "model": "gpt-6.1-sol",
+      "mode": "keepalive",
+      "ttft": 8.202051708300132,
+      "total": 9.653056999959517
+    },
+    {
+      "mode": "baseline",
+      "status": "success",
+      "model": "claude-sonnet-5-5",
+      "total": 4.017166958306916,
+      "outputTokens": 215,
+      "answer": "应使用 me。原句应改为:There's a new car in front of my sister and me.\n\n理由:in front of 是介词短语,my sister and me 是介词 of 的宾语,宾语位置要用宾格。并列项可以拆开检验:in front of my sister(对),in front of me(对),而 in front of I 是错的,所以并列后也应是 me,不能因为有 my sister 就改成 I。\n\n补充说明:口语里 my sister and I 很常见,很多人觉得带 I 更礼貌或更正式,这是一种过度纠正(hypercorrection)。但在标准书面和考试英语中,介词后的代词必须用宾格,正确的是 my sister and me。\n\n另外,原句其余部分没有问题,人称和指代也不变,仍然是「我和我姐姐/妹妹」。原文未说明 sister 是姐姐还是妹妹。",
+      "ttft": 1.566274541663006,
+      "round": 0
+    },
+    {
+      "mode": "baseline",
+      "status": "success",
+      "model": "claude-sonnet-5-5",
+      "total": 4.085005041677505,
+      "outputTokens": 210,
+      "answer": "应使用 me。原句应改为：There's a new car in front of my sister and me.\n\n理由：in front of 是介词短语，my sister and me 是介词 of 的并列宾语，宾语位置要用宾格。把并列项拆开检验就清楚了：in front of my sister（对），in front of me（对），而 in front of I 是错的。并列不会改变格的规则，所以 my sister and I 在这里不合标准。\n\n补充说明：口语中很多人会说 my sister and I，往往是出于“I 更礼貌、更正式”的过度纠正，但这在标准书面英语和考试中会被判为错误。人称和数都没有变，只是把 I 换成同一人称的宾格形式 me。\n\n另外，原句中的 There's 是 There is 的缩写，主语 a new car 是单数，所以这里没有问题。",
+      "ttft": 1.7084566249977797,
+      "round": 1
+    },
+    {
+      "mode": "keepalive",
+      "status": "success",
+      "model": "claude-sonnet-5-5",
+      "total": 3.7253519166843034,
+      "outputTokens": 214,
+      "answer": "应使用 me。原句应改为:There's a new car in front of my sister and me.\n\n理由:in front of 是介词短语,介词的宾语要用宾格。\"my sister and me\" 是并列宾语,共同作 in front of 的宾语,并列不改变格的规则。\n\n可以把并列项拆开检验:There's a new car in front of me. 这句正确;而 \"in front of I\" 是错误的。所以并列后也应是 me。\n\n补充说明:口语中 \"my sister and I\" 很常见,常是因为人们把它当成更\"正式\"的说法而过度纠正,但在标准书面英语和考试中,这里 I 是错的。人称和数没有变化,只是把主格 I 改为宾格 me。\n\n另外,\"There's a new car\" 中 There's 后接单数名词 car,是一致的,这部分没有问题。",
+      "ttft": 1.4502708750078455,
+      "round": 0
+    },
+    {
+      "mode": "keepalive",
+      "status": "success",
+      "model": "claude-sonnet-5-5",
+      "total": 3.746852999960538,
+      "outputTokens": 228,
+      "answer": "应使用 me。原句应改为:There's a new car in front of my sister and me.\n\n理由:in front of 是介词短语,\"my sister and I\" 是介词 of 的并列宾语,宾语位置要用宾格。把并列项拆开检验就清楚了:可以说 \"in front of me\",不能说 \"in front of I\"。并列不改变格的规则,所以 \"my sister and me\" 才符合标准书面和考试英语。\n\n补充说明:口语里很多人会说 \"my sister and I\",这是一种常见的矫枉过正(hypercorrection),误以为 \"X and I\" 听起来更正式。但在标准英语中,这个位置用 I 是错误的。\n\n另外,原句中的 There's (= There is) 后面接单数名词 a new car,数上是一致的,这部分没有问题。人称和指代也不变,仍是说话人本人,只是把主格 I 改成宾格 me。",
+      "ttft": 1.8870432499679737,
+      "round": 1
+    },
+    {
+      "mode": "baseline",
+      "status": "success",
+      "model": "deepseek-flash",
+      "total": 1.6316835833131336,
+      "outputTokens": 119,
+      "answer": "标准英语应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and me 是介词 in front of 的宾语，介词宾语要用宾格，所以用 me，不能用主格 I。可以拆开检验：in front of me 正确，in front of I 错误；并列结构不改变格的要求。\n\n口语中偶尔能听到“between you and I”这类说法，但标准书面和考试英语仍判为错误。本句与 between 无关，但规则相同：介词后接宾格。",
+      "ttft": 0.8931323749711737,
+      "round": 0
+    },
+    {
+      "mode": "baseline",
+      "status": "success",
+      "model": "deepseek-flash",
+      "total": 1.999546791659668,
+      "outputTokens": 125,
+      "answer": "应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and I/me 是介词 in front of 的宾语，介词宾语要用宾格，所以用 me。可以拆开检验：in front of me 正确，in front of I 错误；并列结构不改变格的要求。\n\nI 是主格，通常作主语，如 I am here；me 是宾格，作动词或介词的宾语。口语中偶尔能听到“between you and I”之类说法，但标准书面和考试英语仍应使用 me。",
+      "ttft": 1.1297122916439548,
+      "round": 1
+    },
+    {
+      "mode": "keepalive",
+      "status": "success",
+      "model": "deepseek-flash",
+      "total": 2.4253001667093486,
+      "outputTokens": 143,
+      "answer": "应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and I/me 是介词 in front of 的宾语。介词宾语要用宾格，所以用 me。可以拆开检验：in front of me 正确，in front of I 错误；并列结构不改变格的要求，my sister 和 me 都作介词宾语。\n\nI 是主格，通常作主语，如 I am here；不能因为和 my sister 并列就改用 I。口语中偶尔能听到“between you and I”之类说法，但标准书面和考试英语仍应判为错误，规范形式是 between you and me。",
+      "ttft": 1.238225583336316,
+      "round": 0
+    },
+    {
+      "mode": "keepalive",
+      "status": "success",
+      "model": "deepseek-flash",
+      "total": 2.182522000046447,
+      "outputTokens": 125,
+      "answer": "应改为 me：There's a new car in front of my sister and me.\n\n理由：这里 my sister and I/me 是介词 in front of 的宾语，介词宾语要用宾格，所以用 me。可以拆开检验：in front of me 正确，in front of I 错误；并列结构不改变格的要求。\n\nI 是主格，通常作主语，如 I am here；me 是宾格，作动词或介词的宾语。口语中偶尔能听到“between you and I”之类说法，但标准书面和考试英语仍应使用 me。",
+      "ttft": 1.3505411250516772,
+      "round": 1
+    }
+  ],
+  "connectionStages": [
+    {
+      "model": "gpt-6.1-sol",
+      "promptBytes": 1525,
+      "deltas": 73,
+      "total": 3.6648008749471046,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "baseline",
+      "handshakes": 2,
+      "sentSeconds": 0.11774516699369997,
+      "headersSeconds": 2.403803583991248,
+      "firstSeconds": 2.8469586669816636
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "promptBytes": 1525,
+      "deltas": 75,
+      "total": 2.9638891670037992,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "baseline",
+      "handshakes": 2,
+      "sentSeconds": 0.004657416953705251,
+      "headersSeconds": 1.9020107499673031,
+      "firstSeconds": 1.906979291990865
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "promptBytes": 1525,
+      "deltas": 73,
+      "total": 3.6593641249928623,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "keepalive",
+      "handshakes": 2,
+      "sentSeconds": 0.002407457970548421,
+      "headersSeconds": 2.168419540976174,
+      "firstSeconds": 2.1734921659808606
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "promptBytes": 1525,
+      "deltas": 88,
+      "total": 9.652027417032514,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "keepalive",
+      "handshakes": 0,
+      "sentSeconds": 0.004264584043994546,
+      "headersSeconds": 8.195017042045947,
+      "firstSeconds": 8.20091350004077
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "promptBytes": 1525,
+      "deltas": 76,
+      "total": 4.0169175419723615,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "baseline",
+      "handshakes": 2,
+      "sentSeconds": 0.002168125007301569,
+      "headersSeconds": 1.5603080419823527,
+      "firstSeconds": 1.565992166986689
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "promptBytes": 1525,
+      "deltas": 71,
+      "total": 4.084361124958377,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "baseline",
+      "handshakes": 2,
+      "sentSeconds": 0.0009694579639472067,
+      "headersSeconds": 1.7077960000024177,
+      "firstSeconds": 1.7080417079851031
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "promptBytes": 1525,
+      "deltas": 76,
+      "total": 3.724605249997694,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "keepalive",
+      "handshakes": 2,
+      "sentSeconds": 0.005509458016604185,
+      "headersSeconds": 1.4482568330131471,
+      "firstSeconds": 1.4494738330249675
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "promptBytes": 1525,
+      "deltas": 79,
+      "total": 3.7461436670273542,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "keepalive",
+      "handshakes": 0,
+      "sentSeconds": 0.0024092920357361436,
+      "headersSeconds": 1.4794664170476608,
+      "firstSeconds": 1.8860762499971315
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 1525,
+      "deltas": 119,
+      "total": 1.6310674999840558,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "baseline",
+      "handshakes": 2,
+      "sentSeconds": 0.0063888749573379755,
+      "headersSeconds": 0.7023123750113882,
+      "firstSeconds": 0.8924446249729954
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 1525,
+      "deltas": 125,
+      "total": 1.9977075830101967,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "baseline",
+      "handshakes": 2,
+      "sentSeconds": 0.0035449580173008144,
+      "headersSeconds": 0.7519893750431947,
+      "firstSeconds": 1.127744666999206
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 1525,
+      "deltas": 143,
+      "total": 2.424467167002149,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "keepalive",
+      "handshakes": 2,
+      "sentSeconds": 0.004449333006050438,
+      "headersSeconds": 0.7003502500010654,
+      "firstSeconds": 1.2368406250025146
+    },
+    {
+      "model": "deepseek-flash",
+      "promptBytes": 1525,
+      "deltas": 125,
+      "total": 2.1817304169526324,
+      "wire": "text/event-stream",
+      "status": 200,
+      "experiment": "keepalive",
+      "handshakes": 2,
+      "sentSeconds": 0.004260666959453374,
+      "headersSeconds": 1.0146935829543509,
+      "firstSeconds": 1.3496710829786025
+    }
+  ],
+  "installation": {
+    "version": "0.2.71",
+    "installed": "/Users/coty/Applications/拾词助手.app",
+    "dataUnchanged": true,
+    "signatureVerified": true,
+    "running": true,
+    "helperPrewarmed": true,
+    "dataUnchangedAfterLaunch": true
+  }
+}

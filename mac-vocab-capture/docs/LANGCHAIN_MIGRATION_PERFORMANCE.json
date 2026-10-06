@@ -1,0 +1,88 @@
+{
+  "ready": {
+    "type": "ready",
+    "protocol": 1,
+    "langchain_version": "1.4.3"
+  },
+  "cold_ready_seconds": 0.604,
+  "sample_type": "local fake-only immediate HTTP; excludes real model/network latency",
+  "measurements": [
+    {
+      "api": "chatCompletions",
+      "iteration": 0,
+      "first_ms": 36.7,
+      "total_ms": 37.17
+    },
+    {
+      "api": "chatCompletions",
+      "iteration": 1,
+      "first_ms": 2.13,
+      "total_ms": 2.42
+    },
+    {
+      "api": "chatCompletions",
+      "iteration": 2,
+      "first_ms": 1.69,
+      "total_ms": 1.96
+    },
+    {
+      "api": "chatCompletions",
+      "iteration": 3,
+      "first_ms": 1.63,
+      "total_ms": 1.89
+    },
+    {
+      "api": "responses",
+      "iteration": 0,
+      "first_ms": 55.77,
+      "total_ms": 263.23
+    },
+    {
+      "api": "responses",
+      "iteration": 1,
+      "first_ms": 2.62,
+      "total_ms": 3.35
+    },
+    {
+      "api": "responses",
+      "iteration": 2,
+      "first_ms": 2.31,
+      "total_ms": 3.07
+    },
+    {
+      "api": "responses",
+      "iteration": 3,
+      "first_ms": 2.27,
+      "total_ms": 2.92
+    },
+    {
+      "api": "anthropicMessages",
+      "iteration": 0,
+      "first_ms": 21.14,
+      "total_ms": 21.81
+    },
+    {
+      "api": "anthropicMessages",
+      "iteration": 1,
+      "first_ms": 1.78,
+      "total_ms": 2.07
+    },
+    {
+      "api": "anthropicMessages",
+      "iteration": 2,
+      "first_ms": 1.43,
+      "total_ms": 1.75
+    },
+    {
+      "api": "anthropicMessages",
+      "iteration": 3,
+      "first_ms": 1.49,
+      "total_ms": 1.8
+    }
+  ],
+  "warm_median_first_ms": 1.78,
+  "exit": 0,
+  "stderr_bytes": 0,
+  "scope": "Packaged and signed app helper on current Apple Silicon Mac; immediate localhost fake-only HTTP. Fresh process with warmed OS filesystem cache; not actual cloud model latency.",
+  "earliest_uncached_helper_ready_seconds": 4.599
+}
