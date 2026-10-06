@@ -14,6 +14,8 @@ final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTex
   private let retryButton = NSButton(title: "重新查询", target: nil, action: nil)
   private var selectionRange: NSRange?
   private var lookupTask: Task<Void, Never>?
+  private var savedRevision: UUID?
+  private var canSave: Bool { !isSaving && savedRevision != revision && result != nil && resultSelection != nil }
   private var saveTask: Task<Void, Never>?
   private var revision = UUID()
   private var result: DictionaryResult?
@@ -25,6 +27,8 @@ final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTex
     (SelectedText, @escaping @MainActor @Sendable (String) -> Void) async throws -> DictionaryResult
   private let save: (SelectedText, DictionaryResult) async throws -> String
   private let measuredAsk: ScreenshotQuestionMeasuredAnswer?
+  private let webAsk: ScreenshotQuestionWebAnswer?
+  private let onSearchSettings: (() -> Void)?
   private let ask: ScreenshotQuestionAnswer?
   private let screenshotImageData: Data?
   private let onQuestionSettings: (() -> Void)?
@@ -42,12 +46,16 @@ final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTex
     ask: ScreenshotQuestionAnswer? = nil,
     onQuestionSettings: (() -> Void)? = nil,
     questionPreferences: ScreenshotQuestionPreferences? = nil,
-    measuredAsk: ScreenshotQuestionMeasuredAnswer? = nil
+    measuredAsk: ScreenshotQuestionMeasuredAnswer? = nil,
+    webAsk: ScreenshotQuestionWebAnswer? = nil,
+    onSearchSettings: (() -> Void)? = nil
   ) {
     self.lookup = lookup
     self.save = save
     self.screenshotImageData = imageData
     self.measuredAsk = measuredAsk
+    self.webAsk = webAsk
+    self.onSearchSettings = onSearchSettings
     self.ask = ask
     self.onQuestionSettings = onQuestionSettings
     self.questionPreferences = questionPreferences
@@ -315,7 +323,7 @@ final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTex
   }
 
   @objc private func saveWord() {
-    guard !isSaving, let result, let selection = resultSelection else { return }
+    guard canSave, let result, let selection = resultSelection else { return }
     isSaving = true
     saveButton.isEnabled = false
     original.isSelectable = false
@@ -332,6 +340,7 @@ final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTex
           self.finishSaving()
           return
         }
+        self.savedRevision = token
         self.feedback.stringValue = message
       } catch {
         guard self.revision == token else {
@@ -375,6 +384,8 @@ final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTex
 
   func questionModelConfigurationChanged() { questionPanel?.modelConfigurationChanged() }
 
+  func questionSearchConfigurationChanged() { questionPanel?.searchConfigurationChanged() }
+
   private var questionContext: ScreenshotQuestionContext {
     let word = targetWord.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
     return ScreenshotQuestionContext(
@@ -393,7 +404,8 @@ final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTex
     }
     let panel = ScreenshotQuestionPanel(
       context: questionContext, answer: ask, onModelSettings: onQuestionSettings,
-      modelPreferences: questionPreferences, measuredAnswer: measuredAsk)
+      modelPreferences: questionPreferences, measuredAnswer: measuredAsk,
+      webAnswer: webAsk, onSearchSettings: onSearchSettings)
     questionPanel = panel
     panel.present()
   }

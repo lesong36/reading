@@ -1,13 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
-<meta charset="utf-8">
-<style>
-  body { width: 280px; margin: 0; padding: 18px; font: 14px -apple-system, BlinkMacSystemFont, sans-serif; color: #17233b; }
-  h1 { margin: 0 0 8px; font-size: 17px; } p { margin: 0; line-height: 1.5; color: #667085; }
-  #status { margin-top: 14px; padding: 10px; border-radius: 9px; background: #f2f4f7; color: #344054; }
-</style>
+<html lang="zh-CN"><meta charset="utf-8">
+<style>body{width:310px;padding:18px;font:14px -apple-system,sans-serif}h1{font-size:17px}p{line-height:1.5}input[type=password]{width:95%;margin:8px 0}button{margin:6px 0}#status{padding:10px;background:#f2f4f7;overflow-wrap:anywhere}</style>
 <h1>拾词助手网页取句</h1>
-<p>选中文字后，直接使用拾词助手原来的快捷键或浮动按钮。</p>
-<div id="status">正在检查…</div>
-<script src="popup.js"></script>
-</html>
+<p>在拾词助手菜单中选择“配对浏览器扩展”，将配对码粘贴到这里。</p>
+<input id="token" type="password" placeholder="本机配对码" aria-label="本机配对码" autocomplete="off"><button id="pair">配对</button>
+<p><label><input id="automatic" type="checkbox">选中时自动提供原句</label></p>
+<button id="site">暂停当前站点</button><button id="lookup">查当前选中词</button><button id="forget">忘记配对</button>
+<div id="status" role="status">正在检查…</div><script src="popup.js"></script></html>

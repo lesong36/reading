@@ -43,10 +43,13 @@ actor ScreenshotQuestionClient {
     configuration: AIConfiguration, api: ScreenshotQuestionAPI = .automatic,
     thinking: ScreenshotQuestionThinking = .off,
     directConnection: Bool = false,
+    webSearch: ScreenshotQuestionWebSearchConfiguration? = nil,
     onUsage: @escaping @MainActor @Sendable (ScreenshotQuestionUsage) -> Void = { _ in },
+    onProgress: @escaping @MainActor @Sendable (ScreenshotQuestionSearchStage) -> Void = { _ in },
     onPartial: @escaping @MainActor @Sendable (String) -> Void
   ) async throws -> String {
     if let native {
+      guard webSearch == nil else { throw ScreenshotQuestionWebSearchError.unsupportedBackend }
       return try await native.answer(
         question: question, context: context, history: history, configuration: configuration,
         api: api, onPartial: onPartial)
@@ -54,15 +57,17 @@ actor ScreenshotQuestionClient {
     guard let langChain else { throw ScreenshotQuestionError.invalidConfiguration }
     let payload = try Self.payload(
       question: question, context: context, history: history, configuration: configuration,
-      api: api, thinking: thinking, directConnection: directConnection
+      api: api, thinking: thinking, directConnection: directConnection, webSearch: webSearch
     )
-    return try await langChain.answer(payload: payload, onUsage: onUsage, onPartial: onPartial)
+    return try await langChain.answer(
+      payload: payload, onUsage: onUsage, onProgress: onProgress, onPartial: onPartial)
   }
 
   static func payload(
     question: String, context: ScreenshotQuestionContext, history: [ScreenshotQuestionTurn],
     configuration: AIConfiguration, api: ScreenshotQuestionAPI,
-    thinking: ScreenshotQuestionThinking = .off, directConnection: Bool = false
+    thinking: ScreenshotQuestionThinking = .off, directConnection: Bool = false,
+    webSearch: ScreenshotQuestionWebSearchConfiguration? = nil
   ) throws -> Data {
     try Task.checkCancellation()
     let question = question.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -80,7 +85,7 @@ actor ScreenshotQuestionClient {
     var source: [String: Any] = ["text": context.text]
     if let word = context.selectedWord { source["selected_word"] = word }
     if let image { source["image_data"] = image.data }
-    return try JSONSerialization.data(withJSONObject: [
+    var payload: [String: Any] = [
       "question": question,
       "context": source,
       "history": history.suffix(6).map {
@@ -95,6 +100,14 @@ actor ScreenshotQuestionClient {
         "thinking": thinking.rawValue,
         "direct_connection": directConnection,
       ],
-    ])
+    ]
+    if let webSearch {
+      let searchKey = webSearch.apiKey.trimmingCharacters(in: .whitespacesAndNewlines)
+      guard !searchKey.isEmpty else { throw ScreenshotQuestionWebSearchError.notConfigured }
+      payload["web_search"] = [
+        "api_key": searchKey, "direct_connection": webSearch.directConnection,
+      ]
+    }
+    return try JSONSerialization.data(withJSONObject: payload)
   }
 }

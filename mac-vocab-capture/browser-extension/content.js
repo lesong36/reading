@@ -1,123 +1,80 @@
 (() => {
   if (globalThis.__vocabCaptureContentLoaded) return;
   globalThis.__vocabCaptureContentLoaded = true;
-  const token = "[A-Za-z]+(?:['’][A-Za-z]+)?";
-  const phrasePattern = new RegExp(`^${token}(?:[\\s-]+${token}){0,11}$`);
-
-  const clean = (value = '') => String(value).replace(/\s+/g, ' ').trim();
-  const textOffsetInDocument = (container, offset) => {
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    let total = 0;
-    let node;
-    while ((node = walker.nextNode())) {
-      if (node === container) return total + Math.min(offset, node.nodeValue.length);
-      total += node.nodeValue.length;
+  const { clean, phrase, sentence } = globalThis.VocabTextContract;
+  const visible = node => {
+    for (let parent = node.parentElement; parent; parent = parent.parentElement) {
+      if (['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEMPLATE'].includes(parent.tagName) || parent.hidden || parent.getAttribute('aria-hidden') === 'true') return false;
+      const style = window.getComputedStyle(parent);
+      if (style.display === 'none' || style.visibility === 'hidden' || style.visibility === 'collapse') return false;
     }
-    const before = document.createRange();
-    before.selectNodeContents(document.body);
-    before.setEnd(container, offset);
-    return before.toString().length;
+    return true;
   };
-
-  const browserSentenceForRange = (range) => {
-    const selection = window.getSelection();
-    if (!selection || typeof selection.modify !== 'function') return null;
-    const original = [];
-    for (let index = 0; index < selection.rangeCount; index += 1) original.push(selection.getRangeAt(index).cloneRange());
-    try {
-      const start = range.cloneRange();
-      start.collapse(true);
-      selection.removeAllRanges();
-      selection.addRange(start);
-      selection.modify('extend', 'backward', 'sentence');
-      const leading = selection.getRangeAt(0).cloneRange();
-
-      const end = range.cloneRange();
-      end.collapse(false);
-      selection.removeAllRanges();
-      selection.addRange(end);
-      selection.modify('extend', 'forward', 'sentence');
-      const trailing = selection.getRangeAt(0).cloneRange();
-
-      const sentence = document.createRange();
-      sentence.setStart(leading.startContainer, leading.startOffset);
-      sentence.setEnd(trailing.endContainer, trailing.endOffset);
-      const result = clean(sentence.toString()).slice(0, 800);
-      return result.length > clean(range.toString()).length ? result : null;
-    } catch (_) {
-      return null;
-    } finally {
-      selection.removeAllRanges();
-      original.forEach(saved => selection.addRange(saved));
+  const blockFor = node => {
+    let element = node.nodeType === Node.TEXT_NODE ? node.parentElement : node;
+    while (element && element !== document.body) {
+      if (['block', 'list-item', 'table-cell', 'flex', 'grid'].includes(window.getComputedStyle(element).display)) return element;
+      element = element.parentElement;
     }
+    return document.body;
   };
-
-  const domSentenceForRange = (range) => {
-    // Use the text node that actually owns the browser selection. A nearest
-    // div may contain an entire article with repeated phrases, making offsets
-    // point to the wrong occurrence.
-    const text = document.body.textContent || '';
-    const startOffset = textOffsetInDocument(range.startContainer, range.startOffset);
-    const endOffset = textOffsetInDocument(range.endContainer, range.endOffset);
-    const left = Math.max(
-      text.lastIndexOf('.', Math.max(0, startOffset - 1)),
-      text.lastIndexOf('!', Math.max(0, startOffset - 1)),
-      text.lastIndexOf('?', Math.max(0, startOffset - 1)),
-      text.lastIndexOf('。', Math.max(0, startOffset - 1)),
-      text.lastIndexOf('！', Math.max(0, startOffset - 1)),
-      text.lastIndexOf('？', Math.max(0, startOffset - 1))
-    );
-    const rightCandidates = ['.', '!', '?', '。', '！', '？']
-      .map(mark => text.indexOf(mark, endOffset))
-      .filter(index => index >= 0);
-    const right = rightCandidates.length ? Math.min(...rightCandidates) + 1 : text.length;
-    return clean(text.slice(left + 1, right)).slice(0, 800);
-  };
-
-  const contextFromSelection = () => {
+  const contextFromSelection = (allowUnfocused = false) => {
     const selection = window.getSelection();
-    if (!selection || selection.rangeCount !== 1) return null;
-    const word = clean(selection.toString()).replace(/^[“”"'(（\[]+|[”"'’).,!?;:）\]]+$/g, '');
-    if (!phrasePattern.test(word)) return null;
+    if (!selection || selection.rangeCount !== 1 || (!allowUnfocused && !document.hasFocus())) return null;
+    const word = phrase(selection.toString());
+    if (!word) return null;
     const range = selection.getRangeAt(0);
-    // Chromium's Selection.modify("sentence") can treat an inline DOM split
-    // after a comma as a sentence start. Text offsets retain the actual page
-    // punctuation, so use them first for the full grammatical sentence.
-    const context = domSentenceForRange(range) || browserSentenceForRange(range);
+    const root = blockFor(range.commonAncestorContainer);
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    let text = '', start = null, end = null, node, previousBlock = null;
+    while ((node = walker.nextNode())) {
+      if (!visible(node)) continue;
+      const block = blockFor(node);
+      if (previousBlock && previousBlock !== block) text += '\n';
+      previousBlock = block;
+      const offset = text.length;
+      if (node === range.startContainer) start = offset + range.startOffset;
+      if (node === range.endContainer) end = offset + range.endOffset;
+      // Element-boundary selections are mapped only through visible intersecting nodes.
+      if (range.intersectsNode(node)) {
+        if (start === null) start = offset;
+        end = node === range.endContainer ? offset + range.endOffset : offset + node.nodeValue.length;
+      }
+      text += node.nodeValue;
+      if (text.length > 100000) return null;
+    }
+    if (start === null || end === null) return null;
+    const context = sentence(text, start, end);
     return context.length > word.length ? { word, context } : null;
   };
-
-  chrome.runtime.onMessage.addListener((message) => {
-    if (message?.type !== 'capture-context') return;
-    const payload = contextFromSelection();
-    if (!payload) return;
-    const query = new URLSearchParams(payload).toString();
-    const frame = document.createElement('iframe');
-    frame.style.display = 'none';
-    frame.src = `vocabcapture://capture?${query}`;
-    document.documentElement.appendChild(frame);
-    window.setTimeout(() => frame.remove(), 1500);
-  });
-
-  let lastPublished = '';
-  let selectionTimer = null;
-  const publishCurrentContext = () => {
-    const payload = contextFromSelection();
-    if (!payload) return;
-    const key = `${payload.word}\n${payload.context}`;
-    if (key === lastPublished) return;
-    lastPublished = key;
-    // The extension service worker, rather than the page's content world,
-    // performs the local request. This avoids a page's CSP/private-network
-    // policy silently blocking the handoff.
-    chrome.runtime.sendMessage({ type: 'cache-context', payload });
+  let revision = 0, lastSuccessful = '', lastSuccessfulAt = 0, timer;
+  const invalidate = () => {
+    revision++; lastSuccessful = ''; clearTimeout(timer);
+    chrome.runtime.sendMessage({ type: 'invalidate-context' }).catch(() => {});
   };
-  document.addEventListener('selectionchange', () => {
-    // A mouse drag emits one event per character. Wait for the selection to
-    // settle so the app receives one final term/context pair rather than a
-    // stream of partial words.
-    window.clearTimeout(selectionTimer);
-    selectionTimer = window.setTimeout(publishCurrentContext, 250);
+  const publish = async (explicit = false) => {
+    const currentRevision = ++revision;
+    const payload = contextFromSelection(explicit);
+    if (!payload) { invalidate(); return; }
+    const key = `${payload.word}\n${payload.context}`;
+    if (!explicit && key === lastSuccessful && Date.now() - lastSuccessfulAt < 500) return;
+    try {
+      const result = await chrome.runtime.sendMessage({ type: explicit ? 'capture-context' : 'cache-context', payload });
+      if (currentRevision === revision && result?.ok) { lastSuccessful = key; lastSuccessfulAt = Date.now(); }
+    } catch (_) { /* Failed handoff remains retryable. */ }
+  };
+  chrome.runtime.onMessage.addListener((message, _sender, respond) => {
+    if (message?.type === 'clear-context') { invalidate(); return; }
+    if (message?.type === 'current-selection') { respond(contextFromSelection(message.allowUnfocused === true)); return; }
+    if (message?.type === 'capture-context') { publish(true); return; }
+    if (message?.type === 'refresh-context') { publish(false); }
   });
-  chrome.runtime.sendMessage({ type: 'content-ready' });
+  document.addEventListener('selectionchange', () => {
+    invalidate(); timer = setTimeout(() => publish(), 120);
+  });
+  window.addEventListener('blur', invalidate);
+  window.addEventListener('pagehide', invalidate);
+  window.addEventListener('focus', () => publish());
+  document.addEventListener('visibilitychange', () => { if (document.hidden) invalidate(); else publish(); });
+  chrome.runtime.sendMessage({ type: 'content-ready' }).catch(() => {});
 })();

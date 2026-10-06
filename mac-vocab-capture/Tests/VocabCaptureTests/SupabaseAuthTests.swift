@@ -13,7 +13,7 @@ final class SupabaseAuthTests: XCTestCase {
   private func storedSession(expired: Bool = true, token: String = "original") -> SupabaseSession {
     SupabaseSession(
       accessToken: "access-\(token)", refreshToken: "refresh-\(token)",
-      user: SupabaseUser(id: "user-\(token)"),
+      user: SupabaseUser(id: "fixture-user"),
       expiresAt: Int(Date().timeIntervalSince1970) + (expired ? -120 : 3600))
   }
 
@@ -27,8 +27,8 @@ final class SupabaseAuthTests: XCTestCase {
 
   private func serveReader(_ request: URLRequest, _ transport: AuthURLProtocol, token: String) {
     XCTAssertEqual(request.value(forHTTPHeaderField: "Authorization"), "Bearer access-\(token)")
-    XCTAssertEqual(request.url?.path, "/rest/v1/reader_sync_state")
-    transport.respond(Data("[]".utf8))
+    XCTAssertEqual(request.url?.path, "/rest/v1/rpc/sync_reader_vocabulary_v2")
+    transport.respond(Data(#"{"userID":"fixture-user","vocabulary":[],"uploadedCount":0,"revision":0,"acknowledgedOperationIDs":[],"tombstones":[],"conflict":false,"conflictingWordKeys":[]}"#.utf8))
   }
 
   private func assertExpired(_ operation: () async throws -> Void) async {
@@ -88,7 +88,7 @@ final class SupabaseAuthTests: XCTestCase {
     _ = try await client.signIn(email: "reader@example.test", password: "test-only")
     let result = try await client.sync(local: [])
     XCTAssertEqual(store.read()?.refreshToken, fresh.refreshToken)
-    XCTAssertEqual(readerRequests, 2)
+    XCTAssertEqual(readerRequests, 1)
     XCTAssertTrue(result.vocabulary.isEmpty)
   }
 
@@ -109,7 +109,8 @@ final class SupabaseAuthTests: XCTestCase {
       do {
         _ = try await client.sync(local: [])
         XCTFail("Server failure must be reported")
-      } catch SupabaseSyncError.server {
+      } catch SupabaseSyncError.http(let received) {
+        XCTAssertEqual(received, status)
       }
       XCTAssertEqual(store.read()?.refreshToken, stored.refreshToken)
       let loggedIn = await client.isLoggedIn()
@@ -169,7 +170,7 @@ final class SupabaseAuthTests: XCTestCase {
       try await group.waitForAll()
     }
     XCTAssertEqual(refreshRequests, 1)
-    XCTAssertEqual(readerRequests, 16)
+    XCTAssertEqual(readerRequests, 8)
     XCTAssertEqual(store.read()?.refreshToken, fresh.refreshToken)
   }
 
@@ -229,23 +230,53 @@ final class SupabaseAuthTests: XCTestCase {
     XCTAssertNil(store.read())
   }
 
-  func testFreshSessionSkipsRefreshAndRESTFailureDoesNotClearCredentials() async throws {
+  func testFreshSessionREST401RefreshesOnceAndTerminalRefreshRequiresLogin() async throws {
     let stored = storedSession(expired: false)
     let store = AuthSessionStore(stored)
     let client = client(store)
     var requests = 0
     AuthURLProtocol.handler = { request, transport in
       requests += 1
-      XCTAssertEqual(request.url?.path, "/rest/v1/reader_sync_state")
+      if requests == 1 {
+        XCTAssertEqual(request.url?.path, "/rest/v1/rpc/sync_reader_vocabulary_v2")
+      } else {
+        XCTAssertEqual(request.url?.query, "grant_type=refresh_token")
+      }
       transport.respond(Data(#"{"code":"session_not_found","msg":"denied"}"#.utf8), status: 401)
     }
-    do {
-      _ = try await client.sync(local: [])
-      XCTFail("REST failure must be reported")
-    } catch SupabaseSyncError.server {
+    await assertExpired { _ = try await client.sync(local: []) }
+    XCTAssertEqual(requests, 2)
+    XCTAssertNil(store.read())
+  }
+
+  func testFreshSessionREST401RetriesRPCOnceAfterRefresh() async throws {
+    let store = AuthSessionStore(storedSession(expired: false))
+    let client = client(store)
+    let fresh = storedSession(expired: false, token: "rotated")
+    var requests = 0
+    AuthURLProtocol.handler = { request, transport in
+      requests += 1
+      if requests == 1 { transport.respond(Data("{}".utf8), status: 401) }
+      else if request.url?.query == "grant_type=refresh_token" { transport.respond(try! JSONEncoder().encode(fresh)) }
+      else { self.serveReader(request, transport, token: "rotated") }
     }
-    XCTAssertEqual(requests, 1)
-    XCTAssertEqual(store.read()?.refreshToken, stored.refreshToken)
+    _ = try await client.sync(local: [])
+    XCTAssertEqual(requests, 3)
+    XCTAssertEqual(store.read()?.accessToken, fresh.accessToken)
+  }
+
+  func testRPC429And500KeepFreshSessionWithoutRefresh() async throws {
+    for status in [429, 500] {
+      let stored = storedSession(expired: false)
+      let store = AuthSessionStore(stored)
+      let client = client(store)
+      var requests = 0
+      AuthURLProtocol.handler = { _, transport in requests += 1; transport.respond(Data("{}".utf8),status: status) }
+      do { _ = try await client.sync(local: []); XCTFail("Expected RPC failure") }
+      catch SupabaseSyncError.http { }
+      XCTAssertEqual(requests, 1)
+      XCTAssertEqual(store.read()?.accessToken, stored.accessToken)
+    }
   }
 
   func testMissingSessionDoesNotMakeNetworkRequests() async throws {
@@ -256,6 +287,21 @@ final class SupabaseAuthTests: XCTestCase {
       XCTFail("Missing credentials must require login")
     } catch SupabaseSyncError.notLoggedIn {
     }
+  }
+
+  func testSignOutDuringRPCDiscardsOldWriteAcknowledgement() async throws {
+    let store = AuthSessionStore(storedSession(expired: false))
+    let client = client(store)
+    let began = expectation(description: "RPC began")
+    var waitingRPC: AuthURLProtocol?
+    AuthURLProtocol.handler = { _, transport in waitingRPC = transport; began.fulfill() }
+    let pending = Task { try await client.sync(batch:VocabularySyncBatch(userID:"fixture-user",baseRevision:0,operations:[])) }
+    await fulfillment(of:[began],timeout:2)
+    try await client.signOut()
+    try XCTUnwrap(waitingRPC).respond(Data(#"{"userID":"fixture-user","vocabulary":[],"uploadedCount":0,"revision":0,"acknowledgedOperationIDs":[],"tombstones":[],"conflict":false,"conflictingWordKeys":[]}"#.utf8))
+    do { _ = try await pending.value; XCTFail("Stale account acknowledgement cannot commit locally") }
+    catch SupabaseSyncError.accountChanged { }
+    XCTAssertNil(store.read())
   }
 
   func testExpiresInFallbackPersistsAbsoluteExpiry() throws {

@@ -7,11 +7,11 @@ import XCTest
 final class OCRLookupPanelTests: XCTestCase {
   func testReturnFromOriginalTextSavesWithoutClosingWindow() async throws {
     _ = NSApplication.shared
-    var saved = false
+    var saves = 0
     let panel = OCRLookupPanel(
       text: "A curious reader.", lookup: { selection, _ in self.dictionary(selection.word) },
       save: { _, _ in
-        saved = true
+        saves += 1
         return "已保存"
       })
     let text = try XCTUnwrap(views(panel.contentView!).compactMap { $0 as? NSTextView }.first)
@@ -24,9 +24,40 @@ final class OCRLookupPanelTests: XCTestCase {
         charactersIgnoringModifiers: "\r", isARepeat: false, keyCode: 36))
     text.keyDown(with: event)
     try await Task.sleep(nanoseconds: 50_000_000)
-    XCTAssertTrue(saved)
+    XCTAssertEqual(saves, 1)
+    text.keyDown(with: event)
+    try await Task.sleep(nanoseconds: 50_000_000)
+    XCTAssertEqual(saves, 1)
     XCTAssertTrue(text.isSelectable)
     panel.close()
+  }
+
+  func testFailedSaveCanRetryButSuccessfulRevisionCannotRepeat() async throws {
+    _ = NSApplication.shared
+    var calls = 0
+    let panel = OCRLookupPanel(text: "A curious reader.", lookup: { selection, _ in self.dictionary(selection.word) }, save: { _, _ in
+      calls += 1
+      if calls == 1 { throw NSError(domain: "fixture", code: 1) }
+      return "已保存"
+    })
+    defer { panel.close() }
+    let all = views(panel.contentView!)
+    let text = try XCTUnwrap(all.compactMap { $0 as? NSTextView }.first)
+    let save = try XCTUnwrap(all.compactMap { $0 as? NSButton }.first { $0.title.hasPrefix("加入生词本") })
+    text.setSelectedRange(NSRange(location: 2, length: 7))
+    try await Task.sleep(nanoseconds: 80_000_000)
+    save.performClick(nil)
+    try await Task.sleep(nanoseconds: 30_000_000)
+    XCTAssertTrue(save.isEnabled)
+    save.performClick(nil)
+    try await Task.sleep(nanoseconds: 30_000_000)
+    XCTAssertEqual(calls, 2)
+    XCTAssertFalse(save.isEnabled)
+    let event = try XCTUnwrap(NSEvent.keyEvent(with: .keyDown, location: .zero, modifierFlags: [], timestamp: 0,
+      windowNumber: panel.windowNumber, context: nil, characters: "\r", charactersIgnoringModifiers: "\r", isARepeat: true, keyCode: 36))
+    text.keyDown(with: event)
+    try await Task.sleep(nanoseconds: 30_000_000)
+    XCTAssertEqual(calls, 2)
   }
 
   func testPendingReturnDoesNotRestartLookupAndStartsWithoutDebounce() async throws {

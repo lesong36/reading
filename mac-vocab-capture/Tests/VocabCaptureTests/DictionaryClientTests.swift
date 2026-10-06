@@ -29,7 +29,268 @@ final class DictionaryClientTests: XCTestCase {
   }
 
   private func envelope(_ content: String) -> Data {
-    try! JSONSerialization.data(withJSONObject: ["choices": [["message": ["content": content]]]])
+    try! JSONSerialization.data(withJSONObject: ["choices": [["finish_reason": "stop", "message": ["content": content]]]])
+  }
+
+  func testNonstreamLengthResponseIsRejectedAndNotCached() async throws {
+    var requests = 0
+    let response = try JSONSerialization.data(withJSONObject: ["choices": [[
+      "finish_reason": "length", "message": ["content": dictionary]
+    ]]])
+    DictionaryURLProtocol.handler = { _, transport in
+      requests += 1
+      transport.respond(mime: "application/json", chunks: [response])
+    }
+    let shared = client()
+    for _ in 0..<2 {
+      do {
+        _ = try await shared.lookup(selection, configuration: configuration)
+        XCTFail("Truncated response must not complete or enter cache")
+      } catch {}
+    }
+    XCTAssertEqual(requests, 2)
+  }
+
+  func testSSEEOFWithoutTerminalIsRejectedAndNotCached() async throws {
+    var requests = 0
+    DictionaryURLProtocol.handler = { _, transport in
+      requests += 1
+      transport.respond(mime: "text/event-stream", chunks: [self.event(self.dictionary)])
+    }
+    let shared = client()
+    for _ in 0..<2 {
+      do {
+        _ = try await shared.lookup(selection, configuration: configuration)
+        XCTFail("EOF is not a successful terminal event")
+      } catch {}
+    }
+    XCTAssertEqual(requests, 2)
+  }
+
+  func testConcurrentIdenticalLookupsUseOneHTTPRequest() async throws {
+    var requests = 0
+    DictionaryURLProtocol.handler = { _, transport in
+      requests += 1
+      transport.respond(mime: "application/json", chunks: [self.envelope(self.dictionary)], interval: 0.05)
+    }
+    let shared = client()
+    async let first = shared.lookup(selection, configuration: configuration)
+    async let second = shared.lookup(selection, configuration: configuration)
+    let results = try await (first, second)
+    XCTAssertEqual(results.0.meaning, results.1.meaning)
+    XCTAssertEqual(requests, 1)
+  }
+
+  func testExplicitLlamaCppBackendDisablesThinking() throws {
+    let data = Data(#"{"baseURL":"http://127.0.0.1:8090/v1","model":"qwen","apiKey":"","backend":"llamaCpp"}"#.utf8)
+    let config = try JSONDecoder().decode(AIConfiguration.self, from: data)
+    let request = try DictionaryRequestPolicy.request(selection: selection, configuration: config)
+    let body = try XCTUnwrap(JSONSerialization.jsonObject(with: XCTUnwrap(request.httpBody)) as? [String: Any])
+    XCTAssertEqual((body["chat_template_kwargs"] as? [String: Bool])?["enable_thinking"], false)
+    XCTAssertNil(body["thinking"])
+    XCTAssertNil(body["reasoning_effort"])
+  }
+
+  func testExplicitLlamaCppThinkingAndAutomaticUseDocumentedControls() throws {
+    let data = Data(#"{"baseURL":"http://127.0.0.1:8090/v1","model":"qwen","apiKey":"","backend":"llamaCpp"}"#.utf8)
+    for mode in [ScreenshotQuestionThinking.low, .medium, .high, .automatic] {
+      var config = try JSONDecoder().decode(AIConfiguration.self, from: data)
+      config.thinking = mode
+      let request = try DictionaryRequestPolicy.request(selection: selection, configuration: config)
+      let body = try XCTUnwrap(JSONSerialization.jsonObject(with: XCTUnwrap(request.httpBody)) as? [String: Any])
+      if mode == .automatic { XCTAssertNil(body["chat_template_kwargs"]) }
+      else { XCTAssertEqual((body["chat_template_kwargs"] as? [String: Bool])?["enable_thinking"], true) }
+    }
+  }
+
+  func testDictionaryBackendLegacyAndUnknownGatewayDoNotGuessLlamaControls() throws {
+    let data = Data(#"{"baseURL":"http://127.0.0.1:8090/v1","model":"qwen.gguf","apiKey":""}"#.utf8)
+    let legacy = try JSONDecoder().decode(AIConfiguration.self, from: data)
+    let request = try DictionaryRequestPolicy.request(selection: selection, configuration: legacy)
+    let body = try XCTUnwrap(JSONSerialization.jsonObject(with: XCTUnwrap(request.httpBody)) as? [String: Any])
+    XCTAssertNil(body["chat_template_kwargs"], "A local hostname or GGUF model must not imply server capabilities")
+    let roundTrip = try XCTUnwrap(JSONSerialization.jsonObject(with: JSONEncoder().encode(legacy)) as? [String: Any])
+    XCTAssertEqual(roundTrip["backend"] as? String, "openAICompatible")
+    XCTAssertThrowsError(try JSONDecoder().decode(AIConfiguration.self, from: Data(#"{"baseURL":"http://127.0.0.1:8090/v1","model":"qwen","backend":"unrecognized"}"#.utf8)))
+  }
+
+  func testLlamaBackendIsPartOfCacheIdentity() async throws {
+    var requests = 0
+    DictionaryURLProtocol.handler = { _, transport in
+      requests += 1
+      transport.respond(mime: "application/json", chunks: [self.envelope(self.dictionary)])
+    }
+    let shared = client()
+    let base = #"{"baseURL":"http://127.0.0.1:8090/v1","model":"qwen","apiKey":""}"#
+    let llama = #"{"baseURL":"http://127.0.0.1:8090/v1","model":"qwen","apiKey":"","backend":"llamaCpp"}"#
+    let compatible = try JSONDecoder().decode(AIConfiguration.self, from: Data(base.utf8))
+    let explicit = try JSONDecoder().decode(AIConfiguration.self, from: Data(llama.utf8))
+    _ = try await shared.lookup(selection, configuration: compatible)
+    _ = try await shared.lookup(selection, configuration: explicit)
+    _ = try await shared.lookup(selection, configuration: compatible)
+    XCTAssertEqual(requests, 2, "Backend changes must not reuse compatible-server cache or in-flight requests")
+  }
+
+  func testOfficialDeepSeekDisablesThinkingByDefault() async throws {
+    DictionaryURLProtocol.handler = { request, transport in
+      let data = request.httpBody ?? request.httpBodyStream!.readAll()
+      let body = try! JSONSerialization.jsonObject(with: data) as! [String: Any]
+      XCTAssertEqual((body["thinking"] as? [String: String])?["type"], "disabled")
+      let messages = body["messages"] as? [[String: Any]]
+      XCTAssertEqual(messages?.first?["role"] as? String, "system")
+      transport.respond(mime: "application/json", chunks: [self.envelope(self.dictionary)])
+    }
+    _ = try await client().lookup(selection, configuration: AIConfiguration(
+      baseURL: "https://api.deepseek.com", model: "deepseek-flash", apiKey: "fixture"))
+  }
+
+  func testCancelOneSubscriberKeepsSharedRequestAlive() async throws {
+    let began = expectation(description: "shared request started")
+    let joined = expectation(description: "both subscribers saw preview")
+    joined.expectedFulfillmentCount = 2
+    var requests = 0
+    var active: DictionaryURLProtocol?
+    DictionaryURLProtocol.handler = { _, transport in
+      requests += 1
+      active = transport
+      transport.respond(mime: "text/event-stream", chunks: [
+        self.event(#"{"meaning":"好奇的""#),
+        Data((": " + String(repeating: "x", count: 16_384) + "\n\n").utf8),
+      ], finish: false)
+      began.fulfill()
+    }
+    let shared = client()
+    let first = Task {
+      try await shared.lookup(selection, configuration: configuration, onMeaning: { _ in joined.fulfill() })
+    }
+    await fulfillment(of: [began], timeout: 2)
+    let second = Task {
+      try await shared.lookup(selection, configuration: configuration, onMeaning: { _ in joined.fulfill() })
+    }
+    await fulfillment(of: [joined], timeout: 2)
+    first.cancel()
+    do { _ = try await first.value; XCTFail("Cancelled subscriber must fail promptly") } catch {}
+    active?.finish(chunks: [
+      event(#", "lemma":"curious","partOfSpeech":"adj.","pronunciation":"","note":""}"#),
+      Data("data: [DONE]\n\n".utf8),
+    ])
+    let secondResult = try await second.value
+    XCTAssertEqual(secondResult.meaning, "好奇的")
+    XCTAssertEqual(requests, 1)
+  }
+
+  func testFirstContentDeadlineStopsHeartbeatOnlyStream() async throws {
+    let stopped = expectation(description: "timed out transport stopped")
+    DictionaryURLProtocol.handler = { _, transport in
+      transport.onStop = { stopped.fulfill() }
+      transport.respond(mime: "text/event-stream", chunks: [Data(": heartbeat\n\n".utf8)], finish: false)
+    }
+    let config = URLSessionConfiguration.ephemeral
+    config.protocolClasses = [DictionaryURLProtocol.self]
+    let shared = DictionaryClient(session: URLSession(configuration: config),
+      budget: DictionaryRequestBudget(firstContentTimeout: 0.08, totalTimeout: 0.3))
+    let started = ProcessInfo.processInfo.systemUptime
+    do { _ = try await shared.lookup(selection, configuration: configuration); XCTFail("Deadline required") }
+    catch { XCTAssertEqual(error as? DictionaryClientError, .firstContentTimeout) }
+    XCTAssertLessThan(ProcessInfo.processInfo.systemUptime - started, 0.5)
+    await fulfillment(of: [stopped], timeout: 2)
+  }
+
+  func testTotalDeadlineStopsStallAfterPreview() async throws {
+    DictionaryURLProtocol.handler = { _, transport in
+      transport.respond(mime: "text/event-stream", chunks: [
+        self.event(#"{"meaning":"好奇的""#),
+        Data((": " + String(repeating: "x", count: 16_384) + "\n\n").utf8),
+      ], finish: false)
+    }
+    let config = URLSessionConfiguration.ephemeral
+    config.protocolClasses = [DictionaryURLProtocol.self]
+    let shared = DictionaryClient(session: URLSession(configuration: config),
+      budget: DictionaryRequestBudget(firstContentTimeout: 0.15, totalTimeout: 0.25))
+    var preview = false
+    do {
+      _ = try await shared.lookup(selection, configuration: configuration, onMeaning: { _ in preview = true })
+      XCTFail("Incomplete stream must stop")
+    } catch { XCTAssertEqual(error as? DictionaryClientError, .requestTimedOut) }
+    XCTAssertTrue(preview)
+  }
+
+  func testOversizeLineAndJSONFailWithoutCaching() async throws {
+    let config = URLSessionConfiguration.ephemeral
+    config.protocolClasses = [DictionaryURLProtocol.self]
+    let shared = DictionaryClient(session: URLSession(configuration: config),
+      budget: DictionaryRequestBudget(maximumLineBytes: 32, maximumEventBytes: 64, maximumResponseBytes: 256))
+    for mime in ["text/event-stream", "application/json"] {
+      DictionaryURLProtocol.handler = { _, transport in
+        transport.respond(mime: mime, chunks: [Data(String(repeating: "x", count: 300).utf8)])
+      }
+      do { _ = try await shared.lookup(selection, configuration: configuration); XCTFail("Oversize must fail") }
+      catch { XCTAssertEqual(error as? DictionaryClientError, .responseTooLarge) }
+    }
+  }
+
+  func testThinkingModeIsPartOfCacheIdentity() async throws {
+    var requests = 0
+    DictionaryURLProtocol.handler = { _, transport in
+      requests += 1
+      transport.respond(mime: "application/json", chunks: [self.envelope(self.dictionary)])
+    }
+    let shared = client()
+    let off = AIConfiguration(baseURL: "https://api.deepseek.com", model: "deepseek-flash", apiKey: "fixture")
+    var automatic = off
+    automatic.thinking = .automatic
+    _ = try await shared.lookup(selection, configuration: off)
+    _ = try await shared.lookup(selection, configuration: automatic)
+    _ = try await shared.lookup(selection, configuration: off)
+    XCTAssertEqual(requests, 2)
+  }
+
+  func testAuthenticationIsNotRetriedAndErrorsAreSanitized() async throws {
+    var requests = 0
+    DictionaryURLProtocol.handler = { _, transport in
+      requests += 1
+      transport.respond(mime: "application/json", chunks: [Data("fixture-secret-error-body".utf8)], status: 401)
+    }
+    do { _ = try await client().lookup(selection, configuration: configuration); XCTFail("Authentication must fail") }
+    catch {
+      XCTAssertEqual(error as? DictionaryClientError, .authentication)
+      XCTAssertFalse(error.localizedDescription.contains("fixture-secret"))
+    }
+    XCTAssertEqual(requests, 1)
+  }
+
+  func testConfigurationNormalizationPreservesExplicitLocalHTTP() throws {
+    let input = AIConfiguration(baseURL: " http://127.0.0.1:8090/v1/chat/completions ", model: " qwen ", apiKey: " fixture ")
+    let normalized = try DictionaryRequestPolicy.normalized(input)
+    let request = try DictionaryRequestPolicy.request(selection: selection, configuration: normalized)
+    XCTAssertEqual(request.url?.absoluteString, "http://127.0.0.1:8090/v1/chat/completions")
+    XCTAssertEqual(normalized.model, "qwen")
+    XCTAssertThrowsError(try DictionaryRequestPolicy.normalized(AIConfiguration(baseURL: "https://host.test?key=bad", model: "model", apiKey: "")))
+  }
+
+  func testThinkingControlsRespectKnownModelMinimumsAndUnknownDefaults() throws {
+    for (model, expected) in [("gpt-5-2025-08-07", "minimal"), ("gpt-5.5", "none"),
+      ("gpt-6-astra", "low"), ("gpt-6.1-sol", "low")] {
+      let request = try DictionaryRequestPolicy.request(selection: selection, configuration:
+        AIConfiguration(baseURL: "https://api.openai.com", model: model, apiKey: "fixture"))
+      let body = try XCTUnwrap(JSONSerialization.jsonObject(with: XCTUnwrap(request.httpBody)) as? [String: Any])
+      XCTAssertEqual(body["reasoning_effort"] as? String, expected)
+      XCTAssertNil(body["temperature"])
+    }
+    let request = try DictionaryRequestPolicy.request(selection: selection, configuration:
+      AIConfiguration(baseURL: "https://api.openai.com", model: "gpt-5-unknown", apiKey: "fixture"))
+    let body = try XCTUnwrap(JSONSerialization.jsonObject(with: XCTUnwrap(request.httpBody)) as? [String: Any])
+    XCTAssertNil(body["reasoning_effort"], "Unknown model names must not receive a guessed thinking capability")
+    XCTAssertThrowsError(try DictionaryRequestPolicy.request(selection: selection, configuration:
+      AIConfiguration(baseURL: "https://api.openai.com", model: "gpt-5-unknown", apiKey: "fixture", thinking: .high)))
+  }
+
+  func testRetryAfterAcceptsSecondsAndHTTPDateWithoutUnsafeNumericValues() {
+    let now = Date(timeIntervalSince1970: 1_000_000_000)
+    XCTAssertEqual(DictionaryRequestPolicy.retryDelay("2", now: now), 2)
+    XCTAssertEqual(DictionaryRequestPolicy.retryDelay("Sun, 09 Sep 2001 01:46:42 GMT", now: now), 2)
+    XCTAssertEqual(DictionaryRequestPolicy.retryDelay("Sun, 09 Sep 2001 01:46:38 GMT", now: now), 0)
+    for value in ["NaN", "inf", "-3", "invalid"] { XCTAssertNil(DictionaryRequestPolicy.retryDelay(value, now: now)) }
   }
 
   func testStreamingPublishesDecodedMeaningOnceBeforeRemainder() async throws {
@@ -84,7 +345,7 @@ final class DictionaryClientTests: XCTestCase {
       Data(raw[$0..<min($0 + 3, raw.count)])
     }
     DictionaryURLProtocol.handler = { _, transport in
-      transport.respond(mime: "text/event-stream", chunks: chunks)
+      transport.respond(mime: "text/event-stream", chunks: chunks + [Data("\r\n\r\ndata: {\"choices\":[{\"finish_reason\":\"stop\"}]}\r\n\r\n".utf8)])
     }
     let result = try await client().lookup(selection, configuration: configuration)
     XCTAssertEqual(result.meaning, "好奇的")
@@ -218,7 +479,57 @@ final class DictionaryClientTests: XCTestCase {
         selection, configuration: configuration,
         onMeaning: { _ in XCTFail("Error must not publish preview") })
       XCTFail("HTTP failure must fail")
-    } catch { XCTAssertEqual((error as? URLError)?.code, .badServerResponse) }
+    } catch { XCTAssertEqual(error as? DictionaryClientError, .serviceUnavailable(503)) }
+  }
+
+  func testTransientRetryIsBoundedAndRespectsRetryAfter() async throws {
+    var requests = 0
+    var starts: [TimeInterval] = []
+    DictionaryURLProtocol.handler = { _, transport in
+      requests += 1
+      starts.append(ProcessInfo.processInfo.systemUptime)
+      transport.respond(mime: "application/json", chunks: [self.envelope(self.dictionary)],
+        status: requests == 1 ? 429 : 200, headers: ["Retry-After": "0.03"])
+    }
+    _ = try await client().lookup(selection, configuration: configuration)
+    XCTAssertEqual(requests, 2)
+    XCTAssertGreaterThanOrEqual(starts[1] - starts[0], 0.025)
+    requests = 0
+    DictionaryURLProtocol.handler = { _, transport in
+      requests += 1
+      transport.respond(mime: "application/json", chunks: [Data()], status: 503, headers: ["Retry-After": "0"])
+    }
+    do { _ = try await client().lookup(selection, configuration: configuration); XCTFail("503 must fail after one retry") }
+    catch { XCTAssertEqual(error as? DictionaryClientError, .serviceUnavailable(503)) }
+    XCTAssertEqual(requests, 2)
+  }
+
+  func testRetryAfterBeyondSharedBudgetDoesNotSendAnotherRequest() async throws {
+    var requests = 0
+    DictionaryURLProtocol.handler = { _, transport in
+      requests += 1
+      transport.respond(mime: "application/json", chunks: [Data()], status: 429, headers: ["Retry-After": "120"])
+    }
+    let config = URLSessionConfiguration.ephemeral
+    config.protocolClasses = [DictionaryURLProtocol.self]
+    let shared = DictionaryClient(session: URLSession(configuration: config),
+      budget: DictionaryRequestBudget(firstContentTimeout: 0.15, totalTimeout: 0.2))
+    do { _ = try await shared.lookup(selection, configuration: configuration); XCTFail("Budget must bound retry") }
+    catch { XCTAssertEqual(error as? DictionaryClientError, .rateLimited) }
+    XCTAssertEqual(requests, 1)
+  }
+
+  func testCancellationAtCompletionDoesNotReturnSuccessToCancelledCaller() async throws {
+    DictionaryURLProtocol.handler = { _, transport in
+      transport.respond(mime: "application/json", chunks: [self.envelope(self.dictionary)])
+    }
+    let shared = client()
+    var task: Task<DictionaryResult, Error>?
+    task = Task {
+      try await shared.lookup(selection, configuration: configuration, onPerformance: { _ in task?.cancel() })
+    }
+    do { _ = try await task!.value; XCTFail("Cancelled caller cannot receive successful completion") }
+    catch is CancellationError { }
   }
 }
 
@@ -239,13 +550,13 @@ private final class DictionaryURLProtocol: URLProtocol {
 
   func respond(
     mime: String, chunks: [Data], interval: Double = 0, status: Int = 200,
-    finish: Bool = true
+    finish: Bool = true, headers: [String: String] = [:]
   ) {
     client?.urlProtocol(
       self,
       didReceive: HTTPURLResponse(
         url: request.url!, statusCode: status,
-        httpVersion: "HTTP/1.1", headerFields: ["Content-Type": mime])!,
+        httpVersion: "HTTP/1.1", headerFields: headers.merging(["Content-Type": mime], uniquingKeysWith: { _, new in new }))!,
       cacheStoragePolicy: .notAllowed)
     for (index, chunk) in chunks.enumerated() {
       let item = DispatchWorkItem { [weak self] in

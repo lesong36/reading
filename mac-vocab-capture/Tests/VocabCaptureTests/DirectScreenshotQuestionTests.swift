@@ -13,10 +13,7 @@ final class DirectScreenshotQuestionTests: XCTestCase {
     _ = NSApplication.shared
     suite = "VocabCapture.DirectQuestionTests.\(UUID().uuidString)"
     defaults = UserDefaults(suiteName: suite)!
-    appDelegate = AppDelegate(
-      shortcutPreferences: ShortcutPreferences(defaults: defaults),
-      questionPreferences: ScreenshotQuestionPreferences(
-        defaults: defaults, readProfileAPIKey: { _ in "" }, saveProfileAPIKey: { _, _ in }))
+    appDelegate = makeIsolatedAppDelegate(defaults: defaults)
   }
 
   override func tearDown() {

@@ -22,6 +22,15 @@ struct VocabularyEntry: Codable, Identifiable, Sendable, Equatable {
   let sourceArticleTitle: String
   let addedAt: String
   let timestamp: Int64
+  var cloudVersion: Int64?
+  var updatedAt: String?
+  var definitionCheckedAt: String?
+  var definitionProvider: String?
+  var unknownFields: [String: VocabularyJSONValue] = [:]
+
+  static func canonicalWordKey(_ word: String) -> String {
+    word.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+  }
 
   init(word: String, dictionary: DictionaryResult, context: String) {
     id = UUID().uuidString
@@ -40,11 +49,16 @@ struct VocabularyEntry: Codable, Identifiable, Sendable, Equatable {
     sourceArticleTitle = "macOS 拾词助手"
     addedAt = ISO8601DateFormatter().string(from: .now)
     timestamp = Int64(Date().timeIntervalSince1970 * 1_000)
+    cloudVersion = nil
+    updatedAt = addedAt
+    definitionCheckedAt = nil
+    definitionProvider = nil
   }
 
-  enum CodingKeys: String, CodingKey {
+  enum CodingKeys: String, CodingKey, CaseIterable {
     case id, word, meaning, lemma, partOfSpeech, pronunciation, etymology
     case exampleSentence, sourceContext, sourceArticleId, sourceArticleTitle, addedAt, timestamp
+    case cloudVersion, updatedAt, definitionCheckedAt, definitionProvider
   }
 
   init(from decoder: Decoder) throws {
@@ -62,7 +76,43 @@ struct VocabularyEntry: Codable, Identifiable, Sendable, Equatable {
     sourceArticleTitle = try values.decodeIfPresent(String.self, forKey: .sourceArticleTitle) ?? ""
     addedAt = try values.decodeIfPresent(String.self, forKey: .addedAt) ?? ""
     timestamp = try values.decodeIfPresent(Int64.self, forKey: .timestamp) ?? 0
+    cloudVersion = try values.decodeIfPresent(Int64.self, forKey: .cloudVersion)
+    updatedAt = try values.decodeIfPresent(String.self, forKey: .updatedAt)
+    definitionCheckedAt = try values.decodeIfPresent(String.self, forKey: .definitionCheckedAt)
+    definitionProvider = try values.decodeIfPresent(String.self, forKey: .definitionProvider)
+    let all = try decoder.container(keyedBy: VocabularyFieldKey.self)
+    let known = Set(CodingKeys.allCases.map(\.rawValue))
+    for key in all.allKeys where !known.contains(key.stringValue) {
+      unknownFields[key.stringValue] = try all.decode(VocabularyJSONValue.self, forKey: key)
+    }
   }
+
+  func encode(to encoder: Encoder) throws {
+    var values = encoder.container(keyedBy: CodingKeys.self)
+    try values.encode(id, forKey: .id)
+    try values.encode(word, forKey: .word)
+    try values.encode(meaning, forKey: .meaning)
+    try values.encode(lemma, forKey: .lemma)
+    try values.encode(partOfSpeech, forKey: .partOfSpeech)
+    try values.encode(pronunciation, forKey: .pronunciation)
+    try values.encode(etymology, forKey: .etymology)
+    try values.encode(exampleSentence, forKey: .exampleSentence)
+    try values.encode(sourceContext, forKey: .sourceContext)
+    try values.encodeIfPresent(sourceArticleId, forKey: .sourceArticleId)
+    try values.encode(sourceArticleTitle, forKey: .sourceArticleTitle)
+    try values.encode(addedAt, forKey: .addedAt)
+    try values.encode(timestamp, forKey: .timestamp)
+    try values.encodeIfPresent(cloudVersion, forKey: .cloudVersion)
+    try values.encodeIfPresent(updatedAt, forKey: .updatedAt)
+    try values.encodeIfPresent(definitionCheckedAt, forKey: .definitionCheckedAt)
+    try values.encodeIfPresent(definitionProvider, forKey: .definitionProvider)
+    var all = encoder.container(keyedBy: VocabularyFieldKey.self)
+    let known = Set(CodingKeys.allCases.map(\.rawValue))
+    for (key, value) in unknownFields where !known.contains(key) {
+      try all.encode(value, forKey: VocabularyFieldKey(stringValue: key)!)
+    }
+  }
+
 }
 
 enum VocabularyError: LocalizedError {
@@ -79,4 +129,36 @@ enum VocabularyError: LocalizedError {
     case .invalidAIResponse: "AI 返回的词典数据格式不正确。"
     }
   }
+}
+
+// Preserve future browser fields through native decoding and synchronization.
+indirect enum VocabularyJSONValue: Codable, Sendable, Equatable {
+  case null, string(String), bool(Bool), number(Decimal)
+  case array([VocabularyJSONValue]), object([String: VocabularyJSONValue])
+  init(from decoder: Decoder) throws {
+    let value = try decoder.singleValueContainer()
+    if value.decodeNil() { self = .null }
+    else if let bool = try? value.decode(Bool.self) { self = .bool(bool) }
+    else if let number = try? value.decode(Decimal.self) { self = .number(number) }
+    else if let string = try? value.decode(String.self) { self = .string(string) }
+    else if let array = try? value.decode([VocabularyJSONValue].self) { self = .array(array) }
+    else { self = .object(try value.decode([String: VocabularyJSONValue].self)) }
+  }
+  func encode(to encoder: Encoder) throws {
+    var value = encoder.singleValueContainer()
+    switch self {
+    case .null: try value.encodeNil()
+    case .string(let item): try value.encode(item)
+    case .bool(let item): try value.encode(item)
+    case .number(let item): try value.encode(item)
+    case .array(let item): try value.encode(item)
+    case .object(let item): try value.encode(item)
+    }
+  }
+}
+private struct VocabularyFieldKey: CodingKey {
+  let stringValue: String
+  let intValue: Int? = nil
+  init?(stringValue: String) { self.stringValue = stringValue }
+  init?(intValue: Int) { return nil }
 }

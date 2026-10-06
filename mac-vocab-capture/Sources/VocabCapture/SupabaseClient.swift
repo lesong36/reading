@@ -48,6 +48,10 @@ enum SupabaseSyncError: LocalizedError {
   case notLoggedIn
   case sessionExpired
   case server(String)
+  case http(Int)
+  case upgradeRequired
+  case conflict([String])
+  case accountChanged
 
   var errorDescription: String? {
     switch self {
@@ -55,13 +59,23 @@ enum SupabaseSyncError: LocalizedError {
     case .notLoggedIn: "请先登录阅读达人账号。"
     case .sessionExpired: "阅读达人登录已失效，请重新登录。本机生词已保留。"
     case .server(let message): message
+    case .http(let status): "云同步请求失败（HTTP \(status)），本机待上传内容已保留。"
+    case .upgradeRequired: "云端词库同步协议尚未升级，已保留本机待上传内容。请部署词库同步 v2 后重试。"
+    case .conflict: "云端词条已经修改或删除。已保留本机操作，请确认采用云端内容或重新编辑后同步。"
+    case .accountChanged: "账号已经切换，已忽略旧账号的同步结果。"
     }
   }
 }
 
-struct VocabularySyncResult: Sendable {
+struct VocabularySyncResult: Codable, Sendable {
+  let userID: String
   let vocabulary: [VocabularyEntry]
   let uploadedCount: Int
+  let revision: Int64
+  let acknowledgedOperationIDs: [String]
+  let tombstones: [VocabularyTombstone]
+  let conflict: Bool
+  let conflictingWordKeys: [String]
 }
 
 actor SupabaseVocabularySync {
@@ -114,46 +128,104 @@ actor SupabaseVocabularySync {
 
   func isLoggedIn() -> Bool { readSession() != nil }
 
+  func currentUserID() -> String? { readSession()?.user.id }
+  func currentSessionRevision() -> Int { sessionRevision }
+
+  // Kept for existing read-only integrations. Full-array writes are intentionally
+  // forbidden: they cannot express ownership, per-entry conflicts or restoration.
   func sync(local: [VocabularyEntry]) async throws -> VocabularySyncResult {
-    guard let session = try await validSession() else { throw SupabaseSyncError.notLoggedIn }
-    let encodedUserID =
-      session.user.id.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-      ?? session.user.id
-    let readRequest = makeRequest(
-      path: "/rest/v1/reader_sync_state?user_id=eq.\(encodedUserID)&select=vocabulary,preferences",
-      method: "GET",
-      accessToken: session.accessToken
-    )
-    let (readData, readResponse) = try await self.session.data(for: readRequest)
-    try validate(response: readResponse, data: readData)
-    let remoteRows = try JSONDecoder().decode([ReaderStateRow].self, from: readData)
-    let remoteRow = remoteRows.first
-    let deletedWordKeys = Set(
-      (remoteRow?.preferences?.deletedVocabKeys ?? []).map { normalizeWord($0) })
-    let remoteVocabulary = excludingDeleted(remoteRow?.vocabulary ?? [], deletedWordKeys)
-    let merged = merge(excludingDeleted(local, deletedWordKeys), remoteVocabulary)
-    let payload = try JSONEncoder().encode(
-      ReaderStateUpdate(vocabulary: merged, updatedAt: ISO8601DateFormatter().string(from: .now)))
-    var writeRequest = makeRequest(
-      path: "/rest/v1/reader_sync_state?user_id=eq.\(encodedUserID)",
-      method: "PATCH",
-      accessToken: session.accessToken,
-      body: payload
-    )
-    writeRequest.setValue("return=representation", forHTTPHeaderField: "Prefer")
-    let (writeData, writeResponse) = try await self.session.data(for: writeRequest)
-    try validate(response: writeResponse, data: writeData)
-    return VocabularySyncResult(
-      vocabulary: merged,
-      uploadedCount: changedCount(
-        local: excludingDeleted(local, deletedWordKeys), remote: remoteVocabulary))
+    guard let stored = try await validSession() else { throw SupabaseSyncError.notLoggedIn }
+    guard local.isEmpty else { throw SupabaseSyncError.upgradeRequired }
+    return try await sync(batch: VocabularySyncBatch(userID: stored.user.id, baseRevision: 0, operations: []))
   }
 
-  private func validSession() async throws -> SupabaseSession? {
+  func sync(batch: VocabularySyncBatch) async throws -> VocabularySyncResult {
+    guard let stored = try await validSession() else { throw SupabaseSyncError.notLoggedIn }
+    let ownerRevision = sessionRevision
+    guard stored.user.id.lowercased() == batch.userID.lowercased() else {
+      throw SupabaseSyncError.accountChanged
+    }
+    let ids = batch.operations.map(\.operationID)
+    guard Set(ids).count == ids.count, ids.allSatisfy({ !$0.isEmpty }), batch.baseRevision >= 0,
+      batch.operations.allSatisfy({ !$0.wordKey.isEmpty && VocabularyEntry.canonicalWordKey($0.wordKey) == $0.wordKey })
+    else { throw SupabaseSyncError.invalidResponse }
+    var expectedRevision = batch.baseRevision
+    for attempt in 0..<3 {
+      try guardAccount(batch.userID, revision: ownerRevision)
+      let body = try JSONEncoder().encode(VocabularyRPCRequest(
+        expectedRevision: batch.operations.isEmpty ? nil : expectedRevision,
+        operations: batch.operations))
+      let data = try await authenticatedRPC(body: body, userID: batch.userID, revision: ownerRevision)
+      try guardAccount(batch.userID, revision: ownerRevision)
+      guard let result = try? JSONDecoder().decode(VocabularySyncResult.self, from: data),
+        result.userID.lowercased() == batch.userID.lowercased(), result.revision >= expectedRevision,
+        result.uploadedCount >= 0, result.uploadedCount <= batch.operations.count,
+        Set(result.acknowledgedOperationIDs).isSubset(of: Set(ids)),
+        Set(result.acknowledgedOperationIDs).count == result.acknowledgedOperationIDs.count,
+        Set(result.vocabulary.map { VocabularyEntry.canonicalWordKey($0.word) }).count == result.vocabulary.count,
+        result.vocabulary.allSatisfy({ !VocabularyEntry.canonicalWordKey($0.word).isEmpty && ($0.cloudVersion ?? -1) >= 0 }),
+        result.tombstones.allSatisfy({ !$0.wordKey.isEmpty && VocabularyEntry.canonicalWordKey($0.wordKey) == $0.wordKey && $0.version >= 0 }),
+        Set(result.tombstones.map(\.wordKey)).count == result.tombstones.count,
+        Set(result.vocabulary.map { VocabularyEntry.canonicalWordKey($0.word) }).isDisjoint(with: Set(result.tombstones.map(\.wordKey)))
+      else { throw SupabaseSyncError.invalidResponse }
+      if !result.conflict {
+        guard Set(result.acknowledgedOperationIDs) == Set(ids) else {
+          throw SupabaseSyncError.invalidResponse
+        }
+        return result
+      }
+      guard result.conflictingWordKeys.isEmpty, attempt < 2 else {
+        throw SupabaseSyncError.conflict(result.conflictingWordKeys)
+      }
+      // Only advance the snapshot revision. Keep original entry base versions;
+      // changing them here would silently overwrite another device's edit.
+      expectedRevision = result.revision
+    }
+    throw SupabaseSyncError.invalidResponse
+  }
+
+  private func guardAccount(_ userID: String, revision: Int) throws {
+    guard sessionRevision == revision, readSession()?.user.id.lowercased() == userID.lowercased() else {
+      throw SupabaseSyncError.accountChanged
+    }
+  }
+
+  private func authenticatedRPC(body: Data, userID: String, revision: Int) async throws -> Data {
+    var rejectedAccessToken: String?
+    for attempt in 0..<2 {
+      try guardAccount(userID, revision: revision)
+      guard let stored = try await validSession(forceRefresh: attempt == 1 && readSession()?.accessToken == rejectedAccessToken) else {
+        throw SupabaseSyncError.notLoggedIn
+      }
+      try guardAccount(userID, revision: revision)
+      let request = makeRequest(path: "/rest/v1/rpc/sync_reader_vocabulary_v2", method: "POST",
+        accessToken: stored.accessToken, body: body)
+      let (data, response) = try await session.data(for: request)
+      try guardAccount(userID, revision: revision)
+      guard let http = response as? HTTPURLResponse else { throw SupabaseSyncError.invalidResponse }
+      if http.statusCode == 401 {
+        if attempt == 0 { rejectedAccessToken = stored.accessToken; continue }
+        try saveSession(nil)
+        sessionRevision += 1
+        throw SupabaseSyncError.sessionExpired
+      }
+      if [404, 405].contains(http.statusCode) { throw SupabaseSyncError.upgradeRequired }
+      if let payload = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+        ["PGRST202", "42883"].contains(payload["code"] as? String ?? "") {
+        throw SupabaseSyncError.upgradeRequired
+      }
+      try validate(response: response, data: data)
+      return data
+    }
+    throw SupabaseSyncError.sessionExpired
+  }
+
+  private func validSession(forceRefresh: Bool = false) async throws -> SupabaseSession? {
     guard let stored = readSession() else { return nil }
-    guard let expiresAt = stored.expiresAt,
-      Date(timeIntervalSince1970: TimeInterval(expiresAt)) < Date().addingTimeInterval(60)
-    else { return stored }
+    let expiresSoon = stored.expiresAt.map {
+      Date(timeIntervalSince1970: TimeInterval($0)) < Date().addingTimeInterval(60)
+    } ?? false
+    guard forceRefresh || expiresSoon else { return stored }
 
     let flight: (id: UUID, token: String, revision: Int, task: Task<SupabaseSession?, Error>)
     if let active = refreshFlight,
@@ -235,75 +307,17 @@ actor SupabaseVocabularySync {
   private func validate(response: URLResponse, data: Data) throws {
     guard let http = response as? HTTPURLResponse else { throw SupabaseSyncError.invalidResponse }
     guard 200..<300 ~= http.statusCode else {
-      let payload = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
-      let message =
-        payload?["msg"] as? String
-        ?? payload?["message"] as? String
-        ?? payload?["error_description"] as? String
-        ?? String(data: data, encoding: .utf8)
-      throw SupabaseSyncError.server(
-        message?.isEmpty == false ? message! : "Supabase 请求失败（HTTP \(http.statusCode)）。")
+      throw SupabaseSyncError.http(http.statusCode)
     }
   }
 
-  private func normalizeWord(_ word: String) -> String {
-    word.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-  }
-
-  private func excludingDeleted(_ entries: [VocabularyEntry], _ deletedWordKeys: Set<String>)
-    -> [VocabularyEntry]
-  {
-    entries.filter { !deletedWordKeys.contains(normalizeWord($0.word)) }
-  }
-
-  private func merge(_ local: [VocabularyEntry], _ remote: [VocabularyEntry]) -> [VocabularyEntry] {
-    var byWord: [String: VocabularyEntry] = [:]
-    for entry in remote + local {
-      let key = normalizeWord(entry.word)
-      guard !key.isEmpty else { continue }
-      if byWord[key] == nil || entry.timestamp >= (byWord[key]?.timestamp ?? 0) {
-        byWord[key] = entry
-      }
-    }
-    return byWord.values.sorted { $0.timestamp > $1.timestamp }
-  }
-
-  private func changedCount(local: [VocabularyEntry], remote: [VocabularyEntry]) -> Int {
-    var remoteByWord: [String: VocabularyEntry] = [:]
-    for entry in remote {
-      let key = entry.word.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-      guard !key.isEmpty else { continue }
-      if remoteByWord[key] == nil || entry.timestamp >= (remoteByWord[key]?.timestamp ?? 0) {
-        remoteByWord[key] = entry
-      }
-    }
-    return local.reduce(into: 0) { count, entry in
-      let key = entry.word.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-      guard !key.isEmpty else { return }
-      guard let remoteEntry = remoteByWord[key] else {
-        count += 1
-        return
-      }
-      if entry.timestamp > remoteEntry.timestamp { count += 1 }
-    }
-  }
 }
 
-private struct ReaderStateRow: Codable {
-  let vocabulary: [VocabularyEntry]
-  let preferences: ReaderPreferences?
-}
-
-private struct ReaderPreferences: Codable {
-  let deletedVocabKeys: [String]?
-
-  enum CodingKeys: String, CodingKey { case deletedVocabKeys }
-}
-private struct ReaderStateUpdate: Codable {
-  let vocabulary: [VocabularyEntry]
-  let updatedAt: String
+private struct VocabularyRPCRequest: Encodable {
+  let expectedRevision: Int64?
+  let operations: [VocabularyMutation]
   enum CodingKeys: String, CodingKey {
-    case vocabulary
-    case updatedAt = "updated_at"
+    case expectedRevision = "p_expected_revision"
+    case operations = "p_operations"
   }
 }

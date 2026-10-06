@@ -39,9 +39,9 @@ swift run
 
 打包脚本从 `question-engine/uv.lock` 安装锁定依赖，将 LangChain 1.4.3、模型适配库和 Python 运行时一起放入 App。安装发布包的用户无需另外安装 Python 或 uv。开发时更改 Python 引擎后，需要重新运行 `build-question-engine.sh`。
 
-`build/` 中的 App 仅用于压缩发布，不要直接打开；macOS 可能将它额外登记到启动台。
+发布包默认生成到 `~/Library/Caches/com.coty.vocab-capture/package/拾词助手.app`，避免 Documents 的文件同步服务附加元数据后导致签名失败。可通过 `VOCAB_CAPTURE_PACKAGE_DIR` 指定其他打包目录。
 
-日常使用应安装到固定位置（不要从 `build/` 目录反复启动，以免 macOS 创建多个启动台条目）：
+日常使用应安装到固定位置（不要从打包目录反复启动，以免 macOS 创建多个启动台条目）：
 
 ```bash
 ./scripts/install-app.sh
@@ -72,6 +72,8 @@ swift run
 ## 截图问一问（试用）
 
 问答通过 App 内置的常驻 LangChain 1.4.3 引擎调用所选模型，启动时预热，后续问题复用进程和模型连接。截图、OCR 与问答窗口仍使用 macOS 原生实现；不额外启用跟踪服务或云端中转。迁移与验证见 [LangChain 实施记录](docs/LANGCHAIN_MIGRATION.md)。
+
+0.2.74 起支持可选的「联网检索」。先在「模型与服务 → 联网检索设置…」或问答窗口的「检索设置…」填写自己的 Tavily API Key，再勾选「联网检索」提问。搜索配置独立于问答模型，Key 保存在本机 Keychain；结果附可点击来源链接。开启时显示整理检索词、检索和回答三个阶段；关闭时继续直接模型问答。操作、数据流及验证边界见[联网检索说明](docs/WEB_SEARCH.md)。
 
 0.2.68 起，问答引擎遵守 macOS 手动 HTTP/HTTPS 系统代理与绕过规则，代理变化后使用新客户端；回环服务直连。网络异常与真实 HTTP 错误分别提示。最新真实调用对照见 [LangChain 性能复测](docs/LANGCHAIN_CLOUD_PERFORMANCE.md)。
 

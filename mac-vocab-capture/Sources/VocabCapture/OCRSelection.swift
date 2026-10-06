@@ -29,21 +29,10 @@ struct OCRSelection {
   func selection(in range: NSRange) -> SelectedText? {
     guard let range = snappedRange(range) else { return nil }
     let source = text as NSString
-    let prefix = source.substring(to: range.location)
-    let suffix = source.substring(from: NSMaxRange(range))
-    let start = prefix.rangeOfCharacter(
-      from: CharacterSet(charactersIn: ".!?。！？"), options: .backwards)
-    let end = suffix.rangeOfCharacter(from: CharacterSet(charactersIn: ".!?。！？"))
-    // Use NSString lengths rather than Swift character counts for emoji/CJK.
-    let startOffset =
-      start.map { (String(prefix[..<prefix.index(after: $0.lowerBound)]) as NSString).length } ?? 0
-    let tailLength =
-      end.map { (String(suffix[...$0.lowerBound]) as NSString).length }
-      ?? (suffix as NSString).length
-    let context = source.substring(
-      with: NSRange(location: startOffset, length: NSMaxRange(range) + tailLength - startOffset))
-    return SelectedText(
-      word: normalized(source.substring(with: range)), context: normalized(context))
+    let word = normalized(source.substring(with: range))
+    guard words.filter({ NSIntersectionRange($0, range).length > 0 }).count <= SelectionTextContract.maximumWords,
+      let context = SelectionTextContract.sentence(text, selectedRange: range) else { return nil }
+    return SelectedText(word: word, context: context)
   }
 
   private func normalized(_ value: String) -> String {

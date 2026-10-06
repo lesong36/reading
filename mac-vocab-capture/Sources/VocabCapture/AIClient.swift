@@ -1,11 +1,60 @@
 import Foundation
 
+enum DictionaryBackend: String, Codable, CaseIterable, Sendable {
+  case openAICompatible, llamaCpp
+
+  var title: String {
+    switch self {
+    case .openAICompatible: return "OpenAI 兼容服务"
+    case .llamaCpp: return "llama.cpp（支持思考开关）"
+    }
+  }
+}
+
 struct AIConfiguration: Codable, Sendable {
   var baseURL: String
   var model: String
   var apiKey: String
+  var thinking: ScreenshotQuestionThinking = .off
+  var backend: DictionaryBackend = .openAICompatible
 
-  var isComplete: Bool { !baseURL.isEmpty && !model.isEmpty }
+  var isComplete: Bool { (try? DictionaryRequestPolicy.normalized(self)) != nil }
+
+  init(baseURL: String, model: String, apiKey: String, thinking: ScreenshotQuestionThinking = .off, backend: DictionaryBackend = .openAICompatible) {
+    self.baseURL = baseURL
+    self.model = model
+    self.apiKey = apiKey
+    self.thinking = thinking
+    self.backend = backend
+  }
+
+  private enum CodingKeys: String, CodingKey { case baseURL, model, apiKey, thinking, backend }
+  init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: CodingKeys.self)
+    baseURL = try values.decode(String.self, forKey: .baseURL)
+    model = try values.decode(String.self, forKey: .model)
+    apiKey = try values.decodeIfPresent(String.self, forKey: .apiKey) ?? ""
+    thinking = try values.decodeIfPresent(ScreenshotQuestionThinking.self, forKey: .thinking) ?? .off
+    backend = try values.decodeIfPresent(DictionaryBackend.self, forKey: .backend) ?? .openAICompatible
+  }
+}
+
+private actor DictionaryProgress {
+  private(set) var hasContent = false
+  func receivedContent() { hasContent = true }
+}
+
+private struct DictionaryHTTPFailure: Error {
+  let status: Int
+  let retryAfter: TimeInterval?
+  var classified: DictionaryClientError {
+    switch status {
+    case 401, 403: return .authentication
+    case 429: return .rateLimited
+    case 500...599: return .serviceUnavailable(status)
+    default: return .invalidRequest(status)
+    }
+  }
 }
 
 actor DictionaryClient {
@@ -15,76 +64,209 @@ actor DictionaryClient {
     let baseURL: String
     let model: String
     let credential: String
+    let thinking: String
+    let backend: String
+  }
+  private struct Subscriber {
+    let continuation: CheckedContinuation<DictionaryResult, Error>
+    let meaning: (@MainActor @Sendable (String) -> Void)?
+    let performance: (@MainActor @Sendable (DictionaryPerformance) -> Void)?
+  }
+  private struct Flight {
+    let id: UUID
+    let task: Task<Void, Never>
+    var subscribers: [UUID: Subscriber]
+    var meaning: String?
+  }
+  private struct Completed: Sendable {
+    let result: DictionaryResult
+    let performance: DictionaryPerformance
   }
 
   private let session: URLSession
   private let cacheLimit: Int
+  private let budget: DictionaryRequestBudget
   private var cache: [CacheKey: DictionaryResult] = [:]
   private var cacheOrder: [CacheKey] = []
+  private var flights: [CacheKey: Flight] = [:]
 
-  init(session: URLSession = .shared, cacheLimit: Int = 100) {
-    self.session = session
+  init(session: URLSession? = nil, cacheLimit: Int = 100, budget: DictionaryRequestBudget = DictionaryRequestBudget()) {
+    if let session { self.session = session }
+    else {
+      let configuration = URLSessionConfiguration.ephemeral
+      configuration.timeoutIntervalForRequest = max(1, budget.firstContentTimeout)
+      configuration.timeoutIntervalForResource = max(1, budget.totalTimeout)
+      self.session = URLSession(configuration: configuration)
+    }
     self.cacheLimit = max(0, cacheLimit)
+    self.budget = budget
   }
 
   func lookup(
-    _ selection: SelectedText, configuration: AIConfiguration,
-    onMeaning: (@MainActor @Sendable (String) -> Void)? = nil
+    _ selection: SelectedText, configuration input: AIConfiguration,
+    onMeaning: (@MainActor @Sendable (String) -> Void)? = nil,
+    onPerformance: (@MainActor @Sendable (DictionaryPerformance) -> Void)? = nil
   ) async throws -> DictionaryResult {
     try Task.checkCancellation()
-    guard configuration.isComplete else { throw VocabularyError.missingConfiguration }
-    let key = CacheKey(
-      word: selection.word, context: selection.context,
-      baseURL: configuration.baseURL, model: configuration.model, credential: configuration.apiKey)
+    guard input.isComplete else { throw VocabularyError.missingConfiguration }
+    let configuration = try DictionaryRequestPolicy.normalized(input)
+    let key = CacheKey(word: selection.word, context: selection.context,
+      baseURL: configuration.baseURL, model: configuration.model, credential: configuration.apiKey,
+      thinking: configuration.thinking.rawValue, backend: configuration.backend.rawValue)
     if let result = cache[key] {
-      ContextDebugLog.write("AI 查询缓存命中", word: selection.word)
+      let started = ProcessInfo.processInfo.systemUptime
       if let onMeaning { await onMeaning(result.meaning) }
+      try Task.checkCancellation()
+      if let onPerformance {
+        await onPerformance(DictionaryPerformance(totalSeconds: ProcessInfo.processInfo.systemUptime - started, cacheHit: true))
+      }
       try Task.checkCancellation()
       return result
     }
+    let subscriberID = UUID()
+    let result: DictionaryResult = try await withTaskCancellationHandler {
+      try await withCheckedThrowingContinuation { continuation in
+        guard !Task.isCancelled else { continuation.resume(throwing: CancellationError()); return }
+        let subscriber = Subscriber(continuation: continuation, meaning: onMeaning, performance: onPerformance)
+        if var flight = flights[key] {
+          flight.subscribers[subscriberID] = subscriber
+          flights[key] = flight
+          if let meaning = flight.meaning, let onMeaning {
+            Task { @MainActor in
+              guard await self.isSubscribed(key, id: subscriberID) else { return }
+              onMeaning(meaning)
+            }
+          }
+        } else {
+          let flightID = UUID()
+          let task = Task {
+            do {
+              let value = try await self.performLookup(selection, configuration: configuration, key: key, flightID: flightID)
+              await self.finish(key, flightID: flightID, completed: value, error: nil)
+            } catch {
+              await self.finish(key, flightID: flightID, completed: nil, error: error)
+            }
+          }
+          flights[key] = Flight(id: flightID, task: task, subscribers: [subscriberID: subscriber])
+        }
+      }
+    } onCancel: {
+      Task { await self.unsubscribe(key, id: subscriberID) }
+    }
+    try Task.checkCancellation()
+    return result
+  }
 
-    let startedAt = Date()
-    guard
-      let url = URL(
-        string: configuration.baseURL.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
-          + "/chat/completions")
-    else {
-      throw URLError(.badURL)
+  private func isSubscribed(_ key: CacheKey, id: UUID) -> Bool { flights[key]?.subscribers[id] != nil }
+
+  private func unsubscribe(_ key: CacheKey, id: UUID) {
+    guard var flight = flights[key], let subscriber = flight.subscribers.removeValue(forKey: id) else { return }
+    subscriber.continuation.resume(throwing: CancellationError())
+    if flight.subscribers.isEmpty {
+      flights.removeValue(forKey: key)
+      flight.task.cancel()
+    } else { flights[key] = flight }
+  }
+
+  private func publish(_ meaning: String, key: CacheKey, flightID: UUID) async {
+    guard var flight = flights[key], flight.id == flightID else { return }
+    flight.meaning = meaning
+    flights[key] = flight
+    for (id, subscriber) in flight.subscribers {
+      guard isSubscribed(key, id: id), let callback = subscriber.meaning else { continue }
+      await callback(meaning)
     }
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    if !configuration.apiKey.isEmpty {
-      request.setValue("Bearer \(configuration.apiKey)", forHTTPHeaderField: "Authorization")
+  }
+
+  private func finish(_ key: CacheKey, flightID: UUID, completed: Completed?, error: Error?) async {
+    guard let flight = flights[key], flight.id == flightID else { return }
+    // Remove before resuming callers so the next retry cannot join an ended request.
+    flights.removeValue(forKey: key)
+    if let completed, !flight.subscribers.isEmpty, cacheLimit > 0 {
+      if cache[key] == nil { cacheOrder.append(key) }
+      cache[key] = completed.result
+      if cacheOrder.count > cacheLimit { cache.removeValue(forKey: cacheOrder.removeFirst()) }
     }
-    let prompt = """
-      你是英汉语境词典。只返回紧凑 JSON，按以下顺序输出，meaning 必须最先：
-      {"meaning":"不超过16字的准确中文释义","lemma":"词典原形","partOfSpeech":"词性","pronunciation":"IPA或空字符串","note":"必要的搭配或词形说明，无则空字符串"}
-      目标词：\(selection.word)
-      原文完整句子：\(selection.context)
-      """
-    let body: [String: Any] = [
-      "model": configuration.model, "temperature": 0.1, "max_tokens": 120,
-      "stream": true, "response_format": ["type": "json_object"],
-      "messages": [["role": "user", "content": prompt]],
-    ]
-    request.httpBody = try JSONSerialization.data(withJSONObject: body)
-    ContextDebugLog.write("AI 查询开始", word: selection.word, context: selection.context)
+    for subscriber in flight.subscribers.values {
+      if let completed {
+        if let callback = subscriber.performance { await callback(completed.performance) }
+        subscriber.continuation.resume(returning: completed.result)
+      } else { subscriber.continuation.resume(throwing: error ?? DictionaryClientError.invalidResponse) }
+    }
+  }
+
+  private func performLookup(_ selection: SelectedText, configuration: AIConfiguration, key: CacheKey, flightID: UUID) async throws -> Completed {
+    let started = ProcessInfo.processInfo.systemUptime
+    let progress = DictionaryProgress()
+    let budget = self.budget
+    return try await withThrowingTaskGroup(of: Completed?.self) { group in
+      group.addTask {
+        try await self.load(selection, configuration: configuration, key: key, flightID: flightID, progress: progress, started: started)
+      }
+      group.addTask {
+        try await Task.sleep(nanoseconds: UInt64(max(0.001, budget.firstContentTimeout) * 1_000_000_000))
+        guard await !progress.hasContent else { return nil }
+        throw DictionaryClientError.firstContentTimeout
+      }
+      group.addTask {
+        try await Task.sleep(nanoseconds: UInt64(max(0.001, budget.totalTimeout) * 1_000_000_000))
+        throw DictionaryClientError.requestTimedOut
+      }
+      defer { group.cancelAll() }
+      for try await value in group { if let value { return value } }
+      throw DictionaryClientError.invalidResponse
+    }
+  }
+
+  private func load(_ selection: SelectedText, configuration: AIConfiguration, key: CacheKey, flightID: UUID, progress: DictionaryProgress, started: TimeInterval) async throws -> Completed {
+    var request = try DictionaryRequestPolicy.request(selection: selection, configuration: configuration)
+    request.timeoutInterval = max(1, budget.firstContentTimeout)
+    for attempt in 0...1 {
+      do {
+        return try await consume(request, key: key, flightID: flightID, progress: progress, started: started)
+      } catch let failure as DictionaryHTTPFailure {
+        guard attempt == 0, [429, 502, 503, 504].contains(failure.status),
+          flights[key]?.meaning == nil
+        else { throw failure.classified }
+        let remaining = budget.totalTimeout - (ProcessInfo.processInfo.systemUptime - started)
+        let delay = max(0, failure.retryAfter ?? 0.25)
+        guard delay < remaining else { throw failure.classified }
+        try await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+      } catch is CancellationError { throw CancellationError() }
+      catch let error as DictionaryClientError { throw error }
+      catch let error as VocabularyError { throw error }
+      catch let error as URLError {
+        if error.code == .cancelled { throw CancellationError() }
+        if error.code == .timedOut { throw DictionaryClientError.requestTimedOut }
+        throw DictionaryClientError.network
+      } catch { throw DictionaryClientError.invalidResponse }
+    }
+    throw DictionaryClientError.invalidResponse
+  }
+
+  private func consume(_ request: URLRequest, key: CacheKey, flightID: UUID, progress: DictionaryProgress, started: TimeInterval) async throws -> Completed {
     let (bytes, response) = try await session.bytes(for: request)
-    guard let http = response as? HTTPURLResponse, 200..<300 ~= http.statusCode else {
-      throw URLError(.badServerResponse)
+    guard let http = response as? HTTPURLResponse else { throw DictionaryClientError.invalidResponse }
+    guard 200..<300 ~= http.statusCode else {
+      let value = http.value(forHTTPHeaderField: "Retry-After")
+      let seconds = DictionaryRequestPolicy.retryDelay(value)
+      throw DictionaryHTTPFailure(status: http.statusCode, retryAfter: seconds)
     }
-
+    var metrics = DictionaryPerformance(headersSeconds: ProcessInfo.processInfo.systemUptime - started)
     var content = ""
+    var totalBytes = 0
     var meaningPublished = false
+    var successfulTerminal = false
     if http.mimeType == "text/event-stream" {
       var payload = ""
-      var done = false
       var lineBytes = Data()
       for try await byte in bytes {
         try Task.checkCancellation()
-        guard byte == 10 else {
+        totalBytes += 1
+        guard totalBytes <= budget.maximumResponseBytes else { throw DictionaryClientError.responseTooLarge }
+        if byte != 10 {
           lineBytes.append(byte)
+          guard lineBytes.count <= budget.maximumLineBytes else { throw DictionaryClientError.responseTooLarge }
           continue
         }
         if lineBytes.last == 13 { lineBytes.removeLast() }
@@ -92,92 +274,83 @@ actor DictionaryClient {
         lineBytes.removeAll(keepingCapacity: true)
         if line.isEmpty {
           if !payload.isEmpty {
-            done = try await consumeEvent(
-              payload, content: &content,
-              meaningPublished: &meaningPublished, onMeaning: onMeaning,
-              startedAt: startedAt, word: selection.word)
+            successfulTerminal = try await consumeEvent(payload, content: &content, meaningPublished: &meaningPublished,
+              metrics: &metrics, key: key, flightID: flightID, progress: progress, started: started)
             payload = ""
-            if done { break }
+            if successfulTerminal { break }
           }
         } else if line.hasPrefix("data:") {
           if !payload.isEmpty { payload += "\n" }
           let value = line.dropFirst(5)
           payload += value.first == " " ? String(value.dropFirst()) : String(value)
+          guard payload.utf8.count <= budget.maximumEventBytes else { throw DictionaryClientError.responseTooLarge }
         }
       }
-      if !done, !lineBytes.isEmpty {
-        let line = String(decoding: lineBytes, as: UTF8.self)
-        if line.hasPrefix("data:") {
-          if !payload.isEmpty { payload += "\n" }
-          let value = line.dropFirst(5)
-          payload += value.first == " " ? String(value.dropFirst()) : String(value)
+      if !successfulTerminal {
+        if !lineBytes.isEmpty {
+          let line = String(decoding: lineBytes, as: UTF8.self)
+          if line.hasPrefix("data:") { payload += String(line.dropFirst(5)).trimmingCharacters(in: .whitespaces) }
+        }
+        guard payload.utf8.count <= budget.maximumEventBytes else { throw DictionaryClientError.responseTooLarge }
+        if !payload.isEmpty {
+          successfulTerminal = try await consumeEvent(payload, content: &content, meaningPublished: &meaningPublished,
+            metrics: &metrics, key: key, flightID: flightID, progress: progress, started: started)
         }
       }
-      if !done && !payload.isEmpty {
-        _ = try await consumeEvent(
-          payload, content: &content,
-          meaningPublished: &meaningPublished, onMeaning: onMeaning,
-          startedAt: startedAt, word: selection.word)
-      }
+      guard successfulTerminal else { throw DictionaryClientError.incompleteResponse }
     } else {
       var data = Data()
       for try await byte in bytes {
         try Task.checkCancellation()
+        totalBytes += 1
+        guard totalBytes <= budget.maximumResponseBytes else { throw DictionaryClientError.responseTooLarge }
         data.append(byte)
       }
-      let envelope = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-      guard let choices = envelope?["choices"] as? [[String: Any]],
-        let message = choices.first?["message"] as? [String: Any],
-        let value = message["content"] as? String
-      else { throw VocabularyError.invalidAIResponse }
+      guard let envelope = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+        envelope["error"] == nil,
+        let choice = (envelope["choices"] as? [[String: Any]])?.first,
+        choice["finish_reason"] as? String == "stop",
+        let message = choice["message"] as? [String: Any], let value = message["content"] as? String
+      else { throw DictionaryClientError.incompleteResponse }
       content = value
+      metrics.firstTokenSeconds = ProcessInfo.processInfo.systemUptime - started
+      await progress.receivedContent()
     }
     try Task.checkCancellation()
-    guard let first = content.firstIndex(of: "{"), let last = content.lastIndex(of: "}"),
-      first <= last
-    else {
-      throw VocabularyError.invalidAIResponse
+    let result: DictionaryResult
+    do { result = try JSONDecoder().decode(DictionaryResult.self, from: Data(content.trimmingCharacters(in: .whitespacesAndNewlines).utf8)) }
+    catch { throw DictionaryClientError.invalidResponse }
+    guard !result.meaning.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { throw DictionaryClientError.invalidResponse }
+    if !meaningPublished {
+      metrics.firstMeaningSeconds = ProcessInfo.processInfo.systemUptime - started
+      await publish(result.meaning, key: key, flightID: flightID)
     }
-    let result = try JSONDecoder().decode(
-      DictionaryResult.self, from: Data(content[first...last].utf8))
-    guard !result.meaning.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-      throw VocabularyError.invalidAIResponse
-    }
-    if !meaningPublished, let onMeaning { await onMeaning(result.meaning) }
     try Task.checkCancellation()
-    if cacheLimit > 0 {
-      if cache[key] == nil { cacheOrder.append(key) }
-      cache[key] = result
-      if cacheOrder.count > cacheLimit { cache.removeValue(forKey: cacheOrder.removeFirst()) }
-    }
-    ContextDebugLog.write(
-      "AI 查询完成：\(Int(Date().timeIntervalSince(startedAt) * 1_000)) ms", word: selection.word)
-    return result
+    metrics.totalSeconds = ProcessInfo.processInfo.systemUptime - started
+    ContextDebugLog.write("取词完成：\(metrics.summary)")
+    return Completed(result: result, performance: metrics)
   }
 
-  private func consumeEvent(
-    _ payload: String, content: inout String, meaningPublished: inout Bool,
-    onMeaning: (@MainActor @Sendable (String) -> Void)?, startedAt: Date, word: String
-  ) async throws -> Bool {
+  private func consumeEvent(_ payload: String, content: inout String, meaningPublished: inout Bool, metrics: inout DictionaryPerformance, key: CacheKey, flightID: UUID, progress: DictionaryProgress, started: TimeInterval) async throws -> Bool {
     if payload == "[DONE]" { return true }
-    guard
-      let envelope = try JSONSerialization.jsonObject(with: Data(payload.utf8)) as? [String: Any],
-      envelope["error"] == nil
-    else { throw VocabularyError.invalidAIResponse }
-    if let choices = envelope["choices"] as? [[String: Any]], let choice = choices.first {
-      if choice["finish_reason"] as? String == "length" { throw VocabularyError.invalidAIResponse }
-      if let delta = choice["delta"] as? [String: Any], let fragment = delta["content"] as? String {
-        content += fragment
+    guard let envelope = try JSONSerialization.jsonObject(with: Data(payload.utf8)) as? [String: Any], envelope["error"] == nil
+    else { throw DictionaryClientError.invalidResponse }
+    guard let choice = (envelope["choices"] as? [[String: Any]])?.first else { return false }
+    let reason = choice["finish_reason"] as? String
+    if let reason, reason != "stop" { throw DictionaryClientError.incompleteResponse }
+    if let delta = choice["delta"] as? [String: Any], let fragment = delta["content"] as? String, !fragment.isEmpty {
+      content += fragment
+      if metrics.firstTokenSeconds == nil {
+        metrics.firstTokenSeconds = ProcessInfo.processInfo.systemUptime - started
+        await progress.receivedContent()
       }
     }
     if !meaningPublished, let meaning = Self.completedMeaning(in: content), !meaning.isEmpty {
-      try Task.checkCancellation()
       meaningPublished = true
-      ContextDebugLog.write(
-        "AI 释义可见：\(Int(Date().timeIntervalSince(startedAt) * 1_000)) ms", word: word)
-      if let onMeaning { await onMeaning(meaning) }
+      metrics.firstMeaningSeconds = ProcessInfo.processInfo.systemUptime - started
+      await publish(meaning, key: key, flightID: flightID)
     }
-    return false
+    return reason == "stop"
   }
 
   // Scan JSON structure, then let JSONDecoder handle escapes and Unicode surrogate pairs.

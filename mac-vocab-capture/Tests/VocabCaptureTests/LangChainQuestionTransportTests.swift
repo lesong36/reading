@@ -51,6 +51,37 @@ final class LangChainQuestionTransportTests: XCTestCase {
     await fixture.close()
   }
 
+  func testSearchProgressIsSeparateFromAnswerTextAndLateProgressIgnored() async throws {
+    let fixture = try fixture()
+    var stages: [ScreenshotQuestionSearchStage] = []
+    var partials: [String] = []
+    let answer = try await fixture.transport.answer(
+      payload: payload("progress"), onProgress: { stages.append($0) },
+      onPartial: { partials.append($0) })
+    XCTAssertEqual(stages, [.query, .search, .answer])
+    XCTAssertEqual(partials, ["verified answer"])
+    XCTAssertEqual(answer, "verified answer")
+    try await Task.sleep(nanoseconds: 30_000_000)
+    XCTAssertEqual(stages, [.query, .search, .answer])
+    await fixture.close()
+  }
+
+  func testSearchAuthenticationErrorHasDedicatedSanitizedMessage() async throws {
+    let fixture = try fixture()
+    do {
+      _ = try await fixture.transport.answer(payload: payload("searchAuthentication")) { _ in }
+      XCTFail("Search failure must not become an offline answer")
+    } catch {
+      guard case ScreenshotQuestionWebSearchError.authentication = error else {
+        XCTFail("Unexpected error: \(error)")
+        await fixture.close()
+        return
+      }
+      XCTAssertFalse(error.localizedDescription.contains("untrusted-key"))
+    }
+    await fixture.close()
+  }
+
   func testDoneReportsUsageOnceBeforeReturningTheAnswer() async throws {
     let fixture = try fixture()
     var usages: [ScreenshotQuestionUsage] = []
@@ -370,6 +401,17 @@ final class LangChainQuestionTransportTests: XCTestCase {
         os._exit(9)
     def answer(frame):
         id, question = frame["id"], frame["question"]
+        if question == "progress":
+            for stage in ["query", "search", "answer"]:
+                emit({"type": "progress", "id": id, "stage": stage})
+            emit({"type": "delta", "id": id, "text": "verified answer"})
+            emit({"type": "done", "id": id, "text": "verified answer"})
+            emit({"type": "progress", "id": id, "stage": "search"})
+            return
+        if question == "searchAuthentication":
+            emit({"type": "error", "id": id, "code": "searchAuthentication",
+                  "message": "untrusted-key"})
+            return
         if question == "crash":
             os._exit(7)
         if question == "hang":

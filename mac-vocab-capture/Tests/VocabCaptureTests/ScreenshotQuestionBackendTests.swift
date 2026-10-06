@@ -4,6 +4,46 @@ import XCTest
 @testable import VocabCapture
 
 final class ScreenshotQuestionBackendTests: XCTestCase {
+  func testSearchPayloadKeepsIndependentKeyAndOfflinePayloadOmitsSearch() throws {
+    let configuration = AIConfiguration(
+      baseURL: "https://example.test/v1", model: "model", apiKey: "model-test-key")
+    let context = ScreenshotQuestionContext(text: "Source", selectedWord: nil, imageData: nil)
+    let offline = try ScreenshotQuestionClient.payload(
+      question: "Question", context: context, history: [], configuration: configuration,
+      api: .chatCompletions)
+    let offlineObject = try XCTUnwrap(JSONSerialization.jsonObject(with: offline) as? [String: Any])
+    XCTAssertNil(offlineObject["web_search"])
+    let online = try ScreenshotQuestionClient.payload(
+      question: "Question", context: context, history: [], configuration: configuration,
+      api: .chatCompletions,
+      webSearch: ScreenshotQuestionWebSearchConfiguration(
+        apiKey: " search-test-key ", directConnection: true))
+    let object = try XCTUnwrap(JSONSerialization.jsonObject(with: online) as? [String: Any])
+    let search = try XCTUnwrap(object["web_search"] as? [String: Any])
+    XCTAssertEqual(search["api_key"] as? String, "search-test-key")
+    XCTAssertEqual(search["direct_connection"] as? Bool, true)
+    let model = try XCTUnwrap(object["configuration"] as? [String: Any])
+    XCTAssertEqual(model["api_key"] as? String, "model-test-key")
+    XCTAssertFalse((object["instructions"] as? String ?? "").contains("search-test-key"))
+  }
+
+  func testMissingSearchKeyIsRejectedBeforeStartingEngine() {
+    XCTAssertThrowsError(
+      try ScreenshotQuestionClient.payload(
+        question: "Question",
+        context: ScreenshotQuestionContext(text: "Source", selectedWord: nil, imageData: nil),
+        history: [],
+        configuration: AIConfiguration(
+          baseURL: "https://example.test/v1", model: "model", apiKey: "model-key"),
+        api: .chatCompletions,
+        webSearch: ScreenshotQuestionWebSearchConfiguration(apiKey: " \n "))
+    ) { error in
+      guard case ScreenshotQuestionWebSearchError.notConfigured = error else {
+        return XCTFail("Unexpected error: \(error)")
+      }
+    }
+  }
+
   @MainActor
   func testLangChainBackendForwardsReportedUsageBeforeReturning() async throws {
     let directory = FileManager.default.temporaryDirectory.appendingPathComponent(

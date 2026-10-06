@@ -167,7 +167,7 @@ final class ScreenshotQuestionModelSettingsTests: XCTestCase {
   }
 
   func testMenuItemTargetsDelegateDirectly() {
-    let delegate = AppDelegate()
+    let delegate = makeIsolatedAppDelegate()
     let item = delegate.makeQuestionModelSettingsItem()
     XCTAssertEqual(item.title, "问一问模型设置…")
     XCTAssertTrue(item.target === delegate)

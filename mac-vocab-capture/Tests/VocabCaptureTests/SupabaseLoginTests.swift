@@ -7,7 +7,7 @@ import XCTest
 final class SupabaseLoginTests: XCTestCase {
   func testExpiredLoginExplainsRecoveryAndPreservesSecurePasswordInput() {
     _ = NSApplication.shared
-    let prompt = AppDelegate().makeSupabaseLoginAlert(sessionExpired: true)
+    let prompt = makeIsolatedAppDelegate().makeSupabaseLoginAlert(sessionExpired: true)
     XCTAssertEqual(prompt.alert.messageText, "请重新登录阅读达人")
     XCTAssertTrue(prompt.alert.informativeText.contains("本机生词已保留"))
     XCTAssertTrue(prompt.alert.informativeText.contains("重新登录后会同步"))
@@ -22,7 +22,7 @@ final class SupabaseLoginTests: XCTestCase {
 
   func testFirstLoginDoesNotClaimAnExpiredSession() {
     _ = NSApplication.shared
-    let prompt = AppDelegate().makeSupabaseLoginAlert()
+    let prompt = makeIsolatedAppDelegate().makeSupabaseLoginAlert()
     XCTAssertEqual(prompt.alert.messageText, "登录阅读达人账号")
     XCTAssertFalse(prompt.alert.informativeText.contains("失效"))
     XCTAssertTrue(prompt.alert.informativeText.contains("密码不会保存"))

@@ -22,6 +22,7 @@ actor LangChainQuestionTransport {
   private struct Request {
     let continuation: CheckedContinuation<String, Error>
     let onUsage: @MainActor @Sendable (ScreenshotQuestionUsage) -> Void
+    let onProgress: @MainActor @Sendable (ScreenshotQuestionSearchStage) -> Void
     let onPartial: @MainActor @Sendable (String) -> Void
     let deadline: Task<Void, Never>
     var text = ""
@@ -85,6 +86,7 @@ actor LangChainQuestionTransport {
   func answer(
     payload: Data,
     onUsage: @escaping @MainActor @Sendable (ScreenshotQuestionUsage) -> Void = { _ in },
+    onProgress: @escaping @MainActor @Sendable (ScreenshotQuestionSearchStage) -> Void = { _ in },
     onPartial: @escaping @MainActor @Sendable (String) -> Void
   ) async throws -> String {
     try await warmUp()
@@ -113,7 +115,8 @@ actor LangChainQuestionTransport {
           expireRequest(id)
         }
         requests[id] = Request(
-          continuation: continuation, onUsage: onUsage, onPartial: onPartial, deadline: deadline)
+          continuation: continuation, onUsage: onUsage, onProgress: onProgress,
+          onPartial: onPartial, deadline: deadline)
         write(frame, generation: generation)
       }
     } onCancel: {
@@ -245,6 +248,15 @@ actor LangChainQuestionTransport {
       var request = requests[id]
     else { return }  // Late frames from cancelled requests are deliberately ignored.
     switch type {
+    case "progress":
+      guard let stage = object["stage"] as? String,
+        let progress = ScreenshotQuestionSearchStage(rawValue: stage)
+      else {
+        finish(id, result: .failure(ScreenshotQuestionError.invalidResponse))
+        sendCancel(id)
+        return
+      }
+      await request.onProgress(progress)
     case "delta":
       guard let text = object["text"] as? String else {
         finish(id, result: .failure(ScreenshotQuestionError.invalidResponse))
@@ -282,6 +294,14 @@ actor LangChainQuestionTransport {
     case "error":
       let error: Error
       switch object["code"] as? String {
+      case "searchConfiguration": error = ScreenshotQuestionWebSearchError.notConfigured
+      case "searchAuthentication": error = ScreenshotQuestionWebSearchError.authentication
+      case "searchLimit": error = ScreenshotQuestionWebSearchError.limit
+      case "searchTimeout": error = ScreenshotQuestionWebSearchError.timeout
+      case "searchConnection": error = ScreenshotQuestionWebSearchError.connection
+      case "searchResponse": error = ScreenshotQuestionWebSearchError.invalidResponse
+      case "searchEmpty": error = ScreenshotQuestionWebSearchError.emptyResults
+      case "searchQuery": error = ScreenshotQuestionWebSearchError.missingQuery
       case "server":
         if let status = object["status"] as? NSNumber,
           CFGetTypeID(status) != CFBooleanGetTypeID(),

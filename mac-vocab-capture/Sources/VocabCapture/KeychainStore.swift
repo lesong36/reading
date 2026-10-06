@@ -1,6 +1,20 @@
 import Foundation
 import Security
 
+protocol KeychainWriting {
+  func update(_ query: [CFString: Any], changes: [CFString: Any]) -> OSStatus
+  func add(_ item: [CFString: Any]) -> OSStatus
+  func delete(_ query: [CFString: Any]) -> OSStatus
+}
+
+struct SystemKeychainWriter: KeychainWriting {
+  func update(_ query: [CFString: Any], changes: [CFString: Any]) -> OSStatus {
+    SecItemUpdate(query as CFDictionary, changes as CFDictionary)
+  }
+  func add(_ item: [CFString: Any]) -> OSStatus { SecItemAdd(item as CFDictionary, nil) }
+  func delete(_ query: [CFString: Any]) -> OSStatus { SecItemDelete(query as CFDictionary) }
+}
+
 enum KeychainStore {
   private static let service = "com.coty.vocab-capture"
   private static let account = "openai-compatible-api-key"
@@ -20,17 +34,7 @@ enum KeychainStore {
   }
 
   static func saveAPIKey(_ apiKey: String) throws {
-    let base: [CFString: Any] = [
-      kSecClass: kSecClassGenericPassword, kSecAttrService: service, kSecAttrAccount: account,
-    ]
-    SecItemDelete(base as CFDictionary)
-    guard !apiKey.isEmpty else { return }
-    var item = base
-    item[kSecValueData] = Data(apiKey.utf8)
-    let status = SecItemAdd(item as CFDictionary, nil)
-    guard status == errSecSuccess else {
-      throw NSError(domain: NSOSStatusErrorDomain, code: Int(status))
-    }
+    try upsert(apiKey.isEmpty ? nil : Data(apiKey.utf8), account: account)
   }
 
   static func readSupabaseSession() -> SupabaseSession? {
@@ -45,6 +49,15 @@ enum KeychainStore {
 
   static func saveQuestionAPIKey(_ apiKey: String) throws {
     try updateQuestionKey(apiKey, account: questionAccount)
+  }
+
+  static func readWebSearchAPIKey() -> String {
+    guard let data = read(account: "screenshot-question-tavily-api-key") else { return "" }
+    return String(decoding: data, as: UTF8.self)
+  }
+
+  static func saveWebSearchAPIKey(_ apiKey: String) throws {
+    try updateQuestionKey(apiKey, account: "screenshot-question-tavily-api-key")
   }
 
   static func readQuestionProfileAPIKey(id: String) -> String {
@@ -62,17 +75,30 @@ enum KeychainStore {
   }
 
   private static func updateQuestionKey(_ apiKey: String, account: String) throws {
-    guard !apiKey.isEmpty else { return try delete(account: account) }
+    try upsert(apiKey.isEmpty ? nil : Data(apiKey.utf8), account: account)
+  }
+
+  // Inject only this write boundary in tests; production reads never use a fake keychain.
+  static func upsert(_ data: Data?, account: String, writer: any KeychainWriting = SystemKeychainWriter()) throws {
     let query: [CFString: Any] = [
       kSecClass: kSecClassGenericPassword, kSecAttrService: service,
       kSecAttrAccount: account,
     ]
-    let changes: [CFString: Any] = [kSecValueData: Data(apiKey.utf8)]
-    var status = SecItemUpdate(query as CFDictionary, changes as CFDictionary)
+    guard let data else {
+      let status = writer.delete(query)
+      guard status == errSecSuccess || status == errSecItemNotFound else {
+        throw NSError(domain: NSOSStatusErrorDomain, code: Int(status))
+      }
+      return
+    }
+    let changes: [CFString: Any] = [kSecValueData: data]
+    var status = writer.update(query, changes: changes)
     if status == errSecItemNotFound {
       var item = query
-      item[kSecValueData] = Data(apiKey.utf8)
-      status = SecItemAdd(item as CFDictionary, nil)
+      item[kSecValueData] = data
+      status = writer.add(item)
+      // Another process may create the item between update and add.
+      if status == errSecDuplicateItem { status = writer.update(query, changes: changes) }
     }
     guard status == errSecSuccess else {
       throw NSError(domain: NSOSStatusErrorDomain, code: Int(status))
@@ -95,24 +121,10 @@ enum KeychainStore {
   }
 
   private static func write(_ data: Data, account: String) throws {
-    try delete(account: account)
-    let item: [CFString: Any] = [
-      kSecClass: kSecClassGenericPassword, kSecAttrService: service, kSecAttrAccount: account,
-      kSecValueData: data,
-    ]
-    let status = SecItemAdd(item as CFDictionary, nil)
-    guard status == errSecSuccess else {
-      throw NSError(domain: NSOSStatusErrorDomain, code: Int(status))
-    }
+    try upsert(data, account: account)
   }
 
   private static func delete(account: String) throws {
-    let query: [CFString: Any] = [
-      kSecClass: kSecClassGenericPassword, kSecAttrService: service, kSecAttrAccount: account,
-    ]
-    let status = SecItemDelete(query as CFDictionary)
-    guard status == errSecSuccess || status == errSecItemNotFound else {
-      throw NSError(domain: NSOSStatusErrorDomain, code: Int(status))
-    }
+    try upsert(nil, account: account)
   }
 }

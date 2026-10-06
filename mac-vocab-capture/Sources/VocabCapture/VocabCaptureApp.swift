@@ -4,13 +4,21 @@ import Carbon.HIToolbox
 import Foundation
 import UserNotifications
 
+@MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
   private let shortcutPreferences: ShortcutPreferences
   private var shortcutSettings: CaptureShortcutSettings?
   private let store: VocabularyStore
-  private let dictionary = DictionaryClient()
+  private let dictionary: DictionaryClient
+  private let defaults: UserDefaults
+  private let readDictionaryKey: () -> String
+  private let saveDictionaryKey: (String) throws -> Void
+  private let browserBridge: BrowserContextBridge
+  private let regionCapture: ScreenshotRegionCapture
   private let screenshotQuestions = ScreenshotQuestionClient()
   private let questionPreferences: ScreenshotQuestionPreferences
+  private let searchPreferences: ScreenshotQuestionWebSearchPreferences
+  private var webSearchSettings: ScreenshotQuestionWebSearchSettings?
   private var questionModelSettings: ScreenshotQuestionModelSettings?
   private let cloudSync: SupabaseVocabularySync
   private var isOpeningCloudSync = false
@@ -20,27 +28,34 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private var hotKeyHandler: EventHandlerRef?
   private var mouseEventTap: CFMachPort?
   private var mouseEventSource: CFRunLoopSource?
-  private var recentEntriesPanel: NSPanel?
-  private var screenshotProcess: Process?
   private var screenshotTask: Task<Void, Never>?
   private(set) var ocrPanel: OCRLookupPanel?
   private(set) var directQuestionPanel: ScreenshotQuestionPanel?
 
   enum ScreenshotDestination { case word, question }
   private var selectionLookupTask: Task<Void, Never>?
-  private var selectionPreview: DefinitionPreviewPanel?
+  private(set) var selectionPreview: DefinitionPreviewPanel?
   private var selectionLookupID = UUID()
-  private var ocrSyncTask: Task<Void, Never>?
-  private var ocrSyncPending = false
+  private var selectionReadTask: Task<Void, Never>?
+  private var selectionReadID = UUID()
+  private(set) var floatingReadTask: Task<Void, Never>?
+  private(set) var floatingState = SelectionCaptureState()
+  private var accountCaptureGeneration = UUID()
+  private var displayedUserID: String?
+  private var conflictingWordKeys: [String] = []
+  private var syncStatusText = "本机词库 · 状态正在检查"
+  private lazy var syncCoordinator = VocabularySyncCoordinator(
+    store: store,
+    currentUserID: { [cloudSync] in await cloudSync.currentUserID() },
+    synchronize: { [cloudSync] batch in try await cloudSync.sync(batch: batch) },
+    onStatus: { [weak self] status in self?.updateSyncStatus(status) })
   private var lastLeftMouseDown: CFAbsoluteTime?
   private var lastRightMouseDown: CFAbsoluteTime?
   private var selectionDragStart: CGPoint?
-  private var floatingSelectionPanel: NSPanel?
-  private var floatingSelection: SelectedText?
+  private(set) var floatingSelectionPanel: NSPanel?
   private let configurationKey = "VocabCapture.aiConfiguration"
   private let mouseChordEnabledKey = "VocabCapture.mouseChordEnabled"
   private let floatingButtonEnabledKey = "VocabCapture.floatingButtonEnabled"
-  private let lastSyncedAtKey = "VocabCapture.lastSyncedAt"
   private let mouseChordInterval: CFAbsoluteTime = 0.22
   private let minimumSelectionDragDistance: CGFloat = 4
 
@@ -48,12 +63,27 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     cloudSync: SupabaseVocabularySync = SupabaseVocabularySync(),
     store: VocabularyStore = VocabularyStore(),
     shortcutPreferences: ShortcutPreferences = ShortcutPreferences(),
-    questionPreferences: ScreenshotQuestionPreferences = ScreenshotQuestionPreferences()
+    questionPreferences: ScreenshotQuestionPreferences = ScreenshotQuestionPreferences(),
+    searchPreferences: ScreenshotQuestionWebSearchPreferences =
+      ScreenshotQuestionWebSearchPreferences(),
+    dictionary: DictionaryClient = DictionaryClient(),
+    defaults: UserDefaults = .standard,
+    readDictionaryKey: @escaping () -> String = { KeychainStore.readAPIKey() },
+    saveDictionaryKey: @escaping (String) throws -> Void = { try KeychainStore.saveAPIKey($0) },
+    browserBridge: BrowserContextBridge = .shared,
+    regionCapture: ScreenshotRegionCapture? = nil
   ) {
     self.shortcutPreferences = shortcutPreferences
     self.questionPreferences = questionPreferences
+    self.searchPreferences = searchPreferences
     self.cloudSync = cloudSync
     self.store = store
+    self.dictionary = dictionary
+    self.defaults = defaults
+    self.readDictionaryKey = readDictionaryKey
+    self.saveDictionaryKey = saveDictionaryKey
+    self.browserBridge = browserBridge
+    self.regionCapture = regionCapture ?? ScreenshotRegionCapture()
     super.init()
   }
 
@@ -70,7 +100,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     registerHotKey()
     Task { await screenshotQuestions.warmUp() }
     installMouseChordIfNeeded()
-    BrowserContextBridge.shared.start()
+    browserBridge.start()
+    Task { await syncCoordinator.start() }
     let urls = pendingOpenURLs
     pendingOpenURLs.removeAll()
     application(NSApp, open: urls)
@@ -87,6 +118,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
         let word = components.queryItems?.first(where: { $0.name == "word" })?.value,
         let context = components.queryItems?.first(where: { $0.name == "context" })?.value,
+        browserBridge.isAuthorizedCapture(token: components.queryItems?.first(where: { $0.name == "token" })?.value),
         let selection = SelectionReader.fromBrowserExtension(word: word, context: context)
       else { continue }
       ContextDebugLog.write("浏览器扩展提供的原句", word: selection.word, context: selection.context)
@@ -115,6 +147,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       withTitle: "同步到阅读达人…", action: #selector(syncToReader), keyEquivalent: "")
     syncItem.target = self
     menu.addItem(.separator())
+    menu.addItem(makeAccountAndStorageMenu())
     menu.addItem(makeCaptureMethodMenu())
     menu.addItem(makeModelSettingsMenu())
     menu.addItem(makeSupportMenu())
@@ -147,8 +180,185 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     let shortcutItem = submenu.addItem(
       withTitle: "设置取词与截图快捷键…", action: #selector(openShortcutSettings), keyEquivalent: "")
     shortcutItem.target = self
+    submenu.addItem(.separator())
+    submenu.addItem(withTitle: "配对浏览器扩展…", action: #selector(pairBrowserExtension), keyEquivalent: "").target = self
+    submenu.addItem(withTitle: "撤销浏览器配对", action: #selector(revokeBrowserPairing), keyEquivalent: "").target = self
     item.submenu = submenu
     return item
+  }
+
+  private func makeAccountAndStorageMenu() -> NSMenuItem {
+    let item = NSMenuItem(title: "账号与本机词库", action: nil, keyEquivalent: "")
+    let submenu = NSMenu(title: item.title)
+    let status = submenu.addItem(withTitle: syncStatusText, action: nil, keyEquivalent: "")
+    status.isEnabled = false
+    submenu.addItem(.separator())
+    for (title, action) in [
+      ("查看同步与词库状态…", #selector(showStorageStatus)),
+      ("处理同步冲突…", #selector(resolveSyncConflicts)),
+      ("绑定未归属词库到当前账号…", #selector(bindUnassignedWords)),
+      ("登录或切换账号…", #selector(switchReaderAccount)),
+      ("退出阅读达人账号", #selector(signOutReader)),
+      ("导出本机词库原件…", #selector(exportStoreOriginal)),
+      ("导出未归属词库原件…", #selector(exportUnassignedStoreOriginal)),
+      ("从本机备份恢复…", #selector(restoreStoreBackup)),
+    ] {
+      submenu.addItem(withTitle: title, action: action, keyEquivalent: "").target = self
+    }
+    item.submenu = submenu
+    return item
+  }
+
+  private func updateSyncStatus(_ status: VocabularySyncStatus) {
+    if displayedUserID != status.userID {
+      displayedUserID = status.userID
+      accountCaptureGeneration = UUID()
+      selectionLookupTask?.cancel()
+      selectionPreview?.dismiss()
+      ocrPanel?.close(); ocrPanel = nil
+    }
+    conflictingWordKeys = status.conflictingWordKeys
+    let account = status.userID.map { "账号 \($0.prefix(8))" } ?? "未登录"
+    syncStatusText = "\(account) · 待同步 \(status.pendingCount) · \(status.message)"
+    statusItem?.menu = makeMenu()
+  }
+
+  @objc private func showStorageStatus() {
+    Task {
+      let status = await store.status()
+      let alert = NSAlert()
+      alert.messageText = "本机词库与同步状态"
+      alert.informativeText = syncStatusText
+        + "\n未归属词条：\(status.unassignedCount)\n可用备份：\(status.backupURLs.count)"
+        + (status.issue.map { "\n\($0)" } ?? "")
+      alert.addButton(withTitle: "关闭")
+      alert.runModal()
+    }
+  }
+
+  @objc private func resolveSyncConflicts() {
+    Task { await resolveSyncConflicts(wordKeys: conflictingWordKeys) }
+  }
+
+  private func resolveSyncConflicts(wordKeys: [String]) async {
+    guard !wordKeys.isEmpty else {
+      showFailure(title: "没有待处理的词条冲突", "可先手动同步获取最新状态。并发版本竞争可直接再次同步。")
+      return
+    }
+    let alert = NSAlert()
+    alert.messageText = "处理 \(wordKeys.count) 个词条冲突"
+    alert.informativeText = "这些词在云端已被修改或删除。本机原件会先保存为独立快照。\n采用云端会放弃这些词的待上传改动；采用本机会明确重新提交，已删除的词将恢复。其他待同步词不受影响。"
+    alert.addButton(withTitle: "采用云端")
+    alert.addButton(withTitle: "采用本机并重新提交")
+    alert.addButton(withTitle: "取消")
+    let response = alert.runModal()
+    guard response != .alertThirdButtonReturn else { return }
+    do {
+      try await syncCoordinator.resolveConflicts(wordKeys: wordKeys,
+        strategy: response == .alertFirstButtonReturn ? .adoptCloud : .resubmitLocal)
+      _ = try await syncVocabulary()
+      show("冲突已处理", "本机冲突前的词库快照已保留，新的同步状态已确认。")
+    } catch { showFailure(title: "冲突处理失败", error.localizedDescription) }
+  }
+
+  @objc private func bindUnassignedWords() {
+    Task { await bindUnassignedWordsIfRequested() }
+  }
+
+  private func bindUnassignedWordsIfRequested() async {
+    guard let userID = await cloudSync.currentUserID() else {
+      showFailure(title: "请先登录", "未登录词库会继续保存在本机。登录后可明确选择绑定到该账号。")
+      return
+    }
+    do {
+      try await syncCoordinator.prepareAccount()
+      let status = await store.status()
+      guard status.unassignedCount > 0 else { return }
+      let alert = NSAlert()
+      alert.messageText = "确认本机词库归属"
+      alert.informativeText = "本机有 \(status.unassignedCount) 个未归属词条，可能来自旧账号。\n绑定后会加入当前账号 \(userID.prefix(8)) 的待同步队列。原文件保留备份；不会自动搬运其他账号词库。"
+      alert.addButton(withTitle: "绑定到当前账号")
+      alert.addButton(withTitle: "仅同步账号词库")
+      guard alert.runModal() == .alertFirstButtonReturn else { return }
+      guard await cloudSync.currentUserID() == userID else { throw SupabaseSyncError.accountChanged }
+      try await store.adoptUnassignedEntries(into: userID)
+      await syncCoordinator.queue()
+    } catch { showFailure(title: "词库绑定失败", error.localizedDescription) }
+  }
+
+  @objc private func switchReaderAccount() { Task { await openSupabaseLogin() } }
+
+  @objc private func signOutReader() {
+    Task {
+      do {
+        try await cloudSync.signOut()
+        accountCaptureGeneration = UUID()
+        try await syncCoordinator.accountChanged()
+        show("已退出账号", "该账号的本机词库与待同步内容已保留。未登录时的新收藏保存在独立收集箱。")
+      } catch { showFailure(title: "退出失败", error.localizedDescription) }
+    }
+  }
+
+  @objc private func exportStoreOriginal() { exportStore(unassigned: false) }
+  @objc private func exportUnassignedStoreOriginal() { exportStore(unassigned: true) }
+  private func exportStore(unassigned: Bool) {
+    let panel = NSSavePanel()
+    panel.nameFieldStringValue = unassigned ? "未归属词库原件.json" : "本机词库原件.json"
+    guard panel.runModal() == .OK, let url = panel.url else { return }
+    Task {
+      do {
+        if unassigned { try await store.exportUnassignedOriginal(to: url) }
+        else { try await store.exportOriginal(to: url) }
+        show("词库已导出", "原文件已保留，可在本机核对或恢复。")
+      } catch { showFailure(title: "导出失败", error.localizedDescription) }
+    }
+  }
+
+  @objc private func restoreStoreBackup() {
+    Task {
+      let status = await store.status()
+      guard let backup = status.backupURLs.first,
+        let number = Int(backup.pathExtension.replacingOccurrences(of: "backup", with: ""))
+      else { showFailure(title: "没有可用备份", "可以先导出原文件保全数据。没有有效备份时不能自动重建词库。"); return }
+      let alert = NSAlert()
+      alert.messageText = "从最近备份恢复词库？"
+      alert.informativeText = "当前原文件会另存保留。恢复后的待同步状态仍按账号隔离，未归属旧库不会自动上传。"
+      alert.addButton(withTitle: "保留原件并恢复")
+      alert.addButton(withTitle: "取消")
+      guard alert.runModal() == .alertFirstButtonReturn else { return }
+      do {
+        try await store.restoreBackup(number: number)
+        await syncCoordinator.queue()
+        show("词库已恢复", "当前原文件已另存，恢复内容已重新载入。")
+      } catch { showFailure(title: "恢复失败", error.localizedDescription) }
+    }
+  }
+
+  @objc private func pairBrowserExtension() {
+    let alert = NSAlert()
+    alert.messageText = "配对浏览器扩展"
+    alert.informativeText = "复制配对码后，在拾词助手浏览器扩展的弹出菜单中填写并点击配对。配对码只用于本机扩展；撤销配对后需重新配对。"
+    alert.addButton(withTitle: "复制配对码")
+    alert.addButton(withTitle: "取消")
+    guard alert.runModal() == .alertFirstButtonReturn else { return }
+    NSPasteboard.general.clearContents()
+    NSPasteboard.general.setString(browserBridge.pairingToken, forType: .string)
+  }
+
+  @objc private func revokeBrowserPairing() {
+    browserBridge.rotatePairingToken()
+    show("浏览器配对已撤销", "旧配对码和选区缓存已失效。可从“快捷键与取词”重新配对。")
+  }
+
+  @objc private func enableContextDiagnostics() {
+    ContextDebugLog.enableRawDiagnostics(for: 600)
+    show("原文诊断已开启10分钟", "这段时间会记录取词原句供本机诊断。可从“帮助与诊断”随时关闭并清除。")
+  }
+
+  @objc private func clearContextDiagnostics() {
+    ContextDebugLog.disableRawDiagnostics()
+    ContextDebugLog.clear()
+    show("原文诊断已关闭", "本机上下文调试日志已清除，恢复仅记录耗时与字数。")
   }
 
   func makeModelSettingsMenu() -> NSMenuItem {
@@ -158,6 +368,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       withTitle: "取词释义模型…", action: #selector(openSettings), keyEquivalent: ",")
     dictionary.target = self
     submenu.addItem(makeQuestionModelSettingsItem())
+    let search = submenu.addItem(
+      withTitle: "联网检索设置…", action: #selector(openWebSearchSettings), keyEquivalent: "")
+    search.target = self
     item.submenu = submenu
     return item
   }
@@ -181,33 +394,42 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     submenu.addItem(
       withTitle: "打开上下文调试日志", action: #selector(openContextDebugLog), keyEquivalent: ""
     ).target = self
+    submenu.addItem(withTitle: "开启原文诊断（10分钟）", action: #selector(enableContextDiagnostics), keyEquivalent: "").target = self
+    submenu.addItem(withTitle: "关闭原文诊断并清除日志", action: #selector(clearContextDiagnostics), keyEquivalent: "").target = self
     item.submenu = submenu
     return item
   }
 
   @objc func captureSelectionAction() {
-    let selection: SelectedText?
-    if AXIsProcessTrusted() {
-      selection = SelectionReader.read()
-    } else {
-      requestAccessibilityPermission()
-      selection = SelectionReader.fromServicePasteboard(.general)
-    }
-    guard let selection else {
-      if !AXIsProcessTrusted() {
-        showFailure(
-          title: "需要辅助功能权限",
-          "请到“系统设置 → 隐私与安全性 → 辅助功能”，打开“拾词助手”的开关；然后退出并重新打开本应用。未授权时可先复制单词，再按 \(currentShortcut.title)。"
-        )
+    readSelection(allowClipboard: true)
+  }
+
+  private func readSelection(allowClipboard: Bool) {
+    selectionReadTask?.cancel()
+    selectionLookupTask?.cancel()
+    selectionLookupID = UUID()
+    selectionPreview?.dismiss()
+    selectionPreview = nil
+    let readID = UUID()
+    selectionReadID = readID
+    selectionReadTask = Task {
+      let selection: SelectedText?
+      if AXIsProcessTrusted() {
+        selection = allowClipboard ? await SelectionReader.readAsync(browserBridge: browserBridge) : await SelectionReader.readFocusedSelectionAsync(browserBridge: browserBridge)
+      } else {
+        requestAccessibilityPermission()
+        selection = allowClipboard ? SelectionReader.fromServicePasteboard(.general) : nil
+      }
+      guard !Task.isCancelled, selectionReadID == readID else { return }
+      guard let selection else {
+        let message = AXIsProcessTrusted()
+          ? "请先选中英文单词或短语。若该 App 不支持读取选区，可复制包含原句的内容，或使用截图取词。"
+          : "请在系统设置 → 隐私与安全性 → 辅助功能允许拾词助手。也可先复制包含原句的内容或使用截图取词。"
+        showFailure(title: AXIsProcessTrusted() ? "没有读到选词" : "需要辅助功能权限", message)
         return
       }
-      showFailure(
-        title: "没有读到选词",
-        "请先选中英文单词或短语。若该 App 不支持读取选区，可先复制单词后再按 \(currentShortcut.title)。"
-      )
-      return
+      capture(selection)
     }
-    capture(selection)
   }
 
   private func requestAccessibilityPermission() {
@@ -237,46 +459,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   @MainActor
   private func beginScreenshotCapture(destination: ScreenshotDestination) {
-    guard screenshotProcess == nil else { return }
+    guard !regionCapture.isRunning else { return }
     screenshotTask?.cancel()
     let restore = hideScreenshotPanels()
-    captureNativeRegion { [weak self] image in
+    setStatus("词 ···")
+    regionCapture.capture { [weak self] result in
       guard let self else { return }
-      guard let image else {
-        self.setStatus("词")
-        restore()
-        return
+      switch result {
+      case .success(let image):
+        guard let image else { self.setStatus("词"); restore(); return }
+        self.recognizeScreenshot(image, destination: destination, restore: restore)
+      case .failure(let error):
+        self.setStatus("词"); restore()
+        self.showFailure(title: "截图失败", error.localizedDescription)
       }
-      self.recognizeScreenshot(image, destination: destination, restore: restore)
-    }
-  }
-
-  private func captureNativeRegion(completion: @escaping (CGImage?) -> Void) {
-    let fileURL = FileManager.default.temporaryDirectory.appendingPathComponent(
-      "vocab-ocr-\(UUID().uuidString).png")
-    let process = Process()
-    process.executableURL = URL(fileURLWithPath: "/usr/sbin/screencapture")
-    process.arguments = ["-i", "-o", "-t", "png", fileURL.path]
-    process.terminationHandler = { [weak self] finished in
-      defer { try? FileManager.default.removeItem(at: fileURL) }
-      let image: CGImage?
-      if finished.terminationStatus == 0, let captured = NSImage(contentsOf: fileURL) {
-        image = captured.cgImage(forProposedRect: nil, context: nil, hints: nil)
-      } else {
-        image = nil
-      }
-      DispatchQueue.main.async {
-        self?.screenshotProcess = nil
-        completion(image)
-      }
-    }
-    do {
-      try process.run()
-      screenshotProcess = process
-      setStatus("词 ···")
-    } catch {
-      completion(nil)
-      showFailure(title: "无法启动截图", error.localizedDescription)
     }
   }
 
@@ -321,7 +517,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
           text: text, selectedWord: nil, imageData: questionImageData(image)),
         answer: answerScreenshotQuestion,
         onModelSettings: { [weak self] in self?.openQuestionModelSettings() },
-        modelPreferences: questionPreferences, measuredAnswer: measuredScreenshotQuestion)
+        modelPreferences: questionPreferences, measuredAnswer: measuredScreenshotQuestion,
+        webAnswer: webScreenshotQuestion,
+        onSearchSettings: { [weak self] in self?.openWebSearchSettings() })
       directQuestionPanel = panel
       panel.present()
       setStatus("词")
@@ -353,11 +551,30 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
   }
 
+  private var webScreenshotQuestion: ScreenshotQuestionWebAnswer {
+    { [weak self] question, context, history, enabled, usage, progress, partial in
+      guard let self else { throw CancellationError() }
+      let search = enabled ? try self.searchPreferences.configuration() : nil
+      return try await self.screenshotQuestions.answer(
+        question: question, context: context, history: history,
+        configuration: self.questionPreferences.configuration(fallingBackTo: self.configuration),
+        api: self.questionPreferences.selectedAPI,
+        thinking: self.questionPreferences.selectedThinking,
+        directConnection: self.questionPreferences.selectedDirectConnection, webSearch: search,
+        onUsage: usage, onProgress: progress, onPartial: partial)
+    }
+  }
+
   @MainActor
   private func showOCRPanel(text: String, image: CGImage) {
     directQuestionPanel?.close()
     directQuestionPanel = nil
     ocrPanel?.close()
+    let ownerGeneration = accountCaptureGeneration
+    let writeScope = Task {
+      try await syncCoordinator.prepareAccount()
+      return await store.writeScope()
+    }
     let panel = OCRLookupPanel(
       text: text,
       lookup: { [weak self] selection, onMeaning in
@@ -366,15 +583,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
           selection, configuration: self.configuration, onMeaning: onMeaning)
       },
       save: { [weak self] selection, result in
-        guard let self else { throw CancellationError() }
+        guard let self, self.accountCaptureGeneration == ownerGeneration else { throw CancellationError() }
+        let scope = try await writeScope.value
+        try await self.syncCoordinator.prepareAccount()
+        guard self.accountCaptureGeneration == ownerGeneration else { throw CancellationError() }
         _ = try await self.store.add(
-          word: selection.word, dictionary: result, context: selection.context)
+          word: selection.word, dictionary: result, context: selection.context, scope: scope)
         self.queueOCRSync()
         return "“\(selection.word)”已保存到本机 · 可继续选词"
       }, imageData: questionImageData(image), ask: answerScreenshotQuestion,
       onQuestionSettings: { [weak self] in
         self?.openQuestionModelSettings()
-      }, questionPreferences: questionPreferences, measuredAsk: measuredScreenshotQuestion)
+      }, questionPreferences: questionPreferences, measuredAsk: measuredScreenshotQuestion,
+      webAsk: webScreenshotQuestion,
+      onSearchSettings: { [weak self] in self?.openWebSearchSettings() })
     panel.onRetake = { [weak self] in self?.captureScreenTextAction() }
     ocrPanel = panel
     panel.present()
@@ -399,30 +621,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   @MainActor
   private func queueOCRSync() {
-    ocrSyncPending = true
-    guard ocrSyncTask == nil else { return }
-    ocrSyncTask = Task {
-      while self.ocrSyncPending {
-        self.ocrSyncPending = false
-        do {
-          _ = try await self.syncVocabulary()
-          await MainActor.run { self.setStatus("词 ✓") }
-        } catch SupabaseSyncError.notLoggedIn {
-          // Local capture remains useful before the user signs in.
-        } catch SupabaseSyncError.sessionExpired {
-          await MainActor.run {
-            self.show("已保存在本机，请重新登录", "阅读达人登录已失效。请从菜单选择“同步到阅读达人…”重新登录，生词会在登录后同步。")
-          }
-        } catch {
-          await MainActor.run { self.show("已保存在本机，云同步失败", error.localizedDescription) }
-        }
-      }
-      self.ocrSyncTask = nil
-    }
+    Task { await syncCoordinator.queue() }
   }
 
   @objc private func toggleMouseChord() {
-    UserDefaults.standard.set(!mouseChordEnabled, forKey: mouseChordEnabledKey)
+    defaults.set(!mouseChordEnabled, forKey: mouseChordEnabledKey)
     if mouseChordEnabled || floatingButtonEnabled {
       installMouseChordIfNeeded()
     } else {
@@ -432,7 +635,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   @objc private func toggleFloatingButton() {
-    UserDefaults.standard.set(!floatingButtonEnabled, forKey: floatingButtonEnabledKey)
+    defaults.set(!floatingButtonEnabled, forKey: floatingButtonEnabledKey)
     if floatingButtonEnabled || mouseChordEnabled {
       installMouseChordIfNeeded()
     } else {
@@ -443,13 +646,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   private var mouseChordEnabled: Bool {
-    guard UserDefaults.standard.object(forKey: mouseChordEnabledKey) != nil else { return true }
-    return UserDefaults.standard.bool(forKey: mouseChordEnabledKey)
+    guard defaults.object(forKey: mouseChordEnabledKey) != nil else { return true }
+    return defaults.bool(forKey: mouseChordEnabledKey)
   }
 
   private var floatingButtonEnabled: Bool {
-    guard UserDefaults.standard.object(forKey: floatingButtonEnabledKey) != nil else { return true }
-    return UserDefaults.standard.bool(forKey: floatingButtonEnabledKey)
+    guard defaults.object(forKey: floatingButtonEnabledKey) != nil else { return true }
+    return defaults.bool(forKey: floatingButtonEnabledKey)
   }
 
   private func installMouseChordIfNeeded() {
@@ -462,8 +665,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     let callback: CGEventTapCallBack = { _, type, event, userInfo in
       if let userInfo, type == .leftMouseDown || type == .leftMouseUp || type == .rightMouseDown {
         let delegate = Unmanaged<AppDelegate>.fromOpaque(userInfo).takeUnretainedValue()
+        // Use AppKit screen coordinates before queued handling can observe a moved pointer.
+        let location = NSEvent.mouseLocation
         DispatchQueue.main.async {
-          delegate.handleMouseEvent(type, location: NSEvent.mouseLocation)
+          delegate.handleMouseEvent(type, location: location)
         }
       }
       return Unmanaged.passUnretained(event)
@@ -493,13 +698,25 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     lastLeftMouseDown = nil
     lastRightMouseDown = nil
     selectionDragStart = nil
+    floatingReadTask?.cancel()
+    floatingState.invalidate()
     dismissFloatingSelectionButton()
   }
 
-  private func handleMouseEvent(_ type: CGEventType, location: CGPoint) {
-    guard
-      NSWorkspace.shared.frontmostApplication?.processIdentifier
-        != ProcessInfo.processInfo.processIdentifier
+  func handleMouseEvent(
+    _ type: CGEventType, location: CGPoint,
+    frontmostProcessIdentifier: pid_t? = NSWorkspace.shared.frontmostApplication?.processIdentifier
+  ) {
+    // The nonactivating panel keeps the source app frontmost. Its button must retain
+    // the accepted selection until its own mouse-up action consumes it.
+    if let panel = floatingSelectionPanel, panel.isVisible, panel.frame.contains(location) {
+      selectionDragStart = nil
+      lastLeftMouseDown = nil
+      lastRightMouseDown = nil
+      floatingReadTask?.cancel()
+      return
+    }
+    guard frontmostProcessIdentifier != ProcessInfo.processInfo.processIdentifier
     else {
       selectionDragStart = nil
       lastLeftMouseDown = nil
@@ -507,6 +724,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       return
     }
     if type == .leftMouseDown {
+      floatingState.invalidate()
+      floatingReadTask?.cancel()
+      dismissFloatingSelectionButton()
       selectionDragStart = location
     } else if type == .leftMouseUp {
       defer { selectionDragStart = nil }
@@ -515,12 +735,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let start = selectionDragStart,
         hypot(location.x - start.x, location.y - start.y) >= minimumSelectionDragDistance
       else { return }
-      // Safari commits a drag selection noticeably later than several native
-      // editors. Retry briefly instead of assuming the AX selection is ready
-      // on the first post-mouse-up turn.
-      for delay in [0.12, 0.28, 0.52] {
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
-          self?.showFloatingSelectionButtonIfNeeded()
+      let revision = floatingState.revision
+      floatingReadTask?.cancel()
+      floatingReadTask = Task {
+        for wait in [120_000_000, 160_000_000, 240_000_000] {
+          do { try await Task.sleep(nanoseconds: UInt64(wait)) } catch { return }
+          guard !Task.isCancelled, floatingState.revision == revision else { return }
+          let selection = await SelectionReader.readFocusedSelectionAsync(browserBridge: browserBridge)
+          guard !Task.isCancelled, floatingState.revision == revision else { return }
+          if let selection { showFloatingSelectionButtonIfNeeded(selection: selection, revision: revision) }
         }
       }
       return
@@ -537,20 +760,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
     lastLeftMouseDown = nil
     lastRightMouseDown = nil
-    // The chord's first click can collapse a selection in the target app.
-    // Read it before this passive event is delivered to that app.
-    captureSelectionAction()
+    // A passive tap cannot promise to precede the target app's click handling.
+    // Re-read its current selection instead of consuming an earlier drag.
+    readSelection(allowClipboard: false)
   }
 
-  private func showFloatingSelectionButtonIfNeeded() {
-    guard floatingButtonEnabled,
-      NSWorkspace.shared.frontmostApplication?.processIdentifier
-        != ProcessInfo.processInfo.processIdentifier,
-      NSApp.modalWindow == nil,
-      floatingSelectionPanel == nil,
-      let selection = SelectionReader.readFocusedSelection()
+  func showFloatingSelectionButtonIfNeeded(
+    selection: SelectedText, revision: UUID,
+    frontmostProcessIdentifier: pid_t? = NSWorkspace.shared.frontmostApplication?.processIdentifier
+  ) {
+    guard floatingState.revision == revision, floatingButtonEnabled,
+      frontmostProcessIdentifier != ProcessInfo.processInfo.processIdentifier,
+      NSApp.modalWindow == nil
     else { return }
-    floatingSelection = selection
+    if floatingState.selection?.word == selection.word, floatingState.selection?.context == selection.context,
+      floatingSelectionPanel != nil { return }
+    guard floatingState.accept(selection, revision: revision) else { return }
     dismissFloatingSelectionButton(keepingSelection: true)
 
     let panel = NSPanel(
@@ -600,7 +825,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   @objc private func captureFloatingSelection() {
-    guard let selection = floatingSelection else { return }
+    guard let selection = floatingState.consume() else { return }
+    floatingReadTask?.cancel()
     dismissFloatingSelectionButton()
     capture(selection)
   }
@@ -608,11 +834,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private func dismissFloatingSelectionButton(keepingSelection: Bool = false) {
     floatingSelectionPanel?.orderOut(nil)
     floatingSelectionPanel = nil
-    if !keepingSelection { floatingSelection = nil }
+    if !keepingSelection { floatingState.invalidate() }
   }
 
   private func capture(_ selection: SelectedText) {
-    let captureStartedAt = Date()
+    let captureStartedAt = ProcessInfo.processInfo.systemUptime
+    let ownerGeneration = accountCaptureGeneration
     selectionLookupTask?.cancel()
     selectionPreview?.dismiss()
     let lookupID = UUID()
@@ -631,6 +858,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     selectionLookupTask = Task { @MainActor [preview, self] in
       var confirmed = false
       do {
+        try await syncCoordinator.prepareAccount()
+        let writeScope = await store.writeScope()
         let contextualSelection = try contextualSelection(for: selection)
         let result = try await dictionary.lookup(
           contextualSelection, configuration: configuration,
@@ -640,37 +869,26 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             else { return }
             preview.showMeaning(meaning)
             ContextDebugLog.write(
-              "界面显示释义：\(Int(Date().timeIntervalSince(captureStartedAt) * 1000)) ms",
+              "界面显示释义：\(Int((ProcessInfo.processInfo.systemUptime - captureStartedAt) * 1000)) ms",
               word: contextualSelection.word)
+          }, onPerformance: { [weak self, weak preview] performance in
+            guard let self, self.selectionLookupID == lookupID else { return }
+            preview?.showPerformance(performance)
           })
         try Task.checkCancellation()
         guard self.selectionLookupID == lookupID else { return }
         preview.showResult(result)
         guard await preview.waitForConfirmation() else { return }
         confirmed = true
+        try await syncCoordinator.prepareAccount()
+        guard accountCaptureGeneration == ownerGeneration else { throw SupabaseSyncError.accountChanged }
         let entry = try await store.add(
-          word: contextualSelection.word, dictionary: result, context: contextualSelection.context)
+          word: contextualSelection.word, dictionary: result, context: contextualSelection.context,
+          scope: writeScope)
         ContextDebugLog.write("已写入本机生词本", word: entry.word)
-        do {
-          let result = try await self.syncVocabulary()
-          ContextDebugLog.write("云同步完成：新增/更新 \(result.uploadedCount) 个", word: entry.word)
-          await MainActor.run {
-            self.show(
-              "已同步到阅读达人",
-              "\(entry.word) · \(entry.meaning)；本次新增/更新 \(result.uploadedCount) 个，云端共 \(result.totalCount) 个"
-            )
-          }
-        } catch SupabaseSyncError.notLoggedIn {
-          await MainActor.run {
-            self.show("已加入本机生词本", "\(entry.word) · \(entry.meaning)；登录后可同步到阅读达人")
-          }
-        } catch SupabaseSyncError.sessionExpired {
-          await MainActor.run {
-            self.show("已加入本机，请重新登录", "阅读达人登录已失效。请从菜单选择“同步到阅读达人…”重新登录，生词会在登录后同步。")
-          }
-        } catch {
-          await MainActor.run { self.show("已加入本机，云同步失败", error.localizedDescription) }
-        }
+        await syncCoordinator.queue()
+        let pending = await store.pendingCount()
+        self.show("已加入本机生词本", "\(entry.word) · \(entry.meaning)；待同步 \(pending) 项。可从菜单查看同步状态。")
       } catch {
         guard confirmed || (!Task.isCancelled && self.selectionLookupID == lookupID) else { return }
         preview.dismiss()
@@ -714,33 +932,69 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   @MainActor @objc private func openSettings() {
     let alert = NSAlert()
     alert.messageText = "取词释义模型设置"
-    alert.informativeText = "填入 OpenAI 兼容接口。API Key 仅保存在本机 Keychain。"
-    let stack = NSStackView(frame: NSRect(x: 0, y: 0, width: 420, height: 204))
+    alert.informativeText = "使用 OpenAI 兼容接口。Key仅存本机Keychain；自建服务可使用HTTP。思考设置只作用于取词释义。"
+    let stack = NSStackView(frame: NSRect(x: 0, y: 0, width: 420, height: 300))
     stack.orientation = .vertical
     stack.alignment = .leading
     stack.spacing = 6
-    let base = NSTextField(string: configuration.baseURL)
-    let model = NSTextField(string: configuration.model)
-    let key = NSSecureTextField(string: configuration.apiKey)
+    let saved = configuration
+    let base = NSTextField(string: saved.baseURL)
+    let model = NSTextField(string: saved.model)
+    let key = NSSecureTextField(string: saved.apiKey)
     for (label, field) in [("Base URL", base), ("Model", model), ("API Key", key)] {
       stack.addArrangedSubview(NSTextField(labelWithString: label))
       field.widthAnchor.constraint(equalToConstant: 420).isActive = true
       field.heightAnchor.constraint(equalToConstant: 26).isActive = true
       stack.addArrangedSubview(field)
     }
+    stack.addArrangedSubview(NSTextField(labelWithString: "取词思考强度"))
+    let thinking = NSPopUpButton()
+    for option in ScreenshotQuestionThinking.allCases { thinking.addItem(withTitle: option.title) }
+    thinking.selectItem(at: ScreenshotQuestionThinking.allCases.firstIndex(of: saved.thinking) ?? 1)
+    stack.addArrangedSubview(thinking)
+    stack.addArrangedSubview(NSTextField(labelWithString: "取词服务类型"))
+    let backend = NSPopUpButton()
+    for option in DictionaryBackend.allCases { backend.addItem(withTitle: option.title) }
+    backend.selectItem(at: DictionaryBackend.allCases.firstIndex(of: saved.backend) ?? 0)
+    stack.addArrangedSubview(backend)
+    let help = NSTextField(wrappingLabelWithString: "支持的服务默认关闭／最少思考。本地 llama.cpp 请明确选择服务类型；它支持思考开关，强度档位使用输出预算，不能保证远端思考强度。其他未知兼容服务保留默认。")
+    help.font = .systemFont(ofSize: 11)
+    help.textColor = .secondaryLabelColor
+    help.widthAnchor.constraint(equalToConstant: 420).isActive = true
+    stack.addArrangedSubview(help)
     alert.accessoryView = stack
     alert.addButton(withTitle: "保存")
     alert.addButton(withTitle: "取消")
-    guard alert.runModal() == .alertFirstButtonReturn else { return }
-    do {
-      try KeychainStore.saveAPIKey(key.stringValue)
-      configuration = AIConfiguration(
-        baseURL: base.stringValue, model: model.stringValue, apiKey: key.stringValue)
-      if !questionPreferences.isEnabled {
-        ocrPanel?.questionModelConfigurationChanged()
-        directQuestionPanel?.modelConfigurationChanged()
+    alert.addButton(withTitle: "测试连接")
+    Task {
+      while true {
+        let response = alert.runModal()
+        guard response != .alertSecondButtonReturn else { return }
+        do {
+          let candidate = try DictionaryRequestPolicy.normalized(AIConfiguration(
+            baseURL: base.stringValue, model: model.stringValue, apiKey: key.stringValue,
+            thinking: ScreenshotQuestionThinking.allCases[max(0, thinking.indexOfSelectedItem)],
+            backend: DictionaryBackend.allCases[max(0, backend.indexOfSelectedItem)]))
+          if response == .alertThirdButtonReturn {
+            let tester = DictionaryClient(cacheLimit: 0)
+            _ = try await tester.lookup(SelectedText(word: "curious", context: "A curious reader asks a question."),
+              configuration: candidate, onPerformance: { [weak settingsAlert = alert] performance in
+                settingsAlert?.informativeText = "连接测试通过 · \(performance.summary)\n配置尚未保存。"
+              })
+            continue
+          }
+          // Validate before touching Keychain. If update fails the old configuration remains usable.
+          _ = try DictionaryRequestPolicy.request(selection: SelectedText(word: "test", context: "This is a test."), configuration: candidate)
+          try saveDictionaryKey(candidate.apiKey)
+          configuration = candidate
+          if !questionPreferences.isEnabled {
+            ocrPanel?.questionModelConfigurationChanged()
+            directQuestionPanel?.modelConfigurationChanged()
+          }
+          return
+        } catch { alert.informativeText = error.localizedDescription + "\n原配置未改动。" }
       }
-    } catch { show("无法保存 API Key", error.localizedDescription) }
+    }
   }
 
   @MainActor @objc func openQuestionModelSettings() {
@@ -756,6 +1010,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         self?.ocrPanel?.questionModelConfigurationChanged()
         self?.directQuestionPanel?.modelConfigurationChanged()
       }, onClose: { [weak self] in self?.questionModelSettings = nil })
+  }
+
+  @MainActor @objc func openWebSearchSettings() {
+    if let webSearchSettings {
+      webSearchSettings.show()
+      return
+    }
+    let settings = ScreenshotQuestionWebSearchSettings(preferences: searchPreferences)
+    webSearchSettings = settings
+    settings.present(
+      onChange: { [weak self] in
+        self?.directQuestionPanel?.searchConfigurationChanged()
+        self?.ocrPanel?.questionSearchConfigurationChanged()
+      }, onClose: { [weak self] in self?.webSearchSettings = nil })
   }
 
   @objc private func showRecentEntries() {
@@ -787,8 +1055,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       defer { isOpeningCloudSync = false }
       if await cloudSync.isLoggedIn() {
         do {
+          try await syncCoordinator.prepareAccount()
+          if await store.status().unassignedCount > 0 { await bindUnassignedWordsIfRequested() }
           let result = try await syncVocabulary()
           self.show("同步完成", "本次新增/更新 \(result.uploadedCount) 个单词；云端共 \(result.totalCount) 个")
+        } catch SupabaseSyncError.conflict(let keys) {
+          await resolveSyncConflicts(wordKeys: keys)
         } catch SupabaseSyncError.sessionExpired {
           await openSupabaseLogin(sessionExpired: true)
         } catch SupabaseSyncError.notLoggedIn {
@@ -838,6 +1110,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       _ = try await cloudSync.signIn(
         email: email.stringValue.trimmingCharacters(in: .whitespacesAndNewlines),
         password: password.stringValue)
+      accountCaptureGeneration = UUID()
+      try await syncCoordinator.accountChanged()
+      if await store.status().unassignedCount > 0 { await bindUnassignedWordsIfRequested() }
       let result = try await syncVocabulary()
       self.show("已登录并同步", "本次新增/更新 \(result.uploadedCount) 个单词；云端共 \(result.totalCount) 个")
     } catch {
@@ -845,24 +1120,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
   }
 
-  private func syncVocabulary() async throws -> (uploadedCount: Int, totalCount: Int) {
-    let local = await store.all()
-    let result = try await cloudSync.sync(local: local)
-    try await store.applySync(result.vocabulary, basedOn: local)
-    UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: lastSyncedAtKey)
-    return (result.uploadedCount, result.vocabulary.count)
+  private func syncVocabulary() async throws -> VocabularySyncSummary {
+    try await syncCoordinator.sync()
   }
 
   private func syncDescription(isLoggedIn: Bool) -> String {
-    guard isLoggedIn else { return "仅保存在本机 · 登录阅读达人后可同步" }
-    guard UserDefaults.standard.object(forKey: lastSyncedAtKey) != nil else {
-      return "已登录阅读达人 · 尚未手动同步"
-    }
-    let time = Date(timeIntervalSince1970: UserDefaults.standard.double(forKey: lastSyncedAtKey))
-    let formatter = DateFormatter()
-    formatter.dateStyle = .medium
-    formatter.timeStyle = .short
-    return "已同步阅读达人 · 上次同步 \(formatter.string(from: time))"
+    isLoggedIn ? syncStatusText : "未登录 · 仅保存在本机，绑定账号后可同步"
   }
 
   @objc private func openShortcutSettings() {
@@ -903,14 +1166,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private var configuration: AIConfiguration {
     get {
       let saved = try? JSONDecoder().decode(
-        AIConfiguration.self, from: UserDefaults.standard.data(forKey: configurationKey) ?? Data())
+        AIConfiguration.self, from: defaults.data(forKey: configurationKey) ?? Data())
       return AIConfiguration(
-        baseURL: saved?.baseURL ?? "", model: saved?.model ?? "", apiKey: KeychainStore.readAPIKey()
+        baseURL: saved?.baseURL ?? "", model: saved?.model ?? "", apiKey: readDictionaryKey(),
+        thinking: saved?.thinking ?? .off, backend: saved?.backend ?? .openAICompatible
       )
     }
     set {
-      let nonSecret = AIConfiguration(baseURL: newValue.baseURL, model: newValue.model, apiKey: "")
-      UserDefaults.standard.set(try? JSONEncoder().encode(nonSecret), forKey: configurationKey)
+      let nonSecret = AIConfiguration(baseURL: newValue.baseURL, model: newValue.model, apiKey: "", thinking: newValue.thinking, backend: newValue.backend)
+      defaults.set(try? JSONEncoder().encode(nonSecret), forKey: configurationKey)
     }
   }
 
@@ -999,7 +1263,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       content.body = message
       let request = UNNotificationRequest(
         identifier: UUID().uuidString, content: content, trigger: nil)
-      center.add(request)
+      UNUserNotificationCenter.current().add(request)
     }
   }
 
@@ -1015,413 +1279,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   func applicationWillTerminate(_ notification: Notification) {
     stopMouseChord()
-    Task { await screenshotQuestions.shutdown() }
-  }
-}
-
-final class DefinitionPreviewPanel: NSPanel, NSWindowDelegate {
-  var onDecision: ((Bool) -> Void)?
-  var isFinished: Bool { decision != nil }
-  private var decision: Bool?
-  private var confirmation: CheckedContinuation<Bool, Never>?
-  private var ready = false
-  private var metadataLabel: NSTextField!
-  private var meaningField: NSTextField!
-  private var noteField: NSTextField!
-  private var addButton: NSButton!
-
-  init(selection: SelectedText) {
-    super.init(
-      contentRect: NSRect(x: 0, y: 0, width: 520, height: 520),
-      styleMask: [.titled, .closable],
-      backing: .buffered,
-      defer: false
-    )
-    title = "语境释义"
-    isReleasedWhenClosed = false
-    hidesOnDeactivate = false
-    delegate = self
-
-    let background = NSVisualEffectView()
-    background.material = .underWindowBackground
-    background.blendingMode = .behindWindow
-    background.state = .active
-    contentView = background
-
-    let eyebrow = label(
-      "语境释义", font: .systemFont(ofSize: 12, weight: .semibold), color: .secondaryLabelColor)
-    let word = label(
-      selection.word, font: .systemFont(ofSize: 27, weight: .bold), color: .labelColor)
-    metadataLabel = label(
-      "正在查询…", font: .systemFont(ofSize: 14, weight: .medium), color: .systemIndigo)
-    let meaningLabel = label(
-      "原句中的含义", font: .systemFont(ofSize: 12, weight: .semibold), color: .tertiaryLabelColor)
-    let meaning = label(
-      "等待语境释义…", font: .systemFont(ofSize: 20, weight: .semibold), color: .labelColor)
-    meaningField = meaning
-    noteField = label("", font: .systemFont(ofSize: 14), color: .secondaryLabelColor)
-    noteField.isHidden = true
-    let sourceTitle = label(
-      "原句语境", font: .systemFont(ofSize: 12, weight: .semibold), color: .tertiaryLabelColor)
-    let source = sourceView(selection.context)
-
-    let content = NSStackView()
-    content.orientation = .vertical
-    content.alignment = .leading
-    content.spacing = 9
-    let summaryViews: [NSView] = [eyebrow, word, metadataLabel, divider(), meaningLabel, meaning]
-    for view in summaryViews {
-      content.addArrangedSubview(view)
-    }
-    content.setCustomSpacing(12, after: meaning)
-    content.addArrangedSubview(noteField)
-    content.setCustomSpacing(16, after: noteField)
-    content.addArrangedSubview(sourceTitle)
-    content.addArrangedSubview(source)
-
-    let cancel = NSButton(title: "稍后再说", target: self, action: #selector(cancel))
-    cancel.bezelStyle = .rounded
-    cancel.keyEquivalent = "\u{1b}"
-    let add = NSButton(title: "加入生词本", target: self, action: #selector(confirm))
-    addButton = add
-    add.isEnabled = false
-    add.bezelStyle = .rounded
-    add.keyEquivalent = "\r"
-    add.controlSize = .large
-    add.contentTintColor = .controlAccentColor
-    let footer = NSStackView(views: [cancel, NSView(), add])
-    footer.orientation = .horizontal
-    footer.alignment = .centerY
-    footer.distribution = .fill
-    footer.spacing = 12
-    cancel.widthAnchor.constraint(equalToConstant: 112).isActive = true
-    add.widthAnchor.constraint(equalToConstant: 136).isActive = true
-
-    for view in [content, footer] {
-      view.translatesAutoresizingMaskIntoConstraints = false
-      background.addSubview(view)
-    }
-    NSLayoutConstraint.activate([
-      content.topAnchor.constraint(equalTo: background.topAnchor, constant: 26),
-      content.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 30),
-      content.trailingAnchor.constraint(equalTo: background.trailingAnchor, constant: -30),
-      source.widthAnchor.constraint(equalTo: content.widthAnchor),
-      footer.leadingAnchor.constraint(equalTo: content.leadingAnchor),
-      footer.trailingAnchor.constraint(equalTo: content.trailingAnchor),
-      footer.bottomAnchor.constraint(equalTo: background.bottomAnchor, constant: -24),
-      footer.topAnchor.constraint(greaterThanOrEqualTo: content.bottomAnchor, constant: 20),
-    ])
-  }
-
-  func present() {
-    guard !isFinished else { return }
-    center()
-    makeKeyAndOrderFront(nil)
-    NSApp.activate(ignoringOtherApps: true)
-  }
-
-  func showMeaning(_ meaning: String) {
-    guard !isFinished, !ready else { return }
-    meaningField.stringValue = meaning
-    metadataLabel.stringValue = "正在补全词性与音标…"
-  }
-
-  func showResult(_ result: DictionaryResult) {
-    guard !isFinished else { return }
-    meaningField.stringValue = result.meaning
-    metadataLabel.stringValue = [result.partOfSpeech, result.pronunciation]
-      .filter { !$0.isEmpty }.joined(separator: "   ")
-    noteField.stringValue = result.note
-    noteField.isHidden = result.note.isEmpty
-    ready = true
-    addButton.isEnabled = true
-  }
-
-  func waitForConfirmation() async -> Bool {
-    if let decision { return decision }
-    return await withTaskCancellationHandler {
-      await withCheckedContinuation { continuation in
-        if let decision {
-          continuation.resume(returning: decision)
-        } else if Task.isCancelled {
-          dismiss()
-          continuation.resume(returning: false)
-        } else {
-          confirmation = continuation
-        }
-      }
-    } onCancel: {
-      Task { @MainActor [weak self] in self?.dismiss() }
-    }
-  }
-
-  @objc private func confirm() {
-    guard ready else { return }
-    finish(true)
-  }
-
-  @objc private func cancel() { dismiss() }
-
-  override func cancelOperation(_ sender: Any?) { dismiss() }
-
-  func dismiss() { finish(false) }
-
-  func windowShouldClose(_ sender: NSWindow) -> Bool {
-    dismiss()
-    return false
-  }
-
-  private func finish(_ accepted: Bool) {
-    guard !isFinished else { return }
-    decision = accepted
-    addButton.isEnabled = false
-    orderOut(nil)
-    let completion = confirmation
-    confirmation = nil
-    let callback = onDecision
-    onDecision = nil
-    callback?(accepted)
-    completion?.resume(returning: accepted)
-  }
-
-  private func label(_ text: String, font: NSFont, color: NSColor) -> NSTextField {
-    let field = NSTextField(wrappingLabelWithString: text)
-    field.font = font
-    field.textColor = color
-    field.maximumNumberOfLines = 0
-    return field
-  }
-
-  private func divider() -> NSBox {
-    let line = NSBox()
-    line.boxType = .separator
-    line.translatesAutoresizingMaskIntoConstraints = false
-    line.widthAnchor.constraint(equalToConstant: 460).isActive = true
-    return line
-  }
-
-  private func sourceView(_ text: String) -> NSScrollView {
-    let scroll = NSScrollView()
-    scroll.hasVerticalScroller = true
-    scroll.borderType = .noBorder
-    scroll.drawsBackground = false
-    scroll.wantsLayer = true
-    scroll.layer?.cornerRadius = 10
-    scroll.layer?.backgroundColor = NSColor.controlBackgroundColor.withAlphaComponent(0.75).cgColor
-    let view = NSTextView(frame: NSRect(x: 0, y: 0, width: 460, height: 128))
-    view.isEditable = false
-    view.isSelectable = true
-    view.drawsBackground = false
-    view.textColor = .secondaryLabelColor
-    view.font = .systemFont(ofSize: 15)
-    view.textContainerInset = NSSize(width: 14, height: 12)
-    view.textContainer?.widthTracksTextView = true
-    view.isHorizontallyResizable = false
-    view.isVerticallyResizable = true
-    view.autoresizingMask = [.width]
-    view.string = text
-    scroll.documentView = view
-    scroll.heightAnchor.constraint(equalToConstant: 128).isActive = true
-    return scroll
-  }
-}
-
-private final class RecentVocabularyViewController: NSViewController {
-  private let entries: [VocabularyEntry]
-  private let syncDescription: String
-
-  init(entries: [VocabularyEntry], syncDescription: String) {
-    self.entries = entries
-    self.syncDescription = syncDescription
-    super.init(nibName: nil, bundle: nil)
-  }
-
-  required init?(coder: NSCoder) { nil }
-
-  override func loadView() {
-    let root = NSView()
-    root.wantsLayer = true
-    root.layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
-
-    let title = makeLabel(
-      "最近加入", font: .systemFont(ofSize: 22, weight: .semibold), color: .labelColor)
-    let subtitle = makeLabel(
-      syncDescription, font: .systemFont(ofSize: 13), color: .secondaryLabelColor)
-    let scroll = NSScrollView()
-    scroll.hasVerticalScroller = true
-    scroll.drawsBackground = false
-    scroll.borderType = .noBorder
-
-    let list = RecentVocabularyListView(entries: entries, width: 508)
-    list.autoresizingMask = [.width]
-    scroll.documentView = list
-
-    for view in [title, subtitle, scroll] {
-      view.translatesAutoresizingMaskIntoConstraints = false
-      root.addSubview(view)
-    }
-    NSLayoutConstraint.activate([
-      title.topAnchor.constraint(equalTo: root.topAnchor, constant: 22),
-      title.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 24),
-      title.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -24),
-      subtitle.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 4),
-      subtitle.leadingAnchor.constraint(equalTo: title.leadingAnchor),
-      subtitle.trailingAnchor.constraint(equalTo: title.trailingAnchor),
-      scroll.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 18),
-      scroll.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 16),
-      scroll.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -16),
-      scroll.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -18),
-    ])
-    view = root
-  }
-
-  private func makeLabel(_ text: String, font: NSFont, color: NSColor) -> NSTextField {
-    let label = NSTextField(wrappingLabelWithString: text)
-    label.font = font
-    label.textColor = color
-    label.maximumNumberOfLines = 0
-    return label
-  }
-
-}
-
-private final class RecentVocabularyListView: NSView {
-  private let entries: [VocabularyEntry]
-  private var cards: [(entry: VocabularyEntry, rect: NSRect)] = []
-  private var layoutWidth: CGFloat = 0
-
-  override var isFlipped: Bool { true }
-
-  init(entries: [VocabularyEntry], width: CGFloat) {
-    self.entries = entries
-    super.init(frame: NSRect(x: 0, y: 0, width: width, height: 1))
-    rebuildLayout(width: width)
-  }
-
-  required init?(coder: NSCoder) { nil }
-
-  override func layout() {
-    super.layout()
-    if abs(bounds.width - layoutWidth) > 1 { rebuildLayout(width: bounds.width) }
-  }
-
-  private func rebuildLayout(width: CGFloat) {
-    layoutWidth = max(width, 280)
-    let cardWidth = layoutWidth - 4
-    var y: CGFloat = 2
-    cards = entries.map { entry in
-      let height = cardHeight(for: entry, width: cardWidth)
-      defer { y += height + 12 }
-      return (entry, NSRect(x: 2, y: y, width: cardWidth, height: height))
-    }
-    if entries.isEmpty { y += 110 }
-    setFrameSize(NSSize(width: layoutWidth, height: max(y, 1)))
-    needsDisplay = true
-  }
-
-  override func draw(_ dirtyRect: NSRect) {
-    super.draw(dirtyRect)
-    if entries.isEmpty {
-      drawText(
-        "还没有加入单词。选中英文后，按快捷键或鼠标左右键一起按即可开始。",
-        in: NSRect(x: 18, y: 28, width: bounds.width - 36, height: 54),
-        font: .systemFont(ofSize: 15), color: .secondaryLabelColor)
-      return
-    }
-    for card in cards where dirtyRect.intersects(card.rect) { drawCard(card.entry, in: card.rect) }
-  }
-
-  private func drawCard(_ entry: VocabularyEntry, in rect: NSRect) {
-    let background = NSBezierPath(roundedRect: rect, xRadius: 14, yRadius: 14)
-    NSColor.controlBackgroundColor.setFill()
-    background.fill()
-    NSColor.separatorColor.withAlphaComponent(0.65).setStroke()
-    background.lineWidth = 1
-    background.stroke()
-
-    let inset = rect.insetBy(dx: 20, dy: 18)
-    var y = inset.minY
-    let wordHeight = drawText(
-      entry.word, in: NSRect(x: inset.minX, y: y, width: inset.width, height: 32),
-      font: .systemFont(ofSize: 25, weight: .semibold), color: .labelColor)
-    y += wordHeight + 4
-    let detail = [entry.partOfSpeech, entry.pronunciation].filter { !$0.isEmpty }.joined(
-      separator: " · ")
-    if !detail.isEmpty {
-      let detailHeight = drawText(
-        detail, in: NSRect(x: inset.minX, y: y, width: inset.width, height: 22),
-        font: .systemFont(ofSize: 13, weight: .medium), color: .systemIndigo)
-      y += detailHeight + 10
-    } else {
-      y += 8
-    }
-    let meaningHeight = drawText(
-      entry.meaning, in: NSRect(x: inset.minX, y: y, width: inset.width, height: 46),
-      font: .systemFont(ofSize: 17, weight: .medium), color: .labelColor)
-    y += meaningHeight + 16
-    let contextLabel = drawText(
-      "来自文章语境", in: NSRect(x: inset.minX, y: y, width: inset.width, height: 18),
-      font: .systemFont(ofSize: 12, weight: .semibold), color: .tertiaryLabelColor)
-    y += contextLabel + 5
-    let sentence =
-      entry.sourceContext.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-      ? entry.exampleSentence : entry.sourceContext
-    let sentenceText = sentence.isEmpty ? "未读取到完整原句" : sentence
-    let sentenceHeight = drawText(
-      sentenceText, in: NSRect(x: inset.minX, y: y, width: inset.width, height: rect.maxY - y - 34),
-      font: .systemFont(ofSize: 14), color: .secondaryLabelColor)
-    y += sentenceHeight + 14
-    drawText(
-      "加入于 \(formattedDate(entry))",
-      in: NSRect(x: inset.minX, y: y, width: inset.width, height: 18),
-      font: .systemFont(ofSize: 12), color: .tertiaryLabelColor)
-  }
-
-  private func cardHeight(for entry: VocabularyEntry, width: CGFloat) -> CGFloat {
-    let textWidth = width - 40
-    let detail = [entry.partOfSpeech, entry.pronunciation].filter { !$0.isEmpty }.joined(
-      separator: " · ")
-    let sentence =
-      entry.sourceContext.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-      ? entry.exampleSentence : entry.sourceContext
-    return 36
-      + measuredHeight(
-        entry.word, width: textWidth, font: .systemFont(ofSize: 25, weight: .semibold))
-      + (detail.isEmpty ? 8 : 27)
-      + measuredHeight(
-        entry.meaning, width: textWidth, font: .systemFont(ofSize: 17, weight: .medium))
-      + 34
-      + measuredHeight(
-        sentence.isEmpty ? "未读取到完整原句" : sentence, width: textWidth, font: .systemFont(ofSize: 14))
-      + 32
-  }
-
-  @discardableResult
-  private func drawText(_ text: String, in rect: NSRect, font: NSFont, color: NSColor) -> CGFloat {
-    let height = measuredHeight(text, width: rect.width, font: font)
-    let attributes: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: color]
-    NSAttributedString(string: text, attributes: attributes).draw(
-      with: NSRect(x: rect.minX, y: rect.minY, width: rect.width, height: height),
-      options: [.usesLineFragmentOrigin, .usesFontLeading])
-    return height
-  }
-
-  private func measuredHeight(_ text: String, width: CGFloat, font: NSFont) -> CGFloat {
-    let attributes: [NSAttributedString.Key: Any] = [.font: font]
-    let size = NSAttributedString(string: text, attributes: attributes).boundingRect(
-      with: NSSize(width: width, height: .greatestFiniteMagnitude),
-      options: [.usesLineFragmentOrigin, .usesFontLeading]
-    ).size
-    return ceil(size.height)
-  }
-
-  private func formattedDate(_ entry: VocabularyEntry) -> String {
-    if let date = ISO8601DateFormatter().date(from: entry.addedAt) {
-      let formatter = DateFormatter()
-      formatter.dateStyle = .medium
-      formatter.timeStyle = .short
-      return formatter.string(from: date)
-    }
-    return entry.addedAt.isEmpty ? "刚刚" : entry.addedAt
+    selectionReadTask?.cancel()
+    floatingReadTask?.cancel()
+    selectionLookupTask?.cancel()
+    screenshotTask?.cancel()
+    Task { await screenshotQuestions.shutdown(); await syncCoordinator.stop() }
   }
 }

@@ -3,6 +3,14 @@ import XCTest
 @testable import VocabCapture
 
 final class OCRSelectionTests: XCTestCase {
+  func testPhraseAndSentenceContract() {
+    XCTAssertEqual(SelectionReader.fromBrowserExtension(word: "as a matter of fact", context: "As a matter of fact, it works.")?.word, "as a matter of fact")
+    XCTAssertNil(SelectionReader.fromBrowserExtension(word: "cat", context: "They scatter seeds in spring."))
+    XCTAssertEqual(SelectionReader.sentenceFromOCRText("Dr. Smith paid 3.5 dollars. Next sentence.", containing: "dollars"), "Dr. Smith paid 3.5 dollars.")
+    let text = "one two three four five six seven eight nine ten eleven twelve thirteen."
+    XCTAssertNil(OCRSelection(text: text).selection(in: NSRange(location: 0, length: (text as NSString).length)))
+  }
+
   func testClickKeepsSingleLetterAndHyphenatedWords() {
     let model = OCRSelection(text: "I read a well-known book.")
     XCTAssertEqual(model.wordRange(at: 0), NSRange(location: 0, length: 1))

@@ -2,7 +2,8 @@
 set -euo pipefail
 
 PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-SOURCE_APP="$PROJECT_DIR/build/拾词助手.app"
+PACKAGE_DIR="${VOCAB_CAPTURE_PACKAGE_DIR:-$HOME/Library/Caches/com.coty.vocab-capture/package}"
+SOURCE_APP="$PACKAGE_DIR/拾词助手.app"
 TARGET_DIR="$HOME/Applications"
 TARGET_APP="$TARGET_DIR/拾词助手.app"
 
@@ -20,7 +21,7 @@ if [[ -e "$TARGET_APP" ]]; then
   BACKUP="$HOME/.Trash/拾词助手-$(date +%Y%m%d-%H%M%S).app"
   mv "$TARGET_APP" "$BACKUP"
 fi
-ditto "$SOURCE_APP" "$TARGET_APP"
+ditto --norsrc --noextattr "$SOURCE_APP" "$TARGET_APP"
 # `ditto` may preserve Finder metadata from a previously launched bundle.
 xattr -cr "$TARGET_APP" 2>/dev/null || true
 LSREGISTER="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister"

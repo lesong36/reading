@@ -6,6 +6,13 @@ typealias ScreenshotQuestionMeasuredAnswer = (
   @escaping @MainActor @Sendable (String) -> Void
 ) async throws -> String
 
+typealias ScreenshotQuestionWebAnswer = (
+  String, ScreenshotQuestionContext, [ScreenshotQuestionTurn], Bool,
+  @escaping @MainActor @Sendable (ScreenshotQuestionUsage) -> Void,
+  @escaping @MainActor @Sendable (ScreenshotQuestionSearchStage) -> Void,
+  @escaping @MainActor @Sendable (String) -> Void
+) async throws -> String
+
 @MainActor
 final class ScreenshotQuestionPanel: NSPanel, NSWindowDelegate {
   private let source = NSTextField(wrappingLabelWithString: "")
@@ -17,6 +24,10 @@ final class ScreenshotQuestionPanel: NSPanel, NSWindowDelegate {
   private let status = NSTextField(wrappingLabelWithString: "输入问题，或点击快捷问题开始。")
   private let suggestions = NSStackView()
   private let performanceLabel = NSTextField(wrappingLabelWithString: "")
+  private let searchCheckbox = NSButton(checkboxWithTitle: "联网检索", target: nil, action: nil)
+  private let webAnswer: ScreenshotQuestionWebAnswer?
+  private let onSearchSettings: (() -> Void)?
+  static let webSearchEnabledKey = "VocabCapture.questionWebSearchEnabled"
   private let measuredAnswer: ScreenshotQuestionMeasuredAnswer?
   private let quickPrompts: ScreenshotQuestionQuickPrompts
   private let interfaceDefaults: UserDefaults
@@ -51,8 +62,12 @@ final class ScreenshotQuestionPanel: NSPanel, NSWindowDelegate {
     measuredAnswer: ScreenshotQuestionMeasuredAnswer? = nil,
     quickPrompts: ScreenshotQuestionQuickPrompts = ScreenshotQuestionQuickPrompts(),
     interfaceDefaults: UserDefaults = .standard,
-    now: @escaping () -> TimeInterval = { ProcessInfo.processInfo.systemUptime }
+    now: @escaping () -> TimeInterval = { ProcessInfo.processInfo.systemUptime },
+    webAnswer: ScreenshotQuestionWebAnswer? = nil,
+    onSearchSettings: (() -> Void)? = nil
   ) {
+    self.webAnswer = webAnswer
+    self.onSearchSettings = onSearchSettings
     self.measuredAnswer = measuredAnswer
     self.quickPrompts = quickPrompts
     self.interfaceDefaults = interfaceDefaults
@@ -187,7 +202,8 @@ final class ScreenshotQuestionPanel: NSPanel, NSWindowDelegate {
     transcript.textColor = .labelColor
     transcript.isEditable = false
     transcript.isSelectable = true
-    transcript.isRichText = false
+    transcript.isRichText = true
+    transcript.linkTextAttributes = [.foregroundColor: NSColor.linkColor, .underlineStyle: 1]
     transcript.isHorizontallyResizable = false
     transcript.isVerticallyResizable = true
     transcript.maxSize = NSSize(
@@ -229,6 +245,18 @@ final class ScreenshotQuestionPanel: NSPanel, NSWindowDelegate {
     performanceLabel.setAccessibilityLabel("回答性能")
     performanceLabel.toolTip =
       "首字 / TTFT：点击提问到首个可见文字（含引擎启动和网络等待）。平均 TPS：服务返回的输出 token 数 ÷ 总耗时，包含等待；输出 token 可能含思考。服务未返回用量时显示 —，不以字符数代替。⌘+ / ⌘− 缩放阅读文字，⌘0 恢复。"
+    searchCheckbox.target = self
+    searchCheckbox.action = #selector(searchPreferenceChanged)
+    searchCheckbox.state = interfaceDefaults.bool(forKey: Self.webSearchEnabledKey) ? .on : .off
+    searchCheckbox.setAccessibilityLabel("联网检索")
+    searchCheckbox.toolTip = "使用 Tavily 搜索网页，并将检索资料交给所选模型回答。"
+    let searchSettings = NSButton(
+      title: "检索设置…", target: self, action: #selector(openSearchSettings))
+    searchSettings.isHidden = onSearchSettings == nil
+    let searchControls = NSStackView(views: [searchCheckbox, searchSettings, NSView()])
+    searchControls.orientation = .horizontal
+    searchControls.spacing = 10
+    searchControls.isHidden = webAnswer == nil
     let input = NSStackView(views: [question, askButton])
     let controls = NSStackView(views: [imageCheckbox, NSView(), stopButton, clearButton])
     for row in [input, controls] {
@@ -237,7 +265,7 @@ final class ScreenshotQuestionPanel: NSPanel, NSWindowDelegate {
     }
     let column = NSStackView(views: [
       headingRow, modelRow, source, scroll, suggestions, input, status, performanceLabel,
-      controls,
+      searchControls, controls,
     ])
     column.orientation = .vertical
     column.alignment = .leading
@@ -254,7 +282,7 @@ final class ScreenshotQuestionPanel: NSPanel, NSWindowDelegate {
     ])
     for view in [
       headingRow, modelRow, source, scroll, suggestions, input, status, performanceLabel,
-      controls,
+      searchControls, controls,
     ] {
       view.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
     }
@@ -369,7 +397,8 @@ final class ScreenshotQuestionPanel: NSPanel, NSWindowDelegate {
 
   private func updateMinimumHeight() {
     let extraRows = max(0, suggestions.arrangedSubviews.count - 1)
-    let required = 580 + CGFloat(extraRows) * 28 + max(0, zoomScale - 1) * 80
+    let required =
+      (webAnswer == nil ? 580 : 614) + CGFloat(extraRows) * 28 + max(0, zoomScale - 1) * 80
     minSize = NSSize(width: 600, height: required)
     if frame.height < required {
       var expanded = frame
@@ -483,6 +512,7 @@ final class ScreenshotQuestionPanel: NSPanel, NSWindowDelegate {
     let snapshot = ScreenshotQuestionContext(
       text: context.text, selectedWord: context.selectedWord,
       imageData: imageCheckbox.state == .on ? context.imageData : nil)
+    let searchEnabled = webAnswer != nil && searchCheckbox.state == .on
     let previous = history
     let requestID = UUID()
     revision = requestID
@@ -527,7 +557,23 @@ final class ScreenshotQuestionPanel: NSPanel, NSWindowDelegate {
           }
         }
         let result: String
-        if let measuredAnswer = self.measuredAnswer {
+        let onUsage: @MainActor @Sendable (ScreenshotQuestionUsage) -> Void = { [weak self] usage in
+          guard let self, self.revision == requestID, self.isAnswering, !self.isClosed else {
+            return
+          }
+          self.performance?.usage = usage
+          self.refreshPerformance()
+        }
+        if let webAnswer = self.webAnswer {
+          result = try await webAnswer(
+            submitted, snapshot, previous, searchEnabled, onUsage,
+            { [weak self] stage in
+              guard let self, self.revision == requestID, self.isAnswering, !self.isClosed else {
+                return
+              }
+              self.status.stringValue = stage.title
+            }, onPartial)
+        } else if let measuredAnswer = self.measuredAnswer {
           result = try await measuredAnswer(
             submitted, snapshot, previous,
             { [weak self] usage in
@@ -580,13 +626,22 @@ final class ScreenshotQuestionPanel: NSPanel, NSWindowDelegate {
           + (pendingOutcome.isEmpty ? "" : "\n\n[\(pendingOutcome)]"))
     }
     updateTranscriptWidth()
-    transcript.textStorage?.setAttributedString(
-      NSAttributedString(
-        string: parts.joined(separator: "\n\n──────────\n\n"),
-        attributes: [
-          .font: NSFont.systemFont(ofSize: 16 * zoomScale), .foregroundColor: NSColor.labelColor,
-          .paragraphStyle: transcript.defaultParagraphStyle ?? NSParagraphStyle.default,
-        ]))
+    let rendered = NSMutableAttributedString(
+      string: parts.joined(separator: "\n\n──────────\n\n"),
+      attributes: [
+        .font: NSFont.systemFont(ofSize: 16 * zoomScale), .foregroundColor: NSColor.labelColor,
+        .paragraphStyle: transcript.defaultParagraphStyle ?? NSParagraphStyle.default,
+      ])
+    if let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue) {
+      let range = NSRange(location: 0, length: rendered.length)
+      detector.enumerateMatches(in: rendered.string, range: range) { match, _, _ in
+        guard let match, let url = match.url,
+          ["http", "https"].contains(url.scheme?.lowercased() ?? "")
+        else { return }
+        rendered.addAttribute(.link, value: url, range: match.range)
+      }
+    }
+    transcript.textStorage?.setAttributedString(rendered)
     transcript.scrollToEndOfDocument(nil)
   }
 
@@ -623,6 +678,19 @@ final class ScreenshotQuestionPanel: NSPanel, NSWindowDelegate {
   }
 
   @objc private func stop() { cancelAnswer() }
+
+  func searchConfigurationChanged() {
+    clearConversation()
+    status.stringValue = "检索设置已更新，已开始新对话。"
+  }
+
+  @objc private func searchPreferenceChanged() {
+    interfaceDefaults.set(searchCheckbox.state == .on, forKey: Self.webSearchEnabledKey)
+    clearConversation()
+    status.stringValue = searchCheckbox.state == .on ? "新对话将联网检索，并显示来源链接。" : "新对话将直接使用模型回答。"
+  }
+
+  @objc private func openSearchSettings() { onSearchSettings?() }
 
   @objc private func openModelSettings() { onModelSettings?() }
 

@@ -11,7 +11,7 @@ final class CaptureShortcutSettingsTests: XCTestCase {
 
   func testColdOpenURLWaitsForApplicationInitialization() {
     let app = NSApplication.shared
-    let delegate = AppDelegate()
+    let delegate = makeIsolatedAppDelegate()
     let url = URL(string: "vocabcapture://capture?word=curious&context=A%20curious%20reader.")!
     delegate.application(app, open: [url])
     XCTAssertEqual(delegate.pendingOpenURLs, [url])
@@ -19,7 +19,7 @@ final class CaptureShortcutSettingsTests: XCTestCase {
 
   func testMenuHasAnExplicitTarget() throws {
     _ = NSApplication.shared
-    let delegate = AppDelegate()
+    let delegate = makeIsolatedAppDelegate()
     let menu = try XCTUnwrap(delegate.makeCaptureMethodMenu().submenu)
     let entry = try XCTUnwrap(menu.items.first { $0.title == "设置取词与截图快捷键…" })
     XCTAssertTrue(entry.target === delegate)

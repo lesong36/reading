@@ -7,32 +7,85 @@ struct SelectedText: Sendable {
   let context: String
 }
 
+private final class SelectionCancellation: @unchecked Sendable {
+  private let lock = NSLock()
+  private var cancelled = false
+  func cancel() { lock.lock(); cancelled = true; lock.unlock() }
+  var isCancelled: Bool { lock.lock(); defer { lock.unlock() }; return cancelled }
+}
+
 enum SelectionReader {
+  private static let executor = DispatchQueue(label: "com.coty.vocab-capture.selection", qos: .userInitiated)
+  static func readFocusedSelectionAsync(browserBridge: BrowserContextBridge = .shared) async -> SelectedText? {
+    await readOnExecutor(includeClipboard: false, browserBridge: browserBridge)
+  }
+  static func readAsync(browserBridge: BrowserContextBridge = .shared) async -> SelectedText? {
+    await readOnExecutor(includeClipboard: true, browserBridge: browserBridge)
+  }
+  private static func readOnExecutor(includeClipboard: Bool, browserBridge: BrowserContextBridge) async -> SelectedText? {
+    let cancellation = SelectionCancellation()
+    let pid = await MainActor.run { NSWorkspace.shared.frontmostApplication?.processIdentifier }
+    return await withTaskCancellationHandler(operation: {
+      await withCheckedContinuation { continuation in
+        executor.async {
+          guard !cancellation.isCancelled else { continuation.resume(returning: nil); return }
+          Thread.current.threadDictionary["vocabSelectionDeadline"] = ProcessInfo.processInfo.systemUptime + 0.45
+          Thread.current.threadDictionary["vocabSelectionCancellation"] = cancellation
+          defer {
+            Thread.current.threadDictionary.removeObject(forKey: "vocabSelectionDeadline")
+            Thread.current.threadDictionary.removeObject(forKey: "vocabSelectionCancellation")
+          }
+          let selected = includeClipboard ? read(browserBridge: browserBridge) : readFocusedSelection(browserBridge: browserBridge)
+          guard !cancellation.isCancelled, NSWorkspace.shared.frontmostApplication?.processIdentifier == pid else {
+            continuation.resume(returning: nil); return
+          }
+          continuation.resume(returning: selected)
+        }
+      }
+    }, onCancel: { cancellation.cancel() })
+  }
+  private static var withinBudget: Bool {
+    if let cancellation = Thread.current.threadDictionary["vocabSelectionCancellation"] as? SelectionCancellation,
+      cancellation.isCancelled { return false }
+    return (Thread.current.threadDictionary["vocabSelectionDeadline"] as? Double).map { ProcessInfo.processInfo.systemUptime < $0 } ?? true
+  }
+  private static func copyAttribute(_ element: AXUIElement, _ attribute: CFString, _ value: UnsafeMutablePointer<CFTypeRef?>) -> AXError {
+    guard withinBudget else { return .cannotComplete }
+    AXUIElementSetMessagingTimeout(element, 0.08)
+    return AXUIElementCopyAttributeValue(element, attribute, value)
+  }
+  private static func copyParameterized(_ element: AXUIElement, _ attribute: CFString, _ parameter: CFTypeRef, _ value: UnsafeMutablePointer<CFTypeRef?>) -> AXError {
+    guard withinBudget else { return .cannotComplete }
+    AXUIElementSetMessagingTimeout(element, 0.08)
+    return AXUIElementCopyParameterizedAttributeValue(element, attribute, parameter, value)
+  }
+
   /// Uses Accessibility only after an explicit user action (service/hot key).
   /// It never polls the foreground application or records keystrokes.
-  static func read() -> SelectedText? {
-    readFocusedSelection() ?? clipboardFallback()
+  static func read(browserBridge: BrowserContextBridge = .shared) -> SelectedText? {
+    readFocusedSelection(browserBridge: browserBridge) ?? clipboardFallback()
   }
 
   /// Reads only the active app's current selection. Used after the user drags
   /// to select text, so a stale clipboard value never creates a floating UI.
-  static func readFocusedSelection() -> SelectedText? {
+  static func readFocusedSelection(browserBridge: BrowserContextBridge = .shared) -> SelectedText? {
     let system = AXUIElementCreateSystemWide()
     var focusedApplication: CFTypeRef?
-    guard AXUIElementCopyAttributeValue(system, kAXFocusedApplicationAttribute as CFString, &focusedApplication) == .success,
+    guard copyAttribute(system, kAXFocusedApplicationAttribute as CFString, &focusedApplication) == .success,
           let app = focusedApplication else { return nil }
 
     let application = app as! AXUIElement
     var focusedElement: CFTypeRef?
-    guard AXUIElementCopyAttributeValue(application, kAXFocusedUIElementAttribute as CFString, &focusedElement) == .success,
+    guard copyAttribute(application, kAXFocusedUIElementAttribute as CFString, &focusedElement) == .success,
           let element = focusedElement else { return nil }
 
     var selectedText: CFTypeRef?
-    guard AXUIElementCopyAttributeValue(element as! AXUIElement, kAXSelectedTextAttribute as CFString, &selectedText) == .success,
+    guard copyAttribute(element as! AXUIElement, kAXSelectedTextAttribute as CFString, &selectedText) == .success,
           let text = selectedText as? String else { return nil }
     guard let selection = sanitize(text) else { return nil }
     ContextDebugLog.write("辅助功能读取到选区", word: selection.word, context: selection.context)
-    if isChromiumBrowserFrontmost(), let browserContext = BrowserContextBridge.shared.sentence(for: selection.word) {
+    if let browserContext = browserBridge.sentence(for: selection.word,
+      browserBundleIdentifier: NSWorkspace.shared.frontmostApplication?.bundleIdentifier) {
       ContextDebugLog.write("浏览器扩展缓存命中", word: selection.word, context: browserContext)
       return SelectedText(word: selection.word, context: browserContext)
     }
@@ -46,7 +99,7 @@ enum SelectionReader {
       "辅助功能选区位置：\(selectionBounds.map { NSStringFromRect($0) } ?? "未提供")；祖先节点数：\(ancestors.count)",
       word: selection.word
     )
-    logAccessibilityAncestors(ancestors, word: selection.word)
+    if ContextDebugLog.isRawDiagnosticsEnabled { logAccessibilityAncestors(ancestors, word: selection.word) }
     let context = isUsableSentence(directContext, containing: selection.word)
       ? directContext
       : selectionBounds.flatMap { nearbyTextSentence(in: Array(ancestors.prefix(5)), containing: selection.word, around: $0) } ?? selection.context
@@ -62,17 +115,9 @@ enum SelectionReader {
     sanitize(NSPasteboard.general.string(forType: .string) ?? "")
   }
 
-  private static func isChromiumBrowserFrontmost() -> Bool {
-    let identifier = NSWorkspace.shared.frontmostApplication?.bundleIdentifier ?? ""
-    return ["com.microsoft.edgemac", "com.google.Chrome", "com.brave.Browser", "com.vivaldi.Vivaldi", "org.chromium.Chromium"].contains(identifier)
-  }
-
   private static func sanitize(_ input: String) -> SelectedText? {
-    let trimmed = input.trimmingCharacters(in: .whitespacesAndNewlines)
-    let word = trimmed.trimmingCharacters(in: .punctuationCharacters)
-    let pattern = "^[A-Za-z]+(?:['’][A-Za-z]+)?(?:[ -][A-Za-z]+(?:['’][A-Za-z]+)?){0,3}$"
-    guard word.range(of: pattern, options: .regularExpression) != nil else { return nil }
-    return SelectedText(word: word, context: trimmed)
+    guard let word = SelectionTextContract.phrase(input) else { return nil }
+    return SelectedText(word: word, context: SelectionTextContract.normalized(input))
   }
 
   static func fromServicePasteboard(_ pasteboard: NSPasteboard) -> SelectedText? {
@@ -84,7 +129,7 @@ enum SelectionReader {
     let sentence = context.trimmingCharacters(in: .whitespacesAndNewlines)
     guard sentence.count > selection.word.count,
           sentence.count <= 800,
-          sentence.range(of: selection.word, options: [.caseInsensitive, .diacriticInsensitive]) != nil else { return nil }
+          SelectionTextContract.match(selection.word, in: sentence) != nil else { return nil }
     return SelectedText(word: selection.word, context: sentence)
   }
 
@@ -92,19 +137,9 @@ enum SelectionReader {
   /// those wraps first, then retain the full grammatical sentence containing
   /// the selected word or phrase instead of passing the whole screenshot.
   static func sentenceFromOCRText(_ text: String, containing word: String) -> String {
-    let normalized = text
-      .components(separatedBy: .whitespacesAndNewlines)
-      .filter { !$0.isEmpty }
-      .joined(separator: " ")
-    guard let match = normalized.range(of: word, options: [.caseInsensitive, .diacriticInsensitive]) else {
-      return String(normalized.prefix(600))
-    }
-    let prefix = normalized[..<match.lowerBound]
-    let start = prefix.lastIndex(where: { ".!?。！？".contains($0) }).map { normalized.index(after: $0) } ?? normalized.startIndex
-    let suffix = normalized[match.upperBound...]
-    let end = suffix.firstIndex(where: { ".!?。！？".contains($0) }).map { normalized.index(after: $0) } ?? normalized.endIndex
-    let sentence = normalized[start..<end].trimmingCharacters(in: .whitespacesAndNewlines)
-    return String(sentence.prefix(600))
+    let normalized = SelectionTextContract.normalized(text)
+    guard let range = SelectionTextContract.match(word, in: normalized) else { return String(normalized.prefix(800)) }
+    return SelectionTextContract.sentence(normalized, selectedRange: range) ?? String(normalized.prefix(800))
   }
 
   private static func accessibleAncestors(startingAt element: AXUIElement) -> [AXUIElement] {
@@ -112,7 +147,7 @@ enum SelectionReader {
     var current = element
     for _ in 0..<10 {
       var parentValue: CFTypeRef?
-      guard AXUIElementCopyAttributeValue(current, kAXParentAttribute as CFString, &parentValue) == .success,
+      guard copyAttribute(current, kAXParentAttribute as CFString, &parentValue) == .success,
             let parentValue else { break }
       let parent = parentValue as! AXUIElement
       result.append(parent)
@@ -124,7 +159,7 @@ enum SelectionReader {
   private static func sentenceContext(in element: AXUIElement) -> String? {
     var textValue: CFTypeRef?
     var rangeValue: CFTypeRef?
-    guard AXUIElementCopyAttributeValue(element, kAXSelectedTextRangeAttribute as CFString, &rangeValue) == .success,
+    guard copyAttribute(element, kAXSelectedTextRangeAttribute as CFString, &rangeValue) == .success,
           let rangeValue else { return nil }
     guard CFGetTypeID(rangeValue) == AXValueGetTypeID() else { return nil }
     let axRange = unsafeBitCast(rangeValue, to: AXValue.self)
@@ -132,7 +167,7 @@ enum SelectionReader {
     var range = CFRange()
     guard AXValueGetValue(axRange, .cfRange, &range), range.location != kCFNotFound else { return nil }
     var candidates: [String] = []
-    if AXUIElementCopyAttributeValue(element, kAXValueAttribute as CFString, &textValue) == .success,
+    if copyAttribute(element, kAXValueAttribute as CFString, &textValue) == .success,
        let text = textValue as? String,
        let valueSentence = sentence(in: text, selectedRange: range) {
       candidates.append(valueSentence)
@@ -156,11 +191,11 @@ enum SelectionReader {
 
   private static func selectedTextBounds(in element: AXUIElement) -> CGRect? {
     var rangeValue: CFTypeRef?
-    guard AXUIElementCopyAttributeValue(element, kAXSelectedTextRangeAttribute as CFString, &rangeValue) == .success,
+    guard copyAttribute(element, kAXSelectedTextRangeAttribute as CFString, &rangeValue) == .success,
           let rangeValue,
           CFGetTypeID(rangeValue) == AXValueGetTypeID() else { return nil }
     var boundsValue: CFTypeRef?
-    guard AXUIElementCopyParameterizedAttributeValue(
+    guard copyParameterized(
       element,
       kAXBoundsForRangeParameterizedAttribute as CFString,
       rangeValue,
@@ -179,7 +214,7 @@ enum SelectionReader {
     var pending = roots.map { (element: $0, depth: 0) }
     var candidates: [(sentence: String, distance: CGFloat)] = []
     var visited = 0
-    while let next = pending.popLast(), visited < 800 {
+    while withinBudget, let next = pending.popLast(), visited < 160 {
       visited += 1
       if let text = readableText(in: next.element), text.count > word.count,
          text.count <= 1_500,
@@ -198,7 +233,7 @@ enum SelectionReader {
       }
       guard next.depth < 6 else { continue }
       var childrenValue: CFTypeRef?
-      if AXUIElementCopyAttributeValue(next.element, kAXChildrenAttribute as CFString, &childrenValue) == .success,
+      if copyAttribute(next.element, kAXChildrenAttribute as CFString, &childrenValue) == .success,
          let children = childrenValue as? [AXUIElement] {
         pending.append(contentsOf: children.map { ($0, next.depth + 1) })
       }
@@ -214,7 +249,7 @@ enum SelectionReader {
     for (index, element) in ancestors.prefix(5).enumerated() {
       var childrenValue: CFTypeRef?
       let childCount: Int
-      if AXUIElementCopyAttributeValue(element, kAXChildrenAttribute as CFString, &childrenValue) == .success,
+      if copyAttribute(element, kAXChildrenAttribute as CFString, &childrenValue) == .success,
          let children = childrenValue as? [AXUIElement] {
         childCount = children.count
       } else {
@@ -226,7 +261,7 @@ enum SelectionReader {
 
   private static func role(of element: AXUIElement) -> String {
     var roleValue: CFTypeRef?
-    guard AXUIElementCopyAttributeValue(element, kAXRoleAttribute as CFString, &roleValue) == .success,
+    guard copyAttribute(element, kAXRoleAttribute as CFString, &roleValue) == .success,
           let role = roleValue as? String else { return "未知" }
     return role
   }
@@ -234,8 +269,8 @@ enum SelectionReader {
   private static func elementBounds(of element: AXUIElement) -> CGRect? {
     var positionValue: CFTypeRef?
     var sizeValue: CFTypeRef?
-    guard AXUIElementCopyAttributeValue(element, kAXPositionAttribute as CFString, &positionValue) == .success,
-          AXUIElementCopyAttributeValue(element, kAXSizeAttribute as CFString, &sizeValue) == .success,
+    guard copyAttribute(element, kAXPositionAttribute as CFString, &positionValue) == .success,
+          copyAttribute(element, kAXSizeAttribute as CFString, &sizeValue) == .success,
           let positionValue, let sizeValue,
           CFGetTypeID(positionValue) == AXValueGetTypeID(), CFGetTypeID(sizeValue) == AXValueGetTypeID() else { return nil }
     var position = CGPoint.zero
@@ -262,7 +297,7 @@ enum SelectionReader {
   private static func readableText(in element: AXUIElement) -> String? {
     for attribute in [kAXValueAttribute, kAXTitleAttribute, kAXDescriptionAttribute] {
       var value: CFTypeRef?
-      guard AXUIElementCopyAttributeValue(element, attribute as CFString, &value) == .success,
+      guard copyAttribute(element, attribute as CFString, &value) == .success,
             let text = value as? String else { continue }
       let normalized = text.trimmingCharacters(in: .whitespacesAndNewlines)
       if !normalized.isEmpty, normalized.count <= 8_000 { return normalized }
@@ -272,7 +307,7 @@ enum SelectionReader {
 
   private static func textForRange(in element: AXUIElement, rangeValue: AXValue) -> String? {
     var textValue: CFTypeRef?
-    if AXUIElementCopyParameterizedAttributeValue(
+    if copyParameterized(
       element,
       kAXStringForRangeParameterizedAttribute as CFString,
       rangeValue,
@@ -280,7 +315,7 @@ enum SelectionReader {
     ) == .success, let text = textValue as? String {
       return text
     }
-    if AXUIElementCopyParameterizedAttributeValue(
+    if copyParameterized(
       element,
       kAXAttributedStringForRangeParameterizedAttribute as CFString,
       rangeValue,
@@ -292,17 +327,6 @@ enum SelectionReader {
   }
 
   private static func sentence(in text: String, selectedRange: CFRange) -> String? {
-    let nsText = text as NSString
-    guard selectedRange.location >= 0, selectedRange.location <= nsText.length else { return nil }
-    let isSeparator: (unichar) -> Bool = { character in
-      character == 46 || character == 33 || character == 63 || character == 12290 || character == 65281 || character == 65311 || character == 10
-    }
-    var start = selectedRange.location
-    var end = min(nsText.length, selectedRange.location + selectedRange.length)
-    while start > 0, !isSeparator(nsText.character(at: start - 1)) { start -= 1 }
-    while end < nsText.length, !isSeparator(nsText.character(at: end)) { end += 1 }
-    if end < nsText.length { end += 1 }
-    let sentence = nsText.substring(with: NSRange(location: start, length: end - start)).trimmingCharacters(in: .whitespacesAndNewlines)
-    return sentence.isEmpty ? nil : String(sentence.prefix(600))
+    SelectionTextContract.sentence(text, selectedRange: NSRange(location: selectedRange.location, length: selectedRange.length))
   }
 }

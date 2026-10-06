@@ -3,7 +3,10 @@ set -euo pipefail
 
 PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 APP_NAME="拾词助手"
-APP_DIR="$PROJECT_DIR/build/$APP_NAME.app"
+# iCloud/File Provider can reattach FinderInfo inside Documents while signing.
+# Assemble the bundle outside the synced workspace so its signature stays valid.
+PACKAGE_DIR="${VOCAB_CAPTURE_PACKAGE_DIR:-$HOME/Library/Caches/com.coty.vocab-capture/package}"
+APP_DIR="$PACKAGE_DIR/$APP_NAME.app"
 CONTENTS="$APP_DIR/Contents"
 VERSION="$(tr -d '[:space:]' < "$PROJECT_DIR/VERSION")"
 SIGNING_IDENTITY="${VOCAB_CAPTURE_SIGNING_IDENTITY:-}"
