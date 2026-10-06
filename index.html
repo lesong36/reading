@@ -2415,6 +2415,9 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     const localDayKey = (value) => {
       const date = new Date(value);
       if (Number.isNaN(date.getTime())) return '';
+      if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        return date.toISOString().slice(0, 10) === value ? value : '';
+      }
       const offset = date.getTimezoneOffset() * 60000;
       return new Date(date.getTime() - offset).toISOString().slice(0, 10);
     };
@@ -2911,7 +2914,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     const groupVocabForStudy = (vocab = []) => {
       const buckets = new Map();
       vocab.forEach(entry => {
-        const day = entry.addedAt || completionDayKey(entry.timestamp) || '未标注日期';
+        const day = localDayKey(entry.addedAt || entry.timestamp) || '未标注日期';
         const article = entry.sourceArticleTitle || '其他来源';
         const key = `${day}::${entry.sourceArticleId || article}`;
         if (!buckets.has(key)) buckets.set(key, { key, day, article, words: [] });
@@ -2952,6 +2955,11 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
 
     // Keep the reader's book on the same identity rule as VocabMaster:
     // surrounding whitespace and casing never make a second vocabulary word.
+    const compareVocabVersion = (left, right) => {
+      const version = (Number(left.cloudVersion) || 0) - (Number(right.cloudVersion) || 0);
+      if (version) return version;
+      return (Date.parse(left.updatedAt || left.definitionCheckedAt || '') || left.timestamp || 0) - (Date.parse(right.updatedAt || right.definitionCheckedAt || '') || right.timestamp || 0);
+    };
     const normalizeVocabBook = (vocab = []) => {
       const byKey = new Map();
       (Array.isArray(vocab) ? vocab : []).forEach(entry => {
@@ -2960,7 +2968,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         const key = word.toLowerCase();
         if (!key) return;
         const existing = byKey.get(key);
-        if (!existing || (entry.timestamp || 0) >= (existing.timestamp || 0)) {
+        if (!existing || compareVocabVersion(entry, existing) >= 0) {
           byKey.set(key, { ...entry, word });
         }
       });
@@ -3118,6 +3126,109 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       return Array.from(byId.values()).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
     };
 
+    // VOCABULARY_SYNC_V2_BEGIN — pure transport/outbox helpers, tested with fake RPC.
+    const vocabularyViewV2 = (snapshot) => {
+      const byKey = new Map(snapshot.vocabulary.map(entry => [String(entry.word).trim().toLowerCase(), entry]));
+      snapshot.tombstones.forEach(item => byKey.delete(item.wordKey));
+      snapshot.pending.forEach(op => { if (op.kind === 'delete') byKey.delete(op.wordKey); else byKey.set(op.wordKey, op.entry); });
+      return [...byKey.values()];
+    };
+    const anonymousVocabularyView = (storage) => {
+      const vocabulary = JSON.parse(storage.getItem('my_local_vocab_book') || '[]');
+      const deletedKeys = JSON.parse(storage.getItem('reader_deleted_vocab_keys_v1') || '[]');
+      if (!Array.isArray(vocabulary) || !Array.isArray(deletedKeys)) throw new Error('未归属本机词库无法读取，已保留原记录。');
+      return { vocabulary, deletedKeys };
+    };
+    const createVocabularySyncV2 = (client, ownerID, storage, activeOwner) => {
+      const storageKey = `reader_vocab_sync_v2:${ownerID}`;
+      const empty = { userID: ownerID, revision: 0, vocabulary: [], tombstones: [], pending: [], blockedKeys: [] };
+      let state = empty;
+      const raw = storage.getItem(storageKey);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed.userID !== ownerID || !Array.isArray(parsed.pending) || !Array.isArray(parsed.vocabulary) || !Array.isArray(parsed.tombstones) || !Number.isSafeInteger(parsed.revision) || parsed.revision < 0 || (parsed.blockedKeys && !Array.isArray(parsed.blockedKeys)) || parsed.pending.some(op => !op || typeof op.operationID !== 'string' || !op.operationID || !['upsert','restore','delete'].includes(op.kind) || typeof op.wordKey !== 'string' || !op.wordKey || op.wordKey !== op.wordKey.trim().toLowerCase() || (op.baseVersion != null && (!Number.isSafeInteger(op.baseVersion) || op.baseVersion < 0)) || (op.kind !== 'delete' && (!op.entry || typeof op.entry.word !== 'string' || op.entry.word.trim().toLowerCase() !== op.wordKey)))) {
+          throw new Error('本机词库待上传记录无法读取，已停止同步并保留原记录。');
+        }
+        state = { ...empty, ...parsed };
+      }
+      let flight = null;
+      let submittedIDs = new Set();
+      const guardOwner = () => { if (activeOwner() !== ownerID) throw new Error('账号已切换，已保留原账号待上传记录。'); };
+      const persist = () => { guardOwner(); storage.setItem(storageKey, JSON.stringify(state)); };
+      const keyOf = entry => String(entry?.word || '').trim().toLowerCase();
+      const versionOf = key => state.tombstones.find(item => item.wordKey === key)?.version ?? state.vocabulary.find(item => keyOf(item) === key)?.cloudVersion ?? null;
+      const accept = (value, operations) => {
+        if (!value || value.userID !== ownerID || !Array.isArray(value.vocabulary) || !Array.isArray(value.tombstones) || !Array.isArray(value.acknowledgedOperationIDs) || !Number.isSafeInteger(value.revision) || value.revision < state.revision || typeof value.conflict !== 'boolean' || !Array.isArray(value.conflictingWordKeys)) {
+          throw new Error('云端未返回有效的词库同步确认，本机操作已保留。');
+        }
+        const expected = new Set(operations.map(op => op.operationID));
+        if (value.acknowledgedOperationIDs.some(id => !expected.has(id)) || new Set(value.acknowledgedOperationIDs).size !== value.acknowledgedOperationIDs.length || (!value.conflict && new Set(value.acknowledgedOperationIDs).size !== expected.size)) {
+          throw new Error('云端词库确认与待上传操作不一致，本机操作已保留。');
+        }
+        state = { ...state, vocabulary: value.vocabulary, tombstones: value.tombstones, revision: value.revision };
+      };
+      const rpc = async (revision, operations) => {
+        guardOwner();
+        const { data, error } = await client.rpc('sync_reader_vocabulary_v2', { p_expected_revision: revision, p_operations: operations });
+        guardOwner();
+        if (error) {
+          const message = ['PGRST202', '42883'].includes(error.code) ? '云端词库同步协议尚未升级，本机待上传内容已保留。' : '云端词库同步失败，本机待上传内容已保留。';
+          throw Object.assign(new Error(message), { code: error.code });
+        }
+        accept(data, operations);
+        return data;
+      };
+      const read = async () => { const result = await rpc(null, []); persist(); return result; };
+      const queue = (kind, entryOrKey) => {
+        guardOwner();
+        const key = typeof entryOrKey === 'string' ? entryOrKey.trim().toLowerCase() : keyOf(entryOrKey);
+        if (!key) return;
+        const previous = state.pending.find(op => op.wordKey === key && !submittedIDs.has(op.operationID));
+        const blocked = state.blockedKeys.includes(key);
+        let baseVersion = !blocked && previous ? previous.baseVersion : versionOf(key);
+        const hasTombstone = state.tombstones.some(item => item.wordKey === key);
+        if (kind === 'upsert' && hasTombstone) kind = 'restore';
+        const mutation = { operationID: crypto.randomUUID(), kind, wordKey: key, baseVersion, ...(kind === 'delete' ? {} : { entry: entryOrKey }) };
+        const before = state;
+        state = { ...state, pending: [...state.pending.filter(op => op !== previous), mutation], blockedKeys: state.blockedKeys.filter(item => item !== key) };
+        try { persist(); } catch (error) { state = before; throw error; }
+      };
+      const flush = async () => {
+        guardOwner();
+        if (flight) return flight;
+        flight = (async () => {
+          while (state.pending.length) {
+            if (state.blockedKeys.length) throw new Error('云端词条已经修改或删除，请重新编辑冲突词条后同步。本机操作已保留。');
+            const words = new Set();
+            const operations = state.pending.filter(op => { if (words.has(op.wordKey)) return false; words.add(op.wordKey); return true; }).slice(0, 500);
+            submittedIDs = new Set(operations.map(op => op.operationID));
+            let result;
+            for (let attempt = 0; attempt < 3; attempt++) {
+              result = await rpc(state.revision, operations);
+              if (!result.conflict) break;
+              if (result.conflictingWordKeys.length || attempt === 2) {
+                state.blockedKeys = result.conflictingWordKeys.length ? result.conflictingWordKeys : operations.map(op => op.wordKey);
+                persist();
+                throw new Error('云端词条已经修改或删除，请重新编辑冲突词条后同步。本机操作已保留。');
+              }
+            }
+            const acknowledged = new Set(result.acknowledgedOperationIDs);
+            state.pending = state.pending.filter(op => !acknowledged.has(op.operationID)).map(op => {
+              if (!words.has(op.wordKey)) return op;
+              const tombstone = state.tombstones.find(item => item.wordKey === op.wordKey);
+              return { ...op, baseVersion: versionOf(op.wordKey), kind: op.kind === 'upsert' && tombstone ? 'restore' : op.kind };
+            });
+            submittedIDs = new Set();
+            persist();
+          }
+          return state;
+        })();
+        try { return await flight; } finally { flight = null; submittedIDs = new Set(); }
+      };
+      return { read, queue, flush, snapshot: () => state };
+    };
+    // VOCABULARY_SYNC_V2_END
+
     const mergeVocabBook = (current = [], incoming = [], deletedVocabKeys = []) => {
       const byKey = new Map();
       [...removeDeletedVocab(current, deletedVocabKeys), ...removeDeletedVocab(incoming, deletedVocabKeys)].forEach(word => {
@@ -3125,7 +3236,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         const key = getVocabKey(word);
         if (!key) return;
         const existing = byKey.get(key);
-        if (!existing || (word.timestamp || 0) >= (existing.timestamp || 0)) {
+        if (!existing || compareVocabVersion(word, existing) >= 0) {
           byKey.set(key, word);
         }
       });
@@ -3734,6 +3845,26 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const cloudWriteInFlightRef = useRef(false);
       const lastCloudSnapshotRef = useRef("");
       const cloudReadingPositionsRef = useRef({});
+      const activeVocabularyOwnerRef = useRef(user?.id || null);
+      activeVocabularyOwnerRef.current = user?.id || null;
+      const vocabularySyncRef = useRef(null);
+      const queueVocabularyMutation = (kind, entryOrKey) => {
+        if (!user || !supabase) return; // Anonymous legacy entries stay on this device.
+        if (vocabularyViewOwner !== user.id) throw new Error('账号词库正在切换，请稍后重试。');
+        if (vocabularySyncRef.current?.snapshot().userID !== user.id) {
+          vocabularySyncRef.current = createVocabularySyncV2(supabase, user.id, localStorage, () => activeVocabularyOwnerRef.current);
+        }
+        vocabularySyncRef.current.queue(kind, entryOrKey);
+      };
+      const flushVocabularyMutations = async () => {
+        const sync = vocabularySyncRef.current;
+        if (!sync || sync.snapshot().userID !== activeVocabularyOwnerRef.current) return;
+        const result = await sync.flush();
+        if (result.userID !== activeVocabularyOwnerRef.current) return;
+        const tombstones = result.tombstones.map(item => item.wordKey);
+        setDeletedVocabKeys(tombstones);
+        setVocabBook(normalizeVocabBook(vocabularyViewV2(result)));
+      };
       const [localPersistenceStatus, setLocalPersistenceStatus] = useState(() => ({
         enabled: false,
         message: '正在准备本地数据文件...'
@@ -3783,7 +3914,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const [libraryFilter, setLibraryFilter] = useState('all');
 
       // --- 本地生词本逻辑 (Local Storage + OPFS File) ---
-      const [vocabBook, setVocabBook] = useState(() => {
+      const [storedVocabBook, setVocabBook] = useState(() => {
         const saved = localStorage.getItem('my_local_vocab_book');
         try {
           return saved ? normalizeVocabBook(JSON.parse(saved)) : [];
@@ -3794,6 +3925,31 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const [deletedVocabKeys, setDeletedVocabKeys] = useState(() => {
         try { return normalizeDeletedVocabKeys(JSON.parse(localStorage.getItem('reader_deleted_vocab_keys_v1') || '[]')); } catch { return []; }
       });
+      const [vocabularyViewOwner, setVocabularyViewOwner] = useState(null);
+      const vocabBook = useMemo(() => vocabularyViewOwner === (user?.id || null) ? storedVocabBook : [],
+        [storedVocabBook, vocabularyViewOwner, user?.id]);
+      useEffect(() => {
+        const owner = user?.id || null;
+        if (owner === vocabularyViewOwner) return;
+        try {
+          if (owner) {
+            if (vocabularySyncRef.current?.snapshot().userID !== owner) {
+              vocabularySyncRef.current = createVocabularySyncV2(supabase, owner, localStorage, () => activeVocabularyOwnerRef.current);
+            }
+            const snapshot = vocabularySyncRef.current.snapshot();
+            setVocabBook(normalizeVocabBook(vocabularyViewV2(snapshot)));
+            setDeletedVocabKeys(snapshot.tombstones.map(item => item.wordKey));
+          } else {
+            const snapshot = anonymousVocabularyView(localStorage);
+            setVocabBook(normalizeVocabBook(snapshot.vocabulary));
+            setDeletedVocabKeys(normalizeDeletedVocabKeys(snapshot.deletedKeys));
+          }
+          setVocabularyViewOwner(owner);
+        } catch (error) {
+          setVocabBook([]); setDeletedVocabKeys([]);
+          setCloudSyncStatus({ enabled: Boolean(supabase), message: error.message });
+        }
+      }, [user?.id]);
       const [completionRecords, setCompletionRecords] = useState(() => {
         try { return normalizeCompletionRecords(JSON.parse(localStorage.getItem(COMPLETION_RECORDS_STORAGE_KEY) || '{}')); } catch { return {}; }
       });
@@ -3958,8 +4114,10 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
             if (cancelled) return;
             if (data.savedArticles.length > 0) setSavedArticles(data.savedArticles);
             const persistedDeletedVocabKeys = normalizeDeletedVocabKeys([...deletedVocabKeys, ...data.deletedVocabKeys]);
-            if (persistedDeletedVocabKeys.length > 0) setDeletedVocabKeys(persistedDeletedVocabKeys);
-            if (data.vocabBook.length > 0) setVocabBook(removeDeletedVocab(data.vocabBook, persistedDeletedVocabKeys));
+            if (!activeVocabularyOwnerRef.current) {
+              if (persistedDeletedVocabKeys.length > 0) setDeletedVocabKeys(persistedDeletedVocabKeys);
+              if (data.vocabBook.length > 0) setVocabBook(removeDeletedVocab(data.vocabBook, persistedDeletedVocabKeys));
+            }
             if (Object.keys(data.completionRecords || {}).length > 0) setCompletionRecords(data.completionRecords);
             localDataLoadedRef.current = true;
             setLocalDataReady(true);
@@ -4025,8 +4183,11 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
 
       useEffect(() => {
         trySetLocalStorage('my_local_articles', JSON.stringify(savedArticles));
-        trySetLocalStorage('my_local_vocab_book', JSON.stringify(vocabBook));
-        trySetLocalStorage('reader_deleted_vocab_keys_v1', JSON.stringify(deletedVocabKeys));
+        const vocabularyOwnerReady = (user?.id || null) === vocabularyViewOwner;
+        if (!user && vocabularyOwnerReady) {
+          trySetLocalStorage('my_local_vocab_book', JSON.stringify(vocabBook));
+          trySetLocalStorage('reader_deleted_vocab_keys_v1', JSON.stringify(deletedVocabKeys));
+        }
         trySetLocalStorage('reader_favorite_article_ids', JSON.stringify(favoriteArticleIds));
         trySetLocalStorage(COMPLETION_RECORDS_STORAGE_KEY, JSON.stringify(completionRecords));
 
@@ -4034,7 +4195,9 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         if (localDataWriteTimerRef.current) clearTimeout(localDataWriteTimerRef.current);
         localDataWriteTimerRef.current = setTimeout(async () => {
           try {
-            await writeLocalDataFile(savedArticles, vocabBook, completionRecords, deletedVocabKeys);
+            if (!vocabularyOwnerReady) return;
+            const localVocabulary = user ? anonymousVocabularyView(localStorage) : { vocabulary: vocabBook, deletedKeys: deletedVocabKeys };
+            await writeLocalDataFile(savedArticles, localVocabulary.vocabulary, completionRecords, localVocabulary.deletedKeys);
             setLocalPersistenceStatus({
               enabled: true,
               message: `本地数据文件已自动保存：${LOCAL_DATA_FILE_NAME}`
@@ -4046,7 +4209,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
             });
           }
         }, 500);
-      }, [savedArticles, vocabBook, deletedVocabKeys, favoriteArticleIds, completionRecords, localPersistenceStatus.enabled]);
+      }, [savedArticles, vocabBook, deletedVocabKeys, favoriteArticleIds, completionRecords, localPersistenceStatus.enabled, user?.id, vocabularyViewOwner]);
 
       useEffect(() => {
         if (!supabase || !user) {
@@ -4054,6 +4217,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
             clearTimeout(cloudDataRetryTimerRef.current);
             cloudDataRetryTimerRef.current = null;
           }
+          vocabularySyncRef.current = null;
           cloudDataLoadedRef.current = false;
           cloudDataInitializedRef.current = false;
           lastCloudSnapshotRef.current = "";
@@ -4065,20 +4229,29 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         }
         let cancelled = false;
         setCloudSyncStatus({ enabled: true, message: '正在读取 Supabase 学习记录...' });
-        supabase.from('reader_sync_state').select(READER_SYNC_STATE_FIELDS).eq('user_id', user.id).maybeSingle().then(({ data, error }) => {
+        supabase.from('reader_sync_state').select(READER_SYNC_STATE_FIELDS).eq('user_id', user.id).maybeSingle().then(async ({ data, error }) => {
           if (cancelled) return;
           if (error) {
             cloudDataLoadedRef.current = false;
             scheduleCloudSyncRetry(`云同步读取失败：${error.message}`);
             return;
           }
-          const cloudVocab = normalizeVocabBook(data?.vocabulary || []);
+          let vocabularySnapshot = null;
+          let vocabularyError = null;
+          try {
+            if (vocabularySyncRef.current?.snapshot().userID !== user.id) {
+              vocabularySyncRef.current = createVocabularySyncV2(supabase, user.id, localStorage, () => activeVocabularyOwnerRef.current);
+            }
+            vocabularySnapshot = await vocabularySyncRef.current.read();
+          } catch (error) { vocabularyError = error; }
+          if (cancelled || activeVocabularyOwnerRef.current !== user.id) return;
+          const cloudVocab = normalizeVocabBook(vocabularySnapshot?.vocabulary || data?.vocabulary || []);
           const cloudFavorites = Array.isArray(data?.favorites) ? data.favorites.filter(id => typeof id === 'string') : [];
           const cloudQuizProgress = data?.quiz_progress && typeof data.quiz_progress === 'object' ? data.quiz_progress : {};
           const cloudCompletionRecords = normalizeCompletionRecords(data?.completion_records || {});
           const cloudReadingPositions = data?.reading_positions && typeof data.reading_positions === 'object' ? data.reading_positions : {};
           const cloudPreferences = data?.preferences && typeof data.preferences === 'object' ? data.preferences : {};
-          const cloudDeletedVocabKeys = normalizeDeletedVocabKeys(cloudPreferences.deletedVocabKeys || []);
+          const cloudDeletedVocabKeys = normalizeDeletedVocabKeys(vocabularySnapshot ? vocabularySnapshot.tombstones.map(item => item.wordKey) : (cloudPreferences.deletedVocabKeys || []));
           const localQuizProgress = {};
           Object.keys(localStorage).filter(key => key.startsWith(QUIZ_PROGRESS_STORAGE_KEY_PREFIX)).forEach(key => {
             try { localQuizProgress[key.slice(QUIZ_PROGRESS_STORAGE_KEY_PREFIX.length)] = normalizeQuizProgress(JSON.parse(localStorage.getItem(key))); } catch (error) {}
@@ -4098,16 +4271,23 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
             setQuizEvaluations(current => ({ ...cloudPreferences.quizEvaluations, ...current }));
           }
           cloudReadingPositionsRef.current = cloudReadingPositions;
-          lastCloudSnapshotRef.current = JSON.stringify({ vocabulary: removeDeletedVocab(cloudVocab, cloudDeletedVocabKeys), favorites: cloudFavorites, readingPositions: cloudReadingPositions, quizProgress: cloudQuizProgress, completionRecords: cloudCompletionRecords, preferences: { ...cloudPreferences, deletedVocabKeys: cloudDeletedVocabKeys }, encryptedAiKey: data?.encrypted_ai_key || null });
+          const { deletedVocabKeys: ignoredLegacyDeletion, ...safeCloudPreferences } = cloudPreferences;
+          lastCloudSnapshotRef.current = JSON.stringify({ favorites: cloudFavorites, readingPositions: cloudReadingPositions, quizProgress: cloudQuizProgress, completionRecords: cloudCompletionRecords, preferences: safeCloudPreferences, encryptedAiKey: data?.encrypted_ai_key || null });
           cloudDataLoadedRef.current = true;
           cloudDataInitializedRef.current = true;
           cloudSyncRetryAttemptRef.current = 0;
-          const mergedDeletedVocabKeys = normalizeDeletedVocabKeys([...deletedVocabKeys, ...cloudDeletedVocabKeys]);
+          const mergedDeletedVocabKeys = vocabularySnapshot ? cloudDeletedVocabKeys : normalizeDeletedVocabKeys([...deletedVocabKeys, ...cloudDeletedVocabKeys]);
           setDeletedVocabKeys(mergedDeletedVocabKeys);
-          setVocabBook(current => mergeVocabBook(current, cloudVocab, mergedDeletedVocabKeys));
+          setVocabBook(current => {
+            const merged = vocabularySnapshot ? cloudVocab : mergeVocabBook([], cloudVocab, mergedDeletedVocabKeys);
+            const pending = vocabularySyncRef.current?.snapshot().pending || [];
+            const byKey = new Map(merged.map(entry => [getVocabKey(entry), entry]));
+            pending.forEach(op => { if (op.kind === 'delete') byKey.delete(op.wordKey); else byKey.set(op.wordKey, op.entry); });
+            return normalizeVocabBook([...byKey.values()]);
+          });
           setFavoriteArticleIds(prev => Array.from(new Set([...prev, ...cloudFavorites])));
           setCompletionRecords(prev => mergeCompletionRecords(prev, cloudCompletionRecords));
-          setCloudSyncStatus({ enabled: true, message: cloudSyncNeedsMergeRef.current ? '网络已恢复：正在合并本地与云端记录并重写。' : `Supabase 已连接：同步 ${cloudVocab.length} 个生词与学习记录。` });
+          setCloudSyncStatus({ enabled: true, message: vocabularyError ? vocabularyError.message : cloudSyncNeedsMergeRef.current ? '网络已恢复：正在合并本地与云端记录并重写。' : `Supabase 已连接：同步 ${cloudVocab.length} 个生词与学习记录。` });
         });
         return () => { cancelled = true; if (cloudDataWriteTimerRef.current) clearTimeout(cloudDataWriteTimerRef.current); };
       }, [user, cloudSyncRevision]);
@@ -4133,7 +4313,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         Object.keys(localStorage).filter(key => key.startsWith('reader_quiz_progress_')).forEach(key => {
           try { quizProgressByArticle[key.slice('reader_quiz_progress_'.length)] = normalizeQuizProgress(JSON.parse(localStorage.getItem(key))); } catch (error) {}
         });
-        const preferences = { aiProvider, cloudBaseUrl: cloudBaseUrl.trim(), cloudModel: cloudModel.trim(), ollamaBaseUrl: ollamaBaseUrl.trim(), ollamaModel: ollamaModel.trim(), voiceProvider, deletedVocabKeys, dailyReport: dailyReportPreferences, quizEvaluations };
+        const preferences = { aiProvider, cloudBaseUrl: cloudBaseUrl.trim(), cloudModel: cloudModel.trim(), ollamaBaseUrl: ollamaBaseUrl.trim(), ollamaModel: ollamaModel.trim(), voiceProvider, dailyReport: dailyReportPreferences, quizEvaluations };
         const readingPositions = {
           ...cloudReadingPositionsRef.current,
           ...(currentArticleId ? { [currentArticleId]: { sentenceId: selectedSentence?.id || null, updatedAt: new Date().toISOString() } } : {})
@@ -4146,33 +4326,35 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
             if (syncVaultUnlocked && syncPassphrase && cloudApiKey) {
               encryptedAiKey = await encryptForSyncVault(cloudApiKey, syncPassphrase);
             }
-            let payload = { user_id: user.id, vocabulary: vocabBook, favorites: favoriteArticleIds, reading_positions: readingPositions, quiz_progress: quizProgressByArticle, completion_records: completionRecords, preferences, encrypted_ai_key: encryptedAiKey, updated_at: new Date().toISOString() };
+            let vocabularyWarning = '';
+            try { await flushVocabularyMutations(); } catch (error) { vocabularyWarning = error.message; }
+            if (activeVocabularyOwnerRef.current !== user.id) return;
+            let payload = { user_id: user.id, favorites: favoriteArticleIds, reading_positions: readingPositions, quiz_progress: quizProgressByArticle, completion_records: completionRecords, preferences, encrypted_ai_key: encryptedAiKey, updated_at: new Date().toISOString() };
             if (cloudSyncNeedsMergeRef.current) {
               const { data, error } = await supabase.from('reader_sync_state').select(READER_SYNC_STATE_FIELDS).eq('user_id', user.id).maybeSingle();
               if (error) throw error;
               const mergedQuizProgress = mergeQuizProgressByArticle(payload.quiz_progress, data?.quiz_progress || {});
               const mergedCompletionRecords = mergeCompletionRecords(payload.completion_records, data?.completion_records || {});
-              const mergedDeletedVocabKeys = normalizeDeletedVocabKeys([...(payload.preferences.deletedVocabKeys || []), ...(data?.preferences?.deletedVocabKeys || [])]);
               payload = {
                 ...payload,
-                vocabulary: mergeVocabBook(payload.vocabulary, data?.vocabulary || [], mergedDeletedVocabKeys),
                 favorites: Array.from(new Set([...(data?.favorites || []), ...payload.favorites])),
                 reading_positions: { ...(data?.reading_positions || {}), ...payload.reading_positions },
                 quiz_progress: mergedQuizProgress,
                 completion_records: mergedCompletionRecords,
-                preferences: { ...payload.preferences, deletedVocabKeys: mergedDeletedVocabKeys },
+                preferences: payload.preferences,
                 encrypted_ai_key: payload.encrypted_ai_key || data?.encrypted_ai_key || null
               };
               Object.entries(mergedQuizProgress).forEach(([articleId, progress]) => {
                 trySetLocalStorage(getQuizProgressStorageKey(articleId), JSON.stringify(progress));
               });
-              setDeletedVocabKeys(prev => normalizeDeletedVocabKeys([...prev, ...mergedDeletedVocabKeys]));
-              setVocabBook(prev => mergeVocabBook(prev, data?.vocabulary || [], mergedDeletedVocabKeys));
               setFavoriteArticleIds(prev => Array.from(new Set([...(data?.favorites || []), ...prev])));
               setCompletionRecords(prev => mergeCompletionRecords(prev, data?.completion_records || {}));
             }
-            const snapshotKey = JSON.stringify({ vocabulary: payload.vocabulary, favorites: payload.favorites, readingPositions: payload.reading_positions, quizProgress: payload.quiz_progress, completionRecords: payload.completion_records, preferences: payload.preferences, encryptedAiKey: payload.encrypted_ai_key });
-            if (snapshotKey === lastCloudSnapshotRef.current) return;
+            const snapshotKey = JSON.stringify({ favorites: payload.favorites, readingPositions: payload.reading_positions, quizProgress: payload.quiz_progress, completionRecords: payload.completion_records, preferences: payload.preferences, encryptedAiKey: payload.encrypted_ai_key });
+            if (snapshotKey === lastCloudSnapshotRef.current) {
+              setCloudSyncStatus({ enabled: true, message: vocabularyWarning || 'Supabase 已确认生词操作。' });
+              return;
+            }
             const { error } = await supabase.from('reader_sync_state').upsert(payload, { onConflict: 'user_id' });
             if (error) throw error;
             encryptedAiKeyRef.current = payload.encrypted_ai_key;
@@ -4180,7 +4362,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
             lastCloudSnapshotRef.current = snapshotKey;
             cloudSyncNeedsMergeRef.current = false;
             cloudSyncRetryAttemptRef.current = 0;
-            setCloudSyncStatus({ enabled: true, message: `Supabase 已保存：${payload.vocabulary.length} 个生词、进度与偏好。` });
+            setCloudSyncStatus({ enabled: true, message: vocabularyWarning || 'Supabase 已确认生词操作并保存进度与偏好。' });
           } catch (error) {
             const permanentErrorCode = /^(PGRST|22|23|42)/.test(String(error?.code || ''));
             const retryable = !permanentErrorCode && (!Number.isInteger(error?.status) || error.status >= 500);
@@ -4189,8 +4371,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
             cloudWriteInFlightRef.current = false;
           }
         };
-        const snapshotKey = JSON.stringify({ vocabulary: vocabBook, favorites: favoriteArticleIds, readingPositions, quizProgress: quizProgressByArticle, completionRecords, preferences, encryptedAiKey: encryptedAiKeyRef.current });
-        if (snapshotKey === lastCloudSnapshotRef.current) return;
+        const snapshotKey = JSON.stringify({ favorites: favoriteArticleIds, readingPositions, quizProgress: quizProgressByArticle, completionRecords, preferences, encryptedAiKey: encryptedAiKeyRef.current });
+        if (snapshotKey === lastCloudSnapshotRef.current && !vocabularySyncRef.current?.snapshot().pending.length) return;
         if (cloudDataWriteTimerRef.current) clearTimeout(cloudDataWriteTimerRef.current);
         cloudDataWriteTimerRef.current = setTimeout(async () => {
           await writeCloudState();
@@ -4824,7 +5006,9 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           if (paragraphVoiceRunIdRef.current === runId) {
             setActiveParagraphVoice(null);
             const message = error instanceof TypeError
-              ? '未能连接 P920 语音服务；请确认设备已连接 Tailscale。'
+              ? (getParagraphTtsEndpoint().startsWith('/')
+                ? '无法访问本地语音服务，请重新打开桌面 App 后重试。'
+                : '无法访问 P920 语音服务；请检查 Tailscale 连接、浏览器网络权限，并将 P920 地址设为代理直连。')
               : `段落朗读不可用：${error.message}`;
             setToastMessage(message);
           }
@@ -5911,9 +6095,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         if (vocabBook.some(entry => String(entry?.word || '').trim().toLowerCase() === key)) return;
         autoAddedVocabKeysRef.current.add(key);
         const generateId = () => window.crypto?.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15);
-        setVocabBook(previous => {
-          if (previous.some(entry => String(entry?.word || '').trim().toLowerCase() === key)) return previous;
-          return [{
+        const newWordEntry = {
             id: generateId(),
             word,
             meaning: dictionary.meaning,
@@ -5925,10 +6107,11 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
             sourceContext: contextSentenceText,
             sourceArticleId: currentArticleId || null,
             sourceArticleTitle: currentArticleTitle || '',
-            addedAt: new Date().toLocaleDateString(),
+            addedAt: new Date().toISOString(),
             timestamp: Date.now()
-          }, ...previous];
-        });
+        };
+        queueVocabularyMutation('upsert', newWordEntry);
+        setVocabBook(previous => previous.some(entry => getVocabKey(entry) === key) ? previous : [newWordEntry, ...previous]);
         setToastMessage(`✅ 已查词并加入生词本: ${word}`);
       };
 
@@ -6019,16 +6202,19 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           const dictionary = await lookupContextualDictionary(entry.word, entry.sourceContext);
           const cacheKey = `${entry.sourceArticleId || 'unsaved'}::${entry.word}::${entry.sourceContext}`;
           contextualDictionaryCacheRef.current.set(cacheKey, dictionary);
-          setVocabBook(previous => previous.map(word => word.id === entry.id ? {
-            ...word,
+          const corrected = {
+            ...entry,
             meaning: dictionary.meaning,
             lemma: dictionary.lemma || entry.word,
             partOfSpeech: dictionary.partOfSpeech,
-            pronunciation: dictionary.pronunciation || word.pronunciation || '',
-            etymology: dictionary.note || word.etymology || '',
+            pronunciation: dictionary.pronunciation || entry.pronunciation || '',
+            etymology: dictionary.note || entry.etymology || '',
+            updatedAt: new Date().toISOString(),
             definitionCheckedAt: new Date().toISOString(),
             definitionProvider: dictionary.provider
-          } : word));
+          };
+          queueVocabularyMutation('upsert', corrected);
+          setVocabBook(previous => previous.map(word => word.id === entry.id ? corrected : word));
           setToastMessage(`✅ 已按原文语境重新校验 ${entry.word} 的释义。`);
         } catch (error) {
           setToastMessage(`❌ 释义校验失败：${error.message || '请稍后重试'}`);
@@ -6399,9 +6585,10 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
               sourceContext: contextSentenceText,
               sourceArticleId: currentArticleId || null,
               sourceArticleTitle: currentArticleTitle || '',
-              addedAt: new Date().toLocaleDateString(),
+              addedAt: new Date().toISOString(),
               timestamp: Date.now()
             };
+            queueVocabularyMutation('upsert', newWordEntry);
             setVocabBook(prev => normalizeVocabBook([newWordEntry, ...prev]));
             recordLearningEvent({ eventType: 'vocab_added', eventKey: `vocab:${newWordEntry.id}`, articleId: newWordEntry.sourceArticleId, articleTitle: newWordEntry.sourceArticleTitle, payload: { word: newWordEntry.word } });
             setToastMessage(`✅ 已加入生词本: ${word}`);
@@ -6439,10 +6626,11 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
             sourceContext: contextSentenceText,
             sourceArticleId: currentArticleId || null,
             sourceArticleTitle: currentArticleTitle || '',
-            addedAt: new Date().toLocaleDateString(),
+            addedAt: new Date().toISOString(),
             timestamp: Date.now()
           };
 
+          queueVocabularyMutation('upsert', newWordEntry);
           setVocabBook(prev => normalizeVocabBook([newWordEntry, ...prev]));
           recordLearningEvent({ eventType: 'vocab_added', eventKey: `vocab:${newWordEntry.id || `${word}:${newWordEntry.timestamp}`}`, articleId: newWordEntry.sourceArticleId || null, articleTitle: newWordEntry.sourceArticleTitle || null, payload: { word: newWordEntry.word } });
           setToastMessage(`✅ 成功添加生词: ${word}`);
@@ -6457,40 +6645,23 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       };
 
       const persistVocabDeletion = async (nextVocabBook, nextDeletedVocabKeys) => {
-        trySetLocalStorage('my_local_vocab_book', JSON.stringify(nextVocabBook));
-        trySetLocalStorage('reader_deleted_vocab_keys_v1', JSON.stringify(nextDeletedVocabKeys));
+        if (!user && vocabularyViewOwner === null) {
+          trySetLocalStorage('my_local_vocab_book', JSON.stringify(nextVocabBook));
+          trySetLocalStorage('reader_deleted_vocab_keys_v1', JSON.stringify(nextDeletedVocabKeys));
+        }
 
         if (localDataLoadedRef.current && localPersistenceStatus.enabled) {
           try {
-            await writeLocalDataFile(savedArticles, nextVocabBook, completionRecords, nextDeletedVocabKeys);
+            const localVocabulary = user ? anonymousVocabularyView(localStorage) : { vocabulary: nextVocabBook, deletedKeys: nextDeletedVocabKeys };
+            await writeLocalDataFile(savedArticles, localVocabulary.vocabulary, completionRecords, localVocabulary.deletedKeys);
           } catch (error) {
             setLocalPersistenceStatus({ enabled: false, message: '本地数据文件写入失败，已使用浏览器本地存储兜底。' });
           }
         }
 
         if (!supabase || !user || !cloudDataLoadedRef.current) return;
-        const { data, error: readError } = await supabase
-          .from('reader_sync_state')
-          .select('preferences')
-          .eq('user_id', user.id)
-          .maybeSingle();
-        if (readError) throw readError;
-        const cloudPreferences = data?.preferences && typeof data.preferences === 'object' ? data.preferences : {};
-        const cloudDeletedVocabKeys = normalizeDeletedVocabKeys([
-          ...nextDeletedVocabKeys,
-          ...(cloudPreferences.deletedVocabKeys || [])
-        ]);
-        const { error: writeError } = await supabase
-          .from('reader_sync_state')
-          .upsert({
-            user_id: user.id,
-            vocabulary: removeDeletedVocab(nextVocabBook, cloudDeletedVocabKeys),
-            preferences: { ...cloudPreferences, deletedVocabKeys: cloudDeletedVocabKeys },
-            updated_at: new Date().toISOString()
-          }, { onConflict: 'user_id' });
-        if (writeError) throw writeError;
-        lastCloudSnapshotRef.current = '';
-        setCloudSyncStatus({ enabled: true, message: 'Supabase 已立即保存删除记录。' });
+        await flushVocabularyMutations();
+        setCloudSyncStatus({ enabled: true, message: 'Supabase 已确认删除操作。' });
       };
 
       const handleRemoveWord = (id) => {
@@ -6501,6 +6672,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
             if (!removedKey) return;
             const nextDeletedVocabKeys = normalizeDeletedVocabKeys([...deletedVocabKeys, removedKey]);
             const nextVocabBook = vocabBook.filter(word => getVocabKey(word) !== removedKey);
+            queueVocabularyMutation('delete', removedKey);
             setDeletedVocabKeys(nextDeletedVocabKeys);
             setVocabBook(nextVocabBook);
             setConfirmDialog(null);
@@ -6563,10 +6735,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         try {
           localStorage.setItem(VOCAB_MASTER_READING_INBOX_KEY, JSON.stringify(inbox));
           if (supabase && user) {
-            const { error } = await supabase
-              .from('reader_sync_state')
-              .upsert({ user_id: user.id, vocabulary: vocabBook, updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
-            if (error) throw error;
+            await flushVocabularyMutations();
           }
           if (window.location.origin === 'https://lesong36.github.io') {
             window.open('https://lesong36.github.io/vocab-master/', '_blank', 'noopener');
@@ -6596,6 +6765,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
             const importedData = JSON.parse(event.target.result);
             if (Array.isArray(importedData)) {
               // Importing is explicit, so it intentionally restores matching deleted words.
+              importedData.filter(item => !vocabBook.some(existing => getVocabKey(existing) === getVocabKey(item))).forEach(item => queueVocabularyMutation('upsert', item));
               restoreVocabKeys(importedData.map(getVocabKey));
               setVocabBook(prev => {
                 const newDict = [...prev];
@@ -8596,7 +8766,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                           </button>
                         </div>
                         <div className="mt-6 pt-4 border-t border-slate-100 flex justify-between items-center text-xs text-slate-400">
-                          <span>Added: {wordObj.addedAt}</span>
+                          <span>Added: {localDayKey(wordObj.addedAt || wordObj.timestamp) || wordObj.addedAt}</span>
                           <span className="print:hidden border border-slate-200 px-2 py-0.5 rounded-full">CEFR A2/B1</span>
                         </div>
                       </div>
