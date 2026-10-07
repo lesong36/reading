@@ -1,6 +1,6 @@
 {
   "audit": "/Users/coty/Documents/Lei_MBP/repo/app_dev/reading_new/mac-vocab-capture/docs/VOCAB_CAPTURE_AUDIT_2026-10-06.md",
-  "status": "implemented_locally_verified_production_gates_pending",
+  "status": "original_28_acceptance_criteria_verified",
   "denominator": 28,
   "severity_counts": {
     "H": 4,
@@ -8,7 +8,7 @@
     "L": 4
   },
   "planned_full": 28,
-  "implemented_and_verified_closed": 27,
+  "implemented_and_verified_closed": 28,
   "weights": {
     "H": 5,
     "M": 2,
@@ -65,10 +65,8 @@
       "phase": "C",
       "title": "语境、隐私与操作一致性",
       "implemented_count": 9,
-      "strict_closed_count": 8,
-      "pending_gates": [
-        "M08"
-      ],
+      "strict_closed_count": 9,
+      "pending_gates": [],
       "planned_coverage_percent": 82.1,
       "planned_weighted_percent": 87.5,
       "planned_cumulative_full": 23,
@@ -341,13 +339,13 @@
       "id": "M08",
       "phase": "C",
       "planned_coverage": "full",
-      "closed": false,
+      "closed": true,
       "implementation": "新选择统一生成revision，立即使旧浮钮/重试失效；异步AX/DOM结果按revision提交；鼠标组合键仅消费当前有效快照，失败退回显式取词。",
       "acceptance": "A→B快速选择、延迟DOM覆盖AX、浮钮点击、目标应用处理鼠标事件的竞争场景均不显示/保存A的旧结果。",
       "implementation_status": "implemented",
       "local_verification": "passed",
-      "verification_evidence": "Native/Web/隔离PostgreSQL协议回归通过；参见优化实施报告。",
-      "remaining_gate": "A→B状态、旧回调拒绝与消费失效测试通过；代表应用真实浮钮/鼠标组合键待验收。"
+      "verification_evidence": "State/revision/late callback and production AppDelegate/NSPanel tests passed; physical TextEdit fast A→B + floating click preview and persisted entry/upsert all B; physical left/right chord on blank caused no-selection alert, no stale preview/write, local revision1/entry1/pending1 unchanged.",
+      "remaining_gate": null
     },
     {
       "id": "M09",
@@ -460,8 +458,8 @@
   ],
   "implemented": 28,
   "implemented_coverage_percent": 100.0,
-  "strict_closed_coverage_percent": 96.4,
-  "strict_closed_weighted_percent": 96.9,
+  "strict_closed_coverage_percent": 100.0,
+  "strict_closed_weighted_percent": 100.0,
   "coverage_definition": "代码覆盖=有对应实现；严格闭环=完整原验收已满足。云端/真实浏览器/TCC/模型实测缺口不计关闭。",
   "production_deployed": true,
   "installed_app_replaced": true,
@@ -473,7 +471,7 @@
     "web_node_tests": 15,
     "disposable_postgresql_real_concurrency": "passed",
     "release_build": "passed",
-    "system_fixture": "Isolated production AppDelegate; real AX and screenshot, public browser tests passed; M08 physical global mouse interaction pending",
+    "system_fixture": "Isolated production AppDelegate with real AX/screenshot; actual browser and physical mouse gates completed. Dictionary UI fixture uses simulated responses; model live verification recorded separately.",
     "independent_review": "Cloud permissions/native composition/cross-browser publisher review completed; discovered browser and floating races regression-fixed",
     "live_cloud_v2": "Production deployed; 11 actual JWT/REST groups passed; production Native Store/Coordinator account switch and process restart composition passed",
     "edge_extension": "0.2.1 actual pair + quick E→C→E 3547ms correctly B/A/B",
@@ -484,7 +482,9 @@
     "real_ax": "Foreground AppKit + Chrome, 30/30 public word and sentence matches each; P50/P95 and main-thread responsiveness passed",
     "synthetic_cloud_cleanup": "2 synthetic accounts and associated rows removed; 36 exact-UUID checks zero; sessions logged out and credential file removed",
     "python_tests": 56,
-    "packaged_engine_smoke": "ready protocol1/langchain1.4.3 plus invalid request error, exit0"
+    "packaged_engine_smoke": "ready protocol1/langchain1.4.3 plus invalid request error, exit0",
+    "real_mouse": "Physical external TextEdit fast A→B floating click/save passed; physical chord with source-app clearing selection showed no-selection recovery and no stale write.",
+    "system_cleanup": "Chrome/Edge isolated pairings forgotten; isolated bridge token revoked; fixture preferences cleared and process exited; fixture app archived outside Applications; public test tabs/documents closed and own server stopped."
   },
   "live_verification_followup": "mac-vocab-capture/docs/VOCAB_CAPTURE_LIVE_VERIFICATION_2026-10-07.md"
 }

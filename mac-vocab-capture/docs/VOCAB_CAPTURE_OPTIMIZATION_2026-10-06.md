@@ -4,18 +4,18 @@
 
 ## 当前结论与口径
 
-五阶段代码已合并，28/28项都有对应实现，问题实现覆盖率100%。按原计划全部验收条件计算，严格闭环16/28项（57.1%）；风险加权34/64（53.1%，H=5、M=2、L=1）。其余12项已通过相应本地回归，但仍有真实云端、浏览器、系统权限或模型实测条件，不能宣称线上已经修复。
+五阶段代码已合并；原审计28项的实现和原定验收条件均完成，严格闭环28/28（100%），风险加权64/64（100%，H=5、M=2、L=1）。此口径限定于原28项，不表示所有服务每次回答成功或所有未列出的环境已覆盖。完整真实证据见[系统验收报告](./VOCAB_CAPTURE_LIVE_VERIFICATION_2026-10-07.md)、[云端报告](./VOCAB_CLOUD_LIVE_VERIFICATION_2026-10-07.md)、[原生云端报告](./VOCAB_NATIVE_CLOUD_LIVE_2026-10-07.md)及[模型实测](./VOCAB_MODEL_LIVE_VERIFICATION_2026-10-07.md)。
 
-没有部署真实Supabase、发布网页、替换已安装App或上传发行包。最终回归及系统界面验收使用隔离词库与模拟凭据；未查看或导出真实词库内容，未将API Key写入源码、报告或构建物。现有其他阅读功能与此前LangChain/Tavily改动保留。没有新增依赖。
+已授权部署生产Supabase v2、发布协调升级后的网页、备份并安装0.2.75 App及发布签名安装包。系统交互使用隔离词库和模拟释义；真实云端采用两个专用合成账号，已完成定向清理；模型实测使用公开语境。未查看或导出用户词库、未将API Key写入源码、报告或构建物。现有其他阅读功能保留，没有新增依赖。
 
 ## 五阶段结果
 
 | 阶段 | 已实现 | 严格闭环 | 主要结果 |
 |---|---:|---:|---|
 | A 止损与可靠性 | 5/5 | 5/5 | 损坏/未知版本词库阻止写入、备份恢复；桥接资源上限；Keychain更新失败保留旧值；拒绝截断回答；有界流式等待 |
-| B 账号与同步 | 9/9 | 3/9 | 账号独立词库与收集箱、持久操作队列、事务RPC/版本墓碑/幂等确认、401受控刷新、网页词库隔离 |
-| C 语境与交互 | 9/9 | 4/9 | 配对和一次性凭证、活动tab/window握手、可见DOM、AX后台预算、选区revision、截图错误分类、回车防重、原文诊断到期删除 |
-| D 速度与配置 | 4/4 | 3/4 | 支持服务的默认关闭/最少思考；同请求合并与独立取消；先显示完整meaning；分类错误、有界重试和配置检查 |
+| B 账号与同步 | 9/9 | 9/9 | 账号独立词库与收集箱、持久操作队列、事务RPC/版本墓碑/幂等确认、401受控刷新、网页词库隔离 |
+| C 语境与交互 | 9/9 | 9/9 | 配对和一次性凭证、活动tab/window握手、可见DOM、AX后台预算、选区revision、截图错误分类、回车防重、原文诊断到期删除 |
+| D 速度与配置 | 4/4 | 4/4 | 支持服务的默认关闭/最少思考；同请求合并与独立取消；先显示完整meaning；分类错误、有界重试和配置检查 |
 | E 清理 | 1/1 | 1/1 | 删除无入口Recent界面和字段；预览、截图进程和同步调度独立；保持既有菜单/快捷键入口 |
 
 ## 关键行为与修改文件
@@ -66,13 +66,14 @@
 
 ## 验证证据
 
-- Swift完整suite：286项，0失败，warnings-as-errors通过；2026-10-07收尾隔离修正后再次通过。日志`/tmp/vocab-opt-native-complete.log`。
-- 扩展Node：11项，0失败。日志`/tmp/vocab-opt-extension-verified.log`。
-- 网页Node：15项，0失败，包括生产helper、outbox、账号投影、未知字段、整页JSX、跨午夜/DST/旧日期。日志`/tmp/vocab-opt-web-verified.log`。
+- Swift完整suite：299项，0失败、0跳过，warnings-as-errors通过。日志`/tmp/vocab-opt-final-swift.log`。
+- 扩展Node：13项，0失败。日志`/tmp/vocab-opt-final-extension.log`。
+- Python：56项，0失败。日志`/tmp/vocab-opt-final-python.log`。
+- 网页Node：15项，0失败，包括生产helper、outbox、账号投影、未知字段、整页JSX、跨午夜/DST/旧日期。日志`/tmp/vocab-opt-final-web.log`。
 - PostgreSQL 17临时UTF-8集群：旧schema先复现覆盖风险，升级后验证权限、RLS、幂等、冲突、恢复及非词库写入；在pg_stat_activity观察第一个事务仍持锁，再启动第二连接，保证实际重叠；冲突重试后保留两词。集群已停止删除。日志`/tmp/vocab-opt-db-verified.log`。
-- Release编译warnings-as-errors通过：`/tmp/vocab-opt-release-complete.log`。这是可执行程序编译验收，未宣称发行App签名/安装包上传完成。
+- Release编译warnings-as-errors通过：`/tmp/vocab-opt-release-complete.log`。完整package-app.sh、16个嵌套Mach-O/deep strict签名、解压后签名、冻结LangChain1.4.3引擎启动均通过；GitHub重下载包hash一致。
 - JS语法、Info.plist、diff检查通过；仓库中文HTML入口与index.html一致。未运行会覆盖已安装App和私有配置的整套sync脚本。
-- 子代理完成存储、采集和同步分支，主代理整合及边界复查。额外独立审查代理因服务额度限制未能完成。LSP工具不可用，以Swift严格编译替代，没有宣称独立审查或LSP通过。
+- 子代理完成存储、采集和同步分支，主代理整合及边界复查。后续独立云端权限、原生组合及浏览器发布者审查完成，发现跨浏览器会话和浮钮事件竞态，并以红→绿回归修复。LSP工具不可用，以Swift严格编译替代，没有宣称LSP通过。
 
 复现命令（从仓库根目录）：
 
@@ -88,15 +89,15 @@ SQL runner只用已有PostgreSQL，不安装依赖或访问现有库。无需真
 
 ## 系统界面验收的实际边界
 
-使用从生产Swift源码编译的独立测试App、注入URLProtocol/假凭据/假权限、临时词库与独立preferences，通过CUA操作真实AppKit窗口。没有安装覆盖用户App，没有修改TCC。
+初期使用生产源码独立App注入URLProtocol/模拟凭据/权限 runner验证UI；后续同一隔离生产生命周期App完成真实TCC拒绝→用户授权→选区成功→物理Esc取消，真实Chrome/Edge配对与跨窗口/浏览器、AppKit/Chrome前台AX、外部TextEdit物理浮钮/鼠标组合验收。权限由用户在系统完成，未用注入结果代替真实授权。
 
 已观察：原文选curious获得语境释义；连续3次Return后按钮禁用，临时库只有1词1pending；菜单模型入口集中；取词思考默认选项可见；连接测试失败后原配置保留；释义meaning先可见且保存禁用，完整结果到达后按钮启用、性能信息可见；Esc关闭；注入权限拒绝出现明确截图失败而非静默取消。预览窗口显示的0.10/0.20/3秒是模拟数值，不能作为云模型性能测量。
 
-临时测试App已退出。真实Chrome/Edge扩展配对/双窗口、全局快捷键/浮钮、AX代表应用、TCC拒绝→授权→重试，以及已配置服务公开夹具的速度/语义质量仍待验收。
+临时测试App已退出、偏好与浏览器临时配对已清理。真实Chrome/Edge、AX/TCC/浮钮/鼠标组合及配置服务对照见上述真实报告。云模型实测保留失败与超时，不由模拟UI耗时推断提速。
 
 ## 逐项状态
 
-“闭环”只按本报告严格口径计算；“待环境验收”已有实现和相应本地回归。
+全部28项按原审计验收条件闭环；模型比较的失败记录及范围外限制仍保留。
 
 | ID | 阶段 | 状态 | 证据或待完成条件 |
 |---|---|---|---|
@@ -105,25 +106,25 @@ SQL runner只用已有PostgreSQL，不安装依赖或访问现有库。无需真
 | M18 | A | 闭环 | KeychainWriteTests:先更新、仅not-found才新增、失败保持旧项。 |
 | M15 | A | 闭环 | DictionaryClientTests:非流length、SSE异常/EOF拒绝与失败不缓存。 |
 | M16 | A | 闭环 | DictionaryClientTests:heartbeat首有效内容超时、partial后总期限、line/body上限和网络取消。 |
-| H02 | B | 待环境验收 | 真实云端部署RPC、列权限与所有写入方升级后再验收并发。 |
-| H04 | B | 待环境验收 | Native/web本机隔离与generation通过；仍须真实双账号登录、Data API/RLS验收。 |
-| M01 | B | 待环境验收 | 本地严格确认通过；真实REST RPC返回及旧服务升级待验证。 |
-| M02 | B | 待环境验收 | 本地元数据保留及修改版本通过；真实云端跨设备校正验收待完成。 |
-| M03 | B | 待环境验收 | 本地版本墓碑/明确恢复通过；真实云端删除及旧客户端阻断待验收。 |
+| H02 | B | 闭环 | Native/Web/隔离PostgreSQL协议回归通过；参见优化实施报告。 2026-10-07：Native/Web升级，真实生产JWT/REST并发、冲突、删除恢复、精确确认与旧写入阻断通过；独立云端复核。 |
+| H04 | B | 闭环 | 生产 Swift Store/Coordinator 与真实账号JWT HTTPS组合验收通过；H04旧A快照延迟交付不能写B；M20独立生产者/消费者进程退出重启，operationID不变、pending归零、revision只增一次且真实RPC幂等重放。明确断网/延迟为边界控制，不冒称真实网络断电。见VOCAB_NATIVE_CLOUD_LIVE_2026-10-07.md。 |
+| M01 | B | 闭环 | Native/Web/隔离PostgreSQL协议回归通过；参见优化实施报告。 2026-10-07：Native/Web升级，真实生产JWT/REST并发、冲突、删除恢复、精确确认与旧写入阻断通过；独立云端复核。 |
+| M02 | B | 闭环 | Native/Web/隔离PostgreSQL协议回归通过；参见优化实施报告。 2026-10-07：Native/Web升级，真实生产JWT/REST并发、冲突、删除恢复、精确确认与旧写入阻断通过；独立云端复核。 |
+| M03 | B | 闭环 | Native/Web/隔离PostgreSQL协议回归通过；参见优化实施报告。 2026-10-07：Native/Web升级，真实生产JWT/REST并发、冲突、删除恢复、精确确认与旧写入阻断通过；独立云端复核。 |
 | M19 | B | 闭环 | SupabaseAuthTests:未到期JWT的REST401只刷新1次、并发刷新、二次401终端失效及瞬时错误保留。 |
-| M20 | B | 待环境验收 | 持久队列、重启、并发与500项批次通过；真实云端续传待部署。 |
+| M20 | B | 闭环 | 生产 Swift Store/Coordinator 与真实账号JWT HTTPS组合验收通过；H04旧A快照延迟交付不能写B；M20独立生产者/消费者进程退出重启，operationID不变、pending归零、revision只增一次且真实RPC幂等重放。明确断网/延迟为边界控制，不冒称真实网络断电。见VOCAB_NATIVE_CLOUD_LIVE_2026-10-07.md。 |
 | L01 | B | 闭环 | VocabularyPersistence/ProtocolTests与SQL canonical key:空格大小写、归一化碰撞原始备份。 |
 | L02 | B | 闭环 | 网页Node:同日本地分组、上海/纽约跨午夜、DST与旧date-only稳定。 |
 | M04 | C | 闭环 | ContextDebugLogTests:临时真实文件中原文到期删除、恢复仅元数据；扩展删除持久原句，短期内存缓存。 |
-| M05 | C | 待环境验收 | 令牌、Origin/Host及一次性凭证测试通过；真实Chrome/Edge安装配对待验收。 |
-| M06 | C | 待环境验收 | tab/window握手及取消失效的Node测试通过；真实浏览器双窗口竞争待验收。 |
+| M05 | C | 闭环 | BrowserBridgeSecurityTests 的 token/Origin/Host/一次性凭证与词边界回归通过；真实 Edge 和 Chrome 0.2.0 均临时配对成功，公开 curious 选词分别向隔离生产桥接返回对应原句。2026-10-07 CUA 实际操作记录。 |
+| M06 | C | 闭环 | Chrome/Edge 0.2.1 actual pairing; A/B tabs and independent Chrome windows; 23.808s reselect and cleared selection; Edge→Chrome→Edge 3547ms returned B/A/B; actual HTTP401 after token rotation; same document same word restored after re-pair without reload. |
 | M07 | C | 闭环 | 扩展Node可见文本/隐藏DOM夹具；无script/style/hidden原句。 |
-| M08 | C | 待环境验收 | A→B状态、旧回调拒绝与消费失效测试通过；代表应用真实浮钮/鼠标组合键待验收。 |
-| M09 | C | 待环境验收 | AX后台执行/IPC和扫描预算已实现；真实代表应用AX P50/P95与UI响应尚未测。 |
-| M10 | C | 待环境验收 | 退出码/权限runner和CUA拒绝提示通过；未改动真实TCC，拒绝→授权→重试待验收。 |
+| M08 | C | 闭环 | State/revision/late callback and production AppDelegate/NSPanel tests passed; physical TextEdit fast A→B + floating click preview and persisted entry/upsert all B; physical left/right chord on blank caused no-selection alert, no stale preview/write, local revision1/entry1/pending1 unchanged. |
+| M09 | C | 闭环 | 生产 SelectionReader 在真正前台 AppKit/Chrome 公开选区各 30 次：词与原句均30/30；AppKit P50/P95=2.410/2.989ms，Chrome=3.115/3.691ms；主线程延迟 P95=0.745/0.801ms。排除所有0匹配样本；后台执行/扫描预算回归通过。 |
+| M10 | C | 闭环 | Real app permission denial → user grant → actual 2146×916 region capture; fixed exit0/no file classification red→green; user physical Escape actual outcome=cancelled, process exited, UI no error. |
 | M11 | C | 闭环 | Swift/JS共同断句夹具、Dr./3.5/inline/en dash与12词边界；Info.plist校验。 |
 | M13 | C | 闭环 | OCRLookupPanelTests保存revision防重；CUA真实AppKit窗口连续三次Return只1词1pending。 |
-| M12 | D | 待环境验收 | 能力映射、默认关闭/最少思考和配置测试通过；已有服务公开夹具的速度/语义质量实测未做。 |
+| M12 | D | 闭环 | 5个实际已配置服务完成公开夹具开/关或最低思考对照；保留DeepSeek首次结构失败、llamaCpp开启3/3首内容超时及不确定gateway reasoning指标。测量满足验收，不代表所有档位成功或稳定提速。详见模型实测报告。 |
 | M14 | D | 闭环 | DictionaryClientTests:同查询1HTTP、订阅者独立取消、全取消终止、失败重试和思考缓存隔离。 |
 | M17 | D | 闭环 | DictionaryClientTests:401不重试、429/503最多1次、Retry-After秒数/HTTP日期与总预算、错误脱敏。 |
 | L03 | D | 闭环 | URL/endpoint/model参数规范及本地HTTP兼容；Keychain失败保护旧值；CUA连接失败后配置仍保留。 |
@@ -131,8 +132,8 @@ SQL runner只用已有PostgreSQL，不安装依赖或访问现有库。无需真
 
 ## 剩余风险及上线条件
 
-1. 真实云端升级会阻断仍写整数组的旧Native/Web/外部VocabMaster，必须先做好备份、兼容发布及JWT/列权限/Data API验收；不能为兼容撤掉词库保护。
+1. 生产已采用v2且拒绝旧整库写入。使用0.2.75及协调升级网页；未升级的外部旧写入方需要采用v2，不能为兼容撤掉词库保护。
 2. 本机仍用JSON；未新增跨进程文件锁，多实例同时写同一账号文件尚无保证。单App进程actor内写入有序。
 3. RPC按500项分批；异常巨大单条记录可能触发2MiB服务端上限，内容保持pending，需修正/导出保全，未做大型词库吞吐基准。
 4. 没有有效备份的损坏词库只能保全原件，不能保证自动重建；恢复/绑定/采用本机冲突内容均要求用户在App明确操作。
-5. 真实网络、浏览器、系统权限和模型性能验收未完成。没有把“改了请求参数”当作速度改善的实测证据。
+5. 同一浏览器多个用户配置文件未覆盖；Tavily有效Key下搜索质量及真实延迟未完成检索对照，属原28项范围外。模型实测记录DeepSeek首次结构失败和本机明确开启思考3次首内容超时，推荐本机关闭思考；没有声称所有模式成功或稳定P95提速。
