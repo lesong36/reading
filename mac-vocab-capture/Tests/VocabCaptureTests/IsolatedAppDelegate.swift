@@ -5,7 +5,10 @@ import XCTest
 
 extension XCTestCase {
   @MainActor
-  func makeIsolatedAppDelegate(defaults providedDefaults: UserDefaults? = nil) -> AppDelegate {
+  func makeIsolatedAppDelegate(
+    defaults providedDefaults: UserDefaults? = nil,
+    regionCapture: ScreenshotRegionCapture? = nil
+  ) -> AppDelegate {
     let suite = "VocabCapture.IsolatedAppTests.\(UUID().uuidString)"
     let defaults = providedDefaults ?? UserDefaults(suiteName: suite)!
     let directory = FileManager.default.temporaryDirectory
@@ -25,6 +28,6 @@ extension XCTestCase {
         defaults: defaults, readAPIKey: { "" }, saveAPIKey: { _ in }),
       defaults: defaults, readDictionaryKey: { "" }, saveDictionaryKey: { _ in },
       browserBridge: BrowserContextBridge(defaults: defaults),
-      regionCapture: ScreenshotRegionCapture(permission: { false }))
+      regionCapture: regionCapture ?? ScreenshotRegionCapture(permission: { false }))
   }
 }

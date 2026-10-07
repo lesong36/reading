@@ -62,7 +62,10 @@ final class ScreenshotRegionCapture {
       case .failure: completion(.failure(.launchFailed))
       case .success(let result):
         let source = CGImageSourceCreateWithURL(url as CFURL, nil)
-        let image = source.flatMap { CGImageSourceCreateImageAtIndex($0, 0, nil) }
+        // OCR runs after this callback returns and the temporary file is removed.
+        // Decode pixels now; ImageIO otherwise defers decoding until rendering.
+        let options = [kCGImageSourceShouldCacheImmediately: true] as CFDictionary
+        let image = source.flatMap { CGImageSourceCreateImageAtIndex($0, 0, options) }
         switch Self.classify(result, hasImage: image != nil, outputExists: FileManager.default.fileExists(atPath: url.path)) {
         case .captured: completion(.success(image))
         case .cancelled: completion(.success(nil))
