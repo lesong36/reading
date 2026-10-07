@@ -8,7 +8,7 @@
     "L": 4
   },
   "planned_full": 28,
-  "implemented_and_verified_closed": 25,
+  "implemented_and_verified_closed": 27,
   "weights": {
     "H": 5,
     "M": 2,
@@ -65,11 +65,9 @@
       "phase": "C",
       "title": "语境、隐私与操作一致性",
       "implemented_count": 9,
-      "strict_closed_count": 6,
+      "strict_closed_count": 8,
       "pending_gates": [
-        "M06",
-        "M08",
-        "M10"
+        "M08"
       ],
       "planned_coverage_percent": 82.1,
       "planned_weighted_percent": 87.5,
@@ -319,13 +317,13 @@
       "id": "M06",
       "phase": "C",
       "planned_coverage": "full",
-      "closed": false,
+      "closed": true,
       "implementation": "缓存带browser/window/tab/URL与selection revision；通过扩展后台确认当前活动tab，不仅相信发送的URL；取消/失焦/导航清缓存；短窗去重仅记录成功，显式查词刷新。",
       "acceptance": "两个tab同词不同句、窗口切换、15s后重选、发送失败重试、取消选区均不会返回另一页面或过期句。",
       "implementation_status": "implemented",
       "local_verification": "passed",
-      "verification_evidence": "Native/Web/隔离PostgreSQL协议回归通过；参见优化实施报告。",
-      "remaining_gate": "tab/window握手及取消失效的Node测试通过；真实浏览器双窗口竞争待验收。"
+      "verification_evidence": "Chrome/Edge 0.2.1 actual pairing; A/B tabs and independent Chrome windows; 23.808s reselect and cleared selection; Edge→Chrome→Edge 3547ms returned B/A/B; actual HTTP401 after token rotation; same document same word restored after re-pair without reload.",
+      "remaining_gate": null
     },
     {
       "id": "M07",
@@ -367,13 +365,13 @@
       "id": "M10",
       "phase": "C",
       "planned_coverage": "full",
-      "closed": false,
+      "closed": true,
       "implementation": "截图进程结果类型区分取消、权限拒绝、启动/写文件失败；权限预检与stderr脱敏；取消安静结束，其他失败给恢复入口。",
       "acceptance": "注入进程runner覆盖所有退出状态；系统测试拒绝权限→授权→重试有效，取消不弹失败、失败不被当成取消。",
       "implementation_status": "implemented",
       "local_verification": "passed",
-      "verification_evidence": "Native/Web/隔离PostgreSQL协议回归通过；参见优化实施报告。",
-      "remaining_gate": "退出码/权限runner和CUA拒绝提示通过；未改动真实TCC，拒绝→授权→重试待验收。"
+      "verification_evidence": "Real app permission denial → user grant → actual 2146×916 region capture; fixed exit0/no file classification red→green; user physical Escape actual outcome=cancelled, process exited, UI no error.",
+      "remaining_gate": null
     },
     {
       "id": "M11",
@@ -462,8 +460,8 @@
   ],
   "implemented": 28,
   "implemented_coverage_percent": 100.0,
-  "strict_closed_coverage_percent": 89.3,
-  "strict_closed_weighted_percent": 90.6,
+  "strict_closed_coverage_percent": 96.4,
+  "strict_closed_weighted_percent": 96.9,
   "coverage_definition": "代码覆盖=有对应实现；严格闭环=完整原验收已满足。云端/真实浏览器/TCC/模型实测缺口不计关闭。",
   "production_deployed": true,
   "installed_app_replaced": true,
@@ -475,14 +473,14 @@
     "web_node_tests": 15,
     "disposable_postgresql_real_concurrency": "passed",
     "release_build": "passed",
-    "system_fixture": "Isolated production AppDelegate AppKit fixture; simulated dictionary and temporary store, real AX/screenshot permissions granted; final browser/foreground/cancellation cases pending",
-    "independent_review": "Independent cloud schema/permissions and Native composition review completed; cross-browser publisher review in progress",
+    "system_fixture": "Isolated production AppDelegate; real AX and screenshot, public browser tests passed; M08 physical global mouse interaction pending",
+    "independent_review": "Cloud permissions/native composition/cross-browser publisher review completed; discovered browser and floating races regression-fixed",
     "live_cloud_v2": "Production deployed; 11 actual JWT/REST groups passed; production Native Store/Coordinator account switch and process restart composition passed",
-    "edge_extension": "0.2.1 reloaded and new protocol re-paired; public A→B earlier0.2.0 verified; cross-browser switch rerun pending",
-    "real_tcc_denial": "AX=true/screen=true; real capture succeeded; Escape0 uncovered and regression-fixed, actual rerun pending",
+    "edge_extension": "0.2.1 actual pair + quick E→C→E 3547ms correctly B/A/B",
+    "real_tcc_denial": "Real app denial→grant→region captured→physical Escape cancelled with no error; process exit verified",
     "local_model_live": "explicit llamaCpp off/auto6/6; explicit on3/3 budget timeouts recorded; GPT/Claude/Kimi6/6 each, DeepSeek5/6 plus diagnosis pass",
     "app_packaging": "0.2.75 full package-app.sh passed using cache output; 16 nested Mach-O signatures and deep strict verification passed; no user configuration or API credentials included",
-    "chrome_extension": "0.2.1 reloaded, new protocol re-paired and actual public context returned; second Chrome window B and return A confirmed",
+    "chrome_extension": "0.2.1 actual two-window A/B/cleared/reselect; actual HTTP401 + same-word retry after re-pair without document reload",
     "real_ax": "Foreground AppKit + Chrome, 30/30 public word and sentence matches each; P50/P95 and main-thread responsiveness passed",
     "synthetic_cloud_cleanup": "2 synthetic accounts and associated rows removed; 36 exact-UUID checks zero; sessions logged out and credential file removed",
     "python_tests": 56,
