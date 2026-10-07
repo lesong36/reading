@@ -14,7 +14,7 @@ typealias ScreenshotQuestionWebAnswer = (
 ) async throws -> String
 
 @MainActor
-final class ScreenshotQuestionPanel: NSPanel, NSWindowDelegate {
+final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
   private let source = NSTextField(wrappingLabelWithString: "")
   private let transcript = NSTextView()
   private let question = NSTextField()
@@ -97,8 +97,7 @@ final class ScreenshotQuestionPanel: NSPanel, NSWindowDelegate {
     isClosed = false
     refreshModels()
     refreshSuggestions()
-    NSApp.activate(ignoringOtherApps: true)
-    makeKeyAndOrderFront(nil)
+    bringToFront()
     updateTranscriptWidth()
     makeFirstResponder(question)
   }

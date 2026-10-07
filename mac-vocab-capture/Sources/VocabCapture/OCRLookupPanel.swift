@@ -1,7 +1,7 @@
 import AppKit
 
 @MainActor
-final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTextFieldDelegate {
+final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegate, NSTextFieldDelegate {
   private let original = OCRTextView()
   private let targetWord = NSTextField()
   private let meaning = NSTextField(wrappingLabelWithString: "")
@@ -72,8 +72,7 @@ final class OCRLookupPanel: NSPanel, NSWindowDelegate, NSTextViewDelegate, NSTex
   }
 
   func present() {
-    NSApp.activate(ignoringOtherApps: true)
-    makeKeyAndOrderFront(nil)
+    bringToFront()
     makeFirstResponder(original)
   }
 
