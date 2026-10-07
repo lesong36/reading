@@ -98,11 +98,10 @@ final class FloatingSelectionInteractionTests: XCTestCase {
     XCTAssertNil(delegate.floatingReadTask)
   }
   func testCaptureMenuDoesNotOfferRemovedMouseChord() {
-    let menu = delegate.makeCaptureMethodMenu().submenu!
+    let menu = delegate.makeMenu()
     XCTAssertFalse(menu.items.contains { $0.title.contains("左右键") })
     XCTAssertFalse(delegate.responds(to: NSSelectorFromString("toggleMouseChord")))
-    XCTAssertTrue(menu.items.contains { $0.title.contains("拾词") })
-    XCTAssertTrue(menu.items.contains { $0.title.contains("快捷键") })
+    XCTAssertTrue(menu.items.contains { $0.title == "设置…" })
   }
 
   func testMouseButtonsNeverStartLookupAfterChordRemoval() throws {

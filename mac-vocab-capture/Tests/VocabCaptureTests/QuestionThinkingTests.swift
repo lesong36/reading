@@ -55,14 +55,11 @@ import XCTest
     let delegate = makeIsolatedAppDelegate()
     let menu = delegate.makeMenu()
     XCTAssertFalse(menu.items.contains { $0.title == "AI 服务设置…" || $0.title == "问一问模型设置…" })
-    let models = try XCTUnwrap(menu.items.first { $0.title == "模型与服务" }?.submenu)
-    XCTAssertEqual(models.items.map(\.title), ["取词释义模型…", "问一问模型设置…", "联网检索设置…"])
-    for item in models.items {
-      XCTAssertTrue(item.target === delegate)
-      XCTAssertTrue(delegate.responds(to: try XCTUnwrap(item.action)))
-    }
-    let capture = try XCTUnwrap(menu.items.first { $0.title == "快捷键与取词" }?.submenu)
-    XCTAssertTrue(capture.items.contains { $0.title == "设置取词与截图快捷键…" })
+    let settings = try XCTUnwrap(menu.items.first { $0.title == "设置…" })
+    XCTAssertTrue(settings.target === delegate)
+    XCTAssertEqual(settings.keyEquivalent, ",")
+    XCTAssertTrue(delegate.responds(to: try XCTUnwrap(settings.action)))
+    XCTAssertFalse(menu.items.contains { $0.title == "快捷键与取词" || $0.title == "模型与服务" })
   }
   func testThinkingSettingsPickerLoadsSelectedProfileAndSavesChoice() throws {
     _ = NSApplication.shared

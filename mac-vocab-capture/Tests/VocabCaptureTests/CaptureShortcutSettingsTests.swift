@@ -20,10 +20,10 @@ final class CaptureShortcutSettingsTests: XCTestCase {
   func testMenuHasAnExplicitTarget() throws {
     _ = NSApplication.shared
     let delegate = makeIsolatedAppDelegate()
-    let menu = try XCTUnwrap(delegate.makeCaptureMethodMenu().submenu)
-    let entry = try XCTUnwrap(menu.items.first { $0.title == "设置取词与截图快捷键…" })
+    let menu = try XCTUnwrap(delegate.makeMenu())
+    let entry = try XCTUnwrap(menu.items.first { $0.title == "设置…" })
     XCTAssertTrue(entry.target === delegate)
-    XCTAssertEqual(entry.action, NSSelectorFromString("openShortcutSettings"))
+    XCTAssertEqual(entry.action, NSSelectorFromString("openUnifiedSettings"))
     XCTAssertTrue(delegate.responds(to: try XCTUnwrap(entry.action)))
   }
 

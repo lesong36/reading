@@ -182,6 +182,7 @@ final class ShortcutPreferences {
   }
 }
 
+@MainActor
 final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
   let panel = NSPanel(
     contentRect: NSRect(x: 0, y: 0, width: 470, height: 420), styleMask: [.titled, .closable],
@@ -192,11 +193,22 @@ final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
   private let errorLabel = NSTextField(wrappingLabelWithString: "")
   private var validateAndSave: ((CaptureShortcut, CaptureShortcut, CaptureShortcut) -> String?)?
   private var onClose: (() -> Void)?
+  private var onRecordingChange: (Bool) -> Void = { _ in }
+  var isRecording: Bool {
+    [selectionRecorder, screenshotRecorder, questionScreenshotRecorder].contains { $0.window?.firstResponder === $0 }
+  }
+  private var isEmbedded = false
+  private var savedShortcuts: (CaptureShortcut, CaptureShortcut, CaptureShortcut)
+  private let cancelButton = NSButton()
+  private let saveButton = NSButton()
+  private let instructions = NSTextField(wrappingLabelWithString: "点按快捷键输入框，再按新的组合键。按 Esc 取消，按回车保存。")
+  private let formView = NSView()
 
   init(
     selection: CaptureShortcut, screenshot: CaptureShortcut,
     questionScreenshot: CaptureShortcut = .defaultQuestionScreenshot
   ) {
+    savedShortcuts = (selection, screenshot, questionScreenshot)
     selectionRecorder = CaptureShortcutRecorder(initial: selection)
     screenshotRecorder = CaptureShortcutRecorder(initial: screenshot)
     questionScreenshotRecorder = CaptureShortcutRecorder(initial: questionScreenshot)
@@ -205,59 +217,81 @@ final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
     panel.isReleasedWhenClosed = false
     panel.hidesOnDeactivate = false
     panel.delegate = self
-    let content = panel.contentView!
-    let stack = NSStackView()
-    stack.orientation = .vertical
-    stack.alignment = .leading
-    stack.spacing = 10
-    stack.translatesAutoresizingMaskIntoConstraints = false
-    content.addSubview(stack)
-    NSLayoutConstraint.activate([
-      stack.leadingAnchor.constraint(equalTo: content.leadingAnchor, constant: 22),
-      stack.trailingAnchor.constraint(equalTo: content.trailingAnchor, constant: -22),
-      stack.topAnchor.constraint(equalTo: content.topAnchor, constant: 20),
-    ])
-    stack.addArrangedSubview(NSTextField(wrappingLabelWithString: "点输入框后按组合键。按 Esc 取消，按回车保存。"))
+    panel.contentView = formView
+    instructions.font = .systemFont(ofSize: 12)
+    instructions.textColor = .secondaryLabelColor
+    var rows: [NSView] = []
     for (label, recorder) in [
       ("选中文字查词", selectionRecorder), ("截图取词", screenshotRecorder),
       ("截图问一问", questionScreenshotRecorder),
     ] {
-      stack.addArrangedSubview(NSTextField(labelWithString: label))
-      stack.addArrangedSubview(recorder)
+      rows.append(SettingsForm.row(label, control: recorder))
       recorder.setAccessibilityLabel(label)
-      recorder.widthAnchor.constraint(equalTo: stack.widthAnchor).isActive = true
-      recorder.heightAnchor.constraint(equalToConstant: 34).isActive = true
+      recorder.heightAnchor.constraint(equalToConstant: 32).isActive = true
+      recorder.onFocusChange = { [weak self] in self?.onRecordingChange($0) }
       recorder.onCancel = { [weak self] in self?.cancel(nil) }
       recorder.onSave = { [weak self] in self?.save(nil) }
-      recorder.onError = { [weak self] message in self?.errorLabel.stringValue = message }
-      recorder.onChange = { [weak self] in self?.errorLabel.stringValue = "" }
+      recorder.onError = { [weak self] message in self?.setStatus(message, error: true) }
+      recorder.onChange = { [weak self] in self?.setStatus("") }
     }
     let presets = NSStackView()
     presets.spacing = 8
-    presets.addArrangedSubview(NSTextField(labelWithString: "截图推荐："))
     for (index, shortcut) in CaptureShortcut.screenshotPresets.enumerated() {
-      let button = NSButton(
-        title: shortcut.title, target: self, action: #selector(selectPreset(_:)))
+      let button = NSButton(title: shortcut.title, target: self, action: #selector(selectPreset(_:)))
+      button.bezelStyle = .rounded
       button.tag = index
       presets.addArrangedSubview(button)
     }
-    stack.addArrangedSubview(presets)
-    errorLabel.textColor = .systemRed
+    presets.addArrangedSubview(NSView())
+    rows.append(SettingsForm.row("截图推荐", control: presets))
     errorLabel.font = .systemFont(ofSize: 12)
-    stack.addArrangedSubview(errorLabel)
-    errorLabel.heightAnchor.constraint(equalToConstant: 32).isActive = true
-    errorLabel.widthAnchor.constraint(equalTo: stack.widthAnchor).isActive = true
-    let buttons = NSStackView()
-    buttons.spacing = 12
-    buttons.addArrangedSubview(
-      NSButton(title: "恢复默认", target: self, action: #selector(restoreDefaults(_:))))
-    let cancelButton = NSButton(title: "取消", target: self, action: #selector(cancel(_:)))
+    errorLabel.isHidden = true
+    errorLabel.textColor = .secondaryLabelColor
+    errorLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18).isActive = true
+    cancelButton.title = "取消"
+    cancelButton.target = self
+    cancelButton.action = #selector(cancel(_:))
     cancelButton.keyEquivalent = "\u{1b}"
-    buttons.addArrangedSubview(cancelButton)
-    let saveButton = NSButton(title: "保存", target: self, action: #selector(save(_:)))
+    let restoreButton = NSButton(title: "恢复默认", target: self, action: #selector(restoreDefaults(_:)))
+    saveButton.title = "保存"
+    saveButton.target = self
+    saveButton.action = #selector(save(_:))
     saveButton.keyEquivalent = "\r"
-    buttons.addArrangedSubview(saveButton)
-    stack.addArrangedSubview(buttons)
+    let stack = SettingsForm.column([
+      instructions, SettingsForm.group(rows), errorLabel,
+      SettingsForm.actions([restoreButton, cancelButton, saveButton]),
+    ], spacing: 14)
+    stack.translatesAutoresizingMaskIntoConstraints = false
+    formView.addSubview(stack)
+    NSLayoutConstraint.activate([
+      stack.leadingAnchor.constraint(equalTo: formView.leadingAnchor, constant: 20),
+      stack.trailingAnchor.constraint(equalTo: formView.trailingAnchor, constant: -20),
+      stack.topAnchor.constraint(equalTo: formView.topAnchor, constant: 20),
+      stack.bottomAnchor.constraint(equalTo: formView.bottomAnchor, constant: -20),
+    ])
+  }
+
+  /// Reuses the existing editor and validation without letting it close its settings host.
+  func makeEmbeddedView(
+    validateAndSave: @escaping (CaptureShortcut, CaptureShortcut, CaptureShortcut) -> String?,
+    onRecordingChange: @escaping (Bool) -> Void = { _ in }
+  ) -> NSView {
+    isEmbedded = true
+    self.onRecordingChange = onRecordingChange
+    self.validateAndSave = validateAndSave
+    cancelButton.title = "还原更改"
+    instructions.stringValue = "点按快捷键输入框，再按新的组合键。按 Esc 还原更改，按回车保存。"
+    // Embedded shortcuts only handle Return/Esc while the recorder has focus.
+    cancelButton.keyEquivalent = ""
+    saveButton.keyEquivalent = ""
+    panel.contentView = NSView()
+    return formView
+  }
+
+  private func setStatus(_ message: String, error: Bool = false) {
+    errorLabel.stringValue = message
+    errorLabel.isHidden = message.isEmpty
+    errorLabel.textColor = error ? .systemRed : .secondaryLabelColor
   }
 
   func present(
@@ -283,17 +317,23 @@ final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
 
   @objc private func selectPreset(_ sender: NSButton) {
     screenshotRecorder.shortcut = CaptureShortcut.screenshotPresets[sender.tag]
-    errorLabel.stringValue = ""
+    setStatus("")
   }
 
   @objc private func restoreDefaults(_ sender: Any?) {
     selectionRecorder.shortcut = .defaultSelection
     screenshotRecorder.shortcut = .defaultScreenshot
     questionScreenshotRecorder.shortcut = .defaultQuestionScreenshot
-    errorLabel.stringValue = ""
+    setStatus("")
   }
 
-  @objc private func cancel(_ sender: Any?) { dismiss() }
+  @objc private func cancel(_ sender: Any?) {
+    guard isEmbedded else { dismiss(); return }
+    selectionRecorder.shortcut = savedShortcuts.0
+    screenshotRecorder.shortcut = savedShortcuts.1
+    questionScreenshotRecorder.shortcut = savedShortcuts.2
+    setStatus("")
+  }
 
   private func dismiss() {
     panel.close()
@@ -311,10 +351,15 @@ final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
       selection: selection, screenshot: screenshot, questionScreenshot: questionScreenshot)
       ?? validateAndSave?(selection, screenshot, questionScreenshot)
     {
-      errorLabel.stringValue = error
+      setStatus(error, error: true)
       return
     }
-    dismiss()
+    savedShortcuts = (selection, screenshot, questionScreenshot)
+    if isEmbedded {
+      setStatus("快捷键已保存。")
+    } else {
+      dismiss()
+    }
   }
 }
 
@@ -326,6 +371,7 @@ private final class CaptureShortcutRecorder: NSView {
       NSAccessibility.post(element: self, notification: .valueChanged)
     }
   }
+  var onFocusChange: ((Bool) -> Void)?
   var onSave: (() -> Void)?
   var onCancel: (() -> Void)?
   var onError: ((String) -> Void)?
@@ -345,10 +391,12 @@ private final class CaptureShortcutRecorder: NSView {
   }
   override func becomeFirstResponder() -> Bool {
     needsDisplay = true
+    onFocusChange?(true)
     return true
   }
   override func resignFirstResponder() -> Bool {
     needsDisplay = true
+    onFocusChange?(false)
     return true
   }
   override func mouseDown(with event: NSEvent) { window?.makeFirstResponder(self) }

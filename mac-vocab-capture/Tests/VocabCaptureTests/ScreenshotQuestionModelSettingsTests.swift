@@ -166,12 +166,15 @@ final class ScreenshotQuestionModelSettingsTests: XCTestCase {
     try button("取消", settings).performClick(nil)
   }
 
-  func testMenuItemTargetsDelegateDirectly() {
+  func testQuestionSettingsRoutesToUnifiedWindow() {
     let delegate = makeIsolatedAppDelegate()
-    let item = delegate.makeQuestionModelSettingsItem()
-    XCTAssertEqual(item.title, "问一问模型设置…")
-    XCTAssertTrue(item.target === delegate)
-    XCTAssertEqual(item.action, #selector(AppDelegate.openQuestionModelSettings))
+    delegate.openQuestionModelSettings()
+    let window = delegate.settingsWindow
+    defer { window?.panel.close() }
+    XCTAssertEqual(window?.selectedSection, .question)
+    delegate.openWebSearchSettings()
+    XCTAssertTrue(delegate.settingsWindow === window)
+    XCTAssertEqual(window?.selectedSection, .search)
   }
 
   private func makeSettings() -> ScreenshotQuestionModelSettings {

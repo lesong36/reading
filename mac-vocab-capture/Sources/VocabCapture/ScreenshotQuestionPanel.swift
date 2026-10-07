@@ -160,8 +160,14 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     let root = NSView()
     contentView = root
     let heading = NSTextField(labelWithString: "围绕截图提问")
-    heading.font = .systemFont(ofSize: 22, weight: .semibold)
+    heading.font = .systemFont(ofSize: 17, weight: .semibold)
     let modelSettings = NSButton(title: "模型设置…", target: self, action: #selector(openModelSettings))
+    modelSettings.bezelStyle = .rounded
+    modelSettings.controlSize = .small
+    modelSettings.image = NSImage(systemSymbolName: "gearshape", accessibilityDescription: nil)
+    modelSettings.imagePosition = .imageOnly
+    modelSettings.setAccessibilityLabel("模型设置")
+    modelSettings.toolTip = "打开模型设置"
     modelSettings.isHidden = onModelSettings == nil
     let headingRow = NSStackView(views: [heading, NSView(), modelSettings])
     headingRow.orientation = .horizontal
@@ -188,6 +194,10 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     modelRow.distribution = .fillEqually
     modelRow.isHidden = modelPreferences == nil
     modelPicker.setContentHuggingPriority(.defaultLow, for: .horizontal)
+    modelPicker.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+    thinkingPicker.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+    modelPicker.cell?.lineBreakMode = .byTruncatingMiddle
+    thinkingPicker.cell?.lineBreakMode = .byTruncatingTail
     source.font = .systemFont(ofSize: 13)
     source.textColor = .secondaryLabelColor
     source.maximumNumberOfLines = 3
@@ -217,6 +227,7 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     transcript.setAccessibilityLabel("截图问答记录")
     scroll.documentView = transcript
     question.placeholderString = "例如：这个短语在这里是什么意思？"
+    question.bezelStyle = .roundedBezel
     question.setAccessibilityLabel("提问内容")
     question.target = self
     question.action = #selector(ask)
@@ -224,12 +235,17 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     askButton.target = self
     askButton.action = #selector(ask)
     askButton.bezelStyle = .rounded
+    askButton.controlSize = .large
     // Return belongs to the question field, never to the OCR vocabulary save action.
     askButton.keyEquivalent = ""
     stopButton.target = self
     stopButton.action = #selector(stop)
     stopButton.isEnabled = false
     let clearButton = NSButton(title: "清空对话", target: self, action: #selector(clearConversation))
+    for button in [stopButton, clearButton] {
+      button.bezelStyle = .rounded
+      button.controlSize = .small
+    }
     imageCheckbox.target = self
     imageCheckbox.action = #selector(imagePreferenceChanged)
     status.font = .systemFont(ofSize: 12)
@@ -251,24 +267,35 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     searchCheckbox.toolTip = "使用 Tavily 搜索网页，并将检索资料交给所选模型回答。"
     let searchSettings = NSButton(
       title: "检索设置…", target: self, action: #selector(openSearchSettings))
+    searchSettings.bezelStyle = .rounded
+    searchSettings.controlSize = .small
+    searchSettings.image = NSImage(systemSymbolName: "gearshape", accessibilityDescription: nil)
+    searchSettings.imagePosition = .imageOnly
+    searchSettings.setAccessibilityLabel("联网检索设置")
+    searchSettings.toolTip = "打开联网检索设置"
     searchSettings.isHidden = onSearchSettings == nil
-    let searchControls = NSStackView(views: [searchCheckbox, searchSettings, NSView()])
+    let searchControls = NSStackView(views: [searchCheckbox, searchSettings])
     searchControls.orientation = .horizontal
     searchControls.spacing = 10
     searchControls.isHidden = webAnswer == nil
     let input = NSStackView(views: [question, askButton])
-    let controls = NSStackView(views: [imageCheckbox, NSView(), stopButton, clearButton])
+    imageCheckbox.controlSize = .small
+    searchCheckbox.controlSize = .small
+    let controls = NSStackView(views: [
+      imageCheckbox, searchControls, NSView(), stopButton, clearButton,
+    ])
     for row in [input, controls] {
       row.orientation = .horizontal
       row.spacing = 10
     }
     let column = NSStackView(views: [
-      headingRow, modelRow, source, scroll, suggestions, input, status, performanceLabel,
-      searchControls, controls,
+      headingRow, modelRow, source, scroll, suggestions, input, controls, status, performanceLabel,
     ])
     column.orientation = .vertical
     column.alignment = .leading
-    column.spacing = 12
+    column.spacing = 10
+    column.setCustomSpacing(16, after: source)
+    column.setCustomSpacing(14, after: scroll)
     column.translatesAutoresizingMaskIntoConstraints = false
     root.addSubview(column)
     NSLayoutConstraint.activate([
@@ -280,8 +307,7 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
       question.widthAnchor.constraint(greaterThanOrEqualToConstant: 340),
     ])
     for view in [
-      headingRow, modelRow, source, scroll, suggestions, input, status, performanceLabel,
-      searchControls, controls,
+      headingRow, modelRow, source, scroll, suggestions, input, status, performanceLabel, controls,
     ] {
       view.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
     }
@@ -370,10 +396,14 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
       let button = NSButton(title: prompt.title, target: self, action: #selector(askSuggestion(_:)))
       button.identifier = NSUserInterfaceItemIdentifier(prompt.id)
       button.toolTip = prompt.prompt
+      button.bezelStyle = .rounded
+      button.controlSize = .small
       button.isEnabled = !isAnswering
       return button
     }
     let edit = NSButton(title: "编辑快捷问题…", target: self, action: #selector(editQuickPrompts))
+    edit.bezelStyle = .rounded
+    edit.controlSize = .small
     let available = max(1, suggestionWidth > 0 ? suggestionWidth : 616)
     var row = NSStackView()
     row.spacing = 8
@@ -397,7 +427,7 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
   private func updateMinimumHeight() {
     let extraRows = max(0, suggestions.arrangedSubviews.count - 1)
     let required =
-      (webAnswer == nil ? 580 : 614) + CGFloat(extraRows) * 28 + max(0, zoomScale - 1) * 80
+      580 + CGFloat(extraRows) * 28 + max(0, zoomScale - 1) * 80
     minSize = NSSize(width: 600, height: required)
     if frame.height < required {
       var expanded = frame

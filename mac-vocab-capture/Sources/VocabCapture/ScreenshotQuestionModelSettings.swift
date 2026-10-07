@@ -3,7 +3,7 @@ import AppKit
 @MainActor
 final class ScreenshotQuestionModelSettings: NSObject, NSWindowDelegate {
   let panel = NSPanel(
-    contentRect: NSRect(x: 0, y: 0, width: 550, height: 765),
+    contentRect: NSRect(x: 0, y: 0, width: 590, height: 690),
     styleMask: [.titled, .closable], backing: .buffered, defer: false)
   private let preferences: ScreenshotQuestionPreferences
   private let profiles = NSPopUpButton()
@@ -22,6 +22,9 @@ final class ScreenshotQuestionModelSettings: NSObject, NSWindowDelegate {
   private var confirmingDelete = false
   private var onChange: (() -> Void)?
   private var onClose: (() -> Void)?
+  private var embeddedView: NSView?
+  private var formInsets: [NSLayoutConstraint] = []
+  private let cancelButton = NSButton(title: "取消", target: nil, action: nil)
 
   init(preferences: ScreenshotQuestionPreferences, dictionaryModel: String) {
     self.preferences = preferences
@@ -39,50 +42,12 @@ final class ScreenshotQuestionModelSettings: NSObject, NSWindowDelegate {
     model.placeholderString = "填写服务提供的模型名称"
     name.placeholderString = "例如：日常问答、语法分析、本地模型"
     key.placeholderString = "本地服务通常可留空"
-    let column = NSStackView()
-    column.orientation = .vertical
-    column.alignment = .leading
-    column.spacing = 9
-    column.translatesAutoresizingMaskIntoConstraints = false
-    let root = panel.contentView!
-    root.addSubview(column)
-    NSLayoutConstraint.activate([
-      column.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 22),
-      column.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -22),
-      column.topAnchor.constraint(equalTo: root.topAnchor, constant: 20),
-      column.bottomAnchor.constraint(lessThanOrEqualTo: root.bottomAnchor, constant: -20),
-    ])
-    let heading = NSTextField(labelWithString: "保存多个模型，随时切换")
-    heading.font = .systemFont(ofSize: 20, weight: .semibold)
-    column.addArrangedSubview(heading)
-    column.addArrangedSubview(
-      NSTextField(
-        wrappingLabelWithString:
-          "每个配置可使用不同的服务、模型和 Key。保存后用于“问一问”，取词释义保持原设置。"))
-    let add = NSButton(title: "新增配置", target: self, action: #selector(addConfiguration))
-    let selection = NSStackView(views: [profiles, add, deleteButton])
-    selection.spacing = 8
-    selection.distribution = .fill
-    profiles.setContentHuggingPriority(.defaultLow, for: .horizontal)
-    column.addArrangedSubview(selection)
-    let fallback = NSTextField(
-      wrappingLabelWithString:
-        "沿用取词模型："
-        + (dictionaryModel.isEmpty ? "尚未配置" : (dictionaryModel as NSString).lastPathComponent))
-    fallback.textColor = .secondaryLabelColor
-    fallback.font = .systemFont(ofSize: 12)
-    fallback.maximumNumberOfLines = 2
-    fallback.lineBreakMode = .byTruncatingTail
-    column.addArrangedSubview(fallback)
-    column.addArrangedSubview(NSTextField(labelWithString: "接口协议"))
     apiPicker.setAccessibilityLabel("接口协议")
     for api in ScreenshotQuestionAPI.allCases {
       let item = NSMenuItem(title: api.title, action: nil, keyEquivalent: "")
       item.representedObject = api.rawValue
       apiPicker.menu?.addItem(item)
     }
-    column.addArrangedSubview(apiPicker)
-    column.addArrangedSubview(NSTextField(labelWithString: "思考强度"))
     thinkingPicker.setAccessibilityLabel("思考强度")
     thinkingPicker.toolTip = ScreenshotQuestionThinking.help
     for thinking in ScreenshotQuestionThinking.allCases {
@@ -90,46 +55,75 @@ final class ScreenshotQuestionModelSettings: NSObject, NSWindowDelegate {
       item.representedObject = thinking.rawValue
       thinkingPicker.menu?.addItem(item)
     }
-    column.addArrangedSubview(thinkingPicker)
-    let thinkingNote = NSTextField(wrappingLabelWithString: ScreenshotQuestionThinking.help)
-    thinkingNote.font = .systemFont(ofSize: 12)
-    thinkingNote.textColor = .secondaryLabelColor
-    column.addArrangedSubview(thinkingNote)
     directConnection.setAccessibilityLabel("此模型直连")
     directConnection.toolTip = "仅作用于这个问答模型，不修改系统代理、VPN 或 TUN；直连失败不会自动重复请求，可取消勾选后重试。"
-    column.addArrangedSubview(directConnection)
     for (label, field) in [
       ("配置名称", name), ("服务地址（Base URL）", base), ("模型名称（Model）", model), ("API Key", key),
-    ] {
-      column.addArrangedSubview(NSTextField(labelWithString: label))
-      field.setAccessibilityLabel(label)
-      field.heightAnchor.constraint(equalToConstant: 26).isActive = true
-      column.addArrangedSubview(field)
-    }
-    let note = NSTextField(
-      wrappingLabelWithString:
-        "自动识别 aicodewith 的 Claude 和 GPT 接口，其他服务默认使用 Chat Completions。提问和识别原文会发到所选服务；勾选参考原截图时也会发送图片。各配置的 Key 分别存入本机 Keychain。"
-    )
-    note.font = .systemFont(ofSize: 12)
-    note.textColor = .secondaryLabelColor
-    column.addArrangedSubview(note)
+    ] { field.setAccessibilityLabel(label) }
+    let add = NSButton(title: "新增配置", target: self, action: #selector(addConfiguration))
+    let selection = NSStackView(views: [profiles, add, deleteButton])
+    selection.spacing = 8
+    profiles.setContentHuggingPriority(.defaultLow, for: .horizontal)
+    profiles.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+    let fallback = SettingsForm.label(
+      "取词模型：" + (dictionaryModel.isEmpty ? "尚未配置" : (dictionaryModel as NSString).lastPathComponent),
+      secondary: true)
+    fallback.maximumNumberOfLines = 2
+    fallback.lineBreakMode = .byTruncatingTail
     error.font = .systemFont(ofSize: 12)
     error.textColor = .systemRed
     error.setAccessibilityLabel("设置状态")
-    error.heightAnchor.constraint(equalToConstant: 32).isActive = true
-    column.addArrangedSubview(error)
-    let cancel = NSButton(title: "取消", target: self, action: #selector(cancel))
-    cancel.keyEquivalent = "\u{1b}"
+    error.heightAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
+    cancelButton.target = self
+    cancelButton.action = #selector(cancel)
+    cancelButton.keyEquivalent = "\u{1b}"
     let save = NSButton(title: "保存并使用", target: self, action: #selector(save))
     save.keyEquivalent = "\r"
-    let actions = NSStackView(views: [NSView(), cancel, save])
-    actions.spacing = 10
-    column.addArrangedSubview(actions)
-    for view in column.arrangedSubviews where view !== heading {
-      view.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
-    }
+    let page = SettingsForm.page(
+      title: "截图问答", subtitle: "保存常用模型，按需切换。取词释义使用独立设置。",
+      contents: [
+        SettingsForm.group([selection, fallback]),
+        SettingsForm.group([
+          SettingsForm.row("配置名称", control: name),
+          SettingsForm.row("服务地址", control: base),
+          SettingsForm.row("模型名称", control: model),
+          SettingsForm.row("API Key", control: key),
+          SettingsForm.row("接口协议", control: apiPicker),
+          SettingsForm.label("不确定使用哪种接口时，可选择“自动识别”。", secondary: true),
+        ]),
+        SettingsForm.group([
+          SettingsForm.row("思考强度", control: thinkingPicker),
+          SettingsForm.label("减少思考可优先获得回答；提高强度适合复杂问题，通常需要更长时间。", secondary: true),
+          directConnection,
+        ]),
+        SettingsForm.label("提问与原文会发送到所选模型；参考原截图时也会发送图片。API Key 仅保存在本机钥匙串。", secondary: true),
+        error, SettingsForm.actions([cancelButton, save]),
+      ])
+    let root = panel.contentView!
+    page.translatesAutoresizingMaskIntoConstraints = false
+    root.addSubview(page)
+    formInsets = [
+      page.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 22),
+      page.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -22),
+      page.topAnchor.constraint(equalTo: root.topAnchor, constant: 22),
+      page.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -22),
+    ]
+    NSLayoutConstraint.activate(formInsets)
     reloadProfiles(selected: preferences.selectedProfileID)
     loadConfiguration()
+  }
+
+  /// The host retains this controller; save and revert operate without dismissing its window.
+  func makeEmbeddedView(onChange: @escaping () -> Void = {}) -> NSView {
+    self.onChange = onChange
+    if let embeddedView { return embeddedView }
+    let view = panel.contentView!
+    panel.contentView = NSView()
+    embeddedView = view
+    formInsets.forEach { $0.constant = 0 }
+    cancelButton.title = "还原更改"
+    cancelButton.keyEquivalent = ""
+    return view
   }
 
   func present(onChange: @escaping () -> Void = {}, onClose: @escaping () -> Void = {}) {
@@ -197,6 +191,7 @@ final class ScreenshotQuestionModelSettings: NSObject, NSWindowDelegate {
     for field in [name, base, model, key] { field.isEnabled = isNew || editingID != nil }
     apiPicker.isEnabled = isNew || editingID != nil
     error.stringValue = ""
+    error.textColor = .systemRed
   }
 
   @objc private func addConfiguration() {
@@ -211,16 +206,16 @@ final class ScreenshotQuestionModelSettings: NSObject, NSWindowDelegate {
     key.stringValue = ""
     profiles.select(nil)
     refreshEditor()
-    panel.makeFirstResponder(name)
+    name.window?.makeFirstResponder(name)
   }
 
   @objc private func save() {
+    error.textColor = .systemRed
     if !isNew && editingID == nil {
       preferences.useDictionaryConfiguration()
       preferences.setThinking(selectedThinking)
       preferences.setDirectConnection(directConnection.state == .on)
-      onChange?()
-      finish()
+      didSave()
       return
     }
     let trimmedName = name.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -250,12 +245,15 @@ final class ScreenshotQuestionModelSettings: NSObject, NSWindowDelegate {
           rawValue: apiPicker.selectedItem?.representedObject as? String ?? "") ?? .automatic,
         thinking: selectedThinking, directConnection: directConnection.state == .on)
       preferences.selectProfile(id)
-      onChange?()
-      finish()
+      isNew = false
+      reloadProfiles(selected: id)
+      loadConfiguration()
+      didSave()
     } catch { self.error.stringValue = "无法保存问答模型：\(error.localizedDescription)" }
   }
 
   @objc private func removeConfiguration() {
+    error.textColor = .systemRed
     guard let editingID else { return }
     if !confirmingDelete {
       confirmingDelete = true
@@ -275,7 +273,21 @@ final class ScreenshotQuestionModelSettings: NSObject, NSWindowDelegate {
     }
   }
 
-  @objc private func cancel() { finish() }
+  @objc private func cancel() {
+    if embeddedView != nil {
+      isNew = false
+      reloadProfiles(selected: preferences.selectedProfileID)
+      loadConfiguration()
+    } else { finish() }
+  }
+
+  private func didSave() {
+    onChange?()
+    if embeddedView != nil {
+      error.textColor = .secondaryLabelColor
+      error.stringValue = "已保存，问一问将使用此配置。"
+    } else { finish() }
+  }
 
   private var selectedThinking: ScreenshotQuestionThinking {
     ScreenshotQuestionThinking(

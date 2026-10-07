@@ -101,38 +101,43 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
   private func buildContent(text: String) {
     let root = NSView()
     contentView = root
-    let heading = label("在原文中取词", size: 22, weight: .semibold)
-    let hint = label("单击选词 · 拖动选词组 · 回车保存 · Esc 关闭", size: 13, color: .secondaryLabelColor)
+    let heading = label("在原文中取词", size: 17, weight: .semibold)
+    let hint = label("点选单词或拖选词组，回车即可收藏。", size: 12, color: .secondaryLabelColor)
     let scroll = NSScrollView()
     scroll.hasVerticalScroller = true
     scroll.borderType = .bezelBorder
     original.string = text
-    original.font = .systemFont(ofSize: 18)
+    original.frame = NSRect(x: 0, y: 0, width: 552, height: 200)
+    original.font = .systemFont(ofSize: 16)
     original.textColor = .labelColor
     original.isEditable = false
     original.isSelectable = true
     original.isRichText = false
     original.isHorizontallyResizable = false
     original.isVerticallyResizable = true
+    original.maxSize = NSSize(
+      width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
     original.autoresizingMask = [.width]
     original.textContainerInset = NSSize(width: 14, height: 12)
     original.textContainer?.widthTracksTextView = true
+    original.textContainer?.heightTracksTextView = false
     original.delegate = self
     scroll.documentView = original
     targetWord.placeholderString = "点击原文选词；也可在这里修正选词"
-    targetWord.font = .systemFont(ofSize: 21, weight: .semibold)
+    targetWord.bezelStyle = .roundedBezel
+    targetWord.font = .systemFont(ofSize: 20, weight: .semibold)
     targetWord.delegate = self
     targetWord.target = self
     targetWord.action = #selector(commitTargetWord)
     targetWord.setAccessibilityLabel("目标单词或词组")
     original.setAccessibilityLabel("识别原文")
-    meaning.font = .systemFont(ofSize: 23, weight: .medium)
+    meaning.font = .systemFont(ofSize: 21, weight: .medium)
     metadata.font = .systemFont(ofSize: 13)
     metadata.textColor = .secondaryLabelColor
     sentence.font = .systemFont(ofSize: 14)
     sentence.textColor = .secondaryLabelColor
     sentence.maximumNumberOfLines = 4
-    feedback.font = .systemFont(ofSize: 13)
+    feedback.font = .systemFont(ofSize: 12)
     feedback.textColor = .secondaryLabelColor
     spinner.style = .spinning
     spinner.controlSize = .small
@@ -157,6 +162,12 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     let statusRow = NSStackView(views: [spinner, feedback])
     let askButton = NSButton(title: "问一问…", target: self, action: #selector(openQuestions))
     askButton.isHidden = ask == nil
+    for button in [editButton, retryButton, retake, done, askButton] {
+      button.bezelStyle = .rounded
+      button.controlSize = .small
+    }
+    retake.image = NSImage(systemSymbolName: "camera", accessibilityDescription: nil)
+    retake.imagePosition = .imageLeading
     let footer = NSStackView(views: [retake, done, askButton, NSView(), saveButton])
     for row in [headerRow, statusRow, footer] {
       row.orientation = .horizontal
@@ -165,11 +176,13 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     let column = NSStackView(views: [
       heading, hint, headerRow, scroll, targetWord,
       metadata, meaning, label("原句语境", size: 12, color: .tertiaryLabelColor),
-      sentence, retryButton, NSView(), statusRow, footer,
+      sentence, retryButton, statusRow, footer,
     ])
     column.orientation = .vertical
     column.alignment = .leading
-    column.spacing = 12
+    column.spacing = 10
+    column.setCustomSpacing(16, after: scroll)
+    column.setCustomSpacing(16, after: sentence)
     column.translatesAutoresizingMaskIntoConstraints = false
     root.addSubview(column)
     NSLayoutConstraint.activate([
@@ -177,11 +190,14 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
       column.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 24),
       column.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -24),
       column.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -22),
-      scroll.heightAnchor.constraint(equalToConstant: 200),
+      scroll.heightAnchor.constraint(greaterThanOrEqualToConstant: 180),
     ])
     for item in [headerRow, scroll, targetWord, metadata, meaning, sentence, statusRow, footer] {
       item.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
     }
+    hint.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
+    scroll.setContentHuggingPriority(.defaultLow, for: .vertical)
+    feedback.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
     original.onCommitSelection = { [weak self] in self?.readSelection() }
     original.onConfirm = { [weak self] in self?.commitTargetWord() }
     if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {

@@ -8,6 +8,9 @@ import UserNotifications
 final class AppDelegate: NSObject, NSApplicationDelegate {
   private let shortcutPreferences: ShortcutPreferences
   private var shortcutSettings: CaptureShortcutSettings?
+  private(set) var settingsWindow: SettingsWindow?
+  private var settingsEditors: [SettingsSection: AnyObject] = [:]
+  private var accountSettingsView: AccountSettingsView?
   private let store: VocabularyStore
   private let dictionary: DictionaryClient
   private let defaults: UserDefaults
@@ -89,7 +92,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     questionPreferences.prepareDefaultModel()
     NSApp.setActivationPolicy(.accessory)
     NSApp.mainMenu = ApplicationEditingMenu.make()
-    NSApp.mainMenu?.addItem(makeModelSettingsMenu())
+    if let applicationMenu = NSApp.mainMenu?.items.first?.submenu {
+      let item = NSMenuItem(title: "设置…", action: #selector(openUnifiedSettings), keyEquivalent: ",")
+      item.target = self
+      applicationMenu.insertItem(item, at: 0)
+      applicationMenu.insertItem(.separator(), at: 1)
+    }
     NSApp.servicesProvider = self
     statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     statusItem.button?.title = "词"
@@ -139,15 +147,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     ).target = self
     menu.addItem(makeScreenshotQuestionItem())
     menu.addItem(.separator())
-    menu.addItem(withTitle: "最近加入的单词", action: #selector(showRecentEntries), keyEquivalent: "")
+    menu.addItem(withTitle: "最近收藏…", action: #selector(showRecentEntries), keyEquivalent: "")
       .target = self
-    let syncItem = menu.addItem(
-      withTitle: "同步到阅读达人…", action: #selector(syncToReader), keyEquivalent: "")
-    syncItem.target = self
     menu.addItem(.separator())
-    menu.addItem(makeAccountAndStorageMenu())
-    menu.addItem(makeCaptureMethodMenu())
-    menu.addItem(makeModelSettingsMenu())
+    let settings = menu.addItem(withTitle: "设置…", action: #selector(openUnifiedSettings), keyEquivalent: ",")
+    settings.target = self
     menu.addItem(makeSupportMenu())
     menu.addItem(.separator())
     menu.addItem(
@@ -163,46 +167,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     return item
   }
 
-  func makeCaptureMethodMenu() -> NSMenuItem {
-    let item = NSMenuItem(title: "快捷键与取词", action: nil, keyEquivalent: "")
-    let submenu = NSMenu(title: "快捷键与取词")
-    let floating = submenu.addItem(
-      withTitle: "拖选后显示“拾词”按钮", action: #selector(toggleFloatingButton), keyEquivalent: "")
-    floating.target = self
-    floating.state = floatingButtonEnabled ? .on : .off
-    submenu.addItem(.separator())
-    let shortcutItem = submenu.addItem(
-      withTitle: "设置取词与截图快捷键…", action: #selector(openShortcutSettings), keyEquivalent: "")
-    shortcutItem.target = self
-    submenu.addItem(.separator())
-    submenu.addItem(withTitle: "配对浏览器扩展…", action: #selector(pairBrowserExtension), keyEquivalent: "").target = self
-    submenu.addItem(withTitle: "撤销浏览器配对", action: #selector(revokeBrowserPairing), keyEquivalent: "").target = self
-    item.submenu = submenu
-    return item
-  }
-
-  private func makeAccountAndStorageMenu() -> NSMenuItem {
-    let item = NSMenuItem(title: "账号与本机词库", action: nil, keyEquivalent: "")
-    let submenu = NSMenu(title: item.title)
-    let status = submenu.addItem(withTitle: syncStatusText, action: nil, keyEquivalent: "")
-    status.isEnabled = false
-    submenu.addItem(.separator())
-    for (title, action) in [
-      ("查看同步与词库状态…", #selector(showStorageStatus)),
-      ("处理同步冲突…", #selector(resolveSyncConflicts)),
-      ("绑定未归属词库到当前账号…", #selector(bindUnassignedWords)),
-      ("登录或切换账号…", #selector(switchReaderAccount)),
-      ("退出阅读达人账号", #selector(signOutReader)),
-      ("导出本机词库原件…", #selector(exportStoreOriginal)),
-      ("导出未归属词库原件…", #selector(exportUnassignedStoreOriginal)),
-      ("从本机备份恢复…", #selector(restoreStoreBackup)),
-    ] {
-      submenu.addItem(withTitle: title, action: action, keyEquivalent: "").target = self
-    }
-    item.submenu = submenu
-    return item
-  }
-
   private func updateSyncStatus(_ status: VocabularySyncStatus) {
     if displayedUserID != status.userID {
       displayedUserID = status.userID
@@ -215,19 +179,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     let account = status.userID.map { "账号 \($0.prefix(8))" } ?? "未登录"
     syncStatusText = "\(account) · 待同步 \(status.pendingCount) · \(status.message)"
     statusItem?.menu = makeMenu()
-  }
-
-  @objc private func showStorageStatus() {
-    Task {
-      let status = await store.status()
-      let alert = NSAlert()
-      alert.messageText = "本机词库与同步状态"
-      alert.informativeText = syncStatusText
-        + "\n未归属词条：\(status.unassignedCount)\n可用备份：\(status.backupURLs.count)"
-        + (status.issue.map { "\n\($0)" } ?? "")
-      alert.addButton(withTitle: "关闭")
-      alert.runModal()
-    }
+    refreshAccountSettings()
   }
 
   @objc private func resolveSyncConflicts() {
@@ -341,7 +293,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   @objc private func revokeBrowserPairing() {
     browserBridge.rotatePairingToken()
-    show("浏览器配对已撤销", "旧配对码和选区缓存已失效。可从“快捷键与取词”重新配对。")
+    show("浏览器配对已撤销", "旧配对码和选区缓存已失效。可从“设置 → 取词与快捷键”重新配对。")
   }
 
   @objc private func enableContextDiagnostics() {
@@ -353,27 +305,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     ContextDebugLog.disableRawDiagnostics()
     ContextDebugLog.clear()
     show("原文诊断已关闭", "本机上下文调试日志已清除，恢复仅记录耗时与字数。")
-  }
-
-  func makeModelSettingsMenu() -> NSMenuItem {
-    let item = NSMenuItem(title: "模型与服务", action: nil, keyEquivalent: "")
-    let submenu = NSMenu(title: "模型与服务")
-    let dictionary = submenu.addItem(
-      withTitle: "取词释义模型…", action: #selector(openSettings), keyEquivalent: ",")
-    dictionary.target = self
-    submenu.addItem(makeQuestionModelSettingsItem())
-    let search = submenu.addItem(
-      withTitle: "联网检索设置…", action: #selector(openWebSearchSettings), keyEquivalent: "")
-    search.target = self
-    item.submenu = submenu
-    return item
-  }
-
-  func makeQuestionModelSettingsItem() -> NSMenuItem {
-    let item = NSMenuItem(
-      title: "问一问模型设置…", action: #selector(openQuestionModelSettings), keyEquivalent: "")
-    item.target = self
-    return item
   }
 
   private func makeSupportMenu() -> NSMenuItem {
@@ -931,101 +862,111 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     capture(selection)
   }
 
-  @MainActor @objc private func openSettings() {
-    let alert = NSAlert()
-    alert.messageText = "取词释义模型设置"
-    alert.informativeText = "使用 OpenAI 兼容接口。Key仅存本机Keychain；自建服务可使用HTTP。思考设置只作用于取词释义。"
-    let stack = NSStackView(frame: NSRect(x: 0, y: 0, width: 420, height: 300))
-    stack.orientation = .vertical
-    stack.alignment = .leading
-    stack.spacing = 6
-    let saved = configuration
-    let base = NSTextField(string: saved.baseURL)
-    let model = NSTextField(string: saved.model)
-    let key = NSSecureTextField(string: saved.apiKey)
-    for (label, field) in [("Base URL", base), ("Model", model), ("API Key", key)] {
-      stack.addArrangedSubview(NSTextField(labelWithString: label))
-      field.widthAnchor.constraint(equalToConstant: 420).isActive = true
-      field.heightAnchor.constraint(equalToConstant: 26).isActive = true
-      stack.addArrangedSubview(field)
+  @objc private func openUnifiedSettings() { showSettings(.capture) }
+  @objc func openQuestionModelSettings() { showSettings(.question) }
+  @objc func openWebSearchSettings() { showSettings(.search) }
+
+  func showSettings(_ section: SettingsSection) {
+    if settingsWindow == nil {
+      settingsWindow = SettingsWindow(
+        makePage: { [unowned self] in self.makeSettingsPage($0) },
+        onSelection: { [weak self] section in
+          guard let self, self.hotKeyHandler != nil else { return }
+          if section != .capture, self.hotKeyRefs.count != 3 { self.registerHotKey() }
+        }, onClose: { [weak self] in
+          guard let self else { return }
+          if self.hotKeyHandler != nil, self.hotKeyRefs.count != 3 { self.registerHotKey() }
+          self.settingsWindow = nil
+          self.settingsEditors.removeAll()
+          self.shortcutSettings = nil
+          self.questionModelSettings = nil
+          self.webSearchSettings = nil
+          self.accountSettingsView = nil
+        }, onKeyChange: { [weak self] key in self?.updateShortcutRecording(key && self?.shortcutSettings?.isRecording == true) })
     }
-    stack.addArrangedSubview(NSTextField(labelWithString: "取词思考强度"))
-    let thinking = NSPopUpButton()
-    for option in ScreenshotQuestionThinking.allCases { thinking.addItem(withTitle: option.title) }
-    thinking.selectItem(at: ScreenshotQuestionThinking.allCases.firstIndex(of: saved.thinking) ?? 1)
-    stack.addArrangedSubview(thinking)
-    stack.addArrangedSubview(NSTextField(labelWithString: "取词服务类型"))
-    let backend = NSPopUpButton()
-    for option in DictionaryBackend.allCases { backend.addItem(withTitle: option.title) }
-    backend.selectItem(at: DictionaryBackend.allCases.firstIndex(of: saved.backend) ?? 0)
-    stack.addArrangedSubview(backend)
-    let help = NSTextField(wrappingLabelWithString: "支持的服务默认关闭／最少思考。本地 llama.cpp 请明确选择服务类型；它支持思考开关，强度档位使用输出预算，不能保证远端思考强度。其他未知兼容服务保留默认。")
-    help.font = .systemFont(ofSize: 11)
-    help.textColor = .secondaryLabelColor
-    help.widthAnchor.constraint(equalToConstant: 420).isActive = true
-    stack.addArrangedSubview(help)
-    alert.accessoryView = stack
-    alert.addButton(withTitle: "保存")
-    alert.addButton(withTitle: "取消")
-    alert.addButton(withTitle: "测试连接")
-    Task {
-      while true {
-        let response = alert.runModal()
-        guard response != .alertSecondButtonReturn else { return }
-        do {
-          let candidate = try DictionaryRequestPolicy.normalized(AIConfiguration(
-            baseURL: base.stringValue, model: model.stringValue, apiKey: key.stringValue,
-            thinking: ScreenshotQuestionThinking.allCases[max(0, thinking.indexOfSelectedItem)],
-            backend: DictionaryBackend.allCases[max(0, backend.indexOfSelectedItem)]))
-          if response == .alertThirdButtonReturn {
-            let tester = DictionaryClient(cacheLimit: 0)
-            _ = try await tester.lookup(SelectedText(word: "curious", context: "A curious reader asks a question."),
-              configuration: candidate, onPerformance: { [weak settingsAlert = alert] performance in
-                settingsAlert?.informativeText = "连接测试通过 · \(performance.summary)\n配置尚未保存。"
-              })
-            continue
-          }
-          // Validate before touching Keychain. If update fails the old configuration remains usable.
-          _ = try DictionaryRequestPolicy.request(selection: SelectedText(word: "test", context: "This is a test."), configuration: candidate)
-          try saveDictionaryKey(candidate.apiKey)
-          configuration = candidate
-          if !questionPreferences.isEnabled {
-            ocrPanel?.questionModelConfigurationChanged()
-            directQuestionPanel?.modelConfigurationChanged()
-          }
-          return
-        } catch { alert.informativeText = error.localizedDescription + "\n原配置未改动。" }
-      }
-    }
+    settingsWindow?.show(section: section)
+    if section == .account { refreshAccountSettings() }
   }
 
-  @MainActor @objc func openQuestionModelSettings() {
-    if let questionModelSettings {
-      questionModelSettings.show()
-      return
-    }
-    let settings = ScreenshotQuestionModelSettings(
-      preferences: questionPreferences, dictionaryModel: configuration.model)
-    questionModelSettings = settings
-    settings.present(
-      onChange: { [weak self] in
+  private func makeSettingsPage(_ section: SettingsSection) -> NSView {
+    switch section {
+    case .capture:
+      let editor = CaptureShortcutSettings(selection: currentShortcut, screenshot: currentScreenshotShortcut,
+        questionScreenshot: currentQuestionScreenshotShortcut)
+      shortcutSettings = editor
+      let form = editor.makeEmbeddedView(validateAndSave: { [weak self] selection, screenshot, questionScreenshot in
+        guard let self else { return "应用已关闭。" }
+        if self.hotKeyHandler != nil {
+          if let error = self.installHotKeys(selection: selection, screenshot: screenshot, questionScreenshot: questionScreenshot) { return error }
+          if self.shortcutSettings?.isRecording == true { self.unregisterHotKeys() }
+        }
+        self.shortcutPreferences.save(selection: selection, screenshot: screenshot, questionScreenshot: questionScreenshot)
+        self.statusItem?.menu = self.makeMenu()
+        return nil
+      }, onRecordingChange: { [weak self] recording in
+        self?.updateShortcutRecording(recording)
+      })
+      let floating = NSButton(checkboxWithTitle: "拖选英文后显示“拾词”按钮", target: self, action: #selector(toggleFloatingButton))
+      floating.state = floatingButtonEnabled ? .on : .off
+      let pair = NSButton(title: "配对浏览器扩展…", target: self, action: #selector(pairBrowserExtension))
+      let revoke = NSButton(title: "撤销配对", target: self, action: #selector(revokeBrowserPairing))
+      return SettingsForm.page(title: "取词与快捷键", subtitle: "截图适用于各种应用。支持读取选区的应用也可以直接选词。", contents: [
+        SettingsForm.group([floating, SettingsForm.label("Sublime、微信等应用可直接使用截图取词或截图问一问。", secondary: true)]),
+        form,
+        SettingsForm.group([SettingsForm.label("浏览器扩展", secondary: true), SettingsForm.actions([pair, revoke])]),
+      ])
+    case .dictionary:
+      let editor = DictionarySettingsView(configuration: configuration, save: { [weak self] value in
+        guard let self else { return }
+        try self.saveDictionaryKey(value.apiKey)
+        self.configuration = value
+        if !self.questionPreferences.isEnabled {
+          self.ocrPanel?.questionModelConfigurationChanged()
+          self.directQuestionPanel?.modelConfigurationChanged()
+        }
+      }, test: { configuration in
+        let tester = DictionaryClient(cacheLimit: 0)
+        var summary = ""
+        _ = try await tester.lookup(SelectedText(word: "curious", context: "A curious reader asks a question."),
+          configuration: configuration, onPerformance: { summary = $0.summary })
+        return summary
+      })
+      settingsEditors[section] = editor
+      return editor.view
+    case .question:
+      let editor = ScreenshotQuestionModelSettings(preferences: questionPreferences, dictionaryModel: configuration.model)
+      questionModelSettings = editor
+      return editor.makeEmbeddedView { [weak self] in
         self?.ocrPanel?.questionModelConfigurationChanged()
         self?.directQuestionPanel?.modelConfigurationChanged()
-      }, onClose: { [weak self] in self?.questionModelSettings = nil })
-  }
-
-  @MainActor @objc func openWebSearchSettings() {
-    if let webSearchSettings {
-      webSearchSettings.show()
-      return
-    }
-    let settings = ScreenshotQuestionWebSearchSettings(preferences: searchPreferences)
-    webSearchSettings = settings
-    settings.present(
-      onChange: { [weak self] in
+      }
+    case .search:
+      let editor = ScreenshotQuestionWebSearchSettings(preferences: searchPreferences)
+      webSearchSettings = editor
+      return editor.makeEmbeddedView { [weak self] in
         self?.directQuestionPanel?.searchConfigurationChanged()
         self?.ocrPanel?.questionSearchConfigurationChanged()
-      }, onClose: { [weak self] in self?.webSearchSettings = nil })
+      }
+    case .account:
+      let editor = AccountSettingsView(login: { [weak self] in self?.switchReaderAccount() },
+        logout: { [weak self] in self?.signOutReader() }, sync: { [weak self] in self?.syncToReader() },
+        conflicts: { [weak self] in self?.resolveSyncConflicts() }, bind: { [weak self] in self?.bindUnassignedWords() },
+        export: { [weak self] in self?.exportStoreOriginal() }, exportUnassigned: { [weak self] in self?.exportUnassignedStoreOriginal() },
+        restore: { [weak self] in self?.restoreStoreBackup() })
+      accountSettingsView = editor
+      refreshAccountSettings()
+      return editor.view
+    }
+  }
+
+  private func refreshAccountSettings() {
+    guard let editor = accountSettingsView else { return }
+    Task { [weak self, weak editor] in
+      guard let self, let editor else { return }
+      let status = await self.store.status()
+      editor.update(userID: self.displayedUserID, message: self.syncStatusText,
+        unassigned: status.unassignedCount, conflicts: self.conflictingWordKeys.count, issue: status.issue)
+    }
   }
 
   @objc private func showRecentEntries() {
@@ -1130,39 +1071,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     isLoggedIn ? syncStatusText : "未登录 · 仅保存在本机，绑定账号后可同步"
   }
 
-  @objc private func openShortcutSettings() {
-    // Let the status menu finish tracking before activating a keyboard window.
-    DispatchQueue.main.async { [weak self] in
-      guard let self else { return }
-      if let settings = self.shortcutSettings {
-        settings.show()
-        return
-      }
-      let settings = CaptureShortcutSettings(
-        selection: self.currentShortcut, screenshot: self.currentScreenshotShortcut,
-        questionScreenshot: self.currentQuestionScreenshotShortcut)
-      self.shortcutSettings = settings
-      // Pause capture hotkeys so the recorder receives existing combinations.
-      self.unregisterHotKeys()
-      settings.present(
-        validateAndSave: { [weak self] selection, screenshot, questionScreenshot in
-          guard let self else { return "应用已关闭。" }
-          if let error = self.installHotKeys(
-            selection: selection, screenshot: screenshot, questionScreenshot: questionScreenshot)
-          {
-            return error
-          }
-          self.shortcutPreferences.save(
-            selection: selection, screenshot: screenshot, questionScreenshot: questionScreenshot)
-          self.statusItem.menu = self.makeMenu()
-          return nil
-        },
-        onClose: { [weak self] in
-          guard let self else { return }
-          if self.hotKeyRefs.count != 3 { self.registerHotKey() }
-          self.shortcutSettings = nil
-        })
-    }
+  private func updateShortcutRecording(_ recording: Bool) {
+    guard hotKeyHandler != nil else { return }
+    if recording, settingsWindow?.panel.isKeyWindow == true,
+      settingsWindow?.selectedSection == .capture { unregisterHotKeys() }
+    else if hotKeyRefs.count != 3 { registerHotKey() }
   }
 
   private var configuration: AIConfiguration {
@@ -1250,7 +1163,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       selection: currentShortcut, screenshot: currentScreenshotShortcut,
       questionScreenshot: currentQuestionScreenshotShortcut, allowPartial: true
     ) {
-      showFailure(title: "部分快捷键未启用", error + " 也可从菜单栏使用，并在“快捷键与取词”中重新设置。")
+      showFailure(title: "部分快捷键未启用", error + " 也可从菜单栏使用，并在“设置 → 取词与快捷键”中重新设置。")
     }
   }
 
