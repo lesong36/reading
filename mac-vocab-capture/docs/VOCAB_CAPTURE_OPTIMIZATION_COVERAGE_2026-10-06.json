@@ -1,6 +1,6 @@
 {
   "audit": "/Users/coty/Documents/Lei_MBP/repo/app_dev/reading_new/mac-vocab-capture/docs/VOCAB_CAPTURE_AUDIT_2026-10-06.md",
-  "status": "original_28_acceptance_criteria_verified",
+  "status": "mouse_chord_removed_by_user",
   "denominator": 28,
   "severity_counts": {
     "H": 4,
@@ -8,7 +8,7 @@
     "L": 4
   },
   "planned_full": 28,
-  "implemented_and_verified_closed": 28,
+  "implemented_and_verified_closed": 27,
   "weights": {
     "H": 5,
     "M": 2,
@@ -65,7 +65,7 @@
       "phase": "C",
       "title": "语境、隐私与操作一致性",
       "implemented_count": 9,
-      "strict_closed_count": 9,
+      "strict_closed_count": 8,
       "pending_gates": [],
       "planned_coverage_percent": 82.1,
       "planned_weighted_percent": 87.5,
@@ -82,7 +82,10 @@
         "M13"
       ],
       "planned_high_full": 4,
-      "planned_partial": []
+      "planned_partial": [],
+      "removed_by_user": [
+        "M08 mouse chord component"
+      ]
     },
     {
       "phase": "D",
@@ -339,13 +342,14 @@
       "id": "M08",
       "phase": "C",
       "planned_coverage": "full",
-      "closed": true,
-      "implementation": "新选择统一生成revision，立即使旧浮钮/重试失效；异步AX/DOM结果按revision提交；鼠标组合键仅消费当前有效快照，失败退回显式取词。",
+      "closed": false,
+      "implementation": "浮钮仍按revision拒绝旧回调，拖选记录最初来源PID并在AX读取前后核对；右键、键盘、前台应用变化使浮钮失效。左右键组合取词按用户要求完全移除。",
       "acceptance": "A→B快速选择、延迟DOM覆盖AX、浮钮点击、目标应用处理鼠标事件的竞争场景均不显示/保存A的旧结果。",
-      "implementation_status": "implemented",
+      "implementation_status": "mouse_chord_removed_by_user",
       "local_verification": "passed",
-      "verification_evidence": "State/revision/late callback and production AppDelegate/NSPanel tests passed; physical TextEdit fast A→B + floating click preview and persisted entry/upsert all B; physical left/right chord on blank caused no-selection alert, no stale preview/write, local revision1/entry1/pending1 unchanged.",
-      "remaining_gate": null
+      "verification_evidence": "Original physical TextEdit A→B floating click/save passed. Chord trial still failed according to user; user requested removal. Final 304 strict Swift tests passed, including original floating3 and removal/protection5. No chord-success claim.",
+      "remaining_gate": null,
+      "resolution": "user_authorized_feature_removal"
     },
     {
       "id": "M09",
@@ -456,35 +460,37 @@
       "remaining_gate": null
     }
   ],
-  "implemented": 28,
-  "implemented_coverage_percent": 100.0,
-  "strict_closed_coverage_percent": 100.0,
-  "strict_closed_weighted_percent": 100.0,
+  "implemented": 27,
+  "implemented_coverage_percent": 96.4,
+  "strict_closed_coverage_percent": 96.4,
+  "strict_closed_weighted_percent": 96.9,
   "coverage_definition": "代码覆盖=有对应实现；严格闭环=完整原验收已满足。云端/真实浏览器/TCC/模型实测缺口不计关闭。",
   "production_deployed": true,
   "installed_app_replaced": true,
   "verification": {
-    "swift_tests": 299,
+    "swift_tests": 304,
     "swift_failures": 0,
     "warnings_as_errors": true,
     "extension_node_tests": 13,
     "web_node_tests": 15,
     "disposable_postgresql_real_concurrency": "passed",
     "release_build": "passed",
-    "system_fixture": "Isolated production AppDelegate with real AX/screenshot; actual browser and physical mouse gates completed. Dictionary UI fixture uses simulated responses; model live verification recorded separately.",
+    "system_fixture": "Isolated real AX/screenshot fixture; original floating A→B passed; chord trial failed and feature removed by user.",
     "independent_review": "Cloud permissions/native composition/cross-browser publisher review completed; discovered browser and floating races regression-fixed",
     "live_cloud_v2": "Production deployed; 11 actual JWT/REST groups passed; production Native Store/Coordinator account switch and process restart composition passed",
     "edge_extension": "0.2.1 actual pair + quick E→C→E 3547ms correctly B/A/B",
     "real_tcc_denial": "Real app denial→grant→region captured→physical Escape cancelled with no error; process exit verified",
     "local_model_live": "explicit llamaCpp off/auto6/6; explicit on3/3 budget timeouts recorded; GPT/Claude/Kimi6/6 each, DeepSeek5/6 plus diagnosis pass",
-    "app_packaging": "0.2.75 full package-app.sh passed using cache output; 16 nested Mach-O signatures and deep strict verification passed; no user configuration or API credentials included",
+    "app_packaging": "0.2.76 packaged and installed; 16 nested Mach-O signatures; zip unpack deep strict verified; frozen engine ready protocol1/LangChain1.4.3 and invalid request exit0; credential scan clean",
     "chrome_extension": "0.2.1 actual two-window A/B/cleared/reselect; actual HTTP401 + same-word retry after re-pair without document reload",
     "real_ax": "Foreground AppKit + Chrome, 30/30 public word and sentence matches each; P50/P95 and main-thread responsiveness passed",
     "synthetic_cloud_cleanup": "2 synthetic accounts and associated rows removed; 36 exact-UUID checks zero; sessions logged out and credential file removed",
     "python_tests": 56,
     "packaged_engine_smoke": "ready protocol1/langchain1.4.3 plus invalid request error, exit0",
-    "real_mouse": "Physical external TextEdit fast A→B floating click/save passed; physical chord with source-app clearing selection showed no-selection recovery and no stale write.",
-    "system_cleanup": "Chrome/Edge isolated pairings forgotten; isolated bridge token revoked; fixture preferences cleared and process exited; fixture app archived outside Applications; public test tabs/documents closed and own server stopped."
+    "real_mouse": "Physical TextEdit floating A→B passed previously. User rejected chord trial; no positive chord acceptance claimed.",
+    "system_cleanup": "Fixture preview cancelled without saving; own preferences cleared, process stopped and app archived outside Applications; formal0.2.76 restored running."
   },
-  "live_verification_followup": "mac-vocab-capture/docs/VOCAB_CAPTURE_LIVE_VERIFICATION_2026-10-07.md"
+  "live_verification_followup": "mac-vocab-capture/docs/VOCAB_CAPTURE_LIVE_VERIFICATION_2026-10-07.md",
+  "removed_by_user_count": 1,
+  "original_failed_feature": "left/right mouse chord capture"
 }

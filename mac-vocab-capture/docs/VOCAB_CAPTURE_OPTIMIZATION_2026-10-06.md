@@ -4,7 +4,7 @@
 
 ## 当前结论与口径
 
-五阶段代码已合并；原审计28项的实现和原定验收条件均完成，严格闭环28/28（100%），风险加权64/64（100%，H=5、M=2、L=1）。此口径限定于原28项，不表示所有服务每次回答成功或所有未列出的环境已覆盖。完整真实证据见[系统验收报告](./VOCAB_CAPTURE_LIVE_VERIFICATION_2026-10-07.md)、[云端报告](./VOCAB_CLOUD_LIVE_VERIFICATION_2026-10-07.md)、[原生云端报告](./VOCAB_NATIVE_CLOUD_LIVE_2026-10-07.md)及[模型实测](./VOCAB_MODEL_LIVE_VERIFICATION_2026-10-07.md)。
+原28项中27项已验证；M08的左右键组合取词实际复验仍失败，用户明确要求放弃，已移除功能、菜单和配置读取。M08浮钮A→B等既有保护保留。原28/28“100%”结论已撤回，移除不记作组合键验收通过。最终移除回归与版本见[实时报告](./VOCAB_CAPTURE_LIVE_VERIFICATION_2026-10-07.md)。
 
 已授权部署生产Supabase v2、发布协调升级后的网页、备份并安装0.2.75 App及发布签名安装包。系统交互使用隔离词库和模拟释义；真实云端采用两个专用合成账号，已完成定向清理；模型实测使用公开语境。未查看或导出用户词库、未将API Key写入源码、报告或构建物。现有其他阅读功能保留，没有新增依赖。
 
@@ -14,7 +14,7 @@
 |---|---:|---:|---|
 | A 止损与可靠性 | 5/5 | 5/5 | 损坏/未知版本词库阻止写入、备份恢复；桥接资源上限；Keychain更新失败保留旧值；拒绝截断回答；有界流式等待 |
 | B 账号与同步 | 9/9 | 9/9 | 账号独立词库与收集箱、持久操作队列、事务RPC/版本墓碑/幂等确认、401受控刷新、网页词库隔离 |
-| C 语境与交互 | 9/9 | 9/9 | 配对和一次性凭证、活动tab/window握手、可见DOM、AX后台预算、选区revision、截图错误分类、回车防重、原文诊断到期删除 |
+| C 语境与交互 | 8项及M08保留部分 | 8/9；1项按用户调整范围 | 配对和一次性凭证、活动tab/window握手、可见DOM、AX后台预算、选区revision、截图错误分类、回车防重、原文诊断到期删除 |
 | D 速度与配置 | 4/4 | 4/4 | 支持服务的默认关闭/最少思考；同请求合并与独立取消；先显示完整meaning；分类错误、有界重试和配置检查 |
 | E 清理 | 1/1 | 1/1 | 删除无入口Recent界面和字段；预览、截图进程和同步调度独立；保持既有菜单/快捷键入口 |
 
@@ -119,7 +119,7 @@ SQL runner只用已有PostgreSQL，不安装依赖或访问现有库。无需真
 | M05 | C | 闭环 | BrowserBridgeSecurityTests 的 token/Origin/Host/一次性凭证与词边界回归通过；真实 Edge 和 Chrome 0.2.0 均临时配对成功，公开 curious 选词分别向隔离生产桥接返回对应原句。2026-10-07 CUA 实际操作记录。 |
 | M06 | C | 闭环 | Chrome/Edge 0.2.1 actual pairing; A/B tabs and independent Chrome windows; 23.808s reselect and cleared selection; Edge→Chrome→Edge 3547ms returned B/A/B; actual HTTP401 after token rotation; same document same word restored after re-pair without reload. |
 | M07 | C | 闭环 | 扩展Node可见文本/隐藏DOM夹具；无script/style/hidden原句。 |
-| M08 | C | 闭环 | State/revision/late callback and production AppDelegate/NSPanel tests passed; physical TextEdit fast A→B + floating click preview and persisted entry/upsert all B; physical left/right chord on blank caused no-selection alert, no stale preview/write, local revision1/entry1/pending1 unchanged. |
+| M08 | C | 用户移除组合键 | 物理A→B浮钮确认通过；组合键实际失败，按用户要求移除，未计成功。304项Swift通过；保留浮钮3项回归，新增移除与失效保护5项。 |
 | M09 | C | 闭环 | 生产 SelectionReader 在真正前台 AppKit/Chrome 公开选区各 30 次：词与原句均30/30；AppKit P50/P95=2.410/2.989ms，Chrome=3.115/3.691ms；主线程延迟 P95=0.745/0.801ms。排除所有0匹配样本；后台执行/扫描预算回归通过。 |
 | M10 | C | 闭环 | Real app permission denial → user grant → actual 2146×916 region capture; fixed exit0/no file classification red→green; user physical Escape actual outcome=cancelled, process exited, UI no error. |
 | M11 | C | 闭环 | Swift/JS共同断句夹具、Dr./3.5/inline/en dash与12词边界；Info.plist校验。 |

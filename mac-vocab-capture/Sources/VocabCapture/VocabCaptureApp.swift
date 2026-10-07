@@ -49,14 +49,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     currentUserID: { [cloudSync] in await cloudSync.currentUserID() },
     synchronize: { [cloudSync] batch in try await cloudSync.sync(batch: batch) },
     onStatus: { [weak self] status in self?.updateSyncStatus(status) })
-  private var lastLeftMouseDown: CFAbsoluteTime?
-  private var lastRightMouseDown: CFAbsoluteTime?
   private var selectionDragStart: CGPoint?
+  private var selectionDragProcessIdentifier: pid_t?
+  private var applicationActivationObserver: NSObjectProtocol?
   private(set) var floatingSelectionPanel: NSPanel?
   private let configurationKey = "VocabCapture.aiConfiguration"
-  private let mouseChordEnabledKey = "VocabCapture.mouseChordEnabled"
   private let floatingButtonEnabledKey = "VocabCapture.floatingButtonEnabled"
-  private let mouseChordInterval: CFAbsoluteTime = 0.22
   private let minimumSelectionDragDistance: CGFloat = 4
 
   init(
@@ -99,7 +97,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     installHotKeyHandler()
     registerHotKey()
     Task { await screenshotQuestions.warmUp() }
-    installMouseChordIfNeeded()
+    installSelectionMonitorIfNeeded()
     browserBridge.start()
     Task { await syncCoordinator.start() }
     let urls = pendingOpenURLs
@@ -172,10 +170,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       withTitle: "拖选后显示“拾词”按钮", action: #selector(toggleFloatingButton), keyEquivalent: "")
     floating.target = self
     floating.state = floatingButtonEnabled ? .on : .off
-    let mouseChord = submenu.addItem(
-      withTitle: "左右键同时按下取词", action: #selector(toggleMouseChord), keyEquivalent: "")
-    mouseChord.target = self
-    mouseChord.state = mouseChordEnabled ? .on : .off
     submenu.addItem(.separator())
     let shortcutItem = submenu.addItem(
       withTitle: "设置取词与截图快捷键…", action: #selector(openShortcutSettings), keyEquivalent: "")
@@ -624,30 +618,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     Task { await syncCoordinator.queue() }
   }
 
-  @objc private func toggleMouseChord() {
-    defaults.set(!mouseChordEnabled, forKey: mouseChordEnabledKey)
-    if mouseChordEnabled || floatingButtonEnabled {
-      installMouseChordIfNeeded()
-    } else {
-      stopMouseChord()
-    }
-    statusItem.menu = makeMenu()
-  }
-
   @objc private func toggleFloatingButton() {
     defaults.set(!floatingButtonEnabled, forKey: floatingButtonEnabledKey)
-    if floatingButtonEnabled || mouseChordEnabled {
-      installMouseChordIfNeeded()
+    if floatingButtonEnabled {
+      installSelectionMonitorIfNeeded()
     } else {
-      stopMouseChord()
+      stopSelectionMonitor()
     }
     if !floatingButtonEnabled { dismissFloatingSelectionButton() }
     statusItem.menu = makeMenu()
-  }
-
-  private var mouseChordEnabled: Bool {
-    guard defaults.object(forKey: mouseChordEnabledKey) != nil else { return true }
-    return defaults.bool(forKey: mouseChordEnabledKey)
   }
 
   private var floatingButtonEnabled: Bool {
@@ -655,20 +634,23 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     return defaults.bool(forKey: floatingButtonEnabledKey)
   }
 
-  private func installMouseChordIfNeeded() {
-    guard mouseChordEnabled || floatingButtonEnabled, AXIsProcessTrusted(), mouseEventTap == nil
+  private func installSelectionMonitorIfNeeded() {
+    guard floatingButtonEnabled, AXIsProcessTrusted(), mouseEventTap == nil
     else { return }
     let eventMask =
       (CGEventMask(1) << CGEventType.leftMouseDown.rawValue)
       | (CGEventMask(1) << CGEventType.leftMouseUp.rawValue)
       | (CGEventMask(1) << CGEventType.rightMouseDown.rawValue)
+      | (CGEventMask(1) << CGEventType.keyDown.rawValue)
     let callback: CGEventTapCallBack = { _, type, event, userInfo in
-      if let userInfo, type == .leftMouseDown || type == .leftMouseUp || type == .rightMouseDown {
+      if let userInfo, type == .leftMouseDown || type == .leftMouseUp || type == .rightMouseDown || type == .keyDown {
         let delegate = Unmanaged<AppDelegate>.fromOpaque(userInfo).takeUnretainedValue()
         // Use AppKit screen coordinates before queued handling can observe a moved pointer.
         let location = NSEvent.mouseLocation
+        let processIdentifier = NSWorkspace.shared.frontmostApplication?.processIdentifier
         DispatchQueue.main.async {
-          delegate.handleMouseEvent(type, location: location)
+          delegate.handleMouseEvent(type, location: location,
+            frontmostProcessIdentifier: processIdentifier)
         }
       }
       return Unmanaged.passUnretained(event)
@@ -688,16 +670,31 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     CGEvent.tapEnable(tap: tap, enable: true)
     mouseEventTap = tap
     mouseEventSource = source
+    applicationActivationObserver = NSWorkspace.shared.notificationCenter.addObserver(
+      forName: NSWorkspace.didActivateApplicationNotification, object: nil, queue: .main
+    ) { [weak self] _ in
+      Task { @MainActor in
+        guard let self else { return }
+        self.selectionDragStart = nil
+        self.selectionDragProcessIdentifier = nil
+        self.floatingReadTask?.cancel()
+        self.dismissFloatingSelectionButton()
+      }
+    }
   }
 
-  private func stopMouseChord() {
-    guard let source = mouseEventSource else { return }
-    CFRunLoopRemoveSource(CFRunLoopGetMain(), source, .commonModes)
+  private func stopSelectionMonitor() {
+    if let source = mouseEventSource {
+      CFRunLoopRemoveSource(CFRunLoopGetMain(), source, .commonModes)
+    }
+    if let observer = applicationActivationObserver {
+      NSWorkspace.shared.notificationCenter.removeObserver(observer)
+    }
+    applicationActivationObserver = nil
     mouseEventTap = nil
     mouseEventSource = nil
-    lastLeftMouseDown = nil
-    lastRightMouseDown = nil
     selectionDragStart = nil
+    selectionDragProcessIdentifier = nil
     floatingReadTask?.cancel()
     floatingState.invalidate()
     dismissFloatingSelectionButton()
@@ -707,20 +704,34 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     _ type: CGEventType, location: CGPoint,
     frontmostProcessIdentifier: pid_t? = NSWorkspace.shared.frontmostApplication?.processIdentifier
   ) {
+    if type == .keyDown {
+      selectionDragStart = nil
+      selectionDragProcessIdentifier = nil
+      floatingReadTask?.cancel()
+      dismissFloatingSelectionButton()
+      return
+    }
     // The nonactivating panel keeps the source app frontmost. Its button must retain
     // the accepted selection until its own mouse-up action consumes it.
     if let panel = floatingSelectionPanel, panel.isVisible, panel.frame.contains(location) {
       selectionDragStart = nil
-      lastLeftMouseDown = nil
-      lastRightMouseDown = nil
+      selectionDragProcessIdentifier = nil
       floatingReadTask?.cancel()
       return
     }
     guard frontmostProcessIdentifier != ProcessInfo.processInfo.processIdentifier
     else {
       selectionDragStart = nil
-      lastLeftMouseDown = nil
-      lastRightMouseDown = nil
+      selectionDragProcessIdentifier = nil
+      floatingReadTask?.cancel()
+      dismissFloatingSelectionButton()
+      return
+    }
+    if type == .rightMouseDown {
+      selectionDragStart = nil
+      selectionDragProcessIdentifier = nil
+      floatingReadTask?.cancel()
+      dismissFloatingSelectionButton()
       return
     }
     if type == .leftMouseDown {
@@ -728,9 +739,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       floatingReadTask?.cancel()
       dismissFloatingSelectionButton()
       selectionDragStart = location
+      selectionDragProcessIdentifier = frontmostProcessIdentifier
     } else if type == .leftMouseUp {
-      defer { selectionDragStart = nil }
+      defer { selectionDragStart = nil; selectionDragProcessIdentifier = nil }
       guard floatingButtonEnabled,
+        let processIdentifier = selectionDragProcessIdentifier,
+        processIdentifier == frontmostProcessIdentifier,
         NSApp.modalWindow == nil,
         let start = selectionDragStart,
         hypot(location.x - start.x, location.y - start.y) >= minimumSelectionDragDistance
@@ -740,29 +754,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       floatingReadTask = Task {
         for wait in [120_000_000, 160_000_000, 240_000_000] {
           do { try await Task.sleep(nanoseconds: UInt64(wait)) } catch { return }
-          guard !Task.isCancelled, floatingState.revision == revision else { return }
+          guard !Task.isCancelled, floatingState.revision == revision,
+            NSWorkspace.shared.frontmostApplication?.processIdentifier == processIdentifier else { return }
           let selection = await SelectionReader.readFocusedSelectionAsync(browserBridge: browserBridge)
-          guard !Task.isCancelled, floatingState.revision == revision else { return }
-          if let selection { showFloatingSelectionButtonIfNeeded(selection: selection, revision: revision) }
+          guard !Task.isCancelled, floatingState.revision == revision,
+            NSWorkspace.shared.frontmostApplication?.processIdentifier == processIdentifier else { return }
+          if let selection { showFloatingSelectionButtonIfNeeded(selection: selection, revision: revision,
+            frontmostProcessIdentifier: processIdentifier) }
         }
       }
       return
     }
-
-    guard mouseChordEnabled, NSApp.modalWindow == nil else { return }
-    let now = CFAbsoluteTimeGetCurrent()
-    if type == .leftMouseDown {
-      lastLeftMouseDown = now
-      guard let right = lastRightMouseDown, now - right <= mouseChordInterval else { return }
-    } else {
-      lastRightMouseDown = now
-      guard let left = lastLeftMouseDown, now - left <= mouseChordInterval else { return }
-    }
-    lastLeftMouseDown = nil
-    lastRightMouseDown = nil
-    // A passive tap cannot promise to precede the target app's click handling.
-    // Re-read its current selection instead of consuming an earlier drag.
-    readSelection(allowClipboard: false)
   }
 
   func showFloatingSelectionButtonIfNeeded(
@@ -819,8 +821,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     panel.orderFrontRegardless()
     floatingSelectionPanel = panel
     DispatchQueue.main.asyncAfter(deadline: .now() + 6) { [weak self, weak panel] in
-      guard self?.floatingSelectionPanel === panel else { return }
-      self?.dismissFloatingSelectionButton()
+      guard let self, let panel, self.floatingSelectionPanel === panel else { return }
+      self.dismissFloatingSelectionButton()
     }
   }
 
@@ -1278,7 +1280,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   func applicationWillTerminate(_ notification: Notification) {
-    stopMouseChord()
+    stopSelectionMonitor()
     selectionReadTask?.cancel()
     floatingReadTask?.cancel()
     selectionLookupTask?.cancel()
