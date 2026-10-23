@@ -7074,6 +7074,9 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
               const blankId = item.blankIds[blankOffset++];
               return renderWordBankInlineBlank(blankId);
             })}
+            {item.blankIds.slice(blankOffset).map(blankId => (
+              <div key={blankId} className="mt-2">{renderWordBankInlineBlank(blankId)}</div>
+            ))}
           </div>
         );
       };
