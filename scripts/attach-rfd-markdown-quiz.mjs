@@ -244,15 +244,25 @@ const GROUPED_CHART_LAYOUTS = new Set(['classification', 'cause-effect', 'proble
 const blankIdsForLine = (blankIdsByPrompt, line) => blankIdsByPrompt.get(normalizeTreeText(line)) || [];
 
 const parseTimeline = (lines, blanks) => {
-  const blankIdsByPrompt = new Map();
+  const blankQueues = new Map();
   blanks.forEach(blank => {
     const key = normalizeTreeText(blank.prompt);
-    blankIdsByPrompt.set(key, [...(blankIdsByPrompt.get(key) || []), blank.id]);
+    const queue = blankQueues.get(key) || [];
+    queue.push(blank.id);
+    blankQueues.set(key, queue);
   });
+  // Several chart rows are the same "- ______". Give each row the next unused
+  // blank instead of copying every blank onto every row.
+  const takeBlankIds = (line) => {
+    const count = [...line.matchAll(/_{2,}(?:\d+_{2,})?|\(\s*\)/g)].length;
+    if (count === 0) return [];
+    const queue = blankQueues.get(normalizeTreeText(line)) || [];
+    return queue.splice(0, count);
+  };
   const events = lines
     .map(clean)
-    .filter(line => /^[-•]\s+/.test(line) || blankIdsByPrompt.has(normalizeTreeText(line)))
-    .map(line => ({ text: line.replace(/^(?:[-•]\s*)/, ''), blankIds: blankIdsForLine(blankIdsByPrompt, line) }));
+    .filter(line => /^[-•]\s+/.test(line) || blankQueues.has(normalizeTreeText(line)))
+    .map(line => ({ text: line.replace(/^(?:[-•]\s*)/, ''), blankIds: takeBlankIds(line) }));
   const placedBlankIds = new Set(events.flatMap(event => event.blankIds));
   return events.length >= 2 && placedBlankIds.size > 0 ? { events } : null;
 };
