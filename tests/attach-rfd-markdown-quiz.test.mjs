@@ -71,8 +71,8 @@ test('shows labels for informational main-idea-tree details without making them 
 test('refreshes cached RFD quizzes after their grading model changes', () => {
   for (const entrypoint of ['index.html', '英语长难句交互阅读解析.html']) {
     const source = fs.readFileSync(path.join(process.cwd(), entrypoint), 'utf8');
-    assert.match(source, /BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v44'/);
-    assert.match(source, /BUNDLED_LIBRARY_SEED_VERSION = '44'/);
+    assert.match(source, /BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v45'/);
+    assert.match(source, /BUNDLED_LIBRARY_SEED_VERSION = '45'/);
     assert.match(source, /hasRequiredBundledQuizLayouts/);
     assert.match(source, /const normalizeQuizIdeaTree = \(ideaTree\) => \{\s*if \(!ideaTree \|\| typeof ideaTree !== 'object'\) return null;/);
     assert.match(source, /const normalizeQuizTimeline = \(timeline\) => \{\s*if \(!timeline \|\| typeof timeline !== 'object'\) return null;/);
