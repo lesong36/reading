@@ -2484,12 +2484,13 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const groups = Array.isArray(compareChart.groups) ? compareChart.groups
         .map(group => ({
           label: String(group?.label || '').trim(),
+          blankIds: Array.isArray(group?.blankIds) ? group.blankIds.map(blankId => String(blankId)).filter(Boolean) : [],
           items: (Array.isArray(group?.items) ? group.items : []).map(item => ({
             text: String(item?.text || '').trim(),
             blankIds: Array.isArray(item?.blankIds) ? item.blankIds.map(blankId => String(blankId)).filter(Boolean) : []
           })).filter(item => item.text)
         }))
-        .filter(group => group.label && group.items.length > 0)
+        .filter(group => group.label && (group.items.length > 0 || group.blankIds.length > 0))
         : [];
       return groups.length >= 2 ? { groups } : null;
     };
@@ -2610,7 +2611,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         .sort((left, right) => left.index - right.index);
     };
 
-    const isRfdFourOrLater = (articleId = '') => /^rfd(?:[4-9]|[1-9]\d)-/i.test(String(articleId));
+    const isRfdFourOrLater = (articleId = '') => /^(?:rfd(?:[4-9]|[1-9]\d)|rfc[1-3])-/i.test(String(articleId));
 
     // RFD 4+ uses a repeated "Main idea → Sub-idea → Detail" chart format.
     // Keep the source prompt as the single source of truth, but render those
@@ -2992,6 +2993,9 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       { key: 'rfd4', label: 'RFD4' },
       { key: 'rfd5', label: 'RFD5' },
       { key: 'rfd6', label: 'RFD6' },
+      { key: 'rfc1', label: 'RFC1' },
+      { key: 'rfc2', label: 'RFC2' },
+      { key: 'rfc3', label: 'RFC3' },
       { key: 're', label: 'RE' },
       { key: 'og', label: 'OG' },
       { key: 'tpo', label: 'TPO' },
@@ -3012,6 +3016,9 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       if (sourceText.includes('rfd4')) return 'rfd4';
       if (sourceText.includes('rfd5')) return 'rfd5';
       if (sourceText.includes('rfd6')) return 'rfd6';
+      if (sourceText.includes('rfc1')) return 'rfc1';
+      if (sourceText.includes('rfc2')) return 'rfc2';
+      if (sourceText.includes('rfc3')) return 'rfc3';
       if (sourceText.includes('四上')) return '四上';
       if (sourceText.includes('tpo-')) return 'tpo';
       if (sourceText.includes('og /') || sourceText.includes('og-test') || sourceText.includes('online-test') || sourceText.includes('official-model-exam')) return 'og';
@@ -3060,7 +3067,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
 
     const isBundledCurriculumArticle = (article = {}) => {
       const filter = getArticleFilterKey(article);
-      return ['四上', 'rfd1', 'rfd2', 'rfd3', 'rfd4', 'rfd5', 'rfd6', 're', 'og', 'tpo', 'shiwen'].includes(filter);
+      return ['四上', 'rfd1', 'rfd2', 'rfd3', 'rfd4', 'rfd5', 'rfd6', 'rfc1', 'rfc2', 'rfc3', 're', 'og', 'tpo', 'shiwen'].includes(filter);
     };
 
     const getBundledCurriculumArticleCount = (articles = []) =>
@@ -5009,7 +5016,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
               ? (getParagraphTtsEndpoint().startsWith('/')
                 ? '无法访问本地语音服务，请重新打开桌面 App 后重试。'
                 : '无法访问 P920 语音服务；请检查 Tailscale 连接、浏览器网络权限，并将 P920 地址设为代理直连。')
-              : `段落朗读不可用：${error.message}`;
+              : '段落朗读暂不可用，请稍后重试。';
             setToastMessage(message);
           }
         }
@@ -7081,7 +7088,27 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         );
       };
 
-      const renderWordBankGroupedChart = (chart, { title, subtitle, tone = 'indigo' }) => {
+      const renderCompareLabel = (group) => {
+        const blankIds = Array.isArray(group.blankIds) ? group.blankIds : [];
+        if (blankIds.length === 0 || !/_{2,}|\(\s*\)/.test(group.label || '')) return group.label;
+        const pieces = String(group.label).split(/(\(\s*\)|_{2,}(?:\d+_{2,})?)/g);
+        let offset = 0;
+        return pieces.map((piece, pieceIndex) => {
+          if (!/(?:\(\s*\)|_{2,}(?:\d+_{2,})?)/.test(piece)) return <span key={pieceIndex}>{piece}</span>;
+          const blankId = blankIds[offset++];
+          return <span key={pieceIndex}>{renderWordBankInlineBlank(blankId)}</span>;
+        });
+      };
+
+      const groupedChartCopy = (layout) => {
+        if (layout === 'cause-effect') return { title: '原因与结果', subtitle: '原因和结果成对放在一起', tone: 'violet', columns: 'md:grid-cols-2' };
+        if (layout === 'problem-solution') return { title: '问题与办法', subtitle: '每个问题旁边是对应的做法', tone: 'indigo', columns: 'md:grid-cols-2' };
+        if (layout === 'topic-conclusion') return { title: '主题与结论', subtitle: '先看文章在讲什么，再看作者的结论', tone: 'indigo', columns: 'md:grid-cols-2' };
+        if (layout === 'record-chart') return { title: '颜色与含义', subtitle: '每个地方先填颜色，再看这个颜色代表什么', tone: 'amber', columns: 'md:grid-cols-2' };
+        return { title: '分类整理', subtitle: '把不同类别的信息放在各自的知识卡中', tone: 'amber', columns: 'md:grid-cols-2 xl:grid-cols-3' };
+      };
+
+      const renderWordBankGroupedChart = (chart, { title, subtitle, tone = 'indigo', columns = 'md:grid-cols-2 xl:grid-cols-3' }) => {
         const toneClasses = tone === 'amber'
           ? 'border-amber-200 bg-amber-50/60 text-amber-800 bg-amber-500'
           : tone === 'violet'
@@ -7097,7 +7124,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
                 <div><p className="text-xs font-black uppercase tracking-[0.18em]">{title}</p><p className="text-xs font-semibold opacity-80">{subtitle}</p></div>
               </div>
             </div>
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <div className={`grid gap-4 ${columns}`}>
               {chart.groups.map((group, groupIndex) => (
                 <section key={`${group.label}-${groupIndex}`} className={`overflow-hidden rounded-[26px] border-2 bg-white shadow-sm ${toneClasses.split(' ').slice(0, 1).join(' ')}`}>
                   <h4 className={`px-4 py-3 text-center text-sm font-black uppercase tracking-[0.13em] text-white ${toneClasses.split(' ').at(-1)}`}>{group.label}</h4>
@@ -10678,7 +10705,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                                 {unplacedBlanks.length > 0 && <div className="mt-4 grid gap-3">{unplacedBlanks.map(blank => renderWordBankBlank(blank, currentQuizQuestion.blanks.indexOf(blank)))}</div>}
                                               </div>
                                             );
-                                          })() : currentWordBankFiveWOneH ? renderWordBankGroupedChart(currentWordBankFiveWOneH, { title: '5W1H 总结', subtitle: '用人物、事件、时间、原因和方法组织要点', tone: 'indigo' }) : currentWordBankClassification ? renderWordBankGroupedChart(currentWordBankClassification, { title: '分类整理', subtitle: '把不同类别的信息放在各自的知识卡中', tone: 'amber' }) : currentWordBankKnowledgeChart ? (() => {
+                                          })() : currentWordBankFiveWOneH ? renderWordBankGroupedChart(currentWordBankFiveWOneH, { title: '5W1H 总结', subtitle: '用人物、事件、时间、原因和方法组织要点', tone: 'indigo' }) : currentWordBankClassification ? renderWordBankGroupedChart(currentWordBankClassification, groupedChartCopy(currentQuizQuestion.chartLayout)) : currentWordBankKnowledgeChart ? (() => {
                                             const knowledgeBlankIds = new Set(currentWordBankKnowledgeChart.groups.flatMap(group => group.items.flatMap(item => item.blankIds)));
                                             const unplacedBlanks = currentQuizQuestion.blanks.filter(blank => !knowledgeBlankIds.has(blank.id));
                                             return (
@@ -10693,13 +10720,16 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                               </div>
                                             );
                                           })() : currentWordBankCompareChart ? (() => {
-                                            const compareBlankIds = new Set(currentWordBankCompareChart.groups.flatMap(group => group.items.flatMap(item => item.blankIds)));
+                                            const compareBlankIds = new Set(currentWordBankCompareChart.groups.flatMap(group => [
+                                              ...(group.blankIds || []),
+                                              ...group.items.flatMap(item => item.blankIds)
+                                            ]));
                                             const unplacedBlanks = currentQuizQuestion.blanks.filter(blank => !compareBlankIds.has(blank.id));
                                             const sharedGroup = currentWordBankCompareChart.groups.find(group => /^both$/i.test(group.label));
                                             const sideGroups = currentWordBankCompareChart.groups.filter(group => group !== sharedGroup);
                                             const renderCompareGroup = (group, className = '') => (
                                               <section key={group.label} className={`rounded-[28px] border-2 border-emerald-200 bg-emerald-50/60 p-3 shadow-sm ${className}`}>
-                                                <h4 className="rounded-2xl bg-emerald-500 px-4 py-2 text-center text-base font-black text-white shadow-sm">{group.label}</h4>
+                                                <h4 className="rounded-2xl bg-emerald-500 px-4 py-2 text-center text-base font-black text-white shadow-sm">{renderCompareLabel(group)}</h4>
                                                 <div className="space-y-3 p-3">{group.items.map(renderWordBankCompareItem)}</div>
                                               </section>
                                             );

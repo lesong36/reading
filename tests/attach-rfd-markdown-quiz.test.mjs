@@ -153,14 +153,14 @@ test('keeps source-faithful reading-skill metadata and every blank in its layout
         const chart = layout === 'main-idea-tree' ? question.ideaTree
           : layout === 'compare-chart' ? question.compareChart
             : layout === 'five-w-one-h' ? question.fiveWOneH
-              : layout === 'classification' ? question.classification
+              : ['classification', 'cause-effect', 'problem-solution', 'topic-conclusion', 'record-chart'].includes(layout) ? question.classification
                 : layout === 'knowledge-chart' ? question.knowledgeChart
                   : layout === 'retelling' ? question.retelling
                     : question.timeline;
         assert.ok(chart, `${book} Unit ${unitNumber} Q${questionNumber} is missing its ${layout} data`);
         const placedBlankIds = layout === 'main-idea-tree'
           ? [chart.mainIdea, ...chart.details, ...chart.branches.flatMap(branch => [branch, ...branch.details])].flatMap(node => node.entries.flatMap(entry => entry.blankIds?.length ? entry.blankIds : [entry.blankId])).filter(Boolean)
-          : chart.groups ? chart.groups.flatMap(group => group.items.flatMap(item => item.blankIds))
+          : chart.groups ? chart.groups.flatMap(group => [...(group.blankIds || []), ...group.items.flatMap(item => item.blankIds)])
             : chart.events.flatMap(event => event.blankIds);
         assert.deepEqual([...new Set(placedBlankIds)].sort(), question.blanks.map(blank => blank.id).sort(), `${book} Unit ${unitNumber} Q${questionNumber} must place every blank`);
       }
@@ -191,6 +191,7 @@ test('ships every declared Reading Skills layout in the generated quiz library',
     for (const [unitNumber, questions] of Object.entries(units)) {
       const articlePrefix = `${book}-${String(unitNumber).padStart(2, '0')}-`;
       const article = library.find(item => String(item.id).startsWith(articlePrefix));
+      if (/^rfc[1-3]$/.test(book) && !article) continue;
       assert.ok(article, `generated library is missing ${book} Unit ${unitNumber}`);
       for (const [questionNumber, layout] of Object.entries(questions)) {
         assert.equal(

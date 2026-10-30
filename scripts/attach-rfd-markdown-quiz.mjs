@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-/** Attach the audited RFD4–6 Markdown quiz banks to their analyzed reader sections. */
+/** Attach the audited RFD4–6 and Connect 1–3 Markdown quiz banks to their analyzed reader sections. */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const cwd = process.cwd();
 const root = path.join(cwd, 'data/generated-reader-json');
-const books = ['rfd4', 'rfd5', 'rfd6'];
+const books = ['rfd4', 'rfd5', 'rfd6', 'rfc1', 'rfc2', 'rfc3'];
 const clean = (value = '') => value.replace(/\r/g, '').trim();
 // RFD5 Unit 16's published answer line omits the sixth `b` token. The
 // repaired sequence is still audited against the printed question/word bank:
@@ -39,6 +39,31 @@ export const READING_SKILL_LAYOUTS = {
     5: { 8: 'main-idea-tree' }, 6: { 8: 'timeline' }, 7: { 8: 'main-idea-tree' }, 8: { 8: 'five-w-one-h' },
     9: { 8: 'main-idea-tree' }, 10: { 8: 'five-w-one-h' }, 11: { 8: 'main-idea-tree' }, 12: { 8: 'five-w-one-h' },
     13: { 8: 'main-idea-tree' }, 14: { 8: 'main-idea-tree' }, 15: { 8: 'knowledge-chart' }, 16: { 8: 'classification' }
+  },
+  // Connect charts are question 6. Pair charts reuse the grouped-card
+  // renderer; a blank column title stays on the comparison card header.
+  rfc1: {
+    1: { 6: 'retelling' }, 2: { 6: 'classification' }, 3: { 6: 'main-idea-tree' },
+    4: { 6: 'record-chart' }, 5: { 6: 'classification' }, 6: { 6: 'compare-chart' },
+    7: { 6: 'classification' }, 8: { 6: 'compare-chart' }, 9: { 6: 'main-idea-tree' },
+    10: { 6: 'compare-chart' }, 11: { 6: 'classification' }, 12: { 6: 'main-idea-tree' },
+    13: { 6: 'retelling' }, 14: { 6: 'main-idea-tree' }, 15: { 6: 'main-idea-tree' },
+    16: { 6: 'main-idea-tree' }
+  },
+  rfc2: {
+    1: { 6: 'retelling' }, 2: { 6: 'topic-conclusion' }, 3: { 6: 'main-idea-tree' },
+    4: { 6: 'timeline' }, 5: { 6: 'timeline' }, 6: { 6: 'main-idea-tree' },
+    7: { 6: 'timeline' }, 8: { 6: 'main-idea-tree' }, 9: { 6: 'main-idea-tree' },
+    10: { 6: 'main-idea-tree' }, 11: { 6: 'timeline' }, 12: { 6: 'cause-effect' },
+    13: { 6: 'timeline' }, 14: { 6: 'timeline' }, 15: { 6: 'timeline' }, 16: { 6: 'timeline' }
+  },
+  rfc3: {
+    1: { 6: 'main-idea-tree' }, 2: { 6: 'problem-solution' }, 3: { 6: 'main-idea-tree' },
+    4: { 6: 'retelling' }, 5: { 6: 'main-idea-tree' }, 6: { 6: 'timeline' },
+    7: { 6: 'cause-effect' }, 8: { 6: 'main-idea-tree' }, 9: { 6: 'main-idea-tree' },
+    10: { 6: 'timeline' }, 11: { 6: 'main-idea-tree' }, 12: { 6: 'timeline' },
+    13: { 6: 'main-idea-tree' }, 14: { 6: 'main-idea-tree' }, 15: { 6: 'classification' },
+    16: { 6: 'main-idea-tree' }
   }
 };
 
@@ -54,6 +79,7 @@ const parseArgs = (argv) => {
 const normalizeTreeText = (value = '') => clean(value).replace(/\s+/g, ' ').toLowerCase();
 const answerSourceFor = (stem, unit) => {
   if (stem === 'rfd6') return 'official-rfd-student-book-answer-key';
+  if (/^rfc[1-3]$/.test(stem)) return 'official-connect-student-book-answer-key';
   return ANSWER_KEY_REPAIRS[stem]?.[Number(unit)] ? 'audited-rfd-key-repair' : 'audited-rfd-markdown';
 };
 
@@ -95,9 +121,12 @@ const parseIdeaTree = (lines, blanks) => {
       activeDetail = null;
       return;
     }
-    const detailMatch = content.match(/^(detail\s*\d*)\s*(?::|\.)\s*(.+)$/i);
+    const detailMatch = content.match(/^(detail\s*\d*)\s*(?::|\.)\s*(.*)$/i);
     if (detailMatch) {
       const detail = nodeFor(line, detailMatch[1], detailMatch[2]);
+      // A heading such as "Detail 1:" has no sentence of its own. Drop the
+      // empty entry so the following bullets become the card contents.
+      if (!clean(detailMatch[2])) detail.entries = [];
       (activeBranch ? activeBranch.details : details).push(detail);
       activeDetail = detail;
       return;
@@ -144,10 +173,15 @@ const parseCompareChart = (lines, blanks) => {
         activeGroup = { label, items: [] };
         groups.push(activeGroup);
       }
-      if (groupMatch[2]) {
+      const lineBlankIds = blankIdsByPrompt.get(normalizeTreeText(line)) || [];
+      // A column title can itself be the blank, as in "One-hump ______:".
+      // Keep that blank on the header. Blanks after the colon stay in the card.
+      if (lineBlankIds.length > 0 && /_{2,}|\(\s*\)/.test(label)) {
+        activeGroup.blankIds = [...(activeGroup.blankIds || []), ...lineBlankIds];
+      } else if (groupMatch[2]) {
         activeGroup.items.push({
           text: clean(groupMatch[2]),
-          blankIds: blankIdsByPrompt.get(normalizeTreeText(line)) || []
+          blankIds: lineBlankIds
         });
       }
       return;
@@ -160,10 +194,52 @@ const parseCompareChart = (lines, blanks) => {
     }
   });
 
-  const placedBlankIds = new Set(groups.flatMap(group => group.items.flatMap(item => item.blankIds)));
+  const placedBlankIds = new Set(groups.flatMap(group => [
+    ...(group.blankIds || []),
+    ...group.items.flatMap(item => item.blankIds)
+  ]));
   const hasSharedGroup = groups.some(group => /^both$/i.test(group.label));
   return groups.length >= 2 && hasSharedGroup && placedBlankIds.size > 0 ? { groups } : null;
 };
+
+const parseRecordChart = (lines, blanks) => {
+  const groups = [];
+  let activeGroup = null;
+  let blankCursor = 0;
+  // Identical rows, such as two "Color: ______" lines, cannot be told apart by
+  // their text. Hand the blanks out in the order the rows appear.
+  const blanksForLine = (line) => {
+    const count = [...line.matchAll(/_{2,}(?:\d+_{2,})?|\(\s*\)/g)].length;
+    const ids = blanks.slice(blankCursor, blankCursor + count).map(blank => blank.id);
+    blankCursor += count;
+    return ids;
+  };
+  lines.forEach(rawLine => {
+    const line = clean(rawLine);
+    if (!line) return;
+    const heading = line.match(/^[-•]\s+(.+)$/);
+    if (heading && !heading[1].includes(':') && !/_{2,}|\(\s*\)/.test(heading[1])) {
+      activeGroup = { label: clean(heading[1]), items: [] };
+      groups.push(activeGroup);
+      return;
+    }
+    const content = line.replace(/^(?:[-•]\s*)/, '');
+    const field = content.match(/^([^:]+):\s*(.*)$/);
+    if (!activeGroup || !field || /^(?:main\s*idea|sub[-\s]*idea|detail|words)\b/i.test(field[1].trim())) return;
+    activeGroup.items.push({
+      text: content,
+      blankIds: blanksForLine(line)
+    });
+  });
+  const placedBlankIds = new Set(groups.flatMap(group => group.items.flatMap(item => item.blankIds)));
+  const covered = groups.length >= 2
+    && groups.every(group => group.items.length > 0)
+    && blankCursor === blanks.length
+    && placedBlankIds.size === blanks.length;
+  return covered ? { groups } : null;
+};
+
+const GROUPED_CHART_LAYOUTS = new Set(['classification', 'cause-effect', 'problem-solution', 'topic-conclusion']);
 
 const blankIdsForLine = (blankIdsByPrompt, line) => blankIdsByPrompt.get(normalizeTreeText(line)) || [];
 
@@ -328,7 +404,11 @@ export const parseBook = (stem, { baseDir = cwd } = {}) => {
           ideaTree: parseIdeaTree(allPromptLines, blanks),
           compareChart: parseCompareChart(allPromptLines, blanks),
           fiveWOneH: chartLayout === 'five-w-one-h' ? parseLabeledGroups(allPromptLines, blanks, { mode: 'five-w-one-h' }) : null,
-          classification: chartLayout === 'classification' ? parseLabeledGroups(allPromptLines, blanks, { mode: 'classification' }) : null,
+          classification: chartLayout === 'record-chart'
+            ? parseRecordChart(allPromptLines, blanks)
+            : GROUPED_CHART_LAYOUTS.has(chartLayout)
+              ? parseLabeledGroups(allPromptLines, blanks, { mode: 'classification' })
+              : null,
           timeline: chartLayout === 'timeline' ? parseTimeline(allPromptLines, blanks) : null,
           retelling: chartLayout === 'retelling' ? parseTimeline(allPromptLines, blanks) : null,
           knowledgeChart: chartLayout === 'knowledge-chart' ? parseKnowledgeChart(allPromptLines, blanks) : null,
@@ -385,7 +465,7 @@ const main = () => {
     if (!existingLibrary.some(existing => existing.id === article.id)) mergedLibrary.push(article);
   }
   fs.writeFileSync(path.join(root, 'reader-articles.import.json'), `${JSON.stringify(mergedLibrary, null, 2)}\n`);
-  console.log(`Attached ${questionCount} questions to ${articleCount} RFD4–6 articles.`);
+  console.log(`Attached ${questionCount} questions to ${articleCount} RFD4–6 and Connect articles.`);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main();
