@@ -157,6 +157,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
       let view = OCRImageOverlayView(image: image, tokens: overlayTokens)
       view.setAccessibilityRole(.image)
       view.setAccessibilityLabel("截图原图文字选择层")
+      view.setAccessibilityHelp("点击或拖选文字；聚焦后使用方向键移动，按回车确认。")
       view.onSelectionWithIndices = { [weak self] text, indices in
         self?.selectOverlayText(text, tokenIndices: indices)
       }
