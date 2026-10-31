@@ -574,6 +574,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       overlay.onSelection = { [weak panel] text, _ in
         panel?.selectRecognizedText(text)
         panel?.present()
+        if let panel { self.positionOCRPanel(panel, avoiding: region.selectionRect) }
       }
       overlay.onClose = { [weak self] in self?.screenOCROverlay = nil }
       screenOCROverlay = overlay
@@ -582,6 +583,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       panel.present()
     }
     setStatus("词")
+  }
+
+  @MainActor
+  private func positionOCRPanel(_ panel: OCRLookupPanel, avoiding region: CGRect) {
+    guard let screen = NSScreen.screens.first(where: { $0.frame.intersects(region) }) else { return }
+    let visible = screen.visibleFrame.insetBy(dx: 8, dy: 8)
+    let gap: CGFloat = 12
+    let rightOrigin = CGPoint(x: region.maxX + gap, y: region.maxY - panel.frame.height)
+    let leftOrigin = CGPoint(x: region.minX - gap - panel.frame.width, y: region.maxY - panel.frame.height)
+    let preferred = visible.contains(CGRect(origin: rightOrigin, size: panel.frame.size)) ? rightOrigin : leftOrigin
+    let clamped = CGPoint(
+      x: min(max(preferred.x, visible.minX), visible.maxX - panel.frame.width),
+      y: min(max(preferred.y, visible.minY), visible.maxY - panel.frame.height))
+    panel.setFrameOrigin(clamped)
   }
 
   private var currentQuestionModel: String {
