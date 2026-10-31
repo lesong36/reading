@@ -187,11 +187,16 @@ final class OCRImageOverlayView: NSView {
       return
     }
     if event.clickCount == 2, zoomScale > 1 {
-      setZoomScale(1)
-      hoveredIndex = nil
-      toolTip = "点击单词或拖选词组"
-      setAccessibilityValue(nil)
-      return
+      let point = convert(event.locationInWindow, from: nil)
+      let hit = OCROverlayLayout.selectedTokenIndices(
+        tokens: tokens, imageRect: currentImageRect(), selectionRect: .zero, point: point).first
+      if hit == nil {
+        setZoomScale(1)
+        hoveredIndex = nil
+        toolTip = "点击单词或拖选词组"
+        setAccessibilityValue(nil)
+        return
+      }
     }
     dragStart = convert(event.locationInWindow, from: nil)
     dragCurrent = dragStart
