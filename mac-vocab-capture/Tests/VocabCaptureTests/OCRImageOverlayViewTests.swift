@@ -283,6 +283,7 @@ final class OCRImageOverlayViewTests: XCTestCase {
       with: .keyDown, location: .zero, modifierFlags: [], timestamp: 0, windowNumber: 0,
       context: nil, characters: "+", charactersIgnoringModifiers: "+", isARepeat: false, keyCode: 24))
     view.keyDown(with: plus)
+    XCTAssertEqual(view.accessibilityValue() as? String, "当前缩放 125%")
     let event = try XCTUnwrap(NSEvent.mouseEvent(
       with: .rightMouseDown, location: CGPoint(x: 50, y: 50), modifierFlags: [], timestamp: 0,
       windowNumber: 0, context: nil, eventNumber: 1, clickCount: 1, pressure: 1))

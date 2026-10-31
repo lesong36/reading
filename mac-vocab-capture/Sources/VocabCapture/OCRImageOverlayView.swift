@@ -437,6 +437,8 @@ final class OCRImageOverlayView: NSView {
     zoomScale = min(3, max(1, value))
     if zoomScale == 1 { panOffset = .zero }
     else { panOffset = constrainedPanOffset(panOffset) }
+    setAccessibilityValue(
+      zoomScale > 1.001 ? "当前缩放 \(Int((zoomScale * 100).rounded()))%" : nil)
     needsDisplay = true
   }
 
