@@ -66,4 +66,25 @@ final class OCRImageOverlayViewTests: XCTestCase {
       selectionRect: CGRect(x: 23, y: 53, width: 0, height: 0), point: CGPoint(x: 23, y: 53))
     XCTAssertEqual(indices.count, 1)
   }
+
+  func testKeyboardNavigationConfirmsFocusedToken() {
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [
+        .init(text: "first", boundingBox: CGRect(x: 0.1, y: 0.7, width: 0.2, height: 0.1), confidence: 1),
+        .init(text: "second", boundingBox: CGRect(x: 0.1, y: 0.4, width: 0.2, height: 0.1), confidence: 1),
+      ])
+    var selected: ([Int], String)?
+    view.onSelectionWithIndices = { text, indices in selected = (indices, text) }
+    let right = try! XCTUnwrap(NSEvent.keyEvent(
+      with: .keyDown, location: .zero, modifierFlags: [], timestamp: 0, windowNumber: 0,
+      context: nil, characters: "→", charactersIgnoringModifiers: "→", isARepeat: false, keyCode: 124))
+    view.keyDown(with: right)
+    let enter = try! XCTUnwrap(NSEvent.keyEvent(
+      with: .keyDown, location: .zero, modifierFlags: [], timestamp: 0, windowNumber: 0,
+      context: nil, characters: "\r", charactersIgnoringModifiers: "\r", isARepeat: false, keyCode: 36))
+    view.keyDown(with: enter)
+    XCTAssertEqual(selected?.0, [0])
+    XCTAssertEqual(selected?.1, "first")
+  }
 }
