@@ -261,17 +261,11 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     let selected = text.trimmingCharacters(in: .whitespacesAndNewlines)
     guard !selected.isEmpty else { return }
     let source = original.string as NSString
-    var range = source.range(of: selected, options: .caseInsensitive)
+    var range = OCRSelection.range(of: selected, in: source)
     if let firstIndex = tokenIndices.first, firstIndex < overlayTokens.count {
       let firstToken = overlayTokens[firstIndex].text
       let occurrence = overlayTokens[..<firstIndex].filter { $0.text.caseInsensitiveCompare(firstToken) == .orderedSame }.count
-      var cursor = 0
-      for _ in 0..<occurrence {
-        let found = source.range(of: selected, options: [.caseInsensitive, .diacriticInsensitive], range: NSRange(location: cursor, length: source.length - cursor))
-        guard found.location != NSNotFound else { break }
-        cursor = NSMaxRange(found)
-      }
-      let candidate = source.range(of: selected, options: [.caseInsensitive, .diacriticInsensitive], range: NSRange(location: cursor, length: source.length - cursor))
+      let candidate = OCRSelection.range(of: selected, in: source, occurrence: occurrence)
       if candidate.location != NSNotFound { range = candidate }
     }
     guard range.location != NSNotFound,

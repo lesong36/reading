@@ -5,6 +5,21 @@ import Foundation
 struct OCRSelection {
   let text: String
 
+  static func range(of needle: String, in source: NSString, occurrence: Int = 0) -> NSRange {
+    guard occurrence >= 0, !needle.isEmpty else { return NSRange(location: NSNotFound, length: 0) }
+    var cursor = 0
+    for index in 0...occurrence {
+      guard cursor <= source.length else { return NSRange(location: NSNotFound, length: 0) }
+      let found = source.range(
+        of: needle, options: [.caseInsensitive, .diacriticInsensitive],
+        range: NSRange(location: cursor, length: source.length - cursor))
+      guard found.location != NSNotFound else { return found }
+      if index == occurrence { return found }
+      cursor = NSMaxRange(found)
+    }
+    return NSRange(location: NSNotFound, length: 0)
+  }
+
   private var words: [NSRange] {
     let expression = try! NSRegularExpression(pattern: "[A-Za-z]+(?:['’–-][A-Za-z]+)*")
     return expression.matches(
