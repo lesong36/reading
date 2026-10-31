@@ -74,6 +74,7 @@ final class OCRImageOverlayView: NSView {
     didSet {
       hoveredIndex = nil
       selectedIndices.removeAll()
+      selectionAnchorIndex = nil
       toolTip = "点击单词或拖选词组"
       needsDisplay = true
     }
@@ -85,6 +86,7 @@ final class OCRImageOverlayView: NSView {
   private var dragCurrent: CGPoint?
   private var hoveredIndex: Int?
   private var selectedIndices: Set<Int> = []
+  private var selectionAnchorIndex: Int?
   private var zoomScale: CGFloat = 1
   private var panOffset: CGPoint = .zero
   private var panStart: CGPoint?
@@ -235,10 +237,18 @@ final class OCRImageOverlayView: NSView {
     let selectionRect = CGRect(
       x: min(dragStart?.x ?? point.x, point.x), y: min(dragStart?.y ?? point.y, point.y),
       width: abs(point.x - (dragStart?.x ?? point.x)), height: abs(point.y - (dragStart?.y ?? point.y)))
-    let indices = OCROverlayLayout.selectedTokenIndices(
+    var indices = OCROverlayLayout.selectedTokenIndices(
       tokens: tokens, imageRect: imageRect, selectionRect: selectionRect, point: point)
+    if event.modifierFlags.contains(.shift), selectionRect.width < 4, selectionRect.height < 4,
+       let anchor = selectionAnchorIndex, let target = indices.first {
+      let ordered = tokens.indices.sorted { OCROverlayLayout.readingOrder(lhs: tokens[$0], rhs: tokens[$1]) }
+      if let start = ordered.firstIndex(of: anchor), let end = ordered.firstIndex(of: target) {
+        indices = Array(ordered[min(start, end)...max(start, end)])
+      }
+    }
     selectedIndices = Set(indices)
     guard !indices.isEmpty else { return }
+    selectionAnchorIndex = indices.last
     emitSelection(indices)
   }
 
@@ -256,6 +266,7 @@ final class OCRImageOverlayView: NSView {
       let text = ordered.map { tokens[$0].text }.joined(separator: " ")
       setAccessibilityValue(text)
       toolTip = "已全选：\(text)；按 ⌘C 复制"
+      selectionAnchorIndex = ordered.first
       needsDisplay = true
       return
     }
