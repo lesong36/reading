@@ -42,6 +42,8 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
   private let onQuestionSettings: (() -> Void)?
   private let questionPreferences: ScreenshotQuestionPreferences?
   private let sessionStore: ScreenshotQuestionSessionStore?
+  private let overlayTokens: [OCROverlayToken]
+  private var imageOverlay: OCRImageOverlayView?
   private var questionPanel: ScreenshotQuestionPanel?
   var onRetake: (() -> Void)?
   var onAppendCapture: (() -> Void)?
@@ -57,6 +59,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     onQuestionSettings: (() -> Void)? = nil,
     questionPreferences: ScreenshotQuestionPreferences? = nil,
     sessionStore: ScreenshotQuestionSessionStore? = nil,
+    overlayTokens: [OCROverlayToken] = [],
     measuredAsk: ScreenshotQuestionMeasuredAnswer? = nil,
     webAsk: ScreenshotQuestionWebAnswer? = nil,
     onSearchSettings: (() -> Void)? = nil,
@@ -79,6 +82,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     self.onQuestionSettings = onQuestionSettings
     self.questionPreferences = questionPreferences
     self.sessionStore = sessionStore
+    self.overlayTokens = overlayTokens
     super.init(
       contentRect: NSRect(x: 0, y: 0, width: 600, height: 650),
       styleMask: [.titled, .closable, .resizable], backing: .buffered, defer: false)
@@ -143,6 +147,16 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     original.textContainer?.heightTracksTextView = false
     original.delegate = self
     scroll.documentView = original
+    var overlay: OCRImageOverlayView?
+    if let imageData = screenshotImageData, let image = NSImage(data: imageData), !overlayTokens.isEmpty {
+      let view = OCRImageOverlayView(image: image, tokens: overlayTokens)
+      view.setAccessibilityLabel("截图原图文字选择层")
+      view.onSelection = { [weak self] text in self?.selectOverlayText(text) }
+      view.translatesAutoresizingMaskIntoConstraints = false
+      view.heightAnchor.constraint(equalToConstant: 220).isActive = true
+      overlay = view
+      imageOverlay = view
+    }
     targetWord.placeholderString = "点击原文选词；也可在这里修正选词"
     targetWord.bezelStyle = .roundedBezel
     targetWord.font = .systemFont(ofSize: 20, weight: .semibold)
@@ -193,11 +207,12 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
       row.orientation = .horizontal
       row.spacing = 10
     }
-    let column = NSStackView(views: [
-      heading, hint, headerRow, scroll, targetWord,
+    var contentViews: [NSView] = [heading, hint, headerRow]
+    if let overlay { contentViews.append(overlay) }
+    contentViews.append(contentsOf: [scroll, targetWord,
       metadata, meaning, label("原句语境", size: 12, color: .tertiaryLabelColor),
-      sentence, retryButton, statusRow, footer,
-    ])
+      sentence, retryButton, statusRow, footer])
+    let column = NSStackView(views: contentViews)
     column.orientation = .vertical
     column.alignment = .leading
     column.spacing = 10
@@ -233,6 +248,24 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     label.font = .systemFont(ofSize: size, weight: weight)
     label.textColor = color
     return label
+  }
+
+  private func selectOverlayText(_ text: String) {
+    let selected = text.trimmingCharacters(in: .whitespacesAndNewlines)
+    guard !selected.isEmpty else { return }
+    let source = original.string as NSString
+    let range = source.range(of: selected, options: .caseInsensitive)
+    guard range.location != NSNotFound,
+      let snapped = OCRSelection(text: original.string).snappedRange(range)
+    else {
+      targetWord.stringValue = selected
+      feedback.stringValue = "已选择“(selected)”；请在识别原文中确认词组。"
+      return
+    }
+    selectionRange = snapped
+    original.setSelectedRange(snapped)
+    targetWord.stringValue = OCRSelection(text: original.string).selection(in: snapped)?.word ?? selected
+    beginLookup()
   }
 
   func textViewDidChangeSelection(_ notification: Notification) {

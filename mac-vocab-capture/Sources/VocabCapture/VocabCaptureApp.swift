@@ -380,10 +380,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     setStatus("词 ···")
     screenshotTask = Task {
       do {
-        let text = try await OCRClient.recognize(image)
+        let layout = try await OCRClient.recognizeWithLayout(image)
+        let text = layout.text
         guard !Task.isCancelled else { return }
         await MainActor.run {
-          self.showScreenshot(text: text, image: image, destination: destination)
+          self.showScreenshot(
+            text: text, image: image, destination: destination,
+            observations: layout.observations.map {
+              OCROverlayToken(text: $0.text, boundingBox: $0.boundingBox, confidence: $0.confidence)
+            })
         }
       } catch OCRCaptureError.noTextFound {
         guard !Task.isCancelled else { return }
@@ -406,10 +411,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   @MainActor
-  func showScreenshot(text: String, image: CGImage, destination: ScreenshotDestination) {
+  func showScreenshot(
+    text: String, image: CGImage, destination: ScreenshotDestination,
+    observations: [OCROverlayToken] = []
+  ) {
     switch destination {
     case .word:
-      showOCRPanel(text: text, image: image)
+      showOCRPanel(text: text, image: image, observations: observations)
     case .question:
       ocrPanel?.close()
       ocrPanel = nil
@@ -491,7 +499,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   @MainActor
-  private func showOCRPanel(text: String, image: CGImage) {
+  private func showOCRPanel(text: String, image: CGImage, observations: [OCROverlayToken] = []) {
     directQuestionPanel?.close()
     directQuestionPanel = nil
     ocrPanel?.close()
@@ -520,6 +528,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       onQuestionSettings: { [weak self] in
         self?.openQuestionModelSettings()
       }, questionPreferences: questionPreferences, sessionStore: questionSessionStore,
+      overlayTokens: observations,
       measuredAsk: measuredScreenshotQuestion,
       webAsk: webScreenshotQuestion,
       onSearchSettings: { [weak self] in self?.openWebSearchSettings() },
