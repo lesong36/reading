@@ -129,6 +129,17 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertEqual(selected, "last")
   }
 
+  func testBecomingFirstResponderFocusesFirstOCRToken() {
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [
+        .init(text: "second", boundingBox: CGRect(x: 0.1, y: 0.1, width: 0.2, height: 0.1), confidence: 1),
+        .init(text: "first", boundingBox: CGRect(x: 0.1, y: 0.8, width: 0.2, height: 0.1), confidence: 1),
+      ])
+    XCTAssertTrue(view.becomeFirstResponder())
+    XCTAssertEqual(view.accessibilityValue() as? String, "first")
+  }
+
   func testReplacingTokensClearsTransientSelectionState() {
     let view = OCRImageOverlayView(
       image: NSImage(size: NSSize(width: 100, height: 100)),

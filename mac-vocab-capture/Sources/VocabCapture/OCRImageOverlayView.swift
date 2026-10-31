@@ -95,6 +95,18 @@ final class OCRImageOverlayView: NSView {
 
   override var acceptsFirstResponder: Bool { true }
 
+  override func becomeFirstResponder() -> Bool {
+    let becameFirstResponder = super.becomeFirstResponder()
+    guard becameFirstResponder, hoveredIndex == nil, let first = tokens.indices.min(by: {
+      OCROverlayLayout.readingOrder(lhs: tokens[$0], rhs: tokens[$1])
+    }) else { return becameFirstResponder }
+    hoveredIndex = first
+    toolTip = tooltip(for: first)
+    setAccessibilityValue(tokens[first].text)
+    needsDisplay = true
+    return becameFirstResponder
+  }
+
   override var isFlipped: Bool { true }
 
   override func draw(_ dirtyRect: NSRect) {
