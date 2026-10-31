@@ -39,6 +39,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private var screenshotTask: Task<Void, Never>?
   private var appendingQuestionCapture = false
   private(set) var ocrPanel: OCRLookupPanel?
+  private var screenOCROverlay: ScreenOCROverlayWindow?
   private(set) var directQuestionPanel: ScreenshotQuestionPanel?
 
   enum ScreenshotDestination { case word, question }
@@ -369,7 +370,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         switch result {
         case .success(let image):
           guard let image else { self.setStatus("词"); restore(); return }
-          self.recognizeScreenshot(image, destination: destination, restore: restore)
+          self.recognizeScreenshot(image, destination: destination, restore: restore, region: region)
         case .failure(let error):
           self.setStatus("词"); restore()
           self.showFailure(title: "截图失败", error.localizedDescription)
@@ -379,7 +380,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   private func recognizeScreenshot(
-    _ image: CGImage, destination: ScreenshotDestination, restore: @escaping () -> Void
+    _ image: CGImage, destination: ScreenshotDestination, restore: @escaping () -> Void,
+    region: ScreenCaptureRegion? = nil
   ) {
     setStatus("词 ···")
     screenshotTask = Task {
@@ -392,18 +394,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             text: text, image: image, destination: destination,
             observations: layout.observations.map {
               OCROverlayToken(text: $0.text, boundingBox: $0.boundingBox, confidence: $0.confidence)
-            })
+            }, region: region)
         }
       } catch OCRCaptureError.noTextFound {
         guard !Task.isCancelled else { return }
         await MainActor.run {
-          self.showScreenshot(text: "", image: image, destination: destination)
+          self.showScreenshot(text: "", image: image, destination: destination, region: region)
         }
       } catch {
         guard !Task.isCancelled else { return }
         await MainActor.run {
           if destination == .question {
-            self.showScreenshot(text: "", image: image, destination: destination)
+            self.showScreenshot(text: "", image: image, destination: destination, region: region)
           } else {
             self.setStatus("词")
             restore()
@@ -417,11 +419,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   @MainActor
   func showScreenshot(
     text: String, image: CGImage, destination: ScreenshotDestination,
-    observations: [OCROverlayToken] = []
+    observations: [OCROverlayToken] = [], region: ScreenCaptureRegion? = nil
   ) {
     switch destination {
     case .word:
-      showOCRPanel(text: text, image: image, observations: observations)
+      showOCRPanel(text: text, image: image, observations: observations, region: region)
     case .question:
       ocrPanel?.close()
       ocrPanel = nil
@@ -503,7 +505,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   @MainActor
-  private func showOCRPanel(text: String, image: CGImage, observations: [OCROverlayToken] = []) {
+  private func showOCRPanel(
+    text: String, image: CGImage, observations: [OCROverlayToken] = [], region: ScreenCaptureRegion? = nil
+  ) {
     directQuestionPanel?.close()
     directQuestionPanel = nil
     ocrPanel?.close()
@@ -543,7 +547,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     panel.onRetake = { [weak self] in self?.captureScreenTextAction() }
     panel.onAppendCapture = { [weak self] in self?.captureScreenQuestionAction() }
     ocrPanel = panel
-    panel.present()
+    if let region, !observations.isEmpty {
+      panel.orderOut(nil)
+      let overlay = ScreenOCROverlayWindow(image: image, region: region, tokens: observations)
+      overlay.onSelection = { [weak panel, weak overlay] text, _ in
+        overlay?.close()
+        panel?.selectRecognizedText(text)
+        panel?.present()
+      }
+      overlay.onClose = { [weak self] in self?.screenOCROverlay = nil }
+      screenOCROverlay = overlay
+      overlay.present()
+    } else {
+      panel.present()
+    }
     setStatus("词")
   }
 

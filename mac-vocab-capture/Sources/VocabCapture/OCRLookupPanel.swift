@@ -287,6 +287,11 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     beginLookup()
   }
 
+  @MainActor
+  func selectRecognizedText(_ text: String) {
+    selectOverlayText(text)
+  }
+
   func textViewDidChangeSelection(_ notification: Notification) {
     guard !original.isTrackingMouse else { return }
     readSelection()
