@@ -334,10 +334,20 @@ final class OCRImageOverlayView: NSView {
   }
 
   @objc private func handleMagnification(_ gesture: NSMagnificationGestureRecognizer) {
+    let point = gesture.location(in: self)
+    let oldRect = currentImageRect()
     let next = min(3, max(1, zoomScale * (1 + gesture.magnification)))
     guard abs(next - zoomScale) > 0.001 else { return }
+    let imagePoint = CGPoint(
+      x: (point.x - oldRect.minX) / max(oldRect.width, 1),
+      y: (point.y - oldRect.minY) / max(oldRect.height, 1))
     setZoomScale(next)
+    let centered = OCROverlayLayout.imageRect(for: image.size, in: bounds, scale: zoomScale)
+    panOffset = constrainedPanOffset(CGPoint(
+      x: point.x - centered.minX - imagePoint.x * centered.width,
+      y: point.y - centered.minY - imagePoint.y * centered.height))
     gesture.magnification = 0
+    needsDisplay = true
   }
 
   private func setZoomScale(_ value: CGFloat) {
