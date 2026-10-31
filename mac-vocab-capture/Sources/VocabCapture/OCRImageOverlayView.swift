@@ -171,6 +171,7 @@ final class OCRImageOverlayView: NSView {
       let current = hoveredIndex.flatMap { ordered.firstIndex(of: $0) } ?? (event.keyCode == 123 ? 0 : -1)
       let next = max(0, min(ordered.count - 1, current + (event.keyCode == 123 ? -1 : 1)))
       hoveredIndex = ordered[next]
+      selectedIndices.removeAll()
       toolTip = tooltip(for: ordered[next])
       needsDisplay = true
     case 125, 126:
@@ -190,6 +191,7 @@ final class OCRImageOverlayView: NSView {
           < abs(tokens[b].boundingBox.midX - currentBox.midX)
       }) {
         hoveredIndex = next
+        selectedIndices.removeAll()
         toolTip = tooltip(for: next)
         needsDisplay = true
       }
