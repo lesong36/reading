@@ -338,6 +338,29 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertEqual(NSPasteboard.general.string(forType: .string), "all")
   }
 
+  func testClickingEmptyImageSpaceClearsOCRSelection() throws {
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [.init(text: "word", boundingBox: CGRect(x: 0, y: 0, width: 0.2, height: 0.2), confidence: 1)])
+    view.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+    let selectDown = try XCTUnwrap(NSEvent.mouseEvent(
+      with: .leftMouseDown, location: CGPoint(x: 10, y: 90), modifierFlags: [], timestamp: 0,
+      windowNumber: 0, context: nil, eventNumber: 1, clickCount: 1, pressure: 1))
+    let selectUp = try XCTUnwrap(NSEvent.mouseEvent(
+      with: .leftMouseUp, location: CGPoint(x: 10, y: 90), modifierFlags: [], timestamp: 0,
+      windowNumber: 0, context: nil, eventNumber: 2, clickCount: 1, pressure: 0))
+    view.mouseDown(with: selectDown); view.mouseUp(with: selectUp)
+    let clearDown = try XCTUnwrap(NSEvent.mouseEvent(
+      with: .leftMouseDown, location: CGPoint(x: 90, y: 10), modifierFlags: [], timestamp: 0,
+      windowNumber: 0, context: nil, eventNumber: 3, clickCount: 1, pressure: 1))
+    let clearUp = try XCTUnwrap(NSEvent.mouseEvent(
+      with: .leftMouseUp, location: CGPoint(x: 90, y: 10), modifierFlags: [], timestamp: 0,
+      windowNumber: 0, context: nil, eventNumber: 4, clickCount: 1, pressure: 0))
+    view.mouseDown(with: clearDown); view.mouseUp(with: clearUp)
+    XCTAssertNil(view.accessibilityValue())
+    XCTAssertEqual(view.toolTip, "点击单词或拖选词组")
+  }
+
   func testContextMenuTruncatesVeryLongOCRLabel() throws {
     let longText = String(repeating: "longword ", count: 8).trimmingCharacters(in: .whitespaces)
     let view = OCRImageOverlayView(

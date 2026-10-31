@@ -247,7 +247,14 @@ final class OCRImageOverlayView: NSView {
       }
     }
     selectedIndices = Set(indices)
-    guard !indices.isEmpty else { return }
+    guard !indices.isEmpty else {
+      selectionAnchorIndex = nil
+      hoveredIndex = nil
+      toolTip = "点击单词或拖选词组"
+      setAccessibilityValue(nil)
+      needsDisplay = true
+      return
+    }
     selectionAnchorIndex = indices.last
     emitSelection(indices)
   }
