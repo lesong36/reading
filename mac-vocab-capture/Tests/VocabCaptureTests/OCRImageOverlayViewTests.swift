@@ -241,4 +241,16 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertEqual(NSPasteboard.general.string(forType: .string), "copied")
     XCTAssertEqual(view.toolTip, "已复制：copied")
   }
+
+  func testContextMenuOffersQueryAndCopyForOCRTarget() throws {
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [.init(text: "word", boundingBox: CGRect(x: 0, y: 0, width: 1, height: 1), confidence: 1)])
+    view.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+    let event = try XCTUnwrap(NSEvent.mouseEvent(
+      with: .rightMouseDown, location: CGPoint(x: 50, y: 50), modifierFlags: [], timestamp: 0,
+      windowNumber: 0, context: nil, eventNumber: 1, clickCount: 1, pressure: 1))
+    let menu = try XCTUnwrap(view.menu(for: event))
+    XCTAssertEqual(menu.items.map(\.title), ["查询“word”", "", "复制识别文字"])
+  }
 }
