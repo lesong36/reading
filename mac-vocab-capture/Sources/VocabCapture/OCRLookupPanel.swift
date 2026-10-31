@@ -160,7 +160,10 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
         self?.selectOverlayText(text, tokenIndices: indices)
       }
       view.translatesAutoresizingMaskIntoConstraints = false
-      view.heightAnchor.constraint(equalToConstant: 220).isActive = true
+      let aspectRatio = max(0.1, image.size.height / max(1, image.size.width))
+      view.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: aspectRatio).isActive = true
+      view.heightAnchor.constraint(greaterThanOrEqualToConstant: 180).isActive = true
+      view.heightAnchor.constraint(lessThanOrEqualToConstant: 360).isActive = true
       overlay = view
       imageOverlay = view
     }
