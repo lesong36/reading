@@ -129,7 +129,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     let hint = label(
       overlayTokens.isEmpty
         ? "点选单词或拖选词组，回车即可收藏。"
-        : "直接在原图上点选单词或拖选词组，回车即可收藏。",
+        : "直接在原图上点选单词或拖选词组，回车即可收藏；橙色虚线表示识别置信度较低。",
       size: 12, color: .secondaryLabelColor)
     let scroll = NSScrollView()
     scroll.hasVerticalScroller = true
