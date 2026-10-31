@@ -79,7 +79,8 @@ final class OCRImageOverlayView: NSView {
     self.tokens = tokens
     super.init(frame: .zero)
     wantsLayer = true
-    addTrackingArea(NSTrackingArea(rect: .zero, options: [.activeInKeyWindow, .inVisibleRect, .mouseMoved], owner: self))
+    addTrackingArea(NSTrackingArea(
+      rect: .zero, options: [.activeInKeyWindow, .inVisibleRect, .mouseMoved, .mouseEnteredAndExited], owner: self))
     toolTip = "点击单词或拖选词组"
   }
 
@@ -181,6 +182,12 @@ final class OCRImageOverlayView: NSView {
     guard next != hoveredIndex else { return }
     hoveredIndex = next
     toolTip = next.map(tooltip(for:)) ?? "点击单词或拖选词组"
+    needsDisplay = true
+  }
+
+  override func mouseExited(with event: NSEvent) {
+    hoveredIndex = nil
+    toolTip = "点击单词或拖选词组"
     needsDisplay = true
   }
 
