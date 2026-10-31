@@ -324,6 +324,22 @@ final class OCRImageOverlayView: NSView {
     }
   }
 
+  /// Handles the application Edit menu when this overlay is the first responder.
+  override func selectAll(_ sender: Any?) {
+    guard !tokens.isEmpty else { return }
+    let ordered = tokens.indices.sorted { OCROverlayLayout.readingOrder(lhs: tokens[$0], rhs: tokens[$1]) }
+    selectedIndices = Set(ordered)
+    let text = ordered.map { tokens[$0].text }.joined(separator: " ")
+    setAccessibilityValue(text)
+    toolTip = "已全选：\(text)；按 ⌘C 复制"
+    needsDisplay = true
+  }
+
+  /// Handles the application Edit menu copy action without starting a lookup.
+  @objc func copy(_ sender: Any?) {
+    copySelectedOCRText()
+  }
+
   private func emitSelection(_ indices: [Int]) {
     guard !indices.isEmpty else { return }
     selectedIndices = Set(indices)
