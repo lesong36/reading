@@ -186,6 +186,18 @@ final class OCRImageOverlayView: NSView {
       return
     }
     guard !tokens.isEmpty else { super.keyDown(with: event); return }
+    if event.charactersIgnoringModifiers == "0" {
+      setZoomScale(1)
+      return
+    }
+    if event.charactersIgnoringModifiers == "+" || event.charactersIgnoringModifiers == "=" {
+      setZoomScale(zoomScale + 0.25)
+      return
+    }
+    if event.charactersIgnoringModifiers == "-" || event.charactersIgnoringModifiers == "_" {
+      setZoomScale(zoomScale - 0.25)
+      return
+    }
     let ordered = tokens.indices.sorted { OCROverlayLayout.readingOrder(lhs: tokens[$0], rhs: tokens[$1]) }
     switch event.keyCode {
     case 115, 119:
@@ -275,9 +287,14 @@ final class OCRImageOverlayView: NSView {
   @objc private func handleMagnification(_ gesture: NSMagnificationGestureRecognizer) {
     let next = min(3, max(1, zoomScale * (1 + gesture.magnification)))
     guard abs(next - zoomScale) > 0.001 else { return }
-    zoomScale = next
-    panOffset = constrainedPanOffset(panOffset)
+    setZoomScale(next)
     gesture.magnification = 0
+  }
+
+  private func setZoomScale(_ value: CGFloat) {
+    zoomScale = min(3, max(1, value))
+    if zoomScale == 1 { panOffset = .zero }
+    else { panOffset = constrainedPanOffset(panOffset) }
     needsDisplay = true
   }
 

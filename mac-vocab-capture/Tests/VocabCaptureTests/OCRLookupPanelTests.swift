@@ -288,7 +288,7 @@ final class OCRLookupPanelTests: XCTestCase {
     XCTAssertEqual(overlays.count, 1)
     XCTAssertEqual(overlays.first?.accessibilityLabel(), "截图原图文字选择层")
     XCTAssertEqual(overlays.first?.accessibilityRole(), .image)
-    XCTAssertEqual(overlays.first?.accessibilityHelp(), "点击或拖选文字；聚焦后使用方向键移动，按回车确认。")
+    XCTAssertEqual(overlays.first?.accessibilityHelp(), "点击或拖选文字；聚焦后使用方向键移动，按回车确认；捏合或用加减号缩放，按 0 恢复整图。")
     panel.close()
   }
 }
