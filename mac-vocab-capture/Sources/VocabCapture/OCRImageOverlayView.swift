@@ -362,7 +362,7 @@ final class OCRImageOverlayView: NSView {
     selectedIndices = [index]
     setAccessibilityValue(tokens[index].text)
     let menu = NSMenu()
-    menu.addItem(withTitle: "查询“\(tokens[index].text)”", action: #selector(queryContextToken), keyEquivalent: "")
+    menu.addItem(withTitle: "查询“\(menuText(for: tokens[index].text))”", action: #selector(queryContextToken), keyEquivalent: "")
     menu.addItem(.separator())
     menu.addItem(withTitle: "复制识别文字", action: #selector(copySelectedOCRText), keyEquivalent: "")
     menu.items.forEach { $0.target = self }
@@ -389,6 +389,11 @@ final class OCRImageOverlayView: NSView {
     NSPasteboard.general.clearContents()
     NSPasteboard.general.setString(text, forType: .string)
     toolTip = "已复制：\(text)"
+  }
+
+  private func menuText(for text: String) -> String {
+    guard text.count > 32 else { return text }
+    return String(text.prefix(29)) + "…"
   }
 
   override func resetCursorRects() {

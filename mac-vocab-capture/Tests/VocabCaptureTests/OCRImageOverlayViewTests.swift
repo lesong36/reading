@@ -288,4 +288,18 @@ final class OCRImageOverlayViewTests: XCTestCase {
       windowNumber: 0, context: nil, eventNumber: 1, clickCount: 1, pressure: 1))
     XCTAssertEqual(view.menu(for: event)?.items.map(\.title), ["恢复整图"])
   }
+
+  func testContextMenuTruncatesVeryLongOCRLabel() throws {
+    let longText = String(repeating: "longword ", count: 8).trimmingCharacters(in: .whitespaces)
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [.init(text: longText, boundingBox: CGRect(x: 0, y: 0, width: 1, height: 1), confidence: 1)])
+    view.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+    let event = try XCTUnwrap(NSEvent.mouseEvent(
+      with: .rightMouseDown, location: CGPoint(x: 50, y: 50), modifierFlags: [], timestamp: 0,
+      windowNumber: 0, context: nil, eventNumber: 1, clickCount: 1, pressure: 1))
+    let title = try XCTUnwrap(view.menu(for: event)?.items.first?.title)
+    XCTAssertLessThanOrEqual(title.count, 36)
+    XCTAssertTrue(title.contains("…"))
+  }
 }
