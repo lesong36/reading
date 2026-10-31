@@ -184,7 +184,11 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     else { return }
     cancelAnswer()
     context = newContext
-    history.removeAll()
+    if sessionStore == nil {
+      history.removeAll()
+    } else {
+      persistCurrentCaptureIfNeeded()
+    }
     pendingQuestion = nil
     partialAnswer = ""
     pendingOutcome = ""
