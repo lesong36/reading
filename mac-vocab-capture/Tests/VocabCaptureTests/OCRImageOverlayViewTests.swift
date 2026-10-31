@@ -262,6 +262,20 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertEqual(view.toolTip, "已全选：first second；按 ⌘C 复制")
   }
 
+  func testEditMenuActionsSelectAndCopyOCRText() throws {
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [
+        .init(text: "second", boundingBox: CGRect(x: 0.1, y: 0.1, width: 0.3, height: 0.1), confidence: 1),
+        .init(text: "first", boundingBox: CGRect(x: 0.1, y: 0.8, width: 0.3, height: 0.1), confidence: 1),
+      ])
+    view.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+    view.selectAll(nil)
+    view.copy(nil)
+    XCTAssertEqual(NSPasteboard.general.string(forType: .string), "first second")
+    XCTAssertEqual(view.accessibilityValue() as? String, "first second")
+  }
+
   func testContextMenuOffersQueryAndCopyForOCRTarget() throws {
     let view = OCRImageOverlayView(
       image: NSImage(size: NSSize(width: 100, height: 100)),
