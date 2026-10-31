@@ -80,6 +80,7 @@ final class OCRImageOverlayViewTests: XCTestCase {
       with: .keyDown, location: .zero, modifierFlags: [], timestamp: 0, windowNumber: 0,
       context: nil, characters: "→", charactersIgnoringModifiers: "→", isARepeat: false, keyCode: 124))
     view.keyDown(with: right)
+    XCTAssertEqual(view.accessibilityValue() as? String, "first")
     let enter = try! XCTUnwrap(NSEvent.keyEvent(
       with: .keyDown, location: .zero, modifierFlags: [], timestamp: 0, windowNumber: 0,
       context: nil, characters: "\r", charactersIgnoringModifiers: "\r", isARepeat: false, keyCode: 36))
