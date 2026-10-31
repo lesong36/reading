@@ -239,5 +239,6 @@ final class OCRImageOverlayViewTests: XCTestCase {
       context: nil, characters: "c", charactersIgnoringModifiers: "c", isARepeat: false, keyCode: 8))
     view.keyDown(with: copy)
     XCTAssertEqual(NSPasteboard.general.string(forType: .string), "copied")
+    XCTAssertEqual(view.toolTip, "已复制：copied")
   }
 }

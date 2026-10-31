@@ -226,8 +226,10 @@ final class OCRImageOverlayView: NSView {
     guard !tokens.isEmpty else { super.keyDown(with: event); return }
     if event.modifierFlags.contains(.command), event.keyCode == 8, !selectedIndices.isEmpty {
       let ordered = selectedIndices.sorted { OCROverlayLayout.readingOrder(lhs: tokens[$0], rhs: tokens[$1]) }
+      let text = ordered.map { tokens[$0].text }.joined(separator: " ")
       NSPasteboard.general.clearContents()
-      NSPasteboard.general.setString(ordered.map { tokens[$0].text }.joined(separator: " "), forType: .string)
+      NSPasteboard.general.setString(text, forType: .string)
+      toolTip = "已复制：\(text)"
       return
     }
     if event.charactersIgnoringModifiers == "0" {
