@@ -159,6 +159,7 @@ final class OCRImageOverlayView: NSView {
     if zoomScale > 1, event.modifierFlags.contains(.option) {
       panStart = convert(event.locationInWindow, from: nil)
       panOrigin = panOffset
+      NSCursor.closedHand.set()
       return
     }
     if event.clickCount == 2, zoomScale > 1 {
@@ -189,6 +190,7 @@ final class OCRImageOverlayView: NSView {
   override func mouseUp(with event: NSEvent) {
     if panStart != nil {
       panStart = nil
+      NSCursor.openHand.set()
       return
     }
     defer { dragStart = nil; dragCurrent = nil; needsDisplay = true }
