@@ -173,6 +173,26 @@ final class OCRImageOverlayView: NSView {
       hoveredIndex = ordered[next]
       toolTip = tooltip(for: ordered[next])
       needsDisplay = true
+    case 125, 126:
+      let current = hoveredIndex ?? ordered.first!
+      let currentBox = tokens[current].boundingBox
+      let goingUp = event.keyCode == 126
+      let candidates = tokens.indices.filter { index in
+        guard index != current else { return false }
+        let delta = tokens[index].boundingBox.midY - currentBox.midY
+        return goingUp ? delta > 0.01 : delta < -0.01
+      }
+      if let next = candidates.min(by: { a, b in
+        let aDelta = abs(tokens[a].boundingBox.midY - currentBox.midY)
+        let bDelta = abs(tokens[b].boundingBox.midY - currentBox.midY)
+        if abs(aDelta - bDelta) > 0.01 { return aDelta < bDelta }
+        return abs(tokens[a].boundingBox.midX - currentBox.midX)
+          < abs(tokens[b].boundingBox.midX - currentBox.midX)
+      }) {
+        hoveredIndex = next
+        toolTip = tooltip(for: next)
+        needsDisplay = true
+      }
     case 36, 76:
       if let hoveredIndex { emitSelection([hoveredIndex]) }
     default:

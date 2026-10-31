@@ -88,6 +88,26 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertEqual(selected?.1, "first")
   }
 
+  func testVerticalKeyboardNavigationMovesToAdjacentLine() throws {
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [
+        .init(text: "top", boundingBox: CGRect(x: 0.1, y: 0.7, width: 0.2, height: 0.1), confidence: 1),
+        .init(text: "bottom", boundingBox: CGRect(x: 0.1, y: 0.3, width: 0.2, height: 0.1), confidence: 1),
+      ])
+    var selected = ""
+    view.onSelection = { selected = $0 }
+    let down = try XCTUnwrap(NSEvent.keyEvent(
+      with: .keyDown, location: .zero, modifierFlags: [], timestamp: 0, windowNumber: 0,
+      context: nil, characters: "↓", charactersIgnoringModifiers: "↓", isARepeat: false, keyCode: 125))
+    view.keyDown(with: down)
+    let enter = try XCTUnwrap(NSEvent.keyEvent(
+      with: .keyDown, location: .zero, modifierFlags: [], timestamp: 0, windowNumber: 0,
+      context: nil, characters: "\r", charactersIgnoringModifiers: "\r", isARepeat: false, keyCode: 36))
+    view.keyDown(with: enter)
+    XCTAssertEqual(selected, "bottom")
+  }
+
   func testReplacingTokensClearsTransientSelectionState() {
     let view = OCRImageOverlayView(
       image: NSImage(size: NSSize(width: 100, height: 100)),
