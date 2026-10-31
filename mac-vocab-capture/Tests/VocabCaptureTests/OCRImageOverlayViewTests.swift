@@ -40,4 +40,13 @@ final class OCRImageOverlayViewTests: XCTestCase {
       tokens: tokens, imageRect: imageRect, selectionRect: CGRect(x: 0, y: 0, width: 400, height: 200), point: .zero)
     XCTAssertEqual(indices, [1, 0])
   }
+
+  func testTinyTokenGetsMinimumClickTargetWithoutChangingVisualRect() {
+    let visual = CGRect(x: 20, y: 30, width: 2, height: 3)
+    let hit = OCROverlayLayout.hitRect(for: visual)
+    XCTAssertEqual(visual, CGRect(x: 20, y: 30, width: 2, height: 3))
+    XCTAssertGreaterThanOrEqual(hit.width, 12)
+    XCTAssertGreaterThanOrEqual(hit.height, 12)
+    XCTAssertTrue(hit.contains(CGPoint(x: 21, y: 31.5)))
+  }
 }

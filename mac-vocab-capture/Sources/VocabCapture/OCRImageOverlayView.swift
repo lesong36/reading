@@ -28,7 +28,7 @@ enum OCROverlayLayout {
     tokens.enumerated().filter { _, token in
       let rect = rect(for: token.boundingBox, imageRect: imageRect)
       return selectionRect.width < 4 && selectionRect.height < 4
-        ? rect.insetBy(dx: -4, dy: -4).contains(point)
+        ? hitRect(for: rect).contains(point)
         : rect.intersects(selectionRect)
     }.sorted {
       if abs($0.element.boundingBox.maxY - $1.element.boundingBox.maxY) > 0.02 {
@@ -36,6 +36,12 @@ enum OCROverlayLayout {
       }
       return $0.element.boundingBox.minX < $1.element.boundingBox.minX
     }.map(\.offset)
+  }
+
+  static func hitRect(for rect: CGRect, minimumSize: CGFloat = 12) -> CGRect {
+    let dx = max(0, (minimumSize - rect.width) / 2)
+    let dy = max(0, (minimumSize - rect.height) / 2)
+    return rect.insetBy(dx: -dx, dy: -dy)
   }
 }
 
@@ -117,7 +123,8 @@ final class OCRImageOverlayView: NSView {
     let point = convert(event.locationInWindow, from: nil)
     let imageRect = OCROverlayLayout.imageRect(for: image.size, in: bounds)
     let next = tokens.firstIndex {
-      OCROverlayLayout.rect(for: $0.boundingBox, imageRect: imageRect).insetBy(dx: -4, dy: -4).contains(point)
+      OCROverlayLayout.hitRect(
+        for: OCROverlayLayout.rect(for: $0.boundingBox, imageRect: imageRect)).contains(point)
     }
     guard next != hoveredIndex else { return }
     hoveredIndex = next
