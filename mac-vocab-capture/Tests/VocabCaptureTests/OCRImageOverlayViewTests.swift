@@ -284,6 +284,42 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertEqual(view.toolTip, "已全选：first second；按 ⌘C 复制")
   }
 
+  func testEscapeWithoutDragInvokesCancelCallback() throws {
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [.init(text: "word", boundingBox: .zero, confidence: 1)])
+    var cancelled = false
+    view.onCancel = { cancelled = true }
+    let escape = try XCTUnwrap(NSEvent.keyEvent(
+      with: .keyDown, location: .zero, modifierFlags: [], timestamp: 0, windowNumber: 0,
+      context: nil, characters: "\u{1b}", charactersIgnoringModifiers: "\u{1b}",
+      isARepeat: false, keyCode: 53))
+
+    view.keyDown(with: escape)
+
+    XCTAssertTrue(cancelled)
+  }
+
+  func testEscapeDuringDragCancelsDragWithoutClosingOverlay() throws {
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [.init(text: "word", boundingBox: .zero, confidence: 1)])
+    var cancelled = false
+    view.onCancel = { cancelled = true }
+    let down = try XCTUnwrap(NSEvent.mouseEvent(
+      with: .leftMouseDown, location: CGPoint(x: 10, y: 10), modifierFlags: [], timestamp: 0,
+      windowNumber: 0, context: nil, eventNumber: 1, clickCount: 1, pressure: 1))
+    let escape = try XCTUnwrap(NSEvent.keyEvent(
+      with: .keyDown, location: .zero, modifierFlags: [], timestamp: 0, windowNumber: 0,
+      context: nil, characters: "\u{1b}", charactersIgnoringModifiers: "\u{1b}",
+      isARepeat: false, keyCode: 53))
+
+    view.mouseDown(with: down)
+    view.keyDown(with: escape)
+
+    XCTAssertFalse(cancelled)
+  }
+
   func testEditMenuActionsSelectAndCopyOCRText() throws {
     let view = OCRImageOverlayView(
       image: NSImage(size: NSSize(width: 100, height: 100)),
