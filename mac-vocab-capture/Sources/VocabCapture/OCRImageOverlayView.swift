@@ -173,6 +173,7 @@ final class OCRImageOverlayView: NSView {
       hoveredIndex = ordered[next]
       selectedIndices.removeAll()
       toolTip = tooltip(for: ordered[next])
+      setAccessibilityValue(tokens[ordered[next]].text)
       needsDisplay = true
     case 125, 126:
       let current = hoveredIndex ?? ordered.first!
@@ -193,6 +194,7 @@ final class OCRImageOverlayView: NSView {
         hoveredIndex = next
         selectedIndices.removeAll()
         toolTip = tooltip(for: next)
+        setAccessibilityValue(tokens[next].text)
         needsDisplay = true
       }
     case 36, 76:
@@ -221,12 +223,14 @@ final class OCRImageOverlayView: NSView {
     guard next != hoveredIndex else { return }
     hoveredIndex = next
     toolTip = next.map(tooltip(for:)) ?? "点击单词或拖选词组"
+    setAccessibilityValue(next.map { tokens[$0].text })
     needsDisplay = true
   }
 
   override func mouseExited(with event: NSEvent) {
     hoveredIndex = nil
     toolTip = "点击单词或拖选词组"
+    setAccessibilityValue(nil)
     needsDisplay = true
   }
 
