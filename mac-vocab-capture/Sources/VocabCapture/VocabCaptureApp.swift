@@ -576,7 +576,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         panel?.present()
         if let self, let panel { self.positionOCRPanel(panel, avoiding: region.selectionRect) }
       }
-      overlay.onClose = { [weak self] in self?.screenOCROverlay = nil }
+      overlay.onClose = { [weak self, weak panel] in
+        self?.screenOCROverlay = nil
+        // Keep the captured image usable after the user dismisses the
+        // original-position layer with Escape or its window close action.
+        panel?.present()
+      }
       screenOCROverlay = overlay
       overlay.present()
     } else {
