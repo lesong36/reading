@@ -35,12 +35,16 @@ enum OCROverlayLayout {
         let b = rect(for: $1.element.boundingBox, imageRect: imageRect)
         return a.distanceSquared(to: point) < b.distanceSquared(to: point)
       }
-      if abs($0.element.boundingBox.maxY - $1.element.boundingBox.maxY) > 0.02 {
-        return $0.element.boundingBox.maxY > $1.element.boundingBox.maxY
-      }
-      return $0.element.boundingBox.minX < $1.element.boundingBox.minX
+      return readingOrder(lhs: $0.element, rhs: $1.element)
     }.map(\.offset)
     return isClick ? Array(matches.prefix(1)) : matches
+  }
+
+  static func readingOrder(lhs: OCROverlayToken, rhs: OCROverlayToken) -> Bool {
+    if abs(lhs.boundingBox.maxY - rhs.boundingBox.maxY) > 0.02 {
+      return lhs.boundingBox.maxY > rhs.boundingBox.maxY
+    }
+    return lhs.boundingBox.minX < rhs.boundingBox.minX
   }
 
   static func hitRect(for rect: CGRect, minimumSize: CGFloat = 12) -> CGRect {
@@ -142,12 +146,7 @@ final class OCRImageOverlayView: NSView {
 
   override func keyDown(with event: NSEvent) {
     guard !tokens.isEmpty else { super.keyDown(with: event); return }
-    let ordered = tokens.indices.sorted {
-      if abs(tokens[$0].boundingBox.maxY - tokens[$1].boundingBox.maxY) > 0.02 {
-        return tokens[$0].boundingBox.maxY > tokens[$1].boundingBox.maxY
-      }
-      return tokens[$0].boundingBox.minX < tokens[$1].boundingBox.minX
-    }
+    let ordered = tokens.indices.sorted { OCROverlayLayout.readingOrder(lhs: tokens[$0], rhs: tokens[$1]) }
     switch event.keyCode {
     case 123, 124:
       let current = hoveredIndex.flatMap { ordered.firstIndex(of: $0) } ?? (event.keyCode == 123 ? 0 : -1)
