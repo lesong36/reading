@@ -342,6 +342,7 @@ final class OCRImageOverlayView: NSView {
     guard let index else { return nil }
     hoveredIndex = index
     selectedIndices = [index]
+    setAccessibilityValue(tokens[index].text)
     let menu = NSMenu()
     menu.addItem(withTitle: "查询“\(tokens[index].text)”", action: #selector(queryContextToken), keyEquivalent: "")
     menu.addItem(.separator())

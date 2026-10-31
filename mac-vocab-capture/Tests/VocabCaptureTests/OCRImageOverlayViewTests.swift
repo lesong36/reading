@@ -252,5 +252,6 @@ final class OCRImageOverlayViewTests: XCTestCase {
       windowNumber: 0, context: nil, eventNumber: 1, clickCount: 1, pressure: 1))
     let menu = try XCTUnwrap(view.menu(for: event))
     XCTAssertEqual(menu.items.map(\.title), ["查询“word”", "", "复制识别文字"])
+    XCTAssertEqual(view.accessibilityValue() as? String, "word")
   }
 }
