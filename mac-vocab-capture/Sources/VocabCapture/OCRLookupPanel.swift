@@ -152,7 +152,8 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     original.delegate = self
     scroll.documentView = original
     var overlay: OCRImageOverlayView?
-    if let imageData = screenshotImageData, let image = NSImage(data: imageData), !overlayTokens.isEmpty {
+    let overlayImageData = originalImageData ?? screenshotImageData
+    if let imageData = overlayImageData, let image = NSImage(data: imageData), !overlayTokens.isEmpty {
       let view = OCRImageOverlayView(image: image, tokens: overlayTokens)
       view.setAccessibilityRole(.image)
       view.setAccessibilityLabel("截图原图文字选择层")
