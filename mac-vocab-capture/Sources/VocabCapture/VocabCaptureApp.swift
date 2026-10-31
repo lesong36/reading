@@ -22,7 +22,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private let saveDictionaryKey: (String) throws -> Void
   private let browserBridge: BrowserContextBridge
   private let regionCapture: ScreenshotRegionCapture
-  private let screenRegionSelector = InteractiveScreenRegionSelector()
+  private let screenRegionSelector: ScreenRegionSelecting
+  private let usesInteractiveRegionSelection: Bool
   private let screenshotQuestions = ScreenshotQuestionClient()
   private let questionPreferences: ScreenshotQuestionPreferences
   private let searchPreferences: ScreenshotQuestionWebSearchPreferences
@@ -79,7 +80,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     browserBridge: BrowserContextBridge = .shared,
     regionCapture: ScreenshotRegionCapture? = nil,
     mathQuestionStore: MathQuestionStore = MathQuestionStore(),
-    questionSessionStore: ScreenshotQuestionSessionStore = ScreenshotQuestionSessionStore()
+    questionSessionStore: ScreenshotQuestionSessionStore = ScreenshotQuestionSessionStore(),
+    screenRegionSelector: ScreenRegionSelecting? = nil
   ) {
     self.shortcutPreferences = shortcutPreferences
     self.questionPreferences = questionPreferences
@@ -94,6 +96,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     self.saveDictionaryKey = saveDictionaryKey
     self.browserBridge = browserBridge
     self.regionCapture = regionCapture ?? ScreenshotRegionCapture()
+    self.screenRegionSelector = screenRegionSelector ?? InteractiveScreenRegionSelector()
+    // Injected capture runners use the legacy path in tests; production uses the
+    // in-place selector unless an explicit selector is supplied.
+    self.usesInteractiveRegionSelection = regionCapture == nil || screenRegionSelector != nil
     super.init()
   }
 
@@ -363,7 +369,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     screenshotTask?.cancel()
     let restore = hideScreenshotPanels()
     setStatus("词 ···")
-    screenRegionSelector.present { [weak self] region in
+    guard usesInteractiveRegionSelection else {
+      regionCapture.capture { [weak self] result in
+        guard let self else { return }
+        switch result {
+        case .success(let image):
+          guard let image else { self.setStatus("词"); restore(); return }
+          self.recognizeScreenshot(image, destination: destination, restore: restore)
+        case .failure(let error):
+          self.setStatus("词"); restore()
+          self.showFailure(title: "截图失败", error.localizedDescription)
+        }
+      }
+      return
+    }
+    screenRegionSelector.present(on: NSScreen.main) { [weak self] region in
       guard let self else { return }
       guard let region else { self.setStatus("词"); restore(); return }
       self.regionCapture.capture(region: region) { result in

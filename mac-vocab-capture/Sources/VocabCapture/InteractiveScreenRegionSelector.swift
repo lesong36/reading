@@ -15,7 +15,12 @@ struct ScreenCaptureRegion: Equatable, Sendable {
 }
 
 @MainActor
-final class InteractiveScreenRegionSelector {
+protocol ScreenRegionSelecting: AnyObject {
+  func present(on screen: NSScreen?, completion: @escaping (ScreenCaptureRegion?) -> Void)
+}
+
+@MainActor
+final class InteractiveScreenRegionSelector: ScreenRegionSelecting {
   private var panel: NSPanel?
   private var completion: ((ScreenCaptureRegion?) -> Void)?
 
