@@ -126,7 +126,11 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     let root = NSView()
     contentView = root
     let heading = label("在原文中取词", size: 17, weight: .semibold)
-    let hint = label("点选单词或拖选词组，回车即可收藏。", size: 12, color: .secondaryLabelColor)
+    let hint = label(
+      overlayTokens.isEmpty
+        ? "点选单词或拖选词组，回车即可收藏。"
+        : "直接在原图上点选单词或拖选词组，回车即可收藏。",
+      size: 12, color: .secondaryLabelColor)
     let scroll = NSScrollView()
     scroll.hasVerticalScroller = true
     scroll.borderType = .bezelBorder

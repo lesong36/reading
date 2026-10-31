@@ -1,10 +1,23 @@
 import AppKit
+import ImageIO
 import XCTest
 
 @testable import VocabCapture
 
 @MainActor
 final class OCRLookupPanelTests: XCTestCase {
+  private static func fixtureImageData() -> Data? {
+    guard let context = CGContext(
+      data: nil, width: 120, height: 80, bitsPerComponent: 8, bytesPerRow: 480,
+      space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue),
+      let image = context.makeImage()
+    else { return nil }
+    let data = NSMutableData()
+    guard let destination = CGImageDestinationCreateWithData(data, "public.png" as CFString, 1, nil)
+    else { return nil }
+    CGImageDestinationAddImage(destination, image, nil)
+    return CGImageDestinationFinalize(destination) ? data as Data : nil
+  }
   func testReturnFromOriginalTextSavesWithoutClosingWindow() async throws {
     _ = NSApplication.shared
     var saves = 0
@@ -262,5 +275,18 @@ final class OCRLookupPanelTests: XCTestCase {
     XCTAssertEqual(saves, 0)
     panel.close()
     XCTAssertFalse(questions.isVisible)
+  }
+
+  func testLayoutObservationsAddAccessibleOriginalImageSelectionLayer() throws {
+    let panel = OCRLookupPanel(
+      text: "A curious reader",
+      lookup: { _, _ in DictionaryResult(lemma: "curious", meaning: "meaning", partOfSpeech: "", pronunciation: "", note: "") },
+      save: { _, _ in "saved" },
+      imageData: try XCTUnwrap(Self.fixtureImageData()),
+      overlayTokens: [OCROverlayToken(text: "curious", boundingBox: CGRect(x: 0.2, y: 0.4, width: 0.2, height: 0.2), confidence: 0.98)])
+    let overlays = views(panel.contentView!).compactMap { $0 as? OCRImageOverlayView }
+    XCTAssertEqual(overlays.count, 1)
+    XCTAssertEqual(overlays.first?.accessibilityLabel(), "截图原图文字选择层")
+    panel.close()
   }
 }
