@@ -571,10 +571,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     if let region, !observations.isEmpty {
       panel.orderOut(nil)
       let overlay = ScreenOCROverlayWindow(image: image, region: region, tokens: observations)
-      overlay.onSelection = { [weak panel] text, _ in
+      overlay.onSelection = { [weak self, weak panel] text, _ in
         panel?.selectRecognizedText(text)
         panel?.present()
-        if let panel { self.positionOCRPanel(panel, avoiding: region.selectionRect) }
+        if let self, let panel { self.positionOCRPanel(panel, avoiding: region.selectionRect) }
       }
       overlay.onClose = { [weak self] in self?.screenOCROverlay = nil }
       screenOCROverlay = overlay
