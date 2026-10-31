@@ -30,12 +30,15 @@ final class OCRImageOverlayView: NSView {
   private let image: NSImage
   private var dragStart: CGPoint?
   private var dragCurrent: CGPoint?
+  private var hoveredIndex: Int?
+  private var selectedIndices: Set<Int> = []
 
   init(image: NSImage, tokens: [OCROverlayToken]) {
     self.image = image
     self.tokens = tokens
     super.init(frame: .zero)
     wantsLayer = true
+    addTrackingArea(NSTrackingArea(rect: .zero, options: [.activeInKeyWindow, .inVisibleRect, .mouseMoved], owner: self))
     toolTip = "点击单词或拖选词组"
   }
 
@@ -46,10 +49,17 @@ final class OCRImageOverlayView: NSView {
   override func draw(_ dirtyRect: NSRect) {
     let imageRect = OCROverlayLayout.imageRect(for: image.size, in: bounds)
     image.draw(in: imageRect, from: .zero, operation: .sourceOver, fraction: 1)
-    for token in tokens {
+    for (index, token) in tokens.enumerated() {
       let confidence = max(0.08, min(0.28, CGFloat(token.confidence) * 0.28))
       NSColor.systemBlue.withAlphaComponent(confidence).setFill()
-      OCROverlayLayout.rect(for: token.boundingBox, imageRect: imageRect).insetBy(dx: -2, dy: -2).fill()
+      let rect = OCROverlayLayout.rect(for: token.boundingBox, imageRect: imageRect).insetBy(dx: -2, dy: -2)
+      rect.fill()
+      if index == hoveredIndex || selectedIndices.contains(index) {
+        NSColor.controlAccentColor.withAlphaComponent(index == hoveredIndex ? 0.8 : 0.55).setStroke()
+        let path = NSBezierPath(rect: rect)
+        path.lineWidth = index == hoveredIndex ? 2 : 1
+        path.stroke()
+      }
     }
     if let start = dragStart, let current = dragCurrent {
       NSColor.controlAccentColor.withAlphaComponent(0.2).setFill()
@@ -86,7 +96,22 @@ final class OCRImageOverlayView: NSView {
       }
       return $0.boundingBox.minX < $1.boundingBox.minX
     }
+    selectedIndices = Set(tokens.indices.filter { index in
+      selected.contains { $0 == tokens[index] }
+    })
     guard !selected.isEmpty else { return }
     onSelection?(selected.map(\.text).joined(separator: " "))
+  }
+
+  override func mouseMoved(with event: NSEvent) {
+    let point = convert(event.locationInWindow, from: nil)
+    let imageRect = OCROverlayLayout.imageRect(for: image.size, in: bounds)
+    let next = tokens.firstIndex {
+      OCROverlayLayout.rect(for: $0.boundingBox, imageRect: imageRect).insetBy(dx: -4, dy: -4).contains(point)
+    }
+    guard next != hoveredIndex else { return }
+    hoveredIndex = next
+    toolTip = next.map { "选择：\(tokens[$0].text)" } ?? "点击单词或拖选词组"
+    needsDisplay = true
   }
 }
