@@ -351,7 +351,13 @@ final class OCRImageOverlayView: NSView {
     let point = convert(event.locationInWindow, from: nil)
     let index = OCROverlayLayout.selectedTokenIndices(
       tokens: tokens, imageRect: currentImageRect(), selectionRect: .zero, point: point).first
-    guard let index else { return nil }
+    guard let index else {
+      guard zoomScale > 1 else { return nil }
+      let menu = NSMenu()
+      menu.addItem(withTitle: "恢复整图", action: #selector(resetZoomFromMenu), keyEquivalent: "")
+      menu.items.forEach { $0.target = self }
+      return menu
+    }
     hoveredIndex = index
     selectedIndices = [index]
     setAccessibilityValue(tokens[index].text)
@@ -366,6 +372,14 @@ final class OCRImageOverlayView: NSView {
   @objc private func queryContextToken() {
     guard let index = selectedIndices.first else { return }
     emitSelection([index])
+  }
+
+  @objc private func resetZoomFromMenu() {
+    setZoomScale(1)
+    hoveredIndex = nil
+    selectedIndices.removeAll()
+    toolTip = "点击单词或拖选词组"
+    setAccessibilityValue(nil)
   }
 
   @objc private func copySelectedOCRText() {
