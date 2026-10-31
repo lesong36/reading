@@ -29,4 +29,15 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertGreaterThan(tokens[0].boundingBox.minY, 0)
     XCTAssertGreaterThan(tokens[1].confidence, tokens[0].confidence)
   }
+
+  func testDragSelectionReturnsReadingOrderAcrossLines() {
+    let imageRect = CGRect(x: 0, y: 0, width: 400, height: 200)
+    let tokens = [
+      OCROverlayToken(text: "second", boundingBox: CGRect(x: 0.5, y: 0.1, width: 0.2, height: 0.15), confidence: 1),
+      OCROverlayToken(text: "first", boundingBox: CGRect(x: 0.1, y: 0.7, width: 0.2, height: 0.15), confidence: 1),
+    ]
+    let indices = OCROverlayLayout.selectedTokenIndices(
+      tokens: tokens, imageRect: imageRect, selectionRect: CGRect(x: 0, y: 0, width: 400, height: 200), point: .zero)
+    XCTAssertEqual(indices, [1, 0])
+  }
 }

@@ -21,6 +21,22 @@ enum OCROverlayLayout {
       width: normalized.width * imageRect.width,
       height: normalized.height * imageRect.height)
   }
+
+  static func selectedTokenIndices(
+    tokens: [OCROverlayToken], imageRect: CGRect, selectionRect: CGRect, point: CGPoint
+  ) -> [Int] {
+    tokens.enumerated().filter { _, token in
+      let rect = rect(for: token.boundingBox, imageRect: imageRect)
+      return selectionRect.width < 4 && selectionRect.height < 4
+        ? rect.insetBy(dx: -4, dy: -4).contains(point)
+        : rect.intersects(selectionRect)
+    }.sorted {
+      if abs($0.element.boundingBox.maxY - $1.element.boundingBox.maxY) > 0.02 {
+        return $0.element.boundingBox.maxY > $1.element.boundingBox.maxY
+      }
+      return $0.element.boundingBox.minX < $1.element.boundingBox.minX
+    }.map(\.offset)
+  }
 }
 
 @MainActor
@@ -88,20 +104,13 @@ final class OCRImageOverlayView: NSView {
     let selectionRect = CGRect(
       x: min(dragStart?.x ?? point.x, point.x), y: min(dragStart?.y ?? point.y, point.y),
       width: abs(point.x - (dragStart?.x ?? point.x)), height: abs(point.y - (dragStart?.y ?? point.y)))
-    let selected = tokens.enumerated().filter { _, token in
-      let rect = OCROverlayLayout.rect(for: token.boundingBox, imageRect: imageRect)
-      return selectionRect.width < 4 && selectionRect.height < 4 ? rect.insetBy(dx: -4, dy: -4).contains(point) : rect.intersects(selectionRect)
-    }.sorted {
-      if abs($0.element.boundingBox.maxY - $1.element.boundingBox.maxY) > 0.02 {
-        return $0.element.boundingBox.maxY > $1.element.boundingBox.maxY
-      }
-      return $0.element.boundingBox.minX < $1.element.boundingBox.minX
-    }
-    selectedIndices = Set(selected.map(\.offset))
-    guard !selected.isEmpty else { return }
-    let text = selected.map { $0.element.text }.joined(separator: " ")
+    let indices = OCROverlayLayout.selectedTokenIndices(
+      tokens: tokens, imageRect: imageRect, selectionRect: selectionRect, point: point)
+    selectedIndices = Set(indices)
+    guard !indices.isEmpty else { return }
+    let text = indices.map { tokens[$0].text }.joined(separator: " ")
     onSelection?(text)
-    onSelectionWithIndices?(text, selected.map(\.offset))
+    onSelectionWithIndices?(text, indices)
   }
 
   override func mouseMoved(with event: NSEvent) {
