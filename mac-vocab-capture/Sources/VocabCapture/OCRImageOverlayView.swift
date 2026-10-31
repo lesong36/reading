@@ -198,6 +198,8 @@ final class OCRImageOverlayView: NSView {
         setZoomScale(1)
         didResetZoomOnMouseDown = true
         hoveredIndex = nil
+        selectedIndices.removeAll()
+        selectionAnchorIndex = nil
         toolTip = "点击单词或拖选词组"
         setAccessibilityValue(nil)
         return
@@ -428,6 +430,7 @@ final class OCRImageOverlayView: NSView {
     setZoomScale(1)
     hoveredIndex = nil
     selectedIndices.removeAll()
+    selectionAnchorIndex = nil
     toolTip = "点击单词或拖选词组"
     setAccessibilityValue("已恢复整图")
   }
