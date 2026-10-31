@@ -52,7 +52,7 @@ final class ScreenshotQuestionQuickPromptSettings: NSObject, NSWindowDelegate {
     let heading = NSTextField(labelWithString: "自定义快捷问题")
     heading.font = .systemFont(ofSize: 20, weight: .semibold)
     let note = NSTextField(
-      wrappingLabelWithString: "最多 5 个。按钮名称用于显示，提问内容可以写得更完整。保存后立即生效。")
+      wrappingLabelWithString: "最多 5 个。所有快捷问题（包括“解题”）都可编辑、改名或删除。提问内容可以写得更完整，保存后立即生效。")
     note.textColor = .secondaryLabelColor
     addButton.target = self
     addButton.action = #selector(addPrompt)

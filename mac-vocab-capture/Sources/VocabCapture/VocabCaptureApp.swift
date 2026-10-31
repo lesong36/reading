@@ -11,6 +11,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private(set) var settingsWindow: SettingsWindow?
   private var settingsEditors: [SettingsSection: AnyObject] = [:]
   private var accountSettingsView: AccountSettingsView?
+  private let mathQuestionStore: MathQuestionStore
+  private(set) var mathQuestionLibrary: MathQuestionLibrary?
+  private var mathIndexTasks: [String: Task<Void, Never>] = [:]
   private let store: VocabularyStore
   private let dictionary: DictionaryClient
   private let defaults: UserDefaults
@@ -39,8 +42,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private var selectionLookupTask: Task<Void, Never>?
   private(set) var selectionPreview: DefinitionPreviewPanel?
   private var selectionLookupID = UUID()
-  private var selectionReadTask: Task<Void, Never>?
-  private var selectionReadID = UUID()
   private(set) var floatingReadTask: Task<Void, Never>?
   private(set) var floatingState = SelectionCaptureState()
   private var accountCaptureGeneration = UUID()
@@ -72,13 +73,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     readDictionaryKey: @escaping () -> String = { KeychainStore.readAPIKey() },
     saveDictionaryKey: @escaping (String) throws -> Void = { try KeychainStore.saveAPIKey($0) },
     browserBridge: BrowserContextBridge = .shared,
-    regionCapture: ScreenshotRegionCapture? = nil
+    regionCapture: ScreenshotRegionCapture? = nil,
+    mathQuestionStore: MathQuestionStore = MathQuestionStore()
   ) {
     self.shortcutPreferences = shortcutPreferences
     self.questionPreferences = questionPreferences
     self.searchPreferences = searchPreferences
     self.cloudSync = cloudSync
     self.store = store
+    self.mathQuestionStore = mathQuestionStore
     self.dictionary = dictionary
     self.defaults = defaults
     self.readDictionaryKey = readDictionaryKey
@@ -138,16 +141,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     hint.isEnabled = false
     menu.addItem(.separator())
     menu.addItem(
-      withTitle: "查选中词    \(currentShortcut.title)", action: #selector(captureSelectionAction),
-      keyEquivalent: ""
-    ).target = self
-    menu.addItem(
       withTitle: "截图取词    \(currentScreenshotShortcut.title)",
       action: #selector(captureScreenTextAction), keyEquivalent: ""
     ).target = self
     menu.addItem(makeScreenshotQuestionItem())
     menu.addItem(.separator())
     menu.addItem(withTitle: "最近收藏…", action: #selector(showRecentEntries), keyEquivalent: "")
+      .target = self
+    menu.addItem(withTitle: "数学题库…", action: #selector(openMathQuestionLibrary), keyEquivalent: "")
       .target = self
     menu.addItem(.separator())
     let settings = menu.addItem(withTitle: "设置…", action: #selector(openUnifiedSettings), keyEquivalent: ",")
@@ -325,38 +326,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     return item
   }
 
-  @objc func captureSelectionAction() {
-    readSelection(allowClipboard: true)
-  }
-
-  private func readSelection(allowClipboard: Bool) {
-    selectionReadTask?.cancel()
-    selectionLookupTask?.cancel()
-    selectionLookupID = UUID()
-    selectionPreview?.dismiss()
-    selectionPreview = nil
-    let readID = UUID()
-    selectionReadID = readID
-    selectionReadTask = Task {
-      let selection: SelectedText?
-      if AXIsProcessTrusted() {
-        selection = allowClipboard ? await SelectionReader.readAsync(browserBridge: browserBridge) : await SelectionReader.readFocusedSelectionAsync(browserBridge: browserBridge)
-      } else {
-        requestAccessibilityPermission()
-        selection = allowClipboard ? SelectionReader.fromServicePasteboard(.general) : nil
-      }
-      guard !Task.isCancelled, selectionReadID == readID else { return }
-      guard let selection else {
-        let message = AXIsProcessTrusted()
-          ? "请先选中英文单词或短语。若该 App 不支持读取选区，可复制包含原句的内容，或使用截图取词。"
-          : "请在系统设置 → 隐私与安全性 → 辅助功能允许拾词助手。也可先复制包含原句的内容或使用截图取词。"
-        showFailure(title: AXIsProcessTrusted() ? "没有读到选词" : "需要辅助功能权限", message)
-        return
-      }
-      capture(selection)
-    }
-  }
-
   private func requestAccessibilityPermission() {
     let key = kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String
     AXIsProcessTrustedWithOptions([key: true] as CFDictionary)
@@ -420,9 +389,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       } catch {
         guard !Task.isCancelled else { return }
         await MainActor.run {
-          self.setStatus("词")
-          restore()
-          self.showFailure(title: "OCR 识别失败", error.localizedDescription)
+          if destination == .question {
+            self.showScreenshot(text: "", image: image, destination: destination)
+          } else {
+            self.setStatus("词")
+            restore()
+            self.showFailure(title: "OCR 识别失败", error.localizedDescription)
+          }
         }
       }
     }
@@ -444,7 +417,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         onModelSettings: { [weak self] in self?.openQuestionModelSettings() },
         modelPreferences: questionPreferences, measuredAnswer: measuredScreenshotQuestion,
         webAnswer: webScreenshotQuestion,
-        onSearchSettings: { [weak self] in self?.openWebSearchSettings() })
+        onSearchSettings: { [weak self] in self?.openWebSearchSettings() },
+        originalImageData: MathQuestionIndexer.originalPNG(image),
+        saveQuestion: saveMathQuestion,
+        onOpenQuestion: { [weak self] id in self?.showMathQuestionLibrary(questionID: id) },
+        solutionModel: { [weak self] in self?.currentQuestionModel ?? "" })
       directQuestionPanel = panel
       panel.present()
       setStatus("词")
@@ -521,11 +498,55 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         self?.openQuestionModelSettings()
       }, questionPreferences: questionPreferences, measuredAsk: measuredScreenshotQuestion,
       webAsk: webScreenshotQuestion,
-      onSearchSettings: { [weak self] in self?.openWebSearchSettings() })
+      onSearchSettings: { [weak self] in self?.openWebSearchSettings() },
+      originalImageData: MathQuestionIndexer.originalPNG(image),
+      saveQuestion: saveMathQuestion,
+      onOpenQuestion: { [weak self] id in self?.showMathQuestionLibrary(questionID: id) },
+      solutionModel: { [weak self] in self?.currentQuestionModel ?? "" })
     panel.onRetake = { [weak self] in self?.captureScreenTextAction() }
     ocrPanel = panel
     panel.present()
     setStatus("词")
+  }
+
+  private var currentQuestionModel: String {
+    questionPreferences.configuration(fallingBackTo: configuration).model
+  }
+
+  var saveMathQuestion: MathQuestionSave {
+    { [weak self, store = mathQuestionStore] request in
+      // Ignore word-capture OCR: math indexing uses its own bilingual recognizer.
+      let record = try await store.save(MathQuestionSaveRequest(
+        captureID: request.captureID, imageData: request.imageData, solutions: request.solutions))
+      if record.ocrStatus != "ready" { self?.indexMathQuestion(record.id) }
+      self?.mathQuestionLibrary?.refresh()
+      return record
+    }
+  }
+
+  @objc func openMathQuestionLibrary() { showMathQuestionLibrary() }
+
+  func showMathQuestionLibrary(questionID: String? = nil) {
+    if mathQuestionLibrary == nil {
+      mathQuestionLibrary = MathQuestionLibrary(store: mathQuestionStore,
+        reindex: { [weak self] id in self?.indexMathQuestion(id) })
+    }
+    mathQuestionLibrary?.present(questionID: questionID)
+  }
+
+  private func indexMathQuestion(_ id: String) {
+    guard mathIndexTasks[id] == nil else { return }
+    mathIndexTasks[id] = Task { [weak self, store = mathQuestionStore] in
+      do {
+        let data = try await store.originalImage(questionID: id)
+        let text = try await MathQuestionIndexer.recognize(data)
+        try await store.updateOCR(questionID: id, text: text)
+      } catch {
+        try? await store.markOCRFailure(questionID: id)
+      }
+      self?.mathIndexTasks[id] = nil
+      self?.mathQuestionLibrary?.refresh()
+    }
   }
 
   private func questionImageData(_ image: CGImage) -> Data? {
@@ -578,9 +599,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let delegate = Unmanaged<AppDelegate>.fromOpaque(userInfo).takeUnretainedValue()
         // Use AppKit screen coordinates before queued handling can observe a moved pointer.
         let location = NSEvent.mouseLocation
+        let clickCount = event.getIntegerValueField(.mouseEventClickState)
         let processIdentifier = NSWorkspace.shared.frontmostApplication?.processIdentifier
         DispatchQueue.main.async {
-          delegate.handleMouseEvent(type, location: location,
+          delegate.handleMouseEvent(type, location: location, clickCount: clickCount,
             frontmostProcessIdentifier: processIdentifier)
         }
       }
@@ -632,7 +654,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   func handleMouseEvent(
-    _ type: CGEventType, location: CGPoint,
+    _ type: CGEventType, location: CGPoint, clickCount: Int64 = 1,
     frontmostProcessIdentifier: pid_t? = NSWorkspace.shared.frontmostApplication?.processIdentifier
   ) {
     if type == .keyDown {
@@ -678,7 +700,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         processIdentifier == frontmostProcessIdentifier,
         NSApp.modalWindow == nil,
         let start = selectionDragStart,
-        hypot(location.x - start.x, location.y - start.y) >= minimumSelectionDragDistance
+        clickCount == 2 || hypot(location.x - start.x, location.y - start.y) >= minimumSelectionDragDistance
       else { return }
       let revision = floatingState.revision
       floatingReadTask?.cancel()
@@ -872,10 +894,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         makePage: { [unowned self] in self.makeSettingsPage($0) },
         onSelection: { [weak self] section in
           guard let self, self.hotKeyHandler != nil else { return }
-          if section != .capture, self.hotKeyRefs.count != 3 { self.registerHotKey() }
+          if section != .capture, self.hotKeyRefs.count != 2 { self.registerHotKey() }
         }, onClose: { [weak self] in
           guard let self else { return }
-          if self.hotKeyHandler != nil, self.hotKeyRefs.count != 3 { self.registerHotKey() }
+          if self.hotKeyHandler != nil, self.hotKeyRefs.count != 2 { self.registerHotKey() }
           self.settingsWindow = nil
           self.settingsEditors.removeAll()
           self.shortcutSettings = nil
@@ -891,22 +913,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private func makeSettingsPage(_ section: SettingsSection) -> NSView {
     switch section {
     case .capture:
-      let editor = CaptureShortcutSettings(selection: currentShortcut, screenshot: currentScreenshotShortcut,
+      let editor = CaptureShortcutSettings(screenshot: currentScreenshotShortcut,
         questionScreenshot: currentQuestionScreenshotShortcut)
       shortcutSettings = editor
-      let form = editor.makeEmbeddedView(validateAndSave: { [weak self] selection, screenshot, questionScreenshot in
+      let form = editor.makeEmbeddedView(validateAndSave: { [weak self] screenshot, questionScreenshot in
         guard let self else { return "应用已关闭。" }
         if self.hotKeyHandler != nil {
-          if let error = self.installHotKeys(selection: selection, screenshot: screenshot, questionScreenshot: questionScreenshot) { return error }
+          if let error = self.installHotKeys(screenshot: screenshot, questionScreenshot: questionScreenshot) { return error }
           if self.shortcutSettings?.isRecording == true { self.unregisterHotKeys() }
         }
-        self.shortcutPreferences.save(selection: selection, screenshot: screenshot, questionScreenshot: questionScreenshot)
+        self.shortcutPreferences.save(screenshot: screenshot, questionScreenshot: questionScreenshot)
         self.statusItem?.menu = self.makeMenu()
         return nil
       }, onRecordingChange: { [weak self] recording in
         self?.updateShortcutRecording(recording)
       })
-      let floating = NSButton(checkboxWithTitle: "拖选英文后显示“拾词”按钮", target: self, action: #selector(toggleFloatingButton))
+      let floating = NSButton(checkboxWithTitle: "双击或拖选英文后显示“拾词”按钮", target: self, action: #selector(toggleFloatingButton))
       floating.state = floatingButtonEnabled ? .on : .off
       let pair = NSButton(title: "配对浏览器扩展…", target: self, action: #selector(pairBrowserExtension))
       let revoke = NSButton(title: "撤销配对", target: self, action: #selector(revokeBrowserPairing))
@@ -1075,7 +1097,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     guard hotKeyHandler != nil else { return }
     if recording, settingsWindow?.panel.isKeyWindow == true,
       settingsWindow?.selectedSection == .capture { unregisterHotKeys() }
-    else if hotKeyRefs.count != 3 { registerHotKey() }
+    else if hotKeyRefs.count != 2 { registerHotKey() }
   }
 
   private var configuration: AIConfiguration {
@@ -1093,7 +1115,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
   }
 
-  private var currentShortcut: CaptureShortcut { shortcutPreferences.currentSelection }
   private var currentScreenshotShortcut: CaptureShortcut { shortcutPreferences.currentScreenshot }
 
   private var currentQuestionScreenshotShortcut: CaptureShortcut {
@@ -1112,7 +1133,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
           event, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), nil,
           MemoryLayout<EventHotKeyID>.size, nil, &hotKeyID)
         switch hotKeyID.id {
-        case 1: delegate.captureSelectionAction()
         case 2: delegate.captureScreenTextAction()
         case 3: delegate.captureScreenQuestionAction()
         default: break
@@ -1127,17 +1147,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   private func installHotKeys(
-    selection: CaptureShortcut, screenshot: CaptureShortcut,
+    screenshot: CaptureShortcut,
     questionScreenshot: CaptureShortcut, allowPartial: Bool = false
   ) -> String? {
     if let error = CaptureShortcut.validationError(
-      selection: selection, screenshot: screenshot, questionScreenshot: questionScreenshot
+      screenshot: screenshot, questionScreenshot: questionScreenshot
     ) {
       return error
     }
     unregisterHotKeys()
     let bindings: [(UInt32, String, CaptureShortcut)] = [
-      (1, "选词", selection), (2, "截图取词", screenshot), (3, "截图问一问", questionScreenshot),
+      (2, "截图取词", screenshot), (3, "截图问一问", questionScreenshot),
     ]
     var failures: [String] = []
     for (id, name, shortcut) in bindings {
@@ -1160,7 +1180,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   private func registerHotKey() {
     if let error = installHotKeys(
-      selection: currentShortcut, screenshot: currentScreenshotShortcut,
+      screenshot: currentScreenshotShortcut,
       questionScreenshot: currentQuestionScreenshotShortcut, allowPartial: true
     ) {
       showFailure(title: "部分快捷键未启用", error + " 也可从菜单栏使用，并在“设置 → 取词与快捷键”中重新设置。")
@@ -1194,7 +1214,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   func applicationWillTerminate(_ notification: Notification) {
     stopSelectionMonitor()
-    selectionReadTask?.cancel()
     floatingReadTask?.cancel()
     selectionLookupTask?.cancel()
     screenshotTask?.cancel()

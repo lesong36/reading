@@ -7,7 +7,8 @@ extension XCTestCase {
   @MainActor
   func makeIsolatedAppDelegate(
     defaults providedDefaults: UserDefaults? = nil,
-    regionCapture: ScreenshotRegionCapture? = nil
+    regionCapture: ScreenshotRegionCapture? = nil,
+    mathQuestionStore: MathQuestionStore? = nil
   ) -> AppDelegate {
     let suite = "VocabCapture.IsolatedAppTests.\(UUID().uuidString)"
     let defaults = providedDefaults ?? UserDefaults(suiteName: suite)!
@@ -28,6 +29,8 @@ extension XCTestCase {
         defaults: defaults, readAPIKey: { "" }, saveAPIKey: { _ in }),
       defaults: defaults, readDictionaryKey: { "" }, saveDictionaryKey: { _ in },
       browserBridge: BrowserContextBridge(defaults: defaults),
-      regionCapture: regionCapture ?? ScreenshotRegionCapture(permission: { false }))
+      regionCapture: regionCapture ?? ScreenshotRegionCapture(permission: { false }),
+      mathQuestionStore: mathQuestionStore
+        ?? MathQuestionStore(directory: directory.appendingPathComponent("math")))
   }
 }

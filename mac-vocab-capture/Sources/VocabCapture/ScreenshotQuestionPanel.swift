@@ -13,6 +13,9 @@ typealias ScreenshotQuestionWebAnswer = (
   @escaping @MainActor @Sendable (String) -> Void
 ) async throws -> String
 
+typealias MathQuestionSave =
+  @MainActor @Sendable (MathQuestionSaveRequest) async throws -> MathQuestionRecord
+
 @MainActor
 final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
   private let source = NSTextField(wrappingLabelWithString: "")
@@ -22,6 +25,21 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
   private let stopButton = NSButton(title: "停止", target: nil, action: nil)
   private let imageCheckbox = NSButton(checkboxWithTitle: "参考原截图", target: nil, action: nil)
   private let status = NSTextField(wrappingLabelWithString: "输入问题，或点击快捷问题开始。")
+  private let saveQuestionButton = NSButton(title: "保存题目", target: nil, action: nil)
+  private let openQuestionButton = NSButton(title: "查看已保存题目", target: nil, action: nil)
+  private let saveStatus = NSTextField(wrappingLabelWithString: "")
+  private let saveQuestion: MathQuestionSave?
+  private let onOpenQuestion: (@MainActor (String) -> Void)?
+  private let solutionModel: (@MainActor () -> String)?
+  private var originalImageData: Data?
+  private var captureID = UUID().uuidString
+  private var saveRevision = UUID()
+  private var saveTask: Task<Void, Never>?
+  private var persistenceFollowupScheduled = false
+  private var completedSolutions: [MathQuestionSolution] = []
+  private var persistedSolutionIDs: Set<String> = []
+  private(set) var savedQuestionID: String?
+  private(set) var isSavingQuestion = false
   private let suggestions = NSStackView()
   private let performanceLabel = NSTextField(wrappingLabelWithString: "")
   private let searchCheckbox = NSButton(checkboxWithTitle: "联网检索", target: nil, action: nil)
@@ -64,8 +82,16 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     interfaceDefaults: UserDefaults = .standard,
     now: @escaping () -> TimeInterval = { ProcessInfo.processInfo.systemUptime },
     webAnswer: ScreenshotQuestionWebAnswer? = nil,
-    onSearchSettings: (() -> Void)? = nil
+    onSearchSettings: (() -> Void)? = nil,
+    originalImageData: Data? = nil,
+    saveQuestion: MathQuestionSave? = nil,
+    onOpenQuestion: (@MainActor (String) -> Void)? = nil,
+    solutionModel: (@MainActor () -> String)? = nil
   ) {
+    self.originalImageData = originalImageData
+    self.saveQuestion = saveQuestion
+    self.onOpenQuestion = onOpenQuestion
+    self.solutionModel = solutionModel
     self.webAnswer = webAnswer
     self.onSearchSettings = onSearchSettings
     self.measuredAnswer = measuredAnswer
@@ -97,6 +123,7 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     isClosed = false
     refreshModels()
     refreshSuggestions()
+    refreshSaveControls()
     bringToFront()
     updateTranscriptWidth()
     makeFirstResponder(question)
@@ -121,10 +148,31 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
       height: CGFloat.greatestFiniteMagnitude)
   }
 
-  func updateContext(_ newContext: ScreenshotQuestionContext) {
+  func updateContext(
+    _ newContext: ScreenshotQuestionContext, originalImageData newOriginal: Data? = nil
+  ) {
+    let changedImage =
+      newContext.imageData != context.imageData
+      || (newOriginal != nil && newOriginal != originalImageData)
+    if changedImage {
+      preservePendingCapturePersistence()
+      persistenceFollowupScheduled = false
+      saveRevision = UUID()
+      captureID = UUID().uuidString
+      originalImageData = newOriginal
+      saveTask = nil  // Explicit saves for the previous capture continue independently.
+      isSavingQuestion = false
+      savedQuestionID = nil
+      completedSolutions.removeAll()
+      persistedSolutionIDs.removeAll()
+      saveStatus.stringValue = ""
+    } else if let newOriginal {
+      originalImageData = newOriginal
+    }
+    refreshSaveControls()
     guard
       newContext.text != context.text || newContext.selectedWord != context.selectedWord
-        || newContext.imageData != context.imageData
+        || changedImage
     else { return }
     cancelAnswer()
     context = newContext
@@ -140,7 +188,11 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
   }
 
   func windowWillClose(_ notification: Notification) {
+    preservePendingCapturePersistence()
     isClosed = true
+    saveRevision = UUID()
+    isSavingQuestion = false
+    saveTask = nil
     cancelAnswer()
     quickPromptSettings?.panel.close()
     quickPromptSettings = nil
@@ -288,8 +340,29 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
       row.orientation = .horizontal
       row.spacing = 10
     }
+    saveQuestionButton.target = self
+    saveQuestionButton.action = #selector(saveCapturedQuestion)
+    saveQuestionButton.bezelStyle = .rounded
+    saveQuestionButton.setAccessibilityLabel("保存题目原图")
+    saveQuestionButton.toolTip = "保存原始截图；无需等待解题。AI 回答单独记录，尚未核实。"
+    openQuestionButton.target = self
+    openQuestionButton.action = #selector(openSavedQuestion)
+    openQuestionButton.bezelStyle = .rounded
+    saveStatus.font = .systemFont(ofSize: 12)
+    saveStatus.textColor = .secondaryLabelColor
+    saveStatus.maximumNumberOfLines = 2
+    saveStatus.setAccessibilityLabel("题目保存状态")
+    let saveRow = NSStackView(views: [
+      saveQuestionButton, openQuestionButton, NSView(),
+    ])
+    saveRow.orientation = .horizontal
+    saveRow.spacing = 10
+    saveRow.isHidden = saveQuestion == nil
+    saveStatus.isHidden = saveQuestion == nil
+    refreshSaveControls()
     let column = NSStackView(views: [
       headingRow, modelRow, source, scroll, suggestions, input, controls, status, performanceLabel,
+      saveRow, saveStatus,
     ])
     column.orientation = .vertical
     column.alignment = .leading
@@ -308,6 +381,7 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     ])
     for view in [
       headingRow, modelRow, source, scroll, suggestions, input, status, performanceLabel, controls,
+      saveRow, saveStatus,
     ] {
       view.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
     }
@@ -427,7 +501,7 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
   private func updateMinimumHeight() {
     let extraRows = max(0, suggestions.arrangedSubviews.count - 1)
     let required =
-      580 + CGFloat(extraRows) * 28 + max(0, zoomScale - 1) * 80
+      580 + (saveQuestion == nil ? 0 : 64) + CGFloat(extraRows) * 28 + max(0, zoomScale - 1) * 80
     minSize = NSSize(width: 600, height: required)
     if frame.height < required {
       var expanded = frame
@@ -521,6 +595,9 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     guard let id = sender.identifier?.rawValue,
       let prompt = quickPrompts.prompts.first(where: { $0.id == id })
     else { return }
+    if context.imageData != nil && (prompt.id == "solve" || prompt.title == "解题") {
+      imageCheckbox.state = .on
+    }
     question.stringValue = prompt.prompt
     ask()
   }
@@ -543,6 +620,7 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
       imageData: imageCheckbox.state == .on ? context.imageData : nil)
     let searchEnabled = webAnswer != nil && searchCheckbox.state == .on
     let previous = history
+    let modelSnapshot = solutionModel?() ?? "未知模型"
     let requestID = UUID()
     revision = requestID
     pendingQuestion = submitted
@@ -617,16 +695,105 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
         }
         guard self.revision == requestID, !self.isClosed, !Task.isCancelled else { return }
         self.history.append(ScreenshotQuestionTurn(question: submitted, answer: result))
+        if !result.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+          self.completedSolutions.append(
+            MathQuestionSolution(
+              id: requestID.uuidString, question: submitted, answer: result,
+              model: modelSnapshot, createdAt: Date()))
+        }
         self.pendingQuestion = nil
         self.partialAnswer = ""
         self.renderTranscript()
         self.finishAnswer(status: "回答完成，可继续追问。")
+        self.refreshSaveControls()
+        if self.savedQuestionID != nil { self.saveCapturedQuestion() }
       } catch {
         guard self.revision == requestID, !self.isClosed, !Task.isCancelled else { return }
         self.pendingOutcome = "回答失败，以上内容尚未完成。"
         self.restoreQuestionIfEmpty()
         self.renderTranscript()
         self.finishAnswer(status: "回答失败：\(error.localizedDescription) 可重新提问。")
+      }
+    }
+  }
+
+  private func refreshSaveControls() {
+    saveQuestionButton.isHidden = saveQuestion == nil
+    saveQuestionButton.isEnabled =
+      saveQuestion != nil && originalImageData != nil && !isSavingQuestion
+    saveQuestionButton.title =
+      isSavingQuestion ? "正在保存…" : (savedQuestionID == nil ? "保存题目" : "已保存题目")
+    openQuestionButton.isHidden = savedQuestionID == nil || onOpenQuestion == nil
+    if saveQuestion != nil && originalImageData == nil {
+      saveStatus.stringValue = "缺少原始截图，请重新截图后保存。"
+    }
+  }
+
+  @objc private func openSavedQuestion() {
+    guard let savedQuestionID else { return }
+    onOpenQuestion?(savedQuestionID)
+  }
+
+  /// Explicitly saved captures must retain already-completed answers even after their UI goes away.
+  /// Capture the request now: the next screenshot must never become part of this follow-up.
+  private func preservePendingCapturePersistence() {
+    guard !persistenceFollowupScheduled, isSavingQuestion, let previousSave = saveTask,
+      let saveQuestion, let originalImageData,
+      completedSolutions.contains(where: { !persistedSolutionIDs.contains($0.id) })
+    else { return }
+    persistenceFollowupScheduled = true
+    let request = MathQuestionSaveRequest(
+      captureID: captureID, imageData: originalImageData, ocrText: context.text,
+      solutions: completedSolutions)
+    Task {
+      await previousSave.value
+      // This task intentionally survives window closure; the immutable capture is the save target.
+      do {
+        _ = try await saveQuestion(request)
+      } catch {
+        // The source window has gone away; retain a local diagnostic without logging its contents.
+        NSLog("题目完整回答追加保存失败：%@", error.localizedDescription)
+      }
+    }
+  }
+
+  @objc private func saveCapturedQuestion() {
+    guard !isClosed, !isSavingQuestion, let saveQuestion, let originalImageData else { return }
+    let pending = completedSolutions.filter { !persistedSolutionIDs.contains($0.id) }
+    if savedQuestionID != nil && pending.isEmpty { return }
+    let request = MathQuestionSaveRequest(
+      captureID: captureID, imageData: originalImageData, ocrText: context.text,
+      solutions: completedSolutions)
+    let generation = saveRevision
+    persistenceFollowupScheduled = false
+    isSavingQuestion = true
+    saveStatus.stringValue = savedQuestionID == nil ? "正在保存题目原图…" : "正在追加完整回答…"
+    refreshSaveControls()
+    saveTask = Task { [weak self] in
+      do {
+        let record = try await saveQuestion(request)
+        guard let self, self.saveRevision == generation, !self.isClosed else { return }
+        self.savedQuestionID = record.id
+        self.persistedSolutionIDs.formUnion(request.solutions.map(\.id))
+        self.isSavingQuestion = false
+        self.saveTask = nil
+        self.saveStatus.stringValue =
+          self.completedSolutions.isEmpty
+          ? "题目已保存 · 暂无解题过程"
+          : "题目已保存 · AI 回答已附存，尚未核实"
+        self.refreshSaveControls()
+        // A completed answer may arrive while the original image is being persisted.
+        if self.completedSolutions.contains(where: { !self.persistedSolutionIDs.contains($0.id) }) {
+          self.saveCapturedQuestion()
+        }
+      } catch {
+        guard let self, self.saveRevision == generation, !self.isClosed else { return }
+        self.isSavingQuestion = false
+        self.saveTask = nil
+        self.saveStatus.stringValue = "保存失败：\(error.localizedDescription) · 可点击重试"
+        self.saveQuestionButton.title = "重试保存题目"
+        self.refreshSaveControls()
+        self.saveQuestionButton.title = "重试保存题目"
       }
     }
   }

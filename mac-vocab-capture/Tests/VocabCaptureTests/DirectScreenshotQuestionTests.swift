@@ -43,7 +43,7 @@ final class DirectScreenshotQuestionTests: XCTestCase {
     let preferences = ShortcutPreferences(defaults: defaults)
     let custom = try XCTUnwrap(CaptureShortcut.recorded(keyCode: 12, flags: [.control, .option]))
     preferences.save(
-      selection: .defaultSelection, screenshot: .defaultScreenshot, questionScreenshot: custom)
+      screenshot: .defaultScreenshot, questionScreenshot: custom)
     let item = appDelegate.makeScreenshotQuestionItem()
     XCTAssertEqual(item.title, "截图问一问    \(custom.title)")
     XCTAssertTrue(item.target === appDelegate)

@@ -35,10 +35,10 @@ final class CaptureQuestionShortcutSettingsTests: XCTestCase {
   func testQuestionRecorderUpdatesAccessibleValueAndSavesIndependently() throws {
     _ = NSApplication.shared
     let settings = CaptureShortcutSettings(
-      selection: .defaultSelection, screenshot: .defaultScreenshot)
+      screenshot: .defaultScreenshot)
     var saved: [CaptureShortcut] = []
     settings.present(validateAndSave: {
-      saved = [$0, $1, $2]
+      saved = [$0, $1]
       return nil
     })
     defer { settings.panel.close() }
@@ -53,7 +53,7 @@ final class CaptureQuestionShortcutSettingsTests: XCTestCase {
     XCTAssertEqual(
       saved,
       [
-        .defaultSelection, .defaultScreenshot,
+        .defaultScreenshot,
         CaptureShortcut.recorded(keyCode: UInt32(kVK_ANSI_Q), flags: [.option, .command])!,
       ])
   }
@@ -61,9 +61,9 @@ final class CaptureQuestionShortcutSettingsTests: XCTestCase {
   func testQuestionConflictBlocksCallbackUntilCorrected() throws {
     _ = NSApplication.shared
     let settings = CaptureShortcutSettings(
-      selection: .defaultSelection, screenshot: .defaultScreenshot)
+      screenshot: .defaultScreenshot)
     var saves = 0
-    settings.present(validateAndSave: { _, _, _ in
+    settings.present(validateAndSave: { _, _ in
       saves += 1
       return nil
     })
@@ -79,35 +79,34 @@ final class CaptureQuestionShortcutSettingsTests: XCTestCase {
     XCTAssertEqual(saves, 1)
   }
 
-  func testRestoreDefaultsResetsAllThreeAndScreenshotPresetOnlyChangesScreenshot() throws {
+  func testRestoreDefaultsResetsBothScreenshotBindingsAndScreenshotPresetOnlyChangesScreenshot() throws {
     _ = NSApplication.shared
     let settings = CaptureShortcutSettings(
-      selection: CaptureShortcut.selectionPresets[1], screenshot: .alternateScreenshot,
+      screenshot: .alternateScreenshot,
       questionScreenshot: CaptureShortcut.questionScreenshotFallbacks[2])
     var saved: [CaptureShortcut] = []
     settings.present(validateAndSave: {
-      saved = [$0, $1, $2]
+      saved = [$0, $1]
       return nil
     })
     defer { settings.panel.close() }
     try button("⌥D", in: settings).performClick(nil)
-    XCTAssertEqual(try recorder("选中文字查词", in: settings).accessibilityValue() as? String, "⌃⌥D")
     XCTAssertEqual(try recorder("截图取词", in: settings).accessibilityValue() as? String, "⌥D")
     XCTAssertEqual(try recorder("截图问一问", in: settings).accessibilityValue() as? String, "⌃⌥A")
     try button("恢复默认", in: settings).performClick(nil)
     XCTAssertEqual(try recorder("截图问一问", in: settings).accessibilityValue() as? String, "⌥⌘A")
     try button("保存", in: settings).performClick(nil)
-    XCTAssertEqual(saved, [.defaultSelection, .defaultScreenshot, .defaultQuestionScreenshot])
+    XCTAssertEqual(saved, [.defaultScreenshot, .defaultQuestionScreenshot])
   }
 
   func testEscapeCancelsQuestionRecorderWithoutSavingAndClosesOnce() throws {
     _ = NSApplication.shared
     let settings = CaptureShortcutSettings(
-      selection: .defaultSelection, screenshot: .defaultScreenshot)
+      screenshot: .defaultScreenshot)
     var saves = 0
     var closes = 0
     settings.present(
-      validateAndSave: { _, _, _ in
+      validateAndSave: { _, _ in
         saves += 1
         return nil
       }, onClose: { closes += 1 })
@@ -121,19 +120,19 @@ final class CaptureQuestionShortcutSettingsTests: XCTestCase {
     XCTAssertEqual(closes, 1)
   }
 
-  func testReturnInQuestionRecorderSavesAllThree() throws {
+  func testReturnInQuestionRecorderSavesBothScreenshotBindings() throws {
     _ = NSApplication.shared
     let question = CaptureShortcut.questionScreenshotFallbacks[1]
     let settings = CaptureShortcutSettings(
-      selection: .defaultSelection, screenshot: .simpleScreenshot, questionScreenshot: question)
+      screenshot: .simpleScreenshot, questionScreenshot: question)
     var saved: [CaptureShortcut] = []
     settings.present(validateAndSave: {
-      saved = [$0, $1, $2]
+      saved = [$0, $1]
       return nil
     })
     defer { settings.panel.close() }
     try record(kVK_Return, flags: [], in: recorder("截图问一问", in: settings))
-    XCTAssertEqual(saved, [.defaultSelection, .simpleScreenshot, question])
+    XCTAssertEqual(saved, [.simpleScreenshot, question])
     XCTAssertFalse(settings.panel.isVisible)
   }
 }

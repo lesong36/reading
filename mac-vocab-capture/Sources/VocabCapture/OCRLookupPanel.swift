@@ -1,7 +1,9 @@
 import AppKit
 
 @MainActor
-final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegate, NSTextFieldDelegate {
+final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegate,
+  NSTextFieldDelegate
+{
   private let original = OCRTextView()
   private let targetWord = NSTextField()
   private let meaning = NSTextField(wrappingLabelWithString: "")
@@ -15,7 +17,9 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
   private var selectionRange: NSRange?
   private var lookupTask: Task<Void, Never>?
   private var savedRevision: UUID?
-  private var canSave: Bool { !isSaving && savedRevision != revision && result != nil && resultSelection != nil }
+  private var canSave: Bool {
+    !isSaving && savedRevision != revision && result != nil && resultSelection != nil
+  }
   private var saveTask: Task<Void, Never>?
   private var revision = UUID()
   private var result: DictionaryResult?
@@ -31,6 +35,10 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
   private let onSearchSettings: (() -> Void)?
   private let ask: ScreenshotQuestionAnswer?
   private let screenshotImageData: Data?
+  private let originalImageData: Data?
+  private let saveQuestion: MathQuestionSave?
+  private let onOpenQuestion: (@MainActor (String) -> Void)?
+  private let solutionModel: (@MainActor () -> String)?
   private let onQuestionSettings: (() -> Void)?
   private let questionPreferences: ScreenshotQuestionPreferences?
   private var questionPanel: ScreenshotQuestionPanel?
@@ -48,8 +56,16 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     questionPreferences: ScreenshotQuestionPreferences? = nil,
     measuredAsk: ScreenshotQuestionMeasuredAnswer? = nil,
     webAsk: ScreenshotQuestionWebAnswer? = nil,
-    onSearchSettings: (() -> Void)? = nil
+    onSearchSettings: (() -> Void)? = nil,
+    originalImageData: Data? = nil,
+    saveQuestion: MathQuestionSave? = nil,
+    onOpenQuestion: (@MainActor (String) -> Void)? = nil,
+    solutionModel: (@MainActor () -> String)? = nil
   ) {
+    self.originalImageData = originalImageData
+    self.saveQuestion = saveQuestion
+    self.onOpenQuestion = onOpenQuestion
+    self.solutionModel = solutionModel
     self.lookup = lookup
     self.save = save
     self.screenshotImageData = imageData
@@ -420,7 +436,9 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     let panel = ScreenshotQuestionPanel(
       context: questionContext, answer: ask, onModelSettings: onQuestionSettings,
       modelPreferences: questionPreferences, measuredAnswer: measuredAsk,
-      webAnswer: webAsk, onSearchSettings: onSearchSettings)
+      webAnswer: webAsk, onSearchSettings: onSearchSettings,
+      originalImageData: originalImageData, saveQuestion: saveQuestion,
+      onOpenQuestion: onOpenQuestion, solutionModel: solutionModel)
     questionPanel = panel
     panel.present()
   }

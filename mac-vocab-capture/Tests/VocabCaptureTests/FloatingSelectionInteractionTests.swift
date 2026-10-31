@@ -151,4 +151,80 @@ final class FloatingSelectionInteractionTests: XCTestCase {
     XCTAssertNil(delegate.floatingSelectionPanel)
   }
 
+  func testDoubleClickWithoutDraggingStartsSelectionReadButNotLookup() {
+    let point = CGPoint(x: -100, y: -100)
+    send(.leftMouseDown, at: point)
+    send(.leftMouseUp, at: point)
+    XCTAssertNil(delegate.floatingReadTask)
+    delegate.handleMouseEvent(.leftMouseDown, location: point, clickCount: 2,
+      frontmostProcessIdentifier: externalProcess)
+    delegate.handleMouseEvent(.leftMouseUp, location: point, clickCount: 2,
+      frontmostProcessIdentifier: externalProcess)
+    XCTAssertNotNil(delegate.floatingReadTask)
+    XCTAssertNil(delegate.selectionPreview)
+  }
+
+  func testSingleClickAndSmallPointerMovementDoNotReadSelection() {
+    send(.leftMouseDown, at: CGPoint(x: -100, y: -100))
+    send(.leftMouseUp, at: CGPoint(x: -98, y: -100))
+    XCTAssertNil(delegate.floatingReadTask)
+    XCTAssertNil(delegate.floatingSelectionPanel)
+  }
+
+  func testDragStillReadsSelection() {
+    send(.leftMouseDown, at: CGPoint(x: -100, y: -100))
+    send(.leftMouseUp, at: CGPoint(x: -80, y: -100))
+    XCTAssertNotNil(delegate.floatingReadTask)
+    XCTAssertNil(delegate.selectionPreview)
+  }
+
+  func testDoubleClickCannotCompleteInAnotherSourceApplication() {
+    let point = CGPoint(x: -100, y: -100)
+    delegate.handleMouseEvent(.leftMouseDown, location: point, clickCount: 2,
+      frontmostProcessIdentifier: externalProcess)
+    delegate.handleMouseEvent(.leftMouseUp, location: point, clickCount: 2,
+      frontmostProcessIdentifier: -2)
+    XCTAssertNil(delegate.floatingReadTask)
+  }
+
+  func testDoubleClickInOwnAppDoesNotReadSelection() {
+    let point = CGPoint(x: -100, y: -100)
+    for type in [CGEventType.leftMouseDown, .leftMouseUp] {
+      delegate.handleMouseEvent(type, location: point, clickCount: 2,
+        frontmostProcessIdentifier: ProcessInfo.processInfo.processIdentifier)
+    }
+    XCTAssertNil(delegate.floatingReadTask)
+  }
+
+  func testDoubleClickOnFloatingButtonKeepsAcceptedSelection() throws {
+    let selection = SelectedText(word: "curious", context: "A curious reader explores.")
+    let panel = try show(selection)
+    let revision = delegate.floatingState.revision
+    let point = CGPoint(x: panel.frame.midX, y: panel.frame.midY)
+    for type in [CGEventType.leftMouseDown, .leftMouseUp] {
+      delegate.handleMouseEvent(type, location: point, clickCount: 2,
+        frontmostProcessIdentifier: externalProcess)
+    }
+    XCTAssertEqual(delegate.floatingState.revision, revision)
+    XCTAssertEqual(delegate.floatingState.selection?.word, "curious")
+    XCTAssertTrue(panel.isVisible)
+    XCTAssertNil(delegate.floatingReadTask)
+  }
+
+  func testDoubleClickWithFloatingDisabledDoesNotReadSelection() {
+    let suite = "VocabCapture.DoubleClickDisabled.\(UUID().uuidString)"
+    let defaults = UserDefaults(suiteName: suite)!
+    defaults.set(false, forKey: "VocabCapture.floatingButtonEnabled")
+    addTeardownBlock { defaults.removePersistentDomain(forName: suite) }
+    delegate.applicationWillTerminate(Notification(name: NSApplication.willTerminateNotification))
+    delegate = makeIsolatedAppDelegate(defaults: defaults)
+    let point = CGPoint(x: -100, y: -100)
+    for type in [CGEventType.leftMouseDown, .leftMouseUp] {
+      delegate.handleMouseEvent(type, location: point, clickCount: 2,
+        frontmostProcessIdentifier: externalProcess)
+    }
+    XCTAssertNil(delegate.floatingReadTask)
+    XCTAssertNil(delegate.floatingSelectionPanel)
+  }
+
 }

@@ -73,8 +73,8 @@ final class UnifiedSettingsTests: XCTestCase {
     _ = NSApplication.shared
     var recording: [Bool] = []
     var keyStates: [Bool] = []
-    let editor = CaptureShortcutSettings(selection: .defaultSelection, screenshot: .defaultScreenshot)
-    let form = editor.makeEmbeddedView(validateAndSave: { _, _, _ in nil }, onRecordingChange: { recording.append($0) })
+    let editor = CaptureShortcutSettings(screenshot: .defaultScreenshot)
+    let form = editor.makeEmbeddedView(validateAndSave: { _, _ in nil }, onRecordingChange: { recording.append($0) })
     let window = SettingsWindow(makePage: { _ in form }, onKeyChange: { keyStates.append($0) })
     window.select(.capture)
     let recorder = try XCTUnwrap(views(form).first { $0.accessibilityLabel() == "截图取词" })
