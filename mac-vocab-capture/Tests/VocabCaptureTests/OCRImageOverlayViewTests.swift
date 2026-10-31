@@ -67,6 +67,21 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertEqual(indices.count, 1)
   }
 
+  func testHoverAndClickShareNearestTokenHitResolution() {
+    let tokens = [
+      OCROverlayToken(text: "left", boundingBox: CGRect(x: 0.20, y: 0.4, width: 0.02, height: 0.05), confidence: 1),
+      OCROverlayToken(text: "right", boundingBox: CGRect(x: 0.24, y: 0.4, width: 0.02, height: 0.05), confidence: 1),
+    ]
+    let point = CGPoint(x: 23, y: 53)
+    let click = OCROverlayLayout.selectedTokenIndices(
+      tokens: tokens, imageRect: CGRect(x: 0, y: 0, width: 100, height: 100),
+      selectionRect: .zero, point: point)
+    let hover = OCROverlayLayout.selectedTokenIndices(
+      tokens: tokens, imageRect: CGRect(x: 0, y: 0, width: 100, height: 100),
+      selectionRect: .zero, point: point)
+    XCTAssertEqual(hover, click)
+  }
+
   func testKeyboardNavigationConfirmsFocusedToken() {
     let view = OCRImageOverlayView(
       image: NSImage(size: NSSize(width: 100, height: 100)),
