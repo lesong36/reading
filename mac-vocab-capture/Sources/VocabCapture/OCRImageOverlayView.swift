@@ -252,7 +252,11 @@ final class OCRImageOverlayView: NSView {
     guard !tokens.isEmpty else { super.keyDown(with: event); return }
     if event.modifierFlags.contains(.command), event.keyCode == 0 {
       let ordered = tokens.indices.sorted { OCROverlayLayout.readingOrder(lhs: tokens[$0], rhs: tokens[$1]) }
-      emitSelection(ordered)
+      selectedIndices = Set(ordered)
+      let text = ordered.map { tokens[$0].text }.joined(separator: " ")
+      setAccessibilityValue(text)
+      toolTip = "已全选：\(text)；按 ⌘C 复制"
+      needsDisplay = true
       return
     }
     if event.modifierFlags.contains(.command), event.keyCode == 8, !selectedIndices.isEmpty {
