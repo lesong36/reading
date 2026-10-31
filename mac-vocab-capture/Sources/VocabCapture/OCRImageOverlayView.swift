@@ -113,7 +113,8 @@ final class OCRImageOverlayView: NSView {
     let imageRect = OCROverlayLayout.imageRect(for: image.size, in: bounds)
     image.draw(in: imageRect, from: .zero, operation: .sourceOver, fraction: 1)
     for (index, token) in tokens.enumerated() {
-      let confidence = max(0.08, min(0.28, CGFloat(token.confidence) * 0.28))
+      // Keep the source image legible; interaction states provide the stronger signal.
+      let confidence = max(0.025, min(0.12, CGFloat(token.confidence) * 0.12))
       NSColor.systemBlue.withAlphaComponent(confidence).setFill()
       let rect = OCROverlayLayout.rect(for: token.boundingBox, imageRect: imageRect).insetBy(dx: -2, dy: -2)
       rect.fill()
