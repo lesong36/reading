@@ -25,23 +25,36 @@ enum OCROverlayLayout {
   static func selectedTokenIndices(
     tokens: [OCROverlayToken], imageRect: CGRect, selectionRect: CGRect, point: CGPoint
   ) -> [Int] {
-    tokens.enumerated().filter { _, token in
+    let isClick = selectionRect.width < 4 && selectionRect.height < 4
+    let matches = tokens.enumerated().filter { _, token in
       let rect = rect(for: token.boundingBox, imageRect: imageRect)
-      return selectionRect.width < 4 && selectionRect.height < 4
-        ? hitRect(for: rect).contains(point)
-        : rect.intersects(selectionRect)
+      return isClick ? hitRect(for: rect).contains(point) : rect.intersects(selectionRect)
     }.sorted {
+      if isClick {
+        let a = rect(for: $0.element.boundingBox, imageRect: imageRect)
+        let b = rect(for: $1.element.boundingBox, imageRect: imageRect)
+        return a.distanceSquared(to: point) < b.distanceSquared(to: point)
+      }
       if abs($0.element.boundingBox.maxY - $1.element.boundingBox.maxY) > 0.02 {
         return $0.element.boundingBox.maxY > $1.element.boundingBox.maxY
       }
       return $0.element.boundingBox.minX < $1.element.boundingBox.minX
     }.map(\.offset)
+    return isClick ? Array(matches.prefix(1)) : matches
   }
 
   static func hitRect(for rect: CGRect, minimumSize: CGFloat = 12) -> CGRect {
     let dx = max(0, (minimumSize - rect.width) / 2)
     let dy = max(0, (minimumSize - rect.height) / 2)
     return rect.insetBy(dx: -dx, dy: -dy)
+  }
+}
+
+private extension CGRect {
+  func distanceSquared(to point: CGPoint) -> CGFloat {
+    let dx = point.x - midX
+    let dy = point.y - midY
+    return dx * dx + dy * dy
   }
 }
 

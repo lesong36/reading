@@ -55,4 +55,15 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertLessThan(token.confidence, 0.6)
     XCTAssertEqual(token.text, "uncertain")
   }
+
+  func testClickChoosesNearestTokenWhenMinimumHitTargetsOverlap() {
+    let tokens = [
+      OCROverlayToken(text: "left", boundingBox: CGRect(x: 0.20, y: 0.4, width: 0.02, height: 0.05), confidence: 1),
+      OCROverlayToken(text: "right", boundingBox: CGRect(x: 0.24, y: 0.4, width: 0.02, height: 0.05), confidence: 1),
+    ]
+    let indices = OCROverlayLayout.selectedTokenIndices(
+      tokens: tokens, imageRect: CGRect(x: 0, y: 0, width: 100, height: 100),
+      selectionRect: CGRect(x: 23, y: 53, width: 0, height: 0), point: CGPoint(x: 23, y: 53))
+    XCTAssertEqual(indices.count, 1)
+  }
 }
