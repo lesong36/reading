@@ -255,4 +255,22 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertEqual(menu.items.map(\.title), ["查询“word”", "", "复制识别文字"])
     XCTAssertEqual(view.accessibilityValue() as? String, "word")
   }
+
+  func testDoubleClickOnOCRTargetStillSelectsTheWord() throws {
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [.init(text: "word", boundingBox: CGRect(x: 0, y: 0, width: 1, height: 1), confidence: 1)])
+    view.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+    var selected = ""
+    view.onSelection = { selected = $0 }
+    let down = try XCTUnwrap(NSEvent.mouseEvent(
+      with: .leftMouseDown, location: CGPoint(x: 50, y: 50), modifierFlags: [], timestamp: 0,
+      windowNumber: 0, context: nil, eventNumber: 1, clickCount: 2, pressure: 1))
+    let up = try XCTUnwrap(NSEvent.mouseEvent(
+      with: .leftMouseUp, location: CGPoint(x: 50, y: 50), modifierFlags: [], timestamp: 0,
+      windowNumber: 0, context: nil, eventNumber: 2, clickCount: 2, pressure: 0))
+    view.mouseDown(with: down)
+    view.mouseUp(with: up)
+    XCTAssertEqual(selected, "word")
+  }
 }

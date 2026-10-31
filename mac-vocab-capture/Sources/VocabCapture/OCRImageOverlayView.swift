@@ -89,6 +89,7 @@ final class OCRImageOverlayView: NSView {
   private var panOffset: CGPoint = .zero
   private var panStart: CGPoint?
   private var panOrigin: CGPoint = .zero
+  private var didResetZoomOnMouseDown = false
 
   init(image: NSImage, tokens: [OCROverlayToken]) {
     self.image = image
@@ -180,6 +181,7 @@ final class OCRImageOverlayView: NSView {
 
   override func mouseDown(with event: NSEvent) {
     window?.makeFirstResponder(self)
+    didResetZoomOnMouseDown = false
     if zoomScale > 1, event.modifierFlags.contains(.option) {
       panStart = convert(event.locationInWindow, from: nil)
       panOrigin = panOffset
@@ -192,6 +194,7 @@ final class OCRImageOverlayView: NSView {
         tokens: tokens, imageRect: currentImageRect(), selectionRect: .zero, point: point).first
       if hit == nil {
         setZoomScale(1)
+        didResetZoomOnMouseDown = true
         hoveredIndex = nil
         toolTip = "点击单词或拖选词组"
         setAccessibilityValue(nil)
@@ -223,7 +226,10 @@ final class OCRImageOverlayView: NSView {
       return
     }
     defer { dragStart = nil; dragCurrent = nil; needsDisplay = true }
-    if event.clickCount == 2, zoomScale == 1 { return }
+    if didResetZoomOnMouseDown {
+      didResetZoomOnMouseDown = false
+      return
+    }
     let point = convert(event.locationInWindow, from: nil)
     let imageRect = currentImageRect()
     let selectionRect = CGRect(
