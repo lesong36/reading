@@ -105,6 +105,10 @@ final class OCRImageOverlayView: NSView {
       NSColor.systemBlue.withAlphaComponent(confidence).setFill()
       let rect = OCROverlayLayout.rect(for: token.boundingBox, imageRect: imageRect).insetBy(dx: -2, dy: -2)
       rect.fill()
+      if selectedIndices.contains(index) {
+        NSColor.controlAccentColor.withAlphaComponent(0.16).setFill()
+        rect.fill()
+      }
       if token.confidence < OCROverlayLayout.lowConfidenceThreshold {
         NSColor.systemOrange.withAlphaComponent(0.75).setStroke()
         let path = NSBezierPath(rect: rect)
