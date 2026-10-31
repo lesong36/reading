@@ -259,6 +259,7 @@ final class OCRImageOverlayView: NSView {
     let imageRect = currentImageRect()
     let next = OCROverlayLayout.selectedTokenIndices(
       tokens: tokens, imageRect: imageRect, selectionRect: .zero, point: point).first
+    updateCursor(hasToken: next != nil)
     guard next != hoveredIndex else { return }
     hoveredIndex = next
     toolTip = next.map(tooltip(for:)) ?? "点击单词或拖选词组"
@@ -267,10 +268,20 @@ final class OCRImageOverlayView: NSView {
   }
 
   override func mouseExited(with event: NSEvent) {
+    updateCursor(hasToken: false)
     hoveredIndex = nil
     toolTip = "点击单词或拖选词组"
     setAccessibilityValue(nil)
     needsDisplay = true
+  }
+
+  override func resetCursorRects() {
+    addCursorRect(bounds, cursor: .arrow)
+  }
+
+  private func updateCursor(hasToken: Bool) {
+    NSCursor.setHiddenUntilMouseMoves(false)
+    (hasToken ? NSCursor.pointingHand : NSCursor.arrow).set()
   }
 
   override func scrollWheel(with event: NSEvent) {
