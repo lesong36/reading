@@ -250,6 +250,11 @@ final class OCRImageOverlayView: NSView {
       return
     }
     guard !tokens.isEmpty else { super.keyDown(with: event); return }
+    if event.modifierFlags.contains(.command), event.keyCode == 0 {
+      let ordered = tokens.indices.sorted { OCROverlayLayout.readingOrder(lhs: tokens[$0], rhs: tokens[$1]) }
+      emitSelection(ordered)
+      return
+    }
     if event.modifierFlags.contains(.command), event.keyCode == 8, !selectedIndices.isEmpty {
       copySelectedOCRText()
       return

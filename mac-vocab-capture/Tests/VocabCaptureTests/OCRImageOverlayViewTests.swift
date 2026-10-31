@@ -243,6 +243,25 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertEqual(view.toolTip, "已复制：copied")
   }
 
+  func testCommandASelectsAllOCRTextInReadingOrder() throws {
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [
+        .init(text: "second", boundingBox: CGRect(x: 0.1, y: 0.1, width: 0.3, height: 0.1), confidence: 1),
+        .init(text: "first", boundingBox: CGRect(x: 0.1, y: 0.8, width: 0.3, height: 0.1), confidence: 1),
+      ])
+    view.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+    var selected = ""
+    view.onSelection = { selected = $0 }
+    let selectAll = try XCTUnwrap(NSEvent.keyEvent(
+      with: .keyDown, location: .zero, modifierFlags: .command, timestamp: 0, windowNumber: 0,
+      context: nil, characters: "a", charactersIgnoringModifiers: "a", isARepeat: false, keyCode: 0))
+    view.keyDown(with: selectAll)
+    XCTAssertEqual(selected, "first second")
+    XCTAssertEqual(view.accessibilityValue() as? String, "first second")
+    XCTAssertEqual(view.toolTip, "已选择：first second")
+  }
+
   func testContextMenuOffersQueryAndCopyForOCRTarget() throws {
     let view = OCRImageOverlayView(
       image: NSImage(size: NSSize(width: 100, height: 100)),
