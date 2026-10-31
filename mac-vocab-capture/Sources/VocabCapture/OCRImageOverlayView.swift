@@ -80,6 +80,8 @@ final class OCRImageOverlayView: NSView {
 
   required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
+  override var acceptsFirstResponder: Bool { true }
+
   override var isFlipped: Bool { true }
 
   override func draw(_ dirtyRect: NSRect) {
@@ -113,6 +115,7 @@ final class OCRImageOverlayView: NSView {
   }
 
   override func mouseDown(with event: NSEvent) {
+    window?.makeFirstResponder(self)
     dragStart = convert(event.locationInWindow, from: nil)
     dragCurrent = dragStart
     needsDisplay = true
@@ -133,6 +136,33 @@ final class OCRImageOverlayView: NSView {
     let indices = OCROverlayLayout.selectedTokenIndices(
       tokens: tokens, imageRect: imageRect, selectionRect: selectionRect, point: point)
     selectedIndices = Set(indices)
+    guard !indices.isEmpty else { return }
+    emitSelection(indices)
+  }
+
+  override func keyDown(with event: NSEvent) {
+    guard !tokens.isEmpty else { super.keyDown(with: event); return }
+    let ordered = tokens.indices.sorted {
+      if abs(tokens[$0].boundingBox.maxY - tokens[$1].boundingBox.maxY) > 0.02 {
+        return tokens[$0].boundingBox.maxY > tokens[$1].boundingBox.maxY
+      }
+      return tokens[$0].boundingBox.minX < tokens[$1].boundingBox.minX
+    }
+    switch event.keyCode {
+    case 123, 124:
+      let current = hoveredIndex.flatMap { ordered.firstIndex(of: $0) } ?? (event.keyCode == 123 ? 0 : -1)
+      let next = max(0, min(ordered.count - 1, current + (event.keyCode == 123 ? -1 : 1)))
+      hoveredIndex = ordered[next]
+      toolTip = "选择：\(tokens[ordered[next]].text)"
+      needsDisplay = true
+    case 36, 76:
+      if let hoveredIndex { emitSelection([hoveredIndex]) }
+    default:
+      super.keyDown(with: event)
+    }
+  }
+
+  private func emitSelection(_ indices: [Int]) {
     guard !indices.isEmpty else { return }
     let text = indices.map { tokens[$0].text }.joined(separator: " ")
     onSelection?(text)
