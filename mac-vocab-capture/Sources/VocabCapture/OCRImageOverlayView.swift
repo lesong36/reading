@@ -87,6 +87,8 @@ final class OCRImageOverlayView: NSView {
   private var selectedIndices: Set<Int> = []
   private var zoomScale: CGFloat = 1
   private var panOffset: CGPoint = .zero
+  private var panStart: CGPoint?
+  private var panOrigin: CGPoint = .zero
 
   init(image: NSImage, tokens: [OCROverlayToken]) {
     self.image = image
@@ -154,6 +156,11 @@ final class OCRImageOverlayView: NSView {
 
   override func mouseDown(with event: NSEvent) {
     window?.makeFirstResponder(self)
+    if zoomScale > 1, event.modifierFlags.contains(.option) {
+      panStart = convert(event.locationInWindow, from: nil)
+      panOrigin = panOffset
+      return
+    }
     if event.clickCount == 2, zoomScale > 1 {
       setZoomScale(1)
       hoveredIndex = nil
@@ -167,11 +174,23 @@ final class OCRImageOverlayView: NSView {
   }
 
   override func mouseDragged(with event: NSEvent) {
+    if let panStart {
+      let point = convert(event.locationInWindow, from: nil)
+      panOffset = constrainedPanOffset(CGPoint(
+        x: panOrigin.x + point.x - panStart.x,
+        y: panOrigin.y + point.y - panStart.y))
+      needsDisplay = true
+      return
+    }
     dragCurrent = convert(event.locationInWindow, from: nil)
     needsDisplay = true
   }
 
   override func mouseUp(with event: NSEvent) {
+    if panStart != nil {
+      panStart = nil
+      return
+    }
     defer { dragStart = nil; dragCurrent = nil; needsDisplay = true }
     if event.clickCount == 2, zoomScale == 1 { return }
     let point = convert(event.locationInWindow, from: nil)
