@@ -12,6 +12,16 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertEqual(token, CGRect(x: 60, y: 210, width: 120, height: 60))
   }
 
+  func testScaledImageRectPreservesCenterAndDoublesTargetSize() {
+    let base = OCROverlayLayout.imageRect(
+      for: CGSize(width: 1000, height: 500), in: CGRect(x: 0, y: 0, width: 600, height: 600))
+    let zoomed = OCROverlayLayout.imageRect(
+      for: CGSize(width: 1000, height: 500), in: CGRect(x: 0, y: 0, width: 600, height: 600), scale: 2)
+    XCTAssertEqual(base.midX, zoomed.midX)
+    XCTAssertEqual(base.midY, zoomed.midY)
+    XCTAssertEqual(zoomed.size, CGSize(width: base.width * 2, height: base.height * 2))
+  }
+
   func testImageOverlayAcceptsTokensAndUsesStableAspectFitFrame() {
     let image = NSImage(size: NSSize(width: 100, height: 50))
     let view = OCRImageOverlayView(image: image, tokens: [.init(text: "word", boundingBox: CGRect(x: 0, y: 0, width: 1, height: 1), confidence: 1)])
