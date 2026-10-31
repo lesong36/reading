@@ -321,7 +321,7 @@ final class OCRImageOverlayViewTests: XCTestCase {
       with: .rightMouseDown, location: CGPoint(x: 50, y: 50), modifierFlags: [], timestamp: 0,
       windowNumber: 0, context: nil, eventNumber: 1, clickCount: 1, pressure: 1))
     let menu = try XCTUnwrap(view.menu(for: event))
-    XCTAssertEqual(menu.items.map(\.title), ["恢复整图"])
+    XCTAssertEqual(menu.items.map(\.title), ["复制全部识别文字", "", "恢复整图"])
   }
 
   func testContextMenuTruncatesVeryLongOCRLabel() throws {

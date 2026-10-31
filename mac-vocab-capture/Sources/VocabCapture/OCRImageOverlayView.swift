@@ -389,9 +389,13 @@ final class OCRImageOverlayView: NSView {
     let index = OCROverlayLayout.selectedTokenIndices(
       tokens: tokens, imageRect: currentImageRect(), selectionRect: .zero, point: point).first
     guard let index else {
-      guard zoomScale > 1 else { return nil }
+      guard !tokens.isEmpty else { return nil }
       let menu = NSMenu()
-      menu.addItem(withTitle: "恢复整图", action: #selector(resetZoomFromMenu), keyEquivalent: "")
+      menu.addItem(withTitle: "复制全部识别文字", action: #selector(copyAllOCRText), keyEquivalent: "")
+      if zoomScale > 1 {
+        menu.addItem(.separator())
+        menu.addItem(withTitle: "恢复整图", action: #selector(resetZoomFromMenu), keyEquivalent: "")
+      }
       menu.items.forEach { $0.target = self }
       return menu
     }
@@ -419,6 +423,19 @@ final class OCRImageOverlayView: NSView {
     selectedIndices.removeAll()
     toolTip = "点击单词或拖选词组"
     setAccessibilityValue("已恢复整图")
+  }
+
+  @objc private func copyAllOCRText() {
+    let ordered = tokens.indices.sorted { OCROverlayLayout.readingOrder(lhs: tokens[$0], rhs: tokens[$1]) }
+    guard !ordered.isEmpty else { return }
+    selectedIndices = Set(ordered)
+    selectionAnchorIndex = ordered.first
+    let text = ordered.map { tokens[$0].text }.joined(separator: " ")
+    NSPasteboard.general.clearContents()
+    NSPasteboard.general.setString(text, forType: .string)
+    setAccessibilityValue(text)
+    toolTip = "已复制全部识别文字：\(text)"
+    needsDisplay = true
   }
 
   @objc private func copySelectedOCRText() {
