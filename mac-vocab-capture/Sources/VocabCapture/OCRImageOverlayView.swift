@@ -133,7 +133,8 @@ final class OCRImageOverlayView: NSView {
 
   override func draw(_ dirtyRect: NSRect) {
     let imageRect = currentImageRect()
-    image.draw(in: imageRect, from: .zero, operation: .sourceOver, fraction: 1)
+    image.draw(
+      in: imageRect, from: .zero, operation: .sourceOver, fraction: 1, respectFlipped: true, hints: nil)
     for (index, token) in tokens.enumerated() {
       // Keep the source image legible; interaction states provide the stronger signal.
       let confidence = max(0.025, min(0.12, CGFloat(token.confidence) * 0.12))
