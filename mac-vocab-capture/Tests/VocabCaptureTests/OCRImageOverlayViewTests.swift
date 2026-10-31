@@ -96,4 +96,25 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertEqual(view.tokens.map(\.text), ["new"])
     XCTAssertEqual(view.toolTip, "点击单词或拖选词组")
   }
+
+  func testEscapeCancelsActiveDragBeforeSelectionCallback() throws {
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [.init(text: "word", boundingBox: CGRect(x: 0.1, y: 0.1, width: 0.5, height: 0.5), confidence: 1)])
+    var callbacks = 0
+    view.onSelection = { _ in callbacks += 1 }
+    let down = try XCTUnwrap(NSEvent.mouseEvent(
+      with: .leftMouseDown, location: CGPoint(x: 20, y: 20), modifierFlags: [], timestamp: 0,
+      windowNumber: 0, context: nil, eventNumber: 1, clickCount: 1, pressure: 1))
+    view.mouseDown(with: down)
+    let escape = try XCTUnwrap(NSEvent.keyEvent(
+      with: .keyDown, location: .zero, modifierFlags: [], timestamp: 0, windowNumber: 0,
+      context: nil, characters: "\u{1b}", charactersIgnoringModifiers: "\u{1b}", isARepeat: false, keyCode: 53))
+    view.keyDown(with: escape)
+    let up = try XCTUnwrap(NSEvent.mouseEvent(
+      with: .leftMouseUp, location: CGPoint(x: 80, y: 80), modifierFlags: [], timestamp: 0,
+      windowNumber: 0, context: nil, eventNumber: 2, clickCount: 1, pressure: 0))
+    view.mouseUp(with: up)
+    XCTAssertEqual(callbacks, 0)
+  }
 }
