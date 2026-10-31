@@ -152,7 +152,7 @@ final class OCRImageOverlayView: NSView {
       let current = hoveredIndex.flatMap { ordered.firstIndex(of: $0) } ?? (event.keyCode == 123 ? 0 : -1)
       let next = max(0, min(ordered.count - 1, current + (event.keyCode == 123 ? -1 : 1)))
       hoveredIndex = ordered[next]
-      toolTip = "选择：\(tokens[ordered[next]].text)"
+      toolTip = tooltip(for: ordered[next])
       needsDisplay = true
     case 36, 76:
       if let hoveredIndex { emitSelection([hoveredIndex]) }
@@ -179,11 +179,13 @@ final class OCRImageOverlayView: NSView {
     }
     guard next != hoveredIndex else { return }
     hoveredIndex = next
-    toolTip = next.map {
-      tokens[$0].confidence < 0.6
-        ? "选择：\(tokens[$0].text)（识别置信度较低，请核对）"
-        : "选择：\(tokens[$0].text)"
-    } ?? "点击单词或拖选词组"
+    toolTip = next.map(tooltip(for:)) ?? "点击单词或拖选词组"
     needsDisplay = true
+  }
+
+  private func tooltip(for index: Int) -> String {
+    tokens[index].confidence < 0.6
+      ? "选择：\(tokens[index].text)（识别置信度较低，请核对）"
+      : "选择：\(tokens[index].text)"
   }
 }
