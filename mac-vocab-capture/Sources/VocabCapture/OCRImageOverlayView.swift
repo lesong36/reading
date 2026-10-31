@@ -81,6 +81,7 @@ final class OCRImageOverlayView: NSView {
   }
   var onSelection: ((String) -> Void)?
   var onSelectionWithIndices: ((String, [Int]) -> Void)?
+  var onCancel: (() -> Void)?
   private let image: NSImage
   private let drawsSourceImage: Bool
   private var dragStart: CGPoint?
@@ -267,10 +268,14 @@ final class OCRImageOverlayView: NSView {
   }
 
   override func keyDown(with event: NSEvent) {
-    if event.keyCode == 53, dragStart != nil {
-      dragStart = nil
-      dragCurrent = nil
-      needsDisplay = true
+    if event.keyCode == 53 {
+      if dragStart != nil {
+        dragStart = nil
+        dragCurrent = nil
+        needsDisplay = true
+      } else {
+        onCancel?()
+      }
       return
     }
     guard !tokens.isEmpty else { super.keyDown(with: event); return }
