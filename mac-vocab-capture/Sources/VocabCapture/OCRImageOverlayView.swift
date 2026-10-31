@@ -154,6 +154,13 @@ final class OCRImageOverlayView: NSView {
 
   override func mouseDown(with event: NSEvent) {
     window?.makeFirstResponder(self)
+    if event.clickCount == 2, zoomScale > 1 {
+      setZoomScale(1)
+      hoveredIndex = nil
+      toolTip = "点击单词或拖选词组"
+      setAccessibilityValue(nil)
+      return
+    }
     dragStart = convert(event.locationInWindow, from: nil)
     dragCurrent = dragStart
     needsDisplay = true
@@ -166,6 +173,7 @@ final class OCRImageOverlayView: NSView {
 
   override func mouseUp(with event: NSEvent) {
     defer { dragStart = nil; dragCurrent = nil; needsDisplay = true }
+    if event.clickCount == 2, zoomScale == 1 { return }
     let point = convert(event.locationInWindow, from: nil)
     let imageRect = currentImageRect()
     let selectionRect = CGRect(
