@@ -224,6 +224,12 @@ final class OCRImageOverlayView: NSView {
       return
     }
     guard !tokens.isEmpty else { super.keyDown(with: event); return }
+    if event.modifierFlags.contains(.command), event.keyCode == 8, !selectedIndices.isEmpty {
+      let ordered = selectedIndices.sorted { OCROverlayLayout.readingOrder(lhs: tokens[$0], rhs: tokens[$1]) }
+      NSPasteboard.general.clearContents()
+      NSPasteboard.general.setString(ordered.map { tokens[$0].text }.joined(separator: " "), forType: .string)
+      return
+    }
     if event.charactersIgnoringModifiers == "0" {
       setZoomScale(1)
       return

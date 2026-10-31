@@ -220,4 +220,24 @@ final class OCRImageOverlayViewTests: XCTestCase {
     view.mouseUp(with: up)
     XCTAssertEqual(view.accessibilityValue() as? String, "word")
   }
+
+  func testCommandCCopiesTheSelectedOCRText() throws {
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [.init(text: "copied", boundingBox: CGRect(x: 0, y: 0, width: 1, height: 1), confidence: 1)])
+    view.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+    let down = try XCTUnwrap(NSEvent.mouseEvent(
+      with: .leftMouseDown, location: CGPoint(x: 50, y: 50), modifierFlags: [], timestamp: 0,
+      windowNumber: 0, context: nil, eventNumber: 1, clickCount: 1, pressure: 1))
+    let up = try XCTUnwrap(NSEvent.mouseEvent(
+      with: .leftMouseUp, location: CGPoint(x: 50, y: 50), modifierFlags: [], timestamp: 0,
+      windowNumber: 0, context: nil, eventNumber: 2, clickCount: 1, pressure: 0))
+    view.mouseDown(with: down)
+    view.mouseUp(with: up)
+    let copy = try XCTUnwrap(NSEvent.keyEvent(
+      with: .keyDown, location: .zero, modifierFlags: .command, timestamp: 0, windowNumber: 0,
+      context: nil, characters: "c", charactersIgnoringModifiers: "c", isARepeat: false, keyCode: 8))
+    view.keyDown(with: copy)
+    XCTAssertEqual(NSPasteboard.general.string(forType: .string), "copied")
+  }
 }
