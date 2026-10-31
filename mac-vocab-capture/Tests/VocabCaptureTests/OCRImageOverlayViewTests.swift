@@ -144,6 +144,28 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertEqual(selected, "bottom")
   }
 
+  func testShiftArrowExtendsKeyboardOCRSelectionWithoutLookup() throws {
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [
+        .init(text: "first", boundingBox: CGRect(x: 0.1, y: 0.8, width: 0.2, height: 0.1), confidence: 1),
+        .init(text: "second", boundingBox: CGRect(x: 0.4, y: 0.8, width: 0.2, height: 0.1), confidence: 1),
+      ])
+    var callbackCount = 0
+    view.onSelection = { _ in callbackCount += 1 }
+    let right = try XCTUnwrap(NSEvent.keyEvent(
+      with: .keyDown, location: .zero, modifierFlags: [], timestamp: 0, windowNumber: 0,
+      context: nil, characters: "→", charactersIgnoringModifiers: "→", isARepeat: false, keyCode: 124))
+    view.keyDown(with: right)
+    let shiftRight = try XCTUnwrap(NSEvent.keyEvent(
+      with: .keyDown, location: .zero, modifierFlags: .shift, timestamp: 0, windowNumber: 0,
+      context: nil, characters: "→", charactersIgnoringModifiers: "→", isARepeat: false, keyCode: 124))
+    view.keyDown(with: shiftRight)
+    XCTAssertEqual(callbackCount, 0)
+    XCTAssertEqual(view.accessibilityValue() as? String, "first second")
+    XCTAssertEqual(view.toolTip, "已选择：first second；按回车确认")
+  }
+
   func testHomeAndEndJumpAcrossLongOCRResults() throws {
     let view = OCRImageOverlayView(
       image: NSImage(size: NSSize(width: 100, height: 100)),

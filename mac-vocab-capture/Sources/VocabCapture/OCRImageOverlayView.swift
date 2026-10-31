@@ -316,8 +316,10 @@ final class OCRImageOverlayView: NSView {
         ? selectionAnchorIndex ?? previous
         : nil
       updateKeyboardSelection(anchor: anchor, target: ordered[next])
-      toolTip = tooltip(for: ordered[next])
-      setAccessibilityValue(tokens[ordered[next]].text)
+      if !event.modifierFlags.contains(.shift) {
+        toolTip = tooltip(for: ordered[next])
+        setAccessibilityValue(tokens[ordered[next]].text)
+      }
       needsDisplay = true
     case 125, 126:
       let current = hoveredIndex ?? ordered.first!
@@ -338,8 +340,10 @@ final class OCRImageOverlayView: NSView {
         hoveredIndex = next
         ensureTokenVisible(next)
         updateKeyboardSelection(anchor: event.modifierFlags.contains(.shift) ? selectionAnchorIndex ?? current : nil, target: next)
-        toolTip = tooltip(for: next)
-        setAccessibilityValue(tokens[next].text)
+        if !event.modifierFlags.contains(.shift) {
+          toolTip = tooltip(for: next)
+          setAccessibilityValue(tokens[next].text)
+        }
         needsDisplay = true
       }
     case 36, 76:
