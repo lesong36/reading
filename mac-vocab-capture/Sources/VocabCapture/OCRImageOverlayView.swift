@@ -27,6 +27,7 @@ enum OCROverlayLayout {
 final class OCRImageOverlayView: NSView {
   var tokens: [OCROverlayToken] = [] { didSet { needsDisplay = true } }
   var onSelection: ((String) -> Void)?
+  var onSelectionWithIndices: ((String, [Int]) -> Void)?
   private let image: NSImage
   private var dragStart: CGPoint?
   private var dragCurrent: CGPoint?
@@ -98,7 +99,9 @@ final class OCRImageOverlayView: NSView {
     }
     selectedIndices = Set(selected.map(\.offset))
     guard !selected.isEmpty else { return }
-    onSelection?(selected.map { $0.element.text }.joined(separator: " "))
+    let text = selected.map { $0.element.text }.joined(separator: " ")
+    onSelection?(text)
+    onSelectionWithIndices?(text, selected.map(\.offset))
   }
 
   override func mouseMoved(with event: NSEvent) {

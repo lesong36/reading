@@ -155,7 +155,9 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     if let imageData = screenshotImageData, let image = NSImage(data: imageData), !overlayTokens.isEmpty {
       let view = OCRImageOverlayView(image: image, tokens: overlayTokens)
       view.setAccessibilityLabel("截图原图文字选择层")
-      view.onSelection = { [weak self] text in self?.selectOverlayText(text) }
+      view.onSelectionWithIndices = { [weak self] text, indices in
+        self?.selectOverlayText(text, tokenIndices: indices)
+      }
       view.translatesAutoresizingMaskIntoConstraints = false
       view.heightAnchor.constraint(equalToConstant: 220).isActive = true
       overlay = view
@@ -255,11 +257,23 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     return label
   }
 
-  private func selectOverlayText(_ text: String) {
+  private func selectOverlayText(_ text: String, tokenIndices: [Int] = []) {
     let selected = text.trimmingCharacters(in: .whitespacesAndNewlines)
     guard !selected.isEmpty else { return }
     let source = original.string as NSString
-    let range = source.range(of: selected, options: .caseInsensitive)
+    var range = source.range(of: selected, options: .caseInsensitive)
+    if let firstIndex = tokenIndices.first, firstIndex < overlayTokens.count {
+      let firstToken = overlayTokens[firstIndex].text
+      let occurrence = overlayTokens[..<firstIndex].filter { $0.text.caseInsensitiveCompare(firstToken) == .orderedSame }.count
+      var cursor = 0
+      for _ in 0..<occurrence {
+        let found = source.range(of: selected, options: [.caseInsensitive, .diacriticInsensitive], range: NSRange(location: cursor, length: source.length - cursor))
+        guard found.location != NSNotFound else { break }
+        cursor = NSMaxRange(found)
+      }
+      let candidate = source.range(of: selected, options: [.caseInsensitive, .diacriticInsensitive], range: NSRange(location: cursor, length: source.length - cursor))
+      if candidate.location != NSNotFound { range = candidate }
+    }
     guard range.location != NSNotFound,
       let snapped = OCRSelection(text: original.string).snappedRange(range)
     else {
