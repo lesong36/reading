@@ -230,6 +230,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     for item in [headerRow, scroll, targetWord, metadata, meaning, sentence, statusRow, footer] {
       item.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
     }
+    overlay?.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
     hint.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
     scroll.setContentHuggingPriority(.defaultLow, for: .vertical)
     feedback.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
