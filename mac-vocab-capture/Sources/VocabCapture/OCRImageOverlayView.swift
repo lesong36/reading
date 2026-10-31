@@ -379,7 +379,7 @@ final class OCRImageOverlayView: NSView {
     hoveredIndex = nil
     selectedIndices.removeAll()
     toolTip = "点击单词或拖选词组"
-    setAccessibilityValue(nil)
+    setAccessibilityValue("已恢复整图")
   }
 
   @objc private func copySelectedOCRText() {
