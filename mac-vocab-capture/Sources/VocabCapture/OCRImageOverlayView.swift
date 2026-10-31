@@ -209,6 +209,7 @@ final class OCRImageOverlayView: NSView {
     selectedIndices = Set(indices)
     needsDisplay = true
     let text = indices.map { tokens[$0].text }.joined(separator: " ")
+    setAccessibilityValue(text)
     onSelection?(text)
     onSelectionWithIndices?(text, indices)
   }
