@@ -287,6 +287,7 @@ final class OCRLookupPanelTests: XCTestCase {
     let overlays = views(panel.contentView!).compactMap { $0 as? OCRImageOverlayView }
     XCTAssertEqual(overlays.count, 1)
     XCTAssertEqual(overlays.first?.accessibilityLabel(), "截图原图文字选择层")
+    XCTAssertEqual(overlays.first?.accessibilityRole(), .image)
     panel.close()
   }
 }
