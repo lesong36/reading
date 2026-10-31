@@ -249,6 +249,7 @@ final class OCRImageOverlayView: NSView {
     case 115, 119:
       let next = event.keyCode == 115 ? ordered.first! : ordered.last!
       hoveredIndex = next
+      ensureTokenVisible(next)
       selectedIndices.removeAll()
       toolTip = tooltip(for: next)
       setAccessibilityValue(tokens[next].text)
@@ -257,6 +258,7 @@ final class OCRImageOverlayView: NSView {
       let current = hoveredIndex.flatMap { ordered.firstIndex(of: $0) } ?? (event.keyCode == 123 ? 0 : -1)
       let next = max(0, min(ordered.count - 1, current + (event.keyCode == 123 ? -1 : 1)))
       hoveredIndex = ordered[next]
+      ensureTokenVisible(ordered[next])
       selectedIndices.removeAll()
       toolTip = tooltip(for: ordered[next])
       setAccessibilityValue(tokens[ordered[next]].text)
@@ -278,6 +280,7 @@ final class OCRImageOverlayView: NSView {
           < abs(tokens[b].boundingBox.midX - currentBox.midX)
       }) {
         hoveredIndex = next
+        ensureTokenVisible(next)
         selectedIndices.removeAll()
         toolTip = tooltip(for: next)
         setAccessibilityValue(tokens[next].text)
@@ -367,6 +370,18 @@ final class OCRImageOverlayView: NSView {
 
   private func currentImageRect() -> CGRect {
     OCROverlayLayout.imageRect(for: image.size, in: bounds, scale: zoomScale, offset: panOffset)
+  }
+
+  private func ensureTokenVisible(_ index: Int) {
+    guard zoomScale > 1, tokens.indices.contains(index) else { return }
+    let rect = OCROverlayLayout.rect(for: tokens[index].boundingBox, imageRect: currentImageRect())
+    var delta = CGPoint.zero
+    if rect.minX < bounds.minX { delta.x = bounds.minX - rect.minX }
+    else if rect.maxX > bounds.maxX { delta.x = bounds.maxX - rect.maxX }
+    if rect.minY < bounds.minY { delta.y = bounds.minY - rect.minY }
+    else if rect.maxY > bounds.maxY { delta.y = bounds.maxY - rect.maxY }
+    guard delta != .zero else { return }
+    panOffset = constrainedPanOffset(CGPoint(x: panOffset.x + delta.x, y: panOffset.y + delta.y))
   }
 
   private func constrainedPanOffset(_ offset: CGPoint) -> CGPoint {
