@@ -264,7 +264,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
       let snapped = OCRSelection(text: original.string).snappedRange(range)
     else {
       targetWord.stringValue = selected
-      feedback.stringValue = "已选择“(selected)”；请在识别原文中确认词组。"
+      feedback.stringValue = "已选择“\(selected)”；请在识别原文中确认词组。"
       return
     }
     selectionRange = snapped
