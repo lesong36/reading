@@ -77,6 +77,13 @@ final class OCRImageOverlayView: NSView {
       NSColor.systemBlue.withAlphaComponent(confidence).setFill()
       let rect = OCROverlayLayout.rect(for: token.boundingBox, imageRect: imageRect).insetBy(dx: -2, dy: -2)
       rect.fill()
+      if token.confidence < 0.6 {
+        NSColor.systemOrange.withAlphaComponent(0.75).setStroke()
+        let path = NSBezierPath(rect: rect)
+        path.lineWidth = 1
+        path.setLineDash([3, 2], count: 2, phase: 0)
+        path.stroke()
+      }
       if index == hoveredIndex || selectedIndices.contains(index) {
         NSColor.controlAccentColor.withAlphaComponent(index == hoveredIndex ? 0.8 : 0.55).setStroke()
         let path = NSBezierPath(rect: rect)

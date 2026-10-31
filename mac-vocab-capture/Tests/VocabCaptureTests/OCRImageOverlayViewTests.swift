@@ -49,4 +49,10 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertGreaterThanOrEqual(hit.height, 12)
     XCTAssertTrue(hit.contains(CGPoint(x: 21, y: 31.5)))
   }
+
+  func testLowConfidenceTokenRemainsRepresentedInOverlayModel() {
+    let token = OCROverlayToken(text: "uncertain", boundingBox: .zero, confidence: 0.2)
+    XCTAssertLessThan(token.confidence, 0.6)
+    XCTAssertEqual(token.text, "uncertain")
+  }
 }
