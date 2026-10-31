@@ -24,6 +24,20 @@ final class OCRClientTests: XCTestCase {
     XCTAssertEqual(result, "A curious reader explores unfamiliar words.")
   }
 
+  func testSyntheticEnglishImageReturnsNormalizedLayoutObservations() async throws {
+    let image = try makeImage(width: 1200, height: 180, text: "A curious reader explores unfamiliar words.")
+    let result = try await OCRClient.recognizeWithLayout(image)
+    XCTAssertEqual(result.text, "A curious reader explores unfamiliar words.")
+    let observation = try XCTUnwrap(result.observations.first)
+    XCTAssertFalse(observation.text.isEmpty)
+    XCTAssertGreaterThan(observation.boundingBox.width, 0)
+    XCTAssertGreaterThan(observation.boundingBox.height, 0)
+    XCTAssertGreaterThanOrEqual(observation.boundingBox.minX, 0)
+    XCTAssertLessThanOrEqual(observation.boundingBox.maxX, 1)
+    XCTAssertGreaterThanOrEqual(observation.boundingBox.minY, 0)
+    XCTAssertLessThanOrEqual(observation.boundingBox.maxY, 1)
+  }
+
   func testAlreadyCancelledTaskDoesNotRecognize() async throws {
     let image = try makeImage(width: 1200, height: 180, text: "A curious reader.")
     let task = Task {
