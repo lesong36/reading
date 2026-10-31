@@ -82,6 +82,7 @@ final class OCRImageOverlayView: NSView {
   var onSelection: ((String) -> Void)?
   var onSelectionWithIndices: ((String, [Int]) -> Void)?
   private let image: NSImage
+  private let drawsSourceImage: Bool
   private var dragStart: CGPoint?
   private var dragCurrent: CGPoint?
   private var hoveredIndex: Int?
@@ -93,9 +94,10 @@ final class OCRImageOverlayView: NSView {
   private var panOrigin: CGPoint = .zero
   private var didResetZoomOnMouseDown = false
 
-  init(image: NSImage, tokens: [OCROverlayToken]) {
+  init(image: NSImage, tokens: [OCROverlayToken], drawsSourceImage: Bool = true) {
     self.image = image
     self.tokens = tokens
+    self.drawsSourceImage = drawsSourceImage
     super.init(frame: .zero)
     wantsLayer = true
     addTrackingArea(NSTrackingArea(
@@ -133,8 +135,10 @@ final class OCRImageOverlayView: NSView {
 
   override func draw(_ dirtyRect: NSRect) {
     let imageRect = currentImageRect()
-    image.draw(
-      in: imageRect, from: .zero, operation: .sourceOver, fraction: 1, respectFlipped: true, hints: nil)
+    if drawsSourceImage {
+      image.draw(
+        in: imageRect, from: .zero, operation: .sourceOver, fraction: 1, respectFlipped: true, hints: nil)
+    }
     for (index, token) in tokens.enumerated() {
       // Keep the source image legible; interaction states provide the stronger signal.
       let confidence = max(0.025, min(0.12, CGFloat(token.confidence) * 0.12))

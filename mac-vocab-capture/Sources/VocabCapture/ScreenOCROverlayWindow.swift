@@ -18,7 +18,9 @@ final class ScreenOCROverlayWindow {
 
   func present() {
     guard panel == nil else { return }
-    let view = OCRImageOverlayView(image: image, tokens: tokens)
+    // The captured screen remains visible underneath. This window is only the
+    // OCR interaction layer, so it never obscures the original reading surface.
+    let view = OCRImageOverlayView(image: image, tokens: tokens, drawsSourceImage: false)
     view.onSelectionWithIndices = { [weak self] text, indices in
       self?.onSelection?(text, indices)
     }
