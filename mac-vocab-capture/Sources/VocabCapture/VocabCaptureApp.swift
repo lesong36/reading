@@ -22,6 +22,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private let saveDictionaryKey: (String) throws -> Void
   private let browserBridge: BrowserContextBridge
   private let regionCapture: ScreenshotRegionCapture
+  private let screenRegionSelector = InteractiveScreenRegionSelector()
   private let screenshotQuestions = ScreenshotQuestionClient()
   private let questionPreferences: ScreenshotQuestionPreferences
   private let searchPreferences: ScreenshotQuestionWebSearchPreferences
@@ -361,15 +362,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     screenshotTask?.cancel()
     let restore = hideScreenshotPanels()
     setStatus("词 ···")
-    regionCapture.capture { [weak self] result in
+    screenRegionSelector.present { [weak self] region in
       guard let self else { return }
-      switch result {
-      case .success(let image):
-        guard let image else { self.setStatus("词"); restore(); return }
-        self.recognizeScreenshot(image, destination: destination, restore: restore)
-      case .failure(let error):
-        self.setStatus("词"); restore()
-        self.showFailure(title: "截图失败", error.localizedDescription)
+      guard let region else { self.setStatus("词"); restore(); return }
+      self.regionCapture.capture(region: region) { result in
+        switch result {
+        case .success(let image):
+          guard let image else { self.setStatus("词"); restore(); return }
+          self.recognizeScreenshot(image, destination: destination, restore: restore)
+        case .failure(let error):
+          self.setStatus("词"); restore()
+          self.showFailure(title: "截图失败", error.localizedDescription)
+        }
       }
     }
   }

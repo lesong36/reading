@@ -1,4 +1,5 @@
 import ApplicationServices
+import AppKit
 import Foundation
 import ImageIO
 
@@ -73,6 +74,40 @@ final class ScreenshotRegionCapture {
         }
       }
     }
+  }
+
+  /// Captures a previously selected screen rectangle without opening a second system selector.
+  func capture(
+    region: ScreenCaptureRegion, completion: @escaping (Result<CGImage?, ScreenshotRegionError>) -> Void
+  ) {
+    guard !isRunning else { return }
+    guard permission() else { completion(.failure(.permissionDenied)); return }
+    isRunning = true
+    defer { isRunning = false }
+    guard let displayID = Self.displayID(for: region.screenFrame),
+      CGDisplayBounds(displayID).width > 0,
+      let screen = NSScreen.screens.first(where: {
+        ($0.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? NSNumber)?.uint32Value == displayID
+      })
+    else {
+      completion(.failure(.invalidImage)); return
+    }
+    let scale = screen.backingScaleFactor
+    let rect = region.selectionRect.standardized
+    let pixelRect = CGRect(
+      x: (rect.minX - region.screenFrame.minX) * scale,
+      y: (region.screenFrame.maxY - rect.maxY) * scale,
+      width: rect.width * scale,
+      height: rect.height * scale)
+    guard let image = CGDisplayCreateImage(displayID, rect: pixelRect), image.width > 0, image.height > 0 else {
+      completion(.failure(.invalidImage)); return
+    }
+    completion(.success(image))
+  }
+
+  private static func displayID(for frame: CGRect) -> CGDirectDisplayID? {
+    NSScreen.screens.first(where: { $0.frame == frame })
+      .flatMap { ($0.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? NSNumber)?.uint32Value }
   }
 
   private static func runSystemCapture(url: URL, completion: @escaping (Result<ScreenshotProcessResult, Error>) -> Void) {
