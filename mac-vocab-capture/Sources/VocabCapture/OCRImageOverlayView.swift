@@ -46,8 +46,9 @@ final class OCRImageOverlayView: NSView {
   override func draw(_ dirtyRect: NSRect) {
     let imageRect = OCROverlayLayout.imageRect(for: image.size, in: bounds)
     image.draw(in: imageRect, from: .zero, operation: .sourceOver, fraction: 1)
-    NSColor.systemBlue.withAlphaComponent(0.18).setFill()
     for token in tokens {
+      let confidence = max(0.08, min(0.28, CGFloat(token.confidence) * 0.28))
+      NSColor.systemBlue.withAlphaComponent(confidence).setFill()
       OCROverlayLayout.rect(for: token.boundingBox, imageRect: imageRect).insetBy(dx: -2, dy: -2).fill()
     }
     if let start = dragStart, let current = dragCurrent {
@@ -79,6 +80,11 @@ final class OCRImageOverlayView: NSView {
     let selected = tokens.filter {
       let rect = OCROverlayLayout.rect(for: $0.boundingBox, imageRect: imageRect)
       return selectionRect.width < 4 && selectionRect.height < 4 ? rect.insetBy(dx: -4, dy: -4).contains(point) : rect.intersects(selectionRect)
+    }.sorted {
+      if abs($0.boundingBox.maxY - $1.boundingBox.maxY) > 0.02 {
+        return $0.boundingBox.maxY > $1.boundingBox.maxY
+      }
+      return $0.boundingBox.minX < $1.boundingBox.minX
     }
     guard !selected.isEmpty else { return }
     onSelection?(selected.map(\.text).joined(separator: " "))

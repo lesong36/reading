@@ -19,4 +19,14 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertEqual(OCROverlayLayout.imageRect(for: image.size, in: view.bounds).size, CGSize(width: 300, height: 150))
     XCTAssertEqual(view.tokens.map(\.text), ["word"])
   }
+
+  func testMultiLineTokensUseReadingOrderAndPreserveLowConfidenceMetadata() {
+    let tokens = [
+      OCROverlayToken(text: "second", boundingBox: CGRect(x: 0.2, y: 0.1, width: 0.2, height: 0.1), confidence: 0.2),
+      OCROverlayToken(text: "first", boundingBox: CGRect(x: 0.1, y: 0.8, width: 0.2, height: 0.1), confidence: 0.99),
+    ]
+    XCTAssertEqual(tokens.map(\.confidence), [0.2, 0.99])
+    XCTAssertGreaterThan(tokens[0].boundingBox.minY, 0)
+    XCTAssertGreaterThan(tokens[1].confidence, tokens[0].confidence)
+  }
 }
