@@ -236,10 +236,8 @@ final class OCRImageOverlayView: NSView {
   override func mouseMoved(with event: NSEvent) {
     let point = convert(event.locationInWindow, from: nil)
     let imageRect = OCROverlayLayout.imageRect(for: image.size, in: bounds)
-    let next = tokens.firstIndex {
-      OCROverlayLayout.hitRect(
-        for: OCROverlayLayout.rect(for: $0.boundingBox, imageRect: imageRect)).contains(point)
-    }
+    let next = OCROverlayLayout.selectedTokenIndices(
+      tokens: tokens, imageRect: imageRect, selectionRect: .zero, point: point).first
     guard next != hoveredIndex else { return }
     hoveredIndex = next
     toolTip = next.map(tooltip(for:)) ?? "点击单词或拖选词组"
