@@ -12,6 +12,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private var settingsEditors: [SettingsSection: AnyObject] = [:]
   private var accountSettingsView: AccountSettingsView?
   private let mathQuestionStore: MathQuestionStore
+  private let questionSessionStore: ScreenshotQuestionSessionStore
   private(set) var mathQuestionLibrary: MathQuestionLibrary?
   private var mathIndexTasks: [String: Task<Void, Never>] = [:]
   private let store: VocabularyStore
@@ -74,7 +75,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     saveDictionaryKey: @escaping (String) throws -> Void = { try KeychainStore.saveAPIKey($0) },
     browserBridge: BrowserContextBridge = .shared,
     regionCapture: ScreenshotRegionCapture? = nil,
-    mathQuestionStore: MathQuestionStore = MathQuestionStore()
+    mathQuestionStore: MathQuestionStore = MathQuestionStore(),
+    questionSessionStore: ScreenshotQuestionSessionStore = ScreenshotQuestionSessionStore()
   ) {
     self.shortcutPreferences = shortcutPreferences
     self.questionPreferences = questionPreferences
@@ -82,6 +84,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     self.cloudSync = cloudSync
     self.store = store
     self.mathQuestionStore = mathQuestionStore
+    self.questionSessionStore = questionSessionStore
     self.dictionary = dictionary
     self.defaults = defaults
     self.readDictionaryKey = readDictionaryKey
@@ -421,7 +424,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         originalImageData: MathQuestionIndexer.originalPNG(image),
         saveQuestion: saveMathQuestion,
         onOpenQuestion: { [weak self] id in self?.showMathQuestionLibrary(questionID: id) },
-        solutionModel: { [weak self] in self?.currentQuestionModel ?? "" })
+        solutionModel: { [weak self] in self?.currentQuestionModel ?? "" },
+        sessionStore: questionSessionStore)
       directQuestionPanel = panel
       panel.present()
       setStatus("词")
@@ -496,7 +500,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       }, imageData: questionImageData(image), ask: answerScreenshotQuestion,
       onQuestionSettings: { [weak self] in
         self?.openQuestionModelSettings()
-      }, questionPreferences: questionPreferences, measuredAsk: measuredScreenshotQuestion,
+      }, questionPreferences: questionPreferences, sessionStore: questionSessionStore,
+      measuredAsk: measuredScreenshotQuestion,
       webAsk: webScreenshotQuestion,
       onSearchSettings: { [weak self] in self?.openWebSearchSettings() },
       originalImageData: MathQuestionIndexer.originalPNG(image),

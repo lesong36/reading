@@ -41,6 +41,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
   private let solutionModel: (@MainActor () -> String)?
   private let onQuestionSettings: (() -> Void)?
   private let questionPreferences: ScreenshotQuestionPreferences?
+  private let sessionStore: ScreenshotQuestionSessionStore?
   private var questionPanel: ScreenshotQuestionPanel?
   var onRetake: (() -> Void)?
 
@@ -54,6 +55,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     ask: ScreenshotQuestionAnswer? = nil,
     onQuestionSettings: (() -> Void)? = nil,
     questionPreferences: ScreenshotQuestionPreferences? = nil,
+    sessionStore: ScreenshotQuestionSessionStore? = nil,
     measuredAsk: ScreenshotQuestionMeasuredAnswer? = nil,
     webAsk: ScreenshotQuestionWebAnswer? = nil,
     onSearchSettings: (() -> Void)? = nil,
@@ -75,6 +77,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     self.ask = ask
     self.onQuestionSettings = onQuestionSettings
     self.questionPreferences = questionPreferences
+    self.sessionStore = sessionStore
     super.init(
       contentRect: NSRect(x: 0, y: 0, width: 600, height: 650),
       styleMask: [.titled, .closable, .resizable], backing: .buffered, defer: false)
@@ -438,7 +441,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
       modelPreferences: questionPreferences, measuredAnswer: measuredAsk,
       webAnswer: webAsk, onSearchSettings: onSearchSettings,
       originalImageData: originalImageData, saveQuestion: saveQuestion,
-      onOpenQuestion: onOpenQuestion, solutionModel: solutionModel)
+      onOpenQuestion: onOpenQuestion, solutionModel: solutionModel, sessionStore: sessionStore)
     questionPanel = panel
     panel.present()
   }

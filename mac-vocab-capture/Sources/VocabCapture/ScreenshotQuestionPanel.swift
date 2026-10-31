@@ -57,6 +57,10 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
   private(set) var performance: ScreenshotQuestionPerformance?
   static let zoomKey = "VocabCapture.questionZoomScale"
   private let answer: ScreenshotQuestionAnswer
+  private let sessionStore: ScreenshotQuestionSessionStore?
+  private var sessionID: String?
+  private var sessionAttachmentID: String?
+  private var sessionPersistenceTask: Task<Void, Never>?
   private let onModelSettings: (() -> Void)?
   private let modelPreferences: ScreenshotQuestionPreferences?
   private let modelPicker = NSPopUpButton()
@@ -87,6 +91,7 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     saveQuestion: MathQuestionSave? = nil,
     onOpenQuestion: (@MainActor (String) -> Void)? = nil,
     solutionModel: (@MainActor () -> String)? = nil
+    , sessionStore: ScreenshotQuestionSessionStore? = nil
   ) {
     self.originalImageData = originalImageData
     self.saveQuestion = saveQuestion
@@ -103,6 +108,7 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
       storedZoom.isFinite && storedZoom >= 0.75 && storedZoom <= 1.5 ? CGFloat(storedZoom) : 1
     self.context = context
     self.answer = answer
+    self.sessionStore = sessionStore
     self.onModelSettings = onModelSettings
     self.modelPreferences = modelPreferences
     super.init(
@@ -125,6 +131,7 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     refreshSuggestions()
     refreshSaveControls()
     bringToFront()
+    persistCurrentCaptureIfNeeded()
     updateTranscriptWidth()
     makeFirstResponder(question)
   }
@@ -194,8 +201,38 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     isSavingQuestion = false
     saveTask = nil
     cancelAnswer()
+    sessionPersistenceTask?.cancel()
     quickPromptSettings?.panel.close()
     quickPromptSettings = nil
+  }
+
+  private func persistCurrentCaptureIfNeeded() {
+    guard let sessionStore, let originalImageData else { return }
+    sessionPersistenceTask?.cancel()
+    let sessionID = self.sessionID
+    let attachmentID = self.sessionAttachmentID
+    let context = self.context
+    sessionPersistenceTask = Task { [weak self] in
+      do {
+        let id: String
+        if let sessionID {
+          id = sessionID
+        } else {
+          let session = try await sessionStore.create(title: "截图问答")
+          id = session.id
+          await MainActor.run { self?.sessionID = id }
+        }
+        let attachment = try await sessionStore.appendAttachment(
+          id: id, attachmentID: attachmentID ?? UUID().uuidString,
+          imageData: originalImageData, ocrText: context.text)
+        await MainActor.run {
+          self?.sessionID = id
+          self?.sessionAttachmentID = attachment.attachments.last?.id
+        }
+      } catch {
+        // A failed local archive must not interrupt the live question flow.
+      }
+    }
   }
 
   override func cancelOperation(_ sender: Any?) { close() }
@@ -695,6 +732,12 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
         }
         guard self.revision == requestID, !self.isClosed, !Task.isCancelled else { return }
         self.history.append(ScreenshotQuestionTurn(question: submitted, answer: result))
+        if let sessionStore, let sessionID = self.sessionID {
+          let attachmentIDs = self.sessionAttachmentID.map { [$0] } ?? []
+          _ = try? await sessionStore.appendTurn(
+            id: sessionID, question: submitted, answer: result, model: modelSnapshot,
+            attachmentIDs: attachmentIDs)
+        }
         if !result.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
           self.completedSolutions.append(
             MathQuestionSolution(
