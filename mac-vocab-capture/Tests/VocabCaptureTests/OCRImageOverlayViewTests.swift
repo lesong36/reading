@@ -324,6 +324,20 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertEqual(menu.items.map(\.title), ["复制全部识别文字", "", "恢复整图"])
   }
 
+  func testEmptyImageContextMenuCopiesAllOCRText() throws {
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [.init(text: "all", boundingBox: CGRect(x: 0, y: 0, width: 0.2, height: 0.2), confidence: 1)])
+    view.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+    let event = try XCTUnwrap(NSEvent.mouseEvent(
+      with: .rightMouseDown, location: CGPoint(x: 90, y: 90), modifierFlags: [], timestamp: 0,
+      windowNumber: 0, context: nil, eventNumber: 1, clickCount: 1, pressure: 1))
+    let menu = try XCTUnwrap(view.menu(for: event))
+    XCTAssertEqual(menu.items.map(\.title), ["复制全部识别文字"])
+    _ = menu.items[0].target?.perform(menu.items[0].action, with: menu.items[0])
+    XCTAssertEqual(NSPasteboard.general.string(forType: .string), "all")
+  }
+
   func testContextMenuTruncatesVeryLongOCRLabel() throws {
     let longText = String(repeating: "longword ", count: 8).trimmingCharacters(in: .whitespaces)
     let view = OCRImageOverlayView(
