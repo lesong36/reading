@@ -64,6 +64,7 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
   private let onModelSettings: (() -> Void)?
   private let modelPreferences: ScreenshotQuestionPreferences?
   private let modelPicker = NSPopUpButton()
+  private let sessionButton = NSButton(title: "问答记录", target: nil, action: nil)
   private let thinkingPicker = NSPopUpButton()
   private var context: ScreenshotQuestionContext
   private var answerTask: Task<Void, Never>?
@@ -258,7 +259,13 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     modelSettings.setAccessibilityLabel("模型设置")
     modelSettings.toolTip = "打开模型设置"
     modelSettings.isHidden = onModelSettings == nil
-    let headingRow = NSStackView(views: [heading, NSView(), modelSettings])
+    sessionButton.target = self
+    sessionButton.action = #selector(openSessionMenu)
+    sessionButton.bezelStyle = .rounded
+    sessionButton.controlSize = .small
+    sessionButton.setAccessibilityLabel("问答记录")
+    sessionButton.isHidden = sessionStore == nil
+    let headingRow = NSStackView(views: [heading, NSView(), sessionButton, modelSettings])
     headingRow.orientation = .horizontal
     headingRow.spacing = 10
     modelPicker.target = self
@@ -625,6 +632,69 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     imageCheckbox.isHidden = context.imageData == nil
     imageCheckbox.state = text.isEmpty && context.imageData != nil ? .on : .off
     imageCheckbox.isEnabled = !text.isEmpty
+  }
+
+  @objc private func openSessionMenu() {
+    guard let sessionStore else { return }
+    let menu = NSMenu()
+    let newItem = NSMenuItem(title: "新建问答会话", action: #selector(newSession), keyEquivalent: "")
+    newItem.target = self
+    menu.addItem(newItem)
+    menu.addItem(.separator())
+    Task { [weak self] in
+      guard let self else { return }
+      let sessions = (try? await sessionStore.list()) ?? []
+      await MainActor.run {
+        for session in sessions.prefix(12) {
+          let item = NSMenuItem(title: session.title, action: #selector(self.restoreSession(_:)), keyEquivalent: "")
+          item.target = self
+          item.representedObject = session.id
+          item.state = session.id == self.sessionID ? .on : .off
+          menu.addItem(item)
+        }
+        if sessions.isEmpty {
+          let empty = menu.addItem(withTitle: "暂无已保存会话", action: nil, keyEquivalent: "")
+          empty.isEnabled = false
+        }
+        let point = NSPoint(x: 0, y: self.sessionButton.bounds.height)
+        menu.popUp(positioning: nil, at: point, in: self.sessionButton)
+      }
+    }
+  }
+
+  @objc private func newSession() {
+    sessionID = nil
+    sessionAttachmentID = nil
+    history.removeAll()
+    transcript.string = ""
+    status.stringValue = "已新建问答会话。"
+  }
+
+  @objc private func restoreSession(_ sender: NSMenuItem) {
+    guard let sessionStore, let id = sender.representedObject as? String else { return }
+    Task { [weak self] in
+      do {
+        let session = try await sessionStore.session(id: id)
+        guard let attachment = session.attachments.last else { return }
+        let image = try await sessionStore.attachmentData(sessionID: id, attachmentID: attachment.id)
+        await MainActor.run {
+          guard let self else { return }
+          self.sessionID = id
+          self.sessionAttachmentID = attachment.id
+          self.originalImageData = image
+          self.context = ScreenshotQuestionContext(
+            text: attachment.ocrText, selectedWord: nil, imageData: image)
+          self.history = session.turns.map {
+            ScreenshotQuestionTurn(question: $0.question, answer: $0.answer)
+          }
+          self.refreshSource()
+          self.renderTranscript()
+          self.status.stringValue = "已恢复“(session.title)”；可以继续追问或追加截图。"
+        }
+      } catch {
+        await MainActor.run { self?.status.stringValue = "恢复会话失败：(error.localizedDescription)" }
+      }
+    }
   }
 
   @objc private func askSuggestion(_ sender: NSButton) {
