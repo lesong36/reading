@@ -29,6 +29,7 @@ final class OCRClientTests: XCTestCase {
     let result = try await OCRClient.recognizeWithLayout(image)
     XCTAssertEqual(result.text, "A curious reader explores unfamiliar words.")
     let observation = try XCTUnwrap(result.observations.first)
+    XCTAssertGreaterThan(result.observations.count, 3)
     XCTAssertFalse(observation.text.isEmpty)
     XCTAssertGreaterThan(observation.boundingBox.width, 0)
     XCTAssertGreaterThan(observation.boundingBox.height, 0)

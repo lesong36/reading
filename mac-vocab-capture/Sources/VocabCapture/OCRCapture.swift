@@ -38,13 +38,27 @@ enum OCRClient {
         request.usesLanguageCorrection = true
         do {
           try VNImageRequestHandler(cgImage: image).perform([request])
-          let observations = request.results?.compactMap { observation -> Observation? in
-            guard let candidate = observation.topCandidates(1).first else { return nil }
-            return Observation(
-              text: candidate.string, boundingBox: observation.boundingBox,
-              confidence: candidate.confidence)
+          let recognizedLines = request.results?.compactMap { $0.topCandidates(1).first?.string } ?? []
+          let observations = request.results?.flatMap { observation -> [Observation] in
+            guard let candidate = observation.topCandidates(1).first else { return [] }
+            let nsText = candidate.string as NSString
+            let expression = try? NSRegularExpression(pattern: "[A-Za-z]+(?:['’–-][A-Za-z]+)*")
+            let ranges = expression?.matches(
+              in: candidate.string, range: NSRange(location: 0, length: nsText.length)) ?? []
+            let words = ranges.compactMap { match -> Observation? in
+              let nsRange = match.range
+              guard let swiftRange = Range(nsRange, in: candidate.string),
+                let box = try? candidate.boundingBox(for: swiftRange)
+              else { return nil }
+              return Observation(
+                text: nsText.substring(with: nsRange), boundingBox: box.boundingBox,
+                confidence: candidate.confidence)
+            }
+            return words.isEmpty
+              ? [Observation(text: candidate.string, boundingBox: observation.boundingBox, confidence: candidate.confidence)]
+              : words
           } ?? []
-          let text = observations.map(\.text).joined(separator: "\n")
+          let text = recognizedLines.joined(separator: "\n")
             .trimmingCharacters(in: .whitespacesAndNewlines)
           guard !text.isEmpty else { throw OCRCaptureError.noTextFound }
           continuation.resume(returning: Result(text: text, observations: observations))
