@@ -8,11 +8,16 @@ struct OCROverlayToken: Equatable, Sendable {
 
 enum OCROverlayLayout {
   static let lowConfidenceThreshold: Float = 0.6
-  static func imageRect(for imageSize: CGSize, in bounds: CGRect, scale: CGFloat = 1) -> CGRect {
+  static func imageRect(
+    for imageSize: CGSize, in bounds: CGRect, scale: CGFloat = 1, offset: CGPoint = .zero
+  ) -> CGRect {
     guard imageSize.width > 0, imageSize.height > 0, bounds.width > 0, bounds.height > 0 else { return .zero }
     let fitScale = min(bounds.width / imageSize.width, bounds.height / imageSize.height)
     let size = CGSize(width: imageSize.width * fitScale * scale, height: imageSize.height * fitScale * scale)
-    return CGRect(x: bounds.midX - size.width / 2, y: bounds.midY - size.height / 2, width: size.width, height: size.height)
+    return CGRect(
+      x: bounds.midX - size.width / 2 + offset.x,
+      y: bounds.midY - size.height / 2 + offset.y,
+      width: size.width, height: size.height)
   }
 
   static func rect(for normalized: CGRect, imageRect: CGRect) -> CGRect {
@@ -81,6 +86,7 @@ final class OCRImageOverlayView: NSView {
   private var hoveredIndex: Int?
   private var selectedIndices: Set<Int> = []
   private var zoomScale: CGFloat = 1
+  private var panOffset: CGPoint = .zero
 
   init(image: NSImage, tokens: [OCROverlayToken]) {
     self.image = image
@@ -112,7 +118,7 @@ final class OCRImageOverlayView: NSView {
   override var isFlipped: Bool { true }
 
   override func draw(_ dirtyRect: NSRect) {
-    let imageRect = OCROverlayLayout.imageRect(for: image.size, in: bounds, scale: zoomScale)
+    let imageRect = currentImageRect()
     image.draw(in: imageRect, from: .zero, operation: .sourceOver, fraction: 1)
     for (index, token) in tokens.enumerated() {
       // Keep the source image legible; interaction states provide the stronger signal.
@@ -161,7 +167,7 @@ final class OCRImageOverlayView: NSView {
   override func mouseUp(with event: NSEvent) {
     defer { dragStart = nil; dragCurrent = nil; needsDisplay = true }
     let point = convert(event.locationInWindow, from: nil)
-    let imageRect = OCROverlayLayout.imageRect(for: image.size, in: bounds, scale: zoomScale)
+    let imageRect = currentImageRect()
     let selectionRect = CGRect(
       x: min(dragStart?.x ?? point.x, point.x), y: min(dragStart?.y ?? point.y, point.y),
       width: abs(point.x - (dragStart?.x ?? point.x)), height: abs(point.y - (dragStart?.y ?? point.y)))
@@ -238,7 +244,7 @@ final class OCRImageOverlayView: NSView {
 
   override func mouseMoved(with event: NSEvent) {
     let point = convert(event.locationInWindow, from: nil)
-    let imageRect = OCROverlayLayout.imageRect(for: image.size, in: bounds, scale: zoomScale)
+    let imageRect = currentImageRect()
     let next = OCROverlayLayout.selectedTokenIndices(
       tokens: tokens, imageRect: imageRect, selectionRect: .zero, point: point).first
     guard next != hoveredIndex else { return }
@@ -255,12 +261,37 @@ final class OCRImageOverlayView: NSView {
     needsDisplay = true
   }
 
+  override func scrollWheel(with event: NSEvent) {
+    guard zoomScale > 1 else {
+      super.scrollWheel(with: event)
+      return
+    }
+    panOffset.x += event.scrollingDeltaX
+    panOffset.y += event.scrollingDeltaY
+    panOffset = constrainedPanOffset(panOffset)
+    needsDisplay = true
+  }
+
   @objc private func handleMagnification(_ gesture: NSMagnificationGestureRecognizer) {
     let next = min(3, max(1, zoomScale * (1 + gesture.magnification)))
     guard abs(next - zoomScale) > 0.001 else { return }
     zoomScale = next
+    panOffset = constrainedPanOffset(panOffset)
     gesture.magnification = 0
     needsDisplay = true
+  }
+
+  private func currentImageRect() -> CGRect {
+    OCROverlayLayout.imageRect(for: image.size, in: bounds, scale: zoomScale, offset: panOffset)
+  }
+
+  private func constrainedPanOffset(_ offset: CGPoint) -> CGPoint {
+    let centered = OCROverlayLayout.imageRect(for: image.size, in: bounds, scale: zoomScale)
+    let maxX = max(0, (centered.width - bounds.width) / 2)
+    let maxY = max(0, (centered.height - bounds.height) / 2)
+    return CGPoint(
+      x: min(max(offset.x, -maxX), maxX),
+      y: min(max(offset.y, -maxY), maxY))
   }
 
   private func tooltip(for index: Int) -> String {
