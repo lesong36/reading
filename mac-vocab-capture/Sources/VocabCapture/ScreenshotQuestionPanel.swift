@@ -58,6 +58,7 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
   static let zoomKey = "VocabCapture.questionZoomScale"
   private let answer: ScreenshotQuestionAnswer
   private let sessionStore: ScreenshotQuestionSessionStore?
+  var onAppendCapture: (() -> Void)?
   private var sessionID: String?
   private var sessionAttachmentID: String?
   private var sessionPersistenceTask: Task<Void, Never>?
@@ -342,7 +343,8 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     stopButton.action = #selector(stop)
     stopButton.isEnabled = false
     let clearButton = NSButton(title: "清空对话", target: self, action: #selector(clearConversation))
-    for button in [stopButton, clearButton] {
+    let appendButton = NSButton(title: "追加截图", target: self, action: #selector(appendCapture))
+    for button in [stopButton, clearButton, appendButton] {
       button.bezelStyle = .rounded
       button.controlSize = .small
     }
@@ -382,7 +384,7 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     imageCheckbox.controlSize = .small
     searchCheckbox.controlSize = .small
     let controls = NSStackView(views: [
-      imageCheckbox, searchControls, NSView(), stopButton, clearButton,
+      imageCheckbox, searchControls, NSView(), appendButton, stopButton, clearButton,
     ])
     for row in [input, controls] {
       row.orientation = .horizontal
@@ -436,6 +438,14 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     scroll.setContentHuggingPriority(.defaultLow, for: .vertical)
     question.setContentHuggingPriority(.defaultLow, for: .horizontal)
     refreshSuggestions()
+  }
+
+  @objc private func appendCapture() {
+    guard !isAnswering else {
+      status.stringValue = "回答完成后才能追加截图。"
+      return
+    }
+    onAppendCapture?()
   }
 
   override func performKeyEquivalent(with event: NSEvent) -> Bool {

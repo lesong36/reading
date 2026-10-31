@@ -44,6 +44,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
   private let sessionStore: ScreenshotQuestionSessionStore?
   private var questionPanel: ScreenshotQuestionPanel?
   var onRetake: (() -> Void)?
+  var onAppendCapture: (() -> Void)?
 
   init(
     text: String,
@@ -442,6 +443,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
       webAnswer: webAsk, onSearchSettings: onSearchSettings,
       originalImageData: originalImageData, saveQuestion: saveQuestion,
       onOpenQuestion: onOpenQuestion, solutionModel: solutionModel, sessionStore: sessionStore)
+    panel.onAppendCapture = onAppendCapture
     questionPanel = panel
     panel.present()
   }

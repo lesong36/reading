@@ -412,6 +412,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     case .question:
       ocrPanel?.close()
       ocrPanel = nil
+      if let existing = directQuestionPanel {
+        existing.updateContext(
+          ScreenshotQuestionContext(text: text, selectedWord: nil, imageData: questionImageData(image)),
+          originalImageData: MathQuestionIndexer.originalPNG(image))
+        existing.present()
+        setStatus("词")
+        return
+      }
       directQuestionPanel?.close()
       let panel = ScreenshotQuestionPanel(
         context: ScreenshotQuestionContext(
@@ -427,6 +435,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         solutionModel: { [weak self] in self?.currentQuestionModel ?? "" },
         sessionStore: questionSessionStore)
       directQuestionPanel = panel
+      panel.onAppendCapture = { [weak self] in self?.captureScreenQuestionAction() }
       panel.present()
       setStatus("词")
     }
@@ -509,6 +518,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       onOpenQuestion: { [weak self] id in self?.showMathQuestionLibrary(questionID: id) },
       solutionModel: { [weak self] in self?.currentQuestionModel ?? "" })
     panel.onRetake = { [weak self] in self?.captureScreenTextAction() }
+    panel.onAppendCapture = { [weak self] in self?.captureScreenQuestionAction() }
     ocrPanel = panel
     panel.present()
     setStatus("词")
