@@ -164,6 +164,8 @@ final class OCRImageOverlayView: NSView {
 
   private func emitSelection(_ indices: [Int]) {
     guard !indices.isEmpty else { return }
+    selectedIndices = Set(indices)
+    needsDisplay = true
     let text = indices.map { tokens[$0].text }.joined(separator: " ")
     onSelection?(text)
     onSelectionWithIndices?(text, indices)
