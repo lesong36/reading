@@ -383,7 +383,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       }
       return
     }
-    screenRegionSelector.present(on: NSScreen.main) { [weak self] region in
+    let pointerScreen = NSScreen.screens.first { $0.frame.contains(NSEvent.mouseLocation) }
+    screenRegionSelector.present(on: pointerScreen ?? NSScreen.main) { [weak self] region in
       guard let self else { return }
       guard let region else { self.setStatus("词"); restore(); return }
       self.regionCapture.capture(region: region) { result in
