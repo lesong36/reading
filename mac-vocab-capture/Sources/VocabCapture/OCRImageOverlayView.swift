@@ -65,7 +65,14 @@ private extension CGRect {
 
 @MainActor
 final class OCRImageOverlayView: NSView {
-  var tokens: [OCROverlayToken] = [] { didSet { needsDisplay = true } }
+  var tokens: [OCROverlayToken] = [] {
+    didSet {
+      hoveredIndex = nil
+      selectedIndices.removeAll()
+      toolTip = "点击单词或拖选词组"
+      needsDisplay = true
+    }
+  }
   var onSelection: ((String) -> Void)?
   var onSelectionWithIndices: ((String, [Int]) -> Void)?
   private let image: NSImage

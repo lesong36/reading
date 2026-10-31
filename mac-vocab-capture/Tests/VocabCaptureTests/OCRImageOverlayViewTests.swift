@@ -87,4 +87,13 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertEqual(selected?.0, [0])
     XCTAssertEqual(selected?.1, "first")
   }
+
+  func testReplacingTokensClearsTransientSelectionState() {
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [.init(text: "old", boundingBox: .zero, confidence: 1)])
+    view.tokens = [.init(text: "new", boundingBox: .zero, confidence: 1)]
+    XCTAssertEqual(view.tokens.map(\.text), ["new"])
+    XCTAssertEqual(view.toolTip, "点击单词或拖选词组")
+  }
 }
