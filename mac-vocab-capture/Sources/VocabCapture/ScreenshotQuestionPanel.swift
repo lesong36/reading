@@ -165,6 +165,7 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
       || (newOriginal != nil && newOriginal != originalImageData)
     if changedImage {
       preservePendingCapturePersistence()
+      sessionAttachmentID = nil
       persistenceFollowupScheduled = false
       saveRevision = UUID()
       captureID = UUID().uuidString
@@ -224,7 +225,9 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
         if let sessionID {
           id = sessionID
         } else {
-          let session = try await sessionStore.create(title: "截图问答")
+          let title = context.text.split(whereSeparator: { $0.isWhitespace }).joined(separator: " ")
+          let trimmedTitle = String(title.prefix(36)).trimmingCharacters(in: .whitespacesAndNewlines)
+          let session = try await sessionStore.create(title: trimmedTitle.isEmpty ? "截图问答" : trimmedTitle)
           id = session.id
           await MainActor.run { self?.sessionID = id }
         }

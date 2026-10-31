@@ -36,6 +36,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private var mouseEventTap: CFMachPort?
   private var mouseEventSource: CFRunLoopSource?
   private var screenshotTask: Task<Void, Never>?
+  private var appendingQuestionCapture = false
   private(set) var ocrPanel: OCRLookupPanel?
   private(set) var directQuestionPanel: ScreenshotQuestionPanel?
 
@@ -413,12 +414,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       ocrPanel?.close()
       ocrPanel = nil
       if let existing = directQuestionPanel {
-        existing.updateContext(
-          ScreenshotQuestionContext(text: text, selectedWord: nil, imageData: questionImageData(image)),
-          originalImageData: MathQuestionIndexer.originalPNG(image))
-        existing.present()
-        setStatus("词")
-        return
+        if appendingQuestionCapture {
+          existing.updateContext(
+            ScreenshotQuestionContext(text: text, selectedWord: nil, imageData: questionImageData(image)),
+            originalImageData: MathQuestionIndexer.originalPNG(image))
+          existing.present()
+          setStatus("词")
+          appendingQuestionCapture = false
+          return
+        } else {
+          existing.close()
+          directQuestionPanel = nil
+        }
       }
       directQuestionPanel?.close()
       let panel = ScreenshotQuestionPanel(
@@ -435,7 +442,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         solutionModel: { [weak self] in self?.currentQuestionModel ?? "" },
         sessionStore: questionSessionStore)
       directQuestionPanel = panel
-      panel.onAppendCapture = { [weak self] in self?.captureScreenQuestionAction() }
+      panel.onAppendCapture = { [weak self] in
+        self?.appendingQuestionCapture = true
+        self?.captureScreenQuestionAction()
+      }
       panel.present()
       setStatus("词")
     }
