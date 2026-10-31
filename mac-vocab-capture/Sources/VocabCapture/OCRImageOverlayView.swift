@@ -7,6 +7,7 @@ struct OCROverlayToken: Equatable, Sendable {
 }
 
 enum OCROverlayLayout {
+  static let lowConfidenceThreshold: Float = 0.6
   static func imageRect(for imageSize: CGSize, in bounds: CGRect) -> CGRect {
     guard imageSize.width > 0, imageSize.height > 0, bounds.width > 0, bounds.height > 0 else { return .zero }
     let scale = min(bounds.width / imageSize.width, bounds.height / imageSize.height)
@@ -96,7 +97,7 @@ final class OCRImageOverlayView: NSView {
       NSColor.systemBlue.withAlphaComponent(confidence).setFill()
       let rect = OCROverlayLayout.rect(for: token.boundingBox, imageRect: imageRect).insetBy(dx: -2, dy: -2)
       rect.fill()
-      if token.confidence < 0.6 {
+      if token.confidence < OCROverlayLayout.lowConfidenceThreshold {
         NSColor.systemOrange.withAlphaComponent(0.75).setStroke()
         let path = NSBezierPath(rect: rect)
         path.lineWidth = 1
@@ -184,7 +185,7 @@ final class OCRImageOverlayView: NSView {
   }
 
   private func tooltip(for index: Int) -> String {
-    tokens[index].confidence < 0.6
+    tokens[index].confidence < OCROverlayLayout.lowConfidenceThreshold
       ? "选择：\(tokens[index].text)（识别置信度较低，请核对）"
       : "选择：\(tokens[index].text)"
   }
