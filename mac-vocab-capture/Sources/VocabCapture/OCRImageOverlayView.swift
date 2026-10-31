@@ -154,6 +154,12 @@ final class OCRImageOverlayView: NSView {
   }
 
   override func keyDown(with event: NSEvent) {
+    if event.keyCode == 53, dragStart != nil {
+      dragStart = nil
+      dragCurrent = nil
+      needsDisplay = true
+      return
+    }
     guard !tokens.isEmpty else { super.keyDown(with: event); return }
     let ordered = tokens.indices.sorted { OCROverlayLayout.readingOrder(lhs: tokens[$0], rhs: tokens[$1]) }
     switch event.keyCode {
