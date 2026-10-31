@@ -167,6 +167,13 @@ final class OCRImageOverlayView: NSView {
     guard !tokens.isEmpty else { super.keyDown(with: event); return }
     let ordered = tokens.indices.sorted { OCROverlayLayout.readingOrder(lhs: tokens[$0], rhs: tokens[$1]) }
     switch event.keyCode {
+    case 115, 119:
+      let next = event.keyCode == 115 ? ordered.first! : ordered.last!
+      hoveredIndex = next
+      selectedIndices.removeAll()
+      toolTip = tooltip(for: next)
+      setAccessibilityValue(tokens[next].text)
+      needsDisplay = true
     case 123, 124:
       let current = hoveredIndex.flatMap { ordered.firstIndex(of: $0) } ?? (event.keyCode == 123 ? 0 : -1)
       let next = max(0, min(ordered.count - 1, current + (event.keyCode == 123 ? -1 : 1)))

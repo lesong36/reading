@@ -109,6 +109,26 @@ final class OCRImageOverlayViewTests: XCTestCase {
     XCTAssertEqual(selected, "bottom")
   }
 
+  func testHomeAndEndJumpAcrossLongOCRResults() throws {
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [
+        .init(text: "first", boundingBox: CGRect(x: 0.1, y: 0.8, width: 0.2, height: 0.1), confidence: 1),
+        .init(text: "last", boundingBox: CGRect(x: 0.1, y: 0.1, width: 0.2, height: 0.1), confidence: 1),
+      ])
+    var selected = ""
+    view.onSelection = { selected = $0 }
+    let end = try XCTUnwrap(NSEvent.keyEvent(
+      with: .keyDown, location: .zero, modifierFlags: [], timestamp: 0, windowNumber: 0,
+      context: nil, characters: "", charactersIgnoringModifiers: "", isARepeat: false, keyCode: 119))
+    view.keyDown(with: end)
+    let enter = try XCTUnwrap(NSEvent.keyEvent(
+      with: .keyDown, location: .zero, modifierFlags: [], timestamp: 0, windowNumber: 0,
+      context: nil, characters: "\r", charactersIgnoringModifiers: "\r", isARepeat: false, keyCode: 36))
+    view.keyDown(with: enter)
+    XCTAssertEqual(selected, "last")
+  }
+
   func testReplacingTokensClearsTransientSelectionState() {
     let view = OCRImageOverlayView(
       image: NSImage(size: NSSize(width: 100, height: 100)),
