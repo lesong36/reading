@@ -161,6 +161,21 @@ final class OCRImageOverlayView: NSView {
         x: min(start.x, current.x), y: min(start.y, current.y),
         width: abs(current.x - start.x), height: abs(current.y - start.y))).fill()
     }
+    if zoomScale > 1.001 {
+      let label = "\(Int((zoomScale * 100).rounded()))%"
+      let attributes: [NSAttributedString.Key: Any] = [
+        .font: NSFont.systemFont(ofSize: 11, weight: .semibold),
+        .foregroundColor: NSColor.white,
+      ]
+      let textSize = (label as NSString).size(withAttributes: attributes)
+      let badge = CGRect(
+        x: bounds.maxX - textSize.width - 20, y: bounds.minY + 10,
+        width: textSize.width + 12, height: textSize.height + 6)
+      NSColor.black.withAlphaComponent(0.62).setFill()
+      NSBezierPath(roundedRect: badge, xRadius: 5, yRadius: 5).fill()
+      (label as NSString).draw(
+        at: CGPoint(x: badge.minX + 6, y: badge.minY + 3), withAttributes: attributes)
+    }
   }
 
   override func mouseDown(with event: NSEvent) {
