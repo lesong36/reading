@@ -219,6 +219,7 @@ final class OCRImageOverlayViewTests: XCTestCase {
       windowNumber: 0, context: nil, eventNumber: 2, clickCount: 1, pressure: 0))
     view.mouseUp(with: up)
     XCTAssertEqual(view.accessibilityValue() as? String, "word")
+    XCTAssertEqual(view.toolTip, "已选择：word")
   }
 
   func testCommandCCopiesTheSelectedOCRText() throws {
