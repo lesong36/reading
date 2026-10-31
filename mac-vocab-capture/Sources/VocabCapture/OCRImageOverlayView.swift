@@ -103,6 +103,15 @@ final class OCRImageOverlayView: NSView {
 
   required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
+  override func layout() {
+    super.layout()
+    let constrained = constrainedPanOffset(panOffset)
+    if constrained != panOffset {
+      panOffset = constrained
+      needsDisplay = true
+    }
+  }
+
   override var acceptsFirstResponder: Bool { true }
 
   override func becomeFirstResponder() -> Bool {
