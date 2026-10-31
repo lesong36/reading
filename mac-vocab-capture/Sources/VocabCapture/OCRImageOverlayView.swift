@@ -358,6 +358,7 @@ final class OCRImageOverlayView: NSView {
       menu.items.forEach { $0.target = self }
       return menu
     }
+    window?.makeFirstResponder(self)
     hoveredIndex = index
     selectedIndices = [index]
     setAccessibilityValue(tokens[index].text)
