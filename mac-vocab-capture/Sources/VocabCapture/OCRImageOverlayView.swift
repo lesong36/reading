@@ -307,12 +307,15 @@ final class OCRImageOverlayView: NSView {
       setAccessibilityValue(tokens[next].text)
       needsDisplay = true
     case 123, 124:
+      let previous = hoveredIndex
       let current = hoveredIndex.flatMap { ordered.firstIndex(of: $0) } ?? (event.keyCode == 123 ? 0 : -1)
       let next = max(0, min(ordered.count - 1, current + (event.keyCode == 123 ? -1 : 1)))
       hoveredIndex = ordered[next]
       ensureTokenVisible(ordered[next])
-      selectedIndices.removeAll()
-      selectionAnchorIndex = nil
+      let anchor = event.modifierFlags.contains(.shift)
+        ? selectionAnchorIndex ?? previous
+        : nil
+      updateKeyboardSelection(anchor: anchor, target: ordered[next])
       toolTip = tooltip(for: ordered[next])
       setAccessibilityValue(tokens[ordered[next]].text)
       needsDisplay = true
@@ -334,8 +337,7 @@ final class OCRImageOverlayView: NSView {
       }) {
         hoveredIndex = next
         ensureTokenVisible(next)
-        selectedIndices.removeAll()
-        selectionAnchorIndex = nil
+        updateKeyboardSelection(anchor: event.modifierFlags.contains(.shift) ? selectionAnchorIndex ?? current : nil, target: next)
         toolTip = tooltip(for: next)
         setAccessibilityValue(tokens[next].text)
         needsDisplay = true
@@ -345,6 +347,22 @@ final class OCRImageOverlayView: NSView {
     default:
       super.keyDown(with: event)
     }
+  }
+
+  private func updateKeyboardSelection(anchor: Int?, target: Int) {
+    guard let anchor else {
+      selectedIndices.removeAll()
+      selectionAnchorIndex = nil
+      return
+    }
+    let ordered = tokens.indices.sorted { OCROverlayLayout.readingOrder(lhs: tokens[$0], rhs: tokens[$1]) }
+    guard let start = ordered.firstIndex(of: anchor), let end = ordered.firstIndex(of: target) else { return }
+    selectedIndices = Set(ordered[min(start, end)...max(start, end)])
+    selectionAnchorIndex = anchor
+    let text = ordered[min(start, end)...max(start, end)].map { tokens[$0].text }.joined(separator: " ")
+    setAccessibilityValue(text)
+    toolTip = "已选择：\(text)；按回车确认"
+    needsDisplay = true
   }
 
   /// Handles the application Edit menu when this overlay is the first responder.
