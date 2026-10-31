@@ -135,7 +135,11 @@ final class OCRImageOverlayView: NSView {
     }
     guard next != hoveredIndex else { return }
     hoveredIndex = next
-    toolTip = next.map { "选择：\(tokens[$0].text)" } ?? "点击单词或拖选词组"
+    toolTip = next.map {
+      tokens[$0].confidence < 0.6
+        ? "选择：\(tokens[$0].text)（识别置信度较低，请核对）"
+        : "选择：\(tokens[$0].text)"
+    } ?? "点击单词或拖选词组"
     needsDisplay = true
   }
 }
