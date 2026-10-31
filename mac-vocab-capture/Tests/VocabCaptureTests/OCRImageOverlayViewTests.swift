@@ -273,4 +273,19 @@ final class OCRImageOverlayViewTests: XCTestCase {
     view.mouseUp(with: up)
     XCTAssertEqual(selected, "word")
   }
+
+  func testZoomedEmptyImageContextMenuOffersRestore() throws {
+    let view = OCRImageOverlayView(
+      image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [.init(text: "word", boundingBox: CGRect(x: 0, y: 0, width: 0.2, height: 0.2), confidence: 1)])
+    view.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+    let plus = try XCTUnwrap(NSEvent.keyEvent(
+      with: .keyDown, location: .zero, modifierFlags: [], timestamp: 0, windowNumber: 0,
+      context: nil, characters: "+", charactersIgnoringModifiers: "+", isARepeat: false, keyCode: 24))
+    view.keyDown(with: plus)
+    let event = try XCTUnwrap(NSEvent.mouseEvent(
+      with: .rightMouseDown, location: CGPoint(x: 50, y: 50), modifierFlags: [], timestamp: 0,
+      windowNumber: 0, context: nil, eventNumber: 1, clickCount: 1, pressure: 1))
+    XCTAssertEqual(view.menu(for: event)?.items.map(\.title), ["恢复整图"])
+  }
 }
