@@ -302,6 +302,7 @@ final class OCRImageOverlayView: NSView {
       hoveredIndex = next
       ensureTokenVisible(next)
       selectedIndices.removeAll()
+      selectionAnchorIndex = nil
       toolTip = tooltip(for: next)
       setAccessibilityValue(tokens[next].text)
       needsDisplay = true
@@ -311,6 +312,7 @@ final class OCRImageOverlayView: NSView {
       hoveredIndex = ordered[next]
       ensureTokenVisible(ordered[next])
       selectedIndices.removeAll()
+      selectionAnchorIndex = nil
       toolTip = tooltip(for: ordered[next])
       setAccessibilityValue(tokens[ordered[next]].text)
       needsDisplay = true
@@ -333,6 +335,7 @@ final class OCRImageOverlayView: NSView {
         hoveredIndex = next
         ensureTokenVisible(next)
         selectedIndices.removeAll()
+        selectionAnchorIndex = nil
         toolTip = tooltip(for: next)
         setAccessibilityValue(tokens[next].text)
         needsDisplay = true
