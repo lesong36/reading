@@ -5,6 +5,32 @@ import XCTest
 
 @MainActor
 final class OCRImageOverlayViewTests: XCTestCase {
+  @MainActor
+  func testOriginalPositionScrollIsHandedBackToSource() throws {
+    let view = OCRImageOverlayView(image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [], drawsSourceImage: false)
+    var received = false
+    view.onSourceNavigation = { _ in received = true }
+    let cgEvent = try XCTUnwrap(CGEvent(scrollWheelEvent2Source: nil, units: .pixel,
+      wheelCount: 1, wheel1: -30, wheel2: 0, wheel3: 0))
+    let event = try XCTUnwrap(NSEvent(cgEvent: cgEvent))
+    view.scrollWheel(with: event)
+    XCTAssertTrue(received)
+  }
+
+  @MainActor
+  func testOriginalPositionPageDownIsHandedBackToSource() throws {
+    let view = OCRImageOverlayView(image: NSImage(size: NSSize(width: 100, height: 100)),
+      tokens: [], drawsSourceImage: false)
+    var received: UInt16?
+    view.onSourceNavigation = { received = $0.keyCode }
+    let event = try XCTUnwrap(NSEvent.keyEvent(with: .keyDown, location: .zero,
+      modifierFlags: [], timestamp: 0, windowNumber: 0, context: nil,
+      characters: "", charactersIgnoringModifiers: "", isARepeat: false, keyCode: 121))
+    view.keyDown(with: event)
+    XCTAssertEqual(received, 121)
+  }
+
   func testAspectFitAndVisionBottomLeftCoordinateConversion() {
     let imageRect = OCROverlayLayout.imageRect(for: CGSize(width: 1000, height: 500), in: CGRect(x: 0, y: 0, width: 600, height: 600))
     XCTAssertEqual(imageRect, CGRect(x: 0, y: 150, width: 600, height: 300))

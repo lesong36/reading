@@ -128,7 +128,7 @@ final class ScreenshotRegionCapture {
                   width: rect.width, height: rect.height)
   }
 
-  private static func displayID(for frame: CGRect) -> CGDirectDisplayID? {
+  static func displayID(for frame: CGRect) -> CGDirectDisplayID? {
     NSScreen.screens.first(where: { $0.frame == frame })
       .flatMap { ($0.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? NSNumber)?.uint32Value }
   }

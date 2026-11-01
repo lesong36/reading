@@ -5,10 +5,13 @@ final class ScreenOCROverlayWindow {
   private var panel: NSPanel?
   private var sourceTimer: Timer?
   private var deactivationObserver: NSObjectProtocol?
+  private var keyMonitor: Any?
+  private var contentMonitor: ScreenContentMonitor?
   private let sourceIsValid: () -> Bool
   private var closeDelegate: CloseDelegate?
   private let region: ScreenCaptureRegion
   private let image: NSImage
+  private let capturedImage: CGImage
   private let tokens: [OCROverlayToken]
   var onSelection: ((String, [Int]) -> Void)?
   var onClose: (() -> Void)?
@@ -18,6 +21,7 @@ final class ScreenOCROverlayWindow {
        sourceIsValid: (() -> Bool)? = nil) {
     self.sourceIsValid = sourceIsValid ?? { region.sourceWindow?.isCurrent ?? true }
     self.region = region
+    self.capturedImage = image
     self.image = NSImage(cgImage: image, size: NSSize(width: image.width, height: image.height))
     self.tokens = tokens
   }
@@ -29,6 +33,7 @@ final class ScreenOCROverlayWindow {
     // OCR interaction layer, so it never obscures the original reading surface.
     let view = OCRImageOverlayView(image: image, tokens: tokens, drawsSourceImage: false)
     view.onCancel = { [weak self] in self?.close() }
+    view.onSourceNavigation = { [weak self] event in self?.navigateSource(event) }
     view.onSelectionWithIndices = { [weak self] text, indices in
       self?.onSelection?(text, indices)
     }
@@ -53,6 +58,11 @@ final class ScreenOCROverlayWindow {
     panel.orderFrontRegardless()
     panel.makeKeyAndOrderFront(nil)
     panel.makeFirstResponder(view)
+    keyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
+      guard let self, [116, 121].contains(event.keyCode) else { return event }
+      self.navigateSource(event)
+      return nil
+    }
     deactivationObserver = NotificationCenter.default.addObserver(
       forName: NSApplication.didResignActiveNotification, object: NSApp, queue: .main
     ) { [weak self] _ in
@@ -66,16 +76,37 @@ final class ScreenOCROverlayWindow {
     }
     sourceTimer = timer
     RunLoop.main.add(timer, forMode: .common)
+    if region.sourceWindow != nil {
+      contentMonitor = ScreenContentMonitor(region: region, original: capturedImage) { [weak self] in
+        self?.close()
+      }
+      contentMonitor?.start()
+    }
   }
 
   func validateSource() {
     if !sourceIsValid() { close() }
   }
 
+  private func navigateSource(_ event: NSEvent) {
+    let source = region.sourceWindow
+    let forwarded = event.cgEvent?.copy()
+    close()
+    guard let source, let forwarded else { return }
+    NSRunningApplication(processIdentifier: source.ownerPID)?.activate()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+      forwarded.postToPid(source.ownerPID)
+    }
+  }
+
   func close() {
     guard panel != nil else { return }
     sourceTimer?.invalidate()
     sourceTimer = nil
+    contentMonitor?.stop()
+    contentMonitor = nil
+    if let monitor = keyMonitor { NSEvent.removeMonitor(monitor) }
+    keyMonitor = nil
     if let observer = deactivationObserver { NotificationCenter.default.removeObserver(observer) }
     deactivationObserver = nil
     panel?.orderOut(nil)

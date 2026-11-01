@@ -5,6 +5,17 @@ import XCTest
 
 final class ScreenRegionTests: XCTestCase {
   @MainActor
+  func testContentComparisonDistinguishesPageChangeFromSmallRenderingNoise() {
+    let original = [UInt8](repeating: 230, count: 10_000)
+    var noise = original
+    for index in 0..<200 { noise[index] = 220 }
+    XCTAssertFalse(ScreenContentMonitor.changed(original, noise))
+    var newPage = original
+    for index in 0..<1_000 { newPage[index] = 80 }
+    XCTAssertTrue(ScreenContentMonitor.changed(original, newPage))
+  }
+
+  @MainActor
   func testSourceWindowChangeDismissesOverlayAndNotifiesOnce() async throws {
     var valid = true
     let overlay = try makeTrackedOverlay { valid }

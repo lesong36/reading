@@ -82,6 +82,7 @@ final class OCRImageOverlayView: NSView {
   var onSelection: ((String) -> Void)?
   var onSelectionWithIndices: ((String, [Int]) -> Void)?
   var onCancel: (() -> Void)?
+  var onSourceNavigation: ((NSEvent) -> Void)?
   private let image: NSImage
   private let drawsSourceImage: Bool
   private var dragStart: CGPoint?
@@ -289,6 +290,10 @@ final class OCRImageOverlayView: NSView {
   }
 
   override func keyDown(with event: NSEvent) {
+    if !drawsSourceImage, [116, 121].contains(event.keyCode) {
+      onSourceNavigation?(event)
+      return
+    }
     if event.keyCode == 53 {
       if dragStart != nil {
         dragStart = nil
@@ -528,6 +533,10 @@ final class OCRImageOverlayView: NSView {
   }
 
   override func scrollWheel(with event: NSEvent) {
+    if !drawsSourceImage {
+      onSourceNavigation?(event)
+      return
+    }
     guard zoomScale > 1 else {
       super.scrollWheel(with: event)
       return
