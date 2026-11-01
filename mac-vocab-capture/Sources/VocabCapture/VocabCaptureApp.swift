@@ -572,7 +572,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     panel.onRetake = { [weak self] in self?.captureScreenTextAction() }
     panel.onAppendCapture = { [weak self] in self?.captureScreenQuestionAction() }
     ocrPanel = panel
-    if let region, !observations.isEmpty {
+    if let region {
       panel.orderOut(nil)
       let overlay = ScreenOCROverlayWindow(image: image, region: region, tokens: observations)
       overlay.onSelection = { [weak self, weak panel] text, _ in
