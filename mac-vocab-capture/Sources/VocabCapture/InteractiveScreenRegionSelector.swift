@@ -4,6 +4,13 @@ struct ScreenCaptureRegion: Equatable, Sendable {
   let screenFrame: CGRect
   let selectionRect: CGRect
 
+  static func fromLocalSelection(_ selection: CGRect, screenFrame: CGRect) -> ScreenCaptureRegion? {
+    let rect = selection.standardized.intersection(CGRect(origin: .zero, size: screenFrame.size))
+    guard !rect.isNull, rect.width >= 2, rect.height >= 2 else { return nil }
+    return ScreenCaptureRegion(screenFrame: screenFrame,
+      selectionRect: rect.offsetBy(dx: screenFrame.minX, dy: screenFrame.minY))
+  }
+
   var normalizedSelection: CGRect {
     guard screenFrame.width > 0, screenFrame.height > 0 else { return .zero }
     return CGRect(
@@ -27,7 +34,7 @@ final class InteractiveScreenRegionSelector: ScreenRegionSelecting {
   func present(on screen: NSScreen? = NSScreen.main, completion: @escaping (ScreenCaptureRegion?) -> Void) {
     guard panel == nil, let screen else { completion(nil); return }
     self.completion = completion
-    let view = RegionSelectionView(frame: screen.frame)
+    let view = RegionSelectionView(frame: CGRect(origin: .zero, size: screen.frame.size))
     view.onFinish = { [weak self] rect in self?.finish(rect, screenFrame: screen.frame) }
     let panel = NSPanel(
       contentRect: screen.frame, styleMask: [.borderless], backing: .buffered, defer: false)
@@ -51,11 +58,7 @@ final class InteractiveScreenRegionSelector: ScreenRegionSelecting {
     guard panel != nil else { return }
     panel?.orderOut(nil)
     panel = nil
-    let result = selection.flatMap { rect -> ScreenCaptureRegion? in
-      let normalized = rect.standardized.intersection(screenFrame)
-      guard normalized.width >= 2, normalized.height >= 2 else { return nil }
-      return ScreenCaptureRegion(screenFrame: screenFrame, selectionRect: normalized)
-    }
+    let result = selection.flatMap { ScreenCaptureRegion.fromLocalSelection($0, screenFrame: screenFrame) }
     let callback = completion
     completion = nil
     callback?(result)

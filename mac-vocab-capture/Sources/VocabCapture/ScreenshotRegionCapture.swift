@@ -2,6 +2,7 @@ import ApplicationServices
 import AppKit
 import Foundation
 import ImageIO
+import ScreenCaptureKit
 
 struct ScreenshotProcessResult {
   let status: Int32
@@ -83,26 +84,48 @@ final class ScreenshotRegionCapture {
     guard !isRunning else { return }
     guard permission() else { completion(.failure(.permissionDenied)); return }
     isRunning = true
-    defer { isRunning = false }
-    guard let displayID = Self.displayID(for: region.screenFrame),
-      CGDisplayBounds(displayID).width > 0,
-      let screen = NSScreen.screens.first(where: {
-        ($0.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? NSNumber)?.uint32Value == displayID
-      })
-    else {
-      completion(.failure(.invalidImage)); return
+    Task { @MainActor in
+      defer { isRunning = false }
+      do {
+        guard let displayID = Self.displayID(for: region.screenFrame) else {
+          completion(.failure(.invalidImage)); return
+        }
+        let sourceRect = Self.sourceRect(for: region)
+        guard sourceRect.width >= 2, sourceRect.height >= 2 else {
+          completion(.failure(.invalidImage)); return
+        }
+        guard #available(macOS 14.0, *) else {
+          guard let image = CGDisplayCreateImage(displayID, rect: sourceRect) else {
+            completion(.failure(.invalidImage)); return
+          }
+          completion(.success(image)); return
+        }
+        let content = try await SCShareableContent.excludingDesktopWindows(false, onScreenWindowsOnly: true)
+        guard let display = content.displays.first(where: { $0.displayID == displayID }) else {
+          completion(.failure(.invalidImage)); return
+        }
+        let filter = SCContentFilter(display: display, excludingWindows: [])
+        let configuration = SCStreamConfiguration()
+        configuration.sourceRect = sourceRect
+        let scale = NSScreen.screens.first(where: { $0.frame == region.screenFrame })?.backingScaleFactor ?? 1
+        configuration.width = max(1, Int((configuration.sourceRect.width * scale).rounded()))
+        configuration.height = max(1, Int((configuration.sourceRect.height * scale).rounded()))
+        configuration.showsCursor = false
+        let image = try await SCScreenshotManager.captureImage(contentFilter: filter, configuration: configuration)
+        completion(.success(image))
+      } catch {
+        completion(.failure(.captureFailed(Int32((error as NSError).code))))
+      }
     }
-    let scale = screen.backingScaleFactor
-    let rect = region.selectionRect.standardized
-    let pixelRect = CGRect(
-      x: (rect.minX - region.screenFrame.minX) * scale,
-      y: (region.screenFrame.maxY - rect.maxY) * scale,
-      width: rect.width * scale,
-      height: rect.height * scale)
-    guard let image = CGDisplayCreateImage(displayID, rect: pixelRect), image.width > 0, image.height > 0 else {
-      completion(.failure(.invalidImage)); return
-    }
-    completion(.success(image))
+  }
+
+  /// ScreenCaptureKit accepts display-local points with a top-left origin.
+  static func sourceRect(for region: ScreenCaptureRegion) -> CGRect {
+    let rect = region.selectionRect.standardized.intersection(region.screenFrame)
+    guard !rect.isNull else { return .zero }
+    return CGRect(x: rect.minX - region.screenFrame.minX,
+                  y: region.screenFrame.maxY - rect.maxY,
+                  width: rect.width, height: rect.height)
   }
 
   private static func displayID(for frame: CGRect) -> CGDirectDisplayID? {

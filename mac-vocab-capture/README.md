@@ -54,6 +54,7 @@ swift run
 ## 版本与签名
 
 - `VERSION` 是唯一版本来源；应用包的版本号从这里生成。
+- 每次交付给用户试用的安装包都必须递增版本，禁止用相同版本号覆盖不同代码。菜单和设置页可查看已运行版本；0.2.132 保持为稳定版，0.3.x 用于新截图交互开发。
 - 每次发布前运行 `./scripts/bump-version.sh patch`（或 `minor` / `major`），再运行 `./scripts/install-app.sh`。
 - 应用只从 `~/Applications/拾词助手.app` 启动；构建产物会在安装后删除，避免启动台发现多个历史副本。
 - 发布脚本会自动使用钥匙串中的 Apple Development 证书；也可通过 `VOCAB_CAPTURE_SIGNING_IDENTITY` 指定签名身份。这是跨版本稳定保留 macOS 辅助功能授权的正式发布方案。
