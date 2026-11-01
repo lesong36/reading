@@ -145,6 +145,19 @@ final class OCRImageOverlayView: NSView {
       let border = NSBezierPath(rect: bounds.insetBy(dx: 1, dy: 1))
       border.lineWidth = 2
       border.stroke()
+      let status = tokens.isEmpty ? "已截图 · 未识别到文字 · 按 Esc 查看详情" : "点击或拖选文字 · 按 Esc 结束"
+      let attributes: [NSAttributedString.Key: Any] = [
+        .font: NSFont.systemFont(ofSize: 13, weight: .semibold),
+        .foregroundColor: NSColor.white,
+      ]
+      let textSize = (status as NSString).size(withAttributes: attributes)
+      let badge = CGRect(
+        x: bounds.minX + 10, y: bounds.minY + 10,
+        width: min(bounds.width - 20, textSize.width + 24), height: textSize.height + 14)
+      NSColor.black.withAlphaComponent(0.82).setFill()
+      NSBezierPath(roundedRect: badge, xRadius: 5, yRadius: 5).fill()
+      (status as NSString).draw(
+        at: CGPoint(x: badge.minX + 12, y: badge.minY + 7), withAttributes: attributes)
     }
     for (index, token) in tokens.enumerated() {
       // Keep the source image legible; interaction states provide the stronger signal.

@@ -22,4 +22,25 @@ final class ScreenRegionTests: XCTestCase {
 
     XCTAssertEqual(region.normalizedSelection, .zero)
   }
+
+  @MainActor
+  func testOriginalPositionOCRLayerIsOrderedVisibleEvenWithoutRecognizedTokens() throws {
+    let context = try XCTUnwrap(CGContext(
+      data: nil, width: 100, height: 60, bitsPerComponent: 8, bytesPerRow: 0,
+      space: CGColorSpaceCreateDeviceRGB(),
+      bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue))
+    context.setFillColor(NSColor.white.cgColor)
+    context.fill(CGRect(x: 0, y: 0, width: 100, height: 60))
+    let image = try XCTUnwrap(context.makeImage())
+    let frame = CGRect(x: 100, y: 100, width: 100, height: 60)
+    let overlay = ScreenOCROverlayWindow(
+      image: image,
+      region: ScreenCaptureRegion(screenFrame: frame, selectionRect: frame),
+      tokens: [])
+    defer { overlay.close() }
+
+    overlay.present()
+
+    XCTAssertTrue(overlay.isVisible)
+  }
 }

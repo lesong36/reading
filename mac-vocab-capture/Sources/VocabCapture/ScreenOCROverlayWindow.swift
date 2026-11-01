@@ -9,6 +9,7 @@ final class ScreenOCROverlayWindow {
   private let tokens: [OCROverlayToken]
   var onSelection: ((String, [Int]) -> Void)?
   var onClose: (() -> Void)?
+  var isVisible: Bool { panel?.isVisible == true }
 
   init(image: CGImage, region: ScreenCaptureRegion, tokens: [OCROverlayToken]) {
     self.region = region
@@ -31,7 +32,7 @@ final class ScreenOCROverlayWindow {
     view.translatesAutoresizingMaskIntoConstraints = false
     let panel = NSPanel(
       contentRect: region.selectionRect, styleMask: [.borderless], backing: .buffered, defer: false)
-    panel.level = .floating
+    panel.level = .screenSaver
     panel.backgroundColor = .clear
     panel.isOpaque = false
     panel.hasShadow = false
@@ -42,6 +43,8 @@ final class ScreenOCROverlayWindow {
     panel.delegate = closeDelegate
     self.closeDelegate = closeDelegate
     self.panel = panel
+    NSApp.activate(ignoringOtherApps: true)
+    panel.orderFrontRegardless()
     panel.makeKeyAndOrderFront(nil)
     panel.makeFirstResponder(view)
   }
