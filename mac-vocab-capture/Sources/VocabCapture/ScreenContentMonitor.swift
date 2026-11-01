@@ -42,7 +42,7 @@ final class ScreenContentMonitor {
   func stop() { task?.cancel(); task = nil }
 
   @available(macOS 14.0, *)
-  private func capture() async throws -> CGImage {
+  func capture() async throws -> CGImage {
     guard let displayID = ScreenshotRegionCapture.displayID(for: region.screenFrame) else {
       throw CocoaError(.fileNoSuchFile)
     }

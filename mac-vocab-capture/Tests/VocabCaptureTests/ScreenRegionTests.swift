@@ -5,6 +5,33 @@ import XCTest
 
 final class ScreenRegionTests: XCTestCase {
   @MainActor
+  func testLiveCaptureRemainsStableWhenScreenDoesNotChange() async throws {
+    guard ProcessInfo.processInfo.environment["VOCAB_LIVE_STABILITY_TEST"] == "1" else {
+      throw XCTSkip("Opt-in live screen stability validation")
+    }
+    guard #available(macOS 14.0, *) else { throw XCTSkip("Requires ScreenCaptureKit screenshots") }
+    let screen = try XCTUnwrap(NSScreen.screens.last)
+    let local = CGRect(x: screen.frame.width / 2 - 120, y: screen.frame.height / 2 - 80,
+      width: 240, height: 160)
+    let region = try XCTUnwrap(ScreenCaptureRegion.fromLocalSelection(local, screenFrame: screen.frame))
+    let capture = ScreenshotRegionCapture()
+    let image: CGImage? = try await withCheckedThrowingContinuation { continuation in
+      capture.capture(region: region) { continuation.resume(with: $0.mapError { $0 as Error }) }
+    }
+    var changes = 0
+    let baselineImage = try XCTUnwrap(image)
+    let monitor = ScreenContentMonitor(region: region, original: baselineImage) { changes += 1 }
+    defer { monitor.stop() }
+    let current = try await monitor.capture()
+    let baseline = try XCTUnwrap(ScreenContentMonitor.signature(baselineImage))
+    let signature = try XCTUnwrap(ScreenContentMonitor.signature(current))
+    XCTAssertFalse(ScreenContentMonitor.changed(baseline, signature))
+    monitor.start()
+    try await Task.sleep(nanoseconds: 2_000_000_000)
+    XCTAssertEqual(changes, 0, "Unchanged screen content should not dismiss the OCR layer")
+  }
+
+  @MainActor
   func testRenderedPDFScrollAndPageChangeTriggerContentInvalidation() throws {
     guard let firstPath = ProcessInfo.processInfo.environment["VOCAB_PDF_PAGE_1"],
       let secondPath = ProcessInfo.processInfo.environment["VOCAB_PDF_PAGE_2"] else {
