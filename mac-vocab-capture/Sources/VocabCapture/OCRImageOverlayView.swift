@@ -140,9 +140,15 @@ final class OCRImageOverlayView: NSView {
       image.draw(
         in: imageRect, from: .zero, operation: .sourceOver, fraction: 1, respectFlipped: true, hints: nil)
     }
+    if !drawsSourceImage {
+      NSColor.controlAccentColor.withAlphaComponent(0.9).setStroke()
+      let border = NSBezierPath(rect: bounds.insetBy(dx: 1, dy: 1))
+      border.lineWidth = 2
+      border.stroke()
+    }
     for (index, token) in tokens.enumerated() {
       // Keep the source image legible; interaction states provide the stronger signal.
-      let confidence = max(0.025, min(0.12, CGFloat(token.confidence) * 0.12))
+      let confidence = max(0.10, min(0.22, CGFloat(token.confidence) * 0.22))
       NSColor.systemBlue.withAlphaComponent(confidence).setFill()
       let rect = OCROverlayLayout.rect(for: token.boundingBox, imageRect: imageRect).insetBy(dx: -2, dy: -2)
       rect.fill()
