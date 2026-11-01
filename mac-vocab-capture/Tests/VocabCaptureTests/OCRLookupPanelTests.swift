@@ -22,10 +22,14 @@ final class OCRLookupPanelTests: XCTestCase {
     XCTAssertTrue(all.compactMap { $0 as? NSTextField }.contains { $0.stringValue == "亚特兰蒂斯" })
     let save = try XCTUnwrap(all.compactMap { $0 as? NSButton }.first { $0.title.hasPrefix("加入生词本") })
     XCTAssertTrue(save.isEnabled)
+    XCTAssertTrue(all.compactMap { $0 as? NSTextField }.contains {
+      $0.stringValue == "Many explorers looked for Atlantis."
+    })
+    XCTAssertTrue(panel.titleVisibility == .hidden)
     panel.contentView!.layoutSubtreeIfNeeded()
     if let bitmap = panel.contentView!.bitmapImageRepForCachingDisplay(in: panel.contentView!.bounds) {
       panel.contentView!.cacheDisplay(in: panel.contentView!.bounds, to: bitmap)
-      try bitmap.representation(using: .png, properties: [:])?.write(to: URL(fileURLWithPath: "/tmp/vocab-032-card.png"))
+      try bitmap.representation(using: .png, properties: [:])?.write(to: URL(fileURLWithPath: "/tmp/vocab-033-card.png"))
     }
     save.performClick(nil)
     try await Task.sleep(nanoseconds: 50_000_000)

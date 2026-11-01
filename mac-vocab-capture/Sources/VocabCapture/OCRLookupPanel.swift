@@ -5,6 +5,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
   NSTextFieldDelegate
 {
   let compactPresentation: Bool
+  private var compactColumn: NSStackView?
   private let original = OCRTextView()
   private let targetWord = NSTextField()
   private let meaning = NSTextField(wrappingLabelWithString: "")
@@ -87,18 +88,28 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     self.sessionStore = sessionStore
     self.overlayTokens = overlayTokens
     super.init(
-      contentRect: NSRect(x: 0, y: 0, width: compactPresentation ? 340 : 600, height: compactPresentation ? 240 : 650),
-      styleMask: [.titled, .closable, .resizable], backing: .buffered, defer: false)
+      contentRect: NSRect(x: 0, y: 0, width: compactPresentation ? 360 : 600, height: compactPresentation ? 300 : 650),
+      styleMask: compactPresentation ? [.titled, .closable, .fullSizeContentView] : [.titled, .closable, .resizable], backing: .buffered, defer: false)
     title = "截图取词"
     isReleasedWhenClosed = false
     hidesOnDeactivate = false
-    minSize = compactPresentation ? NSSize(width: 340, height: 240) : NSSize(width: 540, height: 620)
+    minSize = compactPresentation ? NSSize(width: 360, height: 210) : NSSize(width: 540, height: 620)
+    if compactPresentation {
+      titleVisibility = .hidden
+      titlebarAppearsTransparent = true
+      isMovableByWindowBackground = true
+      hasShadow = true
+      for button in [NSWindow.ButtonType.closeButton, .miniaturizeButton, .zoomButton] {
+        standardWindowButton(button)?.isHidden = true
+      }
+    }
     delegate = self
     buildContent(text: text)
     center()
   }
 
   func present() {
+    fitCompactCard()
     bringToFront()
     makeFirstResponder(compactPresentation ? contentView : original)
   }
@@ -127,6 +138,12 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
 
   private func buildContent(text: String) {
     let root = NSView()
+    if compactPresentation {
+      root.wantsLayer = true
+      root.layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
+      root.layer?.cornerRadius = 14
+      root.layer?.masksToBounds = true
+    }
     contentView = root
     let heading = label("在原文中取词", size: 17, weight: .semibold)
     let hint = label(
@@ -228,8 +245,25 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
       metadata, meaning, label("原句语境", size: 12, color: .tertiaryLabelColor),
       sentence, retryButton, statusRow, footer])
     if compactPresentation {
-      contentViews = [targetWord, meaning, metadata, retryButton, statusRow,
-        NSStackView(views: [done, NSView(), saveButton])]
+      targetWord.isBezeled = false
+      targetWord.drawsBackground = false
+      targetWord.font = .systemFont(ofSize: 23, weight: .semibold)
+      meaning.font = .systemFont(ofSize: 19, weight: .medium)
+      metadata.font = .systemFont(ofSize: 12)
+      sentence.font = .systemFont(ofSize: 13)
+      sentence.maximumNumberOfLines = 4
+      sentence.setAccessibilityLabel("上下文原句")
+      let divider = NSBox()
+      divider.boxType = .separator
+      let actions = NSStackView(views: [done, NSView(), saveButton])
+      actions.spacing = 8
+      saveButton.bezelColor = .controlAccentColor
+      saveButton.controlSize = .regular
+      done.title = "收起"
+      feedback.font = .systemFont(ofSize: 11)
+      contentViews = [targetWord, metadata, meaning, divider,
+        label("原句", size: 11, weight: .medium, color: .tertiaryLabelColor), sentence,
+        retryButton, statusRow, actions]
       meaning.maximumNumberOfLines = 4
       metadata.maximumNumberOfLines = 2
       feedback.maximumNumberOfLines = 2
@@ -244,6 +278,12 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     }
     column.translatesAutoresizingMaskIntoConstraints = false
     root.addSubview(column)
+    if compactPresentation {
+      compactColumn = column
+      for view in column.arrangedSubviews where view is NSBox || view is NSStackView {
+        view.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
+      }
+    }
     NSLayoutConstraint.activate([
       column.topAnchor.constraint(equalTo: root.topAnchor, constant: 24),
       column.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 24),
@@ -252,7 +292,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
 
     ])
     if !compactPresentation { scroll.heightAnchor.constraint(greaterThanOrEqualToConstant: 180).isActive = true }
-    for item in (compactPresentation ? [targetWord, metadata, meaning, statusRow] : [headerRow, scroll, targetWord, metadata, meaning, sentence, statusRow, footer]) {
+    for item in (compactPresentation ? [targetWord, metadata, meaning, sentence, statusRow] : [headerRow, scroll, targetWord, metadata, meaning, sentence, statusRow, footer]) {
       item.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
     }
     overlay?.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
@@ -264,6 +304,15 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
       feedback.stringValue = "未识别到文字，点击“问一问”可根据截图提问。"
     }
+  }
+
+  private func fitCompactCard() {
+    guard compactPresentation, let column = compactColumn else { return }
+    contentView?.layoutSubtreeIfNeeded()
+    let height = max(210, min(400, column.fittingSize.height + 46))
+    let top = frame.maxY
+    setContentSize(NSSize(width: 360, height: height))
+    setFrameOrigin(CGPoint(x: frame.minX, y: top - frame.height))
   }
 
   private func label(
@@ -392,6 +441,17 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     let startedAt = Date()
     let token = revision
     sentence.stringValue = selection.context
+    if compactPresentation {
+      let context = NSMutableAttributedString(string: selection.context, attributes: [
+        .font: NSFont.systemFont(ofSize: 13), .foregroundColor: NSColor.secondaryLabelColor])
+      let match = (selection.context as NSString).range(of: selection.word, options: .caseInsensitive)
+      if match.location != NSNotFound {
+        context.addAttributes([.font: NSFont.systemFont(ofSize: 13, weight: .semibold),
+          .foregroundColor: NSColor.labelColor], range: match)
+      }
+      sentence.attributedStringValue = context
+      sentence.toolTip = selection.context
+    }
     feedback.stringValue = "正在查询“\(word)”…"
     retryButton.isHidden = true
     spinner.startAnimation(nil)
@@ -401,6 +461,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
         let value = try await self.lookup(selection) { [weak self] preview in
           guard let self, self.revision == token else { return }
           self.meaning.stringValue = preview
+          self.fitCompactCard()
           self.feedback.stringValue = "释义已显示，正在补充词性与音标…"
           ContextDebugLog.write(
             "界面显示释义：\(Int(Date().timeIntervalSince(startedAt) * 1_000)) ms", word: selection.word)
@@ -416,6 +477,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
         self.feedback.stringValue = "回车加入生词本，或继续点选其他单词。"
         self.saveButton.isEnabled = true
         self.spinner.stopAnimation(nil)
+        self.fitCompactCard()
       } catch {
         guard !Task.isCancelled, self.revision == token else { return }
         self.pendingSelection = nil
@@ -423,6 +485,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
         self.spinner.stopAnimation(nil)
         self.feedback.stringValue = "查询失败：\(error.localizedDescription)"
         self.retryButton.isHidden = false
+        self.fitCompactCard()
       }
     }
   }
