@@ -146,7 +146,7 @@ final class OCRImageOverlayView: NSView {
       border.lineWidth = 2
       border.stroke()
       if tokens.isEmpty {
-      let status = tokens.isEmpty ? "已截图 · 未识别到文字 · 按 Esc 查看详情" : "点击或拖选文字 · 按 Esc 结束"
+      let status = tokens.isEmpty ? "已截图 · 未识别到文字 · 按 Esc 结束" : "点击或拖选文字 · 按 Esc 结束"
       let attributes: [NSAttributedString.Key: Any] = [
         .font: NSFont.systemFont(ofSize: 13, weight: .semibold),
         .foregroundColor: NSColor.white,

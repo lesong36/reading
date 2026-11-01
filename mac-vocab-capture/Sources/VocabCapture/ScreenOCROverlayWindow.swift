@@ -3,6 +3,9 @@ import AppKit
 @MainActor
 final class ScreenOCROverlayWindow {
   private var panel: NSPanel?
+  private var sourceTimer: Timer?
+  private var deactivationObserver: NSObjectProtocol?
+  private let sourceIsValid: () -> Bool
   private var closeDelegate: CloseDelegate?
   private let region: ScreenCaptureRegion
   private let image: NSImage
@@ -11,7 +14,9 @@ final class ScreenOCROverlayWindow {
   var onClose: (() -> Void)?
   var isVisible: Bool { panel?.isVisible == true }
 
-  init(image: CGImage, region: ScreenCaptureRegion, tokens: [OCROverlayToken]) {
+  init(image: CGImage, region: ScreenCaptureRegion, tokens: [OCROverlayToken],
+       sourceIsValid: (() -> Bool)? = nil) {
+    self.sourceIsValid = sourceIsValid ?? { region.sourceWindow?.isCurrent ?? true }
     self.region = region
     self.image = NSImage(cgImage: image, size: NSSize(width: image.width, height: image.height))
     self.tokens = tokens
@@ -19,6 +24,7 @@ final class ScreenOCROverlayWindow {
 
   func present() {
     guard panel == nil else { return }
+    guard sourceIsValid() else { onClose?(); return }
     // The captured screen remains visible underneath. This window is only the
     // OCR interaction layer, so it never obscures the original reading surface.
     let view = OCRImageOverlayView(image: image, tokens: tokens, drawsSourceImage: false)
@@ -47,10 +53,31 @@ final class ScreenOCROverlayWindow {
     panel.orderFrontRegardless()
     panel.makeKeyAndOrderFront(nil)
     panel.makeFirstResponder(view)
+    deactivationObserver = NotificationCenter.default.addObserver(
+      forName: NSApplication.didResignActiveNotification, object: NSApp, queue: .main
+    ) { [weak self] _ in
+      MainActor.assumeIsolated { self?.close() }
+    }
+    let timer = Timer(timeInterval: 0.2, repeats: true) { [weak self] timer in
+      MainActor.assumeIsolated {
+        guard let self else { timer.invalidate(); return }
+        self.validateSource()
+      }
+    }
+    sourceTimer = timer
+    RunLoop.main.add(timer, forMode: .common)
+  }
+
+  func validateSource() {
+    if !sourceIsValid() { close() }
   }
 
   func close() {
     guard panel != nil else { return }
+    sourceTimer?.invalidate()
+    sourceTimer = nil
+    if let observer = deactivationObserver { NotificationCenter.default.removeObserver(observer) }
+    deactivationObserver = nil
     panel?.orderOut(nil)
     panel = nil
     closeDelegate = nil

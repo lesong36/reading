@@ -386,11 +386,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     let pointerScreen = NSScreen.screens.first { $0.frame.contains(NSEvent.mouseLocation) }
     screenRegionSelector.present(on: pointerScreen ?? NSScreen.main) { [weak self] region in
       guard let self else { return }
-      guard let region else {
+      guard var region else {
         self.setStatus("词")
         restore()
         return
       }
+      region.sourceWindow = CapturedSourceWindow.snapshot(at: region.selectionRect)
       self.regionCapture.capture(region: region) { result in
         switch result {
         case .success(let image):
@@ -597,9 +598,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       }
       overlay.onClose = { [weak self, weak panel] in
         self?.screenOCROverlay = nil
-        // Keep the captured image usable after the user dismisses the
-        // original-position layer with Escape or its window close action.
-        if panel?.compactPresentation == true { panel?.close() } else { panel?.present() }
+        panel?.close()
       }
       screenOCROverlay = overlay
       overlay.present()

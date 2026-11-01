@@ -3,6 +3,7 @@ import AppKit
 struct ScreenCaptureRegion: Equatable, Sendable {
   let screenFrame: CGRect
   let selectionRect: CGRect
+  var sourceWindow: CapturedSourceWindow? = nil
 
   static func fromLocalSelection(_ selection: CGRect, screenFrame: CGRect) -> ScreenCaptureRegion? {
     let rect = selection.standardized.intersection(CGRect(origin: .zero, size: screenFrame.size))

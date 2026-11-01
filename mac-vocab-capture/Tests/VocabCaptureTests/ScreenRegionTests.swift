@@ -5,6 +5,53 @@ import XCTest
 
 final class ScreenRegionTests: XCTestCase {
   @MainActor
+  func testSourceWindowChangeDismissesOverlayAndNotifiesOnce() async throws {
+    var valid = true
+    let overlay = try makeTrackedOverlay { valid }
+    var closes = 0
+    overlay.onClose = { closes += 1 }
+    overlay.present()
+    XCTAssertTrue(overlay.isVisible)
+    valid = false
+    try await Task.sleep(nanoseconds: 350_000_000)
+    XCTAssertFalse(overlay.isVisible)
+    overlay.validateSource()
+    overlay.close()
+    XCTAssertEqual(closes, 1)
+  }
+
+  @MainActor
+  func testSourceChangedDuringOCRNeverShowsStaleOverlay() throws {
+    let overlay = try makeTrackedOverlay { false }
+    var closes = 0
+    overlay.onClose = { closes += 1 }
+    overlay.present()
+    XCTAssertFalse(overlay.isVisible)
+    XCTAssertEqual(closes, 1)
+  }
+
+  @MainActor
+  func testSwitchingAwayDismissesOverlay() throws {
+    let overlay = try makeTrackedOverlay { true }
+    overlay.present()
+    NotificationCenter.default.post(name: NSApplication.didResignActiveNotification, object: NSApp)
+    XCTAssertFalse(overlay.isVisible)
+  }
+
+  @MainActor
+  private func makeTrackedOverlay(valid: @escaping () -> Bool) throws -> ScreenOCROverlayWindow {
+    _ = NSApplication.shared
+    let context = try XCTUnwrap(CGContext(data: nil, width: 100, height: 60,
+      bitsPerComponent: 8, bytesPerRow: 0, space: CGColorSpaceCreateDeviceRGB(),
+      bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue))
+    let image = try XCTUnwrap(context.makeImage())
+    let frame = CGRect(x: 100, y: 100, width: 100, height: 60)
+    return ScreenOCROverlayWindow(image: image,
+      region: ScreenCaptureRegion(screenFrame: frame, selectionRect: frame), tokens: [],
+      sourceIsValid: valid)
+  }
+
+  @MainActor
   func testLiveRegionCaptureOnEveryConnectedDisplay() async throws {
     guard ProcessInfo.processInfo.environment["VOCAB_LIVE_CAPTURE_TEST"] == "1" else {
       throw XCTSkip("Opt-in screen recording integration test")
