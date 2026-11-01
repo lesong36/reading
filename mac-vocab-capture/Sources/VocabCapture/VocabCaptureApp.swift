@@ -535,6 +535,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   ) {
     directQuestionPanel?.close()
     directQuestionPanel = nil
+    screenOCROverlay?.onClose = nil
+    screenOCROverlay?.close()
+    screenOCROverlay = nil
     ocrPanel?.close()
     let ownerGeneration = accountCaptureGeneration
     let writeScope = Task {
@@ -543,6 +546,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
     let panel = OCRLookupPanel(
       text: text,
+      compactPresentation: region != nil && !observations.isEmpty,
       lookup: { [weak self] selection, onMeaning in
         guard let self else { throw CancellationError() }
         return try await self.dictionary.lookup(
@@ -575,16 +579,27 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     if let region {
       panel.orderOut(nil)
       let overlay = ScreenOCROverlayWindow(image: image, region: region, tokens: observations)
-      overlay.onSelection = { [weak self, weak panel] text, _ in
-        panel?.selectRecognizedText(text)
-        panel?.present()
-        if let self, let panel { self.positionOCRPanel(panel, avoiding: region.selectionRect) }
+      overlay.onSelection = { [weak panel] text, indices in
+        guard let panel else { return }
+        panel.selectRecognizedText(text, tokenIndices: indices)
+        let boxes = observations.map { token in
+          CGRect(x: region.selectionRect.minX + token.boundingBox.minX * region.selectionRect.width,
+            y: region.selectionRect.minY + token.boundingBox.minY * region.selectionRect.height,
+            width: token.boundingBox.width * region.selectionRect.width,
+            height: token.boundingBox.height * region.selectionRect.height)
+        }
+        let anchor = indices.filter { boxes.indices.contains($0) }.reduce(CGRect.null) { $0.union(boxes[$1]) }
+        panel.present()
+        panel.level = .screenSaver
+        panel.setFrameOrigin(InlineLookupPlacement.origin(size: panel.frame.size,
+          anchor: anchor.isNull ? region.selectionRect : anchor, occupied: boxes,
+          capture: region.selectionRect, visible: NSScreen.screens.first { $0.frame == region.screenFrame }?.visibleFrame ?? region.screenFrame))
       }
       overlay.onClose = { [weak self, weak panel] in
         self?.screenOCROverlay = nil
         // Keep the captured image usable after the user dismisses the
         // original-position layer with Escape or its window close action.
-        panel?.present()
+        if panel?.compactPresentation == true { panel?.close() } else { panel?.present() }
       }
       screenOCROverlay = overlay
       overlay.present()
@@ -592,20 +607,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       panel.present()
     }
     setStatus("词")
-  }
-
-  @MainActor
-  private func positionOCRPanel(_ panel: OCRLookupPanel, avoiding region: CGRect) {
-    guard let screen = NSScreen.screens.first(where: { $0.frame.intersects(region) }) else { return }
-    let visible = screen.visibleFrame.insetBy(dx: 8, dy: 8)
-    let gap: CGFloat = 12
-    let rightOrigin = CGPoint(x: region.maxX + gap, y: region.maxY - panel.frame.height)
-    let leftOrigin = CGPoint(x: region.minX - gap - panel.frame.width, y: region.maxY - panel.frame.height)
-    let preferred = visible.contains(CGRect(origin: rightOrigin, size: panel.frame.size)) ? rightOrigin : leftOrigin
-    let clamped = CGPoint(
-      x: min(max(preferred.x, visible.minX), visible.maxX - panel.frame.width),
-      y: min(max(preferred.y, visible.minY), visible.maxY - panel.frame.height))
-    panel.setFrameOrigin(clamped)
   }
 
   private var currentQuestionModel: String {

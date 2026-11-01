@@ -6,6 +6,32 @@ import XCTest
 
 @MainActor
 final class OCRLookupPanelTests: XCTestCase {
+  func testCompactCardShowsLookupWithoutDuplicateSourceAndCanSave() async throws {
+    _ = NSApplication.shared
+    var saves = 0
+    let panel = OCRLookupPanel(text: "Many explorers looked for Atlantis.", compactPresentation: true,
+      lookup: { selection, _ in
+        DictionaryResult(lemma: selection.word, meaning: "亚特兰蒂斯", partOfSpeech: "名词", pronunciation: "/ætˈlæntɪs/", note: "")
+      }, save: { _, _ in saves += 1; return "已保存" })
+    defer { panel.close() }
+    panel.selectRecognizedText("Atlantis")
+    panel.present()
+    try await Task.sleep(nanoseconds: 100_000_000)
+    let all = views(panel.contentView!)
+    XCTAssertFalse(all.contains { $0 is NSTextView || $0 is OCRImageOverlayView })
+    XCTAssertTrue(all.compactMap { $0 as? NSTextField }.contains { $0.stringValue == "亚特兰蒂斯" })
+    let save = try XCTUnwrap(all.compactMap { $0 as? NSButton }.first { $0.title.hasPrefix("加入生词本") })
+    XCTAssertTrue(save.isEnabled)
+    panel.contentView!.layoutSubtreeIfNeeded()
+    if let bitmap = panel.contentView!.bitmapImageRepForCachingDisplay(in: panel.contentView!.bounds) {
+      panel.contentView!.cacheDisplay(in: panel.contentView!.bounds, to: bitmap)
+      try bitmap.representation(using: .png, properties: [:])?.write(to: URL(fileURLWithPath: "/tmp/vocab-032-card.png"))
+    }
+    save.performClick(nil)
+    try await Task.sleep(nanoseconds: 50_000_000)
+    XCTAssertEqual(saves, 1)
+  }
+
   private static func fixtureImageData() -> Data? {
     guard let context = CGContext(
       data: nil, width: 120, height: 80, bitsPerComponent: 8, bytesPerRow: 480,

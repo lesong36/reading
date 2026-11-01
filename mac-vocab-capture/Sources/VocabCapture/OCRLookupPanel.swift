@@ -4,6 +4,7 @@ import AppKit
 final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegate,
   NSTextFieldDelegate
 {
+  let compactPresentation: Bool
   private let original = OCRTextView()
   private let targetWord = NSTextField()
   private let meaning = NSTextField(wrappingLabelWithString: "")
@@ -50,6 +51,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
 
   init(
     text: String,
+    compactPresentation: Bool = false,
     lookup:
       @escaping (SelectedText, @escaping @MainActor @Sendable (String) -> Void) async throws ->
       DictionaryResult,
@@ -68,6 +70,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     onOpenQuestion: (@MainActor (String) -> Void)? = nil,
     solutionModel: (@MainActor () -> String)? = nil
   ) {
+    self.compactPresentation = compactPresentation
     self.originalImageData = originalImageData
     self.saveQuestion = saveQuestion
     self.onOpenQuestion = onOpenQuestion
@@ -84,12 +87,12 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     self.sessionStore = sessionStore
     self.overlayTokens = overlayTokens
     super.init(
-      contentRect: NSRect(x: 0, y: 0, width: 600, height: 650),
+      contentRect: NSRect(x: 0, y: 0, width: compactPresentation ? 340 : 600, height: compactPresentation ? 240 : 650),
       styleMask: [.titled, .closable, .resizable], backing: .buffered, defer: false)
     title = "截图取词"
     isReleasedWhenClosed = false
     hidesOnDeactivate = false
-    minSize = NSSize(width: 540, height: 620)
+    minSize = compactPresentation ? NSSize(width: 340, height: 240) : NSSize(width: 540, height: 620)
     delegate = self
     buildContent(text: text)
     center()
@@ -97,7 +100,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
 
   func present() {
     bringToFront()
-    makeFirstResponder(original)
+    makeFirstResponder(compactPresentation ? contentView : original)
   }
 
   func windowWillClose(_ notification: Notification) {
@@ -153,7 +156,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     scroll.documentView = original
     var overlay: OCRImageOverlayView?
     let overlayImageData = originalImageData ?? screenshotImageData
-    if let imageData = overlayImageData, let image = NSImage(data: imageData), !overlayTokens.isEmpty {
+    if !compactPresentation, let imageData = overlayImageData, let image = NSImage(data: imageData), !overlayTokens.isEmpty {
       let view = OCRImageOverlayView(image: image, tokens: overlayTokens)
       view.setAccessibilityRole(.image)
       view.setAccessibilityLabel("截图原图文字选择层")
@@ -224,12 +227,21 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     contentViews.append(contentsOf: [scroll, targetWord,
       metadata, meaning, label("原句语境", size: 12, color: .tertiaryLabelColor),
       sentence, retryButton, statusRow, footer])
+    if compactPresentation {
+      contentViews = [targetWord, meaning, metadata, retryButton, statusRow,
+        NSStackView(views: [done, NSView(), saveButton])]
+      meaning.maximumNumberOfLines = 4
+      metadata.maximumNumberOfLines = 2
+      feedback.maximumNumberOfLines = 2
+    }
     let column = NSStackView(views: contentViews)
     column.orientation = .vertical
     column.alignment = .leading
     column.spacing = 10
-    column.setCustomSpacing(16, after: scroll)
-    column.setCustomSpacing(16, after: sentence)
+    if !compactPresentation {
+      column.setCustomSpacing(16, after: scroll)
+      column.setCustomSpacing(16, after: sentence)
+    }
     column.translatesAutoresizingMaskIntoConstraints = false
     root.addSubview(column)
     NSLayoutConstraint.activate([
@@ -237,13 +249,14 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
       column.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 24),
       column.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -24),
       column.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -22),
-      scroll.heightAnchor.constraint(greaterThanOrEqualToConstant: 180),
+
     ])
-    for item in [headerRow, scroll, targetWord, metadata, meaning, sentence, statusRow, footer] {
+    if !compactPresentation { scroll.heightAnchor.constraint(greaterThanOrEqualToConstant: 180).isActive = true }
+    for item in (compactPresentation ? [targetWord, metadata, meaning, statusRow] : [headerRow, scroll, targetWord, metadata, meaning, sentence, statusRow, footer]) {
       item.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
     }
     overlay?.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
-    hint.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
+    if !compactPresentation { hint.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true }
     scroll.setContentHuggingPriority(.defaultLow, for: .vertical)
     feedback.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
     original.onCommitSelection = { [weak self] in self?.readSelection() }
@@ -288,8 +301,8 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
   }
 
   @MainActor
-  func selectRecognizedText(_ text: String) {
-    selectOverlayText(text)
+  func selectRecognizedText(_ text: String, tokenIndices: [Int] = []) {
+    selectOverlayText(text, tokenIndices: tokenIndices)
   }
 
   func textViewDidChangeSelection(_ notification: Notification) {
