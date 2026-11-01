@@ -39,6 +39,8 @@ final class InteractiveScreenRegionSelector: ScreenRegionSelecting {
     panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
     panel.contentView = view
     self.panel = panel
+    NSApp.activate(ignoringOtherApps: true)
+    panel.orderFrontRegardless()
     panel.makeKeyAndOrderFront(nil)
     panel.makeFirstResponder(view)
   }
