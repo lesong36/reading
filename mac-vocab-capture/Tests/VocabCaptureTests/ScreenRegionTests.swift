@@ -5,6 +5,29 @@ import XCTest
 
 final class ScreenRegionTests: XCTestCase {
   @MainActor
+  func testRenderedPDFScrollAndPageChangeTriggerContentInvalidation() throws {
+    guard let firstPath = ProcessInfo.processInfo.environment["VOCAB_PDF_PAGE_1"],
+      let secondPath = ProcessInfo.processInfo.environment["VOCAB_PDF_PAGE_2"] else {
+      throw XCTSkip("Opt-in rendered PDF validation")
+    }
+    func image(_ path: String) throws -> CGImage {
+      let source = try XCTUnwrap(CGImageSourceCreateWithURL(URL(fileURLWithPath: path) as CFURL, nil))
+      return try XCTUnwrap(CGImageSourceCreateImageAtIndex(source, 0, nil))
+    }
+    let first = try image(firstPath)
+    let second = try image(secondPath)
+    let rect = CGRect(x: 100, y: 200, width: 700, height: 500)
+    let baseline = try XCTUnwrap(ScreenContentMonitor.signature(try XCTUnwrap(first.cropping(to: rect))))
+    let unchanged = try XCTUnwrap(ScreenContentMonitor.signature(try XCTUnwrap(first.cropping(to: rect))))
+    let scrolled = try XCTUnwrap(ScreenContentMonitor.signature(
+      try XCTUnwrap(first.cropping(to: rect.offsetBy(dx: 0, dy: 2)))))
+    let nextPage = try XCTUnwrap(ScreenContentMonitor.signature(try XCTUnwrap(second.cropping(to: rect))))
+    XCTAssertFalse(ScreenContentMonitor.changed(baseline, unchanged))
+    XCTAssertTrue(ScreenContentMonitor.changed(baseline, scrolled))
+    XCTAssertTrue(ScreenContentMonitor.changed(baseline, nextPage))
+  }
+
+  @MainActor
   func testContentComparisonDistinguishesPageChangeFromSmallRenderingNoise() {
     let original = [UInt8](repeating: 230, count: 10_000)
     var noise = original
