@@ -8,9 +8,6 @@ struct CaptureShortcut: Codable, Equatable {
   let keyCode: UInt32
   let modifiers: UInt32
 
-  static let defaultSelection = CaptureShortcut(
-    id: "option-command-d", title: "⌥⌘D", keyCode: UInt32(kVK_ANSI_D),
-    modifiers: UInt32(optionKey | cmdKey))
   static let defaultScreenshot = CaptureShortcut(
     id: "option-command-o", title: "⌥⌘O", keyCode: UInt32(kVK_ANSI_O),
     modifiers: UInt32(optionKey | cmdKey))
@@ -31,15 +28,6 @@ struct CaptureShortcut: Codable, Equatable {
   static let alternateScreenshot = CaptureShortcut(
     id: "control-option-s", title: "⌃⌥S", keyCode: UInt32(kVK_ANSI_S),
     modifiers: UInt32(controlKey | optionKey))
-  static let selectionPresets = [
-    defaultSelection,
-    CaptureShortcut(
-      id: "control-option-d", title: "⌃⌥D", keyCode: UInt32(kVK_ANSI_D),
-      modifiers: UInt32(controlKey | optionKey)),
-    CaptureShortcut(
-      id: "control-option-w", title: "⌃⌥W", keyCode: UInt32(kVK_ANSI_W),
-      modifiers: UInt32(controlKey | optionKey)),
-  ]
   static let screenshotPresets = [simpleScreenshot, alternateScreenshot, defaultScreenshot]
 
   func matches(_ other: CaptureShortcut) -> Bool {
@@ -56,20 +44,13 @@ struct CaptureShortcut: Codable, Equatable {
     return nil
   }
 
-  static func validationError(selection: CaptureShortcut, screenshot: CaptureShortcut) -> String? {
-    if let error = selection.validationError { return "选词快捷键：" + error }
-    if let error = screenshot.validationError { return "截图快捷键：" + error }
-    if selection.matches(screenshot) { return "选词和截图需要使用不同的快捷键。" }
-    return nil
-  }
-
   static func validationError(
-    selection: CaptureShortcut, screenshot: CaptureShortcut, questionScreenshot: CaptureShortcut
+    screenshot: CaptureShortcut, questionScreenshot: CaptureShortcut
   ) -> String? {
-    if let error = validationError(selection: selection, screenshot: screenshot) { return error }
+    if let error = screenshot.validationError { return "截图取词快捷键：" + error }
     if let error = questionScreenshot.validationError { return "截图问一问快捷键：" + error }
-    if questionScreenshot.matches(selection) || questionScreenshot.matches(screenshot) {
-      return "截图问一问需要使用与选词、截图取词不同的快捷键。"
+    if questionScreenshot.matches(screenshot) {
+      return "截图取词和截图问一问需要使用不同的快捷键。"
     }
     return nil
   }
@@ -112,63 +93,32 @@ struct CaptureShortcut: Codable, Equatable {
 
 final class ShortcutPreferences {
   private let defaults: UserDefaults
-  private let selectionKey = "VocabCapture.customShortcut"
-  private let legacySelectionKey = "VocabCapture.shortcut"
   private let screenshotKey = "VocabCapture.screenshotShortcut"
   private let questionScreenshotKey = "VocabCapture.questionScreenshotShortcut"
 
   init(defaults: UserDefaults = .standard) { self.defaults = defaults }
 
-  var currentSelection: CaptureShortcut {
-    if let shortcut = read(selectionKey) { return shortcut }
-    let id = defaults.string(forKey: legacySelectionKey)
-    return CaptureShortcut.selectionPresets.first { $0.id == id } ?? .defaultSelection
-  }
-
   var currentScreenshot: CaptureShortcut {
-    if let shortcut = read(screenshotKey), !shortcut.matches(currentSelection) { return shortcut }
-    return [.defaultScreenshot, .simpleScreenshot, .alternateScreenshot].first {
-      !$0.matches(currentSelection)
-    } ?? .defaultScreenshot
+    read(screenshotKey) ?? .defaultScreenshot
   }
 
   var currentQuestionScreenshot: CaptureShortcut {
-    questionShortcut(selection: currentSelection, screenshot: currentScreenshot)
-  }
-
-  private func questionShortcut(
-    selection: CaptureShortcut, screenshot: CaptureShortcut
-  ) -> CaptureShortcut {
-    if let shortcut = read(questionScreenshotKey),
-      !shortcut.matches(selection), !shortcut.matches(screenshot)
-    {
+    if let shortcut = read(questionScreenshotKey), !shortcut.matches(currentScreenshot) {
       return shortcut
     }
-    // Two existing shortcuts cannot exhaust all three fallback combinations.
+    // Only the other active screenshot shortcut needs to be avoided.
     return CaptureShortcut.questionScreenshotFallbacks.first {
-      !$0.matches(selection) && !$0.matches(screenshot)
+      !$0.matches(currentScreenshot)
     }!
   }
 
-  func save(selection: CaptureShortcut, screenshot: CaptureShortcut) {
-    save(
-      selection: selection, screenshot: screenshot,
-      questionScreenshot: questionShortcut(selection: selection, screenshot: screenshot))
-  }
-
-  func save(
-    selection: CaptureShortcut, screenshot: CaptureShortcut, questionScreenshot: CaptureShortcut
-  ) {
+  func save(screenshot: CaptureShortcut, questionScreenshot: CaptureShortcut) {
     guard
       CaptureShortcut.validationError(
-        selection: selection, screenshot: screenshot, questionScreenshot: questionScreenshot)
-        == nil,
-      let selectionData = try? JSONEncoder().encode(selection),
+        screenshot: screenshot, questionScreenshot: questionScreenshot) == nil,
       let screenshotData = try? JSONEncoder().encode(screenshot),
       let questionData = try? JSONEncoder().encode(questionScreenshot)
     else { return }
-    defaults.set(selectionData, forKey: selectionKey)
-    defaults.set(selection.id, forKey: legacySelectionKey)
     defaults.set(screenshotData, forKey: screenshotKey)
     defaults.set(questionData, forKey: questionScreenshotKey)
   }
@@ -187,29 +137,27 @@ final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
   let panel = NSPanel(
     contentRect: NSRect(x: 0, y: 0, width: 470, height: 420), styleMask: [.titled, .closable],
     backing: .buffered, defer: false)
-  private let selectionRecorder: CaptureShortcutRecorder
   private let screenshotRecorder: CaptureShortcutRecorder
   private let questionScreenshotRecorder: CaptureShortcutRecorder
   private let errorLabel = NSTextField(wrappingLabelWithString: "")
-  private var validateAndSave: ((CaptureShortcut, CaptureShortcut, CaptureShortcut) -> String?)?
+  private var validateAndSave: ((CaptureShortcut, CaptureShortcut) -> String?)?
   private var onClose: (() -> Void)?
   private var onRecordingChange: (Bool) -> Void = { _ in }
   var isRecording: Bool {
-    [selectionRecorder, screenshotRecorder, questionScreenshotRecorder].contains { $0.window?.firstResponder === $0 }
+    [screenshotRecorder, questionScreenshotRecorder].contains { $0.window?.firstResponder === $0 }
   }
   private var isEmbedded = false
-  private var savedShortcuts: (CaptureShortcut, CaptureShortcut, CaptureShortcut)
+  private var savedShortcuts: (CaptureShortcut, CaptureShortcut)
   private let cancelButton = NSButton()
   private let saveButton = NSButton()
   private let instructions = NSTextField(wrappingLabelWithString: "点按快捷键输入框，再按新的组合键。按 Esc 取消，按回车保存。")
   private let formView = NSView()
 
   init(
-    selection: CaptureShortcut, screenshot: CaptureShortcut,
+    screenshot: CaptureShortcut,
     questionScreenshot: CaptureShortcut = .defaultQuestionScreenshot
   ) {
-    savedShortcuts = (selection, screenshot, questionScreenshot)
-    selectionRecorder = CaptureShortcutRecorder(initial: selection)
+    savedShortcuts = (screenshot, questionScreenshot)
     screenshotRecorder = CaptureShortcutRecorder(initial: screenshot)
     questionScreenshotRecorder = CaptureShortcutRecorder(initial: questionScreenshot)
     super.init()
@@ -222,7 +170,7 @@ final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
     instructions.textColor = .secondaryLabelColor
     var rows: [NSView] = []
     for (label, recorder) in [
-      ("选中文字查词", selectionRecorder), ("截图取词", screenshotRecorder),
+      ("截图取词", screenshotRecorder),
       ("截图问一问", questionScreenshotRecorder),
     ] {
       rows.append(SettingsForm.row(label, control: recorder))
@@ -273,7 +221,7 @@ final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
 
   /// Reuses the existing editor and validation without letting it close its settings host.
   func makeEmbeddedView(
-    validateAndSave: @escaping (CaptureShortcut, CaptureShortcut, CaptureShortcut) -> String?,
+    validateAndSave: @escaping (CaptureShortcut, CaptureShortcut) -> String?,
     onRecordingChange: @escaping (Bool) -> Void = { _ in }
   ) -> NSView {
     isEmbedded = true
@@ -295,7 +243,7 @@ final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
   }
 
   func present(
-    validateAndSave: @escaping (CaptureShortcut, CaptureShortcut, CaptureShortcut) -> String?,
+    validateAndSave: @escaping (CaptureShortcut, CaptureShortcut) -> String?,
     onClose: @escaping () -> Void = {}
   ) {
     self.validateAndSave = validateAndSave
@@ -321,7 +269,6 @@ final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
   }
 
   @objc private func restoreDefaults(_ sender: Any?) {
-    selectionRecorder.shortcut = .defaultSelection
     screenshotRecorder.shortcut = .defaultScreenshot
     questionScreenshotRecorder.shortcut = .defaultQuestionScreenshot
     setStatus("")
@@ -329,9 +276,8 @@ final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
 
   @objc private func cancel(_ sender: Any?) {
     guard isEmbedded else { dismiss(); return }
-    selectionRecorder.shortcut = savedShortcuts.0
-    screenshotRecorder.shortcut = savedShortcuts.1
-    questionScreenshotRecorder.shortcut = savedShortcuts.2
+    screenshotRecorder.shortcut = savedShortcuts.0
+    questionScreenshotRecorder.shortcut = savedShortcuts.1
     setStatus("")
   }
 
@@ -344,17 +290,16 @@ final class CaptureShortcutSettings: NSObject, NSWindowDelegate {
   }
 
   @objc private func save(_ sender: Any?) {
-    let selection = selectionRecorder.shortcut
     let screenshot = screenshotRecorder.shortcut
     let questionScreenshot = questionScreenshotRecorder.shortcut
     if let error = CaptureShortcut.validationError(
-      selection: selection, screenshot: screenshot, questionScreenshot: questionScreenshot)
-      ?? validateAndSave?(selection, screenshot, questionScreenshot)
+      screenshot: screenshot, questionScreenshot: questionScreenshot)
+      ?? validateAndSave?(screenshot, questionScreenshot)
     {
       setStatus(error, error: true)
       return
     }
-    savedShortcuts = (selection, screenshot, questionScreenshot)
+    savedShortcuts = (screenshot, questionScreenshot)
     if isEmbedded {
       setStatus("快捷键已保存。")
     } else {

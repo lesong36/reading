@@ -287,7 +287,7 @@ actor LangChainQuestionTransport {
       // frames cannot report usage twice or attach it to a different request.
       requests.removeValue(forKey: id)
       request.deadline.cancel()
-      if let usage = ScreenshotQuestionUsage.decode(object["usage"]) {
+      if let usage = ScreenshotQuestionUsage.decode(object["usage"], timings: object["timings"]) {
         await request.onUsage(usage)
       }
       request.continuation.resume(returning: answer)
@@ -307,18 +307,61 @@ actor LangChainQuestionTransport {
           CFGetTypeID(status) != CFBooleanGetTypeID(),
           (100...599).contains(status.intValue), status.doubleValue == Double(status.intValue)
         {
-          error = ScreenshotQuestionError.server(status.intValue)
+          if let fields = object["request_fields"] as? [String],
+            let diagnostic = MathProviderRequestError(status: status.intValue, fields: fields) {
+            error = diagnostic
+          } else { error = ScreenshotQuestionError.server(status.intValue) }
         } else {
           error = ScreenshotQuestionError.invalidResponse
         }
       case "connection": error = LangChainTransportError.connection
+      case "mathSubmission":
+        if let issue = object["submission_issue"] as? String, let typed = MathSolutionSubmissionError(issue: issue) {
+          error = typed
+          if let diagnostic = MathSubmissionDiagnostic(object["submission_diagnostic"]) {
+            ContextDebugLog.write("数学提交校验失败：\(issue) \(diagnostic.logDescription)")
+          }
+        } else { error = ScreenshotQuestionError.invalidResponse }
       case "thinkingUnsupported": error = ScreenshotQuestionError.unsupportedThinking
+      case "skillsInvalid", "skillsOutput": error = MathMethodMatchError.invalidOutput
+      case "skillsTooLarge": error = MathMethodMatchError.catalogueTooLarge
+      case "skillsBudget": error = MathMethodMatchError.selectionBudgetExceeded
+      case "skillsPrerequisite": error = MathMethodMatchError.prerequisiteNotSatisfied
+      case "skillsTruncated": error = ScreenshotQuestionError.truncatedResponse
+      case "learningEvidence": error = MathQuestionStoreError.database("当前方法缺少独立正例、排除反例或通过的教研检查，请补齐人工核验依据")
+      case "learningCheckpoint", "learningDecision": error = MathQuestionStoreError.database("教研状态已失效，请针对当前方法重新审校")
+      case "learningBudget": error = MathQuestionStoreError.database("本次教研检查已达到调用上限，可修改候选或稍后重试")
+      case "learningInvalid": error = MathQuestionStoreError.database("提交的教研资料不符合要求，请检查方法步骤和例题依据后重试")
+      case "learningOutput":
+        let stages = ["catalogue_scan":"全库方法分批检查", "coverage":"已有方法覆盖检查", "draft":"新方法草拟", "review":"候选五项审校", "profile_review":"已有方法五项审校"]
+        let issues = ["json_object":"模型没有返回完整报告", "json_size":"模型报告超过长度限制",
+          "json_invalid":"模型报告格式不完整", "json_duplicate_keys":"模型报告包含重复内容字段",
+          "fields":"模型报告遗漏或多出了必要项目", "coverage_state":"模型给出了无效的覆盖结论",
+          "skill_references":"模型引用了未提供的方法", "pattern_key":"模型未按要求提炼可复用的题目结构",
+          "evidence_references":"模型引用了未提供的原题或原题数量不足", "proposal_size":"模型生成的方法标题或类别过长",
+          "instructions_steps":"模型没有提供完整的解题步骤", "diagram_templates":"模型选择了不支持的画法",
+          "review_dimensions":"模型未完整检查五项教研要求", "review_result":"模型的审校结论或通过标记不符合要求",
+          "field_value":"模型报告的内容类型或长度不符合要求"]
+        if let stage = object["learning_stage"] as? String, let stageName = stages[stage],
+          let issue = object["learning_issue"] as? String, let issueName = issues[issue] {
+          error = MathQuestionStoreError.database("\(stageName)未完成：\(issueName)。没有自动批准方法，可重试教研检查。")
+        } else {
+          error = MathQuestionStoreError.database("模型教研报告不符合要求，没有自动批准方法，请重试教研检查")
+        }
+      case "learningTruncated": error = ScreenshotQuestionError.truncatedResponse
       case "truncated": error = ScreenshotQuestionError.truncatedResponse
       case "empty": error = ScreenshotQuestionError.emptyResponse
       case "timeout": error = LangChainTransportError.requestTimeout
       default: error = ScreenshotQuestionError.invalidResponse
       }
-      finish(id, result: .failure(error))
+      // Claim terminal failure before the callback can yield: duplicate frames
+      // and late cancellation cannot attach clocks to another request.
+      requests.removeValue(forKey: id)
+      request.deadline.cancel()
+      if let observation = ScreenshotQuestionUsage.decodeFailure(object) {
+        await request.onUsage(observation)
+      }
+      request.continuation.resume(throwing: error)
     default: finish(id, result: .failure(ScreenshotQuestionError.invalidResponse))
     }
   }

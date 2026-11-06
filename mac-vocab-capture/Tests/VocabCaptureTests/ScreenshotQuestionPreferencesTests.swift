@@ -55,6 +55,24 @@ final class ScreenshotQuestionPreferencesTests: XCTestCase {
     defaults.set(enabled, forKey: ScreenshotQuestionPreferences.enabledKey)
   }
 
+  func testMetadataAccessNeverReadsCredentialsAndAlwaysRedactsFallback() throws {
+    var reads = 0
+    let prefs = ScreenshotQuestionPreferences(defaults: defaults, readAPIKey: { reads += 1; return "secret" },
+      saveAPIKey: { _ in }, readProfileAPIKey: { _ in reads += 1; return "secret" }, saveProfileAPIKey: { _, _ in })
+    let fallback = prefs.configurationMetadata(fallingBackTo: dictionary)
+    XCTAssertEqual(fallback.model, dictionary.model)
+    XCTAssertEqual(fallback.apiKey, "")
+    let id = try prefs.saveProfile(name: "GPT", configuration: firstModel, api: .responses)
+    prefs.selectProfile(id)
+    let selected = prefs.configurationMetadata(fallingBackTo: dictionary)
+    XCTAssertEqual(selected.model, firstModel.model)
+    XCTAssertEqual(selected.baseURL, firstModel.baseURL)
+    XCTAssertEqual(selected.apiKey, "")
+    XCTAssertEqual(reads, 0)
+    _ = prefs.configuration(fallingBackTo: dictionary)
+    XCTAssertEqual(reads, 1)
+  }
+
   func testConstructionDoesNotWritePreferencesOrReadCredentials() {
     let keys = ProfileTestKeys()
     _ = preferences(keys)

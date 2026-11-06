@@ -21,9 +21,13 @@ mkdir -p "$ENGINE_BUILD_DIR"
   --recursive-copy-metadata langchain \
   --recursive-copy-metadata langchain-openai \
   --recursive-copy-metadata langchain-anthropic \
+  --recursive-copy-metadata deepagents \
   --collect-submodules langchain_openai --collect-submodules langchain_anthropic \
+  --collect-submodules deepagents --collect-submodules langgraph \
   --hidden-import _scproxy \
   --collect-data certifi \
+  --add-data "$PROJECT_DIR/Sources/VocabCapture/Resources/MathSkills:MathSkills" \
+  --add-data "$PROJECT_DIR/Sources/VocabCapture/Resources/MathTeachingReview:MathTeachingReview" \
   "$ENGINE_DIR/question_engine.py"
 
 echo "$ENGINE_BUILD_DIR/dist/QuestionEngine"

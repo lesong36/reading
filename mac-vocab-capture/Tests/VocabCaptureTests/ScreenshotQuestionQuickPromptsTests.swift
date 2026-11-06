@@ -21,8 +21,11 @@ final class ScreenshotQuestionQuickPromptsTests: XCTestCase {
 
   func testDefaultsDoNotWriteAndKeepExistingQuickQuestions() {
     let preferences = ScreenshotQuestionQuickPrompts(defaults: defaults)
-    XCTAssertEqual(preferences.prompts.map(\.title), ["解释这段话", "分析句子结构", "总结要点"])
-    XCTAssertEqual(preferences.prompts.map(\.prompt), preferences.prompts.map(\.title))
+    XCTAssertEqual(preferences.prompts.map(\.title), ["解释这段话", "分析句子结构", "总结要点", "解题"])
+    XCTAssertEqual(
+      Array(preferences.prompts.prefix(3)).map(\.prompt),
+      Array(preferences.prompts.prefix(3)).map(\.title))
+    XCTAssertTrue(preferences.prompts.last?.prompt.contains("小学生") == true)
     XCTAssertNil(defaults.object(forKey: ScreenshotQuestionQuickPrompts.storageKey))
   }
 

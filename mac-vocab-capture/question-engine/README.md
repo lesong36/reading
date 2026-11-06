@@ -3,7 +3,9 @@
 The macOS app starts `question_engine.py` as a persistent helper and exchanges
 NDJSON over private stdin/stdout pipes. Production packaging freezes it into
 `Contents/Helpers/QuestionEngine/QuestionEngine`; users do not need Python or uv.
-This is a direct LangChain model call, without an agent or tool loop.
+Ordinary English/screenshot and web answers remain direct LangChain calls.
+Math method selection alone uses Deep Agents' real `SkillsMiddleware` inside a
+bounded LangChain `create_agent` (which runs on LangGraph).
 
 `uv.lock` fixes the tested versions: LangChain 1.4.3, langchain-openai 1.6.7,
 langchain-anthropic 1.7.5, and PyInstaller 6.22.3 for packaging. Run from this
@@ -37,6 +39,55 @@ has `op`, `id`, `question`, `instructions`, `context`, `history`, and
 (`chatCompletions`, `responses`, or `anthropicMessages`), model, and API key.
 Screenshot data is bare base64 PNG/JPEG, with a 20 MiB decoded size limit.
 History is limited to the latest six turns.
+
+## Teaching skills
+
+Send `task:"math_method_selection"` plus `teaching_skills`, a nonempty array of
+immutable `{id,version_id,title,category,instructions}` snapshots. An optional
+`description` supplies source-derived routing metadata, and an optional
+`skill_name` preserves the canonical project skill name. These fields are used
+only when the current version still matches its project bundle. They are not
+a certification of mathematical correctness. The current limit is
+512 skills and 300,000 UTF-8 bytes including metadata. No host directory path is
+accepted. `question` contains the user's requirements only; never duplicate all
+method bodies there. Web search and `response_mode` are rejected on this task.
+
+Project methods live in `Sources/VocabCapture/Resources/MathSkills/`, with
+a checked manifest and standard YAML frontmatter. The native app bundles and
+imports them without reading an external Obsidian folder. User edits and
+archived entries remain authoritative; historical versions are not rewritten.
+See [the project skills specification](../docs/MATH_SKILLS_SPEC.md).
+
+The framework discovers virtual `/teaching-skills/<skill-name>/SKILL.md`
+files (version-hashed names for custom or edited methods), exposes metadata, and calls the sole `read_file` tool for complete chosen
+methods. With legacy notes the metadata contains only title/category, so it does
+not truncate essential applicability/exclusion conditions. These must be checked
+after reading; routing accuracy still needs a reviewed real-question evaluation.
+
+Selection does not solve the problem. It returns the same JSON text contract:
+`{method_id,visual_method_ids,reason}`. Unknown/duplicate IDs, incomplete provider
+output and unread chosen methods are rejected. There are at most five agent model
+calls and twelve reads, within the existing 90-second overall request deadline.
+No intermediate agent thoughts or partial JSON are emitted to the UI.
+
+`done` also includes `skills_execution:{mode,loaded_skill_ids,fallback_reason?}`.
+Only explicit HTTP 400/422 unsupported-tool validation, an unavailable model tool
+binding, or a model selecting methods without reading them enables one direct
+full-snapshot compatibility call. The reason visibly states this fallback; it
+does not claim skill tools were used. Authentication/network/timeout failures,
+malformed JSON and bad IDs do not retry. Selected method/version data must still
+be frozen by the native app. Tool reads prove what was loaded, not mathematical
+correctness or whether the model faithfully followed it.
+
+Solver requests can separately send `response_mode:"math_diagrams"` to reserve
+8192 output tokens. Their client profiles are separate from ordinary 900-token
+Chat/Anthropic and 4096-token Responses profiles. The solver remains streaming;
+diagram JSON validation/rendering belongs to the native app.
+
+No writes, scripts, shell, subagents, permanent agent memory, remote skill lookup
+or LangSmith upload is enabled. SQLite continues to own method versions and
+human review. Skills matching state is per request, never shared across users or
+requests. Inherited tracing is stripped before the framework is imported.
 
 Output is incremental `{id,type:"delta",text}` followed by exactly one
 `{id,type:"done",text}` or sanitized `{id,type:"error",code,status?}`. A cancel

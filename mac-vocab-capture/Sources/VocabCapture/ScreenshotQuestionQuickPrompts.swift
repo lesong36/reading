@@ -34,6 +34,9 @@ final class ScreenshotQuestionQuickPrompts {
     ScreenshotQuestionQuickPrompt(id: "explain", title: "解释这段话", prompt: "解释这段话"),
     ScreenshotQuestionQuickPrompt(id: "structure", title: "分析句子结构", prompt: "分析句子结构"),
     ScreenshotQuestionQuickPrompt(id: "summarize", title: "总结要点", prompt: "总结要点"),
+    ScreenshotQuestionQuickPrompt(
+      id: "solve", title: "解题",
+      prompt: "请根据原截图，用小学生已学的知识解题，不使用方程，说明思路和步骤。若截图不完整或条件不清楚，请指出，不要补造题目条件。"),
   ]
 
   private let defaults: UserDefaults

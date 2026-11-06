@@ -156,6 +156,16 @@ final class ScreenshotQuestionPreferences {
     try? persist(updated)
   }
 
+  /// Interface/model labels never require a credential read.
+  func configurationMetadata(fallingBackTo fallback: @autoclosure () -> AIConfiguration) -> AIConfiguration {
+    if let profile = profiles.first(where: { $0.id == selectedProfileID }) {
+      return AIConfiguration(baseURL: profile.baseURL, model: profile.model, apiKey: "")
+    }
+    let value = fallback()
+    return AIConfiguration(baseURL: value.baseURL, model: value.model, apiKey: "",
+      thinking: value.thinking, backend: value.backend)
+  }
+
   func configuration(for profileID: String) -> AIConfiguration {
     guard let profile = profiles.first(where: { $0.id == profileID }) else {
       return AIConfiguration(baseURL: "", model: "", apiKey: "")

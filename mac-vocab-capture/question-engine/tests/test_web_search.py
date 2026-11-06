@@ -130,6 +130,33 @@ class WebSearchTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(events[-1]["text"], "Confirmed [1].")
         self.assertNotIn("检索来源", events[-1]["text"])
 
+    async def test_diagram_envelope_stays_last_when_search_adds_citations(self):
+        diagram = {"id": "comparison", "title": "两组人数", "kind": "bar_comparison",
+                   "facts": [{"id": "a", "label": "甲", "value": 30, "unit": "人", "origin": "given", "evidence": "甲30人"},
+                             {"id": "b", "label": "乙", "value": 20, "unit": "人", "origin": "given", "evidence": "乙20人"},
+                             {"id": "d", "label": "差", "value": 10, "unit": "人", "origin": "derived"}],
+                   "relations": [{"operation": "difference", "inputIDs": ["a", "b"], "outputID": "d"}],
+                   "factIDs": ["a", "b"]}
+        block = json.dumps({"schemaVersion": 1, "diagrams": [diagram]}, ensure_ascii=False)
+        answer = f'比较两种分法 [1]。\n```math-diagrams\n{block}\n```'
+
+        class DiagramModel(Model):
+            async def astream(self, messages, config):
+                self.answer_messages.append(messages)
+                for fragment in (answer[:20], answer[20:]):
+                    yield AIMessageChunk(fragment)
+                yield AIMessageChunk("", response_metadata={"finish_reason": "stop"})
+
+        request = payload()
+        request["response_mode"] = "math_diagrams"
+        events, _, _, _, _ = await self.execute(request, model=DiagramModel())
+        self.assertEqual(events[-1]["type"], "done", events)
+        final = events[-1]["text"]
+        self.assertEqual(final.count("https://example.com/release"), 1)
+        self.assertLess(final.index("检索来源"), final.index("```math-diagrams"))
+        self.assertTrue(final.endswith(answer[answer.index("```math-diagrams"):]))
+        self.assertEqual("".join(e["text"] for e in events if e["type"] == "delta"), answer)
+
     async def test_missing_invalid_key_stops_before_model_and_http(self):
         for value in (None, {}, {"api_key": ""}, {"api_key": "bad\nheader"},
                       {"api_key": SEARCH_KEY, "direct_connection": "yes"}):

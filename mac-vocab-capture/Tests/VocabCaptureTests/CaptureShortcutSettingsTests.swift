@@ -27,14 +27,33 @@ final class CaptureShortcutSettingsTests: XCTestCase {
     XCTAssertTrue(delegate.responds(to: try XCTUnwrap(entry.action)))
   }
 
+  func testOnlyScreenshotActionsRemainInMenuAndShortcutEditor() throws {
+    _ = NSApplication.shared
+    let delegate = makeIsolatedAppDelegate()
+    let menu = delegate.makeMenu()
+    XCTAssertFalse(menu.items.contains { $0.title.contains("查选中词") })
+    XCTAssertFalse(delegate.responds(to: NSSelectorFromString("captureSelectionAction")))
+    XCTAssertTrue(menu.items.contains { $0.title.hasPrefix("截图取词") })
+    XCTAssertTrue(menu.items.contains { $0.title.hasPrefix("截图问一问") })
+    let settings = CaptureShortcutSettings(screenshot: .defaultScreenshot)
+    func descendants(_ view: NSView) -> [NSView] { [view] + view.subviews.flatMap(descendants) }
+    let controls = descendants(try XCTUnwrap(settings.panel.contentView))
+      .filter { $0.accessibilityRole() == .textField }
+    XCTAssertEqual(controls.compactMap { $0.accessibilityLabel() }, ["截图取词", "截图问一问"])
+    delegate.showSettings(.capture)
+    defer { delegate.settingsWindow?.panel.close() }
+    let page = try XCTUnwrap(delegate.settingsWindow?.panel.contentView)
+    XCTAssertTrue(buttons(in: page).contains { $0.title == "双击或拖选英文后显示“拾词”按钮" })
+  }
+
   func testPresentReturnsWithWindowVisibleAndCancelRestoresOnce() throws {
     _ = NSApplication.shared
     let settings = CaptureShortcutSettings(
-      selection: .defaultSelection, screenshot: .defaultScreenshot)
+      screenshot: .defaultScreenshot)
     var saves = 0
     var closes = 0
     settings.present(
-      validateAndSave: { _, _, _ in
+      validateAndSave: { _, _ in
         saves += 1
         return nil
       }, onClose: { closes += 1 })
@@ -53,12 +72,12 @@ final class CaptureShortcutSettingsTests: XCTestCase {
   func testFailedRegistrationStaysVisibleAndRetrySavesThenCloses() throws {
     _ = NSApplication.shared
     let settings = CaptureShortcutSettings(
-      selection: .defaultSelection, screenshot: .defaultScreenshot)
+      screenshot: .defaultScreenshot)
     var attempts = 0
     var closes = 0
     var screenshot: CaptureShortcut?
     settings.present(
-      validateAndSave: { _, value, _ in
+      validateAndSave: { value, _ in
         attempts += 1
         screenshot = value
         return attempts == 1 ? "已被其他应用占用" : nil

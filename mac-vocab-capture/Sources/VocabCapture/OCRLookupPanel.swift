@@ -1,7 +1,11 @@
 import AppKit
 
 @MainActor
-final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegate, NSTextFieldDelegate {
+final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegate,
+  NSTextFieldDelegate
+{
+  let compactPresentation: Bool
+  private var compactColumn: NSStackView?
   private let original = OCRTextView()
   private let targetWord = NSTextField()
   private let meaning = NSTextField(wrappingLabelWithString: "")
@@ -15,7 +19,9 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
   private var selectionRange: NSRange?
   private var lookupTask: Task<Void, Never>?
   private var savedRevision: UUID?
-  private var canSave: Bool { !isSaving && savedRevision != revision && result != nil && resultSelection != nil }
+  private var canSave: Bool {
+    !isSaving && savedRevision != revision && result != nil && resultSelection != nil
+  }
   private var saveTask: Task<Void, Never>?
   private var revision = UUID()
   private var result: DictionaryResult?
@@ -31,13 +37,29 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
   private let onSearchSettings: (() -> Void)?
   private let ask: ScreenshotQuestionAnswer?
   private let screenshotImageData: Data?
+  private let originalImageData: Data?
+  private let researchMethod: MathSkillProfileResearchCoordinator.Research?
+  private let onMethodsChanged: () -> Void
+  private let mathStore: MathQuestionStore?
+  private let selectMethodAutomatically: MathMethodSelection?
+  private let singlePassMath: Bool
+  private let canUseMathRendererTools: () -> Bool
+  private let canUseReviewedMathExamples: () -> Bool
+  private let saveQuestion: MathQuestionSave?
+  private let onOpenQuestion: (@MainActor (String) -> Void)?
+  private let solutionModel: (@MainActor () -> String)?
   private let onQuestionSettings: (() -> Void)?
   private let questionPreferences: ScreenshotQuestionPreferences?
+  private let sessionStore: ScreenshotQuestionSessionStore?
+  private let overlayTokens: [OCROverlayToken]
+  private var imageOverlay: OCRImageOverlayView?
   private var questionPanel: ScreenshotQuestionPanel?
   var onRetake: (() -> Void)?
+  var onAppendCapture: (() -> Void)?
 
   init(
     text: String,
+    compactPresentation: Bool = false,
     lookup:
       @escaping (SelectedText, @escaping @MainActor @Sendable (String) -> Void) async throws ->
       DictionaryResult,
@@ -46,10 +68,35 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     ask: ScreenshotQuestionAnswer? = nil,
     onQuestionSettings: (() -> Void)? = nil,
     questionPreferences: ScreenshotQuestionPreferences? = nil,
+    overlayTokens: [OCROverlayToken] = [],
     measuredAsk: ScreenshotQuestionMeasuredAnswer? = nil,
     webAsk: ScreenshotQuestionWebAnswer? = nil,
-    onSearchSettings: (() -> Void)? = nil
+    onSearchSettings: (() -> Void)? = nil,
+    originalImageData: Data? = nil,
+    saveQuestion: MathQuestionSave? = nil,
+    onOpenQuestion: (@MainActor (String) -> Void)? = nil,
+    solutionModel: (@MainActor () -> String)? = nil,
+    mathStore: MathQuestionStore? = nil,
+    selectMethodAutomatically: MathMethodSelection? = nil,
+    singlePassMath: Bool = false,
+    canUseMathRendererTools: @escaping () -> Bool = { true },
+    canUseReviewedMathExamples: @escaping () -> Bool = { false },
+    researchMethod: MathSkillProfileResearchCoordinator.Research? = nil,
+    onMethodsChanged: @escaping () -> Void = {},
+    sessionStore: ScreenshotQuestionSessionStore? = nil
   ) {
+    self.compactPresentation = compactPresentation
+    self.originalImageData = originalImageData
+    self.mathStore = mathStore
+    self.researchMethod = researchMethod
+    self.onMethodsChanged = onMethodsChanged
+    self.selectMethodAutomatically = selectMethodAutomatically
+    self.singlePassMath = singlePassMath
+    self.canUseMathRendererTools = canUseMathRendererTools
+    self.canUseReviewedMathExamples = canUseReviewedMathExamples
+    self.saveQuestion = saveQuestion
+    self.onOpenQuestion = onOpenQuestion
+    self.solutionModel = solutionModel
     self.lookup = lookup
     self.save = save
     self.screenshotImageData = imageData
@@ -59,21 +106,33 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     self.ask = ask
     self.onQuestionSettings = onQuestionSettings
     self.questionPreferences = questionPreferences
+    self.sessionStore = sessionStore
+    self.overlayTokens = overlayTokens
     super.init(
-      contentRect: NSRect(x: 0, y: 0, width: 600, height: 650),
-      styleMask: [.titled, .closable, .resizable], backing: .buffered, defer: false)
+      contentRect: NSRect(x: 0, y: 0, width: compactPresentation ? 360 : 600, height: compactPresentation ? 300 : 650),
+      styleMask: compactPresentation ? [.titled, .closable, .fullSizeContentView] : [.titled, .closable, .resizable], backing: .buffered, defer: false)
     title = "截图取词"
     isReleasedWhenClosed = false
     hidesOnDeactivate = false
-    minSize = NSSize(width: 540, height: 620)
+    minSize = compactPresentation ? NSSize(width: 360, height: 210) : NSSize(width: 540, height: 620)
+    if compactPresentation {
+      titleVisibility = .hidden
+      titlebarAppearsTransparent = true
+      isMovableByWindowBackground = true
+      hasShadow = true
+      for button in [NSWindow.ButtonType.closeButton, .miniaturizeButton, .zoomButton] {
+        standardWindowButton(button)?.isHidden = true
+      }
+    }
     delegate = self
     buildContent(text: text)
     center()
   }
 
   func present() {
+    fitCompactCard()
     bringToFront()
-    makeFirstResponder(original)
+    makeFirstResponder(compactPresentation ? contentView : original)
   }
 
   func windowWillClose(_ notification: Notification) {
@@ -100,9 +159,19 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
 
   private func buildContent(text: String) {
     let root = NSView()
+    if compactPresentation {
+      root.wantsLayer = true
+      root.layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
+      root.layer?.cornerRadius = 14
+      root.layer?.masksToBounds = true
+    }
     contentView = root
     let heading = label("在原文中取词", size: 17, weight: .semibold)
-    let hint = label("点选单词或拖选词组，回车即可收藏。", size: 12, color: .secondaryLabelColor)
+    let hint = label(
+      overlayTokens.isEmpty
+        ? "点选单词或拖选词组，回车即可收藏。"
+        : "直接在原图上点选或拖选；按住 Shift 连续选词，右键可查询或复制，回车即可收藏；橙色虚线表示识别置信度较低。",
+      size: 12, color: .secondaryLabelColor)
     let scroll = NSScrollView()
     scroll.hasVerticalScroller = true
     scroll.borderType = .bezelBorder
@@ -123,6 +192,24 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     original.textContainer?.heightTracksTextView = false
     original.delegate = self
     scroll.documentView = original
+    var overlay: OCRImageOverlayView?
+    let overlayImageData = originalImageData ?? screenshotImageData
+    if !compactPresentation, let imageData = overlayImageData, let image = NSImage(data: imageData), !overlayTokens.isEmpty {
+      let view = OCRImageOverlayView(image: image, tokens: overlayTokens)
+      view.setAccessibilityRole(.image)
+      view.setAccessibilityLabel("截图原图文字选择层")
+      view.setAccessibilityHelp("点击或拖选文字；按住 Shift 点击可连续选词；聚焦后使用方向键移动，按回车确认；捏合、加减号缩放，Option 拖动平移，按 0 或双击恢复整图。")
+      view.onSelectionWithIndices = { [weak self] text, indices in
+        self?.selectOverlayText(text, tokenIndices: indices)
+      }
+      view.translatesAutoresizingMaskIntoConstraints = false
+      let aspectRatio = max(0.1, image.size.height / max(1, image.size.width))
+      view.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: aspectRatio).isActive = true
+      view.heightAnchor.constraint(greaterThanOrEqualToConstant: 180).isActive = true
+      view.heightAnchor.constraint(lessThanOrEqualToConstant: 360).isActive = true
+      overlay = view
+      imageOverlay = view
+    }
     targetWord.placeholderString = "点击原文选词；也可在这里修正选词"
     targetWord.bezelStyle = .roundedBezel
     targetWord.font = .systemFont(ofSize: 20, weight: .semibold)
@@ -173,29 +260,64 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
       row.orientation = .horizontal
       row.spacing = 10
     }
-    let column = NSStackView(views: [
-      heading, hint, headerRow, scroll, targetWord,
+    var contentViews: [NSView] = [heading, hint, headerRow]
+    if let overlay { contentViews.append(overlay) }
+    contentViews.append(contentsOf: [scroll, targetWord,
       metadata, meaning, label("原句语境", size: 12, color: .tertiaryLabelColor),
-      sentence, retryButton, statusRow, footer,
-    ])
+      sentence, retryButton, statusRow, footer])
+    if compactPresentation {
+      targetWord.isBezeled = false
+      targetWord.drawsBackground = false
+      targetWord.font = .systemFont(ofSize: 23, weight: .semibold)
+      meaning.font = .systemFont(ofSize: 19, weight: .medium)
+      metadata.font = .systemFont(ofSize: 12)
+      sentence.font = .systemFont(ofSize: 13)
+      sentence.maximumNumberOfLines = 4
+      sentence.setAccessibilityLabel("上下文原句")
+      let divider = NSBox()
+      divider.boxType = .separator
+      let actions = NSStackView(views: [done, NSView(), saveButton])
+      actions.spacing = 8
+      saveButton.bezelColor = .controlAccentColor
+      saveButton.controlSize = .regular
+      done.title = "收起"
+      feedback.font = .systemFont(ofSize: 11)
+      contentViews = [targetWord, metadata, meaning, divider,
+        label("原句", size: 11, weight: .medium, color: .tertiaryLabelColor), sentence,
+        retryButton, statusRow, actions]
+      meaning.maximumNumberOfLines = 4
+      metadata.maximumNumberOfLines = 2
+      feedback.maximumNumberOfLines = 2
+    }
+    let column = NSStackView(views: contentViews)
     column.orientation = .vertical
     column.alignment = .leading
     column.spacing = 10
-    column.setCustomSpacing(16, after: scroll)
-    column.setCustomSpacing(16, after: sentence)
+    if !compactPresentation {
+      column.setCustomSpacing(16, after: scroll)
+      column.setCustomSpacing(16, after: sentence)
+    }
     column.translatesAutoresizingMaskIntoConstraints = false
     root.addSubview(column)
+    if compactPresentation {
+      compactColumn = column
+      for view in column.arrangedSubviews where view is NSBox || view is NSStackView {
+        view.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
+      }
+    }
     NSLayoutConstraint.activate([
       column.topAnchor.constraint(equalTo: root.topAnchor, constant: 24),
       column.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 24),
       column.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -24),
       column.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -22),
-      scroll.heightAnchor.constraint(greaterThanOrEqualToConstant: 180),
+
     ])
-    for item in [headerRow, scroll, targetWord, metadata, meaning, sentence, statusRow, footer] {
+    if !compactPresentation { scroll.heightAnchor.constraint(greaterThanOrEqualToConstant: 180).isActive = true }
+    for item in (compactPresentation ? [targetWord, metadata, meaning, sentence, statusRow] : [headerRow, scroll, targetWord, metadata, meaning, sentence, statusRow, footer]) {
       item.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
     }
-    hint.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
+    overlay?.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
+    if !compactPresentation { hint.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true }
     scroll.setContentHuggingPriority(.defaultLow, for: .vertical)
     feedback.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
     original.onCommitSelection = { [weak self] in self?.readSelection() }
@@ -203,6 +325,15 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
       feedback.stringValue = "未识别到文字，点击“问一问”可根据截图提问。"
     }
+  }
+
+  private func fitCompactCard() {
+    guard compactPresentation, let column = compactColumn else { return }
+    contentView?.layoutSubtreeIfNeeded()
+    let height = max(210, min(400, column.fittingSize.height + 46))
+    let top = frame.maxY
+    setContentSize(NSSize(width: 360, height: height))
+    setFrameOrigin(CGPoint(x: frame.minX, y: top - frame.height))
   }
 
   private func label(
@@ -213,6 +344,35 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     label.font = .systemFont(ofSize: size, weight: weight)
     label.textColor = color
     return label
+  }
+
+  private func selectOverlayText(_ text: String, tokenIndices: [Int] = []) {
+    let selected = text.trimmingCharacters(in: .whitespacesAndNewlines)
+    guard !selected.isEmpty else { return }
+    let source = original.string as NSString
+    var range = OCRSelection.range(of: selected, in: source)
+    if let firstIndex = tokenIndices.first, firstIndex < overlayTokens.count {
+      let firstToken = overlayTokens[firstIndex].text
+      let occurrence = overlayTokens[..<firstIndex].filter { $0.text.caseInsensitiveCompare(firstToken) == .orderedSame }.count
+      let candidate = OCRSelection.range(of: selected, in: source, occurrence: occurrence)
+      if candidate.location != NSNotFound { range = candidate }
+    }
+    guard range.location != NSNotFound,
+      let snapped = OCRSelection(text: original.string).snappedRange(range)
+    else {
+      targetWord.stringValue = selected
+      feedback.stringValue = "已选择“\(selected)”；请在识别原文中确认词组。"
+      return
+    }
+    selectionRange = snapped
+    original.setSelectedRange(snapped)
+    targetWord.stringValue = OCRSelection(text: original.string).selection(in: snapped)?.word ?? selected
+    beginLookup()
+  }
+
+  @MainActor
+  func selectRecognizedText(_ text: String, tokenIndices: [Int] = []) {
+    selectOverlayText(text, tokenIndices: tokenIndices)
   }
 
   func textViewDidChangeSelection(_ notification: Notification) {
@@ -302,6 +462,17 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     let startedAt = Date()
     let token = revision
     sentence.stringValue = selection.context
+    if compactPresentation {
+      let context = NSMutableAttributedString(string: selection.context, attributes: [
+        .font: NSFont.systemFont(ofSize: 13), .foregroundColor: NSColor.secondaryLabelColor])
+      let match = (selection.context as NSString).range(of: selection.word, options: .caseInsensitive)
+      if match.location != NSNotFound {
+        context.addAttributes([.font: NSFont.systemFont(ofSize: 13, weight: .semibold),
+          .foregroundColor: NSColor.labelColor], range: match)
+      }
+      sentence.attributedStringValue = context
+      sentence.toolTip = selection.context
+    }
     feedback.stringValue = "正在查询“\(word)”…"
     retryButton.isHidden = true
     spinner.startAnimation(nil)
@@ -311,6 +482,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
         let value = try await self.lookup(selection) { [weak self] preview in
           guard let self, self.revision == token else { return }
           self.meaning.stringValue = preview
+          self.fitCompactCard()
           self.feedback.stringValue = "释义已显示，正在补充词性与音标…"
           ContextDebugLog.write(
             "界面显示释义：\(Int(Date().timeIntervalSince(startedAt) * 1_000)) ms", word: selection.word)
@@ -326,6 +498,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
         self.feedback.stringValue = "回车加入生词本，或继续点选其他单词。"
         self.saveButton.isEnabled = true
         self.spinner.stopAnimation(nil)
+        self.fitCompactCard()
       } catch {
         guard !Task.isCancelled, self.revision == token else { return }
         self.pendingSelection = nil
@@ -333,6 +506,7 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
         self.spinner.stopAnimation(nil)
         self.feedback.stringValue = "查询失败：\(error.localizedDescription)"
         self.retryButton.isHidden = false
+        self.fitCompactCard()
       }
     }
   }
@@ -399,6 +573,18 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
 
   func questionModelConfigurationChanged() { questionPanel?.modelConfigurationChanged() }
 
+  func takeQuestionPanelForAppend() -> ScreenshotQuestionPanel? {
+    let panel = questionPanel
+    questionPanel = nil
+    return panel
+  }
+
+  func prepareMathLibraryRestore() async { await questionPanel?.prepareForLibraryRestore() }
+
+  func mathLibraryDidRestore(saveQuestion: MathQuestionSave? = nil) {
+    questionPanel?.mathLibraryDidRestore(saveQuestion: saveQuestion)
+  }
+
   func questionSearchConfigurationChanged() { questionPanel?.searchConfigurationChanged() }
 
   private var questionContext: ScreenshotQuestionContext {
@@ -420,7 +606,16 @@ final class OCRLookupPanel: ScreenshotPanel, NSWindowDelegate, NSTextViewDelegat
     let panel = ScreenshotQuestionPanel(
       context: questionContext, answer: ask, onModelSettings: onQuestionSettings,
       modelPreferences: questionPreferences, measuredAnswer: measuredAsk,
-      webAnswer: webAsk, onSearchSettings: onSearchSettings)
+      webAnswer: webAsk, onSearchSettings: onSearchSettings,
+      originalImageData: originalImageData, saveQuestion: saveQuestion,
+      onOpenQuestion: onOpenQuestion, solutionModel: solutionModel, mathStore: mathStore,
+      selectMethodAutomatically: selectMethodAutomatically,
+      singlePassAutomaticMethods: singlePassMath, programArithmetic: singlePassMath,
+      singleSubmissionMath: singlePassMath, rendererToolsMath: singlePassMath,
+      canUseMathRendererTools: canUseMathRendererTools,
+      canUseReviewedMathExamples: canUseReviewedMathExamples,
+      researchMethod: researchMethod, onMethodsChanged: onMethodsChanged, sessionStore: sessionStore)
+    panel.onAppendCapture = onAppendCapture
     questionPanel = panel
     panel.present()
   }

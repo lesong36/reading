@@ -4,6 +4,37 @@ import XCTest
 @testable import VocabCapture
 
 final class ScreenshotQuestionBackendTests: XCTestCase {
+  func testRendererProtocolHasExplicitBetaFastThinkingAndSeparateSystemContract() throws {
+    for (endpoint, expected) in [("https://api.deepseek.com/beta/chat/completions", "renderer_tools_strict"),
+                                 ("https://api.deepseek.com/chat/completions", "renderer_tools")] {
+      let payload = try ScreenshotQuestionClient.payload(question: MathStructuredSolution.rendererRequestPrefix + "解题",
+        context: .init(text: "Source", selectedWord: nil, imageData: nil), history: [],
+        configuration: AIConfiguration(baseURL: endpoint, model: "deepseek-flash", apiKey: "fixture-key"),
+        api: .chatCompletions, thinking: .high)
+      let object = try XCTUnwrap(JSONSerialization.jsonObject(with: payload) as? [String: Any])
+      XCTAssertEqual(object["solution_protocol"] as? String, expected)
+      XCTAssertEqual((object["configuration"] as? [String: Any])?["thinking"] as? String, "off")
+      XCTAssertFalse((object["instructions"] as? String ?? "").contains("diagram_outcome"))
+      XCTAssertTrue((object["instructions"] as? String ?? "").contains("submit_general_math_solution"))
+    }
+  }
+  func testStrictSubmissionRequiresExplicitOfficialBetaEndpointAndMathPrefix() throws {
+    for (endpoint, expected) in [("https://api.deepseek.com/beta/chat/completions", "single_submission_strict"),
+                                 ("https://api.deepseek.com/chat/completions", "single_submission"),
+                                 ("https://gateway.test/beta/chat/completions", "single_submission")] {
+      let configuration = AIConfiguration(baseURL: endpoint, model: "deepseek-flash", apiKey: "fixture-key")
+      func payload(_ question: String) throws -> [String:Any] {
+        try XCTUnwrap(JSONSerialization.jsonObject(with: ScreenshotQuestionClient.payload(
+          question: question, context: .init(text: "Source", selectedWord: nil, imageData: nil), history: [],
+          configuration: configuration, api: .chatCompletions)) as? [String:Any])
+      }
+      let submission = try payload(MathStructuredSolution.submissionRequestPrefix + "解题")
+      XCTAssertEqual(submission["solution_protocol"] as? String, expected)
+      XCTAssertEqual((submission["configuration"] as? [String:Any])?["endpoint"] as? String, endpoint)
+      XCTAssertNil(try payload("Explain this sentence.")["solution_protocol"])
+      XCTAssertNil(try payload(MathStructuredSolution.requestPrefix + "解题")["solution_protocol"])
+    }
+  }
   func testSearchPayloadKeepsIndependentKeyAndOfflinePayloadOmitsSearch() throws {
     let configuration = AIConfiguration(
       baseURL: "https://example.test/v1", model: "model", apiKey: "model-test-key")
@@ -103,6 +134,36 @@ final class ScreenshotQuestionBackendTests: XCTestCase {
     XCTAssertEqual(config["endpoint"] as? String, "https://api.aicodewith.com/chatgpt/v1/responses")
     XCTAssertEqual(config["api"] as? String, "responses")
     XCTAssertEqual(config["api_key"] as? String, "fake-key")
+  }
+
+  func testStructuredMathHasCompatibleSystemModeWithoutChangingOrdinaryReading() throws {
+    let body = try payload(question: MathStructuredSolution.prompt("小学知识解题", candidates: []))
+    XCTAssertEqual(body["response_mode"] as? String, "math_solution")
+    let instructions = try XCTUnwrap(body["instructions"] as? String)
+    XCTAssertTrue(instructions.contains("六字段JSON对象"))
+    XCTAssertFalse(instructions.contains("通常用约 150–300"))
+    XCTAssertFalse(instructions.contains("一个独立的结尾 ```math-diagrams"))
+    let ordinary = try payload(question: "Explain this sentence. [MATH_STRUCTURED_SOLUTION_V1]")
+    XCTAssertNil(ordinary["response_mode"])
+    XCTAssertEqual(ordinary["instructions"] as? String, ScreenshotQuestionInstructions.text)
+  }
+
+  func testSubmissionPrefixSelectsOnlyExperimentalToolInstructions() throws {
+    let body = try payload(question: MathStructuredSolution.prompt("解题", candidates: [], singleSubmission: true))
+    XCTAssertEqual(body["response_mode"] as? String, "math_solution")
+    XCTAssertEqual(body["solution_protocol"] as? String, "single_submission")
+    let instructions = try XCTUnwrap(body["instructions"] as? String)
+    XCTAssertTrue(instructions.contains("submit_math_solution"))
+    XCTAssertFalse(instructions.contains("六字段JSON"))
+    XCTAssertFalse(instructions.contains("通常用约 150–300"))
+    for question in ["Explain " + MathStructuredSolution.submissionRequestPrefix,
+      "[MATH_SOLUTION_SUBMISSION_V2] changed", "Explain this sentence."] {
+      let ordinary = try payload(question: question)
+      XCTAssertNil(ordinary["solution_protocol"])
+      XCTAssertNil(ordinary["response_mode"])
+      XCTAssertEqual(ordinary["instructions"] as? String, ScreenshotQuestionInstructions.text)
+    }
+    XCTAssertNil(try payload(question: MathStructuredSolution.prompt("解题", candidates: []))["solution_protocol"])
   }
 
   func testClaudeAndExplicitChatKeepTheirConfiguredProtocol() throws {

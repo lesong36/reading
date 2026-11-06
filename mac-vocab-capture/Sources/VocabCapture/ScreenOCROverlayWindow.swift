@@ -1,0 +1,123 @@
+import AppKit
+
+@MainActor
+final class ScreenOCROverlayWindow {
+  private var panel: NSPanel?
+  private var sourceTimer: Timer?
+  private var deactivationObserver: NSObjectProtocol?
+  private var keyMonitor: Any?
+  private var contentMonitor: ScreenContentMonitor?
+  private let sourceIsValid: () -> Bool
+  private var closeDelegate: CloseDelegate?
+  private let region: ScreenCaptureRegion
+  private let image: NSImage
+  private let capturedImage: CGImage
+  private let tokens: [OCROverlayToken]
+  var onSelection: ((String, [Int]) -> Void)?
+  var onClose: (() -> Void)?
+  var isVisible: Bool { panel?.isVisible == true }
+
+  init(image: CGImage, region: ScreenCaptureRegion, tokens: [OCROverlayToken],
+       sourceIsValid: (() -> Bool)? = nil) {
+    self.sourceIsValid = sourceIsValid ?? { region.sourceWindow?.isCurrent ?? true }
+    self.region = region
+    self.capturedImage = image
+    self.image = NSImage(cgImage: image, size: NSSize(width: image.width, height: image.height))
+    self.tokens = tokens
+  }
+
+  func present() {
+    guard panel == nil else { return }
+    guard sourceIsValid() else { onClose?(); return }
+    // The captured screen remains visible underneath. This window is only the
+    // OCR interaction layer, so it never obscures the original reading surface.
+    let view = OCRImageOverlayView(image: image, tokens: tokens, drawsSourceImage: false)
+    view.onCancel = { [weak self] in self?.close() }
+    view.onSourceNavigation = { [weak self] event in self?.navigateSource(event) }
+    view.onSelectionWithIndices = { [weak self] text, indices in
+      self?.onSelection?(text, indices)
+    }
+    view.setAccessibilityRole(.image)
+    view.setAccessibilityLabel("原位置截图文字选择层")
+    view.setAccessibilityHelp("点击或拖选原位置文字；按住 Shift 连续选词；按回车确认；Escape 关闭选择层。")
+    view.translatesAutoresizingMaskIntoConstraints = false
+    let panel = NSPanel(
+      contentRect: region.selectionRect, styleMask: [.borderless], backing: .buffered, defer: false)
+    panel.level = .screenSaver
+    panel.backgroundColor = .clear
+    panel.isOpaque = false
+    panel.hasShadow = false
+    panel.hidesOnDeactivate = false
+    panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+    panel.contentView = view
+    let closeDelegate = CloseDelegate { [weak self] in self?.close() }
+    panel.delegate = closeDelegate
+    self.closeDelegate = closeDelegate
+    self.panel = panel
+    NSApp.activate(ignoringOtherApps: true)
+    panel.orderFrontRegardless()
+    panel.makeKeyAndOrderFront(nil)
+    panel.makeFirstResponder(view)
+    keyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
+      guard let self, [116, 121].contains(event.keyCode) else { return event }
+      self.navigateSource(event)
+      return nil
+    }
+    deactivationObserver = NotificationCenter.default.addObserver(
+      forName: NSApplication.didResignActiveNotification, object: NSApp, queue: .main
+    ) { [weak self] _ in
+      MainActor.assumeIsolated { self?.close() }
+    }
+    let timer = Timer(timeInterval: 0.2, repeats: true) { [weak self] timer in
+      MainActor.assumeIsolated {
+        guard let self else { timer.invalidate(); return }
+        self.validateSource()
+      }
+    }
+    sourceTimer = timer
+    RunLoop.main.add(timer, forMode: .common)
+    if region.sourceWindow != nil {
+      contentMonitor = ScreenContentMonitor(region: region, original: capturedImage) { [weak self] in
+        self?.close()
+      }
+      contentMonitor?.start()
+    }
+  }
+
+  func validateSource() {
+    if !sourceIsValid() { close() }
+  }
+
+  private func navigateSource(_ event: NSEvent) {
+    let source = region.sourceWindow
+    let forwarded = event.cgEvent?.copy()
+    close()
+    guard let source, let forwarded else { return }
+    NSRunningApplication(processIdentifier: source.ownerPID)?.activate()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+      forwarded.postToPid(source.ownerPID)
+    }
+  }
+
+  func close() {
+    guard panel != nil else { return }
+    sourceTimer?.invalidate()
+    sourceTimer = nil
+    contentMonitor?.stop()
+    contentMonitor = nil
+    if let monitor = keyMonitor { NSEvent.removeMonitor(monitor) }
+    keyMonitor = nil
+    if let observer = deactivationObserver { NotificationCenter.default.removeObserver(observer) }
+    deactivationObserver = nil
+    panel?.orderOut(nil)
+    panel = nil
+    closeDelegate = nil
+    onClose?()
+  }
+}
+
+private final class CloseDelegate: NSObject, NSWindowDelegate {
+  let action: () -> Void
+  init(action: @escaping () -> Void) { self.action = action }
+  func windowWillClose(_ notification: Notification) { action() }
+}

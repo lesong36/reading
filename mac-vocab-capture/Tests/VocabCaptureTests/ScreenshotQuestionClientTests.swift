@@ -155,12 +155,13 @@ final class ScreenshotQuestionClientTests: XCTestCase {
     let partial = expectation(description: "first answer before completion")
     var values: [String] = []
     var active: QuestionURLProtocol?
+    // Flush AsyncBytes without releasing the next answer fragment or stream completion.
+    var firstChunk = event("这表示")
+    firstChunk.append(Data((":" + String(repeating: " ", count: 16_384) + "\n\n").utf8))
+    let remainingChunks = [event("分开计费。"), Data("data: [DONE]\n\n".utf8)]
     QuestionURLProtocol.handler = { _, transport in
       active = transport
-      transport.respond(
-        mime: "text/event-stream",
-        chunks: [self.event("这表示"), self.event("分开计费。"), Data("data: [DONE]\n\n".utf8)],
-        interval: 0.1)
+      transport.respond(mime: "text/event-stream", chunks: [firstChunk], finish: false)
     }
     let task = Task {
       try await client().answer(
@@ -170,10 +171,12 @@ final class ScreenshotQuestionClientTests: XCTestCase {
           if values.count == 1 {
             XCTAssertEqual(active?.deliveredChunkCount, 1)
             partial.fulfill()
+            active?.finish(chunks: remainingChunks)
           }
         })
     }
     await fulfillment(of: [partial], timeout: 2)
+    if values.isEmpty { task.cancel() }
     let answer = try await task.value
     XCTAssertEqual(answer, "这表示分开计费。")
     XCTAssertEqual(values, ["这表示", "这表示分开计费。"])

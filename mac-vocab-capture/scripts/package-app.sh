@@ -15,8 +15,11 @@ if [[ -z "$SIGNING_IDENTITY" ]]; then
 fi
 
 cd "$PROJECT_DIR"
+python3 "$PROJECT_DIR/scripts/validate-math-skills.py"
 swift build -c release
 "$PROJECT_DIR/scripts/build-question-engine.sh"
+"$PROJECT_DIR/question-engine/.venv/bin/python" "$PROJECT_DIR/scripts/verify-frozen-math-contract.py" \
+  "$PROJECT_DIR/build/langchain/dist/QuestionEngine/QuestionEngine"
 rm -rf "$APP_DIR"
 mkdir -p "$CONTENTS/MacOS" "$CONTENTS/Resources" "$CONTENTS/Helpers"
 ditto --norsrc "$PROJECT_DIR/build/langchain/dist/QuestionEngine" "$CONTENTS/Helpers/QuestionEngine"
@@ -24,6 +27,10 @@ cp .build/release/VocabCapture "$CONTENTS/MacOS/VocabCapture"
 cp Resources/Info.plist "$CONTENTS/Info.plist"
 "$PROJECT_DIR/scripts/build-app-icon.sh"
 cp "$PROJECT_DIR/build/AppIcon.icns" "$CONTENTS/Resources/AppIcon.icns"
+cp "$PROJECT_DIR/Sources/VocabCapture/Resources/PrimaryMathTags.json" "$CONTENTS/Resources/PrimaryMathTags.json"
+ditto --norsrc "$PROJECT_DIR/Sources/VocabCapture/Resources/MathSkills" "$CONTENTS/Resources/MathSkills"
+ditto --norsrc "$PROJECT_DIR/Sources/VocabCapture/Resources/MathTeachingReview" "$CONTENTS/Resources/MathTeachingReview"
+ditto --norsrc "$PROJECT_DIR/Sources/VocabCapture/Resources/AnswerRenderer" "$CONTENTS/Resources/AnswerRenderer"
 plutil -replace CFBundleShortVersionString -string "$VERSION" "$CONTENTS/Info.plist"
 plutil -replace CFBundleVersion -string "$VERSION" "$CONTENTS/Info.plist"
 chmod 755 "$CONTENTS/MacOS/VocabCapture"

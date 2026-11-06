@@ -5,6 +5,19 @@ import XCTest
 
 @MainActor
 final class OCRLookupPanelTests: XCTestCase {
+  func testAppendingCanTransferQuestionWindowWithoutClosingItsConversation() throws {
+    _ = NSApplication.shared
+    let panel = OCRLookupPanel(text: "A curious reader.",
+      lookup: { selection, _ in self.dictionary(selection.word) },
+      save: { _, _ in "已保存" }, ask: { _, _, _, _ in "回答" })
+    panel.perform(NSSelectorFromString("openQuestions"))
+    let question = try XCTUnwrap(panel.takeQuestionPanelForAppend())
+    defer { question.close() }
+    XCTAssertNil(panel.takeQuestionPanelForAppend())
+    panel.close()
+    XCTAssertTrue(question.isVisible, "OCR ownership must end before capture closes its parent")
+  }
+
   func testReturnFromOriginalTextSavesWithoutClosingWindow() async throws {
     _ = NSApplication.shared
     var saves = 0

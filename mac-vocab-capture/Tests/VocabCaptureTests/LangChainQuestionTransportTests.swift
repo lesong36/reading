@@ -82,6 +82,26 @@ final class LangChainQuestionTransportTests: XCTestCase {
     await fixture.close()
   }
 
+  func testFailedMathReportsSanitizedClocksOnceWithoutFabricatingUsageOrAnswer() async throws {
+    let fixture = try fixture()
+    var observations: [ScreenshotQuestionUsage] = []
+    var partials: [String] = []
+    do {
+      _ = try await fixture.transport.answer(payload: payload("failureClocks"),
+        onUsage: { observations.append($0) }, onPartial: { partials.append($0) })
+      XCTFail("Failure must not become an answer")
+    } catch { XCTAssertEqual((error as? MathSolutionSubmissionError)?.issue, "submission_shape") }
+    try await Task.sleep(nanoseconds: 50_000_000)
+    XCTAssertTrue(partials.isEmpty)
+    XCTAssertEqual(observations.count, 1)
+    let value = try XCTUnwrap(observations.first)
+    XCTAssertNil(value.inputTokens); XCTAssertNil(value.outputTokens)
+    XCTAssertEqual(value.failurePhase, "submission_validation")
+    XCTAssertEqual(value.failureIssue, "submission_shape")
+    XCTAssertEqual(value.engineTimings, ["engine_total": 3.5, "first_sdk_chunk": 1.2])
+    await fixture.close()
+  }
+
   func testDoneReportsUsageOnceBeforeReturningTheAnswer() async throws {
     let fixture = try fixture()
     var usages: [ScreenshotQuestionUsage] = []
@@ -236,11 +256,65 @@ final class LangChainQuestionTransportTests: XCTestCase {
       ("empty", ScreenshotQuestionError.emptyResponse.localizedDescription),
       ("invalid", ScreenshotQuestionError.invalidResponse.localizedDescription),
       ("connection", LangChainTransportError.connection.localizedDescription),
+      ("skillsPrerequisite", MathMethodMatchError.prerequisiteNotSatisfied.localizedDescription),
     ] {
       do {
         _ = try await fixture.transport.answer(payload: payload(question), onPartial: { _ in })
         XCTFail("Expected \(question) error")
       } catch { XCTAssertEqual(error.localizedDescription, expected) }
+    }
+    await fixture.close()
+  }
+  func testProviderRequestDiagnosticsNeverExposeUnknownFieldsOrProse() async throws {
+    let fixture = try fixture()
+    for scenario in ["valid", "unknown", "duplicate", "auth"] {
+      do {
+        _ = try await fixture.transport.answer(payload: payload("providerFields:" + scenario), onPartial: { _ in })
+        XCTFail("Expected request rejection")
+      } catch {
+        if scenario == "valid" {
+          XCTAssertEqual((error as? MathProviderRequestError)?.fields, ["$ref", "tools"])
+          XCTAssertEqual((error as? MathProviderRequestError)?.status, 400)
+        } else { XCTAssertTrue(error is ScreenshotQuestionError) }
+        XCTAssertFalse(error.localizedDescription.contains("secret"))
+        XCTAssertFalse(error.localizedDescription.contains("private@example"))
+      }
+    }
+    await fixture.close()
+  }
+
+  func testMathSubmissionFailuresExposeOnlyAllowlistedLocalLabels() async throws {
+    let fixture = try fixture()
+    for issue in ["submission_shape", "untrusted-secret"] {
+      do {
+        _ = try await fixture.transport.answer(payload: payload("mathSubmission:" + issue), onPartial: { _ in })
+        XCTFail("Expected structured failure")
+      } catch {
+        if issue == "submission_shape" {
+          XCTAssertEqual((error as? MathSolutionSubmissionError)?.issue, issue)
+        } else { XCTAssertTrue(error is ScreenshotQuestionError) }
+        XCTAssertFalse(error.localizedDescription.contains("untrusted-secret"))
+      }
+    }
+    await fixture.close()
+  }
+
+  func testTeachingOutputFailuresReportOnlyKnownStagesAndIssues() async throws {
+    let fixture = try fixture()
+    for (question, expected) in [
+      ("learningCoverage", "已有方法覆盖检查未完成：模型未按要求提炼可复用的题目结构。没有自动批准方法，可重试教研检查。"),
+      ("learningDraft", "新方法草拟未完成：模型引用了未提供的原题或原题数量不足。没有自动批准方法，可重试教研检查。"),
+      ("learningReview", "候选五项审校未完成：模型未完整检查五项教研要求。没有自动批准方法，可重试教研检查。"),
+      ("learningProfile", "已有方法五项审校未完成：模型报告遗漏或多出了必要项目。没有自动批准方法，可重试教研检查。"),
+      ("learningUnsafe", "模型教研报告不符合要求，没有自动批准方法，请重试教研检查"),
+    ] {
+      do {
+        _ = try await fixture.transport.answer(payload: payload(question), onPartial: { _ in })
+        XCTFail("Expected teaching failure")
+      } catch {
+        XCTAssertEqual(error.localizedDescription, MathQuestionStoreError.database(expected).localizedDescription)
+        XCTAssertFalse(error.localizedDescription.contains("untrusted-secret"))
+      }
     }
     await fixture.close()
   }
@@ -412,6 +486,25 @@ final class LangChainQuestionTransportTests: XCTestCase {
             emit({"type": "error", "id": id, "code": "searchAuthentication",
                   "message": "untrusted-key"})
             return
+        if question.startswith("providerFields:"):
+            diagnostic_case = question.split(":", 1)[1]
+            fields = {"valid": ["tools", "$ref"], "unknown": ["tools", "secret"],
+                      "duplicate": ["tools", "tools"], "auth": ["tools"]}[diagnostic_case]
+            emit({"type": "error", "id": id, "code": "server", "status": 401 if diagnostic_case == "auth" else 400,
+                  "request_fields": fields, "message": "secret private@example"})
+            return
+        if question == "failureClocks":
+            event = {"type": "error", "id": id, "code": "mathSubmission", "submission_issue": "submission_shape",
+                     "failure_phase": "submission_validation", "timings": {"engine_total": 3.5, "first_sdk_chunk": 1.2,
+                     "tool_binding": True, "stream_total": -1, "untrusted-secret": 3}, "message": "untrusted-secret"}
+            emit(event)
+            emit(event)
+            emit({"id": id, "type": "done", "text": "must not become answer"})
+            return
+        if question.startswith("mathSubmission:"):
+            emit({"type": "error", "id": id, "code": "mathSubmission",
+                  "submission_issue": question.split(":", 1)[1], "message": "untrusted-secret"})
+            return
         if question == "crash":
             os._exit(7)
         if question == "hang":
@@ -433,7 +526,16 @@ final class LangChainQuestionTransportTests: XCTestCase {
                 event["status"] = {"serverBoolean": True, "serverFractional": 500.5, "serverOutOfRange": 600}[question]
             emit(event)
             return
-        if question in ["server", "truncated", "empty", "invalid", "connection"]:
+        if question.startswith("learning"):
+            stage, issue = {"learningCoverage": ("coverage", "pattern_key"),
+                            "learningDraft": ("draft", "evidence_references"),
+                            "learningReview": ("review", "review_dimensions"),
+                            "learningProfile": ("profile_review", "fields"),
+                            "learningUnsafe": ("untrusted-secret", "untrusted-secret")}[question]
+            emit({"type": "error", "id": id, "code": "learningOutput",
+                  "learning_stage": stage, "learning_issue": issue, "message": "untrusted-secret"})
+            return
+        if question in ["server", "truncated", "empty", "invalid", "connection", "skillsPrerequisite"]:
             emit({"type": "error", "id": id, "code": question, "status": 401,
                   "message": "This untrusted string must never be shown"})
             return

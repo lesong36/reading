@@ -15,10 +15,10 @@ final class EmbeddedCaptureShortcutSettingsTests: XCTestCase {
 
   func testEmbeddedSaveFailureCanRetryWithoutClosingHost() throws {
     _ = NSApplication.shared
-    let settings = CaptureShortcutSettings(selection: .defaultSelection, screenshot: .defaultScreenshot)
+    let settings = CaptureShortcutSettings(screenshot: .defaultScreenshot)
     var attempts = 0
     var screenshots: [CaptureShortcut] = []
-    let form = settings.makeEmbeddedView { _, screenshot, _ in
+    let form = settings.makeEmbeddedView { screenshot, _ in
       attempts += 1
       screenshots.append(screenshot)
       return attempts == 1 ? "已被其他应用占用" : nil
@@ -42,9 +42,9 @@ final class EmbeddedCaptureShortcutSettingsTests: XCTestCase {
 
   func testEmbeddedRestoreChangesUsesLastSuccessfulSaveAndDoesNotPersistDraft() throws {
     _ = NSApplication.shared
-    let settings = CaptureShortcutSettings(selection: .defaultSelection, screenshot: .defaultScreenshot)
+    let settings = CaptureShortcutSettings(screenshot: .defaultScreenshot)
     var screenshots: [CaptureShortcut] = []
-    let form = settings.makeEmbeddedView { _, screenshot, _ in
+    let form = settings.makeEmbeddedView { screenshot, _ in
       screenshots.append(screenshot)
       return nil
     }
@@ -64,9 +64,9 @@ final class EmbeddedCaptureShortcutSettingsTests: XCTestCase {
 
   func testEmbeddedRestoreBeforeSaveReturnsInitialCustomShortcut() throws {
     _ = NSApplication.shared
-    let settings = CaptureShortcutSettings(selection: .defaultSelection, screenshot: .alternateScreenshot)
+    let settings = CaptureShortcutSettings(screenshot: .alternateScreenshot)
     var saves = 0
-    let form = settings.makeEmbeddedView { _, _, _ in saves += 1; return nil }
+    let form = settings.makeEmbeddedView { _, _ in saves += 1; return nil }
     try button("恢复默认", in: form).performClick(nil)
     try button("还原更改", in: form).performClick(nil)
     XCTAssertEqual(saves, 0)

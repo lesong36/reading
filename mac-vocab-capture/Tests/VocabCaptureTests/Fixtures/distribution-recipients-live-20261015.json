@@ -1,0 +1,31 @@
+{
+  "id": "two-alloc-paper",
+  "title": "给同学分绘图纸（两种分法）",
+  "item_unit": "张",
+  "recipient_unit": "名同学",
+  "allocations": [
+    {
+      "per_recipient": {
+        "value": 25,
+        "evidence": "每名同学发25张"
+      },
+      "balance": {
+        "kind": "extra_recipients",
+        "value": 2,
+        "evidence": "剩下的还能发给2名同学"
+      }
+    },
+    {
+      "per_recipient": {
+        "value": 27,
+        "evidence": "每名同学27张"
+      },
+      "balance": {
+        "kind": "exact",
+        "evidence": "正好发完"
+      }
+    }
+  ],
+  "view": "table",
+  "kind": "two_allocations"
+}

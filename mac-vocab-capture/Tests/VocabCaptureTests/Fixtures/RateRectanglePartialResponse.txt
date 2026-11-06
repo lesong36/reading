@@ -1,0 +1,15 @@
+题目条件：一次最多可玩 45 分钟；顺流速度每分钟 30 米，逆流速度每分钟 20 米；顺流行驶 21 分钟后返回，问能否在规定时间内返回。
+
+数量关系：先算顺流 21 分钟走了多远，再算原路返回需要多少分钟，最后把“去的时间 + 回的时间”与 45 分钟比较。
+
+步骤：
+1. 顺流路程 = 30 × 21 = 630 米。
+2. 返回时间 = 630 ÷ 20 = 31.5 分钟。
+3. 总时间 = 21 + 31.5 = 52.5 分钟。
+4. 52.5 分钟 > 45 分钟，所以不能在规定时间内返回。
+
+验算：返回 31.5 分钟，按每分钟 20 米，共走 31.5 × 20 = 630 米，与去程 630 米相同；21 + 31.5 = 52.5 分钟，确实超过 45 分钟。答案正确。
+
+```math-diagrams
+{"schemaVersion":1,"diagrams":[{"id":"d1","title":"顺流路程：速度×时间","kind":"quantity_plan","view":"area","quantities":[{"id":"v1","label":"顺流速度","value":30,"unit":"米/分钟","evidence":"先顺流而下，每分钟30米"},{"id":"t1","label":"顺流时间","value":21,"unit":"分钟","evidence":"顺流行驶21分钟后返回"},{"id":"s1","label":"顺流路程","operation":"product","inputs":["v1","t1"]}],"layout":{"length":"v1","width":"t1","area":"s1"}},{"id":"d2","title":"返回时间：路程÷逆流速度","kind":"quantity_plan","view":"area","quantities":[{"id":"v2","label":"逆流速度","value":20,"unit":"米/分钟","evidence":"再逆流而上，每分钟20米"},{"id":"t2","label":"返回时间","operation":"quotient","inputs":["s1","v2"]},{"id":"s1","label":"顺流路程","operation":"product","inputs":["v1","t1"]},{"id":"v1","label":"顺流速度","value":30,"unit":"米/分钟","evidence":"先顺流而下，每分钟30米"},{"id":"t1","label":"顺流时间","value":21,"unit":"分钟","evidence":"顺流行驶21分钟后返回"}],"layout":{"length":"v2","width":"t2","area":"s1"}},{"id":"d3","title":"总时间与45分钟比较","kind":"quantity_plan","view":"bar_comparison","quantities":[{"id":"total","label":"往返总时间","operation":"sum","inputs":["t1","t2"]},{"id":"limit","label":"最多可玩时间","value":45,"unit":"分钟","evidence":"一次最多可玩45分钟"},{"id":"t1","label":"顺流时间","value":21,"unit":"分钟","evidence":"顺流行驶21分钟后返回"},{"id":"t2","label":"返回时间","operation":"quotient","inputs":["s1","v2"]},{"id":"s1","label":"顺流路程","operation":"product","inputs":["v1","t1"]},{"id":"v1","label":"顺流速度","value":30,"unit":"米/分钟","evidence":"先顺流而下，每分钟30米"},{"id":"v2","label":"逆流速度","value":20,"unit":"米/分钟","evidence":"再逆流而上，每分钟20米"}],"layout":{"items":["total","limit"]}}]}
+```

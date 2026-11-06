@@ -41,6 +41,7 @@ final class ScreenshotQuestionQuickPromptSettingsTests: XCTestCase {
   }
 
   func testAddLimitAndDeleteRetainUnsavedEdits() throws {
+    try preferences.save(Array(preferences.prompts.prefix(3)))
     let settings = ScreenshotQuestionQuickPromptSettings(preferences: preferences)
     settings.present()
     try title(1, settings).stringValue = "保留草稿"
@@ -99,7 +100,7 @@ final class ScreenshotQuestionQuickPromptSettingsTests: XCTestCase {
   func testRemovingAllKeepsAddButtonAndPersistsEmptyList() throws {
     let settings = ScreenshotQuestionQuickPromptSettings(preferences: preferences)
     settings.present()
-    for _ in 0..<3 { try button("删除", settings).performClick(nil) }
+    for _ in preferences.prompts { try button("删除", settings).performClick(nil) }
     XCTAssertTrue(try button("新增快捷问题", settings).isEnabled)
     try button("保存", settings).performClick(nil)
     XCTAssertTrue(preferences.prompts.isEmpty)

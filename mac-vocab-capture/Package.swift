@@ -6,7 +6,10 @@ let package = Package(
   platforms: [.macOS(.v13)],
   products: [.executable(name: "VocabCapture", targets: ["VocabCapture"])],
   targets: [
-    .executableTarget(name: "VocabCapture"),
-    .testTarget(name: "VocabCaptureTests", dependencies: ["VocabCapture"])
+    .systemLibrary(name: "CSQLite"),
+    .executableTarget(
+      name: "VocabCapture", dependencies: ["CSQLite"],
+      resources: [.copy("Resources/PrimaryMathTags.json"), .copy("Resources/MathSkills"), .copy("Resources/MathTeachingReview"), .copy("Resources/AnswerRenderer")]),
+    .testTarget(name: "VocabCaptureTests", dependencies: ["VocabCapture"], resources: [.copy("Fixtures")]),
   ]
 )
