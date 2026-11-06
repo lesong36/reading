@@ -5,6 +5,55 @@ import XCTest
 
 @MainActor
 final class ScreenshotQuestionPanelTests: XCTestCase {
+  func testPinSurvivesAppDeactivationAndCaptureRestoreAndCanBeDisabled() throws {
+    let suite = "VocabCapture.PinTests.\(UUID().uuidString)"
+    let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
+    defer { defaults.removePersistentDomain(forName: suite) }
+    let gate = AnswerGate()
+    let panel = ScreenshotQuestionPanel(context: context, answer: gate.answer, interfaceDefaults: defaults)
+    panel.present()
+    defer { panel.close() }
+    let pin = try XCTUnwrap(views(panel.contentView!).compactMap { $0 as? NSButton }
+      .first { $0.accessibilityLabel() == "置顶问答窗口" })
+    XCTAssertFalse(panel.keepsOnTop)
+    pin.performClick(nil)
+    XCTAssertTrue(panel.keepsOnTop)
+    panel.resignKey()
+    NotificationCenter.default.post(name: NSApplication.didResignActiveNotification, object: NSApp)
+    XCTAssertEqual(panel.level, .floating)
+    panel.orderOut(nil)
+    XCTAssertFalse(panel.isVisible)
+    panel.present()
+    XCTAssertEqual(panel.level, .floating)
+    let reopened = ScreenshotQuestionPanel(context: context, answer: gate.answer, interfaceDefaults: defaults)
+    defer { reopened.close() }
+    XCTAssertTrue(reopened.keepsOnTop)
+    pin.performClick(nil)
+    XCTAssertFalse(panel.keepsOnTop)
+    XCTAssertEqual(panel.level, .normal)
+    XCTAssertFalse(defaults.bool(forKey: "VocabCapture.questionWindowPinned"))
+  }
+
+  func testArithmeticContradictionIsVisibleWithoutChangingOriginalAnswer() async throws {
+    let suite = "VocabCapture.ArithmeticNotice.\(UUID().uuidString)"
+    let defaults = UserDefaults(suiteName: suite)!
+    defer { defaults.removePersistentDomain(forName: suite) }
+    let gate = AnswerGate()
+    let panel = ScreenshotQuestionPanel(context: context, answer: gate.answer, interfaceDefaults: defaults)
+    defer { panel.close() }
+    panel.present()
+    try questionField(panel).stringValue = "核对面积"
+    try button("提问", panel).performClick(nil)
+    try await wait { gate.requests.count == 1 }
+    let original = "面积核对：1+2+3+4+5+4+4+6=25，正好25格。"
+    gate.succeed(0, original)
+    try await wait { !panel.isAnswering }
+    XCTAssertEqual(panel.history.last?.answer, original)
+    XCTAssertTrue(transcript(panel).contains("算式核对提示"))
+    XCTAssertTrue(transcript(panel).contains("29、25"))
+    XCTAssertTrue(transcript(panel).contains(original))
+  }
+
   func testModelPickerPersistsSelectionCancelsOldAnswerAndPreservesDraft() async throws {
     let suite = "VocabCapture.ModelPickerTests.\(UUID().uuidString)"
     let defaults = UserDefaults(suiteName: suite)!
@@ -545,6 +594,7 @@ final class ScreenshotQuestionPanelTests: XCTestCase {
     try await wait { !panel.isAnswering }
     XCTAssertEqual(panel.performance?.elapsed, 6)
     XCTAssertEqual(panel.performance?.averageTokensPerSecond, 10)
+    XCTAssertEqual(panel.singlePassPreparationDurations["modelRequest"], 6)
     let label = try XCTUnwrap(
       views(panel.contentView!).compactMap { $0 as? NSTextField }.first {
         $0.accessibilityLabel() == "回答性能"
@@ -558,6 +608,7 @@ final class ScreenshotQuestionPanelTests: XCTestCase {
     gate.requests[0].partial("迟到的旧回答")
     XCTAssertNil(panel.performance?.usage)
     XCTAssertNil(panel.performance?.firstTextAt)
+    XCTAssertTrue(panel.singlePassPreparationDurations.isEmpty)
     clock = 22
     gate.requests[1].partial("只有文字")
     clock = 24
@@ -568,6 +619,177 @@ final class ScreenshotQuestionPanelTests: XCTestCase {
     try button("清空对话", panel).performClick(nil)
     callbacks[1](ScreenshotQuestionUsage(outputTokens: 111))
     XCTAssertNil(panel.performance)
+  }
+
+  func testNonStreamingCompletionRecordsActualVisibleOutputAndDetailsAvailability() async throws {
+    let gate = AnswerGate()
+    var clock: TimeInterval = 10
+    let panel = ScreenshotQuestionPanel(context: context, answer: gate.answer, now: { clock })
+    defer { panel.close() }
+    panel.present()
+    let details = try button("耗时明细…", panel)
+    XCTAssertFalse(details.isEnabled)
+    try questionField(panel).stringValue = "只在完成时返回回答"
+    try button("提问", panel).performClick(nil)
+    try await wait { gate.requests.count == 1 }
+    clock = 13
+    gate.succeed(0, "完整回答")
+    try await wait { !panel.isAnswering }
+    XCTAssertTrue(details.isEnabled)
+    XCTAssertEqual(panel.performance?.firstTokenLatency, 3)
+    XCTAssertEqual(panel.singlePassPreparationDurations["modelRequest"], 3)
+    details.performClick(nil)
+    try await wait { panel.attachedSheet != nil }
+    let sheet = try XCTUnwrap(panel.attachedSheet)
+    let report = try XCTUnwrap(views(try XCTUnwrap(sheet.contentView)).compactMap { $0 as? NSTextView }
+      .first { $0.accessibilityLabel() == "本次回答耗时明细" })
+    XCTAssertFalse(report.isEditable)
+    XCTAssertTrue(report.isSelectable)
+    XCTAssertTrue(report.string.contains("3.000 秒"))
+    XCTAssertNotNil(report.enclosingScrollView)
+    let close = try XCTUnwrap(views(try XCTUnwrap(sheet.contentView)).compactMap { $0 as? NSButton }.first { $0.title == "关闭" })
+    close.performClick(nil)
+    try await wait { panel.attachedSheet == nil }
+    try button("清空对话", panel).performClick(nil)
+    XCTAssertFalse(details.isEnabled)
+  }
+
+  func testRichAnswerWindowRendersMarkdownAndClearsConversation() async throws {
+    let gate = AnswerGate()
+    let panel = makePanel(gate)
+    panel.present()
+    defer { panel.close() }
+    let markup = "## 解答\n\n**结论**：$2+3=5$\n\n| 项目 | 数量 |\n|---|---|\n| 苹果 | 5 |"
+    try questionField(panel).stringValue = "请用 Markdown 回答"
+    try button("提问", panel).performClick(nil)
+    try await wait { gate.requests.count == 1 }
+    gate.succeed(0, markup)
+    try await wait { !panel.isAnswering }
+    let rich = try XCTUnwrap(views(panel.contentView!).compactMap { $0 as? ScreenshotAnswerWebView }.first)
+    var rendered = false
+    for _ in 0..<100 {
+      if let value = try? await rich.evaluateJavaScript("document.querySelectorAll('h2').length === 1 && document.querySelectorAll('table').length === 1 && document.querySelectorAll('.katex').length === 1"), value as? Bool == true {
+        rendered = true; break
+      }
+      try await Task.sleep(nanoseconds: 50_000_000)
+    }
+    XCTAssertTrue(rendered, "Must exercise the real window renderer, not only the plain-text fallback")
+    XCTAssertFalse(rich.isHidden)
+    XCTAssertTrue(transcript(panel).contains(markup), "Original answer remains available for fallback and copying")
+    try button("清空对话", panel).performClick(nil)
+    var cleared = false
+    for _ in 0..<40 {
+      if let count = try? await rich.evaluateJavaScript("document.querySelectorAll('.turn').length"), count as? Int == 0 {
+        cleared = true; break
+      }
+      try await Task.sleep(nanoseconds: 50_000_000)
+    }
+    XCTAssertTrue(cleared)
+  }
+
+  func testCopyGeneratedAnswersIncludesStreamingAndClearsWithConversation() async throws {
+    let pasteboard = NSPasteboard.general
+    let previous = (pasteboard.pasteboardItems ?? []).map { item in
+      let copy = NSPasteboardItem()
+      for type in item.types { if let data = item.data(forType: type) { copy.setData(data, forType: type) } }
+      return copy
+    }
+    defer { pasteboard.clearContents(); pasteboard.writeObjects(previous) }
+    let gate = AnswerGate()
+    let panel = makePanel(gate)
+    panel.present()
+    defer { panel.close() }
+    let copy = try XCTUnwrap(views(panel.contentView!).compactMap { $0 as? NSButton }
+      .first { $0.accessibilityLabel() == "复制回答" })
+    XCTAssertFalse(copy.isEnabled)
+    try questionField(panel).stringValue = "不能复制提问或OCR"
+    try button("提问", panel).performClick(nil)
+    try await wait { gate.requests.count == 1 }
+    XCTAssertFalse(copy.isEnabled)
+    gate.requests[0].partial("已生成的部分")
+    try await wait { copy.isEnabled }
+    copy.performClick(nil)
+    XCTAssertEqual(pasteboard.string(forType: .string), "已生成的部分")
+    XCTAssertEqual(copy.title, "已复制")
+    gate.succeed(0, "第一份完整回答")
+    try await wait { !panel.isAnswering }
+    copy.performClick(nil)
+    XCTAssertEqual(pasteboard.string(forType: .string), "第一份完整回答")
+    try questionField(panel).stringValue = "第二问"
+    try button("提问", panel).performClick(nil)
+    try await wait { gate.requests.count == 2 }
+    gate.succeed(1, "第二份回答")
+    try await wait { !panel.isAnswering }
+    copy.performClick(nil)
+    XCTAssertEqual(pasteboard.string(forType: .string), "第一份完整回答\n\n──────────\n\n第二份回答")
+    if let path = ProcessInfo.processInfo.environment["COPY_BUTTON_PREVIEW"] {
+      let view = try XCTUnwrap(panel.contentView)
+      view.layoutSubtreeIfNeeded()
+      let bitmap = try XCTUnwrap(view.bitmapImageRepForCachingDisplay(in: view.bounds))
+      view.cacheDisplay(in: view.bounds, to: bitmap)
+      try XCTUnwrap(bitmap.representation(using: .png, properties: [:])).write(to: URL(fileURLWithPath: path))
+    }
+    try button("清空对话", panel).performClick(nil)
+    XCTAssertFalse(copy.isEnabled)
+    XCTAssertEqual(copy.title, "")
+  }
+
+  func testSessionRestoreAndNewSessionSynchronizeRichAnswerAndCopyState() async throws {
+    let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let store = ScreenshotQuestionSessionStore(directory: directory)
+    let bitmap = try XCTUnwrap(NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: 12,
+      pixelsHigh: 9, bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true,
+      isPlanar: false, colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0))
+    let image = try XCTUnwrap(bitmap.representation(using: .png, properties: [:]))
+    let saved = try await store.create(title: "已保存的题")
+    let attachment = try await store.appendAttachment(id: saved.id, imageData: image, ocrText: "原题")
+    _ = try await store.appendTurn(id: saved.id, question: "原问题", answer: "## 已恢复答案",
+      model: "test", attachmentIDs: attachment.attachments.map(\.id))
+    let gate = AnswerGate()
+    let panel = ScreenshotQuestionPanel(context: context, answer: gate.answer, sessionStore: store)
+    panel.present()
+    defer { panel.close() }
+    let item = NSMenuItem()
+    item.representedObject = saved.id
+    panel.perform(NSSelectorFromString("restoreSession:"), with: item)
+    try await wait { panel.history.count == 1 }
+    XCTAssertEqual(panel.history.first?.answer, "## 已恢复答案")
+    let copy = try XCTUnwrap(views(panel.contentView!).compactMap { $0 as? NSButton }
+      .first { $0.accessibilityLabel() == "复制回答" })
+    XCTAssertTrue(copy.isEnabled)
+    XCTAssertTrue(views(panel.contentView!).compactMap { $0 as? NSTextField }
+      .contains { $0.stringValue.contains("已恢复“已保存的题”") })
+    panel.perform(NSSelectorFromString("newSession"))
+    XCTAssertTrue(panel.history.isEmpty)
+    XCTAssertTrue(transcript(panel).isEmpty)
+    XCTAssertFalse(copy.isEnabled)
+    let rich = try XCTUnwrap(views(panel.contentView!).compactMap { $0 as? ScreenshotAnswerWebView }.first)
+    var empty = false
+    for _ in 0..<100 {
+      if let count = try? await rich.evaluateJavaScript("document.querySelectorAll('.turn').length"),
+        count as? Int == 0 { empty = true; break }
+      try await Task.sleep(nanoseconds: 50_000_000)
+    }
+    XCTAssertTrue(empty)
+    var newCaptureSaved = false
+    for _ in 0..<100 {
+      if try await store.list().count == 2 { newCaptureSaved = true; break }
+      try await Task.sleep(nanoseconds: 5_000_000)
+    }
+    XCTAssertTrue(newCaptureSaved, "New session must retain the current capture for subsequent answers")
+    try questionField(panel).stringValue = "新会话问题"
+    try button("提问", panel).performClick(nil)
+    try await wait { gate.requests.count == 1 }
+    gate.succeed(0, "新会话回答")
+    try await wait { !panel.isAnswering }
+    let sessions = try await store.list()
+    let newID = try XCTUnwrap(sessions.first { $0.id != saved.id }?.id)
+    let newSaved = try await store.session(id: newID)
+    XCTAssertEqual(newSaved.turns.map(\.answer), ["新会话回答"])
+    XCTAssertEqual(newSaved.attachments.count, 1)
+    let originalSaved = try await store.session(id: saved.id)
+    XCTAssertEqual(originalSaved.turns.map(\.answer), ["## 已恢复答案"])
   }
 
   private func makePanel(_ gate: AnswerGate) -> ScreenshotQuestionPanel {

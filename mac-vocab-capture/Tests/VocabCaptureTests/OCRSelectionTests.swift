@@ -3,6 +3,12 @@ import XCTest
 @testable import VocabCapture
 
 final class OCRSelectionTests: XCTestCase {
+  func testRepeatedTextCanResolveTheRequestedOccurrence() {
+    let source = "Read the light, then adjust the light." as NSString
+    XCTAssertEqual(OCRSelection.range(of: "light", in: source).location, 9)
+    XCTAssertEqual(OCRSelection.range(of: "light", in: source, occurrence: 1).location, 32)
+    XCTAssertEqual(OCRSelection.range(of: "light", in: source, occurrence: 2).location, NSNotFound)
+  }
   func testPhraseAndSentenceContract() {
     XCTAssertEqual(SelectionReader.fromBrowserExtension(word: "as a matter of fact", context: "As a matter of fact, it works.")?.word, "as a matter of fact")
     XCTAssertNil(SelectionReader.fromBrowserExtension(word: "cat", context: "They scatter seeds in spring."))

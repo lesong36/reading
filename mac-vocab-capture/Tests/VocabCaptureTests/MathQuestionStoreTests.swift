@@ -7,6 +7,14 @@ import XCTest
 @testable import VocabCapture
 
 final class MathQuestionStoreTests: XCTestCase {
+  func testCopiedExistingDatabaseCompatibility() async throws {
+    guard let path = ProcessInfo.processInfo.environment["MATH_COMPATIBILITY_COPY"] else { throw XCTSkip("Requires an isolated database copy") }
+    XCTAssertTrue(path.hasPrefix("/tmp/"))
+    let store = MathQuestionStore(directory: URL(fileURLWithPath: path))
+    let records = try await store.list()
+    XCTAssertFalse(records.isEmpty)
+    await store.close()
+  }
   private var directory: URL!
 
   override func setUpWithError() throws {
@@ -351,7 +359,7 @@ final class MathQuestionStoreTests: XCTestCase {
     XCTAssertTrue(settings.foreignKeys)
     XCTAssertEqual(settings.journalMode, "wal")
     XCTAssertEqual(settings.synchronous, 2)
-    XCTAssertEqual(settings.schemaVersion, 1)
+    XCTAssertEqual(settings.schemaVersion, Int(MathQuestionArchive.supportedVersion))
     do {
       _ = try rawSQL(
         "INSERT INTO questions(id,capture_id,asset_id,title,grade,created_at,updated_at) VALUES ('bad','bad','missing','test',7,0,0)"
@@ -443,4 +451,381 @@ final class MathQuestionStoreTests: XCTestCase {
     XCTAssertEqual(visible.count, 1)
     await store.close()
   }
+  private func downgradeToV1() throws {
+    for sql in [
+      "DROP TABLE method_candidate_evidence", "DROP TABLE method_candidates", "DROP TABLE skill_learning_reports", "DROP TABLE skill_learning_jobs", "DROP TABLE skill_lifecycle_events", "DROP TABLE skill_profiles",
+      "DROP TABLE solution_diagrams", "ALTER TABLE question_solutions DROP COLUMN diagram_failure",
+      "DROP TABLE teaching_method_imports",
+      "DROP TABLE question_auto_tag_jobs",
+      "ALTER TABLE questions DROP COLUMN classification_revision",
+      "DROP TABLE solution_reviews", "DROP TABLE question_reference_answers",
+      "DROP TABLE teaching_methods", "DROP TABLE teaching_method_versions",
+      "ALTER TABLE question_solutions DROP COLUMN method_snapshot", "PRAGMA user_version = 1",
+    ] { _ = try rawSQL(sql) }
+  }
+
+  func testV1MigrationPreservesOriginalAnswersAndExistingUserStatus() async throws {
+    let bytes = try fixture()
+    let store = MathQuestionStore(directory: directory)
+    let answer = MathQuestionSolution(id: "v1-answer", question: "解题", answer: "原回答", model: "test")
+    let record = try await store.save(.init(captureID: "v1", imageData: bytes, solutions: [answer]))
+    await store.close()
+    try downgradeToV1()
+    _ = try rawSQL("UPDATE question_solutions SET verification_status = 'confirmed'")
+    let migrated = MathQuestionStore(directory: directory)
+    let records = try await migrated.list()
+    XCTAssertEqual(records, [record])
+    let original = try await migrated.originalImage(questionID: record.id)
+    XCTAssertEqual(original, bytes)
+    let answers = try await migrated.solutions(questionID: record.id)
+    XCTAssertEqual(answers.first?.answer, "原回答")
+    XCTAssertEqual(answers.first?.verificationStatus, "confirmed")
+    XCTAssertNil(answers.first?.method)
+    let settings = try await migrated.storageConfiguration()
+    XCTAssertEqual(settings.schemaVersion, Int(MathQuestionArchive.supportedVersion))
+    let references = try await migrated.referenceAnswers(questionID: record.id)
+    let reviews = try await migrated.reviews(solutionID: answer.id)
+    let methods = try await migrated.methods()
+    XCTAssertTrue(references.isEmpty)
+    XCTAssertTrue(reviews.isEmpty)
+    XCTAssertTrue(methods.isEmpty)
+    await migrated.close()
+    let reopened = MathQuestionStore(directory: directory)
+    let reopenedAnswers = try await reopened.solutions(questionID: record.id)
+    XCTAssertEqual(reopenedAnswers, answers)
+    await reopened.close()
+  }
+
+  func testMigrationFailureRollsBackAndMalformedV1IsRejectedBeforeWrites() async throws {
+    let store = MathQuestionStore(directory: directory)
+    _ = try await store.list()
+    await store.close()
+    try downgradeToV1()
+    _ = try rawSQL("CREATE TABLE solution_reviews(unrelated TEXT)")
+    let failed = MathQuestionStore(directory: directory)
+    do {
+      _ = try await failed.list()
+      XCTFail("Conflicting migration schema must fail")
+    } catch {}
+    await failed.close()
+    XCTAssertEqual(try rawSQL("PRAGMA user_version"), ["1"])
+    XCTAssertFalse(
+      try rawSQL("SELECT name FROM pragma_table_info('question_solutions')").contains(
+        "method_snapshot"))
+    XCTAssertEqual(
+      try rawSQL("SELECT name FROM sqlite_master WHERE name = 'question_reference_answers'"), [])
+    _ = try rawSQL("DROP TABLE solution_reviews")
+    _ = try rawSQL("ALTER TABLE question_solutions DROP COLUMN verification_status")
+    let invalid = MathQuestionStore(directory: directory)
+    do {
+      _ = try await invalid.list()
+      XCTFail("Incomplete v1 must fail before migration")
+    } catch {}
+    await invalid.close()
+    XCTAssertEqual(try rawSQL("PRAGMA user_version"), ["1"])
+    XCTAssertEqual(
+      try rawSQL("SELECT name FROM sqlite_master WHERE name = 'question_reference_answers'"), [])
+  }
+
+  func testReferencesDoNotConfirmAnswersAndReviewHistoryPreservesCorrections() async throws {
+    let store = MathQuestionStore(directory: directory)
+    let bytes = try fixture()
+    let answer = MathQuestionSolution(
+      id: "review-answer", question: "解题", answer: "错误的原回答", model: "test",
+      verificationStatus: "confirmed")
+    let record = try await store.save(
+      .init(captureID: "review", imageData: bytes, solutions: [answer]))
+    let first = try await store.addReferenceAnswer(
+      questionID: record.id, text: "参考答案 24", source: "教师", scope: "最终答案")
+    let second = try await store.addReferenceAnswer(
+      questionID: record.id, text: "补充解题过程", source: "家长", scope: "过程")
+    let pending = try await store.solutions(questionID: record.id)
+    XCTAssertEqual(
+      pending.first?.verificationStatus, "unverified", "Incoming AI state must not confirm answers")
+    let rejected = try await store.reviewSolution(
+      questionID: record.id, solutionID: answer.id, status: "rejected", scope: "最终答案",
+      note: "与教师答案不同", correction: "应为 24", referenceID: first.id)
+    let confirmed = try await store.reviewSolution(
+      questionID: record.id, solutionID: answer.id, status: "confirmed", scope: "过程",
+      note: "用户重新核对", correction: "补充正确步骤", referenceID: second.id)
+    _ = try await store.save(.init(captureID: "review", imageData: bytes, solutions: [answer]))
+    let answers = try await store.solutions(questionID: record.id)
+    XCTAssertEqual(answers.first?.answer, "错误的原回答")
+    XCTAssertEqual(
+      answers.first?.verificationStatus, "confirmed",
+      "Idempotent save must not reset user decisions")
+    let references = try await store.referenceAnswers(questionID: record.id)
+    let history = try await store.reviews(solutionID: answer.id)
+    XCTAssertEqual(references, [first, second])
+    XCTAssertEqual(history, [rejected, confirmed])
+    await store.close()
+    let reopened = MathQuestionStore(directory: directory)
+    let persisted = try await reopened.reviews(solutionID: answer.id)
+    XCTAssertEqual(persisted, history)
+    await reopened.close()
+  }
+
+  func testReviewRejectsCrossQuestionOwnershipAndUnknownStatusWithoutChangingCache() async throws {
+    let store = MathQuestionStore(directory: directory)
+    let bytes = try fixture()
+    let answer = MathQuestionSolution(
+      id: "owned-answer", question: "解题", answer: "回答", model: "test")
+    let first = try await store.save(
+      .init(captureID: "owner", imageData: bytes, solutions: [answer]))
+    let other = try await store.save(.init(captureID: "other-owner", imageData: bytes))
+    let reference = try await store.addReferenceAnswer(
+      questionID: other.id, text: "另一题答案", source: "用户", scope: "最终答案")
+    for (questionID, status, referenceID) in [
+      (other.id, "confirmed", nil), (first.id, "confirmed", reference.id),
+      (first.id, "ai-verified", nil), (first.id, "confirmed", "nonexistent"),
+    ] as [(String, String, String?)] {
+      do {
+        _ = try await store.reviewSolution(
+          questionID: questionID, solutionID: answer.id,
+          status: status, scope: "答案", note: "", correction: "", referenceID: referenceID)
+        XCTFail("Invalid review must fail")
+      } catch {}
+    }
+    let history = try await store.reviews(solutionID: answer.id)
+    let answers = try await store.solutions(questionID: first.id)
+    XCTAssertTrue(history.isEmpty)
+    XCTAssertEqual(answers.first?.verificationStatus, "unverified")
+    do {
+      _ = try await store.addReferenceAnswer(
+        questionID: first.id, text: " \n", source: "", scope: "")
+      XCTFail("Empty reference must fail")
+    } catch {}
+    do {
+      _ = try await store.addReferenceAnswer(
+        questionID: "missing", text: "答案", source: "", scope: "", imageData: bytes)
+      XCTFail("Missing question must fail")
+    } catch {}
+    XCTAssertEqual(try rawSQL("SELECT count(*) FROM question_reference_answers"), ["1"])
+    await store.close()
+  }
+
+  func testReferencePhotoAndReviewsSurviveStandaloneBackup() async throws {
+    let store = MathQuestionStore(directory: directory)
+    let answer = MathQuestionSolution(
+      id: "backup-review", question: "解题", answer: "回答", model: "test")
+    let record = try await store.save(
+      .init(captureID: "backup-evidence", imageData: try fixture(), solutions: [answer]))
+    let photo = try fixture(width: 31, jpeg: true)
+    let reference = try await store.addReferenceAnswer(
+      questionID: record.id, text: "", source: "答案页", scope: "结果", imageData: photo)
+    let assetID = try XCTUnwrap(reference.imageAssetID)
+    let storedPhoto = try await store.assetImage(assetID: assetID)
+    XCTAssertEqual(storedPhoto, photo)
+    let event = try await store.reviewSolution(
+      questionID: record.id, solutionID: answer.id, status: "rejected", scope: "结果", note: "与答案页不同",
+      correction: "更正", referenceID: reference.id)
+    try await store.delete(questionID: record.id)
+    let destination = directory.appendingPathComponent("evidence-export")
+    try await store.backup(to: destination)
+    let copy = MathQuestionStore(directory: destination)
+    let copiedPhoto = try await copy.assetImage(assetID: assetID)
+    let copiedReferences = try await copy.referenceAnswers(questionID: record.id)
+    let copiedHistory = try await copy.reviews(solutionID: answer.id)
+    XCTAssertEqual(copiedPhoto, photo)
+    XCTAssertEqual(copiedReferences, [reference])
+    XCTAssertEqual(copiedHistory, [event])
+    await copy.close()
+    await store.close()
+  }
+
+  func testMethodEditAndArchiveCannotRewritePriorSolutionSnapshots() async throws {
+    let store = MathQuestionStore(directory: directory)
+    let original = try await store.saveMethod(
+      title: "差量法", category: "应用题", instructions: "比较两种情况的差量。")
+    let answer = MathQuestionSolution(
+      id: "method-answer", question: "解题", answer: "按旧方法回答", model: "test", method: original)
+    let bytes = try fixture()
+    let record = try await store.save(
+      .init(captureID: "method", imageData: bytes, solutions: [answer]))
+    let edited = try await store.saveMethod(
+      id: original.id, title: "差量法改版", category: "数量关系", instructions: "先识别不变总量，再比较差量。")
+    XCTAssertEqual(edited.id, original.id)
+    XCTAssertNotEqual(edited.versionID, original.versionID)
+    let methods = try await store.methods()
+    XCTAssertEqual(methods, [edited])
+    // Replayed solution ID with edited instructions must leave the original snapshot intact.
+    _ = try await store.save(
+      .init(
+        captureID: "method", imageData: bytes,
+        solutions: [
+          .init(id: answer.id, question: "新的问题", answer: "重写", model: "test", method: edited)
+        ]))
+    try await store.archiveMethod(id: original.id)
+    let active = try await store.methods()
+    let persisted = try await store.solutions(questionID: record.id)
+    XCTAssertTrue(active.isEmpty)
+    XCTAssertEqual(persisted, [answer])
+    XCTAssertEqual(try rawSQL("SELECT count(*) FROM teaching_method_versions"), ["2"])
+    await store.close()
+    let reopened = MathQuestionStore(directory: directory)
+    let reopenedAnswer = try await reopened.solutions(questionID: record.id)
+    XCTAssertEqual(reopenedAnswer.first?.method, original)
+    await reopened.close()
+  }
+
+  func testPrerequisiteRefusalSurvivesReopenAndBackupWithoutChangingAnswerVerification() async throws {
+    let store = MathQuestionStore(directory: directory)
+    let bytes = try fixture()
+    let solution = MathQuestionSolution(id: "blocked-selection", question: "保留用户提示词", answer: "继续按题目正常解答", model: "fixture",
+      selectionFailure: "所选方法的前提条件未全部成立。")
+    let record = try await store.save(.init(captureID: "blocked", imageData: bytes, solutions: [solution]))
+    XCTAssertEqual(try rawSQL("PRAGMA user_version"), [String(MathQuestionArchive.supportedVersion)])
+    let stored = try await store.solutions(questionID: record.id)
+    XCTAssertEqual(stored, [solution])
+    XCTAssertEqual(stored.first?.verificationStatus, "unverified")
+    XCTAssertNil(stored.first?.method)
+    XCTAssertTrue(stored.first?.visualMethods.isEmpty == true)
+    await store.close()
+    let reopened = MathQuestionStore(directory: directory)
+    let answers = try await reopened.solutions(questionID: record.id)
+    XCTAssertEqual(answers, [solution])
+    let backup = directory.appendingPathComponent("blocked-backup")
+    try await reopened.backup(to: backup)
+    let copy = MathQuestionStore(directory: backup)
+    let copied = try await copy.solutions(questionID: record.id)
+    XCTAssertEqual(copied, [solution])
+    let original = try await copy.originalImage(questionID: record.id)
+    XCTAssertEqual(original, bytes)
+    await copy.close()
+    _ = try await reopened.reviewSolution(questionID: record.id, solutionID: solution.id, status: "confirmed",
+      scope: "答案", note: "仅确认答案", correction: "")
+    let reviewed = try await reopened.solutions(questionID: record.id)
+    XCTAssertEqual(reviewed.first?.verificationStatus, "confirmed")
+    XCTAssertEqual(reviewed.first?.selectionFailure, solution.selectionFailure)
+    await reopened.close()
+  }
+
+  func testVisualClaimWarningKeepsValidPrimaryThroughReopenBackupAndReview() async throws {
+    let store = MathQuestionStore(directory: directory)
+    let method = try await store.saveMethod(title: "和差问题", category: "应用题", instructions: "由和与差求两数。")
+    let solution = MathQuestionSolution(question: "解题", answer: "长10厘米，宽8厘米，面积80平方厘米。", model: "fixture",
+      method: method, methodClaimWarning: "声明的线段图与实际面积图不一致，未记录该画法采用。")
+    let bytes = try fixture()
+    let record = try await store.save(.init(captureID: "claim-warning", imageData: bytes, solutions: [solution]))
+    await store.close()
+    let reopened = MathQuestionStore(directory: directory)
+    let stored = try await reopened.solutions(questionID: record.id)
+    XCTAssertEqual(stored, [solution])
+    XCTAssertNil(stored.first?.selectionFailure)
+    let backup = directory.appendingPathComponent("claim-backup")
+    try await reopened.backup(to: backup)
+    let copy = MathQuestionStore(directory: backup)
+    let copied = try await copy.solutions(questionID: record.id)
+    XCTAssertEqual(copied, [solution])
+    let original = try await copy.originalImage(questionID: record.id)
+    XCTAssertEqual(original, bytes)
+    await copy.close()
+    _ = try await reopened.reviewSolution(questionID: record.id, solutionID: solution.id,
+      status: "confirmed", scope: "答案", note: "仅确认答案", correction: "")
+    let reviewed = try await reopened.solutions(questionID: record.id)
+    XCTAssertEqual(reviewed.first?.methodClaimWarning, solution.methodClaimWarning)
+    XCTAssertEqual(reviewed.first?.method, method)
+    await reopened.close()
+  }
+
+  func testInvalidMethodClaimWarningsAreRejectedWithoutRelaxingSelectionRefusal() async throws {
+    let store = MathQuestionStore(directory: directory)
+    for (index, warning) in ["  ", String(repeating: "错", count: 513)].enumerated() {
+      let value = MathQuestionSolution(question: "q", answer: "a", model: "fixture", methodClaimWarning: warning)
+      do {
+        _ = try await store.save(.init(captureID: "invalid-warning-\(index)", imageData: fixture(), solutions: [value]))
+        XCTFail("Invalid warning must be rejected")
+      } catch MathQuestionStoreError.database { }
+      XCTAssertThrowsError(try JSONDecoder().decode(MathQuestionSolution.self, from: JSONEncoder().encode(value)))
+    }
+    await store.close()
+  }
+
+  func testInvalidPrerequisiteRefusalCannotArchiveMethodBody() async throws {
+    let store = MathQuestionStore(directory: directory)
+    let method = try await store.saveMethod(title: "不能套用的方法", category: "应用题", instructions: "受前提约束的方法正文")
+    for (index, value) in [
+      MathQuestionSolution(question: "q", answer: "a", model: "fixture", selectionFailure: "  "),
+      .init(question: "q", answer: "a", model: "fixture", selectionFailure: String(repeating: "错", count: 513)),
+      .init(question: "q", answer: "a", model: "fixture", method: method, selectionFailure: "前提不成立"),
+      .init(question: "q", answer: "a", model: "fixture", visualMethods: [method], selectionFailure: "前提不成立")
+    ].enumerated() {
+      do {
+        _ = try await store.save(.init(captureID: "invalid-\(index)", imageData: fixture(), solutions: [value]))
+        XCTFail("Invalid blocked selection must be rejected")
+      } catch MathQuestionStoreError.database { }
+      XCTAssertThrowsError(try JSONDecoder().decode(MathQuestionSolution.self, from: JSONEncoder().encode(value)))
+    }
+    let records = try await store.list()
+    XCTAssertTrue(records.isEmpty)
+    await store.close()
+  }
+
+  func testLegacyMethodSnapshotEncodingRemainsUnchangedWithoutFailure() async throws {
+    let store = MathQuestionStore(directory: directory)
+    let method = try await store.saveMethod(title: "旧方法", category: "旧类别", instructions: "旧正文")
+    let single = MathSolutionMethodSnapshot(method: method, visualMethods: [])
+    let encoded = try XCTUnwrap(single.encoded())
+    let direct = String(decoding: try JSONEncoder().encode(method), as: UTF8.self)
+    let object = try JSONSerialization.jsonObject(with: Data(encoded.utf8)) as? NSDictionary
+    let expected = try JSONSerialization.jsonObject(with: Data(direct.utf8)) as? NSDictionary
+    XCTAssertEqual(object, expected)
+    let decoded = try JSONDecoder().decode(MathSolutionMethodSnapshot.self, from: Data(encoded.utf8))
+    XCTAssertEqual(decoded.method, method)
+    XCTAssertNil(decoded.selectionFailure)
+    XCTAssertNil(try MathSolutionMethodSnapshot(method: nil, visualMethods: []).encoded())
+    let combined = try XCTUnwrap(MathSolutionMethodSnapshot(method: method, visualMethods: [method]).encoded())
+    let combinedObject = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(combined.utf8)) as? [String: Any])
+    XCTAssertNil(combinedObject["selectionFailure"])
+    XCTAssertEqual(Set(combinedObject.keys), ["method", "visualMethods"])
+    await store.close()
+  }
+
+  func testLegacySolutionJSONDefaultsToPendingWithoutMethod() throws {
+    let bytes = Data(
+      #"{"id":"old","question":"解题","answer":"回答","model":"test","createdAt":123}"#.utf8)
+    let decoded = try JSONDecoder().decode(MathQuestionSolution.self, from: bytes)
+    XCTAssertEqual(decoded.verificationStatus, "unverified")
+    XCTAssertNil(decoded.method)
+    XCTAssertEqual(decoded.createdAt.timeIntervalSinceReferenceDate, 123)
+    XCTAssertEqual(
+      try JSONDecoder().decode(MathQuestionSolution.self, from: JSONEncoder().encode(decoded)),
+      decoded)
+  }
+
+  func testCurrentSchemaReopenRejectsMissingReviewColumnsWithoutResettingVersion() async throws {
+    let store = MathQuestionStore(directory: directory)
+    _ = try await store.list()
+    await store.close()
+    _ = try rawSQL("ALTER TABLE solution_reviews DROP COLUMN correction")
+    let reopened = MathQuestionStore(directory: directory)
+    do {
+      _ = try await reopened.list()
+      XCTFail("Incomplete current schema must not be opened")
+    } catch {}
+    await reopened.close()
+    XCTAssertEqual(try rawSQL("PRAGMA user_version"), [String(MathQuestionArchive.supportedVersion)])
+    XCTAssertEqual(try rawSQL("SELECT count(*) FROM questions"), ["0"])
+  }
+
+  func testReviewHistoryUsesAppendOrderEvenWhenClockMovesBackwards() async throws {
+    let store = MathQuestionStore(directory: directory)
+    let answer = MathQuestionSolution(
+      id: "clock-answer", question: "解题", answer: "回答", model: "test")
+    let record = try await store.save(
+      .init(captureID: "clock", imageData: try fixture(), solutions: [answer]))
+    let first = try await store.reviewSolution(
+      questionID: record.id, solutionID: answer.id, status: "rejected", scope: "答案", note: "首次判断",
+      correction: "")
+    let last = try await store.reviewSolution(
+      questionID: record.id, solutionID: answer.id, status: "confirmed", scope: "答案", note: "重新核对",
+      correction: "")
+    _ = try rawSQL("UPDATE solution_reviews SET created_at = 0 WHERE id = '\(last.id)'")
+    let history = try await store.reviews(solutionID: answer.id)
+    let answers = try await store.solutions(questionID: record.id)
+    XCTAssertEqual(history.map(\.id), [first.id, last.id])
+    XCTAssertEqual(history.last?.status, answers.first?.verificationStatus)
+    await store.close()
+  }
+
 }

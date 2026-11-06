@@ -3,6 +3,9 @@ import AppKit
 /// Screenshot results must be visible before accessory-app activation completes.
 @MainActor
 class ScreenshotPanel: NSPanel {
+  var keepsOnTop = false {
+    didSet { level = keepsOnTop ? .floating : .normal }
+  }
   private var observesDeactivation = false
 
   func bringToFront() {
@@ -23,7 +26,7 @@ class ScreenshotPanel: NSPanel {
   override func resignKey() {
     super.resignKey()
     // Give other windows their normal stacking order once the user leaves this panel.
-    level = .normal
+    if !keepsOnTop { level = .normal }
   }
 
   override func orderOut(_ sender: Any?) {
@@ -32,6 +35,6 @@ class ScreenshotPanel: NSPanel {
   }
 
   @objc private func applicationDeactivated(_ notification: Notification) {
-    level = .normal
+    if !keepsOnTop { level = .normal }
   }
 }

@@ -1,0 +1,1678 @@
+{
+  "schema_version": 1,
+  "skills": [
+    {
+      "name": "absolute-difference-median",
+      "title": "数值差之和与中位数",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-fd9dc6701d5ad32d46a040d33e46cf44c639a4ff380ab66edaefa3bb3e0da20d",
+      "description": "各项权重相同，最小化一个数到多个已知数的差的绝对值之和；用两端配对下界和中位数构造验证，须检查允许取值和是否加权。",
+      "sha256": "22c94e4c4009edb2866fc7e619b50e7864edbada5930b7be6596d345e27822e0",
+      "path": "absolute-difference-median/SKILL.md"
+    },
+    {
+      "name": "absolute-difference-tower-propagation",
+      "title": "绝对差数塔的极差与双向候选",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-5c138e23ff7cd55532e70c62b8be604dc99e9c4d8ef03849a5152eac6a7e4443",
+      "description": "从给定有限数集补绝对差数塔，用最大差锁定极端父数、双向逆像和库存传播，保持所有有向位置解，不擅加大小方向。",
+      "sha256": "539d5096fc5a6f91d2a8570abd53993dceaddb620e24966d4bd2bc4ccaceddde",
+      "path": "absolute-difference-tower-propagation/SKILL.md"
+    },
+    {
+      "name": "accumulation-and-inventory",
+      "title": "累计与进销存",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-6ad0454dca9c470e25d5fa82b6568da1de478263e9d6e6e03ac1c62ca9d79096",
+      "description": "区分已完成部分累加、原量减离开加新来、先合再分和分段计费；仅选当前所问数量需要的条件。",
+      "sha256": "b00cfe23a35d5b04e638cae008942dc52ab3a49b99fe3d48f3a0c558a9777d80",
+      "path": "accumulation-and-inventory/SKILL.md"
+    },
+    {
+      "name": "adaptive-bijection-trials-and-adversary",
+      "title": "一一匹配试验与对抗下界",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-ae5b92c4dc0ce5bf79818b0dc28bfe2184c1a647cb8c3d39549898013467c3a4",
+      "description": "未知一一钥匙锁匹配的自适应最坏试验次数，用逐锁排除策略和两对互换的对抗下界证明最优；区分推断匹配与实际开锁。",
+      "sha256": "574128b543eaa5fa4cc20465354af7f2fb5eb5cd866adbf9acebc3f07d9670a6",
+      "path": "adaptive-bijection-trials-and-adversary/SKILL.md"
+    },
+    {
+      "name": "additive-towers-and-network-propagation",
+      "title": "加法数塔与有向加法网络",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-ba0c9b03a69d4114781cf63bdb96706077e0575f545a7081b4a1575de5dae971",
+      "description": "相连上方两数相加生成下方数时，展开重复祖先权重，结合给定数域、总和和互异约束逆推；自然数无上界的最值题先证明界并给达到构造。",
+      "sha256": "c2a9bc0a10634ebb8dd2658ca85c227e1f2069cd4cafc04e54d38ae632da1f01",
+      "path": "additive-towers-and-network-propagation/SKILL.md"
+    },
+    {
+      "name": "adjacency-colouring-with-inventory",
+      "title": "邻接染色与数字库存",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-e76fc6e85d2ad39ebeb0efdc1963c469a6e0eddfc935a8644f5266d52c7b496f",
+      "description": "区域共享边、圆片接触或相邻位置要求不同颜色或数字时，先从原图登记邻接表，再按可用颜色、固定值与有限重数逐点分支计数；不把地图或接触图误作直线链。",
+      "sha256": "7235762f3ca0033ac3910ad3e8eac8b9d1ba424fe4dfd059f96f47518f25ee3d",
+      "path": "adjacency-colouring-with-inventory/SKILL.md"
+    },
+    {
+      "name": "age-invariants",
+      "title": "年龄问题",
+      "category": "变化里的不变量",
+      "version": "1",
+      "source_id": "markdown-03499a5e52b9dcfeb0d6b7e95f9b25e66985308216065002964f927bf441fe21",
+      "description": "不同年份的年龄、年龄和、年龄差或倍数关系，先对齐年份，利用同一组人年龄差不变、年龄和按人数增长。",
+      "sha256": "5f16175160a0ff2669140eaa97a88aae26174f8c057489a05b6d1671f94c24ef",
+      "path": "age-invariants/SKILL.md"
+    },
+    {
+      "name": "align-invariant-ratios",
+      "title": "统一不变量",
+      "category": "变化里的不变量",
+      "version": "1",
+      "source_id": "markdown-0e69ef72284103e11f5b216dfd661e47ee415bb4f918da48db723ce124a179e0",
+      "description": "连比或变化前后比不同，找出和、差或单一数量不变，把这一不变量对应份数通成一致，再读增减与一份。",
+      "sha256": "bff559d2ad078b4c8624db2ed4143960b98082e9e022728b2d1c030c3e49022a",
+      "path": "align-invariant-ratios/SKILL.md"
+    },
+    {
+      "name": "arithmetic-transformations",
+      "title": "运算律与定义新运算",
+      "category": "项目补充方法",
+      "version": "2",
+      "source_id": "markdown-de47910663fb9dfbbdcf0496e7ee9ec0acb03bbbec6c0e01cd5873196aa2cd5a",
+      "description": "整数计算中的凑整、提取公因数、拆分与已明确给出定义的新运算；先保持括号和除法方向，再选择等值变形，不凭几个例子猜运算定义。",
+      "sha256": "f89935f1a1a964e1b8bbd628c6577d13c764a761e09ed079d7da0bb3fe504269",
+      "path": "arithmetic-transformations/SKILL.md"
+    },
+    {
+      "name": "averages",
+      "title": "平均数问题",
+      "category": "份数和平衡",
+      "version": "2",
+      "source_id": "markdown-b98e5c514eaff694af222fcc90f6afa262f6d52849a64d4962c54c14e7b41b25",
+      "description": "由平均数还原总量，以同一基准偏差处理未知权重、重叠子集、转组、删数与删极值约束；核实际人数及图表计数，不直接平均不同权重的平均数。",
+      "sha256": "35576ae4fa5fe3143bf785b1f2e4a034fa9e83ade95c4c13489059d112bdaf56",
+      "path": "averages/SKILL.md"
+    },
+    {
+      "name": "balance-bars-diagram",
+      "title": "条形对比图",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-bd9c66da72ba9bd5d674dd295ba2c8af78a6458d0bd8d66b3b58c435061df0eb",
+      "description": "两边或多人移多补少时画高低条形，切出差的一半移到矮条或按平均水平线补平，显式呈现总量守恒。",
+      "sha256": "c5d1d7ba17138c4d18fa727402cf5021d9a344954b51f33b8ef386b422ba4a97",
+      "path": "balance-bars-diagram/SKILL.md"
+    },
+    {
+      "name": "base-height-area-relations",
+      "title": "底高与等积关系",
+      "category": "计数、图形和推理",
+      "version": "2",
+      "source_id": "markdown-86bc9b1d7efc6805d950946182b15ff457fe87c07dbd4c042594e2213facafc5",
+      "description": "用真实底高、平行线等高、中点和对角线的等积分割，计算或比较三角形、平行四边形、梯形面积；逐块核验覆盖与反求长度的可行性。",
+      "sha256": "b99f5163c32e2c2b6e6eedec6e1086ab2d9a33dcbd7da69a34f67fc43e079f70",
+      "path": "base-height-area-relations/SKILL.md"
+    },
+    {
+      "name": "birth-boundaries-and-age-sum-deficits",
+      "title": "出生边界与年龄和缺口",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-bdb7958ffe974bd941b03b2ecf8e1440d133ca6b2513f877e7cbfdac273b9102",
+      "description": "当前成员的过去年龄和增长少于人数乘年数时，在明确整年年龄及成员口径下检查尚未出生者，用少增长量与年龄差求解；不补负年龄或强造出生条件。",
+      "sha256": "5280d604cc0147e79f7fce092fcd2fec32033916c9475b397fd13981afcefd27",
+      "path": "birth-boundaries-and-age-sum-deficits/SKILL.md"
+    },
+    {
+      "name": "bottle-exchange",
+      "title": "空瓶换水",
+      "category": "份数和平衡",
+      "version": "2",
+      "source_id": "markdown-7fcb64fbf20fff6f0a128e1dac6a16065124fbc7beeaa339686b75cdb3725a20",
+      "description": "空瓶换饮料的整数兑换：区分初始满瓶和空瓶，逐次检查空瓶至少n个；未明确允许借瓶时不借瓶，允许借瓶也须可归还。",
+      "sha256": "a538d9051ea0478144b44510c883a550d233a8105f92f6554e3a9cf40494e20e",
+      "path": "bottle-exchange/SKILL.md"
+    },
+    {
+      "name": "boundary-chord-symbol-partition",
+      "title": "边界选点直线分区与图形计数",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-54910e28cd62cabdb3c1e8799d4077bf1c2eedfe5cba11b17134987058d4457f",
+      "description": "正方形边界选点连接线段，将内部三角形与小正方形分区；逐块核对数量与线段不穿过图形。",
+      "sha256": "bc433207f62ef1db4e4695f2d2dc8025c9521478f444be5b2c002ab532f70ac6",
+      "path": "boundary-chord-symbol-partition/SKILL.md"
+    },
+    {
+      "name": "bounded-amount-reachable-sets",
+      "title": "有限票额的可达金额去重",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-e9c86cb6e43c6e8abcf1f50cee37a9ac70249f90dfafa9ddff4c9859bc78bf3e",
+      "description": "有限张数的面额选择，求不同的非零金额；按数量枚举并对金额去重，不能把选法直接当金额数。",
+      "sha256": "ca36e0b6ba696ee992bdd3a6da728d2bcc8454b6506db59db86534adfe1de6f1",
+      "path": "bounded-amount-reachable-sets/SKILL.md"
+    },
+    {
+      "name": "bounded-inventory-threshold-guarantees",
+      "title": "有限库存的配对与异类阈值保证",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-922dc9d0f66f9e281effde15b26e70c6d3d8e8b775e27f72fce323e1bde1fa81",
+      "description": "有限颜色库存无放回抽取时，按总配对数、同类多双、不同类异阈值或翻转等价资源分类，证明最大坏容量并给可达反例，求最少保证取数。",
+      "sha256": "b67ed2eae52dd9f5ff34eddf59939130f794eb7556e8c5c45bcea044dbd55748",
+      "path": "bounded-inventory-threshold-guarantees/SKILL.md"
+    },
+    {
+      "name": "central-symmetry-area-bisection",
+      "title": "中心对称差形的一刀等积",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-781ec2f0693debc042c875f541f3b969cb3ba994f8bba269e04035f9986dc1eb",
+      "description": "外形及孔均中心对称时，连接各自中心并延至外边界，分别平分后相减，构造一条等积切线；区分辅助线、孔内空段、连通与全等。",
+      "sha256": "9a9799b059b387099b04e445e4b655d4bfda921f5e0a6ed94141e88abf33007a",
+      "path": "central-symmetry-area-bisection/SKILL.md"
+    },
+    {
+      "name": "circle-unique-adjacent-pair",
+      "title": "固定圆环唯一相邻对计数",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-879f0a69ca74222d9b1c3dd810e4c279a0db3590c3d413a56761596949e004fd",
+      "description": "固定圆环中选三人且恰一对相邻，选择相邻边并排除第三人的邻位，检查唯一性和小环例外。",
+      "sha256": "9924e6084da7b43ac2addbd4474aee57d8b918cfeaa95649b00f71bc0e483e04",
+      "path": "circle-unique-adjacent-pair/SKILL.md"
+    },
+    {
+      "name": "circular-cover-gap-and-window-capacities",
+      "title": "环形覆盖、间隔与滑动窗口容量",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-a513b627043ee883557ebf84ac5fc0d1b7043e48675e412bef36b02d3d5aa1ad",
+      "description": "圆周离散位置的邻座覆盖、男女隔离、任意排列连续0/1段和固定窗口人数限制；分清量词，用环形容量证界，再给达到构造并核对闭环。",
+      "sha256": "a9a847e3edab234e9489a45d90b39a40c5acfcb3d549c570e387d54444dd7d1a",
+      "path": "circular-cover-gap-and-window-capacities/SKILL.md"
+    },
+    {
+      "name": "circular-seating-rotation-equivalence",
+      "title": "圆桌座次的旋转等价与锚点",
+      "category": "计数与排列",
+      "version": "2",
+      "source_id": "markdown-2a6c5ef74bfe77bb55b2129ffddf4d4593bc6c999c98fe70c67b78ddd9bbaef6",
+      "description": "不同人围圆桌坐成一圈，按旋转是否算同一座次固定一人，检查反向镜像及固定座位编号的不同约定。",
+      "sha256": "e89a334ca08c249ddaf3725b61136dabc46b4e44b69b2eb6b82d44403ccc1a86",
+      "path": "circular-seating-rotation-equivalence/SKILL.md"
+    },
+    {
+      "name": "clock-motion",
+      "title": "时钟问题",
+      "category": "行程和效率",
+      "version": "1",
+      "source_id": "markdown-e321b7645409efd9a0cd22b77f3c1846f716b9d2ca2240f20eab3274fd340ed9",
+      "description": "时针分针夹角、重合、垂直、相对刻度等距，以及镜面或快慢钟问题；用角速度和差及整点初始夹角。",
+      "sha256": "ef09ebb021e9388c5405089bf27259678b71eaf6e09e4a4a6a1ea521c5f70546",
+      "path": "clock-motion/SKILL.md"
+    },
+    {
+      "name": "column-digit-constraints",
+      "title": "竖式数位与进位约束",
+      "category": "项目补充方法",
+      "version": "3",
+      "source_id": "markdown-4be3428d8aa44546267beb5d9e22f917e24fd51a38e63a9f63c47adf4d6bd151",
+      "description": "加减乘除竖式缺数字、字母数字算式、进位借位和部分积对齐；由低位的进位约束高位，保留所有满足数位及不重复规则的解。",
+      "sha256": "2f4d5a8ee6029ada8442b90e001b52af1d736078386ccb73535b5f2f9c94716f",
+      "path": "column-digit-constraints/SKILL.md"
+    },
+    {
+      "name": "combinatorial-symbols-and-ranking",
+      "title": "排列组合记号与前缀排名",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-e8fa0b2fc75ea0c8e878e2c258b398a1e5301820412f503806c7e3d31819b040",
+      "description": "题面出现排列A、组合C、升序第几个或第几项时，明确上下标、顺序与重复口径，用合法后缀计数逐块排名或反排名，不以无约束阶乘代替受限计数。",
+      "sha256": "afc4b1ef0fd2f4d5d50d328d825f151dec1424068273f56e46babae1ad2775d1",
+      "path": "combinatorial-symbols-and-ranking/SKILL.md"
+    },
+    {
+      "name": "common-component-and-aggregate-comparison",
+      "title": "共同部分抵消与整组比较",
+      "category": "计数、图形和推理",
+      "version": "2",
+      "source_id": "markdown-034e0460a7b3a348536ecdb4de1bcdf72e714794ca31379001248d7be8b2e0be",
+      "description": "同价共有部件、同日工资实物、重叠整组与同费率额度的出现次数比较；先对齐共同部分，再算单位差额并反查，不把整套价格直接按数量成比。",
+      "sha256": "810f83feadf72eba46d680f0eb25ddc6ea158fd9c38565126a94bdcd590e9068",
+      "path": "common-component-and-aggregate-comparison/SKILL.md"
+    },
+    {
+      "name": "comparison-line-diagram",
+      "title": "线段图",
+      "category": "计数、图形和推理",
+      "version": "2",
+      "source_id": "markdown-1dad44ea3ce94f84a0cd64d907546f064dca945ebe6d49ceaacd1daf8a61c047",
+      "description": "数量、和差、倍数、年龄或时间长度比较，用对齐线段与差段；往返时间首尾相接，与同单位限时比较。",
+      "sha256": "164b2107255a5959cbfddbf00464c3f4f4afd20fce46fac3b728a17e9aa92667",
+      "path": "comparison-line-diagram/SKILL.md"
+    },
+    {
+      "name": "congruent-rectangle-span-ratios",
+      "title": "同大矩形横竖拼接与份数还原",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-f60555078d1d6d24885f7045d33df5b7acfb203f31c31ce9c650fd8d7af79372",
+      "description": "全等小长方形按明确横竖带拼接时，从共跨度长短边数还原比例，再由外周长或边长求尺度与面积；不从块数或等面积猜拼法。",
+      "sha256": "98abcbb2c07f78e506fa356cbd62021dd8cf461e961dc3c52d20b85d9ba64de1",
+      "path": "congruent-rectangle-span-ratios/SKILL.md"
+    },
+    {
+      "name": "congruent-triangle-dissections",
+      "title": "全等直角三角形分割构造",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-e1c74174a3a492bfa782579cb88ff084857c0994deacd46aae6233187fce4a9d",
+      "description": "需要自行画三角形并分成5个或13个全等三角形时，分别构造直角边1和2、2和3的小三角形并核验完整分割。",
+      "sha256": "30738a40fd471416ffe04fd4b293f569425f48d764558f3f2074337f4e8364f7",
+      "path": "congruent-triangle-dissections/SKILL.md"
+    },
+    {
+      "name": "connected-number-regions-and-capacity",
+      "title": "同数连通分区与剩余容量",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-5a9f4724815468a25a1485524469e56684fbff2864474102051701e31fa2265b",
+      "description": "有限方格内同一数字须按共享边连成一块且有指定出现次数时，用剩余格数、可达容量、断路与连通候选块排除；不套拉丁方或额外黑白格规则。",
+      "sha256": "920a16f8f50c66625885275a370420b6b10ed314e99ef16b0b0f5536c0c8c07c",
+      "path": "connected-number-regions-and-capacity/SKILL.md"
+    },
+    {
+      "name": "constrained-digit-extrema-and-exchange",
+      "title": "约束数位极值与交换界",
+      "category": "数与运算",
+      "version": "1",
+      "source_id": "markdown-e02d05c3c0609e9b1000669144cac4df26fb1870a0d88096702720711c730a70",
+      "description": "在数位互异、位数或数字和受限时，用高位优先、分支补偿界和合法构造求数或差的最值；相同数码位置限制须完整分类。",
+      "sha256": "7ec128933460c6d1c8c5ceb76e915bab93520f7efe54988cde526b1b55f73c51",
+      "path": "constrained-digit-extrema-and-exchange/SKILL.md"
+    },
+    {
+      "name": "constrained-optimization",
+      "title": "最值问题",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-5ba4791967a1921561d2fb13ddf05bca53eb96e54035793ade7e519e964f1fe0",
+      "description": "有限安排中的最短时间、最低运费或最大收益，先满足容量和时序限制，再计算并比较可行候选方案。",
+      "sha256": "4bf42be581448d7beddca2eac7166e93e2774d9a90ac58c87e91b9cc5843e631",
+      "path": "constrained-optimization/SKILL.md"
+    },
+    {
+      "name": "counting-by-cases-and-stages",
+      "title": "分类与分步计数",
+      "category": "项目补充方法",
+      "version": "2",
+      "source_id": "markdown-ab869542ba48514e0c38099607b2823992bb89a01bffbcba1824afafa894cd9a",
+      "description": "离散选择、路线或数字组成的计数：先判断互斥分类相加还是连续步骤相乘，按条件变化分支，检查不重不漏与顺序意义。",
+      "sha256": "f42ffdd6bf8431ae174cdcf729a36aea76669b9e8829939ae59a7d413d77503c",
+      "path": "counting-by-cases-and-stages/SKILL.md"
+    },
+    {
+      "name": "cube-net-opposites-vertex-sums",
+      "title": "正方体展开图对面与顶点面和",
+      "category": "图形与几何",
+      "version": "1",
+      "source_id": "markdown-502bbcbe43aeacf584005053fdfee84f15e892098827e68c249c9212bb187a9b",
+      "description": "从正方体展开图折叠确定三组相对面，以每组取一面得到顶点处三面的组合，求面数之和的极值。",
+      "sha256": "9ab091445f2903200ee18ff5ca67e4a4a431e01b97419605843d9bb0a0b83dac",
+      "path": "cube-net-opposites-vertex-sums/SKILL.md"
+    },
+    {
+      "name": "cube-surface-opposite-vertex-shortest",
+      "title": "正方体对顶点表面最短路径",
+      "category": "图形与几何",
+      "version": "1",
+      "source_id": "markdown-12a839d84ef4b1eb1f666cc45130e26be23cdc4289b2339a54be4ccf8fb9c1d2",
+      "description": "正方体空间对顶点的表面最短路径：按两组面之间的六条交界棱分类，展开两面证明全局最短并计数。",
+      "sha256": "799aff61421bc5a4688d896e910b46a968e763b6a43c1f3f248889d0564cdfbb",
+      "path": "cube-surface-opposite-vertex-shortest/SKILL.md"
+    },
+    {
+      "name": "difference-and-ratio",
+      "title": "差倍问题",
+      "category": "两个未知数",
+      "version": "1",
+      "source_id": "markdown-e14ff12fca2a06626ace5bd71275820060bcdae8f28550f59137c78b1f92eb00",
+      "description": "已知差与倍数时用份数差求一份；先识别直接差、同增减不变差、中间量差或转移后差变两倍的说法。",
+      "sha256": "25805c288f29430be4ce0c95dfa67780cbd790e27708dedb5233934030e0673d",
+      "path": "difference-and-ratio/SKILL.md"
+    },
+    {
+      "name": "difference-constrained-labels-and-signed-cycles",
+      "title": "相邻差限制与带符号环闭合",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-d4c3bdffa1a7b9504e8e4ea25d1a4eecc6679e82c895f3c76c13fe431711a9e1",
+      "description": "清晰节点图禁止相邻差1、边绝对差恰用给定集合、或给定闭环边差与最小自然数时，分别用允许链、极差候选、正负半和与平移求合法标号。",
+      "sha256": "2eb21a16427f2719fb8a9f3eacb8a4fde68c959673a237f56a9c7ea4cfd23e79",
+      "path": "difference-constrained-labels-and-signed-cycles/SKILL.md"
+    },
+    {
+      "name": "digit-block-count-and-position",
+      "title": "连续数码分段计数与定位",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-6ee647847ea80105b078c18b19fc2bdcf938074d5f9697a9037fe6f5df731d0a",
+      "description": "按十进制位数分段统计连续编号总位数、反查第几位及统计数字出现次数；数字0必须排除前导零。",
+      "sha256": "d95ec643f970580e696f0473bb7b8a6d5bb7b2bb6914330261835a1656bdb992",
+      "path": "digit-block-count-and-position/SKILL.md"
+    },
+    {
+      "name": "digit-product-branch-enumeration",
+      "title": "互异数字组成两数的乘积极值",
+      "category": "数与运算",
+      "version": "1",
+      "source_id": "markdown-53fa426ccd4cf2839a9bdaaa844b69d4e9b2f2c23d4623ece726472ba3271375",
+      "description": "用指定互异数字各一次组成两个指定位数的整数，按高位分类并完整比较剩余数字排列求乘积最值；适用于多位乘积，避免误套四位 u 法。",
+      "sha256": "b43caa93395f7105ae91b39727a7ad5452f606b1163343d282daba9d990a4691",
+      "path": "digit-product-branch-enumeration/SKILL.md"
+    },
+    {
+      "name": "digit-product-un",
+      "title": "u 法和 n 法",
+      "category": "导入方法",
+      "version": "1",
+      "source_id": "markdown-7b465dc4673c6c201654e99701d0b2801add314ad098f16abdb14ebf3ee0e901",
+      "description": "用四个不同数字组成两个两位数，或五个不同数字组成两位数与三位数，求乘积最大或最小；区分四座与五座、有零的首位限制。固定目标积应改用因数分解。",
+      "sha256": "eb2ab8c79dfddfcff2a52aec5927601c9c3c256b4b393ba84fe48f1db6641411",
+      "path": "digit-product-un/SKILL.md",
+      "legacy_alias_ids": [
+        "0E3D9229-E5D9-4A2E-BEB9-48999815B3DF"
+      ]
+    },
+    {
+      "name": "digit-rearrangement-multiples",
+      "title": "数位重排、轮换倍数与位置权重",
+      "category": "数位与极值",
+      "version": "1",
+      "source_id": "markdown-d6113f76851038c7129eec07d5e7c6331a0212417f213bd3f1092ad4468fa5e0",
+      "description": "逆序倍数的镜像进位、末位移首的有限逐位生成、排序数之差与重复字母的位置权重；用首位和数字域限制验证最短或最值，不与小数点移动混淆。",
+      "sha256": "f6c711a5fb5eeb2a75445618974bc518859871f88184857710ddbe7035831e7a",
+      "path": "digit-rearrangement-multiples/SKILL.md"
+    },
+    {
+      "name": "digit-sum-division-remainders",
+      "title": "数码和作除数的余数最值",
+      "category": "数与运算",
+      "version": "1",
+      "source_id": "markdown-d6222370baee736e46e093ca73974df3fca37e74f0835224a519f3959ca07680",
+      "description": "求整数除以各位数字和的余数最值时，先用余数小于除数建立上界，再分类检查较大的数码和并构造达到者。",
+      "sha256": "cea54d518082e1d9ab20617dc0f7f78f4bff3424236e1bd88a8f18894d04654a",
+      "path": "digit-sum-division-remainders/SKILL.md"
+    },
+    {
+      "name": "direct-inverse-proportion",
+      "title": "正反比例",
+      "category": "比例和混合物",
+      "version": "1",
+      "source_id": "markdown-557ee2f618f77c0d13ec18e2f745608bb306d9430ea0a3e727645cfc30e3af13",
+      "description": "对应量一起变化且商不变时用正比例、积不变时用反比例；先确定不变量，处理份数变化前后的对齐。",
+      "sha256": "749269bb1f540d14fa3432e4c735a001cbee1da873c91c0aeb5687db3ea79992",
+      "path": "direct-inverse-proportion/SKILL.md"
+    },
+    {
+      "name": "directed-acyclic-path-counting",
+      "title": "有向网络与单调路径计数",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-28668197c85ac6a566baa2f06c158e6c3fd292b2729b5811c1e1011e90b125a8",
+      "description": "从真实有向边和落点规则建立无环网络，逐前驱累加路线；区分最短格网、禁点、逐层读字和皇后右上任意长步，不将循环简单路径或词串去重混作普通标数。",
+      "sha256": "e3d751863c165109cfbce9790b0ffbd2c922ad847720f70189a775653cef7f66",
+      "path": "directed-acyclic-path-counting/SKILL.md"
+    },
+    {
+      "name": "distance-speed-time",
+      "title": "行程问题",
+      "category": "行程和效率",
+      "version": "3",
+      "source_id": "markdown-9b58e05b213e2d2862cfdbbd49157ae2e00cd015bcad70c4f3820668c1e86c77",
+      "description": "路程速度时间、分段、相遇追及、流水及火车过桥；普通往返用同路程对照表，总用时与限时用时间线段，避免仅因乘法选择面积图。",
+      "sha256": "a922df622608e389b3b78e035dea4274cf7ec8f466971052ab4d09f757dc980d",
+      "path": "distance-speed-time/SKILL.md"
+    },
+    {
+      "name": "distinct-adjacent-digit-windows",
+      "title": "相邻数码对互异的数位最值",
+      "category": "数与运算",
+      "version": "1",
+      "source_id": "markdown-1530eb7b116965fbd66238c65f0c936cc2377ceb465eb9d07cc5e0cb42633d99",
+      "description": "由指定数字组成自然数，要求相邻数码对不重复时，以可用有序数码对给长度上界，逐位择优并验证余下数码对能否接完。",
+      "sha256": "7b334bb5a96fb4a6c6461e9f5b40c690539c262eca454631a5c76d109ed56cb9",
+      "path": "distinct-adjacent-digit-windows/SKILL.md"
+    },
+    {
+      "name": "distinct-digit-position-sum",
+      "title": "互异数码排列的数位对称求和",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-c6ba120e407c8d927235a78a1a2f80a23afd1ceb3d17c236cd6d39816f7a2f7c",
+      "description": "由相同可用非零数码构造固定长度不重复数字，按每个数位每个数码出现次数求总和。",
+      "sha256": "4f87520c0757f6c47ee7cfeafdc60172dbdb15744c94fea534d77159b65fd948",
+      "path": "distinct-digit-position-sum/SKILL.md"
+    },
+    {
+      "name": "divisible-mixed-digit-extrema",
+      "title": "整除约束的七数混合极值",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-df7f737a5b9eafe901830190848858da3a5678c428dc364066036497624386a6",
+      "description": "七个互异非零数码各用一次填两位数乘两位数减两位数除一位数，要求整数结果并求最值；先分类除法数码，再以三个乘积分组给出可达界。",
+      "sha256": "72d0467d7c44be5d424267e0a6cc41e84e9e4229ff8bae46915a71f84e6a6d48",
+      "path": "divisible-mixed-digit-extrema/SKILL.md"
+    },
+    {
+      "name": "edge-trails-parity-and-extrema",
+      "title": "不重复棱路线的奇偶与最值",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-2b497bd17f9765dbc28d9ece97240bea98f7544693fbd4ad0133f59b963a4eba",
+      "description": "沿立体或平面路网的棱不重复行走，允许重复顶点时，用端点奇偶、删边下界和可达路线求长度最值；需确认连通及是否回起点。",
+      "sha256": "17d28cdfa7cde4306a2ad1a2b9e39f1875bcde67f88725551fd4f574b3bc4d72",
+      "path": "edge-trails-parity-and-extrema/SKILL.md"
+    },
+    {
+      "name": "equal-quantity-substitution",
+      "title": "等量代换",
+      "category": "份数和平衡",
+      "version": "2",
+      "source_id": "markdown-e34b2a5441b0c86a1c90491098d5045985ee4ef74ad664c654cfe3ff92e98ca7",
+      "description": "重复未知量或相同组合出现在不同关系中，先求可单独求出的量再代入；桌椅等物品的两组总价可消去相同组合，或按倍数换成同一种量、先捆组再拆分。",
+      "sha256": "3ce7e0e1d4004f6cc0ea4202dd4661291d0fe2601edbc9c9b51dc599ef134314",
+      "path": "equal-quantity-substitution/SKILL.md"
+    },
+    {
+      "name": "equal-square-diagonal-reassembly",
+      "title": "两个同大正方形的对角线合拼",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-c78dba19b065643263346fbc299b75b7847a368c1fe460b765d6b05a945a4026",
+      "description": "两张同大正方形纸片合拼为一张正方形：分别剪对角线，或只剪一张为四块围住完整一张；逐块验证去向、直角和无重叠覆盖。",
+      "sha256": "a85961c785601c6e3fc064323c30acdb41a88a1cc0b79f4b793bbb310f7df2f3",
+      "path": "equal-square-diagonal-reassembly/SKILL.md"
+    },
+    {
+      "name": "equations-and-elimination",
+      "title": "列方程与消去法",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-ccb395b9addb5389a6133a0e25d6421232d5cba37e538b279b2e87a5323fc173",
+      "description": "按等量关系列方程、回代检查；两个关系重复同一量时相减消去。仅在用户允许方程和当前学段适合时使用字母方程。",
+      "sha256": "36287151d533fad855523a5af06d94d157057575d942e9cc7ea4f28a64661628",
+      "path": "equations-and-elimination/SKILL.md"
+    },
+    {
+      "name": "extremal-bounds-and-construction",
+      "title": "极值边界与可行构造",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-1abf738c60adcb87255a1db24b808ff6dca3c46bea8cbf68603f965a8fd6665a",
+      "description": "有限整数、排列或几何约束下先证明不可超越的上下界，再给满足全部条件的达到方案；不把少数候选比较当作全局最优。",
+      "sha256": "dd7dd612abfae8321b4ed68343a459239c903e307039cc0714d6bd31ffd183ac",
+      "path": "extremal-bounds-and-construction/SKILL.md"
+    },
+    {
+      "name": "facing-seat-perspective-identities",
+      "title": "面对面座位的左右与身份推理",
+      "category": "项目补充方法",
+      "version": "2",
+      "source_id": "markdown-a66d8ef196ea15e588ab2e67fcd2302a15fd2a858936b77d8a8204a7de05bda1",
+      "description": "桌子两侧各两人的面对面身份题，按被参照人的朝向解释左右，联动同排、同列对面和属性互异，区分旋转等价布局与真正多解。",
+      "sha256": "6165ff0debcf51895600a6e4432727916f0df1814da6d55a1a4046329b51b1a7",
+      "path": "facing-seat-perspective-identities/SKILL.md"
+    },
+    {
+      "name": "finite-game-strategy",
+      "title": "有限博弈与必胜策略",
+      "category": "计数、图形和推理",
+      "version": "4",
+      "source_id": "markdown-d6354b4cea668d74554226e7e17d0819e17e828d719c61ca50787bf4aa294fd9",
+      "description": "有限确定的两人轮流游戏，区分必胜与含平局的不败目标；核对棋盘完整动作、到达者输赢及配对回应，对全部合法应对倒推或证明不变量。",
+      "sha256": "9645cfed47127297df1dba5afc54f175beb178f26b6632b62d406cf2facf5b30",
+      "path": "finite-game-strategy/SKILL.md"
+    },
+    {
+      "name": "finite-state-transformations",
+      "title": "有限状态的最短变换与逆向枚举",
+      "category": "计算与状态变化",
+      "version": "1",
+      "source_id": "markdown-8fab0abbf851ef1c662a7da5fe5b039b099f2d6006d71271b57a28c150e72f01",
+      "description": "数字操作的指定顺序、最少操作次数与全部原数；逐层枚举合法状态并保留已用操作，对取整、删位及重排使用完整逆像，不把单人路径当博弈必胜。",
+      "sha256": "33b9cf9c6e9de3fb749a8b257ee2ce1029d0c273a9945c08d0fbce181392dd36",
+      "path": "finite-state-transformations/SKILL.md"
+    },
+    {
+      "name": "first-period-lead-and-catchup",
+      "title": "首期差额与以后追平",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-a42b1d0cd8a24a4603a9261e8a3f81a3a7921136a2d84330e197c7f0c097ca4d",
+      "description": "首日或首段完成量特殊、以后每期固定、同总量准确完成时，以首期领先量除以后每期缩小量，区分以后期数与总期数。",
+      "sha256": "f912789390ba89f0ac2dc6622e64030d9bfb139f2df8f20665c89f4932cea2c6",
+      "path": "first-period-lead-and-catchup/SKILL.md"
+    },
+    {
+      "name": "five-square-cross-dissection",
+      "title": "五格十字剪拼正方形",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-90be2079f246c02e304629172771606637e49c20c2b7528489570f0ee1f47db1",
+      "description": "五个相同小正方形组成十字架，剪成若干块拼成正方形：以边中点作四条切线，平移四个角三角形并核对覆盖。",
+      "sha256": "633ef56855e4f68eade74e4ff66c43c87a194277424592ff4fefaa2b337af7bb",
+      "path": "five-square-cross-dissection/SKILL.md"
+    },
+    {
+      "name": "five-square-minimum-square-tiling",
+      "title": "五方格最少正方形铺法",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-a01df6c93b51b390b223023d4767cee0e0fda26b7fd8aaca47ea946eb29e1b56",
+      "description": "用边长1、2、3、4的完整正方形无重叠拼成边长5的正方形，分类证明最少8张并给出可核验铺法。",
+      "sha256": "c26dd8f87d1872461e3e92dd71a11ccf02b257b709760fcaed02ef6a7be62e0e",
+      "path": "five-square-minimum-square-tiling/SKILL.md"
+    },
+    {
+      "name": "fixed-count-grid-piece-reassembly",
+      "title": "有限方格定块数剪拼",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-004a387a44c1358b5d3049365574551f88ffce4be8d484bed7b1ffbb7ae26326",
+      "description": "有限正方格图剪成指定数量的连通纸块，再以旋转和平移拼成目标格图；各块可不等大，联合核对原图分割与目标覆盖，给出两块阶梯拼方和三块L形拼方的完整构造。",
+      "sha256": "5456fa4122c184daa3969a01048c6819ae6775506a094ee574e22e2bcdad6575",
+      "path": "fixed-count-grid-piece-reassembly/SKILL.md"
+    },
+    {
+      "name": "fixed-sum-product-extrema",
+      "title": "固定和乘积最大与互异约束",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-e53a685e1c17de0b1557347e3f4d8875c4e76c97ab8c0e50a32e17932f8d75f0",
+      "description": "自然数总和固定时，利用两数趋同交换和可行构造求乘积最大；互异条件下分类检查合法组合。",
+      "sha256": "65b061ce30b7d0d3e95ffef3440ef6f7436ff018fb7744150fbd1ba792261c83",
+      "path": "fixed-sum-product-extrema/SKILL.md"
+    },
+    {
+      "name": "gcd-lcm",
+      "title": "公约公倍",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-4e9cb94d36c741125fc753f9c1f5f1ad25309674bbb8d1d7797857547ee1ed8f",
+      "description": "等大切分无剩余或等间距尽量少时求最大公约数；重复事件再次同时发生或同余计数时求最小公倍数。",
+      "sha256": "ea30da02f530ae8637fa600b2220ca5f1ad121f67b7953fb4b4eeeaef0b0782c",
+      "path": "gcd-lcm/SKILL.md"
+    },
+    {
+      "name": "geometric-cut-and-rearrange",
+      "title": "几何剪拼与对称构造",
+      "category": "计数、图形和推理",
+      "version": "4",
+      "source_id": "markdown-b6f5dc34f95cc7df53b1932ee125c3532b91771d1e940f201a75e760b3984ad8",
+      "description": "已知边长、直角、对称或等分条件下，利用刚性剪拼、平移、旋转和镜像构造求面积或证明等积；不从外观臆测边长与对称。",
+      "sha256": "c761379a0ece4f8b98ea5eb693bf17429f4bb24ff6f6d5c6040c6d7b358b31f9",
+      "path": "geometric-cut-and-rearrange/SKILL.md"
+    },
+    {
+      "name": "geometric-mirror-response-games",
+      "title": "圆桌等圆片的中心对称回应",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-71ff05d695c641d108e881401fe9a8bc6612dc0ac7537e989fc5d97bca682f98",
+      "description": "圆形桌面轮流放同样大小的不重叠圆片，最后能放者赢时，先占中心并作中心对称回应；证明新旧圆片均不冲突和有限终局，不套非对称障碍或最后放者输。",
+      "sha256": "4693203184ee33af279a240c2a6dadb148dc7662cbc6118db38639c5fde0fda6",
+      "path": "geometric-mirror-response-games/SKILL.md"
+    },
+    {
+      "name": "grid-partition-and-tiling",
+      "title": "方格同形分割与铺砌",
+      "category": "计数、图形和推理",
+      "version": "2",
+      "source_id": "markdown-8681b32036e6e518fec4b3e6aa80274cf472562d05142141f3cdf08aa7596e8d",
+      "description": "对清晰正方格图按格坐标生成连通全等块，结合字母或点数约束完成无重叠全覆盖；用合法旋转翻面、对称去重和着色证据核验分割与铺砌。",
+      "sha256": "bfae41ab8f6f63cfc4402eda454cabc8c1b05ee66848eddf5d7eaf476da91fb5",
+      "path": "grid-partition-and-tiling/SKILL.md"
+    },
+    {
+      "name": "grouped-score-balance",
+      "title": "分组得分与正误差额",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-05c658d4e62e9453c7d78e7130ce004698ef8a7c4a21b22b88d5ac2bad0c8d12",
+      "description": "每题同分且错题零分时，从总得分比例确定全体对错关系，再用已知分组对错差和剩余题目比例求正确题数；部分得分或倒扣需另建模型。",
+      "sha256": "5115cb8032a42956f69715329f74865dd28ec2290e603a0a9a2753098755f5fa",
+      "path": "grouped-score-balance/SKILL.md"
+    },
+    {
+      "name": "growing-resource-consumption",
+      "title": "牛吃草问题",
+      "category": "行程和效率",
+      "version": "1",
+      "source_id": "markdown-da3aa2b6d7b76e4285cd8487845aa09c24d54323eea8917c0d09ed5c74fae160",
+      "description": "资源边增长边消耗，给出不同人数和耗尽时间时由总消耗差求增长速度，再求原量和净消耗时间；分段人数可先累计。",
+      "sha256": "75a6aba0f3b2892fad55340216105767bab7066d3f8fef71820c8a8d3e989656",
+      "path": "growing-resource-consumption/SKILL.md"
+    },
+    {
+      "name": "hexagonal-magic-lines-and-inventory",
+      "title": "六角幻方的三向直线与库存",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-19e1884f49cb1ffc251fc9833fc76cd1b2282fae194c5925630b90a935c93afe",
+      "description": "给定有限数字各一次补六角数阵，三向不等长直线要求等和时，按实际线分组求公共和，再以库存和跨线候选传播补图。",
+      "sha256": "2b6b44af19ce6c1c08eba4ea6ac5895e9d06fa84bb72c7c9203180b54ff03444",
+      "path": "hexagonal-magic-lines-and-inventory/SKILL.md"
+    },
+    {
+      "name": "horizontal-digit-constraints",
+      "title": "横式填数与运算符约束",
+      "category": "项目补充方法",
+      "version": "2",
+      "source_id": "markdown-877640e7808418a92ee75e0d4072f813c9f173d6419a365aaab7e8a012f5c6a7",
+      "description": "横式填数、共用数字池的多个等式、可变位宽与同数平方重复数位；按原规则建立子式候选、公共值和共享字母相容连接，保留精确运算与完整库存。",
+      "sha256": "874603203cd0cfc1010325fcaedaf5745bf3dee514e5ccdfca0fbc4229c37794",
+      "path": "horizontal-digit-constraints/SKILL.md"
+    },
+    {
+      "name": "hypothesis-table-diagram",
+      "title": "列表法",
+      "category": "计数、图形和推理",
+      "version": "2",
+      "source_id": "markdown-e189962d13d54ade1444b426a2fdf19c5799b323fa7fd19fabb7783b5667ac6c",
+      "description": "已知量和算出量的对照表，含普通往返的路程速度时间、两状态比较、鸡兔和盈亏假设调整；每行一个情形，每列同一种量。",
+      "sha256": "f194e9ebe852624942e5ff4b6ed8912d2092cc4618ed51586e11dbf8d191c36c",
+      "path": "hypothesis-table-diagram/SKILL.md"
+    },
+    {
+      "name": "incidence-sum-constraints-and-extrema",
+      "title": "交叠成员与等和布数",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-9dff1f52e31242d493b9a2d90bc84f48822009373122f856c6774ff58f70a3b6",
+      "description": "从清晰原图逐位置登记线圆成员和使用次数，用加权总和、整除、剩余频次与可达构造解决等和布数及公共和极值，不将必要界直接当答案。",
+      "sha256": "c681da5b2b40a6a6d0bdefd98b31838483fcfad29eca6f6cd82733028fb22eb2",
+      "path": "incidence-sum-constraints-and-extrema/SKILL.md"
+    },
+    {
+      "name": "integer-average-merge-extrema",
+      "title": "同奇偶取平均合并的终值极值",
+      "category": "数与运算",
+      "version": "1",
+      "source_id": "markdown-fbc6824b56629e70672d0f6d15f4e625b9962e4b3b90c273297992e4ea2db2fb",
+      "description": "反复将同奇偶整数替换为平均数直至剩一数时，用最大值不增、达到条件和合法合并序列证明终值上界及可达。",
+      "sha256": "5ddee7ca19b32da532c65b1e18c49f7dfdab647d1974e14714ea3b4d28816f11",
+      "path": "integer-average-merge-extrema/SKILL.md"
+    },
+    {
+      "name": "integer-average-shift-recurrence",
+      "title": "整数平均递推与差的整除",
+      "category": "数与运算",
+      "version": "2",
+      "source_id": "markdown-87a59613ec35d8c70dd41283d1207c9d75e6cbf8d3c3e1cca22bd32065641556",
+      "description": "反复擦除首数并把后两数的平均数添到末尾，追踪有符号差的减半、整数整除和初末总和；完整列出合法结果，不擅加非负条件。",
+      "sha256": "fee2c622810e70c1eb370ab44c6f4889062ca47a9fef9f8a097e8045d21a903e",
+      "path": "integer-average-shift-recurrence/SKILL.md"
+    },
+    {
+      "name": "integer-lattice-triangle-extrema",
+      "title": "格点三角形面积分类与最小值",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-b4936b1a181b53f638fb00b4c92b2df9306a0087d7345ab61cd019b570769066",
+      "description": "有限整数正方格或钉阵中，用外框补差证明半格整数性，按面积去重分类；固定对角线的最小非零面积须证明整除下界并给允许范围内的达到点，不默认使用皮克公式。",
+      "sha256": "d05062662df608828152b0bf34cf43126bc689cf9cfc257dbfb8dc14f0764b32",
+      "path": "integer-lattice-triangle-extrema/SKILL.md"
+    },
+    {
+      "name": "intervals-and-endpoints",
+      "title": "植树问题",
+      "category": "重复和间隔",
+      "version": "2",
+      "source_id": "markdown-0ab6533a21fb433e0a3818e0c6df35faef9b0f0720a669e5735da4a2830fa8b4",
+      "description": "等距植树、灯、楼层或锯段：确认端点与整数间隔；闭环指定各角有物体时逐边整除，不能只看周长。条件缺失或矛盾时不求唯一数值。",
+      "sha256": "4cc4ccc1d224205b4d2abe8e59c072f5fb3b2d198100656ee7345d77523a0a9a",
+      "path": "intervals-and-endpoints/SKILL.md"
+    },
+    {
+      "name": "inventory-transitions-diagram",
+      "title": "进销存图",
+      "category": "导入方法",
+      "version": "1",
+      "source_id": "markdown-0dadbdc1a0a15a6e50fc5f0269f49db79aafe04c2d7048e1d89d4ccd3ec80f98",
+      "description": "库存、公交上下车、卖出与补入等时间序列，把原量减销加进画成状态箭头；求原量时沿箭头逆运算倒推。",
+      "sha256": "8a08a8c7af569fb43b4e8c809bd9de13a9906c36e1d373fa6e4d422570e143ad",
+      "path": "inventory-transitions-diagram/SKILL.md"
+    },
+    {
+      "name": "lattice-point-area-formula",
+      "title": "格点计数面积公式",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-ea142c6608e421b292518034d0fa0c5a25fb4c8117bf52acf57d5ae9f06badee",
+      "description": "仅在当前题面给出格点面积公式或用户允许拓展时，按整数格点内点/边界计数求简单多边形面积，核对斜边格点、方格或三角格单位并将孔分块相减。",
+      "sha256": "05f54f0e5b776e4862acedcd01e1875d97ccfa83f721c4a608760a0dc3444152",
+      "path": "lattice-point-area-formula/SKILL.md"
+    },
+    {
+      "name": "lattice-polygon-area",
+      "title": "格点多边形割补",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-21409f3515c3876d2bd81761775f51c359a1e7bb3bc6b87a525e6e584f4c1649",
+      "description": "清晰等距方格中按真实顶点、单位格和外接矩形割补求多边形面积；排除仅凭边界点数、模糊交点或透视外观猜面积。",
+      "sha256": "4a31502f5cb41c1e366c5ccd353c7cf6b50b57689adb3e8d02c9d6b39ff201fc",
+      "path": "lattice-polygon-area/SKILL.md"
+    },
+    {
+      "name": "layered-paper-occlusion-order",
+      "title": "重叠纸片遮挡顺序",
+      "category": "项目补充方法",
+      "version": "3",
+      "source_id": "markdown-a42a2f8945beb66e8f9adcb17a24726fb7dc74c1dcf1347e0747c7d34670c855",
+      "description": "依据纸片可见轮廓、等大形状和遮挡关系推断上下叠放顺序；重建可能位置并检查多解，不把不清楚的隐藏边当成确定条件。",
+      "sha256": "6ac8ca4161e64461d2d4ef66a6bbba3bb01a9977d70a85882280dd1e2e5d68e0",
+      "path": "layered-paper-occlusion-order/SKILL.md"
+    },
+    {
+      "name": "layered-table-indexing",
+      "title": "分层数表、缺格折返与连续数码定位",
+      "category": "数列与数表",
+      "version": "2",
+      "source_id": "markdown-77d8bff8574971751e3eeadc50abb2cfb5cce016b74ac58c2afe4bd9f00d264f",
+      "description": "已知填表路径时，按层累计长度、有效格访问顺序和层内偏移，双向定位变长行、缺格蛇形、L层、斜对角与方形中心螺旋；连续数字流先按位宽段定位数码。",
+      "sha256": "86439e6669daa1eb47e47f2a0ed77d3bfef29bac20af8038b55e71c05604f6f4",
+      "path": "layered-table-indexing/SKILL.md"
+    },
+    {
+      "name": "logic-constraint-elimination",
+      "title": "真假与对应关系推理",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-10facab163eca3577c478c07ac02f2e5580390ed5304ecdb88526faaef725932",
+      "description": "将人物、物品、位置与真假数量转成有限约束，穷举并逐项排除；区分唯一推断、所有观察均保证成功与仅一种可能结果。",
+      "sha256": "0c82cea9dbff49d63fb9abb2054de89d2396054eadc188cd6dbfcc4fc3f14e50",
+      "path": "logic-constraint-elimination/SKILL.md"
+    },
+    {
+      "name": "long-division-reconstruction",
+      "title": "长除法分段与零商恢复",
+      "category": "数位与竖式",
+      "version": "2",
+      "source_id": "markdown-f61a69f545d015f012b645fa94a439ea1a7af830e60886b9027e6ff278735d65",
+      "description": "按落位、部分被除数、乘积和余数逐段恢复长除法；明确省略减法行仍保留零商，联合各段约束验证原竖式，不凭最终整式忽略中间数位。",
+      "sha256": "b3690b6f5082c800f4257c80529cdf7b4e98a7cfddf752c891db289a155d9544",
+      "path": "long-division-reconstruction/SKILL.md"
+    },
+    {
+      "name": "magic-and-latin-grid-constraints",
+      "title": "幻方与拉丁格约束",
+      "category": "计数、图形和推理",
+      "version": "2",
+      "source_id": "markdown-f56ee178cd3e8471426c276ab994058b86c457f815332cfe8516a61e4b2a5dd8",
+      "description": "区分幻方等和、拉丁格各值一次、全局多重集与分区约束，以三阶中心对数、候选交集、剩余频次和可回查的完整分支补表；不把四阶构造模板强套已知格。",
+      "sha256": "b16f4d688500653a79f931d038650706d7a0c1c1db00aeec3f7bd0e90b619bee",
+      "path": "magic-and-latin-grid-constraints/SKILL.md"
+    },
+    {
+      "name": "magic-squares",
+      "title": "幻方问题",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-68f5d43325b3d0e0142a0220ea52704411e3e7e596f969f5e195acc81c056c56",
+      "description": "自然数填方阵使行列对角线和相等，先求幻和，再利用中心、角、边被重复使用的次数安排数字。",
+      "sha256": "e8a52fe364d30becd66a7e2d6d119b1c5270f7487fb368f2703a08923c818e66",
+      "path": "magic-squares/SKILL.md"
+    },
+    {
+      "name": "math-diagram-routing",
+      "title": "数形结合",
+      "category": "计数、图形和推理",
+      "version": "2",
+      "source_id": "markdown-a3e83fe45092292ad602523548b8d83e6797200cc767058ae012865cc3f7958f",
+      "description": "按待解释的关系选图：普通往返用同路程对照表和时间线段，真实面积或乘积分块才用面积图；库存、份数、周期和重叠用对应画法。",
+      "sha256": "68e95101367adc23d5f05fb54c9c6d95f8052b9b7572409436f1c2c7bdba6795",
+      "path": "math-diagram-routing/SKILL.md"
+    },
+    {
+      "name": "mixture-concentration",
+      "title": "浓度问题",
+      "category": "比例和混合物",
+      "version": "1",
+      "source_id": "markdown-810f552cd7e26f47538ea87e1648c4178a8f5b84a71166191db9b52ae5dc8c44",
+      "description": "溶质、溶剂、溶液与浓度，稀释、蒸发、加浓和混合；抓住不变的溶质或水，必要时用假设调整或十字交叉。",
+      "sha256": "57e04fa29c942b6f87b8c1182076793f7a192f28d55e503c36d3908ebe16b591",
+      "path": "mixture-concentration/SKILL.md"
+    },
+    {
+      "name": "motion-events-and-periodic-arrivals",
+      "title": "行程事件线与周期发车",
+      "category": "行程和效率",
+      "version": "1",
+      "source_id": "markdown-2aa8fea579deb3d15cbb596c8683863814d16d145768a5208b3e9dc5dbf802f9",
+      "description": "同一时钟按到端、相遇、追及、停走和换车逐事件推进；区分迎面、追及及端点同到，处理火车车头车尾和等间隔班车，不盲套第n次相遇公式。",
+      "sha256": "7d8c6361f7e8439c5c823ce35580ad2a6900c5a799179c3e316f709dab54b191",
+      "path": "motion-events-and-periodic-arrivals/SKILL.md"
+    },
+    {
+      "name": "multi-round-bijection-constraints",
+      "title": "多轮一一对应与跨轮约束",
+      "category": "逻辑推理",
+      "version": "1",
+      "source_id": "markdown-9b5840e03e2f4432060683f136822a67649f657f8c8adf81ad0351fe6b55169a",
+      "description": "将多人多轮交换或比赛的明确一一对应及跨轮线索转为表格，完整排除候选并核验所有所问；不擅加每日一场。",
+      "sha256": "fb6ea5e17f22564c8a73e398c4d9ea21027dc2c89a36a0f17cfd9a02f7b6e644",
+      "path": "multi-round-bijection-constraints/SKILL.md"
+    },
+    {
+      "name": "multi-valued-language-intersections",
+      "title": "多人语言集合与直接交谈",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-4f8a2dfd1f97e51d07c73631ec65b6e6115e037729e2d44c6c9ef1547e751ecb",
+      "description": "每人会一种或多种语言，按直接交谈的共同语言、不能交谈的互斥关系、每人配额和语言共享人数推断所有集合解。",
+      "sha256": "826adfd36e41654a3610e5fe8fbc9e7bf891a9687f93ab006fd3164d1308ed5e",
+      "path": "multi-valued-language-intersections/SKILL.md"
+    },
+    {
+      "name": "multiplicative-scaling",
+      "title": "倍比问题",
+      "category": "比例和混合物",
+      "version": "1",
+      "source_id": "markdown-adbb675a86e9a73e1490cbd421c3b54b9eaf1f36f1e103fb714ceef409d4df53",
+      "description": "两个对应量按相同倍数变化时，先比较新数量是原来的几倍，再同步放大对应结果；与先求一份的归一法区分。",
+      "sha256": "6934d570982739995d5372f876bf5eaf825e027d3fe29c264db071c22682ce07",
+      "path": "multiplicative-scaling/SKILL.md"
+    },
+    {
+      "name": "multiset-and-unlabelled-counting",
+      "title": "重复对象与无名分组计数",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-3c159c515d465c2587faa48ff1fb559014d58a5dd179ce82c6cd059a61909913",
+      "description": "相同数字库存、无名组、前后局部次序或多袋来源隐藏时，以输出等价关系建重数向量、规范分组或等倍交换计数，证明去重倍数并核可实现性。",
+      "sha256": "37bf6010099d9dcf1a5bf14f7c63a7ced932237b0ba81fbcb9725f44d6e3250d",
+      "path": "multiset-and-unlabelled-counting/SKILL.md"
+    },
+    {
+      "name": "nested-square-size-inventory",
+      "title": "正方形嵌套细分与面积种类",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-35b2c6f1d1fc1b70c56a23ee07c4edc5c128e3f546faf9adf41807f55b926812",
+      "description": "把大正方形分为指定块数及指定面积种类的小正方形；用保留整块与叶块四分控制计数，提供6/7块两类及12块2/3/4类的完整分界构造，不预设所有块全等。",
+      "sha256": "756b4280f20ddc2257e76d5c5c8ed31e4ec267bd5aeba1c5a18b4e6c10d69a1b",
+      "path": "nested-square-size-inventory/SKILL.md"
+    },
+    {
+      "name": "notched-rectangle-three-piece-square",
+      "title": "缺角长方形三块拼正方形",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-4598faa342b724610419803880965fa9411b2b5061a68c97a2fc811ad28ebbf0",
+      "description": "7×5长方形左上角去掉2×3，沿两条切线分成三块并平移拼成正方形；核对尺寸、分块及接缝。",
+      "sha256": "25779ae53d2c4c0ebb2e16093ad4f2d7251fb5fb6d13420f10644784a44e0e65",
+      "path": "notched-rectangle-three-piece-square/SKILL.md"
+    },
+    {
+      "name": "opponent-count-identity-graphs",
+      "title": "对手人数与地区身份推理",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-b83747611664c0fe1b3517b8e0527e33f736e66b97e861d090ad0dc811f1c97e",
+      "description": "按不同对手人数、三人互相交手、已赛未赛关系和人物地区一一对应联动排除；比赛过是无方向关系，不等于胜负或重复场次数。",
+      "sha256": "fc37f9d82db2e4910879b5583c89ceb19af42b05bb6998e3ccee6f7b0a5fc5d6",
+      "path": "opponent-count-identity-graphs/SKILL.md"
+    },
+    {
+      "name": "optional-ride-single-stop-elevator",
+      "title": "可拒乘电梯的单停层总成本",
+      "category": "项目补充方法",
+      "version": "2",
+      "source_id": "markdown-239c273b5ef1c8558a90a47872d9360a978861aa14bd28149934ba66a5bfad7e",
+      "description": "电梯从一层出发只能停一层，乘客可拒乘直接走楼梯，上下楼代价不同；逐人取路线最小成本，再完整比较停层，不套用必乘加权中位数。",
+      "sha256": "ab7481c7797f7cf4e8f13ed51ae77d3ce47d21088b37f8de79cf435ba4e47abd",
+      "path": "optional-ride-single-stop-elevator/SKILL.md"
+    },
+    {
+      "name": "order-constraints-and-linear-orders",
+      "title": "大小约束与完整顺序计数",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-4ca60ae2048a047e5bcb977bb04470545e1ffdf98fa2966e775f9eb2b3848300",
+      "description": "不同数字各用一次填入具名位置并满足严格大小关系时，逐符号登记小于边，按剩余最小数的可用位置分支，计数或列全填法，并识别大小环矛盾。",
+      "sha256": "56b206f93c30a5176e92a05b453bd13680cd4f9e2dc515c43ca467db078ce19c",
+      "path": "order-constraints-and-linear-orders/SKILL.md"
+    },
+    {
+      "name": "ordered-multi-attribute-adjacency",
+      "title": "多属性位置与定向相邻推理",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-3c2021cfc1e17948733d06f56f868056b17fe649e352a00cdf6f166e4f8162df",
+      "description": "有序位置中多类属性一一对应，用同位、端点、定向紧邻和无向相邻联动排除，保留所有合法分支；区分同类互异与跨类同位。",
+      "sha256": "495247a1fff61d4822626efb5d7f97d8f52182654624ef85fbdfea721313db34",
+      "path": "ordered-multi-attribute-adjacency/SKILL.md"
+    },
+    {
+      "name": "overlap-counting",
+      "title": "重叠问题",
+      "category": "重复和间隔",
+      "version": "2",
+      "source_id": "markdown-2cfd7845e4e535e9be38ea29c96d13df5c8030a59927c1dbfcf49ad30894908c",
+      "description": "两种都参加、至少参加一种、两种都不参加等集合人数题，或公共边与公共端点直接相加会重复计算时，先加再减重叠；已知整体与两部分时反求公共部分。",
+      "sha256": "117b41c10416a3b9b1d834857b7d1699b91ab4eac9474b0d49dbf2c6daa4299c",
+      "path": "overlap-counting/SKILL.md"
+    },
+    {
+      "name": "parallel-identical-machine-makespan",
+      "title": "并行设备的整任务负载最小化",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-958b460f7a6558fbcee4ca19a472f69a1bd50e9cf38b7b1a2fa62474340d1038",
+      "description": "多台等效设备同时可用，独立任务必须整项分配且不能中途换机时，以最大设备负载为工期，给平均/最长任务下界、完整分组与达到方案；不把短任务优先或贪心当最优证明。",
+      "sha256": "3677524abc930a9ceb0b51f11d089ab674c7734a98de869d3f7e6d0f3be4bfc9",
+      "path": "parallel-identical-machine-makespan/SKILL.md"
+    },
+    {
+      "name": "part-whole-diagram",
+      "title": "部分整体图",
+      "category": "导入方法",
+      "version": "1",
+      "source_id": "markdown-c2be8fe14f73e63a823f44a90c861b0a5caf3c0397a0993ac35a38b81a9b5e28",
+      "description": "部分相加成整体，或整体减已知部分求缺项，用完整线段与分段展示；支持行列双重整体和先乘出每段再拼合。",
+      "sha256": "e63b6edfaff246a5082cea8f2382787d93a361ee3e8a6e6aeebef140c30e4cbf",
+      "path": "part-whole-diagram/SKILL.md"
+    },
+    {
+      "name": "percentages",
+      "title": "百分数问题",
+      "category": "比例和混合物",
+      "version": "1",
+      "source_id": "markdown-67920f8c1d8d00b46d2b30864aa6010a94d09bba5febee17c0056ab483656fc9",
+      "description": "比较量、标准量和百分率的三种求法，以及增长、合格、出勤等常见百分率；先确定分母的单位一，区分量与率。",
+      "sha256": "25a990c4bd2743145a56ae1c439590dc6b7cbb0369958002d64e32db559c82b0",
+      "path": "percentages/SKILL.md"
+    },
+    {
+      "name": "period-diagram",
+      "title": "周期图",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-1e469dbee148a524a84bfdeaa02e4bd9129e9ddc948e76d6fad3e48b75050e72",
+      "description": "把彩灯、报数、星期等重复过程画成周期格；爬井等最后一次提前结束的过程单独标出终止，避免多算完整周期。",
+      "sha256": "43f4ee61b4e0076e95a4a7e34ed83c4eeaf8a5c8c221206dcd1b29a85a9d8f37",
+      "path": "period-diagram/SKILL.md"
+    },
+    {
+      "name": "periodic-patterns",
+      "title": "周期问题",
+      "category": "重复和间隔",
+      "version": "1",
+      "source_id": "markdown-556db852dd4a817a022efc8a27848c223d5503f170c3995f51f5838cb80356a0",
+      "description": "有序图案反复出现时用周期长度和除法余数定位第几个，或统计完整周期加尾部的数量；余数零对应周期末项。",
+      "sha256": "34a8336bb83710a23cdfe36d8b9a08623a0151344c3354f7f0d5926df51406dd",
+      "path": "periodic-patterns/SKILL.md"
+    },
+    {
+      "name": "pigeonhole-principle",
+      "title": "抽屉原则",
+      "category": "计数、图形和推理",
+      "version": "2",
+      "source_id": "markdown-d5458e3afc5c8a83947d2d0861df118dde922268e3ccc81719bcf8e08e41304d",
+      "description": "要求一定发生或保证至少若干同类时，明确物体和抽屉，计算最不利分配再增加一个，而不是只证明可能发生。",
+      "sha256": "351f6b89d0024c5c2b8e153822012d52805617ab7f710b5bab9f7f039f7b6d63",
+      "path": "pigeonhole-principle/SKILL.md"
+    },
+    {
+      "name": "place-value-and-decimals",
+      "title": "位值与小数数位",
+      "category": "项目补充方法",
+      "version": "2",
+      "source_id": "markdown-9b8493c195ff7fea54fb41394b10ee85d3bdb71bfd158f28363c4c1d1d7fab67",
+      "description": "多位数与小数的数位、读写、比较、数字移位及小数点移动引起的数值变化；区分数字个数、位值和计量单位，不把删零当通用规则。",
+      "sha256": "9e35871fdbb3d2c9e811dac5ecae4e36a078c27dd577bfd6233c81d86166df40",
+      "path": "place-value-and-decimals/SKILL.md"
+    },
+    {
+      "name": "point-interval-diagram",
+      "title": "点与间隔图",
+      "category": "数形结合",
+      "version": "1",
+      "source_id": "markdown-450e45b4a9f53724a32c02ea095ebbb7c483531ad7b3a5fb669b32375a54002e",
+      "description": "楼梯、连续编号位置与相邻间隔：把位置画成点，把两点之间的等量画成线段，明确点数与间隔数不同，再求各段数量的总和。",
+      "sha256": "f7c49cf751019f989cd6b84b11153dc893affacd0a4df86190640a476fd8e841",
+      "path": "point-interval-diagram/SKILL.md"
+    },
+    {
+      "name": "price-profit-interest",
+      "title": "经济问题",
+      "category": "比例和混合物",
+      "version": "1",
+      "source_id": "markdown-bf0c18c661b8a52fb4489c77186ed31f96656b6020ab7ef8b8a69e68f787ea59",
+      "description": "售价成本利润、折扣优惠、存款利息和分段计价，先确定成本、原价或本金基准；比较优惠按实际付款与所得商品。",
+      "sha256": "674681ee25eaa33a9a9695cef171ddeef3afa06702f59b4eb86ee8d04c1566e3",
+      "path": "price-profit-interest/SKILL.md"
+    },
+    {
+      "name": "product-area-diagram",
+      "title": "面积图",
+      "category": "计数、图形和推理",
+      "version": "2",
+      "source_id": "markdown-37765bbf639d35bc9450d1afa42f135aff7ddf32ad9ae5945760bc2d7002a3f1",
+      "description": "真实矩形面积、乘积分块、等积变形或假设置换，用矩形解释面积关系；普通行程往返和时间上限优先用列表法或时间线段图。",
+      "sha256": "da0d6c30fd685018e3ced7092cba02888f2a0e3a75381f864408d6d40f96fc80",
+      "path": "product-area-diagram/SKILL.md"
+    },
+    {
+      "name": "proportional-allocation",
+      "title": "按比例分配",
+      "category": "比例和混合物",
+      "version": "1",
+      "source_id": "markdown-67ee3c3b95385797c7524c574f431f1a81870f52a80c6bd75754f06148b443df",
+      "description": "总数按比或分率分配时通成比并求总份数；只给差时先由差和份数差求一份，再还原整体与各部分。",
+      "sha256": "1f54b0159b31eb3d26d2f65909b5790020ad617cf46805bb533a14123c5ef552",
+      "path": "proportional-allocation/SKILL.md"
+    },
+    {
+      "name": "proportional-stock-consumption-baselines",
+      "title": "原倍数基准与消耗偏移",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-a65ed1a8a3218d5e7bbc8b997d5cc61bd357164aae321405fc06448bc9e1c0c7",
+      "description": "原库存按倍数加零头、每期固定消耗时，跟踪相对原倍数的偏移，处理耗尽、余量相等与末态倍数变化，并按双资源限制求整件数。",
+      "sha256": "1f4f2a09adf1766b504dea596bb5f9d5711e26f42310dfc706aee3013f8f17ec",
+      "path": "proportional-stock-consumption-baselines/SKILL.md"
+    },
+    {
+      "name": "quantity-rate-reference",
+      "title": "量率问题",
+      "category": "变化里的不变量",
+      "version": "1",
+      "source_id": "markdown-c2662357f6bc6f6acec2b9b3e0413d97ccb1aae203f7f0c7ef90fa64702418ea",
+      "description": "分数数量关系先找单位一并对齐具体量与分率，量率不可相加；不同基准先转换，差量除以差率或从剩余倒推。",
+      "sha256": "471c1207cd3f0e7ac0fe207783095e6ba05921a624970971fa18a807b6c2137e",
+      "path": "quantity-rate-reference/SKILL.md"
+    },
+    {
+      "name": "quota-preserving-digit-subsequence",
+      "title": "受删位配额的字典序子序列",
+      "category": "数与运算",
+      "version": "1",
+      "source_id": "markdown-70c50cea1c888233e23347bb66a80a42bd54bb88ddf4849295ee78644edb2c80",
+      "description": "从原数字串删除指定数量且保持顺序，求固定长度最大或最小数；每步保留足够后续位，首位非零单独处理。",
+      "sha256": "6c6d8fdd880729a8aecb0d2860823a4cbe318aa5453193402b61f88cbe31d695",
+      "path": "quota-preserving-digit-subsequence/SKILL.md"
+    },
+    {
+      "name": "ratio-parts-diagram",
+      "title": "份数线段图",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-2cb96c97ab3e69267e29e14c9c2aa70b49150c888732e784c18215840fb95ad9",
+      "description": "把一个整体按比切成份数，标出总份数与各部分，辅助按比例分配、百分数以及正反比例的数量关系。",
+      "sha256": "9edf637c9d926dfee6cb9b4162105119a0447e93b5955615dc6cea6d21ffa52f",
+      "path": "ratio-parts-diagram/SKILL.md"
+    },
+    {
+      "name": "rebound-meeting-unknown-distance",
+      "title": "折返相遇与未知全程分类",
+      "category": "行程问题",
+      "version": "3",
+      "source_id": "markdown-5ea5f8129a8b66496b5ab3020c871b6e00f673a4b3712ec29c62d19e2880b9fc",
+      "description": "两人两端间往返，已知前两次迎面相遇位置而全程未知时，按折返点和位置分段分类，核查端点事件并保留全部可能解。",
+      "sha256": "d9a77fc180b0a369fa43b916ee1e5e72a0491df9f076869058e1b8268a2c779d",
+      "path": "rebound-meeting-unknown-distance/SKILL.md"
+    },
+    {
+      "name": "rectangle-staircase-reassembly",
+      "title": "长方形阶梯剪拼与矩形换行",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-bdb813d9c8106648df4efa0221d5c1c478d1ea57b234e973b8bd3080c6460e47",
+      "description": "尺寸明确、允许阶梯折线时，将连续列行数的矩形两块平移，或按已核查三块原例拼方形；保持长方格实际比例，输出切线和拼后接缝，不以等面积代替构造。",
+      "sha256": "764ec72bda948eddb06e2705a132b730102102a94410e2e3d7b40dd7e55818c5",
+      "path": "rectangle-staircase-reassembly/SKILL.md"
+    },
+    {
+      "name": "rectilinear-area-and-perimeter",
+      "title": "直线形面积与周长",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-4aae9fd3aa273facd32ee51163f634862025228cedb657a655b4f15d6173b0a2",
+      "description": "由明确水平竖直边、尺寸与缺口关系计算直线形面积和周长；区分角缺口与侧凹口，不能仅用外接矩形周长。",
+      "sha256": "bb421d8408eb2b1abb756c15a87ea6495065b76e3e9e11afd4ee9d6718876ad4",
+      "path": "rectilinear-area-and-perimeter/SKILL.md"
+    },
+    {
+      "name": "recursive-sequence-cycles-and-windows",
+      "title": "递推周期与连续段求和",
+      "category": "数列与数表",
+      "version": "1",
+      "source_id": "markdown-4e7807948738668f6beed6cd411d15830eed851134180bae7968d18fffd624c7",
+      "description": "对有限状态的明确递推，用完整有序状态证明前导段和周期，计算远项、前缀和及任意起点连续段极值；不将重复单值当循环。",
+      "sha256": "297f912336ab539652b0d8a96046cbd502e8ef6d7505e0dfceed649b7183f3b9",
+      "path": "recursive-sequence-cycles-and-windows/SKILL.md"
+    },
+    {
+      "name": "redistribution-balance",
+      "title": "移多补少",
+      "category": "份数和平衡",
+      "version": "1",
+      "source_id": "markdown-101b2dc4f689ae3d028216b8ce26bf2fc30f154ed153178b049b69382aaa610a",
+      "description": "总量不变的转移和平均分配，两人移动差的一半、多人移向平均数；固定每次转移量时再求次数。",
+      "sha256": "733f5ba7e715a443d71b4f1d369f6543f818b7ce4ddf7218225d8434f8307591",
+      "path": "redistribution-balance/SKILL.md"
+    },
+    {
+      "name": "regular-dodecagon-unit-dissection",
+      "title": "正十二边形的方块三角割补",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-29adf242657ac7e694f84172cc733d2db38eaa1b0fa1994bdf56677df03bb67a",
+      "description": "正十二边形每边朝内作同边长等边三角形、求剩余空白时，以六方形和等边三角的反构造与剪拼消去三角面积；须核对全部12块及朝向，不用正多边形面积公式。",
+      "sha256": "084143db45c9ab6b9fa1cca4e693bb2ef35c8cae2a53682cd967b141a5a5df62",
+      "path": "regular-dodecagon-unit-dissection/SKILL.md"
+    },
+    {
+      "name": "repeated-digit-blocks",
+      "title": "长数字与重复数块计算",
+      "category": "数位与重复数块",
+      "version": "2",
+      "source_id": "markdown-700db1c9884a50040994133275dc339f7ceb8b89370753b392bbee7debea12f5",
+      "description": "题面明确重复数字或固定宽度数块及次数时，用位值展开、凑整补数和逐列进借位计算有限长整数/小数、数位和及平方尾数；不从短样本猜无限循环。",
+      "sha256": "bb002475973a503808519ce79d1165016071f9a2c46cdcfc3b41aa38b2e7ec26",
+      "path": "repeated-digit-blocks/SKILL.md"
+    },
+    {
+      "name": "reported-digit-adversarial-placement",
+      "title": "报数后选位的数位对抗",
+      "category": "项目补充方法",
+      "version": "3",
+      "source_id": "markdown-c0fbe5df308766b79722df11e1503694c1b66cb1ac0ffd302a4bdac29b8f68ca",
+      "description": "甲逐次报数、乙看见后选一个空位，双方分别最大化和最小化差；按剩余数位与有符号位值逆推，区分可重复报数与固定数字库存。",
+      "sha256": "8190c140ae11a54c6cb3973c18ddc2045163b26b39d5ed3fb9acefcb22285d0f",
+      "path": "reported-digit-adversarial-placement/SKILL.md"
+    },
+    {
+      "name": "restricted-arrangements",
+      "title": "排列组合与限制计数",
+      "category": "项目补充方法",
+      "version": "2",
+      "source_id": "markdown-392a96b956dbf6a092d45b90dc3786b988a7ae8af8e5ed15077af5da0a9c6b43",
+      "description": "有限对象排队、选人或数字排列带相邻、固定位置、次序和重复限制时，先锚定限制再分类枚举；区分选组与排列以及相同物品的去重。",
+      "sha256": "d1c76a5cbb59b7f5d632f0847f6eca5257b3e8338a17fe2c72273a919107e1f5",
+      "path": "restricted-arrangements/SKILL.md"
+    },
+    {
+      "name": "reverse-operations",
+      "title": "还原问题",
+      "category": "变化里的不变量",
+      "version": "2",
+      "source_id": "markdown-bffa9142ecc4bcac46b934e16ac617bac201ba118917d09c18094680e846cbb7",
+      "description": "已知连续运算或分步消费的最后结果，从末步逆序还原；带余数先还原被除数，一半多几或少几先补截，再用原顺序核对。",
+      "sha256": "166cafaa5169e465da3d3686c4e261d5092d0efc4e1b64825b4e3c1124c89441",
+      "path": "reverse-operations/SKILL.md"
+    },
+    {
+      "name": "right-isosceles-inscribed-figures",
+      "title": "等腰直角与内接方形割补",
+      "category": "项目补充方法",
+      "version": "2",
+      "source_id": "markdown-5daaaeeab4439651dbeca29e194786927fe9edc0d32a27b6f85c0600876903b5",
+      "description": "正方形内斜长方形、等腰直角三角形内接正方形或公共底线错位重叠的面积；用45度辅助线推出角部直角边和投影份数再割补，保留接触构型、平行与点序约束。",
+      "sha256": "a969615b4a5a10ba21e06aac444bea0161c157aa2b6120b24c392b71268f4ed8",
+      "path": "right-isosceles-inscribed-figures/SKILL.md"
+    },
+    {
+      "name": "rotated-digit-reading-and-sum-constraints",
+      "title": "倒看数字与双向配对和",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-80f88e3534d697edc4c9763d9e28f257092ca61d096b57531cf189f97afe1afe",
+      "description": "数字或整图旋转180度后仍需满足和条件时，确认数码映射与位次反转，分别核对正看倒看的配对和；不用于普通倒序或镜像。",
+      "sha256": "9d92c2e1e8dbd65e1d92a0fc7403653b31002a1891f047551a21f7c99f1e7882",
+      "path": "rotated-digit-reading-and-sum-constraints/SKILL.md"
+    },
+    {
+      "name": "rounded-quotient-iteration",
+      "title": "连续向上取整除法与拼接数位数",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-38b50a949eefbb97c338f4cfa5b50b4bf8435636faf4d8f4b04b5f51678510e4",
+      "description": "反复向上取整除以固定整数、补齐为整倍数后保留一份，求降至1的最少次数；结合有限整数拼接的位数与整数幂边界。",
+      "sha256": "db9e8d563bfa2e7866231feae406e638e66084f5fe49035db8061c38ddaaf120",
+      "path": "rounded-quotient-iteration/SKILL.md"
+    },
+    {
+      "name": "same-distance-delay-speed-change",
+      "title": "同路程延迟出发与速度变化",
+      "category": "行程和效率",
+      "version": "1",
+      "source_id": "markdown-7e0c0f6f1c8e5a80adedde90dec49bd88abf0f43fa1664a2342f508671801f65",
+      "description": "两次行程走相同路程，一方延迟出发而另一方调整速度仍同时到达时，先确定真实用时，再比较多走时间与每小时速度差。",
+      "sha256": "2c275ab08e39287765040100fc3355967378b59e9a72d551e27b5361722818e0",
+      "path": "same-distance-delay-speed-change/SKILL.md"
+    },
+    {
+      "name": "scheduling-and-exchange",
+      "title": "统筹排序与交换比较",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-930e60db345299f9c496100cc2c010507c4e2ed12b6e6819f0d443b5017b961c",
+      "description": "在资源、到达时间和目标清楚时，比较等待总和、完成总和及总工期；用相邻交换证明短任务优先的适用边界。",
+      "sha256": "c84a55e055e70373e45fa4f16c0ac4ba6b28af403ae9b8e0d76ab189c9c0aefa",
+      "path": "scheduling-and-exchange/SKILL.md"
+    },
+    {
+      "name": "sequences-and-number-tables",
+      "title": "数列与数表",
+      "category": "项目补充方法",
+      "version": "2",
+      "source_id": "markdown-5934fae18da030545eabecc5a1fef5f210e18eccc5abe5219f98376dba611f28",
+      "description": "题目已给递推、等差、周期或逐行排列表规则时，求指定项、和或数表位置；区分观察到的候选规律与由题设保证的规则，不把有限数列说成唯一。",
+      "sha256": "9333a3d6ab820ea3aace82b1364ab39b47a7e833d34ea1f9130d1ec36464afbb",
+      "path": "sequences-and-number-tables/SKILL.md"
+    },
+    {
+      "name": "seven-distinct-rectangles-grid",
+      "title": "七块不同尺寸长方形分割",
+      "category": "项目补充方法",
+      "version": "3",
+      "source_id": "markdown-ac8ba5eb96442771db4617f0bfa7894004f5ff1287d00668b1aea15ecb50cd58",
+      "description": "在5×5方格内分成七块尺寸互不全等的长方形，旋转后视为同尺寸，并说明形状不同与不全等的歧义。",
+      "sha256": "40258279e4bcc2f0de9b72ffe852b056647e787a7fa8188d1e6161400eb86508",
+      "path": "seven-distinct-rectangles-grid/SKILL.md"
+    },
+    {
+      "name": "seven-segment-digit-restoration",
+      "title": "残缺七段数字的候选恢复",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-4a8eec5e8eafdb0dc15d6a8f2fcf886dae22a974935c2cf94ab158fad965f518",
+      "description": "电子数字或七段数码管算式部分笔画模糊时，区分确定存在、确定不存在和未知段，按题图数字模板建立候选，与数位及竖式运算联合验证；不把未知误当缺失。",
+      "sha256": "10f73e187a60c929714399e022900799c6fd9f1009e6c991a83599bdf4690704",
+      "path": "seven-segment-digit-restoration/SKILL.md"
+    },
+    {
+      "name": "shared-clock-relative-motion",
+      "title": "共同钟点与相对路程比较",
+      "category": "行程和效率",
+      "version": "1",
+      "source_id": "markdown-310f63bbb022b95c7b1313f14920fe3e851d434f366c010cdb758226e5f47ff8",
+      "description": "在共同地点、异时出发、等距站点或改变速度的行程中，统一事件钟点并比较路程、速度份数与相对位移，保留方向和可行性限制。",
+      "sha256": "8a972a66df9a344aea21d1aa6fbe9816a5ba3a6235df19b129b929f4193d84f3",
+      "path": "shared-clock-relative-motion/SKILL.md"
+    },
+    {
+      "name": "shared-corridor-capacity-costs",
+      "title": "单一路线上容量管线的分段费用",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-abf55ff8b4e735ffed3d3b2d095e059c208456ef6aeb155d099d7a9cdb17523a",
+      "description": "同一路线多个等需求地点供水，粗管容量足够、细管仅供一处且按长度计价时，按每段下游需求数给容量费用下界，再构造粗干线加独立细支线达到；阈值同价不误判唯一。",
+      "sha256": "1892e0330738f6fe6539de7683e42b7042e1ffb37b85661bd35fb70ef364697c",
+      "path": "shared-corridor-capacity-costs/SKILL.md"
+    },
+    {
+      "name": "shared-distance-and-scenario-events",
+      "title": "共同路程与情景事件对齐",
+      "category": "行程和效率",
+      "version": "1",
+      "source_id": "markdown-6c96ae73600bc7efdca71dbbebc98c631c7009e14b259f57d30e75224eb4d56d",
+      "description": "比较同一终点和同一共同位置的不同运动方案：用全程相同得到速度反比，用同一钟点和相遇距离求真实路程或第三者的速度。",
+      "sha256": "1888d643251d39406722a0adae7af8f82e6f3099b2894b27e6666b539c45705e",
+      "path": "shared-distance-and-scenario-events/SKILL.md"
+    },
+    {
+      "name": "shared-points-layout",
+      "title": "构图布数",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-017208b991d2bac95b8cdecab78835c397ad37c821cf8186e2c7e8861ab64a25",
+      "description": "树或数字安排在图形顶点、交点、边上，满足每行个数或数字和相等；按共享次数修正重复计数与安排交点。",
+      "sha256": "565c306ebe59d0f2b80aceaba9991781a471bec2585072d36389f47810f1143a",
+      "path": "shared-points-layout/SKILL.md"
+    },
+    {
+      "name": "shared-resource-precedence-scheduling",
+      "title": "共享资源与工序依赖调度",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-f6c8d749bb188a674ec99d8ebb5d0604488d0185c72eb84ddf2a943128781923",
+      "description": "一人或多种独占设备参与的固定时长工序，先明确主动/被动资源与先后依赖，以无冲突时间表和资源/工序链下界证明总工期；资源未明时保留条件式模型。",
+      "sha256": "6ce154c288586ba5576428932dd989ec0386a6c1ad1e6855ef26ebcb687504cf",
+      "path": "shared-resource-precedence-scheduling/SKILL.md"
+    },
+    {
+      "name": "shared-route-and-event-alignment",
+      "title": "共同地点与同程多事件对齐",
+      "category": "行程和效率",
+      "version": "1",
+      "source_id": "markdown-f21adeedc779844d1de92e07c45db528d41a71cecd27fe92968464a2534aa577",
+      "description": "比较两种行程的共同地点或同一全程，以共同钟点和相对距离推算事件；核对路线、速度及相遇是否在途中。",
+      "sha256": "ada4ca818e34002bce10583b2c67fb15b8bd405caec03052c3f89a9a01ee1682",
+      "path": "shared-route-and-event-alignment/SKILL.md"
+    },
+    {
+      "name": "shared-vertices-and-discrete-gaps",
+      "title": "共享端点与离散间隔分组",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-0d63d211ab615d64def93abc83a9185a21227067f0a94adba17e019baac68fb6",
+      "description": "闭合多边形各边红旗数量相同、顶点共享且相邻红旗间黄旗数相同，先校正共享端点，再结合每边两类数量求离散间隔；不要求几何距离相等。",
+      "sha256": "5937a764f9a0ed12ae66fedfb7487c469eda92c40f407d433f363edbe18bc067",
+      "path": "shared-vertices-and-discrete-gaps/SKILL.md"
+    },
+    {
+      "name": "simple-paths-with-visited-state",
+      "title": "不重复顶点的简单路径",
+      "category": "项目补充方法",
+      "version": "2",
+      "source_id": "markdown-e47a20a72405d3b8116b445c81ba3b9a83e0c16b96ce89fda446ae24b22afe1f",
+      "description": "有限路网禁止重复经过顶点时，先确定真实交点和通行方向，以当前点与已访问集合分支计数，到终点立即停止；区分不重复边、天桥和物理交点限制。",
+      "sha256": "07972a9f85688427eb4a53e8196dc72cc75e8611cc5bd36183ccf61ad2d07f48",
+      "path": "simple-paths-with-visited-state/SKILL.md"
+    },
+    {
+      "name": "small-network-transport-costs",
+      "title": "环路与两供两需运输优化",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-a930473183e1561216e03fb6e9937f2488c1a7b33e1ba9228813c8f17539cc13",
+      "description": "供需守恒的双向环路调运或两供两需运输表，比较净流量绝对值成本或四边交换成本，给完整可行区间与达到方案；不以少走最贵边代替最优性证明。",
+      "sha256": "743fc6fce5693876fcfedc05d9e33e687b67d566437b89f22dd756ba6203f9bb",
+      "path": "small-network-transport-costs/SKILL.md"
+    },
+    {
+      "name": "snail-climb",
+      "title": "蜗牛爬井",
+      "category": "重复和间隔",
+      "version": "1",
+      "source_id": "markdown-f97dfca7183fc02a980173db1cbd874c47588ce798ab07f76d2651d9335bf172",
+      "description": "周期上升与回落但最后一天到达就停止的题，按每天净上升计算并检查最后白天的位置；有余数时使用完整周期上取整后加最后一天。",
+      "sha256": "08d646867eb10a16c450621fc8e3f0262357fc025900e03ab9d1d95c8e3618a2",
+      "path": "snail-climb/SKILL.md"
+    },
+    {
+      "name": "square-arrangements",
+      "title": "方阵问题",
+      "category": "计数、图形和推理",
+      "version": "2",
+      "source_id": "markdown-1f367c4231a587cf2c92301967d963422d8a4db0b5f39c11ee1ebc853e8466dc",
+      "description": "完整实心或空心方阵计数：区分每边人数、外圈总人数、内占据圈与空洞边长；先验证整数、角点共享和可容纳层数，不补题意。",
+      "sha256": "f8843e59abd42a29b6c5e9dfc9cf30f9142f0aa422485ed86335ce0f6c9954f1",
+      "path": "square-arrangements/SKILL.md"
+    },
+    {
+      "name": "square-corner-cuts-and-area-differences",
+      "title": "正方形角部割补与面积差",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-708b25da99e9c8a54bae0a2ea45d442247482d034dad54cbd1764d147174147c",
+      "description": "正方形循环延边、逐边接触的旋转内方形、三层边长等差或等距端点交叉带的面积差；先证明角部切补和真实份数，再算边长或面积，不能把旋转风车当同轴环带。",
+      "sha256": "a445afef75c45d0b2ec5ac0ce9184806c2e79ba47f2e0e570bdeb6748696970a",
+      "path": "square-corner-cuts-and-area-differences/SKILL.md"
+    },
+    {
+      "name": "square-cyclic-midpoint-dissection",
+      "title": "方形循环中点连线的五份构造",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-60e87605258f7e20d839ecc883cff73091e0e22583a1f6147ba9db2a79497cc7",
+      "description": "正方形四顶点按同一循环方向连接指定非相邻边中点，求中央区域时，用3×3辅助方格反构造证明外五份、中间一份；先核查全部四条接法，不猜交点比例。",
+      "sha256": "7c2cd908c0b917768c88531b2ebab65de7512611ffce7d69419c232106a78973",
+      "path": "square-cyclic-midpoint-dissection/SKILL.md"
+    },
+    {
+      "name": "square-strip-windmill-packing",
+      "title": "正方形长条的环绕裁剪",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-437a48b71c1152002708a3e3047e0c6d0785e74edd43b3d43e70c6a5b55f5030",
+      "description": "正方形边长为条长的两倍减一、条宽为1时，用四组横竖长条围住中央格并结合面积上界求最大裁剪数量；不能推广到其他尺寸或额外剪切限制。",
+      "sha256": "e2c3f4e9facedc6438aa36a1181a009b7be0616fce0312a8dba8b31167b3317f",
+      "path": "square-strip-windmill-packing/SKILL.md"
+    },
+    {
+      "name": "state-transitions-diagram",
+      "title": "状态图",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-d389f44b21cc22629a4e4601984c6e1075c1a283fc1570b865de79edcd7e04fd",
+      "description": "同一对象随时间多次加减、乘除或从结果倒推，用方框表示各时刻数量、箭头表示每次运算；不要误画成两个对象的比较。",
+      "sha256": "ce704fb44ef611bb27272f6c7f0dc1544b9ac048671f6d144ef23242be2633a3",
+      "path": "state-transitions-diagram/SKILL.md"
+    },
+    {
+      "name": "sum-and-difference",
+      "title": "和差问题",
+      "category": "两个未知数",
+      "version": "1",
+      "source_id": "markdown-e33b12b776fdd85b5e6876e3c93f42a4a7610bf908faa0f43ae15b5baeb5e61b",
+      "description": "已知两个量的和与差，用补差或去差后平均分求两个量；三个未知数先把一组捆为整体，再逐层拆分。",
+      "sha256": "10a7931bf649c3482fe26ede734b89fc24ef40a9972820f3d8664068e3efb0c1",
+      "path": "sum-and-difference/SKILL.md"
+    },
+    {
+      "name": "sum-and-ratio",
+      "title": "和倍问题",
+      "category": "两个未知数",
+      "version": "1",
+      "source_id": "markdown-ff970a57de56c928cc6d6d7b60cf968fc9fc38a3721c403aa32b1668f22763da",
+      "description": "已知两个量的和与倍数，合并总份数求一份；倍多倍少先补截零头，再处理整倍数，也可重新配平相同取走量。",
+      "sha256": "8a3f2e032411013f8cef8381d712707fde3d51b0ac380a49b5c1e3c57c472960",
+      "path": "sum-and-ratio/SKILL.md"
+    },
+    {
+      "name": "surplus-and-shortfall",
+      "title": "盈亏问题",
+      "category": "两个未知数",
+      "version": "2",
+      "source_id": "markdown-4e6b9f39ef955f4cabaef71bb9934f720742c34944186d35ccdeb802c9a5de66",
+      "description": "同批物品两种分配含一次正好分完：一盈一亏相加，同盈同亏相减，正好余缺为0；先对齐份数，检查方向和正整数人数，用总差除以每份差。",
+      "sha256": "7fad4a0e597a0405742f061f44a9a840fe39ae0ad51fae8dd39c3043c1cc9dfb",
+      "path": "surplus-and-shortfall/SKILL.md"
+    },
+    {
+      "name": "three-four-five-square-dissection",
+      "title": "三四正方形四块拼五",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-e2e574c8a2b463b7785b20dd3e67b5a9a0718f0fe5fef6b5c56776f9d01ce2ba",
+      "description": "两张边长3和4的正方形共剪成4块拼成边长5的正方形：保留4×4，3×3剪三块，用网格标记核验实际拼法。",
+      "sha256": "068544b39d124901efe3a93d4593d56c1bcb97dfe440a645029c0a46a20bb058",
+      "path": "three-four-five-square-dissection/SKILL.md"
+    },
+    {
+      "name": "timetable-capacity-and-conflicts",
+      "title": "课表容量与同时间冲突",
+      "category": "逻辑和推理",
+      "version": "1",
+      "source_id": "markdown-c3394cfbbca332d60d1c9c4cc8521b5e96b861960d68dafc11173f1b9dcb036a",
+      "description": "把科目归属、每人授课数量、同时段冲突和个人时间线索联合约束，逐步排除或完整枚举并核验所有可行安排。",
+      "sha256": "78c6412c26ec273a70fe18fadc35a722f1713c2e689c85a2bbcc06fe616d6533",
+      "path": "timetable-capacity-and-conflicts/SKILL.md"
+    },
+    {
+      "name": "train-length-and-event-reconciliation",
+      "title": "火车车长与多事件对齐",
+      "category": "行程和效率",
+      "version": "1",
+      "source_id": "markdown-14226e2262003032173a5e093f7208180b8553f008ea5fc8d0785e12cea55ab3",
+      "description": "同一火车多次过人或多车端点共时，比较同一车长、相对速度和实际事件时刻；支持车长比例、等差长度及追人时钟回推。",
+      "sha256": "2414efbfefcb6de4c16c4f8fe95d53666a79134df681ef835765242b7da148c3",
+      "path": "train-length-and-event-reconciliation/SKILL.md"
+    },
+    {
+      "name": "transfer-state-and-conservation",
+      "title": "多人转移状态与守恒还原",
+      "category": "变化里的不变量",
+      "version": "1",
+      "source_id": "markdown-4b9462498232bdc34b35492c140c7b45d3fc4a5dedaa7a51d79909e3ae80ac8f",
+      "description": "多人互赠、库存转移、按接收者存量翻倍或轮流清空平分时，记录完整有名状态与动作轮序，按合法逆像或完整状态循环还原初态。",
+      "sha256": "1f8985237172a7913c0d6e1a0513b385289c8c83db32943b7555e6c8b5d6ecc8",
+      "path": "transfer-state-and-conservation/SKILL.md"
+    },
+    {
+      "name": "translated-table-windows-and-fixed-sum-extrema",
+      "title": "规则数表中的平移窗口与相邻定和极值",
+      "category": "数表与极值",
+      "version": "1",
+      "source_id": "markdown-c8e0776a0e4fa3fc0ea0788bc3910a7a5fa2fa969086fdb6f05cf562a3bd1957",
+      "description": "连续整数满行表中的固定窗口平移求和与反定位，逐格核合法边界；满行蛇形表里上下相邻定和两数，用首尾配对和差最大构造证明乘积最小。",
+      "sha256": "23f99ae8d133feffa1e434ecd3ea2481113cc880794a9630f23109c7780e0b6c",
+      "path": "translated-table-windows-and-fixed-sum-extrema/SKILL.md"
+    },
+    {
+      "name": "triangular-grid-four-congruent-pieces",
+      "title": "三角网四块全等分割",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-acce304af69fc538ada22bb8a6560723adee34e9d0e9f90afb240ed793c2786c",
+      "description": "将24个等边小三角形构成的指定轮廓沿格线分成4个全等连通块；核对6格、覆盖及允许翻面的全等关系。",
+      "sha256": "9120dff9b650f5f081c1de661af25e4a2fdd92ab64e81e0c3b18ddfd7ec2101c",
+      "path": "triangular-grid-four-congruent-pieces/SKILL.md"
+    },
+    {
+      "name": "triangular-grid-rhombus-propagation",
+      "title": "菱形对顶和与三角网格等差传播",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-3ba00fee32f934238357158ea50a53536b097febb27fd65628213c3fe70b20af",
+      "description": "完整等距三角网格中每一相邻小三角形成的菱形均满足对顶和相等时，用局部等量代换推出三方向等差，再按角点值求各顶点及总和；缺条件时不套平均公式。",
+      "sha256": "282b07b81c1aaaa48b6f43ed9272fbc1894a6dcc5ee307117cdc560e5530459d",
+      "path": "triangular-grid-rhombus-propagation/SKILL.md"
+    },
+    {
+      "name": "triangular-lattice-area-dissection",
+      "title": "三角点阵单位面积与割补",
+      "category": "项目补充方法",
+      "version": "2",
+      "source_id": "markdown-10997e5deffa06b4ff9a44e6041fd7a403458c9132c4b221b5d846254ee2d817",
+      "description": "均匀三角点阵或经证明可细分三角网的正六边形，按单位小三角、底的格数与平行排数、菱形补缺及中点细分求面积；区分不同等分的单位，不把斜边当高。",
+      "sha256": "9657ec916804c5a363914a559515fd8a6475986a72f3a86ae62b671ff3ae8757",
+      "path": "triangular-lattice-area-dissection/SKILL.md"
+    },
+    {
+      "name": "truth-count-and-weekday-cycle",
+      "title": "真假数量与星期循环核验",
+      "category": "逻辑和推理",
+      "version": "1",
+      "source_id": "markdown-0ea2a7e401733bfc8ba5b9ddc33b1e553f34cea067be4dd832798e8be4a63e83",
+      "description": "按阈值分区计算真假数量，或按七天循环分别核对今天说话状态与昨天所指状态，保留所有可行解。",
+      "sha256": "2aeb880f300c86153efe52a5a5e4abc9b385ddf5a3e06f58a999f57bb842acc8",
+      "path": "truth-count-and-weekday-cycle/SKILL.md"
+    },
+    {
+      "name": "two-machine-total-waiting",
+      "title": "双机统筹与总等待最小化",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-1e1c79ae23c0b8f4ae06549f3c4cac015a52bd21e50c5234cb0412a7b0e41c39",
+      "description": "两台同样机器、所有人同时到达、任务不可中断，求总等候或等待时间最少；按两队人数枚举、等待次数配对与交换给出全局下界和开工表，区分最短工期。",
+      "sha256": "e48f85165db6b146aa1c1b56c15c1288ef2183b82aec5a88964f09dc79dcbf64",
+      "path": "two-machine-total-waiting/SKILL.md"
+    },
+    {
+      "name": "two-type-assumption",
+      "title": "鸡兔同笼",
+      "category": "两个未知数",
+      "version": "1",
+      "source_id": "markdown-c72641ea0f7d70f04a8441c0bb4834130112e5dfc06e01d9b39812926761c11f",
+      "description": "已知两类总数及加权总量，用全部假设为一类再按单位差调整；适用于鸡兔腿、两种单价、答对得分答错倒扣及打包倍数。",
+      "sha256": "58da5f5ae9ea8e89d7f141ef1f78d342afc48337baa2919bf69972217798f019",
+      "path": "two-type-assumption/SKILL.md"
+    },
+    {
+      "name": "unequal-group-sums-and-alternating-elimination",
+      "title": "已知组和的交替消去与共享中心",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-0c6937c502ebee0639910b85d9ab6447403710a50f47156eb9e42d38fb852704",
+      "description": "清晰布数图已知各边或射线的不同组和时，用奇环交替消去、偶环闭合检查、共享中心重数求值，再核连续自然数与互异配对及外端乘积极值。",
+      "sha256": "bc117c681bafad5f4d128f99562e8599be18dced93cbfaab8ddce3a383fea637",
+      "path": "unequal-group-sums-and-alternating-elimination/SKILL.md"
+    },
+    {
+      "name": "unitary-and-total",
+      "title": "归一与归总",
+      "category": "份数和平衡",
+      "version": "2",
+      "source_id": "markdown-ca3b6f0cb6b0058374631ebdd4150bffdf8c50d236c3e361dfa8a730753434af",
+      "description": "已知总价与数量先求单价，再求另一组的总价；已知每份与份数先求总量，再换分法。适用于同一批货物更换车辆次数，或同一批材料改进裁剪、改变每套衣服用布量等总量不变的题；先除后乘或先乘后除。满减、买赠等优惠须按规则另算，不仅凭价格和数量就套用。",
+      "sha256": "a2bc247cbc3e6c6b19971f478daa8d29585438049b1600694917dd7d2a07a8ab",
+      "path": "unitary-and-total/SKILL.md"
+    },
+    {
+      "name": "venn-overlap-diagram",
+      "title": "韦恩图",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-d80dfc6e3ba9fa16e68bf098e8522b77b21bdcc2db4528c3bd5b5884f493227e",
+      "description": "两个集合相交时画交集与各自独有部分，避免把重叠计两次；可展示至少一种、都不属于或未知交集。",
+      "sha256": "8aa49fe23acb267ff4930596070d23c41715fcd35133be134bac19c8d6c1dc1e",
+      "path": "venn-overlap-diagram/SKILL.md"
+    },
+    {
+      "name": "weekly-reception-time-windows",
+      "title": "周循环接待与连续窗口",
+      "category": "项目补充方法",
+      "version": "2",
+      "source_id": "markdown-b045f9e7335ebf40eb1d238d134b5c020ef1b3ab82fc2068254ce78698127861",
+      "description": "根据单位每周接待表、前天明天的开关状态和连续若干天的可办事窗口，筛选今天星期与人物单位对应，完整处理跨周和是否包含今天。",
+      "sha256": "fac6a85f83361b823ecc41236cdb5a02db455c11305e1e8f999936cb2f40c6a5",
+      "path": "weekly-reception-time-windows/SKILL.md"
+    },
+    {
+      "name": "weighted-class-capacity-and-attainment",
+      "title": "加权类别容量与恰好达到",
+      "category": "计数、图形和推理",
+      "version": "1",
+      "source_id": "markdown-ef8a9f0a09f346e5cf4d526f31b433aed0aaa0e11999f44f81b1a426dadd476c",
+      "description": "固定物品总量、每对象所得来自有限整数数量时，按所得数量加权计算坏容量，并给恰好分完的达到方案；一般权重须检查可达，不把粗除法界当最优。",
+      "sha256": "d2449eb484c69fc2fe9119a55977f9b36f56e814a077feaded546979e9fa5d31",
+      "path": "weighted-class-capacity-and-attainment/SKILL.md"
+    },
+    {
+      "name": "weighted-shortest-routes-and-required-visits",
+      "title": "带权最短路与必经点路线",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-6b48647387d491c03d2b25d25ec57293fc64c30c587b8ef83cb9a757b5b1ebda",
+      "description": "边权非负的有限路网，按最小暂定距离确定最短路并给可核查下界；必须访问多个地点时用访问集合或最短距离闭包比较访问次序，区分允许回访与简单路径。",
+      "sha256": "cae744c474252c0e296e9ebffb368ae4f841142c6730459a3f4c5c671eec386d",
+      "path": "weighted-shortest-routes-and-required-visits/SKILL.md"
+    },
+    {
+      "name": "whole-pack-integer-purchasing",
+      "title": "不可拆整包的整数采购",
+      "category": "项目补充方法",
+      "version": "1",
+      "source_id": "markdown-630278bb26d99dca9b77ce6dc7875041764fd47294a5e5d633ce53772f923b17",
+      "description": "商品按固定规格整包出售、允许买够后有剩余时，以正价格可行上界完整枚举包数，或用等数量替换缩小余数类；不按单价贪心，不混同恰买够。",
+      "sha256": "4e83336ce0da19fc355c7527af949b54c0f9f92cc592197197dd1251e9aab3ce",
+      "path": "whole-pack-integer-purchasing/SKILL.md"
+    },
+    {
+      "name": "work-rate",
+      "title": "工程问题",
+      "category": "行程和效率",
+      "version": "1",
+      "source_id": "markdown-f40f2af767dc47c8709d30e629c745287f56cc5fc9e0557be515986014fd4c3f",
+      "description": "工作量、效率、时间，合作效率相加、休息分段、进水与排水和工作量补偿问题；可把总工作量设为一或公倍数。",
+      "sha256": "e0d731fcbe7feae4e9844426346142203e362a2e075aa613dbe7f614b8f6ba3e",
+      "path": "work-rate/SKILL.md"
+    }
+  ]
+}

@@ -270,6 +270,27 @@ class SDKTests(unittest.IsolatedAsyncioTestCase):
         await engine.run_request(payload, events.append)
         return events
 
+    async def test_explicit_math_solution_mode_reaches_provider_without_an_agent_retry(self):
+        payload = request()
+        payload["response_mode"] = "math_solution"
+        events = await self.answer(payload)
+        self.assertEqual(events[-1]["type"], "done")
+        self.assertEqual(len(Handler.requests), 1)
+        self.assertEqual(Handler.requests[0][2]["max_completion_tokens"], 8192)
+
+    def test_math_solution_citations_stay_inside_readable_answer(self):
+        envelope = {"schemaVersion":1,"mode":"general","method_id":None,
+                    "visual_method_ids":[],"answer":"解答待核验。","diagrams":[]}
+        citation = "\n\n检索来源：\n[1] 来源"
+        for source in [json.dumps(envelope), "```math-solution\n" + json.dumps(envelope) + "\n```"]:
+            result = json.loads(engine.math_solution_citations(source, citation))
+            self.assertEqual(set(result), set(envelope))
+            self.assertEqual(result["answer"], envelope["answer"] + citation)
+            self.assertEqual(result["diagrams"], [])
+        for source in ["{invalid", "[]", '{"answer":2}']:
+            with self.assertRaises(engine.EngineError):
+                engine.math_solution_citations(source, citation)
+
     async def test_followup_reuses_idle_connection_after_typing_pause(self):
         # Complete JSON envelopes keep the test server connection open. The
         # client must preserve it across a natural pause before a follow-up.
@@ -516,6 +537,97 @@ class SDKTests(unittest.IsolatedAsyncioTestCase):
         finally:
             await pool.close()
 
+    async def test_learning_uses_separate_structured_budget_without_changing_normal_answers(self):
+        pool = engine.ModelPool()
+        configuration = request()["configuration"]
+        configuration["thinking"] = "off"
+        try:
+            normal_key, normal = await pool.acquire(configuration)
+            pool.release(normal_key)
+            learning_key, learning = await pool.acquire({**configuration, "task": "math_skill_learning"})
+            pool.release(learning_key)
+            self.assertNotEqual(normal_key, learning_key)
+            self.assertEqual(normal.max_tokens, 900)
+            self.assertEqual(learning.max_tokens, 8192)
+        finally:
+            await pool.close()
+
+    async def test_math_solution_uses_separate_pool_entry_and_preserves_reading_budget(self):
+        pool = engine.ModelPool()
+        configuration = {**request()["configuration"], "thinking": "off"}
+        try:
+            normal_key, normal = await pool.acquire(configuration)
+            pool.release(normal_key)
+            math_key, math = await pool.acquire({**configuration, "response_mode": "math_solution"})
+            pool.release(math_key)
+            diagram_key, diagram = await pool.acquire({**configuration, "response_mode": "math_diagrams"})
+            pool.release(diagram_key)
+            self.assertNotEqual(normal_key, math_key)
+            self.assertNotEqual(math_key, diagram_key)
+            self.assertEqual(normal.max_tokens, 900)
+            self.assertEqual(math.max_tokens, 8192)
+            reused_key, reused = await pool.acquire(configuration)
+            pool.release(reused_key)
+            self.assertEqual(normal_key, reused_key)
+            self.assertIs(normal, reused)
+        finally:
+            await pool.close()
+
+    async def test_selection_evidence_budget_is_separate_and_preserves_normal_provider_defaults(self):
+        for api in ("chatCompletions", "responses", "anthropicMessages"):
+            with self.subTest(api=api):
+                pool = engine.ModelPool()
+                configuration = request(api)["configuration"]
+                configuration["thinking"] = "off"
+                try:
+                    normal_key, normal = await pool.acquire(configuration)
+                    pool.release(normal_key)
+                    selection_key, selection = await pool.acquire({**configuration, "task": "math_method_selection"})
+                    pool.release(selection_key)
+                    self.assertNotEqual(normal_key, selection_key)
+                    self.assertEqual(normal.max_tokens, 4096 if api == "responses" else 900)
+                    self.assertEqual(selection.max_tokens, 8192)
+                    reused_key, reused = await pool.acquire(configuration)
+                    pool.release(reused_key)
+                    self.assertEqual(reused_key, normal_key)
+                    self.assertIs(reused, normal)
+                finally:
+                    await pool.close()
+
+    async def test_selection_request_passes_task_to_pool_without_altering_followup_answers(self):
+        payload = request()
+        payload["configuration"]["thinking"] = "off"
+        payload["task"] = "math_method_selection"
+        payload["teaching_skills"] = [{"id": "a", "version_id": "v", "title": "和差",
+            "category": "数学", "instructions": "必须已知同一组数量的和及差"}]
+        pool = engine.ModelPool()
+        async def select(model, messages, snapshots, *, prerequisite_protocol):
+            self.assertEqual(prerequisite_protocol, "daily")
+            self.assertEqual(model.max_tokens, 8192)
+            return json.dumps({"method_id": None, "visual_method_ids": [],
+                "reason": "没有同组数量条件", "applicability": []}), {"mode": "fixture"}
+        try:
+            events = []
+            with patch.object(engine, "select_skills", side_effect=select):
+                await engine.stream_answer(payload, events.append, pool)
+            self.assertEqual(events[-1]["type"], "done")
+            normal_key, normal = await pool.acquire(payload["configuration"])
+            pool.release(normal_key)
+            self.assertEqual(normal.max_tokens, 900)
+        finally:
+            await pool.close()
+
+    async def test_learning_photos_are_labeled_and_removed_before_checkpointing(self):
+        import base64
+        photo=base64.b64encode(b"\x89PNG\r\n\x1a\nfixture").decode()
+        learning={"evidence":[{"question_id":"original-a"}],"originals":[{"question_id":"original-a","image_data":photo}]}
+        clean,messages=engine.learning_originals(learning,[])
+        self.assertNotIn("originals",clean)
+        self.assertEqual(messages[0].content[0]["text"],"题目原图编号：original-a")
+        self.assertTrue(messages[0].content[1]["image_url"]["url"].endswith(photo))
+        for bad in ([learning["originals"][0]]*2,[{"question_id":"fabricated","image_data":photo}]):
+            with self.assertRaises(engine.EngineError): engine.learning_originals({**learning,"originals":bad},[])
+
     async def test_responses_real_sdk_exact_proxy_history_and_no_temperature(self):
         events = await self.answer(request("responses", "/chatgpt/v1/responses"))
         self.assertEqual(events[-1]["type"], "done", events)
@@ -574,6 +686,29 @@ class SDKTests(unittest.IsolatedAsyncioTestCase):
                     events = await self.answer(request())
                 self.assertEqual(events, [{"id": "one", "type": "error", "code": code}])
                 self.assertNotIn("fake-key", json.dumps(events))
+        self.assertFalse(Handler.requests)
+
+    async def test_typed_agent_budgets_are_sanitized_only_for_method_selection(self):
+        cases = [
+            engine.ModelCallLimitExceededError(6, 6, None, 5),
+            engine.ToolCallLimitExceededError(13, 13, None, 12, "fake-key-never-print"),
+            engine.GraphRecursionError("fake-key-never-print"),
+        ]
+        for error in cases:
+            for selection in (False, True):
+                with self.subTest(error=type(error).__name__, selection=selection):
+                    payload = request()
+                    if selection:
+                        payload["task"] = "math_method_selection"
+                    with patch.object(engine, "stream_answer", side_effect=error) as mocked:
+                        events = await self.answer(payload)
+                    self.assertEqual(events, [{"id": "one", "type": "error", "code": "skillsBudget" if selection else "response"}])
+                    self.assertNotIn("fake-key", json.dumps(events))
+                    self.assertEqual(mocked.call_count, 1)
+        payload = {**request(), "task": "math_method_selection"}
+        with patch.object(engine, "stream_answer", side_effect=ValueError("fake-key-never-print")):
+            events = await self.answer(payload)
+        self.assertEqual(events, [{"id": "one", "type": "error", "code": "response"}])
         self.assertFalse(Handler.requests)
 
     async def test_missing_terminal_and_length_rejected_all_protocols(self):

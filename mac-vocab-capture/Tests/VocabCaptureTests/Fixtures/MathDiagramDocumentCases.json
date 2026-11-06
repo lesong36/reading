@@ -1,0 +1,4273 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "filename": "（精品）小学数学典型应用题精讲宝典.doc",
+    "sha256": "6886fcc09280e975b39667e70b678e7fd25efccfa637d5e6f45b28951d3f866a",
+    "extraction": "LibreOffice DOCX paragraphs; appendix 消去法 indexed as section31",
+    "extractedTextSHA256": "0a9f9ed8aafb47c05f6aa54a9e1bbdda89edae26f95a3de43e3f8230f932e05b"
+  },
+  "inventory": [
+    {
+      "id": "doc-01-01",
+      "sectionID": 1,
+      "section": "归一问题",
+      "example": 1,
+      "stem": "买5支铅笔要0.6元钱，买同样的铅笔16支，需要多少钱？",
+      "sourceLocator": "office-paragraphs.txt 第41行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-01-02",
+      "sectionID": 1,
+      "section": "归一问题",
+      "example": 2,
+      "stem": "3台拖拉机3天耕地90公顷，照这样计算，5台拖拉机6 天耕地多少公顷？",
+      "sourceLocator": "office-paragraphs.txt 第46行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-01-03",
+      "sectionID": 1,
+      "section": "归一问题",
+      "example": 3,
+      "stem": "5辆汽车4次可以运送100吨钢材，如果用同样的7辆汽车运送105吨钢材，需要运几次？",
+      "sourceLocator": "office-paragraphs.txt 第51行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-02-01",
+      "sectionID": 2,
+      "section": "归总问题",
+      "example": 1,
+      "stem": "服装厂原来做一套衣服用布3.2米，改进裁剪方法后，每套衣服用布2.8米。原来做791套衣服的布，现在可以做多少套？",
+      "sourceLocator": "office-paragraphs.txt 第63行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-02-02",
+      "sectionID": 2,
+      "section": "归总问题",
+      "example": 2,
+      "stem": "小华每天读24页书，12天读完了《红岩》一书。小明每天读36页书，几天可以读完《红岩》？",
+      "sourceLocator": "office-paragraphs.txt 第68行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-02-03",
+      "sectionID": 2,
+      "section": "归总问题",
+      "example": 3,
+      "stem": "食堂运来一批蔬菜，原计划每天吃50千克，30天慢慢消费完这批蔬菜。后来根据大家的意见，每天比原计划多吃10千克，这批蔬菜可以吃多少天？",
+      "sourceLocator": "office-paragraphs.txt 第73行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-03-01",
+      "sectionID": 3,
+      "section": "和差问题",
+      "example": 1,
+      "stem": "甲乙两班共有学生98人，甲班比乙班多6人，求两班各有多少人？",
+      "sourceLocator": "office-paragraphs.txt 第83行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-03-02",
+      "sectionID": 3,
+      "section": "和差问题",
+      "example": 2,
+      "stem": "长方形的长和宽之和为18厘米，长比宽多2厘米，求长方形的面积。",
+      "sourceLocator": "office-paragraphs.txt 第87行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-03-03",
+      "sectionID": 3,
+      "section": "和差问题",
+      "example": 3,
+      "stem": "有甲乙丙三袋化肥，甲乙两袋共重32千克，乙丙两袋共重30千克，甲丙两袋共重22千克，求三袋化肥各重多少千克。",
+      "sourceLocator": "office-paragraphs.txt 第92行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-03-04",
+      "sectionID": 3,
+      "section": "和差问题",
+      "example": 4,
+      "stem": "甲乙两车原来共装苹果97筐，从甲车取下14筐放到乙车上，结果甲车比乙车还多3筐，两车原来各装苹果多少筐？",
+      "sourceLocator": "office-paragraphs.txt 第98行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-04-01",
+      "sectionID": 4,
+      "section": "和倍问题",
+      "example": 1,
+      "stem": "果园里有杏树和桃树共248棵，桃树的棵数是杏树的3倍，求杏树、桃树各多少棵？",
+      "sourceLocator": "office-paragraphs.txt 第109行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-04-02",
+      "sectionID": 4,
+      "section": "和倍问题",
+      "example": 2,
+      "stem": "东西两个仓库共存粮480吨，东库存粮数是西库存粮数的1.4倍，求两库各存粮多少吨？",
+      "sourceLocator": "office-paragraphs.txt 第113行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-04-03",
+      "sectionID": 4,
+      "section": "和倍问题",
+      "example": 3,
+      "stem": "甲站原有车52辆，乙站原有车32辆，若每天从甲站开往乙站28辆，从乙站开往甲站24辆，几天后乙站车辆数是甲站的2倍？",
+      "sourceLocator": "office-paragraphs.txt 第117行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-04-04",
+      "sectionID": 4,
+      "section": "和倍问题",
+      "example": 4,
+      "stem": "甲乙丙三数之和是170，乙比甲的2倍少4，丙比甲的3倍多6，求三数各是多少？",
+      "sourceLocator": "office-paragraphs.txt 第123行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-05-01",
+      "sectionID": 5,
+      "section": "差倍问题",
+      "example": 1,
+      "stem": "果园里桃树的棵数是杏树的3倍，而且桃树比杏树多124棵。求杏树、桃树各多少棵？",
+      "sourceLocator": "office-paragraphs.txt 第137行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-05-02",
+      "sectionID": 5,
+      "section": "差倍问题",
+      "example": 2,
+      "stem": "爸爸比儿子大27岁，今年，爸爸的年龄是儿子年龄的4倍，求父子二人今年各是多少岁？",
+      "sourceLocator": "office-paragraphs.txt 第141行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-05-03",
+      "sectionID": 5,
+      "section": "差倍问题",
+      "example": 3,
+      "stem": "商场改革经营管理办法后，本月盈利比上月盈利的2倍还多12万元，又知本月盈利比上月盈利多30万元，求这两个月盈利各是多少万元？",
+      "sourceLocator": "office-paragraphs.txt 第145行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-05-04",
+      "sectionID": 5,
+      "section": "差倍问题",
+      "example": 4,
+      "stem": "粮库有94吨小麦和138吨玉米，如果每天运出小麦和玉米各是9吨，问几天后剩下的玉米是小麦的3倍？",
+      "sourceLocator": "office-paragraphs.txt 第150行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-06-01",
+      "sectionID": 6,
+      "section": "倍比问题",
+      "example": 1,
+      "stem": "100千克油菜籽可以榨油40千克，现在有油菜籽3700千克，可以榨油多少？",
+      "sourceLocator": "office-paragraphs.txt 第161行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-06-02",
+      "sectionID": 6,
+      "section": "倍比问题",
+      "example": 2,
+      "stem": "今年植树节这天，某小学300名师生共植树400棵，照这样计算，全县48000名师生共植树多少棵？",
+      "sourceLocator": "office-paragraphs.txt 第166行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-06-03",
+      "sectionID": 6,
+      "section": "倍比问题",
+      "example": 3,
+      "stem": "凤翔县今年苹果大丰收，田家庄一户人家4亩果园收入11111元，照这样计算，全乡800亩果园共收入多少元？全县16000亩果园共收入多少元？",
+      "sourceLocator": "office-paragraphs.txt 第171行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-07-01",
+      "sectionID": 7,
+      "section": "相遇问题",
+      "example": 1,
+      "stem": "南京到上海的水路长392千米，同时从两港各开出一艘轮船相对而行，从南京开出的船每小时行28千米，从上海开出的船每小时行21千米，经过几小时两船相遇？",
+      "sourceLocator": "office-paragraphs.txt 第183行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-07-02",
+      "sectionID": 7,
+      "section": "相遇问题",
+      "example": 2,
+      "stem": "小李和小刘在周长为400米的环形跑道上跑步，小李每秒钟跑5米，小刘每秒钟跑3米，他们从同一地点同时出发，反向而跑，那么，二人从出发到第二次相遇需多长时间？",
+      "sourceLocator": "office-paragraphs.txt 第186行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-07-03",
+      "sectionID": 7,
+      "section": "相遇问题",
+      "example": 3,
+      "stem": "甲乙二人同时从两地骑自行车相向而行，甲每小时行15千米，乙每小时行13千米，两人在距中点3千米处相遇，求两地的距离。",
+      "sourceLocator": "office-paragraphs.txt 第191行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-08-01",
+      "sectionID": 8,
+      "section": "追及问题",
+      "example": 1,
+      "stem": "好马每天走120千米，劣马每天走75千米，劣马先走12天，好马几天能追上劣马？",
+      "sourceLocator": "office-paragraphs.txt 第201行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-08-02",
+      "sectionID": 8,
+      "section": "追及问题",
+      "example": 2,
+      "stem": "小明和小亮在200米环形跑道上跑步，小明跑一圈用40秒，他们从同一地点同时出发，同向而跑。小明第一次追上小亮时跑了500米，求小亮的速度是每秒多少米。",
+      "sourceLocator": "office-paragraphs.txt 第206行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-08-03",
+      "sectionID": 8,
+      "section": "追及问题",
+      "example": 3,
+      "stem": "我人民解放军追击一股逃窜的敌人，敌人在下午16点开始从甲地以每小时10千米的速度逃跑，解放军在晚上22点接到命令，以每小时30千米的速度开始从乙地追击。已知甲乙两地相距60千米，问解放军几个小时可以追上敌人？",
+      "sourceLocator": "office-paragraphs.txt 第210行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-08-04",
+      "sectionID": 8,
+      "section": "追及问题",
+      "example": 4,
+      "stem": "一辆客车从甲站开往乙站，每小时行48千米；一辆货车同时从乙站开往甲站，每小时行40千米，两车在距两站中点16千米处相遇，求甲乙两站的距离。",
+      "sourceLocator": "office-paragraphs.txt 第214行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-08-05",
+      "sectionID": 8,
+      "section": "追及问题",
+      "example": 5,
+      "stem": "兄妹二人同时由家上学，哥哥每分钟走90米，妹妹每分钟走60米。哥哥到校门口时发现忘记带课本，立即沿原路回家去取，行至离校180米处和妹妹相遇。问他们家离学校有多远？",
+      "sourceLocator": "office-paragraphs.txt 第220行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-08-06",
+      "sectionID": 8,
+      "section": "追及问题",
+      "example": 6,
+      "stem": "孙亮打算上课前5分钟到学校，他以每小时4千米的速度从家步行去学校，当他走了1千米时，发现手表慢了10分钟，因此立即跑步前进，到学校恰好准时上课。后来算了一下，如果孙亮从家一开始就跑步，可比原来步行早9分钟到学校。求孙亮跑步的速度。",
+      "sourceLocator": "office-paragraphs.txt 第226行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-09-01",
+      "sectionID": 9,
+      "section": "植树问题",
+      "example": 1,
+      "stem": "一条河堤136米，每隔2米栽一棵垂柳，头尾都栽，一共要栽多少棵垂柳？",
+      "sourceLocator": "office-paragraphs.txt 第240行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-09-02",
+      "sectionID": 9,
+      "section": "植树问题",
+      "example": 2,
+      "stem": "一个圆形池塘周长为400米，在岸边每隔4米栽一棵白杨树，一共能栽多少棵白杨树？",
+      "sourceLocator": "office-paragraphs.txt 第243行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-09-03",
+      "sectionID": 9,
+      "section": "植树问题",
+      "example": 3,
+      "stem": "一个正方形的运动场，每边长220米，每隔8米安装一个照明灯，一共可以安装多少个照明灯？",
+      "sourceLocator": "office-paragraphs.txt 第246行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-09-04",
+      "sectionID": 9,
+      "section": "植树问题",
+      "example": 4,
+      "stem": "给一个面积为96平方米的住宅铺设地板砖，所用地板砖的长和宽分别是60厘米和40厘米，问至少需要多少块地板砖？",
+      "sourceLocator": "office-paragraphs.txt 第249行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-09-05",
+      "sectionID": 9,
+      "section": "植树问题",
+      "example": 5,
+      "stem": "一座大桥长500米，给桥两边的电杆上安装路灯，若每隔50米有一个电杆，每个电杆上安装2盏路灯，一共可以安装多少盏路灯？",
+      "sourceLocator": "office-paragraphs.txt 第252行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-10-01",
+      "sectionID": 10,
+      "section": "年龄问题",
+      "example": 1,
+      "stem": "爸爸今年35岁，亮亮今年5岁，今年爸爸的年龄是亮亮的几倍？明年呢？",
+      "sourceLocator": "office-paragraphs.txt 第262行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-10-02",
+      "sectionID": 10,
+      "section": "年龄问题",
+      "example": 2,
+      "stem": "母亲今年37岁，女儿今年7岁，几年后母亲的年龄是女儿的4倍？",
+      "sourceLocator": "office-paragraphs.txt 第267行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-10-03",
+      "sectionID": 10,
+      "section": "年龄问题",
+      "example": 3,
+      "stem": "3年前父子的年龄和是49岁，今年父亲的年龄是儿子年龄的4倍，父子今年各多少岁？",
+      "sourceLocator": "office-paragraphs.txt 第272行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-10-04",
+      "sectionID": 10,
+      "section": "年龄问题",
+      "example": 4,
+      "stem": "甲对乙说：“当我的岁数曾经是你现在的岁数时，你才4岁”。乙对甲说：“当我的岁数将来是你现在的岁数时，你将61岁”。求甲乙现在的岁数各是多少？（可用方程解）",
+      "sourceLocator": "office-paragraphs.txt 第278行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-11-01",
+      "sectionID": 11,
+      "section": "行船问题",
+      "example": 1,
+      "stem": "一只船顺水行320千米需用8小时，水流速度为每小时15千米，这只船逆水行这段路程需用几小时？",
+      "sourceLocator": "office-paragraphs.txt 第305行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-11-02",
+      "sectionID": 11,
+      "section": "行船问题",
+      "example": 2,
+      "stem": "甲船逆水行360千米需18小时，返回原地需10小时；乙船逆水行同样一段距离需15小时，返回原地需多少时间？",
+      "sourceLocator": "office-paragraphs.txt 第311行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-11-03",
+      "sectionID": 11,
+      "section": "行船问题",
+      "example": 3,
+      "stem": "一架飞机飞行在两个城市之间，飞机的速度是每小时576千米，风速为每小时24千米，飞机逆风飞行3小时到达，顺风飞回需要几小时？",
+      "sourceLocator": "office-paragraphs.txt 第321行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-12-01",
+      "sectionID": 12,
+      "section": "列车问题",
+      "example": 1,
+      "stem": "一座大桥长2400米，一列火车以每分钟900米的速度通过大桥，从车头开上桥到车尾离开桥共需要3分钟。这列火车长多少米？",
+      "sourceLocator": "office-paragraphs.txt 第333行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-12-02",
+      "sectionID": 12,
+      "section": "列车问题",
+      "example": 2,
+      "stem": "一列长200米的火车以每秒8米的速度通过一座大桥，用了2分5秒钟时间，求大桥的长度是多少米？",
+      "sourceLocator": "office-paragraphs.txt 第339行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-12-03",
+      "sectionID": 12,
+      "section": "列车问题",
+      "example": 3,
+      "stem": "一列长225米的慢车以每秒17米的速度行驶，一列长140米的快车以每秒22米的速度在后面追赶，求快车从追上到追过慢车需要多长时间？",
+      "sourceLocator": "office-paragraphs.txt 第343行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-12-04",
+      "sectionID": 12,
+      "section": "列车问题",
+      "example": 4,
+      "stem": "一列长150米的列车以每秒22米的速度行驶，有一个扳道工人以每秒3米的速度迎面走来，那么，火车从工人身旁驶过需要多少时间？",
+      "sourceLocator": "office-paragraphs.txt 第347行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-12-05",
+      "sectionID": 12,
+      "section": "列车问题",
+      "example": 5,
+      "stem": "一列火车穿越一条长2000米的隧道用了88秒，以同样的速度通过一条长1250米的大桥用了58秒。求这列火车的车速和车身长度各是多少？",
+      "sourceLocator": "office-paragraphs.txt 第351行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-13-01",
+      "sectionID": 13,
+      "section": "时钟问题",
+      "example": 1,
+      "stem": "从时针指向4点开始，再经过多少分钟时针正好与分针重合？",
+      "sourceLocator": "office-paragraphs.txt 第363行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-13-02",
+      "sectionID": 13,
+      "section": "时钟问题",
+      "example": 2,
+      "stem": "四点和五点之间，时针和分针在什么时候成直角？",
+      "sourceLocator": "office-paragraphs.txt 第367行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-13-03",
+      "sectionID": 13,
+      "section": "时钟问题",
+      "example": 3,
+      "stem": "六点与七点之间什么时候时针与分针重合？",
+      "sourceLocator": "office-paragraphs.txt 第372行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-14-01",
+      "sectionID": 14,
+      "section": "盈亏问题",
+      "example": 1,
+      "stem": "给幼儿园小朋友分苹果，若每人分3个就余11个；若每人分4个就少1个。问有多少小朋友？有多少个苹果？",
+      "sourceLocator": "office-paragraphs.txt 第384行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-14-02",
+      "sectionID": 14,
+      "section": "盈亏问题",
+      "example": 2,
+      "stem": "修一条公路，如果每天修260米，修完全长就得延长8天；如果每天修300米，修完全长仍得延长4天。这条路全长多少米？",
+      "sourceLocator": "office-paragraphs.txt 第389行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-14-03",
+      "sectionID": 14,
+      "section": "盈亏问题",
+      "example": 3,
+      "stem": "学校组织春游，如果每辆车坐40人，就余下30人；如果每辆车坐45人，就刚好坐完。问有多少车？多少人？",
+      "sourceLocator": "office-paragraphs.txt 第395行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-15-01",
+      "sectionID": 15,
+      "section": "工程问题",
+      "example": 1,
+      "stem": "一项工程，甲队单独做需要10天完成，乙队单独做需要15天完成，现在两队合作，需要几天完成？",
+      "sourceLocator": "office-paragraphs.txt 第407行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-15-02",
+      "sectionID": 15,
+      "section": "工程问题",
+      "example": 2,
+      "stem": "一批零件，甲独做6小时完成，乙独做8小时完成。现在两人合做，完成任务时甲比乙多做24个，求这批零件共有多少个？",
+      "sourceLocator": "office-paragraphs.txt 第411行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-15-03",
+      "sectionID": 15,
+      "section": "工程问题",
+      "example": 3,
+      "stem": "一件工作，甲独做12小时完成，乙独做10小时完成，丙独做15小时完成。现在甲先做2小时，余下的由乙丙二人合做，还需几小时才能完成？",
+      "sourceLocator": "office-paragraphs.txt 第422行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-15-04",
+      "sectionID": 15,
+      "section": "工程问题",
+      "example": 4,
+      "stem": "一个水池，底部装有一个常开的排水管，上部装有若干个同样粗细的进水管。当打开4个进水管时，需要5小时才能注满水池；当打开2个进水管时，需要15小时才能注满水池；现在要用2小时将水池注满，至少要打开多少个进水管？",
+      "sourceLocator": "office-paragraphs.txt 第428行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-16-01",
+      "sectionID": 16,
+      "section": "正反比例问题",
+      "example": 1,
+      "stem": "修一条公路，已修的是未修的1/3，再修300米后，已修的变成未修的1/2，求这条公路总长是多少米？",
+      "sourceLocator": "office-paragraphs.txt 第445行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-16-02",
+      "sectionID": 16,
+      "section": "正反比例问题",
+      "example": 2,
+      "stem": "张晗做4道应用题用了28分钟，照这样计算，91分钟可以做几道应用题？",
+      "sourceLocator": "office-paragraphs.txt 第452行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-16-03",
+      "sectionID": 16,
+      "section": "正反比例问题",
+      "example": 3,
+      "stem": "孙亮看《十万个为什么》这本书，每天看24页，15天看完，如果每天看36页，几天就可以看完？",
+      "sourceLocator": "office-paragraphs.txt 第457行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-16-04",
+      "sectionID": 16,
+      "section": "正反比例问题",
+      "example": 4,
+      "stem": "一个大矩形被分成六个小矩形，其中四个小矩形的面积如图所示，求大矩形的面积。A252036B16",
+      "sourceLocator": "office-paragraphs.txt 第462行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-17-01",
+      "sectionID": 17,
+      "section": "按比例分配问题",
+      "example": 1,
+      "stem": "学校把植树560棵的任务按人数分配给五年级三个班，已知一班有47人，二班有48人，三班有45人，三个班各植树多少棵？",
+      "sourceLocator": "office-paragraphs.txt 第479行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-17-02",
+      "sectionID": 17,
+      "section": "按比例分配问题",
+      "example": 2,
+      "stem": "用60厘米长的铁丝围成一个三角形，三角形三条边的比是3∶4∶5。三条边的长各是多少厘米？",
+      "sourceLocator": "office-paragraphs.txt 第484行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-17-03",
+      "sectionID": 17,
+      "section": "按比例分配问题",
+      "example": 3,
+      "stem": "从前有个牧民，临死前留下遗言，要把17只羊分给三个儿子，大儿子分总数的1/2，二儿子分总数的1/3，三儿子分总数的1/9，并规定不许把羊宰割分，求三个儿子各分多少只羊。",
+      "sourceLocator": "office-paragraphs.txt 第489行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-17-04",
+      "sectionID": 17,
+      "section": "按比例分配问题",
+      "example": 4,
+      "stem": "某工厂第一、二、三车间人数之比为8∶12∶21，第一车间比第二车间少80人，三个车间共多少人？人 数80人一共多少人？对应的份数12－88＋12＋21",
+      "sourceLocator": "office-paragraphs.txt 第495行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-18-01",
+      "sectionID": 18,
+      "section": "百分数问题",
+      "example": 1,
+      "stem": "仓库里有一批化肥，用去720千克，剩下6480千克，用去的与剩下的各占原重量的百分之几？",
+      "sourceLocator": "office-paragraphs.txt 第514行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-18-02",
+      "sectionID": 18,
+      "section": "百分数问题",
+      "example": 2,
+      "stem": "红旗化工厂有男职工420人，女职工525人，男职工人数比女职工少百分之几？ 解 本题中女职工人数为标准量，男职工比女职工少的人数是比较量 所以 （525－420）÷525＝0.2＝20% 或者 1－420÷525＝0.2＝20%",
+      "sourceLocator": "office-paragraphs.txt 第518行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-18-03",
+      "sectionID": 18,
+      "section": "百分数问题",
+      "example": 3,
+      "stem": "红旗化工厂有男职工420人，女职工525人，女职工比男职工人数多百分之几？ 解 本题中以男职工人数为标准量，女职工比男职工多的人数为比较量，因此 （525－420）÷420＝0.25＝25%或者 525÷420－1＝0.25＝25%",
+      "sourceLocator": "office-paragraphs.txt 第521行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-18-04",
+      "sectionID": 18,
+      "section": "百分数问题",
+      "example": 4,
+      "stem": "红旗化工厂有男职工420人，有女职工525人，男、女职工各占全厂职工总数的百分之几？",
+      "sourceLocator": "office-paragraphs.txt 第525行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-18-05",
+      "sectionID": 18,
+      "section": "百分数问题",
+      "example": 5,
+      "stem": "百分数又叫百分率，百分率在工农业生产中应用很广泛，常见的百分率有：增长率＝增长数÷原来基数×100%合格率＝合格产品数÷产品总数×100%出勤率＝实际出勤人数÷应出勤人数×100%出勤率＝实际出勤天数÷应出勤天数×100%缺席率＝缺席人数÷实有总人数×100%发芽率＝发芽种子数÷试验种子总数×100%成活率＝成活棵数÷种植总棵数×100%出粉率＝面粉重量÷小麦重量×100%出油率＝油的重量÷油料重量×100%废品率＝废品数量÷全部产品数量×100%命中率＝命中次数÷总次数×100%烘干率＝烘干后重量÷烘前重量×100%及格率＝及格人数÷参加考试人数×100%",
+      "sourceLocator": "office-paragraphs.txt 第529行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-19-01",
+      "sectionID": 19,
+      "section": "“牛吃草”问题",
+      "example": 1,
+      "stem": "一块草地，10头牛20天可以把草吃完，15头牛10天可以把草吃完。问多少头牛5天可以把草吃完？",
+      "sourceLocator": "office-paragraphs.txt 第547行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-19-02",
+      "sectionID": 19,
+      "section": "“牛吃草”问题",
+      "example": 2,
+      "stem": "一只船有一个漏洞，水以均匀速度进入船内，发现漏洞时已经进了一些水。如果有12个人淘水，3小时可以淘完；如果只有5人淘水，要10小时才能淘完。求17人几小时可以淘完？",
+      "sourceLocator": "office-paragraphs.txt 第564行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-20-01",
+      "sectionID": 20,
+      "section": "鸡兔同笼问题",
+      "example": 1,
+      "stem": "长毛兔子芦花鸡，鸡兔圈在一笼里。数数头有三十五，脚数共有九十四。请你仔细算一算，多少兔子多少鸡？",
+      "sourceLocator": "office-paragraphs.txt 第590行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-20-02",
+      "sectionID": 20,
+      "section": "鸡兔同笼问题",
+      "example": 2,
+      "stem": "2亩菠菜要施肥1千克，5亩白菜要施肥3千克，两种菜共16亩，施肥9千克，求白菜有多少亩？",
+      "sourceLocator": "office-paragraphs.txt 第598行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-20-03",
+      "sectionID": 20,
+      "section": "鸡兔同笼问题",
+      "example": 3,
+      "stem": "李老师用69元给学校买作业本和日记本共45本，作业本每本 3 .20元，日记本每本0.70元。问作业本和日记本各买了多少本？",
+      "sourceLocator": "office-paragraphs.txt 第602行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-20-04",
+      "sectionID": 20,
+      "section": "鸡兔同笼问题",
+      "example": 4,
+      "stem": "（第二鸡兔同笼问题）鸡兔共有100只，鸡的脚比兔的脚多80只，问鸡与兔各多少只？",
+      "sourceLocator": "office-paragraphs.txt 第607行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-20-05",
+      "sectionID": 20,
+      "section": "鸡兔同笼问题",
+      "example": 5,
+      "stem": "有100个馍100个和尚吃，大和尚一人吃3个馍，小和尚3人吃1个馍，问大小和尚各多少人？",
+      "sourceLocator": "office-paragraphs.txt 第612行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-21-01",
+      "sectionID": 21,
+      "section": "方阵问题",
+      "example": 1,
+      "stem": "在育才小学的运动会上，进行体操表演的同学排成方阵，每行22人，参加体操表演的同学一共有多少人？",
+      "sourceLocator": "office-paragraphs.txt 第629行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-21-02",
+      "sectionID": 21,
+      "section": "方阵问题",
+      "example": 2,
+      "stem": "有一个3层中空方阵，最外边一层有10人，求全方阵的人数。",
+      "sourceLocator": "office-paragraphs.txt 第632行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-21-03",
+      "sectionID": 21,
+      "section": "方阵问题",
+      "example": 3,
+      "stem": "有一队学生，排成一个中空方阵，最外层人数是52人，最内层人数是28人，这队学生共多少人？",
+      "sourceLocator": "office-paragraphs.txt 第635行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-21-04",
+      "sectionID": 21,
+      "section": "方阵问题",
+      "example": 4,
+      "stem": "一堆棋子，排列成正方形，多余4棋子，若正方形纵横两个方向各增加一层，则缺少9只棋子，问有棋子多少个？",
+      "sourceLocator": "office-paragraphs.txt 第640行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-21-05",
+      "sectionID": 21,
+      "section": "方阵问题",
+      "example": 5,
+      "stem": "有一个三角形树林，顶点上有1棵树，以下每排的树都比前一排多1棵，最下面一排有5棵树。这个树林一共有多少棵树？",
+      "sourceLocator": "office-paragraphs.txt 第645行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-22-01",
+      "sectionID": 22,
+      "section": "商品利润问题",
+      "example": 1,
+      "stem": "某商品的平均价格在一月份上调了10%，到二月份又下调了10%，这种商品从原价到二月份的价格变动情况如何？",
+      "sourceLocator": "office-paragraphs.txt 第657行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-22-02",
+      "sectionID": 22,
+      "section": "商品利润问题",
+      "example": 2,
+      "stem": "某服装店因搬迁，店内商品八折销售。苗苗买了一件衣服用去52元，已知衣服原来按期望盈利30%定价，那么该店是亏本还是盈利？亏（盈）率是多少？",
+      "sourceLocator": "office-paragraphs.txt 第661行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-22-03",
+      "sectionID": 22,
+      "section": "商品利润问题",
+      "example": 3,
+      "stem": "成本0.25元的作业本1200册，按期望获得40%的利润定价出售，当销售出80%后，剩下的作业本打折扣，结果获得的利润是预定的86%。问剩下的作业本出售时按定价打了多少折扣？",
+      "sourceLocator": "office-paragraphs.txt 第666行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-22-04",
+      "sectionID": 22,
+      "section": "商品利润问题",
+      "example": 4,
+      "stem": "某种商品，甲店的进货价比乙店的进货价便宜10%，甲店按30%的利润定价，乙店按20%的利润定价，结果乙店的定价比甲店的定价贵6元，求乙店的定价。",
+      "sourceLocator": "office-paragraphs.txt 第672行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-23-01",
+      "sectionID": 23,
+      "section": "存款利率问题",
+      "example": 1,
+      "stem": "李大强存入银行1200元，月利率0.8%，到期后连本带利共取出1488元，求存款期多长。",
+      "sourceLocator": "office-paragraphs.txt 第686行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-23-02",
+      "sectionID": 23,
+      "section": "存款利率问题",
+      "example": 2,
+      "stem": "银行定期整存整取的年利率是：二年期7.92%，三年期8.28%，五年期9%。如果甲乙二人同时各存入1万元，甲先存二年期，到期后连本带利改存三年期；乙直存五年期。五年后二人同时取出，那么，谁的收益多？多多少元？",
+      "sourceLocator": "office-paragraphs.txt 第691行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-24-01",
+      "sectionID": 24,
+      "section": "溶液浓度问题",
+      "example": 1,
+      "stem": "爷爷有16%的糖水50克，（1）要把它稀释成10%的糖水，需加水多少克？（2）若要把它变成30%的糖水，需加糖多少克？",
+      "sourceLocator": "office-paragraphs.txt 第702行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-24-02",
+      "sectionID": 24,
+      "section": "溶液浓度问题",
+      "example": 2,
+      "stem": "要把30%的糖水与15%的糖水混合，配成25%的糖水600克，需要30%和15%的糖水各多少克？",
+      "sourceLocator": "office-paragraphs.txt 第706行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-24-03",
+      "sectionID": 24,
+      "section": "溶液浓度问题",
+      "example": 3,
+      "stem": "甲容器有浓度为12%的盐水500克，乙容器有500克水。把甲中盐水的一半倒入乙中，混合后再把乙中现有盐水的一半倒入甲中，混合后又把甲中的一部分盐水倒入乙中，使甲乙两容器中的盐水同样多。求最后乙中盐水的百分比浓度。",
+      "sourceLocator": "office-paragraphs.txt 第712行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-25-01",
+      "sectionID": 25,
+      "section": "构图布数问题",
+      "example": 1,
+      "stem": "十棵树苗子，要栽五行子，每行四棵子，请你想法子。",
+      "sourceLocator": "office-paragraphs.txt 第743行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-25-02",
+      "sectionID": 25,
+      "section": "构图布数问题",
+      "example": 2,
+      "stem": "九棵树苗子，要栽十行子，每行三棵子，请你想法子。",
+      "sourceLocator": "office-paragraphs.txt 第747行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-25-03",
+      "sectionID": 25,
+      "section": "构图布数问题",
+      "example": 3,
+      "stem": "九棵树苗子，要栽三行子，每行四棵子，请你想法子。",
+      "sourceLocator": "office-paragraphs.txt 第750行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-25-04",
+      "sectionID": 25,
+      "section": "构图布数问题",
+      "example": 4,
+      "stem": "把12拆成1到7这七个数中三个不同数的和，有几种写法？请设计一种图形，填入这七个数，每个数只填一处，且每条线上三个数的和都等于12。",
+      "sourceLocator": "office-paragraphs.txt 第753行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-26-01",
+      "sectionID": 26,
+      "section": "幻方问题",
+      "example": 1,
+      "stem": "把1，2，3，4，5，6，7，8，9这九个数填入九个方格中，使每行、每列、每条对角线上三个数的和相等。",
+      "sourceLocator": "office-paragraphs.txt 第763行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-26-02",
+      "sectionID": 26,
+      "section": "幻方问题",
+      "example": 2,
+      "stem": "把2，3，4，5，6，7，8，9，10这九个数填到九个方格中，使每行、每列、以及对角线上的各数之和都相等。",
+      "sourceLocator": "office-paragraphs.txt 第781行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-27-01",
+      "sectionID": 27,
+      "section": "抽屉原则问题",
+      "example": 1,
+      "stem": "育才小学有367个2000年出生的学生，那么其中至少有几个学生的生日是同一天的？",
+      "sourceLocator": "office-paragraphs.txt 第810行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-27-02",
+      "sectionID": 27,
+      "section": "抽屉原则问题",
+      "example": 2,
+      "stem": "据说人的头发不超过20万跟，如果陕西省有3645万人，根据这些数据，你知道陕西省至少有多少人头发根数一样多吗？",
+      "sourceLocator": "office-paragraphs.txt 第812行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-27-03",
+      "sectionID": 27,
+      "section": "抽屉原则问题",
+      "example": 3,
+      "stem": "一个袋子里有一些球，这些球仅只有颜色不同。其中红球10个，白球9个，黄球8个，蓝球2个。某人闭着眼睛从中取出若干个，试问他至少要取多少个球，才能保证至少有4个球颜色相同？",
+      "sourceLocator": "office-paragraphs.txt 第816行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-28-01",
+      "sectionID": 28,
+      "section": "公约公倍问题",
+      "example": 1,
+      "stem": "一张硬纸板长60厘米，宽56厘米，现在需要把它剪成若干个大小相同的最大的正方形，不许有剩余。问正方形的边长是多少？",
+      "sourceLocator": "office-paragraphs.txt 第823行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-28-02",
+      "sectionID": 28,
+      "section": "公约公倍问题",
+      "example": 2,
+      "stem": "甲、乙、丙三辆汽车在环形马路上同向行驶，甲车行一周要36分钟，乙车行一周要30分钟，丙车行一周要48分钟，三辆汽车同时从同一个起点出发，问至少要多少时间这三辆汽车才能同时又在起点相遇？",
+      "sourceLocator": "office-paragraphs.txt 第827行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-28-03",
+      "sectionID": 28,
+      "section": "公约公倍问题",
+      "example": 3,
+      "stem": "一个四边形广场，边长分别为60米，72米，96米，84米，现要在四角和四边植树，若四边上每两棵树间距相等，至少要植多少棵树？",
+      "sourceLocator": "office-paragraphs.txt 第830行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-28-04",
+      "sectionID": 28,
+      "section": "公约公倍问题",
+      "example": 4,
+      "stem": "一盒围棋子，4个4个地数多1个，5个5个地数多1个，6个6个地数还多1个。又知棋子总数在150到200之间，求棋子总数。",
+      "sourceLocator": "office-paragraphs.txt 第834行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-29-01",
+      "sectionID": 29,
+      "section": "最值问题",
+      "example": 1,
+      "stem": "在火炉上烤饼，饼的两面都要烤，每烤一面需要3分钟，炉上只能同时放两块饼，现在需要烤三块饼，最少需要多少分钟？",
+      "sourceLocator": "office-paragraphs.txt 第842行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-29-02",
+      "sectionID": 29,
+      "section": "最值问题",
+      "example": 2,
+      "stem": "在一条公路上有五个卸煤场，每相邻两个之间的距离都是10千米，已知1号煤场存煤100吨，2号煤场存煤200吨，5号煤场存煤400吨，其余两个煤场是空的。现在要把所有的煤集中到一个煤场里，每吨煤运1千米花费1元，集中到几号煤场花费最少？",
+      "sourceLocator": "office-paragraphs.txt 第845行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-29-03",
+      "sectionID": 29,
+      "section": "最值问题",
+      "example": 3,
+      "stem": "北京和上海同时制成计算机若干台，北京可调运外地10台，上海可调运外地4台。现决定给重庆调运8台，给武汉调运6台，若每台运费如右表，问如何调运才使运费最省？",
+      "sourceLocator": "office-paragraphs.txt 第863行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-30-01",
+      "sectionID": 30,
+      "section": "列方程问题",
+      "example": 1,
+      "stem": "甲乙两班共90人，甲班比乙班人数的2倍少30人，求两班各有多少人？",
+      "sourceLocator": "office-paragraphs.txt 第881行",
+      "selectedForRegression": true
+    },
+    {
+      "id": "doc-30-02",
+      "sectionID": 30,
+      "section": "列方程问题",
+      "example": 2,
+      "stem": "鸡兔35只，共有94只脚，问有多少兔？多少鸡？",
+      "sourceLocator": "office-paragraphs.txt 第890行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-30-03",
+      "sectionID": 30,
+      "section": "列方程问题",
+      "example": 3,
+      "stem": "仓库里有化肥940袋，两辆汽车4次可以运完，已知甲汽车每次运125袋，乙汽车每次运多少袋？",
+      "sourceLocator": "office-paragraphs.txt 第898行",
+      "selectedForRegression": false
+    },
+    {
+      "id": "doc-31-01",
+      "sectionID": 31,
+      "section": "消去法",
+      "example": 1,
+      "stem": "学校买了4张办公桌和1把椅子，共用去510元，后又买来6张办公桌和1把椅子共用去750元。求每张办公桌和每把椅子各多少元？",
+      "sourceLocator": "office-paragraphs.txt 第910行",
+      "selectedForRegression": true
+    }
+  ],
+  "cases": [
+    {
+      "id": "doc-01-01",
+      "sectionID": 1,
+      "section": "归一问题",
+      "example": 1,
+      "sourceLocator": "第1类「归一问题」例1；office-paragraphs.txt 第41行",
+      "stem": "买5支铅笔要0.6元钱，买同样的铅笔16支，需要多少钱？",
+      "status": "supported",
+      "method": "归一问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-01-01",
+          "title": "归一问题例1",
+          "kind": "quantity_plan",
+          "view": "table",
+          "quantities": [
+            {
+              "id": "cost",
+              "label": "原价",
+              "value": 0.6,
+              "unit": "元",
+              "evidence": "题面：原价为0.6元"
+            },
+            {
+              "id": "count",
+              "label": "原支数",
+              "value": 5,
+              "unit": "支",
+              "evidence": "题面：原支数为5支"
+            },
+            {
+              "id": "newCount",
+              "label": "新支数",
+              "value": 16,
+              "unit": "支",
+              "evidence": "题面：新支数为16支"
+            },
+            {
+              "id": "rate",
+              "label": "单价",
+              "operation": "quotient",
+              "inputs": [
+                "cost",
+                "count"
+              ]
+            },
+            {
+              "id": "newCost",
+              "label": "新总价",
+              "operation": "product",
+              "inputs": [
+                "rate",
+                "newCount"
+              ]
+            }
+          ],
+          "columns": [
+            "数量",
+            "总价"
+          ],
+          "rows": [
+            {
+              "label": "原采购",
+              "factIDs": [
+                "count",
+                "cost"
+              ]
+            },
+            {
+              "label": "新采购",
+              "factIDs": [
+                "newCount",
+                "newCost"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "rate": 0.12,
+          "newCost": 1.92
+        }
+      },
+      "diagramKinds": [
+        "table"
+      ]
+    },
+    {
+      "id": "doc-02-01",
+      "sectionID": 2,
+      "section": "归总问题",
+      "example": 1,
+      "sourceLocator": "第2类「归总问题」例1；office-paragraphs.txt 第63行",
+      "stem": "服装厂原来做一套衣服用布3.2米，改进裁剪方法后，每套衣服用布2.8米。原来做791套衣服的布，现在可以做多少套？",
+      "status": "supported",
+      "method": "归总问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-02-01",
+          "title": "归总问题例1",
+          "kind": "quantity_plan",
+          "view": "table",
+          "quantities": [
+            {
+              "id": "oldRate",
+              "label": "原每套用布",
+              "value": 3.2,
+              "unit": "米/套",
+              "evidence": "题面：原每套用布为3.2米/套"
+            },
+            {
+              "id": "newRate",
+              "label": "新每套用布",
+              "value": 2.8,
+              "unit": "米/套",
+              "evidence": "题面：新每套用布为2.8米/套"
+            },
+            {
+              "id": "oldCount",
+              "label": "原套数",
+              "value": 791,
+              "unit": "套",
+              "evidence": "题面：原套数为791套"
+            },
+            {
+              "id": "cloth",
+              "label": "同一批布",
+              "operation": "product",
+              "inputs": [
+                "oldRate",
+                "oldCount"
+              ]
+            },
+            {
+              "id": "newCount",
+              "label": "新套数",
+              "operation": "quotient",
+              "inputs": [
+                "cloth",
+                "newRate"
+              ]
+            }
+          ],
+          "columns": [
+            "每套用布",
+            "套数"
+          ],
+          "rows": [
+            {
+              "label": "原裁剪",
+              "factIDs": [
+                "oldRate",
+                "oldCount"
+              ]
+            },
+            {
+              "label": "新裁剪",
+              "factIDs": [
+                "newRate",
+                "newCount"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "cloth": 2531.2,
+          "newCount": 904
+        }
+      },
+      "diagramKinds": [
+        "table"
+      ]
+    },
+    {
+      "id": "doc-03-01",
+      "sectionID": 3,
+      "section": "和差问题",
+      "example": 1,
+      "sourceLocator": "第3类「和差问题」例1；office-paragraphs.txt 第83行",
+      "stem": "甲乙两班共有学生98人，甲班比乙班多6人，求两班各有多少人？",
+      "status": "supported",
+      "method": "和差问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-03-01",
+          "title": "和差问题例1",
+          "kind": "quantity_plan",
+          "view": "bar_comparison",
+          "quantities": [
+            {
+              "id": "sum",
+              "label": "总人数",
+              "value": 98,
+              "unit": "人",
+              "evidence": "题面：总人数为98人"
+            },
+            {
+              "id": "diff",
+              "label": "人数差",
+              "value": 6,
+              "unit": "人",
+              "evidence": "题面：人数差为6人"
+            },
+            {
+              "id": "two",
+              "label": "平均分为两份",
+              "rule": "two"
+            },
+            {
+              "id": "twiceA",
+              "label": "甲的两倍",
+              "operation": "sum",
+              "inputs": [
+                "sum",
+                "diff"
+              ]
+            },
+            {
+              "id": "a",
+              "label": "甲班",
+              "operation": "quotient",
+              "inputs": [
+                "twiceA",
+                "two"
+              ]
+            },
+            {
+              "id": "b",
+              "label": "乙班",
+              "operation": "difference",
+              "inputs": [
+                "sum",
+                "a"
+              ]
+            }
+          ],
+          "factIDs": [
+            "a",
+            "b"
+          ],
+          "checks": [
+            {
+              "operation": "difference",
+              "inputs": [
+                "a",
+                "b"
+              ],
+              "result": "diff"
+            }
+          ]
+        },
+        {
+          "id": "doc-03-01-balance",
+          "title": "和差问题例1平均与半差",
+          "kind": "quantity_plan",
+          "view": "balance",
+          "quantities": [
+            {
+              "id": "sum",
+              "label": "总人数",
+              "value": 98,
+              "unit": "人",
+              "evidence": "题面：总人数为98人"
+            },
+            {
+              "id": "diff",
+              "label": "人数差",
+              "value": 6,
+              "unit": "人",
+              "evidence": "题面：人数差为6人"
+            },
+            {
+              "id": "two",
+              "label": "平均分为两份",
+              "rule": "two"
+            },
+            {
+              "id": "twiceA",
+              "label": "甲的两倍",
+              "operation": "sum",
+              "inputs": [
+                "sum",
+                "diff"
+              ]
+            },
+            {
+              "id": "a",
+              "label": "甲班",
+              "operation": "quotient",
+              "inputs": [
+                "twiceA",
+                "two"
+              ]
+            },
+            {
+              "id": "b",
+              "label": "乙班",
+              "operation": "difference",
+              "inputs": [
+                "sum",
+                "a"
+              ]
+            },
+            {
+              "id": "average",
+              "label": "平均人数",
+              "operation": "quotient",
+              "inputs": [
+                "sum",
+                "two"
+              ]
+            },
+            {
+              "id": "transfer",
+              "label": "使两班同样多的假想调动量",
+              "operation": "quotient",
+              "inputs": [
+                "diff",
+                "two"
+              ]
+            }
+          ],
+          "factIDs": [
+            "a",
+            "b",
+            "average",
+            "transfer"
+          ],
+          "checks": [
+            {
+              "operation": "difference",
+              "inputs": [
+                "a",
+                "b"
+              ],
+              "result": "diff"
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "a": 52,
+          "b": 46,
+          "doc-03-01-balance:average": 49,
+          "doc-03-01-balance:transfer": 3
+        }
+      },
+      "diagramKinds": [
+        "bar_comparison",
+        "balance"
+      ],
+      "independentCheck": "原题问52/46人数；对照图显示平均49、差的一半3。这是假想调动示意，不是题面已发生的转班事件。"
+    },
+    {
+      "id": "doc-03-02",
+      "sectionID": 3,
+      "section": "和差问题",
+      "example": 2,
+      "sourceLocator": "第3类「和差问题」例2；office-paragraphs.txt 第87行",
+      "stem": "长方形的长和宽之和为18厘米，长比宽多2厘米，求长方形的面积。",
+      "status": "supported",
+      "method": "和差问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-03-02",
+          "title": "和差问题例2",
+          "kind": "quantity_plan",
+          "view": "area",
+          "quantities": [
+            {
+              "id": "sum",
+              "label": "长宽之和",
+              "value": 18,
+              "unit": "厘米",
+              "evidence": "题面：长宽之和为18厘米"
+            },
+            {
+              "id": "diff",
+              "label": "长宽之差",
+              "value": 2,
+              "unit": "厘米",
+              "evidence": "题面：长宽之差为2厘米"
+            },
+            {
+              "id": "two",
+              "label": "两份",
+              "rule": "two"
+            },
+            {
+              "id": "twiceLength",
+              "label": "长的两倍",
+              "operation": "sum",
+              "inputs": [
+                "sum",
+                "diff"
+              ]
+            },
+            {
+              "id": "length",
+              "label": "长",
+              "operation": "quotient",
+              "inputs": [
+                "twiceLength",
+                "two"
+              ]
+            },
+            {
+              "id": "width",
+              "label": "宽",
+              "operation": "difference",
+              "inputs": [
+                "sum",
+                "length"
+              ]
+            },
+            {
+              "id": "area",
+              "label": "面积",
+              "operation": "product",
+              "inputs": [
+                "length",
+                "width"
+              ]
+            }
+          ],
+          "factIDs": [
+            "length",
+            "width",
+            "area"
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "length": 10,
+          "width": 8,
+          "area": 80
+        }
+      },
+      "diagramKinds": [
+        "area"
+      ]
+    },
+    {
+      "id": "doc-04-01",
+      "sectionID": 4,
+      "section": "和倍问题",
+      "example": 1,
+      "sourceLocator": "第4类「和倍问题」例1；office-paragraphs.txt 第109行",
+      "stem": "果园里有杏树和桃树共248棵，桃树的棵数是杏树的3倍，求杏树、桃树各多少棵？",
+      "status": "supported",
+      "method": "和倍问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-04-01",
+          "title": "和倍问题例1",
+          "kind": "quantity_plan",
+          "view": "equal_parts",
+          "quantities": [
+            {
+              "id": "sum",
+              "label": "杏桃总数",
+              "value": 248,
+              "unit": "棵",
+              "evidence": "题面：杏桃总数为248棵"
+            },
+            {
+              "id": "ratio",
+              "label": "桃杏倍数",
+              "value": 3,
+              "unit": "",
+              "evidence": "题面：桃杏倍数为3"
+            },
+            {
+              "id": "one",
+              "label": "杏树一份",
+              "rule": "one"
+            },
+            {
+              "id": "partsCount",
+              "label": "总份数",
+              "operation": "sum",
+              "inputs": [
+                "ratio",
+                "one"
+              ]
+            },
+            {
+              "id": "small",
+              "label": "杏树",
+              "operation": "quotient",
+              "inputs": [
+                "sum",
+                "partsCount"
+              ]
+            },
+            {
+              "id": "large",
+              "label": "桃树",
+              "operation": "product",
+              "inputs": [
+                "small",
+                "ratio"
+              ]
+            }
+          ],
+          "factIDs": [
+            "small",
+            "large"
+          ],
+          "parts": [
+            1,
+            3
+          ],
+          "checks": [
+            {
+              "operation": "sum",
+              "inputs": [
+                "small",
+                "large"
+              ],
+              "result": "sum"
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "small": 62,
+          "large": 186
+        }
+      },
+      "diagramKinds": [
+        "equal_parts"
+      ]
+    },
+    {
+      "id": "doc-05-01",
+      "sectionID": 5,
+      "section": "差倍问题",
+      "example": 1,
+      "sourceLocator": "第5类「差倍问题」例1；office-paragraphs.txt 第137行",
+      "stem": "果园里桃树的棵数是杏树的3倍，而且桃树比杏树多124棵。求杏树、桃树各多少棵？",
+      "status": "supported",
+      "method": "差倍问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-05-01",
+          "title": "差倍问题例1",
+          "kind": "quantity_plan",
+          "view": "equal_parts",
+          "quantities": [
+            {
+              "id": "diff",
+              "label": "桃比杏多",
+              "value": 124,
+              "unit": "棵",
+              "evidence": "题面：桃比杏多为124棵"
+            },
+            {
+              "id": "ratio",
+              "label": "桃杏倍数",
+              "value": 3,
+              "unit": "",
+              "evidence": "题面：桃杏倍数为3"
+            },
+            {
+              "id": "one",
+              "label": "杏树一份",
+              "rule": "one"
+            },
+            {
+              "id": "extra",
+              "label": "多出份数",
+              "operation": "difference",
+              "inputs": [
+                "ratio",
+                "one"
+              ]
+            },
+            {
+              "id": "small",
+              "label": "杏树",
+              "operation": "quotient",
+              "inputs": [
+                "diff",
+                "extra"
+              ]
+            },
+            {
+              "id": "large",
+              "label": "桃树",
+              "operation": "product",
+              "inputs": [
+                "small",
+                "ratio"
+              ]
+            }
+          ],
+          "factIDs": [
+            "small",
+            "large"
+          ],
+          "parts": [
+            1,
+            3
+          ],
+          "checks": [
+            {
+              "operation": "difference",
+              "inputs": [
+                "large",
+                "small"
+              ],
+              "result": "diff"
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "small": 62,
+          "large": 186
+        }
+      },
+      "diagramKinds": [
+        "equal_parts"
+      ]
+    },
+    {
+      "id": "doc-06-01",
+      "sectionID": 6,
+      "section": "倍比问题",
+      "example": 1,
+      "sourceLocator": "第6类「倍比问题」例1；office-paragraphs.txt 第161行",
+      "stem": "100千克油菜籽可以榨油40千克，现在有油菜籽3700千克，可以榨油多少？",
+      "status": "supported",
+      "method": "倍比问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-06-01",
+          "title": "倍比问题例1",
+          "kind": "quantity_plan",
+          "view": "table",
+          "quantities": [
+            {
+              "id": "seed",
+              "label": "原菜籽",
+              "value": 100,
+              "unit": "千克",
+              "evidence": "题面：原菜籽为100千克"
+            },
+            {
+              "id": "oil",
+              "label": "原榨油",
+              "value": 40,
+              "unit": "千克",
+              "evidence": "题面：原榨油为40千克"
+            },
+            {
+              "id": "newSeed",
+              "label": "现有菜籽",
+              "value": 3700,
+              "unit": "千克",
+              "evidence": "题面：现有菜籽为3700千克"
+            },
+            {
+              "id": "multiple",
+              "label": "扩大倍数",
+              "operation": "quotient",
+              "inputs": [
+                "newSeed",
+                "seed"
+              ]
+            },
+            {
+              "id": "newOil",
+              "label": "现可榨油",
+              "operation": "product",
+              "inputs": [
+                "oil",
+                "multiple"
+              ]
+            }
+          ],
+          "columns": [
+            "菜籽",
+            "榨油"
+          ],
+          "rows": [
+            {
+              "label": "原批量",
+              "factIDs": [
+                "seed",
+                "oil"
+              ]
+            },
+            {
+              "label": "现批量",
+              "factIDs": [
+                "newSeed",
+                "newOil"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "multiple": 37,
+          "newOil": 1480
+        }
+      },
+      "diagramKinds": [
+        "table"
+      ]
+    },
+    {
+      "id": "doc-07-01",
+      "sectionID": 7,
+      "section": "相遇问题",
+      "example": 1,
+      "sourceLocator": "第7类「相遇问题」例1；office-paragraphs.txt 第183行",
+      "stem": "南京到上海的水路长392千米，同时从两港各开出一艘轮船相对而行，从南京开出的船每小时行28千米，从上海开出的船每小时行21千米，经过几小时两船相遇？",
+      "status": "supported",
+      "method": "相遇问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-07-01",
+          "title": "相遇问题例1",
+          "kind": "quantity_plan",
+          "view": "table",
+          "quantities": [
+            {
+              "id": "distance",
+              "label": "水路",
+              "value": 392,
+              "unit": "千米",
+              "evidence": "题面：水路为392千米"
+            },
+            {
+              "id": "aRate",
+              "label": "南京船速",
+              "value": 28,
+              "unit": "千米/小时",
+              "evidence": "题面：南京船速为28千米/小时"
+            },
+            {
+              "id": "bRate",
+              "label": "上海船速",
+              "value": 21,
+              "unit": "千米/小时",
+              "evidence": "题面：上海船速为21千米/小时"
+            },
+            {
+              "id": "combined",
+              "label": "相向合速度",
+              "operation": "sum",
+              "inputs": [
+                "aRate",
+                "bRate"
+              ]
+            },
+            {
+              "id": "time",
+              "label": "相遇时间",
+              "operation": "quotient",
+              "inputs": [
+                "distance",
+                "combined"
+              ]
+            }
+          ],
+          "columns": [
+            "路程",
+            "合速度",
+            "时间"
+          ],
+          "rows": [
+            {
+              "label": "相向而行",
+              "factIDs": [
+                "distance",
+                "combined",
+                "time"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "combined": 49,
+          "time": 8
+        }
+      },
+      "diagramKinds": [
+        "table"
+      ]
+    },
+    {
+      "id": "doc-08-01",
+      "sectionID": 8,
+      "section": "追及问题",
+      "example": 1,
+      "sourceLocator": "第8类「追及问题」例1；office-paragraphs.txt 第201行",
+      "stem": "好马每天走120千米，劣马每天走75千米，劣马先走12天，好马几天能追上劣马？",
+      "status": "supported",
+      "method": "追及问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-08-01",
+          "title": "追及问题例1",
+          "kind": "quantity_plan",
+          "view": "table",
+          "quantities": [
+            {
+              "id": "fast",
+              "label": "好马速度",
+              "value": 120,
+              "unit": "千米/天",
+              "evidence": "题面：好马速度为120千米/天"
+            },
+            {
+              "id": "slow",
+              "label": "劣马速度",
+              "value": 75,
+              "unit": "千米/天",
+              "evidence": "题面：劣马速度为75千米/天"
+            },
+            {
+              "id": "lead",
+              "label": "先走天数",
+              "value": 12,
+              "unit": "天",
+              "evidence": "题面：先走天数为12天"
+            },
+            {
+              "id": "gap",
+              "label": "先行路程",
+              "operation": "product",
+              "inputs": [
+                "slow",
+                "lead"
+              ]
+            },
+            {
+              "id": "relative",
+              "label": "追及速度",
+              "operation": "difference",
+              "inputs": [
+                "fast",
+                "slow"
+              ]
+            },
+            {
+              "id": "time",
+              "label": "追及天数",
+              "operation": "quotient",
+              "inputs": [
+                "gap",
+                "relative"
+              ]
+            }
+          ],
+          "columns": [
+            "落后路程",
+            "相对速度",
+            "追及天数"
+          ],
+          "rows": [
+            {
+              "label": "好马追劣马",
+              "factIDs": [
+                "gap",
+                "relative",
+                "time"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "gap": 900,
+          "relative": 45,
+          "time": 20
+        }
+      },
+      "diagramKinds": [
+        "table"
+      ]
+    },
+    {
+      "id": "doc-09-01",
+      "sectionID": 9,
+      "section": "植树问题",
+      "example": 1,
+      "sourceLocator": "第9类「植树问题」例1；office-paragraphs.txt 第240行",
+      "stem": "一条河堤136米，每隔2米栽一棵垂柳，头尾都栽，一共要栽多少棵垂柳？",
+      "status": "supported",
+      "method": "植树问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-09-01",
+          "title": "植树问题例1",
+          "kind": "quantity_plan",
+          "view": "interval",
+          "quantities": [
+            {
+              "id": "length",
+              "label": "河堤长度",
+              "value": 136,
+              "unit": "米",
+              "evidence": "题面：河堤长度为136米"
+            },
+            {
+              "id": "spacing",
+              "label": "每个间距",
+              "value": 2,
+              "unit": "米",
+              "evidence": "题面：每个间距为2米"
+            },
+            {
+              "id": "start",
+              "label": "河堤起点序号",
+              "rule": "zero"
+            },
+            {
+              "id": "end",
+              "label": "河堤终点序号",
+              "operation": "quotient",
+              "inputs": [
+                "length",
+                "spacing"
+              ]
+            },
+            {
+              "id": "intervals",
+              "label": "间隔数",
+              "operation": "difference",
+              "inputs": [
+                "end",
+                "start"
+              ]
+            },
+            {
+              "id": "one",
+              "label": "两端都栽多一个点",
+              "rule": "one"
+            },
+            {
+              "id": "trees",
+              "label": "树的棵数",
+              "operation": "sum",
+              "inputs": [
+                "intervals",
+                "one"
+              ]
+            }
+          ],
+          "factIDs": [
+            "start",
+            "end",
+            "intervals",
+            "spacing",
+            "length"
+          ],
+          "checks": [
+            {
+              "operation": "product",
+              "inputs": [
+                "intervals",
+                "spacing"
+              ],
+              "result": "length"
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "intervals": 68,
+          "trees": 69
+        }
+      },
+      "diagramKinds": [
+        "interval"
+      ]
+    },
+    {
+      "id": "doc-10-01",
+      "sectionID": 10,
+      "section": "年龄问题",
+      "example": 1,
+      "sourceLocator": "第10类「年龄问题」例1；office-paragraphs.txt 第262行",
+      "stem": "爸爸今年35岁，亮亮今年5岁，今年爸爸的年龄是亮亮的几倍？明年呢？",
+      "status": "supported",
+      "method": "年龄问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-10-01",
+          "title": "年龄问题例1",
+          "kind": "quantity_plan",
+          "view": "table",
+          "quantities": [
+            {
+              "id": "father",
+              "label": "爸爸今年",
+              "value": 35,
+              "unit": "岁",
+              "evidence": "题面：爸爸今年为35岁"
+            },
+            {
+              "id": "child",
+              "label": "亮亮今年",
+              "value": 5,
+              "unit": "岁",
+              "evidence": "题面：亮亮今年为5岁"
+            },
+            {
+              "id": "year",
+              "label": "明年比今年多",
+              "value": 1,
+              "unit": "岁",
+              "evidence": "题面“明年”：每人年龄增加1岁"
+            },
+            {
+              "id": "nowRatio",
+              "label": "今年倍数",
+              "operation": "quotient",
+              "inputs": [
+                "father",
+                "child"
+              ]
+            },
+            {
+              "id": "nextFather",
+              "label": "爸爸明年",
+              "operation": "sum",
+              "inputs": [
+                "father",
+                "year"
+              ]
+            },
+            {
+              "id": "nextChild",
+              "label": "亮亮明年",
+              "operation": "sum",
+              "inputs": [
+                "child",
+                "year"
+              ]
+            },
+            {
+              "id": "nextRatio",
+              "label": "明年倍数",
+              "operation": "quotient",
+              "inputs": [
+                "nextFather",
+                "nextChild"
+              ]
+            }
+          ],
+          "columns": [
+            "爸爸年龄",
+            "亮亮年龄",
+            "倍数"
+          ],
+          "rows": [
+            {
+              "label": "今年",
+              "factIDs": [
+                "father",
+                "child",
+                "nowRatio"
+              ]
+            },
+            {
+              "label": "明年",
+              "factIDs": [
+                "nextFather",
+                "nextChild",
+                "nextRatio"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "nowRatio": 7,
+          "nextFather": 36,
+          "nextChild": 6,
+          "nextRatio": 6
+        }
+      },
+      "diagramKinds": [
+        "table"
+      ]
+    },
+    {
+      "id": "doc-11-01",
+      "sectionID": 11,
+      "section": "行船问题",
+      "example": 1,
+      "sourceLocator": "第11类「行船问题」例1；office-paragraphs.txt 第305行",
+      "stem": "一只船顺水行320千米需用8小时，水流速度为每小时15千米，这只船逆水行这段路程需用几小时？",
+      "status": "supported",
+      "method": "行船问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-11-01",
+          "title": "行船问题例1",
+          "kind": "quantity_plan",
+          "view": "table",
+          "quantities": [
+            {
+              "id": "distance",
+              "label": "路程",
+              "value": 320,
+              "unit": "千米",
+              "evidence": "题面：路程为320千米"
+            },
+            {
+              "id": "downTime",
+              "label": "顺水时间",
+              "value": 8,
+              "unit": "小时",
+              "evidence": "题面：顺水时间为8小时"
+            },
+            {
+              "id": "water",
+              "label": "水速",
+              "value": 15,
+              "unit": "千米/小时",
+              "evidence": "题面：水速为15千米/小时"
+            },
+            {
+              "id": "down",
+              "label": "顺水速度",
+              "operation": "quotient",
+              "inputs": [
+                "distance",
+                "downTime"
+              ]
+            },
+            {
+              "id": "boat",
+              "label": "静水船速",
+              "operation": "difference",
+              "inputs": [
+                "down",
+                "water"
+              ]
+            },
+            {
+              "id": "up",
+              "label": "逆水速度",
+              "operation": "difference",
+              "inputs": [
+                "boat",
+                "water"
+              ]
+            },
+            {
+              "id": "upTime",
+              "label": "逆水时间",
+              "operation": "quotient",
+              "inputs": [
+                "distance",
+                "up"
+              ]
+            }
+          ],
+          "columns": [
+            "速度",
+            "时间"
+          ],
+          "rows": [
+            {
+              "label": "顺水",
+              "factIDs": [
+                "down",
+                "downTime"
+              ]
+            },
+            {
+              "label": "逆水",
+              "factIDs": [
+                "up",
+                "upTime"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "down": 40,
+          "boat": 25,
+          "up": 10,
+          "upTime": 32
+        }
+      },
+      "diagramKinds": [
+        "table"
+      ]
+    },
+    {
+      "id": "doc-12-01",
+      "sectionID": 12,
+      "section": "列车问题",
+      "example": 1,
+      "sourceLocator": "第12类「列车问题」例1；office-paragraphs.txt 第333行",
+      "stem": "一座大桥长2400米，一列火车以每分钟900米的速度通过大桥，从车头开上桥到车尾离开桥共需要3分钟。这列火车长多少米？",
+      "status": "supported",
+      "method": "列车问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-12-01",
+          "title": "列车问题例1",
+          "kind": "quantity_plan",
+          "view": "bar_comparison",
+          "quantities": [
+            {
+              "id": "bridge",
+              "label": "桥长",
+              "value": 2400,
+              "unit": "米",
+              "evidence": "题面：桥长为2400米"
+            },
+            {
+              "id": "rate",
+              "label": "火车速度",
+              "value": 900,
+              "unit": "米/分钟",
+              "evidence": "题面：火车速度为900米/分钟"
+            },
+            {
+              "id": "time",
+              "label": "过桥时间",
+              "value": 3,
+              "unit": "分钟",
+              "evidence": "题面：过桥时间为3分钟"
+            },
+            {
+              "id": "travel",
+              "label": "车头总路程",
+              "operation": "product",
+              "inputs": [
+                "rate",
+                "time"
+              ]
+            },
+            {
+              "id": "train",
+              "label": "火车长",
+              "operation": "difference",
+              "inputs": [
+                "travel",
+                "bridge"
+              ]
+            }
+          ],
+          "factIDs": [
+            "bridge",
+            "train",
+            "travel"
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "travel": 2700,
+          "train": 300
+        }
+      },
+      "diagramKinds": [
+        "bar_comparison"
+      ]
+    },
+    {
+      "id": "doc-13-01",
+      "sectionID": 13,
+      "section": "时钟问题",
+      "example": 1,
+      "sourceLocator": "第13类「时钟问题」例1；office-paragraphs.txt 第363行",
+      "stem": "从时针指向4点开始，再经过多少分钟时针正好与分针重合？",
+      "status": "unsupported",
+      "method": "时钟问题",
+      "curricularRequires": [],
+      "reason": "精确答案为240/11分钟；当前数值图解不能精确表示循环小数，钟面旋转也没有受支持模板。禁止将文档约22分钟当作精确重合时间。"
+    },
+    {
+      "id": "doc-14-01",
+      "sectionID": 14,
+      "section": "盈亏问题",
+      "example": 1,
+      "sourceLocator": "第14类「盈亏问题」例1；office-paragraphs.txt 第384行",
+      "stem": "给幼儿园小朋友分苹果，若每人分3个就余11个；若每人分4个就少1个。问有多少小朋友？有多少个苹果？",
+      "status": "supported",
+      "method": "盈亏问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-14-01",
+          "title": "盈亏问题例1",
+          "kind": "quantity_plan",
+          "view": "table",
+          "quantities": [
+            {
+              "id": "rateA",
+              "label": "每人第一次",
+              "value": 3,
+              "unit": "个/人",
+              "evidence": "题面：每人第一次为3个/人"
+            },
+            {
+              "id": "rateB",
+              "label": "每人第二次",
+              "value": 4,
+              "unit": "个/人",
+              "evidence": "题面：每人第二次为4个/人"
+            },
+            {
+              "id": "left",
+              "label": "第一次余下",
+              "value": 11,
+              "unit": "个",
+              "evidence": "题面：第一次余下为11个"
+            },
+            {
+              "id": "short",
+              "label": "第二次缺少",
+              "value": 1,
+              "unit": "个",
+              "evidence": "题面：第二次缺少为1个"
+            },
+            {
+              "id": "delta",
+              "label": "两方案物品差",
+              "operation": "sum",
+              "inputs": [
+                "left",
+                "short"
+              ]
+            },
+            {
+              "id": "rateDelta",
+              "label": "每人物品差",
+              "operation": "difference",
+              "inputs": [
+                "rateB",
+                "rateA"
+              ]
+            },
+            {
+              "id": "children",
+              "label": "小朋友人数",
+              "operation": "quotient",
+              "inputs": [
+                "delta",
+                "rateDelta"
+              ]
+            },
+            {
+              "id": "used",
+              "label": "第一次发出",
+              "operation": "product",
+              "inputs": [
+                "rateA",
+                "children"
+              ]
+            },
+            {
+              "id": "apples",
+              "label": "苹果总数",
+              "operation": "sum",
+              "inputs": [
+                "used",
+                "left"
+              ]
+            }
+          ],
+          "columns": [
+            "每人分得",
+            "人数"
+          ],
+          "rows": [
+            {
+              "label": "余11个",
+              "factIDs": [
+                "rateA",
+                "children"
+              ]
+            },
+            {
+              "label": "少1个",
+              "factIDs": [
+                "rateB",
+                "children"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "children": 12,
+          "apples": 47
+        }
+      },
+      "diagramKinds": [
+        "table"
+      ]
+    },
+    {
+      "id": "doc-15-01",
+      "sectionID": 15,
+      "section": "工程问题",
+      "example": 1,
+      "sourceLocator": "第15类「工程问题」例1；office-paragraphs.txt 第407行",
+      "stem": "一项工程，甲队单独做需要10天完成，乙队单独做需要15天完成，现在两队合作，需要几天完成？",
+      "status": "supported",
+      "method": "工程问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-15-01",
+          "title": "工程问题例1",
+          "kind": "quantity_plan",
+          "view": "table",
+          "quantities": [
+            {
+              "id": "a",
+              "label": "甲独做时间",
+              "value": 10,
+              "unit": "天",
+              "evidence": "题面：甲独做时间为10天"
+            },
+            {
+              "id": "b",
+              "label": "乙独做时间",
+              "value": 15,
+              "unit": "天",
+              "evidence": "题面：乙独做时间为15天"
+            },
+            {
+              "id": "product",
+              "label": "工期乘积",
+              "operation": "product",
+              "inputs": [
+                "a",
+                "b"
+              ]
+            },
+            {
+              "id": "sum",
+              "label": "工期之和",
+              "operation": "sum",
+              "inputs": [
+                "a",
+                "b"
+              ]
+            },
+            {
+              "id": "time",
+              "label": "合作完成时间",
+              "operation": "quotient",
+              "inputs": [
+                "product",
+                "sum"
+              ]
+            }
+          ],
+          "columns": [
+            "甲独做",
+            "乙独做",
+            "合作"
+          ],
+          "rows": [
+            {
+              "label": "完成同一工程",
+              "factIDs": [
+                "a",
+                "b",
+                "time"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "product": 150,
+          "sum": 25,
+          "time": 6
+        }
+      },
+      "diagramKinds": [
+        "table"
+      ]
+    },
+    {
+      "id": "doc-16-01",
+      "sectionID": 16,
+      "section": "正反比例问题",
+      "example": 1,
+      "sourceLocator": "第16类「正反比例问题」例1；office-paragraphs.txt 第445行",
+      "stem": "修一条公路，已修的是未修的1/3，再修300米后，已修的变成未修的1/2，求这条公路总长是多少米？",
+      "status": "supported",
+      "method": "正反比例问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-16-01",
+          "title": "正反比例问题例1",
+          "kind": "quantity_plan",
+          "view": "state",
+          "quantities": [
+            {
+              "id": "denA",
+              "label": "已修与未修原比例分母",
+              "value": 3,
+              "unit": "",
+              "evidence": "题面已修是未修的1/3，未修对应3份"
+            },
+            {
+              "id": "denB",
+              "label": "已修与未修新比例分母",
+              "value": 2,
+              "unit": "",
+              "evidence": "题面再修后已修是未修的1/2，未修对应2份"
+            },
+            {
+              "id": "added",
+              "label": "再修长度",
+              "value": 300,
+              "unit": "米",
+              "evidence": "题面：再修长度为300米"
+            },
+            {
+              "id": "one",
+              "label": "已修一份",
+              "rule": "one"
+            },
+            {
+              "id": "partsA",
+              "label": "原总份数",
+              "operation": "sum",
+              "inputs": [
+                "denA",
+                "one"
+              ]
+            },
+            {
+              "id": "partsB",
+              "label": "新总份数",
+              "operation": "sum",
+              "inputs": [
+                "denB",
+                "one"
+              ]
+            },
+            {
+              "id": "delta",
+              "label": "两分母之差",
+              "operation": "difference",
+              "inputs": [
+                "denA",
+                "denB"
+              ]
+            },
+            {
+              "id": "crossA",
+              "label": "增量乘原份数",
+              "operation": "product",
+              "inputs": [
+                "added",
+                "partsA"
+              ]
+            },
+            {
+              "id": "crossB",
+              "label": "增量乘新份数",
+              "operation": "product",
+              "inputs": [
+                "crossA",
+                "partsB"
+              ]
+            },
+            {
+              "id": "total",
+              "label": "道路总长",
+              "operation": "quotient",
+              "inputs": [
+                "crossB",
+                "delta"
+              ]
+            },
+            {
+              "id": "original",
+              "label": "原已修",
+              "operation": "quotient",
+              "inputs": [
+                "total",
+                "partsA"
+              ]
+            },
+            {
+              "id": "after",
+              "label": "再修后",
+              "operation": "sum",
+              "inputs": [
+                "original",
+                "added"
+              ]
+            }
+          ],
+          "factIDs": [
+            "original",
+            "after"
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "total": 3600,
+          "original": 900,
+          "after": 1200
+        }
+      },
+      "diagramKinds": [
+        "state"
+      ]
+    },
+    {
+      "id": "doc-17-01",
+      "sectionID": 17,
+      "section": "按比例分配问题",
+      "example": 1,
+      "sourceLocator": "第17类「按比例分配问题」例1；office-paragraphs.txt 第479行",
+      "stem": "学校把植树560棵的任务按人数分配给五年级三个班，已知一班有47人，二班有48人，三班有45人，三个班各植树多少棵？",
+      "status": "supported",
+      "method": "按比例分配问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-17-01",
+          "title": "按比例分配问题例1",
+          "kind": "quantity_plan",
+          "view": "table",
+          "quantities": [
+            {
+              "id": "trees",
+              "label": "植树总任务",
+              "value": 560,
+              "unit": "棵",
+              "evidence": "题面：植树总任务为560棵"
+            },
+            {
+              "id": "a",
+              "label": "一班人数",
+              "value": 47,
+              "unit": "人",
+              "evidence": "题面：一班人数为47人"
+            },
+            {
+              "id": "b",
+              "label": "二班人数",
+              "value": 48,
+              "unit": "人",
+              "evidence": "题面：二班人数为48人"
+            },
+            {
+              "id": "c",
+              "label": "三班人数",
+              "value": 45,
+              "unit": "人",
+              "evidence": "题面：三班人数为45人"
+            },
+            {
+              "id": "people",
+              "label": "总人数",
+              "operation": "sum",
+              "inputs": [
+                "a",
+                "b",
+                "c"
+              ]
+            },
+            {
+              "id": "rate",
+              "label": "每人任务",
+              "operation": "quotient",
+              "inputs": [
+                "trees",
+                "people"
+              ]
+            },
+            {
+              "id": "treeA",
+              "label": "一班任务",
+              "operation": "product",
+              "inputs": [
+                "rate",
+                "a"
+              ]
+            },
+            {
+              "id": "treeB",
+              "label": "二班任务",
+              "operation": "product",
+              "inputs": [
+                "rate",
+                "b"
+              ]
+            },
+            {
+              "id": "treeC",
+              "label": "三班任务",
+              "operation": "product",
+              "inputs": [
+                "rate",
+                "c"
+              ]
+            }
+          ],
+          "columns": [
+            "人数",
+            "植树棵数"
+          ],
+          "rows": [
+            {
+              "label": "一班",
+              "factIDs": [
+                "a",
+                "treeA"
+              ]
+            },
+            {
+              "label": "二班",
+              "factIDs": [
+                "b",
+                "treeB"
+              ]
+            },
+            {
+              "label": "三班",
+              "factIDs": [
+                "c",
+                "treeC"
+              ]
+            }
+          ],
+          "checks": [
+            {
+              "operation": "sum",
+              "inputs": [
+                "treeA",
+                "treeB",
+                "treeC"
+              ],
+              "result": "trees"
+            }
+          ]
+        },
+        {
+          "id": "doc-17-01-whole",
+          "title": "按比例分配问题例1整体分段",
+          "kind": "quantity_plan",
+          "view": "part_whole",
+          "quantities": [
+            {
+              "id": "trees",
+              "label": "植树总任务",
+              "value": 560,
+              "unit": "棵",
+              "evidence": "题面：植树总任务为560棵"
+            },
+            {
+              "id": "a",
+              "label": "一班人数",
+              "value": 47,
+              "unit": "人",
+              "evidence": "题面：一班人数为47人"
+            },
+            {
+              "id": "b",
+              "label": "二班人数",
+              "value": 48,
+              "unit": "人",
+              "evidence": "题面：二班人数为48人"
+            },
+            {
+              "id": "c",
+              "label": "三班人数",
+              "value": 45,
+              "unit": "人",
+              "evidence": "题面：三班人数为45人"
+            },
+            {
+              "id": "people",
+              "label": "总人数",
+              "operation": "sum",
+              "inputs": [
+                "a",
+                "b",
+                "c"
+              ]
+            },
+            {
+              "id": "rate",
+              "label": "每人任务",
+              "operation": "quotient",
+              "inputs": [
+                "trees",
+                "people"
+              ]
+            },
+            {
+              "id": "treeA",
+              "label": "一班任务",
+              "operation": "product",
+              "inputs": [
+                "rate",
+                "a"
+              ]
+            },
+            {
+              "id": "treeB",
+              "label": "二班任务",
+              "operation": "product",
+              "inputs": [
+                "rate",
+                "b"
+              ]
+            },
+            {
+              "id": "treeC",
+              "label": "三班任务",
+              "operation": "product",
+              "inputs": [
+                "rate",
+                "c"
+              ]
+            }
+          ],
+          "checks": [
+            {
+              "operation": "sum",
+              "inputs": [
+                "treeA",
+                "treeB",
+                "treeC"
+              ],
+              "result": "trees"
+            }
+          ],
+          "factIDs": [
+            "trees",
+            "treeA",
+            "treeB",
+            "treeC"
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "people": 140,
+          "rate": 4,
+          "treeA": 188,
+          "treeB": 192,
+          "treeC": 180,
+          "doc-17-01-whole:treeA": 188,
+          "doc-17-01-whole:treeB": 192,
+          "doc-17-01-whole:treeC": 180
+        }
+      },
+      "diagramKinds": [
+        "table",
+        "part_whole"
+      ]
+    },
+    {
+      "id": "doc-18-01",
+      "sectionID": 18,
+      "section": "百分数问题",
+      "example": 1,
+      "sourceLocator": "第18类「百分数问题」例1；office-paragraphs.txt 第514行",
+      "stem": "仓库里有一批化肥，用去720千克，剩下6480千克，用去的与剩下的各占原重量的百分之几？",
+      "status": "supported",
+      "method": "百分数问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-18-01",
+          "title": "百分数问题例1",
+          "kind": "quantity_plan",
+          "view": "table",
+          "quantities": [
+            {
+              "id": "used",
+              "label": "用去化肥",
+              "value": 720,
+              "unit": "千克",
+              "evidence": "题面：用去化肥为720千克"
+            },
+            {
+              "id": "left",
+              "label": "剩余化肥",
+              "value": 6480,
+              "unit": "千克",
+              "evidence": "题面：剩余化肥为6480千克"
+            },
+            {
+              "id": "hundred",
+              "label": "百分数换算",
+              "rule": "hundred"
+            },
+            {
+              "id": "total",
+              "label": "原重量",
+              "operation": "sum",
+              "inputs": [
+                "used",
+                "left"
+              ]
+            },
+            {
+              "id": "usedRatio",
+              "label": "用去比例",
+              "operation": "quotient",
+              "inputs": [
+                "used",
+                "total"
+              ]
+            },
+            {
+              "id": "leftRatio",
+              "label": "剩余比例",
+              "operation": "quotient",
+              "inputs": [
+                "left",
+                "total"
+              ]
+            },
+            {
+              "id": "usedPercent",
+              "label": "用去百分数数值",
+              "operation": "product",
+              "inputs": [
+                "usedRatio",
+                "hundred"
+              ]
+            },
+            {
+              "id": "leftPercent",
+              "label": "剩余百分数数值",
+              "operation": "product",
+              "inputs": [
+                "leftRatio",
+                "hundred"
+              ]
+            }
+          ],
+          "columns": [
+            "重量",
+            "百分数数值（%）"
+          ],
+          "rows": [
+            {
+              "label": "用去",
+              "factIDs": [
+                "used",
+                "usedPercent"
+              ]
+            },
+            {
+              "label": "剩余",
+              "factIDs": [
+                "left",
+                "leftPercent"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "total": 7200,
+          "usedPercent": 10,
+          "leftPercent": 90
+        }
+      },
+      "diagramKinds": [
+        "table"
+      ]
+    },
+    {
+      "id": "doc-19-01",
+      "sectionID": 19,
+      "section": "“牛吃草”问题",
+      "example": 1,
+      "sourceLocator": "第19类「“牛吃草”问题」例1；office-paragraphs.txt 第547行",
+      "stem": "一块草地，10头牛20天可以把草吃完，15头牛10天可以把草吃完。问多少头牛5天可以把草吃完？",
+      "status": "quarantined",
+      "method": "“牛吃草”问题",
+      "curricularRequires": [],
+      "reason": "文档算式125÷5=25头，但末句答5头；答案冲突须人工确认后才能作为训练答案。独立检查：生长速率5牛日/天，原草100牛日，5天草量125牛日，应25头。"
+    },
+    {
+      "id": "doc-19-02",
+      "sectionID": 19,
+      "section": "“牛吃草”问题",
+      "example": 2,
+      "sourceLocator": "第19类「“牛吃草”问题」例2；office-paragraphs.txt 第564行",
+      "stem": "一只船有一个漏洞，水以均匀速度进入船内，发现漏洞时已经进了一些水。如果有12个人淘水，3小时可以淘完；如果只有5人淘水，要10小时才能淘完。求17人几小时可以淘完？",
+      "status": "supported",
+      "method": "“牛吃草”问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-19-02",
+          "title": "“牛吃草”问题例2",
+          "kind": "quantity_plan",
+          "view": "table",
+          "quantities": [
+            {
+              "id": "aPeople",
+              "label": "第一方案人数",
+              "value": 12,
+              "unit": "人",
+              "evidence": "题面：第一方案人数为12人"
+            },
+            {
+              "id": "aTime",
+              "label": "第一方案工时",
+              "value": 3,
+              "unit": "小时",
+              "evidence": "题面：第一方案工时为3小时"
+            },
+            {
+              "id": "bPeople",
+              "label": "第二方案人数",
+              "value": 5,
+              "unit": "人",
+              "evidence": "题面：第二方案人数为5人"
+            },
+            {
+              "id": "bTime",
+              "label": "第二方案工时",
+              "value": 10,
+              "unit": "小时",
+              "evidence": "题面：第二方案工时为10小时"
+            },
+            {
+              "id": "finalPeople",
+              "label": "新方案人数",
+              "value": 17,
+              "unit": "人",
+              "evidence": "题面：新方案人数为17人"
+            },
+            {
+              "id": "aWork",
+              "label": "第一方案淘水人时",
+              "operation": "product",
+              "inputs": [
+                "aPeople",
+                "aTime"
+              ]
+            },
+            {
+              "id": "bWork",
+              "label": "第二方案淘水人时",
+              "operation": "product",
+              "inputs": [
+                "bPeople",
+                "bTime"
+              ]
+            },
+            {
+              "id": "extraWork",
+              "label": "增加淘水人时",
+              "operation": "difference",
+              "inputs": [
+                "bWork",
+                "aWork"
+              ]
+            },
+            {
+              "id": "extraTime",
+              "label": "增加时间",
+              "operation": "difference",
+              "inputs": [
+                "bTime",
+                "aTime"
+              ]
+            },
+            {
+              "id": "inflow",
+              "label": "流入速度折算人数",
+              "operation": "quotient",
+              "inputs": [
+                "extraWork",
+                "extraTime"
+              ]
+            },
+            {
+              "id": "aInflow",
+              "label": "三小时流入人时",
+              "operation": "product",
+              "inputs": [
+                "inflow",
+                "aTime"
+              ]
+            },
+            {
+              "id": "original",
+              "label": "原水量折算人时",
+              "operation": "difference",
+              "inputs": [
+                "aWork",
+                "aInflow"
+              ]
+            },
+            {
+              "id": "net",
+              "label": "新方案净速度人数",
+              "operation": "difference",
+              "inputs": [
+                "finalPeople",
+                "inflow"
+              ]
+            },
+            {
+              "id": "finalTime",
+              "label": "新方案所需时间",
+              "operation": "quotient",
+              "inputs": [
+                "original",
+                "net"
+              ]
+            }
+          ],
+          "columns": [
+            "淘水人数",
+            "所需时间"
+          ],
+          "rows": [
+            {
+              "label": "原方案一",
+              "factIDs": [
+                "aPeople",
+                "aTime"
+              ]
+            },
+            {
+              "label": "原方案二",
+              "factIDs": [
+                "bPeople",
+                "bTime"
+              ]
+            },
+            {
+              "label": "新方案",
+              "factIDs": [
+                "finalPeople",
+                "finalTime"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "inflow": 2,
+          "original": 30,
+          "net": 15,
+          "finalTime": 2
+        }
+      },
+      "diagramKinds": [
+        "table"
+      ],
+      "independentCheck": "统一以一个人淘水1小时为单位：12×3=36、5×10=50，流入(50−36)/(10−3)=2人等效，原水36−2×3=30人时，新净流量17−2=15人等效，时间30/15=2小时。"
+    },
+    {
+      "id": "doc-20-01",
+      "sectionID": 20,
+      "section": "鸡兔同笼问题",
+      "example": 1,
+      "sourceLocator": "第20类「鸡兔同笼问题」例1；office-paragraphs.txt 第590行",
+      "stem": "长毛兔子芦花鸡，鸡兔圈在一笼里。数数头有三十五，脚数共有九十四。请你仔细算一算，多少兔子多少鸡？",
+      "status": "supported",
+      "method": "鸡兔同笼问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-20-01",
+          "title": "鸡兔同笼问题例1",
+          "kind": "quantity_plan",
+          "view": "bar_comparison",
+          "quantities": [
+            {
+              "id": "heads",
+              "label": "总只数",
+              "value": 35,
+              "unit": "只",
+              "evidence": "题面：总只数为35只"
+            },
+            {
+              "id": "feet",
+              "label": "总脚数",
+              "value": 94,
+              "unit": "条",
+              "evidence": "题面：总脚数为94条"
+            },
+            {
+              "id": "chickenRate",
+              "label": "每鸡脚数",
+              "value": 2,
+              "unit": "条/只",
+              "evidence": "题目所述鸡：每只2条脚（物种背景事实）"
+            },
+            {
+              "id": "rabbitRate",
+              "label": "每兔脚数",
+              "value": 4,
+              "unit": "条/只",
+              "evidence": "题目所述兔：每只4条脚（物种背景事实）"
+            },
+            {
+              "id": "assumed",
+              "label": "全鸡脚数",
+              "operation": "product",
+              "inputs": [
+                "heads",
+                "chickenRate"
+              ]
+            },
+            {
+              "id": "excess",
+              "label": "多出脚数",
+              "operation": "difference",
+              "inputs": [
+                "feet",
+                "assumed"
+              ]
+            },
+            {
+              "id": "rateDiff",
+              "label": "每兔多脚",
+              "operation": "difference",
+              "inputs": [
+                "rabbitRate",
+                "chickenRate"
+              ]
+            },
+            {
+              "id": "rabbit",
+              "label": "兔只数",
+              "operation": "quotient",
+              "inputs": [
+                "excess",
+                "rateDiff"
+              ]
+            },
+            {
+              "id": "chicken",
+              "label": "鸡只数",
+              "operation": "difference",
+              "inputs": [
+                "heads",
+                "rabbit"
+              ]
+            }
+          ],
+          "factIDs": [
+            "rabbit",
+            "chicken"
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "rabbit": 12,
+          "chicken": 23
+        }
+      },
+      "diagramKinds": [
+        "bar_comparison"
+      ]
+    },
+    {
+      "id": "doc-21-01",
+      "sectionID": 21,
+      "section": "方阵问题",
+      "example": 1,
+      "sourceLocator": "第21类「方阵问题」例1；office-paragraphs.txt 第629行",
+      "stem": "在育才小学的运动会上，进行体操表演的同学排成方阵，每行22人，参加体操表演的同学一共有多少人？",
+      "status": "unsupported",
+      "method": "方阵问题",
+      "curricularRequires": [],
+      "reason": "每行22人隐含22行，共484人。当前面积模板表达长度×长度的面积，不能把人数作为长度或输出人²冒充人数；需要专用计数方阵模板及行列语义。"
+    },
+    {
+      "id": "doc-22-01",
+      "sectionID": 22,
+      "section": "商品利润问题",
+      "example": 1,
+      "sourceLocator": "第22类「商品利润问题」例1；office-paragraphs.txt 第657行",
+      "stem": "某商品的平均价格在一月份上调了10%，到二月份又下调了10%，这种商品从原价到二月份的价格变动情况如何？",
+      "status": "supported",
+      "method": "商品利润问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-22-01",
+          "title": "商品利润问题例1",
+          "kind": "quantity_plan",
+          "view": "state",
+          "quantities": [
+            {
+              "id": "up",
+              "label": "一月涨价比例",
+              "value": 0.1,
+              "unit": "",
+              "evidence": "题面上调10%，即0.1"
+            },
+            {
+              "id": "down",
+              "label": "二月降价比例",
+              "value": 0.1,
+              "unit": "",
+              "evidence": "题面下调10%，即0.1"
+            },
+            {
+              "id": "one",
+              "label": "原价基准一份",
+              "rule": "one"
+            },
+            {
+              "id": "hundred",
+              "label": "百分数换算",
+              "rule": "hundred"
+            },
+            {
+              "id": "upFactor",
+              "label": "一月价格系数",
+              "operation": "sum",
+              "inputs": [
+                "one",
+                "up"
+              ]
+            },
+            {
+              "id": "downFactor",
+              "label": "二月相对一月系数",
+              "operation": "difference",
+              "inputs": [
+                "one",
+                "down"
+              ]
+            },
+            {
+              "id": "finalFactor",
+              "label": "二月相对原价系数",
+              "operation": "product",
+              "inputs": [
+                "upFactor",
+                "downFactor"
+              ]
+            },
+            {
+              "id": "decrease",
+              "label": "最终降幅比例",
+              "operation": "difference",
+              "inputs": [
+                "one",
+                "finalFactor"
+              ]
+            },
+            {
+              "id": "percent",
+              "label": "降幅百分数数值",
+              "operation": "product",
+              "inputs": [
+                "decrease",
+                "hundred"
+              ]
+            }
+          ],
+          "factIDs": [
+            "one",
+            "upFactor",
+            "finalFactor"
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "upFactor": 1.1,
+          "downFactor": 0.9,
+          "finalFactor": 0.99,
+          "percent": 1
+        }
+      },
+      "diagramKinds": [
+        "state"
+      ]
+    },
+    {
+      "id": "doc-23-01",
+      "sectionID": 23,
+      "section": "存款利率问题",
+      "example": 1,
+      "sourceLocator": "第23类「存款利率问题」例1；office-paragraphs.txt 第686行",
+      "stem": "李大强存入银行1200元，月利率0.8%，到期后连本带利共取出1488元，求存款期多长。",
+      "status": "supported",
+      "method": "存款利率问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-23-01",
+          "title": "存款利率问题例1",
+          "kind": "quantity_plan",
+          "view": "table",
+          "quantities": [
+            {
+              "id": "principal",
+              "label": "本金",
+              "value": 1200,
+              "unit": "元",
+              "evidence": "题面：本金为1200元"
+            },
+            {
+              "id": "total",
+              "label": "本利和",
+              "value": 1488,
+              "unit": "元",
+              "evidence": "题面：本利和为1488元"
+            },
+            {
+              "id": "rate",
+              "label": "月利率",
+              "value": 0.008,
+              "unit": "1/月",
+              "evidence": "题面月利率0.8%，每月比例0.008"
+            },
+            {
+              "id": "interest",
+              "label": "总利息",
+              "operation": "difference",
+              "inputs": [
+                "total",
+                "principal"
+              ]
+            },
+            {
+              "id": "monthly",
+              "label": "每月利息",
+              "operation": "product",
+              "inputs": [
+                "principal",
+                "rate"
+              ]
+            },
+            {
+              "id": "months",
+              "label": "存款月数",
+              "operation": "quotient",
+              "inputs": [
+                "interest",
+                "monthly"
+              ]
+            }
+          ],
+          "columns": [
+            "本金",
+            "月利息",
+            "存款月数"
+          ],
+          "rows": [
+            {
+              "label": "单利存款",
+              "factIDs": [
+                "principal",
+                "monthly",
+                "months"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "interest": 288,
+          "monthly": 9.6,
+          "months": 30
+        }
+      },
+      "diagramKinds": [
+        "table"
+      ]
+    },
+    {
+      "id": "doc-24-01",
+      "sectionID": 24,
+      "section": "溶液浓度问题",
+      "example": 1,
+      "sourceLocator": "第24类「溶液浓度问题」例1；office-paragraphs.txt 第702行",
+      "stem": "爷爷有16%的糖水50克，（1）要把它稀释成10%的糖水，需加水多少克？（2）若要把它变成30%的糖水，需加糖多少克？",
+      "status": "supported",
+      "method": "溶液浓度问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-24-01",
+          "title": "溶液浓度问题例1",
+          "kind": "quantity_plan",
+          "view": "state",
+          "quantities": [
+            {
+              "id": "original",
+              "label": "原糖水",
+              "value": 50,
+              "unit": "克",
+              "evidence": "题面：原糖水为50克"
+            },
+            {
+              "id": "originalRate",
+              "label": "原浓度",
+              "value": 0.16,
+              "unit": "",
+              "evidence": "题面浓度16%即0.16"
+            },
+            {
+              "id": "target",
+              "label": "稀释浓度",
+              "value": 0.1,
+              "unit": "",
+              "evidence": "题面稀释至10%即0.1"
+            },
+            {
+              "id": "sugar",
+              "label": "糖量不变",
+              "operation": "product",
+              "inputs": [
+                "original",
+                "originalRate"
+              ]
+            },
+            {
+              "id": "after",
+              "label": "稀释后总量",
+              "operation": "quotient",
+              "inputs": [
+                "sugar",
+                "target"
+              ]
+            },
+            {
+              "id": "water",
+              "label": "加水量",
+              "operation": "difference",
+              "inputs": [
+                "after",
+                "original"
+              ]
+            }
+          ],
+          "factIDs": [
+            "original",
+            "after"
+          ],
+          "checks": [
+            {
+              "operation": "sum",
+              "inputs": [
+                "original",
+                "water"
+              ],
+              "result": "after"
+            }
+          ]
+        },
+        {
+          "id": "doc-24-01-sugar",
+          "title": "溶液浓度问题例1加糖",
+          "kind": "quantity_plan",
+          "view": "state",
+          "quantities": [
+            {
+              "id": "original",
+              "label": "原糖水",
+              "value": 50,
+              "unit": "克",
+              "evidence": "题面：原糖水为50克"
+            },
+            {
+              "id": "originalRate",
+              "label": "原浓度",
+              "value": 0.16,
+              "unit": "",
+              "evidence": "题面浓度16%即0.16"
+            },
+            {
+              "id": "target",
+              "label": "加糖后浓度",
+              "value": 0.3,
+              "unit": "",
+              "evidence": "题面变为30%即0.3"
+            },
+            {
+              "id": "one",
+              "label": "整体一份",
+              "rule": "one"
+            },
+            {
+              "id": "originalWaterRatio",
+              "label": "原水比例",
+              "operation": "difference",
+              "inputs": [
+                "one",
+                "originalRate"
+              ]
+            },
+            {
+              "id": "targetWaterRatio",
+              "label": "新水比例",
+              "operation": "difference",
+              "inputs": [
+                "one",
+                "target"
+              ]
+            },
+            {
+              "id": "water",
+              "label": "水量不变",
+              "operation": "product",
+              "inputs": [
+                "original",
+                "originalWaterRatio"
+              ]
+            },
+            {
+              "id": "after",
+              "label": "加糖后总量",
+              "operation": "quotient",
+              "inputs": [
+                "water",
+                "targetWaterRatio"
+              ]
+            },
+            {
+              "id": "addedSugar",
+              "label": "加糖量",
+              "operation": "difference",
+              "inputs": [
+                "after",
+                "original"
+              ]
+            }
+          ],
+          "factIDs": [
+            "original",
+            "after"
+          ],
+          "checks": [
+            {
+              "operation": "sum",
+              "inputs": [
+                "original",
+                "addedSugar"
+              ],
+              "result": "after"
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "sugar": 8,
+          "after": 80,
+          "water": 30,
+          "doc-24-01-sugar:after": 60,
+          "doc-24-01-sugar:addedSugar": 10
+        }
+      },
+      "diagramKinds": [
+        "state",
+        "state"
+      ]
+    },
+    {
+      "id": "doc-25-01",
+      "sectionID": 25,
+      "section": "构图布数问题",
+      "example": 1,
+      "sourceLocator": "第25类「构图布数问题」例1；office-paragraphs.txt 第743行",
+      "stem": "十棵树苗子，要栽五行子，每行四棵子，请你想法子。",
+      "status": "unsupported",
+      "method": "构图布数问题",
+      "curricularRequires": [],
+      "reason": "需要五角星等交点共享的点线布置；当前模板不验证点的共线性、重复计数和每行4棵约束，不能用普通表格代替真正构图。"
+    },
+    {
+      "id": "doc-26-01",
+      "sectionID": 26,
+      "section": "幻方问题",
+      "example": 1,
+      "sourceLocator": "第26类「幻方问题」例1；office-paragraphs.txt 第763行",
+      "stem": "把1，2，3，4，5，6，7，8，9这九个数填入九个方格中，使每行、每列、每条对角线上三个数的和相等。",
+      "status": "unsupported",
+      "method": "幻方问题",
+      "curricularRequires": [],
+      "reason": "需要排列1至9且每行、列、对角线等和的约束求解与网格位置验证；当前数量图表不承担排列唯一性验证。"
+    },
+    {
+      "id": "doc-27-01",
+      "sectionID": 27,
+      "section": "抽屉原则问题",
+      "example": 1,
+      "sourceLocator": "第27类「抽屉原则问题」例1；office-paragraphs.txt 第810行",
+      "stem": "育才小学有367个2000年出生的学生，那么其中至少有几个学生的生日是同一天的？",
+      "status": "unsupported",
+      "method": "抽屉原则问题",
+      "curricularRequires": [],
+      "reason": "2000年为闰年，因此366种生日、367人至少2人同日；当前无日历规则支持，不能将外部推得366天伪造题面已知量。"
+    },
+    {
+      "id": "doc-28-01",
+      "sectionID": 28,
+      "section": "公约公倍问题",
+      "example": 1,
+      "sourceLocator": "第28类「公约公倍问题」例1；office-paragraphs.txt 第823行",
+      "stem": "一张硬纸板长60厘米，宽56厘米，现在需要把它剪成若干个大小相同的最大的正方形，不许有剩余。问正方形的边长是多少？",
+      "status": "unsupported",
+      "method": "公约公倍问题",
+      "curricularRequires": [],
+      "reason": "边长为gcd(60,56)=4厘米；当前命名运算无最大公约数与最大性证明，单纯试除或手填4不能作为已验证计划。"
+    },
+    {
+      "id": "doc-29-01",
+      "sectionID": 29,
+      "section": "最值问题",
+      "example": 1,
+      "sourceLocator": "第29类「最值问题」例1；office-paragraphs.txt 第842行",
+      "stem": "在火炉上烤饼，饼的两面都要烤，每烤一面需要3分钟，炉上只能同时放两块饼，现在需要烤三块饼，最少需要多少分钟？",
+      "status": "supported",
+      "method": "最值问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-29-01",
+          "title": "最值问题例1",
+          "kind": "quantity_plan",
+          "view": "table",
+          "quantities": [
+            {
+              "id": "count",
+              "label": "饼数",
+              "value": 3,
+              "unit": "块",
+              "evidence": "题面：饼数为3块"
+            },
+            {
+              "id": "faces",
+              "label": "每块两面",
+              "value": 2,
+              "unit": "面/块",
+              "evidence": "题面饼的两面都要烤"
+            },
+            {
+              "id": "capacity",
+              "label": "同时可烤面数",
+              "value": 2,
+              "unit": "面",
+              "evidence": "题面同时放两块饼，每块当前只能烤一面"
+            },
+            {
+              "id": "duration",
+              "label": "每轮时间",
+              "value": 3,
+              "unit": "分钟",
+              "evidence": "题面：每轮时间为3分钟"
+            },
+            {
+              "id": "totalFaces",
+              "label": "总面数",
+              "operation": "product",
+              "inputs": [
+                "count",
+                "faces"
+              ]
+            },
+            {
+              "id": "rounds",
+              "label": "最少轮数下界",
+              "operation": "quotient",
+              "inputs": [
+                "totalFaces",
+                "capacity"
+              ]
+            },
+            {
+              "id": "totalTime",
+              "label": "可达到的总时间",
+              "operation": "product",
+              "inputs": [
+                "rounds",
+                "duration"
+              ]
+            }
+          ],
+          "columns": [
+            "本轮时间"
+          ],
+          "rows": [
+            {
+              "label": "第1轮：饼A正面、B正面",
+              "factIDs": [
+                "duration"
+              ]
+            },
+            {
+              "label": "第2轮：饼B反面、C正面",
+              "factIDs": [
+                "duration"
+              ]
+            },
+            {
+              "label": "第3轮：饼A反面、C反面",
+              "factIDs": [
+                "duration"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "totalFaces": 6,
+          "rounds": 3,
+          "totalTime": 9
+        }
+      },
+      "diagramKinds": [
+        "table"
+      ],
+      "independentCheck": "6个面/同时2个面=至少3轮；列出的3轮覆盖A/B/C各正反两面一次，达到9分钟下界。"
+    },
+    {
+      "id": "doc-30-01",
+      "sectionID": 30,
+      "section": "列方程问题",
+      "example": 1,
+      "sourceLocator": "第30类「列方程问题」例1；office-paragraphs.txt 第881行",
+      "stem": "甲乙两班共90人，甲班比乙班人数的2倍少30人，求两班各有多少人？",
+      "status": "supported",
+      "method": "列方程问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-30-01",
+          "title": "列方程问题例1",
+          "kind": "quantity_plan",
+          "view": "bar_comparison",
+          "quantities": [
+            {
+              "id": "total",
+              "label": "总人数",
+              "value": 90,
+              "unit": "人",
+              "evidence": "题面：总人数为90人"
+            },
+            {
+              "id": "ratio",
+              "label": "乙的倍数",
+              "value": 2,
+              "unit": "",
+              "evidence": "题面：乙的倍数为2"
+            },
+            {
+              "id": "less",
+              "label": "甲比乙两倍少",
+              "value": 30,
+              "unit": "人",
+              "evidence": "题面：甲比乙两倍少为30人"
+            },
+            {
+              "id": "one",
+              "label": "乙一份",
+              "rule": "one"
+            },
+            {
+              "id": "adjusted",
+              "label": "补足后总人数",
+              "operation": "sum",
+              "inputs": [
+                "total",
+                "less"
+              ]
+            },
+            {
+              "id": "partsCount",
+              "label": "总份数",
+              "operation": "sum",
+              "inputs": [
+                "ratio",
+                "one"
+              ]
+            },
+            {
+              "id": "b",
+              "label": "乙班",
+              "operation": "quotient",
+              "inputs": [
+                "adjusted",
+                "partsCount"
+              ]
+            },
+            {
+              "id": "a",
+              "label": "甲班",
+              "operation": "difference",
+              "inputs": [
+                "total",
+                "b"
+              ]
+            }
+          ],
+          "factIDs": [
+            "a",
+            "b"
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "a": 50,
+          "b": 40
+        }
+      },
+      "diagramKinds": [
+        "bar_comparison"
+      ]
+    },
+    {
+      "id": "doc-31-01",
+      "sectionID": 31,
+      "section": "消去法",
+      "example": 1,
+      "sourceLocator": "第31类「消去法」例1；office-paragraphs.txt 第910行",
+      "stem": "学校买了4张办公桌和1把椅子，共用去510元，后又买来6张办公桌和1把椅子共用去750元。求每张办公桌和每把椅子各多少元？",
+      "status": "supported",
+      "method": "消去法",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-31-01",
+          "title": "消去法例1",
+          "kind": "quantity_plan",
+          "view": "table",
+          "quantities": [
+            {
+              "id": "countA",
+              "label": "首次桌数",
+              "value": 4,
+              "unit": "张",
+              "evidence": "题面：首次桌数为4张"
+            },
+            {
+              "id": "countB",
+              "label": "第二次桌数",
+              "value": 6,
+              "unit": "张",
+              "evidence": "题面：第二次桌数为6张"
+            },
+            {
+              "id": "costA",
+              "label": "首次总价",
+              "value": 510,
+              "unit": "元",
+              "evidence": "题面：首次总价为510元"
+            },
+            {
+              "id": "costB",
+              "label": "第二次总价",
+              "value": 750,
+              "unit": "元",
+              "evidence": "题面：第二次总价为750元"
+            },
+            {
+              "id": "extraDesks",
+              "label": "多买桌数",
+              "operation": "difference",
+              "inputs": [
+                "countB",
+                "countA"
+              ]
+            },
+            {
+              "id": "extraCost",
+              "label": "多付钱数",
+              "operation": "difference",
+              "inputs": [
+                "costB",
+                "costA"
+              ]
+            },
+            {
+              "id": "deskRate",
+              "label": "每桌价格",
+              "operation": "quotient",
+              "inputs": [
+                "extraCost",
+                "extraDesks"
+              ]
+            },
+            {
+              "id": "desksCost",
+              "label": "首次桌价",
+              "operation": "product",
+              "inputs": [
+                "deskRate",
+                "countA"
+              ]
+            },
+            {
+              "id": "chairCost",
+              "label": "同一把椅子价",
+              "operation": "difference",
+              "inputs": [
+                "costA",
+                "desksCost"
+              ]
+            }
+          ],
+          "columns": [
+            "办公桌数量",
+            "总价"
+          ],
+          "rows": [
+            {
+              "label": "同为1把椅子，首次",
+              "factIDs": [
+                "countA",
+                "costA"
+              ]
+            },
+            {
+              "label": "同为1把椅子，第二次",
+              "factIDs": [
+                "countB",
+                "costB"
+              ]
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "extraDesks": 2,
+          "extraCost": 240,
+          "deskRate": 120,
+          "chairCost": 30
+        }
+      },
+      "diagramKinds": [
+        "table"
+      ]
+    },
+    {
+      "id": "doc-09-03",
+      "sectionID": 9,
+      "section": "植树问题",
+      "example": 3,
+      "sourceLocator": "第9类「植树问题」例3；office-paragraphs.txt 第246行",
+      "stem": "一个正方形的运动场，每边长220米，每隔8米安装一个照明灯，一共可以安装多少个照明灯？",
+      "status": "quarantined",
+      "method": "植树问题",
+      "curricularRequires": [],
+      "reason": "每边220米不能被8米整除；是否四角均有灯、是否全周均匀、题面“每隔8米”与106答案不一致，不能自行补条件。"
+    },
+    {
+      "id": "doc-17-03",
+      "sectionID": 17,
+      "section": "按比例分配问题",
+      "example": 3,
+      "sourceLocator": "第17类「按比例分配问题」例3；office-paragraphs.txt 第489行",
+      "stem": "从前有个牧民，临死前留下遗言，要把17只羊分给三个儿子，大儿子分总数的1/2，二儿子分总数的1/3，三儿子分总数的1/9，并规定不许把羊宰割分，求三个儿子各分多少只羊。",
+      "status": "quarantined",
+      "method": "按比例分配问题",
+      "curricularRequires": [],
+      "reason": "17羊按字面1/2、1/3、1/9不能得到整数9、6、2；文档将分率改成9:6:2归一化，改变题意。"
+    },
+    {
+      "id": "doc-21-02",
+      "sectionID": 21,
+      "section": "方阵问题",
+      "example": 2,
+      "sourceLocator": "第21类「方阵问题」例2；office-paragraphs.txt 第632行",
+      "stem": "有一个3层中空方阵，最外边一层有10人，求全方阵的人数。",
+      "status": "quarantined",
+      "method": "方阵问题",
+      "curricularRequires": [],
+      "reason": "“最外层10人”与解答按“每边10人”处理矛盾；空心方阵公式缺平方，必须先确认题意。"
+    },
+    {
+      "id": "doc-29-02",
+      "sectionID": 29,
+      "section": "最值问题",
+      "example": 2,
+      "sourceLocator": "第29类「最值问题」例2；office-paragraphs.txt 第845行",
+      "stem": "在一条公路上有五个卸煤场，每相邻两个之间的距离都是10千米，已知1号煤场存煤100吨，2号煤场存煤200吨，5号煤场存煤400吨，其余两个煤场是空的。现在要把所有的煤集中到一个煤场里，每吨煤运1千米花费1元，集中到几号煤场花费最少？",
+      "status": "quarantined",
+      "method": "最值问题",
+      "curricularRequires": [],
+      "reason": "文档集中到3号场的400吨距离误写10千米，应20千米；式子及12000元不一致。独立运费应18000、13000、12000、11000、10000元，5号最少。"
+    },
+    {
+      "id": "doc-07-02",
+      "sectionID": 7,
+      "section": "相遇问题",
+      "example": 2,
+      "sourceLocator": "第7类「相遇问题」例2；office-paragraphs.txt 第186行",
+      "stem": "小李和小刘在周长为400米的环形跑道上跑步，小李每秒钟跑5米，小刘每秒钟跑3米，他们从同一地点同时出发，反向而跑，那么，二人从出发到第二次相遇需多长时间？",
+      "status": "supported",
+      "method": "相遇问题",
+      "curricularRequires": [],
+      "plans": [
+        {
+          "id": "doc-07-02",
+          "title": "相遇问题例2",
+          "kind": "quantity_plan",
+          "view": "cycle",
+          "quantities": [
+            {
+              "id": "distance",
+              "label": "跑道一圈",
+              "value": 400,
+              "unit": "米",
+              "evidence": "题面：跑道一圈为400米"
+            },
+            {
+              "id": "a",
+              "label": "小李速度",
+              "value": 5,
+              "unit": "米/秒",
+              "evidence": "题面：小李速度为5米/秒"
+            },
+            {
+              "id": "b",
+              "label": "小刘速度",
+              "value": 3,
+              "unit": "米/秒",
+              "evidence": "题面：小刘速度为3米/秒"
+            },
+            {
+              "id": "total",
+              "label": "出发后再相遇次数",
+              "value": 2,
+              "unit": "",
+              "evidence": "题面从出发到第二次相遇，反向同地出发后相对路程需2圈"
+            },
+            {
+              "id": "period",
+              "label": "一圈对应一次再相遇",
+              "rule": "one"
+            },
+            {
+              "id": "relative",
+              "label": "反向相对速度",
+              "operation": "sum",
+              "inputs": [
+                "a",
+                "b"
+              ]
+            },
+            {
+              "id": "travel",
+              "label": "总相对路程",
+              "operation": "product",
+              "inputs": [
+                "distance",
+                "total"
+              ]
+            },
+            {
+              "id": "time",
+              "label": "第二次相遇时间",
+              "operation": "quotient",
+              "inputs": [
+                "travel",
+                "relative"
+              ]
+            },
+            {
+              "id": "cycles",
+              "label": "完整相遇周期",
+              "operation": "floor_quotient",
+              "inputs": [
+                "total",
+                "period"
+              ]
+            },
+            {
+              "id": "remaining",
+              "label": "未完成周期中的相遇项",
+              "operation": "remainder",
+              "inputs": [
+                "total",
+                "period"
+              ]
+            }
+          ],
+          "factIDs": [
+            "total",
+            "period",
+            "cycles",
+            "remaining"
+          ],
+          "columns": [
+            "相对再走一圈后相遇"
+          ]
+        }
+      ],
+      "expected": {
+        "values": {
+          "relative": 8,
+          "travel": 800,
+          "time": 100,
+          "cycles": 2,
+          "remaining": 0
+        }
+      },
+      "diagramKinds": [
+        "cycle"
+      ],
+      "independentCheck": "反向相对速度5+3=8米/秒，每个400米相对路程周期再相遇一次；第2次相遇走800米，时间100秒。图示重复相遇事件，非物理轨迹图。"
+    }
+  ]
+}

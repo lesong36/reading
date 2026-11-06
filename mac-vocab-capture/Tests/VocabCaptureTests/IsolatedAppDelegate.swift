@@ -8,7 +8,9 @@ extension XCTestCase {
   func makeIsolatedAppDelegate(
     defaults providedDefaults: UserDefaults? = nil,
     regionCapture: ScreenshotRegionCapture? = nil,
-    mathQuestionStore: MathQuestionStore? = nil
+    mathQuestionStore: MathQuestionStore? = nil,
+    mathClassifier: MathAutomaticTagCoordinator.Classify? = nil,
+    questionWebAnswerOverride: ScreenshotQuestionWebAnswer? = nil
   ) -> AppDelegate {
     let suite = "VocabCapture.IsolatedAppTests.\(UUID().uuidString)"
     let defaults = providedDefaults ?? UserDefaults(suiteName: suite)!
@@ -31,6 +33,8 @@ extension XCTestCase {
       browserBridge: BrowserContextBridge(defaults: defaults),
       regionCapture: regionCapture ?? ScreenshotRegionCapture(permission: { false }),
       mathQuestionStore: mathQuestionStore
-        ?? MathQuestionStore(directory: directory.appendingPathComponent("math")))
+        ?? MathQuestionStore(directory: directory.appendingPathComponent("math")),
+      mathClassifier: mathClassifier, questionWebAnswerOverride: questionWebAnswerOverride,
+      questionSessionStore: ScreenshotQuestionSessionStore(directory: directory.appendingPathComponent("sessions")))
   }
 }

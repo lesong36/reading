@@ -1,0 +1,4484 @@
+{
+  "schema_version": 1,
+  "catalogue_id": "primary-math-multiaxis",
+  "version": "0.1.0",
+  "created_on": "2026-10-08",
+  "language": "zh-CN",
+  "status": "draft_needs_teaching_review",
+  "purpose": "研究用标签目录，未接入应用；不是官方细分标签全集或已验证的诊断工具。",
+  "curriculum_basis": {
+    "source_id": "moe.math.2022.corrected.20220509",
+    "title": "义务教育数学课程标准（2022年版）",
+    "url": "https://www.moe.gov.cn/srcsite/A26/s8001/202204/W020220510531636118932.pdf",
+    "correction_note": "发布通知指定以2022年5月9日更正版为准。",
+    "pdf_sha256": "1183b95c58a65eaac4c456f2d2b329bbe42f65a6482993edb537e3eaf8baa144",
+    "pdf_page_offset": 7,
+    "verification": "下载教育部更正版扫描PDF；本机OCR辅助阅读，关键归属与原图核对；尚未经教学审核。",
+    "reviewed_printed_page_range": [
+      16,
+      52
+    ]
+  },
+  "stages": [
+    {
+      "id": "s1",
+      "label": "第一学段",
+      "grade_range": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": "s2",
+      "label": "第二学段",
+      "grade_range": [
+        3,
+        4
+      ]
+    },
+    {
+      "id": "s3",
+      "label": "第三学段",
+      "grade_range": [
+        5,
+        6
+      ]
+    }
+  ],
+  "axes": [
+    {
+      "id": "question_form",
+      "label": "题目形式",
+      "scope": "question_or_part",
+      "cardinality": "one_leaf_per_atomic_response",
+      "note": "混合仅根题；计算是任务家族，是否填空或写过程由题面决定。"
+    },
+    {
+      "id": "curriculum_knowledge",
+      "label": "课程知识点",
+      "scope": "question_or_part",
+      "cardinality": "multiple",
+      "note": "主辅可分；适用学段是课标定位，不是题目年级限制。"
+    },
+    {
+      "id": "problem_family",
+      "label": "问题类型",
+      "scope": "question_or_part",
+      "cardinality": "multiple_with_independent_evidence"
+    },
+    {
+      "id": "error_form",
+      "label": "错误形式",
+      "scope": "attempt_error_event",
+      "cardinality": "multiple_with_observed_evidence"
+    },
+    {
+      "id": "error_cause",
+      "label": "错误本质（原因假设）",
+      "scope": "attempt_error_event",
+      "cardinality": "multiple_with_confirmed_or_suggested_evidence"
+    }
+  ],
+  "curriculum_nodes": [
+    {
+      "id": "d.number",
+      "label": "数与代数",
+      "parent_id": null,
+      "authority": "official_domain",
+      "stages": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "definition": "数的表示、运算及数量关系的课程领域。",
+      "source": {
+        "source_id": "moe.math.2022.corrected.20220509",
+        "printed_pages": [
+          16,
+          17
+        ],
+        "pdf_pages": [
+          23,
+          24
+        ],
+        "section": "数与代数"
+      }
+    },
+    {
+      "id": "d.geometry",
+      "label": "图形与几何",
+      "parent_id": null,
+      "authority": "official_domain",
+      "stages": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "definition": "图形特征、度量及空间关系的课程领域。",
+      "source": {
+        "source_id": "moe.math.2022.corrected.20220509",
+        "printed_pages": [
+          16,
+          17
+        ],
+        "pdf_pages": [
+          23,
+          24
+        ],
+        "section": "图形与几何"
+      }
+    },
+    {
+      "id": "d.statistics",
+      "label": "统计与概率",
+      "parent_id": null,
+      "authority": "official_domain",
+      "stages": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "definition": "分类、数据表达及可能性的课程领域。",
+      "source": {
+        "source_id": "moe.math.2022.corrected.20220509",
+        "printed_pages": [
+          16,
+          17
+        ],
+        "pdf_pages": [
+          23,
+          24
+        ],
+        "section": "统计与概率"
+      }
+    },
+    {
+      "id": "d.practice",
+      "label": "综合与实践",
+      "parent_id": null,
+      "authority": "official_domain",
+      "stages": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "definition": "在活动或项目中理解、应用数学的课程领域。",
+      "source": {
+        "source_id": "moe.math.2022.corrected.20220509",
+        "printed_pages": [
+          16,
+          17,
+          42
+        ],
+        "pdf_pages": [
+          23,
+          24,
+          49
+        ],
+        "section": "综合与实践"
+      }
+    },
+    {
+      "id": "t.arithmetic",
+      "label": "数与运算",
+      "parent_id": "d.number",
+      "authority": "official_theme",
+      "stages": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "definition": "按数的种类和操作组织知识点，不按教材单元排序。",
+      "source": {
+        "source_id": "moe.math.2022.corrected.20220509",
+        "printed_pages": [
+          17,
+          18
+        ],
+        "pdf_pages": [
+          24,
+          25
+        ],
+        "section": "数与运算"
+      }
+    },
+    {
+      "id": "t.quantity",
+      "label": "数量关系",
+      "parent_id": "d.number",
+      "authority": "official_theme",
+      "stages": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "definition": "用数或符号表达、解释量之间的关系。",
+      "source": {
+        "source_id": "moe.math.2022.corrected.20220509",
+        "printed_pages": [
+          17,
+          18
+        ],
+        "pdf_pages": [
+          24,
+          25
+        ],
+        "section": "数量关系"
+      }
+    },
+    {
+      "id": "t.measurement",
+      "label": "图形的认识与测量",
+      "parent_id": "d.geometry",
+      "authority": "official_theme",
+      "stages": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "definition": "将图形认识、特征与长度、面积、体积等度量关联。",
+      "source": {
+        "source_id": "moe.math.2022.corrected.20220509",
+        "printed_pages": [
+          17,
+          27
+        ],
+        "pdf_pages": [
+          24,
+          34
+        ],
+        "section": "图形的认识与测量"
+      }
+    },
+    {
+      "id": "t.position_motion",
+      "label": "图形的位置与运动",
+      "parent_id": "d.geometry",
+      "authority": "official_theme",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "definition": "此主题的课标学段映射为第二、第三学段；第一学段方位活动另映射综合与实践。",
+      "source": {
+        "source_id": "moe.math.2022.corrected.20220509",
+        "printed_pages": [
+          17,
+          27
+        ],
+        "pdf_pages": [
+          24,
+          34
+        ],
+        "section": "图形的位置与运动"
+      }
+    },
+    {
+      "id": "t.classification",
+      "label": "数据分类",
+      "parent_id": "d.statistics",
+      "authority": "official_theme",
+      "stages": [
+        "s1"
+      ],
+      "definition": "按属性标准进行分类；后续统计任务仍可把它作为辅助知识。",
+      "source": {
+        "source_id": "moe.math.2022.corrected.20220509",
+        "printed_pages": [
+          17,
+          37
+        ],
+        "pdf_pages": [
+          24,
+          44
+        ],
+        "section": "数据分类"
+      }
+    },
+    {
+      "id": "t.data",
+      "label": "数据的收集、整理与表达",
+      "parent_id": "d.statistics",
+      "authority": "official_theme",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "definition": "数据、统计图和统计量的表达与解释；百分数也映射此主题。",
+      "source": {
+        "source_id": "moe.math.2022.corrected.20220509",
+        "printed_pages": [
+          17,
+          37
+        ],
+        "pdf_pages": [
+          24,
+          44
+        ],
+        "section": "数据的收集、整理与表达"
+      }
+    },
+    {
+      "id": "t.chance",
+      "label": "随机现象发生的可能性",
+      "parent_id": "d.statistics",
+      "authority": "official_theme",
+      "stages": [
+        "s3"
+      ],
+      "definition": "小学定性的随机结果和可能性判断，不扩展为初中概率计算。",
+      "source": {
+        "source_id": "moe.math.2022.corrected.20220509",
+        "printed_pages": [
+          17,
+          40
+        ],
+        "pdf_pages": [
+          24,
+          47
+        ],
+        "section": "随机现象发生的可能性"
+      }
+    },
+    {
+      "id": "t.practice",
+      "label": "主题活动与项目学习",
+      "parent_id": "d.practice",
+      "authority": "product_group",
+      "stages": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "definition": "用于检索的应用分组，非课标表2新增官方主题；活动名称不被固定为标签。",
+      "source": {
+        "source_id": "moe.math.2022.corrected.20220509",
+        "printed_pages": [
+          42,
+          43,
+          46,
+          50
+        ],
+        "pdf_pages": [
+          49,
+          50,
+          53,
+          57
+        ],
+        "section": "主题活动与项目学习"
+      }
+    }
+  ],
+  "tags": [
+    {
+      "id": "kp.number.read_write",
+      "axis": "curriculum_knowledge",
+      "label": "整数读写与数的表示",
+      "parent_id": "t.arithmetic",
+      "definition": "把物体数量、数词与整数记法对应；大数允许以万、亿表达。",
+      "example": "把四千零六写成数。",
+      "exclusion": "不包含单位换算；位上数字代表的量另标位值。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1",
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            18,
+            19
+          ],
+          "pdf_pages": [
+            25,
+            26
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review",
+          "requirement_scope_note": "万以内数的意义、认读写。"
+        },
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            20,
+            22
+          ],
+          "pdf_pages": [
+            27,
+            29
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review",
+          "requirement_scope_note": "万以上数的认读写及万、亿单位表示。"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.number.place_value",
+      "axis": "curriculum_knowledge",
+      "label": "计数单位与位值",
+      "parent_id": "t.arithmetic",
+      "definition": "区分数字、数位及该位代表的单位量，联系十进制表示。",
+      "example": "说明 4.06 中的 6 表示什么。",
+      "exclusion": "仅按大小比较不必标位值；错因中位值理解是另一轴。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            18,
+            19
+          ],
+          "pdf_pages": [
+            25,
+            26
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            20,
+            22
+          ],
+          "pdf_pages": [
+            27,
+            29
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            26
+          ],
+          "pdf_pages": [
+            31,
+            33
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.number.compare",
+      "axis": "curriculum_knowledge",
+      "label": "整数大小与顺序",
+      "parent_id": "t.arithmetic",
+      "definition": "比较整数大小、排序或定位其相对顺序。",
+      "example": "把 908、980、809 从小到大排列。",
+      "exclusion": "小数与分数比较各有独立标签。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1",
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            18,
+            19
+          ],
+          "pdf_pages": [
+            25,
+            26
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            22
+          ],
+          "pdf_pages": [
+            29
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.operation.add_sub",
+      "axis": "curriculum_knowledge",
+      "label": "整数加减",
+      "parent_id": "t.arithmetic",
+      "definition": "理解并执行整数的加法和减法。",
+      "example": "计算 306−178。",
+      "exclusion": "混合式可作为辅助标签；情境关系另标问题类型。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1",
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            18,
+            19
+          ],
+          "pdf_pages": [
+            25,
+            26
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            21,
+            22
+          ],
+          "pdf_pages": [
+            28,
+            29
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.operation.multiply",
+      "axis": "curriculum_knowledge",
+      "label": "整数乘法",
+      "parent_id": "t.arithmetic",
+      "definition": "理解等量累加的乘法意义并进行整数乘法。",
+      "example": "每盒 6 支、4 盒共多少；计算 24×35。",
+      "exclusion": "是否为等份求总量另属问题类型。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1",
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            18,
+            19
+          ],
+          "pdf_pages": [
+            25,
+            26
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            20,
+            22
+          ],
+          "pdf_pages": [
+            27,
+            29
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.operation.divide",
+      "axis": "curriculum_knowledge",
+      "label": "整数除法与余数",
+      "parent_id": "t.arithmetic",
+      "definition": "理解整数除法，执行商与余数的计算或解释。",
+      "example": "25 块糖每袋 6 块，装几袋余几块。",
+      "exclusion": "余数进舍对现实问题的影响需补充关系标签。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1",
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            18,
+            19
+          ],
+          "pdf_pages": [
+            25,
+            26
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            20,
+            22
+          ],
+          "pdf_pages": [
+            27,
+            29
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.operation.inverse",
+      "axis": "curriculum_knowledge",
+      "label": "四则运算含义与互逆",
+      "parent_id": "t.arithmetic",
+      "definition": "联系加减、乘除的意义和互逆关系。",
+      "example": "用乘法解释怎样检验除法。",
+      "exclusion": "不能因为算式含两种运算就自动标互逆。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1",
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            18,
+            19
+          ],
+          "pdf_pages": [
+            25,
+            26
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            22
+          ],
+          "pdf_pages": [
+            29
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.decimal.meaning",
+      "axis": "curriculum_knowledge",
+      "label": "小数意义与计数单位",
+      "parent_id": "t.arithmetic",
+      "definition": "把小数与十等分、百等分等计数单位对应。",
+      "example": "用涂色图表示 0.4。",
+      "exclusion": "百分数作为统计表达单独映射，不并入此标签。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            21,
+            22
+          ],
+          "pdf_pages": [
+            28,
+            29
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            23,
+            24,
+            26
+          ],
+          "pdf_pages": [
+            30,
+            31,
+            33
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.decimal.compare",
+      "axis": "curriculum_knowledge",
+      "label": "小数大小比较",
+      "parent_id": "t.arithmetic",
+      "definition": "在相同整体或量单位下比较小数。",
+      "example": "比较 0.8 与 0.75。",
+      "exclusion": "数的比较任务可同时标问题家族，而不等同课程标签。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            22
+          ],
+          "pdf_pages": [
+            29
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24
+          ],
+          "pdf_pages": [
+            31
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.decimal.add_sub",
+      "axis": "curriculum_knowledge",
+      "label": "小数加减",
+      "parent_id": "t.arithmetic",
+      "definition": "按相同计数单位实施小数加减；第二学段是一位小数的初步要求。",
+      "example": "计算 3.6＋0.48。",
+      "exclusion": "不能把第三学段题目细节归到第二学段的全部要求。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            21,
+            22
+          ],
+          "pdf_pages": [
+            28,
+            29
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review",
+          "requirement_scope_note": "一位小数的加减。"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            25
+          ],
+          "pdf_pages": [
+            31,
+            32
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review",
+          "requirement_scope_note": "简单小数四则运算中的加减及混合运算。"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.decimal.mul_div",
+      "axis": "curriculum_knowledge",
+      "label": "小数乘除",
+      "parent_id": "t.arithmetic",
+      "definition": "执行简单小数乘法或除法并解释数值变化。",
+      "example": "计算 1.25×8。",
+      "exclusion": "小数加减和数的互相转换另标。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            25
+          ],
+          "pdf_pages": [
+            31,
+            32
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.fraction.meaning",
+      "axis": "curriculum_knowledge",
+      "label": "分数意义与分数单位",
+      "parent_id": "t.arithmetic",
+      "definition": "辨识整体、等分份数、所取份数及分数单位。",
+      "example": "解释同一张纸的 3/4。",
+      "exclusion": "等分的题目不一定考查分数；须有分数意义任务。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            21,
+            22
+          ],
+          "pdf_pages": [
+            28,
+            29
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            23,
+            24,
+            26
+          ],
+          "pdf_pages": [
+            30,
+            31,
+            33
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.fraction.compare",
+      "axis": "curriculum_knowledge",
+      "label": "分数大小比较",
+      "parent_id": "t.arithmetic",
+      "definition": "在可比整体下比较分数大小。",
+      "example": "比较 2/3 与 3/4。",
+      "exclusion": "不同整体的部分不能仅按分数大小比较实际量。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            22
+          ],
+          "pdf_pages": [
+            29
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24
+          ],
+          "pdf_pages": [
+            31
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.fraction.add_sub",
+      "axis": "curriculum_knowledge",
+      "label": "分数加减与等值变形",
+      "parent_id": "t.arithmetic",
+      "definition": "把加减所需的同单位、通分与约分联系起来；第二学段限同分母加减。",
+      "example": "计算 1/2＋1/3。",
+      "exclusion": "通分约分为应用细分内容，来源定位包含教学提示，不宣称是独立官方主题。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            21,
+            22
+          ],
+          "pdf_pages": [
+            28,
+            29
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review",
+          "requirement_scope_note": "同分母分数加减。"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            25,
+            26
+          ],
+          "pdf_pages": [
+            31,
+            32,
+            33
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review",
+          "requirement_scope_note": "简单分数四则运算中的加减；通分与计数单位联系见教学提示。"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.fraction.mul_div",
+      "axis": "curriculum_knowledge",
+      "label": "分数乘除",
+      "parent_id": "t.arithmetic",
+      "definition": "理解并执行简单分数乘除。",
+      "example": "计算 3/4×2/3。",
+      "exclusion": "分数应用题的基准量或比例结构另标。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            25
+          ],
+          "pdf_pages": [
+            31,
+            32
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.number.decimal_fraction",
+      "axis": "curriculum_knowledge",
+      "label": "小数与分数转换",
+      "parent_id": "t.arithmetic",
+      "definition": "在小学要求范围内转换小数和分数表示。",
+      "example": "把 0.75 写成分数。",
+      "exclusion": "不纳入循环小数化分数；百分数转换须映射百分数条目。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            25
+          ],
+          "pdf_pages": [
+            31,
+            32
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.number.divisors_multiples",
+      "axis": "curriculum_knowledge",
+      "label": "因数与倍数",
+      "parent_id": "t.arithmetic",
+      "definition": "识别整数的整除、因数与倍数关系。",
+      "example": "找出 24 的所有因数。",
+      "exclusion": "公因数公倍数另标；不将应用中的倍数比较混为此项。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            23,
+            24,
+            25
+          ],
+          "pdf_pages": [
+            30,
+            31,
+            32
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.number.divisibility",
+      "axis": "curriculum_knowledge",
+      "label": "2、3、5 的倍数特征",
+      "parent_id": "t.arithmetic",
+      "definition": "运用对应特征判断一个数是否为 2、3、5 的倍数。",
+      "example": "判断 135 是哪些数的倍数。",
+      "exclusion": "不将其他整除技巧扩成已确认课标要求。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            23,
+            24,
+            25
+          ],
+          "pdf_pages": [
+            30,
+            31,
+            32
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.number.common_factors",
+      "axis": "curriculum_knowledge",
+      "label": "公因数与公倍数",
+      "parent_id": "t.arithmetic",
+      "definition": "识别公因数、公倍数及最大公因数、最小公倍数。",
+      "example": "求 12 与 18 的最大公因数。",
+      "exclusion": "求一个数的所有因数不必标公因数。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            23,
+            24,
+            25
+          ],
+          "pdf_pages": [
+            30,
+            31,
+            32
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.number.prime_parity",
+      "axis": "curriculum_knowledge",
+      "label": "奇偶、质数与合数",
+      "parent_id": "t.arithmetic",
+      "definition": "按奇偶性及因数结构区分整数类别。",
+      "example": "说明 9 是奇数但不是质数。",
+      "exclusion": "奇数与质数为不同属性；样本需要更细时可拆分标签而保留旧映射。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            23,
+            24,
+            25
+          ],
+          "pdf_pages": [
+            30,
+            31,
+            32
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.operation.order",
+      "axis": "curriculum_knowledge",
+      "label": "四则混合运算与括号",
+      "parent_id": "t.arithmetic",
+      "definition": "按运算顺序和括号执行混合运算。",
+      "example": "计算 12＋18÷3。",
+      "exclusion": "有效运算律变形另标运算律，不能视为违反顺序。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            21,
+            22
+          ],
+          "pdf_pages": [
+            28,
+            29
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            25
+          ],
+          "pdf_pages": [
+            31,
+            32
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.operation.laws",
+      "axis": "curriculum_knowledge",
+      "label": "运算律与简便计算",
+      "parent_id": "t.arithmetic",
+      "definition": "识别并运用交换、结合或分配关系作等值变形。",
+      "example": "计算 25×(4＋8)。",
+      "exclusion": "不是每次改变书写顺序都属于有效运算律。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            21,
+            22
+          ],
+          "pdf_pages": [
+            28,
+            29
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            26
+          ],
+          "pdf_pages": [
+            31,
+            33
+          ],
+          "section": "数与运算",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.quantity.part_whole",
+      "axis": "curriculum_knowledge",
+      "label": "总量与分量关系",
+      "parent_id": "t.quantity",
+      "definition": "将整体及各部分的加法关系表达并用于求未知量。",
+      "example": "18 名男生与 17 名女生共多少人。",
+      "exclusion": "图中部分面积也可辅助标注，但面积知识应保持独立。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            19
+          ],
+          "pdf_pages": [
+            26
+          ],
+          "section": "数量关系",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            21,
+            23
+          ],
+          "pdf_pages": [
+            28,
+            30
+          ],
+          "section": "数量关系",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            26
+          ],
+          "pdf_pages": [
+            31,
+            33
+          ],
+          "section": "数量关系",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.quantity.price",
+      "axis": "curriculum_knowledge",
+      "label": "单价、数量与总价",
+      "parent_id": "t.quantity",
+      "definition": "联系商品的单位价格、数量和累计价格。",
+      "example": "3 支每支 4 元的笔共多少钱。",
+      "exclusion": "认识元角分和找零规则另映射综合与实践。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            21,
+            23
+          ],
+          "pdf_pages": [
+            28,
+            30
+          ],
+          "section": "数量关系",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            26
+          ],
+          "pdf_pages": [
+            31,
+            33
+          ],
+          "section": "数量关系",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.quantity.distance",
+      "axis": "curriculum_knowledge",
+      "label": "速度、时间与路程",
+      "parent_id": "t.quantity",
+      "definition": "在明确单位下表达速度、持续时间和路程的关系。",
+      "example": "每小时 60 千米行驶 2 小时。",
+      "exclusion": "相遇、追及属于问题家族的进一步组合，不能由本标签推断已考查。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            21,
+            23
+          ],
+          "pdf_pages": [
+            28,
+            30
+          ],
+          "section": "数量关系",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            26
+          ],
+          "pdf_pages": [
+            31,
+            33
+          ],
+          "section": "数量关系",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.quantity.pattern",
+      "axis": "curriculum_knowledge",
+      "label": "变化规律与符号表达",
+      "parent_id": "t.quantity",
+      "definition": "发现序列或情境变化规律，并用数或符号表达。",
+      "example": "按规则补出图案序列下一项。",
+      "exclusion": "只进行给定算式计算不属于发现规律。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            19
+          ],
+          "pdf_pages": [
+            26
+          ],
+          "section": "数量关系",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            21,
+            22
+          ],
+          "pdf_pages": [
+            28,
+            29
+          ],
+          "section": "数量关系",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            25
+          ],
+          "pdf_pages": [
+            31,
+            32
+          ],
+          "section": "数量关系",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.quantity.estimation",
+      "axis": "curriculum_knowledge",
+      "label": "实际问题中的估算",
+      "parent_id": "t.quantity",
+      "definition": "按情境选择单位、精度或近似方法检验数量是否合理。",
+      "example": "估计 198 元的商品买 5 件需准备多少钱。",
+      "exclusion": "估算与精确值保留位数分开；不依截图模糊而估计题目数值。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            21,
+            22,
+            23
+          ],
+          "pdf_pages": [
+            28,
+            29,
+            30
+          ],
+          "section": "数量关系",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            25,
+            26
+          ],
+          "pdf_pages": [
+            31,
+            32,
+            33
+          ],
+          "section": "数量关系",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.quantity.letters",
+      "axis": "curriculum_knowledge",
+      "label": "用字母表达数量关系",
+      "parent_id": "t.quantity",
+      "definition": "用字母及含字母式表达一般关系、性质或规律。",
+      "example": "用 s、v、t 表示路程关系。",
+      "exclusion": "第二学段定位是字母表达运算律，不能扩大为全部代数任务。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            21,
+            22
+          ],
+          "pdf_pages": [
+            28,
+            29
+          ],
+          "section": "数与运算 / 第二学段：字母表达运算律",
+          "mapping_status": "source_checked_needs_teaching_review",
+          "requirement_scope_note": "运算律的字母表达；不是全部字母数量关系任务。"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            25,
+            26
+          ],
+          "pdf_pages": [
+            31,
+            32,
+            33
+          ],
+          "section": "数量关系 / 第三学段：字母表达关系、性质和规律",
+          "mapping_status": "source_checked_needs_teaching_review",
+          "requirement_scope_note": "用字母或含字母式表达数量关系、性质及规律的一般性。"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.quantity.equality",
+      "axis": "curriculum_knowledge",
+      "label": "等量关系与等式性质",
+      "parent_id": "t.quantity",
+      "definition": "运用等量关系或等式的基本性质说明、求出未知量。",
+      "example": "已知两组各有同样多物品可比较第三组；第三学段可解释等式两边同减相同数量。",
+      "exclusion": "不列为初中完整方程课程；复杂方程可标扩展待审核。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            21,
+            22
+          ],
+          "pdf_pages": [
+            28,
+            29
+          ],
+          "section": "数量关系",
+          "mapping_status": "source_checked_needs_teaching_review",
+          "requirement_scope_note": "等量传递关系：等量的等量相等；不据此引入等式两边同加减的规则要求。"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            25
+          ],
+          "pdf_pages": [
+            31,
+            32
+          ],
+          "section": "数量关系",
+          "mapping_status": "source_checked_needs_teaching_review",
+          "requirement_scope_note": "结合实际情境理解等式的基本性质，并用于未知量关系。"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.quantity.ratio",
+      "axis": "curriculum_knowledge",
+      "label": "比、比值与比例",
+      "parent_id": "t.quantity",
+      "definition": "理解两个量的比、比值及比值相同的关系。",
+      "example": "把 2:3 与 4:6 进行比较。",
+      "exclusion": "不将百分数移入数与代数；可建立跨领域关联。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            25,
+            26
+          ],
+          "pdf_pages": [
+            31,
+            32,
+            33
+          ],
+          "section": "数量关系",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.quantity.ratio_allocation",
+      "axis": "curriculum_knowledge",
+      "label": "按比例分配",
+      "parent_id": "t.quantity",
+      "definition": "按给定比将整体分成相应份量。",
+      "example": "把 50 本书按 2:3 分给两班。",
+      "exclusion": "平均分是特殊结构，若题目不考查比例可仅标等分。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            25,
+            26
+          ],
+          "pdf_pages": [
+            31,
+            32,
+            33
+          ],
+          "section": "数量关系",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.quantity.direct_proportion",
+      "axis": "curriculum_knowledge",
+      "label": "成正比的量",
+      "parent_id": "t.quantity",
+      "definition": "识别比值保持不变的两量关系并求对应量。",
+      "example": "单价不变时判断总价与购买数量的关系。",
+      "exclusion": "不把反比例与函数作为本目录已确认小学条目。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "pdf_pages": [
+            31,
+            32,
+            33,
+            34
+          ],
+          "section": "数量关系",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.geometry.planar_shapes",
+      "axis": "curriculum_knowledge",
+      "label": "平面图形辨认",
+      "parent_id": "t.measurement",
+      "definition": "依图形的可见特征辨认与描述简单平面图形。",
+      "example": "从图中辨认长方形和三角形。",
+      "exclusion": "不能只凭图画大小或外观推定未给的边长关系。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            28
+          ],
+          "pdf_pages": [
+            35
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            29,
+            30
+          ],
+          "pdf_pages": [
+            36,
+            37
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            32,
+            33
+          ],
+          "pdf_pages": [
+            39,
+            40
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.geometry.solid_shapes",
+      "axis": "curriculum_knowledge",
+      "label": "立体图形辨认",
+      "parent_id": "t.measurement",
+      "definition": "辨认简单立体及其组成特征。",
+      "example": "辨认圆柱与圆锥。",
+      "exclusion": "球等初步认识不等于考查球的体积公式。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            28
+          ],
+          "pdf_pages": [
+            35
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            32,
+            33,
+            34
+          ],
+          "pdf_pages": [
+            39,
+            40,
+            41
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.geometry.composition",
+      "axis": "curriculum_knowledge",
+      "label": "图形拼组与面体关联",
+      "parent_id": "t.measurement",
+      "definition": "辨识组合图形的组成部分或立体的面与平面图形关系。",
+      "example": "说出七巧板拼图中使用的图形。",
+      "exclusion": "面积分割计算可同时标面积知识，但不自动归拼组。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            28
+          ],
+          "pdf_pages": [
+            35
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            32,
+            34
+          ],
+          "pdf_pages": [
+            39,
+            41
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.measurement.length",
+      "axis": "curriculum_knowledge",
+      "label": "长度单位、测量与估测",
+      "parent_id": "t.measurement",
+      "definition": "选择长度单位、使用工具或单位量测量和估测。",
+      "example": "测量课桌长度并选择厘米或米。",
+      "exclusion": "题中出现厘米但没有测量或单位意义任务不自动标。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1",
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            28
+          ],
+          "pdf_pages": [
+            35
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            29,
+            30
+          ],
+          "pdf_pages": [
+            36,
+            37
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.measurement.length_conversion",
+      "axis": "curriculum_knowledge",
+      "label": "长度单位换算",
+      "parent_id": "t.measurement",
+      "definition": "保持长度量不变而转换单位表达。",
+      "example": "2 米 5 厘米是多少厘米。",
+      "exclusion": "面积、体积的进率不能套用本标签。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1",
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            28
+          ],
+          "pdf_pages": [
+            35
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            29,
+            30
+          ],
+          "pdf_pages": [
+            36,
+            37
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.geometry.lines",
+      "axis": "curriculum_knowledge",
+      "label": "线段、射线、直线与距离",
+      "parent_id": "t.measurement",
+      "definition": "区分线的类型、理解两点间线段及距离。",
+      "example": "从图中找出射线。",
+      "exclusion": "不引入初中解析几何或坐标距离公式。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            29,
+            30
+          ],
+          "pdf_pages": [
+            36,
+            37
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.geometry.parallel_perpendicular",
+      "axis": "curriculum_knowledge",
+      "label": "平行与垂直",
+      "parent_id": "t.measurement",
+      "definition": "识别同一平面内两直线的平行或垂直关系。",
+      "example": "指出图中互相垂直的两条线。",
+      "exclusion": "没有标记或条件时不能由草图外观认定垂直。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            29,
+            30
+          ],
+          "pdf_pages": [
+            36,
+            37
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.geometry.angles",
+      "axis": "curriculum_knowledge",
+      "label": "角的辨认、测量与作图",
+      "parent_id": "t.measurement",
+      "definition": "辨认角、比较角度并用工具测量或绘制。",
+      "example": "画一个 60° 的角。",
+      "exclusion": "角边长度不是角度；三角形内角和另标。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            29,
+            30
+          ],
+          "pdf_pages": [
+            36,
+            37
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.geometry.triangle_classes",
+      "axis": "curriculum_knowledge",
+      "label": "三角形分类",
+      "parent_id": "t.measurement",
+      "definition": "按角或边的关系分类三角形。",
+      "example": "按角将三角形分类。",
+      "exclusion": "图形的外观不足以证明等腰或直角；需给定特征。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            29,
+            30
+          ],
+          "pdf_pages": [
+            36,
+            37
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.geometry.quadrilaterals",
+      "axis": "curriculum_knowledge",
+      "label": "四边形特征与分类",
+      "parent_id": "t.measurement",
+      "definition": "辨识常见四边形的性质及包含关系。",
+      "example": "说明正方形与长方形的共同特征。",
+      "exclusion": "面积和周长公式不并入分类任务。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            29,
+            30
+          ],
+          "pdf_pages": [
+            36,
+            37
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.measurement.perimeter",
+      "axis": "curriculum_knowledge",
+      "label": "周长意义与矩形周长",
+      "parent_id": "t.measurement",
+      "definition": "将边界长度与周长联系，测量或计算长方形、正方形周长。",
+      "example": "求长 8 厘米宽 5 厘米的长方形周长。",
+      "exclusion": "圆周长有独立标签；不把周长等同面积。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            29,
+            31
+          ],
+          "pdf_pages": [
+            36,
+            38
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.measurement.area_units",
+      "axis": "curriculum_knowledge",
+      "label": "面积意义与单位换算",
+      "parent_id": "t.measurement",
+      "definition": "理解覆盖面的大小，选用和转换平方单位、公顷等。",
+      "example": "把 2 平方米换成平方分米。",
+      "exclusion": "面积单位不能使用长度单位进率。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            29,
+            30
+          ],
+          "pdf_pages": [
+            36,
+            37
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            32,
+            34
+          ],
+          "pdf_pages": [
+            39,
+            41
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.measurement.rectangle_area",
+      "axis": "curriculum_knowledge",
+      "label": "长方形与正方形面积",
+      "parent_id": "t.measurement",
+      "definition": "用面积单位铺排理解并计算矩形面积。",
+      "example": "长 8 厘米、宽 5 厘米的长方形面积。",
+      "exclusion": "正方形包含在矩形关系中；周长错误另记作答轴。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            29,
+            31
+          ],
+          "pdf_pages": [
+            36,
+            38
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.geometry.triangle_properties",
+      "axis": "curriculum_knowledge",
+      "label": "三角形三边关系与内角和",
+      "parent_id": "t.measurement",
+      "definition": "用边长关系或内角和判断、求出相关量。",
+      "example": "已知两个角求第三个角。",
+      "exclusion": "课标学段是 5–6 年级；不能因此断言教材在六年级才首次出现。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            32,
+            33
+          ],
+          "pdf_pages": [
+            39,
+            40
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.measurement.polygon_area",
+      "axis": "curriculum_knowledge",
+      "label": "平行四边形、三角形与梯形面积",
+      "parent_id": "t.measurement",
+      "definition": "按底高关系理解及使用相应面积公式。",
+      "example": "给定底和对应高求三角形面积。",
+      "exclusion": "斜边不能直接当高；需要更细检索时可版本化拆分。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            32,
+            33
+          ],
+          "pdf_pages": [
+            39,
+            40
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.measurement.irregular_area",
+      "axis": "curriculum_knowledge",
+      "label": "组合与不规则面积",
+      "parent_id": "t.measurement",
+      "definition": "通过分割、补形、网格或估计处理非单一标准图形面积。",
+      "example": "用方格估计叶片面积。",
+      "exclusion": "严格公式算出的组合面积与估计结果需在作答要求中区分。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            32
+          ],
+          "pdf_pages": [
+            39
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.geometry.circle",
+      "axis": "curriculum_knowledge",
+      "label": "圆、扇形及半径直径",
+      "parent_id": "t.measurement",
+      "definition": "辨认圆与扇形，联系半径、直径及圆的基本结构。",
+      "example": "已知直径求半径。",
+      "exclusion": "不将扇形面积公式作为此条目直接保证的课标要求。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            32,
+            33,
+            34
+          ],
+          "pdf_pages": [
+            39,
+            40,
+            41
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.measurement.circle_perimeter",
+      "axis": "curriculum_knowledge",
+      "label": "圆周率与圆周长",
+      "parent_id": "t.measurement",
+      "definition": "联系圆周长、直径和圆周率并求周长。",
+      "example": "求直径 10 厘米的圆周长。",
+      "exclusion": "圆面积公式另标；近似取值按题面要求保留。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            32,
+            33,
+            34
+          ],
+          "pdf_pages": [
+            39,
+            40,
+            41
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.measurement.circle_area",
+      "axis": "curriculum_knowledge",
+      "label": "圆面积",
+      "parent_id": "t.measurement",
+      "definition": "理解、使用圆面积与半径的关系。",
+      "example": "求半径 3 厘米的圆面积。",
+      "exclusion": "半径与直径错误是作答错误形式，不是此标签的附属事实。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            32,
+            33,
+            34
+          ],
+          "pdf_pages": [
+            39,
+            40,
+            41
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.measurement.volume_units",
+      "axis": "curriculum_knowledge",
+      "label": "体积、容积与单位",
+      "parent_id": "t.measurement",
+      "definition": "区分体积容积，理解立方单位及升毫升并换算。",
+      "example": "1 升是多少立方厘米。",
+      "exclusion": "表面积不是体积；长度、面积换算分别标注。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            32,
+            34
+          ],
+          "pdf_pages": [
+            39,
+            41
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.measurement.solid_surface",
+      "axis": "curriculum_knowledge",
+      "label": "常见立体表面积",
+      "parent_id": "t.measurement",
+      "definition": "计算长方体、正方体、圆柱的表面面积并解释实际覆盖面。",
+      "example": "计算无盖长方体盒子所需材料面积。",
+      "exclusion": "球或圆锥表面积不作为此条目已确认范围；覆盖哪些面须由题面决定。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            32,
+            33,
+            34
+          ],
+          "pdf_pages": [
+            39,
+            40,
+            41
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.measurement.solid_volume",
+      "axis": "curriculum_knowledge",
+      "label": "常见立体体积",
+      "parent_id": "t.measurement",
+      "definition": "计算长方体、正方体、圆柱或圆锥体积。",
+      "example": "给定底面积和高求圆柱体积。",
+      "exclusion": "圆锥与圆柱的体积关系必须满足对应条件；不能由草图假设等底等高。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            32,
+            33,
+            34
+          ],
+          "pdf_pages": [
+            39,
+            40,
+            41
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.geometry.nets",
+      "axis": "curriculum_knowledge",
+      "label": "立体展开图",
+      "parent_id": "t.measurement",
+      "definition": "关联立体与展开图的面、相邻关系和折叠。",
+      "example": "判断哪幅展开图可折成长方体。",
+      "exclusion": "仅看一个方向的图像另标观察视图。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            32,
+            34
+          ],
+          "pdf_pages": [
+            39,
+            41
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.geometry.views",
+      "axis": "curriculum_knowledge",
+      "label": "从不同方向观察物体",
+      "parent_id": "t.measurement",
+      "definition": "把观察位置与简单物体的形状图对应。",
+      "example": "找出积木从上面看到的形状。",
+      "exclusion": "不把未画出的隐藏方块数量由外观强行补全。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            30
+          ],
+          "pdf_pages": [
+            37
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            33,
+            34
+          ],
+          "pdf_pages": [
+            40,
+            41
+          ],
+          "section": "图形的认识与测量",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.motion.translation",
+      "axis": "curriculum_knowledge",
+      "label": "平移",
+      "parent_id": "t.position_motion",
+      "definition": "识别平移现象，按方向和距离移动图形。",
+      "example": "把三角形向右平移 3 格。",
+      "exclusion": "第二学段侧重现象，方格纸具体作图对应第三学段要求。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            30,
+            31
+          ],
+          "pdf_pages": [
+            37,
+            38
+          ],
+          "section": "图形的位置与运动",
+          "mapping_status": "source_checked_needs_teaching_review",
+          "requirement_scope_note": "辨认、感受生活中的平移现象。"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            33,
+            34
+          ],
+          "pdf_pages": [
+            40,
+            41
+          ],
+          "section": "图形的位置与运动",
+          "mapping_status": "source_checked_needs_teaching_review",
+          "requirement_scope_note": "在方格纸上按方向与距离进行简单图形平移。"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.motion.rotation",
+      "axis": "curriculum_knowledge",
+      "label": "旋转",
+      "parent_id": "t.position_motion",
+      "definition": "辨识旋转中心、方向及角度与旋转结果。",
+      "example": "绕指定点顺时针旋转 90°。",
+      "exclusion": "中心、方向、角度须有来源，不能由模型补出。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            30,
+            31
+          ],
+          "pdf_pages": [
+            37,
+            38
+          ],
+          "section": "图形的位置与运动",
+          "mapping_status": "source_checked_needs_teaching_review",
+          "requirement_scope_note": "辨认、感受生活中的旋转现象。"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            33,
+            34
+          ],
+          "pdf_pages": [
+            40,
+            41
+          ],
+          "section": "图形的位置与运动",
+          "mapping_status": "source_checked_needs_teaching_review",
+          "requirement_scope_note": "方格纸上简单图形的旋转，学业要求明确到90°作图。"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.motion.symmetry",
+      "axis": "curriculum_knowledge",
+      "label": "轴对称",
+      "parent_id": "t.position_motion",
+      "definition": "识别轴对称、对称轴并完成对称图形。",
+      "example": "补全方格纸上的另一半。",
+      "exclusion": "相似外观不一定轴对称；绘图误差与概念原因分开。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            30,
+            31
+          ],
+          "pdf_pages": [
+            37,
+            38
+          ],
+          "section": "图形的位置与运动",
+          "mapping_status": "source_checked_needs_teaching_review",
+          "requirement_scope_note": "辨认、感受生活中的轴对称现象。"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            33,
+            34
+          ],
+          "pdf_pages": [
+            40,
+            41
+          ],
+          "section": "图形的位置与运动",
+          "mapping_status": "source_checked_needs_teaching_review",
+          "requirement_scope_note": "认识对称轴并在方格纸上补全简单轴对称图形。"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.position.ordered_pair",
+      "axis": "curriculum_knowledge",
+      "label": "有序数对确定位置",
+      "parent_id": "t.position_motion",
+      "definition": "把自然数有序数对与方格上的点对应。",
+      "example": "在方格上标出 (3, 2)。",
+      "exclusion": "不引入小学范围外的完整平面直角坐标运算。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            33,
+            34
+          ],
+          "pdf_pages": [
+            40,
+            41
+          ],
+          "section": "图形的位置与运动",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.position.direction_distance",
+      "axis": "curriculum_knowledge",
+      "label": "方向、距离与路线",
+      "parent_id": "t.position_motion",
+      "definition": "根据参照点的方向和距离定位、描述路线。",
+      "example": "描述学校在图书馆什么方向、多远。",
+      "exclusion": "简单东西南北活动单独映射综合与实践。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            33,
+            34
+          ],
+          "pdf_pages": [
+            40,
+            41
+          ],
+          "section": "图形的位置与运动",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.position.scale",
+      "axis": "curriculum_knowledge",
+      "label": "比例尺与图形缩放",
+      "parent_id": "t.position_motion",
+      "definition": "联系图上量与实际量，按比例放大缩小简单图形。",
+      "example": "图上 2 厘米表示实际 100 米，求比例尺。",
+      "exclusion": "等比例长度变化不等于面积同比变化；单位先统一。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            33,
+            34
+          ],
+          "pdf_pages": [
+            40,
+            41
+          ],
+          "section": "图形的位置与运动",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.data.classification",
+      "axis": "curriculum_knowledge",
+      "label": "按标准分类",
+      "parent_id": "t.classification",
+      "definition": "选取、说明标准并把对象或数据归类。",
+      "example": "按颜色将物体分类。",
+      "exclusion": "几何性质分类可标对应几何知识；不是凡分类都只属于统计。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            37,
+            38
+          ],
+          "pdf_pages": [
+            44,
+            45
+          ],
+          "section": "数据分类",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.data.collection",
+      "axis": "curriculum_knowledge",
+      "label": "数据收集与整理",
+      "parent_id": "t.data",
+      "definition": "根据问题选取、记录、整理数据并说明来源。",
+      "example": "设计记录一周借书数量的表格。",
+      "exclusion": "仅对已给单个数算式求值不属于数据收集。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            38,
+            39
+          ],
+          "pdf_pages": [
+            45,
+            46
+          ],
+          "section": "数据的收集、整理与表达",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            39,
+            40
+          ],
+          "pdf_pages": [
+            46,
+            47
+          ],
+          "section": "数据的收集、整理与表达",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.data.bar_chart",
+      "axis": "curriculum_knowledge",
+      "label": "条形统计图",
+      "parent_id": "t.data",
+      "definition": "用柱长表示数量、读出刻度和类别并比较。",
+      "example": "从条形图读出各班人数。",
+      "exclusion": "折线图趋势与扇形比例分别标注。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            38,
+            39
+          ],
+          "pdf_pages": [
+            45,
+            46
+          ],
+          "section": "数据的收集、整理与表达",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            39,
+            40
+          ],
+          "pdf_pages": [
+            46,
+            47
+          ],
+          "section": "数据的收集、整理与表达",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.data.mean",
+      "axis": "curriculum_knowledge",
+      "label": "平均数的统计意义",
+      "parent_id": "t.data",
+      "definition": "用总量及数据个数刻画一组数据的集中情况。",
+      "example": "求五天每天平均借书量并解释。",
+      "exclusion": "平均分糖没有数据代表性任务时不必标统计平均数。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            38,
+            39
+          ],
+          "pdf_pages": [
+            45,
+            46
+          ],
+          "section": "数据的收集、整理与表达",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.data.line_chart",
+      "axis": "curriculum_knowledge",
+      "label": "折线统计图",
+      "parent_id": "t.data",
+      "definition": "读出、绘制或解释数据随顺序变化的趋势。",
+      "example": "解释每月温度折线图。",
+      "exclusion": "图中仅存在折线不一定是统计图。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            39,
+            40,
+            41
+          ],
+          "pdf_pages": [
+            46,
+            47,
+            48
+          ],
+          "section": "数据的收集、整理与表达",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.data.pie_chart",
+      "axis": "curriculum_knowledge",
+      "label": "扇形统计图",
+      "parent_id": "t.data",
+      "definition": "解释一个整体内各部分所占比例的图形表达。",
+      "example": "读出水果销售中苹果所占比例。",
+      "exclusion": "圆的几何扇形与统计扇形的任务含义不同。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            39,
+            40,
+            41
+          ],
+          "pdf_pages": [
+            46,
+            47,
+            48
+          ],
+          "section": "数据的收集、整理与表达",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.data.percent",
+      "axis": "curriculum_knowledge",
+      "label": "百分数意义与应用",
+      "parent_id": "t.data",
+      "definition": "用百分数表达部分与整体、比率等关系并解决简单问题。",
+      "example": "30 人中有 12 人选足球，求占比。",
+      "exclusion": "主课程归属为统计与概率；可关联分数、比，但不改变该映射。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            40,
+            41
+          ],
+          "pdf_pages": [
+            47,
+            48
+          ],
+          "section": "数据的收集、整理与表达",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.chance.possibility",
+      "axis": "curriculum_knowledge",
+      "label": "随机结果与可能性",
+      "parent_id": "t.chance",
+      "definition": "列出简单随机结果并定性比较可能性。",
+      "example": "袋中红球多于蓝球，判断摸到哪种更可能。",
+      "exclusion": "不自动纳入初中概率公式、独立事件等内容。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            40,
+            41
+          ],
+          "pdf_pages": [
+            47,
+            48
+          ],
+          "section": "随机现象发生的可能性",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.practice.money",
+      "axis": "curriculum_knowledge",
+      "label": "人民币与购物支付",
+      "parent_id": "t.practice",
+      "definition": "认识货币单位，在购物活动中表达支付、找零和换算。",
+      "example": "用 10 元买 6 元商品应找回多少。",
+      "exclusion": "单价×数量关系可另标；不是所有金钱题都直接体现活动目标。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            43,
+            44,
+            45
+          ],
+          "pdf_pages": [
+            50,
+            51,
+            52
+          ],
+          "section": "主题活动与项目学习",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.practice.time",
+      "axis": "curriculum_knowledge",
+      "label": "钟面、时分秒与时间长短",
+      "parent_id": "t.practice",
+      "definition": "读钟面并联系时分秒与过程持续长短。",
+      "example": "从 8:20 到 8:50 经过多少分钟。",
+      "exclusion": "年月日与 24 时记时法另映射第二学段条目。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            43,
+            44,
+            45
+          ],
+          "pdf_pages": [
+            50,
+            51,
+            52
+          ],
+          "section": "主题活动与项目学习",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.practice.calendar",
+      "axis": "curriculum_knowledge",
+      "label": "年月日与 24 时记时法",
+      "parent_id": "t.practice",
+      "definition": "在生活安排中使用日期、历法及 24 时表达。",
+      "example": "把下午 3 时写成 24 时记时法。",
+      "exclusion": "具体教材年级未知；按学段定位，不推断上下册。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            46,
+            47
+          ],
+          "pdf_pages": [
+            53,
+            54
+          ],
+          "section": "主题活动与项目学习",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.practice.orientation",
+      "axis": "curriculum_knowledge",
+      "label": "相对位置与方位",
+      "parent_id": "t.practice",
+      "definition": "相对物体描述上下左右、基本方位及八方位。",
+      "example": "已知东边方向判断西北在哪里。",
+      "exclusion": "用精确方向和距离定位可另标第三学段位置知识。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1",
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            43,
+            44,
+            45
+          ],
+          "pdf_pages": [
+            50,
+            51,
+            52
+          ],
+          "section": "主题活动与项目学习",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            47,
+            48
+          ],
+          "pdf_pages": [
+            54,
+            55
+          ],
+          "section": "主题活动与项目学习",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.practice.mass",
+      "axis": "curriculum_knowledge",
+      "label": "质量单位与称重",
+      "parent_id": "t.practice",
+      "definition": "认识克千克吨，换算并选择称重的方式。",
+      "example": "2 千克 300 克是多少克。",
+      "exclusion": "俗称重量保留为搜索别名；质量单位主归属为综合与实践。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            47,
+            48
+          ],
+          "pdf_pages": [
+            54,
+            55
+          ],
+          "section": "主题活动与项目学习",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.practice.negative",
+      "axis": "curriculum_knowledge",
+      "label": "负数与相反意义的量",
+      "parent_id": "t.practice",
+      "definition": "在温度、海拔等情境中用负数表达相反意义的量。",
+      "example": "解释 −3℃ 的实际意义。",
+      "exclusion": "不纳入有理数四则运算；主归属为综合与实践。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            50,
+            51,
+            52
+          ],
+          "pdf_pages": [
+            57,
+            58,
+            59
+          ],
+          "section": "主题活动与项目学习",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.practice.real_measurement",
+      "axis": "curriculum_knowledge",
+      "label": "真实情境测量与方案",
+      "parent_id": "t.practice",
+      "definition": "选择测量工具或方案、记录过程并比较量。",
+      "example": "设计用身体上的长度估测教室的方法。",
+      "exclusion": "单纯单位换算题可标具体知识，不自动算综合实践活动。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s1",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            43,
+            44
+          ],
+          "pdf_pages": [
+            50,
+            51
+          ],
+          "section": "主题活动与项目学习",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            47,
+            48,
+            49
+          ],
+          "pdf_pages": [
+            54,
+            55,
+            56
+          ],
+          "section": "主题活动与项目学习",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            50,
+            51
+          ],
+          "pdf_pages": [
+            57,
+            58
+          ],
+          "section": "主题活动与项目学习",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "kp.practice.planning",
+      "axis": "curriculum_knowledge",
+      "label": "调查、规划与跨学科应用",
+      "parent_id": "t.practice",
+      "definition": "通过收集信息、约束分析和方案比较应用数学。",
+      "example": "依据人数和预算设计一份活动方案。",
+      "exclusion": "这是应用知识聚合标签，不把活动名称固定成官方知识点。",
+      "required_evidence": "原题或该小问实际考查此内容；不能仅因解答中出现一个数、单位或图形就标注。",
+      "authority": "product_knowledge",
+      "stages": [
+        "s2",
+        "s3"
+      ],
+      "curriculum_mappings": [
+        {
+          "stage_id": "s2",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            49
+          ],
+          "pdf_pages": [
+            56
+          ],
+          "section": "主题活动与项目学习",
+          "mapping_status": "source_checked_needs_teaching_review"
+        },
+        {
+          "stage_id": "s3",
+          "source_id": "moe.math.2022.corrected.20220509",
+          "printed_pages": [
+            50,
+            51,
+            52
+          ],
+          "pdf_pages": [
+            57,
+            58,
+            59
+          ],
+          "section": "主题活动与项目学习",
+          "mapping_status": "source_checked_needs_teaching_review"
+        }
+      ],
+      "assignment_scope": "question_or_part",
+      "catalogue_status": "draft_needs_teaching_review"
+    },
+    {
+      "id": "qf.single_choice",
+      "axis": "question_form",
+      "label": "单项选择",
+      "definition": "从给定选项中选出恰好一项作为作答。",
+      "example": "选出与 3/4 相等的一个分数。",
+      "exclusion": "不含选出所有符合项；选项是数值也仍属选择形式。",
+      "required_evidence": "题面或评分规则明确只能选一项。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part",
+      "mutually_exclusive_with_same_axis": true
+    },
+    {
+      "id": "qf.multiple_choice",
+      "axis": "question_form",
+      "label": "多项选择",
+      "definition": "从给定选项中选出所有符合要求的项，正确项数量可变。",
+      "example": "选出所有轴对称图形。",
+      "exclusion": "不含只能选一项或逐项独立判断的小题。",
+      "required_evidence": "题面或评分规则允许多项，且要求完整选集。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part",
+      "mutually_exclusive_with_same_axis": true
+    },
+    {
+      "id": "qf.true_false",
+      "axis": "question_form",
+      "label": "判断",
+      "definition": "对指定陈述逐条作真或假的判断。",
+      "example": "判断：所有长方形都是正方形。",
+      "exclusion": "不含要求选出一条正确陈述的单项选择；判断并说明理由应拆成子题或记根题混合。",
+      "required_evidence": "题面要求对陈述填写对错、真假或等价符号。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part",
+      "mutually_exclusive_with_same_axis": true
+    },
+    {
+      "id": "qf.fill_blank",
+      "axis": "question_form",
+      "label": "填空",
+      "definition": "在指定空位填写数、符号、单位或简短词语。",
+      "example": "3 米＝（ ）厘米；在空格填入比较符号。",
+      "exclusion": "不因答案短就标填空；无指定空位的完整过程作答归过程与文字作答。",
+      "required_evidence": "题面存在指定空位或等价输入槽位。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part",
+      "mutually_exclusive_with_same_axis": true
+    },
+    {
+      "id": "qf.worked_response",
+      "axis": "question_form",
+      "label": "解答（过程或文字）",
+      "definition": "自主组织算式、计算过程、文字结论或理由，形成开放作答。",
+      "example": "列式解答买文具问题；说明为何 1/2 大于 1/3。",
+      "exclusion": "不把应用题、计算、证明当作本轴标签；若另有独立画图任务，应拆分。",
+      "required_evidence": "题面要求自主写出过程、理由或完整解答，未限定为选项或填空。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part",
+      "mutually_exclusive_with_same_axis": true
+    },
+    {
+      "id": "qf.draw_construct",
+      "axis": "question_form",
+      "label": "绘图与构造",
+      "definition": "提交绘制、标注或按要求构造的图形作为核心作答。",
+      "example": "画出图形的另一半；在数轴上标出 0.6。",
+      "exclusion": "读图后填数归填空；选择一幅正确图归选择。",
+      "required_evidence": "题面明确要求学生生成或修改图形，且图形成果参与评价。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part",
+      "mutually_exclusive_with_same_axis": true
+    },
+    {
+      "id": "qf.matching",
+      "axis": "question_form",
+      "label": "配对与连线",
+      "definition": "建立两组或多组给定对象之间的对应关系。",
+      "example": "将算式与相应线段图连线。",
+      "exclusion": "不含依据大小生成有序序列；单个对象只选一个候选且独立评分时可拆为单选。",
+      "required_evidence": "题面要求提交对象之间的匹配关系或连线。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part",
+      "mutually_exclusive_with_same_axis": true
+    },
+    {
+      "id": "qf.ordering",
+      "axis": "question_form",
+      "label": "排序",
+      "definition": "提交给定对象的有序排列，顺序本身是作答结果。",
+      "example": "把 0.6、2/3、0.65 按从小到大排列。",
+      "exclusion": "不含填写一个比较符号；按时间逐空填日期仍按指定空位记填空。",
+      "required_evidence": "题面明确要求重排给定对象或提交完整顺序。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part",
+      "mutually_exclusive_with_same_axis": true
+    },
+    {
+      "id": "qf.mixed",
+      "axis": "question_form",
+      "label": "混合形式（仅根题）",
+      "definition": "题组根题包含至少两种作答形式的可区分子题。",
+      "example": "先选择正确算式，再独立画线段图。",
+      "exclusion": "禁止用于最末级小题；一道开放解答同时含算式与文字不算混合。",
+      "required_evidence": "已拆出子题，且子题采用至少两种不同叶形式。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "root_only",
+      "mutually_exclusive_with_same_axis": false
+    },
+    {
+      "id": "pf.expression_evaluation",
+      "axis": "problem_family",
+      "label": "算式求值",
+      "definition": "已给出待求值算式，任务是计算其值；无需从情境建立数量模型。",
+      "example": "计算 36÷4＋7。",
+      "exclusion": "情境中需先确定算式的任务按其关系家族；未知数方程反求不归此项。",
+      "required_evidence": "题面直接提供待求值算式或明确的运算链。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.value_comparison",
+      "axis": "problem_family",
+      "label": "数值比较与等价判断",
+      "definition": "判断已给数、式或量之间的大小、相等或等价关系。",
+      "example": "比较 0.75 与 3/4；判断两个算式是否相等。",
+      "exclusion": "求差多少归差量比较；求倍数关系归倍数比较；仅计算一个式值归算式求值。",
+      "required_evidence": "要求输出比较或等价关系，而非某个差值或倍数。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.part_whole",
+      "axis": "problem_family",
+      "label": "部分与整体",
+      "definition": "静态整体由若干不重叠部分组成，求整体或缺失部分。",
+      "example": "男生 18 人、女生 17 人，全班多少人？",
+      "exclusion": "有事件前后变化归增减变化；部分是总量的几分之几可同时标比例对应。",
+      "required_evidence": "题面存在可辨识整体与部分的组成关系。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.change",
+      "axis": "problem_family",
+      "label": "增减变化",
+      "definition": "某量经历增加或减少，联系初始量、变化量和最终量。",
+      "example": "原有 20 本书，借出 7 本，还剩多少本？",
+      "exclusion": "无时间或事件变化的静态组成归部分与整体；两对象差值归差量比较。",
+      "required_evidence": "有明确变化事件或前后状态，且未知量属于这三个量。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.additive_comparison",
+      "axis": "problem_family",
+      "label": "差量比较",
+      "definition": "比较两个对象或状态相差多少，或由差量求其中一个量。",
+      "example": "甲有 12 支笔，比乙多 4 支，乙有多少支？",
+      "exclusion": "求几倍归倍数比较；同一对象的取出、加入事件归增减变化。",
+      "required_evidence": "两个比较量和差量关系明确。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.multiplicative_comparison",
+      "axis": "problem_family",
+      "label": "倍数比较",
+      "definition": "比较两个量的倍数关系，求比较量、基准量或倍数。",
+      "example": "甲有 24 张卡，是乙的 3 倍，乙有多少张？",
+      "exclusion": "单份数与份数归等份累积；非整数比例或百分比关系归比例对应。",
+      "required_evidence": "题面明确基准量与整数倍数关系，或明确询问几倍。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.equal_groups_total",
+      "axis": "problem_family",
+      "label": "等份累积求总量",
+      "definition": "若干份具有相同数量，已知每份量与份数求总量。",
+      "example": "每盒 6 支笔，4 盒共多少支？",
+      "exclusion": "总量已知而求每份量或份数归等分与包含；仅两量相互比较归倍数比较。",
+      "required_evidence": "等份结构明确，未知量是累计总量。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.division_partition",
+      "axis": "problem_family",
+      "label": "等分与包含",
+      "definition": "由总量及份数求每份量，或由总量及每份量求份数。",
+      "example": "24 块糖均分给 6 人；24 块糖每袋 6 块可装几袋？",
+      "exclusion": "求总量归等份累积；不等份分配归条件约束；持续速率问题归速率关系。",
+      "required_evidence": "总量已知，题面明确等份结构及所求是每份量或份数。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.proportional_relation",
+      "axis": "problem_family",
+      "label": "比例对应",
+      "definition": "求固定比、分率、百分比或成比例变化中相互对应的量。",
+      "example": "女生占全班的 40%，全班 30 人，女生多少人？",
+      "exclusion": "明确整数倍比较优先归倍数比较；速度、单价、效率等单位率优先归速率关系。",
+      "required_evidence": "题面给出或要求建立比例、分率或成比例关系；可与部分整体多标，但需分别有证据。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.rate_relation",
+      "axis": "problem_family",
+      "label": "速率与单位率关系",
+      "definition": "联系单位率、持续时间或数量与累计量，包括速度、单价、效率等。",
+      "example": "速度每小时 60 千米，行驶 2 小时有多远？",
+      "exclusion": "只有一组等份且未赋予单位率意义的装袋问题归等分与包含；求图形面积归几何度量。",
+      "required_evidence": "单位率意义和相应累计量关系由题面或模型明确给出。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.discrete_counting",
+      "axis": "problem_family",
+      "label": "枚举与组合计数",
+      "definition": "按有限规则枚举、组合或分类计数可行对象。",
+      "example": "3 件上衣与 2 条裤子可搭配多少种？",
+      "exclusion": "按规则延续一个序列归规律延续；直接数一幅图中已画出的物体可归此项但须有计数任务。",
+      "required_evidence": "求可行对象总数，或要求完整、有组织地列出对象。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.pattern_recurrence",
+      "axis": "problem_family",
+      "label": "规律与周期推断",
+      "definition": "从序列、排列或迭代规则推断后续项、一般规则或周期位置。",
+      "example": "红黄蓝依次重复，第 20 个是什么颜色？",
+      "exclusion": "枚举所有可能搭配归枚举计数；已给算式直接求值归算式求值。",
+      "required_evidence": "需要识别或应用序列、迭代或周期规则，且规则决定所求。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.constraint_inverse",
+      "axis": "problem_family",
+      "label": "条件约束与反求",
+      "definition": "从结果或若干同时成立的条件反求未知状态，且不能只归一个标准数量关系。",
+      "example": "两个数和为 20、差为 4，求这两个数；解含未知数的等式。",
+      "exclusion": "单个部分整体、增减、差量、倍数或等份关系的未知量反求仍归相应家族。",
+      "required_evidence": "存在等式未知数、多个联立条件或逆向步骤，并明确需要同时满足。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.spatial_relation",
+      "axis": "problem_family",
+      "label": "空间位置与变换",
+      "definition": "确定位置、方向、观察关系，或推断移动、对称、旋转后的空间结果。",
+      "example": "从右面看到什么形状？把图形向右平移 3 格。",
+      "exclusion": "计算长、面积、体积归几何度量；仅判断图形定义或性质归性质辨认与分类。",
+      "required_evidence": "所求是空间位置、方向、视图或变换关系。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.geometric_measure",
+      "axis": "problem_family",
+      "label": "几何度量",
+      "definition": "测量或求线段、角、周长、面积、体积等图形的量。",
+      "example": "求长 8 厘米、宽 5 厘米的长方形周长。",
+      "exclusion": "图形在答案中出现并不自动属于此家族；方向与视图归空间关系。",
+      "required_evidence": "所求明确为图形的可测量属性，且给定图形或测量对象。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.data_analysis",
+      "axis": "problem_family",
+      "label": "数据整理与解读",
+      "definition": "从数据集合、表格或统计图中提取、整理、汇总、比较或解释数据。",
+      "example": "根据一周借书统计图求每日平均借书量。",
+      "exclusion": "图表只是载体且任务完全是一个明确等份或差量关系时可标相应家族；本项须涉及数据解读步骤。",
+      "required_evidence": "题面要求处理数据集合或读出图表关系，不能仅因插图存在而标注。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.chance_possibility",
+      "axis": "problem_family",
+      "label": "可能性与随机结果",
+      "definition": "判断随机试验的可能结果、可能性大小或结果分布。",
+      "example": "袋中 3 个红球、1 个蓝球，摸到哪种颜色的可能性较大？",
+      "exclusion": "无随机试验的穷举计数归枚举计数；已知确定规则的周期归规律推断。",
+      "required_evidence": "题面明确随机情境及可能性或随机结果任务。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.estimation_bounds",
+      "axis": "problem_family",
+      "label": "估计与范围约束",
+      "definition": "以近似、上下界或合理范围回答，精确值不是唯一要求。",
+      "example": "估计 198×5 大约是多少；判断 100 元是否够买这些商品。",
+      "exclusion": "精确计算后只按要求保留小数可仍属算式求值；需明确估计或范围判断。",
+      "required_evidence": "题面明确要求估计、判断足够与否、给出界限或合理范围。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "ef.transcription",
+      "axis": "error_form",
+      "label": "抄录不一致",
+      "definition": "作答中的给定数、符号或条件与题面对应项不一致。",
+      "example": "题目为 306，算式中抄成 360。",
+      "exclusion": "不由最终错数推断抄错；合理单位换写与等价表达不属此项。",
+      "required_evidence": "保留题面与学生作答中的对应位置，可直接比对。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.condition_omission",
+      "axis": "error_form",
+      "label": "必要条件未体现",
+      "definition": "学生模型或推理中遗漏一个会改变结论的明示必要条件。",
+      "example": "要求两端都种树，解答按间隔数直接给树数且未计端点。",
+      "exclusion": "未写出全部文字不等于遗漏；步骤缺失但结论可能正确时不直接判定。",
+      "required_evidence": "完整过程显示该条件未被纳入，且可说明遗漏如何影响模型或结论。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.target_mismatch",
+      "axis": "error_form",
+      "label": "所答对象不符",
+      "definition": "答案实际对应的对象、量或问题与明确所求不一致。",
+      "example": "题目问女生人数，最后答全班人数。",
+      "exclusion": "仅少写单位归单位不符；不能从一个错误数值判断其所指对象。",
+      "required_evidence": "学生文字、标记或解释能确定实际回答对象，并与题目所求比较。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.relation_model",
+      "axis": "error_form",
+      "label": "数量关系表达不符",
+      "definition": "算式、图示或等式表达的关系与已给数量关系不一致。",
+      "example": "甲比乙多 4，画图却把乙画得比甲长 4。",
+      "exclusion": "不因算术结果错就判模型错；仅运算符错误且其余关系明确时归运算选择。",
+      "required_evidence": "题目关系及学生明确模型可比较，指出违反关系的具体位置。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.operation_selection",
+      "axis": "error_form",
+      "label": "运算选择不符",
+      "definition": "学生明确写出的运算不能完成已表达的当前求解步骤。",
+      "example": "由 24 块糖均分 6 人求每人数量，却写 24×6。",
+      "exclusion": "运算知识原因另行确认；无过程的错答不能确定运算选择。",
+      "required_evidence": "学生算式与该步所求量可见，并能明确正确运算需求。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.basic_calculation",
+      "axis": "error_form",
+      "label": "单步数值计算不符",
+      "definition": "运算和操作数已明确，一步计算得到不符合运算的数值。",
+      "example": "写出 7×8＝54。",
+      "exclusion": "复杂竖式有具体位值或进借位证据时应标相应形式；不能据此推断口诀未掌握。",
+      "required_evidence": "保留该步操作数、运算符和所得数值。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.place_alignment",
+      "axis": "error_form",
+      "label": "数位或小数位对齐不符",
+      "definition": "按位运算时，学生把不对应的数位对齐或参与同一位计算。",
+      "example": "计算 3.2＋0.45 时把 2 与 5 置于同一列。",
+      "exclusion": "错误结果本身不能证明对齐错误；乘法竖式不以小数点齐列作为通则。",
+      "required_evidence": "清晰竖式、数位标注或学生解释直接显示不对应数位相配。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.carry_borrow",
+      "axis": "error_form",
+      "label": "进位或退位记录不符",
+      "definition": "多位计算中，进位、退位的转移或后续使用与当前计算不符。",
+      "example": "个位 8＋7 后写 5，但十位未加入已记下的进 1。",
+      "exclusion": "无可见步骤时不推断；基本事实算错不自动等于进退位错。",
+      "required_evidence": "竖式及中间标记足以定位进退位发生点和后续位处理。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.operation_order",
+      "axis": "error_form",
+      "label": "运算顺序不符",
+      "definition": "计算步骤未遵守当前式子的括号或运算优先顺序。",
+      "example": "计算 2＋3×4 时先算 2＋3。",
+      "exclusion": "使用有效运算律改变顺序不属此项；仅结果错误不够。",
+      "required_evidence": "学生逐步变形或解释显示实际运算先后。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.fraction_transform",
+      "axis": "error_form",
+      "label": "分数变形不符",
+      "definition": "通分、约分或分数运算中的明确变形不保持数值或合法运算关系。",
+      "example": "写出 1/2＋1/3＝2/5。",
+      "exclusion": "不能仅凭最后分数推断具体变形；分数意义原因另行确认。",
+      "required_evidence": "可见原式与变形后的式子，能指出不成立的等价或运算步骤。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.unit_conversion",
+      "axis": "error_form",
+      "label": "单位换算不符",
+      "definition": "明确换算步骤采用不正确倍率、方向或进率。",
+      "example": "写出 2 平方米＝200 平方厘米。",
+      "exclusion": "答案漏单位或量纲错误归单位与量纲；裸数错误不能证明换算步骤。",
+      "required_evidence": "学生给出换算式或说明，且原单位、目标单位明确。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.unit_dimension",
+      "axis": "error_form",
+      "label": "单位或量纲不符",
+      "definition": "表达数量时遗漏所要求单位，或单位与该量的类型不一致。",
+      "example": "把面积答案写为 24 厘米；要求写单位却只答 24。",
+      "exclusion": "评分规则允许省略单位时不判错；换算倍率错归单位换算。",
+      "required_evidence": "题面要求、作答位置及所求量明确，单位缺失或不匹配可见。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.geometric_measure_model",
+      "axis": "error_form",
+      "label": "几何量公式或测量模型不符",
+      "definition": "所用公式、测量对象或量的组合与所求几何量不一致。",
+      "example": "求长方形周长却只算长×宽。",
+      "exclusion": "仅代入正确公式后算错归数值计算；不自动认定学生不理解周长。",
+      "required_evidence": "可见所求几何量及学生公式、测量方式或解释。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.data_reading",
+      "axis": "error_form",
+      "label": "数据读取得值不符",
+      "definition": "学生从图表、刻度或记录中读取的量与对应编码不一致。",
+      "example": "纵轴每格代表 5，却把 4 格的柱读成 4。",
+      "exclusion": "数据提取正确后的汇总算错归计算；无读取过程不能据错答确定。",
+      "required_evidence": "原图表编码、学生所指位置和读取值可对应。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.representation_mismatch",
+      "axis": "error_form",
+      "label": "跨表征对应不符",
+      "definition": "数、式、语言、图形等表征之间的转换对应关系不成立。",
+      "example": "把 3/4 画成四等份中只涂一份。",
+      "exclusion": "图表刻度读取优先归数据读取；数量关系建模优先归数量关系表达，除非另有独立转换错误。",
+      "required_evidence": "至少两个表征及其预期对应关系可见，定位转换不符之处。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.invalid_reasoning",
+      "axis": "error_form",
+      "label": "推理依据或衔接不成立",
+      "definition": "写出的理由、推出关系或结论依据不支持该步结论，即使最后答案正确。",
+      "example": "学生理由写“分母越大分数越大”，却得出 1/2＞1/3；结论正确仍需核对理由。",
+      "exclusion": "理由简短但有效不判错；缺少过程只能视证据不足，不能认定推理无效。",
+      "required_evidence": "完整原话或推理链可见，能指出不成立的规则、前提或推出关系。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.constraint_violation",
+      "axis": "error_form",
+      "label": "结果违反明确条件",
+      "definition": "所得候选结果不满足题目明确限制或必须满足的数学条件。",
+      "example": "人数算为 3.5 且直接作为人数答案。",
+      "exclusion": "允许平均人数、连续量或近似量时不适用；错误原因可能多种，不能自动推断。",
+      "required_evidence": "候选结果与具体约束可比对，说明违反哪一项。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.rounding_precision",
+      "axis": "error_form",
+      "label": "近似或精度表达不符",
+      "definition": "近似处理、保留位数或估计结论与明确精度要求不一致。",
+      "example": "3.146 保留两位小数写成 3.14。",
+      "exclusion": "没有精度要求时不因多写小数判错；精确运算本身错另标计算。",
+      "required_evidence": "原数、精度要求及学生近似步骤或答案可见。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.incomplete_response",
+      "axis": "error_form",
+      "label": "作答要求未完成",
+      "definition": "已提交答案中有明确要求的独立作答部分未提供。",
+      "example": "题目要求写结论并说明理由，只写了结论。",
+      "exclusion": "不把未提交或尚在作答当错误；看不清或截断的材料不能证明缺答。",
+      "required_evidence": "确认是完整提交材料，逐项比对明确作答要求与已提供内容。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.enumeration_duplicate_omission",
+      "axis": "error_form",
+      "label": "枚举重复或漏项",
+      "definition": "有限枚举中有重复计数或遗漏符合规则的对象。",
+      "example": "列举两件上衣和两条裤子的搭配时重复一组并漏另一组。",
+      "exclusion": "只有总数错误而无枚举证据时不能确定；违背限制的对象可另标约束违反。",
+      "required_evidence": "规则、可行集合及学生完整列表或计数过程均可核查。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ec.place_value",
+      "axis": "error_cause",
+      "label": "位值意义理解",
+      "definition": "假设学生对数字所代表的数位与单位量的理解影响了当前步骤。",
+      "example": "学生解释把 0.45 中的 4 当作 4 个一，再据此对齐。",
+      "exclusion": "对齐错误不自动证明位值原因；不标粗心或能力低。",
+      "required_evidence": "学生解释或针对位值的补充作答显示该理解，并经用户或教师核实其与错误相关。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event",
+      "default_assignment_status": "suggested",
+      "confirmation_policy": "human_confirmation_with_linked_evidence",
+      "cause_role": "candidate_initial_or_contributing"
+    },
+    {
+      "id": "ec.operation_meaning",
+      "axis": "error_cause",
+      "label": "运算意义理解",
+      "definition": "假设学生对运算表示的合并、变化、重复或分配意义理解不符。",
+      "example": "学生说平均分给 6 人就是把总数乘 6。",
+      "exclusion": "选错符号可能源于关系解读、抄录等；单次错式不足以定因。",
+      "required_evidence": "学生说明为何使用该运算，或在等价情境中解释运算意义，由用户或教师确认。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event",
+      "default_assignment_status": "suggested",
+      "confirmation_policy": "human_confirmation_with_linked_evidence",
+      "cause_role": "candidate_initial_or_contributing"
+    },
+    {
+      "id": "ec.reference_whole",
+      "axis": "error_cause",
+      "label": "基准量或整体识别",
+      "definition": "假设分率、倍数或比较关系中的参照整体、基准量识别不符。",
+      "example": "女生占全班 40%，学生解释把男生数当成 100%。",
+      "exclusion": "算式错不能证明基准量误认；读题遗漏与运算理解须分别考察。",
+      "required_evidence": "学生指明谁对应整体或一倍量，并通过解释或追问经用户或教师核实。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event",
+      "default_assignment_status": "suggested",
+      "confirmation_policy": "human_confirmation_with_linked_evidence",
+      "cause_role": "candidate_initial_or_contributing"
+    },
+    {
+      "id": "ec.relational_language",
+      "axis": "error_cause",
+      "label": "关系语言理解",
+      "definition": "假设对题中比较、顺序或条件语言的数学含义解读不符。",
+      "example": "学生把甲比乙少 4 解释为甲＝乙＋4。",
+      "exclusion": "不推断语言障碍；单纯抄错、模糊题面或信息缺失不能当作学生原因。",
+      "required_evidence": "学生复述关系、画图或解释关键词，用户或教师确认与题面清晰含义不一致。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event",
+      "default_assignment_status": "suggested",
+      "confirmation_policy": "human_confirmation_with_linked_evidence",
+      "cause_role": "candidate_initial_or_contributing"
+    },
+    {
+      "id": "ec.equal_group_model",
+      "axis": "error_cause",
+      "label": "等份结构识别",
+      "definition": "假设学生未区分总量、每份量与份数的角色或等份条件。",
+      "example": "学生解释每袋 6 块中的 6 是袋数。",
+      "exclusion": "运算符错或除法结果错不足以定因；速率单位含义应另行考察。",
+      "required_evidence": "学生明确指出三个量的角色或用实物分组，用户或教师核实其结构理解。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event",
+      "default_assignment_status": "suggested",
+      "confirmation_policy": "human_confirmation_with_linked_evidence",
+      "cause_role": "candidate_initial_or_contributing"
+    },
+    {
+      "id": "ec.fraction_unit",
+      "axis": "error_cause",
+      "label": "分数单位与等值理解",
+      "definition": "假设学生对等分单位、同一整体或等值分数的理解影响分数处理。",
+      "example": "学生解释 1/2＋1/3 可直接合并成五份中的两份。",
+      "exclusion": "不凭 2/5 结果认定原因；规则记忆问题与概念理解可并存。",
+      "required_evidence": "学生用图、实物或语言说明分数单位及变形意义，用户或教师据此核实。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event",
+      "default_assignment_status": "suggested",
+      "confirmation_policy": "human_confirmation_with_linked_evidence",
+      "cause_role": "candidate_initial_or_contributing"
+    },
+    {
+      "id": "ec.procedure_rule",
+      "axis": "error_cause",
+      "label": "计算规则掌握",
+      "definition": "假设学生对当前计算规则、步骤或基本事实的掌握影响执行。",
+      "example": "学生解释有括号也必须始终从左往右算。",
+      "exclusion": "重复错题只提供线索；不能涵盖已被证实的位值、单位或分数概念原因。",
+      "required_evidence": "学生解释采用的规则或完成有针对性的步骤核查，用户或教师确认规则理解或调用存在问题。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event",
+      "default_assignment_status": "suggested",
+      "confirmation_policy": "human_confirmation_with_linked_evidence",
+      "cause_role": "candidate_initial_or_contributing"
+    },
+    {
+      "id": "ec.measurement_unit",
+      "axis": "error_cause",
+      "label": "测量单位与量纲理解",
+      "definition": "假设学生对单位大小、量的类型或换算依据的理解影响解答。",
+      "example": "学生解释平方厘米与厘米的换算方式相同。",
+      "exclusion": "漏写单位可能只是不完整表达；一次倍率错误不足以确定原因理解。",
+      "required_evidence": "学生解释单位含义、测量方法或换算依据，并由用户或教师核实。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event",
+      "default_assignment_status": "suggested",
+      "confirmation_policy": "human_confirmation_with_linked_evidence",
+      "cause_role": "candidate_initial_or_contributing"
+    },
+    {
+      "id": "ec.spatial_model",
+      "axis": "error_cause",
+      "label": "空间关系理解",
+      "definition": "假设学生对图形位置、视角、变换或可测属性的空间模型理解不符。",
+      "example": "学生解释旋转后图形大小也会改变。",
+      "exclusion": "不推断空间能力或医学问题；绘图不精确、工具误差不自动证明理解错误。",
+      "required_evidence": "学生操作图形、指认视角或解释变换，用户或教师确认具体关系理解。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event",
+      "default_assignment_status": "suggested",
+      "confirmation_policy": "human_confirmation_with_linked_evidence",
+      "cause_role": "candidate_initial_or_contributing"
+    },
+    {
+      "id": "ec.data_encoding",
+      "axis": "error_cause",
+      "label": "图表编码理解",
+      "definition": "假设学生对刻度、图例、坐标或统计量所表示意义的理解不符。",
+      "example": "学生说统计图每一格都只能代表 1，无论纵轴标什么。",
+      "exclusion": "单次读错数不能证明编码理解；印刷不清或图例缺失属于材料问题。",
+      "required_evidence": "学生说明图例、轴或统计量含义，补充读取任务经用户或教师核实。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event",
+      "default_assignment_status": "suggested",
+      "confirmation_policy": "human_confirmation_with_linked_evidence",
+      "cause_role": "candidate_initial_or_contributing"
+    },
+    {
+      "id": "ec.reasoning_warrant",
+      "axis": "error_cause",
+      "label": "推理规则理解",
+      "definition": "假设学生采用不成立的数学规则，或混淆支持结论所需的依据。",
+      "example": "学生用一个例子解释所有四边形面积都等于长×宽。",
+      "exclusion": "正确答案不排除该原因；理由未写或证据不全时不推断。",
+      "required_evidence": "学生明确陈述其推理规则，用户或教师通过反例或追问核实规则与错误的关联。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event",
+      "default_assignment_status": "suggested",
+      "confirmation_policy": "human_confirmation_with_linked_evidence",
+      "cause_role": "candidate_initial_or_contributing"
+    },
+    {
+      "id": "ec.constraint_tracking",
+      "axis": "error_cause",
+      "label": "条件统整策略",
+      "definition": "假设学生在组织多条件任务时未形成覆盖全部条件的求解策略。",
+      "example": "学生能逐条解释限制，但说明自己只按其中两条筛选候选。",
+      "exclusion": "不推断注意力、记忆或人格问题；若条件本身未理解，应另考察关系语言。",
+      "required_evidence": "学生能解释各条件但其计划或复盘明确未整合某条件，并由用户或教师确认。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event",
+      "default_assignment_status": "suggested",
+      "confirmation_policy": "human_confirmation_with_linked_evidence",
+      "cause_role": "candidate_initial_or_contributing"
+    },
+    {
+      "id": "ec.verification_strategy",
+      "axis": "error_cause",
+      "label": "检验与修正策略",
+      "definition": "假设学生采用的检验方式不能检测当前矛盾，影响发现或修正错误。",
+      "example": "学生解释人数为 3.5 也无需检查，因为计算器显示如此。",
+      "exclusion": "不会主动验算不能当默认主因；检验不足不解释初始错误，可能只是维持原因。",
+      "required_evidence": "学生陈述或演示检验过程，用户或教师确认其未覆盖关键约束并与未修正错误有关。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event",
+      "default_assignment_status": "suggested",
+      "confirmation_policy": "human_confirmation_with_linked_evidence",
+      "cause_role": "maintenance"
+    },
+    {
+      "id": "pf.property_classification",
+      "axis": "problem_family",
+      "label": "性质辨认与分类",
+      "definition": "依据定义或性质判断对象所属类别、共有或相异特征。",
+      "example": "判断哪些四边形是长方形。",
+      "exclusion": "数值大小比较另标；随机结果、一般数据分类可保留相应知识，但本项须有性质辨别任务。",
+      "required_evidence": "原题要求依性质识别、判断或分类，有明确评价标准。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.representation_conversion",
+      "axis": "problem_family",
+      "label": "数与关系的表征转换",
+      "definition": "在数词、数字、式、图等表示之间转换，并保持数学意义。",
+      "example": "把四千零六写成数字；用图表示 3/4。",
+      "exclusion": "图表解读优先数据分析；生成图形以表达原数时可与绘图形式共存。",
+      "required_evidence": "题目明确要求改变表达形式，而非只求数值。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.unit_conversion",
+      "axis": "problem_family",
+      "label": "量的单位转换",
+      "definition": "保持同一量不变，在指定单位之间改写其数值表示。",
+      "example": "把 2 米 5 厘米换为厘米。",
+      "exclusion": "知识标签标明长度、面积、质量等；出现单位但不要求转换不归此类。",
+      "required_evidence": "原单位、目标单位和换算任务明确。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "pf.practical_planning",
+      "axis": "problem_family",
+      "label": "方案设计与比较",
+      "definition": "在多个现实约束下设计或比较可行方案。",
+      "example": "按人数和预算比较两种购票方案。",
+      "exclusion": "普通一句话应用题不自动归此类；需方案决策或多条件规划任务。",
+      "required_evidence": "明确的方案任务、约束及比较标准可追溯。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "question_or_part"
+    },
+    {
+      "id": "ef.spatial_transform",
+      "axis": "error_form",
+      "label": "位置或变换结果不符",
+      "definition": "给出的点、方向、视图或变换后的图形违反题面指定关系。",
+      "example": "要求右移 3 格，学生标在右移 2 格处。",
+      "exclusion": "手绘轻微不精确不直接判错；原图比例或方向不清时先标材料问题。",
+      "required_evidence": "原图参照、指定关系和完整学生图示足以对应检查。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ef.property_classification",
+      "axis": "error_form",
+      "label": "性质判断或分类不符",
+      "definition": "明确的性质判断或分类与对象的已知特征或定义不一致。",
+      "example": "把给定直角三角形归为钝角三角形。",
+      "exclusion": "不由图形草图外观补造条件；错误结果不自动说明概念未掌握。",
+      "required_evidence": "题面特征及学生分类可直接比对，相关定义已核实。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event"
+    },
+    {
+      "id": "ec.geometric_quantity",
+      "axis": "error_cause",
+      "label": "几何量概念区分",
+      "definition": "假设学生对周长、面积、体积等所测对象或单位维度的区分影响当前解答。",
+      "example": "学生说明面积就是把边长全部相加。",
+      "exclusion": "用错公式可能是记忆或抄录问题；公式错误本身不确认概念原因。",
+      "required_evidence": "学生说明测量对象、单位或作图操作，用户或教师核实其与错误的关联。",
+      "authority": "product_tag",
+      "catalogue_status": "draft_needs_teaching_review",
+      "assignment_scope": "attempt_error_event",
+      "default_assignment_status": "suggested",
+      "confirmation_policy": "human_confirmation_with_linked_evidence",
+      "cause_role": "candidate_initial_or_contributing"
+    }
+  ],
+  "assignment_contract": {
+    "required_fields": [
+      "tag_id",
+      "catalogue_version",
+      "target_type",
+      "target_id",
+      "content_version_id",
+      "origin",
+      "status",
+      "evidence_refs"
+    ],
+    "target_types": [
+      "question",
+      "question_part",
+      "attempt_error_event"
+    ],
+    "origins": [
+      "user",
+      "teacher",
+      "ai"
+    ],
+    "statuses": [
+      "suggested",
+      "confirmed",
+      "rejected"
+    ],
+    "evidence_ref_fields": [
+      "source_kind",
+      "source_id",
+      "region_or_field",
+      "note"
+    ],
+    "unknown_is_state_not_tag": true,
+    "question_confirmed_does_not_confirm_causes": true,
+    "confirmed_error_cause_requires_human_and_evidence": true,
+    "confirmation_review": {
+      "required_for": "confirmed error_cause assignments",
+      "fields": [
+        "reviewer_type",
+        "reviewed_at",
+        "evidence_refs"
+      ],
+      "reviewer_types": [
+        "user",
+        "teacher"
+      ],
+      "note": "origin=ai 的建议经人工确认后保留 origin，另记录确认者；不把 origin 改成 teacher 掩盖模型来源。"
+    },
+    "content_version_semantics": {
+      "question": "题目内容版本",
+      "question_part": "所属题目内容版本，并定位小问ID",
+      "attempt_error_event": "学生作答的不可变版本/快照ID；通过错误事件同时保留其所对应的原题版本"
+    }
+  },
+  "coverage_notes": [
+    "目录为可审核起点，未声称覆盖小学全部题型或全部错因。",
+    "未绑定教材版本和具体年级上下册；不将学段要求替代教材进度。",
+    "基础知识可用于更高学段复习，不用学段标签硬性过滤候选。",
+    "错因非课标官方分类，不描述人格、医学状况或稳定能力。",
+    "反比例、奥数专题等暂不列为已核对核心课标映射；未匹配项保持待分类。"
+  ],
+  "attempt_error_event_contract": {
+    "required_fields": [
+      "id",
+      "attempt_id",
+      "attempt_version_id",
+      "question_id",
+      "question_version_id",
+      "question_part_id",
+      "step_locator",
+      "evidence_refs"
+    ],
+    "nullable_fields": [
+      "question_part_id"
+    ],
+    "step_locator_rule": "无过程时仅能定位最终答案；不能生成不存在的计算步骤。",
+    "snapshot_policy": "attempt_version_id 指向不可变作答快照；修正作答生成新版本，不覆盖历史证据。",
+    "link_integrity": "作答所属题目、小问、原题版本及证据必须相符；不能把他人或另一次作答证据关联到本事件。"
+  },
+  "taxonomy_update_contract": {
+    "published_versions_immutable": true,
+    "tag_ids_never_reused": true,
+    "display_rename": "含义不变可保留ID，旧版本名称仍可读取。",
+    "semantic_change": "范围或含义改变须建立新ID；旧ID废弃但保留。",
+    "split_merge": "保存显式from/to版本、源ID、目标ID及关系类型；拆分一对多不能自动确定每题的新标签。",
+    "mapping_review": "官方条目或学段映射变化发布新目录版本，并记录修订缘由。",
+    "history_policy": "历史标注继续使用原catalogue_version；经人工复核才追加迁移后的标注与迁移记录，不覆盖旧关联。",
+    "custom_namespace": "用户自定义标签用user.*等独立命名空间，不覆盖系统或课标导航ID。"
+  }
+}

@@ -12,16 +12,100 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private var settingsEditors: [SettingsSection: AnyObject] = [:]
   private var accountSettingsView: AccountSettingsView?
   private let mathQuestionStore: MathQuestionStore
+  private let questionSessionStore: ScreenshotQuestionSessionStore
   private(set) var mathQuestionLibrary: MathQuestionLibrary?
+  private var bundledMathSkillsTask: Task<Void, Never>?
+  private(set) var bundledMathSkillsFailure: String?
   private var mathIndexTasks: [String: Task<Void, Never>] = [:]
+  private var isRestoringMathLibrary = false
+  private var mathLibraryRevision = UUID()
+  private let questionWebAnswerOverride: ScreenshotQuestionWebAnswer?
+  private let injectedMathClassifier: MathAutomaticTagCoordinator.Classify?
+  private let mathAutoTaggingKey = "VocabCapture.mathAutomaticTaggingEnabled"
+  private let mathSkillLearningKey = "VocabCapture.mathSkillLearningEnabled"
+  private lazy var mathResearchPreferences = MathResearchModelPreferences(defaults: defaults)
+  private var mathResearchConfiguration: MathTagModelConfiguration {
+    mathResearchPreferences.resolve(preferences: questionPreferences, fallback: configuration)
+  }
+  private lazy var mathProjectSync = MathSkillProjectSyncCoordinator(store: mathQuestionStore, defaults: defaults)
+  private var onMathMethodsChanged: () -> Void {
+    { [weak self] in
+      Task { guard let self, !self.isRestoringMathLibrary, !self.isolatedMathReview else { return }; await self.mathProjectSync.synchronize() }
+    }
+  }
+  private var mathLearningStarted = false
+  private var mathSkillLearningEnabled: Bool {
+    defaults.object(forKey: mathSkillLearningKey) == nil || defaults.bool(forKey: mathSkillLearningKey)
+  }
+  private lazy var mathSkillLearning = MathSkillLearningCoordinator(
+    store: mathQuestionStore, enabled: mathSkillLearningEnabled,
+    configuration: { [weak self] in
+      guard let self else { return .init(configuration: .init(baseURL:"",model:"",apiKey:""),api:.automatic,directConnection:false) }
+      return self.mathResearchConfiguration
+    }, analyze: { [screenshotQuestions] data,image,methods,model in
+      try await screenshotQuestions.learnSkills(learning:data,imageData:image,methods:methods,
+        configuration:model.configuration,api:model.api,directConnection:model.directConnection)
+    }, onChange: { [weak self] in
+      self?.mathQuestionLibrary?.refresh()
+      self?.onMathMethodsChanged()
+    })
+  private lazy var mathProfileResearch = MathSkillProfileResearchCoordinator(
+    store: mathQuestionStore,
+    configuration: { [weak self] in
+      guard let self else { return .init(configuration: .init(baseURL: "", model: "", apiKey: ""), api: .automatic, directConnection: false) }
+      return self.mathResearchConfiguration
+    }, analyze: { [screenshotQuestions] data, image, methods, model in
+      try await screenshotQuestions.learnSkills(learning: data, imageData: image, methods: methods,
+        configuration: model.configuration, api: model.api, directConnection: model.directConnection)
+    })
+  private var researchTeachingMethod: MathSkillProfileResearchCoordinator.Research {
+    { [weak self] method in
+      guard let self, !self.isRestoringMathLibrary else { throw CancellationError() }
+      try await self.mathProfileResearch.review(method: method)
+      if !self.isolatedMathReview { await self.mathProjectSync.synchronize() }
+    }
+  }
+  private var mathAutoTaggingEnabled: Bool {
+    defaults.object(forKey: mathAutoTaggingKey) == nil || defaults.bool(forKey: mathAutoTaggingKey)
+  }
+  private lazy var mathAutoTagger = MathQuestionAutoTagger(client: screenshotQuestions)
+  private lazy var mathTagCoordinator = MathAutomaticTagCoordinator(
+    store: mathQuestionStore, enabled: mathAutoTaggingEnabled,
+    configuration: { [weak self] in
+      guard let self else {
+        return MathTagModelConfiguration(
+          configuration: AIConfiguration(baseURL: "", model: "", apiKey: ""), api: .automatic,
+          directConnection: false)
+      }
+      return MathTagModelConfiguration(
+        configuration: self.questionPreferences.configuration(fallingBackTo: self.configuration),
+        api: self.questionPreferences.selectedAPI,
+        directConnection: self.questionPreferences.selectedDirectConnection)
+    },
+    classify: injectedMathClassifier ?? { [mathAutoTagger] image, text, grade, model in
+      try await mathAutoTagger.classify(
+        imageData: image, ocrText: text, grade: grade,
+        configuration: model.configuration, api: model.api, directConnection: model.directConnection
+      )
+    },
+    onChange: { [weak self] in
+      guard let self else { return }
+      self.mathQuestionLibrary?.updateAutomaticTagging(
+        enabled: self.mathAutoTaggingEnabled, model: self.currentQuestionModel)
+      self.mathQuestionLibrary?.refresh()
+    })
   private let store: VocabularyStore
   private let dictionary: DictionaryClient
   private let defaults: UserDefaults
+  private let isolatedMathReview: Bool
   private let readDictionaryKey: () -> String
   private let saveDictionaryKey: (String) throws -> Void
   private let browserBridge: BrowserContextBridge
   private let regionCapture: ScreenshotRegionCapture
+  private let screenRegionSelector: ScreenRegionSelecting
+  private let usesInteractiveRegionSelection: Bool
   private let screenshotQuestions = ScreenshotQuestionClient()
+  private lazy var methodMatcher = MathMethodMatcher(client: screenshotQuestions)
   private let questionPreferences: ScreenshotQuestionPreferences
   private let searchPreferences: ScreenshotQuestionWebSearchPreferences
   private var webSearchSettings: ScreenshotQuestionWebSearchSettings?
@@ -35,7 +119,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private var mouseEventTap: CFMachPort?
   private var mouseEventSource: CFRunLoopSource?
   private var screenshotTask: Task<Void, Never>?
+  private var appendingQuestionCapture = false
   private(set) var ocrPanel: OCRLookupPanel?
+  private var screenOCROverlay: ScreenOCROverlayWindow?
   private(set) var directQuestionPanel: ScreenshotQuestionPanel?
 
   enum ScreenshotDestination { case word, question }
@@ -74,7 +160,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     saveDictionaryKey: @escaping (String) throws -> Void = { try KeychainStore.saveAPIKey($0) },
     browserBridge: BrowserContextBridge = .shared,
     regionCapture: ScreenshotRegionCapture? = nil,
-    mathQuestionStore: MathQuestionStore = MathQuestionStore()
+    mathQuestionStore: MathQuestionStore = MathQuestionStore(),
+    mathClassifier: MathAutomaticTagCoordinator.Classify? = nil,
+    questionWebAnswerOverride: ScreenshotQuestionWebAnswer? = nil,
+    isolatedMathReview: Bool = false,
+    questionSessionStore: ScreenshotQuestionSessionStore = ScreenshotQuestionSessionStore(),
+    screenRegionSelector: ScreenRegionSelecting? = nil
   ) {
     self.shortcutPreferences = shortcutPreferences
     self.questionPreferences = questionPreferences
@@ -82,12 +173,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     self.cloudSync = cloudSync
     self.store = store
     self.mathQuestionStore = mathQuestionStore
+    self.injectedMathClassifier = mathClassifier
+    self.questionWebAnswerOverride = questionWebAnswerOverride
+    self.questionSessionStore = questionSessionStore
     self.dictionary = dictionary
     self.defaults = defaults
+    self.isolatedMathReview = isolatedMathReview
     self.readDictionaryKey = readDictionaryKey
     self.saveDictionaryKey = saveDictionaryKey
     self.browserBridge = browserBridge
     self.regionCapture = regionCapture ?? ScreenshotRegionCapture()
+    self.screenRegionSelector = screenRegionSelector ?? InteractiveScreenRegionSelector()
+    // Injected capture runners use the legacy path in tests; production uses the
+    // in-place selector unless an explicit selector is supplied.
+    self.usesInteractiveRegionSelection = regionCapture == nil || screenRegionSelector != nil
     super.init()
   }
 
@@ -96,24 +195,57 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     NSApp.setActivationPolicy(.accessory)
     NSApp.mainMenu = ApplicationEditingMenu.make()
     if let applicationMenu = NSApp.mainMenu?.items.first?.submenu {
-      let item = NSMenuItem(title: "设置…", action: #selector(openUnifiedSettings), keyEquivalent: ",")
+      let item = NSMenuItem(
+        title: "设置…", action: #selector(openUnifiedSettings), keyEquivalent: ",")
       item.target = self
       applicationMenu.insertItem(item, at: 0)
       applicationMenu.insertItem(.separator(), at: 1)
+      applicationMenu.insertItem(makeScreenshotQuestionItem(), at: 2)
+      applicationMenu.insertItem(.separator(), at: 3)
     }
     NSApp.servicesProvider = self
     statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     statusItem.button?.title = "词"
     statusItem.menu = makeMenu()
-    installHotKeyHandler()
-    registerHotKey()
+    if !isolatedMathReview {
+      installHotKeyHandler()
+      registerHotKey()
+    }
+    bundledMathSkillsTask = Task { [weak self] in
+      guard let self else { return }
+      do { _ = try await self.prepareBundledMathSkills() }
+      catch {
+        self.bundledMathSkillsFailure = error.localizedDescription
+        self.showFailure(title: "数学技能加载失败", error.localizedDescription)
+      }
+      if self.isolatedMathReview {
+        self.bundledMathSkillsTask = nil
+        self.showMathQuestionLibrary()
+        return
+      }
+      self.mathProjectSync.discoverDevelopmentProject()
+      await self.mathProjectSync.synchronize()
+      self.bundledMathSkillsTask = nil
+      self.mathLearningStarted = true
+      await self.mathSkillLearning.start()
+    }
+    if isolatedMathReview { return }
     Task { await screenshotQuestions.warmUp() }
+    Task {
+      await mathTagCoordinator.start()
+      await mathTagCoordinator.backfill()
+    }
     installSelectionMonitorIfNeeded()
     browserBridge.start()
     Task { await syncCoordinator.start() }
     let urls = pendingOpenURLs
     pendingOpenURLs.removeAll()
     application(NSApp, open: urls)
+  }
+
+  func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+    if !flag { showMathQuestionLibrary() }
+    return true
   }
 
   func application(_ application: NSApplication, open urls: [URL]) {
@@ -127,7 +259,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
         let word = components.queryItems?.first(where: { $0.name == "word" })?.value,
         let context = components.queryItems?.first(where: { $0.name == "context" })?.value,
-        browserBridge.isAuthorizedCapture(token: components.queryItems?.first(where: { $0.name == "token" })?.value),
+        browserBridge.isAuthorizedCapture(
+          token: components.queryItems?.first(where: { $0.name == "token" })?.value),
         let selection = SelectionReader.fromBrowserExtension(word: word, context: context)
       else { continue }
       ContextDebugLog.write("浏览器扩展提供的原句", word: selection.word, context: selection.context)
@@ -151,7 +284,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     menu.addItem(withTitle: "数学题库…", action: #selector(openMathQuestionLibrary), keyEquivalent: "")
       .target = self
     menu.addItem(.separator())
-    let settings = menu.addItem(withTitle: "设置…", action: #selector(openUnifiedSettings), keyEquivalent: ",")
+    let settings = menu.addItem(
+      withTitle: "设置…", action: #selector(openUnifiedSettings), keyEquivalent: ",")
     settings.target = self
     menu.addItem(makeSupportMenu())
     menu.addItem(.separator())
@@ -174,7 +308,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       accountCaptureGeneration = UUID()
       selectionLookupTask?.cancel()
       selectionPreview?.dismiss()
-      ocrPanel?.close(); ocrPanel = nil
+      ocrPanel?.close()
+      ocrPanel = nil
     }
     conflictingWordKeys = status.conflictingWordKeys
     let account = status.userID.map { "账号 \($0.prefix(8))" } ?? "未登录"
@@ -194,14 +329,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
     let alert = NSAlert()
     alert.messageText = "处理 \(wordKeys.count) 个词条冲突"
-    alert.informativeText = "这些词在云端已被修改或删除。本机原件会先保存为独立快照。\n采用云端会放弃这些词的待上传改动；采用本机会明确重新提交，已删除的词将恢复。其他待同步词不受影响。"
+    alert.informativeText =
+      "这些词在云端已被修改或删除。本机原件会先保存为独立快照。\n采用云端会放弃这些词的待上传改动；采用本机会明确重新提交，已删除的词将恢复。其他待同步词不受影响。"
     alert.addButton(withTitle: "采用云端")
     alert.addButton(withTitle: "采用本机并重新提交")
     alert.addButton(withTitle: "取消")
     let response = alert.runModal()
     guard response != .alertThirdButtonReturn else { return }
     do {
-      try await syncCoordinator.resolveConflicts(wordKeys: wordKeys,
+      try await syncCoordinator.resolveConflicts(
+        wordKeys: wordKeys,
         strategy: response == .alertFirstButtonReturn ? .adoptCloud : .resubmitLocal)
       _ = try await syncVocabulary()
       show("冲突已处理", "本机冲突前的词库快照已保留，新的同步状态已确认。")
@@ -223,11 +360,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       guard status.unassignedCount > 0 else { return }
       let alert = NSAlert()
       alert.messageText = "确认本机词库归属"
-      alert.informativeText = "本机有 \(status.unassignedCount) 个未归属词条，可能来自旧账号。\n绑定后会加入当前账号 \(userID.prefix(8)) 的待同步队列。原文件保留备份；不会自动搬运其他账号词库。"
+      alert.informativeText =
+        "本机有 \(status.unassignedCount) 个未归属词条，可能来自旧账号。\n绑定后会加入当前账号 \(userID.prefix(8)) 的待同步队列。原文件保留备份；不会自动搬运其他账号词库。"
       alert.addButton(withTitle: "绑定到当前账号")
       alert.addButton(withTitle: "仅同步账号词库")
       guard alert.runModal() == .alertFirstButtonReturn else { return }
-      guard await cloudSync.currentUserID() == userID else { throw SupabaseSyncError.accountChanged }
+      guard await cloudSync.currentUserID() == userID else {
+        throw SupabaseSyncError.accountChanged
+      }
       try await store.adoptUnassignedEntries(into: userID)
       await syncCoordinator.queue()
     } catch { showFailure(title: "词库绑定失败", error.localizedDescription) }
@@ -254,8 +394,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     guard panel.runModal() == .OK, let url = panel.url else { return }
     Task {
       do {
-        if unassigned { try await store.exportUnassignedOriginal(to: url) }
-        else { try await store.exportOriginal(to: url) }
+        if unassigned {
+          try await store.exportUnassignedOriginal(to: url)
+        } else {
+          try await store.exportOriginal(to: url)
+        }
         show("词库已导出", "原文件已保留，可在本机核对或恢复。")
       } catch { showFailure(title: "导出失败", error.localizedDescription) }
     }
@@ -266,7 +409,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       let status = await store.status()
       guard let backup = status.backupURLs.first,
         let number = Int(backup.pathExtension.replacingOccurrences(of: "backup", with: ""))
-      else { showFailure(title: "没有可用备份", "可以先导出原文件保全数据。没有有效备份时不能自动重建词库。"); return }
+      else {
+        showFailure(title: "没有可用备份", "可以先导出原文件保全数据。没有有效备份时不能自动重建词库。")
+        return
+      }
       let alert = NSAlert()
       alert.messageText = "从最近备份恢复词库？"
       alert.informativeText = "当前原文件会另存保留。恢复后的待同步状态仍按账号隔离，未归属旧库不会自动上传。"
@@ -320,8 +466,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     submenu.addItem(
       withTitle: "打开上下文调试日志", action: #selector(openContextDebugLog), keyEquivalent: ""
     ).target = self
-    submenu.addItem(withTitle: "开启原文诊断（10分钟）", action: #selector(enableContextDiagnostics), keyEquivalent: "").target = self
-    submenu.addItem(withTitle: "关闭原文诊断并清除日志", action: #selector(clearContextDiagnostics), keyEquivalent: "").target = self
+    submenu.addItem(
+      withTitle: "开启原文诊断（10分钟）", action: #selector(enableContextDiagnostics), keyEquivalent: ""
+    ).target = self
+    submenu.addItem(
+      withTitle: "关闭原文诊断并清除日志", action: #selector(clearContextDiagnostics), keyEquivalent: ""
+    ).target = self
     item.submenu = submenu
     return item
   }
@@ -355,42 +505,75 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private func beginScreenshotCapture(destination: ScreenshotDestination) {
     guard !regionCapture.isRunning else { return }
     screenshotTask?.cancel()
-    let restore = hideScreenshotPanels()
+    let restorePanels = hideScreenshotPanels()
+    let restore = { [weak self] in
+      self?.appendingQuestionCapture = false
+      restorePanels()
+    }
     setStatus("词 ···")
-    regionCapture.capture { [weak self] result in
+    guard usesInteractiveRegionSelection else {
+      regionCapture.capture { [weak self] result in
+        guard let self else { return }
+        switch result {
+        case .success(let image):
+          guard let image else { self.setStatus("词"); restore(); return }
+          self.recognizeScreenshot(image, destination: destination, restore: restore)
+        case .failure(let error):
+          self.setStatus("词"); restore()
+          self.showFailure(title: "截图失败", error.localizedDescription)
+        }
+      }
+      return
+    }
+    let pointerScreen = NSScreen.screens.first { $0.frame.contains(NSEvent.mouseLocation) }
+    screenRegionSelector.present(on: pointerScreen ?? NSScreen.main) { [weak self] region in
       guard let self else { return }
-      switch result {
-      case .success(let image):
-        guard let image else { self.setStatus("词"); restore(); return }
-        self.recognizeScreenshot(image, destination: destination, restore: restore)
-      case .failure(let error):
-        self.setStatus("词"); restore()
-        self.showFailure(title: "截图失败", error.localizedDescription)
+      guard var region else {
+        self.setStatus("词")
+        restore()
+        return
+      }
+      region.sourceWindow = CapturedSourceWindow.snapshot(at: region.selectionRect)
+      self.regionCapture.capture(region: region) { result in
+        switch result {
+        case .success(let image):
+          guard let image else { self.setStatus("词"); restore(); return }
+          self.recognizeScreenshot(image, destination: destination, restore: restore, region: region)
+        case .failure(let error):
+          self.setStatus("词"); restore()
+          self.showFailure(title: "截图失败", error.localizedDescription)
+        }
       }
     }
   }
 
   private func recognizeScreenshot(
-    _ image: CGImage, destination: ScreenshotDestination, restore: @escaping () -> Void
+    _ image: CGImage, destination: ScreenshotDestination, restore: @escaping () -> Void,
+    region: ScreenCaptureRegion? = nil
   ) {
     setStatus("词 ···")
     screenshotTask = Task {
       do {
-        let text = try await OCRClient.recognize(image)
+        let layout = try await OCRClient.recognizeWithLayout(image)
+        let text = layout.text
         guard !Task.isCancelled else { return }
         await MainActor.run {
-          self.showScreenshot(text: text, image: image, destination: destination)
+          self.showScreenshot(
+            text: text, image: image, destination: destination,
+            observations: layout.observations.map {
+              OCROverlayToken(text: $0.text, boundingBox: $0.boundingBox, confidence: $0.confidence)
+            }, region: region)
         }
       } catch OCRCaptureError.noTextFound {
         guard !Task.isCancelled else { return }
         await MainActor.run {
-          self.showScreenshot(text: "", image: image, destination: destination)
+          self.showScreenshot(text: "", image: image, destination: destination, region: region)
         }
       } catch {
         guard !Task.isCancelled else { return }
         await MainActor.run {
           if destination == .question {
-            self.showScreenshot(text: "", image: image, destination: destination)
+            self.showScreenshot(text: "", image: image, destination: destination, region: region)
           } else {
             self.setStatus("词")
             restore()
@@ -402,13 +585,37 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   @MainActor
-  func showScreenshot(text: String, image: CGImage, destination: ScreenshotDestination) {
+  func showScreenshot(
+    text: String, image: CGImage, destination: ScreenshotDestination,
+    observations: [OCROverlayToken] = [], region: ScreenCaptureRegion? = nil
+  ) {
+    if let preparation = bundledMathSkillsTask {
+      Task { [weak self] in
+        await preparation.value
+        self?.showScreenshot(text: text, image: image, destination: destination, observations: observations, region: region)
+      }
+      return
+    }
     switch destination {
     case .word:
-      showOCRPanel(text: text, image: image)
+      showOCRPanel(text: text, image: image, observations: observations, region: region)
     case .question:
       ocrPanel?.close()
       ocrPanel = nil
+      if let existing = directQuestionPanel {
+        if appendingQuestionCapture {
+          existing.updateContext(
+            ScreenshotQuestionContext(text: text, selectedWord: nil, imageData: questionImageData(image)),
+            originalImageData: MathQuestionIndexer.originalPNG(image))
+          existing.present()
+          setStatus("词")
+          appendingQuestionCapture = false
+          return
+        } else {
+          existing.close()
+          directQuestionPanel = nil
+        }
+      }
       directQuestionPanel?.close()
       let panel = ScreenshotQuestionPanel(
         context: ScreenshotQuestionContext(
@@ -416,15 +623,43 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         answer: answerScreenshotQuestion,
         onModelSettings: { [weak self] in self?.openQuestionModelSettings() },
         modelPreferences: questionPreferences, measuredAnswer: measuredScreenshotQuestion,
-        webAnswer: webScreenshotQuestion,
+        webAnswer: questionWebAnswerOverride ?? webScreenshotQuestion,
         onSearchSettings: { [weak self] in self?.openWebSearchSettings() },
         originalImageData: MathQuestionIndexer.originalPNG(image),
         saveQuestion: saveMathQuestion,
         onOpenQuestion: { [weak self] id in self?.showMathQuestionLibrary(questionID: id) },
-        solutionModel: { [weak self] in self?.currentQuestionModel ?? "" })
+        solutionModel: { [weak self] in self?.currentQuestionModel ?? "" },
+        mathStore: mathQuestionStore, selectMethodAutomatically: automaticTeachingMethod,
+        singlePassAutomaticMethods: true, programArithmetic: true,
+        singleSubmissionMath: true, rendererToolsMath: true,
+        canUseMathRendererTools: mathRendererCapability,
+        canUseReviewedMathExamples: reviewedMathExamplesCapability,
+        researchMethod: researchTeachingMethod, onMethodsChanged: onMathMethodsChanged, sessionStore: questionSessionStore)
       directQuestionPanel = panel
+      panel.onAppendCapture = { [weak self] in
+        self?.appendingQuestionCapture = true
+        self?.captureScreenQuestionAction()
+      }
       panel.present()
       setStatus("词")
+    }
+  }
+
+  private var mathRendererCapability: () -> Bool {
+    { [weak self] in
+      guard let self else { return false }
+      let configuration = self.questionPreferences.configurationMetadata(fallingBackTo: self.configurationMetadata)
+      let api = self.questionPreferences.selectedAPI.resolved(for: configuration)
+      return api == .chatCompletions || api == .responses || api == .anthropicMessages
+    }
+  }
+
+  private var reviewedMathExamplesCapability: () -> Bool {
+    { [weak self] in
+      guard let self else { return false }
+      return MathReviewedExample.supportsAutomaticUse(
+        configuration: self.questionPreferences.configurationMetadata(fallingBackTo: self.configurationMetadata),
+        api: self.questionPreferences.selectedAPI)
     }
   }
 
@@ -437,6 +672,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         api: self.questionPreferences.selectedAPI,
         thinking: self.questionPreferences.selectedThinking,
         directConnection: self.questionPreferences.selectedDirectConnection, onPartial: partial)
+    }
+  }
+
+  private var automaticTeachingMethod: MathMethodSelection {
+    { [weak self] question, context, methods in
+      guard let self else { throw CancellationError() }
+      if let preparation = self.bundledMathSkillsTask { await preparation.value }
+      return try await self.methodMatcher.select(
+        question: question, context: context, methods: methods,
+        configuration: self.questionPreferences.configuration(fallingBackTo: self.configuration),
+        api: self.questionPreferences.selectedAPI,
+        directConnection: self.questionPreferences.selectedDirectConnection)
     }
   }
 
@@ -468,9 +715,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   @MainActor
-  private func showOCRPanel(text: String, image: CGImage) {
+  private func showOCRPanel(
+    text: String, image: CGImage, observations: [OCROverlayToken] = [], region: ScreenCaptureRegion? = nil
+  ) {
     directQuestionPanel?.close()
     directQuestionPanel = nil
+    screenOCROverlay?.onClose = nil
+    screenOCROverlay?.close()
+    screenOCROverlay = nil
     ocrPanel?.close()
     let ownerGeneration = accountCaptureGeneration
     let writeScope = Task {
@@ -479,13 +731,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
     let panel = OCRLookupPanel(
       text: text,
+      compactPresentation: region != nil && !observations.isEmpty,
       lookup: { [weak self] selection, onMeaning in
         guard let self else { throw CancellationError() }
         return try await self.dictionary.lookup(
           selection, configuration: self.configuration, onMeaning: onMeaning)
       },
       save: { [weak self] selection, result in
-        guard let self, self.accountCaptureGeneration == ownerGeneration else { throw CancellationError() }
+        guard let self, self.accountCaptureGeneration == ownerGeneration else {
+          throw CancellationError()
+        }
         let scope = try await writeScope.value
         try await self.syncCoordinator.prepareAccount()
         guard self.accountCaptureGeneration == ownerGeneration else { throw CancellationError() }
@@ -496,29 +751,78 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       }, imageData: questionImageData(image), ask: answerScreenshotQuestion,
       onQuestionSettings: { [weak self] in
         self?.openQuestionModelSettings()
-      }, questionPreferences: questionPreferences, measuredAsk: measuredScreenshotQuestion,
-      webAsk: webScreenshotQuestion,
+      }, questionPreferences: questionPreferences, overlayTokens: observations, measuredAsk: measuredScreenshotQuestion,
+      webAsk: questionWebAnswerOverride ?? webScreenshotQuestion,
       onSearchSettings: { [weak self] in self?.openWebSearchSettings() },
       originalImageData: MathQuestionIndexer.originalPNG(image),
       saveQuestion: saveMathQuestion,
       onOpenQuestion: { [weak self] id in self?.showMathQuestionLibrary(questionID: id) },
-      solutionModel: { [weak self] in self?.currentQuestionModel ?? "" })
+      solutionModel: { [weak self] in self?.currentQuestionModel ?? "" },
+      mathStore: mathQuestionStore, selectMethodAutomatically: automaticTeachingMethod,
+      singlePassMath: true, canUseMathRendererTools: mathRendererCapability,
+      canUseReviewedMathExamples: reviewedMathExamplesCapability,
+      researchMethod: researchTeachingMethod, onMethodsChanged: onMathMethodsChanged, sessionStore: questionSessionStore)
     panel.onRetake = { [weak self] in self?.captureScreenTextAction() }
+    panel.onAppendCapture = { [weak self, weak panel] in
+      guard let self, let question = panel?.takeQuestionPanelForAppend() else { return }
+      self.directQuestionPanel?.close()
+      self.directQuestionPanel = question
+      self.appendingQuestionCapture = true
+      self.captureScreenQuestionAction()
+    }
     ocrPanel = panel
-    panel.present()
+    if let region {
+      panel.orderOut(nil)
+      let overlay = ScreenOCROverlayWindow(image: image, region: region, tokens: observations)
+      overlay.onSelection = { [weak panel] text, indices in
+        guard let panel else { return }
+        panel.selectRecognizedText(text, tokenIndices: indices)
+        let boxes = observations.map { token in
+          CGRect(x: region.selectionRect.minX + token.boundingBox.minX * region.selectionRect.width,
+            y: region.selectionRect.minY + token.boundingBox.minY * region.selectionRect.height,
+            width: token.boundingBox.width * region.selectionRect.width,
+            height: token.boundingBox.height * region.selectionRect.height)
+        }
+        let anchor = indices.filter { boxes.indices.contains($0) }.reduce(CGRect.null) { $0.union(boxes[$1]) }
+        panel.present()
+        panel.level = .screenSaver
+        panel.setFrameOrigin(InlineLookupPlacement.origin(size: panel.frame.size,
+          anchor: anchor.isNull ? region.selectionRect : anchor, occupied: boxes,
+          capture: region.selectionRect, visible: NSScreen.screens.first { $0.frame == region.screenFrame }?.visibleFrame ?? region.screenFrame))
+      }
+      overlay.onClose = { [weak self, weak panel] in
+        self?.screenOCROverlay = nil
+        panel?.close()
+      }
+      screenOCROverlay = overlay
+      overlay.present()
+    } else {
+      panel.present()
+    }
     setStatus("词")
   }
 
   private var currentQuestionModel: String {
-    questionPreferences.configuration(fallingBackTo: configuration).model
+    questionPreferences.configurationMetadata(fallingBackTo: configurationMetadata).model
   }
 
   var saveMathQuestion: MathQuestionSave {
-    { [weak self, store = mathQuestionStore] request in
+    let revision = mathLibraryRevision
+    return { [weak self, store = mathQuestionStore] request in
+      guard self?.isRestoringMathLibrary != true,
+        self == nil || self?.mathLibraryRevision == revision else {
+        throw NSError(domain: "MathQuestionLibrary", code: 1,
+          userInfo: [NSLocalizedDescriptionKey: "题库正在恢复，请完成后重新保存。"])
+      }
       // Ignore word-capture OCR: math indexing uses its own bilingual recognizer.
-      let record = try await store.save(MathQuestionSaveRequest(
-        captureID: request.captureID, imageData: request.imageData, solutions: request.solutions))
-      if record.ocrStatus != "ready" { self?.indexMathQuestion(record.id) }
+      let record = try await store.save(
+        MathQuestionSaveRequest(
+          captureID: request.captureID, imageData: request.imageData, solutions: request.solutions))
+      if self?.isRestoringMathLibrary != true {
+        if record.ocrStatus != "ready" { self?.indexMathQuestion(record.id) }
+        if let self { await self.mathTagCoordinator.enqueue(record.id) }
+        if let self, self.mathLearningStarted { await self.mathSkillLearning.enqueue(record.id) }
+      }
       self?.mathQuestionLibrary?.refresh()
       return record
     }
@@ -527,25 +831,126 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   @objc func openMathQuestionLibrary() { showMathQuestionLibrary() }
 
   func showMathQuestionLibrary(questionID: String? = nil) {
-    if mathQuestionLibrary == nil {
-      mathQuestionLibrary = MathQuestionLibrary(store: mathQuestionStore,
-        reindex: { [weak self] id in self?.indexMathQuestion(id) })
+    if let preparation = bundledMathSkillsTask {
+      Task { [weak self] in
+        await preparation.value
+        self?.showMathQuestionLibrary(questionID: questionID)
+      }
+      return
     }
+    if mathQuestionLibrary == nil {
+      mathQuestionLibrary = MathQuestionLibrary(
+        store: mathQuestionStore,
+        reindex: { [weak self] id in self?.indexMathQuestion(id) },
+        autoTaggingEnabled: mathAutoTaggingEnabled, autoTaggingModel: currentQuestionModel,
+        onAutoTaggingChanged: { [weak self] enabled in
+          guard let self, !self.isRestoringMathLibrary, !self.isolatedMathReview else { return }
+          self.defaults.set(enabled, forKey: self.mathAutoTaggingKey)
+          Task { await self.mathTagCoordinator.setEnabled(enabled) }
+        },
+        retag: { [weak self] id in
+          Task {
+            guard let self, !self.isRestoringMathLibrary else { return }
+            await self.mathTagCoordinator.enqueue(id, force: true)
+          }
+        },
+        backfillTags: { [weak self] in
+          Task {
+            guard let self, !self.isRestoringMathLibrary else { return }
+            await self.mathTagCoordinator.backfill()
+          }
+        }, restoreBackup: { [weak self] source in
+          guard let self else { throw CancellationError() }
+          return try await self.restoreMathLibrary(from: source)
+        }, learningEnabled: mathSkillLearningEnabled,
+        learningChanged: { [weak self] id in
+          Task { guard let self,!self.isRestoringMathLibrary else { return }; await self.mathSkillLearning.enqueue(id) }
+        }, onLearningEnabled: { [weak self] enabled in
+          guard let self,!self.isRestoringMathLibrary,!self.isolatedMathReview else { return }
+          self.defaults.set(enabled,forKey:self.mathSkillLearningKey)
+          Task { await self.mathSkillLearning.setEnabled(enabled) }
+        }, backfillLearning: { [weak self] in
+          Task { guard let self,!self.isRestoringMathLibrary else { return }; await self.mathSkillLearning.backfill() }
+        }, researchSkill: { [weak self] id, approve, note in
+          guard let self, !self.isRestoringMathLibrary else { throw CancellationError() }
+          try await self.mathSkillLearning.reviewCandidate(id: id, approve: approve, note: note)
+        }, researchMethod: researchTeachingMethod,
+        researchProfiles: { [weak self] in self?.questionPreferences.profiles ?? [] },
+        selectedResearchProfile: { [weak self] in self?.mathResearchPreferences.selectedProfileID },
+        onResearchProfileChanged: { [weak self] id in
+          guard let self, !self.isRestoringMathLibrary else { throw CancellationError() }
+          try self.mathResearchPreferences.select(profileID: id, available: self.questionPreferences.profiles)
+        }, projectSync: isolatedMathReview ? nil : mathProjectSync, onMethodsChanged: onMathMethodsChanged)
+    }
+    mathQuestionLibrary?.updateAutomaticTagging(
+      enabled: mathAutoTaggingEnabled, model: currentQuestionModel)
     mathQuestionLibrary?.present(questionID: questionID)
   }
 
   private func indexMathQuestion(_ id: String) {
-    guard mathIndexTasks[id] == nil else { return }
+    guard !isRestoringMathLibrary, mathIndexTasks[id] == nil else { return }
     mathIndexTasks[id] = Task { [weak self, store = mathQuestionStore] in
       do {
         let data = try await store.originalImage(questionID: id)
         let text = try await MathQuestionIndexer.recognize(data)
+        try Task.checkCancellation()
         try await store.updateOCR(questionID: id, text: text)
+      } catch is CancellationError {
+        // A canceled indexing request must not update a restored database.
       } catch {
         try? await store.markOCRFailure(questionID: id)
       }
       self?.mathIndexTasks[id] = nil
+      if let self, self.mathLearningStarted, !self.isRestoringMathLibrary {
+        await self.mathSkillLearning.enqueue(id)
+      }
       self?.mathQuestionLibrary?.refresh()
+    }
+  }
+
+  /// Explicit startup preparation keeps standalone stores empty and tests isolated.
+  @discardableResult
+  func prepareBundledMathSkills(directory: URL? = nil) async throws -> MathMethodImportResult {
+    let catalogue = try await Task.detached {
+      if let directory { return try MathSkillCatalogue(directory: directory) }
+      return try MathSkillCatalogue.load()
+    }.value
+    let result = try await mathQuestionStore.importBundledMathSkills(catalogue)
+    bundledMathSkillsFailure = nil
+    return result
+  }
+
+  func restoreMathLibrary(from source: URL) async throws -> URL {
+    guard !isRestoringMathLibrary else { throw CancellationError() }
+    isRestoringMathLibrary = true
+    defer { isRestoringMathLibrary = false }
+    if let preparation = bundledMathSkillsTask { await preparation.value }
+    await mathProjectSync.suspendForLibraryRestore()
+    await mathTagCoordinator.suspendForLibraryRestore()
+    await mathSkillLearning.suspendForLibraryRestore()
+    mathProfileResearch.suspendForLibraryRestore()
+    let indexing = Array(mathIndexTasks.values)
+    indexing.forEach { $0.cancel() }
+    for task in indexing { await task.value }
+    await directQuestionPanel?.prepareForLibraryRestore()
+    await ocrPanel?.prepareMathLibraryRestore()
+    await mathQuestionLibrary?.prepareForLibraryRestore()
+    do {
+      let previous = try await mathQuestionStore.restoreBackup(from: source)
+      mathLibraryRevision = UUID()
+      directQuestionPanel?.mathLibraryDidRestore(saveQuestion: saveMathQuestion)
+      ocrPanel?.mathLibraryDidRestore(saveQuestion: saveMathQuestion)
+      await mathTagCoordinator.resumeAfterLibraryRestore(enabled: mathAutoTaggingEnabled)
+      await mathSkillLearning.resumeAfterLibraryRestore(enabled: mathSkillLearningEnabled)
+      mathProfileResearch.resumeAfterLibraryRestore()
+      await mathProjectSync.resumeAfterLibraryRestore()
+      return previous
+    } catch {
+      await mathTagCoordinator.resumeAfterLibraryRestore(enabled: mathAutoTaggingEnabled)
+      await mathSkillLearning.resumeAfterLibraryRestore(enabled: mathSkillLearningEnabled)
+      mathProfileResearch.resumeAfterLibraryRestore()
+      await mathProjectSync.resumeAfterLibraryRestore()
+      throw error
     }
   }
 
@@ -595,14 +1000,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       | (CGEventMask(1) << CGEventType.rightMouseDown.rawValue)
       | (CGEventMask(1) << CGEventType.keyDown.rawValue)
     let callback: CGEventTapCallBack = { _, type, event, userInfo in
-      if let userInfo, type == .leftMouseDown || type == .leftMouseUp || type == .rightMouseDown || type == .keyDown {
+      if let userInfo,
+        type == .leftMouseDown || type == .leftMouseUp || type == .rightMouseDown
+          || type == .keyDown
+      {
         let delegate = Unmanaged<AppDelegate>.fromOpaque(userInfo).takeUnretainedValue()
         // Use AppKit screen coordinates before queued handling can observe a moved pointer.
         let location = NSEvent.mouseLocation
         let clickCount = event.getIntegerValueField(.mouseEventClickState)
         let processIdentifier = NSWorkspace.shared.frontmostApplication?.processIdentifier
         DispatchQueue.main.async {
-          delegate.handleMouseEvent(type, location: location, clickCount: clickCount,
+          delegate.handleMouseEvent(
+            type, location: location, clickCount: clickCount,
             frontmostProcessIdentifier: processIdentifier)
         }
       }
@@ -694,13 +1103,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       selectionDragStart = location
       selectionDragProcessIdentifier = frontmostProcessIdentifier
     } else if type == .leftMouseUp {
-      defer { selectionDragStart = nil; selectionDragProcessIdentifier = nil }
+      defer {
+        selectionDragStart = nil
+        selectionDragProcessIdentifier = nil
+      }
       guard floatingButtonEnabled,
         let processIdentifier = selectionDragProcessIdentifier,
         processIdentifier == frontmostProcessIdentifier,
         NSApp.modalWindow == nil,
         let start = selectionDragStart,
-        clickCount == 2 || hypot(location.x - start.x, location.y - start.y) >= minimumSelectionDragDistance
+        clickCount == 2
+          || hypot(location.x - start.x, location.y - start.y) >= minimumSelectionDragDistance
       else { return }
       let revision = floatingState.revision
       floatingReadTask?.cancel()
@@ -708,12 +1121,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         for wait in [120_000_000, 160_000_000, 240_000_000] {
           do { try await Task.sleep(nanoseconds: UInt64(wait)) } catch { return }
           guard !Task.isCancelled, floatingState.revision == revision,
-            NSWorkspace.shared.frontmostApplication?.processIdentifier == processIdentifier else { return }
-          let selection = await SelectionReader.readFocusedSelectionAsync(browserBridge: browserBridge)
+            NSWorkspace.shared.frontmostApplication?.processIdentifier == processIdentifier
+          else { return }
+          let selection = await SelectionReader.readFocusedSelectionAsync(
+            browserBridge: browserBridge)
           guard !Task.isCancelled, floatingState.revision == revision,
-            NSWorkspace.shared.frontmostApplication?.processIdentifier == processIdentifier else { return }
-          if let selection { showFloatingSelectionButtonIfNeeded(selection: selection, revision: revision,
-            frontmostProcessIdentifier: processIdentifier) }
+            NSWorkspace.shared.frontmostApplication?.processIdentifier == processIdentifier
+          else { return }
+          if let selection {
+            showFloatingSelectionButtonIfNeeded(
+              selection: selection, revision: revision,
+              frontmostProcessIdentifier: processIdentifier)
+          }
         }
       }
       return
@@ -728,8 +1147,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       frontmostProcessIdentifier != ProcessInfo.processInfo.processIdentifier,
       NSApp.modalWindow == nil
     else { return }
-    if floatingState.selection?.word == selection.word, floatingState.selection?.context == selection.context,
-      floatingSelectionPanel != nil { return }
+    if floatingState.selection?.word == selection.word,
+      floatingState.selection?.context == selection.context,
+      floatingSelectionPanel != nil
+    {
+      return
+    }
     guard floatingState.accept(selection, revision: revision) else { return }
     dismissFloatingSelectionButton(keepingSelection: true)
 
@@ -826,7 +1249,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             ContextDebugLog.write(
               "界面显示释义：\(Int((ProcessInfo.processInfo.systemUptime - captureStartedAt) * 1000)) ms",
               word: contextualSelection.word)
-          }, onPerformance: { [weak self, weak preview] performance in
+          },
+          onPerformance: { [weak self, weak preview] performance in
             guard let self, self.selectionLookupID == lookupID else { return }
             preview?.showPerformance(performance)
           })
@@ -836,7 +1260,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         guard await preview.waitForConfirmation() else { return }
         confirmed = true
         try await syncCoordinator.prepareAccount()
-        guard accountCaptureGeneration == ownerGeneration else { throw SupabaseSyncError.accountChanged }
+        guard accountCaptureGeneration == ownerGeneration else {
+          throw SupabaseSyncError.accountChanged
+        }
         let entry = try await store.add(
           word: contextualSelection.word, dictionary: result, context: contextualSelection.context,
           scope: writeScope)
@@ -895,7 +1321,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         onSelection: { [weak self] section in
           guard let self, self.hotKeyHandler != nil else { return }
           if section != .capture, self.hotKeyRefs.count != 2 { self.registerHotKey() }
-        }, onClose: { [weak self] in
+        },
+        onClose: { [weak self] in
           guard let self else { return }
           if self.hotKeyHandler != nil, self.hotKeyRefs.count != 2 { self.registerHotKey() }
           self.settingsWindow = nil
@@ -904,7 +1331,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
           self.questionModelSettings = nil
           self.webSearchSettings = nil
           self.accountSettingsView = nil
-        }, onKeyChange: { [weak self] key in self?.updateShortcutRecording(key && self?.shortcutSettings?.isRecording == true) })
+        },
+        onKeyChange: { [weak self] key in
+          self?.updateShortcutRecording(key && self?.shortcutSettings?.isRecording == true)
+        })
     }
     settingsWindow?.show(section: section)
     if section == .account { refreshAccountSettings() }
@@ -913,50 +1343,71 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private func makeSettingsPage(_ section: SettingsSection) -> NSView {
     switch section {
     case .capture:
-      let editor = CaptureShortcutSettings(screenshot: currentScreenshotShortcut,
+      let editor = CaptureShortcutSettings(
+        screenshot: currentScreenshotShortcut,
         questionScreenshot: currentQuestionScreenshotShortcut)
       shortcutSettings = editor
-      let form = editor.makeEmbeddedView(validateAndSave: { [weak self] screenshot, questionScreenshot in
-        guard let self else { return "应用已关闭。" }
-        if self.hotKeyHandler != nil {
-          if let error = self.installHotKeys(screenshot: screenshot, questionScreenshot: questionScreenshot) { return error }
-          if self.shortcutSettings?.isRecording == true { self.unregisterHotKeys() }
-        }
-        self.shortcutPreferences.save(screenshot: screenshot, questionScreenshot: questionScreenshot)
-        self.statusItem?.menu = self.makeMenu()
-        return nil
-      }, onRecordingChange: { [weak self] recording in
-        self?.updateShortcutRecording(recording)
-      })
-      let floating = NSButton(checkboxWithTitle: "双击或拖选英文后显示“拾词”按钮", target: self, action: #selector(toggleFloatingButton))
+      let form = editor.makeEmbeddedView(
+        validateAndSave: { [weak self] screenshot, questionScreenshot in
+          guard let self else { return "应用已关闭。" }
+          if self.hotKeyHandler != nil {
+            if let error = self.installHotKeys(
+              screenshot: screenshot, questionScreenshot: questionScreenshot)
+            {
+              return error
+            }
+            if self.shortcutSettings?.isRecording == true { self.unregisterHotKeys() }
+          }
+          self.shortcutPreferences.save(
+            screenshot: screenshot, questionScreenshot: questionScreenshot)
+          self.statusItem?.menu = self.makeMenu()
+          return nil
+        },
+        onRecordingChange: { [weak self] recording in
+          self?.updateShortcutRecording(recording)
+        })
+      let floating = NSButton(
+        checkboxWithTitle: "双击或拖选英文后显示“拾词”按钮", target: self, action: #selector(toggleFloatingButton)
+      )
       floating.state = floatingButtonEnabled ? .on : .off
       let pair = NSButton(title: "配对浏览器扩展…", target: self, action: #selector(pairBrowserExtension))
       let revoke = NSButton(title: "撤销配对", target: self, action: #selector(revokeBrowserPairing))
-      return SettingsForm.page(title: "取词与快捷键", subtitle: "截图适用于各种应用。支持读取选区的应用也可以直接选词。", contents: [
-        SettingsForm.group([floating, SettingsForm.label("Sublime、微信等应用可直接使用截图取词或截图问一问。", secondary: true)]),
-        form,
-        SettingsForm.group([SettingsForm.label("浏览器扩展", secondary: true), SettingsForm.actions([pair, revoke])]),
-      ])
+      return SettingsForm.page(
+        title: "取词与快捷键", subtitle: "截图适用于各种应用。支持读取选区的应用也可以直接选词。",
+        contents: [
+          SettingsForm.group([
+            floating, SettingsForm.label("Sublime、微信等应用可直接使用截图取词或截图问一问。", secondary: true),
+          ]),
+          form,
+          SettingsForm.group([
+            SettingsForm.label("浏览器扩展", secondary: true), SettingsForm.actions([pair, revoke]),
+          ]),
+        ])
     case .dictionary:
-      let editor = DictionarySettingsView(configuration: configuration, save: { [weak self] value in
-        guard let self else { return }
-        try self.saveDictionaryKey(value.apiKey)
-        self.configuration = value
-        if !self.questionPreferences.isEnabled {
-          self.ocrPanel?.questionModelConfigurationChanged()
-          self.directQuestionPanel?.modelConfigurationChanged()
-        }
-      }, test: { configuration in
-        let tester = DictionaryClient(cacheLimit: 0)
-        var summary = ""
-        _ = try await tester.lookup(SelectedText(word: "curious", context: "A curious reader asks a question."),
-          configuration: configuration, onPerformance: { summary = $0.summary })
-        return summary
-      })
+      let editor = DictionarySettingsView(
+        configuration: configuration,
+        save: { [weak self] value in
+          guard let self else { return }
+          try self.saveDictionaryKey(value.apiKey)
+          self.configuration = value
+          if !self.questionPreferences.isEnabled {
+            self.ocrPanel?.questionModelConfigurationChanged()
+            self.directQuestionPanel?.modelConfigurationChanged()
+          }
+        },
+        test: { configuration in
+          let tester = DictionaryClient(cacheLimit: 0)
+          var summary = ""
+          _ = try await tester.lookup(
+            SelectedText(word: "curious", context: "A curious reader asks a question."),
+            configuration: configuration, onPerformance: { summary = $0.summary })
+          return summary
+        })
       settingsEditors[section] = editor
       return editor.view
     case .question:
-      let editor = ScreenshotQuestionModelSettings(preferences: questionPreferences, dictionaryModel: configuration.model)
+      let editor = ScreenshotQuestionModelSettings(
+        preferences: questionPreferences, dictionaryModel: configuration.model)
       questionModelSettings = editor
       return editor.makeEmbeddedView { [weak self] in
         self?.ocrPanel?.questionModelConfigurationChanged()
@@ -970,10 +1421,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         self?.ocrPanel?.questionSearchConfigurationChanged()
       }
     case .account:
-      let editor = AccountSettingsView(login: { [weak self] in self?.switchReaderAccount() },
-        logout: { [weak self] in self?.signOutReader() }, sync: { [weak self] in self?.syncToReader() },
-        conflicts: { [weak self] in self?.resolveSyncConflicts() }, bind: { [weak self] in self?.bindUnassignedWords() },
-        export: { [weak self] in self?.exportStoreOriginal() }, exportUnassigned: { [weak self] in self?.exportUnassignedStoreOriginal() },
+      let editor = AccountSettingsView(
+        login: { [weak self] in self?.switchReaderAccount() },
+        logout: { [weak self] in self?.signOutReader() },
+        sync: { [weak self] in self?.syncToReader() },
+        conflicts: { [weak self] in self?.resolveSyncConflicts() },
+        bind: { [weak self] in self?.bindUnassignedWords() },
+        export: { [weak self] in self?.exportStoreOriginal() },
+        exportUnassigned: { [weak self] in self?.exportUnassignedStoreOriginal() },
         restore: { [weak self] in self?.restoreStoreBackup() })
       accountSettingsView = editor
       refreshAccountSettings()
@@ -986,8 +1441,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     Task { [weak self, weak editor] in
       guard let self, let editor else { return }
       let status = await self.store.status()
-      editor.update(userID: self.displayedUserID, message: self.syncStatusText,
-        unassigned: status.unassignedCount, conflicts: self.conflictingWordKeys.count, issue: status.issue)
+      editor.update(
+        userID: self.displayedUserID, message: self.syncStatusText,
+        unassigned: status.unassignedCount, conflicts: self.conflictingWordKeys.count,
+        issue: status.issue)
     }
   }
 
@@ -1096,8 +1553,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private func updateShortcutRecording(_ recording: Bool) {
     guard hotKeyHandler != nil else { return }
     if recording, settingsWindow?.panel.isKeyWindow == true,
-      settingsWindow?.selectedSection == .capture { unregisterHotKeys() }
-    else if hotKeyRefs.count != 2 { registerHotKey() }
+      settingsWindow?.selectedSection == .capture
+    {
+      unregisterHotKeys()
+    } else if hotKeyRefs.count != 2 {
+      registerHotKey()
+    }
+  }
+
+  private var configurationMetadata: AIConfiguration {
+    let saved = try? JSONDecoder().decode(
+      AIConfiguration.self, from: defaults.data(forKey: configurationKey) ?? Data())
+    return AIConfiguration(baseURL: saved?.baseURL ?? "", model: saved?.model ?? "", apiKey: "",
+      thinking: saved?.thinking ?? .off, backend: saved?.backend ?? .openAICompatible)
   }
 
   private var configuration: AIConfiguration {
@@ -1110,7 +1578,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       )
     }
     set {
-      let nonSecret = AIConfiguration(baseURL: newValue.baseURL, model: newValue.model, apiKey: "", thinking: newValue.thinking, backend: newValue.backend)
+      let nonSecret = AIConfiguration(
+        baseURL: newValue.baseURL, model: newValue.model, apiKey: "", thinking: newValue.thinking,
+        backend: newValue.backend)
       defaults.set(try? JSONEncoder().encode(nonSecret), forKey: configurationKey)
     }
   }
@@ -1213,10 +1683,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   func applicationWillTerminate(_ notification: Notification) {
+    mathTagCoordinator.stop()
+    mathSkillLearning.stop()
+    mathProjectSync.stop()
     stopSelectionMonitor()
     floatingReadTask?.cancel()
     selectionLookupTask?.cancel()
     screenshotTask?.cancel()
-    Task { await screenshotQuestions.shutdown(); await syncCoordinator.stop() }
+    Task {
+      await screenshotQuestions.shutdown()
+      await syncCoordinator.stop()
+    }
   }
 }

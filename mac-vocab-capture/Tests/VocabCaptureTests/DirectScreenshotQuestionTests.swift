@@ -111,4 +111,63 @@ final class DirectScreenshotQuestionTests: XCTestCase {
     XCTAssertNil(appDelegate.ocrPanel)
     XCTAssertTrue(appDelegate.directQuestionPanel?.isVisible == true)
   }
+
+  func testAppendCaptureKeepsAnsweredWindowAndHistoryThroughCaptureAndOCR() async throws {
+    let captureImage = try image()
+    let capture = ScreenshotRegionCapture(permission: { true }, runner: { url, complete in
+      let bitmap = NSBitmapImageRep(cgImage: captureImage)
+      do {
+        try XCTUnwrap(bitmap.representation(using: .png, properties: [:])).write(to: url)
+        complete(.success(ScreenshotProcessResult(status: 0, diagnostic: "")))
+      } catch { complete(.failure(error)) }
+    })
+    appDelegate = makeIsolatedAppDelegate(defaults: defaults, regionCapture: capture,
+      questionWebAnswerOverride: { _, _, _, _, _, _, _ in "Original answer" })
+    appDelegate.showScreenshot(text: "First context", image: captureImage, destination: .question)
+    let panel = try XCTUnwrap(appDelegate.directQuestionPanel)
+    let controls = views(try XCTUnwrap(panel.contentView))
+    try XCTUnwrap(controls.compactMap { $0 as? NSButton }.first { $0.title == "联网检索" }).state = .on
+    try XCTUnwrap(controls.compactMap { $0 as? NSTextField }.first { $0.accessibilityLabel() == "提问内容" })
+      .stringValue = "Explain this text"
+    try XCTUnwrap(controls.compactMap { $0 as? NSButton }.first { $0.title == "提问" }).performClick(nil)
+    for _ in 0..<100 where panel.isAnswering { try await Task.sleep(nanoseconds: 20_000_000) }
+    XCTAssertEqual(panel.history.map(\.answer), ["Original answer"])
+    try XCTUnwrap(controls.compactMap { $0 as? NSButton }.first { $0.title == "追加截图" }).performClick(nil)
+    for _ in 0..<150 {
+      if panel.isVisible && !controls.compactMap({ $0 as? NSTextField }).contains(where: { $0.stringValue == "First context" }) { break }
+      try await Task.sleep(nanoseconds: 20_000_000)
+    }
+    XCTAssertTrue(appDelegate.directQuestionPanel === panel)
+    XCTAssertTrue(panel.isVisible)
+    XCTAssertEqual(panel.history.map(\.answer), ["Original answer"])
+    XCTAssertFalse(controls.compactMap { $0 as? NSTextField }.contains { $0.stringValue == "First context" })
+    XCTAssertTrue(controls.compactMap { $0 as? NSTextView }.contains { $0.string.contains("Original answer") })
+    XCTAssertTrue(controls.compactMap { $0 as? NSTextField }.contains { $0.stringValue.contains("保留当前会话") })
+    let rich = try XCTUnwrap(controls.compactMap { $0 as? ScreenshotAnswerWebView }.first)
+    var visibleAnswer = false
+    for _ in 0..<100 {
+      if let text = try? await rich.evaluateJavaScript("document.body.innerText"),
+        (text as? String)?.contains("Original answer") == true { visibleAnswer = true; break }
+      try await Task.sleep(nanoseconds: 20_000_000)
+    }
+    XCTAssertTrue(visibleAnswer, "Preserving history must also preserve the visible rendered answer")
+  }
+
+  func testCancellingAppendDoesNotTurnNextOrdinaryCaptureIntoAppend() async throws {
+    var captures = 0
+    let capture = ScreenshotRegionCapture(permission: { true }, runner: { _, complete in
+      captures += 1
+      complete(.success(ScreenshotProcessResult(status: 1, diagnostic: "")))
+    })
+    appDelegate = makeIsolatedAppDelegate(defaults: defaults, regionCapture: capture)
+    appDelegate.showScreenshot(text: "First", image: try image(), destination: .question)
+    let first = try XCTUnwrap(appDelegate.directQuestionPanel)
+    first.onAppendCapture?()
+    for _ in 0..<100 where captures == 0 { try await Task.sleep(nanoseconds: 5_000_000) }
+    XCTAssertEqual(captures, 1)
+    XCTAssertTrue(first.isVisible)
+    appDelegate.showScreenshot(text: "Separate capture", image: try image(), destination: .question)
+    XCTAssertFalse(appDelegate.directQuestionPanel === first)
+    XCTAssertFalse(first.isVisible)
+  }
 }
