@@ -10596,9 +10596,9 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                       )}
                                       </div>
                                       {currentQuizIdeaTree ? (
-                                        <QuizIdeaTree tree={currentQuizIdeaTree} />
+                                        <div className="select-text reader-word-target" data-lookup-context={currentQuizQuestion.prompt} onDoubleClick={e => openVocabPopupFromEvent(e, currentQuizQuestion.prompt)} onTouchStart={e => handleWordPressStart(e, currentQuizQuestion.prompt)} onTouchMove={handleWordPressMove} onTouchEnd={handleWordPressEnd} onTouchCancel={handleWordPressEnd}><QuizIdeaTree tree={currentQuizIdeaTree} /></div>
                                       ) : (
-                                        <h3 className="mt-4 text-xl md:text-2xl font-black text-slate-900 leading-relaxed whitespace-pre-line">
+                                        <h3 className="mt-4 text-xl md:text-2xl font-black text-slate-900 leading-relaxed whitespace-pre-line select-text reader-word-target" data-lookup-context={currentQuizQuestion.prompt} onDoubleClick={e => openVocabPopupFromEvent(e, currentQuizQuestion.prompt)} onTouchStart={e => handleWordPressStart(e, currentQuizQuestion.prompt)} onTouchMove={handleWordPressMove} onTouchEnd={handleWordPressEnd} onTouchCancel={handleWordPressEnd} title="双击单词，或选中短语后按左右方向键查词">
                                           {currentQuizQuestion.prompt}
                                         </h3>
                                       )}
@@ -10649,10 +10649,13 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                                   key={`${currentQuizQuestion.id}-word-bank-${optionIndex}`}
                                                   type="button"
                                                   draggable={!quizProgress.submitted && !isUsed}
-                                                  disabled={quizProgress.submitted || isUsed}
+                                                  aria-disabled={quizProgress.submitted || isUsed}
+                                                  onDoubleClick={e => { e.stopPropagation(); openVocabPopupFromEvent(e, option); }}
+                                                  onTouchStart={e => handleWordPressStart(e, option)} onTouchMove={handleWordPressMove} onTouchEnd={handleWordPressEnd} onTouchCancel={handleWordPressEnd}
+                                                  data-lookup-context={option}
                                                   onDragStart={event => { event.dataTransfer.setData('text/plain', String(optionIndex)); event.dataTransfer.effectAllowed = 'move'; setWordBankSelectedOptionIndex(optionIndex); }}
-                                                  onClick={() => setWordBankSelectedOptionIndex(isSelected ? null : optionIndex)}
-                                                  className={`rounded-xl border px-3 py-2 text-sm font-black shadow-sm transition-all ${
+                                                  onClick={() => { if (!quizProgress.submitted && !isUsed && !window.getSelection()?.toString().trim()) setWordBankSelectedOptionIndex(isSelected ? null : optionIndex); }}
+                                                  className={`select-text reader-word-target rounded-xl border px-3 py-2 text-sm font-black shadow-sm transition-all ${
                                                     isUsed ? 'cursor-not-allowed border-slate-200 bg-slate-100 text-slate-400 shadow-none line-through'
                                                     : isSelected ? 'border-teal-600 bg-teal-600 text-white ring-2 ring-teal-200'
                                                       : 'cursor-grab border-slate-300 bg-white text-slate-700 hover:border-teal-400 active:cursor-grabbing'
@@ -10849,8 +10852,8 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                           <button
                                             key={`${currentQuizQuestion.id}-${optionIndex}`}
                                             type="button"
-                                            disabled={quizProgress.submitted}
-                                            onClick={() => handleQuizAnswerSelect(currentQuizQuestion, optionIndex)}
+                                            aria-disabled={quizProgress.submitted}
+                                            onClick={() => { if (!quizProgress.submitted && !window.getSelection()?.toString().trim()) handleQuizAnswerSelect(currentQuizQuestion, optionIndex); }}
                                             className={`w-full rounded-3xl border px-5 py-4 text-left transition-all ${
                                               showCorrect
                                                 ? 'border-emerald-300 bg-emerald-50 shadow-sm'
@@ -10874,7 +10877,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                                 {String.fromCharCode(65 + optionIndex)}
                                               </div>
                                               <div className="flex-1">
-                                                <p className="text-base leading-7 text-slate-800">{option}</p>
+                                                <p className="text-base leading-7 text-slate-800 select-text reader-word-target" data-lookup-context={option} onDoubleClick={e => { e.stopPropagation(); openVocabPopupFromEvent(e, option); }} onTouchStart={e => handleWordPressStart(e, option)} onTouchMove={handleWordPressMove} onTouchEnd={handleWordPressEnd} onTouchCancel={handleWordPressEnd}>{option}</p>
                                                 {showCorrect && (
                                                   <p className="mt-2 text-sm font-bold text-emerald-700">正确答案</p>
                                                 )}
@@ -10923,7 +10926,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                       {currentQuizQuestion.options.length > 0 && (
                                         <div className="mt-4 space-y-2">
                                           {currentQuizQuestion.options.map((option, optionIndex) => (
-                                            <div key={`${currentQuizQuestion.id}-unsupported-${optionIndex}`} className="rounded-2xl bg-white/80 px-4 py-3 text-sm text-slate-700 border border-amber-100">
+                                            <div key={`${currentQuizQuestion.id}-unsupported-${optionIndex}`} className="rounded-2xl bg-white/80 px-4 py-3 text-sm text-slate-700 border border-amber-100 select-text reader-word-target" data-lookup-context={option} onDoubleClick={e => openVocabPopupFromEvent(e, option)} onTouchStart={e => handleWordPressStart(e, option)} onTouchMove={handleWordPressMove} onTouchEnd={handleWordPressEnd} onTouchCancel={handleWordPressEnd}>
                                               <span className="mr-2 font-black text-amber-700">{String.fromCharCode(65 + optionIndex)}.</span>
                                               {option}
                                             </div>
