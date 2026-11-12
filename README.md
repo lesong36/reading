@@ -8,6 +8,8 @@ https://lesong36.github.io/reading/
 
 在 iPad 上用 Safari 打开上述地址即可；也可「添加到主屏幕」当网页 App 用。
 
+每次发布网页时，请同步更新 `index.html` 和中文单文件入口中的 `READER_APP_VERSION`，以便用户核对当前版本。
+
 ## 本版说明（GitHub Pages）
 
 - **段落朗读**：桌面 App 可使用本地 Edge TTS（Aria / Guy）朗读每一段；首次打开会自动创建隔离语音环境。GitHub Pages 版会请求 P920 的私有 Tailscale 语音服务，设备需登录同一 tailnet；部署见 [P920 Edge TTS](deploy/p920/README.md)。
