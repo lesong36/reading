@@ -6253,6 +6253,30 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
 
       const wordPressTimerRef = useRef(null);
       const wordPressOriginRef = useRef(null);
+      const quizOptionClickTimerRef = useRef(null);
+      const quizOptionLongPressRef = useRef(false);
+      const cancelQuizOptionClick = () => {
+        clearTimeout(quizOptionClickTimerRef.current);
+        quizOptionClickTimerRef.current = null;
+      };
+      const scheduleQuizOptionClick = (event, action) => {
+        if (quizOptionLongPressRef.current) { quizOptionLongPressRef.current = false; return; }
+        if (event.detail > 1) { cancelQuizOptionClick(); return; }
+        const target = event.target;
+        const hasSelectedOptionText = () => {
+          const selection = window.getSelection?.();
+          return !!selection?.toString().trim() && target.closest?.(".reader-word-target")?.contains(selection.anchorNode);
+        };
+        if (hasSelectedOptionText()) return;
+        cancelQuizOptionClick();
+        // Keyboard activation should remain immediate.
+        if (event.detail === 0) { action(); return; }
+        quizOptionClickTimerRef.current = setTimeout(() => {
+          quizOptionClickTimerRef.current = null;
+          if (!hasSelectedOptionText()) action();
+        }, 350);
+      };
+      useEffect(() => () => cancelQuizOptionClick(), [currentQuizQuestion?.id, currentArticleId]);
 
       const clearWordPressTimer = () => {
         if (wordPressTimerRef.current) {
@@ -6266,6 +6290,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         if (!enabled) return;
         const touch = e.touches?.[0];
         if (!touch) return;
+        if (quizOption) quizOptionLongPressRef.current = false;
         clearWordPressTimer();
         wordPressOriginRef.current = {
           x: touch.clientX,
@@ -6275,28 +6300,10 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         wordPressTimerRef.current = setTimeout(() => {
           const origin = wordPressOriginRef.current;
           wordPressTimerRef.current = null;
-      const quizOptionClickTimerRef = useRef(null);
-      const quizOptionLongPressRef = useRef(false);
-      const cancelQuizOptionClick = () => {
-        clearTimeout(quizOptionClickTimerRef.current);
-        quizOptionClickTimerRef.current = null;
-      };
-      const scheduleQuizOptionClick = (event, action) => {
-        if (quizOptionLongPressRef.current) { quizOptionLongPressRef.current = false; return; }
-        if (event.detail > 1) { cancelQuizOptionClick(); return; }
-        if (window.getSelection()?.toString().trim()) return;
-        cancelQuizOptionClick();
-        // Keyboard activation should remain immediate.
-        if (event.detail === 0) { action(); return; }
-        quizOptionClickTimerRef.current = setTimeout(() => {
-          quizOptionClickTimerRef.current = null;
-          if (!window.getSelection()?.toString().trim()) action();
-        }, 350);
-      };
-      useEffect(() => () => cancelQuizOptionClick(), [currentQuizQuestion?.id, currentArticleId]);
           if (!origin) return;
           const hit = getWordAtClientPoint(origin.x, origin.y);
           if (!hit) return;
+          if (quizOption) { quizOptionLongPressRef.current = true; cancelQuizOptionClick(); }
           if (navigator.vibrate) {
             try { navigator.vibrate(12); } catch (_) {}
           }
@@ -6307,7 +6314,6 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const handleWordPressMove = (e) => {
         const origin = wordPressOriginRef.current;
         const touch = e.touches?.[0];
-        if (quizOption) quizOptionLongPressRef.current = false;
         if (!origin || !touch) return;
         if (Math.abs(touch.clientX - origin.x) > 12 || Math.abs(touch.clientY - origin.y) > 12) {
           clearWordPressTimer();
@@ -6320,7 +6326,6 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
 
       useEffect(() => {
         const handleSelectedPhraseLookup = (event) => {
-          if (quizOption) { quizOptionLongPressRef.current = true; cancelQuizOptionClick(); }
           if (event.repeat || (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight')) return;
           const target = event.target instanceof Element ? event.target : null;
           if (target?.closest('input, textarea, select, [contenteditable="true"], [role="textbox"]')) return;
