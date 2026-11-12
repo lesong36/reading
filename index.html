@@ -6262,7 +6262,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         wordPressOriginRef.current = null;
       };
 
-      const handleWordPressStart = (e, sentenceText, { enabled = true } = {}) => {
+      const handleWordPressStart = (e, sentenceText, { enabled = true, quizOption = false } = {}) => {
         if (!enabled) return;
         const touch = e.touches?.[0];
         if (!touch) return;
@@ -6275,6 +6275,25 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         wordPressTimerRef.current = setTimeout(() => {
           const origin = wordPressOriginRef.current;
           wordPressTimerRef.current = null;
+      const quizOptionClickTimerRef = useRef(null);
+      const quizOptionLongPressRef = useRef(false);
+      const cancelQuizOptionClick = () => {
+        clearTimeout(quizOptionClickTimerRef.current);
+        quizOptionClickTimerRef.current = null;
+      };
+      const scheduleQuizOptionClick = (event, action) => {
+        if (quizOptionLongPressRef.current) { quizOptionLongPressRef.current = false; return; }
+        if (event.detail > 1) { cancelQuizOptionClick(); return; }
+        if (window.getSelection()?.toString().trim()) return;
+        cancelQuizOptionClick();
+        // Keyboard activation should remain immediate.
+        if (event.detail === 0) { action(); return; }
+        quizOptionClickTimerRef.current = setTimeout(() => {
+          quizOptionClickTimerRef.current = null;
+          if (!window.getSelection()?.toString().trim()) action();
+        }, 350);
+      };
+      useEffect(() => () => cancelQuizOptionClick(), [currentQuizQuestion?.id, currentArticleId]);
           if (!origin) return;
           const hit = getWordAtClientPoint(origin.x, origin.y);
           if (!hit) return;
@@ -6288,6 +6307,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const handleWordPressMove = (e) => {
         const origin = wordPressOriginRef.current;
         const touch = e.touches?.[0];
+        if (quizOption) quizOptionLongPressRef.current = false;
         if (!origin || !touch) return;
         if (Math.abs(touch.clientX - origin.x) > 12 || Math.abs(touch.clientY - origin.y) > 12) {
           clearWordPressTimer();
@@ -6300,6 +6320,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
 
       useEffect(() => {
         const handleSelectedPhraseLookup = (event) => {
+          if (quizOption) { quizOptionLongPressRef.current = true; cancelQuizOptionClick(); }
           if (event.repeat || (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight')) return;
           const target = event.target instanceof Element ? event.target : null;
           if (target?.closest('input, textarea, select, [contenteditable="true"], [role="textbox"]')) return;
@@ -10650,11 +10671,11 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                                   type="button"
                                                   draggable={!quizProgress.submitted && !isUsed}
                                                   aria-disabled={quizProgress.submitted || isUsed}
-                                                  onDoubleClick={e => { e.stopPropagation(); openVocabPopupFromEvent(e, option); }}
-                                                  onTouchStart={e => handleWordPressStart(e, option)} onTouchMove={handleWordPressMove} onTouchEnd={handleWordPressEnd} onTouchCancel={handleWordPressEnd}
+                                                  onDoubleClick={e => { e.stopPropagation(); cancelQuizOptionClick(); openVocabPopupFromEvent(e, option); }}
+                                                  onTouchStart={e => handleWordPressStart(e, option, { quizOption: true })} onTouchMove={handleWordPressMove} onTouchEnd={handleWordPressEnd} onTouchCancel={handleWordPressEnd}
                                                   data-lookup-context={option}
                                                   onDragStart={event => { event.dataTransfer.setData('text/plain', String(optionIndex)); event.dataTransfer.effectAllowed = 'move'; setWordBankSelectedOptionIndex(optionIndex); }}
-                                                  onClick={() => { if (!quizProgress.submitted && !isUsed && !window.getSelection()?.toString().trim()) setWordBankSelectedOptionIndex(isSelected ? null : optionIndex); }}
+                                                  onClick={event => { if (!quizProgress.submitted && !isUsed) scheduleQuizOptionClick(event, () => setWordBankSelectedOptionIndex(isSelected ? null : optionIndex)); }}
                                                   className={`select-text reader-word-target rounded-xl border px-3 py-2 text-sm font-black shadow-sm transition-all ${
                                                     isUsed ? 'cursor-not-allowed border-slate-200 bg-slate-100 text-slate-400 shadow-none line-through'
                                                     : isSelected ? 'border-teal-600 bg-teal-600 text-white ring-2 ring-teal-200'
@@ -10853,7 +10874,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                             key={`${currentQuizQuestion.id}-${optionIndex}`}
                                             type="button"
                                             aria-disabled={quizProgress.submitted}
-                                            onClick={() => { if (!quizProgress.submitted && !window.getSelection()?.toString().trim()) handleQuizAnswerSelect(currentQuizQuestion, optionIndex); }}
+                                            onClick={event => { if (!quizProgress.submitted) scheduleQuizOptionClick(event, () => handleQuizAnswerSelect(currentQuizQuestion, optionIndex)); }}
                                             className={`w-full rounded-3xl border px-5 py-4 text-left transition-all ${
                                               showCorrect
                                                 ? 'border-emerald-300 bg-emerald-50 shadow-sm'
@@ -10877,7 +10898,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                                                 {String.fromCharCode(65 + optionIndex)}
                                               </div>
                                               <div className="flex-1">
-                                                <p className="text-base leading-7 text-slate-800 select-text reader-word-target" data-lookup-context={option} onDoubleClick={e => { e.stopPropagation(); openVocabPopupFromEvent(e, option); }} onTouchStart={e => handleWordPressStart(e, option)} onTouchMove={handleWordPressMove} onTouchEnd={handleWordPressEnd} onTouchCancel={handleWordPressEnd}>{option}</p>
+                                                <p className="text-base leading-7 text-slate-800 select-text reader-word-target" data-lookup-context={option} onDoubleClick={e => { e.stopPropagation(); cancelQuizOptionClick(); openVocabPopupFromEvent(e, option); }} onTouchStart={e => handleWordPressStart(e, option, { quizOption: true })} onTouchMove={handleWordPressMove} onTouchEnd={handleWordPressEnd} onTouchCancel={handleWordPressEnd}>{option}</p>
                                                 {showCorrect && (
                                                   <p className="mt-2 text-sm font-bold text-emerald-700">正确答案</p>
                                                 )}
