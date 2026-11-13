@@ -2328,7 +2328,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     // v45 adds Reading Future Connect 1–3 (48 articles) after the RFD shelf.
     // v46 gives each repeated retelling or timeline row its own blank.
     // Update this release label whenever the public reader is published.
-    const READER_APP_VERSION = '2026.11.12.1';
+    const READER_APP_VERSION = '2026.11.14.1';
     const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v46';
     const BUNDLED_LIBRARY_SEED_VERSION = '46';
     const EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT = 372;
@@ -3285,18 +3285,55 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       await writable.close();
     };
 
-    // Full reader bundles are larger than the browser's localStorage quota.
-    // OPFS is the primary store; localStorage is a best-effort fallback only.
+    // Persistence must never throw into a React effect. Keep quiz progress
+    // available to restore/cloud sync even when both browser stores reject it.
+    const pendingQuizWrites = new Map();
+    const showStorageWarning = message => {
+      let banner = document.getElementById('reader-storage-warning');
+      if (!banner) {
+        banner = document.createElement('div');
+        banner.id = 'reader-storage-warning';
+        banner.setAttribute('role', 'alert');
+        banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:99999;padding:12px;background:#fff3cd;color:#713f12;text-align:center';
+        document.body.appendChild(banner);
+      }
+      banner.textContent = message;
+    };
+    const readQuizStorage = key => {
+      if (pendingQuizWrites.has(key)) return pendingQuizWrites.get(key);
+      try {
+        const fallback = sessionStorage.getItem(key);
+        if (fallback !== null) return fallback;
+      } catch (error) {}
+      try { return localStorage.getItem(key); } catch (error) { return null; }
+    };
+    const quizStorageKeys = () => {
+      const keys = new Set(pendingQuizWrites.keys());
+      for (const getStore of [() => localStorage, () => sessionStorage]) {
+        try { Object.keys(getStore()).forEach(key => { if (key.startsWith('reader_quiz_progress_')) keys.add(key); }); } catch (error) {}
+      }
+      return [...keys];
+    };
     const trySetLocalStorage = (key, value) => {
       try {
         localStorage.setItem(key, value);
+        if (key.startsWith('reader_quiz_progress_')) {
+          pendingQuizWrites.delete(key);
+          try { sessionStorage.removeItem(key); } catch (error) {}
+        }
         return true;
       } catch (error) {
-        if (error?.name === 'QuotaExceededError') {
-          console.warn(`localStorage quota reached; ${key} will remain in the local data file.`, error);
-          return false;
+        if (key.startsWith('reader_quiz_progress_')) {
+          pendingQuizWrites.set(key, value);
+          try {
+            sessionStorage.setItem(key, value);
+            showStorageWarning('本机存储已满，答题进度暂存于当前标签页。请保持此标签页打开，并尽快同步到云端。');
+            return false;
+          } catch (fallbackError) {}
         }
-        throw error;
+        showStorageWarning('本机无法保存部分修改。可以继续操作；请勿刷新或关闭页面，并尽快同步学习记录。');
+        console.warn(`无法保存 ${key}`, error);
+        return false;
       }
     };
 
@@ -4049,9 +4086,9 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         return Array.from({ length: firstWeekday + count }, (_, index) => index < firstWeekday ? null : new Date(year, month, index - firstWeekday + 1));
       }, [recordMonthCursor]);
 
-      useEffect(() => { localStorage.setItem(DAILY_REPORT_PREFERENCES_STORAGE_KEY, JSON.stringify(dailyReportPreferences)); }, [dailyReportPreferences]);
-      useEffect(() => { localStorage.setItem('reader_quiz_evaluations_v1', JSON.stringify(quizEvaluations)); }, [quizEvaluations]);
-      useEffect(() => { localStorage.setItem(DEVICE_IDENTITY_STORAGE_KEY, JSON.stringify(deviceIdentity)); }, [deviceIdentity]);
+      useEffect(() => { trySetLocalStorage(DAILY_REPORT_PREFERENCES_STORAGE_KEY, JSON.stringify(dailyReportPreferences)); }, [dailyReportPreferences]);
+      useEffect(() => { trySetLocalStorage('reader_quiz_evaluations_v1', JSON.stringify(quizEvaluations)); }, [quizEvaluations]);
+      useEffect(() => { trySetLocalStorage(DEVICE_IDENTITY_STORAGE_KEY, JSON.stringify(deviceIdentity)); }, [deviceIdentity]);
       useEffect(() => {
         const handleVisibilityChange = () => {
           if (document.visibilityState === 'hidden') pauseReadingSession();
@@ -4264,8 +4301,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           const cloudPreferences = data?.preferences && typeof data.preferences === 'object' ? data.preferences : {};
           const cloudDeletedVocabKeys = normalizeDeletedVocabKeys(vocabularySnapshot ? vocabularySnapshot.tombstones.map(item => item.wordKey) : (cloudPreferences.deletedVocabKeys || []));
           const localQuizProgress = {};
-          Object.keys(localStorage).filter(key => key.startsWith(QUIZ_PROGRESS_STORAGE_KEY_PREFIX)).forEach(key => {
-            try { localQuizProgress[key.slice(QUIZ_PROGRESS_STORAGE_KEY_PREFIX.length)] = normalizeQuizProgress(JSON.parse(localStorage.getItem(key))); } catch (error) {}
+          quizStorageKeys().forEach(key => {
+            try { localQuizProgress[key.slice(QUIZ_PROGRESS_STORAGE_KEY_PREFIX.length)] = normalizeQuizProgress(JSON.parse(readQuizStorage(key))); } catch (error) {}
           });
           const mergedQuizProgress = mergeQuizProgressByArticle(localQuizProgress, cloudQuizProgress);
           Object.entries(mergedQuizProgress).forEach(([articleId, progress]) => {
@@ -4321,8 +4358,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       useEffect(() => {
         if (!supabase || !user || !cloudDataLoadedRef.current) return;
         const quizProgressByArticle = {};
-        Object.keys(localStorage).filter(key => key.startsWith('reader_quiz_progress_')).forEach(key => {
-          try { quizProgressByArticle[key.slice('reader_quiz_progress_'.length)] = normalizeQuizProgress(JSON.parse(localStorage.getItem(key))); } catch (error) {}
+        quizStorageKeys().forEach(key => {
+          try { quizProgressByArticle[key.slice('reader_quiz_progress_'.length)] = normalizeQuizProgress(JSON.parse(readQuizStorage(key))); } catch (error) {}
         });
         const preferences = { aiProvider, cloudBaseUrl: cloudBaseUrl.trim(), cloudModel: cloudModel.trim(), ollamaBaseUrl: ollamaBaseUrl.trim(), ollamaModel: ollamaModel.trim(), voiceProvider, dailyReport: dailyReportPreferences, quizEvaluations };
         const readingPositions = {
@@ -4474,72 +4511,72 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           setAiProvider(DEFAULT_AI_PROVIDER);
           return;
         }
-        localStorage.setItem('reader_ai_provider', aiProvider);
+        trySetLocalStorage('reader_ai_provider', aiProvider);
       }, [aiProvider]);
 
       useEffect(() => {
-        localStorage.setItem('reader_openai_compat_api_key', cloudApiKey);
+        trySetLocalStorage('reader_openai_compat_api_key', cloudApiKey);
       }, [cloudApiKey]);
 
       useEffect(() => {
-        localStorage.setItem('reader_openai_compat_base_url', cloudBaseUrl.trim());
+        trySetLocalStorage('reader_openai_compat_base_url', cloudBaseUrl.trim());
       }, [cloudBaseUrl]);
 
       useEffect(() => {
-        localStorage.setItem('reader_openai_compat_model', cloudModel.trim());
+        trySetLocalStorage('reader_openai_compat_model', cloudModel.trim());
       }, [cloudModel]);
 
       useEffect(() => {
-        localStorage.setItem('reader_ollama_preset', ollamaPreset);
+        trySetLocalStorage('reader_ollama_preset', ollamaPreset);
       }, [ollamaPreset]);
 
       useEffect(() => {
-        localStorage.setItem('reader_ollama_base_url', sanitizeBaseUrl(ollamaBaseUrl));
+        trySetLocalStorage('reader_ollama_base_url', sanitizeBaseUrl(ollamaBaseUrl));
       }, [ollamaBaseUrl]);
 
       useEffect(() => {
-        localStorage.setItem('reader_ollama_model', ollamaModel);
+        trySetLocalStorage('reader_ollama_model', ollamaModel);
       }, [ollamaModel]);
 
       useEffect(() => {
         const next = DOUBAO_VOICE_ENABLED ? voiceProvider : 'cosyvoice';
         if (next !== voiceProvider) setVoiceProvider('cosyvoice');
-        localStorage.setItem('reader_voice_provider', next);
+        trySetLocalStorage('reader_voice_provider', next);
       }, [voiceProvider]);
 
       useEffect(() => {
         if (!DOUBAO_VOICE_ENABLED) {
-          localStorage.setItem('reader_voice_provider', 'cosyvoice');
+          trySetLocalStorage('reader_voice_provider', 'cosyvoice');
           setVoiceProvider('cosyvoice');
         }
       }, []);
 
       useEffect(() => {
-        localStorage.setItem('reader_doubao_voice_app_id', doubaoVoiceAppId.trim());
+        trySetLocalStorage('reader_doubao_voice_app_id', doubaoVoiceAppId.trim());
       }, [doubaoVoiceAppId]);
 
       useEffect(() => {
-        localStorage.setItem('reader_doubao_voice_token', doubaoVoiceToken.trim());
+        trySetLocalStorage('reader_doubao_voice_token', doubaoVoiceToken.trim());
       }, [doubaoVoiceToken]);
 
       useEffect(() => {
-        localStorage.setItem('reader_doubao_voice_cluster', doubaoVoiceCluster.trim());
+        trySetLocalStorage('reader_doubao_voice_cluster', doubaoVoiceCluster.trim());
       }, [doubaoVoiceCluster]);
 
       useEffect(() => {
-        localStorage.setItem('reader_doubao_voice_type', normalizeDoubaoVoiceType(doubaoVoiceType));
+        trySetLocalStorage('reader_doubao_voice_type', normalizeDoubaoVoiceType(doubaoVoiceType));
       }, [doubaoVoiceType]);
 
       useEffect(() => {
-        localStorage.setItem('reader_voice_speed', String(voiceSpeed));
+        trySetLocalStorage('reader_voice_speed', String(voiceSpeed));
       }, [voiceSpeed]);
 
       useEffect(() => {
-        localStorage.setItem('reader_paragraph_voice_speed', String(paragraphVoiceSpeed));
+        trySetLocalStorage('reader_paragraph_voice_speed', String(paragraphVoiceSpeed));
       }, [paragraphVoiceSpeed]);
 
       useEffect(() => {
-        localStorage.setItem('reader_paragraph_voice_name', paragraphVoiceName);
+        trySetLocalStorage('reader_paragraph_voice_name', paragraphVoiceName);
       }, [paragraphVoiceName]);
 
       useEffect(() => {
@@ -5139,7 +5176,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         const storageKey = getArticleOutlineStorageKey(currentArticleId);
         if (!storageKey) return;
         try {
-          localStorage.setItem(storageKey, JSON.stringify({ topics: articleOutlineTopics, parents: articleOutlineParents }));
+          trySetLocalStorage(storageKey, JSON.stringify({ topics: articleOutlineTopics, parents: articleOutlineParents }));
         } catch (error) {
           console.warn('Unable to save article outline:', error);
         }
@@ -5395,7 +5432,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
 
       useEffect(() => {
         const key = getReadingActivityProgressStorageKey(currentArticleId);
-        if (key && currentArticleReadingModel) localStorage.setItem(key, JSON.stringify(readingActivityResponses));
+        if (key && currentArticleReadingModel) trySetLocalStorage(key, JSON.stringify(readingActivityResponses));
       }, [currentArticleId, currentArticleReadingModel, readingActivityResponses]);
 
       useEffect(() => {
@@ -5409,7 +5446,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
 
       useEffect(() => {
         const key = getReadingRoutineProgressStorageKey(currentArticleId);
-        if (key && currentArticleReadingModel) localStorage.setItem(key, JSON.stringify(readingRoutineProgress));
+        if (key && currentArticleReadingModel) trySetLocalStorage(key, JSON.stringify(readingRoutineProgress));
       }, [currentArticleId, currentArticleReadingModel, readingRoutineProgress]);
 
       useEffect(() => {
@@ -5432,7 +5469,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
 
       useEffect(() => {
         const key = getReadingMvpV2ProgressStorageKey(currentArticleId);
-        if (key && readingMvpV2Model) localStorage.setItem(key, JSON.stringify(readingMvpV2Progress));
+        if (key && readingMvpV2Model) trySetLocalStorage(key, JSON.stringify(readingMvpV2Progress));
       }, [currentArticleId, readingMvpV2Model, readingMvpV2Progress]);
 
       // A bundle refresh can replace an article while it is open.  Keep the
@@ -5746,7 +5783,13 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         }));
       };
 
+      const restoredQuizIdentityRef = useRef(null);
+      const skipQuizSaveRef = useRef(false);
       useEffect(() => {
+        const identity = JSON.stringify([currentArticleId, currentArticleQuestions]);
+        if (restoredQuizIdentityRef.current === identity) return;
+        restoredQuizIdentityRef.current = identity;
+        skipQuizSaveRef.current = true;
         const questionIds = new Set(currentArticleQuestions.map(question => question.id));
         const locatorKeys = new Set(currentArticleQuestions.flatMap(getQuizLocatorKeys));
         const key = getQuizProgressStorageKey(currentArticleId);
@@ -5754,7 +5797,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
 
         if (key) {
           try {
-            const raw = localStorage.getItem(key);
+            const raw = readQuizStorage(key);
             if (raw) nextProgress = normalizeQuizProgress(JSON.parse(raw));
           } catch (error) {
             console.warn('Quiz progress restore failed:', error);
@@ -5793,7 +5836,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       useEffect(() => {
         const key = getQuizProgressStorageKey(currentArticleId);
         if (!key) return;
-        localStorage.setItem(key, JSON.stringify(quizProgress));
+        if (skipQuizSaveRef.current) { skipQuizSaveRef.current = false; return; }
+        trySetLocalStorage(key, JSON.stringify(quizProgress));
       }, [currentArticleId, quizProgress]);
 
       useEffect(() => {
@@ -6555,7 +6599,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
             setAuthError('Supabase 配置缺少 url 或 publishableKey。');
             return;
           }
-          localStorage.setItem(SUPABASE_CONFIG_STORAGE_KEY, JSON.stringify(parsed));
+          trySetLocalStorage(SUPABASE_CONFIG_STORAGE_KEY, JSON.stringify(parsed));
           setToastMessage('✅ Supabase 配置已保存，页面即将刷新。');
           setTimeout(() => window.location.reload(), 800);
         } catch (error) {
@@ -6770,7 +6814,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         const inbox = { version: 1, updatedAt: new Date().toISOString(), entries: [...incomingByWord.values()] };
 
         try {
-          localStorage.setItem(VOCAB_MASTER_READING_INBOX_KEY, JSON.stringify(inbox));
+          trySetLocalStorage(VOCAB_MASTER_READING_INBOX_KEY, JSON.stringify(inbox));
           if (supabase && user) {
             await flushVocabularyMutations();
           }
@@ -6844,7 +6888,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
               setSavedArticles([]);
               setVocabBook([]);
               setDeletedVocabKeys([]);
-              localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, BUNDLED_LIBRARY_SEED_VERSION);
+              trySetLocalStorage(BUNDLED_LIBRARY_SEED_KEY, BUNDLED_LIBRARY_SEED_VERSION);
               await clearLocalLearningStorage();
               setLocalPersistenceStatus(prev => ({
                 ...prev,
@@ -7557,7 +7601,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                 newList.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
                 return newList;
               });
-              localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, BUNDLED_LIBRARY_SEED_VERSION);
+              trySetLocalStorage(BUNDLED_LIBRARY_SEED_KEY, BUNDLED_LIBRARY_SEED_VERSION);
               setToastMessage(`✅ 成功导入了 ${importedData.length} 篇文章记录！`);
             } else {
               setToastMessage("❌ 文件格式不正确，应该是一个包含文章对象的数组。");
@@ -7580,7 +7624,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
             }
             return force ? bundled : mergeSavedArticles(prev, bundled, { preferIncoming: true });
           });
-          localStorage.setItem(BUNDLED_LIBRARY_SEED_KEY, BUNDLED_LIBRARY_SEED_VERSION);
+          trySetLocalStorage(BUNDLED_LIBRARY_SEED_KEY, BUNDLED_LIBRARY_SEED_VERSION);
           setToastMessage(`📚 已载入预置教材 ${bundled.length} 篇`);
           setViewMode('library');
         } catch (error) {
