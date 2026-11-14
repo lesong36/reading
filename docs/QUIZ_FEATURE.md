@@ -73,3 +73,19 @@
 
 Word「参考答案」lines like `1. ○3` → `answerIndex = 2` (1-based ○N → 0-based index).
 Never invent answers with the LLM.
+
+## Cross-browser synchronization versions (2026.11.14.3)
+
+Progress JSON may include `answerUpdatedAt` / `answerDeletedAt` per question,
+`locatorUpdatedAt` / `locatorDeletedAt` per locator, `resetAt`, and
+`submissionUpdatedAt`. These preserve independent edits and deletion/reset
+boundaries while merging browsers. Legacy records are normalized without
+inventing current timestamps for untouched answers. No new database column
+is required because this metadata is part of the existing JSON payload.
+
+Answer/submit/locator changes directly schedule upload after local persistence.
+Focus, visibility and online recovery trigger pulls; visible online pages also
+check every 30 seconds. In-flight changes schedule another upload. A successful
+sync status includes confirmation time; local persistence does not imply cloud
+acknowledgement. Device clock skew and legacy clients without this metadata
+remain limitations of the timestamp conflict policy.

@@ -9,4 +9,4 @@ jobs:
         with:
           node-version: 22
       - run: node --check scripts/reader-storage.js
-      - run: node --test tests/storage-quota.test.mjs tests/reader-storage.test.mjs
+      - run: node --test tests/storage-quota.test.mjs tests/reader-storage.test.mjs tests/cloud-sync.test.mjs tests/cloud-progress-merge.test.mjs

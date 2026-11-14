@@ -144,6 +144,11 @@
       }
     };
 
+    const withCloudDeadline = (request, milliseconds = 15000) => new Promise((resolve, reject) => {
+      const timer = setTimeout(() => reject(new Error('云同步请求超时，将自动重试')), milliseconds);
+      Promise.resolve(request).then(value => { clearTimeout(timer); resolve(value); }, error => { clearTimeout(timer); reject(error); });
+    });
+
     const SYNC_VAULT_VERSION = 1;
     const textEncoder = new TextEncoder();
     const textDecoder = new TextDecoder();
@@ -2333,7 +2338,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     // v45 adds Reading Future Connect 1–3 (48 articles) after the RFD shelf.
     // v46 gives each repeated retelling or timeline row its own blank.
     // Update this release label whenever the public reader is published.
-    const READER_APP_VERSION = '2026.11.14.2';
+    const READER_APP_VERSION = '2026.11.14.3';
     const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v46';
     const BUNDLED_LIBRARY_SEED_VERSION = '46';
     const EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT = 372;
@@ -2757,56 +2762,89 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       ? question.blanks.map(blank => getQuizLocatorKey(question, blank.id))
       : [getQuizLocatorKey(question)].filter(Boolean);
 
+    const quizVersionTime = value => Math.max(0, Date.parse(value || '') || 0);
+    const quizVersionString = value => quizVersionTime(value) ? new Date(quizVersionTime(value)).toISOString() : null;
     const createEmptyQuizProgress = () => ({
-      answers: {},
-      locatorSentenceIds: {},
-      submitted: false,
-      submittedAt: null,
-      lastAnsweredAt: null
+      answers: {}, locatorSentenceIds: {}, answerUpdatedAt: {}, answerDeletedAt: {},
+      locatorUpdatedAt: {}, locatorDeletedAt: {}, resetAt: null,
+      submitted: false, submittedAt: null, submissionUpdatedAt: null, lastAnsweredAt: null
     });
-
     const normalizeQuizProgress = (progress = {}) => {
-      const normalizedAnswers = Object.entries(progress?.answers || {}).reduce((acc, [questionId, value]) => {
-        const normalized = normalizeQuizAnswer(value);
-        if (normalized !== null && (!Array.isArray(normalized) || normalized.length)) acc[questionId] = normalized;
-        return acc;
-      }, {});
-      const locatorSentenceIds = Object.entries(progress?.locatorSentenceIds || {}).reduce((acc, [questionId, sentenceId]) => {
-        if (typeof sentenceId === 'string' && sentenceId.trim()) acc[questionId] = sentenceId.trim();
-        return acc;
-      }, {});
-      return {
-        answers: normalizedAnswers,
-        locatorSentenceIds,
-        submitted: Boolean(progress?.submitted),
-        submittedAt: progress?.submittedAt || null,
-        lastAnsweredAt: progress?.lastAnsweredAt || null
-      };
+      progress = progress && typeof progress === 'object' ? progress : {};
+      const normalized = createEmptyQuizProgress();
+      const object = value => value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+      const legacyVersion = quizVersionString(progress.lastAnsweredAt) || quizVersionString(progress.submittedAt);
+      for (const name of ['answerUpdatedAt', 'answerDeletedAt', 'locatorUpdatedAt', 'locatorDeletedAt']) {
+        normalized[name] = Object.fromEntries(Object.entries(object(progress[name])).map(([key, value]) => [key, quizVersionString(value)]));
+      }
+      normalized.resetAt = quizVersionString(progress.resetAt);
+      const reset = quizVersionTime(normalized.resetAt);
+      for (const [key, value] of Object.entries(object(progress.answers))) {
+        const answer = normalizeQuizAnswer(value);
+        if (answer === null || Array.isArray(answer) && !answer.length) continue;
+        const version = Object.prototype.hasOwnProperty.call(normalized.answerUpdatedAt, key) ? normalized.answerUpdatedAt[key] : legacyVersion;
+        normalized.answerUpdatedAt[key] = version;
+        if ((reset && quizVersionTime(version) <= reset) || (normalized.answerDeletedAt[key] && quizVersionTime(version) <= quizVersionTime(normalized.answerDeletedAt[key]))) continue;
+        normalized.answers[key] = answer;
+      }
+      for (const [key, value] of Object.entries(object(progress.locatorSentenceIds))) {
+        if (typeof value !== 'string' || !value.trim()) continue;
+        const version = Object.prototype.hasOwnProperty.call(normalized.locatorUpdatedAt, key) ? normalized.locatorUpdatedAt[key] : legacyVersion;
+        normalized.locatorUpdatedAt[key] = version;
+        if ((reset && quizVersionTime(version) <= reset) || (normalized.locatorDeletedAt[key] && quizVersionTime(version) <= quizVersionTime(normalized.locatorDeletedAt[key]))) continue;
+        normalized.locatorSentenceIds[key] = value.trim();
+      }
+      normalized.submissionUpdatedAt = quizVersionString(progress.submissionUpdatedAt) || quizVersionString(progress.submittedAt);
+      normalized.submitted = Boolean(progress.submitted) && !(reset && quizVersionTime(normalized.submissionUpdatedAt) <= reset);
+      normalized.submittedAt = normalized.submitted ? quizVersionString(progress.submittedAt) : null;
+      normalized.lastAnsweredAt = quizVersionString(progress.lastAnsweredAt);
+      return normalized;
     };
-
     const mergeQuizProgress = (local = {}, cloud = {}) => {
-      const localProgress = normalizeQuizProgress(local);
-      const cloudProgress = normalizeQuizProgress(cloud);
-      const localSubmittedAt = Date.parse(localProgress.submittedAt || '') || 0;
-      const cloudSubmittedAt = Date.parse(cloudProgress.submittedAt || '') || 0;
-      const latestSubmission = localSubmittedAt >= cloudSubmittedAt ? localProgress : cloudProgress;
-      const localAnsweredAt = Date.parse(localProgress.lastAnsweredAt || '') || 0;
-      const cloudAnsweredAt = Date.parse(cloudProgress.lastAnsweredAt || '') || 0;
-      return {
-        answers: { ...cloudProgress.answers, ...localProgress.answers },
-        locatorSentenceIds: { ...cloudProgress.locatorSentenceIds, ...localProgress.locatorSentenceIds },
-        submitted: localProgress.submitted || cloudProgress.submitted,
-        submittedAt: latestSubmission.submittedAt || null,
-        lastAnsweredAt: localAnsweredAt >= cloudAnsweredAt ? localProgress.lastAnsweredAt : cloudProgress.lastAnsweredAt
-      };
+      const left = normalizeQuizProgress(local), right = normalizeQuizProgress(cloud);
+      const latest = (a, b) => quizVersionTime(a) >= quizVersionTime(b) ? a : b;
+      const merged = createEmptyQuizProgress();
+      merged.resetAt = latest(left.resetAt, right.resetAt);
+      merged.lastAnsweredAt = latest(left.lastAnsweredAt, right.lastAnsweredAt);
+      for (const [values, updated, deleted] of [['answers', 'answerUpdatedAt', 'answerDeletedAt'], ['locatorSentenceIds', 'locatorUpdatedAt', 'locatorDeletedAt']]) {
+        const keys = new Set([...Object.keys(left[values]), ...Object.keys(right[values]), ...Object.keys(left[updated]), ...Object.keys(right[updated]), ...Object.keys(left[deleted]), ...Object.keys(right[deleted])]);
+        for (const key of keys) {
+          const deletion = latest(left[deleted][key], right[deleted][key]);
+          if (deletion) merged[deleted][key] = deletion;
+          const a = quizVersionTime(left[updated][key]), b = quizVersionTime(right[updated][key]);
+          // Stable lexical tie breaking avoids order-dependent merges on legacy timestamps.
+          const winner = a === b
+            ? (left[values][key] === undefined ? right : right[values][key] === undefined ? left : JSON.stringify(left[values][key]) >= JSON.stringify(right[values][key]) ? left : right)
+            : (a > b ? left : right);
+          merged[updated][key] = winner[updated][key] || null;
+          if (Object.prototype.hasOwnProperty.call(winner[values], key)) merged[values][key] = winner[values][key];
+        }
+      }
+      const a = quizVersionTime(left.submissionUpdatedAt), b = quizVersionTime(right.submissionUpdatedAt);
+      // Unsubmit wins an equal version; a reset must never resurrect submission.
+      const submission = a === b ? (!left.submitted ? left : right) : (a > b ? left : right);
+      merged.submitted = submission.submitted;
+      merged.submittedAt = submission.submittedAt;
+      merged.submissionUpdatedAt = submission.submissionUpdatedAt;
+      return normalizeQuizProgress(merged);
     };
-
     const mergeQuizProgressByArticle = (local = {}, cloud = {}) => {
       const articleIds = new Set([...Object.keys(cloud || {}), ...Object.keys(local || {})]);
-      return Array.from(articleIds).reduce((merged, articleId) => {
-        merged[articleId] = mergeQuizProgress(local?.[articleId], cloud?.[articleId]);
-        return merged;
-      }, {});
+      return Object.fromEntries([...articleIds].map(articleId => [articleId, mergeQuizProgress(local?.[articleId], cloud?.[articleId])]));
+    };
+
+    const mergeReadingPositions = (local = {}, cloud = {}) => {
+      const result = {};
+      for (const id of new Set([...Object.keys(local || {}), ...Object.keys(cloud || {})])) {
+        const a = local?.[id], b = cloud?.[id];
+        if (!a || !b) { result[id] = a || b; continue; }
+        const leftTime = Date.parse(a.updatedAt || '') || 0;
+        const rightTime = Date.parse(b.updatedAt || '') || 0;
+        result[id] = leftTime === rightTime
+          ? (String(a.sentenceId || '') >= String(b.sentenceId || '') ? a : b)
+          : leftTime > rightTime ? a : b;
+      }
+      return result;
     };
 
     const getQuizProgressStorageKey = (articleId) =>
@@ -3825,6 +3863,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const terminalConsoleRef = useRef(null);
       const [currentArticleData, setCurrentArticleData] = useState(() => normalizeArticleData(defaultArticleData));
       const [currentArticleId, setCurrentArticleId] = useState(null);
+      const activeQuizArticleRef = useRef(null);
+      activeQuizArticleRef.current = currentArticleId;
       const [currentArticleTitle, setCurrentArticleTitle] = useState('');
       const [currentArticleQuestions, setCurrentArticleQuestions] = useState([]);
       const [currentArticleGlossary, setCurrentArticleGlossary] = useState(() =>
@@ -3837,6 +3877,11 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
 
       // Supabase Auth + cloud-sync state
       const [user, setUser] = useState(null);
+      const [authReady, setAuthReady] = useState(!supabase);
+      const cloudAccountRef = useRef({ id: null, generation: 0 });
+      if (cloudAccountRef.current.id !== (user?.id || null)) {
+        cloudAccountRef.current = { id: user?.id || null, generation: cloudAccountRef.current.generation + 1 };
+      }
       const [showLoginModal, setShowLoginModal] = useState(false);
       const [loginUsername, setLoginUsername] = useState("");
       const [loginEmail, setLoginEmail] = useState("");
@@ -3856,6 +3901,11 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         try { return JSON.parse(readerStorage.getItem('reader_favorite_article_ids') || '[]'); } catch { return []; }
       });
       const [cloudSyncRevision, setCloudSyncRevision] = useState(0);
+      const [cloudWriteRevision, setCloudWriteRevision] = useState(0);
+      const cloudWriteQueuedRef = useRef(false);
+      const cloudRefreshQueuedRef = useRef(false);
+      const cloudRefreshAtRef = useRef(0);
+      const readingPositionSnapshotRef = useRef(null);
       const [cloudSyncStatus, setCloudSyncStatus] = useState(() => ({
         enabled: Boolean(supabase),
         message: supabase ? 'Supabase 云同步已准备好，请登录账号。' : '云同步未配置，当前仅保存到本机。'
@@ -3883,6 +3933,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const flushVocabularyMutations = async () => {
         const sync = vocabularySyncRef.current;
         if (!sync || sync.snapshot().userID !== activeVocabularyOwnerRef.current) return;
+        if (!sync.snapshot().pending.length) return;
         const result = await sync.flush();
         if (result.userID !== activeVocabularyOwnerRef.current) return;
         const tombstones = result.tombstones.map(item => item.wordKey);
@@ -4255,8 +4306,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           return;
         }
         let cancelled = false;
-        setCloudSyncStatus({ enabled: true, message: '正在读取 Supabase 学习记录...' });
-        supabase.from('reader_sync_state').select(READER_SYNC_STATE_FIELDS).eq('user_id', user.id).maybeSingle().then(async ({ data, error }) => {
+        setCloudSyncStatus({ enabled: true, message: '正在同步学习记录…' });
+        withCloudDeadline(supabase.from('reader_sync_state').select(READER_SYNC_STATE_FIELDS).eq('user_id', user.id).maybeSingle()).then(async ({ data, error }) => {
           if (cancelled) return;
           if (error) {
             cloudDataLoadedRef.current = false;
@@ -4269,7 +4320,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
             if (vocabularySyncRef.current?.snapshot().userID !== user.id) {
               vocabularySyncRef.current = createVocabularySyncV2(supabase, user.id, readerStorage, () => activeVocabularyOwnerRef.current);
             }
-            vocabularySnapshot = await vocabularySyncRef.current.read();
+            vocabularySnapshot = await withCloudDeadline(vocabularySyncRef.current.read());
           } catch (error) { vocabularyError = error; }
           if (cancelled || activeVocabularyOwnerRef.current !== user.id) return;
           const cloudVocab = normalizeVocabBook(vocabularySnapshot?.vocabulary || data?.vocabulary || []);
@@ -4286,6 +4337,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           const mergedQuizProgress = mergeQuizProgressByArticle(localQuizProgress, cloudQuizProgress);
           Object.entries(mergedQuizProgress).forEach(([articleId, progress]) => {
             trySetLocalStorage(getQuizProgressStorageKey(articleId), JSON.stringify(progress));
+            if (articleId === activeQuizArticleRef.current) setQuizProgress(progress);
           });
           encryptedAiKeyRef.current = data?.encrypted_ai_key || null;
           if (cloudPreferences.aiProvider) setAiProvider(cloudPreferences.aiProvider);
@@ -4297,7 +4349,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           if (cloudPreferences.quizEvaluations && typeof cloudPreferences.quizEvaluations === 'object') {
             setQuizEvaluations(current => ({ ...cloudPreferences.quizEvaluations, ...current }));
           }
-          cloudReadingPositionsRef.current = cloudReadingPositions;
+          cloudReadingPositionsRef.current = mergeReadingPositions(cloudReadingPositionsRef.current, cloudReadingPositions);
           const { deletedVocabKeys: ignoredLegacyDeletion, ...safeCloudPreferences } = cloudPreferences;
           lastCloudSnapshotRef.current = JSON.stringify({ favorites: cloudFavorites, readingPositions: cloudReadingPositions, quizProgress: cloudQuizProgress, completionRecords: cloudCompletionRecords, preferences: safeCloudPreferences, encryptedAiKey: data?.encrypted_ai_key || null });
           cloudDataLoadedRef.current = true;
@@ -4315,96 +4367,38 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           setFavoriteArticleIds(prev => Array.from(new Set([...prev, ...cloudFavorites])));
           setCompletionRecords(prev => mergeCompletionRecords(prev, cloudCompletionRecords));
           setCloudSyncStatus({ enabled: true, message: vocabularyError ? vocabularyError.message : cloudSyncNeedsMergeRef.current ? '网络已恢复：正在合并本地与云端记录并重写。' : `Supabase 已连接：同步 ${cloudVocab.length} 个生词与学习记录。` });
+        }).catch(error => {
+          if (!cancelled) scheduleCloudSyncRetry(`云同步读取失败：${error.message || '网络请求失败'}`);
         });
         return () => { cancelled = true; if (cloudDataWriteTimerRef.current) clearTimeout(cloudDataWriteTimerRef.current); };
       }, [user, cloudSyncRevision]);
 
       useEffect(() => {
         const resumeCloudSync = () => {
-          if (!supabase || !user) return;
+          if (!supabase || !user || document.visibilityState === 'hidden' || navigator.onLine === false) return;
+          const now = Date.now();
+          if (now - cloudRefreshAtRef.current < 2000) return;
+          cloudRefreshAtRef.current = now;
+          if (cloudWriteInFlightRef.current) { cloudRefreshQueuedRef.current = true; return; }
           if (cloudDataRetryTimerRef.current) {
             clearTimeout(cloudDataRetryTimerRef.current);
             cloudDataRetryTimerRef.current = null;
           }
           cloudSyncNeedsMergeRef.current = true;
-          setCloudSyncStatus({ enabled: true, message: '网络已恢复：正在合并本地与云端记录...' });
           setCloudSyncRevision(value => value + 1);
         };
         window.addEventListener('online', resumeCloudSync);
-        return () => window.removeEventListener('online', resumeCloudSync);
+        window.addEventListener('focus', resumeCloudSync);
+        document.addEventListener('visibilitychange', resumeCloudSync);
+        const timer = setInterval(resumeCloudSync, 30000);
+        return () => {
+          window.removeEventListener('online', resumeCloudSync);
+          window.removeEventListener('focus', resumeCloudSync);
+          document.removeEventListener('visibilitychange', resumeCloudSync);
+          clearInterval(timer);
+        };
       }, [user]);
 
-      useEffect(() => {
-        if (!supabase || !user || !cloudDataLoadedRef.current) return;
-        const quizProgressByArticle = {};
-        quizStorageKeys().forEach(key => {
-          try { quizProgressByArticle[key.slice('reader_quiz_progress_'.length)] = normalizeQuizProgress(JSON.parse(readQuizStorage(key))); } catch (error) {}
-        });
-        const preferences = { aiProvider, cloudBaseUrl: cloudBaseUrl.trim(), cloudModel: cloudModel.trim(), ollamaBaseUrl: ollamaBaseUrl.trim(), ollamaModel: ollamaModel.trim(), voiceProvider, dailyReport: dailyReportPreferences, quizEvaluations };
-        const readingPositions = {
-          ...cloudReadingPositionsRef.current,
-          ...(currentArticleId ? { [currentArticleId]: { sentenceId: selectedSentence?.id || null, updatedAt: new Date().toISOString() } } : {})
-        };
-        const writeCloudState = async () => {
-          if (cloudWriteInFlightRef.current) return;
-          cloudWriteInFlightRef.current = true;
-          let encryptedAiKey = encryptedAiKeyRef.current;
-          try {
-            if (syncVaultUnlocked && syncPassphrase && cloudApiKey) {
-              encryptedAiKey = await encryptForSyncVault(cloudApiKey, syncPassphrase);
-            }
-            let vocabularyWarning = '';
-            try { await flushVocabularyMutations(); } catch (error) { vocabularyWarning = error.message; }
-            if (activeVocabularyOwnerRef.current !== user.id) return;
-            let payload = { user_id: user.id, favorites: favoriteArticleIds, reading_positions: readingPositions, quiz_progress: quizProgressByArticle, completion_records: completionRecords, preferences, encrypted_ai_key: encryptedAiKey, updated_at: new Date().toISOString() };
-            if (cloudSyncNeedsMergeRef.current) {
-              const { data, error } = await supabase.from('reader_sync_state').select(READER_SYNC_STATE_FIELDS).eq('user_id', user.id).maybeSingle();
-              if (error) throw error;
-              const mergedQuizProgress = mergeQuizProgressByArticle(payload.quiz_progress, data?.quiz_progress || {});
-              const mergedCompletionRecords = mergeCompletionRecords(payload.completion_records, data?.completion_records || {});
-              payload = {
-                ...payload,
-                favorites: Array.from(new Set([...(data?.favorites || []), ...payload.favorites])),
-                reading_positions: { ...(data?.reading_positions || {}), ...payload.reading_positions },
-                quiz_progress: mergedQuizProgress,
-                completion_records: mergedCompletionRecords,
-                preferences: payload.preferences,
-                encrypted_ai_key: payload.encrypted_ai_key || data?.encrypted_ai_key || null
-              };
-              Object.entries(mergedQuizProgress).forEach(([articleId, progress]) => {
-                trySetLocalStorage(getQuizProgressStorageKey(articleId), JSON.stringify(progress));
-              });
-              setFavoriteArticleIds(prev => Array.from(new Set([...(data?.favorites || []), ...prev])));
-              setCompletionRecords(prev => mergeCompletionRecords(prev, data?.completion_records || {}));
-            }
-            const snapshotKey = JSON.stringify({ favorites: payload.favorites, readingPositions: payload.reading_positions, quizProgress: payload.quiz_progress, completionRecords: payload.completion_records, preferences: payload.preferences, encryptedAiKey: payload.encrypted_ai_key });
-            if (snapshotKey === lastCloudSnapshotRef.current) {
-              setCloudSyncStatus({ enabled: true, message: vocabularyWarning || 'Supabase 已确认生词操作。' });
-              return;
-            }
-            const { error } = await supabase.from('reader_sync_state').upsert(payload, { onConflict: 'user_id' });
-            if (error) throw error;
-            encryptedAiKeyRef.current = payload.encrypted_ai_key;
-            cloudReadingPositionsRef.current = payload.reading_positions;
-            lastCloudSnapshotRef.current = snapshotKey;
-            cloudSyncNeedsMergeRef.current = false;
-            cloudSyncRetryAttemptRef.current = 0;
-            setCloudSyncStatus({ enabled: true, message: vocabularyWarning || 'Supabase 已确认生词操作并保存进度与偏好。' });
-          } catch (error) {
-            const permanentErrorCode = /^(PGRST|22|23|42)/.test(String(error?.code || ''));
-            const retryable = !permanentErrorCode && (!Number.isInteger(error?.status) || error.status >= 500);
-            scheduleCloudSyncRetry(`云同步写入失败：${error.message || '网络连接中断'}`, { retryable });
-          } finally {
-            cloudWriteInFlightRef.current = false;
-          }
-        };
-        const snapshotKey = JSON.stringify({ favorites: favoriteArticleIds, readingPositions, quizProgress: quizProgressByArticle, completionRecords, preferences, encryptedAiKey: encryptedAiKeyRef.current });
-        if (snapshotKey === lastCloudSnapshotRef.current && !vocabularySyncRef.current?.snapshot().pending.length) return;
-        if (cloudDataWriteTimerRef.current) clearTimeout(cloudDataWriteTimerRef.current);
-        cloudDataWriteTimerRef.current = setTimeout(async () => {
-          await writeCloudState();
-        }, 800);
-      }, [vocabBook, deletedVocabKeys, favoriteArticleIds, completionRecords, dailyReportPreferences, quizEvaluations, cloudSyncRevision, user]);
 
       useEffect(() => {
         if (!supabase || !currentArticleId) return;
@@ -4683,11 +4677,16 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       // Supabase session restores across devices without anonymous accounts.
       useEffect(() => {
         if (!supabase) return;
-        supabase.auth.getSession().then(({ data, error }) => {
-          if (error) console.warn('Supabase session restore failed:', error);
+        withCloudDeadline(supabase.auth.getSession()).then(({ data, error }) => {
+          if (error) setCloudSyncStatus({ enabled: false, message: '登录会话恢复失败，学习记录仍保存在本机，请检查账号连接。' });
           setUser(data.session?.user || null);
+          setAuthReady(true);
+        }).catch(error => {
+          setAuthReady(true);
+          setCloudSyncStatus({ enabled: false, message: `登录会话恢复失败：${error.message}` });
         });
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+          setAuthReady(true);
           setUser(session?.user || null);
         });
         return () => subscription.unsubscribe();
@@ -5820,6 +5819,107 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       }, [currentArticleId, quizProgress]);
 
       useEffect(() => {
+        if (!supabase || !user || !cloudDataLoadedRef.current) return;
+        const quizProgressByArticle = {};
+        quizStorageKeys().forEach(key => {
+          try { quizProgressByArticle[key.slice('reader_quiz_progress_'.length)] = normalizeQuizProgress(JSON.parse(readQuizStorage(key))); } catch (error) {}
+        });
+        const preferences = { aiProvider, cloudBaseUrl: cloudBaseUrl.trim(), cloudModel: cloudModel.trim(), ollamaBaseUrl: ollamaBaseUrl.trim(), ollamaModel: ollamaModel.trim(), voiceProvider, dailyReport: dailyReportPreferences, quizEvaluations };
+        if (currentArticleId && (readingPositionSnapshotRef.current?.articleId !== currentArticleId || readingPositionSnapshotRef.current?.sentenceId !== selectedSentence?.id)) {
+          readingPositionSnapshotRef.current = { articleId: currentArticleId, sentenceId: selectedSentence?.id || null, updatedAt: new Date().toISOString() };
+        }
+        const readingPositions = {
+          ...cloudReadingPositionsRef.current,
+          ...(currentArticleId ? { [currentArticleId]: { sentenceId: readingPositionSnapshotRef.current.sentenceId, updatedAt: readingPositionSnapshotRef.current.updatedAt } } : {})
+        };
+        const accountGeneration = cloudAccountRef.current.generation;
+        const isCurrentAccount = () => cloudAccountRef.current.id === user.id && cloudAccountRef.current.generation === accountGeneration;
+        const writeCloudState = async () => {
+          if (cloudWriteInFlightRef.current) { cloudWriteQueuedRef.current = true; return; }
+          cloudWriteInFlightRef.current = true;
+          let encryptedAiKey = encryptedAiKeyRef.current;
+          try {
+            if (syncVaultUnlocked && syncPassphrase && cloudApiKey) {
+              encryptedAiKey = await encryptForSyncVault(cloudApiKey, syncPassphrase);
+            }
+            if (!isCurrentAccount()) return;
+            let vocabularyWarning = '';
+            try { await withCloudDeadline(flushVocabularyMutations()); } catch (error) { vocabularyWarning = error.message; }
+            if (!isCurrentAccount()) return;
+            let payload = { user_id: user.id, favorites: favoriteArticleIds, reading_positions: readingPositions, quiz_progress: quizProgressByArticle, completion_records: completionRecords, preferences, encrypted_ai_key: encryptedAiKey, updated_at: new Date().toISOString() };
+            // Every upload merges the current server snapshot first.
+            {
+              const { data, error } = await withCloudDeadline(supabase.from('reader_sync_state').select(READER_SYNC_STATE_FIELDS).eq('user_id', user.id).maybeSingle());
+              if (error) throw error;
+              if (!isCurrentAccount()) return;
+              // Re-read memory after the network wait; a learner may have answered
+              // again while this upload was fetching its merge base.
+              const latestLocalQuiz = {};
+              quizStorageKeys().forEach(key => {
+                try { latestLocalQuiz[key.slice(QUIZ_PROGRESS_STORAGE_KEY_PREFIX.length)] = normalizeQuizProgress(JSON.parse(readQuizStorage(key))); } catch (_) {}
+              });
+              const mergedQuizProgress = mergeQuizProgressByArticle(latestLocalQuiz, data?.quiz_progress || {});
+              const mergedCompletionRecords = mergeCompletionRecords(payload.completion_records, data?.completion_records || {});
+              payload = {
+                ...payload,
+                favorites: Array.from(new Set([...(data?.favorites || []), ...payload.favorites])),
+                reading_positions: mergeReadingPositions(payload.reading_positions, data?.reading_positions || {}),
+                quiz_progress: mergedQuizProgress,
+                completion_records: mergedCompletionRecords,
+                preferences: payload.preferences,
+                encrypted_ai_key: payload.encrypted_ai_key || data?.encrypted_ai_key || null
+              };
+              Object.entries(mergedQuizProgress).forEach(([articleId, progress]) => {
+                trySetLocalStorage(getQuizProgressStorageKey(articleId), JSON.stringify(progress));
+              });
+              setFavoriteArticleIds(prev => { const next = Array.from(new Set([...(data?.favorites || []), ...prev])); return JSON.stringify(next) === JSON.stringify(prev) ? prev : next; });
+              setCompletionRecords(prev => { const next = mergeCompletionRecords(prev, data?.completion_records || {}); return JSON.stringify(next) === JSON.stringify(prev) ? prev : next; });
+            }
+            const snapshotKey = JSON.stringify({ favorites: payload.favorites, readingPositions: payload.reading_positions, quizProgress: payload.quiz_progress, completionRecords: payload.completion_records, preferences: payload.preferences, encryptedAiKey: payload.encrypted_ai_key });
+            if (snapshotKey === lastCloudSnapshotRef.current) {
+              setCloudSyncStatus({ enabled: true, message: vocabularyWarning || `学习记录已同步 · ${new Date().toLocaleTimeString('zh-CN', { hour12: false })}` });
+              return;
+            }
+            if (!isCurrentAccount()) return;
+            const { error } = await withCloudDeadline(supabase.from('reader_sync_state').upsert(payload, { onConflict: 'user_id' }));
+            if (error) throw error;
+            if (!isCurrentAccount()) return;
+            encryptedAiKeyRef.current = payload.encrypted_ai_key;
+            cloudReadingPositionsRef.current = payload.reading_positions;
+            lastCloudSnapshotRef.current = snapshotKey;
+            cloudSyncNeedsMergeRef.current = false;
+            cloudSyncRetryAttemptRef.current = 0;
+            setCloudSyncStatus({ enabled: true, message: vocabularyWarning || `学习记录已同步 · ${new Date().toLocaleTimeString('zh-CN', { hour12: false })}` });
+          } catch (error) {
+            if (!isCurrentAccount()) return;
+            const permanentErrorCode = /^(PGRST|22|23|42)/.test(String(error?.code || ''));
+            const retryable = !permanentErrorCode && (!Number.isInteger(error?.status) || error.status >= 500);
+            scheduleCloudSyncRetry(`云同步写入失败：${error.message || '网络连接中断'}`, { retryable });
+          } finally {
+            cloudWriteInFlightRef.current = false;
+            if (!isCurrentAccount()) { setCloudWriteRevision(value => value + 1); return; }
+            if (cloudWriteQueuedRef.current) {
+              cloudWriteQueuedRef.current = false;
+              setCloudWriteRevision(value => value + 1);
+            }
+            if (cloudRefreshQueuedRef.current) {
+              cloudRefreshQueuedRef.current = false;
+              setCloudSyncRevision(value => value + 1);
+            }
+          }
+        };
+        const snapshotKey = JSON.stringify({ favorites: favoriteArticleIds, readingPositions, quizProgress: quizProgressByArticle, completionRecords, preferences, encryptedAiKey: encryptedAiKeyRef.current });
+        if (snapshotKey === lastCloudSnapshotRef.current && !vocabularySyncRef.current?.snapshot().pending.length) return;
+        if (cloudDataWriteTimerRef.current) clearTimeout(cloudDataWriteTimerRef.current);
+        setCloudSyncStatus({ enabled: true, message: '学习记录待同步…' });
+        cloudDataWriteTimerRef.current = setTimeout(async () => {
+          await writeCloudState();
+        }, 800);
+      }, [vocabBook, deletedVocabKeys, favoriteArticleIds, completionRecords, dailyReportPreferences, quizEvaluations, cloudSyncRevision, cloudWriteRevision, user, quizProgress, currentArticleId, selectedSentence?.id,
+        aiProvider, cloudBaseUrl, cloudModel, ollamaBaseUrl, ollamaModel, voiceProvider, syncVaultUnlocked, syncPassphrase, cloudApiKey]);
+
+
+      useEffect(() => {
         if (articleStudyMode !== 'quiz' || !currentQuizParagraphNumber) return;
         const paragraphSentence = currentArticleData.find(sentence => Number(sentence.para) === currentQuizParagraphNumber);
         if (paragraphSentence) setSelectedSentence(paragraphSentence);
@@ -6928,7 +7028,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           locatorSentenceIds: {
             ...prev.locatorSentenceIds,
             [currentQuizLocatorKey]: sentence.id
-          }
+          },
+          locatorUpdatedAt: { ...prev.locatorUpdatedAt, [currentQuizLocatorKey]: new Date().toISOString() }
         }));
         setSelectedSentence(sentence);
         if (navigator.vibrate) {
@@ -6941,7 +7042,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         if (!currentQuizQuestion || !currentQuizLocatorKey) return;
         setQuizProgress(prev => {
           const { [currentQuizLocatorKey]: _removed, ...locatorSentenceIds } = prev.locatorSentenceIds || {};
-          return { ...prev, locatorSentenceIds };
+          return { ...prev, locatorSentenceIds, locatorDeletedAt: { ...prev.locatorDeletedAt, [currentQuizLocatorKey]: new Date().toISOString() } };
         });
         setToastMessage(`已清除第 ${currentQuizQuestion.index} 题${currentWordBankActiveBlank ? `第 ${currentQuizQuestion.blanks.indexOf(currentWordBankActiveBlank) + 1} 空` : ''}的定位句`);
       };
@@ -6968,6 +7069,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
             ...prev.answers,
             [question.id]: nextAnswer
           },
+          answerUpdatedAt: { ...prev.answerUpdatedAt, [question.id]: answeredAt },
           lastAnsweredAt: answeredAt
         }));
         if (!wasAlreadyAnswered && isQuizAnswerComplete(question, nextAnswer)) recordLearningEvent({ eventType: 'quiz_answered', eventKey: `answer:${currentArticleId}:${question.id}:${localDayKey(answeredAt)}`, articleId: currentArticleId, articleTitle: currentArticleTitle, questionId: question.id, payload: { questionIndex: question.index, questionPrompt: question.prompt, learnerAnswerIndex: nextAnswer } });
@@ -6986,6 +7088,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         setQuizProgress(prev => ({
           ...prev,
           answers: { ...prev.answers, [question.id]: nextAnswer },
+          answerUpdatedAt: { ...prev.answerUpdatedAt, [question.id]: answeredAt },
           lastAnsweredAt: answeredAt
         }));
         const nextBlank = question.blanks.find(blank => !Number.isInteger(nextAnswer[blank.id]));
@@ -6998,7 +7101,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         if (!question || question.type !== 'word-bank' || quizProgress.submitted) return;
         setQuizProgress(prev => {
           const { [blankId]: _removed, ...answers } = getWordBankAnswers(prev.answers?.[question.id]);
-          return { ...prev, answers: { ...prev.answers, [question.id]: answers } };
+          const changedAt = new Date().toISOString();
+          return { ...prev, answers: { ...prev.answers, [question.id]: answers }, answerUpdatedAt: { ...prev.answerUpdatedAt, [question.id]: changedAt }, lastAnsweredAt: changedAt };
         });
         setActiveWordBankBlankId(blankId);
       };
@@ -7255,7 +7359,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         setQuizProgress(prev => ({
           ...prev,
           submitted: true,
-          submittedAt
+          submittedAt,
+          submissionUpdatedAt: submittedAt
         }));
         recordLearningEvent({ eventType: 'quiz_submitted', eventKey: `quiz:${currentArticleId}:${submittedAt}`, articleId: currentArticleId, articleTitle: currentArticleTitle, payload: { correct: quizCorrectCount, total: supportedQuizQuestions.length } });
         if (!alreadyCompleted && article?.id) {
@@ -7411,7 +7516,8 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       };
 
       const handleQuizReset = () => {
-        setQuizProgress(createEmptyQuizProgress());
+        const resetAt = new Date().toISOString();
+        setQuizProgress({ ...createEmptyQuizProgress(), resetAt, submissionUpdatedAt: resetAt, lastAnsweredAt: resetAt });
         const firstQuestion = currentArticleQuestions[0] || null;
         setQuizActiveQuestionId(firstQuestion?.id || null);
         setToastMessage('已清空当前文章的作答记录');
@@ -8127,7 +8233,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                   }`}
                 >
                   <User className="w-4 h-4" />
-                  {user ? '云同步账号' : (supabase ? '登录同步' : '配置云同步')}
+                  {user ? '云同步账号' : !authReady ? '恢复登录中…' : (supabase ? '登录同步' : '配置云同步')}
                 </button>
                 <button
                   onClick={() => window.open('https://lesong36.github.io/vocab-master/', '_blank', 'noopener')}
