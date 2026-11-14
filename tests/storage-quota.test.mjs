@@ -2,36 +2,31 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-
 const html = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-const helper = html.slice(html.indexOf('const pendingQuizWrites ='), html.indexOf('const clearLocalLearningStorage ='));
-for (const name of ['QuotaExceededError', 'SecurityError']) {
-  test(`storage ${name} cannot crash answering`, () => {
-    const context = vm.createContext({ localStorage: { setItem() { throw Object.assign(new Error('unavailable'), { name }); } }, document: { getElementById: () => ({ textContent: "" }) }, console: { warn() {} } });
+test('application writes and reads use the managed storage boundary', () => {
+  assert.doesNotMatch(html, /\blocalStorage\.(setItem|getItem|removeItem)\(/);
+  assert.match(html, /readerStorage.ready.then\(\(\) => \{ initializeSupabase\(\); root.render/);
+  assert.match(html, /scripts\/reader-storage.js/);
+});
+test('storage failure cannot escape an application save', () => {
+  const helper = html.slice(html.indexOf('const trySetLocalStorage ='), html.indexOf('const clearLocalLearningStorage ='));
+  for (const name of ['QuotaExceededError', 'SecurityError']) {
+    const context = vm.createContext({ readerStorage: { setItem() { throw Object.assign(new Error('full'), { name }); } }, console: { warn() {} } });
     vm.runInContext(helper, context);
-    assert.equal(vm.runInContext("trySetLocalStorage('reader_quiz_progress_test', JSON.stringify({ answers: { q1: 2 } }))", context), false);
-  });
-}
-test('successful writes preserve the progress payload', () => {
-  const stored = new Map();
-  const context = vm.createContext({ localStorage: { setItem: (k, v) => stored.set(k, v) }, console });
-  vm.runInContext(helper, context);
-  assert.equal(vm.runInContext("trySetLocalStorage('progress', '{\"answers\":{\"q1\":2}}')", context), true);
-  assert.deepEqual(JSON.parse(stored.get('progress')), { answers: { q1: 2 } });
+    assert.equal(vm.runInContext("trySetLocalStorage('reader_quiz_progress_test', '{}')", context), false);
+  }
 });
-test('all application storage writes use the guarded helper', () => {
-  assert.equal((html.match(/localStorage\.setItem\(/g) || []).length, 1);
-  assert.match(html, /trySetLocalStorage\(key, JSON\.stringify\(quizProgress\)\)/);
+test('management runs periodically and on returning to the page', () => {
+  assert.match(html, /setInterval\(check, 5 \* 60 \* 1000\)/);
+  assert.match(html, /addEventListener\('visibilitychange', onVisible\)/);
+  assert.match(html, /readerStorage\.isManagedKey\(key\)/);
+  assert.match(html, /await readerStorage.flush\(\)/);
 });
-
-test('quota fallback restores latest answers and includes them in cloud enumeration', () => {
-  const context = vm.createContext({
-    localStorage: { setItem() { throw new Error('full'); }, getItem: () => '{"answers":{"q1":0}}' },
-    sessionStorage: { setItem() {}, removeItem() {}, getItem: () => null },
-    document: { getElementById: () => ({ textContent: '' }) }, console: { warn() {} }
-  });
-  vm.runInContext(helper, context);
-  vm.runInContext("trySetLocalStorage('reader_quiz_progress_test', '{\"answers\":{\"q1\":2}}')", context);
-  assert.equal(vm.runInContext("JSON.parse(readQuizStorage('reader_quiz_progress_test')).answers.q1", context), 2);
-  assert.equal(vm.runInContext("quizStorageKeys().includes('reader_quiz_progress_test')", context), true);
+test('both distributed HTML entries include the same storage integration', () => {
+  const alias = fs.readFileSync(new URL('../英语长难句交互阅读解析.html', import.meta.url), 'utf8');
+  assert.equal(alias, html);
+});
+test('legacy file backup cannot overwrite a newer primary bookshelf', () => {
+  assert.match(html, /if \(!hasPrimaryArticles && data.savedArticles.length > 0\) setSavedArticles/);
+  assert.match(html, /if \(!hasPrimaryCompletions && Object.keys/);
 });

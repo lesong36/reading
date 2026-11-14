@@ -8,4 +8,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node --test tests/storage-quota.test.mjs
+      - run: node --check scripts/reader-storage.js
+      - run: node --test tests/storage-quota.test.mjs tests/reader-storage.test.mjs

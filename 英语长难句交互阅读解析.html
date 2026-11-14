@@ -12,6 +12,7 @@
   <!-- 本地 vendor：避免 cdn.tailwindcss.com / 在线 Babel 的 production 警告依赖 -->
   <script src="./vendor/tailwindcss.js"></script>
   <script src="./vendor/babel.min.js"></script>
+  <script src="./scripts/reader-storage.js?v=2026111402"></script>
   <script src="./local-config.js" onerror=""></script>
   
   <style>
@@ -82,6 +83,7 @@
 
   <!-- 使用 data-type="module" 允许 Babel 编译 ES6 模块导入 -->
   <script type="text/babel" data-type="module">
+    const readerStorage = window.createReaderStorage();
     import React, { useState, useEffect, useRef, useMemo, Fragment } from 'https://esm.sh/react@18.2.0?target=es2022';
     import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client?bundle';
     import { BookOpen, Search, Info, MousePointerClick, Zap, AlignLeft, Underline, Link as LinkIcon, Tag, Sparkles, Send, Loader2, UploadCloud, FileText, ArrowLeft, BookMarked, Printer, Plus, Trash2, CheckCircle2, Download, Upload, MessageSquare, Library, Save, FolderOpen, User, LogOut, X, Bot, RefreshCw, KeyRound, ZoomIn, ZoomOut, Clock3, CalendarDays, ChevronLeft, ChevronRight, Mail, AlertTriangle, ClipboardCheck, Volume2, Square, Gauge, Map as MapIcon } from 'https://esm.sh/lucide-react@0.292.0?bundle&deps=react@18.2.0';
@@ -134,7 +136,7 @@
     };
     const getStoredSupabaseConfig = () => {
       try {
-        const stored = localStorage.getItem(SUPABASE_CONFIG_STORAGE_KEY);
+        const stored = readerStorage.getItem(SUPABASE_CONFIG_STORAGE_KEY);
         return stored ? JSON.parse(stored) : null;
       } catch (error) {
         console.warn('Stored Supabase config is invalid:', error);
@@ -172,6 +174,7 @@
     };
 
     let supabase = null, supabaseConfigSource = 'none';
+    const initializeSupabase = () => {
     const suppliedSupabaseConfig = LOCAL_PRIVATE_CONFIG.supabaseUrl && LOCAL_PRIVATE_CONFIG.supabasePublishableKey
       ? { url: LOCAL_PRIVATE_CONFIG.supabaseUrl, publishableKey: LOCAL_PRIVATE_CONFIG.supabasePublishableKey }
       : getStoredSupabaseConfig() || DEFAULT_SUPABASE_CONFIG;
@@ -185,6 +188,8 @@
         console.error('Supabase Initialization Error:', e);
       }
     }
+
+    };
 
     // Default built-in data
     const defaultArticleGlossary = [
@@ -2328,7 +2333,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     // v45 adds Reading Future Connect 1–3 (48 articles) after the RFD shelf.
     // v46 gives each repeated retelling or timeline row its own blank.
     // Update this release label whenever the public reader is published.
-    const READER_APP_VERSION = '2026.11.14.1';
+    const READER_APP_VERSION = '2026.11.14.2';
     const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v46';
     const BUNDLED_LIBRARY_SEED_VERSION = '46';
     const EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT = 372;
@@ -2427,7 +2432,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     };
     const readDailyReportPreferences = () => {
       try {
-        const stored = JSON.parse(localStorage.getItem(DAILY_REPORT_PREFERENCES_STORAGE_KEY) || '{}');
+        const stored = JSON.parse(readerStorage.getItem(DAILY_REPORT_PREFERENCES_STORAGE_KEY) || '{}');
         return { enabled: Boolean(stored.enabled), time: /^\d{2}:\d{2}$/.test(stored.time || '') ? stored.time : '20:30', timezone: stored.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Shanghai' };
       } catch { return { enabled: false, time: '20:30', timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Shanghai' }; }
     };
@@ -2442,7 +2447,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     };
     const readDeviceIdentity = () => {
       try {
-        const stored = JSON.parse(localStorage.getItem(DEVICE_IDENTITY_STORAGE_KEY) || '{}');
+        const stored = JSON.parse(readerStorage.getItem(DEVICE_IDENTITY_STORAGE_KEY) || '{}');
         if (stored.id && stored.label) return { id: String(stored.id), label: String(stored.label).slice(0, 40), kind: String(stored.kind || detectDeviceKind()) };
       } catch (_) {}
       const id = typeof crypto?.randomUUID === 'function' ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
@@ -3285,64 +3290,18 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       await writable.close();
     };
 
-    // Persistence must never throw into a React effect. Keep quiz progress
-    // available to restore/cloud sync even when both browser stores reject it.
-    const pendingQuizWrites = new Map();
-    const showStorageWarning = message => {
-      let banner = document.getElementById('reader-storage-warning');
-      if (!banner) {
-        banner = document.createElement('div');
-        banner.id = 'reader-storage-warning';
-        banner.setAttribute('role', 'alert');
-        banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:99999;padding:12px;background:#fff3cd;color:#713f12;text-align:center';
-        document.body.appendChild(banner);
-      }
-      banner.textContent = message;
-    };
-    const readQuizStorage = key => {
-      if (pendingQuizWrites.has(key)) return pendingQuizWrites.get(key);
-      try {
-        const fallback = sessionStorage.getItem(key);
-        if (fallback !== null) return fallback;
-      } catch (error) {}
-      try { return localStorage.getItem(key); } catch (error) { return null; }
-    };
-    const quizStorageKeys = () => {
-      const keys = new Set(pendingQuizWrites.keys());
-      for (const getStore of [() => localStorage, () => sessionStorage]) {
-        try { Object.keys(getStore()).forEach(key => { if (key.startsWith('reader_quiz_progress_')) keys.add(key); }); } catch (error) {}
-      }
-      return [...keys];
-    };
+    const readQuizStorage = key => readerStorage.getItem(key);
+    const quizStorageKeys = () => readerStorage.keys().filter(key => key.startsWith(QUIZ_PROGRESS_STORAGE_KEY_PREFIX));
     const trySetLocalStorage = (key, value) => {
-      try {
-        localStorage.setItem(key, value);
-        if (key.startsWith('reader_quiz_progress_')) {
-          pendingQuizWrites.delete(key);
-          try { sessionStorage.removeItem(key); } catch (error) {}
-        }
-        return true;
-      } catch (error) {
-        if (key.startsWith('reader_quiz_progress_')) {
-          pendingQuizWrites.set(key, value);
-          try {
-            sessionStorage.setItem(key, value);
-            showStorageWarning('本机存储已满，答题进度暂存于当前标签页。请保持此标签页打开，并尽快同步到云端。');
-            return false;
-          } catch (fallbackError) {}
-        }
-        showStorageWarning('本机无法保存部分修改。可以继续操作；请勿刷新或关闭页面，并尽快同步学习记录。');
-        console.warn(`无法保存 ${key}`, error);
-        return false;
-      }
+      try { return readerStorage.setItem(key, value); }
+      catch (error) { console.warn('学习数据保存失败', error); return false; }
     };
 
     const clearLocalLearningStorage = async () => {
-      localStorage.removeItem('my_local_articles');
-      localStorage.removeItem('my_local_vocab_book');
-      localStorage.removeItem('reader_deleted_vocab_keys_v1');
-      localStorage.removeItem(COMPLETION_RECORDS_STORAGE_KEY);
-
+      for (const key of readerStorage.keys()) {
+        if (readerStorage.isManagedKey(key)) readerStorage.removeItem(key);
+      }
+      await readerStorage.flush();
       if (navigator.storage?.getDirectory) {
         const root = await navigator.storage.getDirectory();
         const handle = await root.getFileHandle(LOCAL_DATA_FILE_NAME, { create: true });
@@ -3842,6 +3801,23 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     };
 
     function App() {
+      const [storageStatus, setStorageStatus] = useState(() => readerStorage.status());
+      useEffect(() => {
+        const unsubscribe = readerStorage.subscribe(() => setStorageStatus(readerStorage.status()));
+        const check = () => { readerStorage.maintain().catch(error => console.warn('存储检查失败', error)); };
+        const onVisible = () => {
+          if (document.visibilityState === 'visible') check();
+          else readerStorage.flush().catch(error => console.warn('离开页面前保存失败', error));
+        };
+        const onBeforeUnload = event => {
+          if (readerStorage.status().pending) { event.preventDefault(); event.returnValue = ''; }
+        };
+        window.addEventListener('beforeunload', onBeforeUnload);
+        const timer = setInterval(check, 5 * 60 * 1000);
+        document.addEventListener('visibilitychange', onVisible);
+        check();
+        return () => { unsubscribe(); clearInterval(timer); document.removeEventListener('visibilitychange', onVisible); window.removeEventListener('beforeunload', onBeforeUnload); };
+      }, []);
       const isFileProtocol = window.location.protocol === 'file:';
       // Global App States
       const [viewMode, setViewMode] = useState('library');
@@ -3877,7 +3853,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const [syncVaultUnlocked, setSyncVaultUnlocked] = useState(false);
       const encryptedAiKeyRef = useRef(null);
       const [favoriteArticleIds, setFavoriteArticleIds] = useState(() => {
-        try { return JSON.parse(localStorage.getItem('reader_favorite_article_ids') || '[]'); } catch { return []; }
+        try { return JSON.parse(readerStorage.getItem('reader_favorite_article_ids') || '[]'); } catch { return []; }
       });
       const [cloudSyncRevision, setCloudSyncRevision] = useState(0);
       const [cloudSyncStatus, setCloudSyncStatus] = useState(() => ({
@@ -3900,7 +3876,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         if (!user || !supabase) return; // Anonymous legacy entries stay on this device.
         if (vocabularyViewOwner !== user.id) throw new Error('账号词库正在切换，请稍后重试。');
         if (vocabularySyncRef.current?.snapshot().userID !== user.id) {
-          vocabularySyncRef.current = createVocabularySyncV2(supabase, user.id, localStorage, () => activeVocabularyOwnerRef.current);
+          vocabularySyncRef.current = createVocabularySyncV2(supabase, user.id, readerStorage, () => activeVocabularyOwnerRef.current);
         }
         vocabularySyncRef.current.queue(kind, entryOrKey);
       };
@@ -3948,7 +3924,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
 
       // --- 教材缓存逻辑 (OPFS File) ---
       const [savedArticles, setSavedArticles] = useState(() => {
-        const saved = localStorage.getItem('my_local_articles');
+        const saved = readerStorage.getItem('my_local_articles');
         if (!saved) return [];
         try {
           const parsed = JSON.parse(saved);
@@ -3963,7 +3939,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
 
       // --- 本地生词本逻辑 (Local Storage + OPFS File) ---
       const [storedVocabBook, setVocabBook] = useState(() => {
-        const saved = localStorage.getItem('my_local_vocab_book');
+        const saved = readerStorage.getItem('my_local_vocab_book');
         try {
           return saved ? normalizeVocabBook(JSON.parse(saved)) : [];
         } catch (error) {
@@ -3971,7 +3947,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         }
       });
       const [deletedVocabKeys, setDeletedVocabKeys] = useState(() => {
-        try { return normalizeDeletedVocabKeys(JSON.parse(localStorage.getItem('reader_deleted_vocab_keys_v1') || '[]')); } catch { return []; }
+        try { return normalizeDeletedVocabKeys(JSON.parse(readerStorage.getItem('reader_deleted_vocab_keys_v1') || '[]')); } catch { return []; }
       });
       const [vocabularyViewOwner, setVocabularyViewOwner] = useState(null);
       const vocabBook = useMemo(() => vocabularyViewOwner === (user?.id || null) ? storedVocabBook : [],
@@ -3982,13 +3958,13 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         try {
           if (owner) {
             if (vocabularySyncRef.current?.snapshot().userID !== owner) {
-              vocabularySyncRef.current = createVocabularySyncV2(supabase, owner, localStorage, () => activeVocabularyOwnerRef.current);
+              vocabularySyncRef.current = createVocabularySyncV2(supabase, owner, readerStorage, () => activeVocabularyOwnerRef.current);
             }
             const snapshot = vocabularySyncRef.current.snapshot();
             setVocabBook(normalizeVocabBook(vocabularyViewV2(snapshot)));
             setDeletedVocabKeys(snapshot.tombstones.map(item => item.wordKey));
           } else {
-            const snapshot = anonymousVocabularyView(localStorage);
+            const snapshot = anonymousVocabularyView(readerStorage);
             setVocabBook(normalizeVocabBook(snapshot.vocabulary));
             setDeletedVocabKeys(normalizeDeletedVocabKeys(snapshot.deletedKeys));
           }
@@ -3999,7 +3975,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         }
       }, [user?.id]);
       const [completionRecords, setCompletionRecords] = useState(() => {
-        try { return normalizeCompletionRecords(JSON.parse(localStorage.getItem(COMPLETION_RECORDS_STORAGE_KEY) || '{}')); } catch { return {}; }
+        try { return normalizeCompletionRecords(JSON.parse(readerStorage.getItem(COMPLETION_RECORDS_STORAGE_KEY) || '{}')); } catch { return {}; }
       });
       const [selectedRecordDate, setSelectedRecordDate] = useState(() => localDayKey(new Date()));
       const [recordMonthCursor, setRecordMonthCursor] = useState(() => {
@@ -4014,7 +3990,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const [isLoadingTeacherReviews, setIsLoadingTeacherReviews] = useState(false);
       const [teacherReviewEdits, setTeacherReviewEdits] = useState({});
       const [reviewingReportId, setReviewingReportId] = useState(null);
-      const [quizEvaluations, setQuizEvaluations] = useState(() => { try { return JSON.parse(localStorage.getItem('reader_quiz_evaluations_v1') || '{}'); } catch { return {}; } });
+      const [quizEvaluations, setQuizEvaluations] = useState(() => { try { return JSON.parse(readerStorage.getItem('reader_quiz_evaluations_v1') || '{}'); } catch { return {}; } });
       const [evaluatingQuestionKey, setEvaluatingQuestionKey] = useState(null);
       const restoreVocabKeys = (keys = []) => {
         const restored = new Set(normalizeDeletedVocabKeys(keys));
@@ -4066,7 +4042,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         vocabBook.forEach(word => { const day = localDayKey(word.addedAt || word.timestamp); if (day) ensure(day).vocab.push(word); });
         savedArticles.forEach(article => {
           try {
-            const progress = normalizeQuizProgress(JSON.parse(localStorage.getItem(getQuizProgressStorageKey(article.id)) || '{}'));
+            const progress = normalizeQuizProgress(JSON.parse(readerStorage.getItem(getQuizProgressStorageKey(article.id)) || '{}'));
             const answered = Object.keys(progress.answers || {}).length;
             const activityAt = progress.submittedAt || progress.lastAnsweredAt;
             if (!answered || !activityAt) return;
@@ -4127,7 +4103,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           savedArticles.forEach(article => {
             if (!article?.id) return;
             try {
-              const progress = normalizeQuizProgress(JSON.parse(localStorage.getItem(getQuizProgressStorageKey(article.id)) || '{}'));
+              const progress = normalizeQuizProgress(JSON.parse(readerStorage.getItem(getQuizProgressStorageKey(article.id)) || '{}'));
               if (!progress.submitted || !progress.submittedAt) return;
               const existing = previous[article.id];
               // Earlier backfills stored 0 for an unknowable historic duration.
@@ -4157,16 +4133,19 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       useEffect(() => {
         let cancelled = false;
         const loadLocalData = async () => {
+          const hasPrimaryArticles = readerStorage.getItem('my_local_articles') !== null;
+          const hasPrimaryVocab = readerStorage.getItem('my_local_vocab_book') !== null;
+          const hasPrimaryCompletions = readerStorage.getItem(COMPLETION_RECORDS_STORAGE_KEY) !== null;
           try {
             const data = await readLocalDataFile();
             if (cancelled) return;
-            if (data.savedArticles.length > 0) setSavedArticles(data.savedArticles);
+            if (!hasPrimaryArticles && data.savedArticles.length > 0) setSavedArticles(data.savedArticles);
             const persistedDeletedVocabKeys = normalizeDeletedVocabKeys([...deletedVocabKeys, ...data.deletedVocabKeys]);
             if (!activeVocabularyOwnerRef.current) {
               if (persistedDeletedVocabKeys.length > 0) setDeletedVocabKeys(persistedDeletedVocabKeys);
-              if (data.vocabBook.length > 0) setVocabBook(removeDeletedVocab(data.vocabBook, persistedDeletedVocabKeys));
+              if (!hasPrimaryVocab && data.vocabBook.length > 0) setVocabBook(removeDeletedVocab(data.vocabBook, persistedDeletedVocabKeys));
             }
-            if (Object.keys(data.completionRecords || {}).length > 0) setCompletionRecords(data.completionRecords);
+            if (!hasPrimaryCompletions && Object.keys(data.completionRecords || {}).length > 0) setCompletionRecords(data.completionRecords);
             localDataLoadedRef.current = true;
             setLocalDataReady(true);
             setLocalPersistenceStatus({
@@ -4178,7 +4157,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
             setLocalDataReady(true);
             setLocalPersistenceStatus({
               enabled: false,
-              message: '当前浏览器不支持自动写入本地数据文件，已使用浏览器本地存储兜底。'
+              message: '本地文件副本不可用，学习数据由独立持久化存储管理。'
             });
           }
         };
@@ -4192,7 +4171,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       useEffect(() => {
         if (!localDataReady) return;
         if (bundledSeedInFlightRef.current) return;
-        const seedIsCurrent = localStorage.getItem(BUNDLED_LIBRARY_SEED_KEY) === BUNDLED_LIBRARY_SEED_VERSION;
+        const seedIsCurrent = readerStorage.getItem(BUNDLED_LIBRARY_SEED_KEY) === BUNDLED_LIBRARY_SEED_VERSION;
         const libraryIsComplete = getBundledCurriculumArticleCount(savedArticles) >= EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT;
         const quizLayoutsAreComplete = hasRequiredBundledQuizLayouts(savedArticles);
         if (seedIsCurrent && libraryIsComplete && quizLayoutsAreComplete) return;
@@ -4212,7 +4191,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
               const retained = prev.filter(article => !isBundledCurriculumArticle(article));
               const merged = mergeSavedArticles(retained, bundled, { preferIncoming: true });
               // The following persistence effect writes the full bundle to OPFS.
-              // Do not put it in localStorage: 104 analysed articles exceed its quota.
+              // The managed store saves large records asynchronously in IndexedDB.
               setTimeout(() => {
                 setToastMessage(`📚 已合并预置教材 ${bundled.length} 篇到书架`);
               }, 0);
@@ -4244,7 +4223,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         localDataWriteTimerRef.current = setTimeout(async () => {
           try {
             if (!vocabularyOwnerReady) return;
-            const localVocabulary = user ? anonymousVocabularyView(localStorage) : { vocabulary: vocabBook, deletedKeys: deletedVocabKeys };
+            const localVocabulary = user ? anonymousVocabularyView(readerStorage) : { vocabulary: vocabBook, deletedKeys: deletedVocabKeys };
             await writeLocalDataFile(savedArticles, localVocabulary.vocabulary, completionRecords, localVocabulary.deletedKeys);
             setLocalPersistenceStatus({
               enabled: true,
@@ -4253,7 +4232,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           } catch (error) {
             setLocalPersistenceStatus({
               enabled: false,
-              message: '本地数据文件写入失败，已使用浏览器本地存储兜底。'
+              message: '本地文件副本写入失败，请查看存储与数据状态。'
             });
           }
         }, 500);
@@ -4288,7 +4267,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           let vocabularyError = null;
           try {
             if (vocabularySyncRef.current?.snapshot().userID !== user.id) {
-              vocabularySyncRef.current = createVocabularySyncV2(supabase, user.id, localStorage, () => activeVocabularyOwnerRef.current);
+              vocabularySyncRef.current = createVocabularySyncV2(supabase, user.id, readerStorage, () => activeVocabularyOwnerRef.current);
             }
             vocabularySnapshot = await vocabularySyncRef.current.read();
           } catch (error) { vocabularyError = error; }
@@ -4453,27 +4432,27 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const confirmDialogPrimaryButtonRef = useRef(null);
       const [showAiSettings, setShowAiSettings] = useState(false);
       const [aiProvider, setAiProvider] = useState(() => {
-        const saved = localStorage.getItem('reader_ai_provider');
+        const saved = readerStorage.getItem('reader_ai_provider');
         if (!ENABLE_LOCAL_OLLAMA && saved === 'ollama') return DEFAULT_AI_PROVIDER;
         return saved || DEFAULT_AI_PROVIDER;
       });
-      const [cloudApiKey, setCloudApiKey] = useState(() => localStorage.getItem('reader_openai_compat_api_key') || DEFAULT_OPENAI_COMPAT_API_KEY);
-      const [cloudBaseUrl, setCloudBaseUrl] = useState(() => localStorage.getItem('reader_openai_compat_base_url') || DEFAULT_OPENAI_COMPAT_BASE_URL);
-      const [cloudModel, setCloudModel] = useState(() => normalizeCloudModel(localStorage.getItem('reader_openai_compat_model') || DEFAULT_OPENAI_COMPAT_MODEL, localStorage.getItem('reader_openai_compat_base_url') || DEFAULT_OPENAI_COMPAT_BASE_URL));
-      const [ollamaPreset, setOllamaPreset] = useState(() => localStorage.getItem('reader_ollama_preset') || 'local');
-      const [ollamaBaseUrl, setOllamaBaseUrl] = useState(() => localStorage.getItem('reader_ollama_base_url') || DEFAULT_OLLAMA_BASE_URL);
-      const [ollamaModel, setOllamaModel] = useState(() => localStorage.getItem('reader_ollama_model') || DEFAULT_OLLAMA_MODEL);
+      const [cloudApiKey, setCloudApiKey] = useState(() => readerStorage.getItem('reader_openai_compat_api_key') || DEFAULT_OPENAI_COMPAT_API_KEY);
+      const [cloudBaseUrl, setCloudBaseUrl] = useState(() => readerStorage.getItem('reader_openai_compat_base_url') || DEFAULT_OPENAI_COMPAT_BASE_URL);
+      const [cloudModel, setCloudModel] = useState(() => normalizeCloudModel(readerStorage.getItem('reader_openai_compat_model') || DEFAULT_OPENAI_COMPAT_MODEL, readerStorage.getItem('reader_openai_compat_base_url') || DEFAULT_OPENAI_COMPAT_BASE_URL));
+      const [ollamaPreset, setOllamaPreset] = useState(() => readerStorage.getItem('reader_ollama_preset') || 'local');
+      const [ollamaBaseUrl, setOllamaBaseUrl] = useState(() => readerStorage.getItem('reader_ollama_base_url') || DEFAULT_OLLAMA_BASE_URL);
+      const [ollamaModel, setOllamaModel] = useState(() => readerStorage.getItem('reader_ollama_model') || DEFAULT_OLLAMA_MODEL);
       const [voiceProvider, setVoiceProvider] = useState(() => {
-        const saved = localStorage.getItem('reader_voice_provider');
+        const saved = readerStorage.getItem('reader_voice_provider');
         if (!DOUBAO_VOICE_ENABLED) return 'cosyvoice';
         return saved || 'cosyvoice';
       });
-      const [doubaoVoiceAppId, setDoubaoVoiceAppId] = useState(() => localStorage.getItem('reader_doubao_voice_app_id') || DEFAULT_DOUBAO_VOICE_APP_ID);
-      const [doubaoVoiceToken, setDoubaoVoiceToken] = useState(() => localStorage.getItem('reader_doubao_voice_token') || DEFAULT_DOUBAO_VOICE_TOKEN);
-      const [doubaoVoiceCluster, setDoubaoVoiceCluster] = useState(() => localStorage.getItem('reader_doubao_voice_cluster') || DEFAULT_DOUBAO_VOICE_CLUSTER);
-      const [doubaoVoiceType, setDoubaoVoiceType] = useState(() => normalizeDoubaoVoiceType(localStorage.getItem('reader_doubao_voice_type') || DEFAULT_DOUBAO_VOICE_TYPE));
+      const [doubaoVoiceAppId, setDoubaoVoiceAppId] = useState(() => readerStorage.getItem('reader_doubao_voice_app_id') || DEFAULT_DOUBAO_VOICE_APP_ID);
+      const [doubaoVoiceToken, setDoubaoVoiceToken] = useState(() => readerStorage.getItem('reader_doubao_voice_token') || DEFAULT_DOUBAO_VOICE_TOKEN);
+      const [doubaoVoiceCluster, setDoubaoVoiceCluster] = useState(() => readerStorage.getItem('reader_doubao_voice_cluster') || DEFAULT_DOUBAO_VOICE_CLUSTER);
+      const [doubaoVoiceType, setDoubaoVoiceType] = useState(() => normalizeDoubaoVoiceType(readerStorage.getItem('reader_doubao_voice_type') || DEFAULT_DOUBAO_VOICE_TYPE));
       const [cosyvoiceServerRunning, setCosyvoiceServerRunning] = useState(false);
-      const [voiceSpeed, setVoiceSpeed] = useState(() => parseFloat(localStorage.getItem('reader_voice_speed') || '1.0'));
+      const [voiceSpeed, setVoiceSpeed] = useState(() => parseFloat(readerStorage.getItem('reader_voice_speed') || '1.0'));
       const [voiceLessonStepIndex, setVoiceLessonStepIndex] = useState(0);
       const [isVoiceNarrating, setIsVoiceNarrating] = useState(false);
       const [voiceNarrationStatus, setVoiceNarrationStatus] = useState('未开始');
@@ -4482,11 +4461,11 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const lessonAudioRejectRef = useRef(null);
       const voiceNarrationRunIdRef = useRef(0);
       const [paragraphVoiceSpeed, setParagraphVoiceSpeed] = useState(() => {
-        const saved = Number(localStorage.getItem('reader_paragraph_voice_speed') || '1');
+        const saved = Number(readerStorage.getItem('reader_paragraph_voice_speed') || '1');
         return Number.isFinite(saved) ? Math.min(1.8, Math.max(0.6, saved)) : 1;
       });
       const [paragraphVoiceName, setParagraphVoiceName] = useState(() => {
-        const saved = localStorage.getItem('reader_paragraph_voice_name');
+        const saved = readerStorage.getItem('reader_paragraph_voice_name');
         return saved === 'en-US-GuyNeural' ? saved : 'en-US-AriaNeural';
       });
       const [activeParagraphVoice, setActiveParagraphVoice] = useState(null);
@@ -4828,9 +4807,9 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const handlePlayLessonNarration = async () => {
         if (!activeVoiceLessonStep) return;
 
-        // 以 localStorage 为准，避免 UI 已选 CosyVoice 但播放仍走豆包
+        // 以 readerStorage 为准，避免 UI 已选 CosyVoice 但播放仍走豆包
         const activeProvider = DOUBAO_VOICE_ENABLED
-          ? (localStorage.getItem('reader_voice_provider') || voiceProvider || 'cosyvoice')
+          ? (readerStorage.getItem('reader_voice_provider') || voiceProvider || 'cosyvoice')
           : 'cosyvoice';
         if (activeProvider !== voiceProvider) {
           setVoiceProvider(activeProvider);
@@ -5162,7 +5141,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           return;
         }
         try {
-          const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+          const saved = JSON.parse(readerStorage.getItem(storageKey) || '{}');
           setArticleOutlineTopics(saved?.topics && typeof saved.topics === 'object' ? saved.topics : {});
           setArticleOutlineParents(saved?.parents && typeof saved.parents === 'object' ? saved.parents : {});
         } catch (_) {
@@ -5424,7 +5403,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         const key = getReadingActivityProgressStorageKey(currentArticleId);
         let restored = {};
         if (key) {
-          try { restored = JSON.parse(localStorage.getItem(key) || '{}') || {}; } catch (_) {}
+          try { restored = JSON.parse(readerStorage.getItem(key) || '{}') || {}; } catch (_) {}
         }
         setReadingActivityResponses(restored);
         setReadingActiveActivityId(currentReadingActivities[0]?.id || null);
@@ -5439,7 +5418,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         const key = getReadingRoutineProgressStorageKey(currentArticleId);
         let restored = createEmptyReadingRoutineProgress();
         if (key) {
-          try { restored = normalizeReadingRoutineProgress(JSON.parse(localStorage.getItem(key) || '{}')); } catch (_) {}
+          try { restored = normalizeReadingRoutineProgress(JSON.parse(readerStorage.getItem(key) || '{}')); } catch (_) {}
         }
         setReadingRoutineProgress(restored);
       }, [currentArticleId, currentArticleReadingModel?.article?.id]);
@@ -5457,7 +5436,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         const key = getReadingMvpV2ProgressStorageKey(currentArticleId);
         let restored = createEmptyReadingMvpV2Progress();
         if (key) {
-          try { restored = normalizeReadingMvpV2Progress(JSON.parse(localStorage.getItem(key) || '{}')); } catch (_) {}
+          try { restored = normalizeReadingMvpV2Progress(JSON.parse(readerStorage.getItem(key) || '{}')); } catch (_) {}
         }
         // A cached final choice is not valid until every preceding update has
         // been completed with evidence.  This also prevents an old local
@@ -5786,7 +5765,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
       const restoredQuizIdentityRef = useRef(null);
       const skipQuizSaveRef = useRef(false);
       useEffect(() => {
-        const identity = JSON.stringify([currentArticleId, currentArticleQuestions]);
+        const identity = currentArticleId;
         if (restoredQuizIdentityRef.current === identity) return;
         restoredQuizIdentityRef.current = identity;
         skipQuizSaveRef.current = true;
@@ -6733,10 +6712,10 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
 
         if (localDataLoadedRef.current && localPersistenceStatus.enabled) {
           try {
-            const localVocabulary = user ? anonymousVocabularyView(localStorage) : { vocabulary: nextVocabBook, deletedKeys: nextDeletedVocabKeys };
+            const localVocabulary = user ? anonymousVocabularyView(readerStorage) : { vocabulary: nextVocabBook, deletedKeys: nextDeletedVocabKeys };
             await writeLocalDataFile(savedArticles, localVocabulary.vocabulary, completionRecords, localVocabulary.deletedKeys);
           } catch (error) {
-            setLocalPersistenceStatus({ enabled: false, message: '本地数据文件写入失败，已使用浏览器本地存储兜底。' });
+            setLocalPersistenceStatus({ enabled: false, message: '本地文件副本写入失败，请查看存储与数据状态。' });
           }
         }
 
@@ -6805,7 +6784,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           }));
         let existingEntries = [];
         try {
-          const existingInbox = JSON.parse(localStorage.getItem(VOCAB_MASTER_READING_INBOX_KEY) || '{}');
+          const existingInbox = JSON.parse(readerStorage.getItem(VOCAB_MASTER_READING_INBOX_KEY) || '{}');
           existingEntries = Array.isArray(existingInbox.entries) ? existingInbox.entries : [];
         } catch (error) {}
         const incomingByWord = new Map(existingEntries.map(entry => [String(entry.word || '').trim().toLowerCase(), entry]));
@@ -6814,7 +6793,10 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         const inbox = { version: 1, updatedAt: new Date().toISOString(), entries: [...incomingByWord.values()] };
 
         try {
-          trySetLocalStorage(VOCAB_MASTER_READING_INBOX_KEY, JSON.stringify(inbox));
+          const bridgeSaved = trySetLocalStorage(VOCAB_MASTER_READING_INBOX_KEY, JSON.stringify(inbox));
+          if (!bridgeSaved && window.location.origin === 'https://lesong36.github.io' && !(supabase && user)) {
+            throw new Error('共享词卡空间不足，请登录同步或导出生词本；原生词仍保留。');
+          }
           if (supabase && user) {
             await flushVocabularyMutations();
           }
@@ -6886,6 +6868,11 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           onConfirm: async () => {
             try {
               setSavedArticles([]);
+              setCompletionRecords({});
+              setFavoriteArticleIds([]);
+              setQuizEvaluations({});
+              setCurrentArticleId(null);
+              setQuizProgress(createEmptyQuizProgress());
               setVocabBook([]);
               setDeletedVocabKeys([]);
               trySetLocalStorage(BUNDLED_LIBRARY_SEED_KEY, BUNDLED_LIBRARY_SEED_VERSION);
@@ -7305,7 +7292,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
         const sessionDuration = lastReadingSession?.articleId === article.id ? lastReadingSession.durationMs : 0;
         const questions = normalizeArticleQuestions(article);
         const totalCount = questions.filter(isSupportedQuizQuestion).length;
-        const progress = normalizeQuizProgress(JSON.parse(localStorage.getItem(getQuizProgressStorageKey(article.id)) || '{}'));
+        const progress = normalizeQuizProgress(JSON.parse(readerStorage.getItem(getQuizProgressStorageKey(article.id)) || '{}'));
         const correctCount = totalCount ? questions.filter(question => isSupportedQuizQuestion(question) && isQuizAnswerCorrect(question, progress.answers?.[question.id])).length : null;
         const accuracy = totalCount && progress.submitted ? Math.round((correctCount / totalCount) * 100) : null;
         const completedAt = new Date().toISOString();
@@ -8692,7 +8679,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
                         : 0;
                       let quizRecord = null;
                       try {
-                        const progress = normalizeQuizProgress(JSON.parse(localStorage.getItem(getQuizProgressStorageKey(article.id)) || '{}'));
+                        const progress = normalizeQuizProgress(JSON.parse(readerStorage.getItem(getQuizProgressStorageKey(article.id)) || '{}'));
                         if (progress.submitted) {
                           const questions = normalizeArticleQuestions(article);
                           const supported = questions.filter(isSupportedQuizQuestion);
@@ -11107,6 +11094,17 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
             )}
 
             {/* Global Toast Notification */}
+            <details className="fixed bottom-2 right-2 z-[100] max-w-sm rounded-xl border border-slate-300 bg-white p-3 text-xs text-slate-700 shadow-lg" data-testid="storage-status">
+              <summary className="cursor-pointer font-bold">存储与数据 · {storageStatus.error ? '需要处理' : storageStatus.pending ? '保存中' : storageStatus.pressure ? '空间紧张' : '自动管理中'}</summary>
+              <p className="mt-2">交互状态保存在内存，文章与学习记录异步保存；历史答案不会自动过期删除。</p>
+              <p className="mt-2">每 5 分钟及回到页面时自动检查。小设置预算 512 KiB，单项上限 8 KiB。</p>
+              <p className="mt-2">小设置已用：{(storageStatus.appBytes / 1024).toFixed(1)} / 512 KiB</p>
+              <p>同源本地存储合计：{(storageStatus.localStorageBytes / 1024).toFixed(1)} KiB（估算，包含其他同源项目）</p>
+              <p>学习记录存储：{storageStatus.indexedDB ? '可用' : '不可用'} · 待保存：{storageStatus.pending} 项</p>
+              {storageStatus.error && <p className="mt-2 text-amber-800">保存尚未完成，请勿关闭页面。</p>}
+              <button className="mt-2 rounded border px-2 py-1" onClick={() => readerStorage.maintain().catch(error => console.warn(error))}>立即检查存储</button>
+            </details>
+            {storageStatus.error && <div role="alert" className="fixed bottom-0 left-0 right-0 z-[101] bg-amber-100 p-3 text-center text-sm text-amber-950">本机保存遇到问题。请保持页面打开，并导出或同步学习记录。</div>}
             {toastMessage && (
               <div className="fixed top-6 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full shadow-2xl z-[120] animate-in slide-in-from-top-4 flex items-center gap-2 font-medium">
                 <Info className="w-4 h-4 text-indigo-400" />
@@ -11295,7 +11293,7 @@ term 必须是文中实际出现的英文写法；若有常见别名可放 alias
     }
 
     const root = createRoot(document.getElementById('root'));
-    root.render(<App />);
+    readerStorage.ready.then(() => { initializeSupabase(); root.render(<App />); });
   </script>
 </body>
 </html>

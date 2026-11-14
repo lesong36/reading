@@ -63,6 +63,7 @@ const installedGeneratedReaderJsonRemoteG4Dir = path.resolve(
 );
 
 const syncTargets = [
+  { label: '已安装 App 存储模块', target: path.join(path.dirname(installedAppIndex), 'scripts/reader-storage.js'), required: false, source: path.resolve(cwd, 'scripts/reader-storage.js') },
   { label: '仓库单文件入口', target: standaloneHtml, required: true },
   { label: '已安装 App 入口', target: installedAppIndex, required: true },
   { label: '已安装 App 单文件入口', target: installedStandaloneHtml, required: false },
@@ -91,6 +92,7 @@ for (const item of syncTargets) {
     results.push({ ...item, status: 'skipped', reason: 'source file missing' });
     continue;
   }
+  if (item.source?.endsWith('reader-storage.js') && fs.existsSync(path.dirname(installedAppIndex))) fs.mkdirSync(path.dirname(item.target), { recursive: true });
   if (!fs.existsSync(path.dirname(item.target))) {
     if (item.required) {
       console.error(`缺少目标目录: ${path.dirname(item.target)}`);
