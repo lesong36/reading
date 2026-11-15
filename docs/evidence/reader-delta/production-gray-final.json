@@ -1,0 +1,30 @@
+{
+  "verifiedAtUTC": "2026-11-15T22:30:00Z",
+  "version": "2026.11.16.3",
+  "release": "5ad9d605ed14834d2b2d8456ded32ffb2e296092",
+  "verifiedAccounts": 3,
+  "acknowledgedEquivalentOperations": 63,
+  "unacknowledgedConflictReceipts": 0,
+  "historicalConflictReceiptsRetained": 63,
+  "retainedVocabularyTombstones": 47,
+  "newLearnerAnswerEvents": 0,
+  "trafficWindowUTC": [
+    "2026-11-15T22:20:00Z",
+    "2026-11-15T22:30:00Z"
+  ],
+  "Chrome": {
+    "activate200": 21,
+    "pull200": 45,
+    "reconcile200": 3,
+    "lastPushInWindow": null,
+    "lastPullUTC": "2026-11-15T22:29:13.296000"
+  },
+  "Edge": {
+    "activate200": 20,
+    "pull200": 77,
+    "push200": 33,
+    "lastPushUTC": "2026-11-15T22:28:10.640000",
+    "lastPullUTC": "2026-11-15T22:29:19.160000"
+  },
+  "note": "Edge uploads include pre-refresh recovery window; no later upload after .3 refresh. Content-Length absent on pull/push responses; raw response bytes cannot be inferred from logs. Local outbox not directly inspected. No fabricated learner answers."
+}
