@@ -214,3 +214,11 @@ begin
 end $$;
 revoke all on function public.reader_delta_get(jsonb) from public;
 grant execute on function public.reader_delta_get(jsonb) to authenticated;
+
+-- Hosted Supabase may grant anon EXECUTE through default privileges.
+-- Revoke the role explicitly in addition to PUBLIC; auth.uid guards remain.
+do $$ declare f record; begin
+ for f in select p.oid::regprocedure signature from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname like 'reader_delta_%' loop
+  execute 'revoke all on function '||f.signature||' from anon';
+ end loop;
+end $$;

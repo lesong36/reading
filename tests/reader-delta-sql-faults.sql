@@ -57,3 +57,7 @@ do $$ declare r jsonb; begin
  r:=public.reader_delta_push('[{"operationID":"stale-resurrection","entityType":"vocabulary","entityID":"removed","baseVersion":1,"kind":"upsert","payload":{"word":"removed"}}]');
  if r->'acknowledgements'->0->>'status'<>'conflict' then raise exception 'migrated tombstone resurrected'; end if;
 end $$;
+
+DO $$ begin
+ if exists(select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname like 'reader_delta_%' and has_function_privilege('anon',p.oid,'EXECUTE')) then raise exception 'anonymous function grant leaked'; end if;
+END $$;
