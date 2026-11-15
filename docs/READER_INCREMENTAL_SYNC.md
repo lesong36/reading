@@ -26,7 +26,7 @@ ReadingMaster 独占 `reader_delta` 数据，不读取 VocabMaster 私有表。�
 - 最终Node回归：74/74通过。
 - 独立Chrome与Edge：`python3 tests/reader-delta-browser.py`，真实IndexedDB断网后队列保留、刷新恢复、其他账号队列隔离、提交成功但响应丢失及多标签页并发入队。网络使用隔离假RPC，不能代替真实账号抓包。
 - PostgreSQL协议、权限、规模证据：由 `tests/reader-delta-sql*` 生成，已通过四组独立PostgreSQL测试，含同账号并发提交阻塞、实际新增答案、小页读取、迁移源与目标一致性、加密密钥完整信封迁移及旧客户端保护。原始输出见 `docs/evidence/reader-delta/`。
-- 生产迁移、发布提交、生产小流量及真实账号请求：尚未执行，不得据本文件宣称上线验收。
+- 生产数据库和三个现有账号迁移已完成；客户端2026.11.16.2已发布。已登录浏览器真实业务请求仍待会话验证，详见生产记录。
 
 ## 必须持续保留的检查
 
