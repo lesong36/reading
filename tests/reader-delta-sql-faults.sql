@@ -61,3 +61,17 @@ end $$;
 DO $$ begin
  if exists(select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname like 'reader_delta_%' and has_function_privilege('anon',p.oid,'EXECUTE')) then raise exception 'anonymous function grant leaked'; end if;
 END $$;
+
+set test.uid='33333333-3333-3333-3333-333333333333';
+DO $$ declare r jsonb; again jsonb; begin
+ r:=public.reader_delta_reconcile('["f3","missing"]');
+ if jsonb_array_length(r->'acknowledgements')<>1 or r->'acknowledgements'->0->>'status'<>'equivalent' then raise exception 'equivalent receipt missing'; end if;
+ again:=public.reader_delta_reconcile('["f3"]');
+ if again is distinct from r then raise exception 'resolution not idempotent'; end if;
+ if (select receipt->>'status' from reader_delta.receipts where user_id=auth.uid() and operation_id='f3')<>'conflict' then raise exception 'original receipt changed'; end if;
+END $$;
+set test.uid='44444444-4444-4444-8444-444444444444';
+DO $$ begin if jsonb_array_length(public.reader_delta_reconcile('["f3"]')->'acknowledgements')<>0 then raise exception 'cross account resolution'; end if; END $$;
+set test.uid='33333333-3333-3333-3333-333333333333';
+select public.reader_delta_push('[{"operationID":"different-conflict","entityType":"favorite","entityID":"a","baseVersion":0,"payload":false}]');
+DO $$ begin if jsonb_array_length(public.reader_delta_reconcile('["different-conflict"]')->'acknowledgements')<>0 then raise exception 'different payload silently reconciled'; end if; END $$;

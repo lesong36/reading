@@ -34,7 +34,7 @@ try:
         run([bin_dir/'psql','-v','ON_ERROR_STOP=1','-c',"create schema auth; create role authenticated; create role anon; alter default privileges in schema public grant execute on functions to anon; create function auth.uid() returns uuid language sql as $$ select nullif(current_setting('test.uid',true),'')::uuid $$; create table public.reader_sync_state(user_id uuid primary key,quiz_progress jsonb,encrypted_ai_key jsonb,vocab_tombstones jsonb,vocabulary jsonb,favorites jsonb,reading_positions jsonb,completion_records jsonb,preferences jsonb);"],log)
     for name in ['reader-delta-sql.sql','reader-delta-sql-scale.sql','reader-delta-sql-faults.sql','reader-delta-production-import.sql','reader-delta-sql-concurrency.py']:
         with (log_dir / (name+'.log')).open('w') as log:
-            run([bin_dir/'psql','-v','ON_ERROR_STOP=1','-c','drop schema if exists reader_delta cascade; truncate public.reader_sync_state;','-f','supabase/reader-delta-sync.sql'],log)
+            run([bin_dir/'psql','-v','ON_ERROR_STOP=1','-c','drop schema if exists reader_delta cascade; truncate public.reader_sync_state;','-f','supabase/reader-delta-sync.sql','-f','supabase/reader-delta-reconcile.sql'],log)
             if name.endswith('.py'):
                 run(['python3',root/'tests'/name],log)
             else:

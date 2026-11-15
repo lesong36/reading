@@ -2,6 +2,8 @@
   'use strict';
 
   const bytes = value => new TextEncoder().encode(JSON.stringify(value)).length;
+  const stable = value => JSON.stringify(value, (_key, item) => item && typeof item === 'object' && !Array.isArray(item) ? Object.fromEntries(Object.keys(item).sort().map(key => [key, item[key]])) : item);
+  const equivalent = (a, b) => stable(a) === stable(b);
   const keyOf = (type, id) => JSON.stringify([type, id]);
   global.createReaderDeltaSync = function ({
     client,
@@ -277,7 +279,7 @@
                 });
                 for (const op of operations) {
                   const key = keyOf(op.entityType, op.entityID);
-                  if (confirmed.has(op.operationID) && observed[key] && JSON.stringify(observed[key].payload) === JSON.stringify(op.payload) && observed[key].deleted === (op.kind === 'delete')) observed[key] = {...observed[key], version: confirmed.get(op.operationID).version};
+                  if (confirmed.has(op.operationID) && observed[key] && equivalent(observed[key].payload, op.payload) && observed[key].deleted === (op.kind === 'delete')) observed[key] = {...observed[key], version: confirmed.get(op.operationID).version};
                 }
               });
               if (!acksLength(result)) throw new Error('服务端未确认操作');
@@ -308,6 +310,30 @@
                   ...state,
                   conflicts
                 });
+              });
+            }
+            let reconciledCount = 0;
+            const equivalents = state.pending.filter(op => {
+              const remote = state.conflicts?.[op.operationID]?.server;
+              return remote && remote.deleted === (op.kind === 'delete') && equivalent(remote.payload, op.payload);
+            }).slice(0, 50);
+            if (equivalents.length) {
+              const result = await rpc('reader_delta_reconcile', {p_operation_ids: equivalents.map(op => op.operationID)});
+              const acknowledgements = result.acknowledgements;
+              if (!Array.isArray(acknowledgements) || new Set(acknowledgements.map(a => a.operationID)).size !== acknowledgements.length || acknowledgements.some(a => !equivalents.some(op => op.operationID === a.operationID) || a.status !== 'equivalent' || !Number.isSafeInteger(a.version))) throw new Error('等价确认响应无效');
+              reconciledCount = acknowledgements.length;
+              await serialize(async () => {
+                const confirmed = new Map(acknowledgements.map(a => [a.operationID, a]));
+                const pending = state.pending.filter(op => !confirmed.has(op.operationID));
+                const conflicts = {...state.conflicts}, entities = {...state.entities};
+                for (const op of equivalents) if (confirmed.has(op.operationID)) {
+                  const key = keyOf(op.entityType, op.entityID), storedRemote = conflicts[op.operationID]?.server;
+                  const remote = storedRemote ? {...storedRemote, version: confirmed.get(op.operationID).version} : null;
+                  if (remote && !pending.some(o => keyOf(o.entityType, o.entityID) === key)) entities[key] = remote;
+                  if (remote && observed[key] && equivalent(observed[key].payload, op.payload)) observed[key] = {...observed[key], version: remote.version};
+                  delete conflicts[op.operationID];
+                }
+                await save({...state, pending, conflicts, entities});
               });
             }
             const page = await rpc('reader_delta_pull', {
@@ -360,7 +386,7 @@
                 lastSuccess: new Date().toISOString()
               });
             });
-            more = page.hasMore || state.pending.some(o => !state.conflicts?.[o.operationID]);
+            more = page.hasMore || state.pending.some(o => !state.conflicts?.[o.operationID]) || (reconciledCount > 0 && state.pending.some(op => { const remote = state.conflicts?.[op.operationID]?.server; return remote && remote.deleted === (op.kind === 'delete') && equivalent(remote.payload, op.payload); }));
           }
           if (Object.keys(state.conflicts || {}).length) throw new Error('实体版本冲突，待确认操作已保留');
         }).catch(error => {
@@ -410,6 +436,7 @@
         });
       },
       async captureSnapshot(snapshot, partial = false) {
+        return global.navigator.locks.request('reader-delta-capture:' + userID, async () => {
         const desired = {};
         const add = (t, id, p) => desired[keyOf(t, id)] = {
           entityType: t,
@@ -432,7 +459,7 @@
           if (!partial && e.entityType.startsWith('quiz_')) continue;
           const old = partial ? state.entities[k] : observed[k];
           if (partial && old) continue;
-          if (!old || old.deleted || JSON.stringify(old.payload) !== JSON.stringify(e.payload)) {
+          if (!old || old.deleted || !equivalent(old.payload, e.payload)) {
             await api.enqueue(e.entityType, e.entityID, e.payload, false, partial ? null : (old?.version || 0));
             if (!partial) observed[k] = { ...e, deleted: false, version: old?.version || 0 };
           }
@@ -442,6 +469,7 @@
           await api.enqueue(e.entityType, e.entityID, null, true, e.version || 0);
           observed[k] = { ...e, deleted: true };
         }
+        });
       },
       async migrateLegacy() {
         const activation = await rpc('reader_delta_activate', {});

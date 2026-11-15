@@ -13,7 +13,7 @@
   <script src="./vendor/tailwindcss.js"></script>
   <script src="./vendor/babel.min.js"></script>
   <script src="./scripts/reader-storage.js?v=2026111402"></script>
-  <script src="./scripts/reader-delta-sync.js?v=2026111602"></script>
+  <script src="./scripts/reader-delta-sync.js?v=2026111603"></script>
   <script src="./local-config.js" onerror=""></script>
   
   <style>
@@ -2339,7 +2339,7 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
     // v45 adds Reading Future Connect 1–3 (48 articles) after the RFD shelf.
     // v46 gives each repeated retelling or timeline row its own blank.
     // Update this release label whenever the public reader is published.
-    const READER_APP_VERSION = '2026.11.16.2';
+    const READER_APP_VERSION = '2026.11.16.3';
     const BUNDLED_LIBRARY_SEED_KEY = 'reader_bundled_library_seeded_v46';
     const BUNDLED_LIBRARY_SEED_VERSION = '46';
     const EXPECTED_BUNDLED_LIBRARY_ARTICLE_COUNT = 372;
@@ -4350,6 +4350,15 @@ term 必须是文中实际出现的英文写法；translation 给最符合本文
           setVocabularyViewOwner(user.id);
           cloudReadingPositionsRef.current = data.reading_positions || {};
           encryptedAiKeyRef.current = data.encrypted_ai_key || null;
+          const cloudPreferences = data.preferences || {};
+          if (cloudPreferences.aiProvider) setAiProvider(cloudPreferences.aiProvider);
+          if (cloudPreferences.cloudBaseUrl) setCloudBaseUrl(cloudPreferences.cloudBaseUrl);
+          if (cloudPreferences.cloudModel) setCloudModel(normalizeCloudModel(cloudPreferences.cloudModel, cloudPreferences.cloudBaseUrl || cloudBaseUrl));
+          if (cloudPreferences.ollamaBaseUrl) setOllamaBaseUrl(cloudPreferences.ollamaBaseUrl);
+          if (cloudPreferences.ollamaModel) setOllamaModel(cloudPreferences.ollamaModel);
+          if (cloudPreferences.voiceProvider) setVoiceProvider(cloudPreferences.voiceProvider);
+          if (cloudPreferences.dailyReport) setDailyReportPreferences(current => ({ ...current, ...cloudPreferences.dailyReport }));
+          if (cloudPreferences.quizEvaluations) setQuizEvaluations(cloudPreferences.quizEvaluations);
           cloudDataLoadedRef.current = true;
           cloudDataInitializedRef.current = true;
         })().catch(error => { if (isCurrentAccount()) scheduleCloudSyncRetry(`增量同步失败：${error.message}`); });
