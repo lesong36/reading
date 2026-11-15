@@ -23,11 +23,12 @@ test('foreground, visibility and periodic refresh do not depend on another edit'
  assert.match(html,/addEventListener\('focus', resumeCloudSync\)/);
  assert.match(html,/addEventListener\('visibilitychange', resumeCloudSync\)/);
  assert.match(html,/setInterval\(resumeCloudSync, 30000\)/);
- assert.match(html,/if \(articleId === activeQuizArticleRef.current\) setQuizProgress\(progress\)/);
+ assert.match(html,/setQuizProgress\(normalizeQuizProgress\(data.quiz_progress\?\.\[activeQuizArticleRef.current\]/);
 });
-test('changes arriving during upload schedule a follow-up upload',()=>{
- assert.match(html,/if \(cloudWriteInFlightRef.current\) \{ cloudWriteQueuedRef.current = true; return; \}/);
- assert.match(html,/if \(cloudWriteQueuedRef.current\) \{\s*cloudWriteQueuedRef.current = false;\s*setCloudWriteRevision/);
+test('ordinary synchronization uses only the incremental protocol',()=>{
+ assert.doesNotMatch(html, /supabase\.from\('reader_sync_state'\)/);
+ assert.match(html, /await sync\.captureSnapshot/);
+ assert.match(html, /await sync\.sync\(\)/);
 });
 
 test('unrelated stale article positions do not move a newer cloud cursor backward',()=>{
