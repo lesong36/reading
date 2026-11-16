@@ -22,6 +22,8 @@ struct VocabularySyncBatch: Sendable {
   let baseRevision: Int64
   let operations: [VocabularyMutation]
   let accountGeneration: UInt64
+  var deltaState: VocabularyDeltaState? = nil
+  var legacyOperationIDs: Set<String>? = nil
   init(userID: String, baseRevision: Int64, operations: [VocabularyMutation], accountGeneration: UInt64 = 0) {
     self.userID = userID
     self.baseRevision = baseRevision
@@ -60,6 +62,7 @@ enum VocabularyPersistenceError: LocalizedError {
 }
 
 struct VocabularyEnvelope: Codable, Sendable {
+  var deltaState: VocabularyDeltaState?
   var schemaVersion = 1
   var userID: String?
   var localRevision: Int64 = 0

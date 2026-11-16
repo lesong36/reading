@@ -526,12 +526,12 @@ final class VocabularyPersistenceTests: XCTestCase {
     try await store.activateAccount(userID: "A")
     let captured = await store.syncBatch()
     let first = try XCTUnwrap(captured)
-    XCTAssertEqual(first.operations.count, 500)
-    try await store.acknowledgeSync(vocabulary: Array(entries.prefix(500)), revision: 1,
+    XCTAssertEqual(first.operations.count, 50)
+    try await store.acknowledgeSync(vocabulary: Array(entries.prefix(50)), revision: 1,
       acknowledgedOperationIDs: first.operations.map(\.operationID), basedOn: first)
     let second = await store.syncBatch()
     let all = await store.all()
-    XCTAssertEqual(second?.operations.count, 1)
+    XCTAssertEqual(second?.operations.count, 50)
     XCTAssertEqual(all.count, 501)
   }
 

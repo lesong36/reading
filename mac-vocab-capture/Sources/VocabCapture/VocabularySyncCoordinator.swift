@@ -125,14 +125,16 @@ actor VocabularySyncCoordinator {
     try await prepareAccount()
     guard let batch = await store.syncBatch(), !wordKeys.isEmpty else { throw SupabaseSyncError.invalidResponse }
     let expectedGeneration = generation
-    let readOnly = VocabularySyncBatch(userID: batch.userID, baseRevision: batch.baseRevision,
+    var readOnly = VocabularySyncBatch(userID: batch.userID, baseRevision: batch.baseRevision,
       operations: [], accountGeneration: batch.accountGeneration)
+    readOnly.deltaState = batch.deltaState
+    readOnly.legacyOperationIDs = batch.legacyOperationIDs
     let current = try await synchronize(readOnly)
     guard generation == expectedGeneration, await currentUserID() == batch.userID,
       current.userID == batch.userID else { throw SupabaseSyncError.accountChanged }
     try await store.resolveConflicts(wordKeys: wordKeys, cloudVocabulary: current.vocabulary,
       cloudRevision: current.revision, tombstones: current.tombstones,
-      strategy: strategy, basedOn: batch)
+      strategy: strategy, basedOn: batch, deltaState: current.deltaState)
     conflictWordKeys = []
     await queue()
   }
@@ -192,7 +194,8 @@ actor VocabularySyncCoordinator {
       else { throw SupabaseSyncError.accountChanged }
       try await store.acknowledgeSync(vocabulary: result.vocabulary, revision: result.revision,
         acknowledgedOperationIDs: result.acknowledgedOperationIDs, basedOn: batch,
-        tombstones: result.tombstones)
+        tombstones: result.tombstones, deltaState: result.deltaState)
+      if result.conflict { throw SupabaseSyncError.conflict(result.conflictingWordKeys) }
       uploaded += result.uploadedCount
       count = result.vocabulary.count
       if await store.pendingCount() == 0 { return VocabularySyncSummary(uploadedCount: uploaded, totalCount: count) }

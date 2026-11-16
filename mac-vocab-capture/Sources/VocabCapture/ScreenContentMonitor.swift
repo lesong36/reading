@@ -19,23 +19,39 @@ final class ScreenContentMonitor {
     task = Task { [weak self] in
       guard let self else { return }
       var failures = 0
+      var confirmation = ChangeConfirmation()
       while !Task.isCancelled {
         do {
           let current = try await self.capture()
           guard !Task.isCancelled else { return }
           guard let signature = Self.signature(current) else { throw CocoaError(.fileReadCorruptFile) }
           failures = 0
-          if Self.changed(baseline, signature) {
+          let changed = Self.changed(baseline, signature)
+          if changed {
+            let ratio = Double(zip(baseline, signature).filter { abs(Int($0) - Int($1)) > 24 }.count) / Double(baseline.count)
+            ContextDebugLog.write("OCR monitor mismatch: ratio=\(ratio)")
+          }
+          if confirmation.observe(changed: changed) {
+            ContextDebugLog.write("OCR monitor confirmed persistent screen change")
             self.onChange()
             return
           }
         } catch {
           guard !Task.isCancelled else { return }
+          confirmation = ChangeConfirmation()
           failures += 1
           if failures >= 3 { self.onChange(); return }
         }
         try? await Task.sleep(nanoseconds: 700_000_000)
       }
+    }
+  }
+
+  struct ChangeConfirmation {
+    private var previousChanged = false
+    mutating func observe(changed: Bool) -> Bool {
+      defer { previousChanged = changed }
+      return changed && previousChanged
     }
   }
 

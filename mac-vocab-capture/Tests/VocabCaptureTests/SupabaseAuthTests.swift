@@ -27,8 +27,89 @@ final class SupabaseAuthTests: XCTestCase {
 
   private func serveReader(_ request: URLRequest, _ transport: AuthURLProtocol, token: String) {
     XCTAssertEqual(request.value(forHTTPHeaderField: "Authorization"), "Bearer access-\(token)")
-    XCTAssertEqual(request.url?.path, "/rest/v1/rpc/sync_reader_vocabulary_v2")
-    transport.respond(Data(#"{"userID":"fixture-user","vocabulary":[],"uploadedCount":0,"revision":0,"acknowledgedOperationIDs":[],"tombstones":[],"conflict":false,"conflictingWordKeys":[]}"#.utf8))
+    XCTAssertEqual(request.url?.path, "/rest/v1/rpc/reader_delta_pull")
+    transport.respond(Data(#"{"epoch":"fixture-epoch","nextCursor":0,"changes":[],"hasMore":false}"#.utf8))
+  }
+
+  func testProtocolThreeEmptyPullPersistsAccountCursor() async throws {
+    let store = AuthSessionStore(storedSession(expired: false))
+    let sync = client(store)
+    AuthURLProtocol.handler = { request, transport in
+      XCTAssertEqual(request.url?.path, "/rest/v1/rpc/reader_delta_pull")
+      transport.respond(Data(#"{"epoch":"fixture-epoch","nextCursor":12,"changes":[],"hasMore":false}"#.utf8))
+    }
+    let result = try await sync.sync(batch: VocabularySyncBatch(userID: "fixture-user", baseRevision: 0, operations: []))
+    XCTAssertEqual(result.deltaState?.cursor, 12)
+    XCTAssertEqual(result.deltaState?.epoch, "fixture-epoch")
+    XCTAssertTrue(result.vocabulary.isEmpty)
+  }
+
+  func testProtocolThreePaginatesMixedChangesWithoutLosingVocabulary() async throws {
+    let sync = client(AuthSessionStore(storedSession(expired: false)))
+    var requests = 0
+    AuthURLProtocol.handler = { request, transport in
+      requests += 1
+      XCTAssertEqual(request.url?.path, "/rest/v1/rpc/reader_delta_pull")
+      if requests == 1 {
+        transport.respond(Data(#"{"epoch":"e","nextCursor":1,"changes":[{"cursor":1,"entityType":"preferences","entityID":"theme","version":1,"deleted":false,"payload":"dark"}],"hasMore":true}"#.utf8))
+      } else {
+        transport.respond(Data(#"{"epoch":"e","nextCursor":2,"changes":[{"cursor":2,"entityType":"vocabulary","entityID":"removed","version":3,"deleted":true,"payload":null}],"hasMore":false}"#.utf8))
+      }
+    }
+    let result = try await sync.sync(local: [])
+    XCTAssertEqual(requests, 2)
+    XCTAssertEqual(result.deltaState?.cursor, 2)
+    XCTAssertEqual(result.tombstones.map(\.wordKey), ["removed"])
+    XCTAssertTrue(result.vocabulary.isEmpty)
+  }
+
+  func testProtocolThreeRejectsInvalidVocabularyEntity() async throws {
+    let sync = client(AuthSessionStore(storedSession(expired: false)))
+    AuthURLProtocol.handler = { _, transport in
+      transport.respond(Data(#"{"epoch":"e","nextCursor":1,"changes":[{"cursor":1,"entityType":"vocabulary","entityID":"NOT-CANONICAL","version":1,"deleted":true}],"hasMore":false}"#.utf8))
+    }
+    do { _ = try await sync.sync(local: []); XCTFail("Invalid entity must not commit") }
+    catch SupabaseSyncError.invalidResponse { }
+  }
+
+  func testProtocolThreeRejectsDuplicateAcknowledgements() async throws {
+    let sync = client(AuthSessionStore(storedSession(expired: false)))
+    let ids = [UUID().uuidString, UUID().uuidString]
+    let operations = zip(ids, ["first", "second"]).map {
+      VocabularyMutation(operationID: $0.0, kind: .delete, wordKey: $0.1, entry: nil, baseVersion: nil)
+    }
+    AuthURLProtocol.handler = { request, transport in
+      switch request.url?.lastPathComponent {
+      case "reader_delta_pull":
+        transport.respond(Data(#"{"epoch":"e","nextCursor":0,"changes":[],"hasMore":false}"#.utf8))
+      case "reader_delta_get":
+        transport.respond(Data(#"{"entities":[{"entityType":"vocabulary","entityID":"first","version":0,"deleted":true},{"entityType":"vocabulary","entityID":"second","version":0,"deleted":true}]}"#.utf8))
+      default:
+        transport.respond(try! JSONSerialization.data(withJSONObject: ["epoch": "e", "acknowledgements": Array(repeating: ["operationID": ids[0], "status": "applied", "version": 1], count: 2)]))
+      }
+    }
+    do {
+      _ = try await sync.sync(batch: VocabularySyncBatch(userID: "fixture-user", baseRevision: 0, operations: operations))
+      XCTFail("Duplicate receipts must never acknowledge two operations")
+    } catch SupabaseSyncError.invalidResponse { }
+  }
+
+  func testProtocolThreeRefusesUnsafeLegacyVersionRebase() async throws {
+    let sync = client(AuthSessionStore(storedSession(expired: false)))
+    AuthURLProtocol.handler = { request, transport in
+      if request.url?.lastPathComponent == "reader_delta_pull" {
+        transport.respond(Data(#"{"epoch":"e","nextCursor":1,"changes":[],"hasMore":false}"#.utf8))
+      } else {
+        XCTAssertEqual(request.url?.lastPathComponent, "reader_delta_get", "Unsafe migration must not push")
+        transport.respond(Data(#"{"entities":[{"entityType":"vocabulary","entityID":"first","version":2,"deleted":true}]}"#.utf8))
+      }
+    }
+    let operation = VocabularyMutation(operationID: UUID().uuidString, kind: .delete, wordKey: "first", entry: nil, baseVersion: 99)
+    let result = try await sync.sync(batch: VocabularySyncBatch(userID: "fixture-user", baseRevision: 100, operations: [operation]))
+    XCTAssertTrue(result.conflict)
+    XCTAssertEqual(result.conflictingWordKeys, ["first"])
+    XCTAssertTrue(result.acknowledgedOperationIDs.isEmpty)
+    XCTAssertEqual(result.uploadedCount, 0)
   }
 
   private func assertExpired(_ operation: () async throws -> Void) async {
@@ -238,7 +319,7 @@ final class SupabaseAuthTests: XCTestCase {
     AuthURLProtocol.handler = { request, transport in
       requests += 1
       if requests == 1 {
-        XCTAssertEqual(request.url?.path, "/rest/v1/rpc/sync_reader_vocabulary_v2")
+        XCTAssertEqual(request.url?.path, "/rest/v1/rpc/reader_delta_pull")
       } else {
         XCTAssertEqual(request.url?.query, "grant_type=refresh_token")
       }
@@ -276,6 +357,19 @@ final class SupabaseAuthTests: XCTestCase {
       catch SupabaseSyncError.http { }
       XCTAssertEqual(requests, 1)
       XCTAssertEqual(store.read()?.accessToken, stored.accessToken)
+    }
+  }
+
+  func testRPCFailureExposesOnlyBoundedServerCode() async throws {
+    let client = client(AuthSessionStore(storedSession(expired: false)))
+    AuthURLProtocol.handler = { _, transport in
+      transport.respond(Data(#"{"code":"42702","message":"private word","details":"secret"}"#.utf8), status: 400)
+    }
+    do { _ = try await client.sync(local: []); XCTFail("Expected failure") }
+    catch {
+      XCTAssertTrue(error.localizedDescription.contains("42702"))
+      XCTAssertFalse(error.localizedDescription.contains("private word"))
+      XCTAssertFalse(error.localizedDescription.contains("secret"))
     }
   }
 

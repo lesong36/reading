@@ -93,6 +93,28 @@ final class DirectScreenshotQuestionTests: XCTestCase {
     XCTAssertFalse(panel.isVisible)
   }
 
+  func testConsecutiveWordCapturesHideOldBlueBoxesAndKeepNewOverlay() throws {
+    let region = ScreenCaptureRegion(screenFrame: CGRect(x: 0, y: 0, width: 800, height: 600),
+      selectionRect: CGRect(x: 100, y: 100, width: 200, height: 100))
+    let token = OCROverlayToken(text: "word", boundingBox: CGRect(x: 0.1, y: 0.2, width: 0.3, height: 0.2), confidence: 1)
+    appDelegate.showScreenshot(text: "word", image: try image(), destination: .word, observations: [token], region: region)
+    let first = try XCTUnwrap(appDelegate.screenOCROverlay)
+    let firstLookup = try XCTUnwrap(appDelegate.ocrPanel)
+    let restore = appDelegate.hideScreenshotPanels()
+    XCTAssertFalse(first.isVisible, "Old blue boxes must not contaminate the next screenshot")
+    XCTAssertNotNil(appDelegate.ocrPanel)
+    restore()
+    XCTAssertTrue(first.isVisible, "Cancelling a retake restores word selection")
+    _ = appDelegate.hideScreenshotPanels()
+    appDelegate.showScreenshot(text: "word", image: try image(), destination: .word, observations: [token], region: region)
+    let second = try XCTUnwrap(appDelegate.screenOCROverlay)
+    XCTAssertFalse(first === second)
+    XCTAssertFalse(first.isVisible)
+    XCTAssertFalse(firstLookup.isVisible)
+    XCTAssertTrue(second.isVisible)
+    second.close()
+  }
+
   func testNewCaptureReplacesContextAndBothDirectionsCloseOldWindow() throws {
     appDelegate.showScreenshot(text: "First question", image: try image(), destination: .question)
     let first = try XCTUnwrap(appDelegate.directQuestionPanel)

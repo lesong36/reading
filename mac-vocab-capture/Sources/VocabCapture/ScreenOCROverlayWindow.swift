@@ -28,7 +28,8 @@ final class ScreenOCROverlayWindow {
 
   func present() {
     guard panel == nil else { return }
-    guard sourceIsValid() else { onClose?(); return }
+    guard sourceIsValid() else { ContextDebugLog.write("OCR overlay rejected: source invalid"); onClose?(); return }
+    ContextDebugLog.write("OCR overlay presented: display=\(ScreenshotRegionCapture.displayID(for: region.screenFrame) ?? 0) tokens=\(tokens.count)")
     // The captured screen remains visible underneath. This window is only the
     // OCR interaction layer, so it never obscures the original reading surface.
     let view = OCRImageOverlayView(image: image, tokens: tokens, drawsSourceImage: false)
@@ -66,7 +67,7 @@ final class ScreenOCROverlayWindow {
     deactivationObserver = NotificationCenter.default.addObserver(
       forName: NSApplication.didResignActiveNotification, object: NSApp, queue: .main
     ) { [weak self] _ in
-      MainActor.assumeIsolated { self?.close() }
+      MainActor.assumeIsolated { self?.close(reason: "application deactivated") }
     }
     let timer = Timer(timeInterval: 0.2, repeats: true) { [weak self] timer in
       MainActor.assumeIsolated {
@@ -78,14 +79,27 @@ final class ScreenOCROverlayWindow {
     RunLoop.main.add(timer, forMode: .common)
     if region.sourceWindow != nil {
       contentMonitor = ScreenContentMonitor(region: region, original: capturedImage) { [weak self] in
-        self?.close()
+        self?.close(reason: "screen content changed")
       }
       contentMonitor?.start()
     }
   }
 
+  /// Remove both the visible boxes and source observers before another capture.
+  /// Cancellation can recreate the same selection layer without closing its lookup.
+  func hideForScreenshot() -> () -> Void {
+    let wasVisible = isVisible
+    let callback = onClose
+    onClose = nil
+    close()
+    onClose = callback
+    return { [weak self] in
+      if wasVisible { self?.present() }
+    }
+  }
+
   func validateSource() {
-    if !sourceIsValid() { close() }
+    if !sourceIsValid() { close(reason: "source moved or disappeared") }
   }
 
   private func navigateSource(_ event: NSEvent) {
@@ -99,8 +113,9 @@ final class ScreenOCROverlayWindow {
     }
   }
 
-  func close() {
+  func close(reason: String = "explicit") {
     guard panel != nil else { return }
+    ContextDebugLog.write("OCR overlay closed: \(reason)")
     sourceTimer?.invalidate()
     sourceTimer = nil
     contentMonitor?.stop()

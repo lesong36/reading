@@ -104,13 +104,19 @@ final class ScreenshotRegionCapture {
         guard let display = content.displays.first(where: { $0.displayID == displayID }) else {
           completion(.failure(.invalidImage)); return
         }
-        let filter = SCContentFilter(display: display, excludingWindows: [])
+        // Match the content monitor: selection panels and OCR windows must never
+        // enter the baseline, even before the compositor finishes hiding them.
+        let ownApplications = content.applications.filter {
+          $0.processID == ProcessInfo.processInfo.processIdentifier
+        }
+        let filter = SCContentFilter(display: display, excludingApplications: ownApplications, exceptingWindows: [])
         let configuration = SCStreamConfiguration()
         configuration.sourceRect = sourceRect
         let scale = NSScreen.screens.first(where: { $0.frame == region.screenFrame })?.backingScaleFactor ?? 1
         configuration.width = max(1, Int((configuration.sourceRect.width * scale).rounded()))
         configuration.height = max(1, Int((configuration.sourceRect.height * scale).rounded()))
         configuration.showsCursor = false
+        ContextDebugLog.write("OCR capture: display=\(displayID) rect=\(region.selectionRect) screen=\(region.screenFrame) excludedApps=\(ownApplications.count)")
         let image = try await SCScreenshotManager.captureImage(contentFilter: filter, configuration: configuration)
         completion(.success(image))
       } catch {

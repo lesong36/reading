@@ -6,6 +6,7 @@ import UserNotifications
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
+  private var gestureMonitor: CaptureGestureMonitor?
   private let shortcutPreferences: ShortcutPreferences
   private var shortcutSettings: CaptureShortcutSettings?
   private(set) var settingsWindow: SettingsWindow?
@@ -40,7 +41,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   private var screenshotTask: Task<Void, Never>?
   private var appendingQuestionCapture = false
   private(set) var ocrPanel: OCRLookupPanel?
-  private var screenOCROverlay: ScreenOCROverlayWindow?
+  private(set) var screenOCROverlay: ScreenOCROverlayWindow?
   private(set) var directQuestionPanel: ScreenshotQuestionPanel?
 
   enum ScreenshotDestination { case word, question }
@@ -120,9 +121,23 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     installHotKeyHandler()
     registerHotKey()
     Task { await screenshotQuestions.warmUp() }
+    configureCaptureGestures()
     installSelectionMonitorIfNeeded()
     browserBridge.start()
-    Task { await syncCoordinator.start() }
+    Task {
+      await syncCoordinator.start()
+      let arguments = ProcessInfo.processInfo.arguments
+      if let index = arguments.firstIndex(of: "--resolve-sync-local"), index + 1 < arguments.count {
+        do {
+          try await syncCoordinator.resolveConflicts(wordKeys: [arguments[index + 1]], strategy: .resubmitLocal)
+          _ = try await syncCoordinator.sync()
+        } catch { /* The coordinator retains pending operations on failure. */ }
+      }
+      if arguments.contains("--sync-now") {
+        do { _ = try await syncCoordinator.sync() }
+        catch { /* The coordinator publishes a privacy-safe status below. */ }
+      }
+    }
     let urls = pendingOpenURLs
     pendingOpenURLs.removeAll()
     application(NSApp, open: urls)
@@ -181,6 +196,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   private func updateSyncStatus(_ status: VocabularySyncStatus) {
+    if ProcessInfo.processInfo.arguments.contains("--sync-now"),
+      let root = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
+      let report: [String: Any] = ["timestamp": ISO8601DateFormatter().string(from: Date()),
+        "signedIn": status.userID != nil, "pendingCount": status.pendingCount,
+        "conflictCount": status.conflictingWordKeys.count, "status": status.message]
+      if let data = try? JSONSerialization.data(withJSONObject: report, options: [.sortedKeys]) {
+        try? data.write(to: root.appendingPathComponent("VocabCapture/sync-status.json"), options: .atomic)
+      }
+    }
     if displayedUserID != status.userID {
       displayedUserID = status.userID
       accountCaptureGeneration = UUID()
@@ -343,6 +367,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     AXIsProcessTrustedWithOptions([key: true] as CFDictionary)
   }
 
+  private func configureCaptureGestures() {
+    gestureMonitor = nil
+    guard defaults.bool(forKey: "VocabCapture.gesturesEnabled") else { return }
+    gestureMonitor = CaptureGestureMonitor { [weak self] direction in
+      guard let self, self.shortcutSettings?.isRecording != true else { return }
+      if direction == .left { self.captureScreenTextAction() }
+      else { self.captureScreenQuestionAction() }
+    }
+  }
+
+  @objc private func toggleCaptureGestures(_ sender: NSButton) {
+    defaults.set(sender.state == .on, forKey: "VocabCapture.gesturesEnabled")
+    configureCaptureGestures()
+    if sender.state == .on { requestAccessibilityPermission() }
+  }
+
   @objc private func captureScreenTextAction() {
     DispatchQueue.main.async { self.beginScreenshotCapture(destination: .word) }
   }
@@ -353,11 +393,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   @MainActor
   func hideScreenshotPanels() -> () -> Void {
+    let restoreOverlay = screenOCROverlay?.hideForScreenshot()
     let restoreOCR = ocrPanel?.hideForScreenshot()
     let panel = directQuestionPanel
     let wasVisible = panel?.isVisible == true
     panel?.orderOut(nil)
     return {
+      restoreOverlay?()
       restoreOCR?()
       if wasVisible { panel?.present() }
     }
@@ -1029,10 +1071,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       })
       let floating = NSButton(checkboxWithTitle: "双击或拖选英文后显示“拾词”按钮", target: self, action: #selector(toggleFloatingButton))
       floating.state = floatingButtonEnabled ? .on : .off
+      let gestures = NSButton(checkboxWithTitle: "启用触控板手势", target: self, action: #selector(toggleCaptureGestures(_:)))
+      gestures.state = defaults.bool(forKey: "VocabCapture.gesturesEnabled") ? .on : .off
       let pair = NSButton(title: "配对浏览器扩展…", target: self, action: #selector(pairBrowserExtension))
       let revoke = NSButton(title: "撤销配对", target: self, action: #selector(revokeBrowserPairing))
       return SettingsForm.page(title: "取词与快捷键", subtitle: "截图适用于各种应用。支持读取选区的应用也可以直接选词。", contents: [
         SettingsForm.group([floating, SettingsForm.label("Sublime、微信等应用可直接使用截图取词或截图问一问。", secondary: true)]),
+        SettingsForm.group([gestures, SettingsForm.label("三指连续轻点两下：截图取词；四指连续轻点两下：截图问一问。无需键盘。使用系统私有触控接口，系统升级后可能需要适配。", secondary: true)]),
         form,
         SettingsForm.group([SettingsForm.label("浏览器扩展", secondary: true), SettingsForm.actions([pair, revoke])]),
       ])

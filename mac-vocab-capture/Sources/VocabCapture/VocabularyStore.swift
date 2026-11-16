@@ -68,7 +68,7 @@ actor VocabularyStore {
     next.entries.insert(entry, at: 0)
     let deleted = next.tombstones.first(where: { $0.wordKey == key })
     next.pending.append(VocabularyMutation(operationID: UUID().uuidString,
-      kind: deleted == nil ? .upsert : .restore, wordKey: key, entry: entry, baseVersion: deleted?.version))
+      kind: deleted == nil ? .upsert : .restore, wordKey: key, entry: entry, baseVersion: envelope.deltaState?.entities[key]?.version ?? deleted?.version))
     next.localRevision = try Self.incrementRevision(next.localRevision)
     try commit(next)
     return entry
@@ -85,8 +85,11 @@ actor VocabularyStore {
 
   func syncBatch() -> VocabularySyncBatch? {
     guard issue == nil, let userID = envelope.userID else { return nil }
-    return VocabularySyncBatch(userID: userID, baseRevision: envelope.cloudRevision,
-      operations: Array(envelope.pending.prefix(500)), accountGeneration: accountGeneration)
+    var batch = VocabularySyncBatch(userID: userID, baseRevision: envelope.cloudRevision,
+      operations: Array(envelope.pending.prefix(50)), accountGeneration: accountGeneration)
+    batch.deltaState = envelope.deltaState
+    if envelope.deltaState == nil { batch.legacyOperationIDs = Set(envelope.pending.map(\.operationID)) }
+    return batch
   }
 
   func status() -> VocabularyPersistenceStatus {
@@ -109,7 +112,7 @@ actor VocabularyStore {
 
   func acknowledgeSync(vocabulary: [VocabularyEntry], revision: Int64,
     acknowledgedOperationIDs: [String], basedOn batch: VocabularySyncBatch,
-    tombstones: [VocabularyTombstone] = []) throws {
+    tombstones: [VocabularyTombstone] = [], deltaState: VocabularyDeltaState? = nil) throws {
     try requireWritable()
     guard envelope.userID == batch.userID, accountGeneration == batch.accountGeneration else {
       throw VocabularyPersistenceError.accountChanged
@@ -128,6 +131,15 @@ actor VocabularyStore {
       if let entry = operation.entry, operation.kind != .delete { next.entries.append(entry) }
     }
     next.entries.sort { $0.timestamp > $1.timestamp }
+    if var deltaState {
+      // Saves made while the first migration request was in flight still carry
+      // legacy bases and must never be mistaken for protocol3 entity versions.
+      if envelope.deltaState == nil {
+        deltaState.legacyOperationIDs = (deltaState.legacyOperationIDs ?? []).union(
+          envelope.pending.map(\.operationID).filter { id in next.pending.contains { $0.operationID == id } })
+      }
+      next.deltaState = deltaState
+    }
     next.cloudRevision = revision
     next.tombstones = tombstones
     next.localRevision = try Self.incrementRevision(next.localRevision)
@@ -136,7 +148,8 @@ actor VocabularyStore {
 
   /// Called only after an explicit user choice against a fresh cloud snapshot.
   func resolveConflicts(wordKeys: [String], cloudVocabulary: [VocabularyEntry], cloudRevision: Int64,
-    tombstones: [VocabularyTombstone], strategy: VocabularyConflictStrategy, basedOn batch: VocabularySyncBatch) throws {
+    tombstones: [VocabularyTombstone], strategy: VocabularyConflictStrategy, basedOn batch: VocabularySyncBatch,
+    deltaState: VocabularyDeltaState? = nil) throws {
     try requireWritable()
     guard envelope.userID == batch.userID, accountGeneration == batch.accountGeneration else {
       throw VocabularyPersistenceError.accountChanged
@@ -185,6 +198,15 @@ actor VocabularyStore {
       if operation.kind != .delete, let entry = operation.entry { next.entries.append(entry) }
     }
     next.entries.sort { $0.timestamp > $1.timestamp }
+    if var deltaState {
+      // Saves made while the first migration request was in flight still carry
+      // legacy bases and must never be mistaken for protocol3 entity versions.
+      if envelope.deltaState == nil {
+        deltaState.legacyOperationIDs = (deltaState.legacyOperationIDs ?? []).union(
+          envelope.pending.map(\.operationID).filter { id in next.pending.contains { $0.operationID == id } })
+      }
+      next.deltaState = deltaState
+    }
     next.cloudRevision = cloudRevision
     next.tombstones = tombstones
     next.localRevision = try Self.incrementRevision(next.localRevision)

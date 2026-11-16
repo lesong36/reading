@@ -5,12 +5,97 @@ import XCTest
 
 final class ScreenRegionTests: XCTestCase {
   @MainActor
+  func testScreenChangeRequiresConsecutiveConfirmationWithoutRebasing() {
+    var confirmation = ScreenContentMonitor.ChangeConfirmation()
+    XCTAssertFalse(confirmation.observe(changed: true))
+    XCTAssertFalse(confirmation.observe(changed: false))
+    XCTAssertFalse(confirmation.observe(changed: true))
+    XCTAssertTrue(confirmation.observe(changed: true))
+  }
+
+  @MainActor
+  func testLiveFractionalPortraitCaptureStability() async throws {
+    guard ProcessInfo.processInfo.environment["VOCAB_LIVE_STABILITY_TEST"] == "1" else { throw XCTSkip("Live portrait validation") }
+    guard #available(macOS 14.0, *) else { throw XCTSkip("Requires ScreenCaptureKit") }
+    let screen = try XCTUnwrap(NSScreen.screens.first { $0.localizedName == "16MR70" })
+    let rects = [CGRect(x: 3389.8359375, y: 756.87109375, width: 817.48828125, height: 186.12109375),
+      CGRect(x: 3484.6484375, y: 716.55078125, width: 517.78125, height: 31.83203125)]
+    for rect in rects {
+      let region = ScreenCaptureRegion(screenFrame: screen.frame, selectionRect: rect)
+      let capture = ScreenshotRegionCapture()
+      let image: CGImage? = try await withCheckedThrowingContinuation { continuation in
+        capture.capture(region: region) { continuation.resume(with: $0.mapError { $0 as Error }) }
+      }
+      let original = try XCTUnwrap(image)
+      let baseline = try XCTUnwrap(ScreenContentMonitor.signature(original))
+      let monitor = ScreenContentMonitor(region: region, original: original) {}
+      for _ in 0..<20 {
+        let current = try await monitor.capture()
+        let signature = try XCTUnwrap(ScreenContentMonitor.signature(current))
+        let ratio = Double(zip(baseline, signature).filter { abs(Int($0) - Int($1)) > 24 }.count) / Double(baseline.count)
+        print("FRACTIONAL_DIFF", rect, ratio)
+        XCTAssertFalse(ScreenContentMonitor.changed(baseline, signature))
+      }
+    }
+  }
+
+  @MainActor
+  func testLiveBaselineExcludesVisibleSelectionPanels() async throws {
+    guard ProcessInfo.processInfo.environment["VOCAB_LIVE_STABILITY_TEST"] == "1" else {
+      throw XCTSkip("Opt-in live capture exclusion validation")
+    }
+    guard #available(macOS 14.0, *) else { throw XCTSkip("Requires ScreenCaptureKit screenshots") }
+    let screen = try XCTUnwrap(NSScreen.screens.last)
+    let region = try XCTUnwrap(ScreenCaptureRegion.fromLocalSelection(
+      CGRect(x: 100, y: 100, width: 240, height: 160), screenFrame: screen.frame))
+    let panel = NSPanel(contentRect: region.selectionRect, styleMask: [.borderless],
+      backing: .buffered, defer: false)
+    panel.backgroundColor = .red
+    panel.level = .screenSaver
+    panel.orderFrontRegardless()
+    defer { panel.orderOut(nil) }
+    let capture = ScreenshotRegionCapture()
+    let image: CGImage? = try await withCheckedThrowingContinuation { continuation in
+      capture.capture(region: region) { continuation.resume(with: $0.mapError { $0 as Error }) }
+    }
+    let original = try XCTUnwrap(image)
+    panel.orderOut(nil)
+    let monitor = ScreenContentMonitor(region: region, original: original) {}
+    let current = try await monitor.capture()
+    XCTAssertFalse(ScreenContentMonitor.changed(
+      try XCTUnwrap(ScreenContentMonitor.signature(original)),
+      try XCTUnwrap(ScreenContentMonitor.signature(current))))
+  }
+
+  @MainActor
+  func testSelectorCoversEveryDisplayAndCanRestartAfterCancellation() {
+    let selector = InteractiveScreenRegionSelector()
+    let frames = [CGRect(x: 0, y: 0, width: 800, height: 600),
+                  CGRect(x: -900, y: 300, width: 900, height: 700)]
+    var cancelled = 0
+    selector.present(screenFrames: frames, preferredFrame: frames[0]) { region in
+      XCTAssertNil(region)
+      cancelled += 1
+    }
+    XCTAssertEqual(selector.panels.map(\.frame), frames)
+    XCTAssertTrue(selector.panels.allSatisfy(\.canBecomeKey))
+    selector.present(screenFrames: frames, preferredFrame: frames[1]) { _ in cancelled += 1 }
+    XCTAssertEqual(cancelled, 1)
+    XCTAssertEqual(selector.panels.count, 2)
+    selector.cancel()
+    selector.cancel()
+    XCTAssertTrue(selector.panels.isEmpty)
+    XCTAssertEqual(cancelled, 2)
+  }
+
+  @MainActor
   func testLiveCaptureRemainsStableWhenScreenDoesNotChange() async throws {
     guard ProcessInfo.processInfo.environment["VOCAB_LIVE_STABILITY_TEST"] == "1" else {
       throw XCTSkip("Opt-in live screen stability validation")
     }
     guard #available(macOS 14.0, *) else { throw XCTSkip("Requires ScreenCaptureKit screenshots") }
-    let screen = try XCTUnwrap(NSScreen.screens.last)
+    for screen in NSScreen.screens {
+      print("DISPLAY", screen.localizedName, screen.frame, screen.backingScaleFactor)
     let local = CGRect(x: screen.frame.width / 2 - 120, y: screen.frame.height / 2 - 80,
       width: 240, height: 160)
     let region = try XCTUnwrap(ScreenCaptureRegion.fromLocalSelection(local, screenFrame: screen.frame))
@@ -25,10 +110,13 @@ final class ScreenRegionTests: XCTestCase {
     let current = try await monitor.capture()
     let baseline = try XCTUnwrap(ScreenContentMonitor.signature(baselineImage))
     let signature = try XCTUnwrap(ScreenContentMonitor.signature(current))
-    XCTAssertFalse(ScreenContentMonitor.changed(baseline, signature))
+    let changedCount = zip(baseline, signature).filter { abs(Int($0) - Int($1)) > 24 }.count
+    print("DISPLAY_DIFF", screen.localizedName, Double(changedCount) / Double(baseline.count))
+    XCTAssertFalse(ScreenContentMonitor.changed(baseline, signature), screen.localizedName)
     monitor.start()
     try await Task.sleep(nanoseconds: 2_000_000_000)
     XCTAssertEqual(changes, 0, "Unchanged screen content should not dismiss the OCR layer")
+    }
   }
 
   @MainActor
@@ -97,6 +185,26 @@ final class ScreenRegionTests: XCTestCase {
     overlay.present()
     NotificationCenter.default.post(name: NSApplication.didResignActiveNotification, object: NSApp)
     XCTAssertFalse(overlay.isVisible)
+  }
+
+  @MainActor
+  func testRetakeSuspendsOverlayAndObserversUntilCancellationRestoresIt() async throws {
+    var valid = true
+    let overlay = try makeTrackedOverlay { valid }
+    var closes = 0
+    overlay.onClose = { closes += 1 }
+    overlay.present()
+    let restore = overlay.hideForScreenshot()
+    XCTAssertFalse(overlay.isVisible)
+    NotificationCenter.default.post(name: NSApplication.didResignActiveNotification, object: NSApp)
+    valid = false
+    try await Task.sleep(nanoseconds: 300_000_000)
+    XCTAssertEqual(closes, 0, "A new selector must not close the previous lookup session")
+    valid = true
+    restore()
+    XCTAssertTrue(overlay.isVisible)
+    overlay.close()
+    XCTAssertEqual(closes, 1)
   }
 
   @MainActor

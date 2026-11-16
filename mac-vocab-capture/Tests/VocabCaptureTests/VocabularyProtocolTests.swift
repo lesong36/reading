@@ -4,10 +4,14 @@ import XCTest
 
 @MainActor
 final class VocabularyProtocolTests: XCTestCase {
+  private let fixtureUser = "protocol-test-" + UUID().uuidString
+  private let fixtureEntry = VocabularyEntry(word: "alpha", dictionary: DictionaryResult(
+    lemma: "alpha", meaning: "甲", partOfSpeech: "n.", pronunciation: "", note: ""), context: "Alpha.")
+
   override func tearDown() { ProtocolURL.handler = nil; super.tearDown() }
 
   func testEmptyCloudWriteResponseCannotAcknowledgeSynchronization() async throws {
-    let stored = SupabaseSession(accessToken: "fixture", refreshToken: "fixture", user: SupabaseUser(id: "fixture-user"), expiresAt: nil)
+    let stored = SupabaseSession(accessToken: "fixture", refreshToken: "fixture", user: SupabaseUser(id: fixtureUser), expiresAt: nil)
     let configuration = URLSessionConfiguration.ephemeral
     configuration.protocolClasses = [ProtocolURL.self]
     let client = SupabaseVocabularySync(session: URLSession(configuration: configuration), readSession: { stored }, saveSession: { _ in })
@@ -27,83 +31,101 @@ final class VocabularyProtocolTests: XCTestCase {
   }
 
   private func fixtureClient() -> SupabaseVocabularySync {
-    let stored = SupabaseSession(accessToken: "fixture", refreshToken: "fixture", user: SupabaseUser(id: "fixture-user"), expiresAt: nil)
+    let stored = SupabaseSession(accessToken: "fixture", refreshToken: "fixture", user: SupabaseUser(id: fixtureUser), expiresAt: nil)
     let configuration = URLSessionConfiguration.ephemeral
     configuration.protocolClasses = [ProtocolURL.self]
     return SupabaseVocabularySync(session: URLSession(configuration: configuration), readSession: { stored }, saveSession: { _ in })
   }
 
-  private func snapshot(revision: Int = 0, ack: [String] = [], conflict: Bool = false, keys: [String] = [], user: String = "fixture-user") -> String {
-    let payload: [String: Any] = ["userID":user,"vocabulary":[],"uploadedCount":0,"revision":revision,
-      "acknowledgedOperationIDs":ack,"tombstones":[],"conflict":conflict,"conflictingWordKeys":keys]
-    return String(data:try! JSONSerialization.data(withJSONObject: payload),encoding:.utf8)!
-  }
-
   private func batch(baseRevision: Int64 = 0) -> VocabularySyncBatch {
-    let entry = VocabularyEntry(word: "alpha",dictionary:DictionaryResult(lemma:"alpha",meaning:"甲",partOfSpeech:"n.",pronunciation:"",note:""),context:"Alpha.")
-    return VocabularySyncBatch(userID:"fixture-user",baseRevision:baseRevision,operations:[VocabularyMutation(operationID:"fixture-op",kind:.upsert,wordKey:"alpha",entry:entry,baseVersion:nil)])
+    let entry = fixtureEntry
+    return VocabularySyncBatch(userID:fixtureUser,baseRevision:baseRevision,operations:[VocabularyMutation(operationID:"fixture-op",kind:.upsert,wordKey:"alpha",entry:entry,baseVersion:nil)])
   }
 
-  func testOnlyRPCMayCommitAndEveryOperationRequiresAcknowledgement() async throws {
-    let client = fixtureClient()
-    var requests = 0
-    ProtocolURL.handler = { request, transport in
-      requests += 1
-      XCTAssertEqual(request.httpMethod,"POST")
-      XCTAssertEqual(request.url?.path,"/rest/v1/rpc/sync_reader_vocabulary_v2")
-      transport.respond(self.snapshot(revision:1,ack:["fixture-op"]))
+  private func json(_ value: Any) -> String {
+    String(data: try! JSONSerialization.data(withJSONObject: value), encoding: .utf8)!
+  }
+
+  private func fixtureResponse(_ request: URLRequest, transport: ProtocolURL,
+    acknowledgement: [[String: Any]] = [["operationID":"fixture-op","status":"applied","version":1]],
+    afterPush: Bool = false) {
+    switch request.url?.lastPathComponent {
+    case "reader_delta_pull":
+      transport.respond(json(["epoch":"fixture-epoch","nextCursor":0,"hasMore":false,"changes":[]]))
+    case "reader_delta_get":
+      let entry = batch().operations[0].entry!
+      let payload: Any = afterPush ? try! JSONSerialization.jsonObject(with: JSONEncoder().encode(entry)) : NSNull()
+      transport.respond(json(["entities":[["entityType":"vocabulary","entityID":"alpha","version":afterPush ? 1 : 0,"deleted":!afterPush,"payload":payload]]]))
+    case "reader_delta_push":
+      transport.respond(json(["epoch":"fixture-epoch","acknowledgements":acknowledgement]))
+    default: XCTFail("Unexpected legacy endpoint"); transport.respond("{}")
     }
-    let result = try await client.sync(batch:batch())
-    XCTAssertEqual(result.acknowledgedOperationIDs,["fixture-op"])
-    XCTAssertEqual(requests,1)
   }
 
-  func testMissingAcknowledgementAndWrongAccountResponsesFail() async throws {
-    for response in [snapshot(revision:1),snapshot(revision:1,ack:["fixture-op"],user:"another-user"),snapshot(revision:1,ack:["fixture-op","fixture-op"])] {
-      ProtocolURL.handler = { _, transport in transport.respond(response) }
-      do { _ = try await fixtureClient().sync(batch:batch()); XCTFail("Must reject unconfirmed operations") }
+  func testOnlyDeltaRPCMayCommitAndEveryOperationRequiresAcknowledgement() async throws {
+    var pushed = false
+    ProtocolURL.handler = { request, transport in
+      XCTAssertEqual(request.httpMethod, "POST")
+      if request.url?.lastPathComponent == "reader_delta_push" { pushed = true }
+      self.fixtureResponse(request, transport: transport, afterPush: pushed)
+    }
+    let result = try await fixtureClient().sync(batch: batch())
+    XCTAssertTrue(pushed)
+    XCTAssertEqual(result.acknowledgedOperationIDs, ["fixture-op"])
+    XCTAssertEqual(result.vocabulary.first?.cloudVersion, 1)
+    XCTAssertEqual(result.deltaState?.epoch, "fixture-epoch")
+  }
+
+  func testMissingAndUnknownAcknowledgementsFail() async throws {
+    for acks: [[String: Any]] in [[], [["operationID":"unknown", "status":"applied", "version":1]]] {
+      ProtocolURL.handler = { request, transport in
+        self.fixtureResponse(request, transport: transport, acknowledgement: acks)
+      }
+      do { _ = try await fixtureClient().sync(batch: batch()); XCTFail("Must reject unconfirmed operations") }
       catch SupabaseSyncError.invalidResponse { }
     }
   }
 
-  func testGlobalConflictRetryDoesNotChangeEntryBaseVersion() async throws {
-    let client = fixtureClient()
-    var requests = 0
-    ProtocolURL.handler = { request, transport in
-      requests += 1
-      let stream = request.httpBodyStream
-      var bytes = Data()
-      stream?.open()
-      if let stream {
-        var buffer = [UInt8](repeating:0,count:4096)
-        while stream.hasBytesAvailable { let count = stream.read(&buffer,maxLength:buffer.count); if count <= 0 { break }; bytes.append(buffer,count:count) }
-        stream.close()
-      } else { bytes = request.httpBody ?? Data() }
-      let body = try! JSONSerialization.jsonObject(with:bytes) as! [String:Any]
-      XCTAssertEqual(body["p_expected_revision"] as? Int, requests == 1 ? 0 : 4)
-      let operation = (body["p_operations"] as! [[String:Any]])[0]
-      XCTAssertNil(operation["baseVersion"])
-      transport.respond(requests == 1 ? self.snapshot(revision:4,conflict:true) : self.snapshot(revision:5,ack:["fixture-op"]))
-    }
-    let result = try await client.sync(batch:batch())
-    XCTAssertEqual(result.revision,5)
-    XCTAssertEqual(requests,2)
-  }
-
   func testEntryConflictDoesNotRetryOrAcknowledgePending() async throws {
-    var requests = 0
-    ProtocolURL.handler = { _, transport in requests += 1; transport.respond(self.snapshot(revision:2,conflict:true,keys:["alpha"])) }
-    do { _ = try await fixtureClient().sync(batch:batch()); XCTFail("Entry conflict must remain pending") }
-    catch SupabaseSyncError.conflict(let words) { XCTAssertEqual(words,["alpha"]) }
-    XCTAssertEqual(requests,1)
+    var pushes = 0
+    ProtocolURL.handler = { request, transport in
+      if request.url?.lastPathComponent == "reader_delta_push" { pushes += 1 }
+      self.fixtureResponse(request, transport: transport,
+        acknowledgement: [["operationID":"fixture-op","status":"conflict","version":2]])
+    }
+    let result = try await fixtureClient().sync(batch: batch())
+    XCTAssertTrue(result.conflict)
+    XCTAssertEqual(result.conflictingWordKeys, ["alpha"])
+    XCTAssertTrue(result.acknowledgedOperationIDs.isEmpty)
+    XCTAssertEqual(pushes, 1)
   }
 
-  func testGlobalConflictHasBoundedRetries() async throws {
-    var requests = 0
-    ProtocolURL.handler = { _, transport in requests += 1; transport.respond(self.snapshot(revision:requests,conflict:true)) }
-    do { _ = try await fixtureClient().sync(batch:batch()); XCTFail("Concurrent writers must not retry forever") }
-    catch SupabaseSyncError.conflict { }
-    XCTAssertEqual(requests,3)
+  func testEquivalentLegacyEntryAcknowledgedWithoutWriting() async throws {
+    ProtocolURL.handler = { request, transport in
+      XCTAssertNotEqual(request.url?.lastPathComponent, "reader_delta_push")
+      self.fixtureResponse(request, transport: transport, afterPush: true)
+    }
+    let result = try await fixtureClient().sync(batch: batch())
+    XCTAssertFalse(result.conflict)
+    XCTAssertEqual(result.acknowledgedOperationIDs, ["fixture-op"])
+    XCTAssertEqual(result.uploadedCount, 0)
+    XCTAssertTrue(result.deltaState?.legacyOperationIDs?.isEmpty == true)
+  }
+
+  func testPartialMigrationPreservesUnsentLegacyIdentity() async throws {
+    var first = batch()
+    first.legacyOperationIDs = ["fixture-op", "later-op"]
+    var pushed = false
+    ProtocolURL.handler = { request, transport in
+      if request.url?.lastPathComponent == "reader_delta_push" { pushed = true }
+      self.fixtureResponse(request, transport: transport, afterPush: pushed)
+    }
+    let result = try await fixtureClient().sync(batch: first)
+    XCTAssertEqual(result.acknowledgedOperationIDs, ["fixture-op"])
+    XCTAssertEqual(result.deltaState?.legacyOperationIDs, Set(["later-op"]))
+    let encoded = try JSONEncoder().encode(XCTUnwrap(result.deltaState))
+    let restored = try JSONDecoder().decode(VocabularyDeltaState.self, from: encoded)
+    XCTAssertEqual(restored.legacyOperationIDs, Set(["later-op"]))
   }
 
   func testMissingRPCDoesNotFallBackToFullArrayWrite() async throws {

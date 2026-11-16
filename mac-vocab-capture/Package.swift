@@ -7,7 +7,8 @@ let package = Package(
   products: [.executable(name: "VocabCapture", targets: ["VocabCapture"])],
   targets: [
     .systemLibrary(name: "CSQLite"),
-    .executableTarget(name: "VocabCapture", dependencies: ["CSQLite"]),
+    .target(name: "MultitouchBridge", linkerSettings: [.linkedFramework("IOKit")]),
+    .executableTarget(name: "VocabCapture", dependencies: ["CSQLite", "MultitouchBridge"]),
     .testTarget(name: "VocabCaptureTests", dependencies: ["VocabCapture"])
   ]
 )

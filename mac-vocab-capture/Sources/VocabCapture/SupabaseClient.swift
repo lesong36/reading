@@ -60,7 +60,7 @@ enum SupabaseSyncError: LocalizedError {
     case .sessionExpired: "阅读达人登录已失效，请重新登录。本机生词已保留。"
     case .server(let message): message
     case .http(let status): "云同步请求失败（HTTP \(status)），本机待上传内容已保留。"
-    case .upgradeRequired: "云端词库同步协议尚未升级，已保留本机待上传内容。请部署词库同步 v2 后重试。"
+    case .upgradeRequired: "云端增量同步暂不可用，本机待上传内容已保留，请更新服务后重试。"
     case .conflict: "云端词条已经修改或删除。已保留本机操作，请确认采用云端内容或重新编辑后同步。"
     case .accountChanged: "账号已经切换，已忽略旧账号的同步结果。"
     }
@@ -68,6 +68,7 @@ enum SupabaseSyncError: LocalizedError {
 }
 
 struct VocabularySyncResult: Codable, Sendable {
+  var deltaState: VocabularyDeltaState? = nil
   let userID: String
   let vocabulary: [VocabularyEntry]
   let uploadedCount: Int
@@ -146,42 +147,134 @@ actor SupabaseVocabularySync {
       throw SupabaseSyncError.accountChanged
     }
     let ids = batch.operations.map(\.operationID)
-    guard Set(ids).count == ids.count, ids.allSatisfy({ !$0.isEmpty }), batch.baseRevision >= 0,
+    guard batch.operations.count <= 50, Set(ids).count == ids.count, ids.allSatisfy({ !$0.isEmpty }), batch.baseRevision >= 0,
       batch.operations.allSatisfy({ !$0.wordKey.isEmpty && VocabularyEntry.canonicalWordKey($0.wordKey) == $0.wordKey })
     else { throw SupabaseSyncError.invalidResponse }
-    var expectedRevision = batch.baseRevision
-    for attempt in 0..<3 {
-      try guardAccount(batch.userID, revision: ownerRevision)
-      let body = try JSONEncoder().encode(VocabularyRPCRequest(
-        expectedRevision: batch.operations.isEmpty ? nil : expectedRevision,
-        operations: batch.operations))
-      let data = try await authenticatedRPC(body: body, userID: batch.userID, revision: ownerRevision)
-      try guardAccount(batch.userID, revision: ownerRevision)
-      guard let result = try? JSONDecoder().decode(VocabularySyncResult.self, from: data),
-        result.userID.lowercased() == batch.userID.lowercased(), result.revision >= expectedRevision,
-        result.uploadedCount >= 0, result.uploadedCount <= batch.operations.count,
-        Set(result.acknowledgedOperationIDs).isSubset(of: Set(ids)),
-        Set(result.acknowledgedOperationIDs).count == result.acknowledgedOperationIDs.count,
-        Set(result.vocabulary.map { VocabularyEntry.canonicalWordKey($0.word) }).count == result.vocabulary.count,
-        result.vocabulary.allSatisfy({ !VocabularyEntry.canonicalWordKey($0.word).isEmpty && ($0.cloudVersion ?? -1) >= 0 }),
-        result.tombstones.allSatisfy({ !$0.wordKey.isEmpty && VocabularyEntry.canonicalWordKey($0.wordKey) == $0.wordKey && $0.version >= 0 }),
-        Set(result.tombstones.map(\.wordKey)).count == result.tombstones.count,
-        Set(result.vocabulary.map { VocabularyEntry.canonicalWordKey($0.word) }).isDisjoint(with: Set(result.tombstones.map(\.wordKey)))
-      else { throw SupabaseSyncError.invalidResponse }
-      if !result.conflict {
-        guard Set(result.acknowledgedOperationIDs) == Set(ids) else {
-          throw SupabaseSyncError.invalidResponse
-        }
-        return result
-      }
-      guard result.conflictingWordKeys.isEmpty, attempt < 2 else {
-        throw SupabaseSyncError.conflict(result.conflictingWordKeys)
-      }
-      // Only advance the snapshot revision. Keep original entry base versions;
-      // changing them here would silently overwrite another device's edit.
-      expectedRevision = result.revision
+    return try await syncDelta(batch: batch, ownerRevision: ownerRevision)
+  }
+
+  private func syncDelta(batch: VocabularySyncBatch, ownerRevision: Int) async throws -> VocabularySyncResult {
+    var state = batch.deltaState ?? VocabularyDeltaState()
+    if batch.deltaState == nil { state.legacyOperationIDs = batch.legacyOperationIDs ?? Set(batch.operations.map(\.operationID)) }
+    func rpc(_ name: String, _ body: [String: Any]) async throws -> [String: Any] {
+      let data = try await authenticatedRPC(body: JSONSerialization.data(withJSONObject: body),
+        userID: batch.userID, revision: ownerRevision, name: name)
+      guard let value = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { throw SupabaseSyncError.invalidResponse }
+      return value
     }
-    throw SupabaseSyncError.invalidResponse
+    func entity(_ raw: [String: Any]) throws -> VocabularyDeltaEntity {
+      let row = try JSONDecoder().decode(VocabularyDeltaEntity.self, from: JSONSerialization.data(withJSONObject: raw))
+      guard row.entityType == "vocabulary", !row.entityID.isEmpty,
+        VocabularyEntry.canonicalWordKey(row.entityID) == row.entityID, row.version >= 0,
+        row.deleted || row.payload != nil,
+        row.payload.map({ VocabularyEntry.canonicalWordKey($0.word) == row.entityID }) ?? row.deleted
+      else { throw SupabaseSyncError.invalidResponse }
+      return row
+    }
+    // Complete the cloud mirror before projecting a full vocabulary snapshot.
+    var finished = false
+    for _ in 0..<10000 {
+      let page = try await rpc("reader_delta_pull", ["p_epoch": state.epoch as Any? ?? NSNull(), "p_cursor": state.cursor, "p_limit": 50])
+      guard let epoch = page["epoch"] as? String else { throw SupabaseSyncError.invalidResponse }
+      if page["resetRequired"] as? Bool == true {
+        state = VocabularyDeltaState(legacyOperationIDs: state.legacyOperationIDs, epoch: epoch)
+        continue
+      }
+      guard state.epoch == nil || state.epoch == epoch,
+        let cursor = page["nextCursor"] as? Int64, cursor >= state.cursor,
+        let changes = page["changes"] as? [[String: Any]], changes.count <= 50,
+        let more = page["hasMore"] as? Bool else { throw SupabaseSyncError.invalidResponse }
+      guard !more || cursor > state.cursor else { throw SupabaseSyncError.invalidResponse }
+      for raw in changes where raw["entityType"] as? String == "vocabulary" {
+        let row = try entity(raw)
+        state.entities[row.entityID] = row
+      }
+      state.epoch = epoch
+      state.cursor = cursor
+      if !more { finished = true; break }
+    }
+    guard finished else { throw SupabaseSyncError.invalidResponse }
+    if !batch.operations.isEmpty {
+      let response = try await rpc("reader_delta_get", ["p_entities": batch.operations.map { ["entityType": "vocabulary", "entityID": $0.wordKey] }])
+      guard let rows = response["entities"] as? [[String: Any]], rows.count == batch.operations.count else { throw SupabaseSyncError.invalidResponse }
+      let decoded = try rows.map(entity)
+      guard Set(decoded.map(\.entityID)) == Set(batch.operations.map(\.wordKey)) else { throw SupabaseSyncError.invalidResponse }
+      for row in decoded { state.entities[row.entityID] = row }
+    }
+    let journalRoot = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+      .appendingPathComponent("VocabCapture/delta-wire", isDirectory: true)
+      .appendingPathComponent(batch.userID.utf8.map { String(format: "%02x", $0) }.joined(), isDirectory: true)
+    try FileManager.default.createDirectory(at: journalRoot, withIntermediateDirectories: true)
+    var conflicts: [String] = []
+    var equivalentIDs: [String] = []
+    var operations: [[String: Any]] = []
+    for op in batch.operations {
+      let journalURL = journalRoot.appendingPathComponent(op.operationID.utf8.map { String(format: "%02x", $0) }.joined()).appendingPathExtension("json")
+      let mutationEncoder = JSONEncoder()
+      mutationEncoder.outputFormatting = [.sortedKeys]
+      let mutationFingerprint = try mutationEncoder.encode(op).base64EncodedString()
+      if FileManager.default.fileExists(atPath: journalURL.path) {
+        let saved = try JSONSerialization.jsonObject(with: Data(contentsOf: journalURL))
+        guard let record = saved as? [String: Any], record["mutation"] as? String == mutationFingerprint,
+          let wire = record["wire"] as? [String: Any], wire["operationID"] as? String == op.operationID,
+          wire["entityID"] as? String == op.wordKey else { throw SupabaseSyncError.invalidResponse }
+        operations.append(wire)
+        continue
+      }
+      let remote = state.entities[op.wordKey]
+      // A v2 global revision cannot prove a protocol3 entity base. Existing
+      // legacy records are acknowledged only when the full payload is equal.
+      let base: Int64
+      if !(state.legacyOperationIDs ?? []).contains(op.operationID) { base = op.baseVersion ?? 0 }
+      else if let remote, remote.version > 0 {
+        if op.kind != .delete, !remote.deleted, let local = op.entry, let cloud = remote.payload {
+          var localJSON = try JSONSerialization.jsonObject(with: JSONEncoder().encode(local)) as! [String: Any]
+          var cloudJSON = try JSONSerialization.jsonObject(with: JSONEncoder().encode(cloud)) as! [String: Any]
+          localJSON.removeValue(forKey: "cloudVersion"); cloudJSON.removeValue(forKey: "cloudVersion")
+          if NSDictionary(dictionary: localJSON).isEqual(to: cloudJSON) { equivalentIDs.append(op.operationID); continue }
+        }
+        conflicts.append(op.wordKey)
+        continue
+      } else {
+        guard op.baseVersion == nil else { conflicts.append(op.wordKey); continue }
+        base = 0
+      }
+      var wire: [String: Any] = ["operationID": op.operationID, "entityType": "vocabulary", "entityID": op.wordKey, "baseVersion": base, "kind": op.kind.rawValue]
+      wire["payload"] = try op.entry.map { try JSONSerialization.jsonObject(with: JSONEncoder().encode($0)) } ?? NSNull()
+      try JSONSerialization.data(withJSONObject: ["mutation": mutationFingerprint, "wire": wire], options: [.sortedKeys]).write(to: journalURL, options: .atomic)
+      operations.append(wire)
+    }
+    guard try JSONSerialization.data(withJSONObject: ["p_operations": operations]).count <= 100_000,
+      try operations.allSatisfy({ try JSONSerialization.data(withJSONObject: $0).count <= 64_000 })
+    else { throw SupabaseSyncError.invalidResponse }
+    var acknowledged: [String] = equivalentIDs
+    if !operations.isEmpty {
+      let pushed = try await rpc("reader_delta_push", ["p_operations": operations])
+      guard pushed["epoch"] as? String == state.epoch, let acks = pushed["acknowledgements"] as? [[String: Any]], acks.count == operations.count, Set(acks.compactMap { $0["operationID"] as? String }).count == acks.count else { throw SupabaseSyncError.invalidResponse }
+      for ack in acks {
+        guard let id = ack["operationID"] as? String, let op = batch.operations.first(where: { $0.operationID == id }),
+          let version = ack["version"] as? Int64, version >= 0,
+          let status = ack["status"] as? String else { throw SupabaseSyncError.invalidResponse }
+        if status == "conflict" { conflicts.append(op.wordKey); continue }
+        guard status == "applied" || status == "duplicate" else { throw SupabaseSyncError.invalidResponse }
+        acknowledged.append(id)
+        // Read current state after receipt acknowledgement: a duplicate receipt
+        // can precede a newer edit from another device.
+        let fresh = try await rpc("reader_delta_get", ["p_entities": [["entityType": "vocabulary", "entityID": op.wordKey]]])
+        guard let rows = fresh["entities"] as? [[String: Any]], rows.count == 1 else { throw SupabaseSyncError.invalidResponse }
+        let current = try entity(rows[0])
+        guard current.entityID == op.wordKey, current.version >= version else { throw SupabaseSyncError.invalidResponse }
+        state.entities[op.wordKey] = current
+      }
+    }
+    state.legacyOperationIDs?.subtract(acknowledged)
+    let vocabulary = state.entities.values.filter { !$0.deleted }.compactMap { row -> VocabularyEntry? in
+      guard var entry = row.payload else { return nil }; entry.cloudVersion = row.version; return entry
+    }
+    let tombstones = state.entities.values.filter(\.deleted).map { VocabularyTombstone(wordKey: $0.entityID, version: $0.version, deletedAt: nil) }
+    return VocabularySyncResult(deltaState: state, userID: batch.userID, vocabulary: vocabulary,
+      uploadedCount: acknowledged.count - equivalentIDs.count, revision: max(batch.baseRevision, state.cursor), acknowledgedOperationIDs: acknowledged,
+      tombstones: tombstones, conflict: !conflicts.isEmpty, conflictingWordKeys: conflicts)
   }
 
   private func guardAccount(_ userID: String, revision: Int) throws {
@@ -190,7 +283,7 @@ actor SupabaseVocabularySync {
     }
   }
 
-  private func authenticatedRPC(body: Data, userID: String, revision: Int) async throws -> Data {
+  private func authenticatedRPC(body: Data, userID: String, revision: Int, name: String) async throws -> Data {
     var rejectedAccessToken: String?
     for attempt in 0..<2 {
       try guardAccount(userID, revision: revision)
@@ -198,7 +291,7 @@ actor SupabaseVocabularySync {
         throw SupabaseSyncError.notLoggedIn
       }
       try guardAccount(userID, revision: revision)
-      let request = makeRequest(path: "/rest/v1/rpc/sync_reader_vocabulary_v2", method: "POST",
+      let request = makeRequest(path: "/rest/v1/rpc/\(name)", method: "POST",
         accessToken: stored.accessToken, body: body)
       let (data, response) = try await session.data(for: request)
       try guardAccount(userID, revision: revision)
@@ -213,6 +306,20 @@ actor SupabaseVocabularySync {
       if let payload = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
         ["PGRST202", "42883"].contains(payload["code"] as? String ?? "") {
         throw SupabaseSyncError.upgradeRequired
+      }
+      if !(200..<300).contains(http.statusCode),
+        let payload = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+        let code = payload["code"] as? String,
+        code.range(of: "^[A-Z0-9]{5,10}$", options: .regularExpression) != nil {
+        let upgrade = payload["message"] as? String == "READER_UPGRADE_REQUIRED: protocol 3 required"
+        let reason = upgrade ? " READER_UPGRADE_REQUIRED" : ""
+        let diagnosticURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?
+          .appendingPathComponent("VocabCapture/sync-error-code.txt")
+        if let diagnosticURL {
+          try? "HTTP \(http.statusCode) code \(code) rpc \(name)\(reason)".write(to: diagnosticURL, atomically: true, encoding: .utf8)
+        }
+        // Never expose server details that may contain user data.
+        throw SupabaseSyncError.server("云同步请求失败（HTTP \(http.statusCode)，代码 \(code)\(reason)），本机待上传内容已保留。")
       }
       try validate(response: response, data: data)
       return data

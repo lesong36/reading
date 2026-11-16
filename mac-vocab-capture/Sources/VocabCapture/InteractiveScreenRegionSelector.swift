@@ -29,41 +29,64 @@ protocol ScreenRegionSelecting: AnyObject {
 
 @MainActor
 final class InteractiveScreenRegionSelector: ScreenRegionSelecting {
-  private var panel: NSPanel?
+  private(set) var panels: [NSPanel] = []
+  private var deactivationObserver: NSObjectProtocol?
   private var completion: ((ScreenCaptureRegion?) -> Void)?
 
   func present(on screen: NSScreen? = NSScreen.main, completion: @escaping (ScreenCaptureRegion?) -> Void) {
-    guard panel == nil, let screen else { completion(nil); return }
-    self.completion = completion
-    let view = RegionSelectionView(frame: CGRect(origin: .zero, size: screen.frame.size))
-    view.onFinish = { [weak self] rect in self?.finish(rect, screenFrame: screen.frame) }
-    let panel = NSPanel(
-      contentRect: screen.frame, styleMask: [.borderless], backing: .buffered, defer: false)
-    panel.level = .screenSaver
-    panel.backgroundColor = .clear
-    panel.isOpaque = false
-    panel.hasShadow = false
-    panel.ignoresMouseEvents = false
-    panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
-    panel.contentView = view
-    self.panel = panel
-    NSApp.activate(ignoringOtherApps: true)
-    panel.orderFrontRegardless()
-    panel.makeKeyAndOrderFront(nil)
-    panel.makeFirstResponder(view)
+    present(screenFrames: NSScreen.screens.map(\.frame), preferredFrame: screen?.frame, completion: completion)
   }
 
-  func cancel() { finish(nil, screenFrame: panel?.frame ?? .zero) }
+  func present(screenFrames: [CGRect], preferredFrame: CGRect?, completion: @escaping (ScreenCaptureRegion?) -> Void) {
+    cancel()
+    let screens = screenFrames
+    guard !screens.isEmpty else { completion(nil); return }
+    self.completion = completion
+    for display in screens {
+      let view = RegionSelectionView(frame: CGRect(origin: .zero, size: display.size))
+      view.onFinish = { [weak self] rect in self?.finish(rect, screenFrame: display) }
+      let panel = RegionSelectionPanel(
+        contentRect: display, styleMask: [.borderless], backing: .buffered, defer: false)
+      panel.level = .screenSaver
+      panel.backgroundColor = .clear
+      panel.isOpaque = false
+      panel.hasShadow = false
+      panel.ignoresMouseEvents = false
+      panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+      panel.contentView = view
+      panels.append(panel)
+    }
+    deactivationObserver = NotificationCenter.default.addObserver(
+      forName: NSApplication.didResignActiveNotification, object: NSApp, queue: .main
+    ) { [weak self] _ in
+      MainActor.assumeIsolated { self?.cancel() }
+    }
+    NSApp.activate(ignoringOtherApps: true)
+    for panel in panels { panel.orderFrontRegardless() }
+    let preferred = panels.first { $0.frame == preferredFrame } ?? panels[0]
+    preferred.makeKeyAndOrderFront(nil)
+    preferred.makeFirstResponder(preferred.contentView)
+  }
+
+  func cancel() { finish(nil, screenFrame: .zero) }
 
   private func finish(_ selection: CGRect?, screenFrame: CGRect) {
-    guard panel != nil else { return }
-    panel?.orderOut(nil)
-    panel = nil
+    guard !panels.isEmpty else { return }
+    if let observer = deactivationObserver { NotificationCenter.default.removeObserver(observer) }
+    deactivationObserver = nil
+    let closingPanels = panels
+    panels = []
+    for panel in closingPanels { panel.orderOut(nil) }
     let result = selection.flatMap { ScreenCaptureRegion.fromLocalSelection($0, screenFrame: screenFrame) }
     let callback = completion
     completion = nil
     callback?(result)
   }
+}
+
+@MainActor
+private final class RegionSelectionPanel: NSPanel {
+  override var canBecomeKey: Bool { true }
 }
 
 @MainActor
@@ -73,6 +96,7 @@ private final class RegionSelectionView: NSView {
   private var current: CGPoint?
 
   override var acceptsFirstResponder: Bool { true }
+  override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
 
   override func draw(_ dirtyRect: NSRect) {
     NSColor.black.withAlphaComponent(0.12).setFill()
@@ -90,6 +114,8 @@ private final class RegionSelectionView: NSView {
   }
 
   override func mouseDown(with event: NSEvent) {
+    window?.makeKey()
+    window?.makeFirstResponder(self)
     start = convert(event.locationInWindow, from: nil)
     current = start
     needsDisplay = true
