@@ -131,7 +131,8 @@ final class QuestionWebSearchUITests: XCTestCase {
     try await wait { !panel.isAnswering }
     let view = try transcript(panel)
     let text = view.string as NSString
-    let range = text.range(of: "https://example.org/docs")
+    let range = text.range(of: "官网")
+    XCTAssertNotEqual(range.location, NSNotFound)
     XCTAssertEqual(
       view.textStorage?.attribute(.link, at: range.location, effectiveRange: nil) as? URL,
       URL(string: "https://example.org/docs"))

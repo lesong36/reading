@@ -5,6 +5,72 @@ import XCTest
 
 @MainActor
 final class ScreenshotQuestionPanelTests: XCTestCase {
+  func testMarkdownAnswerAndCopyPreserveOriginalSource() async throws {
+    let gate = AnswerGate()
+    let panel = makePanel(gate)
+    let pasteboard = NSPasteboard.withUniqueName()
+    defer {
+      pasteboard.releaseGlobally()
+      panel.close()
+    }
+    let copy = try button("复制回答", panel)
+    XCTAssertFalse(copy.isEnabled)
+    try questionField(panel).stringValue = "总结"
+    try button("提问", panel).performClick(nil)
+    try await wait { gate.requests.count == 1 }
+    gate.requests[0].partial("**生成中**")
+    XCTAssertTrue(copy.isEnabled)
+    panel.copyAnswer(to: pasteboard)
+    XCTAssertEqual(pasteboard.string(forType: .string), "**生成中**")
+    let answer = "### 要点总结\n\n1. **核心规则**：使用 `P(x)`。"
+    gate.succeed(0, answer)
+    try await wait { !panel.isAnswering }
+    XCTAssertTrue(transcript(panel).contains("要点总结"))
+    XCTAssertFalse(transcript(panel).contains("###"))
+    XCTAssertFalse(transcript(panel).contains("**核心规则**"))
+    panel.copyAnswer(to: pasteboard)
+    XCTAssertEqual(pasteboard.string(forType: .string), answer)
+    panel.zoomIn(nil)
+    XCTAssertFalse(transcript(panel).contains("###"))
+    try button("清空对话", panel).performClick(nil)
+    XCTAssertFalse(copy.isEnabled)
+    XCTAssertEqual(transcript(panel), "")
+  }
+
+  func testRestoredSessionRendersMarkdownAndCopiesOriginalAnswer() async throws {
+    _ = NSApplication.shared
+    let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let bitmap = try XCTUnwrap(NSBitmapImageRep(
+      bitmapDataPlanes: nil, pixelsWide: 8, pixelsHigh: 8, bitsPerSample: 8,
+      samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: .deviceRGB,
+      bytesPerRow: 0, bitsPerPixel: 0))
+    let image = try XCTUnwrap(bitmap.representation(using: .png, properties: [:]))
+    let store = ScreenshotQuestionSessionStore(directory: directory)
+    let session = try await store.create(title: "乘积分解")
+    _ = try await store.appendAttachment(id: session.id, imageData: image, ocrText: "source")
+    let answer = "### 要点\n**核心规则**"
+    _ = try await store.appendTurn(
+      id: session.id, question: "总结", answer: answer, model: "test", attachmentIDs: [])
+    let panel = ScreenshotQuestionPanel(
+      context: context, answer: { _, _, _, _ in "" }, sessionStore: store)
+    defer { panel.close() }
+    let item = NSMenuItem()
+    item.representedObject = session.id
+    XCTAssertTrue(NSApp.sendAction(NSSelectorFromString("restoreSession:"), to: panel, from: item))
+    try await wait { panel.history.count == 1 }
+    XCTAssertTrue(transcript(panel).contains("核心规则"))
+    XCTAssertFalse(transcript(panel).contains("###"))
+    XCTAssertTrue(views(panel.contentView!).compactMap { $0 as? NSTextField }.contains {
+      $0.stringValue.contains("已恢复“乘积分解”")
+    })
+    XCTAssertTrue(try button("复制回答", panel).isEnabled)
+    let pasteboard = NSPasteboard.withUniqueName()
+    defer { pasteboard.releaseGlobally() }
+    panel.copyAnswer(to: pasteboard)
+    XCTAssertEqual(pasteboard.string(forType: .string), answer)
+  }
+
   func testModelPickerPersistsSelectionCancelsOldAnswerAndPreservesDraft() async throws {
     let suite = "VocabCapture.ModelPickerTests.\(UUID().uuidString)"
     let defaults = UserDefaults(suiteName: suite)!
@@ -365,7 +431,7 @@ final class ScreenshotQuestionPanelTests: XCTestCase {
     gate.succeed(0, longAnswer)
     try await wait { !panel.isAnswering }
     XCTAssertGreaterThan(lineCount(at: 600), 10)
-    XCTAssertEqual(text.string, "你：检查长回答\n\n回答：" + longAnswer)
+    XCTAssertEqual(text.string, "你：检查长回答\n\n回答：\n" + longAnswer)
   }
 
   func testStreamedAnswerDoesNotInheritClippedParagraphLayout() async throws {

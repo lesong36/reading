@@ -20,8 +20,10 @@ typealias MathQuestionSave =
 final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
   private let source = NSTextField(wrappingLabelWithString: "")
   private let transcript = NSTextView()
+  private let answerWebView = ScreenshotAnswerWebView()
   private let question = NSTextField()
   private let askButton = NSButton(title: "提问", target: nil, action: nil)
+  private let copyAnswerButton = NSButton(title: "复制回答", target: nil, action: nil)
   private let stopButton = NSButton(title: "停止", target: nil, action: nil)
   private let imageCheckbox = NSButton(checkboxWithTitle: "参考原截图", target: nil, action: nil)
   private let status = NSTextField(wrappingLabelWithString: "输入问题，或点击快捷问题开始。")
@@ -195,6 +197,8 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     partialAnswer = ""
     pendingOutcome = ""
     transcript.string = ""
+    answerWebView.render(turns: [], zoom: zoomScale)
+    copyAnswerButton.isEnabled = false
     performance = nil
     refreshPerformance()
     refreshSource()
@@ -309,7 +313,7 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     source.setAccessibilityLabel("提问所参考的原文")
     let scroll = NSScrollView()
     scroll.hasVerticalScroller = true
-    scroll.borderType = .bezelBorder
+    scroll.borderType = .noBorder
     transcript.frame = NSRect(x: 0, y: 0, width: 600, height: 260)
     transcript.font = .systemFont(ofSize: 16)
     transcript.textColor = .labelColor
@@ -330,6 +334,42 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     transcript.defaultParagraphStyle = paragraph
     transcript.setAccessibilityLabel("截图问答记录")
     scroll.documentView = transcript
+    let answerArea = NSBox()
+    answerArea.boxType = .custom
+    answerArea.borderType = .lineBorder
+    answerArea.borderColor = .separatorColor
+    answerArea.fillColor = .textBackgroundColor
+    answerArea.contentViewMargins = .zero
+    let answerContent = answerArea.contentView!
+    answerWebView.isHidden = true
+    answerWebView.translatesAutoresizingMaskIntoConstraints = false
+    answerContent.addSubview(answerWebView)
+    answerWebView.onReady = { [weak self, weak scroll] ready in
+      self?.answerWebView.isHidden = !ready
+      scroll?.isHidden = ready
+    }
+    let copyRow = NSStackView(views: [NSView(), copyAnswerButton])
+    copyRow.orientation = .horizontal
+    copyRow.spacing = 8
+    for view in [scroll, copyRow] {
+      view.translatesAutoresizingMaskIntoConstraints = false
+      answerContent.addSubview(view)
+    }
+    NSLayoutConstraint.activate([
+      answerWebView.topAnchor.constraint(equalTo: scroll.topAnchor),
+      answerWebView.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
+      answerWebView.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
+      answerWebView.bottomAnchor.constraint(equalTo: scroll.bottomAnchor),
+    ])
+    NSLayoutConstraint.activate([
+      scroll.topAnchor.constraint(equalTo: answerContent.topAnchor),
+      scroll.leadingAnchor.constraint(equalTo: answerContent.leadingAnchor),
+      scroll.trailingAnchor.constraint(equalTo: answerContent.trailingAnchor),
+      copyRow.topAnchor.constraint(equalTo: scroll.bottomAnchor, constant: 6),
+      copyRow.leadingAnchor.constraint(equalTo: answerContent.leadingAnchor, constant: 10),
+      copyRow.trailingAnchor.constraint(equalTo: answerContent.trailingAnchor, constant: -10),
+      copyRow.bottomAnchor.constraint(equalTo: answerContent.bottomAnchor, constant: -8),
+    ])
     question.placeholderString = "例如：这个短语在这里是什么意思？"
     question.bezelStyle = .roundedBezel
     question.setAccessibilityLabel("提问内容")
@@ -347,7 +387,11 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     stopButton.isEnabled = false
     let clearButton = NSButton(title: "清空对话", target: self, action: #selector(clearConversation))
     let appendButton = NSButton(title: "追加截图", target: self, action: #selector(appendCapture))
-    for button in [stopButton, clearButton, appendButton] {
+    copyAnswerButton.target = self
+    copyAnswerButton.action = #selector(copyLatestAnswer)
+    copyAnswerButton.isEnabled = false
+    copyAnswerButton.toolTip = "复制最新回答的原始 Markdown（含公式）"
+    for button in [copyAnswerButton, stopButton, clearButton, appendButton] {
       button.bezelStyle = .rounded
       button.controlSize = .small
     }
@@ -414,14 +458,14 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     saveStatus.isHidden = saveQuestion == nil
     refreshSaveControls()
     let column = NSStackView(views: [
-      headingRow, modelRow, source, scroll, suggestions, input, controls, status, performanceLabel,
+      headingRow, modelRow, source, answerArea, suggestions, input, controls, status, performanceLabel,
       saveRow, saveStatus,
     ])
     column.orientation = .vertical
     column.alignment = .leading
     column.spacing = 10
     column.setCustomSpacing(16, after: source)
-    column.setCustomSpacing(14, after: scroll)
+    column.setCustomSpacing(14, after: answerArea)
     column.translatesAutoresizingMaskIntoConstraints = false
     root.addSubview(column)
     NSLayoutConstraint.activate([
@@ -433,7 +477,7 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
       question.widthAnchor.constraint(greaterThanOrEqualToConstant: 340),
     ])
     for view in [
-      headingRow, modelRow, source, scroll, suggestions, input, status, performanceLabel, controls,
+      headingRow, modelRow, source, answerArea, suggestions, input, status, performanceLabel, controls,
       saveRow, saveStatus,
     ] {
       view.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
@@ -485,11 +529,7 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     question.font = .systemFont(ofSize: 16 * zoomScale)
     transcript.font = .systemFont(ofSize: 16 * zoomScale)
     if let editor = question.currentEditor() { editor.font = question.font }
-    if let storage = transcript.textStorage, storage.length > 0 {
-      storage.addAttribute(
-        .font, value: NSFont.systemFont(ofSize: 16 * zoomScale),
-        range: NSRange(location: 0, length: storage.length))
-    }
+    renderTranscript()
     updateTranscriptWidth()
     updateMinimumHeight()
     refreshPerformance()
@@ -684,6 +724,8 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     sessionAttachmentID = nil
     history.removeAll()
     transcript.string = ""
+    answerWebView.render(turns: [], zoom: zoomScale)
+    copyAnswerButton.isEnabled = false
     status.stringValue = "已新建问答会话。"
   }
 
@@ -706,10 +748,10 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
           }
           self.refreshSource()
           self.renderTranscript()
-          self.status.stringValue = "已恢复“(session.title)”；可以继续追问或追加截图。"
+          self.status.stringValue = "已恢复“\(session.title)”；可以继续追问或追加截图。"
         }
       } catch {
-        await MainActor.run { self?.status.stringValue = "恢复会话失败：(error.localizedDescription)" }
+        await MainActor.run { self?.status.stringValue = "恢复会话失败：\(error.localizedDescription)" }
       }
     }
   }
@@ -942,22 +984,32 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
   private func renderTranscript() {
     transcriptUpdateTask?.cancel()
     transcriptUpdateTask = nil
-    var parts = history.map { "你：\($0.question)\n\n回答：\($0.answer)" }
+    copyAnswerButton.isEnabled = !copyableAnswer.isEmpty
+    var parts = history.map { (question: $0.question, answer: $0.answer) }
     if let pendingQuestion {
       let answerText =
         partialAnswer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         ? (pendingOutcome.isEmpty ? "正在思考…" : "没有生成完整回答。") : partialAnswer
       parts.append(
-        "你：\(pendingQuestion)\n\n回答：\(answerText)"
-          + (pendingOutcome.isEmpty ? "" : "\n\n[\(pendingOutcome)]"))
+        (
+          question: pendingQuestion,
+          answer: answerText + (pendingOutcome.isEmpty ? "" : "\n\n[\(pendingOutcome)]")
+        ))
     }
     updateTranscriptWidth()
-    let rendered = NSMutableAttributedString(
-      string: parts.joined(separator: "\n\n──────────\n\n"),
-      attributes: [
-        .font: NSFont.systemFont(ofSize: 16 * zoomScale), .foregroundColor: NSColor.labelColor,
-        .paragraphStyle: transcript.defaultParagraphStyle ?? NSParagraphStyle.default,
-      ])
+    let rendered = NSMutableAttributedString(string: "")
+    let attributes: [NSAttributedString.Key: Any] = [
+      .font: NSFont.systemFont(ofSize: 16 * zoomScale), .foregroundColor: NSColor.labelColor,
+      .paragraphStyle: transcript.defaultParagraphStyle ?? NSParagraphStyle.default,
+    ]
+    for (index, part) in parts.enumerated() {
+      if index > 0 {
+        rendered.append(NSAttributedString(string: "\n\n──────────\n\n", attributes: attributes))
+      }
+      rendered.append(
+        NSAttributedString(string: "你：\(part.question)\n\n回答：\n", attributes: attributes))
+      rendered.append(ScreenshotQuestionAnswerRenderer.render(part.answer, scale: zoomScale))
+    }
     if let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue) {
       let range = NSRange(location: 0, length: rendered.length)
       detector.enumerateMatches(in: rendered.string, range: range) { match, _, _ in
@@ -967,8 +1019,30 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
         rendered.addAttribute(.link, value: url, range: match.range)
       }
     }
+    answerWebView.render(turns: parts.map {
+      ScreenshotAnswerTurn(question: $0.question, answer: $0.answer)
+    }, zoom: zoomScale)
     transcript.textStorage?.setAttributedString(rendered)
     transcript.scrollToEndOfDocument(nil)
+  }
+
+  private var copyableAnswer: String {
+    if pendingQuestion != nil,
+      !partialAnswer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    {
+      return partialAnswer
+    }
+    return history.last?.answer ?? ""
+  }
+
+  @objc private func copyLatestAnswer() {
+    copyAnswer(to: .general)
+  }
+
+  func copyAnswer(to pasteboard: NSPasteboard) {
+    guard !copyableAnswer.isEmpty else { return }
+    pasteboard.clearContents()
+    pasteboard.setString(copyableAnswer, forType: .string)
   }
 
   private func finishAnswer(status message: String) {
@@ -1027,6 +1101,8 @@ final class ScreenshotQuestionPanel: ScreenshotPanel, NSWindowDelegate {
     partialAnswer = ""
     pendingOutcome = ""
     transcript.string = ""
+    answerWebView.render(turns: [], zoom: zoomScale)
+    copyAnswerButton.isEnabled = false
     performance = nil
     refreshPerformance()
     status.stringValue = "已清空对话，可以重新提问。"

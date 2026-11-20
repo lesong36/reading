@@ -1,0 +1,40 @@
+:root { color-scheme: light dark; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; font-size: 17px; color: CanvasText; background: Canvas; }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 15px 19px 30px; overflow-wrap: anywhere; }
+main { width: 100%; }
+.turn + .turn { border-top: 1px solid color-mix(in srgb, CanvasText 16%, transparent); padding-top: 20px; margin-top: 25px; }
+.question { white-space: pre-wrap; font-weight: 600; margin: 0 0 22px; line-height: 1.6; }
+.answer { line-height: 1.65; }
+.answer > :first-child { margin-top: 0; }
+p { margin: 0 0 1em; }
+h1,h2,h3,h4,h5,h6 { line-height: 1.35; margin: 1.2em 0 .6em; }
+h1 { font-size: 1.5em; } h2 { font-size: 1.3em; } h3 { font-size: 1.15em; }
+ul,ol { padding-left: 1.6em; } li + li { margin-top: .25em; }
+blockquote { border-left: 3px solid #8095ae; padding-left: 1em; margin-left: 0; color: color-mix(in srgb, CanvasText 75%, Canvas); }
+pre { white-space: pre-wrap; background: color-mix(in srgb, CanvasText 6%, Canvas); padding: 12px; border-radius: 7px; overflow-x: auto; }
+code { font-family: ui-monospace, Menlo, monospace; font-size: .9em; }
+.table-scroll { overflow-x: auto; margin: 1em 0; }
+table { border-collapse: collapse; min-width: 260px; } th,td { padding: 7px 12px; border: 1px solid color-mix(in srgb, CanvasText 23%, Canvas); text-align: left; } th { background: color-mix(in srgb, CanvasText 6%, Canvas); }
+a { color: #386db2; text-decoration: underline; cursor: text; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 5px 0; max-width: 100%; }
+.math-error,.render-error,.note { color: color-mix(in srgb, CanvasText 70%, Canvas); font-size: .9em; white-space: pre-wrap; }
+.diagram { margin: 16px 0; overflow-x: auto; padding: 6px 0; }
+.diagram svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.checked-diagram { display: block; max-width: 100%; height: auto; margin: 20px auto; }
+.note { margin-top: 16px; }
+
+.math-grid { border: 1px solid color-mix(in srgb, CanvasText 16%, transparent); border-radius: 8px; padding: 12px; }
+.math-grid svg { min-width: 580px; width: 880px; max-width: 100%; }
+.math-grid .grid-title { font-weight: 600; margin-bottom: 7px; }
+.math-grid .grid-heading,.math-grid .grid-dimensions { fill: CanvasText; font-size: 16px; }
+.math-grid .grid-cell-label { fill: #26313d; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+.math-grid .grid-legend,.math-grid .grid-note { font-size: .85em; line-height: 1.5; margin-top: 8px; }
+.math-grid .grid-note { color: color-mix(in srgb, CanvasText 70%, Canvas); }
+
+.math-grid svg.grid-partition-only { max-width: 32rem; margin-inline: auto; }
+
+.math-center-cut { border: 1px solid color-mix(in srgb, CanvasText 16%, transparent); border-radius: 8px; padding: 14px; }
+.math-center-cut svg { width: 500px; max-width: 100%; }
+.center-cut-title { font-weight: 600; }
+.center-cut-label { fill: #26313d; font-size: 18px; font-weight: 600; paint-order: stroke; stroke: white; stroke-width: 4px; stroke-linejoin: round; }
+.center-cut-note { font-size: .85em; line-height: 1.5; color: color-mix(in srgb, CanvasText 75%, Canvas); }
